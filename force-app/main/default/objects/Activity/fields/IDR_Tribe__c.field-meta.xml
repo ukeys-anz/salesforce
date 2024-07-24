@@ -401,9 +401,9 @@
                 <label>Customer Migration</label>
             </value>
             <value>
-                <fullName>Customer Resolution and Remediatioin</fullName>
+                <fullName>Customer Resolution and Remediation</fullName>
                 <default>false</default>
-                <label>Customer Resolution and Remediatioin</label>
+                <label>Customer Resolution and Remediation</label>
             </value>
             <value>
                 <fullName>Customer Service Operations</fullName>
@@ -772,7 +772,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Australia Retail</controllingFieldValue>
-            <valueName>Customer Resolution and Remediatioin</valueName>
+            <valueName>Customer Resolution and Remediation</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Australia Retail</controllingFieldValue>

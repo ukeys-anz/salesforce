@@ -85,6 +85,10 @@
                 <behavior>Readonly</behavior>
                 <field>Product_Manufacturer__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Date_Case_on_Hold_From__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>

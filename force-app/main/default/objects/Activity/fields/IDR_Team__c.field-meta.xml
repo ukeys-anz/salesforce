@@ -906,9 +906,9 @@
                 <label>Workforce</label>
             </value>
             <value>
-                <fullName>Sigital Asset Services</fullName>
+                <fullName>Digital Asset Services</fullName>
                 <default>false</default>
-                <label>Sigital Asset Services</label>
+                <label>Digital Asset Services</label>
             </value>
             <value>
                 <fullName>Group Payments</fullName>
@@ -1131,9 +1131,9 @@
                 <label>Rates</label>
             </value>
             <value>
-                <fullName>Strutcured Solutions</fullName>
+                <fullName>Structured Solutions</fullName>
                 <default>false</default>
-                <label>Strutcured Solutions</label>
+                <label>Structured Solutions</label>
             </value>
             <value>
                 <fullName>XVA Trading</fullName>
@@ -1570,7 +1570,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Markets</controllingFieldValue>
-            <valueName>Strutcured Solutions</valueName>
+            <valueName>Structured Solutions</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Markets</controllingFieldValue>
@@ -2218,15 +2218,15 @@
             <valueName>Migration</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Customer Resolution and Remediatioin</controllingFieldValue>
+            <controllingFieldValue>Customer Resolution and Remediation</controllingFieldValue>
             <valueName>Breach Reporting</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Customer Resolution and Remediatioin</controllingFieldValue>
+            <controllingFieldValue>Customer Resolution and Remediation</controllingFieldValue>
             <valueName>Complaints</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Customer Resolution and Remediatioin</controllingFieldValue>
+            <controllingFieldValue>Customer Resolution and Remediation</controllingFieldValue>
             <valueName>Remediation</valueName>
         </valueSettings>
         <valueSettings>
@@ -2323,7 +2323,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Banking Services</controllingFieldValue>
-            <valueName>Sigital Asset Services</valueName>
+            <valueName>Digital Asset Services</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Banking Services</controllingFieldValue>

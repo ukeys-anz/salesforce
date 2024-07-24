@@ -20,9 +20,9 @@
                 <label>Awaiting information to be provided</label>
             </value>
             <value>
-                <fullName>Awaiting allocation to ACFA case manager</fullName>
+                <fullName>Awaiting allocation to AFCA case manager</fullName>
                 <default>false</default>
-                <label>Awaiting allocation to ACFA case manager</label>
+                <label>Awaiting allocation to AFCA case manager</label>
             </value>
             <value>
                 <fullName>Awaiting determination</fullName>

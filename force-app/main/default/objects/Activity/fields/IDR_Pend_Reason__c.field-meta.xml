@@ -20,9 +20,9 @@
                 <label>Awaiting information to be provided</label>
             </value>
             <value>
-                <fullName>Awaiting allocation to ACFA case manager</fullName>
+                <fullName>Awaiting allocation to AFCA case manager</fullName>
                 <default>false</default>
-                <label>Awaiting allocation to ACFA case manager</label>
+                <label>Awaiting allocation to AFCA case manager</label>
             </value>
             <value>
                 <fullName>Awaiting determination</fullName>
@@ -56,17 +56,20 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Customer or Nominated 3rd Party representative of Customer</controllingFieldValue>
             <controllingFieldValue>External Solicitor</controllingFieldValue>
             <controllingFieldValue>Product Manufacturer</controllingFieldValue>
             <controllingFieldValue>Other EDR Scheme</controllingFieldValue>
             <controllingFieldValue>AFCA</controllingFieldValue>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
             <valueName>Awaiting information to be provided</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Customer or Nominated 3rd Party representative of Customer</controllingFieldValue>
+            <valueName>Awaiting response on an offer made to customer</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>AFCA</controllingFieldValue>
-            <valueName>Awaiting allocation to ACFA case manager</valueName>
+            <valueName>Awaiting allocation to AFCA case manager</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>AFCA</controllingFieldValue>
@@ -79,11 +82,6 @@
         <valueSettings>
             <controllingFieldValue>AFCA</controllingFieldValue>
             <valueName>Other (please provide detail in Comments)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
-            <valueName>Awaiting response on an offer made to customer</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
