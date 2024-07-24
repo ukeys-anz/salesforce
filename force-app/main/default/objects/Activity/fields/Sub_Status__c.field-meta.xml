@@ -59,6 +59,16 @@
                 <default>false</default>
                 <label>Other</label>
             </value>
+            <value>
+                <fullName>Customer cancelled</fullName>
+                <default>false</default>
+                <label>Customer cancelled</label>
+            </value>
+            <value>
+                <fullName>Auto cancelled</fullName>
+                <default>false</default>
+                <label>Auto cancelled</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Actioned</controllingFieldValue>
@@ -95,6 +105,14 @@
         <valueSettings>
             <controllingFieldValue>Actioned</controllingFieldValue>
             <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Expired</controllingFieldValue>
+            <valueName>Customer cancelled</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Expired</controllingFieldValue>
+            <valueName>Auto cancelled</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
