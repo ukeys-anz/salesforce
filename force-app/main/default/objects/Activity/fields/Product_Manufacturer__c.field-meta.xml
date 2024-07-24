@@ -66,11 +66,10 @@
             </value>
         </valueSetDefinition>
         <valueSettings>
+            <controllingFieldValue>Customer or Nominated 3rd Party representative of Customer</controllingFieldValue>
             <controllingFieldValue>External Solicitor</controllingFieldValue>
             <controllingFieldValue>Other EDR Scheme</controllingFieldValue>
             <controllingFieldValue>AFCA</controllingFieldValue>
-            <controllingFieldValue>Customer</controllingFieldValue>
-            <controllingFieldValue>Nominated 3rd Party Representative of Customer</controllingFieldValue>
             <valueName>NA</valueName>
         </valueSettings>
         <valueSettings>

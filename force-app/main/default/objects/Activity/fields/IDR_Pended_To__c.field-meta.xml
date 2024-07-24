@@ -111,11 +111,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Customer</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>External</controllingFieldValue>
-            <valueName>Nominated 3rd Party Representative of Customer</valueName>
+            <valueName>Customer or Nominated 3rd Party representative of Customer</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>External</controllingFieldValue>

@@ -55,7 +55,7 @@
     <picklistValues>
         <picklist>IDR_Pend_Reason__c</picklist>
         <values>
-            <fullName>Awaiting allocation to ACFA case manager</fullName>
+            <fullName>Awaiting allocation to AFCA case manager</fullName>
             <default>false</default>
         </values>
         <values>
@@ -86,15 +86,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer</fullName>
+            <fullName>Customer or Nominated 3rd Party representative of Customer</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>External Solicitor</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Nominated 3rd Party Representative of Customer</fullName>
             <default>false</default>
         </values>
         <values>
@@ -317,6 +313,10 @@
         </values>
         <values>
             <fullName>Deposits%2C Credit Cards Personal Loans %26 Core Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Asset Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -772,10 +772,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Sigital Asset Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Singapore</fullName>
             <default>false</default>
         </values>
@@ -796,7 +792,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Strutcured Solutions</fullName>
+            <fullName>Structured Solutions</fullName>
             <default>false</default>
         </values>
         <values>
@@ -947,7 +943,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Resolution and Remediatioin</fullName>
+            <fullName>Customer Resolution and Remediation</fullName>
             <default>false</default>
         </values>
         <values>
