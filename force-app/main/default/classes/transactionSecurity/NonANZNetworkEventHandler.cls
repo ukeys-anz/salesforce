@@ -1,11 +1,14 @@
 /**
  * @description       : Transaction Security Policies Handler class for Non ANZ Network (Salesforce PAC-303)
  * @author            : Hannah Sainumkheaw
- * @last modified     : 18-06-2024
+ * @last modified     : 19 July 2024
  **/
 global with sharing class NonANZNetworkEventHandler implements TxnSecurity.EventCondition, TxnSecurity.AsyncCondition {
   private static final Boolean ALLOWED = false;
   private static final Boolean NOT_ALLOWED = true;
+  private static final TSPRepository TSP_REPOSITORY = (TSPRepository) Lib_InstanceProvider.forType(
+    TSPRepository.class
+  );
 
   /**
    * @description Used to check what is the event that has been triggered and
@@ -29,31 +32,74 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
    */
   @testVisible
   private static Boolean evaluateApiEvent(ApiEvent event) {
-    return isAllowedSourceIp(event);
+    //check if ApiEvent is called by user with exempted profile for Non ANZ network policy before checking sourceIp
+    User eventUser = TSP_REPOSITORY.queryProfilebyEventUserId(event.userId);
+    String userProfile = eventUser.Profile.Name;
+    if (isAllowedProfile(userProfile)) {
+      return ALLOWED;
+    }
+    return isAllowedSourceIp(event.sourceIP, event.userId, event.Username);
+  }
+
+  @testVisible
+  /**
+   * @description to validate profiles with ip restricted to be exempted for non ANZ Network Policy
+   * @param  userProfile `String` incoming ApiEvent
+   * @return result `Boolean` isAllowedProfile; return TRUE for allowedProfile; FALSE for not allowed profile
+   */
+  public static Boolean isAllowedProfile(String userProfile) {
+    Set<String> allowedProfiles = new Set<String>{
+      'System Administrator CyberArk',
+      'Integration User (External Apps)',
+      'Minimum Access - External Apps'
+    };
+    return allowedProfiles.contains(userProfile);
   }
 
   @testVisible
   /**
    * @description to validate isAllowedSourceIp
-   * @param  event `ApiEvent` ApiEvent for non ANZ Network policy
-   * @return result `Boolean` isAllowedSourceIp
+   * @param  eventSourceIp `String` of the incoming ApiEvent
+   * @param eventUserId `Id` of the incoming ApiEvent
+   * @param eventUsername `String` of the incoming ApiEvent
+   * @return result `Boolean` isAllowedSourceIp: return FALSE (ALLOWED) if sourceIP is allowed, otherwise RETURN TRUE(not allowed) and TSP is triggered.
    */
-  private static Boolean isAllowedSourceIp(ApiEvent event) {
-    Decimal sourceIpAsDecimal = ipToDecimal(event.sourceIp);
-    if (isIPInRange(sourceIpAsDecimal)) {
+  public static Boolean isAllowedSourceIp(
+    String eventSourceIp,
+    Id eventUserId,
+    String eventUsername
+  ) {
+    if (isAllowedMaskedIP(eventSourceIp)) {
       return ALLOWED;
     }
 
-    String logMessage =
-      'Non ANZ network has been detected on ApiEvent, performed by ' +
-      event.Username +
-      '( Id:' +
-      event.UserId +
-      ') ' +
-      'with sourceIp: ' +
-      event.sourceIp;
+    try {
+      Decimal sourceIpAsDecimal = ipToDecimal(eventSourceIp);
+      if (isIPInRange(sourceIpAsDecimal)) {
+        return ALLOWED;
+      }
 
-    Logger.info(logMessage);
+      String logMessage =
+        'Non ANZ network has been detected on ApiEvent, performed by ' +
+        eventUsername +
+        '( Id:' +
+        eventUserId +
+        ') ' +
+        'with sourceIp: ' +
+        eventSourceIp;
+
+      Logger.info(logMessage);
+    } catch (Exception e) {
+      String logMessage =
+        'Failed to process ANZ Network Security Policy or IP Address is invalid for ' +
+        eventSourceIp +
+        ' performed by ' +
+        eventUsername +
+        ' ( Id:' +
+        eventUserId +
+        ')';
+      Logger.error(logMessage, e, Logger.Severity.HIGH);
+    }
     Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
     return NOT_ALLOWED;
   }
@@ -67,7 +113,8 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
    */
   public static Decimal ipToDecimal(String sourceIp) {
     List<String> ip = sourceIp.split('\\.');
-    if (ip.size().equals(0)) {
+    //Allowed IP Address Format is  is x.x.x.x, where each x can be any value between 0 and 255
+    if (ip.size() != 4) {
       return 0;
     }
 
@@ -97,5 +144,16 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
       }
     }
     return false;
+  }
+
+  @testVisible
+  /**
+   * @description to validate isAllowedMaskedIP Address
+   * @param  eventSourceIp `String` of incoming Apivent
+   * @return result `Boolean` isAllowedMaskedIP
+   */
+  private static Boolean isAllowedMaskedIP(String eventSourceIp) {
+    Set<String> allowedMaskedIP = new Set<String>{ 'Salesforce.com IP' };
+    return allowedMaskedIP.contains(eventSourceIp);
   }
 }
