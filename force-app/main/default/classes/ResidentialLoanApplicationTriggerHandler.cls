@@ -49,5 +49,14 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
         (Map<Id, ResidentialLoanApplication>) oldMap
       )
     );
+    CoachNudgeTaskAction.processResidentialLoanApplicationRecords(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+
+    ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+      records,
+      ResidentialLoanApplicationGCPActions.GCP_EVENT_UPDATE
+    );
   }
 }

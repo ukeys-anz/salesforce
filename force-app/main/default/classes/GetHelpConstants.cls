@@ -124,6 +124,8 @@ public with sharing class GetHelpConstants {
     .get(GetHelpConstants.BANK_ACCOUNT_RT_APINAME)
     .getRecordTypeId();
 
+  public static final String S2_ACCOUNT_MARKETING_CODE = 'SAVING02';
+
   //Financial Account marketing code values
   public static final List<String> ANZX_MARKETING_CODES = new List<String>{
     'TRANSACT01',
@@ -227,6 +229,12 @@ public with sharing class GetHelpConstants {
   public static final Id LOAN_APPLICATION_RT_ID = Schema.SObjectType.ResidentialLoanApplication.getRecordTypeInfosByDeveloperName()
     .get('Loan_Application')
     .getRecordTypeId();
+
+  //Residential Loan App Status : Cancelled
+  public static final String RLA_STATUS_CANCELLED = 'STATE_CANCELLED';
+
+  //Residential Loan Application sobject name
+  public static final String SOBJECT_RLA = 'ResidentialLoanApplication';
 
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()

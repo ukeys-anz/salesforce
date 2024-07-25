@@ -31,39 +31,40 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
 
   /**
    * @param caseRecord contains ocv id and package id
-   * @param checkingAccount the account numbers for the checking account
-   * @param savingsAccount the account numbers for the savings account
+   * @param  setOfAccountNumberToBeClosed the account numbers for the checking account
    * @param customerOCVIds ocvIds of the customer individual or joint
-   * @return PackageClosureModel
+   * @return GenesisPackageClosureModel
    * @description stravinsky package closure api
    */
-  public PackageClosureModel packageClosure(
+  public GenesisPackageClosureModel packageClosure(
     Case caseRecord,
-    List<String> checkingAccount,
-    List<String> savingsAccount,
+    Set<String> setOfAccountNumberToBeClosed,
     List<String> customerOCVIds
   ) {
-    //Added in order to create a wrapper object to be sent to Mulesoft
-    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
-    closureCaseRecord.packageId = caseRecord.Package_Id__c;
-    closureCaseRecord.closeDate = String.valueOf(Date.today());
-    closureCaseRecord.accountNumbersA1 = checkingAccount;
-    closureCaseRecord.accountNumbersS1 = savingsAccount;
-    closureCaseRecord.ocvIds = customerOCVIds;
-    closureCaseRecord.accountType = caseRecord.Account_Type__c;
+    GenesisPackageClosureModel result;
 
     Service s = ServiceProvider.getService(StravinskyService.class);
-    //Updated ClosedPackage method to accept OCVId and ClosurePackageWrapper
+    //Updated ClosedPackage method to accept OCVId and ClosureCaseRequest
     HttpCalloutResponse response = s.closePackage(
       caseRecord.Account.OCV_ID__c,
-      closureCaseRecord
+      generateJsonRequest(
+        caseRecord,
+        setOfAccountNumberToBeClosed,
+        customerOCVIds
+      )
     );
 
-    if (response.successful == false) {
+    if (response.successful) {
+      try {
+        result = GenesisPackageClosureModel.parse(response.body);
+      } catch (Exception objException) {
+        throw CommonUtil.logException(objException);
+      }
+    } else {
       throw CommonUtil.logException(response);
     }
 
-    return PackageClosureModel.parse(response.body);
+    return result;
   }
 
   /**
@@ -209,5 +210,48 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
    * @description Mock exception
    */
   private class MockException extends Exception {
+  }
+  /**
+   * @description Generate Json Request to be sent to Mulesoft
+   * @param caseRecord contains ocv id and package id
+   * @param setOfAccountNumberToBeClosed the account numbers to be closed
+   * @param customerOCVIds ocvIds of the customer individual or joint
+   * @return JSON string to be sent to Mulesoft
+   */
+  @TestVisible
+  private String generateJsonRequest(
+    Case caseRecord,
+    Set<String> setOfAccountNumberToBeClosed,
+    List<String> customerOCVIds
+  ) {
+    //Added in order to create a json string to be sent to Mulesoft
+    JSONGenerator body = JSON.createGenerator(true);
+    body.writeStartObject();
+    body.writeObjectField('ocv_ids', customerOCVIds);
+    body.writeFieldName('items');
+    body.writeStartArray();
+    for (String accNum : setOfAccountNumberToBeClosed) {
+      body.writeStartObject();
+      body.writeStringField('account_resource', accNum);
+      body.writeEndObject();
+    }
+    if (!isS2ProductOnCase(caseRecord)) {
+      body.writeStartObject();
+      body.writeStringField('package_resource', caseRecord.Package_Id__c);
+      body.writeEndObject();
+    }
+    body.writeEndArray();
+    body.writeEndObject();
+    return body.getAsString();
+  }
+
+  /**
+   * @description check if the Product on the case record is S2 or not.
+   * @param caseRecord Case record of Account Closure record type
+   * @return true if Product on Case is not S2
+   */
+  public static Boolean isS2ProductOnCase(Case caseRecord) {
+    return System.Label.S2AccountEnabled.toLowerCase() == 'true' &&
+      caseRecord.Account_Product__c == 'ANZ Plus Flex Saver';
   }
 }

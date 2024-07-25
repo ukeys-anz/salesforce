@@ -74,7 +74,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
               }
             });
           }
-
+          finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.lastModifiedTimestamp = this.handleLastModifiedTimestamp(
             finAccount
           );
@@ -88,7 +88,6 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           );
           finAccount.rateType = this.handleRateType(finAccount);
         });
-
         if (this.objectApiName === "FinServ__FinancialAccount__c") {
           this.singleFinAccount = this.financialAccounts[0];
         }

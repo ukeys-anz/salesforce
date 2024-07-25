@@ -504,13 +504,13 @@ public with sharing virtual class Service {
 
   /**
    * @param ocvId customer id
-   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
+   * @param closureCaseRequest Account Closure case request to be sent in the body
    * @return `PackageClosureParams` api response
    * @description virtual account buckets callout
    */
   public virtual HttpCalloutResponse closePackage(
     String ocvId,
-    AccountClosurePackageWrapper closureCaseRecord
+    String closureCaseRequest
   ) {
     return null;
   }
