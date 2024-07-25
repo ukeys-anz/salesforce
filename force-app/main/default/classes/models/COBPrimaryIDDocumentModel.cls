@@ -170,10 +170,14 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
    * @description deserializes the input string into the model
    */
   public static COBPrimaryIDDocumentModel parse(String json) {
-    return (COBPrimaryIDDocumentModel) deserialize(
-      json,
-      COBPrimaryIDDocumentModel.class
-    );
+    try {
+      return (COBPrimaryIDDocumentModel) deserialize(
+        json,
+        COBPrimaryIDDocumentModel.class
+      );
+    } catch (Exception ex) {
+      throw CommonUtil.logException(ex);
+    }
   }
 
   /**

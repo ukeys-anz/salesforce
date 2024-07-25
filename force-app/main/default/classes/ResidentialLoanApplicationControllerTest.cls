@@ -156,6 +156,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
     ResidentialLoanApplicationModel.SOPAssetSummary assetsSummary = new ResidentialLoanApplicationModel.SOPAssetSummary();
     SOPAsset asset = new SOPAsset();
+    asset.type = 'ASSET_TYPE_PROPERTY';
     asset.account = acc;
     assetsSummary.assets = new List<SOPAsset>();
     assetsSummary.assets.add(asset);

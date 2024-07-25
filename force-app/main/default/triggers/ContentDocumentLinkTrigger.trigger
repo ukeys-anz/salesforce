@@ -4,4 +4,5 @@ trigger ContentDocumentLinkTrigger on ContentDocumentLink(
   before insert
 ) {
   ContentDocumentLinkTriggerHandler handler = new ContentDocumentLinkTriggerHandler();
+  EmailMessageCdlTriggerHandler emailMessageHandler = new EmailMessageCdlTriggerHandler();
 }

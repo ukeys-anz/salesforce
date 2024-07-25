@@ -108,9 +108,9 @@ public with sharing class FinancialAccountControllerTest {
       Test.stopTest();
 
       Assert.areEqual(
-        3,
+        2,
         finAccountList.size(),
-        'Three accounts in the mock response should be returned'
+        'Two accounts in the mock response should be returned'
       );
 
       for (FinServ__FinancialAccount__c fa : finAccountList) {

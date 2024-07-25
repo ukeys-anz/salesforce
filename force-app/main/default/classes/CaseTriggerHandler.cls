@@ -44,12 +44,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.populateOCVOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     GetHelpCaseActions.setOwnerToIDOpsQueue(records);
-    AutoKYCQACaseActions kycCaseActions = new AutoKYCQACaseActions(
-      (List<Case>) records,
-      new Map<Id, Case>()
-    );
-    kycCaseActions.onBeforeInsert();
-    GetHelpCaseActions.populateKYCQACasesClosedNoDefectDefaults(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null
@@ -156,12 +150,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
 
-    AutoKYCQACaseActions autoKYCQACaseActions = new AutoKYCQACaseActions(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-
-    autoKYCQACaseActions.onBeforeUpdate();
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

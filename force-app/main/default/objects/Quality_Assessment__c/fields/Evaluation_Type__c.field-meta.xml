@@ -47,6 +47,16 @@
                 <label>Fraud &amp; Dispute</label>
             </value>
             <value>
+                <fullName>Fraud</fullName>
+                <default>false</default>
+                <label>Fraud</label>
+            </value>
+            <value>
+                <fullName>Dispute</fullName>
+                <default>false</default>
+                <label>Dispute</label>
+            </value>
+            <value>
                 <fullName>Identity &amp; KYC</fullName>
                 <default>false</default>
                 <label>Identity &amp; KYC</label>

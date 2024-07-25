@@ -5,9 +5,7 @@ on:
 
 jobs:
   docker-image:
-    runs-on:
-      - "self-hosted"
-      - "salesforce-prod"
+    runs-on: anzx-default
 
     name: "Build Salesforce CICD image"
     #  Set the GitHub Actions deployment environment

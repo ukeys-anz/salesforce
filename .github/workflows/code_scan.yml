@@ -8,7 +8,7 @@ on:
 
 jobs:
   pmd:
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
 
     steps:
       - uses: actions/checkout@v3

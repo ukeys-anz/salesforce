@@ -253,4 +253,10 @@
         <label>Followup Required</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Refer to Fraud</fullName>
+        <default>false</default>
+        <label>Refer to Fraud</label>
+        <closed>false</closed>
+    </standardValue>
 </StandardValueSet>

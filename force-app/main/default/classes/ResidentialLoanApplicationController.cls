@@ -86,6 +86,11 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
 
       sopAssets.assetsSummary.assets = filterAssets(sopAssets);
+      sopAssets.assetsSummary.assets = ResidentialLoanApplicationHelper.overwritePropertyAssetData(
+        loanId,
+        sopAssets.assetsSummary.assets
+      );
+
       sopAssets.liabilitiesSummary.liabilities = filterLiabilities(sopAssets);
 
       setUamForBtns(sopAssets, loanRec);

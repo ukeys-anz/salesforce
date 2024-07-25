@@ -8,6 +8,5 @@
     <permissionSetGroups>Join Lead</permissionSetGroups>
     <permissionSetGroups>Onboarding Support - Read Only</permissionSetGroups>
     <permissionSetGroups>Statutory Compliance Agent</permissionSetGroups>
-    <profiles>ANZx Standard User</profiles>
     <roles>ANZx</roles>
 </DelegateGroup>
