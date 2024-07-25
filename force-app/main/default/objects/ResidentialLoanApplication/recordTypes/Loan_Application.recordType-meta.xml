@@ -56,6 +56,60 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Ineligible_Reasons__c</picklist>
+        <values>
+            <fullName>INELIGIBLE_REASON_INCOMPLETE_OR_UNVERIFIED_KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_INFLIGHT_APPLICATION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_NOT_CITIZEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_NOT_TAX_RESIDENT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_PROPERTY_INELIGIBLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_SOP_INELIGIBLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_UNDER_AGE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_UNSTRUCTURED_ADDRESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_UNSUPPORTED_SETTLEMENT_JURISDICTION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_VERIFICATION_EXPIRED_KYC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Joint__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Loan_Purpose__c</picklist>
         <values>
             <fullName>REFINANCING_REASON_CONSOLIDATE_LOANS</fullName>
@@ -70,79 +124,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>REFINANCING_REASON_REFI_CURRENT_BALANCE</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>REFINANCING_REASON_TOPUP_EXISTING_LOAN</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>LENDING_PURPOSE_UNSPECIFIED</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_REFINANCE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_USED</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_OTHER</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_MOTOR_CYCLE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_BOAT_CARAVAN_TRAILER</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_WEDDING</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_LEGAL</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>LENDING_PURPOSE_PERSONAL_OTHER</fullName>
+            <fullName>REFINANCING_REASON_UNSPECIFIED</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -207,6 +197,21 @@
         </values>
         <values>
             <fullName>Tribal Trust Land %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Needs_Assessment_Unsuitability_Reasons__c</picklist>
+        <values>
+            <fullName>UNSUITABILITY_REASON_BREAK_FEES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UNSUITABILITY_REASON_RATE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UNSUITABILITY_REASON_UNSPECIFIED</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -311,6 +316,13 @@
         </values>
         <values>
             <fullName>STATE_UNSPECIFIED</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sync_Status__c</picklist>
+        <values>
+            <fullName>Broker Org</fullName>
             <default>false</default>
         </values>
     </picklistValues>
