@@ -408,7 +408,7 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-        "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
