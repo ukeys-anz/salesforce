@@ -3,26 +3,35 @@
     <fullName>VR03_OnlyOnePENDTaskRestrictFieldChanges</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-RecordType.DeveloperName = &apos;IDR_Task&apos;,
-ISPICKVAL(Case__r.Status,&apos;On hold&apos;),
-OR(
-AND(
-ISNEW(),
-NOT(ISPICKVAL (Status,&apos;Completed&apos;)),
-ISPICKVAL(Type,&apos;Pend Case&apos;),
-NOT(ISBLANK(Case__r.IDR_Date_Case_on_Hold_From__c ))),
-OR(
-AND(NOT(ISNEW()),
-OR(ISCHANGED( ActivityDate ),
-ISCHANGED( WhatId ),
-ISCHANGED( Subject ),
-ISCHANGED(Description),
-ISCHANGED(Priority),
-ISCHANGED( Status ),
-ISCHANGED(IDR_Review_Outcome__c),
-ISCHANGED(TaskSubtype),
-AND(ISCHANGED( Type ), ISPICKVAL(PRIORVALUE(Type),&apos;Pend Case&apos;)))
-))))</errorConditionFormula>
-    <errorMessage>This case is already On Hold. If you have made an error or are trying to create a new On Hold task, please update the case status back to Escalated/Re-Opened, re-enter the correct details in these fields and place the case On Hold again.</errorMessage>
+  ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
+  (RecordType.DeveloperName = &quot;IDR_Task&quot;),
+  OR(
+    AND(
+      ISNEW(),
+      ISPICKVAL(Case__r.Status, &quot;On hold&quot;),
+      NOT(ISPICKVAL(Status, &quot;Completed&quot;)),
+      ISPICKVAL(Type, &quot;Pend Case&quot;),
+      NOT(ISBLANK(Case__r.IDR_Date_Case_on_Hold_From__c))
+    ),
+      AND(
+        NOT(ISNEW()),
+        OR(
+          ISPICKVAL(PRIORVALUE(Status), &quot;Completed&quot;),
+          ISPICKVAL(Case__r.Status, &quot;On hold&quot;)
+        ),
+        OR(
+          ISCHANGED(ActivityDate),
+          ISCHANGED(WhatId),
+          ISCHANGED(Subject),
+          ISCHANGED(Description),
+          ISCHANGED(Priority),
+          ISCHANGED(Status),
+          ISCHANGED(IDR_Review_Outcome__c),
+          ISCHANGED(TaskSubtype),
+          AND(ISCHANGED(Type), ISPICKVAL(PRIORVALUE(Type), &quot;Pend Case&quot;))
+        )
+      )
+    )
+  )</errorConditionFormula>
+    <errorMessage>You are unable to edit this task. If you have made an error, please re-enter the correct details in the &apos;On Hold&apos; tab and place the case On Hold again.</errorMessage>
 </ValidationRule>
