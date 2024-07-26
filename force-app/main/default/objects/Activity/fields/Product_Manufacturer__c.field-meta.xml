@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Product_Manufacturer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Product Manufacturer for External Party Type - Product Manufactrer</description>
+    <externalId>false</externalId>
+    <label>Product Manufacturer</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>IDR_Pended_To__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Zurich</fullName>
+                <default>false</default>
+                <label>Zurich</label>
+            </value>
+            <value>
+                <fullName>IOOF</fullName>
+                <default>false</default>
+                <label>IOOF</label>
+            </value>
+            <value>
+                <fullName>QBE</fullName>
+                <default>false</default>
+                <label>QBE</label>
+            </value>
+            <value>
+                <fullName>CGU</fullName>
+                <default>false</default>
+                <label>CGU</label>
+            </value>
+            <value>
+                <fullName>CMC Markets</fullName>
+                <default>false</default>
+                <label>CMC Markets</label>
+            </value>
+            <value>
+                <fullName>Allianz</fullName>
+                <default>false</default>
+                <label>Allianz</label>
+            </value>
+            <value>
+                <fullName>Net Wealth</fullName>
+                <default>false</default>
+                <label>Net Wealth</label>
+            </value>
+            <value>
+                <fullName>Worldline</fullName>
+                <default>false</default>
+                <label>Worldline</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>NA</fullName>
+                <default>false</default>
+                <label>NA</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Customer or Nominated 3rd Party representative of Customer</controllingFieldValue>
+            <controllingFieldValue>External Solicitor</controllingFieldValue>
+            <controllingFieldValue>Other EDR Scheme</controllingFieldValue>
+            <controllingFieldValue>AFCA</controllingFieldValue>
+            <valueName>NA</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>Zurich</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>IOOF</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>QBE</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>CGU</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>CMC Markets</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>Allianz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>Net Wealth</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>Worldline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Product Manufacturer</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>
