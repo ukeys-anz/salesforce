@@ -506,7 +506,7 @@ private class QualityAssessmentTriggerHandlerTest {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
       Related_Case__c = testCases[0].Id,
-      Evaluation_type__c = 'Fraud & Dispute'
+      Evaluation_type__c = 'Fraud'
     );
     qaRecords.add(qaRecord);
     Quality_Assessment__c qaRecord1 = new Quality_Assessment__c(
@@ -601,7 +601,7 @@ private class QualityAssessmentTriggerHandlerTest {
       Quality_Assessment__c qaRecord = new Quality_Assessment__c(
         RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
         Related_Case__c = testCases[0].Id,
-        Evaluation_type__c = 'Fraud & Dispute',
+        Evaluation_type__c = 'Fraud',
         Status__c = 'Referred',
         Sub_Status__c = 'Other'
       );
@@ -681,7 +681,7 @@ private class QualityAssessmentTriggerHandlerTest {
     Quality_Assessment__c qaRecord = new Quality_Assessment__c(
       RecordTypeId = GetHelpConstants.QUALITY_ASSESSMENT_JOIN_RT_ID,
       Interaction__c = interaction.Id,
-      Evaluation_type__c = 'Fraud & Dispute'
+      Evaluation_type__c = 'Fraud'
     );
     insert qaRecord;
     Quality_Assessment__c qa = [

@@ -1,0 +1,74 @@
+<template>
+  <lightning-modal-header
+    label="Get Update"
+    class="modal-header"
+  ></lightning-modal-header>
+  <template lwc:if={isExecuting}>
+    <lightning-modal-body>
+      <div
+        class="slds-align_absolute-center"
+        style="height: 4rem"
+        data-id="loading-spinner"
+      >
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </lightning-modal-body>
+  </template>
+  <template lwc:else>
+    <lightning-modal-body>
+      <div
+        lwc:if={showError}
+        class="slds-box slds-theme_error slds-m-bottom_medium"
+        data-id="error"
+      >
+        <div class="slds-grid slds-wrap">
+          <div class="slds-col slds-size_1-of-12">
+            <lightning-icon
+              icon-name="utility:error"
+              alternative-text="Error"
+              title="Error"
+              variant="Inverse"
+              class="slds-p-right_small"
+            ></lightning-icon>
+          </div>
+          <div class="slds-col slds-size_11-of-12">
+            The update to property information was unsuccessful. Please refresh
+            and try again. Raise a fault through TechAssist if the problem
+            persists.
+          </div>
+        </div>
+      </div>
+
+      <div class="text-alignment">
+        <p class="slds-p-bottom_small">
+          Are you sure you want to update the property information?
+        </p>
+        <p>
+          This request should only be submitted after the manual valuation order
+          has been completed. If you'd like to proceed, click on Submit.
+        </p>
+      </div>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+      <lightning-button
+        variant="neutral"
+        label="Cancel"
+        data-id="cancel-btn"
+        onclick={handleCancel}
+      ></lightning-button>
+      <lightning-button
+        variant="brand"
+        class="slds-m-left_x-small"
+        label="Submit"
+        type="submit"
+        data-id="submit-btn"
+        onclick={handleSubmit}
+      ></lightning-button>
+    </lightning-modal-footer>
+  </template>
+</template>

@@ -22,7 +22,7 @@ Many downstream systems such as Reporting, Risk, CAP and Credit utilize this fie
                 <label>Unspecified</label>
             </value>
             <value>
-                <fullName>REFINANCING_REASON_PAY_LESS	</fullName>
+                <fullName>REFINANCING_REASON_PAY_LESS</fullName>
                 <default>false</default>
                 <label>Pay Less</label>
             </value>

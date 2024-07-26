@@ -394,4 +394,33 @@ public with sharing class TFMAUFControllerTest {
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
     Assert.areEqual(false, showToast, 'Error Toast is not displayed');
   }
+
+  @isTest
+  static void updateMobileNumberDuplicateErrorResp() {
+    TFMAUFController controller = new TFMAUFController();
+    Map<String, Object> input = new Map<String, Object>();
+    Map<String, Object> output = new Map<String, Object>();
+    input.put(TFMConstants.IDVALUE, 'F7AE26D3-5AFA-427D-9DDC-fake');
+    input.put(TFMConstants.AUF_MOBILE_NUMBER, '0400000000');
+    input.put(TFMConstants.ACTION_NAME, TFMConstants.UPDATE_MOBILE_NUMBER);
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    HttpCalloutResponse res = TFMAUFServiceMock.setMockErrorResponseDuplicateMobile();
+    Service s = ServiceProvider.getService(TFMAUFService.class);
+    s.setCalloutResponse(res);
+    Test.startTest();
+    Object isInvoked = controller.call('updateMobileNumberAndOcvid', args);
+    Test.stopTest();
+    Boolean duplicateMobileNumber = (Boolean) output.get(
+      TFMConstants.DUPLICATE_MOBILE_NUMBER
+    );
+    Assert.areEqual(
+      true,
+      duplicateMobileNumber,
+      'Mobile Number should be duplicate'
+    );
+  }
 }

@@ -22,6 +22,21 @@
                 <label>ACT</label>
             </value>
             <value>
+                <fullName>Martin Place</fullName>
+                <default>false</default>
+                <label>ANZ Plus@Martin Place</label>
+            </value>
+            <value>
+                <fullName>ANZ Plus@Royal</fullName>
+                <default>false</default>
+                <label>ANZ Plus@Royal</label>
+            </value>
+            <value>
+                <fullName>Branch</fullName>
+                <default>false</default>
+                <label>Branch</label>
+            </value>
+            <value>
                 <fullName>NSW</fullName>
                 <default>false</default>
                 <label>NSW</label>
@@ -66,17 +81,15 @@
                 <default>false</default>
                 <label>WA</label>
             </value>
-            <value>
-                <fullName>Branch</fullName>
-                <default>false</default>
-                <label>Branch</label>
-            </value>
-            <value>
-                <fullName>Martin Place</fullName>
-                <default>false</default>
-                <label>Martin Place</label>
-            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>Martin Place</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Store</controllingFieldValue>
+            <valueName>ANZ Plus@Royal</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
             <valueName>Potts Point</valueName>
@@ -84,10 +97,6 @@
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>
             <valueName>Richmond</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Store</controllingFieldValue>
-            <valueName>Martin Place</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Pop up</controllingFieldValue>

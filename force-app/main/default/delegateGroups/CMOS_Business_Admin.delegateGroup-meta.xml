@@ -11,6 +11,5 @@
     <permissionSetGroups>IDR Level 3</permissionSetGroups>
     <permissionSetGroups>IDR SI Business Contact</permissionSetGroups>
     <permissionSetGroups>IDR SI User</permissionSetGroups>
-    <profiles>ANZ Standard User</profiles>
     <roles>Customer Resolution Leadership</roles>
 </DelegateGroup>

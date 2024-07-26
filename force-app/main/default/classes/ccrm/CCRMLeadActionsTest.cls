@@ -5,6 +5,13 @@
  */
 @isTest
 private class CCRMLeadActionsTest {
+  static Lib_MockProvider leadRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    leadRepoMock = Lib_MockProvider.forType(CCRMLeadRepository.class);
+  }
+
   @testSetup
   static void setup() {
     CCRMTestDataFactory.createAdobeIntegrationUser();
@@ -1333,5 +1340,27 @@ private class CCRMLeadActionsTest {
         'Customer__c should be set to the Account'
       );
     }
+  }
+
+  @isTest
+  static void testpreventDeletionForCCRM() {
+    Lib_MockProvider.forType(CCRMLeadRepository.class)
+      .mock(
+        'getUserProfileId',
+        CommonUtil.getProfileByName(CCRMConstants.CCRM_PROFILE_NAME).Id
+      );
+    String mockLeadID = (String) Lib_FakeIdGenerator.getMockId(
+      Lead.getSObjectType()
+    );
+    List<lead> listOfleads = new List<Lead>{
+      new Lead(Id = mockLeadID, RecordTypeId = CCRMConstants.CCRM_LEAD_RT_ID)
+    };
+    Test.startTest();
+    CCRMLeadActions.preventDeletionForCCRM(listOfleads);
+    Test.stopTest();
+    Assert.isTrue(
+      listOfleads[0].hasErrors(),
+      'Lead record should have an error to prevent deletion.'
+    );
   }
 }

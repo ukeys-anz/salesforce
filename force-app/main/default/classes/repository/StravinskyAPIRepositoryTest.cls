@@ -63,29 +63,29 @@ public with sharing class StravinskyAPIRepositoryTest {
     '    ]' +
     '}';
 
-  @testSetup
-  static void setup() {
-    Account acc = new Account(
-      Name = 'TestAccount',
-      Display_Name__c = 'TestAccount',
-      OCV_ID__c = FAKER.randomString(10),
-      ANZx_Customer__c = true,
-      External_Id__c = FAKER.randomString(10)
-    );
-
-    insert acc;
-  }
+  private static String licenseNumber = FAKER.randomString(10);
+  private static String licenseCardNumber = FAKER.randomString(10);
+  private static COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
+    PersonaId__c = FAKER.randomString(15),
+    IdDocumentType__c = 'Licence',
+    FirstName__c = FAKER.randomString(10),
+    MiddleNames__c = FAKER.randomString(10),
+    LastName__c = FAKER.randomString(10),
+    DateOfBirth__c = Date.today(),
+    LicenceNumber__c = licenseNumber,
+    LicenceNumberOCRClient__c = licenseNumber,
+    LicenceNumberOCRServer__c = licenseNumber,
+    LicenceCardNumber__c = licenseCardNumber,
+    LicenceCardNumberOCRClient__c = licenseCardNumber,
+    LicenceCardNumberOCRServer__c = licenseCardNumber,
+    ExpiryDate__c = Date.today(),
+    StateOfIssue__c = 'AU'
+  );
 
   @isTest
   static void testPackageClosureSuccess() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-    ];
-
     Case newCase = new Case(
-      AccountId = acc.Id,
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.sObjectType),
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
       Package_Id__c = FAKER.randomString(10)
@@ -116,14 +116,8 @@ public with sharing class StravinskyAPIRepositoryTest {
    */
   @isTest
   static void closePackageInvalidResponse() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE Display_Name__c = 'TestAccount'
-    ];
-
     Case newCase = new Case(
-      AccountId = acc.Id,
+      AccountId = Lib_FakeIdGenerator.getMockId(Account.sObjectType),
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
     );
@@ -188,17 +182,6 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testCobPIdDetokenizationSuccess() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = '000000000',
-      IdDocumentType__c = 'Licence',
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
-    );
-
     List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
       cobPid,
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
@@ -220,17 +203,6 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testRetrieveDetokenizedCOBPIDInvalidResponse() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = '000000000',
-      IdDocumentType__c = 'Licence',
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
-    );
-
     List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
       cobPid,
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
@@ -260,23 +232,6 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testCobPidTokenizationSuccess() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = '000000000',
-      IdDocumentType__c = 'Licence',
-      FirstName__c = 'firstName',
-      MiddleNames__c = 'middle names',
-      LastName__c = 'lastName',
-      DateOfBirth__c = Date.today(),
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456',
-      ExpiryDate__c = Date.today(),
-      StateOfIssue__c = 'AU'
-    );
-
     COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
       cobPid
     );
@@ -297,23 +252,6 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testCobPidTokenizationFailure() {
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = '000000000',
-      IdDocumentType__c = 'Licence',
-      FirstName__c = 'firstName',
-      MiddleNames__c = 'middle names',
-      LastName__c = 'lastName',
-      DateOfBirth__c = Date.today(),
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456',
-      ExpiryDate__c = Date.today(),
-      StateOfIssue__c = 'AU'
-    );
-
     COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
       cobPid
     );

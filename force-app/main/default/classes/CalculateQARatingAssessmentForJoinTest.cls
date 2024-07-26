@@ -10,7 +10,7 @@ public with sharing class CalculateQARatingAssessmentForJoinTest {
   public static final String REQUIREMENTS_MET = 'Requirements Met';
   public static final String REQUIREMENTS_NOT_MET = 'Requirements not met';
 
-  public static final String EV_TYPE_FRAUD = 'Fraud & Dispute';
+  public static final String EV_TYPE_FRAUD = 'Fraud';
   public static final String EV_TYPE_IDENTITY = 'Identity & KYC';
   public static final String EV_TYPE_INTERACTION = 'Interaction QI';
 

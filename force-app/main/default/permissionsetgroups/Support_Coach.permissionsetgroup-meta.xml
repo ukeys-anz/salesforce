@@ -23,6 +23,7 @@
     <permissionSets>ConnectID_View</permissionSets>
     <permissionSets>Customer_Dispute_Management_Read_Write</permissionSets>
     <permissionSets>Customer_Feedback_Read_Only</permissionSets>
+    <permissionSets>Customer_Profile_Update_Read_Write</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
     <permissionSets>Export_Reports</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
@@ -31,6 +32,7 @@
     <permissionSets>force__FSCInsurance</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>Funds_Purpose_Read_Only</permissionSets>
     <permissionSets>Interaction_Read_Write</permissionSets>
     <permissionSets>Interaction_Tag_Read_Only</permissionSets>
     <permissionSets>InteractionOmniClasses</permissionSets>
@@ -50,6 +52,7 @@
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>Store_Interaction_Read_Only</permissionSets>
     <permissionSets>Tableau_CRM_Read_Only</permissionSets>
+    <permissionSets>Title_Details_Read_Only</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>Update_Signing_Authority</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>

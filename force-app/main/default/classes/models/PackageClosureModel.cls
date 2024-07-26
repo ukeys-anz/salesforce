@@ -60,10 +60,14 @@ public with sharing class PackageClosureModel extends CalloutModel {
       'number' => 'number_id',
       'package' => 'overall_package'
     };
-    return (PackageClosureModel) deserialize(
-      json,
-      PackageClosureModel.class,
-      keyMappings
-    );
+    try {
+      return (PackageClosureModel) deserialize(
+        json,
+        PackageClosureModel.class,
+        keyMappings
+      );
+    } catch (Exception ex) {
+      throw CommonUtil.logException(ex);
+    }
   }
 }

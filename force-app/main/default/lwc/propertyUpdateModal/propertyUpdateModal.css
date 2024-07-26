@@ -1,0 +1,9 @@
+.modal-header {
+  --slds-c-modal-header-color-background: #014486;
+  --slds-c-modal-header-text-color: #ffffff;
+}
+
+.text-alignment {
+  width: 50%;
+  margin: auto;
+}

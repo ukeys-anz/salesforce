@@ -8,6 +8,9 @@
         <field>Case.IDR_AFCA_Due_Date__c</field>
     </columns>
     <columns>
+        <field>Case.Case_Age_in_Days__c</field>
+    </columns>
+    <columns>
         <field>STATUS</field>
     </columns>
     <columns>
@@ -20,13 +23,13 @@
         <field>Case.IDR_Subsequent_Issue__c</field>
     </columns>
     <columns>
+        <field>Case.AFCA_Stage__c</field>
+    </columns>
+    <columns>
         <field>Case.IDR_AFCA_Status__c</field>
     </columns>
     <columns>
         <field>Case.IDR_Date_Received__c</field>
-    </columns>
-    <columns>
-        <field>Case.Case_Age_in_Days__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
