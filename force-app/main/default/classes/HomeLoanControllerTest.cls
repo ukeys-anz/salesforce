@@ -61,7 +61,7 @@ public inherited sharing class HomeLoanControllerTest {
         'Home loan found with ocvId and corresponding home loan marketing code'
       );
       System.assertEquals(
-        '390899946',
+        '222222222',
         response.accounts[0].account_number,
         'Account number is corresponding to OCVId'
       );

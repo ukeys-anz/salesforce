@@ -33,7 +33,7 @@ jobs:
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
 
-    runs-on: [self-hosted, cd-ubuntu-s-prod]
+    runs-on: anzx-default
     concurrency:
       group: "salesforce-manual-steps-prod-release"
       cancel-in-progress: true
@@ -98,7 +98,7 @@ jobs:
       - name: "Setup HTTP Proxy (sf-harness-delegate-prod)"
         if: env.NOT_APPROVAL_STEP == 'true'
         id: "proxy-harness-delegate"
-        uses: "anzx/github-reusable-actions/setup-http-proxy@main"
+        uses: "anzx/github-reusable-actions/setup-http-proxy@ephemeral"
         with:
           production: true
           proxy-username: "sf-harness-delegate-prod"

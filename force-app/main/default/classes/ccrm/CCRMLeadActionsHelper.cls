@@ -15,6 +15,9 @@ public with sharing class CCRMLeadActionsHelper {
   @TestVisible
   static final String CLG_NOT_FOUND_ERROR_MESSAGE = 'CLG NOT FOUND';
   private static final String LEAD_OWNERSHIP_ERROR = 'Leads can only be transferred within your segment.';
+  private static final CCRMLeadRepository LEAD_REPOSITORY = (CCRMLeadRepository) Lib_InstanceProvider.forType(
+    CCRMLeadRepository.class
+  );
 
   /**
    * @description Set field CCRM_Duplicate_Block__c to true if the lead's status is New or In progress
@@ -225,6 +228,30 @@ public with sharing class CCRMLeadActionsHelper {
             newLeadRec.addError(LEAD_OWNERSHIP_ERROR);
           }
         }
+      }
+    }
+  }
+  /**
+   * @description determines if login user is CCRM User
+   * @name isCCRMUser
+   * @return Boolen
+   */
+  public static Boolean isCCRMUser() {
+    return LEAD_REPOSITORY.getUserProfileId() ==
+      CommonUtil.getProfileByName(CCRMConstants.CCRM_PROFILE_NAME).Id;
+  }
+  /**
+   * @description determines if lead record type is ccrm Lead then prevent deletion
+   * @name checkCCRMLead
+   * @param records List of new lead records.
+   */
+  public static void validateLeadTypeForDeletion(List<Lead> records) {
+    if (!isCCRMUser()) {
+      return;
+    }
+    for (Lead rec : records) {
+      if (CCRMLeadUtil.isCCRMLeadType(rec)) {
+        rec.addError(CCRMConstants.DELETE_ERROR);
       }
     }
   }

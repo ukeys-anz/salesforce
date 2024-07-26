@@ -75,7 +75,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>105.0</sequenceNumber>
+            <sequenceNumber>108.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
@@ -124,7 +124,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>107.0</sequenceNumber>
+            <sequenceNumber>110.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -202,7 +202,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>126.0</sequenceNumber>
+            <sequenceNumber>129.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -631,7 +631,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>48.0</sequenceNumber>
+            <sequenceNumber>49.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -689,8 +689,32 @@
   &quot;label&quot; : &quot;Complaint Remedy 2&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>49.0</sequenceNumber>
+            <sequenceNumber>50.0</sequenceNumber>
             <type>Select</type>
+        </childElements>
+        <childElements>
+            <name>ComplaintRemedy2Offer</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;disOnTplt&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dataType&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;show&quot; : null,
+  &quot;hide&quot; : true,
+  &quot;expression&quot; : &quot;IF(%ComplaintRemedy2Offered% != NULL ,%ComplaintRemedy2Offered%,%Case:ComplaintRemedy2FrmOffer%)&quot;,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;ComplaintRemedy2Offer&quot;,
+  &quot;controlWidth&quot; : null
+}</propertySetConfig>
+            <sequenceNumber>54.0</sequenceNumber>
+            <type>Formula</type>
         </childElements>
         <childElements>
             <name>ComplaintRemedy2Offered</name>
@@ -743,7 +767,7 @@
   &quot;label&quot; : &quot;Complaint Remedy 2 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>50.0</sequenceNumber>
+            <sequenceNumber>51.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -801,8 +825,32 @@
   &quot;label&quot; : &quot;Complaint Remedy 3&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>77.0</sequenceNumber>
+            <sequenceNumber>79.0</sequenceNumber>
             <type>Select</type>
+        </childElements>
+        <childElements>
+            <name>ComplaintRemedy3Accept</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;disOnTplt&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dataType&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;show&quot; : null,
+  &quot;hide&quot; : true,
+  &quot;expression&quot; : &quot;IF(%ComplaintRemedy3Accepted% != NULL ,%ComplaintRemedy3Accepted%,%Case:ComplaintRemedy3FrmAccept%)&quot;,
+  &quot;inputWidth&quot; : 12,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;ComplaintRemedy3Accept&quot;,
+  &quot;controlWidth&quot; : null
+}</propertySetConfig>
+            <sequenceNumber>83.0</sequenceNumber>
+            <type>Formula</type>
         </childElements>
         <childElements>
             <name>ComplaintRemedy3Accepted</name>
@@ -858,8 +906,32 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>78.0</sequenceNumber>
+            <sequenceNumber>80.0</sequenceNumber>
             <type>Select</type>
+        </childElements>
+        <childElements>
+            <name>ComplaintRemedy3Offer</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;ComplaintRemedy3FrmOffer&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%ComplaintRemedy3Offered% != NULL ,%ComplaintRemedy3Offered%,%Case:ComplaintRemedy3FrmOffer%)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>84.0</sequenceNumber>
+            <type>Formula</type>
         </childElements>
         <childElements>
             <name>ComplaintRemedy3Offered</name>
@@ -911,7 +983,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>79.0</sequenceNumber>
+            <sequenceNumber>81.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -932,10 +1004,34 @@
   &quot;expression&quot; : &quot;IF(%ComplaintRemedy1Accepted% != NULL ,%ComplaintRemedy1Accepted%,%ComplaintremedyAccept%)&quot;,
   &quot;inputWidth&quot; : 12,
   &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Formula1&quot;,
+  &quot;label&quot; : &quot;ComplaintRemedyAccept1&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
             <sequenceNumber>23.0</sequenceNumber>
+            <type>Formula</type>
+        </childElements>
+        <childElements>
+            <name>ComplaintRemedyOffered1</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;ComplaintRemedyOffered1&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%Case:ComplaintRemedy1Offered% != NULL ,%Case:ComplaintRemedy1Offered%,%ComplaintremedyOffered%)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>24.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -1038,7 +1134,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>25.0</sequenceNumber>
+            <sequenceNumber>26.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1091,7 +1187,7 @@
   &quot;label&quot; : &quot;Complaint Sub Remedy 1&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>26.0</sequenceNumber>
+            <sequenceNumber>27.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1119,7 +1215,7 @@
   &quot;controllingField&quot; : {
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy_Offered__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;element&quot; : &quot;ComplaintRemedy1Offered&quot;
+    &quot;element&quot; : &quot;ComplaintRemedyOffered1&quot;
   },
   &quot;optionSource&quot; : {
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy_Offered__c&quot;,
@@ -1140,7 +1236,7 @@
   &quot;label&quot; : &quot;Complaint Sub Remedy 1 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>27.0</sequenceNumber>
+            <sequenceNumber>28.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1198,7 +1294,7 @@
   &quot;label&quot; : &quot;Complaint Sub Remedy 2&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>54.0</sequenceNumber>
+            <sequenceNumber>56.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1255,7 +1351,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>55.0</sequenceNumber>
+            <sequenceNumber>57.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1284,7 +1380,7 @@
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy_Offered__c&quot;
   },
   &quot;controllingField&quot; : {
-    &quot;element&quot; : &quot;ComplaintRemedy2Offered&quot;,
+    &quot;element&quot; : &quot;ComplaintRemedy2Offer&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy_Offered__c&quot;
   },
@@ -1308,7 +1404,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>56.0</sequenceNumber>
+            <sequenceNumber>58.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1366,7 +1462,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>83.0</sequenceNumber>
+            <sequenceNumber>86.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1402,7 +1498,7 @@
   &quot;controllingField&quot; : {
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;element&quot; : &quot;Formula5&quot;
+    &quot;element&quot; : &quot;ComplaintRemedy3Accept&quot;
   },
   &quot;optionSource&quot; : {
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy__c&quot;,
@@ -1423,7 +1519,7 @@
   &quot;label&quot; : &quot;Complaint Sub Remedy 3&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>84.0</sequenceNumber>
+            <sequenceNumber>87.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1455,7 +1551,7 @@
   &quot;controllingField&quot; : {
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Remedy_Offered__c&quot;,
     &quot;type&quot; : &quot;SObject&quot;,
-    &quot;element&quot; : &quot;ComplaintRemedy3Offered&quot;
+    &quot;element&quot; : &quot;ComplaintRemedy3Offer&quot;
   },
   &quot;optionSource&quot; : {
     &quot;source&quot; : &quot;Complaint_Resolution__c.IDR_Complaint_Sub_Remedy_Offered__c&quot;,
@@ -1476,7 +1572,7 @@
   &quot;label&quot; : &quot;Complaint Sub Remedy 3 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>85.0</sequenceNumber>
+            <sequenceNumber>88.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -1558,7 +1654,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-            <sequenceNumber>129.0</sequenceNumber>
+            <sequenceNumber>132.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
@@ -1756,7 +1852,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>40.0</sequenceNumber>
+            <sequenceNumber>41.0</sequenceNumber>
             <type>Checkbox</type>
         </childElements>
         <childElements>
@@ -1807,7 +1903,7 @@
   &quot;label&quot; : &quot;Checkbox1&quot;,
   &quot;controlWidth&quot; : 9
 }</propertySetConfig>
-            <sequenceNumber>69.0</sequenceNumber>
+            <sequenceNumber>71.0</sequenceNumber>
             <type>Checkbox</type>
         </childElements>
         <childElements>
@@ -1858,7 +1954,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>98.0</sequenceNumber>
+            <sequenceNumber>101.0</sequenceNumber>
             <type>Checkbox</type>
         </childElements>
         <childElements>
@@ -1931,7 +2027,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>29.0</sequenceNumber>
+            <sequenceNumber>30.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2004,7 +2100,7 @@
   &quot;label&quot; : &quot;Duration of Remedy (months) 1&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>30.0</sequenceNumber>
+            <sequenceNumber>31.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2068,7 +2164,7 @@
   &quot;label&quot; : &quot;Duration of Remedy (months) 1 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>31.0</sequenceNumber>
+            <sequenceNumber>32.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2136,7 +2232,7 @@
   &quot;label&quot; : &quot;Duration of Remedy (months) 2&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>58.0</sequenceNumber>
+            <sequenceNumber>60.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2204,7 +2300,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>59.0</sequenceNumber>
+            <sequenceNumber>61.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2268,7 +2364,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>60.0</sequenceNumber>
+            <sequenceNumber>62.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2336,7 +2432,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>87.0</sequenceNumber>
+            <sequenceNumber>90.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2404,7 +2500,7 @@
   &quot;label&quot; : &quot;Duration of Remedy (months) 3&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>88.0</sequenceNumber>
+            <sequenceNumber>91.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2468,7 +2564,7 @@
   &quot;label&quot; : &quot;Duration of Remedy (months) 3 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>89.0</sequenceNumber>
+            <sequenceNumber>92.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -2503,7 +2599,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;Formula2&quot;,
+  &quot;label&quot; : &quot;ComplaintRemedy2FrAccept&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;expression&quot; : &quot;IF(%ComplaintRemedy2Accepted% != NULL ,%ComplaintRemedy2Accepted%,%Case:ComplaintRemedy2FrmAccept%)&quot;,
@@ -2516,7 +2612,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>52.0</sequenceNumber>
+            <sequenceNumber>53.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -2540,7 +2636,7 @@
   &quot;label&quot; : &quot;Formula3&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>51.0</sequenceNumber>
+            <sequenceNumber>52.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -2564,31 +2660,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>80.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <name>Formula5</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dataType&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
-  &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(%ComplaintRemedy3Accepted% != NULL ,%ComplaintRemedy3Accepted%,%Case:ComplaintRemedy3FrmAccept%)&quot;,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;Formula5&quot;,
-  &quot;controlWidth&quot; : null
-}</propertySetConfig>
-            <sequenceNumber>81.0</sequenceNumber>
+            <sequenceNumber>82.0</sequenceNumber>
             <type>Formula</type>
         </childElements>
         <childElements>
@@ -2618,8 +2690,8 @@
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;Type&quot;,
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.Type&quot;
+    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateSubIssueTypeDependentPicklist&quot;
   },
   &quot;show&quot; : null,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
@@ -2677,7 +2749,7 @@
   &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>114.0</sequenceNumber>
+            <sequenceNumber>117.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -2765,7 +2837,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>122.0</sequenceNumber>
+            <sequenceNumber>125.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
@@ -2797,7 +2869,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>110.0</sequenceNumber>
+            <sequenceNumber>113.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2813,7 +2885,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>113.0</sequenceNumber>
+            <sequenceNumber>116.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2829,7 +2901,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>115.0</sequenceNumber>
+            <sequenceNumber>118.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2845,7 +2917,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>117.0</sequenceNumber>
+            <sequenceNumber>120.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2861,7 +2933,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>119.0</sequenceNumber>
+            <sequenceNumber>122.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2877,7 +2949,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>121.0</sequenceNumber>
+            <sequenceNumber>124.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2893,7 +2965,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>123.0</sequenceNumber>
+            <sequenceNumber>126.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2909,7 +2981,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>125.0</sequenceNumber>
+            <sequenceNumber>128.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2925,7 +2997,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>127.0</sequenceNumber>
+            <sequenceNumber>130.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2941,7 +3013,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>42.0</sequenceNumber>
+            <sequenceNumber>43.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2973,7 +3045,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>71.0</sequenceNumber>
+            <sequenceNumber>73.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -2989,7 +3061,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>100.0</sequenceNumber>
+            <sequenceNumber>103.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3004,7 +3076,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>106.0</sequenceNumber>
+            <sequenceNumber>109.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3019,7 +3091,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>108.0</sequenceNumber>
+            <sequenceNumber>111.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3034,7 +3106,7 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak5&quot;
 }</propertySetConfig>
-            <sequenceNumber>32.0</sequenceNumber>
+            <sequenceNumber>33.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3049,7 +3121,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>36.0</sequenceNumber>
+            <sequenceNumber>37.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3064,7 +3136,7 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak1&quot;
 }</propertySetConfig>
-            <sequenceNumber>57.0</sequenceNumber>
+            <sequenceNumber>59.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3079,7 +3151,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>61.0</sequenceNumber>
+            <sequenceNumber>63.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3094,7 +3166,7 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak1&quot;
 }</propertySetConfig>
-            <sequenceNumber>90.0</sequenceNumber>
+            <sequenceNumber>93.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3125,7 +3197,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>94.0</sequenceNumber>
+            <sequenceNumber>97.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3140,7 +3212,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>82.0</sequenceNumber>
+            <sequenceNumber>85.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3156,7 +3228,7 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak1&quot;
 }</propertySetConfig>
-            <sequenceNumber>24.0</sequenceNumber>
+            <sequenceNumber>25.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3172,7 +3244,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>28.0</sequenceNumber>
+            <sequenceNumber>29.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3188,7 +3260,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>53.0</sequenceNumber>
+            <sequenceNumber>55.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3204,7 +3276,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>65.0</sequenceNumber>
+            <sequenceNumber>67.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3220,7 +3292,7 @@
   &quot;show&quot; : null,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>86.0</sequenceNumber>
+            <sequenceNumber>89.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3236,7 +3308,7 @@
   &quot;padding&quot; : 0,
   &quot;label&quot; : &quot;LineBreak1&quot;
 }</propertySetConfig>
-            <sequenceNumber>104.0</sequenceNumber>
+            <sequenceNumber>107.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -3277,7 +3349,7 @@
   &quot;label&quot; : &quot;Checkbox1&quot;,
   &quot;controlWidth&quot; : 9
 }</propertySetConfig>
-            <sequenceNumber>41.0</sequenceNumber>
+            <sequenceNumber>42.0</sequenceNumber>
             <type>Checkbox</type>
         </childElements>
         <childElements>
@@ -3318,7 +3390,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>70.0</sequenceNumber>
+            <sequenceNumber>72.0</sequenceNumber>
             <type>Checkbox</type>
         </childElements>
         <childElements>
@@ -3359,7 +3431,7 @@
   &quot;label&quot; : &quot;Checkbox3&quot;,
   &quot;controlWidth&quot; : 11
 }</propertySetConfig>
-            <sequenceNumber>99.0</sequenceNumber>
+            <sequenceNumber>102.0</sequenceNumber>
             <type>Checkbox</type>
         </childElements>
         <childElements>
@@ -3479,7 +3551,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>33.0</sequenceNumber>
+            <sequenceNumber>34.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3538,7 +3610,7 @@
   &quot;label&quot; : &quot;Other Remedy 1&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>34.0</sequenceNumber>
+            <sequenceNumber>35.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3588,7 +3660,7 @@
   &quot;label&quot; : &quot;Other Remedy 1 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>35.0</sequenceNumber>
+            <sequenceNumber>36.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3642,7 +3714,7 @@
   &quot;label&quot; : &quot;Other Remedy 2&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>62.0</sequenceNumber>
+            <sequenceNumber>64.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3696,7 +3768,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>63.0</sequenceNumber>
+            <sequenceNumber>65.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3746,7 +3818,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>64.0</sequenceNumber>
+            <sequenceNumber>66.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3800,7 +3872,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>91.0</sequenceNumber>
+            <sequenceNumber>94.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3854,7 +3926,7 @@
   &quot;label&quot; : &quot;Other Remedy 3&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>92.0</sequenceNumber>
+            <sequenceNumber>95.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -3904,7 +3976,7 @@
   &quot;label&quot; : &quot;Other Remedy 3 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>93.0</sequenceNumber>
+            <sequenceNumber>96.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <childElements>
@@ -4014,7 +4086,7 @@
   &quot;dataJsonPath&quot; : &quot;&quot;,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-            <sequenceNumber>124.0</sequenceNumber>
+            <sequenceNumber>127.0</sequenceNumber>
             <type>Type Ahead Block</type>
         </childElements>
         <childElements>
@@ -4078,7 +4150,7 @@
   &quot;label&quot; : &quot;Payment Amount 1 Offered&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>45.0</sequenceNumber>
+            <sequenceNumber>46.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4142,7 +4214,7 @@
   &quot;label&quot; : &quot;Payment Amount 2 Offered&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>74.0</sequenceNumber>
+            <sequenceNumber>76.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4206,7 +4278,7 @@
   &quot;label&quot; : &quot;Payment Amount 3 Offered&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>103.0</sequenceNumber>
+            <sequenceNumber>106.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4275,7 +4347,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>43.0</sequenceNumber>
+            <sequenceNumber>44.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4343,7 +4415,7 @@
   &quot;label&quot; : &quot;Payment Amount Provided 1&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>44.0</sequenceNumber>
+            <sequenceNumber>45.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4412,7 +4484,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>72.0</sequenceNumber>
+            <sequenceNumber>74.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4480,7 +4552,7 @@
   &quot;label&quot; : &quot;Payment Amount Provided 2&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>73.0</sequenceNumber>
+            <sequenceNumber>75.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4549,7 +4621,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;displayCurrencyCode&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>101.0</sequenceNumber>
+            <sequenceNumber>104.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4617,7 +4689,7 @@
   &quot;label&quot; : &quot;Payment Amount Provided 3&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>102.0</sequenceNumber>
+            <sequenceNumber>105.0</sequenceNumber>
             <type>Currency</type>
         </childElements>
         <childElements>
@@ -4667,7 +4739,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>118.0</sequenceNumber>
+            <sequenceNumber>121.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -4715,7 +4787,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>111.0</sequenceNumber>
+            <sequenceNumber>114.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -4764,7 +4836,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>109.0</sequenceNumber>
+            <sequenceNumber>112.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -4814,7 +4886,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>128.0</sequenceNumber>
+            <sequenceNumber>131.0</sequenceNumber>
             <type>Select</type>
         </childElements>
         <childElements>
@@ -4869,7 +4941,7 @@
   &quot;label&quot; : &quot;Reward Points 1&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>37.0</sequenceNumber>
+            <sequenceNumber>38.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -4924,7 +4996,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>38.0</sequenceNumber>
+            <sequenceNumber>39.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -4975,7 +5047,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>39.0</sequenceNumber>
+            <sequenceNumber>40.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5030,7 +5102,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>66.0</sequenceNumber>
+            <sequenceNumber>68.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5085,7 +5157,7 @@
   &quot;label&quot; : &quot;Reward Points 2&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>67.0</sequenceNumber>
+            <sequenceNumber>69.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5136,7 +5208,7 @@
   &quot;label&quot; : &quot;Reward Points 2 Offered&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>68.0</sequenceNumber>
+            <sequenceNumber>70.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5191,7 +5263,7 @@
   &quot;label&quot; : &quot;Reward Points 3&quot;,
   &quot;controlWidth&quot; : 4
 }</propertySetConfig>
-            <sequenceNumber>95.0</sequenceNumber>
+            <sequenceNumber>98.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5246,7 +5318,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>96.0</sequenceNumber>
+            <sequenceNumber>99.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5297,7 +5369,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>97.0</sequenceNumber>
+            <sequenceNumber>100.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -5317,7 +5389,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-            <sequenceNumber>130.0</sequenceNumber>
+            <sequenceNumber>133.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
@@ -5380,7 +5452,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>46.0</sequenceNumber>
+            <sequenceNumber>47.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
@@ -5442,7 +5514,7 @@
   &quot;label&quot; : &quot;Second Complaint Remedy Offered?&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-            <sequenceNumber>47.0</sequenceNumber>
+            <sequenceNumber>48.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
@@ -5566,7 +5638,7 @@
   &quot;label&quot; : &quot;Third Complaint Remedy Provided?&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
-            <sequenceNumber>75.0</sequenceNumber>
+            <sequenceNumber>77.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
@@ -5632,7 +5704,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>76.0</sequenceNumber>
+            <sequenceNumber>78.0</sequenceNumber>
             <type>Radio</type>
         </childElements>
         <childElements>
@@ -5657,8 +5729,8 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ ],
   &quot;optionSource&quot; : {
-    &quot;type&quot; : &quot;SObject&quot;,
-    &quot;source&quot; : &quot;Case.Type&quot;
+    &quot;type&quot; : &quot;Custom&quot;,
+    &quot;source&quot; : &quot;IDR_FetchPicklistValues.populateIssueTypePicklist&quot;
   },
   &quot;controllingField&quot; : {
     &quot;element&quot; : &quot;&quot;,
@@ -5703,7 +5775,7 @@
     &quot;source&quot; : &quot;true&quot;
   } ]
 }</propertySetConfig>
-            <sequenceNumber>112.0</sequenceNumber>
+            <sequenceNumber>115.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
@@ -5764,7 +5836,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>120.0</sequenceNumber>
+            <sequenceNumber>123.0</sequenceNumber>
             <type>Multi-select</type>
         </childElements>
         <childElements>
@@ -5811,7 +5883,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>116.0</sequenceNumber>
+            <sequenceNumber>119.0</sequenceNumber>
             <type>Text Area</type>
         </childElements>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
@@ -6334,5 +6406,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_10</uniqueName>
     <versionNumber>10.0</versionNumber>
-    <webComponentKey>891468a2-a198-1df6-2631-a5aa23ec1a7c</webComponentKey>
+    <webComponentKey>50d012e8-bc9a-82d0-3354-65eb2480df87</webComponentKey>
 </OmniScript>

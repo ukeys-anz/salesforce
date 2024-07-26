@@ -7,7 +7,7 @@
  */
 public with sharing class CCRMFinancialAccountRoleActions {
   private static final String FAR_ROLE_PRIMARYOWNER = 'Primary Owner';
-  private static final String FAR_ROLE_ADDITIONAL = 'Additional Owner';
+  private static final String FAR_ROLE_OTHER = 'Other';
 
   /**
    * @description Set FAR record type to System or Contact based on External Id and Related Customer
@@ -66,7 +66,7 @@ public with sharing class CCRMFinancialAccountRoleActions {
             record.Role_Type__c
           )
           ? farRoleTypeMapping.get(record.Role_Type__c).Role__c
-          : FAR_ROLE_ADDITIONAL;
+          : FAR_ROLE_OTHER;
       }
     }
   }

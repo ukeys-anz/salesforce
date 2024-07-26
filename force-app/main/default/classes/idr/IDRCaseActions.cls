@@ -258,7 +258,7 @@ public with sharing class IDRCaseActions {
       } else {
         record.Previous_Case_Owner__c = oldOwner;
       }
-      if (newOwner.getSObjectType() == User.SObjectType) {
+      if (newOwner?.getSObjectType() == User.SObjectType) {
         record.Date_Case_allocated_to_CM__c = DateTime.now();
       } else {
         record.Date_Case_allocated_to_CM__c = null;

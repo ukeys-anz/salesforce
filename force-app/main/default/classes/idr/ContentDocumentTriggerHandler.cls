@@ -5,6 +5,9 @@
  without sharing: for running as a system mode on BeforeDelete trigger because we cant provide users with access to have them taking action manually.
  */
 public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHandler {
+  private static final CCRMContentDocumentLinkRepository CDL_REPOSITORY = (CCRMContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+    CCRMContentDocumentLinkRepository.class
+  );
   /**
    * @description onBeforeDelete
    */
@@ -17,7 +20,9 @@ public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHa
    * @param cdList list of  ContentDocument in the current trigger context
    */
   public static void restrictFileDeleteAction(List<ContentDocument> cdList) {
-    String mlProifleName = MLCRMConstants.ML_PROFILE_NAME;
+    List<String> profileNames = System.Label.DCRM_ProfileAllowToDeleteOutlookAttachments.split(
+      ';'
+    );
     Map<Id, EmailMessage> emailMessageMap = new Map<Id, EmailMessage>();
     Map<Id, Id> cdIdToCdlIdMap = new Map<Id, Id>();
     Map<Id, Id> cdlIdToEmIdMap = new Map<Id, Id>();
@@ -51,9 +56,9 @@ public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHa
       }
     }
     if (!cdlIdToEmIdMap.isEmpty()) {
-      emailMessageMap = MLCRMCommonUtils.getEmailMessageUsingProfileName(
+      emailMessageMap = CDL_REPOSITORY.getEmailMessageUsingProfileName(
         cdlIdToEmIdMap.values(),
-        mlProifleName
+        profileNames
       );
     }
     for (ContentDocument cd : cdList) {

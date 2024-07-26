@@ -5,24 +5,13 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Property Domain</complianceGroup>
     <description>Type of valuation</description>
     <externalId>false</externalId>
-    <inlineHelpText>This is the type of valuation that was done on the property and can be any of the following;
-Full Valuation Short form,
-Desktop,
-Automated,
-Combined AVM,
-Contract of sale,
-Tentative on Completion,
-Kerbside,
-Full valuation Long form (professional),
-Customer Stated Value,
-Price Estimate</inlineHelpText>
     <label>Property Valuation Type</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
-        <restricted>true</restricted>
+        <restricted>false</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -74,6 +63,36 @@ Price Estimate</inlineHelpText>
                 <fullName>VALUATION_TYPE_PE</fullName>
                 <default>false</default>
                 <label>Price Estimate</label>
+            </value>
+            <value>
+                <fullName>VALUATION_TYPE_UNSPECIFIED</fullName>
+                <default>false</default>
+                <label>Not supported</label>
+            </value>
+            <value>
+                <fullName>VALUATION_TYPE_CPI</fullName>
+                <default>false</default>
+                <label>Construction - Progress Inspection</label>
+            </value>
+            <value>
+                <fullName>VALUATION_TYPE_CFI</fullName>
+                <default>false</default>
+                <label>Construction - Final Inspection</label>
+            </value>
+            <value>
+                <fullName>VALUATION_TYPE_RMA</fullName>
+                <default>false</default>
+                <label>Remote Valuation Assessment</label>
+            </value>
+            <value>
+                <fullName>VALUATION_TYPE_NA</fullName>
+                <default>false</default>
+                <label>Unable to determine a Fair Market Value</label>
+            </value>
+            <value>
+                <fullName>VALUATION_TYPE_CVL</fullName>
+                <default>false</default>
+                <label>Current Valuation - Manual valuation up to 90 days old</label>
             </value>
         </valueSetDefinition>
     </valueSet>

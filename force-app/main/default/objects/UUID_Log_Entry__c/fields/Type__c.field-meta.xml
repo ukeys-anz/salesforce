@@ -24,6 +24,11 @@
                 <default>false</default>
                 <label>BOH - Credit Referral - Referral Outcome</label>
             </value>
+            <value>
+                <fullName>BOH - Property - Reassess Collateral</fullName>
+                <default>false</default>
+                <label>BOH - Property - Reassess Collateral</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

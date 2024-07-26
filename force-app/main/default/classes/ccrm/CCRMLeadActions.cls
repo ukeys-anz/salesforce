@@ -651,7 +651,6 @@ public with sharing class CCRMLeadActions {
       CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(listOfLeads);
     }
   }
-
   /**
    * @description Check if the lead's ABN or ACN is added or removed and set ABN Validation Status
    * @name setValidationStatus
@@ -668,7 +667,6 @@ public with sharing class CCRMLeadActions {
       setDuplicateBlock(record, oldRec);
     }
   }
-
   /**
    * @description Check if the lead's ABN or ACN is added and set ABN or ACN validation status to validation inprogress
    * @param record lead record from the trigger
@@ -684,7 +682,6 @@ public with sharing class CCRMLeadActions {
       }
     }
   }
-
   /**
    * @description Check if the lead's ABN or ACN is removed and set ABN or ACN validation status to null
    * @param record lead record from the trigger
@@ -722,7 +719,6 @@ public with sharing class CCRMLeadActions {
       }
     }
   }
-
   /**
    * @description method to make ABN callout and get abn status
    * @param abn Australian Business Number
@@ -748,7 +744,6 @@ public with sharing class CCRMLeadActions {
       Logger.saveLog();
     }
   }
-
   /**
    * @description method to make ACN callout and get acn status
    * @param acn Australian Company Number
@@ -774,7 +769,6 @@ public with sharing class CCRMLeadActions {
       Logger.saveLog();
     }
   }
-
   /**
    * @description Validate lead originated from UNICA and ADOBE
    * @name validateIngestedLeads
@@ -784,7 +778,6 @@ public with sharing class CCRMLeadActions {
     CCRMLeadUtil.validateUnicaLeads(records);
     CCRMLeadUtil.validateAdobeLeads(records);
   }
-
   /**
    * @description Set field CCRM_Duplicate_Block__c to true if the lead's status is New or In progress
    * @name setDuplicateBlock
@@ -803,7 +796,6 @@ public with sharing class CCRMLeadActions {
     }
     CCRMLeadActionsHelper.setDuplicateBlock(record, oldRec);
   }
-
   /**
    * @description This method is used by Admin to resend PE Lead Update incase there is any error
    * @name resendAdobeOrUnicaOrCcrmLeadUpdatePlatformEvent
@@ -817,7 +809,6 @@ public with sharing class CCRMLeadActions {
       null
     );
   }
-
   /**
    * @description This method to update lead status when response is logged.
    * @name updateLeadStatus
@@ -848,7 +839,6 @@ public with sharing class CCRMLeadActions {
       }
     }
   }
-
   /**
    * @description This method to check if secondary customer needs contain customer needs value
    * @name checkIfSecondaryCustomerNeedsContainsCustomerNeeds
@@ -995,5 +985,13 @@ public with sharing class CCRMLeadActions {
         leadRec.New_to_Bank__c = 'No';
       }
     }
+  }
+/**
+   * @description This method is used to prevent deleteion of lead record for CCRM
+   * @name preventDeletionForCCRM
+   * @param records List of Lead records
+   */
+    public static void preventDeletionForCCRM(List<Lead> records) {
+    CCRMLeadActionsHelper.validateLeadTypeForDeletion(records);
   }
 }

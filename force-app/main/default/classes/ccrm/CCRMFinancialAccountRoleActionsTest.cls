@@ -24,7 +24,7 @@ private class CCRMFinancialAccountRoleActionsTest {
     FinServ__FinancialAccountRole__c farPrimary = new FinServ__FinancialAccountRole__c(
       Role_Type__c = 'SOL'
     );
-    FinServ__FinancialAccountRole__c farAdditional = new FinServ__FinancialAccountRole__c(
+    FinServ__FinancialAccountRole__c farOther = new FinServ__FinancialAccountRole__c(
       Role_Type__c = 'INVALID'
     );
     //WHEN the record is inserted
@@ -32,7 +32,7 @@ private class CCRMFinancialAccountRoleActionsTest {
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
       CCRMFinancialAccountRoleActions.mapRoleTypeToRole(
-        new List<FinServ__FinancialAccountRole__c>{ farPrimary, farAdditional }
+        new List<FinServ__FinancialAccountRole__c>{ farPrimary, farOther }
       );
     }
     Test.stopTest();
@@ -43,9 +43,9 @@ private class CCRMFinancialAccountRoleActionsTest {
       'Role should be updated to Primary Owner'
     );
     Assert.areEqual(
-      'Additional Owner',
-      farAdditional.FinServ__Role__c,
-      'Role should be updated to Additional Owner when no mapping exists for the given role type'
+      'Other',
+      farOther.FinServ__Role__c,
+      'Role should be updated to Other Owner when no mapping exists for the given role type'
     );
   }
 
