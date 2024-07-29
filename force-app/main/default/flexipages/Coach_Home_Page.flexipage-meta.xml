@@ -669,40 +669,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>entityName</name>
-                    <value>ResidentialLoanApplication</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>filterName</name>
-                    <value>All_Unassigned_Home_Loan_Application</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideActionBar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideSearchBar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>pageSize</name>
-                    <value>6</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard24</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-f010e1be-c5c2-4c84-864d-3768f130d323</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>enableInlineEdit</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>entityName</name>
                     <value>Task</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -726,6 +692,40 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-5a511df4-7041-4dcb-ade3-7fc6e2c8d5ab</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>enableInlineEdit</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>ResidentialLoanApplication</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>All_Unassigned_Home_Loan_Application</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideActionBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideSearchBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageSize</name>
+                    <value>6</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard24</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-f010e1be-c5c2-4c84-864d-3768f130d323</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -805,24 +805,6 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-f010e1be-c5c2-4c84-864d-3768f130d323</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>All Unassigned Home Loan Applications</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>name</name>
-                    <value>accordionSection--ch5stdlvscs</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:accordionSection</componentName>
-                <identifier>flexipage_accordionSection15</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
                     <value>Facet-5a511df4-7041-4dcb-ade3-7fc6e2c8d5ab</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -837,7 +819,59 @@
                 <identifier>flexipage_accordionSection16</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f010e1be-c5c2-4c84-864d-3768f130d323</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>All Unassigned Home Loan Applications</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>name</name>
+                    <value>accordionSection--ch5stdlvscs</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:accordionSection</componentName>
+                <identifier>flexipage_accordionSection15</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>Facet-6220df00-ce83-45b0-939a-566f7291cf43</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>enableInlineEdit</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>entityName</name>
+                    <value>Case</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterName</name>
+                    <value>Support_Coach_Queue_Case</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideActionBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>hideSearchBar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>pageSize</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:filterListCard</componentName>
+                <identifier>flexipage_filterListCard29</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-54qnrs3aq38</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -912,37 +946,21 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>enableInlineEdit</name>
-                    <value>false</value>
+                    <name>body</name>
+                    <value>Facet-54qnrs3aq38</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>entityName</name>
-                    <value>Case</value>
+                    <name>label</name>
+                    <value>All Unassigned Support Coach Queue</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>filterName</name>
-                    <value>Support_Coach_Queue_Case</value>
+                    <name>name</name>
+                    <value>accordionSection--ljvdosto71</value>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideActionBar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideSearchBar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>pageSize</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:filterListCard</componentName>
-                <identifier>flexipage_filterListCard29</identifier>
+                <componentName>flexipage:accordionSection</componentName>
+                <identifier>flexipage_accordionSection21</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-54qnrs3aq38</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -977,24 +995,6 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:accordionSection</componentName>
                 <identifier>flexipage_accordionSection20</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>body</name>
-                    <value>Facet-54qnrs3aq38</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>label</name>
-                    <value>All Unassigned Support Coach Queue</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>name</name>
-                    <value>accordionSection--ljvdosto71</value>
-                </componentInstanceProperties>
-                <componentName>flexipage:accordionSection</componentName>
-                <identifier>flexipage_accordionSection21</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-86a50565-a90e-4805-9454-351f8ca77fdc</name>
