@@ -9,19 +9,18 @@ public inherited sharing class StravinskyServiceTest {
   private static final String COB_PID_TOKEN_TRANSFORM_VALUE = 'fpe.personal-identifier';
   private static final String SUCCESS_CLOSE_PACKAGE_RESPONSE =
     '{' +
-    '   \"status\": { \"code\": 200, \"description\": \"SUCCESS\" },' +
-    '   \"meta\": { ' +
-    '      \"accountA1\":{ \"number\": \"packag789\", \"status\": \"SUCCESS\" },' +
-    '      \"accountS1\":{ \"number\": \"packag789\", \"status\": \"SUCCESS\" },' +
-    '      \"card\":{ "number": "packag789", \"status\": \"SUCCESS\" },' +
-    '      \"package\":{ \"number\": \"packag789\", \"status\": \"SUCCESS\" }' +
-    '   }' +
+    '   \"accountsClosed\": "1"' +
+    '   \"cardsClosed\": "0"' +
+    '   \"packagesClosed\": "0"' +
+    '   \"errorInfo\": "null" ' +
     '}';
 
   private static final String FAILURE_CLOSE_PACKAGE_RESPONSE =
     '{' +
-    '   \"status\": { \"code\": 400, \"description\": \"FAILURE\" },' +
-    '   \"meta\": {}' +
+    '   \"accountsClosed\": "1"' +
+    '   \"cardsClosed\": "0"' +
+    '   \"packagesClosed\": "0"' +
+    '  \"errorInfo\": { \"errorCode\": 500, \"reason\": \"some reason here\" },' +
     '}';
 
   private static final String TEMPORAL_CASE_WORKFLOW_TRIGGER_RESPONSE_SUCCESS = '{}';
@@ -32,20 +31,15 @@ public inherited sharing class StravinskyServiceTest {
     '   \"message\": \"WorkflowId is not set on request.\"' +
     '}';
 
-  private static final String ACCOUNT_TYPE = 'Individual';
-
-  //Creating Dummy List for Test Class StravinskyServiceTest and StravinskyAPIRepositoryTest
-  public static final List<String> CHECKING_ACCOUNT_LIST = new List<String>{
-    '111111111'
-  };
-
-  public static final List<String> SAVINGS_ACCOUNT_LIST = new List<String>{
-    '000000000'
-  };
-
-  public static final List<String> CUSTOMER_OCVIDS_LIST = new List<String>{
-    '1011111111'
-  };
+  private static final String ACCOUNT_CLOSURE_DETAILS =
+    '{' +
+    '   \"ocv_ids\": [103245756],' +
+    '   \"items\":[' +
+    '{\"account_resource\":"accounts/111111111",' +
+    '{\"account_resource\":"accounts/000000000",' +
+    '{\"package_resource\":"jfhfhjfjhfjhf",' +
+    ']' +
+    '}';
 
   static Faker faker = new Faker('AU');
 
@@ -99,16 +93,6 @@ public inherited sharing class StravinskyServiceTest {
   @isTest
   static void testClosePackageSuccess() {
     String ocvId = faker.randomString(10);
-    String packageId = faker.randomString(10);
-
-    //Added in order to create a wrapper object to be sent to Mulesoft
-    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
-    closureCaseRecord.packageId = packageId;
-    closureCaseRecord.closeDate = String.valueOf(Date.today());
-    closureCaseRecord.accountNumbersA1 = CHECKING_ACCOUNT_LIST;
-    closureCaseRecord.accountNumbersS1 = SAVINGS_ACCOUNT_LIST;
-    closureCaseRecord.ocvIds = CUSTOMER_OCVIDS_LIST;
-    closureCaseRecord.accountType = ACCOUNT_TYPE;
 
     Test.setMock(HttpCalloutMock.class, new MockClosePackageSuccess());
     //load forge staff token
@@ -121,9 +105,8 @@ public inherited sharing class StravinskyServiceTest {
     StravinskyService stravinskyService = new StravinskyService();
     HttpCalloutResponse response = stravinskyService.closePackage(
       ocvId,
-      closureCaseRecord
+      ACCOUNT_CLOSURE_DETAILS
     );
-
     Test.stopTest();
 
     System.assertNotEquals(
@@ -136,16 +119,6 @@ public inherited sharing class StravinskyServiceTest {
   @isTest
   static void testClosePackageWithFailure() {
     String ocvId = faker.randomString(10);
-    String packageId = faker.randomString(10);
-
-    //Added in order to create a wrapper object to be sent to Mulesoft
-    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
-    closureCaseRecord.packageId = packageId;
-    closureCaseRecord.closeDate = String.valueOf(Date.today());
-    closureCaseRecord.accountNumbersA1 = CHECKING_ACCOUNT_LIST;
-    closureCaseRecord.accountNumbersS1 = SAVINGS_ACCOUNT_LIST;
-    closureCaseRecord.ocvIds = CUSTOMER_OCVIDS_LIST;
-    closureCaseRecord.accountType = ACCOUNT_TYPE;
 
     //load forge staff token
     Cache.Session.put(
@@ -158,7 +131,7 @@ public inherited sharing class StravinskyServiceTest {
     StravinskyService stravinskyService = new StravinskyService();
     HttpCalloutResponse response = stravinskyService.closePackage(
       ocvId,
-      closureCaseRecord
+      ACCOUNT_CLOSURE_DETAILS
     );
     Test.stopTest();
 

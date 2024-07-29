@@ -18,13 +18,13 @@ public with sharing class StravinskyService extends Service {
 
   /**
    * @param ocvId customer id
-   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
+   * @param closureCaseRequest Account Closure json string to be sent as request body
    * @return HttpCalloutResponse
    * @description stravinsky package closure api
    */
   public override HttpCalloutResponse closePackage(
     String ocvId,
-    AccountClosurePackageWrapper closureCaseRecord
+    String closureCaseRequest
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
@@ -35,9 +35,8 @@ public with sharing class StravinskyService extends Service {
       Label.ST_Close_Package,
       HTTP_METHOD.HTTP_POST,
       headers,
-      JSON.serialize(closureCaseRecord)
+      closureCaseRequest
     );
-
     return response;
   }
 

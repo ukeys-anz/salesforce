@@ -1,6 +1,6 @@
 {
-  "status": {
-    "code": 200,
-    "description": "Package closure successfully completed"
-  }
+  "accountsClosed": 2,
+  "cardsClosed": 1,
+  "packagesClosed": 1,
+  "errorInfo": null
 }
