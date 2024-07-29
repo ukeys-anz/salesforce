@@ -87,7 +87,7 @@ public with sharing class TFMDataINAPIRepository extends RepositoryBase {
   public HttpCalloutResponse getResponse(HttpCalloutResponse response) {
     if (
       !response.successful &&
-      (response.statusCode != 401 ||
+      (response.statusCode != 401 &&
       response.statusCode != 403)
     ) {
       throw response.error;

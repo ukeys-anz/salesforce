@@ -105,17 +105,6 @@ public with sharing class GetHelpCaseActions {
 
         //Checks if card token number needs to be deleted
         GetHelpCaseActionsHelper.handleCardTokenNumber(record);
-      } else if (record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
-        if (
-          ((oldRecord != null &&
-          oldRecord.Sub_Status__c !=
-          GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT) || oldRecord == null) &&
-          record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
-        ) {
-          GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
-            record
-          );
-        }
       } else if (
         CheckCaseRecordType.isAccountClosure(record, null) &&
         record.Status == GetHelpConstants.ESCALATED_STATUS &&
@@ -784,25 +773,6 @@ public with sharing class GetHelpCaseActions {
     CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     notificationCaseList.clear();
-  }
-
-  /**
-   * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
-   * @param records List of cases
-   */
-  public static void populateKYCQACasesClosedNoDefectDefaults(
-    List<Case> records
-  ) {
-    for (Case record : records) {
-      if (
-        record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID &&
-        record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
-      ) {
-        GetHelpCaseActionsHelper.populateKYCQACaseClosedNoDefectDefaults(
-          record
-        );
-      }
-    }
   }
 
   /**

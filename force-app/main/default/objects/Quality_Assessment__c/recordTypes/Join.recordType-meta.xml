@@ -462,7 +462,11 @@
     <picklistValues>
         <picklist>Evaluation_Type__c</picklist>
         <values>
-            <fullName>Fraud %26 Dispute</fullName>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dispute</fullName>
             <default>false</default>
         </values>
         <values>

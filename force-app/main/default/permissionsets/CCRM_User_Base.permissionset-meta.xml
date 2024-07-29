@@ -3755,6 +3755,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>EmailMessage.Attachment_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Event.FinServ__Expectations__c</field>
         <readable>true</readable>
     </fieldPermissions>

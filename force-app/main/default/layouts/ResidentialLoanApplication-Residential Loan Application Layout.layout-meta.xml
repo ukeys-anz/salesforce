@@ -141,8 +141,13 @@
     </relatedLists>
     <relatedLists>
         <fields>Name</fields>
-        <fields>Product_Name__c</fields>
         <fields>LoanExclFinMortInsAmt</fields>
+        <fields>Borrow_Additional_Funds__c</fields>
+        <fields>Loan_Term__c</fields>
+        <fields>Interest_Rate_Type__c</fields>
+        <fields>Loan_Repayment_Type__c</fields>
+        <fields>Loan_Repayment_Frequency__c</fields>
+        <fields>Offset__c</fields>
         <relatedList>LoanApplicationFinancial</relatedList>
     </relatedLists>
     <relatedLists>

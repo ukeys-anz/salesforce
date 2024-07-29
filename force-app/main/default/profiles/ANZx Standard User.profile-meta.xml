@@ -8138,6 +8138,9 @@
         <recordType>Customer_Action__c.Pending_Financial_Account_Updates</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Customer_Profile_Updates__c-Restrain Updates to Customer Details Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>FinServ__ContactContactRelation__c-Broker Staff</layout>
         <recordType>FinServ__ContactContactRelation__c.Broker_Staff</recordType>
     </layoutAssignments>
@@ -8179,6 +8182,9 @@
         <recordType>Lead.FinServ__RetirementPlanning</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>LoanApplicationProperty-Loan Application Property Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>PersonAccount-Customer Tabbed View Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
@@ -8208,6 +8214,9 @@
     <layoutAssignments>
         <layout>Task-Email Task Layout</layout>
         <recordType>Task.Email_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Title_Detail__c-Title Detail Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Twilio_Details__c-Twilio Detail Layout</layout>

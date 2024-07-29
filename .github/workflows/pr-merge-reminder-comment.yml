@@ -4,7 +4,7 @@ on:
     types: [opened]
 jobs:
   run:
-    runs-on: [self-hosted, salesforce-prod]
+    runs-on: anzx-default
     steps:
       - name: "Checkout Repo"
         uses: actions/checkout@v2

@@ -187,4 +187,3 @@ force-app/main/default/objects/Lead/fields/Conversion_Status__c
 
 #ANZX-157800 AUF Transformer squad
 force-app/main/default/aura/QuickActionAuraContainer
-

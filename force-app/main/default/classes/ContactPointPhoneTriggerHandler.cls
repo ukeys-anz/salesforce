@@ -67,6 +67,7 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
     );
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
+      MLCRMContactPointPhoneActions.validatePhones(records);
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         existingOrProspectAccountsCPP.prospectCPP,
         (Map<Id, ContactPointPhone>) oldMap,

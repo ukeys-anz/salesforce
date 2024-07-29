@@ -106,6 +106,12 @@ force-app/main/default/matchingRules/
 # Now that entitlementProcesses are versioned we no longer need to ignore them.
 #force-app/main/default/entitlementProcesses/
 force-app/main/default/entitlementProcesses/complaints_v1.entitlementProcess-meta.xml
+# Temporary add old version of EPs to deploy.forceignore
+force-app/main/default/entitlementProcesses/complaints_v2.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v7.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v10.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/complaints_v11.entitlementProcess-meta.xml
+force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
 
 #to prevent issues when deploying looking for depracated process name
 force-app/main/default/entitlementProcesses/anz plus - basic subscription v1.entitlementProcess-meta.xml
@@ -209,3 +215,6 @@ force-app/main/default/aura/QuickActionAuraContainer
 
 #ANZX-155504 ignore for manual delete
 force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
+
+#AR-138661 ignore Query All Files due to error with Production Objects
+force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml

@@ -398,7 +398,8 @@
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"
       ],
-      "IA-2486234": ["Sync_Status__c"]
+      "IA-2486234": ["Sync_Status__c"],
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -543,6 +544,11 @@
         "Old_Value__c",
         "Record_Id__c"
       ]
+    },
+    "Additional_Fund__c": {
+      "IA-2415840": [],
+      "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
+      "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -861,6 +867,7 @@
         "IDR_Progressed_Status__c",
         "IDR_Teleconference_Call_TCC__c",
         "IDR_Datetime_PSI_Ticked__c",
+        "IDR_Date_Case_on_Hold_From__c",
         "IDR_Express_CMOS_Complaint__c",
         "IDR_Knowledge_Keyword_1__c",
         "IDR_Knowledge_Keyword_2__c",
@@ -1074,6 +1081,7 @@
         "Reason_for_Recall_trace__c",
         "Reason_for_an_Urgent_Dishonour_Request__c",
         "Receipt__c",
+        "RecipientFundsType__c",
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
         "Show_Resolution_Launcher__c",
@@ -2030,7 +2038,7 @@
         "LastModifiedDate",
         "Id"
       ],
-      "IA-2415860": ["Status"],
+      "IA-2415860": ["Status", "Attachment_Notes__c"],
       "IA-2415997": ["Incoming"]
     },
     "Entitlement": {
@@ -2912,7 +2920,9 @@
         "Loan_Term__c",
         "Loan_Repayment_Type__c",
         "Loan_Margin__c",
-        "Loan_Repayment_Frequency__c"
+        "Loan_Repayment_Frequency__c",
+        "Borrow_Additional_Funds__c",
+        "Current_Loan_Balance__c"
       ],
       "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
       "IA-2415987": ["Product_Name__c"],
@@ -2957,6 +2967,7 @@
         "Bathrooms__c",
         "Bedrooms__c",
         "Carparks__c",
+        "External_ID__c",
         "Floor_Area__c",
         "Image_Link__c",
         "Land_Area__c",
@@ -2979,7 +2990,7 @@
         "RequestedLoanAmount",
         "Property_Value__c",
         "Maximum_Lending_Amount__c",
-        "Property_Value__c"
+        "PropertyValue"
       ],
       "IA-2415840": [
         "Maximum_Allowable_LVR__c",
@@ -3691,6 +3702,7 @@
         "Review_Period_Year__c",
         "REaL_form_categories__c",
         "REAL_form_Comments__c",
+        "IsUserSeniorManager__c",
         "REaL_form_receipt_no__c",
         "Relevant_internal_information_obtained__c",
         "Risk_and_Compliance_Category__c",
@@ -4270,6 +4282,18 @@
         "LastModifiedById",
         "LastModifiedDate"
       ]
+    },
+    "Title_Detail__c": {
+      "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],
+      "IA-2415984": ["Property_Owner__c"],
+      "IA-2530753": [
+        "Expire_Date_Time__c",
+        "External_Id__c",
+        "Search_Time__c",
+        "Loan_Application_Property__c",
+        "Residential_Loan_Application__c"
+      ],
+      "IA-2415840": ["Version__c"]
     },
     "User": {
       "IA-2460507": [

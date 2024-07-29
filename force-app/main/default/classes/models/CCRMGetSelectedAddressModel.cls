@@ -30,9 +30,9 @@ public with sharing class CCRMGetSelectedAddressModel extends CalloutModel {
   @AuraEnabled
   public String countryCodeThree;
   @AuraEnabled
-  public Decimal latitude;
+  public String latitude;
   @AuraEnabled
-  public Decimal longitude;
+  public String longitude;
 
   /**
    * @param json input string to deserialize

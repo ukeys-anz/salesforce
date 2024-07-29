@@ -40,7 +40,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
         handleErrors(response, null, CoachBankingAPIRepository.class);
       }
     } else {
-      handleErrors(
+      handleErrorAsInfo(
         null,
         new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
@@ -199,7 +199,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
         handleErrors(response, null, CoachBankingAPIRepository.class);
       }
     } else {
-      handleErrors(
+      handleErrorAsInfo(
         null,
         new PermissionException(VIEW_CARD_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
@@ -284,7 +284,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
         handleErrors(response, null, CoachBankingAPIRepository.class);
       }
     } else {
-      handleErrors(
+      handleErrorAsInfo(
         null,
         new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
@@ -314,7 +314,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
         handleErrors(response, null, CoachBankingAPIRepository.class);
       }
     } else {
-      handleErrors(
+      handleErrorAsInfo(
         null,
         new PermissionException(VIEW_CARD_PERMISSION_ERROR),
         CoachBankingAPIRepository.class

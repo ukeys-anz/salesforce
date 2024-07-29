@@ -144,29 +144,13 @@ public class NotificationTriggerHandlerAnzxTest {
   }
 
   @isTest
-  static void testassignEDRTemplate() {
-    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-
-    Case[] cases = new List<Case>();
-    Case caseRecord = IDRTestDataFactory.createComplaint();
-    caseRecord.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
-    caseRecord.Id = caseRecordId;
-
-    Id handlerRecordId = Lib_FakeIdGenerator.getMockId(
-      Notification_Handler__c.SObjectType
-    );
-    Notification_Handler__c handlerRecord = new Notification_Handler__c();
-    handlerRecord.Case__c = caseRecordId;
-    handlerRecord.Id = handlerRecordId;
-
-    Id notificationEventId = Lib_FakeIdGenerator.getMockId(
-      IDR_Notification_Event__e.SObjectType
-    );
-    IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
-    notification.Case_ID__c = caseRecordId;
-
+  static void testassignCustomerNotificationTemplate() {
     String template = NotificationTriggerHandler.assignCustomerNotificationTemplate(
-      caseRecord.Origin
+      IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED
+    );
+
+    String template1 = NotificationTriggerHandler.assignCustomerNotificationTemplate(
+      'Email'
     );
 
     System.assertEquals(
@@ -174,49 +158,10 @@ public class NotificationTriggerHandlerAnzxTest {
       IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE,
       'It is returning EDR Template'
     );
-    System.assertnotEquals(
-      template,
-      IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID,
-      'It is not returning EDR Template'
-    );
-  }
-
-  @isTest
-  static void testassignIDRtemplates() {
-    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-
-    Case[] cases = new List<Case>();
-
-    Case caseRecord = IDRTestDataFactory.createComplaint();
-    caseRecord.Origin = 'Email';
-    caseRecord.Id = caseRecordId;
-
-    Id handlerRecordId = Lib_FakeIdGenerator.getMockId(
-      Notification_Handler__c.SObjectType
-    );
-    Notification_Handler__c handlerRecord = new Notification_Handler__c();
-    handlerRecord.Case__c = caseRecordId;
-    handlerRecord.Id = handlerRecordId;
-
-    Id notificationEventId = Lib_FakeIdGenerator.getMockId(
-      IDR_Notification_Event__e.SObjectType
-    );
-    IDR_Notification_Event__e notification = new IDR_Notification_Event__e();
-    notification.Case_ID__c = caseRecordId;
-
-    String template = NotificationTriggerHandler.assignCustomerNotificationTemplate(
-      caseRecord.Origin
-    );
-
     System.assertEquals(
-      template,
+      template1,
       IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID,
-      'It is returning IDR Template'
-    );
-    System.assertnotEquals(
-      template,
-      IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE,
-      'It is not returning IDR Template'
+      'It is returning EDR Template'
     );
   }
 }
