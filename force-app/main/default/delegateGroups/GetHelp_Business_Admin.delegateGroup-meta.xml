@@ -16,6 +16,5 @@
     <permissionSetGroups>Settlement Officer</permissionSetGroups>
     <permissionSetGroups>Settlement Officer Lead</permissionSetGroups>
     <permissionSetGroups>Support Coach</permissionSetGroups>
-    <profiles>ANZx Standard User</profiles>
     <roles>ANZx</roles>
 </DelegateGroup>

@@ -41,6 +41,9 @@
         <field>Case.IDR_NC_Last_Name__c</field>
     </columns>
     <columns>
+        <field>Case.IDR_AFCA_Status__c</field>
+    </columns>
+    <columns>
         <field>Case.AFCA_Stage__c</field>
     </columns>
     <columns>
@@ -90,6 +93,7 @@
     </columns>
     <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over EDR cases with an information request due date</description>
     <filter>
+        <booleanFilter>1 AND 3 AND (2 OR 4)</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -110,6 +114,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>THIS_WEEK</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>$USER</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

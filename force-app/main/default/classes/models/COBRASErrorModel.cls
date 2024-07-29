@@ -31,6 +31,10 @@ public with sharing class COBRASErrorModel extends CalloutModel {
    * @description deserializes the input string into the model, using the base method and reserved key replacement
    */
   public static COBRASErrorModel parse(String json) {
-    return (COBRASErrorModel) deserialize(json, COBRASErrorModel.class);
+    try {
+      return (COBRASErrorModel) deserialize(json, COBRASErrorModel.class);
+    } catch (Exception ex) {
+      throw CommonUtil.logException(ex);
+    }
   }
 }

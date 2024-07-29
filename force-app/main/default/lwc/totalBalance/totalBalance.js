@@ -47,11 +47,22 @@ export default class TotalBalance extends LightningElement {
 
   async fetchDataFromFabric(ocvIdFromAccount) {
     this.loading = true;
-    await getFinancialAccountFabric({
-      ocvId: ocvIdFromAccount,
-      accountNumbers: []
-    });
-    await this.fetchFinancialDataFromDB();
+    try {
+      await getFinancialAccountFabric({
+        ocvId: ocvIdFromAccount,
+        accountNumbers: []
+      });
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve Account Details",
+        error,
+        "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
+    } finally {
+      await this.fetchFinancialDataFromDB();
+    }
   }
 
   async handleRefreshFinances(event) {

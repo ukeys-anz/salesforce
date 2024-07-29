@@ -581,7 +581,52 @@
                 <default>false</default>
                 <label>Fees and Charges</label>
             </value>
+            <value>
+                <fullName>110</fullName>
+                <default>false</default>
+                <label>Restraints placed incorrectly or not removed after completing KYC</label>
+            </value>
+            <value>
+                <fullName>111</fullName>
+                <default>false</default>
+                <label>Email/SMS/letter content or format concern</label>
+            </value>
+            <value>
+                <fullName>112</fullName>
+                <default>false</default>
+                <label>Restraints placed on account due to bank policy</label>
+            </value>
+            <value>
+                <fullName>113</fullName>
+                <default>false</default>
+                <label>Current KYC verification process dissatisfaction</label>
+            </value>
+            <value>
+                <fullName>114</fullName>
+                <default>false</default>
+                <label>Partial or incorrect information captured or provided</label>
+            </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>110</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>111</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>112</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>113</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>114</valueName>
+        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
             <controllingFieldValue>Scam</controllingFieldValue>

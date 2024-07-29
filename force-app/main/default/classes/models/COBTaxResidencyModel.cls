@@ -42,6 +42,13 @@ public with sharing class COBTaxResidencyModel extends CalloutModel {
    * @description deserializes the input string into the model
    */
   public static COBTaxResidencyModel parse(String json) {
-    return (COBTaxResidencyModel) deserialize(json, COBTaxResidencyModel.class);
+    try {
+      return (COBTaxResidencyModel) deserialize(
+        json,
+        COBTaxResidencyModel.class
+      );
+    } catch (Exception ex) {
+      throw CommonUtil.logException(ex);
+    }
   }
 }

@@ -2047,7 +2047,7 @@
     &quot;repaymentAmount&quot; : &quot;=CURRENCY(ROUND(%debt:institutionalLiability:repaymentAmount:value%,2))&quot;,
     &quot;years&quot; : &quot;%debt:institutionalLiability:years%&quot;,
     &quot;months&quot; : &quot;%debt:institutionalLiability:months%&quot;,
-    &quot;UseUpdatedBalanceOwingForUMI&quot; : &quot;%debt:institutionalLiability:validatedOutstandingBalance%&quot;,
+    &quot;UseUpdatedBalanceOwingForUMI&quot; : &quot;%debt:validatedOutstandingBalance%&quot;,
     &quot;monthlyRepaymentBnpl&quot; : &quot;=IF(%debt:sources|1% &lt;&gt; &apos;LIABILITY_SOURCE_TYPE_ANZ&apos;, CURRENCY(ROUND(%debt:institutionalLiability:repaymentAmount:value%,2)), 0)&quot;,
     &quot;creditBureauBalanceOwing&quot; : &quot;=CURRENCY(ROUND(%debt:verifiedOutstandingBalance:value%,2))&quot;,
     &quot;creditBureauRemainingTerm&quot; : &quot;%debt:institutionalLiability:readableVerifiedPIRemainingTerm%&quot;,

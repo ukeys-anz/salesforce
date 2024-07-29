@@ -427,8 +427,8 @@
         <label>Residential Address QA</label>
     </standardValue>
     <standardValue>
-        <fullName>Goods &amp; Services</fullName>
+        <fullName>Know Your Customer</fullName>
         <default>false</default>
-        <label>Goods &amp; Services</label>
+        <label>Know Your Customer</label>
     </standardValue>
 </StandardValueSet>
