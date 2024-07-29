@@ -26,4 +26,32 @@ public with sharing class ResidentialLoanApplicationRepository {
         AND Property_ID__c != NULL
     ];
   }
+
+  /**
+   * @description get multiple loan application record details
+   * @return List<ResidentialLoanApplication>
+   * @param loanIds List of ResidentialLoanapplication Ids
+   */
+  public List<ResidentialLoanApplication> queryMultipleLoanApplications(
+    List<Id> loanIds
+  ) {
+    List<ResidentialLoanApplication> loanApplicationRecords = new List<ResidentialLoanApplication>();
+    if (
+      loanIds.isEmpty() ||
+      !ResidentialLoanApplication.SObjectType.getDescribe().isQueryable()
+    ) {
+      return loanApplicationRecords;
+    }
+    loanApplicationRecords = [
+      SELECT
+        Id,
+        Name,
+        Sync_Status__c,
+        ApplicationExtIdentifier,
+        Account.External_Id__c
+      FROM ResidentialLoanApplication
+      WHERE Id IN :loanIds
+    ];
+    return loanApplicationRecords;
+  }
 }
