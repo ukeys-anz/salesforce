@@ -63,27 +63,23 @@ public with sharing class StravinskyControllerTest {
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-      Package_Id__c = faker.randomString(10)
+      Package_Id__c = faker.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
 
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
-      PackageClosureModel response = StravinskyController.getPackageClosureAura(
+      GenesisPackageClosureModel response = StravinskyController.getPackageClosureAura(
         newCase.Id
       );
 
       Test.stopTest();
       System.assertEquals(
-        200,
-        response.status.code,
-        'Status code of 200 was expected'
-      );
-      System.assertEquals(
-        'Package closure successfully completed',
-        response.status.description,
-        'Package closure was not successful'
+        null,
+        response.errorinfo,
+        'No ErrorInfo Present in Response'
       );
     }
   }
@@ -101,7 +97,8 @@ public with sharing class StravinskyControllerTest {
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
       RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-      Package_Id__c = faker.randomString(10)
+      Package_Id__c = faker.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
@@ -132,7 +129,8 @@ public with sharing class StravinskyControllerTest {
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
@@ -182,24 +180,20 @@ public with sharing class StravinskyControllerTest {
         AccountId = jointCustomer.Id,
         Account_Type__c = 'Joint',
         RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-        Package_Id__c = faker.randomString(10)
+        Package_Id__c = faker.randomString(10),
+        Account_Product__c = 'ANZ Plus & ANZ Save'
       );
       insert newCase;
 
-      PackageClosureModel response = StravinskyController.getPackageClosureAura(
+      GenesisPackageClosureModel response = StravinskyController.getPackageClosureAura(
         newCase.Id
       );
 
       Test.stopTest();
       System.assertEquals(
-        200,
-        response.status.code,
-        'Status code of 200 was expected'
-      );
-      System.assertEquals(
-        'Package closure successfully completed',
-        response.status.description,
-        'Package closure was not successful'
+        null,
+        response.errorinfo,
+        'No ErrorInfo Present in Response'
       );
     }
   }
@@ -255,7 +249,8 @@ public with sharing class StravinskyControllerTest {
         AccountId = jointCustomer.Id,
         Account_Type__c = 'Joint',
         RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-        Package_Id__c = faker.randomString(10)
+        Package_Id__c = faker.randomString(10),
+        Account_Product__c = 'ANZ Plus & ANZ Save'
       );
       insert newCase;
 
@@ -270,6 +265,40 @@ public with sharing class StravinskyControllerTest {
         );
         Test.stopTest();
       }
+    }
+  }
+
+  @isTest
+  static void testValidatePackageIdSuccess() {
+    Faker faker = new Faker('AU');
+    Case newCase = new Case(
+      Account_Type__c = 'Individual',
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Package_Id__c = FAKER.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    Test.startTest();
+    StravinskyController.validatePackageId(newCase);
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testValidatePackageIdFailure() {
+    Case newCase = new Case(
+      Account_Type__c = 'Individual',
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    Test.startTest();
+    try {
+      StravinskyController.validatePackageId(newCase);
+    } catch (AuraHandledException e) {
+      System.assertEquals(
+        'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.',
+        e.getMessage(),
+        'Exception Message As Expected'
+      );
+      Test.stopTest();
     }
   }
 }
