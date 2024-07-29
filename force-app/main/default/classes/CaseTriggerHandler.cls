@@ -144,12 +144,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
 
-    //Update the IDOps Case's Onboarding Verification Failed Reason
-    GetHelpCaseActions.updateIDOpsWatchlistOnboardingReason(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

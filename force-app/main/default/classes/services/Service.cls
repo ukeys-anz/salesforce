@@ -587,26 +587,26 @@ public with sharing virtual class Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields the tokenized fields to be detokenized
+   * @param request the tokenized fields to be detokenized
    * @return `HttpCalloutResponse` api response
    * @description virtual stravinsky cobPid detokenize api
    */
-  public virtual HttpCalloutResponse detokenizeCOBPID(
+  public virtual HttpCalloutResponse detokenize(
     String personaId,
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedFields
+    DetokenizeRequestModel request
   ) {
     return null;
   }
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param detokenizedValue detokenized COBPID ready for tokenization
+   * @param request detokenized COBPID ready for tokenization
    * @return `HttpCalloutResponse` api response
    * @description virtual stravinsky cobPid tokenize api
    */
-  public virtual HttpCalloutResponse tokenizeCOBPID(
+  public virtual HttpCalloutResponse updatePrimaryIDDocument(
     String personaId,
-    COBPrimaryIDDocumentModel detokenizedValue
+    COBPrimaryIDDocUpdateRequestModel request
   ) {
     return null;
   }

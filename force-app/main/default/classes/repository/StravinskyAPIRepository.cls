@@ -20,13 +20,15 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   public static final String STAGE_ASSISTED_KYC = 'STAGE_ASSISTED_KYC';
   public static final String STAGE_ACK_ID_CHECK = 'STAGE_ACK_ID_CHECK';
   public static final String STAGE_TNC = 'STAGE_TNC';
+  public static final String STAGE_TERMINATED = 'STAGE_TERMINATED';
 
   @TestVisible
   private static final Set<String> EXPECTED_STAGES_SET = new Set<String>{
     STAGE_ASSISTED_SELFIE,
     STAGE_ASSISTED_KYC,
     STAGE_ACK_ID_CHECK,
-    STAGE_TNC
+    STAGE_TNC,
+    STAGE_TERMINATED
   };
 
   /**
@@ -106,10 +108,11 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     }
 
     for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
-      String errorStage = errDetail.debug?.cxOnboardingStage;
+      COBRASErrorModel.Debug debug = errDetail.debug;
+      String errorStage = debug?.cxOnboardingStage;
       if (EXPECTED_STAGES_SET.contains(errorStage)) {
         cobStage.cxOnboardingStage = errorStage;
-        cobStage.retryReason = errDetail.debug?.retryReason;
+        cobStage.reason = debug.reason;
         return cobStage;
       }
     }
@@ -118,42 +121,51 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields a list of fields to be detokenized, as callout request body
-   * @return COBPrimaryIDDocumentModel
+   * @param personaId COB Primary ID record's PersonaId
+   * @param fieldValues the field values to be detokenized
+   * @param transformValue the token transform value use for detokenizing
+   * @return DetokenizeModel
    * @description stravinsky COBPID detokenization api
    */
-  public COBPrimaryIDDocumentModel cobPidDetokenization(
+  public DetokenizeModel detokenize(
     String personaId,
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedFields
+    Set<String> fieldValues,
+    String transformValue
   ) {
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.detokenizeCOBPID(
-      personaId,
-      tokenizedFields
+    DetokenizeRequestModel request = new DetokenizeRequestModel(
+      fieldValues,
+      transformValue
     );
+
+    Service s = ServiceProvider.getService(StravinskyService.class);
+    HttpCalloutResponse response = s.detokenize(personaId, request);
 
     if (response.successful == false) {
       throw CommonUtil.logException(response);
     }
 
-    return COBPrimaryIDDocumentModel.parse(response.body);
+    return DetokenizeModel.parse(response.body);
   }
 
   /**
-   * @param personaId COB Primary ID record Persona Id
-   * @param detokenizedValue detokenized value (plain text) of a COBPID record
+   * @param record COB Primary ID record
+   * @param caseId the linked Case Id to the COBPID record
    * @return COBPrimaryIDDocumentModel
    * @description stravinsky COBPID tokenization api
    */
-  public COBPrimaryIDDocumentModel cobPidTokenization(
-    String personaId,
-    COBPrimaryIDDocumentModel detokenizedValue
+  public COBPrimaryIDDocumentModel updatePrimaryIDDocument(
+    COBPrimaryIDDocument__c record,
+    Id caseId
   ) {
+    COBPrimaryIDDocUpdateRequestModel requestBody = new COBPrimaryIDDocUpdateRequestModel(
+      record,
+      caseId
+    );
+
     Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.tokenizeCOBPID(
-      personaId,
-      detokenizedValue
+    HttpCalloutResponse response = s.updatePrimaryIDDocument(
+      record.PersonaId__c,
+      requestBody
     );
 
     if (response.successful == false) {
@@ -200,9 +212,9 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
      */
     public String cxOnboardingStage { get; set; }
     /**
-     * @description retryReason
+     * @description reason
      */
-    public String retryReason { get; set; }
+    public String reason { get; set; }
   }
 
   /**

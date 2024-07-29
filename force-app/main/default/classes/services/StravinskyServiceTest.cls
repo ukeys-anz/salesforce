@@ -6,6 +6,7 @@
  */
 @isTest
 public inherited sharing class StravinskyServiceTest {
+  private static final String COB_PID_TOKEN_TRANSFORM_VALUE = 'fpe.personal-identifier';
   private static final String SUCCESS_CLOSE_PACKAGE_RESPONSE =
     '{' +
     '   \"status\": { \"code\": 200, \"description\": \"SUCCESS\" },' +
@@ -46,6 +47,42 @@ public inherited sharing class StravinskyServiceTest {
     '1011111111'
   };
 
+  static Faker faker = new Faker('AU');
+
+  static COBTaxResidency__c taxResidency = new COBTaxResidency__c(
+    PersonaId__c = faker.randomString(10),
+    TaxIdentificationNumber__c = '123456789'
+  );
+
+  static COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
+    PersonaId__c = faker.randomString(10),
+    IdDocumentType__c = 'Licence',
+    FirstName__c = 'firstName',
+    MiddleNames__c = 'middle names',
+    LastName__c = 'lastName',
+    DateOfBirth__c = Date.today(),
+    LicenceNumber__c = '123123',
+    LicenceNumberOCRClient__c = '123123',
+    LicenceNumberOCRServer__c = '123123',
+    LicenceCardNumber__c = '456456',
+    LicenceCardNumberOCRClient__c = '456456',
+    LicenceCardNumberOCRServer__c = '456456',
+    ExpiryDate__c = Date.today(),
+    StateOfIssue__c = 'AU'
+  );
+
+  static Case idOpsCase = new Case(
+    PersonaId__c = cobPid.PersonaId__c,
+    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+  );
+
+  static Case newCase = new Case(
+    Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
+    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+    PersonaId__c = faker.randomString(15),
+    Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
+  );
+
   @isTest
   static void getRealService() {
     Test.startTest();
@@ -61,7 +98,6 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testClosePackageSuccess() {
-    Faker faker = new Faker('AU');
     String ocvId = faker.randomString(10);
     String packageId = faker.randomString(10);
 
@@ -99,8 +135,6 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testClosePackageWithFailure() {
-    Faker faker = new Faker('AU');
-
     String ocvId = faker.randomString(10);
     String packageId = faker.randomString(10);
 
@@ -133,14 +167,6 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testTriggerTemporalCaseWorkflowSuccess() {
-    Faker faker = new Faker('AU');
-    Case newCase = new Case(
-      Id = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
-      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-      PersonaId__c = faker.randomString(15),
-      Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
-    );
-
     //load forge staff token
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + newCase.PersonaId__c,
@@ -162,14 +188,6 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testTriggerTemporalCaseWorkflowFailure() {
-    Faker faker = new Faker('AU');
-    Case newCase = new Case(
-      Id = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
-      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-      PersonaId__c = faker.randomString(15),
-      Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
-    );
-
     //load forge staff token
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + newCase.PersonaId__c,
@@ -190,22 +208,13 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetCaseWorkflowPayloadIdOpsDaonApproved() {
-    Faker faker = new Faker('AU');
-    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
-    Case newCase = new Case(
-      Id = mockId,
-      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-      Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
-    );
-
     Test.startTest();
     StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
     String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
     Test.stopTest();
 
-    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
-      '{\"caseId\":\"' + mockId + '\"}',
+      '{"caseId":"' + newCase.Id + '"}',
       payload,
       'Payload is not correct.'
     );
@@ -213,9 +222,8 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetCaseWorkflowPayloadIdOpsEmpty() {
-    Faker faker = new Faker('AU');
     Case newCase = new Case(
-      ParentId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
+      ParentId = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
       RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
       Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
     );
@@ -234,10 +242,9 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetCaseWorkflowPayloadFraudCheckDaonApproved() {
-    Faker faker = new Faker('AU');
-    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
     Case newCase = new Case(
-      ParentId = mockId,
+      Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
+      ParentId = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
       RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
       Status = GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS
     );
@@ -249,7 +256,7 @@ public inherited sharing class StravinskyServiceTest {
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
-      '{\"caseId\":\"' + mockId + '\"}',
+      '{\"caseId\":\"' + newCase.ParentId + '\"}',
       payload,
       'Payload is not correct.'
     );
@@ -257,9 +264,8 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetCaseWorkflowPayloadFraudCheckEmpty() {
-    Faker faker = new Faker('AU');
     Case newCase = new Case(
-      ParentId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
+      ParentId = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
       RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
       Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
     );
@@ -278,10 +284,8 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetCaseWorkflowPayloadIdOpsWatchlistConfirmedFraud() {
-    Faker faker = new Faker('AU');
-    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
     Case newCase = new Case(
-      Id = mockId,
+      Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
       RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
       Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS,
       Subject = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT'
@@ -295,7 +299,7 @@ public inherited sharing class StravinskyServiceTest {
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
       '{\"reason\":\"' +
-        GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST +
+        COBCaseStatusPathController.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON +
         '\"}',
       payload,
       'Payload is not correct.'
@@ -304,10 +308,8 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetCaseWorkflowPayloadFraudCheckConfirmedFraud() {
-    Faker faker = new Faker('AU');
-    Id mockId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
     Case newCase = new Case(
-      Id = mockId,
+      Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
       RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
       Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
     );
@@ -327,28 +329,18 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testRetrieveDetokenizedCOBPIDSuccess() {
-    Faker faker = new Faker('AU');
-    String personaId = faker.randomString(10);
-
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = personaId,
-      IdDocumentType__c = 'Licence',
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
-    );
-
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
+    Set<String> fieldValues = COBPIDViewAndEditController.getTokenizedFieldValues(
       cobPid,
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
+    );
+    DetokenizeRequestModel tokenizedValues = new DetokenizeRequestModel(
+      fieldValues,
+      COBPrimaryIDDocumentModel.TOKEN_TRANSFORM_VALUE
     );
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + cobPid.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -359,8 +351,8 @@ public inherited sharing class StravinskyServiceTest {
 
     Test.startTest();
     StravinskyService stravinskyService = new StravinskyService();
-    HttpCalloutResponse response = stravinskyService.detokenizeCOBPID(
-      personaId,
+    HttpCalloutResponse response = stravinskyService.detokenize(
+      cobPid.PersonaId__c,
       tokenizedValues
     );
     Test.stopTest();
@@ -374,28 +366,18 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testRetrieveDetokenizedCOBPIDFailure() {
-    Faker faker = new Faker('AU');
-    String personaId = faker.randomString(10);
-
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = personaId,
-      IdDocumentType__c = 'Licence',
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456'
-    );
-
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
+    Set<String> fieldValues = COBPIDViewAndEditController.getTokenizedFieldValues(
       cobPid,
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
+    );
+    DetokenizeRequestModel tokenizedValues = new DetokenizeRequestModel(
+      fieldValues,
+      COBPrimaryIDDocumentModel.TOKEN_TRANSFORM_VALUE
     );
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + cobPid.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -406,8 +388,8 @@ public inherited sharing class StravinskyServiceTest {
 
     Test.startTest();
     StravinskyService stravinskyService = new StravinskyService();
-    HttpCalloutResponse response = stravinskyService.detokenizeCOBPID(
-      personaId,
+    HttpCalloutResponse response = stravinskyService.detokenize(
+      cobPid.PersonaId__c,
       tokenizedValues
     );
     Test.stopTest();
@@ -417,33 +399,14 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testTokenizeCOBPIDSuccess() {
-    Faker faker = new Faker('AU');
-    String personaId = faker.randomString(10);
-
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = '000000000',
-      IdDocumentType__c = 'Licence',
-      FirstName__c = 'firstName',
-      MiddleNames__c = 'middle names',
-      LastName__c = 'lastName',
-      DateOfBirth__c = Date.today(),
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456',
-      ExpiryDate__c = Date.today(),
-      StateOfIssue__c = 'AU'
-    );
-
-    COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
-      cobPid
+    COBPrimaryIDDocUpdateRequestModel requestBody = new COBPrimaryIDDocUpdateRequestModel(
+      cobPid,
+      idOpsCase.Id
     );
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + cobPid.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -451,8 +414,8 @@ public inherited sharing class StravinskyServiceTest {
 
     Test.startTest();
     StravinskyService stravinskyService = new StravinskyService();
-    HttpCalloutResponse response = stravinskyService.tokenizeCOBPID(
-      personaId,
+    HttpCalloutResponse response = stravinskyService.updatePrimaryIDDocument(
+      cobPid.PersonaId__c,
       requestBody
     );
     Test.stopTest();
@@ -466,33 +429,14 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testTokenizeCOBPIDFailure() {
-    Faker faker = new Faker('AU');
-    String personaId = faker.randomString(10);
-
-    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
-      PersonaId__c = '000000000',
-      IdDocumentType__c = 'Licence',
-      FirstName__c = 'firstName',
-      MiddleNames__c = 'middle names',
-      LastName__c = 'lastName',
-      DateOfBirth__c = Date.today(),
-      LicenceNumber__c = '123123',
-      LicenceNumberOCRClient__c = '123123',
-      LicenceNumberOCRServer__c = '123123',
-      LicenceCardNumber__c = '456456',
-      LicenceCardNumberOCRClient__c = '456456',
-      LicenceCardNumberOCRServer__c = '456456',
-      ExpiryDate__c = Date.today(),
-      StateOfIssue__c = 'AU'
-    );
-
-    COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
-      cobPid
+    COBPrimaryIDDocUpdateRequestModel requestBody = new COBPrimaryIDDocUpdateRequestModel(
+      cobPid,
+      idOpsCase.Id
     );
 
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + cobPid.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -500,8 +444,8 @@ public inherited sharing class StravinskyServiceTest {
 
     Test.startTest();
     StravinskyService stravinskyService = new StravinskyService();
-    HttpCalloutResponse response = stravinskyService.tokenizeCOBPID(
-      personaId,
+    HttpCalloutResponse response = stravinskyService.updatePrimaryIDDocument(
+      cobPid.PersonaId__c,
       requestBody
     );
     Test.stopTest();
@@ -511,17 +455,11 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testRetrieveDetokenizedCOBTaxResidencySuccess() {
-    Faker faker = new Faker('AU');
-    String personaId = faker.randomString(10);
-
-    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
-      PersonaId__c = personaId,
-      TaxIdentificationNumber__c = '123456789'
-    );
-
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
+      AuthTokenCacheUtil.STAFFPART +
+        'forgeJWTToken' +
+        taxResidency.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -552,17 +490,11 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testRetrieveDetokenizedCOBTaxResidencyFailure() {
-    Faker faker = new Faker('AU');
-    String personaId = faker.randomString(10);
-
-    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
-      PersonaId__c = personaId,
-      TaxIdentificationNumber__c = '123456789'
-    );
-
     //load forge staff token
     Cache.Session.put(
-      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + personaId,
+      AuthTokenCacheUtil.STAFFPART +
+        'forgeJWTToken' +
+        taxResidency.PersonaId__c,
       AuthServiceTest.IDTESTVALUE
     );
 
@@ -583,10 +515,6 @@ public inherited sharing class StravinskyServiceTest {
 
   @isTest
   static void testGetDetokenizePayload() {
-    COBTaxResidency__c taxResidency = new COBTaxResidency__c(
-      TaxIdentificationNumber__c = '123456789'
-    );
-
     StravinskyService stravinskyService = new StravinskyService();
     String payload = stravinskyService.getDetokenizePayload(taxResidency);
 

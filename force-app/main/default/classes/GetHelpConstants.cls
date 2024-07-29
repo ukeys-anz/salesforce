@@ -282,7 +282,6 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
   public static final String COB_DAON_FAILED_STATUS = 'Daon Fallout';
-  public static final String COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT = 'Daon Fallout: WATCHLIST_HIT';
   public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon OK';
   public static final String COB_FRAUD_CHECK_DAON_APPROVED_STATUS = 'Fraud Check: Daon OK';
   public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Fallout';
@@ -302,9 +301,6 @@ public with sharing class GetHelpConstants {
     'App',
     'ANZ Plus App'
   };
-  //Case Onboarding Verification Failed Reason picklist values
-  public static final String ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST = 'Confirmed Fraud - Selfie Watchlist';
-
   // Permission Set Group Name
   public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
 
