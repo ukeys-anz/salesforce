@@ -160,9 +160,9 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
-    for (Case newCase : records) {
+    List<Case> anzCases = filterANZCases(records);
+    for (Case newCase : anzCases) {
       if (
-        CheckCaseRecordType.isANZPlusCaseType(newCase) &&
         newCase.AccountId != null &&
         (mpOldCasesByIds == null ||
         RecordComparisonUtil.fieldWasChanged(
@@ -176,20 +176,14 @@ public with sharing class GetHelpCaseActionsHelper {
       }
     }
 
-    if (relatedAccountIDs.isEmpty()) {
-      return;
-    }
-
     Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
       relatedAccountIDs
     );
 
     for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      newCaseRecord.ContactId = relatedAccountsMap.get(newCaseRecord.AccountId)
-          .IsPersonAccount
-        ? relatedAccountsMap.get(newCaseRecord.AccountId).PersonContactId
-        : null;
+      Account acc = relatedAccountsMap.get(newCaseRecord.AccountId);
+      newCaseRecord.ContactId = acc?.PersonContactId;
     }
   }
 
@@ -953,6 +947,23 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
     }
+  }
+
+  /**
+   * @description Check if the cae is a ANZXCase
+   * @param record List of case records which are updated or inserted
+   * @return filtered cases based on record type
+   */
+  private static List<Case> filterANZCases(List<Case> record) {
+    List<Case> caseRecordList = new List<Case>();
+
+    for (Case caseRecord : record) {
+      if (CheckCaseRecordType.isANZPlusCaseType(caseRecord)) {
+        caseRecordList.add(caseRecord);
+      }
+    }
+
+    return caseRecordList;
   }
 
   /**

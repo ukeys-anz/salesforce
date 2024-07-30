@@ -4,36 +4,26 @@
  * @description  Expire All the Coach Nudge Task if due date is reached.
  */
 public with sharing class CoachNudgeTaskAutoExpireScheduler implements Schedulable {
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
+  private static final CoachNudgeRepository COACH_NUDGE_REPOSITORY = (CoachNudgeRepository) Lib_InstanceProvider.forType(
+    CoachNudgeRepository.class
+  );
   /**
    * @description execute method to run logic to expire the task
    * @param sc SchedulableContext
    */
   public void execute(SchedulableContext sc) {
     List<Task> tasksToUpdate = new List<Task>();
-    List<Task> taskRecords = [
-      SELECT Id, Status, OwnerId
-      FROM Task
-      WHERE
-        ActivityDate < TODAY
-        AND ActivityDate = LAST_N_DAYS:2
-        AND Status IN (
-          :GetHelpTaskActions.TASK_STATUS_NOT_STARTED,
-          :GetHelpTaskActions.TASK_STATUS_NEW
-        )
-        AND RecordTypeId IN (
-          :GetHelpConstants.COACH_NUDGE_RT_ID,
-          :GetHelpConstants.CALLBACK_REQUEST_RT_ID
-        )
-    ];
-
+    List<Task> taskRecords = COACH_NUDGE_REPOSITORY.queryTasksToExpire();
     tasksToUpdate = checkAndUpdateTaskRecords(taskRecords);
-    if (!tasksToUpdate.isEmpty()) {
-      DMLUtil.updateRecords(
-        tasksToUpdate,
-        DMLUtil.ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
-    }
+    DML_REPOSITORY.updateRecords(
+      tasksToUpdate,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.SYSTEM_MODE
+    );
   }
 
   /**
@@ -44,10 +34,12 @@ public with sharing class CoachNudgeTaskAutoExpireScheduler implements Schedulab
   public static List<Task> checkAndUpdateTaskRecords(List<Task> taskRecords) {
     List<Task> tasksToUpdate = new List<Task>();
     for (Task taskRecord : taskRecords) {
-      if (String.valueOf(taskRecord.OwnerId).startsWith('00G')) {
-        taskRecord.Status = GetHelpTaskActions.TASK_STATUS_EXPIRED;
-        tasksToUpdate.add(taskRecord);
+      if (!(taskRecord.OwnerId.getSobjectType() == Group.getSobjectType())) {
+        continue;
       }
+      taskRecord.Status = GetHelpTaskActions.TASK_STATUS_EXPIRED;
+      taskRecord.Sub_Status__c = GetHelpTaskActions.TASK_SUB_STATUS_AUTO_CANCELLED;
+      tasksToUpdate.add(taskRecord);
     }
     return tasksToUpdate;
   }

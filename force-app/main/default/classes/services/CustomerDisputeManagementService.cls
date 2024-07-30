@@ -8,6 +8,14 @@ public with sharing class CustomerDisputeManagementService {
     .get('Dispute_Limit')
     .Dispute_Limit__c;
 
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+  DmlRepository.class
+  );
+
+  private static final CustomerDisputeManagementRepository CDM_REPOSITORY = (CustomerDisputeManagementRepository) Lib_InstanceProvider.forType(
+    CustomerDisputeManagementRepository.class
+    );
+
   /**
    * @description check whether the Customer Dispute Management related to Account or not and then create the Customer Dispute Management Record to link with Customer
    * @param newCaseRecords  Case records from trigger on insert
@@ -28,7 +36,10 @@ public with sharing class CustomerDisputeManagementService {
         return;
       }
 
-      List<Account> masterAccountList = queryCustomer(customerIds);
+      List<Account> masterAccountList = CDM_REPOSITORY.queryCustomer(
+        customerIds,
+        disputeLimit
+      );
 
       List<Database.UpsertResult> cdmRecordsUpsertedResult = upsertCDMRecordsAndReturnUpsertedList(
         masterAccountList
@@ -79,38 +90,7 @@ public with sharing class CustomerDisputeManagementService {
         customerIds.add(caseRecord.AccountId);
       }
     }
-
     return customerIds;
-  }
-
-  /**
-   * @description To query all the customers details including number of active cases and cdm record details if exist
-   * @param customerIds set of customer Ids
-   * @return List<Account> list of customer with all the related details
-   */
-  @TestVisible
-  private static List<Account> queryCustomer(Set<Id> customerIds) {
-    //Query Customer to find number of active cases and CDM record exist
-    return [
-      SELECT
-        Id,
-        Customer_Dispute_Management__c,
-        Customer_Dispute_Management__r.Id,
-        Customer_Dispute_Management__r.Temporary_Block__c,
-        Customer_Dispute_Management__r.Permanent_Block__c,
-        Customer_Dispute_Management__r.Temporary_Block_Overridden__c,
-        (
-          SELECT Id
-          FROM Cases
-          WHERE
-            IsClosed = FALSE
-            AND Origin IN :GetHelpConstants.SELF_SERVICE_ORIGIN
-            AND RecordTypeId IN :CheckCaseRecordType.DISPUTE_RT_IDS
-          LIMIT :disputeLimit
-        )
-      FROM Account
-      WHERE Id IN :customerIds
-    ];
   }
 
   /**
@@ -141,7 +121,11 @@ public with sharing class CustomerDisputeManagementService {
         cdmRecordsToBeUpserted.add(cdmRecordToInsert);
       }
     }
-    return DMLUtil.upsertRecords(cdmRecordsToBeUpserted, false, false);
+    return DML_REPOSITORY.upsertRecords(
+      cdmRecordsToBeUpserted,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.SYSTEM_MODE
+    );
   }
 
   /**
@@ -203,7 +187,10 @@ public with sharing class CustomerDisputeManagementService {
       return;
     }
 
-    List<Account> accountWithCDMDetails = queryCustomer(accountIdsFromCase);
+    List<Account> accountWithCDMDetails = CDM_REPOSITORY.queryCustomer(
+      accountIdsFromCase,
+      disputeLimit
+    );
       
     Map<Id,Account> accountCDMMap = createAccountMapWithCDMDetails(accountWithCDMDetails);
 	
@@ -272,7 +259,7 @@ public with sharing class CustomerDisputeManagementService {
 
     return (permanentChecked) || (tempChecked && !tempOveriddenChecked) ?? false ;
   }
-  
+
   /**
    * @description private without sharing class to bypass account sharing setting to link CDM with Account in System mode
    */
@@ -284,7 +271,11 @@ public with sharing class CustomerDisputeManagementService {
      */
     @TestVisible
     private void updateAccountsMissingCDM(List<Account> customerToUpdateList) {
-      DMLUtil.updateRecords(customerToUpdateList, false, false);
+      DML_REPOSITORY.updateRecords(
+        customerToUpdateList,
+        DmlRepository.ALLOW_PARTIAL,
+        DmlRepository.SYSTEM_MODE
+      );
     }
   }
 }

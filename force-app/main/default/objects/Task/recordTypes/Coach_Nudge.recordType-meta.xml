@@ -1191,6 +1191,14 @@
     <picklistValues>
         <picklist>Sub_Status__c</picklist>
         <values>
+            <fullName>Auto cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer cancelled</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Not Eligible</fullName>
             <default>false</default>
         </values>
