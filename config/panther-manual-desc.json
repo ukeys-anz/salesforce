@@ -1160,6 +1160,7 @@
         "Card_Token_Number__c"
       ],
       "IA-2415992": ["SI_Potential_Consequence_to_Customer__c"],
+      "IA-2415995": ["Account_Product__c"],
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",

@@ -1,0 +1,9 @@
+{
+  "accountsClosed": 1,
+  "cardsClosed": 1,
+  "packagesClosed": 0,
+  "errorInfo": {
+    "errorCode": 500,
+    "reason": "one or more errors while closing account(s)"
+  }
+}
