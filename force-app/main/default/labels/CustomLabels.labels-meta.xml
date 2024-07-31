@@ -2421,6 +2421,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>api/now/table/sn_risk_advanced_event?number=</value>
     </labels>
     <labels>
+        <fullName>MLCRM_Record_Creation_Error</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM_Record_Creation_Error</shortDescription>
+        <value>You do not have necessary permission to create this record.</value>
+    </labels>
+    <labels>
         <fullName>ValidateOwnerChange</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>

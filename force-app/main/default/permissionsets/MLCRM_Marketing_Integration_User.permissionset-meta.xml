@@ -4,6 +4,10 @@
         <name>CCRM_Skip_Validation</name>
         <enabled>true</enabled>
     </customPermissions>
+    <customPermissions>
+        <name>ML_Allow_Lead_Creation</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.CLG__c</field>

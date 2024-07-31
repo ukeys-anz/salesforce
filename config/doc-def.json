@@ -1055,6 +1055,18 @@
       "type": "system"
     },
     {
+      "name": "CPID Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "CCRM_Controlling_Post",
+        "Disable_MFA",
+        "MLCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Aegis Harbour Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
