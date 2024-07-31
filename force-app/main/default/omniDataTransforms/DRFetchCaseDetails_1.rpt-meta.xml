@@ -111,6 +111,8 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom9921</globalKey>
+        <globalKey>DRFetchCaseDetailsCustom9921</globalKey>
+        <inputFieldName>ComplaintResolution|3:IDR_Complaint_Remedy__c</inputFieldName>
         <inputFieldName>ComplaintResolution|3:IDR_Complaint_Remedy__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
