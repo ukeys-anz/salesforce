@@ -1052,6 +1052,20 @@
       "permissionsetgroups": ["FraudX_Agent"],
       "permissionsets": ["EinsteinAnalyticsPlusAdmin", "Export_Reports"],
       "type": "system"
+    },
+    {
+      "name": "Aegis Harbour Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Case_Read_Write_Pin_Selfie",
+        "API_Only",
+        "Enforce_mTLS",
+        "Disable_MFA",
+        "Password_Never_Expires",
+        "Set_Audit_Fields"
+      ],
+      "type": "system"
     }
   ]
 }
