@@ -15,6 +15,10 @@ public with sharing class AccountCommonActions {
   private static final String CUSTOMER_LINKED_TO_KYC_QA_ERROR = 'Error occured while linking Customer to KYC QA Case.';
   @TestVisible
   public static Boolean forceDMLError = false; // This is to force a DML error to increase unit test coverage
+  @TestVisible
+  private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
+  @TestVisible
+  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
 
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
@@ -625,5 +629,95 @@ public with sharing class AccountCommonActions {
     }
 
     Logger.saveLog();
+  }
+
+  /**
+   * @description  Generate and dispatch customer GCP cloud events
+   * This function is designed to be a void function as it's the end of the publish process.
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap  old trigger values
+   * @param triggerContext trigger Context
+   */
+  @TestVisible
+  public static void publishGCPEventForCustomers(
+    List<Account> records,
+    Map<Id, Account> oldMap,
+    String triggerContext
+  ) {
+    List<Account> filteredAccounts = filterAccountsBasedOnSyncStatus(
+      records,
+      oldMap
+    );
+    if (filteredAccounts == null || filteredAccounts.isEmpty()) {
+      return;
+    }
+
+    //Creating cloud event model from records vs event type map in order to pass into publish method
+    List<BrokerCloudEventModel> cloudEventModels = CustomerGCPActions.createCloudEventModels(
+      filteredAccounts,
+      triggerContext
+    );
+
+    //Passing cloud event into publish method
+    CustomerGCPActions.publishGCPEventForLoanApps(cloudEventModels);
+  }
+
+  /**
+   * @description  Generate and dispatch customer GCP cloud events
+   * This function is designed to be a void function as it's the end of the publish process.
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap  old trigger values
+   * @return List<Account> The account records that are valid for publishing
+   */
+  @TestVisible
+  private static List<Account> filterAccountsBasedOnSyncStatus(
+    List<Account> records,
+    Map<Id, Account> oldMap
+  ) {
+    List<Account> filteredAccounts = new List<Account>();
+    for (Account record : records) {
+      if (isAccountValidForCustomerEvent(record, oldMap.get(record.Id))) {
+        filteredAccounts.add(record);
+      }
+    }
+    return filteredAccounts;
+  }
+
+  /**
+   * @description  Validate if account is valid for customer event
+   * Returns true if the Sync_Status__c and OCV_Event_Version__c are valid.
+   * @param record Account record.
+   * @param oldRecord old account record value
+   * @return Boolean to indicate the eligibility of the account record
+   */
+  private static Boolean isAccountValidForCustomerEvent(
+    Account record,
+    Account oldRecord
+  ) {
+    return validateOCVVersion(record, oldRecord) && validateSyncStatus(record);
+  }
+
+  /**
+   * @description  Validate if the account OCV Event Version is valid or not.
+   * Returns true if the version is valid.
+   * @param record Account record.
+   * @param oldRecord old account record value
+   * @return Boolean to indicate the eligibility of the account record based on OCV_Event_Version__c
+   */
+  private static boolean validateOCVVersion(Account record, Account oldRecord) {
+    return record.OCV_Event_Version__c != null &&
+      record.OCV_Event_Version__c > 0 &&
+      record.OCV_Event_Version__c >= oldRecord.OCV_Event_Version__c;
+  }
+
+  /**
+   * @description  Validate if the account Sync status is valid or not.
+   * Returns true if the Sync_Status__c is valid.
+   * @param record Account record.
+   * @return Boolean to indicate the eligibility of the account record  based on Sync_Status__c
+   */
+  private static boolean validateSyncStatus(Account record) {
+    return record.Sync_Status__c != null &&
+      !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED);
   }
 }
