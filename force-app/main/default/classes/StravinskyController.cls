@@ -19,42 +19,15 @@ public with sharing class StravinskyController {
   public static GenesisPackageClosureModel getPackageClosureAura(Id recordId) {
     List<String> customerOcvIdsList = new List<String>();
     List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
-    //Converting this into List of Account Numbers
     Set<String> setOfAccountNumberToBeClosed = new Set<String>();
-    if (
-      !PermissionUtils.canQuery('Case') ||
-      !PermissionUtils.canQuery('FinServ__FinancialAccount__c') ||
-      !PermissionUtils.canQuery('FinServ__FinancialAccountRole__c')
-    ) {
-      CommonUtil.logAndThrowIAE(
-        'StravinskyController',
-        'getPackageClosureAura',
-        'Not enough permissions to query required object.'
-      );
-    }
 
-    Case caseRecord = [
-      SELECT
-        Id,
-        AccountId,
-        Account_Type__c,
-        Account_Product__c,
-        Account.OCV_Id__c,
-        Package_Id__c
-      FROM Case
-      WHERE Id = :recordId
-    ];
+    PermissionUtils.canQuery('Case');
+    PermissionUtils.canQuery('FinServ__FinancialAccount__c');
+    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
 
-    if (
-      !StravinskyAPIRepository.isS2ProductOnCase(caseRecord) &&
-      String.isBlank(caseRecord.Package_Id__c)
-    ) {
-      Logger.error('Error closing package - ' + MISSING_PACKAGE_ID, recordId);
-      Logger.saveLog();
-      AuraHandledException e = new AuraHandledException(MISSING_PACKAGE_ID);
-      e.setMessage(MISSING_PACKAGE_ID);
-      throw e;
-    }
+    Case caseRecord = queryCase(recordId);
+
+    validatePackageId(caseRecord);
 
     //Added to Fetch Financial Accounts Details based on the Case Record Account Type
     financialAccounts = checkAccountTypeAndReturnFinancialAccounts(
@@ -231,5 +204,45 @@ public with sharing class StravinskyController {
     }
 
     return financialAccounts;
+  }
+
+  /**
+   * @param recordId Case Record Id
+   * @return Case record with the details
+   * @description this method will query the case record details
+   */
+  private static Case queryCase(Id recordId) {
+    return [
+      SELECT
+        Id,
+        AccountId,
+        Account_Type__c,
+        Account_Product__c,
+        Account.OCV_Id__c,
+        Package_Id__c
+      FROM Case
+      WHERE Id = :recordId
+    ];
+  }
+
+  /**
+   * @param caseRecord Case Record
+   * @description this method will validate whether the package id present or not for A1/S1
+   */
+  @TestVisible
+  private static void validatePackageId(Case caseRecord) {
+    if (
+      !StravinskyAPIRepository.isS2ProductOnCase(caseRecord) &&
+      String.isBlank(caseRecord.Package_Id__c)
+    ) {
+      Logger.error(
+        'Error closing package - ' + MISSING_PACKAGE_ID,
+        caseRecord.Id
+      );
+      Logger.saveLog();
+      AuraHandledException e = new AuraHandledException(MISSING_PACKAGE_ID);
+      e.setMessage(MISSING_PACKAGE_ID);
+      throw e;
+    }
   }
 }

@@ -209,7 +209,7 @@ public with sharing class GetHelpTaskActions {
     Set<Id> setOfRlaIdsSkipValidationError = COACH_NUDGE_REPOSITORY.queryRLAIdsWithCancelledStatus(
       taskRelatedRlaIds
     );
-    Set<Id> checkRecordTypeId = taskRecordTypeIds();
+    Set<Id> checkRecordTypeId = GetHelpConstants.taskRecordTypeIds;
 
     for (Task tsk : records) {
       Task oldTask = oldMap.get(tsk.Id);
@@ -235,25 +235,11 @@ public with sharing class GetHelpTaskActions {
       if (taskRecord.WhatId == null) {
         continue;
       }
-      if (
-        taskRecord.WhatId.getSobjectType().getDescribe().getName() ==
-        GetHelpConstants.SOBJECT_RLA
-      ) {
+      if (taskRecord.WhatId.getSobjectType() == Task.getSObjectType()) {
         rlaIds.add(taskRecord.WhatId);
       }
     }
     return rlaIds;
-  }
-
-  /**
-   * @description This method return the record type of the task records for which validation should run
-   * @return Set<Id> set of record type Ids for which an error message needs to be displayed
-   */
-  private static Set<Id> taskRecordTypeIds() {
-    Set<Id> recordtypes = new Set<Id>();
-    recordtypes.add(GetHelpConstants.COACH_NUDGE_RT_ID);
-    recordtypes.add(GetHelpConstants.CALLBACK_REQUEST_RT_ID);
-    return recordtypes;
   }
 
   /**

@@ -363,7 +363,10 @@ public with sharing class BOHService extends Service {
    * @param loanId the loan id to query for more information
    * @return `List<ResidentialLoanApplication>` List of residential loan application records
    */
-  public static List<ResidentialLoanApplication> getLoanRecord(String loanId) {
+  public static ResidentialLoanApplication getLoanRecord(String loanId) {
+    if (String.isBlank(loanId)) {
+      return null;
+    }
     return [
       SELECT
         Id,

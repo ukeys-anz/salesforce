@@ -23,13 +23,15 @@ public with sharing class GenesisPackageClosureModel extends CalloutModel {
   }
 
   /**
-   * @param stringJsonToParse input string to deserialize
+   * @param packageClosureResponse input string to deserialize
    * @return `GenesisPackageClosureModel`
    * @description deserializes the input string into the model, using the base method
    */
-  public static GenesisPackageClosureModel parse(String stringJsonToParse) {
+  public static GenesisPackageClosureModel parse(
+    String packageClosureResponse
+  ) {
     return (GenesisPackageClosureModel) deserialize(
-      stringJsonToParse,
+      packageClosureResponse,
       GenesisPackageClosureModel.class
     );
   }

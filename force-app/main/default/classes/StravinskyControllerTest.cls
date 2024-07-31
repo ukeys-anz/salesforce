@@ -267,4 +267,38 @@ public with sharing class StravinskyControllerTest {
       }
     }
   }
+
+  @isTest
+  static void testValidatePackageIdSuccess() {
+    Faker faker = new Faker('AU');
+    Case newCase = new Case(
+      Account_Type__c = 'Individual',
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Package_Id__c = FAKER.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    Test.startTest();
+    StravinskyController.validatePackageId(newCase);
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testValidatePackageIdFailure() {
+    Case newCase = new Case(
+      Account_Type__c = 'Individual',
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    Test.startTest();
+    try {
+      StravinskyController.validatePackageId(newCase);
+    } catch (AuraHandledException e) {
+      System.assertEquals(
+        'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.',
+        e.getMessage(),
+        'Exception Message As Expected'
+      );
+      Test.stopTest();
+    }
+  }
 }

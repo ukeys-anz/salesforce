@@ -130,9 +130,6 @@ public with sharing class GetHelpCaseActionsHelper {
    * @return Set<Id> parent Ids with child records
    */
   public static Set<Id> getParentCaseIds(Set<Id> caseIds) {
-    if (getChildCaseListMock != null) {
-      return getChildCaseListMock;
-    }
     List<Case> childCaseList = new List<Case>();
 
     if (Schema.sObjectType.Case.isQueryable()) {
@@ -185,10 +182,8 @@ public with sharing class GetHelpCaseActionsHelper {
 
     for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      newCaseRecord.ContactId = fetchContactIdFromAccount(
-        relatedAccountsMap,
-        newCaseRecord
-      );
+      Account acc = relatedAccountsMap.get(newCaseRecord.AccountId);
+      newCaseRecord.ContactId = acc?.PersonContactId;
     }
   }
 
@@ -704,6 +699,11 @@ public with sharing class GetHelpCaseActionsHelper {
   public static List<Case> setIDOpsCaseStatus(
     Map<Id, Case> parentIdAndChildCasedMap
   ) {
+    List<String> caseStatusesWithReason = new List<String>{
+      GetHelpConstants.COB_FAILED_OK_STATUS,
+      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    };
+
     List<Case> idOpsCases = getCasesByIds(parentIdAndChildCasedMap.keySet());
 
     for (Case idOpsCase : idOpsCases) {
@@ -713,61 +713,12 @@ public with sharing class GetHelpCaseActionsHelper {
         fraudCheckCase.Status
       );
 
-      if (
-        idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS ||
-        idOpsCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-      ) {
+      if (caseStatusesWithReason.contains(idOpsCase.Status) == true) {
         idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
       }
     }
 
     return idOpsCases;
-  }
-
-  /**
-   * @description Check the records and filter those that are ID Ops with Watchlist hit
-   * @param records Case records from trigger
-   * @param oldMap map of records id and old records
-   * @return List<Case> List of IDOps cases that are in Watchlist Hit
-   */
-  public static List<Case> getIDOpsWatchlistRecords(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    List<Case> idOpsCases = new List<Case>();
-
-    //filter records for update
-    for (Case newCaseRecord : records) {
-      Case oldCaseRecord = oldMap.get(newCaseRecord.Id);
-
-      if (
-        CheckCaseRecordType.isIDOpsAssistance(newCaseRecord) &&
-        COBCaseStatusValidator.isInWatchList(newCaseRecord) &&
-        GetHelpCaseActionsHelper.isStatusChanged(newCaseRecord, oldCaseRecord)
-      ) {
-        idOpsCases.add(newCaseRecord);
-      }
-    }
-
-    return idOpsCases;
-  }
-
-  /**
-   * @description Set ID Ops cases Onboarding Verification Reason
-   * @param records Filtered ID Ops Cases for update
-   * @param caseIdsWithChildren ID Ops CaseIds with child records
-   */
-  @TestVisible
-  public static void setIDOpsWatchlistCaseReason(
-    List<Case> records,
-    Set<Id> caseIdsWithChildren
-  ) {
-    //if the case has no child erecord, status change is triggered from the record itself
-    for (Case c : records) {
-      if (!caseIdsWithChildren.contains(c.Id)) {
-        c.OnboardingVerificationFailedReason__c = GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST;
-      }
-    }
   }
 
   /**

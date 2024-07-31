@@ -39,7 +39,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     '            \"debug\": {' +
     '                \"@type\": \"type.googleapis.com/ribbon.service.assistance.v1alpha1.ErrorDetails\",' +
     '                \"cxOnboardingStage\": \"STAGE_TNC\", ' +
-    '                \"retryReason\": \"' +
+    '                \"reason\": \"' +
     FAILED_REASON +
     '\"' +
     '            }' +
@@ -90,6 +90,10 @@ public with sharing class StravinskyAPIRepositoryTest {
     LicenceCardNumberOCRServer__c = licenseCardNumber,
     ExpiryDate__c = Date.today(),
     StateOfIssue__c = 'AU'
+  );
+  static Case idOpsCase = new Case(
+    PersonaId__c = cobPid.PersonaId__c,
+    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
   );
 
   @isTest
@@ -187,16 +191,17 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testCobPIdDetokenizationSuccess() {
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
+    Set<String> fieldValues = COBPIDViewAndEditController.getTokenizedFieldValues(
       cobPid,
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
     );
 
-    Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-    COBPrimaryIDDocumentModel response = stravinskyApi.cobPidDetokenization(
+    Test.startTest();
+    DetokenizeModel response = stravinskyApi.detokenize(
       cobPid.PersonaId__c,
-      tokenizedValues
+      fieldValues,
+      COBPrimaryIDDocumentModel.TOKEN_TRANSFORM_VALUE
     );
     Test.stopTest();
 
@@ -208,7 +213,7 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testRetrieveDetokenizedCOBPIDInvalidResponse() {
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
+    Set<String> fieldValues = COBPIDViewAndEditController.getTokenizedFieldValues(
       cobPid,
       COBPIDViewAndEditController.LICENCE_TOKENIZED_FIELDS
     );
@@ -222,7 +227,11 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
     try {
-      stravinskyApi.cobPidDetokenization(cobPid.PersonaId__c, tokenizedValues);
+      stravinskyApi.detokenize(
+        cobPid.PersonaId__c,
+        fieldValues,
+        COBPrimaryIDDocumentModel.TOKEN_TRANSFORM_VALUE
+      );
     } catch (Exception e) {
       resultException = e;
     }
@@ -237,15 +246,11 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testCobPidTokenizationSuccess() {
-    COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
-      cobPid
-    );
-
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-    COBPrimaryIDDocumentModel response = stravinskyApi.cobPidTokenization(
-      cobPid.PersonaId__c,
-      requestBody
+    COBPrimaryIDDocumentModel response = stravinskyApi.updatePrimaryIDDocument(
+      cobPid,
+      idOpsCase.Id
     );
     Test.stopTest();
 
@@ -257,10 +262,6 @@ public with sharing class StravinskyAPIRepositoryTest {
 
   @isTest
   static void testCobPidTokenizationFailure() {
-    COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
-      cobPid
-    );
-
     HttpCalloutResponse res = getMockedResponse(false, 500, null);
     Service s = ServiceProvider.getService(StravinskyService.class);
     s.setCalloutResponse(res);
@@ -270,7 +271,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
     try {
-      stravinskyApi.cobPidTokenization(cobPid.PersonaId__c, requestBody);
+      stravinskyApi.updatePrimaryIDDocument(cobPid, idOpsCase.Id);
     } catch (Exception e) {
       resultException = e;
     }
@@ -349,7 +350,7 @@ public with sharing class StravinskyAPIRepositoryTest {
       'COB stage should have been: ' +
       StravinskyAPIRepository.STAGE_ACK_ID_CHECK
     );
-    Assert.isNull(cobStage.retryReason, 'Failed reason should be null');
+    Assert.isNull(cobStage.reason, 'Failed reason should be null');
   }
 
   @isTest
@@ -387,7 +388,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     );
     Assert.areEqual(
       FAILED_REASON,
-      cobStage.retryReason,
+      cobStage.reason,
       'Failed reason should have been: ' + FAILED_REASON
     );
   }
@@ -471,5 +472,34 @@ public with sharing class StravinskyAPIRepositoryTest {
     response.successful = successfull;
 
     return response;
+  }
+  @isTest
+  static void testGenerateJsonRequest() {
+    Case newCase = new Case(
+      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      Package_Id__c = FAKER.randomString(10),
+      Account_Product__c = 'ANZ Plus Flex Saver'
+    );
+
+    Test.startTest();
+    StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
+
+    String request = stravinskyApi.generateJsonRequest(
+      newCase,
+      ACCOUNT_NUMBER_SET,
+      CUSTOMER_OCVIDS_LIST
+    );
+    Test.stopTest();
+    System.assertEquals(
+      true,
+      !request.contains('package_resource'),
+      'Json request does not have package_resource'
+    );
+
+    System.assertEquals(
+      true,
+      request.contains('1011111111'),
+      'Json request have ocvid node with specified value'
+    );
   }
 }

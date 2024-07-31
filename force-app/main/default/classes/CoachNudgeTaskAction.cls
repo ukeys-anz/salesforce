@@ -18,7 +18,7 @@ public with sharing class CoachNudgeTaskAction {
    * @param newRlaRecords  Residential Loan application records from trigger on insert/update
    * @param  oldRlaRecords  Holds records information before update
    */
-  public static void processResidentialLoanApplicationRecords(
+  public static void processCancelledRLARecords(
     List<ResidentialLoanApplication> newRlaRecords,
     Map<Id, ResidentialLoanApplication> oldRlaRecords
   ) {

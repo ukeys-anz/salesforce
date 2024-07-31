@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Mandatory_Fields_Internal_On_Hold</fullName>
+    <active>true</active>
+    <description>Mandatory Fields when &apos;On Hold With Internal Or External Party&apos; is internal</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;IDR_Task&apos;,
+ISPICKVAL( Type , &apos;Pend Case&apos;),
+ISPICKVAL(IDR_Internal_or_External_Party__c,&apos;Internal (ANZ)&apos;),
+OR(
+ISBLANK(TEXT( On_Hold_Reason_Internal__c )),
+ISBLANK(TEXT(IDR_Portfolio_or_Business_Unit__c)),
+ISBLANK(TEXT(IDR_Tribe__c)),
+ISBLANK(TEXT(IDR_Team__c))
+)
+)</errorConditionFormula>
+    <errorMessage>Following fields are mandatory if &apos;On Hold With Internal Or External Party&apos; is Internal (ANZ) - 
+Division,
+Business Unit,
+Business Unit-1,
+On Hold Reason</errorMessage>
+</ValidationRule>

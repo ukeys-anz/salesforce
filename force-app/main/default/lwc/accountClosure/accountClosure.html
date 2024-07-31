@@ -71,8 +71,8 @@
             </header>
           </div>
           <div class="slds-card__body slds-p-horizontal--small">
-            <template lwc:if={isFlexSaverAccountClosure}>
-              <div class="slds-p-around_medium slds-m-bottom_small">
+            <div class="slds-p-around_medium slds-m-bottom_small">
+              <template lwc:if={isFlexSaverAccountClosure}>
                 <p class="slds-text-title_bold slds-m-bottom_small">
                   Are you sure you want to initiate closure for the customer’s
                   account?
@@ -89,10 +89,8 @@
                     The status of the account has been set to Closed in CAP
                   </li>
                 </ul>
-              </div>
-            </template>
-            <template lwc:else>
-              <div class="slds-p-around_medium slds-m-bottom_small">
+              </template>
+              <template lwc:else>
                 <p class="slds-text-title_bold slds-m-bottom_small">
                   Are you sure you want to initiate the package closure for the
                   customers account?
@@ -110,8 +108,8 @@
                     The status of the account(s) has been set to Closed in CAP
                   </li>
                 </ul>
-              </div>
-            </template>
+              </template>
+            </div>
             <button
               class="slds-button slds-button--brand close-button"
               onclick={handleClosure}

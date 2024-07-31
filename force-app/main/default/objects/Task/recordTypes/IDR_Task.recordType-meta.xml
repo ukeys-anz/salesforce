@@ -55,15 +55,11 @@
     <picklistValues>
         <picklist>IDR_Pend_Reason__c</picklist>
         <values>
-            <fullName>Awaiting approval for proposed resolution</fullName>
+            <fullName>Awaiting allocation to AFCA case manager</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Awaiting determination</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Awaiting implementation of agreed outcome</fullName>
             <default>false</default>
         </values>
         <values>
@@ -90,456 +86,65 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer</fullName>
+            <fullName>Customer or Nominated 3rd Party representative of Customer</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Internal Business Unit</fullName>
+            <fullName>External Solicitor</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Nominated 3rd Party Representative of Customer</fullName>
+            <fullName>Other EDR Scheme</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Office of the Australian Information Commissioner %28OAIC%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Small Business Ombudsman</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>State Tribunal</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Product Manufacturer%3A Allianz</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Product Manufacturer%3A IOOF</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Product Manufacturer%3A Netwealth</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Product Manufacturer%3A Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Product Manufacturer%3A QBE</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Product Manufacturer%3A Zurich</fullName>
+            <fullName>Product Manufacturer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Portfolio_or_Business_Unit__c</picklist>
         <values>
-            <fullName>Business Owners %28AR%26C%29</fullName>
+            <fullName>Australia Commercial</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial %28AR%26C%29</fullName>
+            <fullName>Australia Retail</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Resolution Portfolio %28AR%26C%29</fullName>
+            <fullName>Corporate Centre</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Service Operations Portfolio %28AR%26C%29</fullName>
+            <fullName>Group Capability Centre %28GCC%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Data %28Digital %26 Transformation Australia%29</fullName>
+            <fullName>Group Technology</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Portfolio %28AR%26C%29</fullName>
+            <fullName>Institutional</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Group Services %28AR%26C%29</fullName>
+            <fullName>New Zealand</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Owners Portfolio %28AR%26C%29</fullName>
+            <fullName>Pacific</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Responsible Banking Portfolio %28AR%26C%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail %28AR%26C%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth %28AR%26C%29</fullName>
+            <fullName>Wealth</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Team__c</picklist>
         <values>
-            <fullName>Advice</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Advice Assurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Advice Review</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Agribusiness</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Assessment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Banking Client Service %26 On-boarding</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Customer Solutions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Owners Hardship</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Clearing Streams</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Complex</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Complex Investigation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit Control</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Credit Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Due Diligence</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Experience</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Lending Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Optimisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Protection Operations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Resolution</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Settlement Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Value</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer and Quality</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Data Event Management</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dishonours %26 Voucher Management</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Early Resolution</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Emerging Corporate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Enterprise Data Governance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Everyday Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Everyday Banking Hardship and Estates</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>External Dispute Resolution %28EDR%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fraud Analytics</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>General Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Hardship</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Health</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loans</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Home Loans Hardship</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Homeowners Lighthouse</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>IB Reconciliations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Industry Specialisation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Insurance Operations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal Business Development</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Internal Dispute Resolution %28IDR%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investigations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Lenders Mortgage Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Life %26 Consumer Credit Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Lockbox and Imagining</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Marketing %26 Propositions</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>N%2FA</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Operations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payment Flow %26 Paper clearing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Pensions %26 Investment Operations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Privacy Hub</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Private Bank Advice %26 Enablement</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Private Bank Specialist Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Private Bank Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Private Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Project Fee Remediation</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Property</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>RIC Project</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Recoveries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Regulatory Affairs</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Regulatory Projects</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Residential Broker</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Reconciliations</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retail Servicing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Retention%2C Retrieval %26 Disposal</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Sales</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Schemes System Accounting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Settlements</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Share Investing %26 Investment Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Specialised Resolution</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Statutory Compliance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Supplier Relationship Management</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>TPC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Technology Insurance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Technology Pension %26 Investments</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Third Party Deposits</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction Processing Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unsecured Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Voucher Processing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Contact Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Management Call Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Wealth Support</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>IDR_Tribe__c</picklist>
-        <values>
-            <fullName>ANZ Command Centre</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZi</fullName>
+            <fullName>ANZ Securities Inc</fullName>
             <default>false</default>
         </values>
         <values>
@@ -547,83 +152,131 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Accessibility</fullName>
+            <fullName>ANZx Technology</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Assurance</fullName>
+            <fullName>Advisory%2C Agency %26 Syndications</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Australian Branch Network</fullName>
+            <fullName>Australia Branch Network</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Banker Experience Tribe</fullName>
+            <fullName>Australia Risk</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Banking</fullName>
+            <fullName>Balance Sheet</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Execution</fullName>
+            <fullName>Banker Digital Experience %28System%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Governance</fullName>
+            <fullName>Banker Digital Experience %28Technology%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Lending Tribe</fullName>
+            <fullName>Brand Strategy %26 Marketing</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Owner Engagement Tribe</fullName>
+            <fullName>Breach Reporting</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Owners</fullName>
+            <fullName>Business Platform Services</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Capabilities %28Human-Centred Design and Group Marketing%29</fullName>
+            <fullName>Business Platform Services %28Technology%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Broker</fullName>
+            <fullName>Capital Markets</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Complaint Resolution</fullName>
+            <fullName>Cash Operations</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Complaint Transformation</fullName>
+            <fullName>China</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Complaints Insights</fullName>
+            <fullName>Cloud Adoption %26 Delivery</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Credit Cards and Personal Lending %28CCPL%29 Tribe</fullName>
+            <fullName>Cloud%2C Data %26 Analytics</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Advocate</fullName>
+            <fullName>Commercial - Customer Experience %26 Origination</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Authentication Tribe</fullName>
+            <fullName>Commercial - Integration and Platform Services</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Collections %26 Service Centre</fullName>
+            <fullName>Commercial Management</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Contact Centre</fullName>
+            <fullName>Commodities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commodity Compute</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Complaints</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate %28NZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Coverage Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Cards %26 Personal Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit and Quality Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Cash Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Contact Centre %28CCC%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Digital Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Digital Experience %28Technology%29</fullName>
             <default>false</default>
         </values>
         <values>
@@ -631,31 +284,43 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Self-Service Tribe</fullName>
+            <fullName>Customer Service Innovation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Servicing</fullName>
+            <fullName>Cyber Defence</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Data</fullName>
+            <fullName>Data Centre Management</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Deposits Tribe</fullName>
+            <fullName>Data Portfolio</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Customer Experience Tribe</fullName>
+            <fullName>Data and Technology Risk</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Orientation %26 Innovation Tribe</fullName>
+            <fullName>Database Services</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Digital Sales %26 Sales Optimisation Tribe</fullName>
+            <fullName>Deposits %26 Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposits%2C Credit Cards Personal Loans %26 Core Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Asset Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Digital Banking Operations</fullName>
             <default>false</default>
         </values>
         <values>
@@ -663,23 +328,187 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Everyday Banking Tribe</fullName>
+            <fullName>Engineering %26 Platforms</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Hardship and Vulnerable Customers</fullName>
+            <fullName>Enterprise Compute</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Lending Tribe</fullName>
+            <fullName>Enterprise Finance %26 Data</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Owners %26 Service Centres</fullName>
+            <fullName>Enterprise Service Operations</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Owners Tribe</fullName>
+            <fullName>Finance %28NZ%29 %28incl%2E FM unit pricing%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Crime Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing %28Collections%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing Assist %28Hardship%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreign Exchange</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>France</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Germany</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Procurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Wholesale Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hong Kong</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IT Asset Health</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Identity %26 Access Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>India</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indonesia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information Protection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Operations %28NZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Operations Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Operations Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Relationships %26 Corporate Finance %28NZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance %26 Super</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intelligent Automation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Japan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Japan Securities Ltd</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Korea</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Korea Securities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Laos</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lending Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lending Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loan Product</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Malaysia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets %28NZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets COO %28Chief Operating Officer Functions%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Migration</fullName>
             <default>false</default>
         </values>
         <values>
@@ -687,43 +516,207 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Office of the Chief Operations Officer</fullName>
+            <fullName>N%2FA</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Omni-Channel Platform Technology</fullName>
+            <fullName>NZ Branch</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payment Operations</fullName>
+            <fullName>NZ Branch Network</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Payments %26 Merchants Tribe</fullName>
+            <fullName>NZ Business Governance %26 Controls</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Performance</fullName>
+            <fullName>NZ CIO %28Investment Management%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Portfolio Performance</fullName>
+            <fullName>NZ Contact Centre</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Prevention and Detection</fullName>
+            <fullName>NZ Customer Service Operations</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Private Banking %26 Advice %28PB%26A%29</fullName>
+            <fullName>NZ Distribution Funds</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Project Augur</fullName>
+            <fullName>NZ Financial Crime</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Reconciliations</fullName>
+            <fullName>NZ Funds Management Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Global Procurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Head of Investment Risk %26 Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Lending Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Market Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Operational Risk %26 Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Outsourcing Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Private Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Product Funds</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Retail Credit Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Risk Metrics %26 Measurements</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Strategy %26 Execution %28incl%2E Cash Mgmt%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Tax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Treasury</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Wholesale Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Network Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OASIS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OCIO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPFM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Onboarding</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>One Customer View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Open Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operational Performance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Operations%2FAustralia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Papua New Guinea</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments Industry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments and Cash Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personalisation %26 Digital Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personalisation %26 Digital Sales %28Technology%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Philippines</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Platform Architecture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Portfolio Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing COE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Program %26 Strategic Architecture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Regulatory %26 Risk Services</fullName>
             <default>false</default>
         </values>
         <values>
@@ -731,39 +724,410 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Remove Image Capture %28RIC%29</fullName>
+            <fullName>Retail Broker</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Responsible Lending Tribe</fullName>
+            <fullName>Retail Credit Risk %28Group%29</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Broker Distribution</fullName>
+            <fullName>Retail Lending</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Business Execution</fullName>
+            <fullName>Risk Legal %26 Audit Technology</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Credit Control %26 Quality</fullName>
+            <fullName>Risk Metrics and Measurement</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Customer Lending</fullName>
+            <fullName>Risk Strategy and Transformation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Governance %26 Operational Excellence</fullName>
+            <fullName>Security Advisory %26 Engineering</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Retail Transformation</fullName>
+            <fullName>Security Operations%2C Intel %26 Influence</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Risk Engagement</fullName>
+            <fullName>Service Operations Engineering</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Operations Engineering %28Technology%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service Platform %26 Strategy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Servicing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Singapore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business Lighthouse</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Specialised Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategic Partnerships</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Strategy %26 Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Structured Solutions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Support</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Taiwan</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technology Assurance %26 Controls</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Thailand</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Third Party Deposits</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trade and Supply Chain</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction Banking %28NZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United Arab Emirates</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United Kingdom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>United States</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vietnam</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth - ANZLMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wholesale Credit %26 Corporate Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wholesale Digital</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workforce</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workplace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XVA Trading</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>eFICC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Tribe__c</picklist>
+        <values>
+            <fullName>ADG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>American Territories</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Architecture %26 Engineering</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Australia Retail %26 Commercial Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banking Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chengdu Service Centre</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cloud %26 Data Infrastructure Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Broker and Origination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Digital and Customer Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Strategic Delivery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cook Islands</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Corporate Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Engagement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution and Remediation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Service Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diversified and Specialist Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Economics</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Employee Experience</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enterprise Service Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Everyday Banking Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fiji</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Wellbeing Research and Design</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCC Bengaluru</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GCC Manila</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Comms %26 Public Affairs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Services Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Strategy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans Portfolio</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IB Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Information Security</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Infrastructure Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional %28NZ%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Institutional Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance and Adviser Sales</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Internal Audit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>International</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kiribati</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Lend and Grow</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Business %26 Agri</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ CFO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Communications %26 Public%2C Consumer %26 Government Affairs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Data %26 Marketing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Funds Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Legal %26 Corproate Governance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Personal</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Strategic Execution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Talent and Culture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZ Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Office of the COO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pacific Operations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pacific Technology</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pensions %26 Investments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SME Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Samoa</fullName>
             <default>false</default>
         </values>
         <values>
@@ -771,35 +1135,62 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Specialised Distribution</fullName>
+            <fullName>Solomon Islands</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Specialist Product Sales</fullName>
+            <fullName>Strategic Delivery</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Systemic Issues</fullName>
+            <fullName>Strategic Planning %26 Execution</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Transformation and Transforming Customer Service Tribe</fullName>
+            <fullName>Talent %26 Culture</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Wealth Customer Resolution</fullName>
+            <fullName>Timor Leste</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Wealth Operations</fullName>
+            <fullName>Tonga</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Wealth Technology</fullName>
+            <fullName>Transact and Save</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Wealth Tribe</fullName>
+            <fullName>Transaction Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vanuatu</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wealth Australia</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich %28BU%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>On_Hold_Reason_Internal__c</picklist>
+        <values>
+            <fullName>Awaiting approval for proposed resolution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting implementation of agreed outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Awaiting information to be provided</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -830,6 +1221,49 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Product_Manufacturer__c</picklist>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CGU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Net Wealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Status</picklist>
         <values>
             <fullName>Completed</fullName>
@@ -852,6 +1286,10 @@
         </values>
         <values>
             <fullName>Case Pended - provide update in case comment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case on Hold</fullName>
             <default>false</default>
         </values>
         <values>

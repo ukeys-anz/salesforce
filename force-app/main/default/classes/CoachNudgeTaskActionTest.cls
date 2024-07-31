@@ -22,59 +22,9 @@ public with sharing class CoachNudgeTaskActionTest {
       .mock('queryTaskWithRLA', createMockTaskRelatedToRla());
   }
 
-  @TestSetup
-  static void setup() {
-    Map<String, User> userMap = new Map<String, User>();
-    /*----------Create users for tests----------*/
-
-    Profile integrationProfile = CommonUtil.getProfileByName(
-      'Integration User'
-    );
-    UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
-    // Create an Integration User
-    User integrationUser = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => 'TestUserCoachNudgeTaskAction',
-        'ProfileId' => integrationProfile.Id,
-        'UserRoleId' => anzxRole.Id
-      }
-    );
-    userMap.put('integrationUser', integrationUser);
-
-    insert userMap.values();
-
-    /*----------Assign permission sets to users----------*/
-
-    // Integration User permission sets
-    List<String> integrationPsets = new List<String>{
-      'View_And_Edit_Tasks',
-      'BoH_Read_Write',
-      'Coach_Nudge_Integration',
-      'Read_Only_Admin'
-    };
-
-    List<PermissionSet> integrationPsList = [
-      SELECT Id
-      FROM PermissionSet
-      WHERE Name IN :integrationPsets
-    ];
-
-    List<PermissionSetAssignment> integrationPsaList = new List<PermissionSetAssignment>();
-    for (PermissionSet ps : integrationPsList) {
-      integrationPsaList.add(
-        TestUtil.createPSAssignment(userMap.get('integrationUser').Id, ps.Id)
-      );
-    }
-    insert integrationPsaList;
-  }
-
   @isTest
-  private static void testprocessResidentialLoanApplicationRecords() {
+  private static void testProcessCancelledRLARecords() {
     registerMocks();
-
-    User integrationUser = TestUtil.getUserByFirstName(
-      'TestUserCoachNudgeTaskAction'
-    );
 
     List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
       'STATE_CANCELLED'
@@ -93,12 +43,10 @@ public with sharing class CoachNudgeTaskActionTest {
     );
 
     Test.startTest();
-    System.runAs(integrationUser) {
-      CoachNudgeTaskAction.processResidentialLoanApplicationRecords(
-        newRlaRecords,
-        oldRlaRecords
-      );
-    }
+    CoachNudgeTaskAction.processCancelledRLARecords(
+      newRlaRecords,
+      oldRlaRecords
+    );
     Test.stopTest();
 
     List<Task> taskRecordAfterUpdate = (List<Task>) dmlRepoMock.getHistory(
