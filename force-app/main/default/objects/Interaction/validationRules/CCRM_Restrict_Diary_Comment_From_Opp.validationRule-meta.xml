@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_Restrict_Diary_Comment_From_Opp</fullName>
+    <active>true</active>
+    <description>Restricts creation/updation of CAP Diary Comment Type Interaction From Opportunity</description>
+    <errorConditionFormula>AND(RecordType.DeveloperName = &quot;CCRM_Interaction&quot;, 
+NOT(ISBLANK( Opportunity__c)), 
+ISBLANK(AccountId),
+ISPICKVAL( Category__c ,&apos;CAP Diary Comments&apos;))</errorConditionFormula>
+    <errorMessage>You cannot create CAP Diary comment from Opportunity.</errorMessage>
+</ValidationRule>

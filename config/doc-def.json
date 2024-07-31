@@ -60,6 +60,7 @@
     "Financial_Settlement__c",
     "Identifier__c",
     "Interaction",
+    "InteractionAttendee",
     "Interaction_Tag__c",
     "InteractionSummary",
     "Industry__c",

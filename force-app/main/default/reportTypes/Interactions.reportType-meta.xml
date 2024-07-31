@@ -244,6 +244,11 @@
             <field>Twilio_ID__c</field>
             <table>Interaction</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Owner</field>
+            <table>Interaction</table>
+        </columns>
         <masterLabel>Interactions</masterLabel>
     </sections>
     <sections>
@@ -256,6 +261,11 @@
             <checkedByDefault>false</checkedByDefault>
             <field>Resolution__c</field>
             <table>Interaction.Interactions__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Category__c</field>
+            <table>Interaction</table>
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>

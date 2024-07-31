@@ -1,0 +1,11 @@
+{
+  "fields": {
+    "Category__c": "Relationship building",
+    "AccountId": "0019p00000XFniJAAT",
+    "Name": "test",
+    "InteractionType": "Call",
+    "StartTime": "2024-07-03T06:56:00.000Z",
+    "Optional_Notes__c": "<p>test</p>"
+  },
+  "id": "0kz9p0000009evtAAA"
+}

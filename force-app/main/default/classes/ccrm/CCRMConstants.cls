@@ -91,6 +91,11 @@ public with sharing class CCRMConstants {
   public static final String ACC_ORG_LABEL = 'Organisation Type';
   public static final String ERROR_RESPONSE = 'Unexpected error';
   public static final String SUCCESS_RESPONSE = 'Success';
+  public static final String FINANCIAL_ACCOUNT_OBJECT_NAME = 'FinServ__FinancialAccount__c';
+  public static final String INTER_CAT_CAPDIARYCOMMENTS = 'CAP Diary Comments';
+  public static final String INTER_CAT_GENERAL = 'General';
+  public static final String ACTION_CODE_CREATE = 'create';
+  public static final String ACTION_CODE_UPDATE = 'update';
   public static final String CCRM_PROFILE_NAME = 'ANZ CCRM Standard User';
   public static final String DELETE_ERROR = 'You cannot delete leads';
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
@@ -210,6 +215,11 @@ public with sharing class CCRMConstants {
   //A-Z Review - Commerical A-Z Review Record TypeId
   public static final Id AZ_REVIEW_RT_ID = Schema.SObjectType.A_Z_Review__c.getRecordTypeInfosByDeveloperName()
     .get('Commercial_A_Z_Review')
+    .getRecordTypeId();
+
+  // Interaction - CCRM Interaction RT Id
+  public static final Id INTERACTION_CCRM_RT_ID = Schema.SObjectType.Interaction.getRecordTypeInfosByDeveloperName()
+    .get('CCRM_Interaction')
     .getRecordTypeId();
 
   /**

@@ -2356,6 +2356,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>[&quot;Contact Attempted&quot;, &quot;Call Back&quot;]</value>
     </labels>
     <labels>
+        <fullName>CCRM_INTERACTION_EVENT_CE_TYPE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_INTERACTION_EVENT_CE_TYPE</shortDescription>
+        <value>com.anzx.salesforce.interaction.v1alpha1.iteraction.ccrm_interaction.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CAP_DAIRY_EVENT_CE_TYPE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_CAP_DAIRY_EVENT_CE_TYPE</shortDescription>
+        <value>com.anzx.salesforce.interaction.v1alpha1.interaction.cap_diarycomment.</value>
+    </labels>
+    <labels>
         <fullName>MS_ExportConsentDataIN_API</fullName>
         <language>en_US</language>
         <protected>false</protected>

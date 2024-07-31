@@ -11453,6 +11453,9 @@
         <recordType>Interaction.Store</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>InteractionAttendee-CCRM Interaction Attendee Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>InteractionSummary-Interaction Summary Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
