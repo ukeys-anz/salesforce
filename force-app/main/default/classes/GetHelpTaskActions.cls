@@ -229,13 +229,17 @@ public with sharing class GetHelpTaskActions {
    * @param records task record list.
    * @return Set<Id> residential loan application record ids associated to the task
    */
+  @testVisible
   private static Set<Id> fetchtaskRelatedRlaIds(List<Task> records) {
     Set<Id> rlaIds = new Set<Id>();
     for (Task taskRecord : records) {
       if (taskRecord.WhatId == null) {
         continue;
       }
-      if (taskRecord.WhatId.getSobjectType() == Task.getSObjectType()) {
+      if (
+        taskRecord.WhatId.getSobjectType() ==
+        ResidentialLoanApplication.getSObjectType()
+      ) {
         rlaIds.add(taskRecord.WhatId);
       }
     }

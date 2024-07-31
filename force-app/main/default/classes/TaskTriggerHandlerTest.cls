@@ -555,4 +555,40 @@ private class TaskTriggerHandlerTest {
     Test.stopTest();
     Assert.isTrue(cloudEventModels != null, 'Found');
   }
+
+  @isTest
+  private static void testCoachNudgeCloudEventPositive() {
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      null,
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+
+    Test.startTest();
+    Set<Id> rlaIds = GetHelpTaskActions.fetchtaskRelatedRlaIds(
+      new List<Task>{ coachNudgeTask }
+    );
+    Test.stopTest();
+    Assert.isFalse(rlaIds.isEmpty(), 'RLA Ids should be returned');
+  }
+
+  @isTest
+  private static void testCoachNudgeCloudEventNegative() {
+    Task coachNudgeTask = TestDataFactory.createTaskRecord(
+      GetHelpConstants.COACH_NUDGE_RT_ID,
+      null,
+      Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
+      false
+    );
+
+    Test.startTest();
+    Set<Id> rlaIds = GetHelpTaskActions.fetchtaskRelatedRlaIds(
+      new List<Task>{ coachNudgeTask }
+    );
+    Test.stopTest();
+    Assert.isTrue(rlaIds.isEmpty(), 'RLA Ids should not be returned');
+  }
 }
