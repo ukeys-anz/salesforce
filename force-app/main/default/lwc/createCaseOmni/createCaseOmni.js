@@ -1,6 +1,6 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
-import { CaseFormValidator } from "./formValidator/caseFormValidator";
+import { validate } from "./formValidator/caseFormValidator";
 import { handleErrorShowToast } from "c/utils";
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
@@ -15,16 +15,11 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   closeModal() {
     this.showModal = false;
   }
-
   async callCreateCaseIP() {
     this.missingFields = [];
     this.modalMsg = "";
-    const caseFormValidator = new CaseFormValidator(
-      this.omniJsonData,
-      this.missingFields
-    );
+    this.missingFields = await validate(this.omniJsonData);
 
-    this.missingFields = await caseFormValidator.validate();
     if (this.missingFields.length > 0) {
       this.modalMsg =
         "Please complete all required fields: " + this.missingFields.join(", ");
@@ -123,6 +118,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       });
     }
   }
+
   validateRealFormID() {
     if (
       this.omniJsonData.Case.ResolutionInformation.ComplaintStatus ===
@@ -177,14 +173,14 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     return false;
   }
   checkIsvalidCustomer() {
-    let details = this.omniJsonData.Case;
+    var details = JSON.parse(JSON.stringify(this.omniJsonData.Case));
+    var customerNumber = JSON.stringify(this.omniJsonData.CustomerNumber);
     if (
       (details.isThisCustomerComplaint === "Yes" &&
         details.CustomerDetails.Customer &&
-        details.CustomerDetails.Customer !==
-          details.CustomerNumber.toString()) ||
+        details.CustomerDetails.Customer !== customerNumber) ||
       (details.CustomerDetails.Customer1 &&
-        details.CustomerDetails.Customer1 !== details.CustomerNumber.toString())
+        details.CustomerDetails.Customer1 !== customerNumber)
     ) {
       return false;
     }
