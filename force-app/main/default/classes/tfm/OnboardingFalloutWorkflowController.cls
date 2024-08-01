@@ -30,11 +30,12 @@ public with sharing class OnboardingFalloutWorkflowController {
 
     try {
       cobPIDRecord = ONBOARDING_REPOSITORY.getCOBPIDRecord(recordId);
-      
-      caseRecord = ONBOARDING_REPOSITORY.getCaseRecord(
-        cobPIDRecord.CustomerOnboardingApplication__r.PersonaId__c +
-        cobPIDRecord.CustomerOnboardingApplication__r.OnboardingAttemptCount__c
-      );
+      if(cobPIDRecord.CustomerOnboardingApplication__r.CXOnboardingStage__c == TFMConstants.ASSISTED_SELFIE) {
+        caseRecord = ONBOARDING_REPOSITORY.getCaseRecord(
+          cobPIDRecord.CustomerOnboardingApplication__r.PersonaId__c +
+          cobPIDRecord.CustomerOnboardingApplication__r.OnboardingAttemptCount__c
+        );
+      }
     } catch (Exception ex) {
       workflowDetails.responseMsg = TFMConstants.ERROR_OCCURRED;
       return workflowDetails;

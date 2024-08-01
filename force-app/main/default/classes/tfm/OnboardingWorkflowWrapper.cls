@@ -67,6 +67,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
         return draftCVIDs;
       }
       List<String> newDraftCVIDs = new List<String>();
+      if(this.fileTypesList == null) {
+        return newDraftCVIDs;
+      }
       for (
          FileTypes fileData : this.fileTypesList
        ) {

@@ -21,6 +21,9 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     Case caseRecord
   ) {
     OnboardingWorkflowWrapper workflowDetails = new OnboardingWorkflowWrapper();
+    if(caseRecord == null) {
+      return workflowDetails;
+    }
     List<String> statusValues = new List<String>{
       'ID Ops: Daon OK',
       'Failed',

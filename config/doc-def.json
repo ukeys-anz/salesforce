@@ -898,7 +898,8 @@
         "Enforce_mTLS",
         "Mortgage",
         "Disable_MFA",
-        "Set_Audit_Fields"
+        "Set_Audit_Fields",
+        "DAON_File_Integration"
       ],
       "type": "system"
     },
@@ -1077,6 +1078,17 @@
         "Disable_MFA",
         "Password_Never_Expires",
         "Set_Audit_Fields"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "DAON Files Cleanup Batch User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "DAONFileCleanup",
+        "View_All_Files",
+        "API_Only"
       ],
       "type": "system"
     }

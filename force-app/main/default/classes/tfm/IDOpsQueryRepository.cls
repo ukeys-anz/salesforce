@@ -115,4 +115,14 @@ public with sharing class IDOpsQueryRepository {
     ];
     return listContentDocuments;
   }
+  /**
+   * @description checkCustomPermission
+   * @param permissionName name of custom permission
+   * @return Boolean returns true if has permission else false
+   **/
+  public Boolean checkCustomPermission(String permissionName) {
+    return FeatureManagement.checkPermission(
+        permissionName
+    );
+  }
 }
