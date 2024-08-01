@@ -107,9 +107,7 @@ public with sharing class IDRCaseActionsHelper {
     List<Task> lstTasks = (List<Task>) CASE_REPOSITORY.queryPendTasks(
       caseIds.keyset()
     );
-    if (lstTasks.isEmpty()) {
-      return;
-    }
+
     lstTasks = setTaskstatustoCompleted(lstTasks);
 
     DML_REPOSITORY.updateRecords(
@@ -135,7 +133,7 @@ public with sharing class IDRCaseActionsHelper {
       IDRConstants.ESCALATED_STATUS
     };
     for (Case c : records) {
-      Case oldRec = (Case) oldMap.get(c.id);
+      Case oldRec = oldMap.get(c.Id);
 
       if (
         oldRec.Status == IDRConstants.ON_HOLD_STATUS &&
