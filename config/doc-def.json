@@ -1068,7 +1068,7 @@
     },
     {
       "name": "Aegis Harbour Integration User",
-      "profile": "Integration User",
+      "profile": "Minimum Access - External Apps",
       "permissionsetgroups": [],
       "permissionsets": [
         "Case_Read_Write_Pin_Selfie",
