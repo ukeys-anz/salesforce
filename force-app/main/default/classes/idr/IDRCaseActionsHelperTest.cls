@@ -46,6 +46,20 @@ private with sharing class IDRCaseActionsHelperTest {
     Status = IDRConstants.UNDER_INVESTIGATION_STATUS
   );
 
+  /**
+   * @description Generating PendTask for testing
+   * @return Task
+   */
+  public static Task generatePendTask() {
+    Task taskRecord = new Task(
+      Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      Status = IDRConstants.OPEN_STATUS,
+      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+      Type = IDRConstants.TASK_TYPE_PEND_CASE
+    );
+    return taskRecord;
+  }
+
   @isTest
   static void testHardshipUpdateDateTimeFlagUpdated() {
     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
@@ -216,19 +230,27 @@ private with sharing class IDRCaseActionsHelperTest {
     Test.stopTest();
 
     System.assertEquals(1, caseMap.size(), 'Map should return 1 case');
-    System.assertnotEquals(1, caseMap1.size(), 'Map should not return any case');
+    System.assertEquals(
+      IDRConstants.ESCALATED_STATUS,
+      testCase2.Status,
+      'Status should be updated to Escalated'
+    );
+    System.assertnotEquals(
+      1,
+      caseMap1.size(),
+      'Map should not return any case'
+    );
+    System.assertnotEquals(
+      IDRConstants.ESCALATED_STATUS,
+      testCase4.Status,
+      'Status should not be updated to Escalated'
+    );
   }
 
   @isTest
   static void testSetTaskStatustoCompleted() {
-    registerMocks();
-    Case testCase1 = caseRecord1;
-    Case testCase2 = caseRecord2;
-
-    Task taskRecord = testCase1.Tasks[0];
-    taskRecord.WhatId = testCase1.Id;
-
-    caseRepoMock.mock('queryPendTasks', new List<Task>{ taskRecord });
+    Task taskRecord = generatePendTask();
+    taskRecord.Status = IDRConstants.TASK_STATUS_COMPLETED;
 
     Test.startTest();
     List<Task> tasks = IDRCaseActionsHelper.setTaskstatustoCompleted(
