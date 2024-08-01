@@ -51,6 +51,19 @@
                 <identifier>force_detailPanel</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>pinAndSelfieWorkflow</componentName>
+                <identifier>c_pinAndSelfieWorkflow</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <name>Facet-cdbabce7-014c-47cd-ab33-2cf4cb59b0b3</name>
         <type>Facet</type>
     </flexiPageRegions>
