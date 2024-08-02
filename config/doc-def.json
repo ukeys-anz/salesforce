@@ -1063,6 +1063,7 @@
         "API_Only",
         "CCRM_Controlling_Post",
         "Disable_MFA",
+        "Enforce_mTLS",
         "MLCRM_Marketing_Integration_User"
       ],
       "type": "system"
