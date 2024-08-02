@@ -24,12 +24,11 @@ export async function validate(omniJsonData) {
 }
 //  Validate Required fields for Customer Complaint
 async function validateCustomerComplaint(omniJsonData) {
-  let cmpMap = JSON.parse(JSON.stringify(omniJsonData.cmpMap));
   if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
-    checkFields(caseDetails.CustomerDetails, omniJsonData.custMap);
     checkCustomerIdentifier(caseDetails.CustomerDetails);
+    checkFields(caseDetails.CustomerDetails, omniJsonData.custMap);
+    
 
-    cmpMap.push({ AccountPolicyNumber: "Account/Policy Number" });
     checkCommonValidations(
       caseDetails.ComplaintDetails,
       caseDetails,
@@ -37,7 +36,6 @@ async function validateCustomerComplaint(omniJsonData) {
     );
   }
 
-  checkFields(caseDetails.ComplaintDetails, cmpMap);
 }
 //  Validate Customer Number Identifier
 function checkCustomerIdentifier(customerDetails) {
@@ -94,10 +92,25 @@ function validateNonCustMap(Complaintdetails, caseDetails, omniJsonData) {
 function checkCommonValidations(Complaintdetails, caseDetails, omniJsonData) {
   itype = Complaintdetails.IssueType;
   subtype = Complaintdetails.SubSequentIssueType;
-
+  let cmpMap = JSON.parse(JSON.stringify(omniJsonData.cmpMap));
+  if (
+    caseDetails.CustomerDetails.expressCaseCreationCheckbox ===
+      CUSTOMER_AGREES &&
+    !caseDetails.CustomerDetails.complaintAbout
+  ) {
+    missingFields.push("This Complaint Is About");
+  }
   if (caseDetails.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES) {
     checkFields(caseDetails.CustomerDetails, omniJsonData.thirdPartyMap);
   }
+  
+  checkForAccountPolicyNumber(
+    Complaintdetails,
+    cmpMap,
+    "1",
+    caseDetails
+  );
+
   if (Complaintdetails.Issue2Checkbox === CUSTOMER_AGREES) {
     let secCmpMap = JSON.parse(JSON.stringify(omniJsonData.secCmpMap));
     checkForAccountPolicyNumber(Complaintdetails, secCmpMap, "2", caseDetails);
@@ -115,13 +128,7 @@ function checkCommonValidations(Complaintdetails, caseDetails, omniJsonData) {
     itype = Complaintdetails.IssueType3;
     subtype = Complaintdetails.SubsequentIssueType3;
   }
-  if (
-    caseDetails.CustomerDetails.expressCaseCreationCheckbox ===
-      CUSTOMER_AGREES &&
-    !caseDetails.CustomerDetails.complaintAbout
-  ) {
-    missingFields.push("This Complaint Is About");
-  }
+ 
 }
 // Validate Accout Policy fields
 function checkForAccountPolicyNumber(
@@ -131,15 +138,22 @@ function checkForAccountPolicyNumber(
   caseDetails
 ) {
   if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
+    if(issueNumber ==="1") {
+      issueMap.push({
+        AccountPolicyNumber: "Account/Policy Number " 
+      });
+    }
     if (issueNumber === "2") {
       issueMap.push({
         AccountPolicyNumber2: "Account/Policy Number " + issueNumber
       });
-    } else {
+    } 
+    if (issueNumber === "3") {
       issueMap.push({
         AccountPolicyNumber3: "Account/Policy Number " + issueNumber
       });
-    }
+    } 
+   
   }
   checkFields(details, issueMap);
 }
@@ -148,9 +162,6 @@ async function validateResolutionInformation(omniJsonData) {
   let resolutionDetails = caseDetails.ResolutionInformation;
   if (checkIssueType(caseDetails)) {
     checkFields(resolutionDetails, omniJsonData.resInfoMap);
-  }
-  if (resolutionDetails.ComplaintStatus === CLOSED_STATUS) {
-    checkFields(resolutionDetails, omniJsonData.closeCmpMap);
   }
   if (resolutionDetails.realFormRequired === CUSTOMER_AGREES)
     checkFields(resolutionDetails, omniJsonData.realMap);
@@ -191,6 +202,9 @@ function checkIssueType(caseDetails) {
 // Validate Complaint Remedies Information
 async function validateComplaintRemedies(omniJsonData) {
   let details = omniJsonData.Case.ResolutionInformation;
+  if (details.ComplaintStatus === CLOSED_STATUS) {
+    checkFields(details, omniJsonData.closeCmpMap);
+  }
   checkReferredToFirm(
     details.ComplaintRemedy1,
     details.detailsOfComplaint1,
