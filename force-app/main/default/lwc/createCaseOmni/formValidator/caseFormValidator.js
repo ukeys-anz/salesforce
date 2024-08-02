@@ -140,7 +140,7 @@ function checkForAccountPolicyNumber(
   if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
     if(issueNumber ==="1") {
       issueMap.push({
-        AccountPolicyNumber: "Account/Policy Number " 
+        AccountPolicyNumber: "Account/Policy Number" 
       });
     }
     if (issueNumber === "2") {
