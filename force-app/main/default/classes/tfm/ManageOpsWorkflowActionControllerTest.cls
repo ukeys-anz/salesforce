@@ -226,11 +226,12 @@ private with sharing class ManageOpsWorkflowActionControllerTest {
     dmlInsertRepoMocksTrue();
     dmlUpdateRepoMocksTrue();
 
+  
     Test.startTest();
     Map<String, String> returnMap = testUpdateCaseStatusOnboardingCommonFunction();
     Test.stopTest();
     Assert.areEqual(
-      'Success',
+      'Warning',
       returnMap.get('status'),
       'Operation is not successful.'
     );

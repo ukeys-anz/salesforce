@@ -27,7 +27,9 @@ public with sharing class IDOpsQueryRepository {
         RecordType.DeveloperName,
         Pin_History_Check_Failed__c,
         OnboardingVerificationFailedReason__c,
-        Status
+        Status,
+        PersonaId__c,
+        Status_Update_Error__c
       FROM Case
       WHERE ID = :recordId
       WITH USER_MODE

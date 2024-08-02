@@ -68,17 +68,18 @@ public with sharing class ManageOpsWorkflowActionController {
     }
 
     setCOBPIDRecord(failedMessage, failedReason, status, cobPidRecords);
-    List<Database.SaveResult> updatedCOBPIDRec = DML_REPOSITORY.updateRecords(
-      new List<COBPrimaryIDDocument__c>{ cobPidRecords },
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
+   
+    SystemModeActions systemAction = new SystemModeActions(
+      'ManageOpsWorkflowActionController',
+      'updateCaseStatusOnboarding'
     );
+    Boolean updateResultCOBPIDFailed = systemAction.updateRecords(new List<COBPrimaryIDDocument__c>{ cobPidRecords }, 'COBPrimaryIDDocument__c');
 
     Logger.info(
       'Verified By ' +
         UserInfo.getName() +
         ' Verification Date Time ' +
-        system.now() +
+        System.now() +
         ' Verification Status ' +
         status +
         ', Verification Failed Reason ' +
@@ -105,7 +106,7 @@ public with sharing class ManageOpsWorkflowActionController {
       DmlRepository.USER_MODE
     );
 
-    if (createdCaseComments[0].isSuccess() && updatedCOBPIDRec[0].isSuccess()) {
+    if (createdCaseComments[0].isSuccess() && !updateResultCOBPIDFailed) {
       isRibbionFlowSuccess = callRibbionFlowForOnboarding(
         failedReason,
         status,
@@ -116,7 +117,7 @@ public with sharing class ManageOpsWorkflowActionController {
     return setResponseForOnboarding(
       isRibbionFlowSuccess,
       createdCaseComments[0].isSuccess(),
-      updatedCOBPIDRec[0].isSuccess()
+      !updateResultCOBPIDFailed
     );
   }
   /**
