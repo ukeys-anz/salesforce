@@ -4017,6 +4017,10 @@
             &quot;data&quot; : &quot;4&quot;
           } ]
         }
+      }, {
+        &quot;field&quot; : &quot;CustomerDecision&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Disagrees&quot;
       } ]
     }
   }
