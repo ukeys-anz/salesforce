@@ -747,6 +747,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SI_PSI_Source__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NLP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI flag</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SI_Potential_Consequence_to_Customer__c</picklist>
         <values>
             <fullName>1</fullName>

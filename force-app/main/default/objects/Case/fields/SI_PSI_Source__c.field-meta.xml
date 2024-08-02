@@ -32,6 +32,11 @@
                 <label>SI flag</label>
             </value>
             <value>
+                <fullName>Reporting</fullName>
+                <default>false</default>
+                <label>Reporting</label>
+            </value>
+            <value>
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>
