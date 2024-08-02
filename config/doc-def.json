@@ -1075,9 +1075,7 @@
         "Case_Read_Write_Pin_Selfie",
         "API_Only",
         "Enforce_mTLS",
-        "Disable_MFA",
-        "Password_Never_Expires",
-        "Set_Audit_Fields"
+        "Disable_MFA"
       ],
       "type": "system"
     },
