@@ -509,12 +509,12 @@ private with sharing class ManageOpsWorkflowActionControllerTest {
     Test.startTest();
     ManageOpsWorkflowActionController.setCaseRecord(
       caseRec,
-      'Failed Message',
+      'ID Ops: Daon OK',
       'Confirmed Fraud'
     );
     Test.stopTest();
     Assert.areEqual(
-      'Failed Message',
+      'ID Ops: Daon OK',
       caseRec.Status,
       'Operation is not successful.'
     );

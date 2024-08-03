@@ -52,10 +52,8 @@ public with sharing class ManageOpsWorkflowActionController {
     COBPrimaryIDDocument__c cobPidRecords = WORKFLOW_REPOSITORY.getCOBPIDRecord(
       cobId
     );
-    Case caseRecords = WORKFLOW_REPOSITORY.getCaseRecord(
-      manageOpsRequest.case_id
-    );
-
+    Case caseRec = WORKFLOW_REPOSITORY.getCaseRecord(manageOpsRequest.case_id);
+    Case caseRecords = getUpdateCaseInstance(caseRec);
     if (status != POTENTIALFRAUD) {
       response = makeAegisCalloutForOnboarding(manageOpsRequest, idValue);
     }
@@ -68,12 +66,15 @@ public with sharing class ManageOpsWorkflowActionController {
     }
 
     setCOBPIDRecord(failedMessage, failedReason, status, cobPidRecords);
-   
+
     SystemModeActions systemAction = new SystemModeActions(
       'ManageOpsWorkflowActionController',
       'updateCaseStatusOnboarding'
     );
-    Boolean updateResultCOBPIDFailed = systemAction.updateRecords(new List<COBPrimaryIDDocument__c>{ cobPidRecords }, 'COBPrimaryIDDocument__c');
+    Boolean updateResultCOBPIDFailed = systemAction.updateRecords(
+      new List<COBPrimaryIDDocument__c>{ cobPidRecords },
+      'COBPrimaryIDDocument__c'
+    );
 
     Logger.info(
       'Verified By ' +
@@ -121,6 +122,22 @@ public with sharing class ManageOpsWorkflowActionController {
     );
   }
   /**
+   * @description to form case node
+   * @param caseRecord current caseRecord
+   * @return Case
+   **/
+  private static Case getUpdateCaseInstance(Case caseRecord) {
+    Case caseRecordInstance = new Case();
+    caseRecordInstance.Id = caseRecord.Id;
+    caseRecordInstance.OnboardingVerificationFailedReason__c = caseRecord.OnboardingVerificationFailedReason__c;
+    caseRecordInstance.Status = caseRecord.Status;
+    caseRecordInstance.PersonaId__c = caseRecord.PersonaId__c;
+    caseRecordInstance.Status_Update_Error__c = caseRecord.Status_Update_Error__c;
+    caseRecordInstance.Subject = caseRecord.Subject;
+    caseRecordInstance.RecordTypeId = caseRecord.RecordTypeId;
+    return caseRecordInstance;
+  }
+  /**
    * @description making callout to update aegis
    * @param manageOpsRequest ManageOpsWorkflowRequestModel instance
    * @param idValue idValue
@@ -156,10 +173,12 @@ public with sharing class ManageOpsWorkflowActionController {
     caseRecords.OnboardingVerificationFailedReason__c = failedReason != null
       ? failedReason
       : caseRecords.OnboardingVerificationFailedReason__c;
+
+    String currentStatus = caseRecords.Status;
     caseRecords.Status = status != null ? status : caseRecords.Status;
     try {
       cobCaseUpdateStatusObj = COBCaseStatusPathController.updateStatus(
-        caseRecords.Status,
+        currentStatus,
         caseRecords
       );
     } catch (Exception e) {
@@ -384,9 +403,11 @@ public with sharing class ManageOpsWorkflowActionController {
     String status,
     String statusUpdateError
   ) {
-    caseRecords.Verified_By__c = UserInfo.getUserId();
-    caseRecords.Verified_Date__c = System.now();
-    caseRecords.Status = status;
-    caseRecords.Status_Update_Error__c = statusUpdateError;
+    Case caseToUpdate = new Case();
+    caseToUpdate.Id = caseRecords.Id;
+    caseToUpdate.Verified_By__c = UserInfo.getUserId();
+    caseToUpdate.Verified_Date__c = System.now();
+    caseToUpdate.Status = status;
+    caseToUpdate.Status_Update_Error__c = statusUpdateError;
   }
 }

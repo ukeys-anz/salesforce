@@ -25,6 +25,7 @@ public with sharing class IDOpsQueryRepository {
         Daon_Auth_Request_Id__c,
         Person_Digital_Identity__c,
         RecordType.DeveloperName,
+        RecordTypeId,
         Pin_History_Check_Failed__c,
         OnboardingVerificationFailedReason__c,
         Status,
