@@ -498,6 +498,10 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Hardship_Response_updated_on__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CAD_Outcome__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
