@@ -20,7 +20,7 @@ public with sharing class CustomerGCPActions {
    * @param triggerContext trigger Context
    */
   @TestVisible
-  public static void publishGCPEventForCustomers(
+  public static List<SObject> publishGCPEventForCustomers(
     List<Account> records,
     Map<Id, Account> oldMap,
     String triggerContext
@@ -53,7 +53,9 @@ public with sharing class CustomerGCPActions {
     List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
       cloudEventModels
     );
+
     logSuccessEvents(successPublishedEvents);
+    return successPublishedEvents;
   }
 
   /**
@@ -86,6 +88,7 @@ public with sharing class CustomerGCPActions {
    * @param oldMap old trigger values
    * @return List<Account> The account records that has a valid OCV Version.
    */
+  @TestVisible
   private static List<Account> filterAccountsBasedonOCVVersion(
     List<Account> records,
     Map<Id, Account> oldMap
