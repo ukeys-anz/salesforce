@@ -16,13 +16,6 @@ public with sharing class AccountCommonActions {
   @TestVisible
   public static Boolean forceDMLError = false; // This is to force a DML error to increase unit test coverage
 
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
-  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
-    LeadConversionActionsRepository.class
-  );
-
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
@@ -402,7 +395,6 @@ public with sharing class AccountCommonActions {
      * @param lcResults Lead conversion result
      * @param mapOfOpportunityId map of opportunity id with lead id
      */
-    @TestVisible
     private void divCRMPostLeadConversionActions(
       Map<Id, List<Lead>> matchingLeadsByAccIdMap,
       List<Database.LeadConvertResult> lcResults,
@@ -411,34 +403,30 @@ public with sharing class AccountCommonActions {
       if (mapOfOpportunityId.isEmpty()) {
         return;
       }
-      LeadConversionActions objHelperClass = new LeadConversionActions();
-      List<Database.LeadConvertResult> lcSuccessResults = objHelperClass.getSuccessConvertedLeads(
-        lcResults
-      );
-      List<Lead> convertedLeads = objHelperClass.getConvertedLeads(
-        lcSuccessResults,
-        matchingLeadsByAccIdMap
-      );
-      Set<Id> leadIds = objHelperClass.getLeadListForUnicaAdobeOnLC(
-        convertedLeads
-      );
-      Boolean autoMisMatchTaskRequired = objHelperClass.isAutoMisMatchTaskRequired(
-        convertedLeads
-      );
-      Map<Id, Lead> mapCCRMLeads = objHelperClass.getCCRMLeadsMap(
-        convertedLeads
-      );
-      Map<Id, Lead> mapDCRMLeads = objHelperClass.getDCRMLeadsMap(
-        convertedLeads
-      );
-      Set<ID> contactIds = objHelperClass.getContactsToDelete(
-        lcSuccessResults,
-        mapDCRMLeads
-      );
-      Map<Id, Id> mapOfAccountIdWithLead = objHelperClass.getMapOfAccountIdWithCCRMLead(
-        lcSuccessResults,
-        mapCCRMLeads
-      );
+      Set<Id> leadIds = new Set<Id>();
+      List<Contact> contactList = new List<Contact>();
+      Boolean autoMisMatchTaskRequired = false;
+      Set<Id> ccrmLeadIdSet = new Set<Id>();
+      Map<Id, Id> mapOfAccountIdWithLead = new Map<Id, Id>();
+      for (Database.LeadConvertResult lcr : lcResults) {
+        if (lcr.isSuccess()) {
+          for (Lead l : matchingLeadsByAccIdMap.get(lcr.getAccountId())) {
+            if (
+              CCRMLeadUtil.isCCRMLeadType(l) || CCRMLeadUtil.isMLCRMLeadType(l)
+            ) {
+              leadIds.add(l.Id);
+              contactList.add(new Contact(Id = lcr.getContactId()));
+            }
+            if (CCRMLeadUtil.isMLCRMLeadType(l)) {
+              autoMisMatchTaskRequired = true;
+            }
+            if (CCRMLeadUtil.isCCRMLeadType(l)) {
+              ccrmLeadIdSet.add(l.id);
+              mapOfAccountIdWithLead.put(l.Id, lcr.getAccountId());
+            }
+          }
+        }
+      }
       if (!leadIds.isEmpty()) {
         CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
           leadIds,
@@ -452,11 +440,11 @@ public with sharing class AccountCommonActions {
         );
       }
       transferA2ZReviewToOpportunity(
-        mapOfAccountIdWithLead.keySet(),
+        ccrmLeadIdSet,
         mapOfOpportunityId,
         mapOfAccountIdWithLead
       );
-      deleteAutoCreatedContacts(contactIds);
+      deleteAutoCreatedContacts(contactList);
     }
 
     /**
@@ -491,53 +479,72 @@ public with sharing class AccountCommonActions {
      * @param mapOfOpportunityId map of opportunity id with lead id
      */
     private void transferTasksToOpportunity(Map<Id, Id> mapOfOpportunityId) {
-      for (Task taskRecord : CCRMLeadPlatformEventHelper.leadTask) {
-        if (!mapOfOpportunityId.containsKey(taskRecord.WhoId)) {
-          continue;
+      if (!CCRMLeadPlatformEventHelper.leadTask.isEmpty()) {
+        for (Task taskRecord : CCRMLeadPlatformEventHelper.leadTask) {
+          if (mapOfOpportunityId.containsKey(taskRecord.WhoId)) {
+            taskRecord.WhatId = mapOfOpportunityId.get(taskRecord.WhoId);
+            taskRecord.WhoId = null;
+            //Added skip_validation check as per CC-4248
+            taskRecord.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
+          }
         }
-        taskRecord.WhatId = mapOfOpportunityId.get(taskRecord.WhoId);
-        taskRecord.WhoId = null;
-        taskRecord.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
+        List<Database.SaveResult> results = Database.update(
+          CCRMLeadPlatformEventHelper.leadTask,
+          false
+        );
+        Logger.error(
+          'Error occured while updating tasks during lead conversion.',
+          results
+        );
+        Logger.saveLog();
       }
-      DML_REPOSITORY.updateRecords(
-        CCRMLeadPlatformEventHelper.leadTask,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.SYSTEM_MODE
-      );
     }
+
     /**
      * @description delete auto created contacts post lead conversion
-     * @param contactIds contacts from lead conversion
+     * @param contactList list of contacts from lead conversion
      */
-    private void deleteAutoCreatedContacts(Set<ID> contactIds) {
+    private void deleteAutoCreatedContacts(List<Contact> contactList) {
+      if (contactList.isEmpty()) {
+        return;
+      }
       //Separate contactList into org contacts vs person accounts
       List<Contact> orgContactList = new List<Contact>();
       Set<Id> personContactsIdSet = new Set<Id>();
-      for (
-        Contact contactRec : LEADCONV_REPOSITORY.getContactList(contactIds)
-      ) {
+      for (Contact contactRec : [
+        SELECT id, isPersonAccount
+        FROM contact
+        WHERE id IN :contactList
+      ]) {
         if (contactRec.isPersonAccount) {
           personContactsIdSet.add(contactRec.id);
         } else {
           orgContactList.add(contactRec);
         }
       }
-      DML_REPOSITORY.deleteRecords(
-        orgContactList,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.SYSTEM_MODE
-      );
-      List<OpportunityContactRole> personOpportunityContactRoleList = LEADCONV_REPOSITORY.getOpportunityContactRole(
-        personContactsIdSet
-      );
-      DML_REPOSITORY.deleteRecords(
-        personOpportunityContactRoleList,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.SYSTEM_MODE
-      );
+      if (!orgContactList.isEmpty()) {
+        DMLUtil.deleteRecords(
+          orgContactList,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
+      }
+      if (!personContactsIdSet.isEmpty()) {
+        List<OpportunityContactRole> personOpportunityContactRoleList = [
+          SELECT id, ContactId
+          FROM OpportunityContactRole
+          WHERE ContactId IN :personContactsIdSet
+        ];
+        if (!personOpportunityContactRoleList.isEmpty()) {
+          DMLUtil.deleteRecords(
+            personOpportunityContactRoleList,
+            DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+            DMLUtil.SYSTEM_MODE
+          );
+        }
+      }
     }
   }
-
   /**
    * @description populateFieldsValue to update field values
    * exp: if Bankrupt_Date__c is not null, it will make BankruptCheckBox__c to be true
