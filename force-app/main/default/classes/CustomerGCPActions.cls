@@ -51,7 +51,7 @@ public with sharing class CustomerGCPActions {
       cloudEventModels.add(cloudEventModel);
     }
     //Passing cloud event into publish method
-    GCPEventForCustomer(cloudEventModels);
+    gcpEventForCustomer(cloudEventModels);
   }
 
   /**
@@ -81,7 +81,7 @@ public with sharing class CustomerGCPActions {
    * @description  Validate if the account OCV Event Version is valid or not.
    * Returns true if the version is valid.
    * @param records Account records.
-   * @param oldRecord old account record value
+   * @param oldMap old trigger values
    * @return List<Account> The account records that has a valid OCV Version.
    */
   private static List<Account> filterAccountsBasedonOCVVersion(
@@ -107,7 +107,7 @@ public with sharing class CustomerGCPActions {
    * @author Madhuri Edke | 07-16-2024
    * @param cloudEventModels
    **/
-  public static void GCPEventForCustomer(
+  public static void gcpEventForCustomer(
     List<BrokerCloudEventModel> cloudEventModels
   ) {
     List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
