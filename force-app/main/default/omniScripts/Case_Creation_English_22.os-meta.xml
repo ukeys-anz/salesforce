@@ -4693,7 +4693,7 @@
   &quot;padding&quot; : 0.0,
   &quot;label&quot; : &quot;LineBreak7&quot;
 }</propertySetConfig>
-                <sequenceNumber>63.0</sequenceNumber>
+                <sequenceNumber>64.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -5674,7 +5674,7 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 6,
+  &quot;controlWidth&quot; : 4,
   &quot;label&quot; : &quot;Is a REAL form required?&quot;,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
@@ -6087,7 +6087,7 @@
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
   &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
-  &quot;controlWidth&quot; : 6
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
                 <sequenceNumber>64.0</sequenceNumber>
                 <type>Radio</type>
