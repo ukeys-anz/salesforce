@@ -263,9 +263,9 @@ public with sharing class ManageOpsWorkflowActionController {
       statusUpdateError = response.get(TFMConstants.RESPONSE_MESSAGE);
       status = caseRecords.status;
     }
-    setCaseRecord(caseRecords, status, statusUpdateError);
+    Case caseToUpdate = setCaseRecord(caseRecords, status, statusUpdateError);
     List<Database.SaveResult> updatedCaseRecord = DML_REPOSITORY.updateRecords(
-      new List<Case>{ caseRecords },
+      new List<Case>{ caseToUpdate },
       DmlRepository.ALLOW_PARTIAL,
       DmlRepository.USER_MODE
     );
@@ -396,9 +396,10 @@ public with sharing class ManageOpsWorkflowActionController {
    * @param caseRecords case record
    * @param status status from LWC
    * @param statusUpdateError statusUpdateError
+   * @return Case new case instance
    **/
   @TestVisible
-  private static void setCaseRecord(
+  private static Case setCaseRecord(
     Case caseRecords,
     String status,
     String statusUpdateError
@@ -409,5 +410,6 @@ public with sharing class ManageOpsWorkflowActionController {
     caseToUpdate.Verified_Date__c = System.now();
     caseToUpdate.Status = status;
     caseToUpdate.Status_Update_Error__c = statusUpdateError;
+    return caseToUpdate;
   }
 }
