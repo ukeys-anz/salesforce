@@ -648,9 +648,6 @@ public with sharing class AccountCommonActions {
       records,
       oldMap
     );
-    if (filteredAccounts == null || filteredAccounts.isEmpty()) {
-      return;
-    }
 
     //Creating cloud event model from records vs event type map in order to pass into publish method
     List<BrokerCloudEventModel> cloudEventModels = CustomerGCPActions.createCloudEventModels(
@@ -676,25 +673,12 @@ public with sharing class AccountCommonActions {
   ) {
     List<Account> filteredAccounts = new List<Account>();
     for (Account record : records) {
-      if (isAccountValidForCustomerEvent(record, oldMap.get(record.Id))) {
+      Account oldRecord = oldMap.get(record.id);
+      if (validateOCVVersion(record, oldRecord) && validateSyncStatus(record)) {
         filteredAccounts.add(record);
       }
     }
     return filteredAccounts;
-  }
-
-  /**
-   * @description  Validate if account is valid for customer event
-   * Returns true if the Sync_Status__c and OCV_Event_Version__c are valid.
-   * @param record Account record.
-   * @param oldRecord old account record value
-   * @return Boolean to indicate the eligibility of the account record
-   */
-  private static Boolean isAccountValidForCustomerEvent(
-    Account record,
-    Account oldRecord
-  ) {
-    return validateOCVVersion(record, oldRecord) && validateSyncStatus(record);
   }
 
   /**
