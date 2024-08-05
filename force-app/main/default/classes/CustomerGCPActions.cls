@@ -50,8 +50,10 @@ public with sharing class CustomerGCPActions {
       );
       cloudEventModels.add(cloudEventModel);
     }
-    //Passing cloud event into publish method
-    gcpEventForCustomer(cloudEventModels);
+    List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
+      cloudEventModels
+    );
+    logSuccessEvents(successPublishedEvents);
   }
 
   /**
@@ -103,20 +105,6 @@ public with sharing class CustomerGCPActions {
   }
 
   /**
-   * @description Method used for calling the common CloudEventController method for publishing cloud event
-   * @author Madhuri Edke | 07-16-2024
-   * @param cloudEventModels
-   **/
-  public static void gcpEventForCustomer(
-    List<BrokerCloudEventModel> cloudEventModels
-  ) {
-    List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
-      cloudEventModels
-    );
-    logSuccessEvents(successPublishedEvents);
-  }
-
-  /**
    * @description Log publish success events
    * @param successEvents List of success events
    */
@@ -140,17 +128,13 @@ public with sharing class CustomerGCPActions {
       BrokerCloudEventModel.MasterNode masterNodeObj = CustomerDataCEBuilder.buildAccountNode(
         record
       );
-      if (accIdVsMasterNodes.containsKey(record.id)) {
-        List<BrokerCloudEventModel.MasterNode> existingNodes = accIdVsMasterNodes.get(
-          record.id
-        );
-        existingNodes.add(masterNodeObj);
-        accIdVsMasterNodes.put(record.id, existingNodes);
-      } else {
+      if (!accIdVsMasterNodes.containsKey(record.id)) {
         accIdVsMasterNodes.put(
           record.id,
           new List<BrokerCloudEventModel.MasterNode>{ masterNodeObj }
         );
+      } else {
+        accIdVsMasterNodes.get(record.id).add(masterNodeObj);
       }
     }
     return accIdVsMasterNodes;
