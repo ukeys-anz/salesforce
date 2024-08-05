@@ -7,59 +7,113 @@
 public with sharing class CustomerGCPActions {
   public static final String GCP_EVENT_ADD = 'add';
   public static final String GCP_EVENT_UPDATE = 'update';
+  @TestVisible
+  private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
+  @TestVisible
+  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
+
+  /**
+   * @description  Generate and dispatch customer GCP cloud events
+   * This function is designed to be a void function as it's the end of the publish process.
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap  old trigger values
+   * @param triggerContext trigger Context
+   */
+  @TestVisible
+  public static void publishGCPEventForCustomers(
+    List<Account> records,
+    Map<Id, Account> oldMap,
+    String triggerContext
+  ) {
+    List<Account> accBasedOnOCVVersion = filterAccountsBasedonOCVVersion(
+      records,
+      oldMap
+    );
+
+    List<Account> filteredAccounts = filterAccountsBasedOnSyncStatus(
+      accBasedOnOCVVersion
+    );
+
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = generateCustomerCEModelBundle(
+      filteredAccounts
+    );
+
+    List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
+    for (Account record : records) {
+      List<BrokerCloudEventModel.MasterNode> masterNodes = accIdVsMasterNodes.get(
+        record.id
+      );
+      BrokerCloudEventModel cloudEventModel = new CustomerDataCloudEventModel(
+        record,
+        masterNodes,
+        triggerContext
+      );
+      cloudEventModels.add(cloudEventModel);
+    }
+    //Passing cloud event into publish method
+    GCPEventForCustomer(cloudEventModels);
+  }
+
+  /**
+   * @description  Generate and dispatch customer GCP cloud events
+   * This function is designed to be a void function as it's the end of the publish process.
+   * @param records The Account records
+   * @return List<Account> The account records that has a valid sync status.
+   */
+  @TestVisible
+  private static List<Account> filterAccountsBasedOnSyncStatus(
+    List<Account> records
+  ) {
+    List<Account> filteredAccounts = new List<Account>();
+    for (Account record : records) {
+      if (
+        record.Sync_Status__c == null ||
+        record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
+      ) {
+        continue;
+      }
+      filteredAccounts.add(record);
+    }
+    return filteredAccounts;
+  }
+
+  /**
+   * @description  Validate if the account OCV Event Version is valid or not.
+   * Returns true if the version is valid.
+   * @param records Account records.
+   * @param oldRecord old account record value
+   * @return List<Account> The account records that has a valid OCV Version.
+   */
+  private static List<Account> filterAccountsBasedonOCVVersion(
+    List<Account> records,
+    Map<Id, Account> oldMap
+  ) {
+    List<Account> filteredAccounts = new List<Account>();
+    for (Account record : records) {
+      Account oldRecord = oldMap.get(record.id);
+      if (
+        record.OCV_Event_Version__c != null &&
+        record.OCV_Event_Version__c > 0 &&
+        record.OCV_Event_Version__c >= oldRecord.OCV_Event_Version__c
+      ) {
+        filteredAccounts.add(record);
+      }
+    }
+    return filteredAccounts;
+  }
 
   /**
    * @description Method used for calling the common CloudEventController method for publishing cloud event
    * @author Madhuri Edke | 07-16-2024
    * @param cloudEventModels
    **/
-  public static void publishGCPEventForLoanApps(
+  public static void GCPEventForCustomer(
     List<BrokerCloudEventModel> cloudEventModels
   ) {
     List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
       cloudEventModels
     );
     logSuccessEvents(successPublishedEvents);
-  }
-
-  /**
-   * @description Creating Cloud Event Model structure which is subsequently passed into the publishing method from the caller method
-   * @param records Account record
-   * @param triggerContext Trigger Context
-   * @return List<BrokerCloudEventModel>
-   **/
-  public static List<BrokerCloudEventModel> createCloudEventModels(
-    List<Account> records,
-    String triggerContext
-  ) {
-    List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
-    for (Account eachRecord : records) {
-      BrokerCloudEventModel eventModel = generateRLACEModel(
-        eachRecord,
-        triggerContext
-      );
-      cloudEventModels.add(eventModel);
-    }
-    return cloudEventModels;
-  }
-
-  /**
-   * @description Generate customer related Cloud Event Model
-   * @param record Account record
-   * @param eventType GCP event type
-   * @return BrokerCloudEventModel
-   */
-  @TestVisible
-  private static BrokerCloudEventModel generateRLACEModel(
-    Account record,
-    String eventType
-  ) {
-    List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
-    BrokerCloudEventModel.MasterNode masterNodeObj = CustomerDataCEBuilder.buildAccountNode(
-      record
-    );
-    masterNodes.add(masterNodeObj);
-    return new CustomerDataCloudEventModel(record, masterNodes, eventType);
   }
 
   /**
@@ -75,5 +129,30 @@ public with sharing class CustomerGCPActions {
       'Customer Published' + successEvents.size() + 'Account Cloud Events'
     );
     Logger.saveLog();
+  }
+
+  @TestVisible
+  private static Map<Id, List<BrokerCloudEventModel.MasterNode>> generateCustomerCEModelBundle(
+    List<Account> records
+  ) {
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = new Map<Id, List<BrokerCloudEventModel.MasterNode>>();
+    for (Account record : records) {
+      BrokerCloudEventModel.MasterNode masterNodeObj = CustomerDataCEBuilder.buildAccountNode(
+        record
+      );
+      if (accIdVsMasterNodes.containsKey(record.id)) {
+        List<BrokerCloudEventModel.MasterNode> existingNodes = accIdVsMasterNodes.get(
+          record.id
+        );
+        existingNodes.add(masterNodeObj);
+        accIdVsMasterNodes.put(record.id, existingNodes);
+      } else {
+        accIdVsMasterNodes.put(
+          record.id,
+          new List<BrokerCloudEventModel.MasterNode>{ masterNodeObj }
+        );
+      }
+    }
+    return accIdVsMasterNodes;
   }
 }

@@ -21,7 +21,7 @@ public virtual with sharing class CustomerDataCloudEventModel extends BrokerClou
     super();
     this.ce_type = System.Label.ANZX_Customer_event_ce_type + action;
     this.ce_source = 'broker.salesforce.anzx';
-    this.ce_subject = 'Account/' + record.Name;
+    this.ce_subject = 'Account/' + record.FirstName + ' ' + record.LastName;
     this.ce_partitionkey = 'External_Id__c/' + record.External_Id__c;
     this.ce_dataschema =
       System.Label.ANZX_Broker_Event_Proto_Data_Schema + '#customerdata';

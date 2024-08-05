@@ -15,10 +15,13 @@ public with sharing class AccountCommonActions {
   private static final String CUSTOMER_LINKED_TO_KYC_QA_ERROR = 'Error occured while linking Customer to KYC QA Case.';
   @TestVisible
   public static Boolean forceDMLError = false; // This is to force a DML error to increase unit test coverage
-  @TestVisible
-  private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
-  @TestVisible
-  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
+
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
+    LeadConversionActionsRepository.class
+  );
 
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
@@ -399,6 +402,7 @@ public with sharing class AccountCommonActions {
      * @param lcResults Lead conversion result
      * @param mapOfOpportunityId map of opportunity id with lead id
      */
+    @TestVisible
     private void divCRMPostLeadConversionActions(
       Map<Id, List<Lead>> matchingLeadsByAccIdMap,
       List<Database.LeadConvertResult> lcResults,
@@ -407,30 +411,34 @@ public with sharing class AccountCommonActions {
       if (mapOfOpportunityId.isEmpty()) {
         return;
       }
-      Set<Id> leadIds = new Set<Id>();
-      List<Contact> contactList = new List<Contact>();
-      Boolean autoMisMatchTaskRequired = false;
-      Set<Id> ccrmLeadIdSet = new Set<Id>();
-      Map<Id, Id> mapOfAccountIdWithLead = new Map<Id, Id>();
-      for (Database.LeadConvertResult lcr : lcResults) {
-        if (lcr.isSuccess()) {
-          for (Lead l : matchingLeadsByAccIdMap.get(lcr.getAccountId())) {
-            if (
-              CCRMLeadUtil.isCCRMLeadType(l) || CCRMLeadUtil.isMLCRMLeadType(l)
-            ) {
-              leadIds.add(l.Id);
-              contactList.add(new Contact(Id = lcr.getContactId()));
-            }
-            if (CCRMLeadUtil.isMLCRMLeadType(l)) {
-              autoMisMatchTaskRequired = true;
-            }
-            if (CCRMLeadUtil.isCCRMLeadType(l)) {
-              ccrmLeadIdSet.add(l.id);
-              mapOfAccountIdWithLead.put(l.Id, lcr.getAccountId());
-            }
-          }
-        }
-      }
+      LeadConversionActions objHelperClass = new LeadConversionActions();
+      List<Database.LeadConvertResult> lcSuccessResults = objHelperClass.getSuccessConvertedLeads(
+        lcResults
+      );
+      List<Lead> convertedLeads = objHelperClass.getConvertedLeads(
+        lcSuccessResults,
+        matchingLeadsByAccIdMap
+      );
+      Set<Id> leadIds = objHelperClass.getLeadListForUnicaAdobeOnLC(
+        convertedLeads
+      );
+      Boolean autoMisMatchTaskRequired = objHelperClass.isAutoMisMatchTaskRequired(
+        convertedLeads
+      );
+      Map<Id, Lead> mapCCRMLeads = objHelperClass.getCCRMLeadsMap(
+        convertedLeads
+      );
+      Map<Id, Lead> mapDCRMLeads = objHelperClass.getDCRMLeadsMap(
+        convertedLeads
+      );
+      Set<ID> contactIds = objHelperClass.getContactsToDelete(
+        lcSuccessResults,
+        mapDCRMLeads
+      );
+      Map<Id, Id> mapOfAccountIdWithLead = objHelperClass.getMapOfAccountIdWithCCRMLead(
+        lcSuccessResults,
+        mapCCRMLeads
+      );
       if (!leadIds.isEmpty()) {
         CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
           leadIds,
@@ -444,11 +452,11 @@ public with sharing class AccountCommonActions {
         );
       }
       transferA2ZReviewToOpportunity(
-        ccrmLeadIdSet,
+        mapOfAccountIdWithLead.keySet(),
         mapOfOpportunityId,
         mapOfAccountIdWithLead
       );
-      deleteAutoCreatedContacts(contactList);
+      deleteAutoCreatedContacts(contactIds);
     }
 
     /**
@@ -483,72 +491,53 @@ public with sharing class AccountCommonActions {
      * @param mapOfOpportunityId map of opportunity id with lead id
      */
     private void transferTasksToOpportunity(Map<Id, Id> mapOfOpportunityId) {
-      if (!CCRMLeadPlatformEventHelper.leadTask.isEmpty()) {
-        for (Task taskRecord : CCRMLeadPlatformEventHelper.leadTask) {
-          if (mapOfOpportunityId.containsKey(taskRecord.WhoId)) {
-            taskRecord.WhatId = mapOfOpportunityId.get(taskRecord.WhoId);
-            taskRecord.WhoId = null;
-            //Added skip_validation check as per CC-4248
-            taskRecord.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
-          }
+      for (Task taskRecord : CCRMLeadPlatformEventHelper.leadTask) {
+        if (!mapOfOpportunityId.containsKey(taskRecord.WhoId)) {
+          continue;
         }
-        List<Database.SaveResult> results = Database.update(
-          CCRMLeadPlatformEventHelper.leadTask,
-          false
-        );
-        Logger.error(
-          'Error occured while updating tasks during lead conversion.',
-          results
-        );
-        Logger.saveLog();
+        taskRecord.WhatId = mapOfOpportunityId.get(taskRecord.WhoId);
+        taskRecord.WhoId = null;
+        taskRecord.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
       }
+      DML_REPOSITORY.updateRecords(
+        CCRMLeadPlatformEventHelper.leadTask,
+        DmlRepository.ALLOW_PARTIAL,
+        DmlRepository.SYSTEM_MODE
+      );
     }
-
     /**
      * @description delete auto created contacts post lead conversion
-     * @param contactList list of contacts from lead conversion
+     * @param contactIds contacts from lead conversion
      */
-    private void deleteAutoCreatedContacts(List<Contact> contactList) {
-      if (contactList.isEmpty()) {
-        return;
-      }
+    private void deleteAutoCreatedContacts(Set<ID> contactIds) {
       //Separate contactList into org contacts vs person accounts
       List<Contact> orgContactList = new List<Contact>();
       Set<Id> personContactsIdSet = new Set<Id>();
-      for (Contact contactRec : [
-        SELECT id, isPersonAccount
-        FROM contact
-        WHERE id IN :contactList
-      ]) {
+      for (
+        Contact contactRec : LEADCONV_REPOSITORY.getContactList(contactIds)
+      ) {
         if (contactRec.isPersonAccount) {
           personContactsIdSet.add(contactRec.id);
         } else {
           orgContactList.add(contactRec);
         }
       }
-      if (!orgContactList.isEmpty()) {
-        DMLUtil.deleteRecords(
-          orgContactList,
-          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-          DMLUtil.SYSTEM_MODE
-        );
-      }
-      if (!personContactsIdSet.isEmpty()) {
-        List<OpportunityContactRole> personOpportunityContactRoleList = [
-          SELECT id, ContactId
-          FROM OpportunityContactRole
-          WHERE ContactId IN :personContactsIdSet
-        ];
-        if (!personOpportunityContactRoleList.isEmpty()) {
-          DMLUtil.deleteRecords(
-            personOpportunityContactRoleList,
-            DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-            DMLUtil.SYSTEM_MODE
-          );
-        }
-      }
+      DML_REPOSITORY.deleteRecords(
+        orgContactList,
+        DmlRepository.ALLOW_PARTIAL,
+        DmlRepository.SYSTEM_MODE
+      );
+      List<OpportunityContactRole> personOpportunityContactRoleList = LEADCONV_REPOSITORY.getOpportunityContactRole(
+        personContactsIdSet
+      );
+      DML_REPOSITORY.deleteRecords(
+        personOpportunityContactRoleList,
+        DmlRepository.ALLOW_PARTIAL,
+        DmlRepository.SYSTEM_MODE
+      );
     }
   }
+
   /**
    * @description populateFieldsValue to update field values
    * exp: if Bankrupt_Date__c is not null, it will make BankruptCheckBox__c to be true
@@ -629,79 +618,5 @@ public with sharing class AccountCommonActions {
     }
 
     Logger.saveLog();
-  }
-
-  /**
-   * @description  Generate and dispatch customer GCP cloud events
-   * This function is designed to be a void function as it's the end of the publish process.
-   * @param records The Account records passed from Trigger.new()
-   * @param oldMap  old trigger values
-   * @param triggerContext trigger Context
-   */
-  @TestVisible
-  public static void publishGCPEventForCustomers(
-    List<Account> records,
-    Map<Id, Account> oldMap,
-    String triggerContext
-  ) {
-    List<Account> filteredAccounts = filterAccountsBasedOnSyncStatus(
-      records,
-      oldMap
-    );
-
-    //Creating cloud event model from records vs event type map in order to pass into publish method
-    List<BrokerCloudEventModel> cloudEventModels = CustomerGCPActions.createCloudEventModels(
-      filteredAccounts,
-      triggerContext
-    );
-
-    //Passing cloud event into publish method
-    CustomerGCPActions.publishGCPEventForLoanApps(cloudEventModels);
-  }
-
-  /**
-   * @description  Generate and dispatch customer GCP cloud events
-   * This function is designed to be a void function as it's the end of the publish process.
-   * @param records The Account records passed from Trigger.new()
-   * @param oldMap  old trigger values
-   * @return List<Account> The account records that are valid for publishing
-   */
-  @TestVisible
-  private static List<Account> filterAccountsBasedOnSyncStatus(
-    List<Account> records,
-    Map<Id, Account> oldMap
-  ) {
-    List<Account> filteredAccounts = new List<Account>();
-    for (Account record : records) {
-      Account oldRecord = oldMap.get(record.id);
-      if (validateOCVVersion(record, oldRecord) && validateSyncStatus(record)) {
-        filteredAccounts.add(record);
-      }
-    }
-    return filteredAccounts;
-  }
-
-  /**
-   * @description  Validate if the account OCV Event Version is valid or not.
-   * Returns true if the version is valid.
-   * @param record Account record.
-   * @param oldRecord old account record value
-   * @return Boolean to indicate the eligibility of the account record based on OCV_Event_Version__c
-   */
-  private static boolean validateOCVVersion(Account record, Account oldRecord) {
-    return record.OCV_Event_Version__c != null &&
-      record.OCV_Event_Version__c > 0 &&
-      record.OCV_Event_Version__c >= oldRecord.OCV_Event_Version__c;
-  }
-
-  /**
-   * @description  Validate if the account Sync status is valid or not.
-   * Returns true if the Sync_Status__c is valid.
-   * @param record Account record.
-   * @return Boolean to indicate the eligibility of the account record  based on Sync_Status__c
-   */
-  private static boolean validateSyncStatus(Account record) {
-    return record.Sync_Status__c != null &&
-      !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED);
   }
 }
