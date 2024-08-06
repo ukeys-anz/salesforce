@@ -1,49 +1,5 @@
 @IsTest
 private class QualityAssessmentActionsTest {
-  private static final Faker FAKER = new Faker('AU');
-  static Lib_MockProvider qualityAssessmentRepositoryMock;
-  static Lib_MockProvider dmlRepoMock;
-
-  static void registerMocks() {
-    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    qualityAssessmentRepositoryMock = Lib_MockProvider.forType(
-      IDRQualityAssessmentRepository.class
-    );
-  }
-
-  static Case idrCase = (Case) TestUtil.setFields(
-    new Case(
-      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-      IDR_Completed_Evaluations__c = 'Call Review Assessment: 0 | Letter Review Assessment: 0 | C&Q Assessment: 0'
-    ),
-    new Map<String, List<SObject>>{
-      'Quality_Assessments__r' => new List<Quality_Assessment__c>{
-        new Quality_Assessment__c(
-          Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
-          Evaluation_Type__c = IDRConstants.CQ_EVAL,
-          RecordTypeId = IDRConstants.idrtCQQualityAssessment,
-          Status__c = IDRConstants.STATUS_COMPLETE,
-          Related_Case__r = new Case(
-            IDR_Completed_Evaluations__c = 'Call Review Assessment: 0 | Letter Review Assessment: 0 | C&Q Assessment: 0'
-          )
-        ),
-        new Quality_Assessment__c(
-          Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
-          Evaluation_Type__c = IDRConstants.LETTER_EVAL,
-          RecordTypeId = IDRConstants.idrtCallLetterReviewQualityAssessment,
-          Status__c = IDRConstants.STATUS_COMPLETE
-        ),
-        new Quality_Assessment__c(
-          Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
-          Evaluation_Type__c = IDRConstants.CALL_REVIEW_EVAL,
-          RecordTypeId = IDRConstants.idrtCallLetterReviewQualityAssessment,
-          Status__c = IDRConstants.STATUS_COMPLETE
-        )
-      }
-    }
-  );
-
   //method to test negative case (return false) when calling isDisputeCaseType mehtod
   @IsTest
   private static void testIsDisputeCaseTypeNegative() {
