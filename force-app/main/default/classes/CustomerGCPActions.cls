@@ -18,10 +18,9 @@ public with sharing class CustomerGCPActions {
    * @param records The Account records passed from Trigger.new()
    * @param oldMap  old trigger values
    * @param triggerContext trigger Context
-   * @return List<sObject> List of success published events
    */
   @TestVisible
-  public static List<SObject> publishGCPEventForCustomers(
+  public static void publishGCPEventForCustomers(
     List<Account> records,
     Map<Id, Account> oldMap,
     String triggerContext
@@ -36,7 +35,7 @@ public with sharing class CustomerGCPActions {
     );
 
     if (filteredAccounts.isEmpty()) {
-      return new List<sObject>();
+      return;
     }
 
     Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = generateCustomerCEModelBundle(
@@ -60,7 +59,6 @@ public with sharing class CustomerGCPActions {
     );
 
     logSuccessEvents(successPublishedEvents);
-    return successPublishedEvents;
   }
 
   /**
@@ -139,7 +137,7 @@ public with sharing class CustomerGCPActions {
       if (!accIdVsMasterNodes.containsKey(record.id)) {
         accIdVsMasterNodes.put(
           record.id,
-          new List<BrokerCloudEventModel.MasterNode>{ masterNodeObj }
+          new List<BrokerCloudEventModel.MasterNode>{}
         );
       }
       accIdVsMasterNodes.get(record.id).add(masterNodeObj);
