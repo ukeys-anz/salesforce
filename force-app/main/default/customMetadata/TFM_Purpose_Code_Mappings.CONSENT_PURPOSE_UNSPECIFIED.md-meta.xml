@@ -3,6 +3,10 @@
     <label>UNSPECIFIED</label>
     <protected>false</protected>
     <values>
+        <field>Accounts_DataScope_Subtext__c</field>
+        <value xsi:type="xsd:string">your statement of position</value>
+    </values>
+    <values>
         <field>Archived_Description__c</field>
         <value xsi:type="xsd:string">for your home loan application.
 This may have included:&lt;ul&gt;&lt;li&gt;Completing your statement of position&lt;/li&gt;&lt;li&gt;Calculating your borrowing capacity
@@ -21,5 +25,9 @@ This can include:&lt;ul&gt;&lt;li&gt;Completing your statement of position&lt;/l
     <values>
         <field>SharingPurpose__c</field>
         <value xsi:type="xsd:string">for your home loan application</value>
+    </values>
+    <values>
+        <field>Transactions_DataScope_SubText__c</field>
+        <value xsi:type="xsd:string">calculate your borrowing capacity</value>
     </values>
 </CustomMetadata>

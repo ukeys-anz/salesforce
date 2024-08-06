@@ -4,6 +4,16 @@
  * @since 01/2023
  */
 public with sharing class COBPIDViewAndEditController {
+  private static final COBPIDViewAndEditRepository COB_PID_VIEW_EDIT_REPOSITORY = (COBPIDViewAndEditRepository) Lib_InstanceProvider.forType(
+    COBPIDViewAndEditRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final StravinskyAPIRepository STRAVINSKY_API_REPOSITORY = (StravinskyAPIRepository) Lib_InstanceProvider.forType(
+    StravinskyAPIRepository.class
+  );
+
   private static final String PASSPORT_TYPE = 'Passport';
   private static final String LICENCE_TYPE = 'Licence';
   private static final String NO_PERSONA_ID = 'Error in detokenizing COB Primary ID Document - No PersonaId';
@@ -15,17 +25,20 @@ public with sharing class COBPIDViewAndEditController {
   private static final String ERROR_DETOKENIZING_DATA = 'Error detokenizing COB Primary ID Document data';
 
   @TestVisible
-  private static final List<String> LICENCE_TOKENIZED_FIELDS = new List<String>{
-    'LicenceNumber__c',
-    'LicenceNumberOCRServer__c',
-    'LicenceCardNumber__c',
-    'LicenceCardNumberOCRServer__c'
+  private static final Set<SObjectField> LICENCE_TOKENIZED_FIELDS = new Set<SObjectField>{
+    COBPrimaryIDDocument__c.LicenceNumber__c,
+    COBPrimaryIDDocument__c.LicenceNumberOCRClient__c,
+    COBPrimaryIDDocument__c.LicenceNumberOCRServer__c,
+    COBPrimaryIDDocument__c.LicenceCardNumber__c,
+    COBPrimaryIDDocument__c.LicenceCardNumberOCRClient__c,
+    COBPrimaryIDDocument__c.LicenceCardNumberOCRServer__c
   };
 
   @TestVisible
-  private static final List<String> PASSPORT_TOKENIZED_FIELDS = new List<String>{
-    'PassportNumber__c',
-    'PassportNumberOCRServer__c'
+  private static final Set<SObjectField> PASSPORT_TOKENIZED_FIELDS = new Set<SObjectField>{
+    COBPrimaryIDDocument__c.PassportNumber__c,
+    COBPrimaryIDDocument__c.PassportNumberOCRClient__c,
+    COBPrimaryIDDocument__c.PassportNumberOCRServer__c
   };
 
   /**
@@ -35,57 +48,117 @@ public with sharing class COBPIDViewAndEditController {
    */
   @AuraEnabled
   public static COBPrimaryIDDocument__c detokenizeCOBPIDData(string recordId) {
-    if (!PermissionUtils.canQuery('COBPrimaryIDDocument__c')) {
-      CommonUtil.logAndThrowIAE(
-        'COBPIDViewAndEditController',
-        'detokenizeCOBPIDData',
-        'Not enough permissions to query required object.'
-      );
-    }
+    COBPrimaryIDDocument__c cobPid = getCobPidDocument(recordId);
 
-    COBPrimaryIDDocument__c cobPid = getCOBPID(recordId);
+    Set<SObjectField> fields = getTokenizedFields(cobPid.IdDocumentType__c);
+
+    Set<String> fieldValues = getTokenizedFieldValues(cobPid, fields);
+
+    DetokenizeModel detokenizedValues = detokenizeCobPid(cobPid, fieldValues);
+
+    return setDetokenizedFields(detokenizedValues, cobPid, fields);
+  }
+
+  /**
+   * @description method to retrieve COB Primary ID Document record from database
+   * @param recordId Salesforce ID of the COBPrimaryIDDocument__c record from the lwc component
+   * @return `COBPrimaryIDDocument__c` detokenized data structured with COBPrimaryIDDocument__c object
+   */
+  @TestVisible
+  private static COBPrimaryIDDocument__c getCobPidDocument(string recordId) {
+    COBPrimaryIDDocument__c cobPid = COB_PID_VIEW_EDIT_REPOSITORY.getCOBPIDByRecordId(
+      recordId
+    );
 
     if (String.isBlank(cobPid.PersonaId__c)) {
       Logger.error(NO_PERSONA_ID, recordId);
       Logger.saveLog();
-      AuraHandledException e = new AuraHandledException(MISSING_PERSONA_ID);
-      e.setMessage(MISSING_PERSONA_ID);
-      throw e;
+      throw new AuraHandledException(MISSING_PERSONA_ID);
+    }
+    return cobPid;
+  }
+
+  /**
+   * @description method to retrieve the defined document's tokenized fields
+   * @param idDocumentType the COBPrimaryIDDocument__c documentType
+   * @return `Set<SObjectField>` tokenized fields according to COB Primary Document type
+   */
+  @TestVisible
+  private static Set<SObjectField> getTokenizedFields(String idDocumentType) {
+    if (isPassport(idDocumentType)) {
+      return PASSPORT_TOKENIZED_FIELDS;
+    }
+    if (isLicense(idDocumentType)) {
+      return LICENCE_TOKENIZED_FIELDS;
     }
 
-    StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-    COBPrimaryIDDocumentModel response;
+    return null;
+  }
 
-    List<String> fields = new List<String>();
-    if (cobPid.IdDocumentType__c == PASSPORT_TYPE) {
-      fields = PASSPORT_TOKENIZED_FIELDS;
-    } else if (cobPid.IdDocumentType__c == LICENCE_TYPE) {
-      fields = LICENCE_TOKENIZED_FIELDS;
+  /**
+   * @description method to retrieve the defined document's tokenized fields
+   * @param cobPid the COBPrimaryIDDocument__c record
+   * @param fields the defined tokenized object fields
+   * @return `Set<String>` tokenized field values of COB Primary Document record
+   */
+  @TestVisible
+  private static Set<String> getTokenizedFieldValues(
+    COBPrimaryIDDocument__c cobPid,
+    Set<SObjectField> fields
+  ) {
+    Set<String> fieldValues = new Set<String>();
+
+    for (SObjectField fieldName : fields) {
+      String fieldValue = (String) cobPid.get(fieldName);
+      if (String.isBlank(fieldValue)) {
+        continue;
+      }
+      fieldValues.add(fieldValue);
     }
 
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedValues = COBPrimaryIDDocumentModel.buildTokenizedValues(
-      cobPid,
-      fields
-    );
+    return fieldValues;
+  }
 
+  /**
+   * @description method that detokenizes and parses the COB Document
+   * @param cobPid the COB Primary Document record to detokenize
+   * @param fieldValues the tokenized field values
+   * @return `DetokenizeModel` parsed detokenized response retrieved from Stravinsky
+   */
+  @TestVisible
+  private static DetokenizeModel detokenizeCobPid(
+    COBPrimaryIDDocument__c cobPid,
+    Set<String> fieldValues
+  ) {
     try {
-      response = stravinskyApi.cobPidDetokenization(
+      return STRAVINSKY_API_REPOSITORY.detokenize(
         cobPid.PersonaId__c,
-        tokenizedValues
+        fieldValues,
+        COBPrimaryIDDocumentModel.TOKEN_TRANSFORM_VALUE
       );
     } catch (Exception e) {
       Logger.error(ERROR_DETOKENIZING_DATA, cobPid.Id, e);
       Logger.saveLog();
-      AuraHandledException ex = new AuraHandledException(FAILED_DETOKENIZATION);
-      ex.setMessage(FAILED_DETOKENIZATION);
-      throw ex;
+      throw new AuraHandledException(FAILED_DETOKENIZATION);
     }
+  }
 
-    Map<String, String> detokenizedValuesMap = buildDetokenizedMap(
-      response.values
-    );
+  /**
+   * @description method to retrieve COB Primary ID Document record from database
+   * @param response the parsed COB document with detokenized values
+   * @param cobPid the COB Primary Document record
+   * @param fields the tokenized fields to map with the detokenized ones
+   * @return `COBPrimaryIDDocument__c` the COB document record that will be displayed in LWC
+   */
+  @TestVisible
+  private static COBPrimaryIDDocument__c setDetokenizedFields(
+    DetokenizeModel response,
+    COBPrimaryIDDocument__c cobPid,
+    Set<SObjectField> fields
+  ) {
+    Map<String, String> detokenizedValuesMap = buildDetokenizedMap(response);
 
-    for (String field : fields) {
+    for (SObjectField field : fields) {
       cobPid.put(field, detokenizedValuesMap.get((String) cobPid.get(field)));
     }
 
@@ -98,30 +171,17 @@ public with sharing class COBPIDViewAndEditController {
    */
   @AuraEnabled
   public static void updateCOBPIDData(COBPrimaryIDDocument__c record) {
-    if (
-      !PermissionUtils.canUpdate('COBPrimaryIDDocument__c') ||
-      !PermissionUtils.canQuery('Case')
-    ) {
-      CommonUtil.logAndThrowIAE(
-        'COBPIDViewAndEditController',
-        'updateCOBPIDData',
-        'Not enough permissions to update required object.'
-      );
-    }
-
     if (String.isBlank(record.PersonaId__c)) {
       Logger.error(NO_PERSONA_ID, record);
       Logger.saveLog();
-      AuraHandledException e = new AuraHandledException(MISSING_PERSONA_ID);
-      e.setMessage(MISSING_PERSONA_ID);
-      throw e;
+      throw new AuraHandledException(MISSING_PERSONA_ID);
     }
 
-    COBPrimaryIDDocumentModel response = triggerTemporalPIDWorklow(record);
+    COBPrimaryIDDocumentModel cobPidData = triggerTemporalPIDWorklow(record);
 
     COBPrimaryIDDocument__c tokenizedData = buildTokenizedData(
       record,
-      response
+      cobPidData
     );
 
     PIDDMLOperator dmlOperator = new PIDDMLOperator();
@@ -132,95 +192,108 @@ public with sharing class COBPIDViewAndEditController {
    * @description method to build tokenized data wrapped in COBPrimaryIDDocument__c structure
    * @param record COBPrimaryIDDocument__c record contains the origin copy of detokenized data
    * @param response response from temporal workflow callout
-   * @return `COBPrimaryIDDocumentModel`
+   * @return `COBPrimaryIDDocument__c`
    */
+  @TestVisible
   private static COBPrimaryIDDocument__c buildTokenizedData(
     COBPrimaryIDDocument__c record,
     COBPrimaryIDDocumentModel response
   ) {
-    COBPrimaryIDDocument__c cobpid = new COBPrimaryIDDocument__c(
-      Id = record.Id,
-      FirstName__c = isPassport(record)
-        ? response.passport.firstName
-        : response.australianDriverLicence.firstName,
-      MiddleNames__c = isPassport(record)
-        ? response.passport.middleNames
-        : response.australianDriverLicence.middleNames,
-      LastName__c = isPassport(record)
-        ? response.passport.lastName
-        : response.australianDriverLicence.lastName,
-      DateOfBirth__c = isPassport(record)
-        ? Date.newInstance(
-            response.passport.dateOfBirth.year,
-            response.passport.dateOfBirth.month,
-            response.passport.dateOfBirth.day
-          )
-        : Date.newInstance(
-            response.australianDriverLicence.dateOfBirth.year,
-            response.australianDriverLicence.dateOfBirth.month,
-            response.australianDriverLicence.dateOfBirth.day
-          ),
-      ExpiryDate__c = isPassport(record)
-        ? Date.newInstance(
-            response.passport.expiryDate.year,
-            response.passport.expiryDate.month,
-            response.passport.expiryDate.day
-          )
-        : Date.newInstance(
-            response.australianDriverLicence.expiryDate.year,
-            response.australianDriverLicence.expiryDate.month,
-            response.australianDriverLicence.expiryDate.day
-          )
-    );
-
-    if (isPassport(record)) {
-      if (String.isNotBlank(response.passport.passportNumberToken?.value)) {
-        cobpid.PassportNumber__c = response.passport.passportNumberToken.value;
-      }
-
-      cobpid.CountryOfIssue__c = response.passport.countryOfIssue;
-    } else if (record.IdDocumentType__c == LICENCE_TYPE) {
-      if (
-        String.isNotBlank(
-          response.australianDriverLicence.licenceNumberToken?.value
-        )
-      ) {
-        cobpid.LicenceNumber__c = response.australianDriverLicence.licenceNumberToken.value;
-      }
-      if (
-        String.isNotBlank(
-          response.australianDriverLicence.licenceCardNumberToken?.value
-        )
-      ) {
-        cobpid.LicenceCardNumber__c = response.australianDriverLicence.licenceCardNumberToken.value;
-      }
-
-      cobpid.StateOfIssue__c = response.australianDriverLicence.stateOfIssue;
+    if (isPassport(record.IdDocumentType__c)) {
+      return getCobPidPassport(record.Id, response.passport);
+    } else if (isLicense(record.IdDocumentType__c)) {
+      return getCobPidLicense(record.Id, response.australianDriverLicence);
     }
 
-    return cobpid;
+    return null;
+  }
+
+  /**
+   * @description method to build passport tokenized data wrapped in COBPrimaryIDDocument__c structure
+   * @param recordId COBPrimaryIDDocument__c record's Id that contains the origin copy of detokenized data
+   * @param passport response's Passport object from temporal workflow callout
+   * @return `COBPrimaryIDDocument__c`
+   */
+  private static COBPrimaryIDDocument__c getCobPidPassport(
+    String recordId,
+    COBPrimaryIDDocumentModel.Passport passport
+  ) {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
+      Id = recordId,
+      FirstName__c = passport.firstName,
+      MiddleNames__c = passport.middleNames,
+      LastName__c = passport.lastName,
+      DateOfBirth__c = Date.newInstance(
+        passport.dateOfBirth.year,
+        passport.dateOfBirth.month,
+        passport.dateOfBirth.day
+      ),
+      ExpiryDate__c = Date.newInstance(
+        passport.expiryDate.year,
+        passport.expiryDate.month,
+        passport.expiryDate.day
+      ),
+      CountryOfIssue__c = passport.countryOfIssue
+    );
+    cobPid.PassportNumber__c = passport.passportNumberToken?.value;
+
+    return cobPid;
+  }
+
+  /**
+   * @description method to build license tokenized data wrapped in COBPrimaryIDDocument__c structure
+   * @param recordId COBPrimaryIDDocument__c record's Id that contains the origin copy of detokenized data
+   * @param australianDriverLicence response's AustralianDriverLicence object from temporal workflow callout
+   * @return `COBPrimaryIDDocument__c`
+   */
+  private static COBPrimaryIDDocument__c getCobPidLicense(
+    String recordId,
+    COBPrimaryIDDocumentModel.AustralianDriverLicence australianDriverLicence
+  ) {
+    COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c(
+      Id = recordId,
+      FirstName__c = australianDriverLicence.firstName,
+      MiddleNames__c = australianDriverLicence.middleNames,
+      LastName__c = australianDriverLicence.lastName,
+      DateOfBirth__c = Date.newInstance(
+        australianDriverLicence.dateOfBirth.year,
+        australianDriverLicence.dateOfBirth.month,
+        australianDriverLicence.dateOfBirth.day
+      ),
+      ExpiryDate__c = Date.newInstance(
+        australianDriverLicence.expiryDate.year,
+        australianDriverLicence.expiryDate.month,
+        australianDriverLicence.expiryDate.day
+      ),
+      StateOfIssue__c = australianDriverLicence.stateOfIssue
+    );
+    cobPid.LicenceNumber__c = australianDriverLicence.licenceNumberToken?.value;
+    cobPid.LicenceCardNumber__c = australianDriverLicence.licenceCardNumberToken
+      ?.value;
+
+    return cobPid;
   }
 
   /**
    * @description method to trigger temporal workflow to update cobpid
-   * @param record data returned from tokenize api
+   * @param record COB Primary ID record that will be updated
    * @return `COBPrimaryIDDocumentModel`
    */
+  @TestVisible
   private static COBPrimaryIDDocumentModel triggerTemporalPIDWorklow(
     COBPrimaryIDDocument__c record
   ) {
+    Case idOpsCase = COB_PID_VIEW_EDIT_REPOSITORY.getIdOpsCase(record);
+
     try {
-      StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-      COBPrimaryIDDocumentModel requestBody = COBPrimaryIDDocumentModel.buildUpdateRequestBody(
-        record
+      return STRAVINSKY_API_REPOSITORY.updatePrimaryIDDocument(
+        record,
+        idOpsCase.Id
       );
-      return stravinskyApi.cobPidTokenization(record.PersonaId__c, requestBody);
     } catch (Exception e) {
       Logger.error(ERROR_TOKENIZING_DATA, record.Id, e);
       Logger.saveLog();
-      AuraHandledException ex = new AuraHandledException(FAILED_TOKENIZATION);
-      ex.setMessage(FAILED_TOKENIZATION);
-      throw ex;
+      throw new AuraHandledException(FAILED_TOKENIZATION);
     }
   }
 
@@ -230,11 +303,11 @@ public with sharing class COBPIDViewAndEditController {
    * @return `Map<String, String>` a map between tokenized string and detokenized value
    */
   private static Map<String, String> buildDetokenizedMap(
-    List<COBPrimaryIDDocumentModel.DetokenizedValue> detokenizedValues
+    DetokenizeModel detokenizedValues
   ) {
     Map<String, String> detokenizedValuesMap = new Map<String, String>();
 
-    for (COBPrimaryIDDocumentModel.DetokenizedValue dv : detokenizedValues) {
+    for (DetokenizeModel.DetokenizedValue dv : detokenizedValues.values) {
       detokenizedValuesMap.put(dv.Tokenized, dv.Detokenized);
     }
 
@@ -242,87 +315,47 @@ public with sharing class COBPIDViewAndEditController {
   }
 
   /**
-   * @description method to query a COBPrimaryIDDocument__c record by ID
-   * @param recordId Salesforce ID of the COBPrimaryIDDocument__c record from the lwc component
-   * @return `COBPrimaryIDDocument__c`
+   * @description checks if a Primary ID Document is a passport
+   * @param idDocumentType the Primary ID Document's document type
+   * @return Boolean - if a Primary ID Document is a passport
    */
-  private static COBPrimaryIDDocument__c getCOBPID(String recordId) {
-    return [
-      SELECT
-        Id,
-        PersonaId__c,
-        IdDocumentType__c,
-        LicenceNumber__c,
-        LicenceNumberOCRClient__c,
-        LicenceNumberOCRServer__c,
-        LicenceCardNumber__c,
-        LicenceCardNumberOCRClient__c,
-        LicenceCardNumberOCRServer__c,
-        PassportNumber__c,
-        PassportNumberOCRClient__c,
-        PassportNumberOCRServer__c,
-        FirstName__c,
-        FirstNameOCRClient__c,
-        FirstNameOCRServer__c,
-        MiddleNames__c,
-        MiddleNamesOCRClient__c,
-        MiddleNamesOCRServer__c,
-        LastName__c,
-        LastNameOCRClient__c,
-        LastNameOCRServer__c,
-        DateOfBirth__c,
-        DateOfBirthOCRClient__c,
-        DateOfBirthOCRServer__c,
-        StateOfIssue__c,
-        StateOfIssueOCRClient__c,
-        StateOfIssueOCRServer__c,
-        CountryOfIssue__c,
-        CountryOfIssueOCRClient__c,
-        CountryOfIssueOCRServer__c,
-        ExpiryDate__c,
-        ExpiryDateOCRClient__c,
-        ExpiryDateOCRServer__c
-      FROM COBPrimaryIDDocument__c
-      WHERE ID = :recordId
-      LIMIT 1
-    ];
+  private static Boolean isPassport(String idDocumentType) {
+    return idDocumentType == PASSPORT_TYPE;
   }
 
   /**
-   * @description checks if a Primary ID Document is a passport
-   * @param record COBPrimaryIDDocument__c record contains the origin copy of detokenized data
-   * @return Boolean - if a Primary ID Document is a passport
+   * @description checks if a Primary ID Document is a licence
+   * @param idDocumentType the Primary ID Document's document type
+   * @return Boolean - if a Primary ID Document is a license
    */
-  private static Boolean isPassport(COBPrimaryIDDocument__c record) {
-    return record.IdDocumentType__c == PASSPORT_TYPE;
+  private static Boolean isLicense(String idDocumentType) {
+    return idDocumentType == LICENCE_TYPE;
   }
 
   /**
    * @description private without sharing class to bypass COBPrimaryIDDocument__c sharing settings
    */
+  @TestVisible
   private without sharing class PIDDMLOperator {
     /**
      * @description Update COBPrimaryIDDocument__c record
      * @param tokenizedData Tokenised COBPrimaryIDDocument__c record
      */
+    @TestVisible
     private void updateTokenizedData(COBPrimaryIDDocument__c tokenizedData) {
-      if (PermissionUtils.canUpdate('COBPrimaryIDDocument__c')) {
-        Database.SaveResult result = Database.Update(tokenizedData, false);
-
-        if (!result.isSuccess()) {
-          Logger.error('Failed to update COBPrimaryIDDocument__c', result);
-          Logger.saveLog();
-
-          AuraHandledException ex = new AuraHandledException(FAILED_UPDATE);
-          ex.setMessage(FAILED_UPDATE);
-          throw ex;
-        }
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'COBPIDViewAndEditController',
-          'updateCOBPIDData',
-          'Not enough permissions to update COBPrimaryIDDocument__c.'
-        );
+      if (tokenizedData == null) {
+        return;
+      }
+      List<COBPrimaryIDDocument__c> tokenizedDataList = new List<COBPrimaryIDDocument__c>{
+        tokenizedData
+      };
+      List<Database.SaveResult> results = DML_REPOSITORY.updateRecords(
+        tokenizedDataList,
+        DmlRepository.ALL_OR_NONE,
+        DmlRepository.SYSTEM_MODE
+      );
+      if (results.isEmpty()) {
+        throw new AuraHandledException(FAILED_UPDATE);
       }
     }
   }

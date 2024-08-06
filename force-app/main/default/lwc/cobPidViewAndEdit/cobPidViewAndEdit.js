@@ -7,6 +7,8 @@ import hasEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Primar
 import detokenizeCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.detokenizeCOBPIDData";
 import updateCOBPIDData from "@salesforce/apex/COBPIDViewAndEditController.updateCOBPIDData";
 import COUNTRY_OF_ISSUE_FIELD from "@salesforce/schema/COBPrimaryIDDocument__c.CountryOfIssue__c";
+import modal from "@salesforce/resourceUrl/OnboardingCSS";
+import { loadStyle } from "lightning/platformResourceLoader";
 
 const RECORD_FIELDS = [
   "COBPrimaryIDDocument__c.IdDocumentType__c",
@@ -34,6 +36,7 @@ export default class CobPidViewAndEdit extends LightningElement {
     document.body.appendChild(inputAlignLeft);
 
     this.isLoading = true;
+    loadStyle(this, modal);
   }
 
   get allowEdit() {

@@ -18,7 +18,7 @@
     <picklistValues>
         <picklist>UsageType</picklist>
         <values>
-            <fullName>Business Phone</fullName>
+            <fullName>Primary Business Telephone</fullName>
             <default>false</default>
         </values>
         <values>

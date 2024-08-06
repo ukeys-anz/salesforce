@@ -32,6 +32,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeInsert() {
     AbnAcnUtil.validateABN(records, null);
     AbnAcnUtil.validateACN(records, null);
+    MLCRMLeadActions.validateMLCRMLeadCreation(records);
     CCRMLeadActions.populateFields(records);
     MLCRMCommonUtils.referrerPrefill(records, null);
     CCRMLeadActions.populateFromPreviousLead(records);

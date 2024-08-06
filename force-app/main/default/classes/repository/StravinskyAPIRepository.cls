@@ -20,50 +20,53 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   public static final String STAGE_ASSISTED_KYC = 'STAGE_ASSISTED_KYC';
   public static final String STAGE_ACK_ID_CHECK = 'STAGE_ACK_ID_CHECK';
   public static final String STAGE_TNC = 'STAGE_TNC';
+  public static final String STAGE_TERMINATED = 'STAGE_TERMINATED';
 
   @TestVisible
   private static final Set<String> EXPECTED_STAGES_SET = new Set<String>{
     STAGE_ASSISTED_SELFIE,
     STAGE_ASSISTED_KYC,
     STAGE_ACK_ID_CHECK,
-    STAGE_TNC
+    STAGE_TNC,
+    STAGE_TERMINATED
   };
 
   /**
    * @param caseRecord contains ocv id and package id
-   * @param checkingAccount the account numbers for the checking account
-   * @param savingsAccount the account numbers for the savings account
+   * @param  setOfAccountNumberToBeClosed the account numbers for the checking account
    * @param customerOCVIds ocvIds of the customer individual or joint
-   * @return PackageClosureModel
+   * @return GenesisPackageClosureModel
    * @description stravinsky package closure api
    */
-  public PackageClosureModel packageClosure(
+  public GenesisPackageClosureModel packageClosure(
     Case caseRecord,
-    List<String> checkingAccount,
-    List<String> savingsAccount,
+    Set<String> setOfAccountNumberToBeClosed,
     List<String> customerOCVIds
   ) {
-    //Added in order to create a wrapper object to be sent to Mulesoft
-    AccountClosurePackageWrapper closureCaseRecord = new AccountClosurePackageWrapper();
-    closureCaseRecord.packageId = caseRecord.Package_Id__c;
-    closureCaseRecord.closeDate = String.valueOf(Date.today());
-    closureCaseRecord.accountNumbersA1 = checkingAccount;
-    closureCaseRecord.accountNumbersS1 = savingsAccount;
-    closureCaseRecord.ocvIds = customerOCVIds;
-    closureCaseRecord.accountType = caseRecord.Account_Type__c;
+    GenesisPackageClosureModel result;
 
     Service s = ServiceProvider.getService(StravinskyService.class);
-    //Updated ClosedPackage method to accept OCVId and ClosurePackageWrapper
+    //Updated ClosedPackage method to accept OCVId and ClosureCaseRequest
     HttpCalloutResponse response = s.closePackage(
       caseRecord.Account.OCV_ID__c,
-      closureCaseRecord
+      generateJsonRequest(
+        caseRecord,
+        setOfAccountNumberToBeClosed,
+        customerOCVIds
+      )
     );
 
-    if (response.successful == false) {
+    if (response.successful) {
+      try {
+        result = GenesisPackageClosureModel.parse(response.body);
+      } catch (Exception objException) {
+        throw CommonUtil.logException(objException);
+      }
+    } else {
       throw CommonUtil.logException(response);
     }
 
-    return PackageClosureModel.parse(response.body);
+    return result;
   }
 
   /**
@@ -106,10 +109,11 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     }
 
     for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
-      String errorStage = errDetail.debug?.cxOnboardingStage;
+      COBRASErrorModel.Debug debug = errDetail.debug;
+      String errorStage = debug?.cxOnboardingStage;
       if (EXPECTED_STAGES_SET.contains(errorStage)) {
         cobStage.cxOnboardingStage = errorStage;
-        cobStage.retryReason = errDetail.debug?.retryReason;
+        cobStage.reason = debug.reason;
         return cobStage;
       }
     }
@@ -118,42 +122,51 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields a list of fields to be detokenized, as callout request body
-   * @return COBPrimaryIDDocumentModel
+   * @param personaId COB Primary ID record's PersonaId
+   * @param fieldValues the field values to be detokenized
+   * @param transformValue the token transform value use for detokenizing
+   * @return DetokenizeModel
    * @description stravinsky COBPID detokenization api
    */
-  public COBPrimaryIDDocumentModel cobPidDetokenization(
+  public DetokenizeModel detokenize(
     String personaId,
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedFields
+    Set<String> fieldValues,
+    String transformValue
   ) {
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.detokenizeCOBPID(
-      personaId,
-      tokenizedFields
+    DetokenizeRequestModel request = new DetokenizeRequestModel(
+      fieldValues,
+      transformValue
     );
+
+    Service s = ServiceProvider.getService(StravinskyService.class);
+    HttpCalloutResponse response = s.detokenize(personaId, request);
 
     if (response.successful == false) {
       throw CommonUtil.logException(response);
     }
 
-    return COBPrimaryIDDocumentModel.parse(response.body);
+    return DetokenizeModel.parse(response.body);
   }
 
   /**
-   * @param personaId COB Primary ID record Persona Id
-   * @param detokenizedValue detokenized value (plain text) of a COBPID record
+   * @param record COB Primary ID record
+   * @param caseId the linked Case Id to the COBPID record
    * @return COBPrimaryIDDocumentModel
    * @description stravinsky COBPID tokenization api
    */
-  public COBPrimaryIDDocumentModel cobPidTokenization(
-    String personaId,
-    COBPrimaryIDDocumentModel detokenizedValue
+  public COBPrimaryIDDocumentModel updatePrimaryIDDocument(
+    COBPrimaryIDDocument__c record,
+    Id caseId
   ) {
+    COBPrimaryIDDocUpdateRequestModel requestBody = new COBPrimaryIDDocUpdateRequestModel(
+      record,
+      caseId
+    );
+
     Service s = ServiceProvider.getService(StravinskyService.class);
-    HttpCalloutResponse response = s.tokenizeCOBPID(
-      personaId,
-      detokenizedValue
+    HttpCalloutResponse response = s.updatePrimaryIDDocument(
+      record.PersonaId__c,
+      requestBody
     );
 
     if (response.successful == false) {
@@ -200,14 +213,57 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
      */
     public String cxOnboardingStage { get; set; }
     /**
-     * @description retryReason
+     * @description reason
      */
-    public String retryReason { get; set; }
+    public String reason { get; set; }
   }
 
   /**
    * @description Mock exception
    */
   private class MockException extends Exception {
+  }
+  /**
+   * @description Generate Json Request to be sent to Mulesoft
+   * @param caseRecord contains ocv id and package id
+   * @param setOfAccountNumberToBeClosed the account numbers to be closed
+   * @param customerOCVIds ocvIds of the customer individual or joint
+   * @return JSON string to be sent to Mulesoft
+   */
+  @TestVisible
+  private String generateJsonRequest(
+    Case caseRecord,
+    Set<String> setOfAccountNumberToBeClosed,
+    List<String> customerOCVIds
+  ) {
+    //Added in order to create a json string to be sent to Mulesoft
+    JSONGenerator body = JSON.createGenerator(true);
+    body.writeStartObject();
+    body.writeObjectField('ocv_ids', customerOCVIds);
+    body.writeFieldName('items');
+    body.writeStartArray();
+    for (String accNum : setOfAccountNumberToBeClosed) {
+      body.writeStartObject();
+      body.writeStringField('account_resource', accNum);
+      body.writeEndObject();
+    }
+    if (!isS2ProductOnCase(caseRecord)) {
+      body.writeStartObject();
+      body.writeStringField('package_resource', caseRecord.Package_Id__c);
+      body.writeEndObject();
+    }
+    body.writeEndArray();
+    body.writeEndObject();
+    return body.getAsString();
+  }
+
+  /**
+   * @description check if the Product on the case record is S2 or not.
+   * @param caseRecord Case record of Account Closure record type
+   * @return true if Product on Case is not S2
+   */
+  public static Boolean isS2ProductOnCase(Case caseRecord) {
+    return System.Label.S2AccountEnabled.toLowerCase() == 'true' &&
+      caseRecord.Account_Product__c == 'ANZ Plus Flex Saver';
   }
 }

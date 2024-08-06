@@ -2467,6 +2467,20 @@
     {
       "attributes": {
         "type": "Product2",
+        "referenceId": "Product2Ref582"
+      },
+      "Name": "ANZ Plus - Flex Saver",
+      "IsActive": true,
+      "ANZ_Product_Code__c": "582",
+      "IDR_Product_or_Service_Line__c": "2",
+      "IDR_Product_or_Service_Category__c": "5",
+      "IDR_Product_or_Service_Type__c": "31",
+      "IDR_Workbasket__c": "IDR_ANZ_Plus",
+      "IDR_Product_Family__c": "@Product_Family__cRef2"
+    },
+    {
+      "attributes": {
+        "type": "Product2",
         "referenceId": "Product2Ref559"
       },
       "Name": "N/A",

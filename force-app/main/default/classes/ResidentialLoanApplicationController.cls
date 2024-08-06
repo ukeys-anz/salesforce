@@ -77,12 +77,13 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
 
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
       ResidentialLoanApplicationModel sopAssets = rlaRepo.getListAssets(
-        loanRec[0]?.Account?.OCV_ID__c,
-        loanRec[0]?.SOP_Id__c
+        loanRec.Account?.OCV_ID__c,
+        loanRec.SOP_Id__c
       );
 
       sopAssets.assetsSummary.assets = filterAssets(sopAssets);
@@ -131,9 +132,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   @TestVisible
   private static void setUamForBtns(
     ResidentialLoanApplicationModel sopAssets,
-    List<ResidentialLoanApplication> loanRec
+    ResidentialLoanApplication loanRec
   ) {
-    Boolean showAddEditBtn = allowUpsertIncomeAndDebt(loanRec[0]?.Status);
+    Boolean showAddEditBtn = allowUpsertIncomeAndDebt(loanRec.Status);
     Boolean allowDeleteIncome = allowDeleteIncome(
       sopAssets?.incomesSummary?.incomes?.size()
     );
@@ -234,33 +235,23 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
-      SOPModel response = rlaRepo.getSOP(
-        loanRec[0]?.Account?.OCV_ID__c,
-        loanRec[0]?.SOP_Id__c
-      );
-      SOPModel.Parties[] transformedParties = new List<SOPModel.Parties>();
-      SOPModelHelper.enrichOwnerName(response);
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
 
+      SOPModel response = rlaRepo.getSOP(
+        loanRec.Account?.OCV_ID__c,
+        loanRec.SOP_Id__c
+      );
       if (response == null) {
         return false;
       }
-      for (Object row : response.parties) {
-        Map<String, Object> obj = (Map<String, Object>) JSON.deserializeUntyped(
-          JSON.serialize(row)
-        );
-        obj.put('partyDependantsCount', response.dependantsCount);
 
-        transformedParties.add(
-          (SOPModel.Parties) System.JSON.deserialize(
-            JSON.serialize(obj),
-            SOPModel.Parties.class
-          )
-        );
-      }
-      response.parties = transformedParties;
+      SOPModelHelper.enrichOwnerName(response);
+      response.parties = SOPModelHelper.transformPartiesList(response);
+
+      outMap.put('ocvID', loanRec.Account?.OCV_ID__c);
       outMap.put('object', JSON.deserializeUntyped(JSON.serialize(response)));
       return true;
     } catch (Exception e) {
@@ -291,16 +282,17 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         ? 'Yes'
         : 'No';
 
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
       rlaRepo.createIncome(
-        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
         loanId
       );
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
 
       outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
@@ -341,18 +333,19 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       Boolean incomeVerifiedChanged = staticIncomeVerified != incomeVerified;
 
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
 
       rlaRepo.updateIncome(
-        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec.Account?.OCV_ID__c,
         incomeVerified,
         JSON.serialize(model),
         loanId,
         incomeVerifiedChanged
       );
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
       outMap.put('hasValidationError', false);
       outMap.put('toast', 'Success');
       return true;
@@ -384,16 +377,17 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
       Boolean deleteIncomeResponse = rlaRepo.deleteIncome(
-        loanRec[0]?.SOP_Id__c,
-        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec.SOP_Id__c,
+        loanRec.Account?.OCV_ID__c,
         JSON.serialize(model),
         loanId
       );
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
 
       outMap.put(
         'object',
@@ -467,17 +461,18 @@ global with sharing class ResidentialLoanApplicationController implements omnist
 
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
 
       rlaRepo.editExpense(
-        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec.Account?.OCV_ID__c,
         JSON.serialize(expenseModel),
         loanId
       );
 
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
 
       outMap.put('toast', 'Success');
       return true;
@@ -867,16 +862,17 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
 
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
       rlaRepo.createDebt(
-        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec.Account?.OCV_ID__c,
         JSON.serialize(debt, true)
           .replaceAll('"limitAmount"(\\ )*:', '"limit":'),
         loanId
       );
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
       outMap.put('toast', 'success');
       outMap.put('toastMessage', 'The new debt was successfully added.');
 
@@ -917,16 +913,17 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanAppId');
 
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
       rlaRepo.editDebt(
-        loanRec[0]?.Account?.OCV_ID__c,
+        loanRec.Account?.OCV_ID__c,
         JSON.serialize(debtBody, true)
           .replaceAll('"limitAmount"(\\ )*:', '"limit":'),
         loanId
       ); //Use JSON.serialize and replaceAll instead of the calloutModel one is because calloutModel will replace currency with currencyCode
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
       outMap.put('toast', 'success');
       outMap.put(
         'toastMessage',
@@ -966,15 +963,16 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     try {
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanId');
-      List<ResidentialLoanApplication> loanRec = BOHService.getLoanRecord(
-        loanId
-      );
+      ResidentialLoanApplication loanRec = BOHService.getLoanRecord(loanId);
+      if (loanRec == null) {
+        throw new IllegalArgumentException('Valid Loan Record not found');
+      }
       Boolean deleteDebtResponse = rlaRepo.deleteDebt(
-        loanRec[0].SOP_Id__c,
-        loanRec[0].Account.OCV_ID__c,
+        loanRec.SOP_Id__c,
+        loanRec.Account.OCV_ID__c,
         JSON.serialize(model)
       );
-      publishRLARecordMonitoringToast(loanRec[0]);
+      publishRLARecordMonitoringToast(loanRec);
       outMap.put(
         'object',
         JSON.deserializeUntyped(JSON.serialize(deleteDebtResponse))

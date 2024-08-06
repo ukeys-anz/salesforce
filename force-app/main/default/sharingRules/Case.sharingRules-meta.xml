@@ -509,7 +509,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

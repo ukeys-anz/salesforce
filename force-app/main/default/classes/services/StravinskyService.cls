@@ -18,13 +18,13 @@ public with sharing class StravinskyService extends Service {
 
   /**
    * @param ocvId customer id
-   * @param closureCaseRecord Account Closure Wrapper record to be sent in the body
+   * @param closureCaseRequest Account Closure json string to be sent as request body
    * @return HttpCalloutResponse
    * @description stravinsky package closure api
    */
   public override HttpCalloutResponse closePackage(
     String ocvId,
-    AccountClosurePackageWrapper closureCaseRecord
+    String closureCaseRequest
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
@@ -35,9 +35,8 @@ public with sharing class StravinskyService extends Service {
       Label.ST_Close_Package,
       HTTP_METHOD.HTTP_POST,
       headers,
-      JSON.serialize(closureCaseRecord)
+      closureCaseRequest
     );
-
     return response;
   }
 
@@ -70,28 +69,24 @@ public with sharing class StravinskyService extends Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields the tokenized fields to be detokenized
+   * @param request the tokenized fields to be detokenized
    * @return HttpCalloutResponse
-   * @description stravinsky COBPID detokenization api
+   * @description stravinsky detokenization api
    */
-  public override HttpCalloutResponse detokenizeCOBPID(
+  public override HttpCalloutResponse detokenize(
     String personaId,
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedFields
+    DetokenizeRequestModel request
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.PERSONAID, personaId, headers);
     headers.put('x-span-id', UniqueIdUtil.generateSpanId());
-
-    Map<String, List<COBPrimaryIDDocumentModel.TokenizedValue>> callBody = new Map<String, List<COBPrimaryIDDocumentModel.TokenizedValue>>{
-      'values' => tokenizedFields
-    };
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       Label.ST_Detokenize,
       HTTP_METHOD.HTTP_POST,
       headers,
-      JSON.serialize(callBody)
+      JSON.serialize(request)
     );
 
     return response;
@@ -99,31 +94,25 @@ public with sharing class StravinskyService extends Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param detokenizedValue detokenized value (plain text) of a COBPID record
+   * @param request COB Primary ID Document request data
    * @return HttpCalloutResponse
-   * @description stravinsky COBPID tokenization api
+   * @description stravinsky COBPID updatePrimaryDocument api
    */
-  public override HttpCalloutResponse tokenizeCOBPID(
+  public override HttpCalloutResponse updatePrimaryIDDocument(
     String personaId,
-    COBPrimaryIDDocumentModel detokenizedValue
+    COBPrimaryIDDocUpdateRequestModel request
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.PERSONAID, personaId, headers);
     headers.put('x-span-id', UniqueIdUtil.generateSpanId());
     headers.put('Content-Type', 'application/json');
 
-    Map<String, Object> callBody = new Map<String, Object>{
-      'primaryIdDocument' => detokenizedValue.primaryIdDocument,
-      'caseId' => detokenizedValue.caseId,
-      'updateMask' => detokenizedValue.updateMask
-    };
-
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       Label.ST_UpdatePrimaryIdDocument,
       HTTP_METHOD.HTTP_POST,
       headers,
-      JSON.serialize(callBody, true)
+      JSON.serialize(request, true)
     );
 
     return response;
@@ -168,7 +157,7 @@ public with sharing class StravinskyService extends Service {
       GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => cobCase.ParentId
     };
     Map<Id, String> reasonMap = new Map<Id, String>{
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID => GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST,
+      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID => COBCaseStatusPathController.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON,
       GetHelpConstants.FRAUD_CHECK_RT_ID => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
     };
     RetryStagePayload retryStagePayload = new RetryStagePayload();

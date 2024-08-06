@@ -583,6 +583,16 @@
                 <label>Signing Authority Update (ANZ Plus/Save)</label>
             </value>
             <value>
+                <fullName>Request for Voice Recording or Video Recording</fullName>
+                <default>false</default>
+                <label>Request for Voice Recording or Video Recording</label>
+            </value>
+            <value>
+                <fullName>Unacceptable customer behaviour</fullName>
+                <default>false</default>
+                <label>Unacceptable customer behaviour</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -721,6 +731,14 @@
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
             <valueName>Signing Authority Update (ANZ Plus/Save)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Request for Voice Recording or Video Recording</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Unacceptable customer behaviour</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
