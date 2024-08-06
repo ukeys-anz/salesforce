@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="quickstart"
+         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 https://pmd.sourceforge.io/ruleset_2_0_0.xsd">
+   <description>Quickstart configuration of PMD for Salesforce.com Apex. Includes the rules that are most likely to apply everywhere.</description>
+
+  <exclude-pattern>.*/node_modules/.*</exclude-pattern>
+  <exclude-pattern>.*/.sfdx/.*</exclude-pattern>
+    <!-- COMPLEXITY -->
+    <rule ref="category/apex/design.xml/ExcessiveParameterList" message="Avoid long parameter lists">
+      <priority>3</priority>
+      <properties>
+         <property name="minimum" value="5" />
+      </properties>
+    </rule>
+    <rule ref="category/apex/design.xml/NcssMethodCount" message="The method {0}() has an NCSS line count of {1}">
+      <priority>3</priority>
+      <properties>
+         <property name="minimum" value="55" />
+      </properties>
+    </rule>
+    <rule ref="category/apex/design.xml/AvoidDeeplyNestedIfStmts" message="Deeply nested if..else statements are hard to read">
+      <priority>3</priority>
+      <properties>
+         <property name="problemDepth" value="3" />
+      </properties>
+    </rule>
+    <rule ref="category/apex/bestpractices.xml/ApexAssertionsShouldIncludeMessage"/>
+    <rule ref="category/apex/bestpractices.xml/ApexUnitTestClassShouldHaveAsserts"/>
+    <rule ref="category/apex/bestpractices.xml/ApexUnitTestShouldNotUseSeeAllDataTrue"/>
+    <rule ref="category/apex/bestpractices.xml/UnusedLocalVariable"/>
+    <rule ref="category/apex/performance.xml/AvoidDebugStatements"/>
+    <rule ref="category/apex/performance.xml/AvoidNonRestrictiveQueries"/>
+    <rule ref="category/apex/performance.xml/OperationWithHighCostInLoop"/>
+    <rule ref="category/apex/performance.xml/OperationWithLimitsInLoop"/>
+</ruleset>
