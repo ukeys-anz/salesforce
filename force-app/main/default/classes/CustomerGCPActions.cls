@@ -1,7 +1,7 @@
 /**
  * @description       : description Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-05-2024
+ * @last modified on  : 08-06-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerGCPActions {
@@ -136,9 +136,8 @@ public with sharing class CustomerGCPActions {
           record.id,
           new List<BrokerCloudEventModel.MasterNode>{ masterNodeObj }
         );
-      } else {
-        accIdVsMasterNodes.get(record.id).add(masterNodeObj);
       }
+      accIdVsMasterNodes.get(record.id).add(masterNodeObj);
     }
     return accIdVsMasterNodes;
   }
