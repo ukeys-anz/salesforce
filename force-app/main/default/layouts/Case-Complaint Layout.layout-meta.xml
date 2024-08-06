@@ -580,6 +580,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>IDR_Date_time_Progressed_Status_selected__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IDR_AFCA_Case_Manager__c</field>
             </layoutItems>
             <layoutItems>

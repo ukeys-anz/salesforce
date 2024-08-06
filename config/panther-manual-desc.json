@@ -1114,7 +1114,8 @@
         "AFCA_Stage__c",
         "Date_time_Registration_Response_Provided__c",
         "IDR_Complaint_Outcome_Offered__c",
-        "IDR_Completed_Evaluations__c"
+        "IDR_Completed_Evaluations__c",
+        "IDR_Date_time_Progressed_Status_selected__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
