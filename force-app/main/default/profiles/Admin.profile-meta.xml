@@ -3181,6 +3181,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Date_time_Progressed_Status_selected__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_AFCA_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>

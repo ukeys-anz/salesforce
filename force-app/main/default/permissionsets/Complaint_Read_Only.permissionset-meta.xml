@@ -398,6 +398,12 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_Date_time_Progressed_Status_selected__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_Description_of_Outcome_Offered__c</field>
         <readable>true</readable>
     </fieldPermissions>
