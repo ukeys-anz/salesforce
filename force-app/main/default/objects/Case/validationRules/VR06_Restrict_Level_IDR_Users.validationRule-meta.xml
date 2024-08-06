@@ -12,6 +12,7 @@
   RecordType.DeveloperName = &apos;Customer_Complaint&apos;
 ) &amp;&amp;
 (!isChanged(IDR_Additional_Correspondence_reviewed__c)) &amp;&amp;
+(!isChanged(IDR_Real_Form_Req__c)) &amp;&amp;(!isChanged(IDR_Real_Form_Ref_No__c))&amp;&amp;
 (!isChanged(IDR_Document_Count__c)) &amp;&amp;
 (
   (!isChanged(OwnerId) &amp;&amp; !($User.Id = OwnerId || 

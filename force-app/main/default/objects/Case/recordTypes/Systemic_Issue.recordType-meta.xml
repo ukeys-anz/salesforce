@@ -90,10 +90,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Commercial Broker</fullName>
             <default>false</default>
         </values>
@@ -751,6 +747,29 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>SI_PSI_Source__c</picklist>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NLP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SI flag</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reporting</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>SI_Potential_Consequence_to_Customer__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -931,10 +950,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Mobile Lending</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Open Banking</fullName>
             <default>false</default>
         </values>
@@ -1001,12 +1016,13 @@
         <values>
             <fullName>Transact and Save</fullName>
             <default>false</default>
-        </values>
+        </values> 
         <values>
             <fullName>Wealth - ANZLMI</fullName>
             <default>false</default>
         </values>
     </picklistValues>
+       
     <picklistValues>
         <picklist>SI_Subject_of_Breach_Report__c</picklist>
         <values>

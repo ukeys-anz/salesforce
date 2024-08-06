@@ -14,6 +14,12 @@ public with sharing class IDRQualityAssessmentActions {
     'business_score__c',
     'case_manager_score__c'
   };
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final IDRQualityAssessmentRepository IDR_QUALITY_ASESSMENT_QUERY = (IDRQualityAssessmentRepository) Lib_InstanceProvider.forType(
+    IDRQualityAssessmentRepository.class
+  );
   /**
    * @description calculate Case Manager Score and Business Manager Score
    * @param records new values

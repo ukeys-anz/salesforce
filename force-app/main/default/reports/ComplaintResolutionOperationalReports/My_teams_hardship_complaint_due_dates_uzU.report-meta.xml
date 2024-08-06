@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>My team&apos;s case resolutions</name>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
         <backgroundFadeDir>Diagonal</backgroundFadeDir>
         <chartSummaries>
+            <aggregate>Sum</aggregate>
             <axisBinding>y</axisBinding>
-            <column>RowCount</column>
+            <column>AGE</column>
         </chartSummaries>
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>Case$Owner</groupingColumn>
+        <groupingColumn>Case.IDR_DEH_Response_Due__c</groupingColumn>
         <location>CHART_BOTTOM</location>
-        <showAxisLabels>true</showAxisLabels>
+        <showAxisLabels>false</showAxisLabels>
         <showPercentage>false</showPercentage>
         <showTotal>false</showTotal>
-        <showValues>true</showValues>
+        <showValues>false</showValues>
         <size>Medium</size>
         <summaryAxisRange>Auto</summaryAxisRange>
         <textColor>#000000</textColor>
@@ -26,120 +26,110 @@
         <titleSize>18</titleSize>
     </chart>
     <columns>
-        <field>Case$IDR_Date_Received__c</field>
+        <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>Case$ClosedDate</field>
+        <field>Case.IDR_Date_Received__c</field>
     </columns>
     <columns>
-        <field>Case$Status</field>
-    </columns>
-    <columns>
-        <field>Case$Queue__c</field>
-    </columns>
-    <columns>
-        <field>Case$IDR_NC_First_Name__c</field>
-    </columns>
-    <columns>
-        <field>Case$IDR_NC_Last_Name__c</field>
-    </columns>
-    <columns>
-        <field>Case$Description</field>
-    </columns>
-    <columns>
-        <field>Case$IDR_Complainant_Desired_Outcome__c</field>
-    </columns>
-    <columns>
-        <field>Case$IDR_Complaint_Outcome__c</field>
-    </columns>
-    <columns>
-        <field>Case$IDR_Description_of_Outcome__c</field>
-    </columns>
-    <columns>
-        <field>Case.Complaint_Resolutions__r$IDR_Complaint_Sub_Remedy__c</field>
-    </columns>
-    <columns>
-        <field>Case.Complaint_Resolutions__r$IDR_Complaint_Remedy__c</field>
+        <field>CM.TARGET_DATE</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
-        <field>Case$IDR_Total_Financial_Amount__c</field>
+        <field>AGE</field>
     </columns>
     <columns>
-        <field>Case$Has_complaint_met_RG_271_delay_criteria__c</field>
+        <field>STATUS</field>
     </columns>
     <columns>
-        <field>Case$How_has_delay_criteria_been_met_not_met__c</field>
+        <field>Case.IDR_NC_First_Name__c</field>
     </columns>
-    <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over their team&apos;s case resolutions</description>
+    <columns>
+        <field>Case.IDR_NC_Last_Name__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_3rdParty_Name__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_DEH_Date_information_request_sent__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_DEH_Date_information_due__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_DEH_Date_information_received__c</field>
+    </columns>
+    <columns>
+        <field>LAST_UPDATE</field>
+    </columns>
+    <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over hardship cases that have an upcoming due date</description>
     <filter>
-        <booleanFilter>1 AND 3 AND (4 OR 5) AND (2 OR 6)</booleanFilter>
+        <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
         <criteriaItems>
-            <column>Case$RecordType</column>
+            <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case$My_extended_team_s_cases__c</column>
+            <column>Case.My_extended_team_s_cases__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Case$Status</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Closed</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>Case$Date_Time_Provisionally_Closed__c</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>THIS_WEEK</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>Case$ClosedDate</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>THIS_WEEK</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>Case$IsOwner__c</column>
+            <column>Case.IsOwner__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case.IDR_DEH_Response_Due__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>THIS_WEEK</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>Escalated,On Hold,Open,Provisionally Closed,Re-opened,Under Investigation</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>Case$Owner</field>
+        <field>OWNER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <groupingsDown>
-        <dateGranularity>Day</dateGranularity>
-        <field>Case$CaseNumber</field>
+        <field>Case.IDR_DEH_Response_Due__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
+    <name>My team&apos;s hardship complaint due dates</name>
+    <params>
+        <name>units</name>
+        <value>m</value>
+    </params>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>Cases_with_Complaint_Resolution__c</reportType>
+    <reportType>CaseMilestone</reportType>
     <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
+    <sortColumn>CASE_NUMBER</sortColumn>
+    <sortOrder>Asc</sortOrder>
     <timeFrameFilter>
-        <dateColumn>Case$CreatedDate</dateColumn>
+        <dateColumn>CREATED_DATEONLY</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
