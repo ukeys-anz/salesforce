@@ -56,7 +56,7 @@ jobs:
       - name: "Run PMD | Validation"
         id: validation
         run: |
-          if [ ! -z "${{env.allFilesPath}}" ]; then
+          if [ "${{env.CHANGED_FILES}}" -gt "0"  ]; then
             $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin/pmd check -R ./ci/rulesets/apex/quickstart.xml -f summaryhtml --cache ../pmd-cache -d ${{env.allFilesPath}} > ./pmdValidationReport.html
           fi
 
@@ -64,8 +64,8 @@ jobs:
         id: warning
         if: always()
         run: |
-          if [ ! -z "${{env.allFilesPath}}" ]; then
-            $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin/pmd check -R ./ci/rulesets/apex/warning.xml -f summaryhtml --cache ../pmd-cache -d $allFilesPath > ./pmdWarningReport.html
+          if [ "${{env.CHANGED_FILES}}" -gt "0"  ]; then
+            $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin/pmd check -R ./ci/rulesets/apex/warning.xml -f summaryhtml --cache ../pmd-cache -d ${{env.allFilesPath}} > ./pmdWarningReport.html
           fi
 
       - name: "Prepare PMD report Result"
@@ -103,6 +103,8 @@ jobs:
           replace=$( sed "s+PMD report++g" ./pmdReport.html )
           echo $replace > ./pmdReport.html
           replace=$( sed "s+Problems found++g" ./pmdReport.html )
+          echo $replace > ./pmdReport.html
+          replace=$( sed "s+No adapter exists for type com.google.summit.ast.declaration.VariableDeclarationGroup++g" ./pmdReport.html )
           echo $replace > ./pmdReport.html
           gh pr comment ${{ github.event.pull_request.number }} --body-file "./pmdReport.html"
 
