@@ -35,6 +35,10 @@ public with sharing class CustomerGCPActions {
       accBasedOnOCVVersion
     );
 
+    if (filteredAccounts.isEmpty()) {
+      return new List<sObject>();
+    }
+
     Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = generateCustomerCEModelBundle(
       filteredAccounts
     );
@@ -72,12 +76,11 @@ public with sharing class CustomerGCPActions {
     List<Account> filteredAccounts = new List<Account>();
     for (Account record : records) {
       if (
-        record.Sync_Status__c == null ||
-        record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
+        !record.Sync_Status__c?.contains(SYNC_STATUS_BLOCKED) &&
+        record.Sync_Status__c?.contains(SYNC_STATUS_BROKER_ORG)
       ) {
-        continue;
+        filteredAccounts.add(record);
       }
-      filteredAccounts.add(record);
     }
     return filteredAccounts;
   }
