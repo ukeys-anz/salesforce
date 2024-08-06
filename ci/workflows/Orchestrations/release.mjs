@@ -48,7 +48,7 @@ const {
 } = process.env;
 
 // STAGE_NAME should be changed from preprod deployment to prod validation/deployment
-const BASE_REF = STAGE_NAME === "preprod-deployment" ? "master" : "prodrel";
+const BASE_REF = STAGE_NAME === "prod-release-start" ? "master" : "prodrel";
 const ARTIFACTORY_REPO_NAME = `anzx-${REPO_NAME}-releases`;
 const SOURCE_DIR = `artifact-master-${RELEASE_NAME}`;
 const JOB_ID_FILE_NAME = renameItem(`release-${RELEASE_NAME}`);
@@ -151,12 +151,12 @@ const deploymentCleaning = () => {
 const releaseFunction = () => {
   const cleaning = booleanMap(CLEANING_JOB);
   const jobMapping = {
-    PreprodDeploy: STAGE_NAME === "preprod-deployment" && !cleaning,
-    PreprodClean: STAGE_NAME === "preprod-deployment" && cleaning,
-    ProdValidate: STAGE_NAME === "production-validation" && !cleaning,
-    ProdValidateClean: STAGE_NAME === "production-validation" && cleaning,
-    ProdDeploy: STAGE_NAME === "production-deployment" && !cleaning,
-    ProdDeployClean: STAGE_NAME === "production-deployment" && cleaning
+    PreprodDeploy: STAGE_NAME === "prod-release-start" && !cleaning,
+    PreprodClean: STAGE_NAME === "prod-release-start" && cleaning,
+    ProdValidate: STAGE_NAME === "prod-validation" && !cleaning,
+    ProdValidateClean: STAGE_NAME === "prod-validation" && cleaning,
+    ProdDeploy: STAGE_NAME === "prod-deployment" && !cleaning,
+    ProdDeployClean: STAGE_NAME === "prod-deployment" && cleaning
   };
   const releaseFunctionMapping = {
     PreprodDeploy: preprodDeployment,
