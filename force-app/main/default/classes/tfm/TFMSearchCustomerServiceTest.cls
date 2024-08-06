@@ -212,7 +212,7 @@ public inherited sharing class TFMSearchCustomerServiceTest {
     staffModel.idValue = '1122r5421';
     staffModel.anzTokenType = 'staffRqfCustomer';
     Cache.Session.put(
-      'local.ForgeToken.forgeJWTToken' + staffModel.idValue,
+      'local.ForgeToken.' + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + staffModel.idValue + staffModel.apiScopesRequested),
       AuthServiceTest.IDTESTVALUEFORGE2,
       300,
       Cache.Visibility.NAMESPACE,

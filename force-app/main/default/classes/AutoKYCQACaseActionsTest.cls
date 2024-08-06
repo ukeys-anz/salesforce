@@ -134,7 +134,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     Name = 'Sample Name',
     FinServ__KYCStatus__c = null,
     KYC_Verification_Level__c = null,
-    CustomerExitFlag__c = true
+    OCV_ID__c = FAKER.randomString(6)
   );
 
   static Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
@@ -1169,7 +1169,11 @@ public with sharing class AutoKYCQACaseActionsTest {
   @isTest
   private static void testUpgradeWithNoInitialRecords() {
     registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+    autoKYCQACaseRepoMock.mock('queryAccountsNotExited', new List<Account>());
+    autoKYCQACaseRepoMock.mock(
+      'queryExitedAccountsByOcvIds',
+      new List<Account>()
+    );
 
     Test.startTest();
     AutoKYCQACaseActions.upgrade(new List<Case>(), new Map<Id, Case>());
@@ -1185,7 +1189,11 @@ public with sharing class AutoKYCQACaseActionsTest {
   @isTest
   private static void testUpgradeWitNoFinalRecordsStatusClosedNotChanged() {
     registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>());
+    autoKYCQACaseRepoMock.mock('queryAccountsNotExited', new List<Account>());
+    autoKYCQACaseRepoMock.mock(
+      'queryExitedAccountsByOcvIds',
+      new List<Account>()
+    );
 
     Case oldCase = new Case();
     oldCase.Id = caseId;
@@ -1193,7 +1201,6 @@ public with sharing class AutoKYCQACaseActionsTest {
     oldCase.Status = GetHelpConstants.CLOSED_STATUS;
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
-    acc.CustomerExitFlag__c = false;
 
     Test.startTest();
     AutoKYCQACaseActions.upgrade(
@@ -1203,7 +1210,7 @@ public with sharing class AutoKYCQACaseActionsTest {
     Test.stopTest();
 
     Set<Id> accountIds = (Set<Id>) autoKYCQACaseRepoMock.getHistory(
-        'queryAccounts'
+        'queryAccountsNotExited'
       )
       .getParam('accountIds');
     Assert.isTrue(accountIds.isEmpty(), 'No accounts should have been queried');
@@ -1217,7 +1224,11 @@ public with sharing class AutoKYCQACaseActionsTest {
   @isTest
   private static void testUpgradeWitNoFinalRecordsExitFlagTrue() {
     registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
+    autoKYCQACaseRepoMock.mock('queryAccountsNotExited', new List<Account>());
+    autoKYCQACaseRepoMock.mock(
+      'queryExitedAccountsByOcvIds',
+      new List<Account>()
+    );
 
     Case oldCase = new Case();
     oldCase.Id = caseId;
@@ -1243,23 +1254,26 @@ public with sharing class AutoKYCQACaseActionsTest {
   @isTest
   private static void testUpgrade() {
     registerMocks();
-    autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
+    autoKYCQACaseRepoMock.mock(
+      'queryAccountsNotExited',
+      new List<Account>{ acc }
+    );
+    autoKYCQACaseRepoMock.mock(
+      'queryExitedAccountsByOcvIds',
+      new List<Account>()
+    );
 
-    Case oldCase = new Case();
-    oldCase.Id = caseId;
-
-    oldCase.Status = RECTIFY_DEFECT_STATUS;
+    Case oldCase = new Case(Id = caseId, Status = RECTIFY_DEFECT_STATUS);
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
-    acc.CustomerExitFlag__c = false;
 
     AutoKYCQACaseActions.upgrade(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
     Assert.isFalse(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts should have been called.'
+      autoKYCQACaseRepoMock.getHistories('queryAccountsNotExited').isEmpty(),
+      'queryAccountsNotExited should have been called.'
     );
 
     Assert.isFalse(
@@ -1330,22 +1344,31 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testFilterAccountsNotExited() {
+  private static void testFilterAccountsNotExitedAllValid() {
+    Test.startTest();
     List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
-      new List<Account>{ acc }
+      new List<Account>{ acc },
+      new List<Account>{ new Account(OCV_ID__c = FAKER.randomString(5)) }
     );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
+      oldAccounts.size(),
+      'Should return 1 account, no other exited account of the same OCV ID'
+    );
+  }
+
+  @isTest
+  private static void testFilterAccountsNotExitedNotValid() {
+    Test.startTest();
+    List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
+      new List<Account>{ acc },
+      new List<Account>{ new Account(OCV_ID__c = acc.OCV_ID__c) }
+    );
+    Test.stopTest();
     Assert.isTrue(
       oldAccounts.isEmpty(),
-      'Accounts should be empty list, Customer Exit Flag is true'
-    );
-
-    acc.CustomerExitFlag__c = false;
-    oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
-      new List<Account>{ acc }
-    );
-    Assert.isFalse(
-      oldAccounts.isEmpty(),
-      'Accounts should not be empty list, Customer Exit Flag is false'
+      'Should return no account, there is an exited account of the same OCV ID'
     );
   }
 

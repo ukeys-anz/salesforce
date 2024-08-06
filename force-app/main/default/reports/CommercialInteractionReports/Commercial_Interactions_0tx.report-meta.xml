@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>Commercial Interactions</name>
+    <columns>
+        <field>Interaction$Name</field>
+    </columns>
+    <columns>
+        <field>Interaction$Category__c</field>
+    </columns>
+    <columns>
+        <field>Interaction$InteractionType</field>
+    </columns>
+    <description>This is used to show Interaction related to Customer and Opportunity.</description>
+    <format>Summary</format>
+    <groupingsDown>
+        <dateGranularity>Day</dateGranularity>
+        <field>Interaction$Account.Controlling_Post__c</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <params>
+        <name>co</name>
+        <value>1</value>
+    </params>
+    <reportType>Interactions__c</reportType>
+    <scope>team</scope>
+    <showDetails>true</showDetails>
+    <showGrandTotal>true</showGrandTotal>
+    <showSubTotals>true</showSubTotals>
+    <timeFrameFilter>
+        <dateColumn>Interaction$CreatedDate</dateColumn>
+        <interval>INTERVAL_LASTMONTH</interval>
+    </timeFrameFilter>
+</Report>

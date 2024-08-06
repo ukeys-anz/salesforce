@@ -51,4 +51,9 @@
         <default>false</default>
         <label>SMS</label>
     </standardValue>
+    <standardValue>
+        <fullName>Other</fullName>
+        <default>false</default>
+        <label>Other</label>
+    </standardValue>
 </StandardValueSet>

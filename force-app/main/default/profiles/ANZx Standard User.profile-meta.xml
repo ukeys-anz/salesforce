@@ -8084,6 +8084,14 @@
         <recordType>Case.Recipient_Mule</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-PIN Recovery Layout</layout>
+        <recordType>Case.PIN_Recovery</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Selfie Recovery Layout</layout>
+        <recordType>Case.Selfie_Recovery</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Scam Layout</layout>
         <recordType>Case.Scam</recordType>
     </layoutAssignments>
@@ -9402,6 +9410,11 @@
         <default>false</default>
         <recordType>Task.FinServ__ClientAssociateTask</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>ContentVersion.DAON_File</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
         <tab>FinServ__Alert__c</tab>

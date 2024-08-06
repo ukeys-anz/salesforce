@@ -7,6 +7,9 @@ public with sharing class COBCaseStatusPathController {
   private static final StravinskyAPIRepository STRAVINSKY_REPO = (StravinskyAPIRepository) Lib_InstanceProvider.forType(
     StravinskyAPIRepository.class
   );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   @TestVisible
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
@@ -14,6 +17,11 @@ public with sharing class COBCaseStatusPathController {
   private static final String PERSONA_ID_ERROR = 'Persona ID is missing on a case. Please check again.';
   @TestVisible
   private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
+  @TestVisible
+  private static final String DML_ERROR_MESSAGE = 'Error occured during DML. Please contact your administrator';
+
+  public static final String DAON_FALLOUT_WATCHLIST_HIT_SUBJECT = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT';
+  public static final String CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON = 'Confirmed Fraud - Selfie Watchlist';
 
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
@@ -36,7 +44,7 @@ public with sharing class COBCaseStatusPathController {
     Case cobCase
   ) {
     if (String.isEmpty(cobCase.PersonaId__c)) {
-      throwException(PERSONA_ID_ERROR);
+      throw CommonUtil.logAuraException(PERSONA_ID_ERROR);
     }
 
     String validationError = COBCaseStatusValidator.validateCaseStatusChange(
@@ -44,7 +52,7 @@ public with sharing class COBCaseStatusPathController {
       cobCase
     );
     if (String.isNotEmpty(validationError)) {
-      throwException(validationError);
+      throw CommonUtil.logAuraException(validationError);
     }
 
     Boolean isCalloutSucccesful = makeTemporalCallout(
@@ -52,9 +60,9 @@ public with sharing class COBCaseStatusPathController {
       cobCase,
       true
     );
-    Boolean isCaseUpdated = handleCaseUpdate(cobCase);
+    handleCaseUpdate(cobCase);
     return new COBCaseUpdateStatus(
-      isCalloutSucccesful && isCaseUpdated,
+      isCalloutSucccesful,
       cobCase.OnboardingVerificationFailedReason__c
     );
   }
@@ -118,19 +126,38 @@ public with sharing class COBCaseStatusPathController {
     Case cobCase,
     StravinskyAPIRepository.CxStageWrapper cobStage
   ) {
-    Map<String, String> stageStatusMap = new Map<String, String>{
+    if (cobStage.cxOnboardingStage != StravinskyAPIRepository.COB_UPDATED) {
+      setCaseStatusFromCxStage(cobCase, cobStage);
+      return;
+    }
+
+    if (cobCase.Status != GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
+      return;
+    }
+
+    cobCase.OnboardingVerificationFailedReason__c = CONFIRMED_FRAUD_REASON;
+    if (cobCase.Subject?.contains(DAON_FALLOUT_WATCHLIST_HIT_SUBJECT) == true) {
+      cobCase.OnboardingVerificationFailedReason__c = CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON;
+    }
+  }
+
+  @TestVisible
+  private static void setCaseStatusFromCxStage(
+    Case cobCase,
+    StravinskyAPIRepository.CxStageWrapper cobStage
+  ) {
+    Map<String, String> statusByRetryStageStatusMap = new Map<String, String>{
       StravinskyAPIRepository.STAGE_ASSISTED_SELFIE => GetHelpConstants.COB_DAON_FAILED_STATUS,
       StravinskyAPIRepository.STAGE_ASSISTED_KYC => GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
       StravinskyAPIRepository.STAGE_ACK_ID_CHECK => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-      StravinskyAPIRepository.STAGE_TNC => GetHelpConstants.COB_FAILED_OK_STATUS
+      StravinskyAPIRepository.STAGE_TNC => GetHelpConstants.COB_FAILED_OK_STATUS,
+      StravinskyAPIRepository.STAGE_TERMINATED => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
     };
 
-    if (cobStage.cxOnboardingStage != StravinskyAPIRepository.COB_UPDATED) {
-      cobCase.Status = stageStatusMap.get(cobStage.cxOnboardingStage);
-      cobCase.OnboardingVerificationFailedReason__c = cobStage.retryReason;
-    } else if (cobCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
-      cobCase.OnboardingVerificationFailedReason__c = CONFIRMED_FRAUD_REASON;
-    }
+    cobCase.Status = statusByRetryStageStatusMap.get(
+      cobStage.cxOnboardingStage
+    );
+    cobCase.OnboardingVerificationFailedReason__c = cobStage.reason;
   }
 
   /**
@@ -156,33 +183,29 @@ public with sharing class COBCaseStatusPathController {
   }
 
   /**
-   * @description Updates the case in scenarios where there is either: callout error or DML error or without error
+   * @description Updates the case in scenarios where there is either: callout error (case will hold the error reason) or DML error or without error
    * @param cobCase Case with new fields data to be updated
-   * @return Boolean True - If case is successfully updated and Temporal workflow was successfully triggered, False - if Temporal workflow callout failed or there was a DML error
    */
   @TestVisible
-  private static Boolean handleCaseUpdate(Case cobCase) {
-    Database.SaveResult updateResult = Database.update(cobCase, false); //cobCase may have call out error in Status_Update_Error__c field if the callout has failed
+  private static void handleCaseUpdate(Case cobCase) {
+    //remove unneeded field
+    cobCase = new Case(
+      Id = cobCase.Id,
+      Status = cobCase.Status,
+      OnboardingVerificationFailedReason__c = cobCase.OnboardingVerificationFailedReason__c,
+      Status_Update_Error__c = cobCase.Status_Update_Error__c
+    );
+    //We need to update the Case record since cobCase may have Callout Error in the Status_Update_Error__c field in case of the callout has failed
+    List<Database.SaveResult> updateResults = DML_REPOSITORY.updateRecords(
+      new List<Case>{ cobCase },
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.USER_MODE
+    );
 
+    Database.SaveResult updateResult = updateResults[0]; //Since it's partial update, there will always be a result
     if (updateResult.isSuccess() == false) {
-      throwException(updateResult.getErrors()[0].getMessage());
+      throw new AuraHandledException(updateResult.getErrors()[0].getMessage());
     }
-
-    return true;
-  }
-
-  /**
-   * @description throws AuraHandledException with error message
-   * @param errorMsg error message to use in the exception
-   */
-  private static void throwException(String errorMsg) {
-    // AuraHandleException is quirky, setMessage() and constructor must be invoked otherwise "Script-thrown exception" is thrown instead of actual exception message
-    AuraHandledException e = new AuraHandledException(errorMsg);
-    e.setMessage(errorMsg);
-
-    Logger.error('Failed to update COB case', e);
-    Logger.saveLog();
-    throw e;
   }
 
   /**

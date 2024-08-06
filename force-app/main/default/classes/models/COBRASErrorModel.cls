@@ -22,7 +22,7 @@ public with sharing class COBRASErrorModel extends CalloutModel {
    */
   public class Debug {
     public String cxOnboardingStage;
-    public String retryReason;
+    public String reason;
   }
 
   /**

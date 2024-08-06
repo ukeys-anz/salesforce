@@ -228,4 +228,50 @@ public with sharing class IDRQualityAssessmentActions {
     }
     return fieldsInFieldSet;
   }
+  /**
+   * @description set the assessment outcome field on CQ assessment
+   * @param records list of qa records
+   * @param oldMap map of old QA records
+   */
+  public static void setAssessmentOutcomeStatus(
+    List<Quality_Assessment__c> records,
+    Map<Id, Quality_Assessment__c> oldMap
+  ) {
+    Id cqRecordTypeId = IDRConstants.idrtCQQualityAssessment;
+    for (Quality_Assessment__c qaRecord : records) {
+      if (
+        qaRecord.RecordTypeId != cqRecordTypeId ||
+        qaRecord.Status__c != IDRConstants.STATUS_COMPLETE
+      ) {
+        continue;
+      }
+      List<SObjectField> changedfieldAPIName = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
+        qaRecord,
+        oldMap.get(qaRecord.Id),
+        IDRConstants.QA_OUTCOME_FIELDS
+      );
+      if (changedfieldAPIName.isEmpty()) {
+        continue;
+      }
+
+      qaRecord.Assessment_Outcome_Status__c = getStatus(
+        qaRecord,
+        changedfieldAPIName[0]
+      );
+    }
+  }
+  /**
+   * @description return assessment outcome field based on input values
+   * @param qaRecord quality assessment record
+   * @param fieldAPIName api name of the field changed
+   * @return String value of the assessment outcome field
+   */
+  private static String getStatus(
+    Quality_Assessment__c qaRecord,
+    SObjectField fieldAPIName
+  ) {
+    return IDRConstants.qaAssessmentStatusMapping.get(
+      String.valueOf(qaRecord.get(fieldAPIName))
+    );
+  }
 }

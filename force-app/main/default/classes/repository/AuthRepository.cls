@@ -85,16 +85,16 @@ public with sharing class AuthRepository extends RepositoryBase {
   }
   /**
    * @param staffModelWrapper wrapper for forgeV2 api
+   * @param forgeAuth Forgerock_Auth__mdt record
    * @return `IdentityModel` model class constructed from api response
    * @description fetches identity from forgev2 and deserialized to a model
    */
   public IdentityModel getForgeStaffToken(
-    StaffTokenRequestModel staffModelWrapper
+    StaffTokenRequestModel staffModelWrapper,
+    Forgerock_Auth__mdt forgeAuth
   ) {
     String idToken = '';
     try {
-      /* change the code when we deploy to SIT */
-      // idToken = System.Label.TFMAzureToken;
       idToken = AuthTokenCacheUtil.getSessionIdToken();
     } catch (Exception e) {
       Logger.error(e.getMessage());
@@ -102,13 +102,6 @@ public with sharing class AuthRepository extends RepositoryBase {
 
       throw new AuraHandledException(e.getMessage());
     }
-
-    if (!Forgerock_Auth__mdt.sObjectType.getDescribe().isQueryable()) {
-      throw new AuraHandledException(
-        'Unable to query Foregerock - permission denied'
-      );
-    }
-    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance('ForgeV2');
 
     HttpCalloutResponse response = authSvc.getForgeJWTToken(
       staffModelWrapper,

@@ -60,6 +60,7 @@
     "Financial_Settlement__c",
     "Identifier__c",
     "Interaction",
+    "InteractionAttendee",
     "Interaction_Tag__c",
     "InteractionSummary",
     "Industry__c",
@@ -897,7 +898,8 @@
         "Enforce_mTLS",
         "Mortgage",
         "Disable_MFA",
-        "Set_Audit_Fields"
+        "Set_Audit_Fields",
+        "DAON_File_Integration"
       ],
       "type": "system"
     },
@@ -1051,6 +1053,38 @@
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["FraudX_Agent"],
       "permissionsets": ["EinsteinAnalyticsPlusAdmin", "Export_Reports"],
+      "type": "system"
+    },
+    {
+      "name": "CPID Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "CCRM_Controlling_Post",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "MLCRM_Marketing_Integration_User"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Aegis Harbour Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Case_Read_Write_Pin_Selfie",
+        "API_Only",
+        "Enforce_mTLS",
+        "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "DAON Files Cleanup Batch User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": ["DAONFileCleanup", "View_All_Files", "API_Only"],
       "type": "system"
     }
   ]

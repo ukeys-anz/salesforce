@@ -1,7 +1,9 @@
 import getPackageClosureAura from "@salesforce/apex/StravinskyController.getPackageClosureAura";
-import { api, LightningElement } from "lwc";
+import { api, LightningElement, wire } from "lwc";
 import hasAccountClosurePermission from "@salesforce/customPermission/ANZx_Account_Closure";
 import { handleErrorShowToast, showToast } from "c/utils";
+import { getRecord } from "lightning/uiRecordApi";
+import ACCOUNT_PRODUCT_FIELD from "@salesforce/schema/Case.Account_Product__c";
 
 export default class AccountClosure extends LightningElement {
   @api recordId;
@@ -11,14 +13,31 @@ export default class AccountClosure extends LightningElement {
   cardValue;
   packageValue;
   showConfirmation = false;
+  isFlexSaverAccountClosure = false;
+  dynamicColumnSize = "slds-col slds-size_1-of-4";
   packageData = {
-    meta: {
-      accountA1: { status: null },
-      accountS1: { status: null },
-      card: { status: null },
-      overall_package: { status: null }
-    }
+    accountsClosed: null,
+    cardsClosed: null,
+    packagesClosed: null
   };
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [ACCOUNT_PRODUCT_FIELD]
+  })
+  async wiredRecord({ data }) {
+    if (data) {
+      {
+        if (data.fields.Account_Product__c.value === "ANZ Plus Flex Saver") {
+          this.isFlexSaverAccountClosure = true;
+          this.dynamicColumnSize = "slds-col slds-size_1-of-1";
+        } else {
+          this.isFlexSaverAccountClosure = false;
+          this.dynamicColumnSize = "slds-col slds-size_1-of-4";
+        }
+      }
+    }
+  }
 
   get displayEnabledButton() {
     return hasAccountClosurePermission;
@@ -36,44 +55,35 @@ export default class AccountClosure extends LightningElement {
         this.packageData = await getPackageClosureAura({
           recordId: this.recordId
         });
-
         //Set default messages and variant
         let message = "Account closure successful";
         let variant = "Success";
 
-        if (this.packageData?.status?.code === 200) {
+        if (
+          !this.packageData?.errorInfo &&
+          this.packageData?.accountsClosed > 0
+        ) {
           //Build out the meta to display success statuses
           //as its not returned from API
-          this.packageData.meta = {
-            accountA1: { status: "Success" },
-            accountS1: { status: "Success" },
-            card: { status: "Success" },
-            overall_package: { status: "Success" }
-          };
+          this.generatePackageData("Success", "Success", "Success");
           this.loading = false;
           showToast(this, "Account Closure", message, "", variant, "");
         } else {
-          //Set variable if any of the packages fail to close
-          let hasError;
-          if (this.packageData?.meta) {
-            Object.entries(this.packageData.meta).forEach((value) => {
-              //Convert status to proper casing
-              value[1].status =
-                value[1].status.charAt(0) +
-                value[1].status.substring(1).toLowerCase();
+          message = this.packageData?.errorInfo?.reason;
+          variant = "Warning";
 
-              //If status isnt successful show error
-              if (value[1].status !== "Success") {
-                value[1].status = value[1].error;
-                hasError = true;
-              }
-            });
-          }
-          //If anything fails to close, change message and variant of toast
-          if (hasError) {
-            message = "Account Closure completed with errors";
-            variant = "Warning";
-          }
+          let accountsClosedInfo =
+            this.packageData?.accountsClosed > 0 ? "Success" : "Failed";
+          let cardsClosedInfo =
+            this.packageData?.cardsClosed > 0 ? "Success" : "Failed";
+          let packagesClosedInfo =
+            this.packageData?.packagesClosed > 0 ? "Success" : "Failed";
+          this.generatePackageData(
+            accountsClosedInfo,
+            cardsClosedInfo,
+            packagesClosedInfo
+          );
+
           showToast(this, "Account Closure", message, "", variant, "");
           this.loading = false;
         }
@@ -97,5 +107,17 @@ export default class AccountClosure extends LightningElement {
       message: theMessage
     });
     this.dispatchEvent(event);
+  }
+
+  generatePackageData(
+    accountsClosedMessage,
+    cardsClosedMessage,
+    packagesClosedMessage
+  ) {
+    this.packageData = {
+      accountsClosed: accountsClosedMessage,
+      cardsClosed: cardsClosedMessage,
+      packagesClosed: packagesClosedMessage
+    };
   }
 }

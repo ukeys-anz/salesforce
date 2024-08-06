@@ -1,0 +1,84 @@
+<!--
+  @description       : LWC Component to render images from DAON
+  @author            : TFM Squad - Hinduja 
+  @group             : 
+  @last modified on  : 06-20-2024
+  @last modified by  : TFM Squad - 
+-->
+<template>
+  <template lwc:if={componentSpinner}>
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 spinnerHolder">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+    </div>
+  </template>
+  <template lwc:elseif={errorOccurred}><!--Toast Notification--></template>
+  <template lwc:else>
+    <template lwc:if={noAccess}><!--No Access--></template>
+    <template lwc:else>
+      <div
+        class="slds-grid slds-wrap slds-p-horizontal--large slds-m-horizontal--large"
+      >
+        <div
+          class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-heading--large slds-p-around--small"
+        >
+          User Document
+        </div>
+      </div>
+      <div
+        class="slds-grid slds-wrap slds-p-horizontal--large slds-align_absolute-center slds-m-horizontal--large slds-m-bottom--large"
+      >
+        <div class="slds-size_1-of-2">
+          <lightning-layout multiple-rows>
+            <template for:each={filesToRender} for:item="file">
+              <lightning-layout-item
+                size="6"
+                padding="around-medium"
+                key={file.fileTitle}
+                small-device-size="12"
+                medium-device-size="12"
+                large-device-size="6"
+              >
+                <div class="slds-text-heading--small slds-p-around--medium">
+                  <div class="slds-text-align_center">{file.fileTitle}</div>
+                </div>
+                <template lwc:if={file.currentFileType}>
+                  <c-onboarding-fallout-image-renderer
+                    current-file-type={file.currentFileType}
+                    error-image={file.errorImage}
+                    error-msg={file.errorMessage}
+                    change-style={file.changeStyle}
+                  ></c-onboarding-fallout-image-renderer>
+                </template>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </div>
+      </div>
+      <div
+        class="slds-grid slds-gutters slds-p-around--medium slds-align_absolute-center"
+      >
+        <div class="slds-p-around--medium">
+          <lightning-button
+            label="Approve"
+            onclick={openApprovalModal}
+            variant="brand"
+            disabled={isApprovButtonDisable}
+          ></lightning-button>
+        </div>
+        <div class="slds-p-around--medium">
+          <lightning-button
+            label="Reject"
+            onclick={openRejectModal}
+            variant="brand"
+            disabled={isRejectButtonDisable}
+          ></lightning-button>
+        </div>
+      </div>
+    </template>
+  </template>
+</template>

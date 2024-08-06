@@ -1,5 +1,31 @@
 @isTest
-public with sharing class TSPHandlerTest {
+ public with sharing class TSPHandlerTest {
+  static String anzUserProfile = 'ANZ Standard User';
+  static String anzxUserProfile = 'ANZx Standard User';
+  static String integrationProfile = 'Integration User';
+  static Lib_MockProvider queryMock;
+  static void registerMocks() {
+    queryMock = Lib_MockProvider.forType(TSPRepository.class);
+  }
+  static User anzUser = new User(
+    Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+    Alias = 'anzUser',
+    Username = 'anzUser TestUser',
+    Profile = CommonUtil.getProfileByName(anzUserProfile)
+  );
+
+  static User anzxUser = new User(
+    Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+    Alias = 'anzxUser',
+    Username = 'anzxUser TestUser',
+    Profile = CommonUtil.getProfileByName(anzxUserProfile)
+  );
+  static User integrationUser = new User(
+    Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+    Alias = 'integrationUser',
+    Username = 'integrationUser TestUser',
+    Profile = CommonUtil.getProfileByName(integrationProfile)
+  );
   @isTest
   static void bulkAPITSPHandlerANZxUserTest() {
     //GIVEN the user with `ANZx Standard User` profile
@@ -14,6 +40,15 @@ public with sharing class TSPHandlerTest {
       Boolean result = TSPHandler.evaluate(testEvent);
       System.assert(result, 'Should return true');
     }
+  }
+  @isTest
+  static void fileEventStoreANZxUserTest() {
+    //WHEN the user want to query BulkAPI
+    FileEventStore testEvent = new FileEventStore();
+
+    //THEN the condition should be true
+    Boolean result = TSPHandler.evaluate(testEvent);
+    Assert.isTrue(!result, 'Should return false');
   }
 
   @isTest
@@ -50,11 +85,14 @@ public with sharing class TSPHandlerTest {
 
   @isTest
   static void reportEventCondtionANZxUserTest() {
-    //GIVEN the user with `ANZx Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    insert thisUser;
+    registerMocks();
+    List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
+    queryMock.mock('queryPermissionSetAssignment', psaList);
+    Lib_MockProvider anzxUserMock = Lib_MockProvider.forType(
+        TSPRepository.class
+      )
+      .mock('queryProfilebyEventUserId', anzxUser);
 
-    System.runAs(thisUser) {
       //WHEN the user want to query ReportEvent
       ReportEvent testEvent = new ReportEvent();
       testevent.Operation = 'ReportExported';
@@ -62,77 +100,71 @@ public with sharing class TSPHandlerTest {
       //THEN the condition should be true
       Boolean result = TSPHandler.evaluate(testEvent);
       System.assert(result, 'Should return true');
-    }
   }
 
+  static List<PermissionSetAssignment> getPermissionSetAssignments {
+    get {
+      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+      PermissionSetAssignment ps = new PermissionSetAssignment();
+      ps.AssigneeId = UserInfo.getUserId();
+      ps.PermissionSetGroupId = CommonUtil.getPermissionSetByName('Join_Lead')
+        .Id;
+      //ps.Id = psaIds[0].Id;
+      psaList.add(ps);
+      return psaList;
+    }
+  }
   @isTest
   static void reportEventCondtionANZUserTest() {
-    //GIVEN the user with `ANZx Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile(
-      'ANZ CCRM Standard User'
-    );
-    insert thisUser;
+    registerMocks();
+    List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
+    queryMock.mock('queryPermissionSetAssignment', psaList);
 
-    System.runAs(thisUser) {
-      //WHEN the user want to query ReportEvent
-      ReportEvent testEvent = new ReportEvent();
+    //WHEN the user want to query ReportEvent
+    ReportEvent testEvent = new ReportEvent();
 
-      //THEN the condition should be true
-      Boolean result = TSPHandler.evaluate(testEvent);
-      System.assert(!result, 'Should return false');
-    }
+    //THEN the condition should be true
+    Boolean result = TSPHandler.evaluate(testEvent);
+    System.assert(!result, 'Should return false');
   }
 
   @isTest
   static void reportEventCondtionJoinLeadPSGTest() {
-    //GIVEN the user with `ANZ Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile('ANZ Standard User');
-    insert thisUser;
+    registerMocks();
+    List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
+    queryMock.mock('queryPermissionSetAssignment', psaList);
+    Lib_MockProvider anzUserMock = Lib_MockProvider.forType(TSPRepository.class)
+      .mock('queryProfilebyEventUserId', anzUser);
+    Test.startTest();
 
-    PermissionSetGroup psgJoinLead = [
-      SELECT Id
-      FROM PermissionSetGroup
-      WHERE DeveloperName = 'Join_Lead'
-      LIMIT 1
-    ];
-    // To assign the PSG to test user, after the PSG calculation is finsihed.
-    Test.calculatePermissionSetGroup(new List<String>{ psgJoinLead.Id });
+    //WHEN the user want to query ReportEvent
+    ReportEvent testEvent = new ReportEvent();
+    testevent.Operation = 'ReportExported';
 
-    System.runAs(thisUser) {
-      Test.startTest();
+    //THEN the condition should be true
+    Boolean result = TSPHandler.evaluate(testEvent);
 
-      insert new PermissionSetAssignment(
-        AssigneeId = thisUser.Id,
-        PermissionSetGroupId = psgJoinLead.Id
-      );
-      //WHEN the user want to query ReportEvent
-      ReportEvent testEvent = new ReportEvent();
-      testevent.Operation = 'ReportExported';
+    Test.stopTest();
 
-      //THEN the condition should be true
-      Boolean result = TSPHandler.evaluate(testEvent);
-
-      Test.stopTest();
-
-      System.assert(result, 'Should return true');
-    }
+    System.assert(result, 'Should return true');
   }
 
   @isTest
   static void reportEventCondtionIntegrationUserTest() {
-    //GIVEN the user with `ANZ Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile('Integration User');
-    insert thisUser;
+    registerMocks();
+    List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
+    queryMock.mock('queryPermissionSetAssignment', psaList);
+    Lib_MockProvider integrationUserMock = Lib_MockProvider.forType(
+        TSPRepository.class
+      )
+      .mock('queryProfilebyEventUserId', integrationUser);
+    //WHEN the user want to query ReportEvent
+    ReportEvent testEvent = new ReportEvent();
+    testevent.Operation = 'ReportExported';
 
-    System.runAs(thisUser) {
-      //WHEN the user want to query ReportEvent
-      ReportEvent testEvent = new ReportEvent();
-      testevent.Operation = 'ReportExported';
-
-      //THEN the condition should be true
-      Boolean result = TSPHandler.evaluate(testEvent);
-      System.assert(result, 'Should return true');
-    }
+    //THEN the condition should be true
+    Boolean result = TSPHandler.evaluate(testEvent);
+    System.assert(result, 'Should return true');
   }
 
   @isTest

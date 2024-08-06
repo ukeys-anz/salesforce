@@ -72,7 +72,72 @@ public with sharing class TSPConditionTest {
     );
     System.assert(condtionResult, 'Should return true');
   }
+  
+  static Lib_MockProvider queryMock;
+  static void registerMocks() {
+    queryMock = Lib_MockProvider.forType(
+      TSPRepository.class
+    );
+  }
 
+  static List<Id> cvIds = new List<Id>{
+    Lib_FakeIdGenerator.getMockId(ContentVersion.SObjectType)
+  };
+
+  static List<Id> contentDocumentIds = new List<Id>{
+    Lib_FakeIdGenerator.getMockId(ContentDocument.SObjectType)
+  };
+
+  static List<ContentVersion> cvListData {
+    get {
+      Id recordTypeId = Schema.SObjectType.ContentVersion.getRecordTypeInfosByName()
+        .get('DAON File')
+        .getRecordTypeId();
+      String base64Data;
+
+      List<ContentVersion> cvList = new List<ContentVersion>();
+      for (Id cvId : cvIds) {
+        base64Data = EncodingUtil.urlDecode('test', 'UTF-8');
+        ContentVersion cvRec = new ContentVersion(
+          VersionData = EncodingUtil.base64Decode(base64Data),
+          Title = 'DAON_FILE_TYPE_EXTRACTED_FACE',
+          PathOnClient = 'DAON_FILE_TYPE_EXTRACTED_FACE' + '.jpg',
+          RecordTypeID = recordTypeId,
+          FirstPublishLocationId = cvId,
+          UUID__c = UserInfo.getUserId() +
+            '-DAON_FILE_TYPE_EXTRACTED_FACE-sampleFaceId',
+          Document_Flag__c = '1',
+          ContentDocumentId = contentDocumentIds[0]
+        );
+        cvList.add(cvRec);
+      }
+      return cvList;
+    }
+  }
+
+  @isTest
+  static void fileEventStoreANZxUserTest() {
+    registerMocks();
+    queryMock.mock('tspCVList', cvListData);
+    //GIVEN the user with `ANZx Standard User` profile
+    Id userId = UserInfo.getUserId();
+    String profileName = 'ANZx Standard User';
+
+    Id conDocId = cvListData[0].ContentDocumentId;
+  
+   	FileEventStore testEvent = new FileEventStore();
+    testevent.DocumentId = conDocId;
+    testevent.FileAction = 'UI_DOWNLOAD';
+      
+    //THEN the condition should be true
+    Boolean condtionResult = TSPCondition.condition(
+      userId,
+      profileName,
+      testEvent
+    );
+    System.assert(condtionResult, 'Should return true');
+  }
+    
   @isTest
   static void reportEventCondtionANZUserTest() {
     //GIVEN the user with `ANZx Standard User` profile

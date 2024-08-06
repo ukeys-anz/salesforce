@@ -6,6 +6,7 @@
     <description>Customer Address Proposed by Customer</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
+    <inlineHelpText>If the Address URL is blank, the address is too long. Please refer to the Description of Issue field.</inlineHelpText>
     <label>Address URL</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

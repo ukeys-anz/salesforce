@@ -51,11 +51,19 @@
     <picklistValues>
         <picklist>Category__c</picklist>
         <values>
-            <fullName>Proactive</fullName>
+            <fullName>CAP Diary Comments</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Reactive</fullName>
+            <fullName>Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Needs Conversation</fullName>
             <default>false</default>
         </values>
         <values>
@@ -101,6 +109,10 @@
         </values>
         <values>
             <fullName>Face to Face</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
     </picklistValues>

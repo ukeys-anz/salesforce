@@ -1,0 +1,133 @@
+<template>
+  <lightning-record-edit-form
+    object-api-name={interactionObject}
+    record-type-id={recordTypeId}
+    onload={handleInteractionLoad}
+    onsuccess={handleInteractionSuccess}
+    onsubmit={handleSubmit}
+    data-id="interactionForm"
+    density="comfy"
+  >
+    <lightning-messages></lightning-messages>
+    <lightning-quick-action-panel header="Log Interaction">
+      <div class="slds-is-relative">
+        <lightning-spinner
+          lwc:if={isLoading}
+          variant="brand"
+        ></lightning-spinner>
+        <lightning-layout multiple-rows>
+          <lightning-layout-item size="6">
+            <lightning-input-field
+              field-name={categoryField}
+              onchange={handleCategoryChange}
+              required
+            ></lightning-input-field>
+          </lightning-layout-item>
+          <lightning-layout-item size="6">
+            <lightning-input-field
+              field-name={customerField}
+              value={accountId}
+              disabled
+              required
+            ></lightning-input-field>
+          </lightning-layout-item>
+          <!-- Hide these fields when Interaction Type = CAP Diary Comment -->
+          <template lwc:if={showInteractionFields}>
+            <lightning-layout-item size="6">
+              <lightning-input-field
+                field-name={nameField}
+                required
+              ></lightning-input-field>
+            </lightning-layout-item>
+            <lightning-layout-item size="6">
+              <lightning-input-field
+                field-name={intTypeField}
+                required
+              ></lightning-input-field>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="12">
+              <lightning-input-field
+                field-name={startTimeField}
+                required
+              ></lightning-input-field>
+            </lightning-layout-item>
+
+            <lightning-layout-item size="12">
+              <lightning-input-field
+                field-name={optionalNotesField}
+              ></lightning-input-field>
+            </lightning-layout-item>
+          </template>
+        </lightning-layout>
+        <template lwc:if={showDiaryFields}>
+          <c-lookup
+            search-results={searchResults}
+            onsearch={handleSearch}
+            label={CONSTANT.FA_LABEL}
+            placeholder={CONSTANT.FA_PLACEHOLDER}
+            onselect={handleFinancialAccountChange}
+          ></c-lookup>
+          <lightning-combobox
+            name="commentType"
+            label="Comment Type"
+            value={commentTypeValue}
+            options={commentTypeOptions}
+            onchange={handleCommentTypeChange}
+          ></lightning-combobox>
+          <lightning-textarea
+            lwc:ref="commentElement"
+            name="comment"
+            label="Comment"
+            value={commentValue}
+            onchange={handleCommentChange}
+          ></lightning-textarea>
+          <lightning-layout multiple-rows>
+            <lightning-layout-item size="6" flexibility="auto">
+              <lightning-input
+                lwc:ref="expiryElement"
+                type="date"
+                name="expiryDate"
+                label="Expiry Date"
+                value={expiryDateValue}
+                onchange={handleExpiryDateChange}
+                disabled={disabledExpiryDate}
+                min={todayDate}
+                message-when-range-underflow={CONSTANT.EXPIRY_ERROR}
+              ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              padding="around-small"
+              flexibility="auto"
+            >
+              <lightning-input
+                type="checkbox"
+                name="permanent"
+                label="Permanent"
+                onchange={handlePermanentChange}
+                style="padding-top: 12px"
+              ></lightning-input>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
+      </div>
+      <div slot="footer" class="slds-text-align_right">
+        <lightning-button
+          label="Cancel"
+          onclick={handleCancel}
+          class="btnCancel"
+        >
+        </lightning-button
+        >&nbsp;&nbsp;
+        <lightning-button
+          variant="brand"
+          type="submit"
+          label="Save"
+          name="save"
+        >
+        </lightning-button>
+      </div>
+    </lightning-quick-action-panel>
+  </lightning-record-edit-form>
+</template>

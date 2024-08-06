@@ -2,16 +2,16 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>IDR_Portfolio_or_Business_Unit__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Party details a case is pending with</description>
     <externalId>false</externalId>
     <inlineHelpText>If Internal Business Unit is selected as Pended to (Party), please select the Portfolio case is pending with.</inlineHelpText>
-    <label>Portfolio or Business Unit</label>
+    <label>Division</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>
-        <controllingField>IDR_Pended_To__c</controllingField>
+        <controllingField>IDR_Internal_or_External_Party__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
@@ -70,50 +70,87 @@
                 <default>false</default>
                 <label>Wealth (AR&amp;C)</label>
             </value>
+            <value>
+                <fullName>Australia Commercial</fullName>
+                <default>false</default>
+                <label>Australia Commercial</label>
+            </value>
+            <value>
+                <fullName>Australia Retail</fullName>
+                <default>false</default>
+                <label>Australia Retail</label>
+            </value>
+            <value>
+                <fullName>Corporate Centre</fullName>
+                <default>false</default>
+                <label>Corporate Centre</label>
+            </value>
+            <value>
+                <fullName>Group Capability Centre (GCC)</fullName>
+                <default>false</default>
+                <label>Group Capability Centre (GCC)</label>
+            </value>
+            <value>
+                <fullName>Group Technology</fullName>
+                <default>false</default>
+                <label>Group Technology</label>
+            </value>
+            <value>
+                <fullName>Institutional</fullName>
+                <default>false</default>
+                <label>Institutional</label>
+            </value>
+            <value>
+                <fullName>New Zealand</fullName>
+                <default>false</default>
+                <label>New Zealand</label>
+            </value>
+            <value>
+                <fullName>Pacific</fullName>
+                <default>false</default>
+                <label>Pacific</label>
+            </value>
+            <value>
+                <fullName>Wealth</fullName>
+                <default>false</default>
+                <label>Wealth</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Business Owners (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Australia Commercial</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Commercial (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Australia Retail</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Customer Resolution Portfolio (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Corporate Centre</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Customer Service Operations Portfolio (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Group Capability Centre (GCC)</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Data (Digital &amp; Transformation Australia)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Group Technology</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Digital Portfolio (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Institutional</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Group Services (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>New Zealand</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Home Owners Portfolio (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Pacific</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Responsible Banking Portfolio (AR&amp;C)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Retail (AR&amp;C)</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Internal Business Unit</controllingFieldValue>
-            <valueName>Wealth (AR&amp;C)</valueName>
+            <controllingFieldValue>Internal (ANZ)</controllingFieldValue>
+            <valueName>Wealth</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

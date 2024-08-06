@@ -90,9 +90,6 @@ public with sharing class ResidentialLoanApplicationControllerTest {
   static void testSetUamForBtns() {
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
     rla.Status = 'STATE_REFERRED';
-    List<ResidentialLoanApplication> loanRec = new List<ResidentialLoanApplication>{
-      rla
-    };
     ResidentialLoanApplicationModel sopAssets = prepareRla();
 
     User coach = TestUtil.createTestUserWithProfile('ANZx Standard User');
@@ -105,7 +102,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     insert coach;
 
     System.runAs(coach) {
-      ResidentialLoanApplicationController.setUamForBtns(sopAssets, loanRec);
+      ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
       System.assertEquals(true, sopAssets.showEditExpenseBtn);
       System.assertEquals(true, sopAssets.showAddIncomeBtn);
     }
@@ -115,9 +112,6 @@ public with sharing class ResidentialLoanApplicationControllerTest {
   static void testSetUamForBtnsNegative() {
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
     rla.Status = 'Completed';
-    List<ResidentialLoanApplication> loanRec = new List<ResidentialLoanApplication>{
-      rla
-    };
     ResidentialLoanApplicationModel sopAssets = prepareRla();
 
     User coach = TestUtil.createTestUserWithProfile('ANZx Standard User');
@@ -130,7 +124,7 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     insert coach;
 
     System.runAs(coach) {
-      ResidentialLoanApplicationController.setUamForBtns(sopAssets, loanRec);
+      ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
       System.assertEquals(false, sopAssets.showAddIncomeBtn);
     }
   }

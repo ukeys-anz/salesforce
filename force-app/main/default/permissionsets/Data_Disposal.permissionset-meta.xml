@@ -163,4 +163,8 @@
         <recordType>Task.CCRM_Task</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EditTask</name>
+    </userPermissions>
 </PermissionSet>

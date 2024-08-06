@@ -4,6 +4,9 @@
  * @description each event has a condition to check it and according to that it will notify/block an event
  */
 public with sharing class TSPCondition {
+  private static final TSPRepository TSP_QUERY_REPOSITORY = (TSPRepository) Lib_InstanceProvider.forType(
+    TSPRepository.class
+  );
   /**
    * @description to return true/false according to the condition for each event to be triggered
    * @param userId `Id` the user id.
@@ -17,21 +20,20 @@ public with sharing class TSPCondition {
     SObject event
   ) {
     Boolean result;
+     List<String> profilesList = new List<String>{
+      'ANZ Standard User',
+      'Integration User',
+      'Minimum Access - External Apps'
+    };
     switch on event {
       when BulkApiResultEventStore bulkApiResultEventStore {
-        result =
-          !profileName.contains('ANZ Standard User') &&
-          !profileName.contains('Integration User') &&
-          !profileName.contains('Minimum Access - External Apps');
+        result = !profilesList.contains(profileName);
       }
       when ReportEvent reportEvent {
-        List<PermissionSetAssignment> joinLeadPSGAssigned = [
-          SELECT Id
-          FROM PermissionSetAssignment
-          WHERE
-            AssigneeId = :userId
-            AND PermissionSetGroup.DeveloperName = 'Join_Lead'
-        ];
+        List<PermissionSetAssignment> joinLeadPSGAssigned = TSP_QUERY_REPOSITORY.queryPermissionSetAssignment(
+          userId,
+          'Join_Lead'
+        );
 
         result =
           reportEvent.Operation == 'ReportExported' &&
@@ -47,6 +49,13 @@ public with sharing class TSPCondition {
             .contains('user') &&
           refreshTokenQueriedEvent.Query.toLowerCase()
             .contains('refresh_token__c');
+      }
+      when FileEventStore fileEventStore {
+        if (fileEventStore.FileAction != 'UI_DOWNLOAD') {
+          return false;
+        }       
+        List <ContentVersion> cvList = TSP_QUERY_REPOSITORY.tspCVList(fileEventStore);
+        result = cvList.size() > 0;
       }
       when else {
         return false;
