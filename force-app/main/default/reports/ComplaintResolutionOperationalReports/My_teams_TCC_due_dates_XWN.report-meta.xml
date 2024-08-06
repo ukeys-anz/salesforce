@@ -12,7 +12,7 @@
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
         <expandOthers>true</expandOthers>
-        <groupingColumn>OWNER</groupingColumn>
+        <groupingColumn>Case.IDR_Teleconference_Call_TCC__c</groupingColumn>
         <location>CHART_BOTTOM</location>
         <showAxisLabels>false</showAxisLabels>
         <showPercentage>false</showPercentage>
@@ -35,13 +35,10 @@
         <field>STATUS</field>
     </columns>
     <columns>
-        <field>PC_FIRST_NAME</field>
+        <field>Case.IDR_NC_First_Name__c</field>
     </columns>
     <columns>
-        <field>PC_LAST_NAME</field>
-    </columns>
-    <columns>
-        <field>Case.IDR_Teleconference_Call_TCC__c</field>
+        <field>Case.IDR_NC_Last_Name__c</field>
     </columns>
     <columns>
         <field>Case.IDR_AFCA_Status__c</field>
@@ -108,21 +105,21 @@
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
+            <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.My_extended_team_s_cases__c</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
+            <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case.IsOwner__c</column>
             <columnToColumn>false</columnToColumn>
-            <isUnlocked>false</isUnlocked>
+            <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
         </criteriaItems>
@@ -132,6 +129,10 @@
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
         <field>OWNER</field>
+        <sortOrder>Asc</sortOrder>
+    </groupingsDown>
+    <groupingsDown>
+        <field>Case.IDR_Teleconference_Call_TCC__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <params>

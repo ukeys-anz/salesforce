@@ -6,6 +6,10 @@
  */
 
 public with sharing class HomeLoanController {
+  private static final FinancialAccountRepository FAR_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
+
   /**
    * @description The Person Account Home Loan component uses this to fetch the records to display.
    * This makes the callout to mule to fetch home loan data
@@ -102,17 +106,6 @@ public with sharing class HomeLoanController {
   public static List<FinServ__FinancialAccountRole__c> getAccountOwnerIds(
     Id financialAccountId
   ) {
-    //Check if can query account
-    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
-
-    List<FinServ__FinancialAccountRole__c> financialAccountRoles = [
-      SELECT Id, FinServ__RelatedAccount__c, FinServ__RelatedAccount__r.Name
-      FROM FinServ__FinancialAccountRole__c
-      WHERE
-        FinServ__FinancialAccount__c = :financialAccountId
-        AND FinServ__Active__c = TRUE
-    ];
-
-    return financialAccountRoles;
+    return FAR_REPOSITORY.getAccountOwnerDetails(financialAccountId);
   }
 }

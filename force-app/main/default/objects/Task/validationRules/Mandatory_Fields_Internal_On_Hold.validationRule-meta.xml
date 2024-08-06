@@ -7,7 +7,6 @@
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;IDR_Task&apos;,
 ISPICKVAL( Type , &apos;Pend Case&apos;),
-Subject = &apos;Case on Hold&apos;, 
 ISPICKVAL(IDR_Internal_or_External_Party__c,&apos;Internal (ANZ)&apos;),
 OR(
 ISBLANK(TEXT( On_Hold_Reason_Internal__c )),

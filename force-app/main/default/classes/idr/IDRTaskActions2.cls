@@ -239,8 +239,8 @@ public with sharing class IDRTaskActions2 {
     if (
       oTask.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
       oTask.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
-      !String.isBlank(oTask.WhatId) &&
-      (oTask.WhatId + '').startsWith('500')
+      String.isNotBlank(oTask.WhatId) &&
+      String.valueOf(oTask.WhatId).startsWith('500')
     ) {
       return true;
     }
@@ -283,12 +283,23 @@ public with sharing class IDRTaskActions2 {
   public static void assignPendTasktoCaseOwner(List<Task> newTasks) {
     Map<Id, Date> caseDateMap = getOnHoldDateFromTask(newTasks);
     List<Case> caselist = TASK_REPOSITORY.queryCases(caseDateMap.keyset());
-    if (caselist.isEmpty()) {
-      return;
-    }
     Map<Id, Case> caseMap = new Map<Id, Case>(caseList);
+    setTaskOwnerId(caseMap, newTasks);
+  }
+  /**
+   * @description To Set case fields Date and Boolean value as required
+   * @param caseMap Map of Id and Case
+   * @param newTasks List of new Tasks
+   */
+  public static void setTaskOwnerId(
+    Map<Id, Case> caseMap,
+    List<Task> newTasks
+  ) {
     for (Task oTask : newTasks) {
       if (!isValidPendTask(oTask)) {
+        continue;
+      }
+      if (caseMap.get(oTask.WhatId) == null) {
         continue;
       }
       oTask.OwnerId = caseMap.get(oTask.WhatId).OwnerId;

@@ -55,6 +55,10 @@ public virtual with sharing class CloudEventModel {
   public virtual class UserModel {
     public String name { get; set; }
     public String email { get; set; }
+    public String lanId { get; set; }
+
+    public UserModel() {
+    }
 
     public UserModel(User theUser) {
       this.name = theUser?.UserName;

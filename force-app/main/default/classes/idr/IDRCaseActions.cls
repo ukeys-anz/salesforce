@@ -566,11 +566,15 @@ public with sharing class IDRCaseActions {
    * @param oldRec trigger context variable to check on old values.
    */
   private static void handleCaseEscalationRules(Case record, Case oldRec) {
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.ESCALATED_STATUS,
+      IDRConstants.WITHDRAWN_STATUS,
+      IDRConstants.ON_HOLD_STATUS
+    };
     //adding 'Indexing' to the condition, so a converted AEM cases are also included for auto escalation.
     if (
       record.IsEscalated &&
-      record.Status != IDRConstants.ESCALATED_STATUS &&
-      record.Status != IDRConstants.WITHDRAWN_STATUS &&
+      (!caseStatus.contains(record.Status)) &&
       (String.isBlank(record.IDR_Escalation_Reason__c) ||
       record.IDR_Escalation_Reason__c == INDEXING_ESCALATION_REASON)
     ) {
@@ -601,6 +605,11 @@ public with sharing class IDRCaseActions {
    * @param record The actual case record from the trigger
    */
   private static void handleCaseStatusChanges(Case record) {
+    Set<String> caseStatus = new Set<String>{
+      IDRConstants.CLOSED_STATUS,
+      IDRConstants.PROVISIONALLY_CLOSED_STATUS,
+      IDRConstants.ON_HOLD_STATUS
+    };
     if (record.Status == IDRConstants.ESCALATED_STATUS && !record.IsEscalated) {
       record.IsEscalated = true;
     }
@@ -608,11 +617,7 @@ public with sharing class IDRCaseActions {
       record.IDR_Date_Re_Opened__c = System.today();
       record.IsEscalated = false;
     }
-    if (
-      (record.Status == IDRConstants.CLOSED_STATUS ||
-      record.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS) &&
-      record.IsEscalated
-    ) {
+    if ((caseStatus.contains(record.Status)) && record.IsEscalated) {
       record.IsEscalated = false;
     }
   }

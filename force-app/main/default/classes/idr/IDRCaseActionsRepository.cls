@@ -10,6 +10,9 @@ public with sharing class IDRCaseActionsRepository {
    * @return list of Pend tasks
    */
   public List<Task> queryPendTasks(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Task>();
+    }
     return [
       SELECT Id, Status
       FROM Task

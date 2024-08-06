@@ -402,6 +402,17 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Logs and return AuraHandledException exception with given errorMessage.
+   * Useful for re-throw from caller.
+   * @param errorMessage The errorMessage to be logged.
+   * @return The AuraHandledException with logged errorMessage.
+   */
+  public static AuraHandledException logAuraException(String errorMessage) {
+    Logger.error(errorMessage);
+    Logger.saveLog();
+    return new AuraHandledException(errorMessage);
+  }
+  /**
    * @description Logs and return an exception based on error provided in HttpCalloutResponse.
    * Useful for re-throw from caller.
    * @param response The HTTP callout response containing the error information.
@@ -1132,6 +1143,40 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description This method is used to get iconName
+   * @param objectName Name of the Object
+   * @return String iconName
+   */
+  public static String getObjectIconName(SObjectType objectName) {
+    List<Schema.DescribeTabSetResult> tabSetDesc = new List<DescribeTabSetResult>();
+    List<Schema.DescribeTabResult> tabDesc = new List<Schema.DescribeTabResult>();
+    List<Schema.DescribeIconResult> iconDesc = new List<Schema.DescribeIconResult>();
+
+    for (Schema.DescribeTabSetResult tsr : Schema.describeTabs()) {
+      tabDesc.addAll(tsr.getTabs());
+    }
+
+    for (Schema.DescribeTabResult tr : tabDesc) {
+      if (tr.getSobjectName() != String.valueOf(objectName)) {
+        continue;
+      }
+      if (!tr.isCustom()) {
+        return 'standard:' + String.valueOf(objectName).toLowerCase();
+      }
+      iconDesc.addAll(tr.getIcons());
+    }
+
+    for (Schema.DescribeIconResult ir : iconDesc) {
+      if (ir.getContentType() == 'image/svg+xml') {
+        return 'custom:' +
+          ir.getUrl().substringBetween('custom/', '.svg').substringBefore('_');
+      }
+    }
+    return null;
+  }
+  
+  /**
+   * [DEPRECATED] Use `ListUtil.getIds`.
    * @description Returns a set of Ids extracted from a list of SObjects based on a specified field.
    * @param records The list of SObjects from which to extract the Ids.
    * @param field The field on the SObject to extract the Ids from.
@@ -1141,61 +1186,6 @@ public with sharing class CommonUtil {
     List<SObject> records,
     Schema.SObjectField field
   ) {
-    Set<Id> ids = new Set<Id>();
-    for (SObject record : records) {
-      Id value = (Id) record.get(field);
-      if (value != null) {
-        ids.add(value);
-      }
-    }
-    return ids;
-  }
-
-  /**
-   * @description Build a map of records with specified ID field as key (lookup, master-detail etc.) .
-   *   - If multiple record have the same field value, only last one will be included in the map.
-   * @param records The list of SObjects from which to retrieve the records.
-   * @param field The field used to create the map.
-   * @return `Map<Id, SObject>` A map of records with the specified field as the key and the record as the value.
-   */
-  public static Map<Id, SObject> buildIdMap(
-    List<SObject> records,
-    Schema.SObjectField field
-  ) {
-    Map<Id, SObject> recordMap = (Map<Id, SObject>) Type.forName(
-        'Map<Id,' + field.getDescribe().getSObjectType() + '>'
-      )
-      .newInstance();
-    for (SObject record : records) {
-      Id value = (Id) record.get(field);
-      if (value != null) {
-        recordMap.put(value, record);
-      }
-    }
-    return recordMap;
-  }
-
-  /**
-   * @description Build a map of records with specified string field as key (other field types are converted to string) .
-   *   - If multiple record have the same field value, only last one will be included in the map.
-   * @param records The list of SObjects from which to retrieve the records.
-   * @param field The field used to create the map.
-   * @return `Map<String, SObject>` A map of records with the specified field as the key and the record as the value.
-   */
-  public static Map<String, SObject> buildStringMap(
-    List<SObject> records,
-    Schema.SObjectField field
-  ) {
-    Map<String, SObject> recordMap = (Map<String, SObject>) Type.forName(
-        'Map<String,' + field.getDescribe().getSObjectType() + '>'
-      )
-      .newInstance();
-    for (SObject record : records) {
-      String value = String.valueOf(record.get(field));
-      if (value != null) {
-        recordMap.put(value, record);
-      }
-    }
-    return recordMap;
+    return ListUtil.getIds(records, field);
   }
 }

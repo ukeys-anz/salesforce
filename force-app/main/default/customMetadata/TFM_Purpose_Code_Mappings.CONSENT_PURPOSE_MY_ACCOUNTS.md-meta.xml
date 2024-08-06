@@ -3,6 +3,10 @@
     <label>CONSENT_PURPOSE_MY_ACCOUNTS</label>
     <protected>false</protected>
     <values>
+        <field>Accounts_DataScope_Subtext__c</field>
+        <value xsi:type="xsd:string">display in My Accounts</value>
+    </values>
+    <values>
         <field>Archived_Description__c</field>
         <value xsi:type="xsd:string">to display your accounts, balances and transactions in the My Accounts Add-On.</value>
     </values>
@@ -17,5 +21,9 @@
     <values>
         <field>SharingPurpose__c</field>
         <value xsi:type="xsd:string">to display your accounts, balances and transactions in the My Accounts Add-On</value>
+    </values>
+    <values>
+        <field>Transactions_DataScope_SubText__c</field>
+        <value xsi:type="xsd:string">display in My Accounts</value>
     </values>
 </CustomMetadata>

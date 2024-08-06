@@ -254,15 +254,9 @@ public with sharing class IDRConstants {
   //Quality Assessment Fieldset Name
   public static final String CQ_EDITABLE_RESPONSE_FIELDS = 'CQAssessment_Editable_Response_Fields';
 
-  //QA Evaluation type Contants
-  public static final String CQ_EVAL = 'C & Q Assessment';
-  public static final String LETTER_EVAL = 'Letter Review Assessment';
-  public static final String CALL_REVIEW_EVAL = 'Call Review Assessment';
-  public static final String CQ_EVALCOUNT = 'C&Q Assessment';
-
   //QA Status Constants
-  public static final String STATUS_COMPLETE ='Complete';
-  public static final String STATUS_PENDING ='Pending';
+  public static final String STATUS_COMPLETE = 'Complete';
+  public static final String STATUS_PENDING = 'Pending';
 
   //Migrated Document
   public static final String DELETION_NOT_ALLOWED = 'You may not delete CFMS migrated documents.';
@@ -512,17 +506,19 @@ public with sharing class IDRConstants {
    */
   public static final Map<String, String> qaAssessmentStatusMapping {
     get {
-      qaAssessmentStatusMapping = new Map<String, String>{
-        'Awaiting response from TM' => 'Submitted',
-        'Accepted by TM' => 'Accepted',
-        'Rejected by TM' => 'Disputed',
-        'C&Q Team Lead accepts TM\'s view' => 'C&Q manager amended original review',
-        'C&Q Team Lead rejects TM\'s view' => 'C&Q manager upheld original review',
-        'TM Rejects C&Q Manager\'s review' => 'C&Q manager\'s view not accepted',
-        'TM Accepts C&Q Manager\'s review' => 'C&Q manager\'s view accepted',
-        'C&Q Lead upholds C&Q Manager\'s review' => 'C&Q Lead upholds C&Q Manager\'s review',
-        'C&Q Lead disagrees with C&Q Manager\'s review' => 'C&Q Lead disagrees with C&Q Manager\'s review'
-      };
+      if (qaAssessmentStatusMapping == null) {
+        qaAssessmentStatusMapping = new Map<String, String>{
+          'Awaiting response from TM' => 'Submitted',
+          'Accepted by TM' => 'Accepted',
+          'Rejected by TM' => 'Disputed',
+          'C&Q Team Lead accepts TM\'s view' => 'C&Q manager amended original review',
+          'C&Q Team Lead rejects TM\'s view' => 'C&Q manager upheld original review',
+          'TM Rejects C&Q Manager\'s review' => 'C&Q manager\'s view not accepted',
+          'TM Accepts C&Q Manager\'s review' => 'C&Q manager\'s view accepted',
+          'C&Q Lead upholds C&Q Manager\'s review' => 'C&Q Lead upholds C&Q Manager\'s review',
+          'C&Q Lead disagrees with C&Q Manager\'s review' => 'C&Q Lead disagrees with C&Q Manager\'s review'
+        };
+      }
       return qaAssessmentStatusMapping;
     }
     private set;
