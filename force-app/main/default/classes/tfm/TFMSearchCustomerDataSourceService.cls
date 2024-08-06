@@ -21,44 +21,19 @@ public with sharing class TFMSearchCustomerDataSourceService {
     DataSource.QueryContext context
   ) {
     String searchText = (String) context.tableSelection.filter.columnValue;
+    searchText = String.isBlank(searchText)
+      ? (String) context.tableSelection.filter.subfilters[0].columnValue
+      : searchText;
     searchText = getMobileInFormat(searchText);
     Service.IdType refId = getRefName(searchText);
-    if (refId != null) {
-      if (
-        context.tableSelection.columnsSelected.size() == 1 &&
-        context.tableSelection.columnsSelected.get(0).aggregation ==
-        DataSource.QueryAggregation.COUNT
-      ) {
-        List<Map<String, Object>> rows = getRows(refId, searchText);
-        List<Map<String, Object>> response = DataSource.QueryUtils.filter(
-          context,
-          getRows(refId, searchText)
-        );
-        List<Map<String, Object>> countResponse = new List<Map<String, Object>>();
-        Map<String, Object> countRow = new Map<String, Object>();
-        countRow.put(
-          context.tableSelection.columnsSelected.get(0).columnName,
-          response.size()
-        );
-        countResponse.add(countRow);
-        return DataSource.TableResult.get(context, countResponse);
-      } else {
-        List<Map<String, Object>> filteredRows = DataSource.QueryUtils.filter(
-          context,
-          getRows(refId, searchText)
-        );
-        List<Map<String, Object>> sortedRows = DataSource.QueryUtils.sort(
-          context,
-          filteredRows
-        );
-        List<Map<String, Object>> limitedRows = DataSource.QueryUtils.applyLimitAndOffset(
-          context,
-          sortedRows
-        );
-        return DataSource.TableResult.get(context, limitedRows);
-      }
+    if (refId == null) {
+      return null;
     }
-    return null;
+    List<Map<String, Object>> queryResponse = DataSource.QueryUtils.process(
+      context,
+      getRows(refId, searchText)
+    );
+    return DataSource.TableResult.get(context, queryResponse);
   }
 
   /**
@@ -69,20 +44,19 @@ public with sharing class TFMSearchCustomerDataSourceService {
   public static List<DataSource.TableResult> searchExtServer(
     DataSource.SearchContext context
   ) {
-    List<DataSource.TableResult> results = new List<DataSource.TableResult>();
-    String searchText = context.searchPhrase;
-    searchText = searchText.replace('\\', '');
+    List<DataSource.TableResult> searchResults = new List<DataSource.TableResult>();
+    String searchText = context.searchPhrase.replace('\\', '');
     searchText = getMobileInFormat(searchText);
     Service.IdType refId = getRefName(searchText);
-    if (refId != null) {
-      for (DataSource.TableSelection tableSelection : context.tableSelections) {
-        results.add(
-          DataSource.TableResult.get(tableSelection, getRows(refId, searchText))
-        );
-      }
-      return results;
+    if (refId == null) {
+      return null;
     }
-    return results;
+    for (DataSource.TableSelection tableSelection : context.tableSelections) {
+      searchResults.add(
+        DataSource.TableResult.get(tableSelection, getRows(refId, searchText))
+      );
+    }
+    return searchResults;
   }
 
   /**

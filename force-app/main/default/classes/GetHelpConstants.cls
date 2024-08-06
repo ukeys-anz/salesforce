@@ -124,6 +124,8 @@ public with sharing class GetHelpConstants {
     .get(GetHelpConstants.BANK_ACCOUNT_RT_APINAME)
     .getRecordTypeId();
 
+  public static final String S2_ACCOUNT_MARKETING_CODE = 'SAVING02';
+
   //Financial Account marketing code values
   public static final List<String> ANZX_MARKETING_CODES = new List<String>{
     'TRANSACT01',
@@ -228,6 +230,9 @@ public with sharing class GetHelpConstants {
     .get('Loan_Application')
     .getRecordTypeId();
 
+  //Residential Loan App Status : Cancelled
+  public static final String RLA_STATUS_CANCELLED = 'STATE_CANCELLED';
+
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
@@ -282,7 +287,6 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
   public static final String COB_DAON_FAILED_STATUS = 'Daon Fallout';
-  public static final String COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT = 'Daon Fallout: WATCHLIST_HIT';
   public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon OK';
   public static final String COB_FRAUD_CHECK_DAON_APPROVED_STATUS = 'Fraud Check: Daon OK';
   public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Fallout';
@@ -302,9 +306,6 @@ public with sharing class GetHelpConstants {
     'App',
     'ANZ Plus App'
   };
-  //Case Onboarding Verification Failed Reason picklist values
-  public static final String ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST = 'Confirmed Fraud - Selfie Watchlist';
-
   // Permission Set Group Name
   public static final String BUSINESS_ADMIN_PSG = 'Business_Admin';
 
@@ -389,4 +390,20 @@ public with sharing class GetHelpConstants {
     'Actioned' => 'STATUS_ACTIONED',
     'Expired' => 'STATUS_EXPIRED'
   };
+
+  /**
+   * @description Fetch Coach Nudge and Callback Request record types
+   * @return Set record type Ids
+   */
+  public static final Set<Id> taskRecordTypeIds {
+    get {
+      if (taskRecordTypeIds == null) {
+        taskRecordTypeIds = new Set<Id>();
+        taskRecordTypeIds.add(GetHelpConstants.COACH_NUDGE_RT_ID);
+        taskRecordTypeIds.add(GetHelpConstants.CALLBACK_REQUEST_RT_ID);
+      }
+      return taskRecordTypeIds;
+    }
+    private set;
+  }
 }

@@ -151,13 +151,56 @@ public with sharing class AutoKYCQACaseRepository {
       return new List<Account>();
     }
     return [
-      SELECT
-        Id,
-        FinServ__KYCStatus__c,
-        KYC_Verification_Level__c,
-        CustomerExitFlag__c
+      SELECT Id, FinServ__KYCStatus__c, KYC_Verification_Level__c
       FROM Account
       WHERE Id IN :accountIds
     ];
+  }
+
+  /**
+   * @description Get list of not-exited Accounts By account Ids
+   * @param accountIds set of account Ids
+   * @return List<Account> list of Accounts
+   */
+  public List<Account> queryAccountsNotExited(Set<Id> accountIds) {
+    if (accountIds.isEmpty() || SObjectType.Account.isQueryable() == false) {
+      return new List<Account>();
+    }
+    return [
+      SELECT Id, OCV_ID__c, FinServ__KYCStatus__c, KYC_Verification_Level__c
+      FROM Account
+      WHERE Id IN :accountIds AND CustomerExitFlag__c = FALSE
+    ];
+  }
+
+  /**
+   * @description Queries the Account IDs of exited accounts based on the provided OCV IDs.
+   * @param ocvIds A set of OCV IDs to query the exited accounts.
+   * @return A set of Account IDs of exited accounts.
+   */
+  public List<Account> queryExitedAccountsByOcvIds(Set<String> ocvIds) {
+    return new SystemAction().queryExitedAccountsByOcvIds(ocvIds);
+  }
+
+  /**
+   * @description This class take care of Database operation that requires without sharing operation
+   */
+  private without sharing class SystemAction {
+    /**
+     * @description Queries exited accounts by the specified OCV IDs. Users need to find AR&C accounts that has same OCV ID as ANZX customers.
+     * @param ocvIds A set of OCV IDs to query accounts for.
+     * @return A list of Account records that match the specified OCV IDs and have the CustomerExitFlag__c field set to TRUE.
+     */
+    public List<Account> queryExitedAccountsByOcvIds(Set<String> ocvIds) {
+      if (ocvIds.isEmpty()) {
+        return new List<Account>();
+      }
+      return [
+        SELECT Id, OCV_ID__c
+        FROM Account
+        WHERE OCV_ID__c IN :ocvIds AND CustomerExitFlag__c = TRUE
+        WITH SYSTEM_MODE
+      ];
+    }
   }
 }

@@ -33,6 +33,10 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
       when LoginEvent reportLoginEvent {
         return loginEventEvaluation(reportLoginEvent);
       }
+      when FileEventStore fileEventStoreBlock {
+        eventName = 'Block user for downloading content version records';
+        uId = fileEventStoreBlock.UserId;
+      }
       when null {
         return false;
       }

@@ -130,9 +130,6 @@ public with sharing class GetHelpCaseActionsHelper {
    * @return Set<Id> parent Ids with child records
    */
   public static Set<Id> getParentCaseIds(Set<Id> caseIds) {
-    if (getChildCaseListMock != null) {
-      return getChildCaseListMock;
-    }
     List<Case> childCaseList = new List<Case>();
 
     if (Schema.sObjectType.Case.isQueryable()) {
@@ -163,9 +160,9 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     List<Case> anzPlusCases = new List<Case>();
     List<Id> relatedAccountIDs = new List<Id>();
-    for (Case newCase : records) {
+    List<Case> anzCases = filterANZCases(records);
+    for (Case newCase : anzCases) {
       if (
-        CheckCaseRecordType.isANZPlusCaseType(newCase) &&
         newCase.AccountId != null &&
         (mpOldCasesByIds == null ||
         RecordComparisonUtil.fieldWasChanged(
@@ -179,20 +176,14 @@ public with sharing class GetHelpCaseActionsHelper {
       }
     }
 
-    if (relatedAccountIDs.isEmpty()) {
-      return;
-    }
-
     Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
       relatedAccountIDs
     );
 
     for (Case newCaseRecord : anzPlusCases) {
       // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      newCaseRecord.ContactId = relatedAccountsMap.get(newCaseRecord.AccountId)
-          .IsPersonAccount
-        ? relatedAccountsMap.get(newCaseRecord.AccountId).PersonContactId
-        : null;
+      Account acc = relatedAccountsMap.get(newCaseRecord.AccountId);
+      newCaseRecord.ContactId = acc?.PersonContactId;
     }
   }
 
@@ -708,6 +699,11 @@ public with sharing class GetHelpCaseActionsHelper {
   public static List<Case> setIDOpsCaseStatus(
     Map<Id, Case> parentIdAndChildCasedMap
   ) {
+    List<String> caseStatusesWithReason = new List<String>{
+      GetHelpConstants.COB_FAILED_OK_STATUS,
+      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    };
+
     List<Case> idOpsCases = getCasesByIds(parentIdAndChildCasedMap.keySet());
 
     for (Case idOpsCase : idOpsCases) {
@@ -717,61 +713,12 @@ public with sharing class GetHelpCaseActionsHelper {
         fraudCheckCase.Status
       );
 
-      if (
-        idOpsCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS ||
-        idOpsCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-      ) {
+      if (caseStatusesWithReason.contains(idOpsCase.Status) == true) {
         idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
       }
     }
 
     return idOpsCases;
-  }
-
-  /**
-   * @description Check the records and filter those that are ID Ops with Watchlist hit
-   * @param records Case records from trigger
-   * @param oldMap map of records id and old records
-   * @return List<Case> List of IDOps cases that are in Watchlist Hit
-   */
-  public static List<Case> getIDOpsWatchlistRecords(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    List<Case> idOpsCases = new List<Case>();
-
-    //filter records for update
-    for (Case newCaseRecord : records) {
-      Case oldCaseRecord = oldMap.get(newCaseRecord.Id);
-
-      if (
-        CheckCaseRecordType.isIDOpsAssistance(newCaseRecord) &&
-        COBCaseStatusValidator.isInWatchList(newCaseRecord) &&
-        GetHelpCaseActionsHelper.isStatusChanged(newCaseRecord, oldCaseRecord)
-      ) {
-        idOpsCases.add(newCaseRecord);
-      }
-    }
-
-    return idOpsCases;
-  }
-
-  /**
-   * @description Set ID Ops cases Onboarding Verification Reason
-   * @param records Filtered ID Ops Cases for update
-   * @param caseIdsWithChildren ID Ops CaseIds with child records
-   */
-  @TestVisible
-  public static void setIDOpsWatchlistCaseReason(
-    List<Case> records,
-    Set<Id> caseIdsWithChildren
-  ) {
-    //if the case has no child erecord, status change is triggered from the record itself
-    for (Case c : records) {
-      if (!caseIdsWithChildren.contains(c.Id)) {
-        c.OnboardingVerificationFailedReason__c = GetHelpConstants.ONBOARDING_FAILED_REASON_CONFIRMED_FRAUD_WATCHLIST;
-      }
-    }
   }
 
   /**
@@ -1000,6 +947,23 @@ public with sharing class GetHelpCaseActionsHelper {
     ) {
       record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
     }
+  }
+
+  /**
+   * @description Check if the cae is a ANZXCase
+   * @param record List of case records which are updated or inserted
+   * @return filtered cases based on record type
+   */
+  private static List<Case> filterANZCases(List<Case> record) {
+    List<Case> caseRecordList = new List<Case>();
+
+    for (Case caseRecord : record) {
+      if (CheckCaseRecordType.isANZPlusCaseType(caseRecord)) {
+        caseRecordList.add(caseRecord);
+      }
+    }
+
+    return caseRecordList;
   }
 
   /**

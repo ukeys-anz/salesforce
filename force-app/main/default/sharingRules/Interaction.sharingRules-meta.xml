@@ -1,6 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>CCRM_Sharing_ML_Interaction_with_Commercial_Bankers_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>CCRM Sharing ML Interaction with Commercial Bankers Read Only</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ML Interaction</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Interaction_Business_Admin_Read_Write_Sharing_Rule</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule provides read/write access to the business admin role for

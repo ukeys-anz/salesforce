@@ -6,6 +6,7 @@
     <permissionSets>Customer_Authentication_PS</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>MLCRM_Allow_Lead_Creation</permissionSets>
     <permissionSets>MLCRM_Base</permissionSets>
     <permissionSets>MLCRM_Convert_Lead</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Customer_Relationship</permissionSets>

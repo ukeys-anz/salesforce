@@ -19,7 +19,7 @@
             <value>
                 <fullName>Individual</fullName>
                 <default>false</default>
-                <label>Individual</label>
+                <label>Sole</label>
             </value>
             <value>
                 <fullName>Joint</fullName>

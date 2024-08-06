@@ -397,7 +397,8 @@
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"
       ],
-      "IA-2486234": ["Sync_Status__c",
+      "IA-2486234": [
+        "Sync_Status__c",
         "OCV_ID__c",
         "OCV_Event_Version__c",
         "Source_System_ID__c",
@@ -493,6 +494,7 @@
         "Authentication_Method__c",
         "Coach_Action__c",
         "Completed_Date__c",
+        "Date_Case_on_Hold_From__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
         "IDR_COR_ID__c",
@@ -507,6 +509,9 @@
         "IDR_Tribe__c",
         "Is_Case_Owned_By_CR_Team__c",
         "Last_Assigned_Owner__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
+        "Product_Manufacturer__c",
         "PSI_or_DSI__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
@@ -1138,6 +1143,12 @@
         "Customer_Account_Name__c",
         "Customer_Account_Number__c",
         "Customer_Reference_Number__c",
+        "Daon_Auth_Request_Id__c",
+        "Daon_Challenge_Type__c",
+        "Daon_Check_Id__c",
+        "Daon_Document_Id__c",
+        "Daon_Reg_Challenge_Id__c",
+        "Daon_User_Id__c",
         "Date_Posted__c",
         "Debit_User_Name__c",
         "Debit_or_Credit__c",
@@ -1158,7 +1169,8 @@
         "Transaction_Amount__c",
         "Transaction_Authorised_Date__c",
         "Transaction_Currency__c",
-        "Transaction_Description__c"
+        "Transaction_Description__c",
+        "Verified_By__c"
       ],
       "IA-2415869": [
         "Card_Expiry_Date__c",
@@ -1169,6 +1181,7 @@
         "Card_Token_Number__c"
       ],
       "IA-2415992": ["SI_Potential_Consequence_to_Customer__c"],
+      "IA-2415995": ["Account_Product__c"],
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",
@@ -1275,7 +1288,12 @@
         "Status_Update_Error__c",
         "System_Action__c",
         "Aegis_Workflow_Id__c",
-        "Person_Digital_Identity__c"
+        "Person_Digital_Identity__c",
+        "Pin_History_Check_Failed__c",
+        "IAL_Status__c",
+        "Context_Id__c",
+        "Context_Type__c",
+        "Verified_Date__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1813,6 +1831,9 @@
         "User_Segment__c"
       ],
       "IA-2594111": ["CPID_LanID__c", "CPID_User__c"]
+    },
+    "CCRM_Log_Interaction_Comment__mdt": {
+      "IA-2530753": ["Active_Flag__c", "Comment_Type__c", "Default_Text__c"]
     },
     "Custom_Dynamic_Field_History_Setting__mdt": {
       "IA-2530753": ["Field_Name__c", "SObject_Name__c"]
@@ -2435,9 +2456,11 @@
     "Interaction": {
       "IA-2415860": [
         "Category__c",
+        "Financial_Account__c",
         "Opportunity__c",
         "Customer_Relationship__c",
-        "Territory__c"
+        "Territory__c",
+        "Financial_Account__c"
       ],
       "IA-2530753": [
         "AccountId",
@@ -2453,6 +2476,7 @@
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
         "Coaching_Summary__c",
+        "Comment__c",
         "Contact_Mobile__c",
         "ContactRequestId__c",
         "CreatedById",
@@ -2463,6 +2487,7 @@
         "Escalated__c",
         "Escalated_Flag__c",
         "Event_Id__c",
+        "Expiry_Date__c",
         "Interaction_Auto_Number__c",
         "Interaction_External_Id__c",
         "Interaction_Number__c",
@@ -2481,6 +2506,7 @@
         "Name",
         "Optional_Notes__c",
         "OwnerId",
+        "Permanent__c",
         "Place__c",
         "Record_Type__c",
         "RecordTypeId",
@@ -2491,6 +2517,7 @@
         "Status__c",
         "Support_Topics__c",
         "Self_Service__c",
+        "Permanent__c",
         "Place__c",
         "Focus_Area__c",
         "Twilio_ID__c",

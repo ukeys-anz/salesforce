@@ -1,88 +1,84 @@
 /**
- * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
- */
-@SuppressWarnings(
-  'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
-)
-/**
  * @author Victor Wang
  * @since Jan 2023
- * @description Model for Stravinsky Customer Onboarding Primary ID Document related APIs
+ * @description Response Model for Stravinsky Updating Primary ID Document
  */
 public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
-  public static final String PASSPORT_TYPE = 'Passport';
-  public static final String PASSPORT_UPDATE_MASK =
-    'primaryIdDocument.passport.firstName,' +
-    'primaryIdDocument.passport.middleNames,' +
-    'primaryIdDocument.passport.lastName,' +
-    'primaryIdDocument.passport.countryOfIssue,' +
-    'primaryIdDocument.passport.dateOfBirth.day,' +
-    'primaryIdDocument.passport.dateOfBirth.month,' +
-    'primaryIdDocument.passport.dateOfBirth.year,' +
-    'primaryIdDocument.passport.expiryDate.day,' +
-    'primaryIdDocument.passport.expiryDate.month,' +
-    'primaryIdDocument.passport.expiryDate.year,' +
-    'primaryIdDocument.passport.passportNumber';
-  public static final String LICENCE_TYPE = 'Licence';
-  public static final String AUSTRALIAN_DRIVER_LICENCE = 'Australian Driver\'s Licence';
-  public static final String AUSTRALIAN_DRIVER_LICENCE_UPDATE_MASK =
-    'primaryIdDocument.australianDriverLicence.firstName,' +
-    'primaryIdDocument.australianDriverLicence.middleNames,' +
-    'primaryIdDocument.australianDriverLicence.lastName,' +
-    'primaryIdDocument.australianDriverLicence.stateOfIssue,' +
-    'primaryIdDocument.australianDriverLicence.dateOfBirth.day,' +
-    'primaryIdDocument.australianDriverLicence.dateOfBirth.month,' +
-    'primaryIdDocument.australianDriverLicence.dateOfBirth.year,' +
-    'primaryIdDocument.australianDriverLicence.expiryDate.day,' +
-    'primaryIdDocument.australianDriverLicence.expiryDate.month,' +
-    'primaryIdDocument.australianDriverLicence.expiryDate.year,' +
-    'primaryIdDocument.australianDriverLicence.licenceNumber,' +
-    'primaryIdDocument.australianDriverLicence.licenceCardNumber';
-
-  // part of the detokenization api
-  public List<DetokenizedValue> values;
-
-  // part of the tokenization request
-  public PrimaryIdDocument primaryIdDocument;
-  public String updateMask;
-  public String caseId;
-
-  // part of the tokenization response
-  public DocumentDetail passport;
-  public DocumentDetail australianDriverLicence;
+  public static final String TOKEN_TRANSFORM_VALUE = 'fpe.personal-identifier';
+  static final String PASSPORT_TYPE = 'Passport';
+  static final String AUSTRALIAN_DRIVER_LICENCE = 'Australian Driver\'s Licence';
+  //use in api response
+  public String name;
+  public AustralianDriverLicence australianDriverLicence;
+  public Passport passport;
 
   /**
-   * @description constructor to build COBPrimaryIDDocumentModel
-   * @param idDocumentType either passport or licence
-   * @param caseId ID Ops Assistance Case linked to the parent COB record
+   * @description constructor to build COBPrimaryIDDocumentModel.Passport response
+   * @param passport the Passport record object
    */
-  public COBPrimaryIDDocumentModel(String idDocumentType, String caseId) {
-    if (idDocumentType == PASSPORT_TYPE) {
-      this.updateMask = PASSPORT_UPDATE_MASK;
-    } else if (idDocumentType == LICENCE_TYPE) {
-      this.updateMask = AUSTRALIAN_DRIVER_LICENCE_UPDATE_MASK;
-    }
-
-    this.caseId = caseId;
-    this.primaryIdDocument = new PrimaryIdDocument();
+  public COBPrimaryIDDocumentModel(Passport passport) {
+    this.name = PASSPORT_TYPE;
+    this.passport = passport;
   }
 
   /**
-   * @description COB Primary Document ID Update API PrimaryIdDocument Data wrapper
+   * @description constructor to build COBPrimaryIDDocumentModel.Passport response
+   * @param licence the Passport record object
    */
-  public class PrimaryIdDocument {
-    public String name;
-    public DocumentDetail australianDriverLicence;
-    public DocumentDetail passport;
+  public COBPrimaryIDDocumentModel(AustralianDriverLicence licence) {
+    this.name = AUSTRALIAN_DRIVER_LICENCE;
+    this.australianDriverLicence = licence;
   }
 
   /**
-   * @description COB Primary Document ID Update API document detail Data wrapper
+   * @description Common Details use for Passport and Licence
    */
-  public class DocumentDetail {
+  public virtual class Details {
     public String firstName;
     public String middleNames;
     public String lastName;
+    public DateWrapper dateOfBirth;
+    public DateWrapper expiryDate;
+
+    /**
+     * @description Constructor for inner DocumentDetails class
+     * @param idDocument the COBPrimaryIDDocument__c record
+     */
+    public Details(COBPrimaryIDDocument__c idDocument) {
+      this.firstName = idDocument.FirstName__c;
+      this.middleNames = idDocument.MiddleNames__c;
+      this.lastName = idDocument.LastName__c;
+      this.dateOfBirth = new DateWrapper(idDocument.DateOfBirth__c);
+      this.expiryDate = new DateWrapper(idDocument.ExpiryDate__c);
+    }
+  }
+
+  /**
+   * @description Passport Data wrapper
+   */
+  public class Passport extends Details {
+    public String countryOfIssue;
+    public String passportNumber;
+    public TokenizedValue passportNumberToken;
+    public String passportNumberOCRServer;
+    public TokenizedValue passportNumberOCRServerToken;
+
+    /**
+     * @description Constructor for inner Passport class
+     * @param idDocument the COBPrimaryIDDocument__c record
+     */
+    public Passport(COBPrimaryIDDocument__c idDocument) {
+      super(idDocument);
+      this.passportNumber = idDocument.PassportNumber__c;
+      this.countryOfIssue = idDocument.CountryOfIssue__c;
+    }
+  }
+
+  /**
+   * @description AustralianDriverLicence Data wrapper
+   */
+  public class AustralianDriverLicence extends Details {
+    public String stateOfIssue;
     public String licenceNumber;
     public TokenizedValue licenceNumberToken;
     public String licenceNumberOCRServer;
@@ -91,34 +87,21 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     public TokenizedValue licenceCardNumberToken;
     public String licenceCardNumberOCRServer;
     public TokenizedValue licenceCardNumberOCRServerToken;
-    public String passportNumber;
-    public TokenizedValue passportNumberToken;
-    public String passportNumberOCRServer;
-    public TokenizedValue passportNumberOCRServerToken;
-    public DateWrapper dateOfBirth;
-    public DateWrapper expiryDate;
-    public String stateOfIssue;
-    public String countryOfIssue;
 
     /**
-     * @description Constructor for inner DocumentDetail class
-     * @param firstName first name on COBPID
-     * @param middleNames middle names on COBPID
-     * @param lastName last name on COBPID
+     * @description Constructor for inner AustralianDriverLicence class
+     * @param idDocument the COBPrimaryIDDocument__c record
      */
-    public DocumentDetail(
-      String firstName,
-      String middleNames,
-      String lastName
-    ) {
-      this.firstName = firstName;
-      this.middleNames = middleNames;
-      this.lastName = lastName;
+    public AustralianDriverLicence(COBPrimaryIDDocument__c idDocument) {
+      super(idDocument);
+      this.licenceNumber = idDocument.LicenceNumber__c;
+      this.licenceCardNumber = idDocument.LicenceCardNumber__c;
+      this.stateOfIssue = idDocument.StateOfIssue__c;
     }
   }
 
   /**
-   * @description COB Primary Document ID Update API DateWrapper Data wrapper
+   * @description COB Primary ID Document Dates' data wrapper
    */
   public class DateWrapper {
     public Integer year;
@@ -137,34 +120,6 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
   }
 
   /**
-   * @description COB Primary Document ID Tokenized Data wrapper
-   */
-  public class TokenizedValue {
-    public String Tokenized;
-    public String Transform;
-    public String value;
-
-    /**
-     * @description Constructor for inner TokenizedValue class
-     * @param tokenizedValue COBPID record tokenized field value
-     */
-    public TokenizedValue(String tokenizedValue) {
-      this.Tokenized = tokenizedValue;
-      this.Transform = 'fpe.personal-identifier';
-    }
-  }
-
-  /**
-   * @description COB Primary Document ID Detokenized Data wrapper
-   */
-  public class DetokenizedValue {
-    @AuraEnabled
-    public String Tokenized;
-    @AuraEnabled
-    public String Detokenized;
-  }
-
-  /**
    * @param json input string to deserialize
    * @return `COBPrimaryIDDocumentModel`
    * @description deserializes the input string into the model
@@ -178,93 +133,5 @@ public with sharing class COBPrimaryIDDocumentModel extends CalloutModel {
     } catch (Exception ex) {
       throw CommonUtil.logException(ex);
     }
-  }
-
-  /**
-   * @param pid COBPrimaryIDDocument__c record with field values
-   * @param fields COBPrimaryIDDocument__c fields
-   * @return `List<TokenizedValue>`
-   * @description build a set of predefined fields into a list of apex-defined class Tokenized Value,
-   * like for Passport__c = 'dF23Xf', we convert it to a {Tokenized: 'dF23Xf', Transform: 'fpe.personal-identifier'}
-   */
-  public static List<TokenizedValue> buildTokenizedValues(
-    COBPrimaryIDDocument__c pid,
-    List<String> fields
-  ) {
-    List<TokenizedValue> tokenizedValues = new List<TokenizedValue>();
-
-    for (String fieldName : fields) {
-      String fieldValue = (String) pid.get(fieldName);
-      if (String.isBlank(fieldValue)) {
-        continue;
-      }
-
-      tokenizedValues.add(new TokenizedValue(fieldValue));
-    }
-
-    return tokenizedValues;
-  }
-
-  /**
-   * @description method to build request body for update COBPID api call
-   * @param record cobpid record
-   * @return `COBPrimaryIDDocumentModel`
-   */
-  public static COBPrimaryIDDocumentModel buildUpdateRequestBody(
-    COBPrimaryIDDocument__c record
-  ) {
-    List<Case> idOpsCases = [
-      SELECT Id
-      FROM Case
-      WHERE
-        PersonaId__c = :record.PersonaId__c
-        AND RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-      ORDER BY LastModifiedDate DESC
-      LIMIT 1
-    ];
-
-    String caseId = '';
-
-    if (!idOpsCases.isEmpty()) {
-      caseId = idOpsCases[0]?.Id;
-    }
-
-    COBPrimaryIDDocumentModel requestBody = new COBPrimaryIDDocumentModel(
-      record.IdDocumentType__c,
-      caseId
-    );
-
-    COBPrimaryIDDocumentModel.DocumentDetail detail = new COBPrimaryIDDocumentModel.DocumentDetail(
-      record.FirstName__c,
-      record.MiddleNames__c,
-      record.LastName__c
-    );
-
-    COBPrimaryIDDocumentModel.DateWrapper dateOfBirth = new COBPrimaryIDDocumentModel.DateWrapper(
-      record.DateOfBirth__c
-    );
-
-    COBPrimaryIDDocumentModel.DateWrapper expiryDate = new COBPrimaryIDDocumentModel.DateWrapper(
-      record.ExpiryDate__c
-    );
-
-    if (record.IdDocumentType__c == PASSPORT_TYPE) {
-      requestBody.primaryIdDocument.name = PASSPORT_TYPE;
-      requestBody.primaryIdDocument.passport = detail;
-      requestBody.primaryIdDocument.passport.countryOfIssue = record.CountryOfIssue__c;
-      requestBody.primaryIdDocument.passport.dateOfBirth = dateOfBirth;
-      requestBody.primaryIdDocument.passport.expiryDate = expiryDate;
-      requestBody.primaryIdDocument.passport.passportNumber = record.PassportNumber__c;
-    } else if (record.IdDocumentType__c == LICENCE_TYPE) {
-      requestBody.primaryIdDocument.name = AUSTRALIAN_DRIVER_LICENCE;
-      requestBody.primaryIdDocument.australianDriverLicence = detail;
-      requestBody.primaryIdDocument.australianDriverLicence.stateOfIssue = record.StateOfIssue__c;
-      requestBody.primaryIdDocument.australianDriverLicence.dateOfBirth = dateOfBirth;
-      requestBody.primaryIdDocument.australianDriverLicence.expiryDate = expiryDate;
-      requestBody.primaryIdDocument.australianDriverLicence.licenceNumber = record.LicenceNumber__c;
-      requestBody.primaryIdDocument.australianDriverLicence.licenceCardNumber = record.LicenceCardNumber__c;
-    }
-
-    return requestBody;
   }
 }

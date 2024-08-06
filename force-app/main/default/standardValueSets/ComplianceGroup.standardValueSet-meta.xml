@@ -67,6 +67,11 @@
         <label>Source - CTM</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_DAON</fullName>
+        <default>false</default>
+        <label>Source - DAON</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_EDRM</fullName>
         <default>false</default>
         <label>Source - EDRM</label>

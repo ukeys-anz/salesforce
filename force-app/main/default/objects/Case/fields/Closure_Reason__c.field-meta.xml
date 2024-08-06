@@ -57,6 +57,11 @@
                 <label>Other - please specify</label>
             </value>
             <value>
+                <fullName>Bank initiated - Unacceptable Customer Behaviour</fullName>
+                <default>false</default>
+                <label>Bank initiated - Unacceptable Customer Behaviour</label>
+            </value>
+            <value>
                 <fullName>Consolidation of accounts</fullName>
                 <default>false</default>
                 <isActive>false</isActive>

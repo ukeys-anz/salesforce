@@ -325,7 +325,9 @@
       &quot;description&quot; : &quot;%Description%&quot;,
       &quot;purposeCollection&quot; : &quot;%PurposeCollection%&quot;,
       &quot;sharingPurpose&quot; : &quot;%SharingPurpose%&quot;,
-      &quot;archivedDescription&quot; : &quot;%ArchivedDescription%&quot;
+      &quot;archivedDescription&quot; : &quot;%ArchivedDescription%&quot;,
+      &quot;AccountsDataScopeSubText&quot; : &quot;%AccountsDataScopeSubText%&quot;,
+      &quot;TransactionsDataScopeSubText&quot; : &quot;%TransactionsDataScopeSubText%&quot;
     }
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
@@ -371,5 +373,5 @@
     <type>TFM</type>
     <uniqueName>TFM_DataINConsentAccountList_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>603950a0-474d-e92a-c8be-9bee9a5fd25a</webComponentKey>
+    <webComponentKey>8d2bbc53-1e4c-7e1e-6959-49f2a322789b</webComponentKey>
 </OmniIntegrationProcedure>

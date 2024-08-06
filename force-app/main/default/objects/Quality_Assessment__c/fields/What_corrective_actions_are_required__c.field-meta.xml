@@ -41,6 +41,11 @@
                 <default>false</default>
                 <label>N/A- no action required</label>
             </value>
+            <value>
+                <fullName>Recommended further action on new case</fullName>
+                <default>false</default>
+                <label>Recommended further action on new case</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>
