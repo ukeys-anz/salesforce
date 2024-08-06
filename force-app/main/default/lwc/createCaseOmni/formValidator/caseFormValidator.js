@@ -10,7 +10,7 @@ const CLOSED_STATUS = "Closed",
   CUSTOMER_AGREES = "Yes",
   CUSTOMER_DISAGREES = "No";
 
-var itype, subtype, missingFields, caseDetails;
+let itype, subtype, missingFields, caseDetails;
 // Validate all Required Fields for Customer/Non-Customer Complaints
 export async function validate(omniJsonData) {
   caseDetails = omniJsonData.Case;
