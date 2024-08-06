@@ -76,8 +76,9 @@ public with sharing class CustomerGCPActions {
     List<Account> filteredAccounts = new List<Account>();
     for (Account record : records) {
       if (
-        !record.Sync_Status__c?.contains(SYNC_STATUS_BLOCKED) &&
-        record.Sync_Status__c?.contains(SYNC_STATUS_BROKER_ORG)
+        record.Sync_Status__c != null &&
+        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
+        record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
       ) {
         filteredAccounts.add(record);
       }
