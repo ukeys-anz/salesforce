@@ -43,10 +43,13 @@ public with sharing class CustomerGCPActions {
     );
 
     List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
-    for (Account record : records) {
+    for (Account record : filteredAccounts) {
       List<BrokerCloudEventModel.MasterNode> masterNodes = accIdVsMasterNodes.get(
         record.id
       );
+      if (masterNodes == null) {
+        continue;
+      }
       BrokerCloudEventModel cloudEventModel = new CustomerDataCloudEventModel(
         record,
         masterNodes,
