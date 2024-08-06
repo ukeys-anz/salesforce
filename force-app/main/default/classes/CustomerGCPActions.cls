@@ -18,6 +18,7 @@ public with sharing class CustomerGCPActions {
    * @param records The Account records passed from Trigger.new()
    * @param oldMap  old trigger values
    * @param triggerContext trigger Context
+   * @return List<sObject> List of success published events
    */
   @TestVisible
   public static List<SObject> publishGCPEventForCustomers(
