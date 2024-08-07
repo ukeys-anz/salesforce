@@ -143,7 +143,7 @@ public with sharing class CustomerGCPActions {
 
   /**
    * @description This function is created a list of BrokerCloudEventModel.
-   * @param records The account records
+   * @param accounts The account records
    * @param accIdVsMasterNodes Map of account and list of related master nodes
    * @param triggerContext Trigger Context
    * @return List<BrokerCloudEventModel> List of BrokerCloudEventModel
