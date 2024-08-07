@@ -17,10 +17,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>15</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>16</fullName>
             <default>false</default>
         </values>
@@ -42,6 +38,14 @@
         </values>
         <values>
             <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AFCA Decision Report</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Capability %26 Quality referral</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1016,13 +1020,12 @@
         <values>
             <fullName>Transact and Save</fullName>
             <default>false</default>
-        </values> 
+        </values>
         <values>
             <fullName>Wealth - ANZLMI</fullName>
             <default>false</default>
         </values>
     </picklistValues>
-       
     <picklistValues>
         <picklist>SI_Subject_of_Breach_Report__c</picklist>
         <values>
