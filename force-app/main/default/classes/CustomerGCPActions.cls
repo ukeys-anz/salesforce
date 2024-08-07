@@ -121,9 +121,6 @@ public with sharing class CustomerGCPActions {
   private static Map<Id, List<BrokerCloudEventModel.MasterNode>> generateCustomerCEModelBundle(
     List<Account> records
   ) {
-    if (records.isEmpty()) {
-      return null;
-    }
     Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = new Map<Id, List<BrokerCloudEventModel.MasterNode>>();
     for (Account record : records) {
       BrokerCloudEventModel.MasterNode masterNodeObj = CustomerDataCEBuilder.buildAccountNode(
@@ -155,9 +152,6 @@ public with sharing class CustomerGCPActions {
     Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes,
     String triggerContext
   ) {
-    if (accounts.isEmpty()) {
-      return null;
-    }
     List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
     for (Account record : accounts) {
       List<BrokerCloudEventModel.MasterNode> masterNodes = accIdVsMasterNodes.get(
