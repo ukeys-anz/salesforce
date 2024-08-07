@@ -836,6 +836,7 @@
         "SI_COR_ID_Record__c",
         "SI_Relevant_Tribes__c",
         "SI_Key_Business_Contacts__c",
+        "SI_Assigned_BU_Contact__c",
         "SI_Key_Tribes_BU_s__c",
         "SI_LRK_Category__c",
         "SI_Lead_Portfolio__c",

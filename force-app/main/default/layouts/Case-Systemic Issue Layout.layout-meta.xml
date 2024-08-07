@@ -97,7 +97,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Key_Business_Contacts__c</field>
+                <field>SI_Assigned_BU_Contact__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
