@@ -32,6 +32,11 @@
         <label>Case Pended - provide update in case comment</label>
     </standardValue>
     <standardValue>
+        <fullName>Case on Hold</fullName>
+        <default>false</default>
+        <label>Case on Hold</label>
+    </standardValue>
+    <standardValue>
         <fullName>Contact Customer</fullName>
         <default>false</default>
         <label>Contact Customer</label>

@@ -1,0 +1,49 @@
+
+  {
+    "requester_sf_id": "005Bm000005Gfake",
+    "daon_file": {
+      "salesforce_id": "a13Bm00000aPofake",
+      "idx_user_id": "Fake18wYFKPQqfZeaDly4PoA",
+      "idx_id_check_id": "FakeGHBJYduhNewZ1lw",
+      "idx_extracted_face_id": "Fake8lnlCenoHXpKKg",
+      "idx_document_id": "Fakeg0rhU-eCIDdyg",
+      "file_type": "DAON_FILE_TYPE_FRONT_UNPROCESSED",
+      "content_version_id": ""
+    }
+  },
+  {
+    "requester_sf_id": "005Bm000005Gfake",
+    "daon_file": {
+      "salesforce_id": "a13Bm00000aPofake",
+      "idx_user_id": "Fake18wYFKPQqfZeaDly4PoA",
+      "idx_id_check_id": "FakeGHBJYduhNewZ1lw",
+      "idx_extracted_face_id": "Fake8lnlCenoHXpKKg",
+      "idx_document_id": "Fakeg0rhU-eCIDdyg",
+      "file_type": "DAON_FILE_TYPE_FRONT_PROCESSED",
+      "content_version_id": ""
+    }
+  },
+  {
+    "requester_sf_id": "005Bm000005Gfake",
+    "daon_file": {
+      "salesforce_id": "a13Bm00000aPofake",
+      "idx_user_id": "Fake18wYFKPQqfZeaDly4PoA",
+      "idx_id_check_id": "FakeGHBJYduhNewZ1lw",
+      "idx_extracted_face_id": "Fake8lnlCenoHXpKKg",
+      "idx_document_id": "Fakeg0rhU-eCIDdyg",
+      "file_type": "DAON_FILE_TYPE_EXTRACTED_FACE",
+      "content_version_id": ""
+    }
+  },
+  {
+    "requester_sf_id": "005Bm000005Gfake",
+    "daon_file": {
+      "salesforce_id": "a13Bm00000aPofake",
+      "idx_user_id": "Fake18wYFKPQqfZeaDly4PoA",
+      "idx_id_check_id": "FakeGHBJYduhNewZ1lw",
+      "idx_extracted_face_id": "Fake8lnlCenoHXpKKg",
+      "idx_document_id": "Fakeg0rhU-eCIDdyg",
+      "file_type": "DAON_FILE_TYPE_SELFIE",
+      "content_version_id": ""
+    }
+  }

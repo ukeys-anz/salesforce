@@ -1673,6 +1673,76 @@ public with sharing class CCRMTestDataFactory {
   }
 
   /**
+   * @description Create Interaction Data With Opportunity
+   * @name createInteractionDataWithOpportunity
+   * @param count Count of interaction records needed to be created
+   * @param ownerUser User to which created records should be assigned.
+   * @param oppId opportunity Id
+   * @return Returns List<Interaction>
+   */
+  public static List<Interaction> createInteractionDataWithOpportunity(
+    Integer count,
+    User ownerUser,
+    Id oppId
+  ) {
+    //Default Count to 200 when in excess.
+    count = count == null || count == 0 ? 1 : count;
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Integer i = 1; i <= count; i++) {
+      Interaction rec = new Interaction();
+      rec.Name = 'Test ' + i;
+      rec.recordTypeId = CCRMConstants.INTERACTION_CCRM_RT_ID;
+      rec.Category__c = CCRMConstants.INTER_CAT_GENERAL;
+      rec.InteractionType = 'Call';
+      rec.Opportunity__c = oppId;
+      rec.StartTime = System.now();
+      rec.Optional_Notes__c = 'Test Optional Notes';
+      if (ownerUser != null) {
+        rec.OwnerId = ownerUser.Id;
+      }
+      interactionList.add(rec);
+    }
+    return interactionList;
+  }
+
+  /**
+   * @description Create CAP Interaction Data with Account and Customer
+   * @param count
+   * @param ownerUser
+   * @param accId
+   * @param finAccId
+   * @return List<Interaction>
+   **/
+  public static List<Interaction> createCapInteractionData(
+    Integer count,
+    User ownerUser,
+    String accId,
+    Id finAccId
+  ) {
+    count = count == null || count == 0 ? 1 : count;
+    List<Interaction> interactionList = new List<Interaction>();
+    for (Integer i = 1; i <= count; i++) {
+      Interaction rec = new Interaction();
+      rec.Name = 'Test ' + i;
+      rec.Financial_Account__c = finAccId;
+      rec.AccountId = accId;
+      rec.Comment__c = 'Test Comment';
+      rec.Permanent__c = true;
+      rec.Expiry_Date__c = System.Today();
+
+      rec.recordTypeId = CCRMConstants.INTERACTION_CCRM_RT_ID;
+      rec.Category__c = CCRMConstants.INTER_CAT_CAPDIARYCOMMENTS;
+      rec.InteractionType = 'Call';
+
+      if (ownerUser != null) {
+        rec.OwnerId = ownerUser.Id;
+      }
+      interactionList.add(rec);
+    }
+    return interactionList;
+  }
+
+  /**
    * @description create Email Message record Instance
    * @param emId email message Id
    * @return EmailMessage Email message instance

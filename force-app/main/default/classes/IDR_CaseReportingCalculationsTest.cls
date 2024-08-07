@@ -24,12 +24,10 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecordNewVersion3.RecordTypeId = IDRConstants.CFMS_MIGRATED_CASE_RT_ID;
     caseRecordNewVersion3.Status = 'Closed';
     insertCases.add(caseRecordNewVersion3);
-    Test.startTest();
     List<Case> onInsertFilteredCase = IDR_CaseReportingCalculations.getRecordsToProcess(
       insertCases,
-      new Map<ID, Case>()
+      new Map<Id, Case>()
     );
-    Test.StopTest();
     Assert.areEqual(
       2,
       onInsertFilteredCase.size(),
@@ -76,16 +74,14 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecordNewVersion3.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     caseRecordNewVersion3.Status = 'Closed';
     updateCases.add(caseRecordNewVersion3);
-    Map<ID, Case> oldMap = new Map<ID, Case>();
+    Map<Id, Case> oldMap = new Map<Id, Case>();
     oldMap.put(caseRecordOldVersion1.Id, caseRecordOldVersion1);
     oldMap.put(caseRecordOldVersion2.Id, caseRecordOldVersion2);
     oldMap.put(caseRecordOldVersion3.Id, caseRecordOldVersion3);
-    Test.startTest();
     List<Case> onUpdateFilteredCase = IDR_CaseReportingCalculations.getRecordsToProcess(
       updateCases,
       oldMap
     );
-    Test.StopTest();
     Assert.areEqual(
       1,
       onUpdateFilteredCase.size(),
@@ -100,7 +96,7 @@ public with sharing class IDR_CaseReportingCalculationsTest {
   @isTest
   static void testUpdateCaseReportingFieldUpdateToDateOpenField() {
     List<Case> recordsToProcess = new List<Case>();
-    Map<ID, Case> oldMap = new Map<ID, Case>();
+    Map<Id, Case> oldMap = new Map<Id, Case>();
     Case caseRecord1 = new Case();
     caseRecord1.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     caseRecord1.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
@@ -111,22 +107,20 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecord2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     caseRecord2.Status = 'Re-opened';
     recordsToProcess.add(caseRecord2);
-    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
+    Map<Id, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
       recordsToProcess
     );
-    for (ID caseId : caseIdToFieldMap.keySet()) {
+    for (Id caseId : caseIdToFieldMap.keySet()) {
       Case_Reporting_Field__c crf = caseIdToFieldMap.get(caseId);
       crf.Case_Last_Opened_RG271__c = DateTime.now();
       crf.Case_Last_Opened__c = DateTime.now();
       caseIdToFieldMap.put(caseId, crf);
     }
-    Test.startTest();
     List<Case_Reporting_Field__c> crfList = IDR_CaseReportingCalculations.updateCaseReportingField(
       recordsToProcess,
       oldMap,
       caseIdToFieldMap
     );
-    Test.StopTest();
     Assert.areEqual(
       2,
       crfList.size(),
@@ -146,7 +140,7 @@ public with sharing class IDR_CaseReportingCalculationsTest {
   @isTest
   static void testUpdateCaseReportingFieldUpdateTotalOpenTime() {
     List<Case> recordsToProcess = new List<Case>();
-    Map<ID, Case> oldMap = new Map<ID, Case>();
+    Map<Id, Case> oldMap = new Map<Id, Case>();
     Case caseRecordNewVersion1 = new Case();
     caseRecordNewVersion1.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     caseRecordNewVersion1.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
@@ -167,22 +161,20 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecordOldVersion2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     caseRecordOldVersion2.Status = 'Re-opened';
     oldMap.put(caseRecordOldVersion2.Id, caseRecordOldVersion2);
-    Map<ID, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
+    Map<Id, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
       recordsToProcess
     );
-    for (ID caseId : caseIdToFieldMap.keySet()) {
+    for (Id caseId : caseIdToFieldMap.keySet()) {
       Case_Reporting_Field__c crf = caseIdToFieldMap.get(caseId);
       crf.Case_Last_Opened_RG271__c = DateTime.now();
       crf.Case_Last_Opened__c = DateTime.now();
       caseIdToFieldMap.put(caseId, crf);
     }
-    Test.startTest();
     List<Case_Reporting_Field__c> reportingFields = IDR_CaseReportingCalculations.updateCaseReportingField(
       recordsToProcess,
       oldMap,
       caseIdToFieldMap
     );
-    Test.StopTest();
     Assert.areEqual(
       2,
       reportingFields.size(),
@@ -201,9 +193,63 @@ public with sharing class IDR_CaseReportingCalculationsTest {
   }
 
   @isTest
+  static void testUpdateCaseReportingFieldUpdateTotalOpenTimeOnHold() {
+    List<Case> recordsToProcess = new List<Case>();
+    Map<Id, Case> oldMap = new Map<Id, Case>();
+    Case caseRecordNewVersion1 = new Case();
+    caseRecordNewVersion1.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    caseRecordNewVersion1.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    caseRecordNewVersion1.Status = 'On Hold';
+    recordsToProcess.add(caseRecordNewVersion1);
+    Case caseRecordNewVersion2 = new Case();
+    caseRecordNewVersion2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    caseRecordNewVersion2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    caseRecordNewVersion2.Status = 'Closed';
+    recordsToProcess.add(caseRecordNewVersion2);
+    Case caseRecordOldVersion1 = new Case();
+    caseRecordOldVersion1.Id = caseRecordNewVersion1.Id;
+    caseRecordOldVersion1.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    caseRecordOldVersion1.Status = 'On Hold';
+    oldMap.put(caseRecordOldVersion1.Id, caseRecordOldVersion1);
+    Case caseRecordOldVersion2 = new Case();
+    caseRecordOldVersion2.Id = caseRecordNewVersion2.Id;
+    caseRecordOldVersion2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    caseRecordOldVersion2.Status = 'Re-opened';
+    oldMap.put(caseRecordOldVersion2.Id, caseRecordOldVersion2);
+    Map<Id, Case_Reporting_Field__c> caseIdToFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
+      recordsToProcess
+    );
+    for (Id caseId : caseIdToFieldMap.keySet()) {
+      Case_Reporting_Field__c crf = caseIdToFieldMap.get(caseId);
+      crf.Case_Last_Opened_RG271__c = DateTime.now();
+      crf.Case_Last_Opened__c = DateTime.now();
+      caseIdToFieldMap.put(caseId, crf);
+    }
+    List<Case_Reporting_Field__c> reportingFields = IDR_CaseReportingCalculations.updateCaseReportingField(
+      recordsToProcess,
+      oldMap,
+      caseIdToFieldMap
+    );
+    Assert.areEqual(
+      2,
+      reportingFields.size(),
+      'We must get 2 Reporting Fields to Update'
+    );
+    Assert.areEqual(
+      caseRecordNewVersion1.Id,
+      reportingFields[0].Case__c,
+      'Case Reporting Fields for Case 1 must be processed'
+    );
+    Assert.areEqual(
+      caseRecordNewVersion2.Id,
+      reportingFields[1].Case__c,
+      'Case Reporting Fields for Case 2 must be processed'
+    );
+  }
+  @isTest
   static void testGetReportingFieldForCases() {
     List<Case> recordsToProcess = new List<Case>();
-    Map<ID, Case> oldMap = new Map<ID, Case>();
+    Map<Id, Case> oldMap = new Map<Id, Case>();
     Case caseRecord1 = new Case();
     caseRecord1.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     caseRecord1.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
@@ -214,11 +260,9 @@ public with sharing class IDR_CaseReportingCalculationsTest {
     caseRecord2.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
     caseRecord2.Status = 'Closed';
     recordsToProcess.add(caseRecord2);
-    Test.startTest();
-    Map<ID, Case_Reporting_Field__c> caseReportingFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
+    Map<Id, Case_Reporting_Field__c> caseReportingFieldMap = IDR_CaseReportingCalculations.getReportingFieldForCases(
       recordsToProcess
     );
-    Test.StopTest();
     Assert.areEqual(
       2,
       caseReportingFieldMap.keySet().size(),

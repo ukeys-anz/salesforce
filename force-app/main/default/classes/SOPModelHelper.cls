@@ -105,4 +105,22 @@ public with sharing class SOPModelHelper {
       sop.liabilitiesSummary.partyLiabilities = partyLiabilityMap.values();
     }
   }
+
+  /**
+   * @description To transform the parties list
+   * @param sop SOPModel for transformation
+   * @return List<SOPModel.Parties> tranformedParties
+   */
+  public static List<SOPModel.Parties> transformPartiesList(SOPModel sop) {
+    List<SOPModel.Parties> transformedParties = new List<SOPModel.Parties>();
+
+    for (SOPModel.Parties row : sop.parties) {
+      SOPModel.Parties transformedParty = row.clone();
+      transformedParty.partyDependantsCount = sop.dependantsCount;
+
+      transformedParties.add(transformedParty);
+    }
+
+    return transformedParties;
+  }
 }

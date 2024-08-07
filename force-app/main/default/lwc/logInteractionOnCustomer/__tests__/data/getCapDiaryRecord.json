@@ -1,0 +1,12 @@
+{
+  "fields": {
+    "Category__c": "CAP Diary Comment",
+    "AccountId": "0019p00000XFniJAAT",
+    "Name": "Log CAP Diary Comment Interaction",
+    "InteractionType": "Call",
+    "StartTime": "2024-07-03T06:56:00.000Z",
+    "Comment__c": "Sample Comment",
+    "Permanent__c": "true"
+  },
+  "id": "0kz9p0000009evtAAA"
+}

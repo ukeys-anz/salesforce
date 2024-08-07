@@ -2051,6 +2051,11 @@
         <recordType>ContentVersion.CFaaS_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.DAON_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <userLicense>Salesforce</userLicense>
     <userPermissions>
         <name>AccessCMC</name>

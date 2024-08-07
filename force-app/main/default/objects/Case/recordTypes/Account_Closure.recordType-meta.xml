@@ -166,6 +166,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Bank initiated - Unacceptable Customer Behaviour</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer did not mean to proceed to account opening</fullName>
             <default>false</default>
         </values>

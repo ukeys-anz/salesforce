@@ -11854,6 +11854,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Request for Voice Recording or Video Recording</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Savings and goals</fullName>
             <default>false</default>
         </values>
@@ -11883,6 +11887,10 @@
         </values>
         <values>
             <fullName>Transaction Disputes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unacceptable customer behaviour</fullName>
             <default>false</default>
         </values>
         <values>

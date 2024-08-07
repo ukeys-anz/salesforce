@@ -96,3 +96,6 @@ button.vlocity-btn.slds-button.slds-button_base span {
   padding-right: 25px;
   font-size: 14px;
 }
+.editSOPModalContainer {
+  text-align: initial;
+}

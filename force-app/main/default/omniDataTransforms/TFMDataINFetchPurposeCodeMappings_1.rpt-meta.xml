@@ -99,12 +99,54 @@
         <name>TFMDataINFetchPurposeCodeMappings</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINFetchPurposeCodeMappingsCustom3564</globalKey>
+        <inputFieldName>PurposeCodeMapping:Transactions_DataScope_SubText__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>TransactionsDataScopesSubText</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMDataINFetchPurposeCodeMappings</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINFetchPurposeCodeMappingsCustom2783</globalKey>
+        <inputFieldName>PurposeCodeMappingAll:Accounts_DataScope_Subtext__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:AccountsDataScopeSubText</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMDataINFetchPurposeCodeMappings</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <globalKey>TFMDataINFetchPurposeCodeMappingsCustom8467</globalKey>
         <inputFieldName>PurposeCodeMappingAll:Archived_Description__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:ArchivedDescription</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMDataINFetchPurposeCodeMappings</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINFetchPurposeCodeMappingsCustom506</globalKey>
+        <inputFieldName>PurposeCodeMappingAll:Transactions_DataScope_SubText__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:TransactionsDataScopeSubText</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -150,6 +192,20 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>SharingPurpose</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>TFMDataINFetchPurposeCodeMappings</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDataINFetchPurposeCodeMappingsCustom3237</globalKey>
+        <inputFieldName>PurposeCodeMapping:Accounts_DataScope_Subtext__c</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AccountsDataScopeSubText</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

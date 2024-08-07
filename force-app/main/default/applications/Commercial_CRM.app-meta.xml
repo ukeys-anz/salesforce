@@ -185,7 +185,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>DCRM_Interaction_Record_Page</content>
+        <content>CCRM_Interaction_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.CCRM_Interaction</recordType>
@@ -194,7 +194,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>DCRM_Interaction_Record_Page</content>
+        <content>CCRM_Interaction_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.CCRM_Interaction</recordType>
@@ -203,7 +203,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>DCRM_Interaction_Record_Page</content>
+        <content>CCRM_Interaction_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.CCRM_Interaction</recordType>
@@ -212,10 +212,42 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>DCRM_Interaction_Record_Page</content>
+        <content>CCRM_Interaction_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.CCRM_Interaction</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Admin</profile>
     </profileActionOverrides>

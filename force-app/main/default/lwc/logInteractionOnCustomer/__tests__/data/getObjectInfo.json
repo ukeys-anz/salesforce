@@ -1,0 +1,53 @@
+{
+  "recordTypeInfos": {
+    "012000000000000AAA": {
+      "available": true,
+      "defaultRecordTypeMapping": true,
+      "master": true,
+      "name": "Master",
+      "recordTypeId": "012000000000000AAA"
+    },
+    "0122P0000004Rc9QAE": {
+      "available": false,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "Appointment",
+      "recordTypeId": "0122P0000004Rc9QAE"
+    },
+    "0122P0000004RefQAE": {
+      "available": false,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "Call",
+      "recordTypeId": "0122P0000004RefQAE"
+    },
+    "0122P0000004SgvQAE": {
+      "available": false,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "In Person",
+      "recordTypeId": "0122P0000004SgvQAE"
+    },
+    "012Oa000000PDmsIAG": {
+      "available": false,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "Message",
+      "recordTypeId": "012Oa000000PDmsIAG"
+    },
+    "012Oa000000di2oIAA": {
+      "available": true,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "CCRM Interaction",
+      "recordTypeId": "012Oa000000di2oIAA"
+    },
+    "012Oa000000di2pIAA": {
+      "available": false,
+      "defaultRecordTypeMapping": false,
+      "master": false,
+      "name": "ML Interaction",
+      "recordTypeId": "012Oa000000di2pIAA"
+    }
+  }
+}
