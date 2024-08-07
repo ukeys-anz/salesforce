@@ -1,7 +1,7 @@
 /**
  * @description       : description Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-06-2024
+ * @last modified on  : 08-07-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerGCPActions {
@@ -42,21 +42,11 @@ public with sharing class CustomerGCPActions {
       filteredAccounts
     );
 
-    List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
-    for (Account record : filteredAccounts) {
-      List<BrokerCloudEventModel.MasterNode> masterNodes = accIdVsMasterNodes.get(
-        record.id
-      );
-      if (masterNodes == null) {
-        continue;
-      }
-      BrokerCloudEventModel cloudEventModel = new CustomerDataCloudEventModel(
-        record,
-        masterNodes,
-        triggerContext
-      );
-      cloudEventModels.add(cloudEventModel);
-    }
+    List<BrokerCloudEventModel> cloudEventModels = generateCloudEventModel(
+      filteredAccounts,
+      accIdVsMasterNodes,
+      triggerContext
+    );
     List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
       cloudEventModels
     );
@@ -65,8 +55,7 @@ public with sharing class CustomerGCPActions {
   }
 
   /**
-   * @description  Generate and dispatch customer GCP cloud events
-   * This function is designed to be a void function as it's the end of the publish process.
+   * @description Validate if account sync status is valid or not.
    * @param records The Account records
    * @return List<Account> The account records that has a valid sync status.
    */
@@ -89,7 +78,6 @@ public with sharing class CustomerGCPActions {
 
   /**
    * @description  Validate if the account OCV Event Version is valid or not.
-   * Returns true if the version is valid.
    * @param records Account records.
    * @param oldMap old trigger values
    * @return List<Account> The account records that has a valid OCV Version.
@@ -128,6 +116,11 @@ public with sharing class CustomerGCPActions {
     Logger.saveLog();
   }
 
+  /**
+   * @description This function creates a map of account Id vs related master nodes.
+   * @param records The account records
+   * @return Map<Id, List<BrokerCloudEventModel.MasterNode>> Map of account and list of related master nodes
+   */
   @TestVisible
   private static Map<Id, List<BrokerCloudEventModel.MasterNode>> generateCustomerCEModelBundle(
     List<Account> records
@@ -146,5 +139,34 @@ public with sharing class CustomerGCPActions {
       accIdVsMasterNodes.get(record.id).add(masterNodeObj);
     }
     return accIdVsMasterNodes;
+  }
+
+  /**
+   * @description This function is created a list of BrokerCloudEventModel.
+   * @param records The account records
+   * @param accIdVsMasterNodes Map of account and list of related master nodes
+   * @param triggerContext Trigger Context
+   * @return List<BrokerCloudEventModel> List of BrokerCloudEventModel
+   */
+  @TestVisible
+  private static List<BrokerCloudEventModel> generateCloudEventModel(
+    List<Account> accounts,
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes,
+    String triggerContext
+  ) {
+    List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
+
+    for (Account record : accounts) {
+      List<BrokerCloudEventModel.MasterNode> masterNodes = accIdVsMasterNodes.get(
+        record.id
+      );
+      BrokerCloudEventModel cloudEventModel = new CustomerDataCloudEventModel(
+        record,
+        masterNodes,
+        triggerContext
+      );
+      cloudEventModels.add(cloudEventModel);
+    }
+    return cloudEventModels;
   }
 }
