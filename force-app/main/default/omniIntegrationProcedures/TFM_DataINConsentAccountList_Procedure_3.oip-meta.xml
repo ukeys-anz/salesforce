@@ -145,12 +145,11 @@
     <language>Procedure</language>
     <name>TFMDataINConsentAccountList</name>
     <omniProcessElements>
-        <name>ConditionalBlock</name>
         <childElements>
-            <name>getDataINConsentAccountList</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
+            <name>getDataINConsentAccountList</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -186,6 +185,7 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ConditionalBlock</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;IF(%status% == \&quot;ACTIVE\&quot; || %status% == \&quot;PAUSED\&quot;,TRUE,FALSE)&quot;,
@@ -198,10 +198,10 @@
         <type>Conditional Block</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>getDataScopeMapping</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>getDataScopeMapping</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -234,10 +234,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResponseAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -260,10 +260,10 @@
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResponseForException</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ResponseForException</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;%getDataINConsentAccountList:showToast% == FALSE&quot;,
@@ -288,10 +288,10 @@
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>transformConsentList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>transformConsentList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -325,7 +325,9 @@
       &quot;description&quot; : &quot;%Description%&quot;,
       &quot;purposeCollection&quot; : &quot;%PurposeCollection%&quot;,
       &quot;sharingPurpose&quot; : &quot;%SharingPurpose%&quot;,
-      &quot;archivedDescription&quot; : &quot;%ArchivedDescription%&quot;
+      &quot;archivedDescription&quot; : &quot;%ArchivedDescription%&quot;,
+      &quot;AccountsDataScopeSubText&quot; : &quot;%AccountsDataScopeSubText%&quot;,
+      &quot;TransactionsDataScopeSubText&quot; : &quot;%TransactionsDataScopeSubText%&quot;
     }
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
@@ -371,5 +373,5 @@
     <type>TFM</type>
     <uniqueName>TFM_DataINConsentAccountList_Procedure_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>603950a0-474d-e92a-c8be-9bee9a5fd25a</webComponentKey>
+    <webComponentKey>8d2bbc53-1e4c-7e1e-6959-49f2a322789b</webComponentKey>
 </OmniIntegrationProcedure>

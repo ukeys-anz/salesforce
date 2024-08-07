@@ -128,13 +128,13 @@ public with sharing class StravinskyServiceMock extends Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param tokenizedFields the account number for the checking account
+   * @param request the tokenized fields to be detokenized
    * @return HttpCalloutResponse
    * @description stravinsky cobPid detokenize api
    */
-  public override HttpCalloutResponse detokenizeCOBPID(
+  public override HttpCalloutResponse detokenize(
     String personaId,
-    List<COBPrimaryIDDocumentModel.TokenizedValue> tokenizedFields
+    DetokenizeRequestModel request
   ) {
     if (!preset) {
       response.body = SUCCESS_RETRIEVE_DETOKENIZED_COBPID_RESPONSE;
@@ -145,13 +145,13 @@ public with sharing class StravinskyServiceMock extends Service {
 
   /**
    * @param personaId COB Primary ID record Persona Id
-   * @param detokenizedValue detokenized value (plain text) of a COBPID record
+   * @param request COB Primary ID Document request data
    * @return HttpCalloutResponse
    * @description stravinsky cobPid detokenize api
    */
-  public override HttpCalloutResponse tokenizeCOBPID(
+  public override HttpCalloutResponse updatePrimaryIDDocument(
     String personaId,
-    COBPrimaryIDDocumentModel detokenizedValue
+    COBPrimaryIDDocUpdateRequestModel request
   ) {
     if (!preset) {
       response.body = SUCCESS_TOKENIZING_COBPID_RESPONSE;

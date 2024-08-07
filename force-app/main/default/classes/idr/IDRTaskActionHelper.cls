@@ -120,12 +120,10 @@ public without sharing class IDRTaskActionHelper {
         Case.SObjectType.getDescribe().isUpdateable() &&
         Schema.SObjectType.Case.fields.IDR_Additional_Correspondence_reviewed__c.isUpdateable()
       ) {
-        update casesToUpdate;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'updateCases',
-          'Not enough permissions to update Case.'
+        DMLUtil.updateRecords(
+          casesToUpdate,
+          DMLUtil.ALL_OR_NOTHING,
+          DMLUtil.USER_MODE
         );
       }
     }

@@ -162,6 +162,14 @@
         </platformActionListItems>
     </platformActionList>
     <relatedLists>
+        <fields>Name</fields>
+        <fields>InteractionType</fields>
+        <fields>StartTime</fields>
+        <fields>Category__c</fields>
+        <fields>Optional_Notes__c</fields>
+        <relatedList>Interactions</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>FULL_NAME</fields>
         <fields>CONTACT.TITLE</fields>
         <fields>CONTACT.PHONE1</fields>

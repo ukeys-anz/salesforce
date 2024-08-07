@@ -3,6 +3,10 @@
     <label>ForgeV2</label>
     <protected>false</protected>
     <values>
+        <field>CacheStaffToken__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Encrypted_Forge_Client_Id__c</field>
         <value xsi:type="xsd:string">salesforce</value>
     </values>
@@ -13,5 +17,9 @@
     <values>
         <field>Forgev2_subject_token_type__c</field>
         <value xsi:type="xsd:string">urn:ietf:params:oauth:token-type:access_token</value>
+    </values>
+    <values>
+        <field>RequestedScopes__c</field>
+        <value xsi:type="xsd:string">aegis-introspect</value>
     </values>
 </CustomMetadata>

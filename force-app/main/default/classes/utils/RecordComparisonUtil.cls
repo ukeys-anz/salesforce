@@ -162,4 +162,28 @@ public class RecordComparisonUtil {
     }
     return false;
   }
+  /**
+   * @description Checks if a specific field from the provided set of fields has changed between the old and new records
+   * and is not null in the new record.
+   *
+   * @param newRecord The updated record.
+   * @param oldRecord The original record before updates.
+   * @param fields    Set of fields which we need to check for a change and not null value.
+   * @return field    return the field that was changed and is not null; otherwise, null.
+   */
+  public static List<SObjectField> detectWhichFieldWasChangedAndNotEqualNull(
+    SObject newRecord,
+    SObject oldRecord,
+    Set<SObjectField> fields
+  ) {
+     List <SObjectField> changedFields = new List<SObjectField>();
+    for (SObjectField field : fields) {
+      if (
+        fieldWasChangedAndNotEqualNull(newRecord, oldRecord, field)
+      ) {
+        changedFields.add(field);
+      }
+    }
+      return changedFields;
+  }
 }

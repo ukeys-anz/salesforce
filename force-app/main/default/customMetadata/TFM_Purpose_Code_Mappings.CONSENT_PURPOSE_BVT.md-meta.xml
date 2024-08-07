@@ -3,6 +3,10 @@
     <label>BVT</label>
     <protected>false</protected>
     <values>
+        <field>Accounts_DataScope_Subtext__c</field>
+        <value xsi:type="xsd:string">display your other financial institution&apos;s accounts in the ANZ Plus app for the purpose of business verification testing</value>
+    </values>
+    <values>
         <field>Archived_Description__c</field>
         <value xsi:type="xsd:string">display the accounts you hold and transactions you make with other financial institutions in the ANZ Plus app for the purpose of business verification testing.
 This may have included:&lt;ul&gt;&lt;li&gt;Account and balance data verification&lt;/li&gt;&lt;li&gt;Transaction data verification&lt;/li&gt;&lt;/ul&gt;</value>
@@ -19,5 +23,9 @@ This can include:&lt;ul&gt;&lt;li&gt;Account and balance data verification&lt;/l
     <values>
         <field>SharingPurpose__c</field>
         <value xsi:type="xsd:string">for your business verification testing</value>
+    </values>
+    <values>
+        <field>Transactions_DataScope_SubText__c</field>
+        <value xsi:type="xsd:string">display your other financial institution&apos;s transactions in the ANZ Plus App for the purpose of business verification testing</value>
     </values>
 </CustomMetadata>

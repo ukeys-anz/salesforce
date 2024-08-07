@@ -21,9 +21,9 @@
                 <label>TM Coaching/Feedback recommended</label>
             </value>
             <value>
-                <fullName>Review customer correspondence/contact centre</fullName>
+                <fullName>Review customer correspondence/contact customer</fullName>
                 <default>false</default>
-                <label>Review customer correspondence/contact centre</label>
+                <label>Review customer correspondence/contact customer</label>
             </value>
             <value>
                 <fullName>Update internal records</fullName>
