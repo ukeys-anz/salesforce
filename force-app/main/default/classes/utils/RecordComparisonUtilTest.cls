@@ -221,17 +221,19 @@ private class RecordComparisonUtilTest {
       'The Received_Amount__c field should have been detected as changed and not equal to null.'
     );
   }
-    
+
   @IsTest
   static void testDetectWhichFieldWasChangedAndNotEqualNullPositive() {
     Case oldCase = TestDataFactory.createATMDisputeCase();
     Case newCase = TestDataFactory.createATMDisputeCase();
     newCase.Received_Amount__c = oldCase.Received_Amount__c + 10;
-      
+
     List<SObjectField> result = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
       newCase,
       oldCase,
-      new Set<SObjectField>{Case.Received_Amount__c.getDescribe().getSObjectField()}
+      new Set<SObjectField>{
+        Case.Received_Amount__c.getDescribe().getSObjectField()
+      }
     );
     System.assertEquals(
       'Received_Amount__c',
@@ -239,17 +241,19 @@ private class RecordComparisonUtilTest {
       'The Received_Amount__c field is changed on above record'
     );
   }
-    
+
   @IsTest
   static void testDetectWhichFieldWasChangedAndNotEqualNullNegative() {
     Case oldCase = TestDataFactory.createATMDisputeCase();
     Case newCase = TestDataFactory.createATMDisputeCase();
     newCase.Description = 'Test on New Record';
-      
+
     List<SObjectField> result = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
       newCase,
       oldCase,
-      new Set<SObjectField>{Case.Received_Amount__c.getDescribe().getSObjectField()}
+      new Set<SObjectField>{
+        Case.Received_Amount__c.getDescribe().getSObjectField()
+      }
     );
     System.assertNotEquals(
       'Description',
