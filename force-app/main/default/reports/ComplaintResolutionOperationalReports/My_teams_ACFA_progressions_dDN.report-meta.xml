@@ -5,9 +5,8 @@
         <backgroundColor2>#FFFFFF</backgroundColor2>
         <backgroundFadeDir>Diagonal</backgroundFadeDir>
         <chartSummaries>
-            <aggregate>Sum</aggregate>
             <axisBinding>y</axisBinding>
-            <column>Case.IDR_AFCA_Registration_Response_Provided__c</column>
+            <column>RowCount</column>
         </chartSummaries>
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>

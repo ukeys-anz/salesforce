@@ -5,9 +5,8 @@
         <backgroundColor2>#FFFFFF</backgroundColor2>
         <backgroundFadeDir>Diagonal</backgroundFadeDir>
         <chartSummaries>
-            <aggregate>Sum</aggregate>
             <axisBinding>y</axisBinding>
-            <column>AGE</column>
+            <column>RowCount</column>
         </chartSummaries>
         <chartType>HorizontalBar</chartType>
         <enableHoverLabels>false</enableHoverLabels>
@@ -115,7 +114,7 @@
     <name>My team&apos;s hardship complaint due dates</name>
     <params>
         <name>units</name>
-        <value>m</value>
+        <value>h</value>
     </params>
     <params>
         <name>co</name>
