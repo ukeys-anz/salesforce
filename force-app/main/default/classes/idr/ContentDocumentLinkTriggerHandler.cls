@@ -193,22 +193,20 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       //insert Assignment Tasks on New File Attached
       IDRTaskActions.insertAssignmentTask(assiTasks);
     }
-    if (!caseCommentList.isEmpty()) {
-      DMLUtil.insertRecords(
-        caseCommentList,
-        DMLUtil.ALL_OR_NOTHING,
-        DMLUtil.SYSTEM_MODE
-      );
+
+    if (caseCommentList.isEmpty() && mpUpdateCases.isEmpty()) {
+      return;
     }
-    if (
-      mpUpdateCases.size() > 0 && Case.SObjectType.getDescribe().isUpdateable()
-    ) {
-      DMLUtil.updateRecords(
-        mpUpdateCases.values(),
-        DMLUtil.ALL_OR_NOTHING,
-        DMLUtil.SYSTEM_MODE
-      );
-    }
+    DMLUtil.insertRecords(
+      caseCommentList,
+      DMLUtil.ALL_OR_NOTHING,
+      DMLUtil.SYSTEM_MODE
+    );
+    DMLUtil.updateRecords(
+      mpUpdateCases.values(),
+      DMLUtil.ALL_OR_NOTHING,
+      DMLUtil.SYSTEM_MODE
+    );
   }
 
   /**

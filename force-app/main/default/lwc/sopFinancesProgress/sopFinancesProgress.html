@@ -53,6 +53,7 @@
             <td class="col4 no-padding-vertical">
               <div title="amount">
                 <lightning-formatted-number
+                  lwc:if={row.TotalAmount}
                   value={row.TotalAmount}
                   format-style="currency"
                   currency-code="AUD"
