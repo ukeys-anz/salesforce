@@ -136,6 +136,13 @@
         <value>What&apos;s Happening</value>
     </labels>
     <labels>
+        <fullName>ANZX_Customer_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX Customer event ce type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.customerdata</value>
+    </labels>
+    <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
