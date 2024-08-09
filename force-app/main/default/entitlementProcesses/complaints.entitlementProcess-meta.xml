@@ -540,7 +540,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
     </milestones>
     <milestones>
         <businessHours>Default</businessHours>
-        <criteriaBooleanFilter>1 AND (2 OR 7 OR 8) AND 3 AND 4 AND (5 OR 6)</criteriaBooleanFilter>
+        <criteriaBooleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.IsClosed</field>
             <operation>equals</operation>
@@ -570,16 +570,6 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
             <field>Case.RecordTypeId</field>
             <operation>equals</operation>
             <value>Non-Customer Complaint</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.IDR_Issue_Type_2__c</field>
-            <operation>equals</operation>
-            <value>4</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.IDR_Issue_Type_3__c</field>
-            <operation>equals</operation>
-            <value>4</value>
         </milestoneCriteriaFilterItems>
         <milestoneName>21 Day Hardship Letter Milestone</milestoneName>
         <minutesToComplete>30240</minutesToComplete>
