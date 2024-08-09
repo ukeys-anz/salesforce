@@ -1,7 +1,7 @@
 /**
  * @description       : description Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-07-2024
+ * @last modified on  : 08-09-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerGCPActions {
@@ -31,7 +31,8 @@ public with sharing class CustomerGCPActions {
     );
 
     List<Account> filteredAccounts = filterAccountsBasedOnSyncStatus(
-      accBasedOnOCVVersion
+      accBasedOnOCVVersion,
+      oldMap
     );
 
     Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = generateCustomerCEModelBundle(
@@ -53,16 +54,19 @@ public with sharing class CustomerGCPActions {
   /**
    * @description Validate if account sync status is valid or not.
    * @param records The Account records
+   * @param oldMap old trigger values
    * @return List<Account> The account records that has a valid sync status.
    */
   @TestVisible
   private static List<Account> filterAccountsBasedOnSyncStatus(
-    List<Account> records
+    List<Account> records,
+    Map<Id, Account> oldMap
   ) {
     List<Account> filteredAccounts = new List<Account>();
     for (Account record : records) {
       if (
         record.Sync_Status__c != null &&
+        oldMap.get(record.id).Sync_Status__c != null &&
         !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
         record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
       ) {
