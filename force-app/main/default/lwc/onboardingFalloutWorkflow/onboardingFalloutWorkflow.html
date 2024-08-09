@@ -1,0 +1,98 @@
+<!--
+  @description       : LWC Component to render images from DAON
+  @author            : TFM Squad - Shivraj/ Anuj
+  @group             : 
+  @last modified on  : 07-09-2024
+  @last modified by  : TFM Squad - Shivraj/ Anuj 
+-->
+<template>
+  <template lwc:if={componentSpinner}>
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 spinnerHolder">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+    </div>
+  </template>
+  <template lwc:elseif={errorOccurred}><!--Toast Notification--></template>
+  <template lwc:else>
+    <template lwc:if={noAccess}><!--No Access--></template>
+    <template lwc:else>
+      <div class="slds-grid slds-wrap slds-p-horizontal--large">
+        <div
+          class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-heading--medium slds-p-around--small"
+        >
+          User Document to be Verified
+        </div>
+        <div
+          class="slds-grid slds-wrap slds-align_absolute-center slds-m-bottom--large"
+        >
+          <lightning-layout multiple-rows>
+            <template for:each={filesToRender} for:item="element">
+              <lightning-layout-item
+                size={element.size}
+                padding="around-medium"
+                key={element.fileTitle}
+                class={element.cssStyle}
+                small-device-size="12"
+                medium-device-size="12"
+                large-device-size={element.size}
+              >
+                <template lwc:if={element.isImage}>
+                  <div class="slds-text-heading--small slds-p-around--medium">
+                    <div class="slds-text-align_center">
+                      {element.fileTitle}
+                    </div>
+                  </div>
+                  <template lwc:if={element.currentFileType}>
+                    <c-onboarding-fallout-image-renderer
+                      current-file-type={element.currentFileType}
+                      error-image={element.errorImage}
+                      error-msg={element.errorMessage}
+                      change-style={element.changeStyle}
+                    ></c-onboarding-fallout-image-renderer>
+                  </template>
+                </template>
+                <template lwc:if={element.showCheckbox}>
+                  <template lwc:if={element.isCheckBox}>
+                    <lightning-input
+                      type="checkbox"
+                      label={element.label}
+                      name={element.name}
+                      onchange={changeHandler}
+                    ></lightning-input>
+                  </template>
+                </template>
+                <template lwc:if={element.isEmptySpace}>
+                  <div></div>
+                </template>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </div>
+      </div>
+      <div
+        class="slds-grid slds-gutters slds-p-around--medium slds-align_absolute-center"
+      >
+        <div class="slds-p-around--medium">
+          <lightning-button
+            label="Approve"
+            onclick={openApprovalModal}
+            variant="brand"
+            disabled={isApprovButtonDisable}
+          ></lightning-button>
+        </div>
+        <div class="slds-p-around--medium">
+          <lightning-button
+            label="Reject"
+            onclick={openRejectModal}
+            variant="brand"
+            disabled={isRejectButtonDisable}
+          ></lightning-button>
+        </div>
+      </div>
+    </template>
+  </template>
+</template>

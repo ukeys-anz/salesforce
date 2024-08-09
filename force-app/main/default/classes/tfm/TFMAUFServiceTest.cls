@@ -142,7 +142,7 @@ public with sharing class TFMAUFServiceTest {
     staffModel.idValue = 'x00Bm000008L9jfake';
     staffModel.anzTokenType = 'staffRqfCustomer';
     Cache.Session.put(
-      'local.ForgeToken.forgeJWTToken' + staffModel.idValue,
+      'local.ForgeToken.' + AuthTokenCacheUtil.getHashedKey('forgeJWTToken' + staffModel.idValue + staffModel.apiScopesRequested),
       AuthServiceTest.IDTESTVALUEFORGE2,
       300,
       Cache.Visibility.NAMESPACE,

@@ -49,5 +49,9 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
         (Map<Id, ResidentialLoanApplication>) oldMap
       )
     );
+    CoachNudgeTaskAction.processCancelledRLARecords(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
   }
 }

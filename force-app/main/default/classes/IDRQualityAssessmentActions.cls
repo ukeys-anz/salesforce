@@ -239,21 +239,24 @@ public with sharing class IDRQualityAssessmentActions {
   ) {
     Id cqRecordTypeId = IDRConstants.idrtCQQualityAssessment;
     for (Quality_Assessment__c qaRecord : records) {
-      SObjectField changedfieldAPIName = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
+      if (
+        qaRecord.RecordTypeId != cqRecordTypeId ||
+        qaRecord.Status__c != IDRConstants.STATUS_COMPLETE
+      ) {
+        continue;
+      }
+      List<SObjectField> changedfieldAPIName = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
         qaRecord,
         oldMap.get(qaRecord.Id),
         IDRConstants.QA_OUTCOME_FIELDS
       );
-      if (
-        qaRecord.RecordTypeId != cqRecordTypeId ||
-        qaRecord.Status__c != IDRConstants.STATUS_COMPLETE ||
-        changedfieldAPIName == null
-      ) {
+      if (changedfieldAPIName.isEmpty()) {
         continue;
       }
+
       qaRecord.Assessment_Outcome_Status__c = getStatus(
         qaRecord,
-        changedfieldAPIName
+        changedfieldAPIName[0]
       );
     }
   }

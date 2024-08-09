@@ -4887,7 +4887,7 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>rewardPoints1</name>
+            <name>RewardPoints1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>

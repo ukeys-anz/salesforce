@@ -1,0 +1,93 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 07-29-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <lightning-modal-body>
+    <template if:true={showSpinner}>
+      <div class="spinnerHolder">
+        <lightning-spinner
+          variant="brand"
+          alternative-text="Loading"
+        ></lightning-spinner>
+      </div>
+    </template>
+    <template if:false={showSpinner}>
+      <div class="slds-grid slds-wrap">
+        <div
+          class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-heading--medium slds-p-around--medium"
+        >
+          <h1>Do you wish to Reject this request?</h1>
+        </div>
+        <template lwc:if={onboardingWorkflow}>
+          <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-combobox
+              variant="label-inline"
+              name="status"
+              label="Status"
+              value={statusValue}
+              options={optionVal}
+              onchange={statusChange}
+              required
+            >
+            </lightning-combobox>
+          </div>
+          <template lwc:if={statusFailed}>
+            <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+              <lightning-combobox
+                class="failedReasonCls"
+                variant="label-inline"
+                name="failedresons"
+                label="Onboarding Verification Failed Reason"
+                value={failedReasonValue}
+                options={reasonOptions}
+                onchange={reasonChange}
+                required
+              >
+              </lightning-combobox>
+            </div>
+          </template>
+        </template>
+        <template lwc:else>
+          <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-combobox
+              variant="label-inline"
+              name="status"
+              label="Status"
+              value={statusValue}
+              options={optionVal}
+              onchange={statusChange}
+              required
+            >
+            </lightning-combobox>
+          </div>
+        </template>
+
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+          <lightning-textarea
+            class="commentsCls"
+            variant="label-inline"
+            name="comments"
+            label="Comments"
+            value=""
+            onchange={commentsChange}
+            max-length="1000"
+            required
+          ></lightning-textarea>
+        </div>
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+          <div class="slds-p-around--medium">
+            <lightning-button
+              label={rejectLabelName}
+              onclick={rejectRecord}
+              variant="brand"
+            ></lightning-button>
+          </div>
+        </div>
+      </div>
+    </template>
+  </lightning-modal-body>
+</template>

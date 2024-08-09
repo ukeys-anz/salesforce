@@ -4,14 +4,18 @@
  * @description COBCaseStatusValidator Validates COB case statuses transitions
  */
 public with sharing class COBCaseStatusValidator {
+  private static final COBCaseRepository COB_CASE_REPO = (COBCaseRepository) Lib_InstanceProvider.forType(
+    COBCaseRepository.class
+  );
+
+  @TestVisible
+  private static final String ERROR_STATUS_CHANGE_NOT_ALLOWED = 'You are not allowed to change the status from \'\'{0}\'\' to \'\'{1}\'\'{2}.';
   @TestVisible
   private static final String CLOSED_STATUSES_ERROR = 'You are not allowed to change status of a closed COB record';
   @TestVisible
   private static final String FAILED_DVS_MESSAGE = ', because Equifax DVS Result is FAIL. Please escalate to Join Lead if a bypass is needed';
   @TestVisible
   private static final String BLOCKED_STATUS_UPDATE_ERROR = 'Can\'t update ID Ops case status when there is an open Fraud Check Case. ';
-  @TestVisible
-  private static final String EQUIFAX_DVS_PASS = 'PASS';
 
   //Invalid COB Case statuses transions for ID Ops Assistance record type
   public static final Map<String, List<String>> ID_OPS_STATUSES_INVALID_TRANSITION_MAP = new Map<String, List<String>>{
@@ -84,7 +88,6 @@ public with sharing class COBCaseStatusValidator {
     String currentStatus,
     Case cobCase
   ) {
-    String errorTemplate = 'You are not allowed to change the status from \'\'{0}\'\' to \'\'{1}\'\'{2}.';
     Map<String, List<String>> invalidTransitionMap = INVALID_TRANSITION_MAP_PER_RECORD_TYPE.get(
       cobCase.RecordTypeId
     );
@@ -93,7 +96,7 @@ public with sharing class COBCaseStatusValidator {
       true && !isInWatchList(cobCase)
     ) {
       return String.format(
-        errorTemplate,
+        ERROR_STATUS_CHANGE_NOT_ALLOWED,
         new List<String>{ currentStatus, cobCase.Status, '' }
       );
     }
@@ -107,64 +110,20 @@ public with sharing class COBCaseStatusValidator {
 
     if (
       cobCase.Status == GetHelpConstants.COB_EQUIFAX_PASSED_STATUS &&
-      isCurrentUserJoinLead() == false &&
-      isCobEquifaxDVSPass(cobCase.Id) == false
+      COB_CASE_REPO.isCurrentUserJoinLead() == false &&
+      COB_CASE_REPO.isCobEquifaxDvsPass(cobCase.Id) == false
     ) {
       return String.format(
-        errorTemplate,
+        ERROR_STATUS_CHANGE_NOT_ALLOWED,
         new List<String>{ currentStatus, cobCase.Status, FAILED_DVS_MESSAGE }
       );
     }
 
-    if (getParentCaseWithOpenChildren(cobCase.id) > 0) {
+    if (COB_CASE_REPO.queryCountOpenChildren(cobCase.id) > 0) {
       return BLOCKED_STATUS_UPDATE_ERROR;
     }
 
     return '';
-  }
-
-  /**
-   * @description Get the case's child records count
-   * @param parentCaseId Parent case ids
-   * @return Numbers of child cases
-   */
-  @TestVisible
-  private static Integer getParentCaseWithOpenChildren(Id parentCaseId) {
-    return (PermissionUtils.canQuery('Case'))
-      ? [
-          SELECT COUNT()
-          FROM Case
-          WHERE ParentId = :parentCaseId AND IsClosed = FALSE
-        ]
-      : 0;
-  }
-
-  /**
-   * @description Check whether the logged in user has Join Leasd role
-   * @return Boolean True if a user is Join Lead, false otherwise
-   */
-  @TestVisible
-  private static Boolean isCurrentUserJoinLead() {
-    return UserInfo.GetUserRoleId() ==
-      CommonUtil.getUserRoleByDevName('Join_Lead').Id;
-  }
-
-  /**
-   * @description Checks whether the case's (with cobCaseId) Customer Onboarding Application has an Equifax DVS Result == PASS
-   * @param cobCaseId Case ids
-   * @return Boolean True if case's (with cobCaseId) Customer Onboarding Application has an Equifax DVS Result == PASS, false otherwise
-   */
-  private static Boolean isCobEquifaxDVSPass(Id cobCaseId) {
-    return (PermissionUtils.canQuery('CustomerOnboardingApplication__c') &&
-      PermissionUtils.canQuery('Case'))
-      ? ([
-          SELECT COUNT()
-          FROM Case
-          WHERE
-            Id = :cobCaseId
-            AND CustomerOnboardingApplication__r.EquifaxDVSResult__c = :EQUIFAX_DVS_PASS
-        ] > 0)
-      : false;
   }
 
   /**
@@ -175,7 +134,7 @@ public with sharing class COBCaseStatusValidator {
   public static Boolean isInWatchList(Case cobCase) {
     return String.IsNotBlank(cobCase.Subject) &&
       cobCase.Subject.contains(
-        GetHelpConstants.COB_DAON_FAILED_SUBJECT_WATCHLIST_HIT
+        COBCaseStatusPathController.DAON_FALLOUT_WATCHLIST_HIT_SUBJECT
       ) &&
       cobCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
   }

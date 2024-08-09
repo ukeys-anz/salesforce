@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BusinessProcess xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Selfie Recovery Support Process</fullName>
+    <description>Used to assist customer if there is a failure during the Selfie Recovery</description>
+    <isActive>true</isActive>
+    <values>
+        <fullName>Closed - Approved</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed - Approved %26 Re-enrolled</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Confirmed Fraud</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Potential Fraud</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Recovery Failed</fullName>
+        <default>true</default>
+    </values>
+    <values>
+        <fullName>Selfie Not Matched</fullName>
+        <default>false</default>
+    </values>
+</BusinessProcess>

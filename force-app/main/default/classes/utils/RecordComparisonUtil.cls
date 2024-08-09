@@ -171,18 +171,17 @@ public class RecordComparisonUtil {
    * @param fields    Set of fields which we need to check for a change and not null value.
    * @return field    return the field that was changed and is not null; otherwise, null.
    */
-  public static SObjectField detectWhichFieldWasChangedAndNotEqualNull(
+  public static List<SObjectField> detectWhichFieldWasChangedAndNotEqualNull(
     SObject newRecord,
     SObject oldRecord,
     Set<SObjectField> fields
   ) {
+    List<SObjectField> changedFields = new List<SObjectField>();
     for (SObjectField field : fields) {
-      if (
-        fieldWasChangedAndNotEqualNull(newRecord, oldRecord, field)
-      ) {
-        return field;
+      if (fieldWasChangedAndNotEqualNull(newRecord, oldRecord, field)) {
+        changedFields.add(field);
       }
     }
-      return null;
+    return changedFields;
   }
 }

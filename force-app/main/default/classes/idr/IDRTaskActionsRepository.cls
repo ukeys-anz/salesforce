@@ -10,6 +10,9 @@ public with sharing class IDRTaskActionsRepository {
    * @return list of cases
    */
   public List<Case> queryCases(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
+    }
     return [
       SELECT Id, OwnerId
       FROM Case
