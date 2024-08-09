@@ -34,6 +34,9 @@
         <field>CM.TARGET_DATE</field>
     </columns>
     <columns>
+        <field>MT.NAME</field>
+    </columns>
+    <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>AGE</field>
     </columns>
