@@ -55,8 +55,9 @@ if [[ -d ./tmpPMD/deploy ]]; then
         # Correct prefix removal
         strippedPath="${f/\/tmpPMD\/deploy/}"
         quotedPath=$(printf '"%s"' "$strippedPath")
+        escapedPath=$(echo "$quotedPath" | sed 's/\$/\\$/g')
         # Append to the temporary file
-        echo "$quotedPath" >> "$tempFile"
+        echo "$escapedPath" >> "$tempFile"
     done
 
     # Read all paths from the temporary file and concatenate them
