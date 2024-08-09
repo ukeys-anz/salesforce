@@ -530,6 +530,16 @@
               </lightning-layout>
             </div>
           </template>
+          <!--Onboarding Fallout Component-->
+          <template lwc:if={recordId}>
+            <div
+              class="slds-box slds-box_xx-small box-background slds-m-top--medium"
+            >
+              <c-onboarding-fallout-workflow
+                record-id={recordId}
+              ></c-onboarding-fallout-workflow>
+            </div>
+          </template>
         </div>
       </div>
 

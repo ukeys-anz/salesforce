@@ -20,8 +20,6 @@ public with sharing class ResidentialLoanAppTriggerHandlerTest {
           Credit_ID__c = faker.randomString(4),
           Assessment_Outcome__c = 'Approved',
           AccountId = accnt.Id,
-          Sync_Status__c = 'Broker Org',
-          ApplicationExtIdentifier = faker.randomString(4),
           RecordTypeId = GetHelpConstants.LOAN_APPLICATION_RT_ID
         )
       );
@@ -92,25 +90,6 @@ public with sharing class ResidentialLoanAppTriggerHandlerTest {
       handler.records.size(),
       'Loan Applications should be 10'
     );
-  }
-
-  /**
-   * @description Method for testing afterUpdate method
-   * @author Deepro De | 06-03-2024
-   **/
-  @IsTest
-  static void testAfterUpdate() {
-    ResidentialLoanApplicationTriggerHandler handler = new ResidentialLoanApplicationTriggerHandler();
-    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
-      10
-    );
-    Map<Id, ResidentialLoanApplication> loanAppMap = new Map<Id, ResidentialLoanApplication>(
-      loanApps
-    );
-    handler.records = loanApps;
-    Test.startTest();
-    handler.onAfterUpdate(loanAppMap);
-    Test.stopTest();
   }
 
   /**

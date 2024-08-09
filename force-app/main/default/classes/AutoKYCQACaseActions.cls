@@ -217,7 +217,7 @@ public with sharing class AutoKYCQACaseActions {
     List<CustomerOnboardingApplication__c> cobApps = REPOSITORY.queryCOBByPersonaId(
       personaIds
     );
-    return (Map<String, CustomerOnboardingApplication__c>) CommonUtil.buildStringMap(
+    return (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapByString(
       cobApps,
       CustomerOnboardingApplication__c.PersonaId__c
     );
@@ -444,7 +444,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerAccount(List<Case> cases) {
-    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) CommonUtil.buildIdMap(
+    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapById(
       cases,
       Case.AccountId
     );
@@ -466,7 +466,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerCOBApp(List<Case> cases) {
-    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) CommonUtil.buildIdMap(
+    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) ListUtil.mapById(
       cases,
       Case.CustomerOnboardingApplication__c
     );
@@ -532,11 +532,19 @@ public with sharing class AutoKYCQACaseActions {
    */
   public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
     List<Case> casesToDowngrade = filterDowngradeCases(cases, oldMap);
-    Set<Id> accountIds = CommonUtil.getIds(casesToDowngrade, Case.AccountId);
-    List<Account> oldAccounts = REPOSITORY.queryAccounts(accountIds);
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapById(
+      casesToDowngrade,
+      Case.AccountId
+    );
+    List<Account> oldAccounts = REPOSITORY.queryAccounts(
+      accIdToCaseMap.keySet()
+    );
     List<Account> newAccounts = buildDowngradedAccounts(oldAccounts);
-
-    processCases(casesToDowngrade, newAccounts, oldAccounts);
+    AutoKYCQAProfileStagingConfig config = new AutoKYCQAProfileStagingConfig(
+      accIdToCaseMap
+    );
+    PROFILE_STAGING_HANDLER
+      .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
   }
 
   /**
@@ -618,12 +626,27 @@ public with sharing class AutoKYCQACaseActions {
    */
   public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
     List<Case> casesToUpgrade = filterUpgradeCases(cases, oldMap);
-    Set<Id> accountIds = CommonUtil.getIds(casesToUpgrade, Case.AccountId);
-    List<Account> accounts = REPOSITORY.queryAccounts(accountIds);
-    List<Account> oldAccounts = filterAccountsNotExited(accounts);
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapById(
+      casesToUpgrade,
+      Case.AccountId
+    );
+    List<Account> accounts = REPOSITORY.queryAccountsNotExited(
+      accIdToCaseMap.keySet()
+    );
+    Set<String> ocvIds = ListUtil.getStrings(accounts, Account.OCV_ID__c);
+    List<Account> exitedAccounts = REPOSITORY.queryExitedAccountsByOcvIds(
+      ocvIds
+    );
+    List<Account> oldAccounts = filterAccountsNotExited(
+      accounts,
+      exitedAccounts
+    );
     List<Account> newAccounts = buildUpgradedAccounts(oldAccounts);
-
-    processCases(casesToUpgrade, newAccounts, oldAccounts);
+    AutoKYCQAProfileStagingConfig config = new AutoKYCQAProfileStagingConfig(
+      accIdToCaseMap
+    );
+    PROFILE_STAGING_HANDLER
+      .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
   }
 
   /**
@@ -652,22 +675,27 @@ public with sharing class AutoKYCQACaseActions {
   }
 
   /**
-   * @description Check Account Exit Flag
-   * @param initialListOfOldAccounts List of Old Accounts
-   * @return List of Accounts to Upgrade
+   * @description Filter list of accounts against exited accounts
+   * @param accounts List of Old Accounts
+   * @param exitedAccounts Exited accounts
+   * @return List of Accounts that are not exited
    */
   @TestVisible
   private static List<Account> filterAccountsNotExited(
-    List<Account> initialListOfOldAccounts
+    List<Account> accounts,
+    List<Account> exitedAccounts
   ) {
-    List<Account> oldAccounts = new List<Account>();
-    for (Account acc : initialListOfOldAccounts) {
-      if (acc.CustomerExitFlag__c == false) {
-        oldAccounts.add(acc);
+    Set<String> exitedOcvIds = ListUtil.getStrings(
+      exitedAccounts,
+      Account.OCV_ID__c
+    );
+    List<Account> accountsNotExited = new List<Account>();
+    for (Account acc : accounts) {
+      if (exitedOcvIds.contains(acc.OCV_ID__c) == false) {
+        accountsNotExited.add(acc);
       }
     }
-
-    return oldAccounts;
+    return accountsNotExited;
   }
 
   /**
@@ -683,31 +711,6 @@ public with sharing class AutoKYCQACaseActions {
       acc.KYC_Verification_Level__c = UPGRADE_KYC_VERIFICATION_LEVEL;
     }
     return newAccounts;
-  }
-
-  /**
-   * @description process the KYC Cases
-   * @param casesToProcess List of Cases
-   * @param newAccounts List of New Accounts
-   * @param oldAccounts List of Old Accounts
-   */
-  @TestVisible
-  private static void processCases(
-    List<Case> casesToProcess,
-    List<Account> newAccounts,
-    List<Account> oldAccounts
-  ) {
-    Map<Id, Case> mapAccountIdToCase = (Map<Id, Case>) CommonUtil.buildIdMap(
-      casesToProcess,
-      Case.AccountId
-    );
-
-    AutoKYCQAProfileStagingConfig config = new AutoKYCQAProfileStagingConfig(
-      mapAccountIdToCase
-    );
-
-    PROFILE_STAGING_HANDLER
-      .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
   }
 
   /**

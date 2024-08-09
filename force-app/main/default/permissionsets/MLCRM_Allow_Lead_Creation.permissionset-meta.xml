@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ML_Allow_Lead_Creation</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>MLCRM Allow Lead Creation</label>
+</PermissionSet>

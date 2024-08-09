@@ -5,6 +5,13 @@
  * @description CCRMControllingPostActions is class to handle all the CCRM Controlling Post Actions
  */
 public with sharing class CCRMControllingPostActions {
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final CCRMControllingPostRepository CP_REPOSITORY = (CCRMControllingPostRepository) Lib_InstanceProvider.forType(
+    CCRMControllingPostRepository.class
+  );
+
   /**
    * @description Before Update Automated actions of a completed Lead.
    * @name setResponsibleEmployee
@@ -223,5 +230,103 @@ public with sharing class CCRMControllingPostActions {
       managerUsers,
       CCRMControllingPostActions.getControllingPosts(managerUsers.keySet())
     );
+  }
+
+  /**
+   * @description This is to update the CPID User Id on Controlling Post based on CPID Lan Id on Insert/Update
+   * @name setCPIDUser
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
+   */
+  public static void setCPIDUser(
+    List<Controlling_Post__c> records,
+    Map<Id, Controlling_Post__c> oldMap
+  ) {
+    try {
+      ControllingPostWrapper cpWrapper = getFilterCpRecords(records, oldMap);
+      List<User> userList = CP_REPOSITORY.getActiveLanIdUser(
+        cpWrapper.lanIdsSet
+      );
+      Map<String, User> lanIdUserMap = formLanIdToUserMap(userList);
+      updateUserLookupOnCpRecords(cpWrapper.filteredCpList, lanIdUserMap);
+    } catch (Exception e) {
+      Logger.error(
+        'Error while udpating the Controlling post records in before insert',
+        e
+      );
+      Logger.saveLog();
+      throw e;
+    }
+  }
+
+  /**
+   * @description This is to get the list of records for which CPID Lan Id changes
+   * @name getFilterCpRecords
+   * @param records from the trigger
+   * @param oldMap This Map<Id, SObject> contains the old values.
+   * @return ControllingPostWrapper Wrapper containing the filtered CP records and Set of Lan Ids
+   */
+  @TestVisible
+  private static ControllingPostWrapper getFilterCpRecords(
+    List<Controlling_Post__c> records,
+    Map<Id, Controlling_Post__c> oldMap
+  ) {
+    ControllingPostWrapper cpWrapper = new ControllingPostWrapper();
+    for (Controlling_Post__c record : records) {
+      Controlling_Post__c oldRec = oldMap.get(record.Id);
+      if (record.CPID_LanID__c != oldRec?.CPID_LanID__c) {
+        cpWrapper.filteredCpList.add(record);
+        cpWrapper.lanIdsSet.add(record.CPID_LanID__c);
+      }
+    }
+    cpWrapper.lanIdsSet.removeAll(new Set<String>{ null });
+    return cpWrapper;
+  }
+
+  /**
+   * @description This is used to form the User Map
+   * @name formLanIdToUserMap
+   * @param userList List of active user
+   * @return Map<String, User> Map of Lan Id and User record
+   */
+  @TestVisible
+  private static Map<String, User> formLanIdToUserMap(List<User> userList) {
+    Map<String, User> lanIdUserMap = new Map<String, User>();
+    for (User userItr : userList) {
+      lanIdUserMap.put(userItr.Lan_Id__c.toLowerCase(), userItr);
+    }
+    return lanIdUserMap;
+  }
+
+  /**
+   * @description This is to update the CPID User Id on Controlling Post based on CPID Lan Id.
+   * @name updateUserLookupOnCpRecords
+   * @param filteredCpList List of filter controlling post records
+   * @param lanIdUserMap Map of Lan Id and UserId
+   */
+  @TestVisible
+  private static void updateUserLookupOnCpRecords(
+    List<Controlling_Post__c> filteredCpList,
+    Map<String, User> lanIdUserMap
+  ) {
+    for (Controlling_Post__c cpRec : filteredCpList) {
+      cpRec.CPID_User__c = lanIdUserMap.containsKey(
+          cpRec.CPID_LanID__c.toLowerCase()
+        )
+        ? lanIdUserMap.get(cpRec.CPID_LanID__c.toLowerCase()).Id
+        : null;
+    }
+  }
+
+  /**
+   * @description This is the wrapper class for Controlling Post
+   * @param filteredCpList list of fileter cp records for which CPID Lan Id changed
+   * @param lanIdsSet Set of Lan Ids
+   */
+  public class ControllingPostWrapper {
+    @TestVisible
+    List<Controlling_Post__c> filteredCpList = new List<Controlling_Post__c>();
+    @TestVisible
+    Set<String> lanIdsSet = new Set<String>();
   }
 }

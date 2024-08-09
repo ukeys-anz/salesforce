@@ -230,21 +230,36 @@ public with sharing class AuthTokenCacheUtil {
    * @exception TokenCacheException throws when no token is found
    */
   public static String getStaffToken(StaffTokenRequestModel staffModelWrapper) {
-    String staffToken = (String) Cache.Session.get(
-      STAFFPART +
-        'forgeJWTToken' +
-        TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue)
+    String staffToken;
+    if (!Forgerock_Auth__mdt.sObjectType.getDescribe().isQueryable()) {
+      throw new AuraHandledException(
+        'Unable to query Foregerock - permission denied'
+      );
+    }
+    Forgerock_Auth__mdt forgeAuth = Forgerock_Auth__mdt.getInstance(
+      staffModelWrapper.apiScopesRequested
     );
 
-    if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
-      return staffToken;
+    if (forgeAuth.CacheStaffToken__c) {
+      staffToken = (String) Cache.Session.get(
+        STAFFPART +
+        getHashedKey(
+          'forgeJWTToken' +
+            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue) +
+            staffModelWrapper.apiScopesRequested
+        )
+      );
+      if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
+        return staffToken;
+      }
     }
 
     Integer expiresIn = 300; // default minimum value
     try {
       AuthRepository authRepo = new AuthRepository();
       IdentityModel responseModel = authRepo.getForgeStaffToken(
-        staffModelWrapper
+        staffModelWrapper,
+        forgeAuth
       );
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
@@ -254,13 +269,18 @@ public with sharing class AuthTokenCacheUtil {
       throw new TokenCacheException(e.getMessage());
     }
 
-    Cache.Session.put(
-      STAFFPART +
-        'forgeJWTToken' +
-        TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue),
-      staffToken,
-      expiresIn
-    );
+    if (forgeAuth.CacheStaffToken__c) {
+      Cache.Session.put(
+        STAFFPART +
+        getHashedKey(
+          'forgeJWTToken' +
+            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue) +
+            staffModelWrapper.apiScopesRequested
+        ),
+        staffToken,
+        expiresIn
+      );
+    }
     return staffToken;
   }
   /**
@@ -389,5 +409,15 @@ public with sharing class AuthTokenCacheUtil {
       Logger.saveLog();
       return null;
     }
+  }
+  /**
+   * @description hashes the key using MD5 algorithm and returns a hex string
+   * @param key the key to be hashed
+   * @return String hashed value of the key
+   */
+  public static String getHashedKey(String key) {
+    Blob hashedKeyBlob = Crypto.generateDigest('MD5', Blob.valueOf(key));
+    String hashedKey = EncodingUtil.convertToHex(hashedKeyBlob);
+    return hashedKey;
   }
 }

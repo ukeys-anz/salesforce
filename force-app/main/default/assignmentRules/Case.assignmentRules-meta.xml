@@ -180,7 +180,8 @@
             </formula>
         </ruleEntry>
         <ruleEntry>
-            <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;KYC_QA&quot;)</formula>
+            <formula>AND(NOT(ISNEW()), OR(RecordType.DeveloperName =
+                &quot;KYC_QA&quot;,RecordType.DeveloperName = &quot;Credit_Referral&quot;))</formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>COB_ID_Ops_Assistance_Queue</assignedTo>

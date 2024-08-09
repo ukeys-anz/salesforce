@@ -1932,28 +1932,28 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom5813</globalKey>
         <inputFieldName>ComplaintResolution|1:IDR_Financial_Remedy_Points__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldFormat>String</outputFieldFormat>
-        <outputFieldName>Case:rewardPoints1</outputFieldName>
+        <outputFieldName>Case:RewardPoints1</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom9820</globalKey>
         <inputFieldName>ComplaintResolution|3:IDR_Provided_details_to_Manufacturer__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:detailsOfComplaint3</outputFieldName>
         <outputObjectName>json</outputObjectName>
@@ -1961,13 +1961,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRFetchCaseDetailsCustom9306</globalKey>
         <inputFieldName>Case:IDR_Issue_Type_3__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>DRFetchCaseDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Case:IDR_Issue_Type_3__c</outputFieldName>
         <outputObjectName>json</outputObjectName>

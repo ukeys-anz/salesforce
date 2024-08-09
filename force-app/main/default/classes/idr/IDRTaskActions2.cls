@@ -12,6 +12,13 @@ public with sharing class IDRTaskActions2 {
   public static final String TASK_TYPE_GENERAL = 'General Task/ Reminder';
   public static final String TASK_SUBJECT_URGENT = 'Urgent Case Allocation';
 
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final IDRTaskActionsRepository TASK_REPOSITORY = (IDRTaskActionsRepository) Lib_InstanceProvider.forType(
+    IDRTaskActionsRepository.class
+  );
+
   /**
    * @description Check Tasks for the Subject 'Urgent Case Allocation'
    * @param lstTasks List of Tasks from Trigger
@@ -171,11 +178,134 @@ public with sharing class IDRTaskActions2 {
         (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
       ) {
         for (Task oTask : lstQATasks) {
-          if (oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)) {
+          if (
+            (String.isBlank(oAssessment.Team_Manager_Response__c) ||
+            String.isBlank(oAssessment.Team_Manager_Comments__c)) &&
+            oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
+          ) {
             oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
           }
         }
       }
+    }
+  }
+  /**
+   * @description Update Date On Hold From Task to Case and Case Status to On Hold
+   * @param lstTasks List of Tasks from Trigger
+   * @param setToValue Boolean
+   */
+  public static void updateOnHoldDateonCase(
+    List<Task> lstTasks,
+    Boolean setToValue
+  ) {
+    Map<Id, Date> caseIdtoDateValue = getOnHoldDateFromTask(lstTasks);
+
+    List<Case> lstcasestoUpdate = setCaseFields(caseIdtoDateValue, setToValue);
+
+    DML_REPOSITORY.updateRecords(
+      lstcasestoUpdate,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.USER_MODE
+    );
+  }
+
+  /**
+   * @description To update Map with Id and corresponding Date value of Task
+   * @param newTasks List of new tasks
+   * @return Map of Ids
+   */
+  @TestVisible
+  private static Map<Id, Date> getOnHoldDateFromTask(List<Task> newTasks) {
+    Map<Id, Date> caseIdtoDateValue = new Map<Id, Date>();
+
+    for (Task oTask : newTasks) {
+      if (!isValidPendTask(oTask)) {
+        continue;
+      }
+      caseIdtoDateValue.put(
+        OTask.WhatId,
+        Date.valueOf(oTask.Date_Case_on_Hold_From__c)
+      );
+      if (oTask.Status == IDRConstants.TASK_STATUS_COMPLETED) {
+        caseIdtoDateValue.put(OTask.WhatId, null);
+      }
+    }
+    return caseIdtoDateValue;
+  }
+  /**
+   * @description To check if the boolean is returning a Valid Pend Task
+   * @param oTask New Task
+   * @return Boolean
+   */
+  @TestVisible
+  private static Boolean isValidPendTask(Task oTask) {
+    if (
+      oTask.RecordTypeId == IDRConstants.IDR_TASK_RT_ID &&
+      oTask.Type == IDRConstants.TASK_TYPE_PEND_CASE &&
+      String.isNotBlank(oTask.WhatId) &&
+      String.valueOf(oTask.WhatId).startsWith('500')
+    ) {
+      return true;
+    }
+    return false;
+  }
+  /**
+   * @description To Set case fields Date and Boolean value as required
+   * @param caseIdtoDateValue List of new Tasks
+   * @param setToValue Boolean value to set the case field
+   * @return List of Cases
+   */
+  @TestVisible
+  private static List<Case> setCaseFields(
+    Map<Id, Date> caseIdtoDateValue,
+    Boolean setToValue
+  ) {
+    List<Case> casestoUpdate = new List<Case>();
+
+    for (Id caseId : caseIdtoDateValue.keyset()) {
+      if (setToValue) {
+        casestoUpdate.add(
+          new Case(
+            Id = caseId,
+            IDR_Date_Case_on_Hold_From__c = caseIdtoDateValue.get(caseId),
+            Status = IDRConstants.ON_HOLD_STATUS
+          )
+        );
+      } else {
+        casestoUpdate.add(
+          new Case(Id = caseId, IDR_Date_Case_on_Hold_From__c = null)
+        );
+      }
+    }
+    return casestoUpdate;
+  }
+  /**
+   * @description To Set case fields Date and Boolean value as required
+   * @param newTasks List of new Tasks
+   */
+  public static void assignPendTasktoCaseOwner(List<Task> newTasks) {
+    Map<Id, Date> caseDateMap = getOnHoldDateFromTask(newTasks);
+    List<Case> caselist = TASK_REPOSITORY.queryCases(caseDateMap.keyset());
+    Map<Id, Case> caseMap = new Map<Id, Case>(caseList);
+    setTaskOwnerId(caseMap, newTasks);
+  }
+  /**
+   * @description To Set case fields Date and Boolean value as required
+   * @param caseMap Map of Id and Case
+   * @param newTasks List of new Tasks
+   */
+  public static void setTaskOwnerId(
+    Map<Id, Case> caseMap,
+    List<Task> newTasks
+  ) {
+    for (Task oTask : newTasks) {
+      if (!isValidPendTask(oTask)) {
+        continue;
+      }
+      if (caseMap.get(oTask.WhatId) == null) {
+        continue;
+      }
+      oTask.OwnerId = caseMap.get(oTask.WhatId).OwnerId;
     }
   }
 }

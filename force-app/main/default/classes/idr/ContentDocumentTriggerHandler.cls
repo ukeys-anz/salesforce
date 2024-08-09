@@ -31,7 +31,7 @@ public without sharing class ContentDocumentTriggerHandler extends Lib_TriggerHa
       SELECT ContentDocumentId
       FROM ContentVersion
       WHERE
-        RecordTypeID = :IDRConstants.CFAAS_FILE_RT_ID
+        (RecordTypeID = :IDRConstants.CFAAS_FILE_RT_ID OR RecordTypeID = :TFMConstants.DAON_FILE_RT_ID)
         AND ContentDocumentId IN :cdList
     ];
 

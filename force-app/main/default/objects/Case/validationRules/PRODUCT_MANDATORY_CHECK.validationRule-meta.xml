@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>PRODUCT_MANDATORY_CHECK</fullName>
+    <active>true</active>
+    <description>For Account Closures, Make Product field Mandatory</description>
+    <errorConditionFormula>AND(NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+RecordType.DeveloperName = &quot;Account_Closure&quot;,
+IF(ISNEW(), ISBLANK(TEXT(Account_Product__c)), IF( (ISBLANK(TEXT(Account_Product__c)) &amp;&amp;  ISCHANGED(Account_Product__c )) ,TRUE,FALSE) ) )</errorConditionFormula>
+    <errorDisplayField>Account_Product__c</errorDisplayField>
+    <errorMessage>This field is required</errorMessage>
+</ValidationRule>

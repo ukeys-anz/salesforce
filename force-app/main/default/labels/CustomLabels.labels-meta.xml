@@ -15,11 +15,12 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
-        <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
+        <fullName>MS_SOP_Debt</fullName>
+        <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ANZX_ResidentialLoanApplication_event_ce_type</shortDescription>
-        <value>anzx.salesforce.broker.v1alpha1.retailplusapplication.</value>
+        <shortDescription>MS_SOP_Debt</shortDescription>
+        <value>/credit-assessment/v1/debts</value>
     </labels>
     <labels>
         <fullName>Broker_Staff_Issue_with_Valid_Owner_Id</fullName>
@@ -393,14 +394,6 @@
         <protected>false</protected>
         <shortDescription>MS_Income</shortDescription>
         <value>callout:SF_MS_CH2/credit-assessment/v1/incomes</value>
-    </labels>
-    <labels>
-        <fullName>MS_SOP_Debt</fullName>
-        <categories>MS</categories>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_SOP_Debt</shortDescription>
-        <value>/credit-assessment/v1/debts</value>
     </labels>
     <labels>
         <fullName>MS_Create_Party</fullName>
@@ -2363,6 +2356,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>[&quot;Contact Attempted&quot;, &quot;Call Back&quot;]</value>
     </labels>
     <labels>
+        <fullName>CCRM_INTERACTION_EVENT_CE_TYPE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_INTERACTION_EVENT_CE_TYPE</shortDescription>
+        <value>com.anzx.salesforce.interaction.v1alpha1.iteraction.ccrm_interaction.</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_CAP_DAIRY_EVENT_CE_TYPE</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_CAP_DAIRY_EVENT_CE_TYPE</shortDescription>
+        <value>com.anzx.salesforce.interaction.v1alpha1.interaction.cap_diarycomment.</value>
+    </labels>
+    <labels>
         <fullName>MS_ExportConsentDataIN_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2414,12 +2421,62 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>api/now/table/sn_risk_advanced_event?number=</value>
     </labels>
     <labels>
+        <fullName>MLCRM_Record_Creation_Error</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM_Record_Creation_Error</shortDescription>
+        <value>You do not have necessary permission to create this record.</value>
+    </labels>
+    <labels>
         <fullName>ValidateOwnerChange</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ValidateOwnerChange</shortDescription>
         <value>Unable to change Owner of this Record not owned by yourself.</value>
+    </labels>
+    <labels>
+        <fullName>MS_OnboardingUpload_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_OnboardingUpload_API</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/upload-document</value>
+    </labels>
+    <labels>
+        <fullName>DAONMaxPollingCount</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DAONMaxPollingCount</shortDescription>
+        <value>3</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_APIError_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Onboarding_APIError_Message</shortDescription>
+        <value>An error occurred while performing API callout. Please retry after some time.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_InsufficientAccess_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Onboarding_InsufficientAccess_Message</shortDescription>
+        <value>You don't have required permission to perform this action.</value>
+    </labels>
+    <labels>
+        <fullName>Onboarding_ServerError_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Onboarding_ServerError_Message</shortDescription>
+        <value>The server encountered an unexpected error. Please retry after some time.</value>
+    </labels>
+    <labels>
+        <fullName>MS_OnboardingUpdateStatus_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_OnboardingUpdateStatus_API</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/action-fallout</value>
     </labels>
     <labels>
         <fullName>S2AccountEnabled</fullName>

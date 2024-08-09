@@ -136,7 +136,7 @@ public class InteractionFetchPicklistValuesCallTest {
     List<Map<String, String>> dependencyOutput = (List<Map<String, String>>) outputResponse.get(
       'options'
     );
-    System.assertEquals(10, dependencyOutput.size(), 'Channel has 10 values');
+    System.assertEquals(11, dependencyOutput.size(), 'Channel has 11 values');
   }
 
   @IsTest

@@ -158,6 +158,14 @@
         </relatedContentItems>
     </relatedContent>
     <relatedLists>
+        <fields>Name</fields>
+        <fields>InteractionType</fields>
+        <fields>Category__c</fields>
+        <fields>Optional_Notes__c</fields>
+        <fields>StartTime</fields>
+        <relatedList>Interaction.Opportunity__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <excludeButtons>ChoosePricebook</excludeButtons>
         <fields>Product2</fields>
         <fields>Quantity</fields>
