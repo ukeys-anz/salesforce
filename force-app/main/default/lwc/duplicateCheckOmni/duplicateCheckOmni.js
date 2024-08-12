@@ -40,8 +40,8 @@ export default class DuplicateCheckOmni extends OmniscriptBaseMixin(
           ? (this.custNo = this.omniJsonData.Case.CustomerDetails.Customer)
           : (this.custNo = this.omniJsonData.Case.CustomerDetails.Customer1);
       const inputsForIP = {
-        customerIdentifier: this.omniJsonData.Case.CustomerDetails
-          .CustomerIdentifier,
+        customerIdentifier:
+          this.omniJsonData.Case.CustomerDetails.CustomerIdentifier,
         customerId: this.custNo
       };
 

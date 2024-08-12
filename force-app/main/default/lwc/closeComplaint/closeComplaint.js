@@ -431,19 +431,15 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
   validateFields() {
     this.closeFields[REAL_FORM_REQUIRED.fieldApiName] = this.isRealFormNeeded;
     this.closeFields[REAL_FORM_REF_NO.fieldApiName] = this.realFormRefNo;
-    this.closeFields[
-      COMMON_COMPLAINT.fieldApiName
-    ] = this.isCommonComplaintYesNo;
+    this.closeFields[COMMON_COMPLAINT.fieldApiName] =
+      this.isCommonComplaintYesNo;
     if (this.isCommonComplaint) {
-      this.closeFields[
-        SYSTEMIC_ISSUE_DESCRIPTION.fieldApiName
-      ] = this.systemicIssueDescription;
-      this.closeFields[
-        SYSTEMIC_ISSUE_CATEGORY.fieldApiName
-      ] = this.systemicIssueCategory;
-      this.closeFields[
-        POSSIBLE_SYSTEM_ISSUES.fieldApiName
-      ] = this.possibleSystemicIssues;
+      this.closeFields[SYSTEMIC_ISSUE_DESCRIPTION.fieldApiName] =
+        this.systemicIssueDescription;
+      this.closeFields[SYSTEMIC_ISSUE_CATEGORY.fieldApiName] =
+        this.systemicIssueCategory;
+      this.closeFields[POSSIBLE_SYSTEM_ISSUES.fieldApiName] =
+        this.possibleSystemicIssues;
     }
     this.errMsg = "Complete Required Fields:";
     let validToSave = true;

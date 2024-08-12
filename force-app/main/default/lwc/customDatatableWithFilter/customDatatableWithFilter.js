@@ -217,9 +217,8 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     if (data) {
       const recordTypeIds = data.recordTypeInfos;
 
-      this.recordTypeName = this.recordTypeNameDeveloperNameMap[
-        this.recordTypeDeveloperName
-      ];
+      this.recordTypeName =
+        this.recordTypeNameDeveloperNameMap[this.recordTypeDeveloperName];
 
       this.recordTypeId = Object.keys(recordTypeIds).find(
         (rti) => recordTypeIds[rti].name === this.recordTypeName

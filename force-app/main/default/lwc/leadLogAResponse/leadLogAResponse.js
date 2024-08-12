@@ -79,29 +79,32 @@ export default class LeadLogAResponse extends LightningElement {
       .then((result) => {
         this.leadResponseGuidanceMapping = JSON.parse(result);
         if (this.recordTypeName === MOBILE_LENDING_RECORDTYPE) {
-          this.conversationGuidanceURL = this.label.ML_ConversationGuideBody.replace(
-            "Max",
-            "<a href=" +
-              this.leadResponseGuidanceMapping.customerConversationGuideLink +
-              ' target="_blank">Max</a>'
-          );
+          this.conversationGuidanceURL =
+            this.label.ML_ConversationGuideBody.replace(
+              "Max",
+              "<a href=" +
+                this.leadResponseGuidanceMapping.customerConversationGuideLink +
+                ' target="_blank">Max</a>'
+            );
         } else if (this.recordTypeName === CCRM_RECORDTYPE) {
           this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody;
           if (
             this.leadResponseGuidanceMapping.campaignLeadsLink !== undefined &&
             this.leadResponseGuidanceMapping.campaignLeadsLink !== ""
           ) {
-            this.conversationGuidanceURL = this.label.CCRM_ConversationGuideBody.replace(
-              "Campaign Leads",
-              "<a href=" +
-                this.leadResponseGuidanceMapping.campaignLeadsLink +
-                ' target="_blank">Campaign Leads</a>'
-            ).replace(
-              "Customer Conversation Guides.",
-              "<a href=" +
-                this.leadResponseGuidanceMapping.customerConversationGuideLink +
-                ' target="_blank">Customer Conversation Guides.</a>'
-            );
+            this.conversationGuidanceURL =
+              this.label.CCRM_ConversationGuideBody.replace(
+                "Campaign Leads",
+                "<a href=" +
+                  this.leadResponseGuidanceMapping.campaignLeadsLink +
+                  ' target="_blank">Campaign Leads</a>'
+              ).replace(
+                "Customer Conversation Guides.",
+                "<a href=" +
+                  this.leadResponseGuidanceMapping
+                    .customerConversationGuideLink +
+                  ' target="_blank">Customer Conversation Guides.</a>'
+              );
           }
         }
       })
@@ -232,21 +235,26 @@ export default class LeadLogAResponse extends LightningElement {
                 this.dependentPicklistWrapper[key][subkey].Outcome_Reason__c
               ) {
                 options.push({
-                  label: this.dependentPicklistWrapper[key][subkey]
-                    .Outcome_Reason__c,
-                  value: this.dependentPicklistWrapper[key][subkey]
-                    .Outcome_Reason__c
+                  label:
+                    this.dependentPicklistWrapper[key][subkey]
+                      .Outcome_Reason__c,
+                  value:
+                    this.dependentPicklistWrapper[key][subkey].Outcome_Reason__c
                 });
                 this.outcomeReasonDetailMap.push({
-                  OutcomeReasonKey: this.dependentPicklistWrapper[key][subkey]
-                    .Outcome_Reason__c,
-                  FollowUpState: this.dependentPicklistWrapper[key][subkey]
-                    .Follow_Up_State__c,
+                  OutcomeReasonKey:
+                    this.dependentPicklistWrapper[key][subkey]
+                      .Outcome_Reason__c,
+                  FollowUpState:
+                    this.dependentPicklistWrapper[key][subkey]
+                      .Follow_Up_State__c,
                   ResponseTypeId: this.dependentPicklistWrapper[key][subkey].Id,
-                  CreateActivities: this.dependentPicklistWrapper[key][subkey]
-                    .Create_To_Do_Activities__c,
-                  CreateOpportunity: this.dependentPicklistWrapper[key][subkey]
-                    .Create_Opportunity__c
+                  CreateActivities:
+                    this.dependentPicklistWrapper[key][subkey]
+                      .Create_To_Do_Activities__c,
+                  CreateOpportunity:
+                    this.dependentPicklistWrapper[key][subkey]
+                      .Create_Opportunity__c
                 });
               }
             }
@@ -298,12 +306,10 @@ export default class LeadLogAResponse extends LightningElement {
               this.displayDueDate = false;
               this.autoCreateActivities = false;
             }
-            this.followUpDateState = this.outcomeReasonDetailMap[
-              key
-            ].FollowUpState;
-            this.selectedResponseTypeId = this.outcomeReasonDetailMap[
-              key
-            ].ResponseTypeId;
+            this.followUpDateState =
+              this.outcomeReasonDetailMap[key].FollowUpState;
+            this.selectedResponseTypeId =
+              this.outcomeReasonDetailMap[key].ResponseTypeId;
             whatsNextKey =
               this.selectedResponseStatusValue +
               (this.recordTypeName === MOBILE_LENDING_RECORDTYPE
@@ -316,9 +322,10 @@ export default class LeadLogAResponse extends LightningElement {
               this.leadResponseGuidanceMapping
                 .mapOfLeadStatusReasonAndNextDetail[whatsNextKey]
             ) {
-              this.whatHappensNextInfo = this.leadResponseGuidanceMapping.mapOfLeadStatusReasonAndNextDetail[
-                whatsNextKey
-              ];
+              this.whatHappensNextInfo =
+                this.leadResponseGuidanceMapping.mapOfLeadStatusReasonAndNextDetail[
+                  whatsNextKey
+                ];
               if (this.whatHappensNextInfo === "") {
                 this.showWhatHappensNext = false;
                 return;
@@ -340,9 +347,10 @@ export default class LeadLogAResponse extends LightningElement {
       }
       if (this.isMLRecordType) {
         // IF ML RT -> Update followUpDateDisable based on value of Response Status, irrespective of value of Outcome Reason
-        this.followUpDateDisable = !this.ML_LeadResponseToShowFollowUpDate.includes(
-          this.selectedResponseStatusValue
-        );
+        this.followUpDateDisable =
+          !this.ML_LeadResponseToShowFollowUpDate.includes(
+            this.selectedResponseStatusValue
+          );
         // if followUpDate is enabled then restore selected Follow up date
         if (!this.followUpDateDisable) {
           this.selectedFollowUpDateValue = currentFollowupDate;
@@ -373,14 +381,14 @@ export default class LeadLogAResponse extends LightningElement {
       this.showLeadQuality
       ? this.template.querySelector(".leadQuality").reportValidity()
       : true &&
-        this.template.querySelector(".outcomeReason").reportValidity() &&
-        this.template.querySelector(".comment").reportValidity() &&
-        this.autoCreateActivities &&
-        this.selectedResponseStatusValue === "Accepted"
-      ? this.template.querySelector(".dueDate").reportValidity()
-      : this.template.querySelector(".followUpDate") != null
-      ? this.template.querySelector(".followUpDate").reportValidity()
-      : true;
+          this.template.querySelector(".outcomeReason").reportValidity() &&
+          this.template.querySelector(".comment").reportValidity() &&
+          this.autoCreateActivities &&
+          this.selectedResponseStatusValue === "Accepted"
+        ? this.template.querySelector(".dueDate").reportValidity()
+        : this.template.querySelector(".followUpDate") != null
+          ? this.template.querySelector(".followUpDate").reportValidity()
+          : true;
   }
 
   submitResponse() {

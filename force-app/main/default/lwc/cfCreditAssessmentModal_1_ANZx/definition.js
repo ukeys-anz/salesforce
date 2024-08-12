@@ -312,8 +312,7 @@ let definition = {
                   },
                   children: [
                     {
-                      key:
-                        "element_element_element_block_0_0_block_1_0_outputField_0_0",
+                      key: "element_element_element_block_0_0_block_1_0_outputField_0_0",
                       name: "Field",
                       element: "outputField",
                       size: { isResponsive: false, default: "2" },
@@ -355,8 +354,7 @@ let definition = {
                       },
                       elementLabel: "Category_title",
                       userUpdatedElementLabel: true,
-                      key:
-                        "element_element_element_block_0_0_block_1_0_outputField_1_0",
+                      key: "element_element_element_block_0_0_block_1_0_outputField_1_0",
                       parentElementKey: "element_element_block_0_0_block_1_0"
                     },
                     {
@@ -379,8 +377,7 @@ let definition = {
                       },
                       elementLabel: "Description_title",
                       userUpdatedElementLabel: true,
-                      key:
-                        "element_element_element_block_0_0_block_1_0_outputField_2_0",
+                      key: "element_element_element_block_0_0_block_1_0_outputField_2_0",
                       parentElementKey: "element_element_block_0_0_block_1_0"
                     },
                     {
@@ -404,8 +401,7 @@ let definition = {
                       },
                       elementLabel: "Guidance_title",
                       userUpdatedElementLabel: true,
-                      key:
-                        "element_element_element_block_0_0_block_1_0_outputField_3_0",
+                      key: "element_element_element_block_0_0_block_1_0_outputField_3_0",
                       parentElementKey: "element_element_block_0_0_block_1_0"
                     }
                   ],
@@ -513,8 +509,7 @@ let definition = {
                       },
                       elementLabel: "Reason-Code_value",
                       userUpdatedElementLabel: true,
-                      key:
-                        "element_element_element_block_0_0_block_2_0_outputField_0_0",
+                      key: "element_element_element_block_0_0_block_2_0_outputField_0_0",
                       parentElementKey: "element_element_block_0_0_block_2_0"
                     },
                     {
@@ -536,8 +531,7 @@ let definition = {
                       },
                       elementLabel: "Category_value",
                       userUpdatedElementLabel: true,
-                      key:
-                        "element_element_element_block_0_0_block_2_0_outputField_1_0",
+                      key: "element_element_element_block_0_0_block_2_0_outputField_1_0",
                       parentElementKey: "element_element_block_0_0_block_2_0"
                     },
                     {
@@ -559,8 +553,7 @@ let definition = {
                       },
                       elementLabel: "Description_value",
                       userUpdatedElementLabel: true,
-                      key:
-                        "element_element_element_block_0_0_block_2_0_outputField_2_0",
+                      key: "element_element_element_block_0_0_block_2_0_outputField_2_0",
                       parentElementKey: "element_element_block_0_0_block_2_0"
                     },
                     {
@@ -641,8 +634,7 @@ let definition = {
                           draggable: false
                         }
                       ],
-                      key:
-                        "element_element_element_block_0_0_block_2_0_outputField_3_0",
+                      key: "element_element_element_block_0_0_block_2_0_outputField_3_0",
                       parentElementKey: "element_element_block_0_0_block_2_0"
                     }
                   ],
@@ -795,8 +787,7 @@ let definition = {
                     customLwcData: {
                       attributes: {
                         type: "LightningComponentBundle",
-                        url:
-                          "/services/data/v46.0/tooling/sobjects/LightningComponentBundle/0RbBm0000003g7ZKAQ"
+                        url: "/services/data/v46.0/tooling/sobjects/LightningComponentBundle/0RbBm0000003g7ZKAQ"
                       },
                       MasterLabel: "accordion",
                       IsExposed: true,
@@ -1232,8 +1223,7 @@ let definition = {
     value: {
       dsDelay: "",
       resultVar: '["resp"]',
-      body:
-        '{\n  "resp": [\n    { "value": "Resolved - Spoke with customer: Estimate unchanged" },\n    { "value": "Rejected - Explanation unacceptable" },\n    { "value": "Resolved - Spoke with customer: Estimate updated" }\n  ]\n}\n'
+      body: '{\n  "resp": [\n    { "value": "Resolved - Spoke with customer: Estimate unchanged" },\n    { "value": "Rejected - Explanation unacceptable" },\n    { "value": "Resolved - Spoke with customer: Estimate updated" }\n  ]\n}\n'
     },
     orderBy: { name: "", isReverse: "" },
     contextVariables: []
