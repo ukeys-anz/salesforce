@@ -2,8 +2,9 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Party_ID__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Loan_Domain</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy_Non_Personal_Information;Source - Loan Domain</complianceGroup>
     <description>OCV id of the applicant consumed from the loan domain</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Party ID</label>
     <length>255</length>

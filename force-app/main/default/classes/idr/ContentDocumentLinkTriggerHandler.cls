@@ -193,24 +193,20 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       //insert Assignment Tasks on New File Attached
       IDRTaskActions.insertAssignmentTask(assiTasks);
     }
-    try {
-      if (!caseCommentList.isEmpty()) {
-        insert caseCommentList;
-      }
-    } catch (Exception err) {
-      Logger.error(
-        'Error in creating Case Comment when attachment is added for the existing Case :' +
-          oCase.Id +
-          err.getMessage(),
-        err
-      );
-      Logger.saveLog();
+
+    if (caseCommentList.isEmpty() && mpUpdateCases.isEmpty()) {
+      return;
     }
-    if (
-      mpUpdateCases.size() > 0 && Case.SObjectType.getDescribe().isUpdateable()
-    ) {
-      update mpUpdateCases.values();
-    }
+    DMLUtil.insertRecords(
+      caseCommentList,
+      DMLUtil.ALL_OR_NOTHING,
+      DMLUtil.SYSTEM_MODE
+    );
+    DMLUtil.updateRecords(
+      mpUpdateCases.values(),
+      DMLUtil.ALL_OR_NOTHING,
+      DMLUtil.SYSTEM_MODE
+    );
   }
 
   /**
