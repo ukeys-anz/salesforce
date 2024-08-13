@@ -89,12 +89,14 @@ jobs:
 
           # run sfdx docs:fieldsaccessdiff
           for object in $changed_objects; do
-          ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -o $object -f output -u deploy.user@anz.com.au
+          ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object -f output -u deploy.user@anz.com.au
           done
 
           # zip the files
           short_sha=$(echo "${{ github.sha }}" | cut -c1-7)
           zip -r "$short_sha_${{ github.run_id }}" output
+
+          ls -la
 
       #  Login to registry
       - name: "Registry Authentication"
