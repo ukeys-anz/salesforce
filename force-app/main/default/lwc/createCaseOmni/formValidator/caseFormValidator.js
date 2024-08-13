@@ -10,9 +10,10 @@ const CLOSED_STATUS = "Closed",
   CUSTOMER_AGREES = "Yes",
   CUSTOMER_DISAGREES = "No";
 
-let itype, subtype, missingFields, caseDetails;
+var itype, subtype, missingFields, caseDetails, omniData;
 // Validate all Required Fields for Customer/Non-Customer Complaints
 export async function validate(omniJsonData) {
+  omniData = omniJsonData;
   caseDetails = omniJsonData.Case;
   missingFields = [];
   await validateCustomerComplaint(omniJsonData);
@@ -22,12 +23,39 @@ export async function validate(omniJsonData) {
 
   return missingFields;
 }
+
+//  Validate Customer Number
+export async function getCustomerNumberValidationMsg(
+  omniJsonData,
+  missingFields
+) {
+  let modalMsg =
+    "Please complete all required fields: " + missingFields.join(", ");
+  if (
+    omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+    !omniJsonData.Case.CustomerDetails.Customer &&
+    omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID" &&
+    !omniJsonData.isEligibleProfileForLookUp
+  ) {
+    modalMsg +=
+      "<br><br>Customer number must be numbers and atleast 10 digits long.";
+  }
+  if (
+    omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+    omniJsonData.Response === false
+  ) {
+    modalMsg +=
+      "<br><br>Customer number is not valid or has not been validated, check the number and try again.";
+  }
+  return modalMsg;
+}
+
 //  Validate Required fields for Customer Complaint
 async function validateCustomerComplaint(omniJsonData) {
   if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
     checkCustomerIdentifier(caseDetails.CustomerDetails);
+    checkAccountLookup(omniJsonData);
     checkFields(caseDetails.CustomerDetails, omniJsonData.custMap);
-    
 
     checkCommonValidations(
       caseDetails.ComplaintDetails,
@@ -35,10 +63,12 @@ async function validateCustomerComplaint(omniJsonData) {
       omniJsonData
     );
   }
-
 }
 //  Validate Customer Number Identifier
 function checkCustomerIdentifier(customerDetails) {
+  if (omniData.isEligibleProfileForLookUp) {
+    return;
+  }
   if (
     customerDetails.CustomerIdentifier === "CACHE ID" &&
     !customerDetails.Customer1
@@ -50,6 +80,15 @@ function checkCustomerIdentifier(customerDetails) {
     !customerDetails.Customer
   ) {
     missingFields.push("Customer Number");
+  }
+}
+//Validate Account Lookup
+function checkAccountLookup(omniJsonData) {
+  debugger;
+  console.log("TESTING-->" + caseDetails.AccountId);
+  debugger;
+  if (omniJsonData.isEligibleProfileForLookUp && !caseDetails.AccountId) {
+    missingFields.push("Customer Name");
   }
 }
 //  Validate Required fields for Non-Customer Complaint
@@ -103,13 +142,8 @@ function checkCommonValidations(Complaintdetails, caseDetails, omniJsonData) {
   if (caseDetails.CustomerDetails.thirdPartyRepCheckbox === CUSTOMER_AGREES) {
     checkFields(caseDetails.CustomerDetails, omniJsonData.thirdPartyMap);
   }
-  
-  checkForAccountPolicyNumber(
-    Complaintdetails,
-    cmpMap,
-    "1",
-    caseDetails
-  );
+
+  checkForAccountPolicyNumber(Complaintdetails, cmpMap, "1", caseDetails);
 
   if (Complaintdetails.Issue2Checkbox === CUSTOMER_AGREES) {
     let secCmpMap = JSON.parse(JSON.stringify(omniJsonData.secCmpMap));
@@ -128,7 +162,6 @@ function checkCommonValidations(Complaintdetails, caseDetails, omniJsonData) {
     itype = Complaintdetails.IssueType3;
     subtype = Complaintdetails.SubsequentIssueType3;
   }
- 
 }
 // Validate Accout Policy fields
 function checkForAccountPolicyNumber(
@@ -138,22 +171,21 @@ function checkForAccountPolicyNumber(
   caseDetails
 ) {
   if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
-    if(issueNumber ==="1") {
+    if (issueNumber === "1") {
       issueMap.push({
-        AccountPolicyNumber: "Account/Policy Number" 
+        AccountPolicyNumber: "Account/Policy Number"
       });
     }
     if (issueNumber === "2") {
       issueMap.push({
         AccountPolicyNumber2: "Account/Policy Number " + issueNumber
       });
-    } 
+    }
     if (issueNumber === "3") {
       issueMap.push({
         AccountPolicyNumber3: "Account/Policy Number " + issueNumber
       });
-    } 
-   
+    }
   }
   checkFields(details, issueMap);
 }
