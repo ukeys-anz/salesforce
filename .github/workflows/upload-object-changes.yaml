@@ -1,5 +1,5 @@
 # This workflow syncs object changes to gcs buckets
-name: Create docs
+name: Upload Object Changes
 
 on:
   pull_request:
