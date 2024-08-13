@@ -2,11 +2,11 @@
 name: Upload Object Changes
 
 on:
-  pull_request:
-    paths:
-      - "./force-app/main/default/objects/**"
-    branches:
-      - develop
+  # pull_request:
+  #   paths:
+  #     - "./force-app/main/default/objects/**"
+  #   branches:
+  #     - develop
   push:
     branches:
       - pipeline-for-schema-*
