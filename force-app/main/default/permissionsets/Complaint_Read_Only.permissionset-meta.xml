@@ -378,6 +378,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IDR_Date_Case_on_Hold_From__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IDR_Date_Re_Opened__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -46,6 +46,20 @@ private with sharing class IDRCaseActionsHelperTest {
     Status = IDRConstants.UNDER_INVESTIGATION_STATUS
   );
 
+  /**
+   * @description Generating PendTask for testing
+   * @return Task
+   */
+  public static Task generatePendTask() {
+    Task taskRecord = new Task(
+      Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      Status = IDRConstants.OPEN_STATUS,
+      RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+      Type = IDRConstants.TASK_TYPE_PEND_CASE
+    );
+    return taskRecord;
+  }
+
   @isTest
   static void testHardshipUpdateDateTimeFlagUpdated() {
     Id caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
@@ -235,13 +249,8 @@ private with sharing class IDRCaseActionsHelperTest {
 
   @isTest
   static void testSetTaskStatustoCompleted() {
-    registerMocks();
-    Case testCase1 = caseRecord1;
-
-    Task taskRecord = testCase1.Tasks[0];
-    taskRecord.WhatId = testCase1.Id;
-
-    caseRepoMock.mock('queryPendTasks', new List<Task>{ taskRecord });
+    Task taskRecord = generatePendTask();
+    taskRecord.Status = IDRConstants.TASK_STATUS_COMPLETED;
 
     Test.startTest();
     List<Task> tasks = IDRCaseActionsHelper.setTaskstatustoCompleted(

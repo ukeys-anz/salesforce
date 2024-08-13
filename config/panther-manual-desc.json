@@ -2901,7 +2901,8 @@
         "Loan_Applicant_Group__c",
         "Party_ID__c",
         "Name",
-        "Application_Number__c"
+        "Application_Number__c",
+        "LoanApplicationId"
       ],
       "IA-2415720": ["Customer_Number__c"],
       "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
