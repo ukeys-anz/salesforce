@@ -62,12 +62,6 @@ jobs:
           rm -rf node_modules && yarn install --frozen-lockfile
         shell: bash
 
-      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
-        id: "authenticate-harness-delegate"
-        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
-        with:
-          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
-
       - name: SFDXURL
         id: secrets
         uses: google-github-actions/get-secretmanager-secrets@main
