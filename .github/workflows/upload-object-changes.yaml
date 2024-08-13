@@ -87,9 +87,10 @@ jobs:
 
           echo "changed_objects=$changed_objects"
 
-          # run sfdx docs:fieldsaccessdiff
+          # run plugin docs:fieldsaccessdiff
           for object in $changed_objects; do
-          ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object -f output -u deploy.user@anz.com.au
+            ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
+                -f output --sfdxurlfile=./SFDX_URL_STAGING.txt
           done
 
           # zip the files
