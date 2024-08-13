@@ -3,9 +3,12 @@
     <fullName>CCRM_Restrict_Diary_Comment_From_Opp</fullName>
     <active>true</active>
     <description>Restricts creation/updation of CAP Diary Comment Type Interaction From Opportunity</description>
-    <errorConditionFormula>AND(RecordType.DeveloperName = &quot;CCRM_Interaction&quot;, 
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+$Profile.Name = &apos;ANZ CCRM Standard User&apos;,
+RecordType.DeveloperName = &quot;CCRM_Interaction&quot;, 
 NOT(ISBLANK( Opportunity__c)), 
-ISBLANK(AccountId),
-ISPICKVAL( Category__c ,&apos;CAP Diary Comments&apos;))</errorConditionFormula>
-    <errorMessage>You cannot create CAP Diary comment from Opportunity.</errorMessage>
+ISPICKVAL(Category__c ,&apos;CAP Diary Comments&apos;)
+)</errorConditionFormula>
+    <errorMessage>You cannot create CAP diary comment from opportunity or update interaction type to CAP diary comment.</errorMessage>
 </ValidationRule>

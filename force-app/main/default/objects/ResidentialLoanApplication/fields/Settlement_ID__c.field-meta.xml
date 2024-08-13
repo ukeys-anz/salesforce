@@ -3,8 +3,9 @@
     <fullName>Settlement_ID__c</fullName>
     <businessStatus>Active</businessStatus>
     <caseSensitive>false</caseSensitive>
-    <complianceGroup>Integrity_Trusted;;Source_Loan_Domain</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy_Non_Personal_Information;Source - Loan Domain</complianceGroup>
     <description>Settlement ID from loan domain</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>true</externalId>
     <label>Settlement ID</label>
     <length>255</length>

@@ -108,13 +108,12 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
    */
   public boolean consentReceived {
     get {
-      boolean value = true;
       for (SOPDebtSources source : liabilitiesSummary.sources) {
-        if (source.loadBureauLiabilitiesState != BUREAU_STATE_COMPLETE) {
-          return false;
+        if (source.loadBureauLiabilitiesState == BUREAU_STATE_COMPLETE) {
+          return true;
         }
       }
-      return true;
+      return false;
     }
   }
   /**

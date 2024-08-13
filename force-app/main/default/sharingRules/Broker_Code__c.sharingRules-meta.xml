@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingCriteriaRules>
+        <fullName>RBM_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>To grant RBM users read only access to broker codes</description>
+        <label>RBM Read Only</label>
+        <sharedTo>
+            <role>Residential_Broker_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value/>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+</SharingRules>

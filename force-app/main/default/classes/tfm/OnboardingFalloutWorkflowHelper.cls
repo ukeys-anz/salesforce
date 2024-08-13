@@ -21,7 +21,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     Case caseRecord
   ) {
     OnboardingWorkflowWrapper workflowDetails = new OnboardingWorkflowWrapper();
-    if(caseRecord == null) {
+    if (caseRecord == null) {
       return workflowDetails;
     }
     List<String> statusValues = new List<String>{
@@ -42,8 +42,8 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     }
 
     workflowDetails.showRedBorder = caseRecord.Subject.contains(
-        TFMConstants.FAILED_DOC
-      );
+      TFMConstants.FAILED_DOC
+    );
     workflowDetails.cobPIDRecordId = cobPIDRecord.Id;
     workflowDetails.caseId = caseRecord.Id;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
@@ -130,9 +130,9 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     fileData.uuid = '';
     fileData.isImageNotFound = false;
     fileData.isImageDraft = (cvRecord != null &&
-      cvRecord.Document_Flag__c == '1');
+    cvRecord.Document_Flag__c == '1');
     fileData.isImageFinalVersion = (cvRecord != null &&
-      cvRecord.Document_Flag__c == '4');
+    cvRecord.Document_Flag__c == '4');
     fileData.stopSpinner = false;
     fileData.imageURL = (cvRecord != null &&
       cvRecord.Document_Flag__c == '4')
@@ -159,21 +159,24 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     OnboardingWorkflowWrapper workflowDetails,
     List<ContentVersion> cvList
   ) {
-    Map<String, String> fileTypeByUUID = new Map<String, String> {
+    Map<String, String> fileTypeByUUID = new Map<String, String>{
       'DAON_FILE_TYPE_FRONT_UNPROCESSED' => workflowDetails.frontUnprocessedId,
       'DAON_FILE_TYPE_FRONT_PROCESSED' => workflowDetails.frontProcessedId,
       'DAON_FILE_TYPE_EXTRACTED_FACE' => workflowDetails.extractedFaceId,
       'DAON_FILE_TYPE_SELFIE' => workflowDetails.selfieImageId,
       'DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED' => workflowDetails.selfieToBeVerifiedId
     };
-    
+
     List<OnboardingWorkflowWrapper.FileTypes> filesList = new List<OnboardingWorkflowWrapper.FileTypes>();
     List<String> temporaryFilesList = new List<String>();
 
     for (ContentVersion cv : cvList) {
       OnboardingWorkflowWrapper.FileTypes fileData = formFileTypeData(cv);
       for (String type : fileTypeByUUID.keySet()) {
-        if (fileData.fileType != type && fileData.uuid != fileTypeByUUID.get(type)) {
+        if (
+          fileData.fileType != type &&
+          fileData.uuid != fileTypeByUUID.get(type)
+        ) {
           continue;
         }
         if (cv.Document_Flag__c == '4') {
@@ -193,7 +196,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
         temporaryFilesList
       )
     );
-    
+
     return filesList;
   }
 
@@ -203,7 +206,11 @@ public with sharing class OnboardingFalloutWorkflowHelper {
    * @param fileData fileData node
    * @param workflowDetails wrapper details
    **/
-  public static void loadData(String type, OnboardingWorkflowWrapper.FileTypes fileData, OnboardingWorkflowWrapper workflowDetails) {
+  public static void loadData(
+    String type,
+    OnboardingWorkflowWrapper.FileTypes fileData,
+    OnboardingWorkflowWrapper workflowDetails
+  ) {
     switch on type {
       when 'DAON_FILE_TYPE_FRONT_UNPROCESSED' {
         workflowDetails.unProcessedImageData = fileData;
@@ -218,7 +225,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
         workflowDetails.selfieData = fileData;
       }
       when 'DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED' {
-        if(String.isNotBlank(workflowDetails.idxRegistrationChallengeId)) {
+        if (String.isNotBlank(workflowDetails.idxRequestId)) {
           workflowDetails.extractedFaceData = fileData;
         }
       }
@@ -239,7 +246,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       if (!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) {
         continue;
       }
-      
+
       OnboardingRequestModel ob = new OnboardingRequestModel();
       ob.requester_sf_id = UserInfo.getUserId();
       OnboardingRequestModel.DAONFile daonFileNode = formRequestBody(
@@ -250,7 +257,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       ob.daon_file = daonFileNode;
       daonList.add(ob);
     }
-
     return daonList;
   }
 
@@ -262,7 +268,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
   public static OnboardingRequestModel.PinRecoveryChallenge getPinWorkflowData(
     OnboardingWorkflowWrapper workflowDetails
   ) {
-    OnboardingRequestModel.DAONFile daonFileData = new OnboardingRequestModel.DAONFile();
     OnboardingRequestModel.PinRecoveryChallenge pinRecChallenge = new OnboardingRequestModel.PinRecoveryChallenge();
     pinRecChallenge.idx_challenge_id = workflowDetails.idxRegistrationChallengeId;
     return pinRecChallenge;
@@ -276,30 +281,9 @@ public with sharing class OnboardingFalloutWorkflowHelper {
   public static OnboardingRequestModel.SelfieRecoveryChallenge getSelfieWorkflowData(
     OnboardingWorkflowWrapper workflowDetails
   ) {
-    OnboardingRequestModel.DAONFile daonFileData = new OnboardingRequestModel.DAONFile();
     OnboardingRequestModel.SelfieRecoveryChallenge selfieRecChallenge = new OnboardingRequestModel.SelfieRecoveryChallenge();
     selfieRecChallenge.idx_challenge_type = workflowDetails.idxChallengeType;
-    selfieRecChallenge.idx_challenge_id = getChallengeIdForSelfie(
-      workflowDetails
-    );
+    selfieRecChallenge.idx_challenge_id = workflowDetails.idxRequestId;
     return selfieRecChallenge;
-  }
-
-  /**
-   * @description get challengeIdForSelfie
-   * @param workflowDetails wrapper details
-   * @return OnboardingRequestModel.DAONFiles inner wrapper with details filled
-   **/
-  public static String getChallengeIdForSelfie(
-    OnboardingWorkflowWrapper workflowDetails
-  ) {
-    Map<String, String> getChallengeIdVsType = new Map<String, String>{
-       TFMConstants.SELFIE_RECOVERY_CHALLENGE_TYPE => workflowDetails.idxRegistrationChallengeId,
-       TFMConstants.SELFIE_RECOVERY_AUTH_REQUEST => workflowDetails.idxAuthenticationRequestId
-    };
-    if (!getChallengeIdVsType.containsKey(workflowDetails.idxChallengeType)) {
-       return TFMConstants.EMPTY;
-    }
-    return getChallengeIdVsType.get(workflowDetails.idxChallengeType);
   }
 }

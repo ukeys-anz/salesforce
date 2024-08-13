@@ -190,6 +190,16 @@
     </customMetadataTypeAccesses>
     <description>Baseline pset for using the AR&amp;C Commercial CRM app. </description>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Banker_LAN_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Banker_Salary_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>A_Z_Review__c.Borrowing_OFI_Relationship__c</field>
         <readable>true</readable>
@@ -200,8 +210,23 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.CLG_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>A_Z_Review__c.Completed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Customer_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -222,6 +247,21 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>A_Z_Review__c.Personal_Banking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Review_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Segment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Source_System_Identifier__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4502,6 +4542,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__FinancialAccountTransaction__c.FinServ__WaiverReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Branch_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Product_Code_Display__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
