@@ -1625,7 +1625,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard7</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1635,6 +1635,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Support_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
