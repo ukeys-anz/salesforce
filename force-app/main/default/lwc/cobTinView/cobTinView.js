@@ -41,8 +41,8 @@ export default class CobTinView extends LightningElement {
     try {
       const cobTaxResidency = {
         PersonaId__c: this.taxResidencyRecord.fields.PersonaId__c.value,
-        TaxIdentificationNumber__c: this.taxResidencyRecord.fields
-          .TaxIdentificationNumber__c.value
+        TaxIdentificationNumber__c:
+          this.taxResidencyRecord.fields.TaxIdentificationNumber__c.value
       };
 
       let detokenizedTin =

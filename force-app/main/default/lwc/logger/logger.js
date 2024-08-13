@@ -151,9 +151,8 @@ export default class Logger extends LightningElement {
   }
 
   _meetsUserLoggingLevel(logEntryLoggingLevel) {
-    let logEntryLoggingLevelOrdinal = this.settings.supportedLoggingLevels[
-      logEntryLoggingLevel
-    ];
+    let logEntryLoggingLevelOrdinal =
+      this.settings.supportedLoggingLevels[logEntryLoggingLevel];
     return (
       this.settings &&
       this.settings.userLoggingLevel.ordinal <= logEntryLoggingLevelOrdinal

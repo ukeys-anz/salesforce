@@ -174,12 +174,9 @@ public with sharing class COBCaseStatusPathController {
   ) {
     cobCase.Status = currentStatus;
     cobCase.OnboardingVerificationFailedReason__c = '';
-    if (String.isBlank(errorMessage)) {
-      errorMessage = CALLOUT_ERROR;
-    }
-    cobCase.Status_Update_Error__c = errorMessage.length() <= 255
+    cobCase.Status_Update_Error__c = String.isNotBlank(errorMessage)
       ? errorMessage
-      : errorMessage.substring(0, 255);
+      : CALLOUT_ERROR;
   }
 
   /**
