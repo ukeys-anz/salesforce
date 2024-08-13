@@ -89,7 +89,7 @@ jobs:
 
           # run sfdx docs:fieldsaccessdiff
           for object in $changed_objects; do
-            npx sfdx doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -o $object -f output -u deploy.user@anz.com.au
+          ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -o $object -f output -u deploy.user@anz.com.au
           done
 
           # zip the files
