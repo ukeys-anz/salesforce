@@ -127,12 +127,14 @@ public with sharing class StravinskyController {
     String primaryOwner = caseRecord.AccountId;
     String ownershipType = GetHelpConstants.SINGLE;
     String savings02 = GetHelpConstants.S2_ACCOUNT_MARKETING_CODE;
+    Set<String> anzxRecordTypes = GetHelpConstants.anzxFinancialAccountRecordTypes;
 
     String financialAccountQuery =
       'SELECT Id, FinServ__FinancialAccountNumber__c, Ownership__c, OCV_ID__c, Marketing_Code__c, RecordType.DeveloperName' +
       ' FROM FinServ__FinancialAccount__c ' +
       ' WHERE FinServ__PrimaryOwner__c =:primaryOwner' +
-      ' AND Ownership__c =:ownershipType';
+      ' AND Ownership__c =:ownershipType' +
+      ' AND RecordType.DeveloperName IN :anzxRecordTypes';
 
     if (StravinskyAPIRepository.isS2ProductOnCase(caseRecord)) {
       financialAccountQuery += ' AND Marketing_Code__c =: savings02';
@@ -153,8 +155,7 @@ public with sharing class StravinskyController {
         FinServ__RelatedAccount__r.OCV_ID__c = :caseRecord.Account.OCV_Id__c
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Ownership__c = :GetHelpConstants.MULTI_PARTY
-        AND (FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-        OR FinServ__FinancialAccount__r.RecordType.DeveloperName = :GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME)
+        AND FinServ__FinancialAccount__r.RecordType.DeveloperName IN :GetHelpConstants.anzxFinancialAccountRecordTypes
     ];
   }
 

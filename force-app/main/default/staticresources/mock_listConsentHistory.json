@@ -16,7 +16,8 @@
         "CLAIM_KEY_EMAIL",
         "CLAIM_KEY_ADDRESS",
         "CLAIM_KEY_BIRTHDATE",
-        "CLAIM_KEY_OVER_25"
+        "CLAIM_KEY_OVER_25",
+        "CLAIM_KEY_BENEFICIARY_ACCOUNT_AU"
       ],
       "createdTime": "2023-11-23T23:56:48.553866Z"
     },
@@ -31,11 +32,21 @@
       "createdTime": "2023-12-06T02:30:10.756457Z"
     },
     {
+      "txn": "f3f38718-af1f-4c75-a4a6-21ac30c5db26",
+      "relyingParty": {
+        "displayName": "Woolworths",
+        "logoUri": "https://seeklogo.com/images/W/woolworths-logo-5ECC79D97C-seeklogo.com.png"
+      },
+      "purpose": "Verifying An Account",
+      "createdTime": "2022-09-30T02:30:10.756457Z"
+    },
+    {
       "claims": [
         "CLAIM_KEY_GIVEN_NAME",
         "CLAIM_KEY_FAMILY_NAME",
         "CLAIM_KEY_BIRTHDATE",
-        "CLAIM_KEY_OVER_18"
+        "CLAIM_KEY_OVER_18",
+        "CLAIM_KEY_BENEFICIARY_ACCOUNT_AU"
       ],
       "purpose": "Opening An Account",
       "createdTime": "2023-11-16T04:50:53.122729Z",
@@ -44,8 +55,17 @@
         "logoUri": "https://edgmedia.bws.com.au/bws/media/assets/backgrounds/icon2.png"
       },
       "txn": "2597d849-6b74-4310-9824-bc0030551ab3"
+    },
+    {
+      "txn": "56ab270c-3099-42c1-aa61-624d13565bfd",
+      "relyingParty": {
+        "displayName": "Bupa",
+        "logoUri": "https://www.bupa.com.au/corporate/forms/corporate-subsidies/-/media/project/common/logo-bupa.ashx"
+      },
+      "purpose": "Automatic Bill Payment",
+      "createdTime": "2024-01-29T02:30:10.756457Z"
     }
   ],
-  "count": "3",
-  "total": "3"
+  "count": "5",
+  "total": "5"
 }
