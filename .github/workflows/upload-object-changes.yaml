@@ -1,4 +1,4 @@
-# This workflow syncs object changes to gcs buckets
+# Currently under development. This workflow syncs object changes to gcs buckets.
 name: Upload Object Changes
 
 on:
@@ -9,7 +9,7 @@ on:
   #     - develop
   push:
     branches:
-      - pipeline-for-schema-*
+      - workflow-for-bq-schema-*
 
 permissions:
   contents: "read"
