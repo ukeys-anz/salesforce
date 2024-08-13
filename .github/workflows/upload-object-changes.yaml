@@ -13,8 +13,8 @@ permissions:
   id-token: "write"
 
 jobs:
-  create_docs:
-    runs-on: [self-hosted, salesforce-prod]
+  validate_object_changes:
+    runs-on: [self-hosted, cd-ubuntu-s-prod]
     steps:
       - uses: actions/setup-node@v2.1.5
         with:
