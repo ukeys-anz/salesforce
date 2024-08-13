@@ -78,17 +78,23 @@ jobs:
 
       - name: Get objects with new fields and fieldsaccessdiff
         working-directory: salesforce
+        shell: bash
         run: |
           # Get all objects
           directory_path=./force-app/main/default/objects
           changed_objects=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} HEAD -- "$directory_path" \
-                                       | grep -v '/fields/' \
-                                       | cut -d '/' -f 6 | sort | uniq)
+                                | grep '/fields/' | cut -d '/' -f 5 | sort | uniq)
 
-          echo $changed_objects
+          echo "changed_objects=$changed_objects"
 
           # run sfdx docs:fieldsaccessdiff
+          for object in $changed_objects; do
+            npx sfdx doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -o $object -f output -u deploy.user@anz.com.au
+          done
+
           # zip the files
+          short_sha=$(echo "${{ github.sha }}" | cut -c1-7)
+          zip -r "$short_sha_${{ github.run_id }}" output
 
       #  Login to registry
       - name: "Registry Authentication"
