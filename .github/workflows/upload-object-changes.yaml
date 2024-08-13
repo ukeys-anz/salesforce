@@ -9,12 +9,12 @@ on:
       - epic/upload-object-changes-workflow
 
 permissions:
-  contents: "read"
+  contents: "write"
   id-token: "write"
 
 jobs:
   validate_object_changes:
-    runs-on: [self-hosted, cd-ubuntu-s-prod]
+    runs-on: [self-hosted, salesforce-prod]
     steps:
       - uses: actions/setup-node@v2.1.5
         with:
