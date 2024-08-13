@@ -2,7 +2,7 @@
  * @description       : LWC Controller for manageOpsWorkflowApproval & manageOpsWorkflowReject
  * @author            : Anuj Jain
  * @group             :
- * @last modified on  : 07-31-2024
+ * @last modified on  : 08-09-2024
  **/
 @SuppressWarnings('PMD.LocalVariableNamingConventions')
 public with sharing class ManageOpsWorkflowActionController {
@@ -30,42 +30,50 @@ public with sharing class ManageOpsWorkflowActionController {
 
   /**
    * @description update Case Status using Ribbon flow, perform API call, case comments creation & update PID
-   * @param idValue idValue
    * @param manageOpsRequest ManageOpsWorkflowRequestModel manageOpsRequest coming from LWC as a string
-   * @param cobId COBPrimaryIDDocument__c record Id
-   * @param status status from LWC
-   * @param failedReason failedReason value from LWC
+   * @param updateStatusPayloads ManageOpsWorkflowUpdateStatusModel details wrapper
    * @return Map<String, String> status & response message map
    **/
   @AuraEnabled
   public static Map<String, String> updateCaseStatusOnboarding(
-    String idValue,
     ManageOpsWorkflowRequestModel manageOpsRequest,
-    String cobId,
-    String status,
-    String failedReason
+    ManageOpsWorkflowUpdateStatusModel updateStatusPayloads
   ) {
     Map<String, String> response = new Map<String, String>();
     Boolean isRibbionFlowSuccess = false;
     String failedMessage;
 
     COBPrimaryIDDocument__c cobPidRecords = WORKFLOW_REPOSITORY.getCOBPIDRecord(
-      cobId
+      updateStatusPayloads.cobId
     );
     Case caseRec = WORKFLOW_REPOSITORY.getCaseRecord(manageOpsRequest.case_id);
     Case caseRecords = getUpdateCaseInstance(caseRec);
-    if (status != POTENTIALFRAUD) {
-      response = makeAegisCalloutForOnboarding(manageOpsRequest, idValue);
+    if (updateStatusPayloads.status != POTENTIALFRAUD) {
+      response = makeAegisCalloutForOnboarding(
+        manageOpsRequest,
+        updateStatusPayloads.idValue
+      );
     }
 
     if (
       response.get(TFMConstants.STATUS_WITH_SMALL_S) == TFMConstants.ERRORSTATUS
     ) {
       failedMessage = response.get(TFMConstants.RESPONSE_MESSAGE);
-      status = cobPidRecords.Verification_Status__c;
+      updateStatusPayloads.status = cobPidRecords.Verification_Status__c;
+    } else {
+      isRibbionFlowSuccess = callRibbionFlowForOnboarding(
+        updateStatusPayloads.failedReason,
+        updateStatusPayloads.status,
+        caseRecords
+      );
     }
 
-    setCOBPIDRecord(failedMessage, failedReason, status, cobPidRecords);
+    setCOBPIDRecord(
+      failedMessage,
+      updateStatusPayloads.failedReason,
+      updateStatusPayloads.status,
+      cobPidRecords
+    );
 
     SystemModeActions systemAction = new SystemModeActions(
       'ManageOpsWorkflowActionController',
@@ -82,9 +90,9 @@ public with sharing class ManageOpsWorkflowActionController {
         ' Verification Date Time ' +
         System.now() +
         ' Verification Status ' +
-        status +
+        updateStatusPayloads.status +
         ', Verification Failed Reason ' +
-        failedReason +
+        updateStatusPayloads.failedReason +
         ', Failed Message ' +
         failedMessage
     );
@@ -106,15 +114,6 @@ public with sharing class ManageOpsWorkflowActionController {
       DmlRepository.ALLOW_PARTIAL,
       DmlRepository.USER_MODE
     );
-
-    if (createdCaseComments[0].isSuccess() && !updateResultCOBPIDFailed) {
-      isRibbionFlowSuccess = callRibbionFlowForOnboarding(
-        failedReason,
-        status,
-        caseRecords
-      );
-    }
-
     return setResponseForOnboarding(
       isRibbionFlowSuccess,
       createdCaseComments[0].isSuccess(),
@@ -245,8 +244,6 @@ public with sharing class ManageOpsWorkflowActionController {
     String status
   ) {
     Map<String, String> response = new Map<String, String>();
-    Boolean isCaseUpdated = false;
-    Boolean isCaseCommentCreated = false;
     String statusUpdateError;
     Case caseRecords = WORKFLOW_REPOSITORY.getCaseRecord(
       manageOpsRequest.case_id
