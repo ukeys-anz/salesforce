@@ -2,14 +2,11 @@
 name: Upload Object Changes
 
 on:
-  # pull_request:
-  #   paths:
-  #     - "./force-app/main/default/objects/**"
-  #   branches:
-  #     - develop
-  push:
+  pull_request:
+    paths:
+      - "./force-app/main/default/objects/**"
     branches:
-      - workflow-for-bq-schema-*
+      - epic/workflow-for-object-changes
 
 permissions:
   contents: "read"
