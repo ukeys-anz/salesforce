@@ -6,9 +6,9 @@
     <description>Term Deposit account lookup</description>
     <externalDeveloperName>TermDepositId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Term Deposit</label>
     <length>18</length>
     <referenceTo>Term_Deposit__x</referenceTo>

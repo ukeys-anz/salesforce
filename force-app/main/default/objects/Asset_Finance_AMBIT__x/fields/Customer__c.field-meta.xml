@@ -6,9 +6,9 @@
     <description>Associated Id of Customer</description>
     <externalDeveloperName>CustomerId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Customer</label>
     <length>18</length>
     <referenceTargetField>Account.External_Id__c</referenceTargetField>

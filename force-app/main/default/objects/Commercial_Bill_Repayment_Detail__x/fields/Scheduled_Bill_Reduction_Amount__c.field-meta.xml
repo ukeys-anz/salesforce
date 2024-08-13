@@ -6,9 +6,9 @@
     <description>Scheduled Bill Reduction Amount</description>
     <externalDeveloperName>ScheduledBillReductionAmount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Scheduled Bill Reduction Amount ($)</label>
     <precision>18</precision>
     <required>false</required>

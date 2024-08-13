@@ -7,9 +7,9 @@
     <externalDeveloperName>BalanceAvailable</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>The funds available for the customer to use in monetary currency</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Balance Available ($)</label>
     <precision>18</precision>
     <required>false</required>

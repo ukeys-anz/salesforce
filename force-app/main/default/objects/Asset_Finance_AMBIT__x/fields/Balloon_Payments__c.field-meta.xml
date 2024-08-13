@@ -6,9 +6,9 @@
     <description>Balloon Payments</description>
     <externalDeveloperName>BalloonPayments</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Balloon Payments</label>
     <length>255</length>
     <required>false</required>

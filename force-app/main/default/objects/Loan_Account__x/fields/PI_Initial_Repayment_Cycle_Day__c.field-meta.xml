@@ -6,9 +6,9 @@
     <description>PI Initial Repayment Cycle Day</description>
     <externalDeveloperName>PIInitialRepaymentCycleDay</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Initial Repayment Cycle Day</label>
     <precision>18</precision>
     <required>false</required>
