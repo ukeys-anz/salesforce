@@ -6,7 +6,7 @@ on:
     paths:
       - "./force-app/main/default/objects/**"
     branches:
-      - epic/workflow-for-object-changes
+      - epic/upload-object-changes-workflow
 
 permissions:
   contents: "read"
