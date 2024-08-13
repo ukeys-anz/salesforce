@@ -1143,6 +1143,39 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description This method is used to get iconName
+   * @param objectName Name of the Object
+   * @return String iconName
+   */
+  public static String getObjectIconName(SObjectType objectName) {
+    List<Schema.DescribeTabSetResult> tabSetDesc = new List<DescribeTabSetResult>();
+    List<Schema.DescribeTabResult> tabDesc = new List<Schema.DescribeTabResult>();
+    List<Schema.DescribeIconResult> iconDesc = new List<Schema.DescribeIconResult>();
+
+    for (Schema.DescribeTabSetResult tsr : Schema.describeTabs()) {
+      tabDesc.addAll(tsr.getTabs());
+    }
+
+    for (Schema.DescribeTabResult tr : tabDesc) {
+      if (tr.getSobjectName() != String.valueOf(objectName)) {
+        continue;
+      }
+      if (!tr.isCustom()) {
+        return 'standard:' + String.valueOf(objectName).toLowerCase();
+      }
+      iconDesc.addAll(tr.getIcons());
+    }
+
+    for (Schema.DescribeIconResult ir : iconDesc) {
+      if (ir.getContentType() == 'image/svg+xml') {
+        return 'custom:' +
+          ir.getUrl().substringBetween('custom/', '.svg').substringBefore('_');
+      }
+    }
+    return null;
+  }
+  
+  /**
    * [DEPRECATED] Use `ListUtil.getIds`.
    * @description Returns a set of Ids extracted from a list of SObjects based on a specified field.
    * @param records The list of SObjects from which to extract the Ids.

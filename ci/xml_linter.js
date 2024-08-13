@@ -33,6 +33,7 @@ const EXCLUDES = [
   ".entitlementProcess",
   ".md-meta", //Remove Custom Meta,
   "quickstart.xml", //Ignore quickstart cause it's non compliant
+  "warning.xml", //Ignore warning cause it's non compliant
   "ouc-meta.xml" // Ignore OmniUICards (FlexCards), this is done to ignore any modifications by running linter on flexcard, as observed linters adding spaces and new line (\n) and breaking the property config in target environment in certain scenarios.
 ];
 

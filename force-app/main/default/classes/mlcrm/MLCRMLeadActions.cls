@@ -4,8 +4,11 @@
  * @group MLCRM (Mobile Lending CRM)
  * @description MLCRMLeadActions is class to handle all the MLCRM (Mobile Lending CRM) Actions
  */
-@SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class MLCRMLeadActions {
+  private static final LeadActionsRepository LA_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
+    LeadActionsRepository.class
+  );
+
   /**
    * @description This method to update is new flag checkbox to false during implicit update while lead creation
    * @name noLongerNewLeads
@@ -78,44 +81,83 @@ public with sharing class MLCRMLeadActions {
     List<Lead> lstOfLead,
     Map<Id, Lead> oldMap
   ) {
+    if (oldMap == null || oldMap.isEmpty()) {
+      return;
+    }
     Set<Id> idsOfTerritory = new Set<Id>();
-    for (Lead objLead : lstOfLead) {
+    List<Lead> updatedTerritoryLeadList = new List<Lead>();
+    for (Lead leadRecord : lstOfLead) {
       if (
-        objLead.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
-        oldMap != null &&
-        objLead.Territory__c != null &&
-        objLead.Territory__c != oldMap.get(objLead.Id).Territory__c
+        leadRecord.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
+        leadRecord.Territory__c != null &&
+        leadRecord.Territory__c != oldMap.get(leadRecord.Id).Territory__c
       ) {
-        idsOfTerritory.add(objLead.Territory__c);
+        idsOfTerritory.add(leadRecord.Territory__c);
+        updatedTerritoryLeadList.add(leadRecord);
       }
     }
-    if (!idsOfTerritory.isEmpty()) {
-      Map<Id, Territory__c> mapOfUserTerritories;
-      //getting list of territory records
-      List<Territory__c> lstOfTerritory = [
-        SELECT Primary_Franchise_Owner__c
-        FROM Territory__c
-        WHERE Id IN :idsOfTerritory
-      ];
-      if (!lstOfTerritory.isEmpty()) {
-        mapOfUserTerritories = new Map<Id, Territory__c>();
-        for (Territory__c objTerritory : lstOfTerritory) {
-          mapOfUserTerritories.put(objTerritory.Id, objTerritory);
-        }
+    List<Territory__c> lstOfTerritory = LA_REPOSITORY.getTerrritories(
+      idsOfTerritory
+    );
+    if (lstOfTerritory.isEmpty()) {
+      return;
+    }
+    Map<Id, Territory__c> mapOfTerritories = new Map<Id, Territory__c>(
+      lstOfTerritory
+    );
+    for (Lead leadRecord : updatedTerritoryLeadList) {
+      if (mapOfTerritories.containsKey(leadRecord.Territory__c)) {
+        leadRecord.Primary_Franchise_Owner__c = mapOfTerritories.get(
+            leadRecord.Territory__c
+          )
+          .Primary_Franchise_Owner__c;
       }
+    }
+  }
 
-      for (Lead objLead : lstOfLead) {
-        if (
-          objLead.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID &&
-          objLead.Territory__c != null &&
-          mapOfUserTerritories.containsKey(objLead.Territory__c)
-        ) {
-          objLead.Primary_Franchise_Owner__c = mapOfUserTerritories.get(
-              objLead.Territory__c
-            )
-            .Primary_Franchise_Owner__c;
-        }
+  /**
+   * @description CC-7689 to restrict MLCRM Lead Creation if the user don't have sufficient permission
+   * i.e. User who does not have this Custom Permmision should not be able to create Lead
+   * @name validateMLCRMLeadCreation
+   * @param records The Lead records passed from Trigger.new()
+   */
+  public static void validateMLCRMLeadCreation(List<Lead> records) {
+    // bypassed if current user is Unica/Adobe Integration  or is a system admin or having 'ML_Allow_Lead_Creation' custom permission
+    if (LA_REPOSITORY.isSkipValidationUser()) {
+      return;
+    }
+    List<Lead> filteredMLCRMLeads = getFilteredMLCRMLeads(records);
+    raiseLeadError(filteredMLCRMLeads, Label.MLCRM_Record_Creation_Error);
+  }
+
+  /**
+   * @description CC-7689 to check if the records are MLCRM Leads
+   * @name getFilteredMLCRMLeads
+   * @param records The Lead records passed from Trigger.new()
+   * @return List<Lead> filteredMLCRMLeads
+   */
+  public static List<Lead> getFilteredMLCRMLeads(List<Lead> records) {
+    List<Lead> filteredMLCRMLeads = new List<Lead>();
+    for (Lead rec : records) {
+      if (rec.RecordTypeId == MLCRMConstants.MLCRM_LEAD_RT_ID) {
+        filteredMLCRMLeads.add(rec);
       }
+    }
+    return filteredMLCRMLeads;
+  }
+
+  /**
+   * @description CC-7689 to raise error on lead record
+   * @name raiseLeadError
+   * @param filteredMLCRMLeads The filtered MLCRM Lead records
+   * @param errorMessage  Error Message to display to user
+   */
+  public static void raiseLeadError(
+    List<Lead> filteredMLCRMLeads,
+    String errorMessage
+  ) {
+    for (Lead rec : filteredMLCRMLeads) {
+      rec.addError(errorMessage);
     }
   }
 }

@@ -233,9 +233,6 @@ public with sharing class GetHelpConstants {
   //Residential Loan App Status : Cancelled
   public static final String RLA_STATUS_CANCELLED = 'STATE_CANCELLED';
 
-  //Residential Loan Application sobject name
-  public static final String SOBJECT_RLA = 'ResidentialLoanApplication';
-
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
@@ -406,6 +403,22 @@ public with sharing class GetHelpConstants {
         taskRecordTypeIds.add(GetHelpConstants.CALLBACK_REQUEST_RT_ID);
       }
       return taskRecordTypeIds;
+    }
+    private set;
+  }
+
+  /**
+   * @description fetch ANZx financial account record types
+   * @return Set<String> financial account record types developer name
+   */
+  public static final Set<String> anzxFinancialAccountRecordTypes {
+    get {
+      if (anzxFinancialAccountRecordTypes == null) {
+        anzxFinancialAccountRecordTypes = new Set<String>();
+        anzxFinancialAccountRecordTypes.add(SAVINGS_ACCOUNT_RT_APINAME);
+        anzxFinancialAccountRecordTypes.add(CHECKING_ACCOUNT_RT_APINAME);
+      }
+      return anzxFinancialAccountRecordTypes;
     }
     private set;
   }

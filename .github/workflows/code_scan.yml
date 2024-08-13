@@ -1,36 +1,42 @@
 # This workflow scans a salesforce project against PMD rulesets
 name: Scan
 
-# This workflow will only run on Pull Requests against master , develop and epic/*
+# This workflow will only run on Pull Requests against master, develop, release and epic/*
 on:
   pull_request:
     branches: [develop, master, release, epic/*]
 
 jobs:
-  pmd:
+  pmd-run:
     runs-on: anzx-default
-
+    outputs:
+      pmdOutput: ${{ steps.validation.outcome }}
+    env:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v3
-      - run: |
+        with:
+          fetch-depth: 0
+
+      - name: Download Java
+        run: |
           download_url="https://artifactory.gcp.anz/artifactory/git-github/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk-11.0.10%2B9/OpenJDK11U-jdk_x64_linux_hotspot_11.0.10_9.tar.gz"
           wget -O $RUNNER_TEMP/java_package.tar.gz $download_url
 
-      - uses: actions/setup-java@v3
+      - name: Setup Java
+        uses: actions/setup-java@v3
         with:
           distribution: "jdkfile"
           jdkFile: ${{ runner.temp }}/java_package.tar.gz
           java-version: "11.0.12"
           architecture: x64
+
       - run: |
           echo $PATH
           echo $JAVA_HOME
           java -version
           export JAVA_HOME="/opt/jdk/jdk-11.0.12"
           export PATH="${JAVA_HOME}/bin:$PATH"
-
-      - name: "Checkout"
-        uses: actions/checkout@v2
 
       - name: "Install PMD"
         shell: bash
@@ -39,5 +45,81 @@ jobs:
           unzip pmd.zip
           chmod +x $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin
 
-      - name: "Run PMD"
-        run: $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin/pmd check -R ./ci/rulesets/apex/quickstart.xml -f textcolor --cache ../pmd-cache -d .
+      - name: Find all changed files
+        run: |
+          BRANCH_NAME=${{ github.base_ref }}
+          if [[ -f ci/pmd-diff.sh ]];then
+            chmod +x ci/pmd-diff.sh
+            source ci/pmd-diff.sh
+          fi
+
+      - name: "Run PMD | Validation"
+        id: validation
+        run: |
+          if [ "${{env.CHANGED_FILES}}" -gt "0"  ]; then
+            $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin/pmd check -R ./ci/rulesets/apex/quickstart.xml -f summaryhtml --cache ../pmd-cache -d ${{env.allFilesPath}} > ./pmdValidationReport.html
+          fi
+
+      - name: "Run PMD | Warning"
+        id: warning
+        if: always()
+        run: |
+          if [ "${{env.CHANGED_FILES}}" -gt "0"  ]; then
+            $GITHUB_WORKSPACE/pmd-bin-7.2.0/bin/pmd check -R ./ci/rulesets/apex/warning.xml -f summaryhtml --cache ../pmd-cache -d ${{env.allFilesPath}} > ./pmdWarningReport.html
+          fi
+
+      - name: "Prepare PMD report Result"
+        if: failure()
+        run: |
+          VALIDATION_STATUS=${{ steps.validation.outcome }}
+          WARNING_STATUS=${{ steps.warning.outcome }}
+
+          if [ "$VALIDATION_STATUS" = "failure" ]; then
+            cat ./pmdValidationReport.html >> ./pmdReport.html
+            replace=$( sed "s+Summary+❌ PMD Validation Report ❌+g" ./pmdReport.html )
+            echo $replace > ./pmdReport.html
+            echo "" >> ./pmdReport.html
+          fi
+          if [ "$VALIDATION_STATUS" = "failure" ] && [ "$WARNING_STATUS" = "failure" ]; then
+            echo "<hr>" >> ./pmdReport.html
+          fi
+          if [ "$WARNING_STATUS" = "failure" ]; then
+            cat ./pmdWarningReport.html >> ./pmdReport.html
+            replace=$( sed "s+Summary+❗ PMD Warning Report ❗+g" ./pmdReport.html )
+            echo $replace > ./pmdReport.html
+          fi
+
+      - name: "Install GH"
+        if: failure()
+        uses: "anzx/github-reusable-actions/setup-gh-cli@main"
+        with:
+          gh-cli-version: "2.50.0"
+
+      - name: PMD Report Comment
+        if: failure()
+        run: |
+          replace=$( sed "s+<title>PMD</title>++g" ./pmdReport.html )
+          echo $replace > ./pmdReport.html
+          replace=$( sed "s+PMD report++g" ./pmdReport.html )
+          echo $replace > ./pmdReport.html
+          replace=$( sed "s+Problems found++g" ./pmdReport.html )
+          echo $replace > ./pmdReport.html
+          replace=$( sed "s+No adapter exists for type com.google.summit.ast.declaration.VariableDeclarationGroup++g" ./pmdReport.html )
+          echo $replace > ./pmdReport.html
+          gh pr comment ${{ github.event.pull_request.number }} --body-file "./pmdReport.html"
+
+      - name: "Cleaning"
+        if: always()
+        run: rm -rf ./tmpPMD ./pmdReport.html ./pmdValidationReport.html ./pmdWarningReport.html
+  pmd:
+    if: ${{ always() }}
+    runs-on: anzx-default
+    needs: [pmd-run]
+    steps:
+      - if: ${{ (needs.pmd-run.outputs.pmdOutput == 'success')}}
+        run: echo "PMD Validation Run Succeed"
+
+      - if: ${{ (needs.pmd-run.outputs.pmdOutput != 'success') && (github.event.pull_request.merged != true)}}
+        run: |
+          echo "Validation Run Failed"
+          exit 1

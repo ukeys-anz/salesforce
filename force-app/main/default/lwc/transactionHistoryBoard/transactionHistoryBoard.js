@@ -134,9 +134,8 @@ export default class TransactionHistoryBoard extends LightningElement {
             : "Unknown";
 
           // Set the transaction's dispute record type Id
-          currentTransaction.disputeRecordTypeId = this.getRecordTypeId(
-            currentTransaction
-          );
+          currentTransaction.disputeRecordTypeId =
+            this.getRecordTypeId(currentTransaction);
 
           // Set flag if transaction is of PayTo Dispute Type
           currentTransaction.isPayToDispute =
@@ -149,21 +148,23 @@ export default class TransactionHistoryBoard extends LightningElement {
             currentTransaction.transactionDateLocal
           );
 
-          currentTransaction.transaction_date = currentTransaction.transactionDateLocal
-            ? new Date(currentTransaction.transactionDateLocal)
-                .toISOString()
-                .split("T")[0]
-            : null;
+          currentTransaction.transaction_date =
+            currentTransaction.transactionDateLocal
+              ? new Date(currentTransaction.transactionDateLocal)
+                  .toISOString()
+                  .split("T")[0]
+              : null;
 
-          currentTransaction.transaction_posted_date = currentTransaction.transaction_posted_date
-            ? new Date(currentTransaction.transaction_posted_date)
-                .toISOString()
-                .split("T")[0]
-            : null;
+          currentTransaction.transaction_posted_date =
+            currentTransaction.transaction_posted_date
+              ? new Date(currentTransaction.transaction_posted_date)
+                  .toISOString()
+                  .split("T")[0]
+              : null;
 
           // Date only value to be passed to default field values, use locale "en-CA" to get YYYY-MM-DD format
           this.setTransactionDisplayDateTime(currentTransaction);
-          /* 
+          /*
               To prevent the issue where the first transaction the next payload has the same date as the last transaction in the previous payload and
               shows its date title again (date title showing twice), we will compare the current date with the previous date
               */
@@ -222,9 +223,8 @@ export default class TransactionHistoryBoard extends LightningElement {
             currentTransaction.card &&
             currentTransaction.formatted_type === TRANSACTION_TYPES.Card
           ) {
-            currentTransaction.card.formatted_transactionMethod = this.getFormattedTransactionMethod(
-              currentTransaction.card
-            );
+            currentTransaction.card.formatted_transactionMethod =
+              this.getFormattedTransactionMethod(currentTransaction.card);
           }
           // Card and Cash scheme values are same. Thus checking if the
           if (currentTransaction.cash && this.isTransactionsV1()) {

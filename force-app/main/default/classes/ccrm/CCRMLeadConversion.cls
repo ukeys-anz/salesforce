@@ -7,6 +7,9 @@
  * Lead conversion requires an Edit permission on account object otherwise it will throw insufficient access to account records error.
  */
 public without sharing class CCRMLeadConversion {
+  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
+    LeadConversionActionsRepository.class
+  );
   /**
    * @description Checks if Related Party is having a valid Related Party for Lead Conversion.
    * Added without sharing to bypass sharing settings as Account OWD is Public Read Only and will remain as is for customer accounts.
@@ -18,70 +21,24 @@ public without sharing class CCRMLeadConversion {
   @AuraEnabled
   public static LeadConversionWrapper getLeadRecordForConversion(Id recordId) {
     LeadConversionWrapper leadData = new LeadConversionWrapper();
-
-    if (Schema.sObjectType.Lead.isQueryable()) {
-      Lead convertLeadData = [
-        SELECT
-          Skip_Validations__c,
-          Company,
-          Name,
-          FirstName,
-          MiddleName,
-          LastName,
-          Title__c,
-          Email,
-          MobilePhone,
-          Home_Phone__c,
-          Work_Phone__c,
-          AdvertisingIndicator__c,
-          FinServ__ExpressedInterest__c,
-          New_to_Bank__c,
-          FinServ__RelatedAccount__c,
-          FinServ__PotentialValue__c,
-          Registered_Company__c,
-          ABN__c,
-          ABN_Validation_Status__c,
-          ACN__c,
-          ACN_Validation_Status__c,
-          FinServ__RelatedAccount__r.RecordType.DeveloperName,
-          RecordType.DeveloperName,
-          RecordTypeId,
-          LeadSource,
-          OwnerId,
-          Salutation,
-          Gender__c,
-          Address,
-          Street,
-          City,
-          State,
-          Country,
-          PostalCode,
-          Is_Valid_Address__c,
-          CPID__c,
-          Controlling_Post__c,
-          Industry__c,
-          Entity_Type__c,
-          Lead.Industry__r.Code__c
-        FROM LEAD
-        WHERE ID = :recordId
-        WITH SECURITY_ENFORCED
-      ];
-      if (convertLeadData != null) {
-        leadData.leadRecord = convertLeadData;
-      }
-      if (convertLeadData.FinServ__RelatedAccount__c != null) {
-        leadData.relatedAccountType = CCRMConstants.BUSINESS_PARTY_RECORDTYPES.contains(
-            convertLeadData.FinServ__RelatedAccount__r.RecordType.DeveloperName
-          )
-          ? CCRMConstants.IS_BUSINESS
-          : CCRMConstants.INDIVIDUAL_PARTY_RECORDTYPES.contains(
-                convertLeadData.FinServ__RelatedAccount__r.RecordType.DeveloperName
-              )
-              ? CCRMConstants.IS_INDIVIDUAL
-              : CCRMConstants.IS_INVALID;
-      } else {
-        leadData.leadRecord.FinServ__RelatedAccount__c = null;
-      }
+    Lead convertLeadData = LEADCONV_REPOSITORY.getLeadRecordForConversion(
+      recordId
+    );
+    if (convertLeadData != null) {
+      leadData.leadRecord = convertLeadData;
+    }
+    if (convertLeadData.FinServ__RelatedAccount__c != null) {
+      leadData.relatedAccountType = CCRMConstants.BUSINESS_PARTY_RECORDTYPES.contains(
+          convertLeadData.FinServ__RelatedAccount__r.RecordType.DeveloperName
+        )
+        ? CCRMConstants.IS_BUSINESS
+        : CCRMConstants.INDIVIDUAL_PARTY_RECORDTYPES.contains(
+              convertLeadData.FinServ__RelatedAccount__r.RecordType.DeveloperName
+            )
+            ? CCRMConstants.IS_INDIVIDUAL
+            : CCRMConstants.IS_INVALID;
+    } else {
+      leadData.leadRecord.FinServ__RelatedAccount__c = null;
     }
     return leadData;
   }
@@ -239,11 +196,11 @@ public without sharing class CCRMLeadConversion {
         }
         Logger.error(
           'Id=' +
-            leadConvertResult.getLeadId() +
-            ',Message:' +
-            err.getMessage() +
-            'Fields:' +
-            err.getFields()
+          leadConvertResult.getLeadId() +
+          ',Message:' +
+          err.getMessage() +
+          'Fields:' +
+          err.getFields()
         );
       }
     }

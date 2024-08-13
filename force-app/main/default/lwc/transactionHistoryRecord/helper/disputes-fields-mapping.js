@@ -4,7 +4,8 @@ const cardDisputesFieldsMapping = {
   Card_Scheme__c: "card.scheme",
   Transaction_Amount__c: "international_amount.charged.value",
   Transaction_Currency__c: "international_amount.charged.currency_code",
-  Card_Token_Number__c: "tokenizedCardNumber"
+  Card_Token_Number__c: "tokenizedCardNumber",
+  Transaction_Method__c: "card.formatted_transactionMethod"
 };
 
 const atmDisputesFieldsMapping = {

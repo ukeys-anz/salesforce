@@ -52,6 +52,7 @@ IlluminatedCloud/
 # cicd working directory
 stderr
 /tmp
+/tmpPMD
 /artefact
 /keys/*.txt
 !/keys/*.encrypted.txt
