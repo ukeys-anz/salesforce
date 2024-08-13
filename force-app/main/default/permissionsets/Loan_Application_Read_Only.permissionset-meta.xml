@@ -1,439 +1,440 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
-    <classAccesses>
-        <apexClass>VerifiedContactDetails</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <description>Should only have required permissions to view Custom related information.</description>
+    <description>Perm set to grant loan application domain data access</description>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.ANZx_Customer__c</field>
+        <field>LoanApplicant.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Bankrupt_Date__c</field>
+        <field>LoanApplicant.ApplicantExtIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.BankruptCheckBox__c</field>
+        <field>LoanApplicant.Applicant_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.BillingAddress</field>
+        <field>LoanApplicant.Application_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Collections__c</field>
+        <field>LoanApplicant.Application_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.CustomerExitDate__c</field>
+        <field>LoanApplicant.Application_Submit_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.CustomerExitFlag__c</field>
+        <field>LoanApplicant.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Deceased_Date__c</field>
+        <field>LoanApplicant.Customer_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Display_Name__c</field>
+        <field>LoanApplicant.Eligibility_Accepted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Employee_Indicator__c</field>
+        <field>LoanApplicant.Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Employer_Name__c</field>
+        <field>LoanApplicant.Living_Arrangement__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__KYCStatus__c</field>
+        <field>LoanApplicant.Living_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__Status__c</field>
+        <field>LoanApplicant.Loan_Applicant_Group__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalBankDeposits__c</field>
+        <field>LoanApplicant.OCV_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalFinAcctsPrimaryOwner__c</field>
+        <field>LoanApplicant.Occupation_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalNumberOfFinAccounts__c</field>
+        <field>LoanApplicant.Occupation_Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.FinServ__TotalOutstandingCredit__c</field>
+        <field>LoanApplicant.Party_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Hardship__c</field>
+        <field>LoanApplicant.Persona_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Industry</field>
+        <field>LoanApplicant.Primary_Borrower__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.KYC_Verification_Level__c</field>
+        <field>LoanApplicant.Privacy_Version_Accepted__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.KYCVerificationDate__c</field>
+        <field>LoanApplicant.Sole_Applicant_Selected__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Mobile__c</field>
+        <field>LoanApplicant.Sole_Income_Earner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.OCV_Event_Version__c</field>
+        <field>LoanApplicantDeclaration.Component_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.OCV_ID_CAP_ID__c</field>
+        <field>LoanApplicantDeclaration.Confirmation_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Occupation__c</field>
+        <field>LoanApplicantDeclaration.Is_Confirmable__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Phone</field>
+        <field>LoanApplicantDeclaration.Is_Confirmed__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Source_System_ID__c</field>
+        <field>LoanApplicantDeclaration.LoanApplicationId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Source_System_Name__c</field>
+        <field>Loan_Applicant_Group__c.Deposit_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Survivor_Party_ID__c</field>
+        <field>Loan_Applicant_Group__c.Guarantor__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Tax_Exemption_Type__c</field>
+        <field>Loan_Applicant_Group__c.Loan_Applicant_Group_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.TFN_Verification__c</field>
+        <field>Loan_Applicant_Group__c.Married_or_Defacto__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account.Was_ANZx_Customer__c</field>
+        <field>Loan_Applicant_Group__c.Number_of_Dependents__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>AccountContactRelation.IsActive</field>
+        <field>Loan_Applicant_Group__c.SOP_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointAddress.Persona_Type__c</field>
+        <field>Loan_Applicant_Group__c.SOP_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointEmail.Persona_Type__c</field>
+        <field>Loan_Invitation__c.Applicant_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.Persona_Type__c</field>
+        <field>Loan_Invitation__c.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.AccountId</field>
+        <field>Loan_Invitation__c.Invitation_Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Birthdate</field>
+        <field>Loan_Invitation__c.Invitation_External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Email</field>
+        <field>Loan_Invitation__c.Invitation_Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__ContactPreference__c</field>
+        <field>Loan_Invitation__c.Invitation_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.FinServ__MaritalStatus__c</field>
+        <field>Loan_Invitation__c.Invitee_Mobile_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.Gender__c</field>
+        <field>Loan_Invitation__c.Inviter_Legal_name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.HomePhone</field>
+        <field>Loan_Invitation__c.Loan_Application__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.MobilePhone</field>
+        <field>Material_Change_Applicant__c.Applicant__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Contact.OtherAddress</field>
+        <field>Material_Change_Applicant__c.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointEmail.Customer_Name__c</field>
+        <field>Material_Change_Applicant__c.Loan_Application__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointEmail.UsageType</field>
+        <field>Material_Change__c.Change_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointEmail.Verification_Status__c</field>
+        <field>Material_Change__c.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointEmail.Verification_Date__c</field>
+        <field>Material_Change__c.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointEmail.Verification_Method__c</field>
+        <field>ResidentialLoanApplication.AmortizationTerm</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.AreaCode</field>
+        <field>ResidentialLoanApplication.Assessment_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.ParentId</field>
+        <field>ResidentialLoanApplication.Assisted_Broker__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.Verification_Status__c</field>
+        <field>ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.Verification_Date__c</field>
+        <field>ResidentialLoanApplication.Collateral_Assessment_Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.Verification_Method__c</field>
+        <field>ResidentialLoanApplication.Collateral_Assessment_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>ContactPointPhone.UsageType</field>
+        <field>ResidentialLoanApplication.Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.FinServ__Account__c</field>
+        <field>ResidentialLoanApplication.Credit_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.FinServ__Active__c</field>
+        <field>ResidentialLoanApplication.Credit_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.FinServ__EndDate__c</field>
+        <field>ResidentialLoanApplication.E_Tag__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.FinServ__InverseRelationship__c</field>
+        <field>ResidentialLoanApplication.Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.FinServ__RelatedAccount__c</field>
+        <field>ResidentialLoanApplication.External_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.FinServ__StartDate__c</field>
+        <field>ResidentialLoanApplication.First_Home__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.OCV_Role__c</field>
+        <field>ResidentialLoanApplication.Ineligible_Reasons__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.Role_Description__c</field>
+        <field>ResidentialLoanApplication.Joint__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__AccountAccountRelation__c.System_Individual_Relationship__c</field>
+        <field>ResidentialLoanApplication.Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.Broker__c</field>
+        <field>ResidentialLoanApplication.Loan_Purpose_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.Email__c</field>
+        <field>ResidentialLoanApplication.Loan_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.External_Id__c</field>
+        <field>ResidentialLoanApplication.Loan_Term__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__Active__c</field>
+        <field>ResidentialLoanApplication.Loan_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__Contact__c</field>
+        <field>ResidentialLoanApplication.LotOriginalCost</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__EndDate__c</field>
+        <field>ResidentialLoanApplication.Main_Goal__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__InverseRelationship__c</field>
+        <field>ResidentialLoanApplication.Max_Allowable_LVR_Basis_Points__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__RelatedContact__c</field>
+        <field>ResidentialLoanApplication.Needs_Assessment_Created_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__SourceSystemId__c</field>
+        <field>ResidentialLoanApplication.Needs_Assessment_Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.FinServ__StartDate__c</field>
+        <field>ResidentialLoanApplication.Needs_Assessment_Unsuitability_Reasons__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.Mobile__c</field>
+        <field>ResidentialLoanApplication.Originated_By__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.OCV_ID__c</field>
+        <field>ResidentialLoanApplication.Owner_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.OCV_Role__c</field>
+        <field>ResidentialLoanApplication.Owner_Occupied__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ContactContactRelation__c.Role_Description__c</field>
+        <field>ResidentialLoanApplication.Package_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ReciprocalRole__c.FinServ__InverseRelationship__c</field>
+        <field>ResidentialLoanApplication.Package_Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ReciprocalRole__c.FinServ__RelationshipType__c</field>
+        <field>ResidentialLoanApplication.Settlement_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ReciprocalRole__c.FinServ__SourceSystemId__c</field>
+        <field>ResidentialLoanApplication.State__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ReciprocalRole__c.OCV_Role__c</field>
+        <field>ResidentialLoanApplication.Status</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>FinServ__ReciprocalRole__c.Role_Description__c</field>
+        <field>ResidentialLoanApplication.Sync_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Version__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Customer Read-Only</label>
+    <label>Loan Application Read Only</label>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Account</object>
+        <object>LoanApplicant</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -442,7 +443,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>Contact</object>
+        <object>LoanApplicantDeclaration</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -451,7 +452,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>ContactPointEmail</object>
+        <object>Loan_Applicant_Group__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -460,7 +461,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>ContactPointPhone</object>
+        <object>Loan_Invitation__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -469,7 +470,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>FinServ__AccountAccountRelation__c</object>
+        <object>Material_Change_Applicant__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -478,7 +479,7 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>FinServ__ContactContactRelation__c</object>
+        <object>Material_Change__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>
@@ -487,27 +488,11 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
-        <object>FinServ__ReciprocalRole__c</object>
+        <object>ResidentialLoanApplication</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>PersonAccount.PersonAccount</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>ContactPointEmail.Individual</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>ContactPointEmail.Organisation</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>ContactPointPhone.Individual</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
-        <recordType>ContactPointPhone.Organisation</recordType>
+        <recordType>ResidentialLoanApplication.Loan_Application</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
 </PermissionSet>
