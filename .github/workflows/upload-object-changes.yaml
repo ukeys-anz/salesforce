@@ -82,7 +82,8 @@ jobs:
           # Get all objects
           directory_path=./force-app/main/default/objects
           changed_objects=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} HEAD -- "$directory_path" \
-                                       | grep -v '/fields/' | cut -d '/' -f 6 | sort | uniq)
+                                       | grep -v '/fields/' \
+                                       | cut -d '/' -f 6 | sort | uniq)
 
           echo $changed_objects
 
