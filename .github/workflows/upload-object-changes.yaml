@@ -9,7 +9,7 @@ on:
       - epic/upload-object-changes-workflow
 
 permissions:
-  contents: "write"
+  contents: "read"
   id-token: "write"
 
 jobs:
