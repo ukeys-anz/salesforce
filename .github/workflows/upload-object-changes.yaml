@@ -113,10 +113,12 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          # zip the files
-          ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
-          echo "ARTIFACT_NAME=$ARTIFACT_NAME"
-          zip -r $ARTIFACT_NAME output
-          ls -la
-          echo "displaying filename: ${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}"
-          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/$ARTIFACT_NAME.zip"
+          if [ -d "output" ]; then
+            # zip the files
+            ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
+            echo "ARTIFACT_NAME=$ARTIFACT_NAME"
+            zip -r $ARTIFACT_NAME output
+            ls -la
+            curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
+          else
+            echo "no changes found...completing run"
