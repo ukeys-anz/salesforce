@@ -32,7 +32,7 @@ export default class ManageOpsWorkflowApproval extends LightningModal {
         { label: "Closed - Approved", value: "Closed - Approved" }
       ];
     } else {
-      this.statusValue = "Closed - Approved & Re-enrolled";
+      this.statusValue = "Closed - Approved";
       this.optionVal = [
         { label: "Closed - Approved", value: "Closed - Approved" },
         {

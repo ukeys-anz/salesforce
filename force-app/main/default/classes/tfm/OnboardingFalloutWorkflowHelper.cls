@@ -21,6 +21,9 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     Case caseRecord
   ) {
     OnboardingWorkflowWrapper workflowDetails = new OnboardingWorkflowWrapper();
+    workflowDetails.cobPIDRecordId = cobPIDRecord.Id;
+    workflowDetails.IDValue = cobPIDRecord.CustomerOnboardingApplication__r.PersonId__c;
+    workflowDetails.idxExtractedFaceId = cobPIDRecord.idxExtractedFaceId__c;
     if (caseRecord == null) {
       return workflowDetails;
     }
@@ -44,11 +47,9 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     workflowDetails.showRedBorder = caseRecord.Subject.contains(
       TFMConstants.FAILED_DOC
     );
-    workflowDetails.cobPIDRecordId = cobPIDRecord.Id;
+    
     workflowDetails.caseId = caseRecord.Id;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
-    workflowDetails.IDValue = cobPIDRecord.CustomerOnboardingApplication__r.PersonId__c;
-    workflowDetails.idxExtractedFaceId = cobPIDRecord.idxExtractedFaceId__c;
     return workflowDetails;
   }
 
