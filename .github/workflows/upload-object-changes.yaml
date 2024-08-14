@@ -63,14 +63,14 @@ jobs:
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
-          service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: SFDXURL
         id: secrets
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
-            sfdxurl:projects/810679854929/secrets/h-salesforce-prod-preprod/versions/latest
+            sfdxurl:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-test/versions/latest
             artifactory_token:projects/anz-x-gha-prod-0f0d8b/secrets/ghr-salesforce-prod-artifactory-password/versions/latest
 
       - name: Authenticate all orgs in SFDX CLI
@@ -91,7 +91,7 @@ jobs:
           if [ -n "$changed_objects" ]; then
             for object in $changed_objects; do
               ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
-                  -f output --sfdxurlfile=./SFDX_URL_STAGING.txt
+                  -f output -u deploy.user@anz.com.au
             done
 
             # zip the files
