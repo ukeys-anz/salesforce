@@ -83,15 +83,6 @@ jobs:
           secrets: |-
             sfdxurl:projects/${{ env.PROJECT_ID }}/secrets/${{ env.SECRET_NAME}}/versions/latest
             artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
-            proxypass:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-proxy-password/versions/latest
-
-      - name: Setup HTTP Proxy
-        id: "proxy-harness-delegate"
-        uses: "anzx/github-reusable-actions/setup-http-proxy@ephemeral"
-        with:
-          production: false
-          proxy-username: "sf-harness-delegate-np"
-          proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
       - name: Run Validation
         run: |
