@@ -96,15 +96,16 @@ jobs:
             done
 
             # zip the files
-            ARTIFACT_NAME="$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
-            echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
-            zip -r "$ARTIFACT_NAME" output
-            cat $GITHUB_OUTPUT
+            ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
+            echo "ARTIFACT_NAME=$ARTIFACT_NAME" && echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+            zip -r $ARTIFACT_NAME output
+            ls -la
+            echo "displaying outputs...." && cat $GITHUB_OUTPUT
           else
             echo "no changed objects found..."
           fi
 
-      #  Login to registry
+      # Login to registry
       - name: "Registry Authentication"
         uses: "docker/login-action@v3"
         if: ${{ always() }}
@@ -113,7 +114,7 @@ jobs:
           username: "robot-salesforce-ci"
           password: "${{ steps.secrets.outputs.artifactory_token }}"
 
-      # upload to artifactory and then gcs
+      # Upload to artifactory and then gcs
       - name: Push changes to artifactory
         if: ${{ always() }}
         working-directory: salesforce
@@ -121,4 +122,5 @@ jobs:
         run: |
           # Get all objects
           ls -la
+          echo "displaying filename: ${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}"
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}.zip"
