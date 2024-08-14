@@ -1,5 +1,60 @@
+/**
+ * @description       : 
+ * @author            : Madhuri Edke | Salesforce
+ * @group             : 
+ * @last modified on  : 08-13-2024
+ * @last modified by  : Madhuri Edke | Salesforce
+**/
 @IsTest
 private class ListUtilTest {
+  static final Faker FAKER = new Faker('AU');
+
+  @IsTest
+  static void testGetPrimitiveType() {
+    Assert.areEqual(
+      String.class,
+      ListUtil.getPrimitiveType(Case.Status),
+      'Should be String type'
+    );
+    Assert.areEqual(
+      Id.class,
+      ListUtil.getPrimitiveType(Case.Id),
+      'Should be Id type'
+    );
+    Assert.areEqual(
+      Id.class,
+      ListUtil.getPrimitiveType(Case.AccountId),
+      'Should be Id type'
+    );
+    Assert.areEqual(
+      DateTime.class,
+      ListUtil.getPrimitiveType(Case.CreatedDate),
+      'Should be DateTime type'
+    );
+  }
+
+  @IsTest
+  static void testGetValues() {
+    List<Case> cases = new List<Case>{
+      new Case(Subject = FAKER.randomString(10)),
+      new Case(),
+      new Case(Subject = FAKER.randomString(11))
+    };
+
+    Test.startTest();
+    List<String> subjects = (List<String>) ListUtil.getValues(
+      cases,
+      Case.Subject
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      new List<String>{ cases[0].Subject, cases[2].Subject },
+      subjects,
+      'Should return 2 values'
+    );
+  }
+
   @IsTest
   static void testGetIds() {
     List<Case> cases = new List<Case>{
@@ -21,21 +76,19 @@ private class ListUtilTest {
 
   @IsTest
   static void testGetStrings() {
-    Faker faker = new Faker('AU');
-
     List<Case> cases = new List<Case>{
-      new Case(PersonaId__c = faker.randomString(10)),
+      new Case(Subject = FAKER.randomString(10)),
       new Case(),
-      new Case(PersonaId__c = faker.randomString(11))
+      new Case(Subject = FAKER.randomString(11))
     };
 
     Test.startTest();
-    Set<String> personaIds = ListUtil.getStrings(cases, Case.PersonaId__c);
+    Set<String> subjects = ListUtil.getStrings(cases, Case.Subject);
     Test.stopTest();
 
     Assert.areEqual(
-      new Set<String>{ cases[0].PersonaId__c, cases[2].PersonaId__c },
-      personaIds,
+      new Set<String>{ cases[0].Subject, cases[2].Subject },
+      subjects,
       'Should return 2 values'
     );
   }
@@ -67,28 +120,41 @@ private class ListUtilTest {
 
   @IsTest
   static void testBuildStringMap() {
-    Faker faker = new Faker('AU');
-
     List<Case> cases = new List<Case>{
-      new Case(PersonaId__c = faker.randomString(10)),
+      new Case(Subject = FAKER.randomString(10)),
       new Case(),
-      new Case(PersonaId__c = faker.randomString(11))
+      new Case(Subject = FAKER.randomString(11))
     };
 
     Test.startTest();
     Map<String, Case> recordMap = (Map<String, Case>) ListUtil.mapByString(
       cases,
-      Case.PersonaId__c
+      Case.Subject
     );
     Test.stopTest();
 
     Assert.areEqual(
       new Map<String, Case>{
-        cases[0].PersonaId__c => cases[0],
-        cases[2].PersonaId__c => cases[2]
+        cases[0].Subject => cases[0],
+        cases[2].Subject => cases[2]
       },
       recordMap,
       'Should return 2 key-value pairs'
+    );
+  }
+
+  @IsTest
+  static void testFilterNoError() {
+    Case caseWithError = new Case();
+    caseWithError.addError('Error');
+    List<Case> cases = new List<Case>{ new Case(), caseWithError };
+    Test.startTest();
+    List<Case> records = ListUtil.filterNoError(cases);
+    Test.stopTest();
+    Assert.areEqual(1, records.size(), 'Should return 1 record');
+    Assert.isFalse(
+      records[0].hasErrors(),
+      'Should return the record without error'
     );
   }
 }

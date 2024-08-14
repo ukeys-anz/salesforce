@@ -230,8 +230,8 @@ export default class CreateProspectAndContactRole extends LightningElement {
           this.progress >= 90 && this.progress !== 99
             ? this.progress + 1
             : this.progress === 99
-            ? (this.progress = 99)
-            : this.progress + 3;
+              ? (this.progress = 99)
+              : this.progress + 3;
       }
     }, 200);
   }

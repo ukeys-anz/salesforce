@@ -524,8 +524,7 @@ let definition = {
                           flyoutCustomLwcData: {
                             attributes: {
                               type: "LightningComponentBundle",
-                              url:
-                                "/services/data/v46.0/tooling/sobjects/LightningComponentBundle/0RbBm0000003gAEKAY"
+                              url: "/services/data/v46.0/tooling/sobjects/LightningComponentBundle/0RbBm0000003gAEKAY"
                             },
                             MasterLabel: "modal",
                             IsExposed: true,

@@ -242,7 +242,8 @@ export default class LogInteractionOnCustomer extends LightningElement {
           this.interactionFields.Expiry_Date__c = this.defaultExpiryDate;
         }
         this.interactionFields.Permanent__c = this.permanentValue;
-        this.interactionFields.Financial_Account__c = this.financialAccountValue;
+        this.interactionFields.Financial_Account__c =
+          this.financialAccountValue;
       } else {
         this.interactionFields = fields;
       }

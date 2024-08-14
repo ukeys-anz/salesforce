@@ -63,9 +63,9 @@
                 <label>DVS - Fail response</label>
             </value>
             <value>
-                <fullName>EV Fail - DVS system error response</fullName>
+                <fullName>EV Fail - DVS Data error</fullName>
                 <default>false</default>
-                <label>DVS - System error response</label>
+                <label>DVS - Data error</label>
             </value>
             <value>
                 <fullName>Confirmed Fraud - Selfie Watchlist</fullName>
@@ -148,7 +148,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
-            <valueName>EV Fail - DVS system error response</valueName>
+            <valueName>EV Fail - DVS Data error</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

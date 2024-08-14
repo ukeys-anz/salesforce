@@ -2,8 +2,8 @@
  * @description       : Repository for OnboardingFalloutWorkflowController
  * @author            : Shivraj - TFM Squad
  * @group             :
- * @last modified on  : 07-15-2024
- * @last modified by  : Anuj Jain - JOIN Squad
+ * @last modified on  : 08-13-2024
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class OnboardingQueryRepository {
   /**
@@ -66,7 +66,6 @@ public with sharing class OnboardingQueryRepository {
       WHERE
         IsLatest = TRUE
         AND RecordTypeId = :TFMConstants.DAON_FILE_RT_ID
-        AND CreatedById = :UserInfo.getUserId()
         AND UUID__c IN :uuidIdentifiers
       WITH USER_MODE
     ];

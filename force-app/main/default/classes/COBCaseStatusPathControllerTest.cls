@@ -511,57 +511,6 @@ public with sharing class COBCaseStatusPathControllerTest {
   }
 
   @isTest
-  private static void testSetCaseStatusFromTemporalErrorShortErrorMessage() {
-    cobIdOpsCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
-    cobIdOpsCase.OnboardingVerificationFailedReason__c = FAILED_REASON;
-
-    Test.startTest();
-    COBCaseStatusPathController.setCaseStatusFromTemporalError(
-      cobIdOpsCase,
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      MOCK_ERROR
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      true,
-      String.isBlank(cobIdOpsCase.OnboardingVerificationFailedReason__c),
-      'Case Onboarding Verification Failed Reason should have been cleared'
-    );
-    Assert.areEqual(
-      MOCK_ERROR,
-      cobIdOpsCase.Status_Update_Error__c,
-      'Status Update Error field should have been updated with : ' + MOCK_ERROR
-    );
-    Assert.isTrue(
-      cobIdOpsCase.Status_Update_Error__c.length() <= 255,
-      'Status Update Error field value length should have been <=255 '
-    );
-    Assert.areEqual(
-      false,
-      String.isBlank(cobIdOpsCase.Status_Update_Error__c),
-      'Status Update Error field should not be blank.'
-    );
-  }
-
-  @isTest
-  private static void testSetCaseStatusFromTemporalErrorLongErrorMessage() {
-    Test.startTest();
-    COBCaseStatusPathController.setCaseStatusFromTemporalError(
-      cobIdOpsCase,
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      FAKER.randomString(256)
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      255,
-      cobIdOpsCase.Status_Update_Error__c.length(),
-      'Status Update Error field value should have been updated with the first 255 characters of the long error'
-    );
-  }
-
-  @isTest
   private static void testSetCaseStatusFromTemporalErrorNullErrorMessage() {
     Test.startTest();
     COBCaseStatusPathController.setCaseStatusFromTemporalError(

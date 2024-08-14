@@ -406,4 +406,20 @@ public with sharing class GetHelpConstants {
     }
     private set;
   }
+
+  /**
+   * @description fetch ANZx financial account record types
+   * @return Set<String> financial account record types developer name
+   */
+  public static final Set<String> anzxFinancialAccountRecordTypes {
+    get {
+      if (anzxFinancialAccountRecordTypes == null) {
+        anzxFinancialAccountRecordTypes = new Set<String>();
+        anzxFinancialAccountRecordTypes.add(SAVINGS_ACCOUNT_RT_APINAME);
+        anzxFinancialAccountRecordTypes.add(CHECKING_ACCOUNT_RT_APINAME);
+      }
+      return anzxFinancialAccountRecordTypes;
+    }
+    private set;
+  }
 }

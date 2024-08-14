@@ -583,6 +583,11 @@
                 <label>Signing Authority Update (ANZ Plus/Save)</label>
             </value>
             <value>
+                <fullName>Suspect ConnectID Fraud</fullName>
+                <default>false</default>
+                <label>Suspect ConnectID Fraud</label>
+            </value>
+            <value>
                 <fullName>Request for Voice Recording or Video Recording</fullName>
                 <default>false</default>
                 <label>Request for Voice Recording or Video Recording</label>
@@ -678,6 +683,10 @@
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
             <valueName>Information Access request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Suspect ConnectID Fraud</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>

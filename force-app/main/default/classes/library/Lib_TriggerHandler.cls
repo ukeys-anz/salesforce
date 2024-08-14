@@ -70,9 +70,9 @@ public virtual with sharing class Lib_TriggerHandler {
         return allRecords;
       }
       if (Trigger.isDelete) {
-        allRecords = Trigger.old.clone();
+        allRecords = Trigger.old;
       } else {
-        allRecords = Trigger.new.clone();
+        allRecords = Trigger.new;
       }
       return allRecords;
     }
@@ -88,7 +88,9 @@ public virtual with sharing class Lib_TriggerHandler {
       if (records != null) {
         return records;
       }
-      records = new List<SObject>();
+      //retains the ability to use `records.getSObjectType()`
+      records = (List<SObject>) Type.forName('List<' + this.objectName + '>')
+        .newInstance();
 
       for (SObject record : allRecords) {
         if (isValidRecord(record) == false) {
@@ -146,7 +148,7 @@ public virtual with sharing class Lib_TriggerHandler {
   @TestVisible
   private String objectName {
     get {
-      return allRecords[0].getSObjectType().getDescribe().getName();
+      return allRecords.getSObjectType().toString();
     }
   }
 
@@ -292,23 +294,24 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Calls the applicable override methods such as beforeInsert, beforeUpdate etc. based on a Trigger context
    **/
   private void triggerHandler() {
+    if (this.records.isEmpty() || this.disableTriggers) {
+      return;
+    }
     // Invoke the applicable handler
-    if (disableTriggers == false) {
-      if (context == TriggerOperation.BEFORE_INSERT) {
-        handleBeforeInsert();
-      } else if (context == TriggerOperation.BEFORE_UPDATE && !bypassUpdate) {
-        handleBeforeUpdate(oldMap);
-      } else if (context == TriggerOperation.BEFORE_DELETE && !bypassDelete) {
-        handleBeforeDelete();
-      } else if (context == TriggerOperation.AFTER_INSERT) {
-        handleAfterInsert();
-      } else if (context == TriggerOperation.AFTER_UPDATE && !bypassUpdate) {
-        handleAfterUpdate(oldMap);
-      } else if (context == TriggerOperation.AFTER_DELETE && !bypassDelete) {
-        handleAfterDelete();
-      } else if (context == TriggerOperation.AFTER_UNDELETE) {
-        handleAfterUndelete();
-      }
+    if (context == TriggerOperation.BEFORE_INSERT) {
+      handleBeforeInsert();
+    } else if (context == TriggerOperation.BEFORE_UPDATE && !bypassUpdate) {
+      handleBeforeUpdate(oldMap);
+    } else if (context == TriggerOperation.BEFORE_DELETE && !bypassDelete) {
+      handleBeforeDelete();
+    } else if (context == TriggerOperation.AFTER_INSERT) {
+      handleAfterInsert();
+    } else if (context == TriggerOperation.AFTER_UPDATE && !bypassUpdate) {
+      handleAfterUpdate(oldMap);
+    } else if (context == TriggerOperation.AFTER_DELETE && !bypassDelete) {
+      handleAfterDelete();
+    } else if (context == TriggerOperation.AFTER_UNDELETE) {
+      handleAfterUndelete();
     }
   }
 

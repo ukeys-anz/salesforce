@@ -4,8 +4,8 @@
     const workspaceAPI = component.find("interactionWorkspaceAPI");
 
     // fetch the recordtype developername from URL for passing it to apex. for fetching interaction
-    const recordTypeDeveloperName = component.get("v.pageReference").state
-      .c__recordTypeDeveloperName;
+    const recordTypeDeveloperName =
+      component.get("v.pageReference").state.c__recordTypeDeveloperName;
 
     // Variable declared to show tab label
     var tabNameMap = component.get("v.tabNames");
