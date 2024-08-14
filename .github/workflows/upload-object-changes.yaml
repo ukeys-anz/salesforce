@@ -79,6 +79,7 @@ jobs:
 
       - name: Get objects with new fields and fieldsaccessdiff
         working-directory: salesforce
+        id: get-changed-objects
         shell: bash
         run: |
           # Get all objects
@@ -96,7 +97,7 @@ jobs:
 
             # zip the files
             ARTIFACT_NAME="$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
-            echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_ENV
+            echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
             zip -r "$ARTIFACT_NAME" output
           else
             echo "no changed objects found..."
@@ -119,4 +120,4 @@ jobs:
         run: |
           # Get all objects
           ls -la
-          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "${{ env.ARTIFACT_NAME }}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${{ env.ARTIFACT_NAME }}.zip"
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}.zip"
