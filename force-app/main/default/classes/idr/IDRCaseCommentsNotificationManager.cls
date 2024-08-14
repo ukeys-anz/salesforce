@@ -48,12 +48,13 @@ public with sharing class IDRCaseCommentsNotificationManager {
       IDRBankerNotificationBuilder.sendNotification(wrapperList);
     }
 
-    DMLUtil.updateRecords(
-      caseUpdatedList,
-      DMLUtil.ALL_OR_NOTHING,
-      DMLUtil.SYSTEM_MODE
-    );
-
+   
+      DMLUtil.updateRecords(
+        caseUpdatedList,
+        DMLUtil.ALL_OR_NOTHING,
+        DMLUtil.SYSTEM_MODE
+      );
+    
     manageNotificationTask(records);
   }
   /**

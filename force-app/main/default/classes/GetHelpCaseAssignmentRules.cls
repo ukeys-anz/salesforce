@@ -19,6 +19,9 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static final Group SUPPORT_COACH_QUEUE = CommonUtil.getQueueByName(
     'Support_Coach_Queue'
   );
+  public static final Group DIGITAL_FRAUD_QUEUE = CommonUtil.getQueueByName(
+    GetHelpConstants.DIGITAL_FRAUD_QUEUE
+  );
 
   private static final Map<String, String> SUB_TYPE_TO_TYPE_MAP_SUPPORT_COACH = new Map<String, String>{
     'VAU Opt-In' => 'Cards',
@@ -29,6 +32,10 @@ public with sharing class GetHelpCaseAssignmentRules {
     'PayID technical issue' => 'PayID Issue/Dispute',
     'Email PayID already registered' => 'PayID Issue/Dispute',
     'Mobile PayID already registered' => 'PayID Issue/Dispute'
+  };
+
+  private static final Map<String, String> SUB_TYPE_TO_TYPE_MAP_DIGITAL_FRAUD_QUEUE = new Map<String, String>{
+    'Suspect ConnectID Fraud' => 'Profile'
   };
 
   /**
@@ -160,7 +167,7 @@ public with sharing class GetHelpCaseAssignmentRules {
 
   /**
    * @description method to call the Case assignment rules for general enquiry cases
-   * Will assign those cases to Support Coach Queue
+   * Will assign those cases to corresponding queue
    * @param records List<Case> to be checked.
    */
   public static void assignGeneralEnquiryCases(List<Case> records) {
@@ -173,6 +180,14 @@ public with sharing class GetHelpCaseAssignmentRules {
       if (SUB_TYPE_TO_TYPE_MAP_SUPPORT_COACH.get(recordSubType) == recordType) {
         record.OwnerId = SUPPORT_COACH_QUEUE.Id;
         record.Queue__c = SUPPORT_COACH_QUEUE.Name;
+        continue;
+      }
+      if (
+        SUB_TYPE_TO_TYPE_MAP_DIGITAL_FRAUD_QUEUE.get(recordSubType) ==
+        recordType
+      ) {
+        record.OwnerId = DIGITAL_FRAUD_QUEUE.Id;
+        record.Queue__c = DIGITAL_FRAUD_QUEUE.Name;
       }
     }
   }
