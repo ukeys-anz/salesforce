@@ -75,7 +75,7 @@ jobs:
 
       - name: Authenticate all orgs in SFDX CLI
         working-directory: salesforce
-        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${branchName}" --sfdx-url-file=/dev/stdin
+        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github. }}" --sfdx-url-file=/dev/stdin
 
       - name: Get objects with new fields and fieldsaccessdiff
         working-directory: salesforce
@@ -122,3 +122,4 @@ jobs:
             curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
           else
             echo "no changes found...completing run"
+          fi
