@@ -71,7 +71,7 @@ jobs:
         with:
           secrets: |-
             sfdxurl:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-test/versions/latest
-            artifactory_token:projects/anz-x-gha-prod-0f0d8b/secrets/ghr-salesforce-prod-artifactory-password/versions/latest
+          # artifactory_token:projects/anz-x-gha-prod-0f0d8b/secrets/ghr-salesforce-prod-artifactory-password/versions/latest
 
       - name: Authenticate all orgs in SFDX CLI
         working-directory: salesforce
@@ -104,11 +104,11 @@ jobs:
           fi
 
       #  Login to registry
-      - name: "Registry Authentication"
-        uses: "docker/login-action@v3"
-        with:
-          registry: "salesforce-docker.artifactory.gcp.anz"
-          username: "robot-salesforce-ci"
-          password: "${{ steps.secrets.outputs.artifactory_token }}"
+      # - name: "Registry Authentication"
+      #   uses: "docker/login-action@v3"
+      #   with:
+      #     registry: "salesforce-docker.artifactory.gcp.anz"
+      #     username: "robot-salesforce-ci"
+      #     password: "${{ steps.secrets.outputs.artifactory_token }}"
 
       # upload to artifactory and then gcs
