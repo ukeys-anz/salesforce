@@ -4,7 +4,7 @@ name: Upload Object Changes
 on:
   pull_request:
     paths:
-      - "./force-app/main/default/objects"
+      - "force-app/main/default/objects/*/fields/**"
     branches:
       - epic/upload-object-changes-workflow
 
