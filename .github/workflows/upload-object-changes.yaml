@@ -99,6 +99,7 @@ jobs:
             ARTIFACT_NAME="$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
             echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
             zip -r "$ARTIFACT_NAME" output
+            cat $GITHUB_OUTPUT
           else
             echo "no changed objects found..."
           fi
