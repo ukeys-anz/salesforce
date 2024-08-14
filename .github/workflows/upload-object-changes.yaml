@@ -94,13 +94,6 @@ jobs:
               ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
                   -f output -u tech.gcb@anzx.com.test24
             done
-
-            # zip the files
-            ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
-            echo "ARTIFACT_NAME=$ARTIFACT_NAME" && echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
-            zip -r $ARTIFACT_NAME output
-            ls -la
-            echo "displaying outputs...." && cat $GITHUB_OUTPUT
           else
             echo "no changed objects found..."
           fi
@@ -120,7 +113,10 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          # Get all objects
+          # zip the files
+          ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME"
+          zip -r $ARTIFACT_NAME output
           ls -la
           echo "displaying filename: ${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}"
-          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/${{ steps.get-changed-objects.outputs.ARTIFACT_NAME }}.zip"
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/${artifactoryRepoName}/$ARTIFACT_NAME.zip"
