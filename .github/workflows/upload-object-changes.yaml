@@ -125,9 +125,9 @@ jobs:
           fi
 
       # Upload to GCS
-      # - id: "upload-folder-to-gcs"
-      #   uses: "google-github-actions/upload-cloud-storage@v2"
-      #   with:
-      #     path: "output"
-      #     destination: "bucket-name"
-      #     project_id:
+      - id: "upload-folder-to-gcs"
+        uses: "google-github-actions/upload-cloud-storage@v2"
+        with:
+          path: "upload-object-changes/output"
+          destination: "salesforce-sit-github-workflows"
+          project_id: anz-x-gh-sf-sit-4e60a7
