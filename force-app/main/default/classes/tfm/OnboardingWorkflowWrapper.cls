@@ -246,7 +246,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_FRONT_UNPROCESSED-' +
-        this.documentId;
+        this.documentId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -257,7 +259,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_FRONT_PROCESSED-' +
-        this.documentId;
+        this.documentId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -266,7 +270,11 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    */
   public String selfieImageId {
     get {
-      return UserInfo.getUserId() + '-DAON_FILE_TYPE_SELFIE-' + this.userId;
+      return UserInfo.getUserId() +
+        '-DAON_FILE_TYPE_SELFIE-' +
+        this.userId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -277,7 +285,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_EXTRACTED_FACE-' +
-        this.idxExtractedFaceId;
+        this.idxExtractedFaceId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -288,7 +298,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED-' +
-        this.idxRequestId;
+        this.idxRequestId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
 }

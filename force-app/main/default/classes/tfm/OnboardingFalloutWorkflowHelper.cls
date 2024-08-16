@@ -104,6 +104,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     daonFileData.idx_id_check_id = workflowDetails.idCheck;
     daonFileData.idx_document_id = workflowDetails.documentId;
     daonFileData.idx_extracted_face_id = workflowDetails.idxExtractedFaceId;
+    daonFileData.workflowId = workflowDetails.workflowId;
     daonFileData.content_version_id = String.isNotBlank(cvId)
       ? cvId
       : TFMConstants.EMPTY;
