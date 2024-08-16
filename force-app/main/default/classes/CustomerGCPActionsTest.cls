@@ -25,7 +25,11 @@ public with sharing class CustomerGCPActionsTest {
       oldMap
     );
     Test.stopTest();
-    Assert.areEqual(1, result.size(), 'Valid Account number is 1');
+    Assert.areEqual(
+      1,
+      result.size(),
+      'Expected one account with valid sync status'
+    );
   }
 
   /*
