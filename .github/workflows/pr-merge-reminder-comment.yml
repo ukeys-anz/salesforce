@@ -21,13 +21,15 @@ jobs:
             | Squash &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; |     |         |
             | ------- | --- | ------- |
             | feature | ➡️  | epic    |
+            | feature | ➡️  | release |
             | feature | ➡️  | develop |
             | feature | ➡️  | master  |
-            | epic **   | ➡️  | develop |
+            | epic **   | ➡️  | release |
 
             | Merge Commit |     |         |
             | ------------ | --- | ------- |
-            | develop      | ➡️  | epic    |
+            | release      | ➡️  | develop |
+            | release      | ➡️  | epic    |
             | develop      | ➡️  | master  |
             | master       | ➡️  | develop |
 
