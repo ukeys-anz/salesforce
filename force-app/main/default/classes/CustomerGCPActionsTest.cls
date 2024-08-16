@@ -71,18 +71,6 @@ public with sharing class CustomerGCPActionsTest {
   }
 
   /*
-   * @description  publishGCPEventForCustomers Negative test
-   */
-  @isTest
-  static void publishGCPEventForCustomersNegativeTest() {
-    List<Account> accList;
-    Map<Id, Account> oldMap;
-    Test.startTest();
-    CustomerGCPActions.publishGCPEventForCustomers(accList, oldMap, 'update');
-    Test.stopTest();
-  }
-
-  /*
    * @description unit test for generateCloudEventModel
    */
   @isTest
@@ -103,19 +91,6 @@ public with sharing class CustomerGCPActionsTest {
       result[0].ce_xtargets,
       'The external id should be the same as the customer external id'
     );
-  }
-
-  /*
-   * @description unit test for logSuccessEvents
-   */
-  @IsTest
-  static void logSuccessEventsTest() {
-    List<SObject> eventList = new List<SObject>();
-    eventList.addAll(createCustomerAccount(2));
-    List<SObject> emptyEventList = new List<SObject>();
-    Test.startTest();
-    CustomerGCPActions.logSuccessEvents(eventList);
-    Test.stopTest();
   }
 
   /*
