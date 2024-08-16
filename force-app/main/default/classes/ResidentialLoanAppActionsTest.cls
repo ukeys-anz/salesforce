@@ -221,6 +221,9 @@ private class ResidentialLoanAppActionsTest {
       loanApps
     );
     Test.startTest();
+    ResidentialLoanApplicationActions.mockBrokerSettings = new BrokerSettings__c(
+      BypassApplicationSyncEvents__c = false
+    );
     List<SObject> cloudEvents = ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
       loanApps,
       ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD

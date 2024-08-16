@@ -707,6 +707,9 @@
       ],
       "IA-2423278": ["OwnerId"]
     },
+    "BrokerSettings__c": {
+      "IA-253075": ["BypassApplicationSyncEvents__c"]
+    },
     "Campaign": {
       "IA-2415860": [
         "Channel__c",
