@@ -2,7 +2,7 @@
 private class ContactRequestTriggerHandlerTest {
   static Integer otherPurposeDuration = 30;
   /*
-    Test data setup 
+    Test data setup
   */
 
   @testSetup
@@ -517,11 +517,13 @@ private class ContactRequestTriggerHandlerTest {
     Faker faker = new Faker('AU');
     for (Account currentAccount : accounts) {
       DateTime appointmentDate = DateTime.newInstance(
-        DateTime.now().year() + 1, //Year
+        DateTime.now().year() +
+        1, //Year
         faker.randomIntegerBetween(1, 12), //month
         faker.randomIntegerBetween(1, 28), //date
         faker.randomIntegerBetween(7, 20), //hour
-        faker.randomIntegerBetween(0, 1) * 30, //minute
+        faker.randomIntegerBetween(0, 1) *
+        30, //minute
         0 //second
       );
 

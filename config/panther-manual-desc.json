@@ -1108,6 +1108,7 @@
         "Submitted_Time__c",
         "Target_SLA_Date__c",
         "Transaction_Status__c",
+        "Transaction_Method__c",
         "Type",
         "What_Customer_was_Trying_to_Do__c",
         "Goods_Or_Services_Returned__c",

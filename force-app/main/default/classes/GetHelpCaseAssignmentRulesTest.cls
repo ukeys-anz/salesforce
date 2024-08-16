@@ -91,7 +91,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
 
   @isTest
   static void testAssignAEMToBOHQueueCases() {
-    Faker faker = new Faker('AU');
     Case testCase = new Case(
       RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
       Status = GetHelpConstants.OPEN_STATUS,
@@ -123,7 +122,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
 
   @isTest
   static void testAssignAEMToCoachQueueCases() {
-    Faker faker = new Faker('AU');
     Case testCase = new Case(
       RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID,
       Status = GetHelpConstants.OPEN_STATUS,
@@ -538,6 +536,8 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
 
     Test.startTest();
     insert testCase;
+    Test.stopTest();
+
     Case c = [SELECT Id, OwnerId, Queue__c FROM Case WHERE Id = :testCase.Id];
 
     Group supportCoachQueue = CommonUtil.getQueueByName('Support_Coach_Queue');
@@ -549,6 +549,42 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     Assert.areNotEqual(
       c.Queue__c,
       supportCoachQueue.Name,
+      'Should return the Name of expected queue.'
+    );
+  }
+
+  /**
+   * @description : Test if the general enquiry case with the following -
+   * Issue Type: Profile | Sub Issue Type: 'Suspect ConnectID Fraud'
+   * will be assigned to Digital Fraud Queue
+   */
+
+  @isTest
+  static void testAssignGeneralEnquiryToDigitalFraudQueue() {
+    List<Case> cases = new List<Case>{
+      new Case(
+        RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+        Status = GetHelpConstants.OPEN_STATUS,
+        Type = 'Profile',
+        Sub_Type__c = 'Suspect ConnectID Fraud'
+      )
+    };
+
+    Test.startTest();
+    GetHelpCaseAssignmentRules.assignGeneralEnquiryCases(cases);
+    Test.stopTest();
+
+    Group digitalFraudQueue = CommonUtil.getQueueByName(
+      GetHelpConstants.DIGITAL_FRAUD_QUEUE
+    );
+    Assert.areEqual(
+      cases[0].OwnerId,
+      digitalFraudQueue.Id,
+      'Should return the Id of expected queue.'
+    );
+    Assert.areEqual(
+      cases[0].Queue__c,
+      digitalFraudQueue.Name,
       'Should return the Name of expected queue.'
     );
   }

@@ -1084,7 +1084,7 @@
       "name": "DAON Files Cleanup Batch User",
       "profile": "Minimum Access - Salesforce",
       "permissionsetgroups": [],
-      "permissionsets": ["DAONFileCleanup", "View_All_Files", "API_Only"],
+      "permissionsets": ["DAONFileCleanup", "Query_All_Files", "API_Only"],
       "type": "system"
     }
   ]

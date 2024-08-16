@@ -29,22 +29,13 @@ jobs:
       matrix:
         config:
           - DEPLOYMENT_ENVIRONMENT: "prod-release-start"
-            DEPLOYMENT_TITLE: "Stage 1: Preprod Deployment Approval"
-
-          - DEPLOYMENT_ENVIRONMENT: "preprod-deployment"
-            DEPLOYMENT_TITLE: "Stage 2: Preprod Deployment"
+            DEPLOYMENT_TITLE: "Stage 1: Preprod Deployment"
 
           - DEPLOYMENT_ENVIRONMENT: "prod-validation"
-            DEPLOYMENT_TITLE: "Stage 3: Prod Validation Approval"
-
-          - DEPLOYMENT_ENVIRONMENT: "production-validation"
-            DEPLOYMENT_TITLE: "Stage 4: Prod Validation"
+            DEPLOYMENT_TITLE: "Stage 2: Prod Validation"
 
           - DEPLOYMENT_ENVIRONMENT: "prod-deployment"
-            DEPLOYMENT_TITLE: "Stage 5: Prod Deployment Approval"
-
-          - DEPLOYMENT_ENVIRONMENT: "production-deployment"
-            DEPLOYMENT_TITLE: "Stage 6: Prod Deployment"
+            DEPLOYMENT_TITLE: "Stage 3: Prod Deployment"
 
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
     env:
@@ -53,11 +44,9 @@ jobs:
       PREPROD_SECRET_NAME: "h-salesforce-prod-preprod"
       PROD_CONSUMER_KEY_SECRET_NAME: "h-salesforce-prod-ca-consumerkey"
       PROD_CERT_SECRET_NAME: "h-salesforce-prod-cert"
-      APPROVAL_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-release-start' || matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-validation' || matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-deployment' }}
-      NOT_APPROVAL_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'preprod-deployment' || matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-validation' || matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-deployment' }}
-      PREPROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'preprod-deployment' }}
-      PROD_VALIDATION_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-validation' }}
-      PROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'production-deployment' }}
+      PREPROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-release-start' }}
+      PROD_VALIDATION_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-validation' }}
+      PROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-deployment' }}
       STAGE_NAME: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
       REPO_NAME: ${{ github.event.repository.name }}
       PROD_DEPLOY_USERNAME: "tech.gcb@anzx.com"
@@ -66,8 +55,6 @@ jobs:
     steps:
       - name: Environment Varibales Debug
         run: |
-          echo "DEBUG: APPROVAL_STEP=${{ env.APPROVAL_STEP }}"
-          echo "DEBUG: NOT_APPROVAL_STEP=${{ env.NOT_APPROVAL_STEP }}"
           echo "DEBUG: PREPROD_DEPLOYMENT_STEP=${{ env.PREPROD_DEPLOYMENT_STEP }}"
           echo "DEBUG: PROD_VALIDATION_STEP=${{ env.PROD_VALIDATION_STEP }}"
           echo "DEBUG: PROD_DEPLOYMENT_STEP=${{ env.PROD_DEPLOYMENT_STEP }}"
@@ -75,33 +62,28 @@ jobs:
           echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
 
       - name: Link SGD plugin
-        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           cd /opt/harness-delegate/.local/share/sf
           sf plugins:link node_modules/sfdx-git-delta/bin
 
       - name: NPM package Version | node, sfdx, sf, sgd version
-        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           echo "node version: $(node -v)"
           echo "sf version: $(sf -v)"
           echo "sf plugins: $(sf plugins)"
 
       - name: Checkout
-        if: env.NOT_APPROVAL_STEP == 'true'
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
-        if: env.NOT_APPROVAL_STEP == 'true'
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
           service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
 
       - name: "Retrieve GSM Credentials"
-        if: env.NOT_APPROVAL_STEP == 'true'
         id: secrets
         uses: "google-github-actions/get-secretmanager-secrets@v1"
         with:
@@ -113,7 +95,6 @@ jobs:
             proxypass:projects/anz-x-bootstrap-prod-3b7a6d/secrets/h-salesforce-prod-proxy-password/versions/1
 
       - name: "Setup HTTP Proxy (sf-harness-delegate-prod)"
-        if: env.NOT_APPROVAL_STEP == 'true'
         id: "proxy-harness-delegate"
         uses: "anzx/github-reusable-actions/setup-http-proxy@main"
         with:
@@ -122,7 +103,6 @@ jobs:
           proxy-password: "${{ steps.secrets.outputs.proxypass }}"
 
       - name: Add Genral Secrets to ENV
-        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV
           echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
@@ -130,13 +110,11 @@ jobs:
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
       - name: Run ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
-        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
           echo CLEANING_JOB="true" >> $GITHUB_ENV
 
       - name: Cleaning | Create Tag
-        if: env.NOT_APPROVAL_STEP == 'true'
         run: |
           node --no-warnings ci/workflows/Orchestrations/release.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.prod-consumer-key }}" "${{ steps.secrets.outputs.prod-cert }}" "${{ steps.secrets.outputs.artifactory }}"
 

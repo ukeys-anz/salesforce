@@ -1,11 +1,18 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 08-13-2024
+  @last modified by  : Madhuri Edke | Salesforce
+-->
 <template>
   <template lwc:if={currentFileType.stopSpinner}>
-    <div class={cssClass}>
+    <div class="slds-col slds-size_1-of-1 slds-wrap">
       <template lwc:if={currentFileType.isImageFinalVersion}>
         <template lwc:if={showRedBorder}>
           <img
             src={currentFileType.imageURL}
-            class="borderRed imgCSS"
+            class="borderRed"
             oncontextmenu={disableRightClick}
           />
         </template>

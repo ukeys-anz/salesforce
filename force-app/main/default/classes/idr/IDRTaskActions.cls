@@ -186,7 +186,7 @@ public without sharing class IDRTaskActions {
   public static void afterInsertActions(List<Task> records) {
     closeOldIDRMaximumTimeTasks(records);
     IDRTaskActions2.checkForUrgentCaseAllocationTask(records);
-    IDRTaskActions2.updateOnHoldDateonCase(records, true);
+    IDRTaskActions2.updateOnHoldDateonCase(records,true);
   }
   /**
    * @description beforeUpdateActions is called onBeforeUpdate
@@ -232,7 +232,7 @@ public without sharing class IDRTaskActions {
   public static void afterUpdateActions(List<Task> records) {
     closeMilestonesOfClosedTask(records);
     IDRTaskActionHelper.updateCases(records);
-    IDRTaskActions2.updateOnHoldDateonCase(records, false);
+    IDRTaskActions2.updateOnHoldDateonCase(records,false);
   }
   /**
    * @description closeOldIDRMaximumTimeTasks will close out old IDR Task reminders against case when a new Task is created.

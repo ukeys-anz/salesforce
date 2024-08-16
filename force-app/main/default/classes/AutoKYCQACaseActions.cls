@@ -5,8 +5,6 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class AutoKYCQACaseActions {
-  public static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
-
   private static final AutoKYCQACaseRepository REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
     AutoKYCQACaseRepository.class
   );
@@ -16,15 +14,13 @@ public with sharing class AutoKYCQACaseActions {
   );
 
   @TestVisible
-  private static final String KYC_QA_CASE_MUST_BE_LINKED_TO_COB = 'KYC QA case must be linked to a Customer Onboarding Application';
+  private static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
+  @TestVisible
+  private static final String ERROR_NO_COB = 'KYC QA case must be linked to a Customer Onboarding Application';
   @TestVisible
   private static final String YES = 'Yes';
   @TestVisible
   private static final String NO = 'No';
-  @TestVisible
-  private static final String NONE = null;
-  @TestVisible
-  private static final String PASS = 'PASS';
   @TestVisible
   private static final String LICENCE = 'Licence';
   @TestVisible
@@ -33,7 +29,6 @@ public with sharing class AutoKYCQACaseActions {
   private static final String VERIFICATION_TYPE_ASSISTED = 'ASSISTED';
   @TestVisible
   private static final String VERIFICATION_TYPE_STP = 'STP';
-  private static final String CURRENT = 'Current';
 
   private static final Set<String> DOWNGRADE_OLD_STATUSES = new Set<String>{
     'Open',
@@ -59,7 +54,7 @@ public with sharing class AutoKYCQACaseActions {
   };
 
   @TestVisible
-  private static final Map<String, String> VERIFICATION_TYPE_PRIORITY_MAP = new Map<String, String>{
+  private static final Map<String, String> VERIFICATION_PRIORITY = new Map<String, String>{
     'MANUAL' => 'High',
     'UNSPECIFIED' => 'High',
     'ASSISTED' => 'Medium',
@@ -67,13 +62,9 @@ public with sharing class AutoKYCQACaseActions {
   };
 
   @TestVisible
-  private static final String DOWNGRADE = 'Downgrade';
-  @TestVisible
   private static final String DOWNGRADE_KYC_STATUS = 'PC';
   @TestVisible
   private static final String DOWNGRADE_KYC_VERIFICATION_LEVEL = 'RR';
-  @TestVisible
-  private static final String UPGRADE = 'Upgrade';
   @TestVisible
   private static final String UPGRADE_KYC_STATUS = 'CO';
   @TestVisible
@@ -83,334 +74,191 @@ public with sharing class AutoKYCQACaseActions {
    * @description Update KYC QA Case fields
    * @param cases List of Cases
    */
-  public static void setKYCQAFields(List<Case> cases) {
-    Map<String, Case> personaIDToKYCCasesMap = new Map<String, Case>();
-
-    for (Case kycCase : cases) {
-      if (String.isEmpty(kycCase.CustomerOnboardingApplication__c)) {
-        CommonUtil.addErrorToRecordAndLog(
-          kycCase,
-          KYC_QA_CASE_MUST_BE_LINKED_TO_COB
-        );
-      } else {
-        personaIDToKYCCasesMap.put(kycCase.PersonaId__c, kycCase);
-      }
-    }
-
-    if (personaIDToKYCCasesMap.isEmpty() == true) {
-      return;
-    }
-
-    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppsMap = getCOBAppsByPersonaIds(
-      personaIDToKYCCasesMap.keySet()
-    );
-
-    setKYCQAFieldsCOBApp(personaIDToKYCCasesMap, personaIDToCOBAppsMap);
-
-    Map<String, COBPrimaryIDDocument__c> personaIDToPrimaryDocumentMap = getCOBPIDsByPersonaIds(
-      personaIDToKYCCasesMap.keySet()
-    );
-    setKYCQAFieldsCOBPID(
-      personaIDToKYCCasesMap,
-      personaIDToCOBAppsMap,
-      personaIDToPrimaryDocumentMap
-    );
-
-    Map<String, COBAddress__c> personaIDToCOBAddressMap = getCOBAddressByPersonaIdsAndAddressType(
-      personaIDToKYCCasesMap.keySet(),
-      CURRENT
-    );
-    setKYCQAFieldsCOBAddress(personaIDToKYCCasesMap, personaIDToCOBAddressMap);
-  }
-
-  /**
-   * @description Update KYC QA case Fields base on COB App
-   * @param personaIDToKYCCasesMap Map of Persona Ids and KYC  cases
-   * @param personaIDToCOBAppsMap Map of Persona Ids and COB Apps
-   */
-  @TestVisible
-  private static void setKYCQAFieldsCOBApp(
-    Map<String, Case> personaIDToKYCCasesMap,
-    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppsMap
-  ) {
+  public static void populateAutoKYCQAChecks(List<Case> cases) {
     Logger.debug('Set KYC QA fields from COB App started: ' + System.now());
 
-    for (Case kycCase : personaIDToKYCCasesMap.values()) {
-      CustomerOnboardingApplication__c cobApp = personaIDToCOBAppsMap.get(
-        kycCase.PersonaId__c
-      );
-      kycCase.Priority = VERIFICATION_TYPE_PRIORITY_MAP.get(
-        cobApp?.VerificationType__c
-      );
-    }
-    Logger.debug('Set KYC QA fields from COB App finished: ' + System.now());
-    Logger.saveLog();
-  }
-
-  /**
-   * @description Update KYC QA case Fields base on COB Primary ID Document
-   * @param personaIDToKYCCasesMap Map of Persona Ids and KYC QA cases
-   * @param personaIDToCOBAppsMap Map of Persona Ids and COB Apps
-   * @param personaIDToPrimaryDocumentMap Map of Persona Ids and COB Primary ID Documents
-   */
-  @TestVisible
-  private static void setKYCQAFieldsCOBPID(
-    Map<String, Case> personaIDToKYCCasesMap,
-    Map<String, CustomerOnboardingApplication__c> personaIDToCOBAppsMap,
-    Map<String, COBPrimaryIDDocument__c> personaIDToPrimaryDocumentMap
-  ) {
-    Logger.debug('Set KYC QA fields from PID started: ' + System.now());
-    for (Case kycCase : personaIDToKYCCasesMap.values()) {
-      COBPrimaryIDDocument__c cobPid = personaIDToPrimaryDocumentMap.get(
-        kycCase.PersonaId__c
-      );
-      kycCase.Fraud_MiddleNameCheck__c = populateMiddleNameCheck(cobPid);
-
-      CustomerOnboardingApplication__c cobApp = personaIDToCOBAppsMap.get(
-        kycCase.PersonaId__c
-      );
-      kycCase.Fraud_Customer_Details__c = populateFraudCustomerDetails(
-        cobApp,
-        cobPid
-      );
-    }
-    Logger.debug('Set KYC QA fields from PID finished: ' + System.now());
-    Logger.saveLog();
-  }
-
-  /**
-   * @description Update KYC QA case Fields base on COB Address
-   * @param personaIDToKYCCasesMap Map of Persona Ids and KYC QA cases
-   * @param personaIDToCOBAddressMap Map of Persona Ids and COB Addresses
-   */
-  @TestVisible
-  private static void setKYCQAFieldsCOBAddress(
-    Map<String, Case> personaIDToKYCCasesMap,
-    Map<String, COBAddress__c> personaIDToCOBAddressMap
-  ) {
-    Logger.debug('Set KYC QA fields from Address started: ' + System.now());
-    for (Case kycCase : personaIDToKYCCasesMap.values()) {
-      if (!personaIDToCOBAddressMap.containsKey(kycCase.PersonaId__c)) {
-        continue;
-      }
-      COBAddress__c cobAddress = personaIDToCOBAddressMap.get(
-        kycCase.PersonaId__c
-      );
-      kycCase.Fraud_PO_Box__c = cobAddress.QASAddress__c == true ? YES : NONE;
-      kycCase.Fraud_Address_Valid__c = cobAddress.QASAddress__c == true
-        ? YES
-        : NONE;
-    }
-    Logger.debug('Set KYC QA fields from Address finished: ' + System.now());
-    Logger.saveLog();
-  }
-
-  /**
-   * @description Get COB Apps by PersonaIds
-   * @param personaIds PersonaIds
-   * @return Map <String, CustomerOnboardingApplication__c> Map of PersonaIds with COB Apps
-   */
-  @TestVisible
-  private static Map<String, CustomerOnboardingApplication__c> getCOBAppsByPersonaIds(
-    Set<String> personaIds
-  ) {
-    List<CustomerOnboardingApplication__c> cobApps = REPOSITORY.queryCOBByPersonaId(
-      personaIds
+    cases = ListUtil.filterNoError(cases);
+    Map<String, Case> personaIdToCaseMap = (Map<String, Case>) ListUtil.mapByString(
+      cases,
+      Case.PersonaId__c
     );
-    return (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapByString(
+    List<CustomerOnboardingApplication__c> cobApps = REPOSITORY.queryCobsByPersonaIds(
+      personaIdToCaseMap.keySet()
+    );
+    Map<String, CustomerOnboardingApplication__c> cobMap = (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapByString(
       cobApps,
       CustomerOnboardingApplication__c.PersonaId__c
     );
+    setFieldsFromCob(personaIdToCaseMap.values(), cobMap);
+
+    Logger.debug('Set KYC QA fields from COB App finished: ' + System.now());
   }
 
   /**
-   * @description Get COB PID by PersonaIds
-   * @param personaIds PersonaIds
-   * @return Map <String, COBPrimaryIDDocument__c> Map of PersonaIds with COB Primary ID Documents
+   * @description Validates the Customer Onboarding Application and builds a map of Cases.
+   * @param cases The list of Cases to validate and build the map from.
    */
-  @TestVisible
-  private static Map<String, COBPrimaryIDDocument__c> getCOBPIDsByPersonaIds(
-    Set<String> personaIds
-  ) {
-    Map<String, COBPrimaryIDDocument__c> personaIDToPrimaryDocumentMap = new Map<String, COBPrimaryIDDocument__c>();
-    //get latest COB PID record by max createdDate for each PersonaId
-    for (
-      CustomerOnboardingApplication__c cobApp : REPOSITORY.queryCOBWithPIDByPersonaId(
-        personaIds
-      )
-    ) {
-      if (cobApp.COBPrimaryIDDocuments__r.isEmpty() == false) {
-        personaIDToPrimaryDocumentMap.put(
-          cobApp.PersonaId__c,
-          cobApp.COBPrimaryIDDocuments__r[0]
-        );
+  public static void validateCobExist(List<Case> cases) {
+    for (Case record : cases) {
+      if (record.CustomerOnboardingApplication__c == null) {
+        CommonUtil.addErrorToRecordAndLog(record, ERROR_NO_COB);
       }
     }
-
-    return personaIDToPrimaryDocumentMap;
   }
 
   /**
-   * @description Get COB Address by PersonaID and AddressType
-   * @param personaIds PersonaIds
-   * @param addressType Address Type
-   * @return Map<String, COBAddress__c> Map of PersonaIds with COB Addresses
+   * @description Sets fields on Case records based on data from CustomerOnboardingApplication__c records.
+   * @param cases A list of Case records to update.
+   * @param cobMap A map of PersonaId__c to CustomerOnboardingApplication__c records.
    */
   @TestVisible
-  private static Map<String, COBAddress__c> getCOBAddressByPersonaIdsAndAddressType(
-    Set<String> personaIds,
-    String addressType
+  private static void setFieldsFromCob(
+    List<Case> cases,
+    Map<String, CustomerOnboardingApplication__c> cobMap
   ) {
-    Map<String, COBAddress__c> personaIDToCOBAddressMap = new Map<String, COBAddress__c>();
-    //get latest COB Address record by max createdDate for each PersonaId and certain Address Type
-    for (
-      CustomerOnboardingApplication__c cobApp : REPOSITORY.queryCOBWithCOBAddressByAddresTypeAndPersonaId(
-        personaIds,
-        addressType
-      )
-    ) {
-      if (cobApp.COBAddresses__r.isEmpty() == false) {
-        personaIDToCOBAddressMap.put(
-          cobApp.PersonaId__c,
-          cobApp.COBAddresses__r[0]
-        );
+    for (Case record : cases) {
+      if (!cobMap.containsKey(record.PersonaId__c)) {
+        continue;
       }
+      CustomerOnboardingApplication__c cob = cobMap.get(record.PersonaId__c);
+
+      record.Priority = VERIFICATION_PRIORITY.get(cob.VerificationType__c);
+      setAddressChecks(record, cob);
+      setCustomerChecks(record, cob);
+    }
+  }
+
+  /**
+   * @description Sets the address checks for a Case record based on the CustomerOnboardingApplication__c record.
+   * @param record The Case record to update.
+   * @param cob The CustomerOnboardingApplication__c record.
+   */
+  @TestVisible
+  private static void setAddressChecks(
+    Case record,
+    CustomerOnboardingApplication__c cob
+  ) {
+    Logger.debug('Set KYC QA fields from Address started: ' + System.now());
+
+    if (cob.COBAddresses__r.isEmpty()) {
+      return;
+    }
+    COBAddress__c address = cob.COBAddresses__r[0];
+    record.Fraud_PO_Box__c = address.QASAddress__c ? YES : null;
+    record.Fraud_Address_Valid__c = address.QASAddress__c ? YES : null;
+
+    Logger.debug('Set KYC QA fields from Address finished: ' + System.now());
+  }
+
+  /**
+   * @description Sets the customer checks for a given Case record and CustomerOnboardingApplication__c.
+   * COBPrimaryIDDocument__c from the COBPrimaryIDDocuments__r list and performs the following checks:
+   * - checkMiddleName: Sets the Fraud_MiddleNameCheck__c field of the Case record to YES if the check passes, otherwise sets it to null.
+   * - checkCustomer: Sets the Fraud_Customer_Details__c field of the Case record to YES if the check passes, otherwise sets it to null.
+   *
+   * @param record The Case record to set the customer checks on.
+   * @param cob The CustomerOnboardingApplication__c to retrieve the COBPrimaryIDDocuments__r list from.
+   */
+  @TestVisible
+  private static void setCustomerChecks(
+    Case record,
+    CustomerOnboardingApplication__c cob
+  ) {
+    Logger.debug('Set KYC QA fields from PID started: ' + System.now());
+
+    if (cob.COBPrimaryIDDocuments__r.isEmpty()) {
+      return;
     }
 
-    return personaIDToCOBAddressMap;
+    COBPrimaryIDDocument__c pid = cob.COBPrimaryIDDocuments__r[0];
+    record.Fraud_MiddleNameCheck__c = checkMiddleName(pid) ? YES : null;
+    record.Fraud_Customer_Details__c = checkPrimaryId(
+        pid,
+        cob.VerificationType__c
+      )
+      ? YES
+      : null;
+
+    Logger.debug('Set KYC QA fields from PID finished: ' + System.now());
   }
 
   /**
-   * @description Populate Fraud Customer Details test result
-   * @param cobApp  COB Application
-   * @param cobPrimaryIDDocument  COB Primary ID Document
-   * @return Fraud Customer Details result
+   * @description Checks if the customer's information matches the provided primary ID document.
+   * @param pid The COBPrimaryIDDocument__c object representing the primary ID document.
+   * @param verificationType The type of verification being performed.
+   * @return `Boolean` Indicating whether the customer's information matches the document.
    */
   @TestVisible
-  private static String populateFraudCustomerDetails(
-    CustomerOnboardingApplication__c cobApp,
-    COBPrimaryIDDocument__c cobPrimaryIDDocument
+  private static Boolean checkPrimaryId(
+    COBPrimaryIDDocument__c pid,
+    String verificationType
   ) {
-    Logger.debug('Verification Type: ' + cobApp?.VerificationType__c);
-    Logger.debug(
-      'Does Licence Match: ' + doesLicenceMatch(cobPrimaryIDDocument)
-    );
-    Logger.debug(
-      'Does Passport Match: ' + doesPassportMatch(cobPrimaryIDDocument)
-    );
-    Logger.debug(
-      'Does Full Name Match: ' + doesFullNameMatch(cobPrimaryIDDocument)
-    );
-    Logger.debug(
-      'Date Of Birth OCR Match: ' +
-      (cobPrimaryIDDocument?.DateOfBirthOCRMatch__c == true)
-    );
-    Logger.debug(
-      'Expiry Date OCR Match: ' +
-      (cobPrimaryIDDocument?.ExpiryDateOCRMatch__c == true)
-    );
-    Logger.saveLog();
+    Boolean doesFullNameMatch = doesFullNameMatch(pid);
+    Boolean doesDocumentMatch = doesDocumentMatch(pid);
+
+    Logger.debug('Verification Type: ' + verificationType);
+    Logger.debug('Licence/Passport match: ' + doesDocumentMatch);
+    Logger.debug('Fullname match: ' + doesFullNameMatch);
+    Logger.debug('Date Of Birth OCR Match: ' + pid.DateOfBirthOCRMatch__c);
+    Logger.debug('Expiry Date OCR Match: ' + pid.ExpiryDateOCRMatch__c);
 
     if (
-      (cobApp?.VerificationType__c == VERIFICATION_TYPE_STP ||
-      cobApp?.VerificationType__c == VERIFICATION_TYPE_ASSISTED)
+      verificationType == VERIFICATION_TYPE_STP ||
+      verificationType == VERIFICATION_TYPE_ASSISTED
     ) {
-      if (
-        doesLicenceMatch(cobPrimaryIDDocument) ||
-        doesPassportMatch(cobPrimaryIDDocument)
-      ) {
-        return YES;
-      } else {
-        return NONE;
-      }
-    } else if (
-      doesFullNameMatch(cobPrimaryIDDocument) &&
-      cobPrimaryIDDocument?.DateOfBirthOCRMatch__c == true &&
-      cobPrimaryIDDocument?.ExpiryDateOCRMatch__c == true &&
-      (doesLicenceMatch(cobPrimaryIDDocument) ||
-      doesPassportMatch(cobPrimaryIDDocument))
-    ) {
-      return YES;
+      return doesDocumentMatch;
     }
-    return NONE;
+
+    return doesFullNameMatch &&
+      pid.DateOfBirthOCRMatch__c &&
+      pid.ExpiryDateOCRMatch__c &&
+      doesDocumentMatch;
   }
 
   /**
    * @description Populate Middle Name Check test result
-   * @param cobPid  COB Primary ID Document
-   * @return Middle Name Check result
+   * @param pid COB Primary ID Document
+   * @return `Boolean` Middle Name Check result
    */
   @TestVisible
-  private static String populateMiddleNameCheck(
-    COBPrimaryIDDocument__c cobPid
-  ) {
+  private static Boolean checkMiddleName(COBPrimaryIDDocument__c pid) {
+    Boolean areFirstLastNamesOcrServerBlank =
+      String.isBlank(pid.FirstNameOCRServer__c) &&
+      String.isBlank(pid.LastNameOCRServer__c);
+    Boolean doesMiddleNamesMatch =
+      pid.MiddleNamesOCRMatch__c &&
+      String.isNotBlank(pid.MiddleNamesOCRServer__c);
+
+    Logger.debug('Midddle Names match: ' + doesMiddleNamesMatch);
     Logger.debug(
-      'Are First And Last Names OCR Server Blank: ' +
-      areFirstAndLastNamesOCRServerBlank(cobPid)
+      'First And Last Names OCR Server Blank: ' +
+      areFirstLastNamesOcrServerBlank
     );
-    Logger.debug('Does Midddle Names Match: ' + doMiddleNamesMatch(cobPid));
-    Logger.debug('Does Full Name Match: ' + doesFullNameMatch(cobPid));
-    Logger.debug('Does Licence Match: ' + doesLicenceMatch(cobPid));
-    Logger.debug('Does Passport Match: ' + doesPassportMatch(cobPid));
-    Logger.saveLog();
 
-    if (areFirstAndLastNamesOCRServerBlank(cobPid)) {
-      return NONE;
-    } else if (doMiddleNamesMatch(cobPid)) {
-      return YES;
-    } else if (
-      doesFullNameMatch(cobPid) &&
-      (doesLicenceMatch(cobPid) || doesPassportMatch(cobPid))
-    ) {
-      return YES;
+    if (areFirstLastNamesOcrServerBlank) {
+      return false;
     }
-
-    return NONE;
-  }
-
-  /**
-   * @description Checks whether FirstNameOCRServer and LastNameOCRServer values are blank
-   * @param cobPid COB Primary Document
-   * @return True if the FirstNameOCRServer and LastNameOCRServer values are blank, false otherwise
-   */
-  @TestVisible
-  private static Boolean areFirstAndLastNamesOCRServerBlank(
-    COBPrimaryIDDocument__c cobPid
-  ) {
-    return String.isBlank(cobPid?.FirstNameOCRServer__c) &&
-      String.isBlank(cobPid?.LastNameOCRServer__c);
-  }
-
-  /**
-   * @description Checks whether MiddleNames and MiddleNames Server OCR values are matching and MiddleNamesOCRServer is not blank
-   * @param cobPid COB Primary Document
-   * @return True if MiddleNames and MiddleNames Server OCR values are matching and MiddleNamesOCRServer is not blank, false otherwise
-   */
-  @TestVisible
-  private static Boolean doMiddleNamesMatch(COBPrimaryIDDocument__c cobPid) {
-    return cobPid?.MiddleNamesOCRMatch__c == true &&
-      String.isNotBlank(cobPid?.MiddleNamesOCRServer__c);
+    if (doesMiddleNamesMatch) {
+      return true;
+    }
+    return doesFullNameMatch(pid) && doesDocumentMatch(pid);
   }
 
   /**
    * @description Check whether Full Name values matching Full Name Server OCR values
-   * @param cobPid COB Primary Document
-   * @return True if Full Name values matching Full Name Server OCR values, false otherwise
+   * @param pid COB Primary Document
+   * @return `Boolean` True if Full Name values matching Full Name Server OCR values, false otherwise
    */
   @TestVisible
-  private static Boolean doesFullNameMatch(COBPrimaryIDDocument__c cobPid) {
+  private static Boolean doesFullNameMatch(COBPrimaryIDDocument__c pid) {
     String cobPIDDFullName = CommonUtil.buildTrimmedConcatenatedString(
-      new List<String>{
-        cobPid?.FirstName__c,
-        cobPid?.MiddleNames__c,
-        cobPid?.LastName__c
-      }
+      new List<String>{ pid.FirstName__c, pid.MiddleNames__c, pid.LastName__c }
     );
     String cobPIDDFullNameOCRServer = CommonUtil.buildTrimmedConcatenatedString(
       new List<String>{
-        cobPid?.FirstNameOCRServer__c,
-        cobPid?.MiddleNamesOCRServer__c,
-        cobPid?.LastNameOCRServer__c
+        pid.FirstNameOCRServer__c,
+        pid.MiddleNamesOCRServer__c,
+        pid.LastNameOCRServer__c
       }
     );
 
@@ -418,25 +266,17 @@ public with sharing class AutoKYCQACaseActions {
   }
 
   /**
-   * @description Checks whether Document type is Licence and the LicenceNumber and LicenceNumber Server OCR values are matching
-   * @param cobPid COB Primary Document
-   * @return True if the Document type is Licence and the LicenceNumber and LicenceNumberOCR values are matching, false otherwise
+   * @description Determines whether the provided COBPrimaryIDDocument__c object matches the document type and OCR match criteria.
+   * @param pid The COBPrimaryIDDocument__c object to check for a match.
+   * @return `Boolean` Returns true if the document matches the criteria, otherwise returns false.
    */
   @TestVisible
-  private static Boolean doesLicenceMatch(COBPrimaryIDDocument__c cobPid) {
-    return cobPid?.IdDocumentType__c == LICENCE &&
-      cobPid?.LicenceNumberOCRMatch__c == true;
-  }
-
-  /**
-   * @description Checks whether Document type is Passport and the PassportNumber and PassportNumber Server OCR values are matching
-   * @param cobPid COB Primary Document
-   * @return True if the Document type is Passport and the PassportNumber and PassportNumberOCR values are matching, false otherwise
-   */
-  @TestVisible
-  private static Boolean doesPassportMatch(COBPrimaryIDDocument__c cobPid) {
-    return cobPid?.IdDocumentType__c == PASSPORT &&
-      cobPid?.PassportNumberOCRMatch__c == true;
+  private static Boolean doesDocumentMatch(COBPrimaryIDDocument__c pid) {
+    Boolean doesLicenceMatch =
+      pid.IdDocumentType__c == LICENCE && pid.LicenceNumberOCRMatch__c;
+    Boolean doesPassportMatch =
+      pid.IdDocumentType__c == PASSPORT && pid.PassportNumberOCRMatch__c;
+    return doesLicenceMatch || doesPassportMatch;
   }
 
   /**
@@ -723,7 +563,7 @@ public with sharing class AutoKYCQACaseActions {
     Map<Id, Case> oldMap
   ) {
     for (Case record : records) {
-      if (!checkClosedAsNoDefect(record, oldMap?.get(record.Id))) {
+      if (!checkClosedAsNoDefect(record, oldMap.get(record.Id))) {
         continue;
       }
       for (SObjectField field : TEST_FIELDS) {
@@ -750,6 +590,6 @@ public with sharing class AutoKYCQACaseActions {
     Boolean wasDowngraded =
       hasKycCheckCompletedWithDefect(record) &&
       record.Fraud_Defects_Rectified__c == YES;
-    return closedAsNoDefect && !wasDowngraded;
+    return closedAsNoDefect && !wasDowngraded && !record.hasErrors();
   }
 }

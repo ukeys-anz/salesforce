@@ -196,11 +196,11 @@ public without sharing class CCRMLeadConversion {
         }
         Logger.error(
           'Id=' +
-            leadConvertResult.getLeadId() +
-            ',Message:' +
-            err.getMessage() +
-            'Fields:' +
-            err.getFields()
+          leadConvertResult.getLeadId() +
+          ',Message:' +
+          err.getMessage() +
+          'Fields:' +
+          err.getFields()
         );
       }
     }

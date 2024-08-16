@@ -2,10 +2,10 @@
  * @description       : Schedular class to delete DAON Record Type Files from Content Document/ Version
  * @author            : Anuj Jain - JOIN Squad
  * @group             :
- * @last modified on  : 07-15-2024
- * @last modified by  : Anuj Jain - JOIN Squad
+ * @last modified on  : 08-13-2024
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
-public without sharing class DAONFilesCleanup {
+public with sharing class DAONFilesCleanup {
   private static final IDOpsQueryRepository QUERY_REPOSITORY = (IDOpsQueryRepository) Lib_InstanceProvider.forType(
     IDOpsQueryRepository.class
   );
@@ -48,7 +48,7 @@ public without sharing class DAONFilesCleanup {
     List<Database.DeleteResult> results = DML_REPOSITORY.deleteRecords(
       listContentDocument,
       DmlRepository.ALLOW_PARTIAL,
-      DMLUtil.SYSTEM_MODE
+      DmlRepository.USER_MODE
     );
     Logger.error(
       'Error occured while updating deleting files.',
