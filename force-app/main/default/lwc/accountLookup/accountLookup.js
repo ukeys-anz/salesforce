@@ -8,6 +8,9 @@ export default class AccountLookup extends OmniscriptBaseMixin(
 
   get accountIdStr() {
     try {
+      if (this.recId) {
+        return this.recId;
+      }
       const inContextVal = this.getURLParameterByName("inContextOfRef");
       const context = JSON.parse(window.atob(inContextVal));
       let recordIdFromURL = context.attributes.recordId;
