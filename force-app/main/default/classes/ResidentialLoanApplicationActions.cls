@@ -16,6 +16,8 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final ResidentialLoanApplicationRepository RESIDENTIAL_LOAN_APP_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
+  @TestVisible
+  private static BrokerSettings__c mockBrokerSettings;
 
   /**
    * @description To set the mock broker settings

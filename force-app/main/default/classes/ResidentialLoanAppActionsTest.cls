@@ -216,7 +216,7 @@ private class ResidentialLoanAppActionsTest {
       eachLoanApp.Sync_Status__c = 'Broker Org';
       loanAppIds.add(eachLoanApp.Id);
     }
-    Lib_MockProvider lib = rlarRepoMock.mock(
+    rlarRepoMock.mock(
       'queryMultipleLoanApplications',
       loanApps
     );
