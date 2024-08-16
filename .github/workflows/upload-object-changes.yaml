@@ -75,27 +75,26 @@ jobs:
 
       - name: Authenticate all orgs in SFDX CLI
         working-directory: salesforce
-        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.ref_name }}" --sfdx-url-file=/dev/stdin
+        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}" --sfdx-url-file=/dev/stdin
 
       - name: Get objects with new fields and fieldsaccessdiff
         working-directory: salesforce
         id: get-changed-objects
         shell: bash
         run: |
-          # Get all objects
+          # Get all objects and run plugin docs:fieldsaccessdiff
           directory_path=./force-app/main/default/objects
           changed_objects=$(git diff --name-only origin/${{ github.event.pull_request.base.ref }} HEAD -- "$directory_path" \
                                 | grep '/fields/' | cut -d '/' -f 5 | sort | uniq)
           echo "changed_objects=$changed_objects"
 
-          # run plugin docs:fieldsaccessdiff
           if [ -n "$changed_objects" ]; then
             for object in $changed_objects; do
               ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
                   -f output -u tech.gcb@anzx.com.test24
             done
           else
-            echo "no changed objects found..."
+            echo "no changed object fields found..."
           fi
 
       # Login to registry
@@ -107,19 +106,28 @@ jobs:
           username: "robot-salesforce-ci"
           password: "${{ steps.secrets.outputs.artifactory_token }}"
 
-      # Upload to artifactory and then gcs
+      # Upload to artifactory
       - name: Push changes to artifactory
         if: ${{ always() }}
         working-directory: salesforce
+        id: push-to-artifactory
         shell: bash
         run: |
           if [ -d "output" ]; then
             # zip the files
             ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
-            echo "ARTIFACT_NAME=$ARTIFACT_NAME"
-            zip -r $ARTIFACT_NAME output
-            ls -la
+            echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+            
+            zip -r $ARTIFACT_NAME output && ls -la
             curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
           else
             echo "no changes found...completing run"
           fi
+
+      # Upload to GCS
+      # - id: "upload-folder-to-gcs"
+      #   uses: "google-github-actions/upload-cloud-storage@v2"
+      #   with:
+      #     path: "output"
+      #     destination: "bucket-name"
+      #     project_id:
