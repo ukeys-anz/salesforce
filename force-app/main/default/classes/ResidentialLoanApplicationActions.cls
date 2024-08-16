@@ -165,7 +165,7 @@ public with sharing class ResidentialLoanApplicationActions {
   ) {
     //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
     if (brokerSettings().BypassApplicationSyncEvents__c == true) {
-      return;
+      return null;
     }
     List<SObject> cloudEvents = new List<SObject>();
     //Creating map of records vs event type according to trigger context type, ie. insert/update
