@@ -455,10 +455,36 @@
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY,Profile Update</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
