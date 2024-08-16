@@ -1,8 +1,7 @@
 /**
  * @description       : Test Class for CustomerGCPActions
  * @author            : Madhuri Edke | Salesforce
- * @group             :
- * @last modified on  : 08-05-2024
+ * @last modified on  : 08-16-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 @isTest
@@ -18,11 +17,7 @@ public with sharing class CustomerGCPActionsTest {
   static void filterAccountsBasedOnSyncStatusTest() {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
-    for (Account acc : oldMap.values()) {
-      acc.Sync_Status__c = 'Broker Org';
-    }
     accList[0].Sync_Status__c = 'Blocked';
-    accList[1].Sync_Status__c = 'Broker Org';
 
     Test.startTest();
     List<Account> result = CustomerGCPActions.filterAccountsBasedOnSyncStatus(
@@ -40,12 +35,6 @@ public with sharing class CustomerGCPActionsTest {
   static void filterAccountsBasedonOCVVersionTest() {
     List<Account> accList = createCustomerAccount(1);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
-    Account acc = accList[0];
-    acc.OCV_Event_Version__c = 2;
-
-    Account oldAcc = oldMap.get(acc.id);
-    oldAcc.OCV_Event_Version__c = 1;
-
     Test.startTest();
     List<Account> result = CustomerGCPActions.filterAccountsBasedonOCVVersion(
       accList,
@@ -76,16 +65,56 @@ public with sharing class CustomerGCPActionsTest {
   static void publishGCPEventForCustomersTest() {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
-    Account acc = accList[0];
-    acc.OCV_Event_Version__c = 1;
-    acc.Sync_Status__c = 'Broker Org';
-
-    for (Account oldAcc : oldMap.values()) {
-      oldAcc.OCV_Event_Version__c = 0;
-      oldAcc.Sync_Status__c = 'Broker Org';
-    }
     Test.startTest();
     CustomerGCPActions.publishGCPEventForCustomers(accList, oldMap, 'update');
+    Test.stopTest();
+  }
+
+  /*
+   * @description  publishGCPEventForCustomers Negative test
+   */
+  @isTest
+  static void publishGCPEventForCustomersNegativeTest() {
+    List<Account> accList;
+    Map<Id, Account> oldMap;
+    Test.startTest();
+    CustomerGCPActions.publishGCPEventForCustomers(accList, oldMap, 'update');
+    Test.stopTest();
+  }
+
+  /*
+   * @description unit test for generateCloudEventModel
+   */
+  @isTest
+  static void generateCloudEventModelTest() {
+    List<Account> accList = createCustomerAccount(1);
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerGCPActions.generateCustomerCEModelBundle(
+      accList
+    );
+    Test.startTest();
+    List<BrokerCloudEventModel> result = CustomerGCPActions.generateCloudEventModel(
+      accList,
+      masterNodes,
+      'update'
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'Broker/' + accList[0].External_Id__c,
+      result[0].ce_xtargets,
+      'The external id should be the same as the customer external id'
+    );
+  }
+
+  /*
+   * @description unit test for logSuccessEvents
+   */
+  @IsTest
+  static void logSuccessEventsTest() {
+    List<SObject> eventList = new List<SObject>();
+    eventList.addAll(createCustomerAccount(2));
+    List<SObject> emptyEventList = new List<SObject>();
+    Test.startTest();
+    CustomerGCPActions.logSuccessEvents(eventList);
     Test.stopTest();
   }
 
@@ -97,6 +126,8 @@ public with sharing class CustomerGCPActionsTest {
     for (Integer i = 0; i < count; i++) {
       Account acc = TestDataFactory.createAccount(false);
       acc.External_Id__c = 'Test0001' + i;
+      acc.Sync_Status__c = 'Broker Org';
+      acc.OCV_Event_Version__c = 1;
       acc.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
       acc.RecordTypeId = PERSONACC_RECORDTYPEID;
       accList.add(acc);
@@ -109,6 +140,9 @@ public with sharing class CustomerGCPActionsTest {
    */
   static Map<Id, Account> convertRecordsToOldMap(List<Account> accList) {
     List<Account> oldAccList = accList.deepClone(true);
+    for (Account acc : oldAccList) {
+      acc.OCV_Event_Version__c = 0;
+    }
     return new Map<Id, Account>(oldAccList);
   }
 }
