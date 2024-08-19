@@ -92,6 +92,8 @@ jobs:
             for object in $changed_objects; do
               ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
                   -f output -u tech.gcb@anzx.com.test24
+              ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
+                  -f output -u tech.gcb@anzx.com.test24
             done
           else
             echo "no changed object fields found..."
