@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - epic/upload-object-changes-workflow
+      - feature/object-changes-workflow
 
 permissions:
   contents: "read"
