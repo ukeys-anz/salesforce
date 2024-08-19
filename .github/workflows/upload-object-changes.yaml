@@ -115,7 +115,7 @@ jobs:
         id: push-to-artifactory
         shell: bash
         run: |
-          if [ -d "sfdatasync_output" ] && [ -d "odaseva_output" ]; then
+          if [ -d "sfdatasync_output" ] || [ -d "odaseva_output" ]; then
             # zip the files
             mkdir output && mv sfdatasync_output odaseva_output output/
             ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
