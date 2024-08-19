@@ -18,7 +18,12 @@
     "LastModifiedById",
     "LastModifiedDate",
     "Name",
-    "SystemModstamp"
+    "SystemModstamp",
+    "LastActivityDate",
+    "LastReferencedDate",
+    "LastViewedDate",
+    "OwnerId",
+    "RecordTypeId"
   ],
   "Access_Request__c": [
     "Approver_ID__c",
@@ -38,6 +43,12 @@
     "SystemModstamp",
     "LastReferencedDate",
     "LastViewedDate",
-    "OwnerId"
+    "OwnerId",
+    "Approver__c",
+    "Expected_Start__c",
+    "Reference_Number__c",
+    "Requestor__c",
+    "Status__c",
+    "Trace_Id__c"
   ]
 }
