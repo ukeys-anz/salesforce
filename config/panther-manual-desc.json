@@ -4016,7 +4016,8 @@
         "Lodgement_Dealing_Number__c",
         "Incoming_Mortgagee_Signed_on_Date__c",
         "Mortgagee_on_Title_Signed_on_Date__c",
-        "First_Principal_Due_Date__c"
+        "First_Principal_Due_Date__c",
+        "IsValidCloudEvent__c"
       ],
       "IA-2415720": [
         "Nominated_BSB__c",
@@ -4049,7 +4050,8 @@
         "Nominated_By__c",
         "Nominated_Account_State__c",
         "Settlement_Id__c",
-        "Settlement__c"
+        "Settlement__c",
+        "IsValidCloudEvent__c"
       ],
       "IA-2415720": ["Nominated_BSB__c", "Nominated_Account_Number__c"],
       "IA-2415840": ["Nominated_Date__c", "Version__c"],
@@ -5137,6 +5139,12 @@
       "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
       "Originated_By__c": "ANZx::MuleSoft::Broker",
       "Sync_Status__c": "ANZx::MuleSoft::Broker"
+    },
+    "Settlement__c": {
+      "IsValidCloudEvent__c": "ANZx::Salesforce"
+    },
+    "Settlement_Account__c": {
+      "IsValidCloudEvent__c": "ANZx::Salesforce"
     }
   },
   "lineageTransformInformation": {
@@ -5306,6 +5314,12 @@
       "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
       "Originated_By__c": "If TPMI_SAO__c is NOT blank then set Originated By to Broker",
       "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
+    },
+    "Settlement__c": {
+      "IsValidCloudEvent__c": "If Loan Application Sync_Status is Broker org set isvalidcloudevent to true"
+    },
+    "Settlement_Account__c": {
+      "IsValidCloudEvent__c": "If Loan Application Sync_Status is Broker org set isvalidcloudevent to true"
     }
   },
   "systemObjects": {

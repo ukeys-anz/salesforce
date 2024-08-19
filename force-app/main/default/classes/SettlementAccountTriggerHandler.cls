@@ -20,10 +20,31 @@ public with sharing class SettlementAccountTriggerHandler extends Lib_TriggerHan
   }
 
   /**
+   * @description onAfterInsert to handle after insert trigger actions
+   */
+  public override void onAfterInsert() {
+    SettlementAccountActions.publishSettlementAccountCloudEvents(
+      records,
+      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+    );
+  }
+
+  /**
    * @description onBeforeUpdate to handle before update trigger actions.
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     SettlementAccountActions.populateCustomerName(records);
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    SettlementAccountActions.publishSettlementAccountCloudEvents(
+      records,
+      ResidentialLoanApplicationGCPActions.GCP_EVENT_UPDATE
+    );
   }
 }
