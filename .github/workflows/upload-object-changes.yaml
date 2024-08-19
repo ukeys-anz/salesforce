@@ -91,9 +91,9 @@ jobs:
           if [ -n "$changed_objects" ]; then
             for object in $changed_objects; do
               ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
-                  -f output -u tech.gcb@anzx.com.test24
+                  -f sfdatasync_output -u tech.gcb@anzx.com.test24
               ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
-                  -f output -u tech.gcb@anzx.com.test24
+                  -f odaseva_output -u tech.gcb@anzx.com.test24
             done
           else
             echo "no changed object fields found..."
@@ -120,7 +120,7 @@ jobs:
             ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
             echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
             
-            zip -r $ARTIFACT_NAME output && ls -la
+            zip -r $ARTIFACT_NAME sfdatasync_output odaseva_output && ls -la
             curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
           else
             echo "no changes found...completing run"
