@@ -1,7 +1,7 @@
 /**
  * @description       : description Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-09-2024
+ * @last modified on  : 08-16-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerGCPActions {
@@ -25,30 +25,35 @@ public with sharing class CustomerGCPActions {
     Map<Id, Account> oldMap,
     String triggerContext
   ) {
-    List<Account> accBasedOnOCVVersion = filterAccountsBasedonOCVVersion(
-      records,
-      oldMap
-    );
+    try {
+      List<Account> accBasedOnOCVVersion = filterAccountsBasedonOCVVersion(
+        records,
+        oldMap
+      );
 
-    List<Account> filteredAccounts = filterAccountsBasedOnSyncStatus(
-      accBasedOnOCVVersion,
-      oldMap
-    );
+      List<Account> filteredAccounts = filterAccountsBasedOnSyncStatus(
+        accBasedOnOCVVersion,
+        oldMap
+      );
 
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = generateCustomerCEModelBundle(
-      filteredAccounts
-    );
+      Map<Id, List<BrokerCloudEventModel.MasterNode>> accIdVsMasterNodes = generateCustomerCEModelBundle(
+        filteredAccounts
+      );
 
-    List<BrokerCloudEventModel> cloudEventModels = generateCloudEventModel(
-      filteredAccounts,
-      accIdVsMasterNodes,
-      triggerContext
-    );
-    List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
-      cloudEventModels
-    );
+      List<BrokerCloudEventModel> cloudEventModels = generateCloudEventModel(
+        filteredAccounts,
+        accIdVsMasterNodes,
+        triggerContext
+      );
+      List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
+        cloudEventModels
+      );
 
-    logSuccessEvents(successPublishedEvents);
+      logSuccessEvents(successPublishedEvents);
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    }
   }
 
   /**
