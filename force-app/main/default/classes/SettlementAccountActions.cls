@@ -4,6 +4,9 @@
  * @description class for Settlement Account actions
  */
 public with sharing class SettlementAccountActions {
+  private static final ResidentialLoanApplicationRepository RESIDENTIAL_LOAN_APP_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
+    ResidentialLoanApplicationRepository.class
+  );
   /**
    * @description Find and populate the fields with customer name via ocv id
    * @param records records to populate with customer name
@@ -54,5 +57,44 @@ public with sharing class SettlementAccountActions {
         }
       }
     }
+  }
+  /**
+   * @description  filter the loanappIds from settlement account
+   * @param records settlement account records for filtering
+   * @return List<loanapplicationIds>
+   */
+  @Testvisible
+  private static List<Id> getLoanApplicationIdFromSettlementAccounts(
+    List<Settlement_Account__c> records
+  ) {
+    List<Id> loanApplicationIds = new List<Id>();
+    for (Settlement_Account__c settleAcc : records) {
+      if (settleAcc.IsValidCloudEvent__c == true) {
+        loanApplicationIds.add(
+          settleAcc.Settlement__r.Loan_Application_Number__c
+        );
+      }
+    }
+    return loanApplicationIds;
+  }
+  /**
+   * @description on settlement account update/insert publish application event to migrate data to broker org.
+   * @param records records to publish the application event
+   * @param cloudEventType  add or update event
+   */
+  public static void publishSettlementAccountCloudEvents(
+    List<Settlement_Account__c> records,
+    String cloudEventType
+  ) {
+    List<Id> loanApplicationIds = getLoanApplicationIdFromSettlementAccounts(
+      records
+    );
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryMultipleLoanApplications(
+      loanApplicationIds
+    );
+    ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+      rlaList,
+      cloudEventType
+    );
   }
 }
