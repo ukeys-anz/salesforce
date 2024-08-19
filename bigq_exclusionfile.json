@@ -1,5 +1,5 @@
 {
-  "Account": [
+  "A_Z_Review__c": [
     "Occupation__c",
     "PhotoUrl",
     "Phone",
@@ -19,5 +19,25 @@
     "LastModifiedDate",
     "Name",
     "SystemModstamp"
+  ],
+  "Access_Request__c": [
+    "Approver_ID__c",
+    "CreatedById",
+    "CreatedDate",
+    "DependencyStatus",
+    "DisplayOrder",
+    "Id",
+    "IsDeleted",
+    "IsRequired",
+    "ItemEntityType",
+    "ItemId",
+    "ItemState",
+    "LastModifiedById",
+    "LastModifiedDate",
+    "Name",
+    "SystemModstamp",
+    "LastReferencedDate",
+    "LastViewedDate",
+    "OwnerId"
   ]
 }
