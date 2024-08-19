@@ -13,7 +13,7 @@ permissions:
   id-token: "write"
 
 jobs:
-  validate_object_changes:
+  check_object_changes:
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
@@ -117,10 +117,11 @@ jobs:
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
-      # # Upload to GCS
-      # - id: "upload-folder-to-gcs"
-      #   uses: "google-github-actions/upload-cloud-storage@v2"
-      #   with:
-      #     path: "upload-object-changes/output"
-      #     destination: "salesforce-sit-github-workflows"
-      #     project_id: anz-x-gh-sf-sit-4e60a7
+      # Upload to GCS
+      - id: "upload-folder-to-gcs"
+        if: ${{ success() }}
+        uses: "google-github-actions/upload-cloud-storage@v2"
+        with:
+          path: "output/"
+          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
+          project_id: anz-x-gh-sf-sit-4e60a7

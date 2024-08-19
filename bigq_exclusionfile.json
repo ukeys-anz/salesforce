@@ -1,3 +1,23 @@
 {
-  "Account": ["Occupation__c", "PhotoUrl", "Phone"]
+  "Account": [
+    "Occupation__c",
+    "PhotoUrl",
+    "Phone",
+    "ActionPlanId",
+    "ActionPlanTemplateItemId",
+    "CreatedById",
+    "CreatedDate",
+    "DependencyStatus",
+    "DisplayOrder",
+    "Id",
+    "IsDeleted",
+    "IsRequired",
+    "ItemEntityType",
+    "ItemId",
+    "ItemState",
+    "LastModifiedById",
+    "LastModifiedDate",
+    "Name",
+    "SystemModstamp"
+  ]
 }
