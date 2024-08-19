@@ -1,0 +1,22 @@
+{
+  "sfdatasync_object_whitelist": [
+    "A_Z_Review__c",
+    "Access_Request__c",
+    "Account",
+    "ActionPlan",
+    "ActionPlanItem",
+    "ActionPlanTemplate",
+    "ActionPlanTemplateItem",
+    "ActionPlanTemplateItemValue"
+  ],
+  "odaseva_object_whitelist": [
+    "A_Z_Review__c",
+    "Access_Request__c",
+    "Account",
+    "ActionPlan",
+    "ActionPlanItem",
+    "ActionPlanTemplate",
+    "ActionPlanTemplateItem",
+    "ActionPlanTemplateItemValue"
+  ]
+}
