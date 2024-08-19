@@ -83,11 +83,11 @@ jobs:
 
           for object in $sfdatasync_object_list; do
             ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
-                -f sfdatasync_user_output -u tech.gcb@anzx.com.test24
+                -f sfdatasync_user_output -u tech.gcb@anzx.com.test24 || true
           done
           for object in $sfdatasync_object_list; do
           ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
-              -f odaseva_user_output -u tech.gcb@anzx.com.test24
+              -f odaseva_user_output -u tech.gcb@anzx.com.test24 || true
           done
 
       # # Login to registry
@@ -106,17 +106,13 @@ jobs:
         id: push-to-artifactory
         shell: bash
         run: |
-          if [ -d "sfdatasync_output" ] || [ -d "odaseva_output" ]; then
-            # zip the files
-            mkdir output && mv sfdatasync_output odaseva_output output/
-            ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
-            echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
-            
-            zip -r $ARTIFACT_NAME output && ls -la
-            curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
-          else
-            echo "no changes found...completing run"
-          fi
+          # zip the files
+          mkdir output && mv sfdatasync_output odaseva_output output/
+          ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+          zip -r $ARTIFACT_NAME output && ls -la
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
       # # Upload to GCS
       # - id: "upload-folder-to-gcs"
