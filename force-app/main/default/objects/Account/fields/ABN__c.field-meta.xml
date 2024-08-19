@@ -6,7 +6,7 @@
     <description>Australian Business Number</description>
     <externalId>false</externalId>
     <label>ABN</label>
-    <length>51</length>
+    <length>50</length>
     <required>false</required>
     <securityClassification>Public</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
