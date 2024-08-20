@@ -31,7 +31,7 @@ jobs:
         id: pull-from-artifactory
         shell: bash
         run: |
-          ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.head_ref }}"
+          ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.ref }}"
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X GET "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
