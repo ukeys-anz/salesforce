@@ -1,4 +1,4 @@
-# Currently under development. This workflow syncs object changes to gcs buckets.
+# Currently under development. This workflow looks for object changes and uploads them to gcs bucket in sit.
 name: Upload Object Changes
 
 on:

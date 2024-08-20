@@ -1,5 +1,5 @@
-# Currently under development. This workflow syncs object changes to gcs buckets.
-name: Upload Object Changes
+# Currently under development. This workflow syncs object changes to gcs bucket in non-prod.
+name: Validate Object Changes
 
 on:
   workflow_dispatch:
