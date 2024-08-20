@@ -228,7 +228,8 @@ public with sharing class ResidentialLoanApplicationActions {
     for (ResidentialLoanApplication record : records) {
       if (
         String.isNotBlank(record.Sync_Status__c) &&
-        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
+        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
+        record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
       ) {
         filteredRecords.add(record.Id);
       }
