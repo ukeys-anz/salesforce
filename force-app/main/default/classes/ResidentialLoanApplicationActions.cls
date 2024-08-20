@@ -17,6 +17,21 @@ public with sharing class ResidentialLoanApplicationActions {
     ResidentialLoanApplicationRepository.class
   );
 
+  @TestVisible
+  private static BrokerSettings__c mockBrokerSettings;
+
+  /**
+   * @description To set the mock broker settings
+   * @return The BrokerSettings__c custom setting
+   */
+  @TestVisible
+  private static BrokerSettings__c brokerSettings() {
+    if (mockBrokerSettings != null) {
+      return mockBrokerSettings;
+    }
+    return BrokerSettings__c.getOrgDefaults();
+  }
+
   /**
    * @description get Home Loan Applications Queue
    * @return Group homeLoanAppQueue
@@ -145,11 +160,14 @@ public with sharing class ResidentialLoanApplicationActions {
    * @param triggerContext
    * @return List<SObject> published events
    **/
-  public static List<SObject> synchronizeAndPublishCloudEvents(
+  public static List<Cloud_Event__e> synchronizeAndPublishCloudEvents(
     List<ResidentialLoanApplication> records,
     String triggerContext
   ) {
-    List<SObject> cloudEvents = new List<SObject>();
+    //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
+    if (brokerSettings().BypassApplicationSyncEvents__c == true) {
+      return null;
+    }
     //Creating map of records vs event type according to trigger context type, ie. insert/update
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
@@ -165,7 +183,9 @@ public with sharing class ResidentialLoanApplicationActions {
     );
 
     //Passing cloud event into publish method
-    cloudEvents = CloudEventController.publishCloudEvents(cloudEventModels);
+    List<Cloud_Event__e> cloudEvents = CloudEventController.publishCloudEvents(
+      cloudEventModels
+    );
     ResidentialLoanApplicationGCPActions.logSuccessEvents(cloudEvents);
     return cloudEvents;
   }

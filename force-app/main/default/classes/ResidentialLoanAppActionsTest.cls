@@ -216,11 +216,11 @@ private class ResidentialLoanAppActionsTest {
       eachLoanApp.Sync_Status__c = 'Broker Org';
       loanAppIds.add(eachLoanApp.Id);
     }
-    Lib_MockProvider lib = rlarRepoMock.mock(
-      'queryMultipleLoanApplications',
-      loanApps
-    );
+    rlarRepoMock.mock('queryMultipleLoanApplications', loanApps);
     Test.startTest();
+    ResidentialLoanApplicationActions.mockBrokerSettings = new BrokerSettings__c(
+      BypassApplicationSyncEvents__c = false
+    );
     List<SObject> cloudEvents = ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
       loanApps,
       ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
@@ -252,10 +252,11 @@ private class ResidentialLoanAppActionsTest {
   @isTest
   static void testFilterLoanAppsBasedOnSyncStatus() {
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
-      2
+      3
     );
     loanApps[0].Sync_Status__c = 'Broker Org';
     loanApps[1].Sync_Status__c = 'Broker Org';
+    loanApps[2].Sync_Status__c = 'Blocked';
     Test.startTest();
     List<Id> loanAppList = ResidentialLoanApplicationActions.filterLoanAppsBasedOnSyncStatus(
       loanApps
