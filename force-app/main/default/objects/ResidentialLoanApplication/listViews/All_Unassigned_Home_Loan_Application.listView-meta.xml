@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Unassigned_Home_Loan_Application</fullName>
+    <columns>Name</columns>
+    <columns>Account</columns>
+    <columns>Status</columns>
+    <columns>Created_Date__c</columns>
+    <columns>Owner_Name__c</columns>
+    <filters>
+        <field>Status</field>
+        <operation>equals</operation>
+        <value>STATE_CAPTURE,STATE_APPROVED,STATE_REFERRED,STATE_SUBMITTED,STATE_CONFIRMED,STATE_SETTLEMENT_INITATED</value>
+    </filters>
+    <filterScope>Queue</filterScope>
+    <label>All Unassigned Home Loan Application</label>
+    <queue>Home_Loan_Applications_Queue</queue>
+    <sharedTo>
+        <role>BOH_Coach</role>
+        <role>Coach</role>
+    </sharedTo>
+</ListView>
