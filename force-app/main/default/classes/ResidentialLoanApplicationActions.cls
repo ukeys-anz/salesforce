@@ -167,7 +167,7 @@ public with sharing class ResidentialLoanApplicationActions {
     if (brokerSettings().BypassApplicationSyncEvents__c == true) {
       return null;
     }
-    List<Cloud_Event__e> cloudEvents = new List<Cloud_Event__e>();
+
     //Creating map of records vs event type according to trigger context type, ie. insert/update
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
@@ -183,7 +183,9 @@ public with sharing class ResidentialLoanApplicationActions {
     );
 
     //Passing cloud event into publish method
-    cloudEvents = CloudEventController.publishCloudEvents(cloudEventModels);
+    List<Cloud_Event__e> cloudEvents = CloudEventController.publishCloudEvents(
+      cloudEventModels
+    );
     ResidentialLoanApplicationGCPActions.logSuccessEvents(cloudEvents);
     return cloudEvents;
   }
@@ -226,7 +228,8 @@ public with sharing class ResidentialLoanApplicationActions {
     for (ResidentialLoanApplication record : records) {
       if (
         String.isNotBlank(record.Sync_Status__c) &&
-        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED)
+        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
+        record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
       ) {
         filteredRecords.add(record.Id);
       }

@@ -252,10 +252,11 @@ private class ResidentialLoanAppActionsTest {
   @isTest
   static void testFilterLoanAppsBasedOnSyncStatus() {
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
-      2
+      3
     );
     loanApps[0].Sync_Status__c = 'Broker Org';
     loanApps[1].Sync_Status__c = 'Broker Org';
+    loanApps[2].Sync_Status__c = 'Blocked';
     Test.startTest();
     List<Id> loanAppList = ResidentialLoanApplicationActions.filterLoanAppsBasedOnSyncStatus(
       loanApps
