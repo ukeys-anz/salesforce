@@ -31,21 +31,6 @@ public with sharing class ResidentialLoanApplicationActions {
     return BrokerSettings__c.getOrgDefaults();
   }
 
-  @TestVisible
-  private static BrokerSettings__c mockBrokerSettings;
-
-  /**
-   * @description To set the mock broker settings
-   * @return The BrokerSettings__c custom setting
-   */
-  @TestVisible
-  private static BrokerSettings__c brokerSettings() {
-    if (mockBrokerSettings != null) {
-      return mockBrokerSettings;
-    }
-    return BrokerSettings__c.getOrgDefaults();
-  }
-
   /**
    * @description get Home Loan Applications Queue
    * @return Group homeLoanAppQueue
