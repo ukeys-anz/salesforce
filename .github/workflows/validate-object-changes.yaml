@@ -52,6 +52,7 @@ jobs:
         id: pull-from-gcs
         shell: bash
         run: |
+          ls -la
           gcloud storage cp --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
 
       - name: Run diff & ensure gcs bucket has latest changes for odaseva user
@@ -59,6 +60,7 @@ jobs:
         id: update-bucket-for-odaseva-user
         shell: bash
         run: |
+          ls -la
           odaseva_sha_object_fields="artifactory_success_output/odaseva_user_output/fieldsaccessdiff"
           odaseva_gcs_object_fields="gcs_success_output/odaseva_user_output/fieldsaccessdiff"
 
