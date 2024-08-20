@@ -1,0 +1,93 @@
+# Currently under development. This workflow syncs object changes to gcs buckets.
+name: Upload Object Changes
+
+on:
+  workflow_dispatch:
+  pull_request:
+    branches:
+      - epic/upload-object-changes-workflow
+
+permissions:
+  contents: "read"
+  id-token: "write"
+
+jobs:
+  validate_object_changes:
+    runs-on: [anzx-default]
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "18"
+
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          path: salesforce
+
+      - name: Pull changes from artifactory
+        working-directory: salesforce
+        id: pull-from-artifactory
+        shell: bash
+        run: |
+          ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.sha }}"
+          echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X GET -T "$ARTIFACTORY_ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: Pull current changes from GCS
+        working-directory: salesforce
+        id: pull-from-gcs
+        shell: bash
+        run: |
+          gcloud storage cp gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
+
+      - name: Run diff & ensure gcs bucket has latest changes for odaseva user
+        working-directory: salesforce
+        id: update-bucket-for-odaseva-user
+        shell: bash
+        run: |
+          odaseva_sha_object_fields="artifactory_success_output/odaseva_user_output/fieldsaccessdiff"
+          odaseva_gcs_object_fields="gcs_success_output/odaseva_user_output/fieldsaccessdiff"
+
+          diff_output=$(diff -qr "$odaseva_sha_object_fields" "$odaseva_gcs_object_fields")
+
+          if [ -n "$diff_output" ]; then
+              echo "Changes found between $odaseva_sha_object_fields and $odaseva_gcs_object_fields: \n$diff_output\n\n"
+              echo "Uploading odaseva_sha_object_fields..."
+          else
+              echo "No changes found. Moving on..."
+          fi
+
+      - name: Run diff & ensure gcs bucket has latest changes for sfdatasync user
+        working-directory: salesforce
+        id: update-bucket-for-sfdatasync-user
+        shell: bash
+        run: |
+          sfdatasync_sha_object_fields="artifactory_success_output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_success_output/sfdatasync_user_output/fieldsaccessdiff"
+
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
+
+          if [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields: \n$diff_output\n\n"
+              echo "Uploading sfdatasync_sha_object_fields..."
+          else
+              echo "No changes found. Moving on..."
+          fi
+
+      # Upload to GCS
+      - id: "upload-folder-to-gcs"
+        if: ${{ (steps.get-changed-objects.outcome == success() && steps.push-to-artifactory.outcome == success()) && !cancelled() }}
+        uses: "google-github-actions/upload-cloud-storage@v2"
+        with:
+          path: "${{ github.workspace }}/salesforce/output/"
+          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
+          project_id: anz-x-gh-sf-sit-4e60a7

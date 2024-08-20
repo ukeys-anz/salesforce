@@ -99,7 +99,7 @@ jobs:
             for err in "${errors[@]}"; do
                 echo "$err"
             done
-            exit 1  # Optional: Exit with a non-zero status
+            exit 1 # Exit with a non-zero status
           fi
 
       # Upload to artifactory
