@@ -489,7 +489,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
-        <value>callout:SF_MS_Fabric/cfaas/read/getdownloadurl</value>
+        <value>callout:SF_MS_CH2/cfaas/read/getdownloadurl</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>
