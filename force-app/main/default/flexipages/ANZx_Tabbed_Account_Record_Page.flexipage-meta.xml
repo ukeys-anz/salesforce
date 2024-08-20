@@ -403,14 +403,14 @@
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
-                <componentInstanceProperties>
+               <!--  <componentInstanceProperties>
                     <name>adminFilters</name>
-                    <valueList>
+                  <valueList>
                         <valueListItems>
                             <value>Status|EQUALS|[&quot;STATE_CAPTURE&quot;,&quot;STATE_REFERRED&quot;,&quot;STATE_CONFIRMED&quot;,&quot;STATE_APPROVED&quot;,&quot;STATE_SUBMITTED&quot;,&quot;STATE_SETTLEMENT_INITATED&quot;]</value>
                         </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
+                    </valueList
+                </componentInstanceProperties>>-->
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
                     <value>6</value>
