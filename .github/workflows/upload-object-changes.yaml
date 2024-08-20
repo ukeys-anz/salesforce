@@ -111,7 +111,7 @@ jobs:
         run: |
           # zip the files
           mkdir output && mv sfdatasync_user_output odaseva_user_output output/
-          ARTIFACT_NAME="sf_objects_diff_develop_${{ github.ref }}"
+          ARTIFACT_NAME="sf_objects_diff_develop_$(git rev-parse --verify HEAD)"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
           zip -r $ARTIFACT_NAME output && ls -la
