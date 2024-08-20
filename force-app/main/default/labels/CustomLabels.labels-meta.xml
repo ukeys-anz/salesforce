@@ -401,7 +401,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Create_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations</value>
     </labels>
     <labels>
         <fullName>MS_Maintain_Party</fullName>
@@ -409,7 +409,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Maintain_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/individuals</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/individuals</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
@@ -561,7 +561,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_Address</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/search</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/search</value>
     </labels>
     <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
@@ -585,7 +585,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById_V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/format/</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/format/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -601,7 +601,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations/search-results?</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations/search-results?</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party_Params</fullName>
@@ -1827,7 +1827,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -1835,7 +1835,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Diary Comments Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/diary-comments</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/diary-comments</value>
     </labels>
     <labels>
         <fullName>MLCRM_Lead_MisMatch_Warning_Message</fullName>
@@ -2113,7 +2113,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Financial Account Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/</value>
     </labels>
     <labels>
         <fullName>Fraudx_Generic_Customer_OCV_Id</fullName>
@@ -2332,14 +2332,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Postcode Lookup V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/lookup?postcode=</value>
     </labels>
     <labels>
         <fullName>MS_Validate_Address_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Validate Address V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/validate</value>
     </labels>
     <labels>
         <fullName>CCRM_Validate_Manual_Address</fullName>
@@ -2462,7 +2462,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Onboarding_InsufficientAccess_Message</shortDescription>
-        <value>You don't have required permission to perform this action.</value>
+        <value>You don&apos;t have required permission to perform this action.</value>
     </labels>
     <labels>
         <fullName>Onboarding_ServerError_Message</fullName>
