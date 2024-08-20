@@ -50,10 +50,10 @@ jobs:
 
       - name: Install plugin
         working-directory: plugin
+        shell: bash
         run: |
           mv ci.yarnrc .yarnrc
           rm -rf node_modules && yarn install --frozen-lockfile
-        shell: bash
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -104,14 +104,14 @@ jobs:
 
       # Upload to artifactory
       - name: Push changes to artifactory
-        if: ${{ always() }}
+        if: ${{ (steps.get-changed-objects.outcome == success() || steps.get-changed-objects.outcome == failure()) && !cancelled() }}
         working-directory: salesforce
         id: push-to-artifactory
         shell: bash
         run: |
           # zip the files
           mkdir output && mv sfdatasync_user_output odaseva_user_output output/
-          ARTIFACT_NAME="sf_objects_diff_$(echo "${{ github.sha }}" | cut -c1-7)_${{ github.run_id }}"
+          ARTIFACT_NAME="sf_objects_diff_develop_${{ github.sha }}"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
           zip -r $ARTIFACT_NAME output && ls -la
@@ -119,7 +119,7 @@ jobs:
 
       # Upload to GCS
       - id: "upload-folder-to-gcs"
-        if: ${{ success() }}
+        if: ${{ (steps.get-changed-objects.outcome == success() && steps.push-to-artifactory.outcome == success()) && !cancelled() }}
         uses: "google-github-actions/upload-cloud-storage@v2"
         with:
           path: "${{ github.workspace }}/salesforce/output/"
