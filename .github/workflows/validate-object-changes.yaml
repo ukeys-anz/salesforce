@@ -83,11 +83,11 @@ jobs:
               echo "No changes found. Moving on..."
           fi
 
-      # Upload to GCS
-      - id: "upload-folder-to-gcs"
-        if: ${{ (steps.get-changed-objects.outcome == success() && steps.push-to-artifactory.outcome == success()) && !cancelled() }}
-        uses: "google-github-actions/upload-cloud-storage@v2"
-        with:
-          path: "${{ github.workspace }}/salesforce/output/"
-          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-          project_id: anz-x-gh-sf-sit-4e60a7
+      # # Upload to GCS
+      # - id: "upload-folder-to-gcs"
+      #   if: ${{ (steps.get-changed-objects.outcome == success() && steps.push-to-artifactory.outcome == success()) && !cancelled() }}
+      #   uses: "google-github-actions/upload-cloud-storage@v2"
+      #   with:
+      #     path: "${{ github.workspace }}/salesforce/output/"
+      #     destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
+      #     project_id: anz-x-gh-sf-sit-4e60a7
