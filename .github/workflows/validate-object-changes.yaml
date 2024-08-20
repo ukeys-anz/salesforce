@@ -35,7 +35,7 @@ jobs:
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACTORY_ARTIFACT_NAME"
 
           wget -P artifactory_success_output/ https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip
-          unzip $ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
+          unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
 
       - name: "Set up Cloud SDK"
         uses: "anzx/github-reusable-actions/setup-gcloud@main"
