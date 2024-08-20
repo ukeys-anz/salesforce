@@ -34,7 +34,7 @@ jobs:
           ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.sha }}"
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
-          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X GET -T "$ARTIFACTORY_ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X GET "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
