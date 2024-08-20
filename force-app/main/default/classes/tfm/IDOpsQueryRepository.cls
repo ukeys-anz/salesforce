@@ -30,7 +30,8 @@ public with sharing class IDOpsQueryRepository {
         OnboardingVerificationFailedReason__c,
         Status,
         PersonaId__c,
-        Status_Update_Error__c
+        Status_Update_Error__c,
+        IsClosed
       FROM Case
       WHERE ID = :recordId
       WITH USER_MODE
@@ -60,7 +61,6 @@ public with sharing class IDOpsQueryRepository {
       WHERE
         IsLatest = TRUE
         AND RecordTypeId = :TFMConstants.DAON_FILE_RT_ID
-        AND CreatedById = :UserInfo.getUserId()
         AND UUID__c IN :uuidIdentifiers
       WITH USER_MODE
     ];

@@ -534,7 +534,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Controlling_Post__c</fieldItem>
                 <identifier>RecordControlling_Post_cField</identifier>
@@ -551,7 +551,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.CPID__c</fieldItem>
                 <identifier>RecordCPID_cField</identifier>

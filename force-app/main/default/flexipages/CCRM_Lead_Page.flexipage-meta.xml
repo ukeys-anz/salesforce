@@ -286,7 +286,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__ExpressedInterest__c</fieldItem>
                 <identifier>RecordFinServ_ExpressedInterest_cField</identifier>
@@ -754,7 +754,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Lead_Id__c</fieldItem>
                 <identifier>RecordLead_Id_cField</identifier>
@@ -858,7 +858,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__ExpressedInterest__c</fieldItem>
                 <identifier>RecordFinServ_ExpressedInterest_cField2</identifier>

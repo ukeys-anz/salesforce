@@ -324,8 +324,8 @@ export default class complaintsResolveLWC extends NavigationMixin(
             this.isRealFormNeeded === "Yes"
               ? "Yes"
               : this.isRealFormNeeded === "No"
-              ? "No"
-              : null;
+                ? "No"
+                : null;
         }
       }
       this.realFormRefNo = data.fields.IDR_Real_Form_Ref_No__c.value;

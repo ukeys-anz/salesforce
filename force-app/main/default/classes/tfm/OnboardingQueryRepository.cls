@@ -66,7 +66,6 @@ public with sharing class OnboardingQueryRepository {
       WHERE
         IsLatest = TRUE
         AND RecordTypeId = :TFMConstants.DAON_FILE_RT_ID
-        AND CreatedById = :UserInfo.getUserId()
         AND UUID__c IN :uuidIdentifiers
       WITH USER_MODE
     ];

@@ -6,9 +6,9 @@
     <description>IAL (Identity Assurance Level)</description>
     <externalDeveloperName>IAL (Identity Assurance Level)</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>IAL (Identity Assurance Level)</label>
     <precision>10</precision>
     <required>false</required>

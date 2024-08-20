@@ -100,22 +100,22 @@ export default class CaseDuration extends LightningElement {
       this.days === 0
         ? ""
         : this.days === 1
-        ? `${this.days} Day `
-        : `${this.days} Days `;
+          ? `${this.days} Day `
+          : `${this.days} Days `;
 
     this.hourString =
       this.hours === 0
         ? ""
         : this.hours === 1
-        ? `${this.hours} Hour `
-        : `${this.hours} Hours `;
+          ? `${this.hours} Hour `
+          : `${this.hours} Hours `;
 
     this.minuteString =
       this.minutes === 0
         ? ""
         : this.minutes === 1
-        ? `${this.minutes} Minute`
-        : `${this.minutes} Minutes`;
+          ? `${this.minutes} Minute`
+          : `${this.minutes} Minutes`;
 
     if (!this.dayString && !this.hourString && !this.minuteString) {
       this.minuteString = `${this.minutes} Minutes`;

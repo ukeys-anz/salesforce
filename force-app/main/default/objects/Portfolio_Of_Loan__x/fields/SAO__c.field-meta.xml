@@ -6,9 +6,9 @@
     <description>SAO</description>
     <externalDeveloperName>SAO</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>SAO</label>
     <length>255</length>
     <required>false</required>

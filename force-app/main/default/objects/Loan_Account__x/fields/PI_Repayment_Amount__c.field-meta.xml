@@ -6,9 +6,9 @@
     <description>PI Repayment Amount</description>
     <externalDeveloperName>PIRepaymentAmount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Repayment Amount ($)</label>
     <precision>18</precision>
     <required>false</required>

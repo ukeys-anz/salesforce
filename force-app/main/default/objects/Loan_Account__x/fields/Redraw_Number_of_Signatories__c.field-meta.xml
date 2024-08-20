@@ -6,9 +6,9 @@
     <description>Redraw Number of Signatories</description>
     <externalDeveloperName>RedrawNumberofSignatories</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Redraw Number of Signatories</label>
     <precision>18</precision>
     <required>false</required>

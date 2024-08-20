@@ -34,38 +34,40 @@ let styleDefinition = {
       }
     }
   ],
-  state0element0block_element0block_element0block_element1block_element2block_element3block_element4block_element0: [
-    {
-      conditions: "default",
-      styleObject: {
-        class:
-          "slds-col   slds-theme_default slds-p-top_medium slds-m-top_medium  slds-size_12-of-12  ",
-        style: "background-color:#F5FBFF;      \n         font-weight: bold;",
-        styleProperties: {}
-      }
-    },
-    {
-      conditions: {
-        id: "state-condition-object",
-        isParent: true,
-        group: [
-          {
-            id: "state-new-condition-9",
-            field: "Parent.selectedTab",
-            operator: "==",
-            value: "History",
-            type: "custom",
-            hasMergeField: false
-          }
-        ]
+  state0element0block_element0block_element0block_element1block_element2block_element3block_element4block_element0:
+    [
+      {
+        conditions: "default",
+        styleObject: {
+          class:
+            "slds-col   slds-theme_default slds-p-top_medium slds-m-top_medium  slds-size_12-of-12  ",
+          style: "background-color:#F5FBFF;      \n         font-weight: bold;",
+          styleProperties: {}
+        }
       },
-      styleObject: {
-        class:
-          "slds-col   slds-theme_default slds-p-top_medium slds-m-top_medium  slds-size_12-of-12  ",
-        style: "      \n         font-weight: bold;\nbackground-color:#F3F3F3",
-        styleProperties: {}
+      {
+        conditions: {
+          id: "state-condition-object",
+          isParent: true,
+          group: [
+            {
+              id: "state-new-condition-9",
+              field: "Parent.selectedTab",
+              operator: "==",
+              value: "History",
+              type: "custom",
+              hasMergeField: false
+            }
+          ]
+        },
+        styleObject: {
+          class:
+            "slds-col   slds-theme_default slds-p-top_medium slds-m-top_medium  slds-size_12-of-12  ",
+          style:
+            "      \n         font-weight: bold;\nbackground-color:#F3F3F3",
+          styleProperties: {}
+        }
       }
-    }
-  ]
+    ]
 };
 export default styleDefinition;

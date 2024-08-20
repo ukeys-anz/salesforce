@@ -6,9 +6,9 @@
     <description>Card number for card holders</description>
     <externalDeveloperName>CardNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Card Number</label>
     <length>50</length>
     <required>false</required>

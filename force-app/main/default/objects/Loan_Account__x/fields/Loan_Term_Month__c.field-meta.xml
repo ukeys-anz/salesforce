@@ -6,9 +6,9 @@
     <description>Loan Term Month</description>
     <externalDeveloperName>LoanTermMonth</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Loan Term (Months)</label>
     <precision>18</precision>
     <required>false</required>

@@ -10,11 +10,4 @@ export default class OnboardingFalloutImageRenderer extends LightningElement {
   disableRightClick(event) {
     event.preventDefault();
   }
-
-  get cssClass() {
-    return (
-      "slds-col slds-size_1-of-1 slds-wrap imgContainer" +
-      (this.changeStyle ? "Cases" : "")
-    );
-  }
 }

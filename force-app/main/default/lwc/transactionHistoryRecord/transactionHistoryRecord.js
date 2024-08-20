@@ -230,7 +230,8 @@ export default class TransactionHistoryRecord extends NavigationMixin(
     if (this.transactionRecord.disputeRecordTypeId === "") {
       this.showRecordTypeSelection = true;
     } else {
-      this.selectedDisputeRecordType = this.transactionRecord.disputeRecordTypeId;
+      this.selectedDisputeRecordType =
+        this.transactionRecord.disputeRecordTypeId;
       this.handleNavigateToDisputeForm();
     }
   }

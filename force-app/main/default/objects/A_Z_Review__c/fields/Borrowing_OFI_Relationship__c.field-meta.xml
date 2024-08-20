@@ -6,6 +6,7 @@
     <description>Customer&apos;s lending or relationship with OFI&apos;s.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
+    <inlineHelpText>Does customer have any borrowing with another financial institution?</inlineHelpText>
     <label>Borrowing/(OFI Relationship)</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>
