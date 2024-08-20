@@ -1,12 +1,10 @@
 /**
  * @description       : description Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-16-2024
+ * @last modified on  : 08-19-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerGCPActions {
-  public static final String GCP_EVENT_ADD = 'add';
-  public static final String GCP_EVENT_UPDATE = 'update';
   @TestVisible
   private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
   @TestVisible
@@ -45,7 +43,7 @@ public with sharing class CustomerGCPActions {
         accIdVsMasterNodes,
         triggerContext
       );
-      List<SObject> successPublishedEvents = CloudEventController.publishCloudEvents(
+      List<Cloud_Event__e> successPublishedEvents = CloudEventController.publishCloudEvents(
         cloudEventModels
       );
 
@@ -135,9 +133,7 @@ public with sharing class CustomerGCPActions {
       BrokerCloudEventModel.MasterNode masterNodeObj = CustomerDataCEBuilder.buildAccountNode(
         record
       );
-      if (
-        accIdVsMasterNodes == null || !accIdVsMasterNodes.containsKey(record.id)
-      ) {
+      if (!accIdVsMasterNodes.containsKey(record.id)) {
         accIdVsMasterNodes.put(
           record.id,
           new List<BrokerCloudEventModel.MasterNode>{}

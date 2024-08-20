@@ -157,9 +157,9 @@ public with sharing class ResidentialLoanApplicationActions {
    * @author Deepro De | 06-04-2024
    * @param records
    * @param triggerContext
-   * @return List<SObject> published events
+   * @return List<Cloud_Event__e> published events
    **/
-  public static List<SObject> synchronizeAndPublishCloudEvents(
+  public static List<Cloud_Event__e> synchronizeAndPublishCloudEvents(
     List<ResidentialLoanApplication> records,
     String triggerContext
   ) {
@@ -167,7 +167,7 @@ public with sharing class ResidentialLoanApplicationActions {
     if (brokerSettings().BypassApplicationSyncEvents__c == true) {
       return null;
     }
-    List<SObject> cloudEvents = new List<SObject>();
+    List<Cloud_Event__e> cloudEvents = new List<Cloud_Event__e>();
     //Creating map of records vs event type according to trigger context type, ie. insert/update
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
