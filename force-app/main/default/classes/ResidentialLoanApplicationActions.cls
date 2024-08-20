@@ -182,7 +182,7 @@ public with sharing class ResidentialLoanApplicationActions {
     if (brokerSettings().BypassApplicationSyncEvents__c == true) {
       return null;
     }
-    
+
     //Creating map of records vs event type according to trigger context type, ie. insert/update
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
