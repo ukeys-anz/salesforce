@@ -52,7 +52,7 @@ jobs:
         id: pull-from-gcs
         shell: bash
         run: |
-          gcloud storage cp gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
+          gcloud storage cp --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
 
       - name: Run diff & ensure gcs bucket has latest changes for odaseva user
         working-directory: salesforce
