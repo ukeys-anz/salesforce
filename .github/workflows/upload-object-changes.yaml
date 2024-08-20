@@ -122,6 +122,6 @@ jobs:
         if: ${{ success() }}
         uses: "google-github-actions/upload-cloud-storage@v2"
         with:
-          path: "output/"
+          path: "${{ github.workspace }}/salesforce/output/"
           destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
           project_id: anz-x-gh-sf-sit-4e60a7
