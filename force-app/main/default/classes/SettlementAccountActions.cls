@@ -70,9 +70,7 @@ public with sharing class SettlementAccountActions {
     List<Id> loanApplicationIds = new List<Id>();
     for (Settlement_Account__c settleAcc : records) {
       if (settleAcc.IsValidCloudEvent__c == true) {
-        loanApplicationIds.add(
-          settleAcc.Settlement__r.Loan_Application_Number__c
-        );
+        loanApplicationIds.add(settleAcc.Loan_Application_Id__c);
       }
     }
     return loanApplicationIds;

@@ -7,8 +7,7 @@ public with sharing class SettlementAccountActionsTest {
   @isTest
   static void testGetLoanApplicationIdFromSettlementAccounts() {
     List<Settlement_Account__c> settlementAccountList = createTestSettlementAccount();
-    String loanApplicationId = settlementAccountList[0]
-      ?.Settlement__r.Loan_Application_Number__c;
+    String loanApplicationId = settlementAccountList[0]?.Loan_Application_Id__c;
     Test.startTest();
     List<Id> loanApplicationIds = SettlementAccountActions.getLoanApplicationIdFromSettlementAccounts(
       settlementAccountList
@@ -67,9 +66,9 @@ public with sharing class SettlementAccountActionsTest {
     String jsonSettlementAccount =
       '{"Name":"TEST_NAME", "Settlement__c":"' +
       settlement.Id +
-      '", "Settlement__r":{"Loan_Application_Number__c":"' +
+      '", "Loan_Application_Id__c":"' +
       loanApps[0].Id +
-      '"}, "IsValidCloudEvent__c": true}';
+      '", "IsValidCloudEvent__c": true}';
 
     Settlement_Account__c settlementAcc = (Settlement_Account__c) JSON.deserialize(
       jsonSettlementAccount,
