@@ -36,6 +36,11 @@ jobs:
 
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X GET "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
 
+      - name: "Set up Cloud SDK"
+        uses: "anzx/github-reusable-actions/setup-gcloud@main"
+        with:
+          install_components: "core"
+
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
