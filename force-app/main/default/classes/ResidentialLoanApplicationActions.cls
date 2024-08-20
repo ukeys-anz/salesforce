@@ -16,6 +16,20 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final ResidentialLoanApplicationRepository RESIDENTIAL_LOAN_APP_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
+  @TestVisible
+  private static BrokerSettings__c mockBrokerSettings;
+
+  /**
+   * @description To set the mock broker settings
+   * @return The BrokerSettings__c custom setting
+   */
+  @TestVisible
+  private static BrokerSettings__c brokerSettings() {
+    if (mockBrokerSettings != null) {
+      return mockBrokerSettings;
+    }
+    return BrokerSettings__c.getOrgDefaults();
+  }
 
   @TestVisible
   private static BrokerSettings__c mockBrokerSettings;
@@ -158,7 +172,7 @@ public with sharing class ResidentialLoanApplicationActions {
    * @author Deepro De | 06-04-2024
    * @param records
    * @param triggerContext
-   * @return List<SObject> published events
+   * @return List<Cloud_Event__e> published events
    **/
   public static List<Cloud_Event__e> synchronizeAndPublishCloudEvents(
     List<ResidentialLoanApplication> records,
@@ -168,6 +182,7 @@ public with sharing class ResidentialLoanApplicationActions {
     if (brokerSettings().BypassApplicationSyncEvents__c == true) {
       return null;
     }
+    
     //Creating map of records vs event type according to trigger context type, ie. insert/update
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 

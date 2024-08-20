@@ -95,7 +95,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     CustomerGCPActions.publishGCPEventForCustomers(
       records,
       (Map<Id, Account>) oldMap,
-      CustomerGCPActions.GCP_EVENT_UPDATE
+      GCPEventConfigs.GCP_EVENT_UPDATE
     );
   }
 }
