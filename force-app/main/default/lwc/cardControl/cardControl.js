@@ -9,7 +9,7 @@ export default class CardControl extends LightningElement {
       return {
         ...record,
         cardControlFieldValue:
-          record.value == true || record.value == false ? true : false
+          record.value === true || record.value === false ? true : false
       };
     });
   }
