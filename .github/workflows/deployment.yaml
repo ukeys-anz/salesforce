@@ -16,7 +16,7 @@ jobs:
     container:
       image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
       options: --user root
-    runs-on: anzx-default-np
+    runs-on: anzx-default
     steps:
       - name: Link SGD plugin
         run: |
