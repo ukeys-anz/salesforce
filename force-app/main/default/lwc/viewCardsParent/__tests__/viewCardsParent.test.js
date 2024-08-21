@@ -45,7 +45,7 @@ describe("c-view-cards-parent", () => {
 
     let nocards = element.shadowRoot.querySelector("span[data-id='nocards']");
     expect(nocards.textContent).toBe(
-      "This customer doesn't have any accounts with an active card"
+      "This customer doesn't have any accounts with an active card attached."
     );
   });
 

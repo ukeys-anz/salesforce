@@ -20,6 +20,18 @@
         "value": 11
       }
     },
+    "delivery_date": {
+      "year": {
+        "value": 2016
+      },
+      "month": {
+        "value": 9
+      },
+      "day": {
+        "value": 19
+      }
+    },
+    "delivery_status": "Delivered 03/11/2023",
     "account_number": "",
     "eligibilities": [
       "ELIGIBILITY_APPLE_PAY",
@@ -65,6 +77,18 @@
         "value": 11
       }
     },
+    "delivery_date": {
+      "year": {
+        "value": 2016
+      },
+      "month": {
+        "value": 9
+      },
+      "day": {
+        "value": 19
+      }
+    },
+    "delivery_status": "Delivered 03/11/2023",
     "account_number": "",
     "eligibilities": [
       "ELIGIBILITY_APPLE_PAY",
@@ -110,6 +134,18 @@
         "value": 11
       }
     },
+    "delivery_date": {
+      "year": {
+        "value": 2016
+      },
+      "month": {
+        "value": 9
+      },
+      "day": {
+        "value": 19
+      }
+    },
+    "delivery_status": "Delivered 03/11/2023",
     "account_number": "",
     "eligibilities": [
       "ELIGIBILITY_APPLE_PAY",

@@ -19,6 +19,18 @@
         "value": 11
       }
     },
+    "delivery_date": {
+      "year": {
+        "value": 2016
+      },
+      "month": {
+        "value": 9
+      },
+      "day": {
+        "value": 19
+      }
+    },
+    "delivery_status": "Delivered 03/11/2023",
     "isValid": true,
     "account_number": "",
     "eligibilities": []
