@@ -1,17 +1,26 @@
 <template>
   <div class="slds-grid slds-wrap">
-    <template for:each={card.controls} for:item="con">
-      <div key={con.key} class="slds-col slds-size_1-of-2" data-id={con.key}>
+    <template for:each={cardControlFields} for:item="con">
+      <div
+        key={con.key}
+        class="slds-col slds-size_1-of-2 slds-p-right_large"
+        data-id={con.key}
+      >
         <template lwc:if={con.visible}>
           <div class="slds-p-bottom_medium">
-            <p class="slds-text-title_bold">
+            <p class="slds-form-element__label">
               {con.label}
               <template lwc:if={con.tooltip}>
                 <lightning-helptext class="tooltip" content={con.tooltip}>
                 </lightning-helptext>
               </template>
             </p>
-            {con.value}
+            <div class="slds-border_bottom">
+              <template lwc:if={con.cardControlFieldValue}>
+                <input type="checkbox" checked={con.value} disabled />
+              </template>
+              <template lwc:else> {con.value} </template>
+            </div>
           </div>
         </template>
       </div>

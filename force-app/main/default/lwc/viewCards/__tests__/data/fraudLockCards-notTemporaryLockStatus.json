@@ -1,28 +1,37 @@
-{
-  "cards": [
-    {
-      "name": "Lucasel Wilton",
-      "tokenized_card_number": "1234567891",
-      "isValid": true,
-      "last_4_digits": "1111",
-      "status": "Issued",
-      "expiry_date": {
-        "year": { "value": 2014 },
-        "month": { "value": 9 }
+[
+  {
+    "name": "Lucasel Wilton",
+    "tokenized_card_number": "1234567891",
+    "isValid": true,
+    "last_4_digits": "1111",
+    "status": "Issued",
+    "expiry_date": {
+      "year": { "value": 2014 },
+      "month": { "value": 9 }
+    },
+    "card_issue_date": {
+      "year": {
+        "value": 2020
       },
-      "account_number": "",
-      "eligibilities": [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CHANGE_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK"
-      ]
-    }
-  ]
-}
+      "month": {
+        "value": 11
+      },
+      "day": {
+        "value": 11
+      }
+    },
+    "account_number": "",
+    "eligibilities": [
+      "ELIGIBILITY_APPLE_PAY",
+      "ELIGIBILITY_GOOGLE_PAY",
+      "ELIGIBILITY_SAMSUNG_PAY",
+      "ELIGIBILITY_SET_PIN",
+      "ELIGIBILITY_CHANGE_PIN",
+      "ELIGIBILITY_CARD_REPLACEMENT_LOST",
+      "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
+      "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
+      "ELIGIBILITY_CARD_CONTROLS",
+      "ELIGIBILITY_BLOCK"
+    ]
+  }
+]

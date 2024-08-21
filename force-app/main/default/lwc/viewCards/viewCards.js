@@ -2,11 +2,8 @@ import { LightningElement, wire, api } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { mapCardDetailsHandler } from "./helper/helper-cards";
-
 import { errorHandler } from "./helper/helper-errors";
 import { cardImageHandler } from "./helper/helper-cardImages";
-import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
-import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import { subscribe, MessageContext } from "lightning/messageService";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import {
@@ -21,12 +18,21 @@ import UserNameField from "@salesforce/schema/User.Name";
 import CardsAccountTypeForSorting from "@salesforce/label/c.CardsAccountTypeForSorting";
 
 export default class ViewCards extends LightningElement {
+  @api cardsFromParent;
   @api recordId;
+  _isActiveCardSection;
+  @api
+  get isActiveCardSection() {
+    return this._isActiveCardSection === "true" ? true : false;
+  }
+
+  set isActiveCardSection(value) {
+    this._isActiveCardSection = value;
+  }
+  cards;
   viewAllCards = false;
   cardFraudLockStatus = "";
   showViewAllButton = false;
-
-  ocvId;
   subscription = null;
   errorMsg = "";
   last4Digits = "";
@@ -34,32 +40,19 @@ export default class ViewCards extends LightningElement {
   buttonClicked = "";
   currentUserName;
   initialCardsDetails = [];
+  cardsLeftToView;
   tokenizedCardNumber = "";
-  collapseExpandText = "Expand List";
   replaceLockUnavailable = true;
   replaceLostUnavailable = true;
   replaceStolenUnavailable = true;
   replaceDamagedUnavailable = true;
-
   loading = false;
-  noCards = false;
-  showFetch = true;
   showLock = false;
   showFraudLock = false;
   showReplace = false;
   showDetails = false;
-  showExpandCollapse = false;
 
-  hasPermissionIssue = userPermission.hasViewPermission ? false : true;
   defaultImage = cardImageHandler(cardImages);
-  hasError = userPermission.hasViewPermission ? false : true;
-
-  @wire(getRecord, { recordId: "$recordId", fields: [ACCOUNT_OCV_ID_FIELD] })
-  wiredProject({ data }) {
-    if (data) {
-      this.ocvId = data.fields.OCV_ID__c.value;
-    }
-  }
 
   //Get the current logged-in user details
   @wire(getRecord, { recordId: Id, fields: [UserNameField] })
@@ -75,86 +68,61 @@ export default class ViewCards extends LightningElement {
   messageContext;
 
   connectedCallback() {
+    //The data is being received proxied, so we stringify it
+    //and parse it to unproxy it
+    this.cards = JSON.parse(JSON.stringify(this.cardsFromParent));
+    this.processCardDetails();
     this.subscriptionHandler();
   }
 
   subscriptionHandler = () => {
-    this.subscription = subscribe(
-      this.messageContext,
-      CloseModal,
-      (message) => {
-        if (message.name === "replace") {
-          this.showReplace = message.show;
-        } else if (message.name === "lock") {
-          this.showLock = message.show;
-        } else {
-          this.showFraudLock = message.show;
-        }
-        if (message.message) {
-          if (message.success) {
-            //Clear card details and refetch
-            this.cardDetails = [];
-            this.initialCardsDetails = [];
-
-            //Refetch card details to get latest statuses
-            this.getCardDetails();
-          }
-          this.showToast("subscription", message);
-        }
+    this.subscription = subscribe(this.messageContext, CloseModal, (data) => {
+      if (data.name === "replace") {
+        this.showReplace = data.show;
+      } else if (data.name === "lock") {
+        this.showLock = data.show;
+      } else {
+        this.showFraudLock = data.show;
       }
-    );
-  };
-  getCardDetails = () => {
-    if (userPermission.hasViewPermission) {
-      this.showFetch = false;
-      this.loading = true;
+      if (data.message) {
+        if (data.success) {
+          //Clear card details and refetch
+          this.cardDetails = [];
+          this.initialCardsDetails = [];
 
-      getCardList({ ocvId: this.ocvId })
-        .then((result) => {
-          if (result.cards && result.cards.length > 0) {
-            //Sort the cards so that Single will be before Joint Cards- Added as part of ANZX-128123
-            this.initialCardsDetails = this.sortCardDetails(
-              this.mapCardDetails(result.cards)
-            );
-            //Added this in order to handle the expansion of card details if load more is already clicked
-            this.cardDetails = this.viewAllCards
-              ? this.initialCardsDetails
-              : [this.initialCardsDetails[0]];
-            this.showViewAllButtonHandler();
-            this.isInvalidCardHandler();
-            this.showDetails = true;
-          } else {
-            this.noCards = true;
-          }
-          this.loading = false;
-        })
-        .catch((error) => {
-          this.hasError = true;
-          this.loading = false;
-          this.showToast("cardDetailsError", error.body);
-        });
-    }
+          //Refetch card details to get latest statuses
+          this.pushRefreshCardDetailsEvent();
+        }
+        this.showToast("subscription", data);
+      }
+    });
   };
+
+  processCardDetails() {
+    if (this.cards && this.cards.length > 0) {
+      this.initialCardsDetails = this.sortCardDetails(
+        this.mapCardDetails(this.cards)
+      );
+      //Added this in order to handle the expansion of card details if load more is already clicked
+      this.cardDetails = this.viewAllCards
+        ? this.initialCardsDetails
+        : this.initialCardsDetails.slice(0, 6);
+      this.cardsLeftToView =
+        this.initialCardsDetails.length > 6
+          ? this.initialCardsDetails.length - 6
+          : 0;
+      this.showViewAllButtonHandler();
+      this.showDetails = true;
+    }
+  }
 
   showViewAllButtonHandler = () => {
-    if (this.initialCardsDetails.length > 1) {
-      this.showExpandCollapse = true;
+    if (this.initialCardsDetails.length > 6) {
       // Have this check to ensure button doesnt show
       // if all cards already in view
       if (!this.viewAllCards) {
         this.showViewAllButton = true;
       }
-    }
-  };
-
-  // check if all the cards are valid
-  isInvalidCardHandler = () => {
-    let invalidCard = this.initialCardsDetails.find(
-      (curCard) => !curCard.isValid
-    );
-    if (invalidCard) {
-      this.hasError = true;
-      this.errorMsg = errorHandler.invalidCard;
     }
   };
 
@@ -167,12 +135,7 @@ export default class ViewCards extends LightningElement {
     this.showViewAllButton = !this.showViewAllButton;
     this.cardDetails = this.viewAllCards
       ? this.initialCardsDetails
-      : [this.initialCardsDetails[0]];
-    if (this.collapseExpandText === "Expand List") {
-      this.collapseExpandText = "Collapse List";
-    } else {
-      this.collapseExpandText = "Expand List";
-    }
+      : this.initialCardsDetails.slice(0, 6);
   }
 
   handleActionAccordingClickedButton = (event) => {
@@ -181,6 +144,7 @@ export default class ViewCards extends LightningElement {
     const card = this.initialCardsDetails.find(
       (theCard) => theCard.tokenized_card_number === cardNumber
     );
+
     const inputObject = {
       card,
       label,
@@ -212,7 +176,6 @@ export default class ViewCards extends LightningElement {
     return arrOfCards.sort((firstCard, otherCard) => {
       const accountTypeOrder = CardsAccountTypeForSorting.split(",");
       let sortValue = 0;
-      // Sort by AccountType
       if (firstCard.accountType !== otherCard.accountType) {
         sortValue =
           accountTypeOrder.indexOf(firstCard.accountType) -
@@ -220,5 +183,14 @@ export default class ViewCards extends LightningElement {
       }
       return sortValue;
     });
+  }
+
+  //Dispatch an event to refresh the data if any button got clicked
+  pushRefreshCardDetailsEvent() {
+    this.dispatchEvent(
+      new CustomEvent("refreshcarddetails", {
+        detail: true
+      })
+    );
   }
 }

@@ -14,9 +14,9 @@ export function mapCardControls(card) {
         if (control.key === customer_control.control_type) {
           // this is checking whether control is MCT Gambling for status
           if (!control.type) {
-            control.value = "Disabled";
+            control.value = false;
             if (control.key === "MCT_GAMBLING") {
-              control.value = "On";
+              control.value = true;
             }
           } else {
             switch (control.key) {

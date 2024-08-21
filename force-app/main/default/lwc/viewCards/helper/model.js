@@ -49,31 +49,31 @@ export const CARD_CONTROLS_DEFINITION = [
   {
     key: "TCT_CONTACTLESS",
     label: "Contactless Payments",
-    value: "Enabled",
+    value: true,
     visible: true
   },
   {
     key: "TCT_ATM_WITHDRAW",
     label: "ATM Withdrawals",
-    value: "Enabled",
+    value: true,
     visible: true
   },
   {
     key: "TCT_E_COMMERCE",
     label: "Online Transactions",
-    value: "Enabled",
+    value: true,
     visible: true
   },
   {
     key: "TCT_CROSS_BORDER",
     label: "Overseas Transactions (In-Store)",
-    value: "Enabled",
+    value: true,
     visible: true
   },
   {
     key: "MCT_GAMBLING",
     label: "Gambling Block",
-    value: "Off",
+    value: true,
     tooltip:
       "Transactions categorised as gambling such as online betting and lottery tickets may be blocked when turned on.",
     visible: true
@@ -90,7 +90,7 @@ export const CARD_CONTROLS_DEFINITION = [
   {
     key: "GCT_GLOBAL",
     label: "Physical Lock",
-    value: "Off",
+    value: true,
     visible: false
   }
 ];
