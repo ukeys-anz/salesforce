@@ -51,7 +51,6 @@ public with sharing class LoanApplicantActions {
     List<Account> accountList,
     Map<Id, String> accountIdAndSyncStatusMap
   ) {
-    System.debug('====HERE===');
     for (Account eachAccountRecord : accountList) {
       if (String.isBlank(accountIdAndSyncStatusMap.get(eachAccountRecord.Id))) {
         continue;
@@ -65,9 +64,7 @@ public with sharing class LoanApplicantActions {
       List<String> picklistValues = eachAccountRecord.Sync_Status__c.split(';');
       picklistValues.add(accountIdAndSyncStatusMap.get(eachAccountRecord.Id));
       eachAccountRecord.Sync_Status__c = String.join(picklistValues, ';');
-      System.debug('====HERE2===');
     }
-    System.debug('====HERE3===='+accountList);
     return accountList;
   }
 }
