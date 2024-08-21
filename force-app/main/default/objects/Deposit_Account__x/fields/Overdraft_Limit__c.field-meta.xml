@@ -6,9 +6,9 @@
     <description>The &apos;documented&apos; Limit on the facility</description>
     <externalDeveloperName>OverdraftLimit</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Limit ($)</label>
     <precision>18</precision>
     <required>false</required>

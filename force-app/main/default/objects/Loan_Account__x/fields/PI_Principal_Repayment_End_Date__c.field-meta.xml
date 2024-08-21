@@ -6,9 +6,9 @@
     <description>PI Principal Repayment End Date</description>
     <externalDeveloperName>PIPrincipalRepaymentEndDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Principal Repayment End Date</label>
     <length>50</length>
     <required>false</required>

@@ -1086,7 +1086,7 @@
       "permissionsetgroups": [],
       "permissionsets": [
         "DAONFileCleanup",
-        "View_All_Files",
+        "Query_All_Files",
         "API_Only"
       ],
       "type": "system"

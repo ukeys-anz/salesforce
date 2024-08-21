@@ -6,9 +6,9 @@
     <description>Prompt Date </description>
     <externalDeveloperName>PromptDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Prompt Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

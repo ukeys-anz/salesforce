@@ -55,8 +55,14 @@ export default class financialSummaryViewAsync extends LightningElement {
       });
       this.showSpinner = false;
       this.financialSummaryData = resultSummaries;
-      this.showTotalBalOtherValue = this.showTerminalOtherValue = this.showAssetOtherValue = true;
-      this.totalBalOtherValue = this.terminalOtherValue = this.assetOtherValue = CALCULATION_IN_PROGRESS;
+      this.showTotalBalOtherValue =
+        this.showTerminalOtherValue =
+        this.showAssetOtherValue =
+          true;
+      this.totalBalOtherValue =
+        this.terminalOtherValue =
+        this.assetOtherValue =
+          CALCULATION_IN_PROGRESS;
     } catch (error) {
       this.errorResponse = error.body.message;
       this.showSpinner = false;
@@ -99,7 +105,8 @@ export default class financialSummaryViewAsync extends LightningElement {
       if (this.financialSummaryData.totalAssetFinanceBalance !== undefined) {
         this.showAssetValue = true;
         this.showAssetOtherValue = false;
-        this.totalAssetBalance = this.financialSummaryData.totalAssetFinanceBalance;
+        this.totalAssetBalance =
+          this.financialSummaryData.totalAssetFinanceBalance;
         this.countTotalAssetBalance++;
       }
       if (
@@ -303,8 +310,14 @@ export default class financialSummaryViewAsync extends LightningElement {
     this.platformEventList = [];
     this.showSpinner = true;
     this.isDisableRefresh = true;
-    this.countTotalBalance = this.countNoOfTerminals = this.countTotalAssetBalance = 0;
-    this.callTotalCustBalanceApi = this.callTerminalApi = this.callAssetFinanceBalanceApi = true;
+    this.countTotalBalance =
+      this.countNoOfTerminals =
+      this.countTotalAssetBalance =
+        0;
+    this.callTotalCustBalanceApi =
+      this.callTerminalApi =
+      this.callAssetFinanceBalanceApi =
+        true;
     if (!this.subscription) {
       this.handleSubscribe();
     }

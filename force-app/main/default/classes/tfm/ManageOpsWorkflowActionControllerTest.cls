@@ -182,12 +182,15 @@ private with sharing class ManageOpsWorkflowActionControllerTest {
     onboardingActionQueryMock.mock('getCOBPIDRecord', cobPIDRec);
     onboardingActionQueryMock.mock('getCaseRecord', caseRec);
     ManageOpsWorkflowRequestModel manageOpsRequest = requestBody();
+    ManageOpsWorkflowUpdateStatusModel requestedParam = new ManageOpsWorkflowUpdateStatusModel();
+    requestedParam.idValue = 'testIdValue';
+    requestedParam.cobId = cobPIDRecord[0].Id;
+    requestedParam.status = 'ID Ops: Daon OK';
+    requestedParam.failedReason = 'Confirmed Fraud';
+
     Map<String, String> returnMap = ManageOpsWorkflowActionController.updateCaseStatusOnboarding(
-      'testIdValue',
       manageOpsRequest,
-      cobPIDRecord[0].Id,
-      'ID Ops: Daon OK',
-      'Confirmed Fraud'
+      requestedParam
     );
     return returnMap;
   }
@@ -209,7 +212,6 @@ private with sharing class ManageOpsWorkflowActionControllerTest {
   }
 
   static void manageOpsExceptionCommonFunction() {
-    String exceptionMsg = 'You don\'t have required permission to perform this action.';
     Integer statusCode = 401;
     String error = TFMConstants.INSUFFICIENT_ACCESS_ERROR;
     HttpCalloutResponse res = OnboardingServiceMock.setMockErrorResponse(
@@ -226,7 +228,6 @@ private with sharing class ManageOpsWorkflowActionControllerTest {
     dmlInsertRepoMocksTrue();
     dmlUpdateRepoMocksTrue();
 
-  
     Test.startTest();
     Map<String, String> returnMap = testUpdateCaseStatusOnboardingCommonFunction();
     Test.stopTest();

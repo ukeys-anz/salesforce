@@ -6,9 +6,9 @@
     <description>Interest Only Term (Month)</description>
     <externalDeveloperName>InterestOnlyTermMonth</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Only Term (Month)</label>
     <precision>18</precision>
     <required>false</required>

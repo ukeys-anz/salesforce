@@ -88,6 +88,10 @@
                 <behavior>Edit</behavior>
                 <field>Transaction_Status__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Transaction_Method__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>
@@ -356,7 +360,6 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
-        <excludeButtons>New</excludeButtons>
         <fields>NAME</fields>
         <fields>External_Status__c</fields>
         <fields>Internal_Description__c</fields>

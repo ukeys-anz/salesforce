@@ -7221,7 +7221,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>EV Fail - DVS system error response</fullName>
+            <fullName>EV Fail - DVS Data error</fullName>
             <default>false</default>
         </values>
         <values>

@@ -6,9 +6,9 @@
     <description>Bank Bill Swap reference Rate</description>
     <externalDeveloperName>BankBillSwapReferenceRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Bank Bill Swap Reference Rate (%)</label>
     <precision>18</precision>
     <required>false</required>

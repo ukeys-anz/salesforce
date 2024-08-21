@@ -92,7 +92,7 @@
                 value={expiryDateValue}
                 onchange={handleExpiryDateChange}
                 disabled={disabledExpiryDate}
-                min={todayDate}
+                min={tomorrowDateFormatted}
                 message-when-range-underflow={CONSTANT.EXPIRY_ERROR}
               ></lightning-input>
             </lightning-layout-item>

@@ -19,7 +19,7 @@
         <label>Open</label>
         <closed>false</closed>
     </standardValue>
-<standardValue>
+    <standardValue>
         <fullName>To Be Worked</fullName>
         <default>false</default>
         <label>To Be Worked</label>
@@ -242,9 +242,9 @@
         <closed>true</closed>
     </standardValue>
     <standardValue>
-        <fullName>Selfie Not Matched</fullName>
+        <fullName>Closed - Selfie Not Matched</fullName>
         <default>false</default>
-        <label>Selfie Not Matched</label>
+        <label>Closed - Selfie Not Matched</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>

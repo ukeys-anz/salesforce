@@ -8,6 +8,8 @@ module.exports = {
   moduleNameMapper: {
     "^lightning/messageService$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/messageService",
+    "^lightning/pageReferenceUtils$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/pageReferenceUtils",
     "^lightning/platformShowToastEvent$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/platformShowToastEvent",
     "^lightning/navigation$":

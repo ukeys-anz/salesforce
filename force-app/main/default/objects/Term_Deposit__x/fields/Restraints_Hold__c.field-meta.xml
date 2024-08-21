@@ -7,9 +7,9 @@
     <description>Whether or not a Hard Hold is loaded on CAP</description>
     <externalDeveloperName>RestraintsHold</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Hard Hold</label>
     <securityClassification>Internal</securityClassification>
     <type>Checkbox</type>

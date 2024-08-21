@@ -6,9 +6,9 @@
     <description>Associated Id Of AMBIT</description>
     <externalDeveloperName>AMBITId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Asset Finance AMBIT</label>
     <length>255</length>
     <referenceTo>Asset_Finance_AMBIT__x</referenceTo>

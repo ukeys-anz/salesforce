@@ -25,10 +25,16 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
-    AutoKYCQACaseActions.populateClosedNoDefectDefaults(records, null);
+    //validations
+    AutoKYCQACaseActions.validateCobExist(records);
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerAccount(records);
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerCOBApp(records);
-    AutoKYCQACaseActions.setKYCQAFields(records);
+    //populate fields
+    AutoKYCQACaseActions.populateAutoKYCQAChecks(records);
+    AutoKYCQACaseActions.populateClosedNoDefectDefaults(
+      records,
+      new Map<Id, Case>()
+    );
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }

@@ -6,9 +6,9 @@
     <description>How often debit interest is charged</description>
     <externalDeveloperName>OverdraftLimitInterestRepaymentFrequency</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Repayment Frequency</label>
     <length>255</length>
     <required>false</required>
