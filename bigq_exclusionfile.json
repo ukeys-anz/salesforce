@@ -1,5 +1,6 @@
 {
   "A_Z_Review__c": [
+    "Occupation__c",
     "PhotoUrl",
     "Phone",
     "ActionPlanId",
@@ -21,8 +22,7 @@
     "LastActivityDate",
     "LastReferencedDate",
     "LastViewedDate",
-    "OwnerId",
-    "RecordTypeId"
+    "OwnerId"
   ],
   "Access_Request__c": [
     "Approver_ID__c",

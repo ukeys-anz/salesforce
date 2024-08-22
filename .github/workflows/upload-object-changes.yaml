@@ -13,7 +13,7 @@ permissions:
   id-token: "write"
 
 jobs:
-  check_object_changes:
+  upload_object_changes:
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
