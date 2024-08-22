@@ -35,6 +35,7 @@ jobs:
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACTORY_ARTIFACT_NAME"
 
           status_code=$(wget --server-response -P artifactory_success_output/ "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1)
+          echo status_code="$status_code"
           if [ "$status_code" -eq 200 ]; then
             unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
           elif [ "$status_code" -eq 404 ]; then
