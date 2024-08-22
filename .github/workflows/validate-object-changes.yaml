@@ -37,6 +37,7 @@ jobs:
           status_code=
           if  ! status_code=$(wget --server-response -P artifactory_success_output/ "https://artifactory.gcp.anz/artifactory/ \
                 anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1); then
+              echo "Error when pulling artifact from artfiactory. Received HTTP status code when pulling: $status_code"
           fi
           wget_exit_code=$?
           if [ "$status_code" -eq 200 ]; then
@@ -48,7 +49,6 @@ jobs:
               echo "[error] wget threw error code: $wget_exit_code with status code: $status_code"
               exit 1
           else
-              echo "Error when pulling artifact from artfiactory. Received HTTP status code when pulling : $status_code"
               echo "[error] wget threw error code: $wget_exit_code with status code: $status_code"
               exit 1
           fi
