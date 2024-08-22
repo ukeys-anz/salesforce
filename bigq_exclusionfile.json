@@ -21,8 +21,7 @@
     "SystemModstamp",
     "LastActivityDate",
     "LastReferencedDate",
-    "LastViewedDate",
-    "OwnerId"
+    "LastViewedDate"
   ],
   "Access_Request__c": [
     "Approver_ID__c",

@@ -66,45 +66,45 @@ jobs:
           mkdir gcs_success_output && ls -la
           gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
 
-      - name: Run diff & ensure gcs bucket has latest changes for odaseva user
+      - name: Run diff
         working-directory: salesforce
-        id: update-bucket-for-odaseva-user
+        id: run-diff
         shell: bash
         run: |
           odaseva_sha_object_fields="artifactory_success_output/output/odaseva_user_output/fieldsaccessdiff"
           odaseva_gcs_object_fields="gcs_success_output/success_output/output/odaseva_user_output/fieldsaccessdiff"
-
-          diff_output=$(diff -qr "$odaseva_sha_object_fields" "$odaseva_gcs_object_fields")
-
-          if [ -n "$diff_output" ]; then
-              echo "Changes found between $odaseva_sha_object_fields and $odaseva_gcs_object_fields: \n$diff_output\n\n"
-              echo "Uploading odaseva_sha_object_fields..."
-          else
-              echo "No changes found. Moving on..."
-          fi
-
-      - name: Run diff & ensure gcs bucket has latest changes for sfdatasync user
-        working-directory: salesforce
-        id: update-bucket-for-sfdatasync-user
-        shell: bash
-        run: |
           sfdatasync_sha_object_fields="artifactory_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
           sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
-          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
+          CHANGES_DETECTED=FALSE
 
+          diff_output=$(diff -qr "$odaseva_sha_object_fields" "$odaseva_gcs_object_fields")
+          echo "$diff_output\n"
           if [ -n "$diff_output" ]; then
-              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields: \n$diff_output\n\n"
-              echo "Uploading sfdatasync_sha_object_fields..."
+              echo "Changes found between $odaseva_sha_object_fields and $odaseva_gcs_object_fields...\n"
+              echo "Uploading odaseva_sha_object_fields..."
+              CHANGES_DETECTED=TRUE
           else
               echo "No changes found. Moving on..."
           fi
 
-      # # Upload to GCS
-      # - id: "upload-folder-to-gcs"
-      #   if: ${{ (steps.get-changed-objects.outcome == success() && steps.push-to-artifactory.outcome == success()) && !cancelled() }}
-      #   uses: "google-github-actions/upload-cloud-storage@v2"
-      #   with:
-      #     path: "${{ github.workspace }}/salesforce/output/"
-      #     destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-      #     project_id: anz-x-gh-sf-sit-4e60a7
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
+          echo "$diff_output\n"
+          if [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
+              echo "Uploading sfdatasync_sha_object_fields..."
+              CHANGES_DETECTED=TRUE
+          else
+              echo "No changes found. Moving on..."
+          fi
+
+          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+
+      # Upload to GCS
+      - id: "upload-folder-to-gcs"
+        if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
+        uses: "google-github-actions/upload-cloud-storage@v2"
+        with:
+          path: "${{ github.workspace }}/salesforce/output/"
+          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
+          project_id: anz-x-gh-sf-sit-4e60a7
