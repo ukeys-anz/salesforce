@@ -283,11 +283,9 @@ describe("c-view-cards", () => {
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
     );
-    console.log("testing the length of buttons=>" + buttons.length);
     let fraudUnlockButton;
     buttons.forEach((btn) => {
       if (btn.label === "Fraud Unlock") {
-        console.loh;
         fraudUnlockButton = btn;
       }
     });
