@@ -15,7 +15,6 @@
     <filterScope>Mine</filterScope>
     <label>My Leads</label>
     <sharedTo>
-        <role>BOH_Coach</role>
         <role>Coach</role>
         <role>Coach_Lead</role>
         <role>Quality_Analyst</role>
