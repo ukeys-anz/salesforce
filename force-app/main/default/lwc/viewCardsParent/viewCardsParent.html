@@ -51,12 +51,11 @@
                   <c-view-cards
                     is-active-card-section="true"
                     cards-from-parent={activeCardList}
-                    onrefreshcarddetails={refetchCardDetails}
+                    onrefreshcarddetails={refreshCardDetails}
                   ></c-view-cards>
                 </lightning-accordion-section>
               </template>
-              <template lwc:if={noClosedCards}> </template>
-              <template lwc:else>
+              <template lwc:if={showClosedCardsSection}>
                 <lightning-accordion-section
                   class="slds-var-m-top_medium"
                   label="Closed Cards"

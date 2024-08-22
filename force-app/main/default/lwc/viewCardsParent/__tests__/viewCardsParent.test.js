@@ -1,7 +1,7 @@
 import { createElement } from "lwc";
-import ViewCardsParent from "c/viewCardsParent";
-import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import { CurrentPageReference } from "lightning/navigation";
+import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
+import ViewCardsParent from "c/viewCardsParent";
 
 const APEX_NO_CARDS = require("./data/getListAllCardNoResponse.json");
 const APEX_CARDS_SUCCESS = require("./data/getListAllCardValidResponse.json");

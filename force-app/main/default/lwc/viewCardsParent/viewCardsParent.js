@@ -1,9 +1,9 @@
 import { LightningElement, wire } from "lwc";
 import { CurrentPageReference } from "lightning/navigation";
-import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
-import { updateCardFields } from "./helper/helper-mappings";
-import { handleErrorShowToast } from "c/utils";
 import hasViewCardsPermission from "@salesforce/customPermission/ANZx_View_Cards";
+import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
+import { handleErrorShowToast } from "c/utils";
+import { updateCardFields } from "./helper/helper-mappings";
 import { filterCardsBasedOnStatus } from "./helper/helper-cardFilter";
 
 export default class ViewCardsParent extends LightningElement {
@@ -12,8 +12,7 @@ export default class ViewCardsParent extends LightningElement {
   loading = false;
   cardHasError = false;
   errorMsg;
-  userHasViewPermission = hasViewCardsPermission;
-  hasPermissionIssue = this.userHasViewPermission ? false : true;
+  hasPermissionIssue = !hasViewCardsPermission;
   noActiveCardMessage = `This customer doesn't have any accounts with an active card attached.`;
 
   @wire(CurrentPageReference)
@@ -29,18 +28,17 @@ export default class ViewCardsParent extends LightningElement {
     if (this.hasPermissionIssue) {
       this.cardHasError = true;
       this.loading = false;
+      return;
     }
     try {
       let cardsDetails = await getCardList({ ocvId: this.ocvId });
-      if (cardsDetails.cards && cardsDetails.cards.length > 0) {
+      if (cardsDetails?.cards.length > 0) {
         let cards = updateCardFields(cardsDetails.cards);
         this.activeCardList = filterCardsBasedOnStatus(cards, true);
         this.closedCardList = filterCardsBasedOnStatus(cards, false);
       }
-      this.loading = false;
     } catch (error) {
       this.cardHasError = true;
-      this.loading = false;
       this.errorMsg =
         "An error has occurred. Please refresh and try again. Raise a fault through TechAssist if the problem persists";
       handleErrorShowToast(
@@ -49,7 +47,13 @@ export default class ViewCardsParent extends LightningElement {
         this.errorMsg,
         this.errorMsg
       );
+    } finally {
+      this.loading = false;
     }
+  }
+
+  get showClosedCardsSection() {
+    return !this.noClosedCards;
   }
 
   get showNoCardsMessage() {
@@ -64,7 +68,8 @@ export default class ViewCardsParent extends LightningElement {
     return this.closedCardList.length === 0;
   }
 
-  refetchCardDetails(event) {
+  //Refetch the card details in order to get the latest cards list on any button click
+  refreshCardDetails(event) {
     if (event.detail) {
       this.getListAllCardDetails();
     }

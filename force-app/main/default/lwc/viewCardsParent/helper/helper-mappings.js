@@ -1,4 +1,4 @@
-export const STATUSMAP = new Map([
+const STATUS_MAP = new Map([
   ["CARD_STATUS_CODE_ISSUED", "Issued"],
   ["CARD_STATUS_CODE_BLOCKCNP", "Block CNP"],
   ["CARD_STATUS_CODE_BLOCKATMPOSEXCLUDECNP", "Block ATM & POS (Exclude CNP)"],
@@ -15,7 +15,7 @@ export const STATUSMAP = new Map([
   ["CARD_STATUS_CODE_BLOCKATMPOSCNP", "Block ATM, POS & CNP"]
 ]);
 
-export const ELIGIBILITYMAP = new Map([
+const ELIGIBILITY_MAP = new Map([
   ["ELIGIBILITY_ACTIVATION", "ELIGIBILITY_CARD_ACTIVATION"],
   ["ELIGIBILITY_REPLACEMENT_LOST", "ELIGIBILITY_CARD_REPLACEMENT_LOST"],
   ["ELIGIBILITY_REPLACEMENT_STOLEN", "ELIGIBILITY_CARD_REPLACEMENT_STOLEN"],
@@ -24,7 +24,7 @@ export const ELIGIBILITYMAP = new Map([
   ["ELIGIBILITY_DETAILS", "ELIGIBILITY_GET_DETAILS"]
 ]);
 
-export const DELIVERYSTATUSMAP = new Map([
+const DELIVERYSTATUS_MAP = new Map([
   ["STATE_UNSPECIFIED", ""],
   ["STATE_ORDERED", "Card Ordered"],
   ["STATE_SHIPPED", "Card Shipped"],
@@ -35,16 +35,29 @@ export const DELIVERYSTATUSMAP = new Map([
 
 export function updateCardFields(cards) {
   cards.forEach((card) => {
-    card.status = STATUSMAP.get(card.status);
+    card.status = STATUS_MAP.get(card.status);
     card.eligibilities = updateEligibilityValues(card.eligibilities);
-    card.delivery_status = DELIVERYSTATUSMAP.get(card.delivery_status);
+    card.card_issue_date =
+      card.card_issue_date.day.value +
+      "/" +
+      card.card_issue_date.month.value +
+      "/" +
+      card.card_issue_date.year.value;
+    card.delivery_status =
+      DELIVERYSTATUS_MAP.get(card.delivery_status) +
+      " " +
+      card.delivery_date.day +
+      "/" +
+      card.delivery_date.month +
+      "/" +
+      card.delivery_date.year;
   });
   return cards;
 }
 
 function updateEligibilityValues(listOfEligibilities) {
-  // retains the values of those eligibilities which is not defined in ELIGIBILITYMAP
+  // retains the values of those eligibilities which is not defined in ELIGIBILITY_MAP
   return listOfEligibilities.map(
-    (eachEligibility) => ELIGIBILITYMAP.get(eachEligibility) || eachEligibility
+    (eachEligibility) => ELIGIBILITY_MAP.get(eachEligibility) || eachEligibility
   );
 }

@@ -1,19 +1,17 @@
 import { LightningElement, wire, api } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { subscribe, MessageContext } from "lightning/messageService";
 import { mapCardDetailsHandler } from "./helper/helper-cards";
 import { errorHandler } from "./helper/helper-errors";
 import { cardImageHandler } from "./helper/helper-cardImages";
-import { subscribe, MessageContext } from "lightning/messageService";
-import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import {
   CARD_IMAGES as cardImages,
   USER_PERMISSION as userPermission
 } from "./helper/import-sf-const";
-
+import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import Id from "@salesforce/user/Id";
 import UserNameField from "@salesforce/schema/User.Name";
-
 //Added as part of ANZX-128123
 import CardsAccountTypeForSorting from "@salesforce/label/c.CardsAccountTypeForSorting";
 
@@ -133,9 +131,7 @@ export default class ViewCards extends LightningElement {
   handleViewAll() {
     this.viewAllCards = !this.viewAllCards;
     this.showViewAllButton = !this.showViewAllButton;
-    this.cardDetails = this.viewAllCards
-      ? this.initialCardsDetails
-      : this.initialCardsDetails.slice(0, 6);
+    this.cardDetails = this.initialCardsDetails;
   }
 
   handleActionAccordingClickedButton = (event) => {

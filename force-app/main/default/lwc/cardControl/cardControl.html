@@ -1,6 +1,6 @@
 <template>
   <div class="slds-grid slds-wrap">
-    <template for:each={cardControlFields} for:item="con">
+    <template for:each={card.controls} for:item="con">
       <div
         key={con.key}
         class="slds-col slds-size_1-of-2 slds-p-right_large"
@@ -16,8 +16,12 @@
               </template>
             </p>
             <div class="slds-border_bottom">
-              <template lwc:if={con.cardControlFieldValue}>
-                <input type="checkbox" checked={con.value} disabled />
+              <template lwc:if={con.isCheckbox}>
+                <lightning-input
+                  type="checkbox"
+                  checked={con.value}
+                  disabled
+                ></lightning-input>
               </template>
               <template lwc:else> {con.value} </template>
             </div>

@@ -2,8 +2,8 @@ import { createElement } from "lwc";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
 import { publish, subscribe } from "lightning/messageService";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
-import ViewCards from "c/viewCards";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
+import ViewCards from "c/viewCards";
 
 const MessageContext = createTestWireAdapter();
 const APEX_CARDS_SUCCESS = require("./data/response.json");
@@ -14,6 +14,7 @@ const APEX_CARDS_TEMP_LOCK = require("./data/responseTempLockedCard.json");
 const APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS = require("./data/fraudLockCards-notTemporaryLockStatus.json");
 const APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS = require("./data/fraudLockCards-temporaryLockStatus.json");
 const APEX_CARD_BLOCK_CNP = require("./data/fraudLockCards-fraudStatus.json");
+const APEX_CLOSED_CARD_LIST = require("./data/listOfClosedCard.json");
 
 describe("c-view-cards", () => {
   afterEach(() => {
@@ -591,5 +592,17 @@ describe("c-view-cards", () => {
     let status = element.shadowRoot.querySelector(".status");
 
     expect(status.textContent).toBe("Issued (Temporary Lock)");
+  });
+
+  it("28. tests if status is not visible for closed cards section", async () => {
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    element.cardsFromParent = APEX_CLOSED_CARD_LIST;
+    document.body.appendChild(element);
+
+    await flushPromises();
+    let status = element.shadowRoot.querySelector(".status");
+    expect(status).toBeFalsy();
   });
 });

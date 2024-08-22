@@ -50,33 +50,38 @@ export const CARD_CONTROLS_DEFINITION = [
     key: "TCT_CONTACTLESS",
     label: "Contactless Payments",
     value: true,
-    visible: true
+    visible: true,
+    isCheckbox: true
   },
   {
     key: "TCT_ATM_WITHDRAW",
     label: "ATM Withdrawals",
     value: true,
-    visible: true
+    visible: true,
+    isCheckbox: true
   },
   {
     key: "TCT_E_COMMERCE",
     label: "Online Transactions",
     value: true,
-    visible: true
+    visible: true,
+    isCheckbox: true
   },
   {
     key: "TCT_CROSS_BORDER",
     label: "Overseas Transactions (In-Store)",
     value: true,
-    visible: true
+    visible: true,
+    isCheckbox: true
   },
   {
     key: "MCT_GAMBLING",
     label: "Gambling Block",
-    value: true,
+    value: false,
     tooltip:
       "Transactions categorised as gambling such as online betting and lottery tickets may be blocked when turned on.",
-    visible: true
+    visible: true,
+    isCheckbox: true
   },
   {
     key: "MCT_GAMBLING",
@@ -90,7 +95,8 @@ export const CARD_CONTROLS_DEFINITION = [
   {
     key: "GCT_GLOBAL",
     label: "Physical Lock",
-    value: true,
-    visible: false
+    value: false,
+    visible: false,
+    isCheckbox: true
   }
 ];

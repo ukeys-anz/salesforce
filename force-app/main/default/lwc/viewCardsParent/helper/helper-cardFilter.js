@@ -1,4 +1,4 @@
-export const activeCardStatusList = [
+const ACTIVE_CARD_STATUS_LIST = [
   "Issued",
   "Block CNP",
   "Block ATM & POS (Exclude CNP)",
@@ -12,7 +12,7 @@ export const activeCardStatusList = [
   "Block POS (exclude CNP)"
 ];
 
-export const closedCardStatusList = [
+const CLOSED_CARD_STATUS_LIST = [
   "Closed",
   "Delinquent (Retain Card)",
   "Lost",
@@ -22,6 +22,6 @@ export const closedCardStatusList = [
 
 export function filterCardsBasedOnStatus(cardsList, isActiveList) {
   return isActiveList
-    ? cardsList.filter((card) => activeCardStatusList.includes(card.status))
-    : cardsList.filter((card) => closedCardStatusList.includes(card.status));
+    ? cardsList.filter((card) => ACTIVE_CARD_STATUS_LIST.includes(card.status))
+    : cardsList.filter((card) => CLOSED_CARD_STATUS_LIST.includes(card.status));
 }
