@@ -34,8 +34,18 @@ jobs:
           ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.event.pull_request.head.sha }}"
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACTORY_ARTIFACT_NAME"
 
-          wget -P artifactory_success_output/ https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip
-          unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
+          status_code=$(wget --server-response -P artifactory_success_output/ --spider "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1) 
+          if [ "$status_code" -eq 200 ]; then
+            unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
+          elif [ "$status_code" -eq 404 ]; then
+              echo "Error: File not found (Status code: $status_code). This means that the upload-object-changes.yml workflow was not run on ${{ github.sha }} as \
+              a post deployment step on the develop branch. If this was a commit for a conflict fix on master, please merge it into develop first and then run the \
+              upload-object-changes.yml workflow. You can re-run this workflow."
+              exit 1
+          else
+              echo "Received HTTP status code when pulling : $status_code"
+              exit 1
+          fi
 
       - name: "Set up Cloud SDK"
         uses: "anzx/github-reusable-actions/setup-gcloud@main"
@@ -53,7 +63,7 @@ jobs:
         id: pull-from-gcs
         shell: bash
         run: |
-          ls -la
+          mkdir gcs_success_output && ls -la
           gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
 
       - name: Run diff & ensure gcs bucket has latest changes for odaseva user
