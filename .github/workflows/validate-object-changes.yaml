@@ -73,8 +73,8 @@ jobs:
         shell: bash
         run: |
           ls -la
-          odaseva_sha_object_fields="artifactory_success_output/odaseva_user_output/fieldsaccessdiff"
-          odaseva_gcs_object_fields="gcs_success_output/odaseva_user_output/fieldsaccessdiff"
+          odaseva_sha_object_fields="artifactory_success_output/output/odaseva_user_output/fieldsaccessdiff"
+          odaseva_gcs_object_fields="gcs_success_output/output/odaseva_user_output/fieldsaccessdiff"
 
           diff_output=$(diff -qr "$odaseva_sha_object_fields" "$odaseva_gcs_object_fields")
 
@@ -90,8 +90,8 @@ jobs:
         id: update-bucket-for-sfdatasync-user
         shell: bash
         run: |
-          sfdatasync_sha_object_fields="artifactory_success_output/sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_success_output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_sha_object_fields="artifactory_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
 
