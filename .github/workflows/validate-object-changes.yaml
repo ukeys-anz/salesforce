@@ -36,7 +36,6 @@ jobs:
 
           status_code=$(wget --server-response -P artifactory_success_output/ "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1)
           if [ "$status_code" -eq 200 ]; then
-            ls -la
             unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
           elif [ "$status_code" -eq 404 ]; then
               echo "Error: File not found (Status code: $status_code). This means that the upload-object-changes.yml workflow was not run on ${{ github.sha }} as \
@@ -72,9 +71,8 @@ jobs:
         id: update-bucket-for-odaseva-user
         shell: bash
         run: |
-          ls -la
           odaseva_sha_object_fields="artifactory_success_output/output/odaseva_user_output/fieldsaccessdiff"
-          odaseva_gcs_object_fields="gcs_success_output/output/odaseva_user_output/fieldsaccessdiff"
+          odaseva_gcs_object_fields="gcs_success_output/success_output/output/odaseva_user_output/fieldsaccessdiff"
 
           diff_output=$(diff -qr "$odaseva_sha_object_fields" "$odaseva_gcs_object_fields")
 
@@ -91,7 +89,7 @@ jobs:
         shell: bash
         run: |
           sfdatasync_sha_object_fields="artifactory_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
 
