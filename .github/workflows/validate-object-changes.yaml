@@ -107,4 +107,4 @@ jobs:
         with:
           path: "${{ github.workspace }}/salesforce/output/"
           destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-          project_id: anz-x-gh-sf-sit-4e60a7
+          project_id: anz-x-gh-sf-dev-ef8edd
