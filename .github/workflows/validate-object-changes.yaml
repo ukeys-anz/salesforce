@@ -31,9 +31,10 @@ jobs:
         id: pull-from-artifactory
         shell: bash
         run: |
-          ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.event.pull_request.head.sha }}"
+          ARTIFACTORY_ARTIFACT_NAME="sf_objects_success_diff_develop_${{ github.event.pull_request.head.sha }}"
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACTORY_ARTIFACT_NAME"
 
+          wget --server-response -P artifactory_success_output/ "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1
           status_code=$(wget --server-response -P artifactory_success_output/ "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1)
           echo status_code="$status_code"
           if [ "$status_code" -eq 200 ]; then
@@ -65,7 +66,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_success_output && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
+          gcloud storage cp -r --project anz-x-gh-sf-dev-ef8edd gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
 
       - name: Run diff
         working-directory: salesforce
