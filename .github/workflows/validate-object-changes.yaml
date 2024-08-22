@@ -34,7 +34,7 @@ jobs:
           ARTIFACTORY_ARTIFACT_NAME="sf_objects_diff_develop_${{ github.event.pull_request.head.sha }}"
           echo "ARTIFACTORY_ARTIFACT_NAME=$ARTIFACTORY_ARTIFACT_NAME"
 
-          status_code=$(wget --server-response -P artifactory_success_output/ --spider "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/^  HTTP/{print $2}' | tail -n 1) 
+          status_code=$(wget --server-response -P artifactory_success_output/ --spider "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1)
           if [ "$status_code" -eq 200 ]; then
             unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
           elif [ "$status_code" -eq 404 ]; then
