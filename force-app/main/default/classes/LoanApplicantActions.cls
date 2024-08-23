@@ -11,6 +11,7 @@ public with sharing class LoanApplicantActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  public static final String BROKER_ORG_BROKER_CODE = 'Broker Org';
 
   /**
    * @description Orchestration method for updating the Customer Sync Status
@@ -59,7 +60,7 @@ public with sharing class LoanApplicantActions {
       ) {
         accountIdAndSyncStatusMap.put(
           eachLoanApplicant.Account__c,
-          'Broker Org'
+          BROKER_ORG_BROKER_CODE
         );
       }
     }
@@ -84,7 +85,7 @@ public with sharing class LoanApplicantActions {
         );
         continue;
       }
-      if (eachAccountRecord.Sync_Status__c.contains('Broker Org')) {
+      if (eachAccountRecord.Sync_Status__c.contains(BROKER_ORG_BROKER_CODE)) {
         continue;
       }
       picklistValues.add(accountIdAndSyncStatusMap.get(eachAccountRecord.Id));
