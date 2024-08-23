@@ -13,6 +13,96 @@ private class LoanApplicantActionsTest {
   );
   static Lib_MockProvider dmlRepoMock;
 
+  @isTest
+  static void testSynchronizeAndUpdateCustomerSyncStatus() {
+    Map<Id, Account> accMap = createCustomerAccount(10);
+    List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
+      1
+    );
+    Map<Id, LoanApplicant> loanAppIdVsRecordMap = createLoanApplicants(
+      accMap.keySet(),
+      rlaList.get(0)
+    );
+    laRepoMock.mock('queryAccounts', accMap.values());
+    laRepoMock.mock(
+      'queryLoanApplicationOfApplicants',
+      loanAppIdVsRecordMap.values()
+    );
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
+      TestUtil.getMockSaveResult(
+        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
+      )
+    };
+    dmlRepoMock.mock('updateRecords', saveResults);
+    Test.startTest();
+    LoanApplicantActions.synchronizeAndUpdateCustomerSyncStatus(
+      loanAppIdVsRecordMap.keySet()
+    );
+    Test.stopTest();
+    Assert.isFalse(
+      dmlRepoMock.getHistories('updateRecords').isEmpty(),
+      'updateRecords should have been called.'
+    );
+  }
+
+  @isTest
+  static void testCreateFilteredAccountIdSet() {
+    Map<Id, Account> accMap = createCustomerAccount(10);
+    List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
+      1
+    );
+    Map<Id, LoanApplicant> loanAppIdVsRecordMap = createLoanApplicants(
+      accMap.keySet(),
+      rlaList.get(0)
+    );
+
+    Test.startTest();
+    Set<Id> accountSet = LoanApplicantActions.createFilteredAccountIdSet(
+      loanAppIdVsRecordMap.values()
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      accountSet.size(),
+      accMap.keySet().size(),
+      'All 10 account record Sync Status should be mapped as Broker Org'
+    );
+  }
+
+  @isTest
+  static void testCreateResultantSyncStatus() {
+    Map<Id, Account> accMap = createCustomerAccount(3);
+    Map<Id, String> dummySyncStatusMap = new Map<id, String>();
+    String lastAccId;
+    for (Id eachAccId : accMap.keySet()) {
+      dummySyncStatusMap.put(eachAccId, 'Broker Org');
+      lastAccId = eachAccId;
+    }
+    dummySyncStatusMap.put(lastAccId, '');
+    accMap.values()[2].Sync_Status__c = 'Blocked';
+    accMap.values()[1].Sync_Status__c = 'Broker Org';
+    Test.startTest();
+    List<Account> result = LoanApplicantActions.createResultantSyncStatus(
+      accMap.values()
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      result[2].Sync_Status__c,
+      'Blocked;Broker Org',
+      'The Sync Status of the last account record should contains Broker Org AND Blocked'
+    );
+    Assert.areEqual(
+      result[1].Sync_Status__c,
+      'Broker Org',
+      'The Sync Status of the second last account record should be Broker Org'
+    );
+    Assert.areEqual(
+      result[0].Sync_Status__c,
+      'Broker Org',
+      'The Sync Status of the first record should be Broker Org'
+    );
+  }
+
   /*
    * @description Test Method to create Customers
    */
@@ -73,89 +163,5 @@ private class LoanApplicantActionsTest {
       loanAppIdVsRecordMap.put(loanApplicantObj.Id, loanApplicantObj);
     }
     return loanAppIdVsRecordMap;
-  }
-
-  @isTest
-  static void testSynchronizeAndUpdateCustomerSyncStatus() {
-    Map<Id, Account> accMap = createCustomerAccount(10);
-    List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
-      1
-    );
-    Map<Id, LoanApplicant> loanAppIdVsRecordMap = createLoanApplicants(
-      accMap.keySet(),
-      rlaList.get(0)
-    );
-    laRepoMock.mock('queryAccounts', accMap.values());
-    laRepoMock.mock(
-      'queryLoanApplicationOfApplicants',
-      loanAppIdVsRecordMap.values()
-    );
-    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
-      TestUtil.getMockSaveResult(
-        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
-      )
-    };
-    dmlRepoMock.mock('updateRecords', saveResults);
-    Test.startTest();
-    LoanApplicantActions.synchronizeAndUpdateCustomerSyncStatus(
-      loanAppIdVsRecordMap.keySet()
-    );
-    Test.stopTest();
-    Assert.isFalse(
-      dmlRepoMock.getHistories('updateRecords').isEmpty(),
-      'updateRecords should have been called.'
-    );
-  }
-
-  @isTest
-  static void testCreateAccountVsProposedSyncStatusMap() {
-    Map<Id, Account> accMap = createCustomerAccount(10);
-    List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
-      1
-    );
-    Map<Id, LoanApplicant> loanAppIdVsRecordMap = createLoanApplicants(
-      accMap.keySet(),
-      rlaList.get(0)
-    );
-
-    Test.startTest();
-    Map<Id, String> accountMap = LoanApplicantActions.createAccountVsProposedSyncStatusMap(
-      loanAppIdVsRecordMap.values()
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      accountMap.keySet().size(),
-      accMap.keySet().size(),
-      'All 10 account record Sync Status should be mapped as Broker Org'
-    );
-  }
-
-  @isTest
-  static void testCreateResultantSyncStatusMultiSelectPicklistValue() {
-    Map<Id, Account> accMap = createCustomerAccount(10);
-    Map<Id, String> dummySyncStatusMap = new Map<id, String>();
-    String lastAccId;
-    for (Id eachAccId : accMap.keySet()) {
-      dummySyncStatusMap.put(eachAccId, 'Broker Org');
-      lastAccId = eachAccId;
-    }
-    dummySyncStatusMap.put(lastAccId, '');
-    Test.startTest();
-    List<Account> result = LoanApplicantActions.createResultantSyncStatusMultiSelectPicklistValue(
-      accMap.values(),
-      dummySyncStatusMap
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      result[9].Sync_Status__c,
-      '',
-      'The Sync Status of the last account record should be blank'
-    );
-    Assert.areEqual(
-      result[8].Sync_Status__c,
-      'Broker Org',
-      'The Sync Status of the second last account record should be Broker Org'
-    );
   }
 }

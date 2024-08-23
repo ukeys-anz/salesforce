@@ -24,16 +24,11 @@ public with sharing class LoanApplicantActions {
     List<LoanApplicant> loanApplicantList = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );
-    Map<Id, String> accountIdAndSyncStatusMap = createAccountVsProposedSyncStatusMap(
-      loanApplicantList
-    );
+    Set<Id> accountIdSet = createFilteredAccountIdSet(loanApplicantList);
     List<Account> accountList = LOAN_APPLICANT_REPOSITORY.queryAccounts(
-      accountIdAndSyncStatusMap.keySet()
+      accountIdSet
     );
-    accountList = createResultantSyncStatusMultiSelectPicklistValue(
-      accountList,
-      accountIdAndSyncStatusMap
-    );
+    accountList = createResultantSyncStatus(accountList);
     updateResults = DML_REPOSITORY.updateRecords(
       accountList,
       DmlRepository.ALLOW_PARTIAL,
@@ -46,10 +41,11 @@ public with sharing class LoanApplicantActions {
    * @param loanApplicantList list of Loan Applicants
    * @return Map<Id, String> map of accounts id and Sync Status
    */
-  public static Map<Id, String> createAccountVsProposedSyncStatusMap(
+  public static Set<Id> createFilteredAccountIdSet(
     List<LoanApplicant> loanApplicantList
   ) {
     Map<Id, String> accountIdAndSyncStatusMap = new Map<Id, String>();
+    Set<Id> filteredAccountIdSet = new Set<Id>();
     for (LoanApplicant eachLoanApplicant : loanApplicantList) {
       if (
         String.isNotBlank(
@@ -60,9 +56,10 @@ public with sharing class LoanApplicantActions {
           eachLoanApplicant.Account__c,
           SYNC_STATUS_BROKER_ORG
         );
+        filteredAccountIdSet.add(eachLoanApplicant.Account__c);
       }
     }
-    return accountIdAndSyncStatusMap;
+    return filteredAccountIdSet;
   }
 
   /**
@@ -71,26 +68,24 @@ public with sharing class LoanApplicantActions {
    * @param accountIdAndSyncStatusMap Map of account Id and Sync Status
    * @return List<Account> accountList updated accountList
    */
-  public static List<Account> createResultantSyncStatusMultiSelectPicklistValue(
-    List<Account> accountList,
-    Map<Id, String> accountIdAndSyncStatusMap
+  public static List<Account> createResultantSyncStatus(
+    List<Account> accountList
   ) {
     for (Account eachAccountRecord : accountList) {
       List<String> picklistValues = new List<String>();
       if (String.isBlank(eachAccountRecord.Sync_Status__c)) {
-        eachAccountRecord.Sync_Status__c = accountIdAndSyncStatusMap.get(
-          eachAccountRecord.Id
-        );
+        eachAccountRecord.Sync_Status__c = SYNC_STATUS_BROKER_ORG;
         continue;
       }
       if (eachAccountRecord.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)) {
         continue;
+      } else {
+        picklistValues.add(SYNC_STATUS_BROKER_ORG);
+        eachAccountRecord.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
+          eachAccountRecord.Sync_Status__c,
+          picklistValues
+        );
       }
-      picklistValues.add(accountIdAndSyncStatusMap.get(eachAccountRecord.Id));
-      eachAccountRecord.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
-        eachAccountRecord.Sync_Status__c,
-        picklistValues
-      );
     }
     return accountList;
   }
