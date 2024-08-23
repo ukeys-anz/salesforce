@@ -134,9 +134,6 @@ private class LoanApplicantActionsTest {
   @isTest
   static void testCreateResultantSyncStatusMultiSelectPicklistValue() {
     Map<Id, Account> accMap = createCustomerAccount(10);
-    List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
-      1
-    );
     Map<Id, String> dummySyncStatusMap = new Map<id, String>();
     String lastAccId;
     for (Id eachAccId : accMap.keySet()) {

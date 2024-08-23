@@ -20,6 +20,7 @@ public with sharing class LoanApplicantActions {
   public static void synchronizeAndUpdateCustomerSyncStatus(
     Set<Id> loanApplicantIds
   ) {
+    List<Database.SaveResult> updateResults;
     List<LoanApplicant> loanApplicantList = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationAndCustomerDetailsOfApplicants(
       loanApplicantIds
     );
@@ -36,7 +37,7 @@ public with sharing class LoanApplicantActions {
       accountList,
       accountIdAndSyncStatusMap
     );
-    List<Database.SaveResult> updateResults = DML_REPOSITORY.updateRecords(
+    updateResults = DML_REPOSITORY.updateRecords(
       accountList,
       DmlRepository.ALLOW_PARTIAL,
       DmlRepository.USER_MODE
