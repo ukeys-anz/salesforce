@@ -46,11 +46,11 @@
       "ELIGIBILITY_BLOCK"
     ],
     "wallets": {
-      "applePay": 0,
-      "googlePay": 0,
-      "samsungPay": 1,
+      "apple_pay": 0,
+      "google_pay": 0,
+      "samsung_pay": 1,
       "fitness": 0,
-      "eCommerce": 0,
+      "e_commerce": 0,
       "other": 0
     },
     "walletList": ["SamsungPay - 1"],
