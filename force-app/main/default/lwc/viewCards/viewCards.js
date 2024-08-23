@@ -105,14 +105,14 @@ export default class ViewCards extends LightningElement {
         this.mapCardDetails(this.cards)
       );
       //Added this in order to handle the expansion of card details if load more is already clicked
-      this.cardDetails = this.showInitialCardsCountOnLoad();
+      this.cardDetails = this.fetchInitialCardsToShow();
       this.cardLeftToView = this.pendingCardsTobeViewed();
       this.showViewAllButtonHandler();
       this.showDetails = true;
     }
   }
 
-  showInitialCardsCountOnLoad() {
+  fetchInitialCardsToShow() {
     return this.initialCardsDetails.slice(0, this.onLoadCardDisplayCount);
   }
 
