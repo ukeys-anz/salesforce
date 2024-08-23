@@ -18,7 +18,6 @@ import CardsAccountTypeForSorting from "@salesforce/label/c.CardsAccountTypeForS
 export default class ViewCards extends LightningElement {
   @api cardsFromParent;
   @api recordId;
-  _isActiveCardSection;
   @api
   get isActiveCardSection() {
     return this._isActiveCardSection === "true" ? true : false;
@@ -28,6 +27,7 @@ export default class ViewCards extends LightningElement {
     this._isActiveCardSection = value;
   }
   cards;
+  _isActiveCardSection;
   viewAllCards = false;
   cardFraudLockStatus = "";
   showViewAllButton = false;
@@ -49,7 +49,7 @@ export default class ViewCards extends LightningElement {
   showFraudLock = false;
   showReplace = false;
   showDetails = false;
-
+  onLoadCardDisplayCount = 6;
   defaultImage = cardImageHandler(cardImages);
 
   //Get the current logged-in user details
@@ -75,19 +75,22 @@ export default class ViewCards extends LightningElement {
 
   subscriptionHandler = () => {
     this.subscription = subscribe(this.messageContext, CloseModal, (data) => {
-      if (data.name === "replace") {
-        this.showReplace = data.show;
-      } else if (data.name === "lock") {
-        this.showLock = data.show;
-      } else {
-        this.showFraudLock = data.show;
+      switch (data.name) {
+        case "replace":
+          this.showReplace = data.show;
+          break;
+        case "lock":
+          this.showLock = data.show;
+          break;
+        default:
+          this.showFraudLock = data.show;
+          break;
       }
       if (data.message) {
         if (data.success) {
           //Clear card details and refetch
           this.cardDetails = [];
           this.initialCardsDetails = [];
-
           //Refetch card details to get latest statuses
           this.pushRefreshCardDetailsEvent();
         }
@@ -102,20 +105,27 @@ export default class ViewCards extends LightningElement {
         this.mapCardDetails(this.cards)
       );
       //Added this in order to handle the expansion of card details if load more is already clicked
-      this.cardDetails = this.viewAllCards
-        ? this.initialCardsDetails
-        : this.initialCardsDetails.slice(0, 6);
-      this.cardsLeftToView =
-        this.initialCardsDetails.length > 6
-          ? this.initialCardsDetails.length - 6
-          : 0;
+      this.cardDetails = this.showFirstSixCards();
+      this.cardsLeftToView = this.pendingCardsTobeViewed();
       this.showViewAllButtonHandler();
       this.showDetails = true;
     }
   }
 
+  showFirstSixCards() {
+    return this.viewAllCards
+      ? this.initialCardsDetails
+      : this.initialCardsDetails.slice(0, this.onLoadCardDisplayCount);
+  }
+
+  pendingCardsTobeViewed() {
+    return this.initialCardsDetails.length > this.onLoadCardDisplayCount
+      ? this.initialCardsDetails.length - this.onLoadCardDisplayCount
+      : 0;
+  }
+
   showViewAllButtonHandler = () => {
-    if (this.initialCardsDetails.length > 6) {
+    if (this.initialCardsDetails.length > this.onLoadCardDisplayCount) {
       // Have this check to ensure button doesnt show
       // if all cards already in view
       if (!this.viewAllCards) {
