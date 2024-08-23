@@ -1,6 +1,3 @@
-trigger LoanApplicantTrigger on LoanApplicant(
-    after insert,
-    after update
-  ) {
-    LoanApplicantTriggerHandler handler = new LoanApplicantTriggerHandler();
-  }
+trigger LoanApplicantTrigger on LoanApplicant(after insert) {
+  LoanApplicantTriggerHandler handler = new LoanApplicantTriggerHandler();
+}
