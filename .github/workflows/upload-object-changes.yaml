@@ -105,7 +105,7 @@ jobs:
           fi
 
       # Upload failure to artifactory
-      - name: Push changes to artifactory
+      - name: Push failure changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() }}
         working-directory: salesforce
         id: push-failure-to-artifactory
@@ -120,7 +120,7 @@ jobs:
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
       # Upload success to artifactory
-      - name: Push changes to artifactory
+      - name: Push success changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
         working-directory: salesforce
         id: push-success-to-artifactory
