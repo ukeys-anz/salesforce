@@ -1,10 +1,10 @@
 import { LightningElement, wire } from "lwc";
 import { CurrentPageReference } from "lightning/navigation";
-import hasViewCardsPermission from "@salesforce/customPermission/ANZx_View_Cards";
-import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import { handleErrorShowToast } from "c/utils";
 import { updateCardFields } from "./helper/helper-mappings";
 import { filterCardsBasedOnStatus } from "./helper/helper-cardFilter";
+import hasViewCardsPermission from "@salesforce/customPermission/ANZx_View_Cards";
+import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 
 export default class ViewCardsParent extends LightningElement {
   activeCardList = [];
@@ -34,8 +34,9 @@ export default class ViewCardsParent extends LightningElement {
       let cardsDetails = await getCardList({ ocvId: this.ocvId });
       if (cardsDetails?.cards.length > 0) {
         let cards = updateCardFields(cardsDetails.cards);
-        this.activeCardList = filterCardsBasedOnStatus(cards, true);
-        this.closedCardList = filterCardsBasedOnStatus(cards, false);
+        const { activeCards, closedCards } = filterCardsBasedOnStatus(cards);
+        this.activeCardList = activeCards;
+        this.closedCardList = closedCards;
       }
     } catch (error) {
       this.cardHasError = true;

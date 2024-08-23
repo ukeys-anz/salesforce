@@ -37,7 +37,7 @@ export function updateCardFields(cards) {
   cards.forEach((card) => {
     card.status = STATUS_MAP.get(card.status);
     card.eligibilities = updateEligibilityValues(card.eligibilities);
-    card.card_issue_date =
+    card.cardIssueDate =
       card.card_issue_date.day.value +
       "/" +
       card.card_issue_date.month.value +

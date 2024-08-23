@@ -20,8 +20,12 @@ const CLOSED_CARD_STATUS_LIST = [
   "Delinquent (Return Card)"
 ];
 
-export function filterCardsBasedOnStatus(cardsList, isActiveList) {
-  return isActiveList
-    ? cardsList.filter((card) => ACTIVE_CARD_STATUS_LIST.includes(card.status))
-    : cardsList.filter((card) => CLOSED_CARD_STATUS_LIST.includes(card.status));
+export function filterCardsBasedOnStatus(cardsList) {
+  const activeCards = cardsList.filter((card) =>
+    ACTIVE_CARD_STATUS_LIST.includes(card.status)
+  );
+  const closedCards = cardsList.filter((card) =>
+    CLOSED_CARD_STATUS_LIST.includes(card.status)
+  );
+  return { activeCards, closedCards };
 }

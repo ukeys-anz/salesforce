@@ -28,28 +28,28 @@ export default class ViewCards extends LightningElement {
   }
   cards;
   _isActiveCardSection;
-  viewAllCards = false;
+  cardsLeftToView;
+  currentUserName;
   cardFraudLockStatus = "";
-  showViewAllButton = false;
-  subscription = null;
   errorMsg = "";
   last4Digits = "";
-  cardDetails = [];
   buttonClicked = "";
-  currentUserName;
-  initialCardsDetails = [];
-  cardsLeftToView;
   tokenizedCardNumber = "";
+  subscription = null;
+  onLoadCardDisplayCount = 6;
   replaceLockUnavailable = true;
   replaceLostUnavailable = true;
   replaceStolenUnavailable = true;
   replaceDamagedUnavailable = true;
+  showViewAllButton = false;
   loading = false;
   showLock = false;
   showFraudLock = false;
   showReplace = false;
   showDetails = false;
-  onLoadCardDisplayCount = 6;
+  viewAllCards = false;
+  initialCardsDetails = [];
+  cardDetails = [];
   defaultImage = cardImageHandler(cardImages);
 
   //Get the current logged-in user details
@@ -73,7 +73,7 @@ export default class ViewCards extends LightningElement {
     this.subscriptionHandler();
   }
 
-  subscriptionHandler = () => {
+  subscriptionHandler() {
     this.subscription = subscribe(this.messageContext, CloseModal, (data) => {
       switch (data.name) {
         case "replace":
@@ -97,25 +97,23 @@ export default class ViewCards extends LightningElement {
         this.showToast("subscription", data);
       }
     });
-  };
+  }
 
   processCardDetails() {
-    if (this.cards && this.cards.length > 0) {
+    if (this.cards?.length > 0) {
       this.initialCardsDetails = this.sortCardDetails(
         this.mapCardDetails(this.cards)
       );
       //Added this in order to handle the expansion of card details if load more is already clicked
-      this.cardDetails = this.showFirstSixCards();
-      this.cardsLeftToView = this.pendingCardsTobeViewed();
+      this.cardDetails = this.showInitialCardsCountOnLoad();
+      this.cardLeftToView = this.pendingCardsTobeViewed();
       this.showViewAllButtonHandler();
       this.showDetails = true;
     }
   }
 
-  showFirstSixCards() {
-    return this.viewAllCards
-      ? this.initialCardsDetails
-      : this.initialCardsDetails.slice(0, this.onLoadCardDisplayCount);
+  showInitialCardsCountOnLoad() {
+    return this.initialCardsDetails.slice(0, this.onLoadCardDisplayCount);
   }
 
   pendingCardsTobeViewed() {
@@ -124,15 +122,14 @@ export default class ViewCards extends LightningElement {
       : 0;
   }
 
-  showViewAllButtonHandler = () => {
-    if (this.initialCardsDetails.length > this.onLoadCardDisplayCount) {
-      // Have this check to ensure button doesnt show
-      // if all cards already in view
-      if (!this.viewAllCards) {
-        this.showViewAllButton = true;
-      }
+  showViewAllButtonHandler() {
+    if (
+      this.initialCardsDetails.length > this.onLoadCardDisplayCount &&
+      !this.viewAllCards
+    ) {
+      this.showViewAllButton = true;
     }
-  };
+  }
 
   showToast = (toastFor, msg) => {
     this.dispatchEvent(new ShowToastEvent(errorHandler[toastFor](msg)));
