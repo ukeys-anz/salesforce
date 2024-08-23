@@ -87,7 +87,7 @@ private class LoanApplicantActionsTest {
     );
     laRepoMock.mock('queryAccounts', accMap.values());
     laRepoMock.mock(
-      'queryLoanApplicationAndCustomerDetailsOfApplicants',
+      'queryLoanApplicationOfApplicants',
       loanAppIdVsRecordMap.values()
     );
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);

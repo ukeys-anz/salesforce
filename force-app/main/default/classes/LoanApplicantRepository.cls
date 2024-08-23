@@ -9,7 +9,7 @@ public with sharing class LoanApplicantRepository {
    * @return List<ResidentialLoanApplication>
    * @param loanApplicantIds List of LoanApplicant Ids
    */
-  public List<LoanApplicant> queryLoanApplicationAndCustomerDetailsOfApplicants(
+  public List<LoanApplicant> queryLoanApplicationOfApplicants(
     Set<Id> loanApplicantIds
   ) {
     List<LoanApplicant> loanApplicantRecords = new List<LoanApplicant>();

@@ -21,15 +21,12 @@ public with sharing class LoanApplicantActions {
     Set<Id> loanApplicantIds
   ) {
     List<Database.SaveResult> updateResults;
-    List<LoanApplicant> loanApplicantList = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationAndCustomerDetailsOfApplicants(
+    List<LoanApplicant> loanApplicantList = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );
     Map<Id, String> accountIdAndSyncStatusMap = createAccountVsProposedSyncStatusMap(
       loanApplicantList
     );
-    if (accountIdAndSyncStatusMap.keySet().isEmpty()) {
-      return;
-    }
     List<Account> accountList = LOAN_APPLICANT_REPOSITORY.queryAccounts(
       accountIdAndSyncStatusMap.keySet()
     );
