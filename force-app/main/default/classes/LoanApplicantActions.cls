@@ -37,9 +37,9 @@ public with sharing class LoanApplicantActions {
   }
 
   /**
-   * @description Create map of Sync Status and respective accounts
+   * @description Create filterd set of accounts
    * @param loanApplicantList list of Loan Applicants
-   * @return Map<Id, String> map of accounts id and Sync Status
+   * @return Set<Id> set of accounts id
    */
   public static Set<Id> createFilteredAccountIdSet(
     List<LoanApplicant> loanApplicantList
