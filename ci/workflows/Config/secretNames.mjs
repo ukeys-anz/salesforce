@@ -52,9 +52,10 @@ const salesforceSecretNames = {
   "epic/disputeq-auto": "sf-platform-np-disputeq",
   "epic/ccrmintact": "sf-platform-np-ccrmintact",
   "epic/profileupdate": "sf-platform-np-profileupd",
-  "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade",
-  "epic/go4bmain": "sf-platform-np-go4bmain",
   "epic/marvelepic": "sf-platform-np-marvelepic",
+  "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade",
+  "epic/complaint": "sf-platform-np-complaint",
+  "epic/go4bmain": "sf-platform-np-go4bmain",
   "epic/transcript": "sf-platform-np-transcript"
 };
 

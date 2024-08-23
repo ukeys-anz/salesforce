@@ -10,9 +10,10 @@ const CLOSED_STATUS = "Closed",
   CUSTOMER_AGREES = "Yes",
   CUSTOMER_DISAGREES = "No";
 
-let itype, subtype, missingFields, caseDetails;
+var itype, subtype, missingFields, caseDetails, omniData;
 // Validate all Required Fields for Customer/Non-Customer Complaints
 export async function validate(omniJsonData) {
+  omniData = omniJsonData;
   caseDetails = omniJsonData.Case;
   missingFields = [];
   await validateCustomerComplaint(omniJsonData);
@@ -22,10 +23,38 @@ export async function validate(omniJsonData) {
 
   return missingFields;
 }
+
+//  Validate Customer Number
+export async function getCustomerNumberValidationMsg(
+  omniJsonData,
+  missingFields
+) {
+  let modalMsg =
+    "Please complete all required fields: " + missingFields.join(", ");
+  if (
+    omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+    !omniJsonData.Case.CustomerDetails.Customer &&
+    omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID" &&
+    !omniJsonData.isEligibleProfileForLookUp
+  ) {
+    modalMsg +=
+      "<br><br>Customer number must be numbers and atleast 10 digits long.";
+  }
+  if (
+    omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+    omniJsonData.Response === false
+  ) {
+    modalMsg +=
+      "<br><br>Customer number is not valid or has not been validated, check the number and try again.";
+  }
+  return modalMsg;
+}
+
 //  Validate Required fields for Customer Complaint
 async function validateCustomerComplaint(omniJsonData) {
   if (caseDetails.isThisCustomerComplaint === CUSTOMER_AGREES) {
     checkCustomerIdentifier(caseDetails.CustomerDetails);
+    checkAccountLookup(omniJsonData);
     checkFields(caseDetails.CustomerDetails, omniJsonData.custMap);
 
     checkCommonValidations(
@@ -37,6 +66,9 @@ async function validateCustomerComplaint(omniJsonData) {
 }
 //  Validate Customer Number Identifier
 function checkCustomerIdentifier(customerDetails) {
+  if (omniData.isEligibleProfileForLookUp) {
+    return;
+  }
   if (
     customerDetails.CustomerIdentifier === "CACHE ID" &&
     !customerDetails.Customer1
@@ -48,6 +80,15 @@ function checkCustomerIdentifier(customerDetails) {
     !customerDetails.Customer
   ) {
     missingFields.push("Customer Number");
+  }
+}
+//Validate Account Lookup
+function checkAccountLookup(omniJsonData) {
+  debugger;
+  console.log("TESTING-->" + caseDetails.AccountId);
+  debugger;
+  if (omniJsonData.isEligibleProfileForLookUp && !caseDetails.AccountId) {
+    missingFields.push("Customer Name");
   }
 }
 //  Validate Required fields for Non-Customer Complaint
@@ -319,8 +360,10 @@ function checkPaymentProvided(
 function checkFields(detail, reMap) {
   reMap.forEach((field) => {
     const [key, label] = Object.entries(field)[0];
-    const obj = detail[key];
-    if (key.includes("Block") ? !obj?.Id : !obj) {
+    if (
+      (key.includes("Block") && (!detail[key] || !detail[key].Id)) ||
+      (!key.includes("Block") && !detail[key])
+    ) {
       missingFields.push(label);
     }
   });
