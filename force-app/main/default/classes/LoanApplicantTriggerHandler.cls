@@ -37,7 +37,5 @@ public with sharing class LoanApplicantTriggerHandler extends Lib_TriggerHandler
      * @param oldMap old trigger values
      */
     public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-        LoanApplicantActions.synchronizeAndUpdateCustomerSyncStatus(Trigger.newMap.keySet());
     }
   }
-
