@@ -32,8 +32,7 @@ jobs:
         shell: bash
         run: |
           ARTIFACTORY_ARTIFACT_NAME="sf_objects_success_diff_develop_${{ github.event.pull_request.head.sha }}"
-          echo "ARTIFACTORY_ARTIFACT_LINK=https://artifactory.gcp.anz/artifactory/ \
-          anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
+          echo "ARTIFACTORY_ARTIFACT_LINK=https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip"
 
           if  ! status_code=$(wget --server-response -P artifactory_success_output/ "$ARTIFACTORY_ARTIFACT_LINK" 2>&1 | awk '/HTTP\// {print $2}' | tail -n 1); then
               echo "Error when pulling artifact from artifactory. Received HTTP status code when pulling: $status_code"
