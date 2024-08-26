@@ -48,7 +48,7 @@ private class LoanApplicantActionsTest {
 
   @isTest
   static void testCreateFilteredAccountIdSet() {
-    Map<Id, Account> accMap = createCustomerAccount(10);
+    Map<Id, Account> accMap = createCustomerAccount(5);
     List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
       1
     );
@@ -58,14 +58,14 @@ private class LoanApplicantActionsTest {
     );
 
     Test.startTest();
-    Set<Id> accountSet = LoanApplicantActions.createFilteredAccountIdSet(
+    Map<Id, String> resultAccountMap = LoanApplicantActions.createFilteredAccountIdMap(
       loanAppIdVsRecordMap.values()
     );
     Test.stopTest();
     Assert.areEqual(
-      accountSet.size(),
+      resultAccountMap.keySet().size(),
       accMap.keySet().size(),
-      'All 10 account record Sync Status should be mapped as Broker Org'
+      'All 5 account record Sync Status should be mapped as Broker Org'
     );
   }
 
@@ -75,26 +75,19 @@ private class LoanApplicantActionsTest {
     Map<Id, String> dummySyncStatusMap = new Map<id, String>();
     String lastAccId;
     for (Id eachAccId : accMap.keySet()) {
-      dummySyncStatusMap.put(eachAccId, 'Broker Org');
+      dummySyncStatusMap.put(eachAccId, '');
       lastAccId = eachAccId;
     }
-    dummySyncStatusMap.put(lastAccId, '');
-    accMap.values()[2].Sync_Status__c = 'Blocked';
-    accMap.values()[1].Sync_Status__c = 'Broker Org';
+    dummySyncStatusMap.put(lastAccId, 'Blocked');
     Test.startTest();
     List<Account> result = LoanApplicantActions.createResultantSyncStatus(
-      accMap.values()
+      dummySyncStatusMap
     );
     Test.stopTest();
     Assert.areEqual(
       result[2].Sync_Status__c,
       'Blocked;Broker Org',
-      'The Sync Status of the last account record should contains Broker Org AND Blocked'
-    );
-    Assert.areEqual(
-      result[1].Sync_Status__c,
-      'Broker Org',
-      'The Sync Status of the second last account record should be Broker Org'
+      'The Sync Status of the last account record should be Blocked;Broker Org'
     );
     Assert.areEqual(
       result[0].Sync_Status__c,

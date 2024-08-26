@@ -24,11 +24,12 @@ public with sharing class LoanApplicantActions {
     List<LoanApplicant> loanApplicantList = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );
-    Set<Id> accountIdSet = createFilteredAccountIdSet(loanApplicantList);
-    List<Account> accountList = LOAN_APPLICANT_REPOSITORY.queryAccounts(
-      accountIdSet
+    Map<Id, String> accountIdAndStatusMap = createFilteredAccountIdMap(
+      loanApplicantList
     );
-    accountList = createResultantSyncStatus(accountList);
+    List<Account> accountList = createResultantSyncStatus(
+      accountIdAndStatusMap
+    );
     updateResults = DML_REPOSITORY.updateRecords(
       accountList,
       DmlRepository.ALLOW_PARTIAL,
@@ -39,47 +40,51 @@ public with sharing class LoanApplicantActions {
   /**
    * @description Create filterd set of accounts
    * @param loanApplicantList list of Loan Applicants
-   * @return Set<Id> set of accounts id
+   * @return Map<Id, String> set of accounts id
    */
-  public static Set<Id> createFilteredAccountIdSet(
+  public static Map<Id, String> createFilteredAccountIdMap(
     List<LoanApplicant> loanApplicantList
   ) {
-    Set<Id> filteredAccountIdSet = new Set<Id>();
+    Map<Id, String> accountIdAndSyncStatusMap = new Map<Id, String>();
     for (LoanApplicant eachLoanApplicant : loanApplicantList) {
       if (
-        String.isNotBlank(
+        String.isBlank(
           eachLoanApplicant.LoanApplication.Assisted_Broker_TPMI_SAO__c
         )
       ) {
-        filteredAccountIdSet.add(eachLoanApplicant.Account__c);
+        continue;
       }
+      String syncStatus = eachLoanApplicant.Account__r.Sync_Status__c;
+      if (
+        String.isNotBlank(syncStatus) &&
+        syncStatus.contains(SYNC_STATUS_BROKER_ORG)
+      ) {
+        continue;
+      }
+      accountIdAndSyncStatusMap.put(eachLoanApplicant.Account__c, syncStatus);
     }
-    return filteredAccountIdSet;
+    return accountIdAndSyncStatusMap;
   }
 
   /**
    * @description Sets the Account Sync Status picklist value from Map
-   * @param accountList list of Accounts
+   * @param accountMap map of Account Id and Sync Status
    * @return List<Account> accountList updated accountList
    */
   public static List<Account> createResultantSyncStatus(
-    List<Account> accountList
+    Map<Id, String> accountMap
   ) {
-    for (Account eachAccountRecord : accountList) {
-      List<String> picklistValues = new List<String>();
-      if (String.isBlank(eachAccountRecord.Sync_Status__c)) {
-        eachAccountRecord.Sync_Status__c = SYNC_STATUS_BROKER_ORG;
-        continue;
-      }
-      if (eachAccountRecord.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)) {
-        continue;
-      }
-      picklistValues.add(SYNC_STATUS_BROKER_ORG);
-      eachAccountRecord.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
-        eachAccountRecord.Sync_Status__c,
+    List<Account> finalAccountList = new List<Account>();
+    for (Id eachAccountRecordId : accountMap.keySet()) {
+      String syncStatus = accountMap.get(eachAccountRecordId);
+      Account accRecord = new Account(Id = eachAccountRecordId);
+      List<String> picklistValues = new List<String>{ SYNC_STATUS_BROKER_ORG };
+      accRecord.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
+        syncStatus,
         picklistValues
       );
+      finalAccountList.add(accRecord);
     }
-    return accountList;
+    return finalAccountList;
   }
 }

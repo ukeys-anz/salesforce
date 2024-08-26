@@ -30,24 +30,4 @@ public with sharing class LoanApplicantRepository {
     ];
     return loanApplicantRecords;
   }
-
-  /**
-   * @description get Account Records
-   * @return List<Account>
-   * @param accountIds List of Account Ids
-   */
-  public List<Account> queryAccounts(Set<Id> accountIds) {
-    List<Account> accountRecords = new List<Account>();
-    if (
-      accountIds.isEmpty() || !Account.SObjectType.getDescribe().isQueryable()
-    ) {
-      return accountRecords;
-    }
-    accountRecords = [
-      SELECT Id, Sync_Status__c
-      FROM Account
-      WHERE Id IN :accountIds
-    ];
-    return accountRecords;
-  }
 }
