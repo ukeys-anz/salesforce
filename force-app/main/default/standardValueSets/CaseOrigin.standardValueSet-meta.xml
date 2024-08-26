@@ -142,9 +142,19 @@
         <label>ANZ Plus App</label>
     </standardValue>
     <standardValue>
+        <fullName>Capability &amp; Quality referral</fullName>
+        <default>false</default>
+        <label>Capability &amp; Quality referral</label>
+    </standardValue>
+    <standardValue>
         <fullName>Other</fullName>
         <default>false</default>
         <label>Other</label>
+    </standardValue>
+    <standardValue>
+        <fullName>AFCA Decision Report</fullName>
+        <default>false</default>
+        <label>AFCA Decision Report</label>
     </standardValue>
     <standardValue>
         <fullName>16</fullName>
@@ -170,6 +180,11 @@
         <fullName>20</fullName>
         <default>false</default>
         <label>BU identified from complaints</label>
+    </standardValue>
+    <standardValue>
+        <fullName>BU referral to SI team</fullName>
+        <default>false</default>
+        <label>BU referral to SI team</label>
     </standardValue>
     <standardValue>
         <fullName>21</fullName>
