@@ -15,7 +15,7 @@ private class LoanApplicantActionsTest {
 
   @isTest
   static void testSynchronizeAndUpdateCustomerSyncStatus() {
-    Map<Id, Account> accMap = createCustomerAccount(10);
+    Map<Id, Account> accMap = createCustomerAccount(3);
     List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
       1
     );

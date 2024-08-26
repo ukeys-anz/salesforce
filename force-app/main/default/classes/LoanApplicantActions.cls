@@ -44,7 +44,6 @@ public with sharing class LoanApplicantActions {
   public static Set<Id> createFilteredAccountIdSet(
     List<LoanApplicant> loanApplicantList
   ) {
-    Map<Id, String> accountIdAndSyncStatusMap = new Map<Id, String>();
     Set<Id> filteredAccountIdSet = new Set<Id>();
     for (LoanApplicant eachLoanApplicant : loanApplicantList) {
       if (
@@ -52,10 +51,6 @@ public with sharing class LoanApplicantActions {
           eachLoanApplicant.LoanApplication.Assisted_Broker_TPMI_SAO__c
         )
       ) {
-        accountIdAndSyncStatusMap.put(
-          eachLoanApplicant.Account__c,
-          SYNC_STATUS_BROKER_ORG
-        );
         filteredAccountIdSet.add(eachLoanApplicant.Account__c);
       }
     }
@@ -78,13 +73,12 @@ public with sharing class LoanApplicantActions {
       }
       if (eachAccountRecord.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)) {
         continue;
-      } else {
-        picklistValues.add(SYNC_STATUS_BROKER_ORG);
-        eachAccountRecord.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
-          eachAccountRecord.Sync_Status__c,
-          picklistValues
-        );
       }
+      picklistValues.add(SYNC_STATUS_BROKER_ORG);
+      eachAccountRecord.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
+        eachAccountRecord.Sync_Status__c,
+        picklistValues
+      );
     }
     return accountList;
   }
