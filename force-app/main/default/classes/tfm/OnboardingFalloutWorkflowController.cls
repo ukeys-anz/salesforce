@@ -91,6 +91,7 @@ public with sharing class OnboardingFalloutWorkflowController {
       workflowDetails,
       cvList
     );
+    workflowDetails.draftCVIDs = workflowDetails.getDraftCVIDs;
   }
 
   /**
