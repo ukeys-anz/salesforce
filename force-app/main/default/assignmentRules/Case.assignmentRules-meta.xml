@@ -216,7 +216,7 @@
             <formula>
                 AND(
                     ISNEW(), 
-                    RecordType.DeveloperName = &quot;ANZx_Complaint&quot;,
+                    RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
                     ISPICKVAL(Origin, &quot;ANZ Plus App&quot;),
                     ISPICKVAL(IDR_Product_Category__c,&quot;Home loans&quot; ),
                     ANZx_Customer__c = true 
@@ -229,7 +229,7 @@
             <formula>
                 AND( 
                     ISNEW(), 
-                    RecordType.DeveloperName = &quot;ANZx_Complaint&quot;,
+                    RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
                     ISPICKVAL(Origin, &quot;ANZ Plus App&quot;),
                     ANZx_Customer__c = true 
                 )

@@ -47,7 +47,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     workflowDetails.showRedBorder = caseRecord.Subject.contains(
       TFMConstants.FAILED_DOC
     );
-    
+
     workflowDetails.caseId = caseRecord.Id;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
     return workflowDetails;
