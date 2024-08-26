@@ -107,6 +107,7 @@ public with sharing class PinAndSelfieWorkflowController {
       workflowDetails,
       cvList
     );
+    workflowDetails.draftCVIDs = workflowDetails.getDraftCVIDs;
   }
 
   /**

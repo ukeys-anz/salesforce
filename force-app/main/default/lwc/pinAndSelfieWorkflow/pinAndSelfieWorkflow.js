@@ -217,7 +217,6 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
       }
     });
   }
@@ -242,14 +241,10 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
       }
     });
   }
 
-  handleRefresh() {
-    window.location.reload();
-  }
   get isApprovButtonDisable() {
     return (
       this.workflowDetails.isPinHistoryCheckFailed ||
