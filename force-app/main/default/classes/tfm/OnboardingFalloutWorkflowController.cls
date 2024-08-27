@@ -18,6 +18,8 @@ public with sharing class OnboardingFalloutWorkflowController {
   public static OnboardingWorkflowWrapper performOnboardingOperations(
     Id recordId
   ) {
+    Logger.debug( 'Apex execution for performOnboardingOperations started at - ' + System.now());
+
     OnboardingWorkflowWrapper workflowDetails = new OnboardingWorkflowWrapper();
     COBPrimaryIDDocument__c cobPIDRecord;
     Case caseRecord;
@@ -30,7 +32,10 @@ public with sharing class OnboardingFalloutWorkflowController {
 
     try {
       cobPIDRecord = ONBOARDING_REPOSITORY.getCOBPIDRecord(recordId);
-      if(cobPIDRecord.CustomerOnboardingApplication__r.CXOnboardingStage__c == TFMConstants.ASSISTED_SELFIE) {
+      if (
+        cobPIDRecord.CustomerOnboardingApplication__r.CXOnboardingStage__c ==
+        TFMConstants.ASSISTED_SELFIE
+      ) {
         caseRecord = ONBOARDING_REPOSITORY.getCaseRecord(
           cobPIDRecord.CustomerOnboardingApplication__r.PersonaId__c +
           cobPIDRecord.CustomerOnboardingApplication__r.OnboardingAttemptCount__c
@@ -55,6 +60,9 @@ public with sharing class OnboardingFalloutWorkflowController {
 
     fetchOnboardingDocuments(workflowDetails);
     apiCallToFetchImages(workflowDetails);
+
+    Logger.debug( 'Apex execution for performOnboardingOperations ended at - ' + System.now());
+    Logger.saveLog();
 
     return workflowDetails;
   }
@@ -118,6 +126,8 @@ public with sharing class OnboardingFalloutWorkflowController {
   public static void apiCallToFetchImages(
     OnboardingWorkflowWrapper workflowDetails
   ) {
+    Logger.debug('Apex execution for apiCallToFetchImages started at - ' + System.now());
+
     List<String> filesNotFoundInCV = new List<String>();
     for (
       OnboardingWorkflowWrapper.FileTypes fileData : workflowDetails.fileTypesList
@@ -132,7 +142,7 @@ public with sharing class OnboardingFalloutWorkflowController {
     List<OnboardingRequestModel> daonList = OnboardingFalloutWorkflowHelper.requestBodyAPICallout(
       workflowDetails
     );
- 
+
     Map<String, Object> responseMap = OnboardingUtility.fetchOnboardingDocumentsAPI(
       workflowDetails.IDValue,
       daonList
@@ -141,6 +151,9 @@ public with sharing class OnboardingFalloutWorkflowController {
     workflowDetails.responseMsg = String.valueOf(
       responseMap.get('responseMessage')
     );
+
+    Logger.debug('Apex execution for apiCallToFetchImages ended at - ' + System.now());
+    Logger.saveLog();
 
     if (responseMap.get('responseMessage') == TFMConstants.SUCCESS_RESPONSE) {
       fetchOnboardingDocuments(workflowDetails);
