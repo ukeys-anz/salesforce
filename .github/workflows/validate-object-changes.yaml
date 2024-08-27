@@ -35,7 +35,7 @@ jobs:
           ARTIFACTORY_ARTIFACT_LINK=https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACTORY_ARTIFACT_NAME.zip
           echo "ARTIFACTORY_ARTIFACT_LINK=$ARTIFACTORY_ARTIFACT_LINK"
           if  ! response=$(wget --server-response -P artifactory_success_output/ "$ARTIFACTORY_ARTIFACT_LINK" 2>&1); then
-          echo "Error when pulling artifact from artifactory:\n $response"
+          echo "Error when pulling artifact from artifactory: $response"
           fi
           status_code=$(echo "$response" | awk '/HTTP\// {print $2}' | tail -n 1)
           if [ -n "$status_code" ]; then
@@ -89,7 +89,7 @@ jobs:
               echo "Uploading odaseva_sha_object_fields..."
               CHANGES_DETECTED=TRUE
           else
-              echo "No changes found. Moving on..."
+              echo "No changes found for odaseva user. Moving on..."
           fi
 
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
@@ -99,7 +99,7 @@ jobs:
               echo "Uploading sfdatasync_sha_object_fields..."
               CHANGES_DETECTED=TRUE
           else
-              echo "No changes found. Moving on..."
+              echo "No changes found for sfdatasync user. Moving on..."
           fi
 
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT

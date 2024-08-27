@@ -1,4 +1,4 @@
 {
-  "sfdatasync_object_whitelist": ["A_Z_Review__c", "Access_Request__c"],
-  "odaseva_object_whitelist": ["A_Z_Review__c", "Access_Request__c"]
+  "sfdatasync_object_whitelist": ["Account"],
+  "odaseva_object_whitelist": ["Account"]
 }
