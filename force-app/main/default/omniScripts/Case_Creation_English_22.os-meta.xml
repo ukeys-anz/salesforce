@@ -4029,10 +4029,10 @@
                 <type>Select</type>
             </childElements>
             <childElements>
+                <name>complaintStatus1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>complaintStatus1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
@@ -4117,11 +4117,11 @@
                 <type>Select</type>
             </childElements>
             <childElements>
+                <name>ComplaintSubRemedy1</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>ComplaintSubRemedy1</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 5,

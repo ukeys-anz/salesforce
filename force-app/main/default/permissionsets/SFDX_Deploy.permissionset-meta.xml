@@ -1100,7 +1100,7 @@
         <field>Case.Status_Update_Error__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.OnboardingVerificationFailedReason__c</field>
         <readable>true</readable>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SCAM_Required_Fields_Values</fullName>
+    <active>true</active>
+    <description>Prevents the agent from saving the Scam record if all the mandatory fields are not populated.</description>
+    <errorConditionFormula>AND(
+ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ RecordType.DeveloperName = &quot;Scam&quot;,
+ NOT( ISPICKVAL(Type, &quot;&quot;)),
+ NOT( ISPICKVAL(Type, &quot;Not a Scam&quot;) ),
+ OR(
+  ISBLANK(Fraud_Detection_Case_Reference__c),
+  ISPICKVAL(Fraud_Loss_Reason_Code__c, &quot;&quot;),
+  ISPICKVAL(Fraud_Recipient_Remitter__c, &quot;&quot;),
+  ISBLANK(Fraud_Total_Scam_Value__c),
+  Fraud_Total_Scam_Value__c  &lt; 0,
+  ISBLANK(Fraud_Total_Falcon_Recalled__c) ,
+  Fraud_Total_Falcon_Recalled__c  &lt; 0,
+  ISBLANK(Fraud_Total_Customer_Exposure__c),
+  Fraud_Total_Customer_Exposure__c &lt; 0
+ )
+)</errorConditionFormula>
+    <errorMessage>These fields are required: 
+Detection Case Reference, 
+Loss Reason Code, 
+Payment to Remitter/Exchange, 
+Total Scam Value, 
+Total Falcon Recalled, 
+Total Customer Exposure</errorMessage>
+</ValidationRule>

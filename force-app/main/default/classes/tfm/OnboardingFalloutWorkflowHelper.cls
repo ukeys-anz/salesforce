@@ -34,7 +34,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     };
     if (
       String.isNotBlank(cobPIDRecord.DaonLocationUri__c) &&
-      String.isNotBlank(cobPIDRecord.idxExtractedFaceId__c) &&
       String.isNotBlank(caseRecord.Aegis_Workflow_Id__c) &&
       cobPIDRecord.CustomerOnboardingApplication__r.CXOnboardingStage__c.equalsIgnoreCase(
         TFMConstants.ASSISTED_SELFIE
@@ -47,7 +46,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     workflowDetails.showRedBorder = caseRecord.Subject.contains(
       TFMConstants.FAILED_DOC
     );
-    
+
     workflowDetails.caseId = caseRecord.Id;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
     return workflowDetails;

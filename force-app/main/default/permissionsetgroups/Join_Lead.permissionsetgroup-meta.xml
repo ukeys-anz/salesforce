@@ -17,10 +17,12 @@
     <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
+    <permissionSets>Interaction_Read_Only</permissionSets>
     <permissionSets>Funds_Purpose_Read_Only</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>
     <permissionSets>Title_Details_Read_Only</permissionSets>
+    <permissionSets>Twilio_Detail_Read_Only</permissionSets>
     <permissionSets>Update_Signing_Authority</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
