@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RECIPIENT_MULE_Required_Fields_Values</fullName>
+    <active>true</active>
+    <description>Prevents the agent from saving the Recipient/Mule record if all the mandatory fields are not populated.</description>
+    <errorConditionFormula>AND(
+ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ RecordType.DeveloperName = &quot;Recipient_Mule&quot;,
+ NOT( ISPICKVAL(Type, &quot;&quot;)),
+ NOT( ISPICKVAL(Type, &quot;Not a Recipient&quot;) ),
+ OR(
+  ISBLANK(Fraud_Detection_Case_Reference__c),
+  ISBLANK(Fraud_Total_Fraud_Received__c), 
+  Fraud_Total_Fraud_Received__c &lt; 0,
+  ISBLANK(Fraud_Total_Recovered__c), 
+  Fraud_Total_Recovered__c &lt; 0,
+  ISBLANK(Fraud_Total_Customer_Exposure__c),
+  Fraud_Total_Customer_Exposure__c &lt; 0,
+  ISPICKVAL(Fraud_Loss_Reason_Code__c, &quot;&quot;),
+  ISPICKVAL(RecipientFundsType__c, &quot;&quot;)
+ )
+)</errorConditionFormula>
+    <errorMessage>These fields are required: 
+Detection Case Reference, 
+Total Fraud Received, 
+Total Recovered,
+Loss Reason Code,
+Total Customer Exposure,
+Recipient Funds Type</errorMessage>
+</ValidationRule>

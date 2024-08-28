@@ -6,9 +6,9 @@
     <description>Created On</description>
     <externalDeveloperName>Created On</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Created On</label>
     <length>100</length>
     <required>false</required>

@@ -6,6 +6,7 @@
     <description>Customer&apos;s personal banking needs.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
+    <inlineHelpText>Does customer have any personal banking needs e,g:  Home loan / Credit card / Vehicle finance / Financial planning / Personal loans / Everyday banking</inlineHelpText>
     <label>Personal Banking</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>

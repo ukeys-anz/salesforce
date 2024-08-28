@@ -7,9 +7,9 @@
     <description>Identifier to indicate whether facility was written under Government Guarantee Scheme</description>
     <externalDeveloperName>GovernmentGuarantee</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Government Guarantee</label>
     <securityClassification>Internal</securityClassification>
     <type>Checkbox</type>

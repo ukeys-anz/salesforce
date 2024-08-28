@@ -271,7 +271,7 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
       options: { caseId, parentComponent, workflowId, IdValue, cobId },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        this.handleModalClose();
       }
     });
   }
@@ -284,7 +284,13 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
     return !this.workflowDetails?.showCheckboxes;
   }
 
-  handleRefresh() {
-    window.location.reload();
+  handleModalClose() {
+    this.dispatchEvent(
+      new CustomEvent("closeparentmodel", {
+        detail: {
+          message: "closeModel"
+        }
+      })
+    );
   }
 }

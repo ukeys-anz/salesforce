@@ -1,11 +1,12 @@
-<!--
-  @description       : 
-  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
-  @group             : 
-  @last modified on  : 08-12-2024
-  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
--->
 <template>
+  <template lwc:if={showSpinner}>
+    <div class="slds-col slds-size_1-of-1 slds-wrap spinnerHolder">
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+      ></lightning-spinner>
+    </div>
+  </template>
   <template lwc:if={currentFileType.stopSpinner}>
     <div class="slds-col slds-size_1-of-1 slds-wrap">
       <template lwc:if={currentFileType.isImageFinalVersion}>
@@ -14,6 +15,7 @@
             src={currentFileType.imageURL}
             class="borderRed"
             oncontextmenu={disableRightClick}
+            onload={handleImageLoad}
           />
         </template>
         <template lwc:else>
@@ -21,6 +23,7 @@
             src={currentFileType.imageURL}
             oncontextmenu={disableRightClick}
             class="imgCSS"
+            onload={handleImageLoad}
           />
         </template>
       </template>
@@ -29,15 +32,18 @@
           src={errorImage}
           oncontextmenu={disableRightClick}
           class="imgCSS"
+          onload={handleImageLoad}
         />
-        <div class="slds-text-align_center">
-          <lightning-icon
-            icon-name="utility:warning"
-            alternative-text="Warning!"
-            title="Warning"
-          ></lightning-icon>
-          {errorMsg}
-        </div>
+        <template lwc:if={showErrorMessage}>
+          <div class="slds-text-align_center">
+            <lightning-icon
+              icon-name="utility:warning"
+              alternative-text="Warning!"
+              title="Warning"
+            ></lightning-icon>
+            Image not found
+          </div>
+        </template>
       </template>
     </div>
   </template>

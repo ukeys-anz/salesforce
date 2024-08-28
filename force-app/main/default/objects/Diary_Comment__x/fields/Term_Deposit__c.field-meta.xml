@@ -6,9 +6,9 @@
     <description>Associated Id of Term Deposit</description>
     <externalDeveloperName>TermDepositId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Term Deposit</label>
     <length>255</length>
     <referenceTo>Term_Deposit__x</referenceTo>

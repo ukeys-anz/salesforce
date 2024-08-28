@@ -11,7 +11,7 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has create permission, otherwise throws an error
    */
   public static Boolean canCreate(String objectName) {
-    Schema.SObjectType targetType = Schema.getGlobalDescribe().get(objectName);
+    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
     Boolean createable = targetType.getDescribe().isCreateable();
 
     if (!createable) {
@@ -31,7 +31,7 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has access permission, otherwise throws an error
    */
   public static Boolean canAccess(String objectName) {
-    Schema.SObjectType targetType = Schema.getGlobalDescribe().get(objectName);
+    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
     Boolean accessible = targetType.getDescribe().isAccessible();
 
     if (!accessible) {
@@ -51,7 +51,7 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has update permission, otherwise throws an error
    */
   public static Boolean canUpdate(String objectName) {
-    Schema.SObjectType targetType = Schema.getGlobalDescribe().get(objectName);
+    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
     Boolean updateable = targetType.getDescribe().isUpdateable();
 
     if (!updateable) {
@@ -71,7 +71,7 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has the delete permission, otherwise throws an error
    */
   public static Boolean canDelete(String objectName) {
-    Schema.SObjectType targetType = Schema.getGlobalDescribe().get(objectName);
+    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
     Boolean deletable = targetType.getDescribe().isDeletable();
 
     if (!deletable) {
@@ -91,7 +91,7 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has query permission, otherwise throws an error
    */
   public static Boolean canQuery(String objectName) {
-    Schema.SObjectType targetType = Schema.getGlobalDescribe().get(objectName);
+    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
     Boolean queryable = targetType.getDescribe().isQueryable();
 
     if (!queryable) {

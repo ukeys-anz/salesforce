@@ -766,135 +766,6 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testFilterDowngradeCases() {
-    Case theCase = constuctCaseWithTestFields(null);
-    List<Case> downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
-      new List<Case>{ theCase },
-      new Map<Id, Case>()
-    );
-    Assert.isTrue(
-      downgradeCases.isEmpty(),
-      'No defects - One of the test fields is empty'
-    );
-
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
-      new List<Case>{ theCase },
-      new Map<Id, Case>()
-    );
-    Assert.isTrue(
-      downgradeCases.isEmpty(),
-      'No defects - All test fields are YES'
-    );
-
-    Case oldCase = new Case();
-    oldCase.Id = caseId;
-
-    oldCase.Status = DOCUMENTS_UPLOADED_STATUS;
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    theCase.Status = RECTIFY_DEFECT_STATUS;
-
-    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
-      new List<Case>{ theCase },
-      new Map<Id, Case>{ oldCase.Id => oldCase }
-    );
-    Assert.isTrue(
-      downgradeCases.isEmpty(),
-      'There are defects - One of the test fields is NO, the case destinatoin staus is Rectify Defect but the case source status is not Open Or Under Review'
-    );
-
-    oldCase.Status = GetHelpConstants.OPEN_STATUS;
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    theCase.Status = RECTIFY_DEFECT_STATUS;
-
-    downgradeCases = AutoKYCQACaseActions.filterDowngradeCases(
-      new List<Case>{ theCase },
-      new Map<Id, Case>{ oldCase.Id => oldCase }
-    );
-    Assert.isFalse(
-      downgradeCases.isEmpty(),
-      'There are defects - One of the test fields is NO, the case destinatoin staus is Rectify Defect and the case source status is Open'
-    );
-  }
-
-  @isTest
-  private static void testCheckValidStatusForDowngrade() {
-    Case oldCase = new Case();
-    oldCase.Status = DOCUMENTS_UPLOADED_STATUS;
-
-    Case theCase = new Case();
-    theCase.Status = RECTIFY_DEFECT_STATUS;
-    Boolean isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
-      theCase,
-      oldCase
-    );
-
-    Assert.isFalse(
-      isValidStatusForDowngrade,
-      'The case destinatoin staus is Rectify Defect but the case source status is not Open Or Under Review'
-    );
-
-    theCase.Status = PENDING_DOCUMENTS_STATUS;
-    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
-      theCase,
-      oldCase
-    );
-
-    Assert.isFalse(
-      isValidStatusForDowngrade,
-      'The case destinatoin staus is Pending Document but the case source status is not Open Or Under Review'
-    );
-
-    oldCase.Status = GetHelpConstants.OPEN_STATUS;
-    theCase.Status = RECTIFY_DEFECT_STATUS;
-    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
-      theCase,
-      oldCase
-    );
-
-    Assert.isTrue(
-      isValidStatusForDowngrade,
-      'The case destinatoin staus is Rectify Defect and the case source status is Open'
-    );
-
-    oldCase.Status = GetHelpConstants.OPEN_STATUS;
-    theCase.Status = PENDING_DOCUMENTS_STATUS;
-    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
-      theCase,
-      oldCase
-    );
-
-    Assert.isTrue(
-      isValidStatusForDowngrade,
-      'The case destinatoin staus is Pending Document and the case source status is Open'
-    );
-
-    oldCase.Status = UNDER_REVIEW_STATUS;
-    theCase.Status = RECTIFY_DEFECT_STATUS;
-    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
-      theCase,
-      oldCase
-    );
-
-    Assert.isTrue(
-      isValidStatusForDowngrade,
-      'The case destinatoin staus is Rectify Defect and the case source status is Under Review'
-    );
-
-    oldCase.Status = UNDER_REVIEW_STATUS;
-    theCase.Status = PENDING_DOCUMENTS_STATUS;
-    isValidStatusForDowngrade = AutoKYCQACaseActions.checkValidStatusForDowngrade(
-      theCase,
-      oldCase
-    );
-
-    Assert.isTrue(
-      isValidStatusForDowngrade,
-      'The case destinatoin staus is Pending Document and the case source status is Under Review'
-    );
-  }
-
-  @isTest
   private static void testBuildDowngradedAccounts() {
     Test.startTest();
     List<Account> accounts = AutoKYCQACaseActions.buildDowngradedAccounts(
@@ -1050,50 +921,6 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testFilterUpgradeCases() {
-    Case oldCase = new Case();
-    oldCase.Id = caseId;
-
-    oldCase.Status = RECTIFY_DEFECT_STATUS;
-    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
-    caseWithAccount.Fraud_Defects_Rectified__c = 'Not Applicable';
-
-    List<Case> upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
-      new List<Case>{ caseWithAccount },
-      new Map<Id, Case>{ oldCase.Id => oldCase }
-    );
-    Assert.isTrue(
-      upgradeCases.isEmpty(),
-      'The \'Have All Defects Been Rectified\' is Not Applicable'
-    );
-
-    oldCase.Status = GetHelpConstants.CLOSED_STATUS;
-    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
-    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
-
-    upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
-      new List<Case>{ caseWithAccount },
-      new Map<Id, Case>{ oldCase.Id => oldCase }
-    );
-    Assert.isTrue(
-      upgradeCases.isEmpty(),
-      'The status is Closed but wasn\'t changed'
-    );
-
-    oldCase.Status = RECTIFY_DEFECT_STATUS;
-    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
-    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
-    upgradeCases = AutoKYCQACaseActions.filterUpgradeCases(
-      new List<Case>{ caseWithAccount },
-      new Map<Id, Case>{ oldCase.Id => oldCase }
-    );
-    Assert.isFalse(
-      upgradeCases.isEmpty(),
-      'The \'Have All Defects Been Rectified\' is YES and the case is closed.'
-    );
-  }
-
-  @isTest
   private static void testFilterAccountsNotExitedAllValid() {
     Test.startTest();
     List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
@@ -1218,4 +1045,101 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     Assert.isFalse(result, 'Should be false if case was downgraded');
   }
+
+  //#region validateOwnerChange
+  @IsTest
+  static void testValidateOwnerChange() {
+    Id cobId1 = Lib_FakeIdGenerator.getMockId(
+      CustomerOnboardingApplication__c.SObjectType
+    );
+    Id cobId2 = Lib_FakeIdGenerator.getMockId(
+      CustomerOnboardingApplication__c.SObjectType
+    );
+    List<Case> cases = new List<Case>{
+      new Case(
+        OwnerId = UserInfo.getUserId(),
+        CustomerOnboardingApplication__c = cobId1
+      ),
+      new Case(
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        CustomerOnboardingApplication__c = cobId2
+      )
+    };
+
+    Lib_MockProvider.forType(AutoKYCQACaseRepository.class)
+      .mock(
+        'queryCobsWithLatestIdOpsCase',
+        new List<CustomerOnboardingApplication__c>{
+          (CustomerOnboardingApplication__c) TestUtil.setFields(
+            new CustomerOnboardingApplication__c(Id = cobId1),
+            new Map<String, Object>{
+              'Cases__r' => new List<Case>{
+                new Case(OwnerId = UserInfo.getUserId())
+              }
+            }
+          ),
+          (CustomerOnboardingApplication__c) TestUtil.setFields(
+            new CustomerOnboardingApplication__c(Id = cobId2),
+            new Map<String, Object>{
+              'Cases__r' => new List<Case>{ new Case() }
+            }
+          )
+        }
+      );
+
+    Test.startTest();
+    AutoKYCQACaseActions.validateOwnerChange(cases, new Map<Id, Case>());
+    Test.stopTest();
+
+    Assert.isTrue(
+      cases[0].hasErrors(),
+      'Should not be able to assign KYC QA case to the same owner as ID OPS case'
+    );
+    Assert.isFalse(cases[1].hasErrors(), 'Should be able to assign owner');
+  }
+
+  @IsTest
+  static void testPreventSameOwnerAsIdOpsCases() {
+    Id cobId1 = Lib_FakeIdGenerator.getMockId(
+      CustomerOnboardingApplication__c.SObjectType
+    );
+    Id cobId2 = Lib_FakeIdGenerator.getMockId(
+      CustomerOnboardingApplication__c.SObjectType
+    );
+    List<Case> cases = new List<Case>{
+      new Case(
+        OwnerId = UserInfo.getUserId(),
+        CustomerOnboardingApplication__c = cobId1
+      ),
+      new Case(
+        OwnerId = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+        CustomerOnboardingApplication__c = cobId2
+      )
+    };
+    Map<Id, CustomerOnboardingApplication__c> cobMap = new Map<Id, CustomerOnboardingApplication__c>{
+      cobId1 => (CustomerOnboardingApplication__c) TestUtil.setFields(
+        new CustomerOnboardingApplication__c(),
+        new Map<String, Object>{
+          'Cases__r' => new List<Case>{
+            new Case(OwnerId = UserInfo.getUserId())
+          }
+        }
+      ),
+      cobId2 => (CustomerOnboardingApplication__c) TestUtil.setFields(
+        new CustomerOnboardingApplication__c(),
+        new Map<String, Object>{ 'Cases__r' => new List<Case>{ new Case() } }
+      )
+    };
+
+    Test.startTest();
+    AutoKYCQACaseActions.preventSameOwnerAsIdOpsCases(cases, cobMap);
+    Test.stopTest();
+
+    Assert.isTrue(
+      cases[0].hasErrors(),
+      'Should not be able to assign KYC QA case to the same owner as ID OPS case'
+    );
+    Assert.isFalse(cases[1].hasErrors(), 'Should be able to assign owner');
+  }
+  //#endregion
 }

@@ -6,9 +6,9 @@
     <description>Interest Only Term (Year)</description>
     <externalDeveloperName>InterestOnlyTermYear</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Only Term (Year)</label>
     <precision>18</precision>
     <required>false</required>

@@ -6,9 +6,9 @@
     <description>Fee Name</description>
     <externalDeveloperName>FeeName</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Fee Name</label>
     <length>18</length>
     <required>false</required>

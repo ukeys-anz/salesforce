@@ -6,9 +6,9 @@
     <description>Interest Rate</description>
     <externalDeveloperName>InterestRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Rate (%)</label>
     <precision>16</precision>
     <required>false</required>

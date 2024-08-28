@@ -61,7 +61,8 @@
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
   &quot;useFormulas&quot; : true,
   &quot;additionalOutput&quot; : {
-    &quot;Response&quot; : &quot;=IF(ISNOTBLANK(getCustomerInfo:Response),DESERIALIZE(getCustomerInfo:Response),false)&quot;
+    &quot;Response&quot; : &quot;=IF(ISNOTBLANK(getCustomerInfo:Response),DESERIALIZE(getCustomerInfo:Response),false)&quot;,
+    &quot;CustomerNumber&quot; : &quot;=IF(ISNOTBLANK(customerId),%customerId%,%cacheId%)&quot;
   },
   &quot;returnOnlyAdditionalOutput&quot; : true,
   &quot;returnFullDataJSON&quot; : false,
