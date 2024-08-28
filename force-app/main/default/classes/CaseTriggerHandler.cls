@@ -41,7 +41,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records, null);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
-    GetHelpCaseActions.populateOCVOnComplaint(records);
+    GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     GetHelpCaseActions.setOwnerToIDOpsQueue(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
@@ -137,7 +137,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         (Map<Id, Case>) oldMap
       )
     ) {
-      GetHelpCaseActions.populateOCVOnComplaint(records);
+      GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     }
     GetHelpCaseActions.validateCreditReferralOwnershipChange(
       records,
