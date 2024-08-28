@@ -749,17 +749,14 @@ public with sharing class GetHelpCaseActions {
     //Loop through cases again and assign ocv id
     if (!accountList.isEmpty() && PermissionUtils.canQuery('Account')) {
       for (Case c : records) {
-        c.OCV_Id__c = accountList.get(c.AccountId).OCV_ID__c;
-        c.IDR_CC_Country__c = accountList.get(c.AccountId).PersonOtherCountry;
-        c.IDR_CC_Age__c = DateTimeUtils.getAge(
-          accountList.get(c.AccountId).PersonBirthDate
-        );
-        c.IDR_CC_Postcode__c = accountList.get(c.AccountId)
-          .PersonOtherPostalCode;
-        c.IDR_Customer_Number__c = accountList.get(c.AccountId)
-          .Source_System_ID__c;
-        c.CPID__c = accountList.get(c.AccountId).CPID__c;
-        c.IDR_CC_Gender__c = accountList.get(c.AccountId).Gender__pc;
+        Account acc = accountList.get(c.AccountId);
+        c.OCV_Id__c = acc.OCV_ID__c;
+        c.IDR_CC_Country__c = acc.PersonOtherCountry;
+        c.IDR_CC_Age__c = DateTimeUtils.getAge(acc.PersonBirthDate);
+        c.IDR_CC_Postcode__c = acc.PersonOtherPostalCode;
+        c.IDR_Customer_Number__c = acc.Source_System_ID__c;
+        c.CPID__c = acc.CPID__c;
+        c.IDR_CC_Gender__c = acc.Gender__pc;
       }
     }
   }
