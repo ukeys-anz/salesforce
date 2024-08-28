@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Non-mandatory field for &apos;Tribes impacted by/relevant to a complaint&apos; (pick list of portfolios - options should be all portfolios/business units.)</description>
     <externalId>false</externalId>
-    <label>Assigned Tribe/BU</label>
+    <label>Assigned Tribe/BU-1</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

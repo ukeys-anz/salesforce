@@ -5,6 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non-Sensitive Personal Information;Source - Salesforce</complianceGroup>
     <description>Yes/No to the Question Offer Enhanced  and accepted by the Customer</description>
     <externalId>false</externalId>
+    <inlineHelpText>If the customer accepts a subsequent offer made after the final response that was enhanced (for example, a larger payment amount was accepted), select ‘Yes’. If the customer did not accept any subsequent offer from ANZ or accepted the initial offer, select ‘No’. Continue to enter details of the resolution provided.</inlineHelpText>
     <label>Was the offer enhanced and accepted?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
