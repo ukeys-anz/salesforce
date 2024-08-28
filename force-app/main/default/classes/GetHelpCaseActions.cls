@@ -729,7 +729,7 @@ public with sharing class GetHelpCaseActions {
     Set<Id> accountIds = new Set<Id>();
     Set<Id> eligibleRecordTypes = new Set<Id>{
       GetHelpConstants.COMPLAINT_RT_ID,
-      GetHelpConstants.CUSTOMER_COMPLAINT_RT_ID
+      RecordTypeConstants.caseCustomerComplaint
     };
     //Loop through case to create list of account ids
     for (Case c : records) {
