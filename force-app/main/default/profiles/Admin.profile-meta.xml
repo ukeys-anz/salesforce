@@ -1453,7 +1453,7 @@
         <apexClass>OnboardingRequestModel</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-     <classAccesses>
+    <classAccesses>
         <apexClass>OnboardingResponseModel</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -6269,8 +6269,18 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Relationship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__ContactContactRelation__c.Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__ContactContactRelation__c.CPID__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6351,6 +6361,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>FinServ__ContactContactRelation__c.Role_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__ContactContactRelation__c.Relationship__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

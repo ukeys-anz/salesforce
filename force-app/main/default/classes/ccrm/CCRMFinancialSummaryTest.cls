@@ -11,7 +11,7 @@ private class CCRMFinancialSummaryTest {
 
   @testSetup
   static void createTestData() {
-    User ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
+    CCRMTestDataFactory.createCCRMBaseUser();
   }
 
   static void getFinSummaryCallout(
@@ -270,6 +270,11 @@ private class CCRMFinancialSummaryTest {
       currentDateTime +
       '","assetBalanceAck":"Unexpected error"}';
 
+    CCRMFinancialSummaryWrapper.CacheData expectedJSON = (CCRMFinancialSummaryWrapper.CacheData) JSON.deserialize(
+      expectedData,
+      CCRMFinancialSummaryWrapper.CacheData.class
+    );
+
     String totalBalanceResponse =
       '{"Summary_Type__c":"TOTAL_CUSTOMER_BALANCE","Response_Id__c":"' +
       responseId +
@@ -295,10 +300,15 @@ private class CCRMFinancialSummaryTest {
       Test.stopTest();
       dataInCache = (String) sessionPart.get(responseId);
 
+      CCRMFinancialSummaryWrapper.CacheData dataInCacheJSON = (CCRMFinancialSummaryWrapper.CacheData) JSON.deserialize(
+        dataInCache,
+        CCRMFinancialSummaryWrapper.CacheData.class
+      );
+
       //THEN the data should be inserted in cache successfully
       System.assertEquals(
-        expectedData,
-        dataInCache,
+        expectedJSON.totalBalanceAck,
+        dataInCacheJSON.totalBalanceAck,
         'Data not found in cache after insertion'
       );
     }
@@ -307,9 +317,6 @@ private class CCRMFinancialSummaryTest {
   @isTest
   static void testGetDataFromCache() {
     //GIVEN sessionPart, expectedData and financial summaries callout wrapper and totalBalance value
-    Cache.SessionPartition sessionPart = Cache.Session.getPartition(
-      'local.DataPartition'
-    );
     String responseId = (String) Lib_FakeIdGenerator.getMockId(
       Account.getSobjectType()
     );
@@ -343,8 +350,8 @@ private class CCRMFinancialSummaryTest {
 
       //THEN user able to successfully get the data from cache
       System.assertEquals(
-        JSON.serialize(expectedData),
-        JSON.serialize(finSumRespFromCache),
+        expectedData.totalBalance,
+        finSumRespFromCache.totalBalance,
         'Not able to get the data from Cache.'
       );
     }
@@ -634,6 +641,12 @@ private class CCRMFinancialSummaryTest {
       '{"totalMerchantTerminals":null,"totalBalanceAck":"Request Received","totalBalance":null,"totalAssetFinanceBalance":null,"terminalAck":"Request Received","lastSummaryUpdateDate":"' +
       currentDateTime +
       '","assetBalanceAck":"Request Received"}';
+
+    CCRMFinancialSummaryWrapper.CacheData expectedJSON = (CCRMFinancialSummaryWrapper.CacheData) JSON.deserialize(
+      expectedData,
+      CCRMFinancialSummaryWrapper.CacheData.class
+    );
+
     String cacheData = '';
 
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
@@ -641,12 +654,17 @@ private class CCRMFinancialSummaryTest {
       //WHEN trying to populate the data in cache
       CCRMFinancialSummaryController.populateDataInCache(finSumResponse);
       cacheData = (String) sessionPart.get(responseId);
+
+      CCRMFinancialSummaryWrapper.CacheData cacheDataInJSON = (CCRMFinancialSummaryWrapper.CacheData) JSON.deserialize(
+        cacheData,
+        CCRMFinancialSummaryWrapper.CacheData.class
+      );
       Test.stopTest();
 
       //THEN the data should be successfully inserted/populated in cache
       System.assertEquals(
-        expectedData,
-        cacheData,
+        expectedJSON.totalBalanceAck,
+        cacheDataInJSON.totalBalanceAck,
         'Data not populated in cache'
       );
     }

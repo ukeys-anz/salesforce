@@ -137,6 +137,34 @@ public with sharing class AutoKYCQACaseRepository {
   }
 
   /**
+   * @description Queries Customer Onboarding Applications with the latest ID Ops Assistance Case.
+   * @param cobIds A set of Customer Onboarding Application record IDs.
+   * @return A list of Customer Onboarding Application records with the latest ID Ops Assistance Case.
+   */
+  public List<CustomerOnboardingApplication__c> queryCobsWithLatestIdOpsCase(
+    Set<Id> cobIds
+  ) {
+    if (
+      cobIds.isEmpty() ||
+      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false
+    ) {
+      return new List<CustomerOnboardingApplication__c>();
+    }
+    return [
+      SELECT
+        (
+          SELECT OwnerId
+          FROM Cases__r
+          WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+          ORDER BY LastModifiedDate DESC
+          LIMIT 1
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE Id IN :cobIds
+    ];
+  }
+
+  /**
    * @description This class take care of Database operation that requires without sharing operation
    */
   private without sharing class SystemAction {

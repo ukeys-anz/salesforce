@@ -58,10 +58,10 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
   @AuraEnabled
   public String idxExtractedFaceId { get; set; }
   /**
-   * @description draftCVIDs
+   * @description getDraftCVIDs
    */
   @AuraEnabled
-  public List<String> draftCVIDs {
+  public List<String> getDraftCVIDs {
     get {
       if (this.draftCVIDs != null) {
         return draftCVIDs;
@@ -78,6 +78,11 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
       return newDraftCVIDs;
     }
   }
+   /**
+   * @description draftCVIDs
+   */
+  @AuraEnabled
+  public List<String> draftCVIDs { get; set; }
   /**
    * @description fileTypesList
    */
