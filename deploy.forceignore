@@ -215,3 +215,6 @@ force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
 
 #AR-138661 ignore Query All Files due to error with Production Objects
 force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml
+
+#AR-150463 ignore Data_Diposal Deployment until testing for CMOS DATA Purging is completed
+salesforce/force-app/main/default/permissionsets/Data_Disposal_CMOS.permissionset-meta.xml

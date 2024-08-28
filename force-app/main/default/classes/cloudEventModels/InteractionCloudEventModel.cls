@@ -4,7 +4,7 @@
  * @description  : Wrapper Class for Interaction metadata and data
  **/
 @SuppressWarnings(
-  'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.ExcessiveParameterList ,PMD.PropertyNamingConventions'
+  'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.ExcessiveParameterList'
 )
 public without sharing class InteractionCloudEventModel extends CloudEventModel {
   public static final String INTERACTION_CE_SOURCE = 'com.anzx.salesforce.interaction.v1alpha1';
@@ -44,15 +44,15 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
     public AccountModel customer { get; set; }
 
     // For General Interaction
-    public String opportunity_id { get; set; }
-    public String optional_notes { get; set; }
-    public InteractionModel interaction_detail { get; set; }
+    public String opportunityId { get; set; }
+    public String optionalNotes { get; set; }
+    public InteractionModel interactionDetail { get; set; }
 
     // For Cap Interactions
     public Boolean permanent { get; set; }
-    public String expiry_date { get; set; }
+    public FabricType.FabricDate expiryDate { get; set; }
     public String comment { get; set; }
-    public FinancialAccountModel financial_account { get; set; }
+    public FinancialAccountModel financialAccount { get; set; }
 
     // Constructor For General Interaction Data Model
     public InteractionCloudEventDataModel(
@@ -64,13 +64,13 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
       this.owner = theOwner;
       this.customer = new AccountModel(theCustomer);
 
-      this.interaction_detail = new InteractionModel(theInteraction);
-      this.opportunity_id = theOpportunity?.Opp_Id__c;
-      this.optional_notes = theInteraction?.optional_notes__c;
+      this.interactionDetail = new InteractionModel(theInteraction);
+      this.opportunityId = theOpportunity?.opp_Id__c;
+      this.optionalNotes = theInteraction?.optional_notes__c;
 
-      this.financial_account = null;
+      this.financialAccount = null;
       this.permanent = null;
-      this.expiry_date = null;
+      this.expiryDate = null;
       this.comment = null;
     }
 
@@ -84,16 +84,18 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
       this.owner = theOwner;
       this.customer = new AccountModel(theCustomer);
 
-      this.financial_account = theFinAccount == null
+      this.financialAccount = theFinAccount == null
         ? null
         : new FinancialAccountModel(theFinAccount);
-      this.permanent = theInteraction?.Permanent__c;
-      this.expiry_date = String.valueOf(theInteraction?.Expiry_Date__c);
-      this.comment = theInteraction?.Comment__c;
+      this.permanent = theInteraction?.permanent__c;
+      this.expiryDate = new FabricType.FabricDate(
+        theInteraction?.expiry_Date__c
+      );
+      this.comment = theInteraction?.comment__c;
 
-      this.interaction_detail = null;
-      this.opportunity_id = null;
-      this.optional_notes = null;
+      this.interactionDetail = null;
+      this.opportunityId = null;
+      this.optionalNotes = null;
     }
   }
 
@@ -124,7 +126,7 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
   public class FinancialAccountModel {
     public String accountNumber { get; set; }
     public String productCode { get; set; }
-    public String name { get; set; }
+    public String accountName { get; set; }
     public String branchCode { get; set; }
 
     /**
@@ -134,7 +136,7 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
     public FinancialAccountModel(FinServ__FinancialAccount__c theAccount) {
       this.accountNumber = theAccount?.FinServ__FinancialAccountNumber__c;
       this.productCode = theAccount?.Product_Code_Display__c;
-      this.name = theAccount?.name;
+      this.accountName = theAccount?.Name;
       this.branchCode = theAccount?.Branch_Code__c;
     }
   }
@@ -145,7 +147,7 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
   public class InteractionModel {
     public String type { get; set; }
     public String name { get; set; }
-    public String interaction_number { get; set; }
+    public String interactionNumber { get; set; }
     public String category { get; set; }
     public String startTime { get; set; }
 
@@ -154,11 +156,12 @@ public without sharing class InteractionCloudEventModel extends CloudEventModel 
      * @param theInteraction the Account record
      */
     public InteractionModel(Interaction theInteraction) {
-      this.type = theInteraction?.InteractionType;
-      this.name = theInteraction?.Name;
-      this.interaction_number = theInteraction?.Interaction_Auto_Number__c;
-      this.category = theInteraction?.Category__c;
-      this.startTime = String.valueOf(theInteraction?.StartTime);
+      this.type = theInteraction?.interactionType;
+      this.name = theInteraction?.name;
+      this.interactionNumber = theInteraction?.interaction_Auto_Number__c;
+      this.category = theInteraction?.category__c;
+      this.startTime = theInteraction
+        ?.startTime.format('yyyy-MM-dd\'T\'HH:mm:ss.SSS\'Z\'');
     }
   }
 }

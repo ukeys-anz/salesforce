@@ -24,6 +24,7 @@ public with sharing class OnboardingRequestModel extends CalloutModel {
     public String idx_id_check_id;
     public String idx_document_id;
     public String idx_extracted_face_id;
+    public String workflowId;
     public SelfieRecoveryChallenge selfie_recovery;
     public PinRecoveryChallenge pin_recovery;
   }

@@ -6,9 +6,9 @@
     <description>Number of P&amp; I repayments</description>
     <externalDeveloperName>TotalNumberOfRepayments</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Total Number Of Repayments</label>
     <length>255</length>
     <required>false</required>

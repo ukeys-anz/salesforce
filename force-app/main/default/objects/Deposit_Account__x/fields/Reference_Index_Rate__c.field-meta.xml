@@ -6,9 +6,9 @@
     <description>BMI or Retail Index etc. Will include both the Value and the percentage, for example &apos;BMI - 6.12%&apos;</description>
     <externalDeveloperName>ReferenceIndexRate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Debit Reference Index Rate (%)</label>
     <length>255</length>
     <required>false</required>

@@ -6,9 +6,9 @@
     <description>Date of when transaction was settled</description>
     <externalDeveloperName>PostDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Post Date</label>
     <length>50</length>
     <required>false</required>

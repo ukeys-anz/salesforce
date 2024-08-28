@@ -10,4 +10,12 @@ export default class OnboardingFalloutImageRenderer extends LightningElement {
   disableRightClick(event) {
     event.preventDefault();
   }
+
+  showSpinner = true;
+  showErrorMessage = false;
+
+  handleImageLoad() {
+    this.showSpinner = false;
+    this.showErrorMessage = true;
+  }
 }

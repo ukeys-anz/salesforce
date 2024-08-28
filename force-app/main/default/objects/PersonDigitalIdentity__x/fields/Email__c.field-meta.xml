@@ -6,9 +6,9 @@
     <description>Email</description>
     <externalDeveloperName>Email</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Email</label>
     <length>100</length>
     <required>false</required>

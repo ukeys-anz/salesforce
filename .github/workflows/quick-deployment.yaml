@@ -5,7 +5,6 @@ on:
     branches:
       - x
       # - "develop"
-      # - "release"
       # - "epic/*"
 
     types:
