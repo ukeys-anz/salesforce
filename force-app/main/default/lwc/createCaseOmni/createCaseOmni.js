@@ -12,11 +12,10 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   showError = false;
   @track missingFields = [];
   @track modalMsg;
-  @track showModal = false;
   @track modalHeader = "Error";
 
   closeModal() {
-    this.showModal = false;
+    this.modalMsg = null;
   }
   async callCreateCaseIP() {
     this.missingFields = [];
@@ -27,11 +26,9 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         this.omniJsonData,
         this.missingFields
       );
-      this.showModal = true;
     } else if (!this.validateCustomerNumber()) {
       this.modalMsg =
         "Customer number must be numbers and at least 10 digits long";
-      this.showModal = true;
     } else if (
       !this.missingFields.length &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
@@ -39,7 +36,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       !this.omniJsonData.isEligibleProfileForLookUp
     ) {
       this.modalMsg = "Please complete all required fields";
-      this.showModal = true;
     } else if (
       !this.missingFields.length &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
@@ -49,7 +45,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
-      this.showModal = true;
     } else if (this.validateRealFormID()) {
       handleErrorShowToast(
         this,
@@ -60,10 +55,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (this.validateComplianceChecks()) {
       this.modalMsg =
         "The Status must be set to 'Escalated' if either Compliance Checks are selected as 'YES'";
-      this.showModal = true;
     } else if (!this.checkIsvalidCustomer()) {
       this.modalMsg = "Customer number is not valid or has not been validated";
-      this.showModal = true;
     } else if (
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
@@ -77,9 +70,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       );
       this.loading = false;
     } else {
-      this.showModal = false;
       this.loading = true;
-
       const inputs = {
         Case: this.omniJsonData.Case,
         Response:
