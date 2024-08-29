@@ -37,6 +37,10 @@ public with sharing class GetHelpConstants {
     .get('ANZx_Complaint')
     .getRecordTypeId();
 
+  public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Customer_Complaint')
+    .getRecordTypeId();
+
   //Case - ANZx Fraud Case RT Ids
   public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Fraud')

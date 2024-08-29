@@ -841,6 +841,7 @@
         "SI_COR_ID_Record__c",
         "SI_Relevant_Tribes__c",
         "SI_Key_Business_Contacts__c",
+        "SI_Assigned_BU_Contact__c",
         "SI_Key_Tribes_BU_s__c",
         "SI_LRK_Category__c",
         "SI_Lead_Portfolio__c",
@@ -868,6 +869,7 @@
         "IDR_Final_Letter_Outcome__c",
         "IDR_Hardship_Status__c",
         "IDR_Hardship_Response_updated_on__c",
+        "CAD_Outcome__c",
         "IDR_Is_Hardship_Resolution_Letter_Sent__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Progressed_Status__c",
@@ -1118,7 +1120,9 @@
         "My_extended_team_s_cases__c",
         "AFCA_Stage__c",
         "Date_time_Registration_Response_Provided__c",
-        "IDR_Complaint_Outcome_Offered__c"
+        "IDR_Complaint_Outcome_Offered__c",
+        "IDR_Completed_Evaluations__c",
+        "IDR_Date_time_Progressed_Status_selected__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
