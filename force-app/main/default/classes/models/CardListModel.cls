@@ -1,15 +1,17 @@
 /**
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  */
-@SuppressWarnings(
-  'PMD.ExcessivePublicCount, PMD.FieldNamingConventions, PMD.VariableNamingConventions, PMD.TooManyFields, PMD.PropertyNamingConventions'
-)
+@SuppressWarnings('PMD.FieldNamingConventions')
 /**
  * @author Lance Shi
  * @since April 2021
  * @description Model for card list API
  */
 public with sharing class CardListModel extends CalloutModel {
+  public static final Set<String> VALID_WALLET_CARD_STATUSES = new Set<String>{
+    'CARD_STATUS_CODE_ISSUED',
+    'CARD_STATUS_CODE_TEMPORARYBLOCK'
+  };
   @AuraEnabled
   public List<CardCls> cards;
 
@@ -21,6 +23,18 @@ public with sharing class CardListModel extends CalloutModel {
     public DateCls year;
     @AuraEnabled
     public DateCls month;
+  }
+
+  /**
+   * @description the card information wrapper
+   */
+  public class FormattedDate {
+    @AuraEnabled
+    public DateCls year;
+    @AuraEnabled
+    public DateCls month;
+    @AuraEnabled
+    public DateCls day;
   }
 
   /**
@@ -47,6 +61,17 @@ public with sharing class CardListModel extends CalloutModel {
     public ExpiryDateCls expiry_date;
     @AuraEnabled
     public List<String> account_numbers;
+    @AuraEnabled
+    public FormattedDate card_issue_date;
+    @AuraEnabled
+    public String delivery_status;
+    @AuraEnabled
+    public CardListModelV1.DeliveryDate delivery_date;
+
+    /**
+     * @description concate account numbers and show on card details screen
+     */
+    // ANZX-128122 : Show Account Numbers on Card Details section.
     /**
      * @description concate account numbers and show on card details screen
      */
@@ -54,13 +79,10 @@ public with sharing class CardListModel extends CalloutModel {
     @AuraEnabled
     public String concatAccountNumber {
       get {
-        String accountNumbers;
-        if (this.account_numbers != null && !this.account_numbers.isEmpty()) {
-          accountNumbers = (this.account_numbers.size() > 0)
-            ? String.join(this.account_numbers, ',')
-            : this.account_numbers[0];
+        if (!this.account_numbers.isEmpty()) {
+          return String.join(this.account_numbers, ',');
         }
-        return accountNumbers;
+        return null;
       }
       set;
     }
@@ -103,19 +125,18 @@ public with sharing class CardListModel extends CalloutModel {
     @AuraEnabled
     public List<String> walletList {
       get {
-        List<String> wList = new List<String>();
-        if (wallets != null && !wallets.isEmpty()) {
-          for (String key : this.wallets.keySet()) {
-            if (this.wallets.get(key) != 0) {
-              String keyStr = key;
-              if (keyStr != 'eCommerce') {
-                keyStr = keyStr.capitalize();
-              }
-              wList.add(keyStr + ' - ' + this.wallets.get(key));
-            }
-          }
+        List<String> listOfCapitalizedWallets = new List<String>();
+        if (wallets == null || wallets.isEmpty()) {
+          return new List<String>();
         }
-        return wList;
+        for (String key : this.wallets.keySet()) {
+          if (this.wallets.get(key) == 0) {
+            continue;
+          }
+          String keyStr = key != 'eCommerce' ? key.capitalize() : key;
+          listOfCapitalizedWallets.add(keyStr + ' - ' + this.wallets.get(key));
+        }
+        return listOfCapitalizedWallets;
       }
       set;
     }
@@ -126,15 +147,8 @@ public with sharing class CardListModel extends CalloutModel {
     @AuraEnabled
     public Boolean hasWallet {
       get {
-        if (
-          !walletList.isEmpty() &&
-          (status == 'Issued' ||
-          status == 'Temporary Block')
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+        return !walletList.isEmpty() &&
+          VALID_WALLET_CARD_STATUSES.contains(status);
       }
       set;
     }
@@ -144,74 +158,10 @@ public with sharing class CardListModel extends CalloutModel {
      */
     public Boolean hasControlsEnabled {
       get {
-        if (
-          this.card_controls_enabled != null &&
-          this.card_controls_enabled == true
-        ) {
-          return true;
-        } else {
-          return false;
-        }
+        return this.card_controls_enabled != null &&
+          this.card_controls_enabled == true;
       }
       set;
     }
-  }
-
-  /**
-   * @param cardmodel deserialized card model
-   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
-   * @return `CardListModel` return the cardlistmodel with accountType field updated
-   * @description This method updates the accountype field in the cardlistmodel
-   */
-  public static CardListModel updateAccountType(
-    CardListModel cardmodel,
-    Map<String, String> mapOfAccountNumberAndOwnership
-  ) {
-    List<CardCls> listOfCards = cardmodel.cards;
-    for (CardCls card : listOfCards) {
-      setAccountTypeOnEachCardCls(card, mapOfAccountNumberAndOwnership);
-    }
-    return cardmodel;
-  }
-
-  /**
-   * @param card Card Model object
-   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
-   * @description Sets accountType for each card data.
-   */
-  private static void setAccountTypeOnEachCardCls(
-    CardCls card,
-    Map<String, String> mapOfAccountNumberAndOwnership
-  ) {
-    if (card.account_numbers == null || card.account_numbers.isEmpty()) {
-      return;
-    }
-    for (String accnumber : card.account_numbers) {
-      if (mapOfAccountNumberAndOwnership.containsKey(accnumber)) {
-        card.accountType = mapOfAccountNumberAndOwnership.get(accnumber) ==
-          GetHelpConstants.MULTI_PARTY
-          ? GetHelpConstants.JOINT
-          : GetHelpConstants.SINGLE;
-        break;
-      }
-    }
-  }
-
-  /**
-   * @param json input string to deserialize
-   * @param mapOfAccountNumberAndOwnership input map of account number and ownership
-   * @return `CardListModel`
-   * @description deserializes the input string into the model, using the base method and reserved key replacement
-   */
-  public static CardListModel parse(
-    String json,
-    Map<String, String> mapOfAccountNumberAndOwnership
-  ) {
-    CardListModel cardmodel = (CardListModel) deserialize(
-      json,
-      CardListModel.class
-    );
-
-    return updateAccountType(cardmodel, mapOfAccountNumberAndOwnership);
   }
 }
