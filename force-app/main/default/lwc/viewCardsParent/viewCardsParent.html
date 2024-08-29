@@ -1,0 +1,77 @@
+<template>
+  <lightning-card class="customAccordian">
+    <div class="slds-box slds-var-m-around_large">
+      <template lwc:if={loading}>
+        <article class="slds-card slds-m-bottom_small">
+          <div class="slds-align_absolute-center" style="height: 4rem">
+            <div role="status" class="slds-spinner_inline">
+              <lightning-spinner
+                alternative-text="Loading"
+                variant="brand"
+              ></lightning-spinner>
+            </div>
+          </div>
+        </article>
+      </template>
+      <template lwc:else>
+        <template lwc:if={cardHasError}>
+          <template lwc:if={hasPermissionIssue}>
+            <c-error permission-issue={hasPermissionIssue}></c-error>
+          </template>
+          <template lwc:else>
+            <c-error message={errorMsg}></c-error>
+          </template>
+        </template>
+        <template lwc:else>
+          <template lwc:if={showNoCardsMessage}>
+            <article class="slds-card componentMargin">
+              <h1 class="slds-card__header-title main-title">
+                <span data-id="nocards">{noActiveCardMessage}</span>
+              </h1>
+            </article>
+          </template>
+          <template lwc:else>
+            <lightning-accordion
+              allow-multiple-sections-open
+              active-section-name="activeCards"
+            >
+              <template lwc:if={noActiveCards}>
+                <div class="slds-p-bottom_medium">
+                  <p class="slds-text-title_bold" data-id="noactivecard">
+                    {noActiveCardMessage}
+                  </p>
+                </div>
+              </template>
+              <template lwc:else>
+                <lightning-accordion-section
+                  label="Active Cards"
+                  name="activeCards"
+                  data-id="activeCardsSection"
+                >
+                  <c-view-cards
+                    is-active-card-section="true"
+                    cards-from-parent={activeCardList}
+                    onrefreshcarddetails={refreshCardDetails}
+                  ></c-view-cards>
+                </lightning-accordion-section>
+              </template>
+              <template lwc:if={showClosedCardsSection}>
+                <lightning-accordion-section
+                  class="slds-var-m-top_medium"
+                  label="Closed Cards"
+                  name="closedCards"
+                  data-id="closeCardsSection"
+                >
+                  <c-view-cards
+                    is-active-card-section="false"
+                    cards-from-parent={closedCardList}
+                  ></c-view-cards>
+                </lightning-accordion-section>
+              </template>
+            </lightning-accordion>
+          </template>
+        </template>
+      </template>
+    </div>
+  </lightning-card>
+</template>
