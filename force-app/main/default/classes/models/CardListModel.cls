@@ -72,10 +72,6 @@ public with sharing class CardListModel extends CalloutModel {
      * @description concate account numbers and show on card details screen
      */
     // ANZX-128122 : Show Account Numbers on Card Details section.
-    /**
-     * @description concate account numbers and show on card details screen
-     */
-    // ANZX-128122 : Show Account Numbers on Card Details section.
     @AuraEnabled
     public String concatAccountNumber {
       get {

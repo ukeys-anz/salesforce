@@ -27,13 +27,13 @@ public with sharing class CardListModelConverterTest {
   }
 
   @isTest
-  static void testSetAccountTypeOfCard() {
+  static void testGetAccountTypeOfCard() {
     List<String> listOfAccountNumbers = new List<String>{
       '390992614',
       '390992615'
     };
     Test.startTest();
-    String updatedAccoutType = CardListModelConverter.setAccountTypeOfCard(
+    String updatedAccoutType = CardListModelConverter.getAccountTypeOfCard(
       listOfAccountNumbers,
       MAP_OF_ACCOUNT_NUMBER_AND_OWNERSHIP
     );

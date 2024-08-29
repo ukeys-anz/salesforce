@@ -37,20 +37,8 @@ export function updateCardFields(cards) {
   cards.forEach((card) => {
     card.status = STATUS_MAP.get(card.status);
     card.eligibilities = updateEligibilityValues(card.eligibilities);
-    card.cardIssueDate =
-      card.card_issue_date.day.value +
-      "/" +
-      card.card_issue_date.month.value +
-      "/" +
-      card.card_issue_date.year.value;
-    card.delivery_status =
-      DELIVERYSTATUS_MAP.get(card.delivery_status) +
-      " " +
-      card.delivery_date.day +
-      "/" +
-      card.delivery_date.month +
-      "/" +
-      card.delivery_date.year;
+    card.cardIssueDate = getCardIssueDate(card);
+    card.delivery_status = getDeliveryStatus(card);
   });
   return cards;
 }
@@ -59,5 +47,33 @@ function updateEligibilityValues(listOfEligibilities) {
   // retains the values of those eligibilities which is not defined in ELIGIBILITY_MAP
   return listOfEligibilities.map(
     (eachEligibility) => ELIGIBILITY_MAP.get(eachEligibility) || eachEligibility
+  );
+}
+
+function getCardIssueDate(card) {
+  if (card.card_issue_date === undefined) {
+    return null;
+  }
+  return (
+    card.card_issue_date.day.value +
+    "/" +
+    card.card_issue_date.month.value +
+    "/" +
+    card.card_issue_date.year.value
+  );
+}
+
+function getDeliveryStatus(card) {
+  if (card.delivery_date === undefined) {
+    return null;
+  }
+  return (
+    DELIVERYSTATUS_MAP.get(card.delivery_status) +
+    " " +
+    card.delivery_date.day +
+    "/" +
+    card.delivery_date.month +
+    "/" +
+    card.delivery_date.year
   );
 }

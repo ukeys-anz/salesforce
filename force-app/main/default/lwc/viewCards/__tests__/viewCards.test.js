@@ -32,7 +32,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_SUCCESS;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
     await flushPromises();
@@ -56,7 +56,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_LOAD_MORE_SUCCESS;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
     await flushPromises();
 
@@ -72,7 +72,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_SUCCESS;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
     await flushPromises();
 
@@ -498,7 +498,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_SUCCESS;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
     await flushPromises();
@@ -536,7 +536,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_INACTIVE;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
     await flushPromises();
@@ -550,7 +550,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_SUCCESS;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
     await flushPromises();
@@ -566,7 +566,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
     await flushPromises();
@@ -582,7 +582,7 @@ describe("c-view-cards", () => {
       is: ViewCards
     });
     element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
-    element.isActiveCardSection = true;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
     await flushPromises();
@@ -602,5 +602,21 @@ describe("c-view-cards", () => {
     await flushPromises();
     let status = element.shadowRoot.querySelector(".status");
     expect(status).toBeFalsy();
+  });
+
+  it("29. tests delivery status of activated card", async () => {
+    const element = createElement("c-view-cards", {
+      is: ViewCards
+    });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
+    document.body.appendChild(element);
+
+    await flushPromises();
+
+    let deliveryStatus = element.shadowRoot.querySelector(
+      "p[data-test-id='deliveryStatus']"
+    );
+    expect(deliveryStatus.textContent).toBe("Delivered 03/11/2023");
   });
 });

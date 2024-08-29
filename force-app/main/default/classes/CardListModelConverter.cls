@@ -32,7 +32,7 @@ public with sharing class CardListModelConverter {
       destCard.wallets = sourceCard.wallets;
       destCard.delivery_status = sourceCard?.tracking?.state;
       destCard.delivery_date = sourceCard?.tracking?.stateReportedDate;
-      destCard.accountType = setAccountTypeOfCard(
+      destCard.accountType = getAccountTypeOfCard(
         destCard.account_numbers,
         mapOfAccountNumberAndOwnership
       );
@@ -66,20 +66,18 @@ public with sharing class CardListModelConverter {
    * @description Sets accountType for each card data.
    */
   @TestVisible
-  private static String setAccountTypeOfCard(
+  private static String getAccountTypeOfCard(
     List<String> lisOfAccountNumbers,
     Map<String, String> mapOfAccountNumberAndOwnership
   ) {
-    String accountType;
     for (String accnumber : lisOfAccountNumbers) {
       if (mapOfAccountNumberAndOwnership.containsKey(accnumber)) {
-        accountType = mapOfAccountNumberAndOwnership.get(accnumber) ==
+        return mapOfAccountNumberAndOwnership.get(accnumber) ==
           FinancialAccountConstant.MULTI_PARTY
           ? FinancialAccountConstant.JOINT
           : FinancialAccountConstant.SOLE;
-        break;
       }
     }
-    return accountType;
+    return null;
   }
 }

@@ -88,7 +88,7 @@ public with sharing class FabricService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
-
+    headers.put('Content-Type', 'application/json');
     HttpCalloutResponse response = calloutService.makeRestCallout(
       Label.MS_Get_Cards,
       HTTP_METHOD.HTTP_GET,

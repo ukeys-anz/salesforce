@@ -465,7 +465,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>callout:SF_MS_CH2/coach-banking/v1/listCards</value>
+        <value>callout:SF_MS_CH2/list-data/v1/listCards</value>
     </labels>
     <labels>
         <fullName>MS_Get_Card_Control_List</fullName>
