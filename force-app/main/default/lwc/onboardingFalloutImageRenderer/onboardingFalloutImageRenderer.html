@@ -7,52 +7,23 @@
       ></lightning-spinner>
     </div>
   </template>
-  <template lwc:if={currentFileType.stopSpinner}>
-    <div class="slds-col slds-size_1-of-1 slds-wrap">
-      <template lwc:if={currentFileType.isImageFinalVersion}>
-        <template lwc:if={showRedBorder}>
-          <img
-            src={currentFileType.imageURL}
-            class="borderRed"
-            oncontextmenu={disableRightClick}
-            onload={handleImageLoad}
-          />
-        </template>
-        <template lwc:else>
-          <img
-            src={currentFileType.imageURL}
-            oncontextmenu={disableRightClick}
-            class="imgCSS"
-            onload={handleImageLoad}
-          />
-        </template>
-      </template>
-      <template lwc:else>
-        <img
-          src={errorImage}
-          oncontextmenu={disableRightClick}
-          class="imgCSS"
-          onload={handleImageLoad}
-        />
-        <template lwc:if={showErrorMessage}>
-          <div class="slds-text-align_center">
-            <lightning-icon
-              icon-name="utility:warning"
-              alternative-text="Warning!"
-              title="Warning"
-            ></lightning-icon>
-            Image not found
-          </div>
-        </template>
-      </template>
-    </div>
-  </template>
-  <template lwc:else>
-    <div class="slds-col slds-size_1-of-1 slds-wrap spinnerHolder">
-      <lightning-spinner
-        alternative-text="Loading"
-        variant="brand"
-      ></lightning-spinner>
-    </div>
+  <template lwc:if={imgSrc}>
+    <img
+      src={imgSrc}
+      oncontextmenu={disableRightClick}
+      class={imgClass}
+      onload={handleImageLoad}
+      onerror={handleErrorLoad}
+    />
+    <template lwc:if={showError}>
+      <div class="slds-text-align_center">
+        <lightning-icon
+          icon-name="utility:warning"
+          alternative-text="Warning!"
+          title="Warning"
+        ></lightning-icon>
+        Image not found
+      </div>
+    </template>
   </template>
 </template>
