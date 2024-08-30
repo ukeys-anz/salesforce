@@ -7,9 +7,9 @@
     <externalDeveloperName>DaysDelinquent</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>Number of days repayments were late</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Days Delinquent</label>
     <precision>18</precision>
     <required>false</required>

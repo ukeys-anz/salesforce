@@ -12,19 +12,11 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Confirmed Fraud</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Potential Fraud</fullName>
+        <fullName>Closed - Selfie Not Matched</fullName>
         <default>false</default>
     </values>
     <values>
         <fullName>Recovery Failed</fullName>
         <default>true</default>
-    </values>
-    <values>
-        <fullName>Selfie Not Matched</fullName>
-        <default>false</default>
     </values>
 </BusinessProcess>

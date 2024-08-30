@@ -25,10 +25,18 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
-    AutoKYCQACaseActions.populateClosedNoDefectDefaults(records, null);
+    //validations
+    AutoKYCQACaseActions.validateCobExist(records);
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerAccount(records);
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerCOBApp(records);
-    AutoKYCQACaseActions.setKYCQAFields(records);
+
+    //populate fields
+    List<Case> validCases = ListUtil.filter(records).noError().toList();
+    AutoKYCQACaseActions.populateAutoKYCQAChecks(validCases);
+    AutoKYCQACaseActions.populateClosedNoDefectDefaults(
+      validCases,
+      new Map<Id, Case>()
+    );
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -39,11 +47,16 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     Logger.debug('On_Before_Update started: ' + System.now());
+    //validations
+    AutoKYCQACaseActions.validateOwnerChange(records, (Map<Id, Case>) oldMap);
+
+    //populate fields
+    List<Case> validCases = ListUtil.filter(records).noError().toList();
     AutoKYCQACaseActions.populateClosedNoDefectDefaults(
-      records,
+      validCases,
       (Map<Id, Case>) oldMap
     );
-    AutoKYCQACaseActions.updateTestedDate(records);
+    AutoKYCQACaseActions.updateTestedDate(validCases);
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }

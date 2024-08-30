@@ -124,39 +124,72 @@ export default class FlexTestComponent extends FlexCardMixin(LightningElement) {
     return [
       {
         type: "Savings",
-        TotalAmount: this.savingsTotalAmount,
+        TotalAmount: this.handleTotalAmountFormat(
+          this.savingsTotalAmount,
+          this._statusSavingAccount1,
+          this._statusSavingAccount2
+        ),
         imgsrc: this.savingsLogo,
         firstUserStatus: this._statusSavingAccount1,
         secondUserStatus: this._statusSavingAccount2
       },
       {
         type: "Assets",
-        TotalAmount: this.assetTotalAmount,
+        TotalAmount: this.handleTotalAmountFormat(
+          this.assetTotalAmount,
+          this._statusAssetAccount1,
+          this._statusAssetAccount2
+        ),
         imgsrc: this.assetLogo,
         firstUserStatus: this._statusAssetAccount1,
         secondUserStatus: this._statusAssetAccount2
       },
       {
         type: "Debts",
-        TotalAmount: this.debtTotalAmount,
+        TotalAmount: this.handleTotalAmountFormat(
+          this.debtTotalAmount,
+          this._statusdebtAccount1,
+          this._statusdebtAccount2
+        ),
         imgsrc: this.debtLogo,
         firstUserStatus: this._statusdebtAccount1,
         secondUserStatus: this._statusdebtAccount2
       },
       {
         type: "Income",
-        TotalAmount: this.incomeTotalAmount,
+        TotalAmount: this.handleTotalAmountFormat(
+          this.incomeTotalAmount,
+          this._statusIncomeAccount1,
+          this._statusIncomeAccount2
+        ),
         imgsrc: this.incomeLogo,
         firstUserStatus: this._statusIncomeAccount1,
         secondUserStatus: this._statusIncomeAccount2
       },
       {
         type: "Spending",
-        TotalAmount: this.expenseTotalAmount,
+        TotalAmount: this.handleTotalAmountFormat(
+          this.expenseTotalAmount,
+          this._statusExpenseAccount1,
+          this._statusExpenseAccount2
+        ),
         imgsrc: this.expenseLogo,
         firstUserStatus: this._statusExpenseAccount1,
         secondUserStatus: this._statusExpenseAccount2
       }
     ];
+  }
+
+  handleTotalAmountFormat(total, firstApplicantStatus, secondApplicantStatus) {
+    //Don't show total if value is unconfirmed by applicants and is 0
+    if (
+      !firstApplicantStatus &&
+      !secondApplicantStatus &&
+      (!total || total === "0")
+    ) {
+      return "";
+    }
+
+    return total;
   }
 }

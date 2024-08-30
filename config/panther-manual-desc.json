@@ -683,7 +683,10 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Review_Date__c",
+        "Segment_Type__c",
+        "Source_System_Identifier__c"
       ],
       "IA-2415984": [
         "Name",
@@ -693,9 +696,12 @@
         "Customer__c",
         "Opportunity__c",
         "Personal_Banking__c",
-        "Transaction_Banking__c"
+        "Transaction_Banking__c",
+        "CLG_Number__c",
+        "CPID__c",
+        "Customer_Number__c"
       ],
-      "IA-2423278": ["OwnerId"]
+      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1098,6 +1104,7 @@
         "Submitted_Time__c",
         "Target_SLA_Date__c",
         "Transaction_Status__c",
+        "Transaction_Method__c",
         "Type",
         "What_Customer_was_Trying_to_Do__c",
         "Goods_Or_Services_Returned__c",
@@ -2222,7 +2229,7 @@
       ]
     },
     "FinServ__AccountAccountRelation__c": {
-      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
       "IA-2453350": ["External_Id__c"],
       "IA-2460507": ["FinServ__Role__c"],
       "IA-2530753": [
@@ -2230,7 +2237,8 @@
         "FinServ__Active__c",
         "FinServ__EndDate__c",
         "FinServ__StartDate__c",
-        "System_Individual_Relationship__c"
+        "System_Individual_Relationship__c",
+        "CPID__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
@@ -2261,7 +2269,8 @@
       "IA-2468715": [
         "Customer_Type__c",
         "Customer_SourceSystemId__c",
-        "OCV_ID__c"
+        "OCV_ID__c",
+        "Relationship__c"
       ],
       "IA-2530753": [
         "CreatedById",
@@ -2269,7 +2278,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "CPID__c"
       ],
       "IA-2594111": [
         "Broker__c",
@@ -2900,7 +2910,8 @@
         "Loan_Applicant_Group__c",
         "Party_ID__c",
         "Name",
-        "Application_Number__c"
+        "Application_Number__c",
+        "LoanApplicationId"
       ],
       "IA-2415720": ["Customer_Number__c"],
       "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
@@ -4303,7 +4314,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2594109": ["Call_Transcript__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],

@@ -9,7 +9,7 @@ public with sharing class AutoKYCQACaseRepository {
    * @param personaIds set of persona Ids
    * @return List<CustomerOnboardingApplication__c> list of COBs
    */
-  public List<CustomerOnboardingApplication__c> queryCOBByPersonaId(
+  public List<CustomerOnboardingApplication__c> queryCobsByPersonaIds(
     Set<String> personaIds
   ) {
     if (
@@ -19,30 +19,9 @@ public with sharing class AutoKYCQACaseRepository {
       return new List<CustomerOnboardingApplication__c>();
     }
     return [
-      SELECT PersonaId__c, VerificationType__c
-      FROM CustomerOnboardingApplication__c
-      WHERE PersonaId__c IN :personaIds
-    ];
-  }
-
-  /**
-   * @description Get list of COBs with COBPID By persona Ids
-   * @param personaIds set of persona Ids
-   * @return List<CustomerOnboardingApplication__c> list of COBs with COBPID
-   */
-  public List<CustomerOnboardingApplication__c> queryCOBWithPIDByPersonaId(
-    Set<String> personaIds
-  ) {
-    if (
-      personaIds.isEmpty() ||
-      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false ||
-      SObjectType.COBPrimaryIDDocument__c.isQueryable() == false
-    ) {
-      return new List<CustomerOnboardingApplication__c>();
-    }
-    return [
       SELECT
         PersonaId__c,
+        VerificationType__c,
         (
           SELECT
             Id,
@@ -65,36 +44,11 @@ public with sharing class AutoKYCQACaseRepository {
           FROM COBPrimaryIDDocuments__r
           ORDER BY CreatedDate DESC
           LIMIT 1
-        )
-      FROM CustomerOnboardingApplication__c
-      WHERE PersonaId__c IN :personaIds
-    ];
-  }
-
-  /**
-   * @description Get list of COBs with COBAddress By persona Ids
-   * @param personaIds set of persona Ids
-   * @param addressType address type
-   * @return List<CustomerOnboardingApplication__c> list of COBs with COBAddress
-   */
-  public List<CustomerOnboardingApplication__c> queryCOBWithCOBAddressByAddresTypeAndPersonaId(
-    Set<String> personaIds,
-    String addressType
-  ) {
-    if (
-      personaIds.isEmpty() ||
-      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false ||
-      SObjectType.COBAddress__c.isQueryable() == false
-    ) {
-      return new List<CustomerOnboardingApplication__c>();
-    }
-    return [
-      SELECT
-        PersonaId__c,
+        ),
         (
           SELECT Id, CustomerOnboardingApplication__c, QASAddress__c
           FROM COBAddresses__r
-          WHERE AddressType__c = :addressType
+          WHERE AddressType__c = 'Current'
           ORDER BY CreatedDate DESC
           LIMIT 1
         )
@@ -180,6 +134,34 @@ public with sharing class AutoKYCQACaseRepository {
    */
   public List<Account> queryExitedAccountsByOcvIds(Set<String> ocvIds) {
     return new SystemAction().queryExitedAccountsByOcvIds(ocvIds);
+  }
+
+  /**
+   * @description Queries Customer Onboarding Applications with the latest ID Ops Assistance Case.
+   * @param cobIds A set of Customer Onboarding Application record IDs.
+   * @return A list of Customer Onboarding Application records with the latest ID Ops Assistance Case.
+   */
+  public List<CustomerOnboardingApplication__c> queryCobsWithLatestIdOpsCase(
+    Set<Id> cobIds
+  ) {
+    if (
+      cobIds.isEmpty() ||
+      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false
+    ) {
+      return new List<CustomerOnboardingApplication__c>();
+    }
+    return [
+      SELECT
+        (
+          SELECT OwnerId
+          FROM Cases__r
+          WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+          ORDER BY LastModifiedDate DESC
+          LIMIT 1
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE Id IN :cobIds
+    ];
   }
 
   /**

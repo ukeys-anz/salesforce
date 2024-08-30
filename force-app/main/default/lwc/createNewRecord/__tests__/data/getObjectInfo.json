@@ -1,0 +1,184 @@
+{
+  "012000000000000AAA": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": true,
+    "name": "Master",
+    "recordTypeId": "012000000000000AAA"
+  },
+  "0122P0000004OSeQAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Fraud",
+    "recordTypeId": "0122P0000004OSeQAM"
+  },
+  "0122P0000004OSfQAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Identity",
+    "recordTypeId": "0122P0000004OSfQAM"
+  },
+  "0122P0000004OSgQAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "KYC QA",
+    "recordTypeId": "0122P0000004OSgQAM"
+  },
+  "0122P0000004OShQAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Recipient/Mule",
+    "recordTypeId": "0122P0000004OShQAM"
+  },
+  "0122P0000004OSiQAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Scam",
+    "recordTypeId": "0122P0000004OSiQAM"
+  },
+  "0122P0000004OxiQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "ANZ Plus Complaint",
+    "recordTypeId": "0122P0000004OxiQAE"
+  },
+  "0122P0000004OxjQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "ATM",
+    "recordTypeId": "0122P0000004OxjQAE"
+  },
+  "0122P0000004OxkQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Card",
+    "recordTypeId": "0122P0000004OxkQAE"
+  },
+  "0122P0000004OxlQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Direct Debit",
+    "recordTypeId": "0122P0000004OxlQAE"
+  },
+  "0122P0000004OxmQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Direct Entry",
+    "recordTypeId": "0122P0000004OxmQAE"
+  },
+  "0122P0000004PyqQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Systemic Issue",
+    "recordTypeId": "0122P0000004PyqQAE"
+  },
+  "0122P0000004QemQAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "CFMS Migrated Case",
+    "recordTypeId": "0122P0000004QemQAE"
+  },
+  "0122P0000004QenQAE": {
+    "available": false,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Unauthenticated Enquiry",
+    "recordTypeId": "0122P0000004QenQAE"
+  },
+  "0122P0000004QqOQAU": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "NPP",
+    "recordTypeId": "0122P0000004QqOQAU"
+  },
+  "0122P0000004RLcQAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Customer Feedback",
+    "recordTypeId": "0122P0000004RLcQAM"
+  },
+  "0122P0000004RhTQAU": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "BPAY",
+    "recordTypeId": "0122P0000004RhTQAU"
+  },
+  "0122P0000004SC2QAM": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Account Closure",
+    "recordTypeId": "0122P0000004SC2QAM"
+  },
+  "0124Y000000I03PQAS": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Fraud Check",
+    "recordTypeId": "0124Y000000I03PQAS"
+  },
+  "0124Y000000I24rQAC": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "ID Ops Assistance",
+    "recordTypeId": "0124Y000000I24rQAC"
+  },
+  "0125m0000004Jm5AAE": {
+    "available": true,
+    "defaultRecordTypeMapping": true,
+    "master": false,
+    "name": "Customer Complaint",
+    "recordTypeId": "0125m0000004Jm5AAE"
+  },
+  "0125m0000004Jm6AAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "General Enquiry",
+    "recordTypeId": "0125m0000004Jm6AAE"
+  },
+  "0125m0000004Jm7AAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Non-Customer Complaint",
+    "recordTypeId": "0125m0000004Jm7AAE"
+  },
+  "0128r000000aN69AAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "False Customer Profile",
+    "recordTypeId": "0128r000000aN69AAE"
+  },
+  "0128r000000sR3FAAU": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Credit Referral",
+    "recordTypeId": "0128r000000sR3FAAU"
+  },
+  "0128r0000014YddAAE": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Profile Update",
+    "recordTypeId": "0128r0000014YddAAE"
+  }
+}

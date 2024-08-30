@@ -6,9 +6,9 @@
     <description>Max credit limit</description>
     <externalDeveloperName>CreditLimit</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Limit  ($)</label>
     <precision>18</precision>
     <required>false</required>

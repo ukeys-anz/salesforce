@@ -75,17 +75,15 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             });
           }
 
-          finAccount.lastModifiedTimestamp = this.handleLastModifiedTimestamp(
-            finAccount
-          );
+          finAccount.lastModifiedTimestamp =
+            this.handleLastModifiedTimestamp(finAccount);
           finAccount.accountActive = this.handleAccountActive(finAccount.state);
           finAccount.loanTerm = this.handleLoanTerm(finAccount);
           finAccount.nextRepayment = this.handleNextRepayment(finAccount);
           finAccount.repaymentType = this.handleRepaymentType(finAccount);
           finAccount.settlementDate = this.handleSettlementDate(finAccount);
-          finAccount.repaymentFrequency = this.handleRepaymentFrequency(
-            finAccount
-          );
+          finAccount.repaymentFrequency =
+            this.handleRepaymentFrequency(finAccount);
           finAccount.rateType = this.handleRateType(finAccount);
         });
 

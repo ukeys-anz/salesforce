@@ -3,8 +3,8 @@
     const navService = component.find("navService");
     let recordTypeId = component.get("v.pageReference").state.recordTypeId;
     if (typeof recordTypeId === undefined) {
-      const base64Context = component.get("v.pageReference").state
-        .inContextOfRef;
+      const base64Context =
+        component.get("v.pageReference").state.inContextOfRef;
       if (base64Context.startsWith("1. ")) {
         base64Context = base64Context.substring(2);
       }

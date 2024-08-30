@@ -6,9 +6,9 @@
     <description>Date modified </description>
     <externalDeveloperName>ModifiedDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Modified Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

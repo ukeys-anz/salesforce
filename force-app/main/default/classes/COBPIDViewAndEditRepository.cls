@@ -58,7 +58,7 @@ public with sharing class COBPIDViewAndEditRepository {
    * @return `Case` the ID Ops Case
    */
   public Case getIdOpsCase(COBPrimaryIDDocument__c record) {
-    List<Case> idOpsCases = [
+    return [
       SELECT Id
       FROM Case
       WHERE
@@ -67,8 +67,6 @@ public with sharing class COBPIDViewAndEditRepository {
       WITH USER_MODE
       ORDER BY LastModifiedDate DESC
       LIMIT 1
-    ];
-
-    return !idOpsCases.isEmpty() ? idOpsCases[0] : null;
+    ] ?? null;
   }
 }

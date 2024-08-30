@@ -987,61 +987,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>Fraud_Funds_from_Institution__c</picklist>
-        <values>
-            <fullName>ANZc</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZx</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bank of Melbourne</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bank of Queensland</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bankwest</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bendigo</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Commonwealth Bank</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ING</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ME Bank</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>National Australia Bank</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>St%2E George</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Westpac</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Fraud_Funds_to_Channel__c</picklist>
         <values>
             <fullName>ATM</fullName>
@@ -1876,61 +1821,6 @@
         </values>
         <values>
             <fullName>Zimbabwe</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
-        <picklist>Fraud_Funds_to_Institution__c</picklist>
-        <values>
-            <fullName>ANZc</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ANZx</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bank of Melbourne</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bank of Queensland</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bankwest</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bendigo</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Commonwealth Bank</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ING</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ME Bank</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>National Australia Bank</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>St%2E George</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Westpac</fullName>
             <default>false</default>
         </values>
     </picklistValues>

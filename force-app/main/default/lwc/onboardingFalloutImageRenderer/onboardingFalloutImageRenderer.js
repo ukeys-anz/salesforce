@@ -11,10 +11,11 @@ export default class OnboardingFalloutImageRenderer extends LightningElement {
     event.preventDefault();
   }
 
-  get cssClass() {
-    return (
-      "slds-col slds-size_1-of-1 slds-wrap imgContainer" +
-      (this.changeStyle ? "Cases" : "")
-    );
+  showSpinner = true;
+  showErrorMessage = false;
+
+  handleImageLoad() {
+    this.showSpinner = false;
+    this.showErrorMessage = true;
   }
 }

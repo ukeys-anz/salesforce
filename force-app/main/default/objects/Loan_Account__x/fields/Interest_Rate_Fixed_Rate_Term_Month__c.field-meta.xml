@@ -6,9 +6,9 @@
     <description>Interest Rate - Fixed Rate Term (Month)</description>
     <externalDeveloperName>FixedRateTermMonth</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Fixed Rate Term (Month)</label>
     <precision>18</precision>
     <required>false</required>

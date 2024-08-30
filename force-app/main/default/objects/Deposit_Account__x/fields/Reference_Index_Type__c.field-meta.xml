@@ -6,9 +6,9 @@
     <description>The index type which will be the base interest rate (reference index rate)</description>
     <externalDeveloperName>ReferenceIndexType</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Debit Reference Index Type</label>
     <length>255</length>
     <required>false</required>

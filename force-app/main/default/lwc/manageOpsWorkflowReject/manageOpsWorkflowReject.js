@@ -71,19 +71,21 @@ export default class ManageOpsWorkflowReject extends LightningModal {
       ];
     } else if (this.options?.isPinWorkFlow && !this.onboardingWorkflow) {
       this.actionName = "OVERRIDE_GENERAL_REJECT";
-      this.statusValue = "Selfie Not Matched";
+      this.statusValue = "Closed - Selfie Not Matched";
       this.optionVal = [
-        { label: "Selfie Not Matched", value: "Selfie Not Matched" },
-        { label: "Potential Fraud", value: "Potential Fraud" },
-        { label: "Confirmed Fraud", value: "Confirmed Fraud" }
+        {
+          label: "Closed - Selfie Not Matched",
+          value: "Closed - Selfie Not Matched"
+        }
       ];
     } else {
       this.actionName = "OVERRIDE_SELFIE_REJECT";
-      this.statusValue = "Selfie Not Matched";
+      this.statusValue = "Closed - Selfie Not Matched";
       this.optionVal = [
-        { label: "Selfie Not Matched", value: "Selfie Not Matched" },
-        { label: "Potential Fraud", value: "Potential Fraud" },
-        { label: "Confirmed Fraud", value: "Confirmed Fraud" }
+        {
+          label: "Closed - Selfie Not Matched",
+          value: "Closed - Selfie Not Matched"
+        }
       ];
     }
   }
@@ -133,16 +135,16 @@ export default class ManageOpsWorkflowReject extends LightningModal {
       return;
     }
     this.showSpinner = true;
-    let data = {
+    let requestedPaylodAPI = {
       case_id: this.options?.caseId,
       case_comments: this.comments,
       workflow_id: this.options?.workflowId,
       action: this.actionName
     };
     if (this.onboardingWorkflow) {
-      this.updateCaseStatusOnboarding(data);
+      this.updateCaseStatusOnboarding(requestedPaylodAPI);
     } else {
-      this.updateCaseStatusPinAndSelfie(data);
+      this.updateCaseStatusPinAndSelfie(requestedPaylodAPI);
     }
   }
 
@@ -155,10 +157,10 @@ export default class ManageOpsWorkflowReject extends LightningModal {
       })
     );
   }
-  updateCaseStatusPinAndSelfie(data) {
+  updateCaseStatusPinAndSelfie(requestedPaylodAPI) {
     updateCaseStatusPinAndSelfie({
       idValue: this.options?.IdValue,
-      manageOpsRequest: data,
+      manageOpsRequest: requestedPaylodAPI,
       status: this.statusValue
     })
       .then((result) => {
@@ -178,7 +180,7 @@ export default class ManageOpsWorkflowReject extends LightningModal {
       });
   }
 
-  updateCaseStatusOnboarding(data) {
+  updateCaseStatusOnboarding(requestedPaylodAPI) {
     if (this.statusValue === "Failed" && !this.failedReasonValue) {
       let failedReasonCmp = this.template.querySelector(".failedReasonCls");
       failedReasonCmp.setCustomValidity(
@@ -188,12 +190,15 @@ export default class ManageOpsWorkflowReject extends LightningModal {
       this.showSpinner = false;
       return;
     }
-    updateCaseStatusOnboarding({
+    let requestedData = {
       idValue: this.options?.IdValue,
-      manageOpsRequest: data,
       cobId: this.options?.cobId,
       status: this.statusValue,
       failedReason: this.failedReasonValue
+    };
+    updateCaseStatusOnboarding({
+      manageOpsRequest: requestedPaylodAPI,
+      updateStatusPayloads: requestedData
     })
       .then((result) => {
         this.showToast(result.status, result.responseMessage, result.status);

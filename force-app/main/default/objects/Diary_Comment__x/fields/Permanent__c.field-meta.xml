@@ -7,9 +7,9 @@
     <description>Permanent Comment Flag </description>
     <externalDeveloperName>Permanent</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Permanent (Y/N)</label>
     <securityClassification>Confidential</securityClassification>
     <type>Checkbox</type>

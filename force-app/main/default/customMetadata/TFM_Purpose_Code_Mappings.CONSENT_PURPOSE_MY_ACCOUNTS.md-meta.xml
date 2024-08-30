@@ -8,19 +8,19 @@
     </values>
     <values>
         <field>Archived_Description__c</field>
-        <value xsi:type="xsd:string">to display your accounts, balances and transactions in the My Accounts Add-On.</value>
+        <value xsi:type="xsd:string">to view the accounts, balances and transactions of the {brandName} accounts you chose to see displayed in My Accounts.</value>
     </values>
     <values>
         <field>Description__c</field>
-        <value xsi:type="xsd:string">to display your accounts, balances and transactions in the My Accounts Add-On.</value>
+        <value xsi:type="xsd:string">to view the accounts, balances and transactions of the {brandName} accounts you chose to see displayed in My Accounts.</value>
     </values>
     <values>
         <field>PurposeCollection__c</field>
-        <value xsi:type="xsd:string">in the My Accounts Add-On.</value>
+        <value xsi:type="xsd:string">displayed in My Accounts.</value>
     </values>
     <values>
         <field>SharingPurpose__c</field>
-        <value xsi:type="xsd:string">to display your accounts, balances and transactions in the My Accounts Add-On</value>
+        <value xsi:type="xsd:string">to display your accounts, balances and any transactions in My Accounts</value>
     </values>
     <values>
         <field>Transactions_DataScope_SubText__c</field>
