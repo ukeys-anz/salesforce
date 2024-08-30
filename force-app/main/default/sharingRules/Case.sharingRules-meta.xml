@@ -251,6 +251,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>General_Enquiry_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>provide read and write access to general enquiry case</description>
+        <label>General Enquiry RW</label>
+        <sharedTo>
+            <group>General_Enquiry_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_Coach_And_Coach_Lead_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback, and AEM cases are to be shared with Coach Public Group with Read/Write access.</description>
