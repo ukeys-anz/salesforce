@@ -214,8 +214,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           this.progress >= 90 && this.progress !== 99
             ? this.progress + 1
             : this.progress === 99
-            ? (this.progress = 99)
-            : this.progress + 3;
+              ? (this.progress = 99)
+              : this.progress + 3;
       } else if (this.progress >= 100 && this.isConverted) {
         clearInterval(this._interval);
         this.processStatus = "Completed";
@@ -247,10 +247,11 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         });
         if (isLeadMistmatched) {
           this.misMatchWarning = true;
-          this.misMatchLeadDetailsMessage = this.label.MLCRM_Lead_MisMatch_Warning_Message.replaceAll(
-            "\n",
-            "<br>"
-          );
+          this.misMatchLeadDetailsMessage =
+            this.label.MLCRM_Lead_MisMatch_Warning_Message.replaceAll(
+              "\n",
+              "<br>"
+            );
         } else {
           this.misMatchWarning = false;
         }
@@ -433,7 +434,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.setInvalidLead();
         this.validationMessage.push({
           id: this.validationMessage.length + 1,
-          body: "Please select a valid Industry Code."
+          body: "Please select a valid ANZSIC Code."
         });
       }
       //# Criteria #6
@@ -615,7 +616,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
               .appendChild(style);
           }
           this.leadTitle = "Lead Conversion - Add a Customer to this Lead";
-          this.modalBodySubText = this.label.MLCRM_LeadConversionMaintainPartySubText;
+          this.modalBodySubText =
+            this.label.MLCRM_LeadConversionMaintainPartySubText;
         } else {
           this.isConverted = true;
           this.progress = 98;
@@ -850,7 +852,8 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
             .appendChild(style);
         }
         this.leadTitle = "Lead Conversion - Add a Customer to this Lead";
-        this.modalBodySubText = this.label.CCRM_LeadConversionSearchPartySubText;
+        this.modalBodySubText =
+          this.label.CCRM_LeadConversionSearchPartySubText;
       })
       .catch((error) => {
         this.isLoading = false;

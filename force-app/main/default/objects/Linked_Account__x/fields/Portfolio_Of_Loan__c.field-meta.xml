@@ -6,9 +6,9 @@
     <description>Associated Id of PTF account</description>
     <externalDeveloperName>PortfolioOfLoanId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Portfolio Of Loan</label>
     <length>255</length>
     <referenceTo>Portfolio_of_Loan__x</referenceTo>

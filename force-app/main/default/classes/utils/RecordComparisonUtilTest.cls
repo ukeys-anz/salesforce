@@ -232,7 +232,7 @@ private class RecordComparisonUtilTest {
       newCase,
       oldCase,
       new Set<SObjectField>{
-        Case.Received_Amount__c.getDescribe().getSObjectField()
+        Case.Received_Amount__c
       }
     );
     System.assertEquals(
@@ -252,7 +252,7 @@ private class RecordComparisonUtilTest {
       newCase,
       oldCase,
       new Set<SObjectField>{
-        Case.Received_Amount__c.getDescribe().getSObjectField()
+        Case.Received_Amount__c
       }
     );
     System.assertNotEquals(

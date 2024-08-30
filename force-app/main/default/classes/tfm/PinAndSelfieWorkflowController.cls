@@ -2,7 +2,7 @@
  * @description       : LWC Controller for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 07-10-2024
+ * @last modified on  : 08-09-2024
  **/
 public with sharing class PinAndSelfieWorkflowController {
   private static final IDOpsQueryRepository WORKFLOW_QUERY_REPOSITORY = (IDOpsQueryRepository) Lib_InstanceProvider.forType(
@@ -61,13 +61,16 @@ public with sharing class PinAndSelfieWorkflowController {
       .Daon_Auth_Request_Id__c;
     workflowDetails.idxRegistrationChallengeId = caseRecord
       .Daon_Reg_Challenge_Id__c;
+    workflowDetails.idxRequestId = caseRecord.Daon_Auth_Request_Id__c != null
+      ? caseRecord.Daon_Auth_Request_Id__c
+      : caseRecord.Daon_Reg_Challenge_Id__c;
     workflowDetails.isPinWorkflow = caseRecord.RecordType.DeveloperName ==
       TFMConstants.PIN_RECOVERY_API_NAME
       ? true
       : false;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
     workflowDetails.isPinHistoryCheckFailed = caseRecord.Pin_History_Check_Failed__c;
-
+    workflowDetails.isCaseClosed = caseRecord.IsClosed;
     return workflowDetails;
   }
 
@@ -141,7 +144,6 @@ public with sharing class PinAndSelfieWorkflowController {
     if (filesNotFoundInCV.isEmpty()) {
       return;
     }
-    List<OnboardingRequestModel> doanList = new List<OnboardingRequestModel>();
 
     List<OnboardingRequestModel> daonList = OnboardingFalloutWorkflowHelper.requestBodyAPICallout(
       workflowDetails

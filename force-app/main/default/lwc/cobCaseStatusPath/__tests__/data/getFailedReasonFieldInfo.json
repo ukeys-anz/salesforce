@@ -15,85 +15,73 @@
       "attributes": null,
       "label": "Selfie fail - selfie image is not clear enough to match",
       "validFor": [4],
-      "value": "Selfie fail - selfie image is not clear enough to match"
+      "value": "Selfie - Unusable for matching"
     },
     {
       "attributes": null,
       "label": "Selfie fail - document image is not clear enough to match",
       "validFor": [4],
-      "value": "Selfie fail - document image is not clear enough to match"
+      "value": "ID Document - Poor quality document photo"
     },
     {
       "attributes": null,
       "label": "Selfie fail - selfie image is clear, but not the same person",
       "validFor": [4],
-      "value": "Selfie fail - selfie image is clear, but not the same person"
-    },
-    {
-      "attributes": null,
-      "label": "Selfie fail - selfie image is clear, but a picture of a picture",
-      "validFor": [4],
-      "value": "Selfie fail - selfie image is clear, but a picture of a picture"
-    },
-    {
-      "attributes": null,
-      "label": "Selfie fail - suspected fraud, based on selfie",
-      "validFor": [4],
-      "value": "Selfie fail - suspected fraud, based on selfie"
+      "value": "Selfie - Facial comparison failed"
     },
     {
       "attributes": null,
       "label": "Doc fail - document is a picture of a picture",
       "validFor": [4],
-      "value": "Doc fail - document is a picture of a picture"
+      "value": "ID Document - Picture of Picture (MV Only)"
     },
     {
       "attributes": null,
       "label": "Doc fail - document is expired",
       "validFor": [4],
-      "value": "Doc fail - document is expired"
+      "value": "ID Document - Expired (MV Only)"
     },
     {
       "attributes": null,
       "label": "Doc fail - document is ineligible type",
       "validFor": [4],
-      "value": "Doc fail - document is ineligible type"
+      "value": "ID Document - Type not acceptable"
     },
     {
       "attributes": null,
       "label": "Doc fail - suspected fraud, based on document",
       "validFor": [4],
-      "value": "Doc fail - suspected fraud, based on document"
-    },
-    {
-      "attributes": null,
-      "label": "Doc fail - doc details are outside of fixable threshold",
-      "validFor": [4],
-      "value": "Doc fail - doc details are outside of fixable threshold"
+      "value": "ID Document - Suspect fraud"
     },
     {
       "attributes": null,
       "label": "Doc fail - document details unreadable",
       "validFor": [4],
-      "value": "Doc fail - document details unreadable"
-    },
-    {
-      "attributes": null,
-      "label": "EV fail - retries exhausted on customer name variations",
-      "validFor": [4],
-      "value": "EV fail - retries exhausted on customer name variations"
+      "value": "ID Document - Data unreadable"
     },
     {
       "attributes": null,
       "label": "EV Fail - DVS has given fail response",
       "validFor": [4],
-      "value": "EV Fail - DVS has given fail response"
+      "value": "DVS - Fail response"
     },
     {
       "attributes": null,
-      "label": "EV Fail - DVS system error response",
+      "label": "EV Fail - DVS Data error",
       "validFor": [4],
-      "value": "EV Fail - DVS system error response"
+      "value": "DVS - Data error"
+    },
+    {
+      "attributes": null,
+      "label": "Confirmed Fraud - Selfie Watchlist",
+      "validFor": [4],
+      "value": "Confirmed Fraud - Selfie Watchlist"
+    },
+    {
+      "attributes": null,
+      "label": "Confirmed Fraud",
+      "validFor": [4],
+      "value": "Confirmed Fraud"
     }
   ]
 }

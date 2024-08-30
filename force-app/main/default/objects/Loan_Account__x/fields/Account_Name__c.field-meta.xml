@@ -7,9 +7,9 @@
     <externalDeveloperName>AccountName</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>Name attached to the product instance on CAP</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Account Name</label>
     <length>255</length>
     <required>false</required>

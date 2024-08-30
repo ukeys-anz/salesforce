@@ -22,7 +22,8 @@ public with sharing class ConnectIDModel extends CalloutModel {
     'CLAIM_KEY_OVER_18' => '18+ Verification',
     'CLAIM_KEY_OVER_21' => '21+ Verification',
     'CLAIM_KEY_OVER_25' => '25+ Verification',
-    'CLAIM_KEY_OVER_65' => '65+ Verification'
+    'CLAIM_KEY_OVER_65' => '65+ Verification',
+    'CLAIM_KEY_BENEFICIARY_ACCOUNT_AU' => 'Bank Account Details'
   };
 
   public Boolean hasError;

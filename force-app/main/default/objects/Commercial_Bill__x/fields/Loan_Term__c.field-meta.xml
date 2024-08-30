@@ -6,9 +6,9 @@
     <description>Loan Term Years</description>
     <externalDeveloperName>LoanTermYears</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Loan Term(Years)</label>
     <precision>18</precision>
     <required>false</required>

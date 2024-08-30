@@ -7644,45 +7644,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>OnboardingVerificationFailedReason__c</picklist>
-        <values>
-            <fullName>Doc fail - document is a picture of a picture</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Doc fail - document is expired</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Doc fail - document is ineligible type</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Doc fail - suspected fraud%2C based on document</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EV Fail - DVS has given fail response</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>EV Fail - DVS system error response</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - document image is not clear enough to match</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - selfie image is clear%2C but not the same person</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>ANZ Plus App</fullName>

@@ -2462,7 +2462,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Onboarding_InsufficientAccess_Message</shortDescription>
-        <value>You don't have required permission to perform this action.</value>
+        <value>You don&apos;t have required permission to perform this action.</value>
     </labels>
     <labels>
         <fullName>Onboarding_ServerError_Message</fullName>

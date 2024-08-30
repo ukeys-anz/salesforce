@@ -7,6 +7,9 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
+  public static Schema.SObjectType caseObjectType = Schema.getGlobalDescribe()
+    .get('Case');
+
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications
    */
@@ -34,8 +37,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       Case oCase;
       for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
         if (
-          record.LinkedEntityId.getSobjectType() ==
-          Schema.getGlobalDescribe().get('Case') &&
+          record.LinkedEntityId.getSobjectType() == caseObjectType &&
           (oCase = caseMap.get(record.LinkedEntityId)) != null &&
           (oCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
           IDRCaseActions.isIDRComplaintType(oCase))
@@ -69,16 +71,11 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       }
 
       for (ContentDocumentLink record : docList) {
-        String objectAPIName = 'ContentDocumentLink';
         String strDate = String.valueOf(Date.today());
         String strUserName = UserInfo.getName();
         String strDocTitle = (record.ContentDocument.Title == null)
           ? ''
           : record.ContentDocument.Title;
-        String strDocCategory = (record.ContentDocument.LatestPublishedVersion.Document_Category__c ==
-          null)
-          ? ''
-          : record.ContentDocument.LatestPublishedVersion.Document_Category__c;
 
         String errorDescription =
           'Doc Deleted: ' +
@@ -120,7 +117,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    * @param records ContentDocumentLink records in current trigger context
    */
   public static void manageNotification(List<ContentDocumentLink> records) {
-    List<IDRBankerNotificationWrapper> wrapperList = new List<IDRBankerNotificationWrapper>();
     List<CaseComment> caseCommentList = new List<CaseComment>();
     Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, ContentDocument> contentDocMap = getContentDocRecords(records);
@@ -130,8 +126,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
       if (
-        record.LinkedEntityId.getSobjectType() ==
-        Schema.getGlobalDescribe().get('Case') &&
+        record.LinkedEntityId.getSobjectType() == caseObjectType &&
         contentDocMap.containsKey(record.ContentDocumentId) &&
         (oCase = caseMap.get(record.LinkedEntityId)) != null
       ) {
@@ -221,10 +216,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Map<Id, Case> getCaseMap = new Map<Id, Case>();
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      if (
-        record.LinkedEntityId.getSobjectType() ==
-        Schema.getGlobalDescribe().get('Case')
-      ) {
+      if (record.LinkedEntityId.getSobjectType() == caseObjectType) {
         caseIds.add(record.LinkedEntityId);
       }
     }
@@ -259,10 +251,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Map<Id, ContentDocument> contentDocMap = new Map<Id, ContentDocument>();
 
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      if (
-        record.LinkedEntityId.getSobjectType() ==
-        Schema.getGlobalDescribe().get('Case')
-      ) {
+      if (record.LinkedEntityId.getSobjectType() == caseObjectType) {
         contentDocIds.add(record.ContentDocumentId);
       }
     }

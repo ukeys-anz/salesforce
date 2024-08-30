@@ -5,6 +5,11 @@
  * @description Responsible to create Task and trigger the Notification when another user adds a case comment
  */
 public with sharing class IDRCaseCommentsNotificationManager {
+  public static Set<String> allowedCaseStatuses = new Set<String>{
+    IDRConstants.CLOSED_STATUS,
+    IDRConstants.WITHDRAWN_STATUS,
+    IDRConstants.RESOLVED_STATUS
+  };
   /**
    * @description Assesses whether or not to generate a banker notification
    * @param records CaseComment records in current trigger context
@@ -17,30 +22,27 @@ public with sharing class IDRCaseCommentsNotificationManager {
 
     for (CaseComment record : (List<CaseComment>) records) {
       Case caseRec = caseMap.get(record.ParentId);
-      if (caseRec != null) {
+      if (caseRec == null) {
+        continue;
+      }
+      if (
+        caseRec.OwnerId != record.CreatedById &&
+        IDRCaseActions.isIDRComplaintType(caseRec)
+      ) {
         if (
-          caseRec.OwnerId != record.CreatedById &&
-          IDRCaseActions.isIDRComplaintType(caseRec)
+          (!allowedCaseStatuses.contains(caseRec.Status) ||
+          (!((record.CommentBody).startsWith('New attachment added; ')))) &&
+          !String.valueOf(caseRec.OwnerId).startsWith('00G')
         ) {
-          if (
-            ((!(caseRec.Status == 'Closed' ||
-            caseRec.Status == 'Withdrawn' ||
-            caseRec.Status == 'Resolved')) ||
-            (!((record.CommentBody).startsWith('New attachment added; ')))) &&
-            !String.valueOf(caseRec.OwnerId).startsWith('00G')
-          ) {
-            wrapperList.add(createNotification(caseRec));
-          }
+          wrapperList.add(createNotification(caseRec));
         }
-        if (
-          (caseRec.Status == 'Closed' ||
-          caseRec.Status == 'Withdrawn' ||
-          caseRec.Status == 'Resolved') &&
-          caseRec.IDR_Additional_Correspondence_reviewed__c == true
-        ) {
-          caseRec.IDR_Additional_Correspondence_reviewed__c = false;
-          caseUpdatedList.add(caseRec);
-        }
+      }
+      if (
+        allowedCaseStatuses.contains(caseRec.Status) &&
+        caseRec.IDR_Additional_Correspondence_reviewed__c == true
+      ) {
+        caseRec.IDR_Additional_Correspondence_reviewed__c = false;
+        caseUpdatedList.add(caseRec);
       }
     }
 
@@ -62,7 +64,6 @@ public with sharing class IDRCaseCommentsNotificationManager {
    */
   public static void manageNotificationTask(List<CaseComment> records) {
     Map<Id, Case> caseMap = getCaseRecords(records);
-    List<Case> caseUpdatedList = new List<Case>();
     Task[] assiTasks = new List<Task>();
 
     for (CaseComment record : (List<CaseComment>) records) {

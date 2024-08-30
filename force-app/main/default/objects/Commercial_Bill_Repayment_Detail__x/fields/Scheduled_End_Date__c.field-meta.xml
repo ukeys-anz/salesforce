@@ -6,9 +6,9 @@
     <description>Scheduled End Date</description>
     <externalDeveloperName>ScheduledEndDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Scheduled End Date</label>
     <length>50</length>
     <required>false</required>

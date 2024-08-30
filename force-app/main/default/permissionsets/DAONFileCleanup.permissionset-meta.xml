@@ -7,4 +7,8 @@
     <description>DAONFileCleanup custom permission added to delete DAON Files</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>DAONFileCleanup</label>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ContentWorkspaces</name>
+    </userPermissions>
 </PermissionSet>

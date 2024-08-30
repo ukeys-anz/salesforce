@@ -114,9 +114,7 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
       TimeZone tz = TimeZone.getTimeZone('Australia/Sydney');
       //getOffset returns the value in ms, we need it in seconds.
       DateTime utcTime = localTime.addSeconds(
-        -1 *
-        tz.getOffset(localTime) /
-        1000
+        -1 * tz.getOffset(localTime) / 1000
       );
       return utcTime;
     }

@@ -67,16 +67,14 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
         return draftCVIDs;
       }
       List<String> newDraftCVIDs = new List<String>();
-      if(this.fileTypesList == null) {
+      if (this.fileTypesList == null) {
         return newDraftCVIDs;
       }
-      for (
-         FileTypes fileData : this.fileTypesList
-       ) {
-         if (fileData.isImageDraft && fileData.isValid) {
+      for (FileTypes fileData : this.fileTypesList) {
+        if (fileData.isImageDraft && fileData.isValid) {
           newDraftCVIDs.add(fileData.cvId);
-         }
-       }
+        }
+      }
       return newDraftCVIDs;
     }
   }
@@ -128,16 +126,24 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    */
   @AuraEnabled
   public String idxChallengeType { get; set; }
+
   /**
    * @description idxRegistrationChallengeId
    */
   @AuraEnabled
   public String idxRegistrationChallengeId { get; set; }
+
   /**
    * @description idxAuthenticationRequestId
    */
   @AuraEnabled
   public String idxAuthenticationRequestId { get; set; }
+
+  /**
+   * @description idxRequestId
+   */
+  @AuraEnabled
+  public String idxRequestId { get; set; }
 
   /**
    * @description processInstanceKey
@@ -162,6 +168,11 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    */
   @AuraEnabled
   public Boolean isPinHistoryCheckFailed { get; set; }
+  /**
+   * @description isCaseClosed
+   */
+  @AuraEnabled
+  public Boolean isCaseClosed { get; set; }
 
   /**
    * @description This is wrapper class for FileTypes
@@ -235,7 +246,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_FRONT_UNPROCESSED-' +
-        this.documentId;
+        this.documentId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -246,7 +259,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_FRONT_PROCESSED-' +
-        this.documentId;
+        this.documentId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -255,7 +270,11 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    */
   public String selfieImageId {
     get {
-      return UserInfo.getUserId() + '-DAON_FILE_TYPE_SELFIE-' + this.userId;
+      return UserInfo.getUserId() +
+        '-DAON_FILE_TYPE_SELFIE-' +
+        this.userId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -266,7 +285,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_EXTRACTED_FACE-' +
-        this.idxExtractedFaceId;
+        this.idxExtractedFaceId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
   /**
@@ -277,7 +298,9 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
     get {
       return UserInfo.getUserId() +
         '-DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED-' +
-        this.idxRegistrationChallengeId;
+        this.idxRequestId +
+        '-' +
+        (this.workflowId ?? '');
     }
   }
 }

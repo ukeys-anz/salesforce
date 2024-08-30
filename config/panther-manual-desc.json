@@ -683,7 +683,10 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Review_Date__c",
+        "Segment_Type__c",
+        "Source_System_Identifier__c"
       ],
       "IA-2415984": [
         "Name",
@@ -693,9 +696,12 @@
         "Customer__c",
         "Opportunity__c",
         "Personal_Banking__c",
-        "Transaction_Banking__c"
+        "Transaction_Banking__c",
+        "CLG_Number__c",
+        "CPID__c",
+        "Customer_Number__c"
       ],
-      "IA-2423278": ["OwnerId"]
+      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1100,6 +1106,7 @@
         "Submitted_Time__c",
         "Target_SLA_Date__c",
         "Transaction_Status__c",
+        "Transaction_Method__c",
         "Type",
         "What_Customer_was_Trying_to_Do__c",
         "Goods_Or_Services_Returned__c",

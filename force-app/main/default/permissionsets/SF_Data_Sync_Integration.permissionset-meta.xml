@@ -3,6 +3,16 @@
     <description>Permissions for Salesforce Data Sync</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.Banker_LAN_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Banker_Salary_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>A_Z_Review__c.Borrowing_OFI_Relationship__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -13,7 +23,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.CLG_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>A_Z_Review__c.Completed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Customer_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -34,6 +59,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>A_Z_Review__c.Personal_Banking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Review_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Segment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Source_System_Identifier__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2818,6 +2858,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Transaction_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Transaction_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4198,6 +4243,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead_Flex_Field__c.Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Location.CloseDate</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4269,6 +4319,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Location.VisitorAddressId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Opp_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
