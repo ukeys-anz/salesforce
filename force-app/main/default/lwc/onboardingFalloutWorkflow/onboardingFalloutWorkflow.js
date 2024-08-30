@@ -254,7 +254,7 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
       options: { caseId, parentComponent, workflowId, IdValue, cobId },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        this.handleModalClose();
       }
     });
   }
