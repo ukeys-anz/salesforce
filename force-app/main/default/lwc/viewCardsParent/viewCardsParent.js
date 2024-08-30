@@ -12,6 +12,8 @@ export default class ViewCardsParent extends LightningElement {
   loading = false;
   cardHasError = false;
   errorMsg;
+  recordId;
+  ocvId;
   hasPermissionIssue = !hasViewCardsPermission;
   noActiveCardMessage = `This customer doesn't have any accounts with an active card attached.`;
 
@@ -19,7 +21,8 @@ export default class ViewCardsParent extends LightningElement {
   pageRef;
 
   async connectedCallback() {
-    this.ocvId = this.pageRef.state.c__ocvid;
+    this.ocvId = this.pageRef.state.c__ocvId;
+    this.recordId = this.pageRef.state.c__recordId;
     await this.getListAllCardDetails();
   }
 
