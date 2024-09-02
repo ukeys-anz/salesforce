@@ -2482,4 +2482,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>S2AccountEnabled created for releasing S2 Deliverable in Dormant</shortDescription>
         <value>true</value>
     </labels>
+    <labels>
+        <fullName>CMOS_Chatter_Group_Name</fullName>
+        <categories>CMOS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CMOS Chatter Group Name</shortDescription>
+        <value>All CMOS Users</value>
+    </labels>
 </CustomLabels>
+
