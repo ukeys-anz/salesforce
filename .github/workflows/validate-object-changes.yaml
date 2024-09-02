@@ -68,7 +68,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_success_output && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
+          gcloud storage cp -r --project anz-x-gh-sf-nonprod-ea5caa gs://salesforce-nonprod-github-workflows/upload-object-changes/success_output gcs_success_output
 
       - name: Run diff
         working-directory: salesforce
@@ -110,5 +110,5 @@ jobs:
         uses: "google-github-actions/upload-cloud-storage@v2"
         with:
           path: "${{ github.workspace }}/salesforce/output/"
-          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-          project_id: anz-x-gh-sf-sit-4e60a7
+          destination: "salesforce-nonprod-github-workflows/upload-object-changes/success_output"
+          project_id: anz-x-gh-sf-nonprod-ea5caa
