@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   upload_object_changes:
-    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/object-changes-workflow*') || (github.event_name == 'push' && github.ref == 'refs/heads/feature/object-changes-workflow*') }}
+    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/object-changes-workflow-1') || (github.event_name == 'push' && github.ref == 'refs/heads/feature/object-changes-workflow-1') }}
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
