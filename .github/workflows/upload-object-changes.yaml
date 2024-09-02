@@ -139,6 +139,6 @@ jobs:
         if: ${{ (steps.get-changed-objects.outcome == 'success' && steps.push-success-to-artifactory.outcome == 'success') && !cancelled() }}
         uses: "google-github-actions/upload-cloud-storage@v2"
         with:
-          path: "${{ github.workspace }}/salesforce/sfdatasync_user_output/"
+          path: "${{ github.workspace }}/salesforce/output/sfdatasync_user_output/"
           destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
           project_id: anz-x-gh-sf-sit-4e60a7
