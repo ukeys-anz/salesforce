@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - develop
+      - feature/object-changes-workflow*
 
 permissions:
   contents: "read"
@@ -13,6 +13,7 @@ permissions:
 
 jobs:
   upload_object_changes:
+    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/object-changes-workflow*') || (github.event_name == 'push' && github.ref == 'refs/heads/feature/object-changes-workflow*') }}
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
