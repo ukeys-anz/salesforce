@@ -1,4 +1,4 @@
 {
-  "sfdatasync_object_whitelist": ["Account"],
-  "odaseva_object_whitelist": ["Account"]
+  "sfdatasync_object_whitelist": ["Account", "User"],
+  "odaseva_object_whitelist": ["Account", "User"]
 }

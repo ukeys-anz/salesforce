@@ -84,14 +84,14 @@ jobs:
 
           for object in $sfdatasync_object_list; do
             echo "running fieldsaccessdiff on sfdatasync user for $object..."
-            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
+            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
                   -f sfdatasync_user_output -u tech.gcb@anzx.com.test24; then
                 errors+=("$object for user sfdatasync.user@anzx.com.test24")
             fi
           done
           for object in $sfdatasync_object_list; do
             echo "running fieldsaccessdiff on odaseva user for $object..."
-            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./bigq_exclusionfile.json -o $object \
+            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
                   -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
                 errors+=("$object for user odaseva.user@anzx.com.test24")
             fi
