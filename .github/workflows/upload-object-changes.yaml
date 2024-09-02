@@ -5,15 +5,14 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - feature/object-changes-workflow*
-
+      - develop
 permissions:
   contents: "read"
   id-token: "write"
 
 jobs:
   upload_object_changes:
-    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/feature/object-changes-workflow-1') || (github.event_name == 'push' && github.ref == 'refs/heads/feature/object-changes-workflow-1') }}
+    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
@@ -142,4 +141,4 @@ jobs:
         with:
           path: "${{ github.workspace }}/salesforce/output/"
           destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-          project_id: anz-x-gh-sf-dev-ef8edd
+          project_id: anz-x-gh-sf-sit-4e60a7
