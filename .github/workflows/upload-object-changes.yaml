@@ -1,12 +1,11 @@
-# Currently under development. This workflow looks for object changes and uploads them to gcs bucket in sit.
+# This workflow looks for object changes and uploads them to gcs bucket in sit.
 name: Upload Object Changes
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - epic/upload-object-changes-workflow
-      - feature/object-changes-workflow*
+      - develop
 
 permissions:
   contents: "read"
@@ -137,7 +136,7 @@ jobs:
 
       # Upload to GCS
       - id: "upload-folder-to-gcs"
-        if: ${{ (steps.get-changed-objects.outcome == 'success' && steps.push-to-artifactory.outcome == 'success') && !cancelled() }}
+        if: ${{ (steps.get-changed-objects.outcome == 'success' && steps.push-success-to-artifactory.outcome == 'success') && !cancelled() }}
         uses: "google-github-actions/upload-cloud-storage@v2"
         with:
           path: "${{ github.workspace }}/salesforce/output/"
