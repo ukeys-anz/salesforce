@@ -581,7 +581,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,KYC QA,Scam,Identity</value>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,KYC QA,Scam,Identity,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>

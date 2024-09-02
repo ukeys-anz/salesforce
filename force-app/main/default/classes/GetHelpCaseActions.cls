@@ -23,6 +23,9 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
   public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
   public static final String PAY_TO_SUBJECT_PREFIX = 'PayTo';
+  private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
+    ComplaintsRepository.class
+  );
 
   private static Map<String, Group> groups {
     get {
@@ -718,17 +721,20 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description populate ocv id field on case if the record type is an
-   * ANZx complaint
+   * @description populate Customer Details field on case if the record type is an
+   * ANZx complaint or Customer Complaint
    * @param records List of cases
    */
-  public static void populateOCVOnComplaint(List<Case> records) {
-    List<Id> accountIds = new List<Id>();
-
+  public static void populateCustomerDetailsOnComplaint(List<Case> records) {
+    Set<Id> accountIds = new Set<Id>();
+    Set<Id> eligibleRecordTypes = new Set<Id>{
+      GetHelpConstants.COMPLAINT_RT_ID,
+      RecordTypeConstants.caseCustomerComplaint
+    };
     //Loop through case to create list of account ids
     for (Case c : records) {
       if (
-        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
+        eligibleRecordTypes.contains(c.RecordTypeId) &&
         !String.isBlank(c.AccountId)
       ) {
         accountIds.add(c.AccountId);
@@ -737,13 +743,20 @@ public with sharing class GetHelpCaseActions {
 
     //Get map of account ocv ids
     Map<Id, Account> accountList = new Map<Id, Account>(
-      [SELECT Id, OCV_ID__c FROM Account WHERE Id IN :accountIds]
+      COMPLAINTS_REPOSITORY.findAccountsByAccountIds(accountIds)
     );
 
     //Loop through cases again and assign ocv id
     if (!accountList.isEmpty() && PermissionUtils.canQuery('Account')) {
       for (Case c : records) {
-        c.OCV_Id__c = accountList.get(c.AccountId).OCV_ID__c;
+        Account acc = accountList.get(c.AccountId);
+        c.OCV_Id__c = acc.OCV_ID__c;
+        c.IDR_CC_Country__c = acc.PersonOtherCountry;
+        c.IDR_CC_Age__c = DateTimeUtils.getAge(acc.PersonBirthDate);
+        c.IDR_CC_Postcode__c = acc.PersonOtherPostalCode;
+        c.IDR_Customer_Number__c = acc.Source_System_ID__c;
+        c.CPID__c = acc.CPID__c;
+        c.IDR_CC_Gender__c = acc.Gender__pc;
       }
     }
   }
