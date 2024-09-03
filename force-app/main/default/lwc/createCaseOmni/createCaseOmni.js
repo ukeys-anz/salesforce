@@ -1,6 +1,9 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track } from "lwc";
-import { validate } from "./formValidator/caseFormValidator";
+import {
+  validate,
+  getCustomerNumberValidationMsg
+} from "./formValidator/caseFormValidator";
 import { handleErrorShowToast } from "c/utils";
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
@@ -18,37 +21,27 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     this.missingFields = [];
     this.modalMsg = "";
     this.missingFields = await validate(this.omniJsonData);
-
     if (this.missingFields.length > 0) {
-      this.modalMsg =
-        "Please complete all required fields: " + this.missingFields.join(", ");
-      if (
-        this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-        !this.omniJsonData.Case.CustomerDetails.Customer &&
-        this.omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID"
-      )
-        this.modalMsg +=
-          "<br><br>Customer number must be numbers and atleast 10 digits long.";
-      if (
-        this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-        this.omniJsonData.Response === false
-      )
-        this.modalMsg +=
-          "<br><br>Customer number is not valid or has not been validated, check the number and try again.";
+      this.modalMsg = await getCustomerNumberValidationMsg(
+        this.omniJsonData,
+        this.missingFields
+      );
     } else if (!this.validateCustomerNumber()) {
       this.modalMsg =
         "Customer number must be numbers and at least 10 digits long";
     } else if (
       !this.missingFields.length &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
-      this.omniScriptHeaderDef.hasInvalidElements
+      this.omniScriptHeaderDef.hasInvalidElements &&
+      !this.omniJsonData.isEligibleProfileForLookUp
     ) {
       this.modalMsg = "Please complete all required fields";
     } else if (
       !this.missingFields.length &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       (this.omniJsonData.Response === false ||
-        !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response"))
+        !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response")) &&
+      !this.omniJsonData.isEligibleProfileForLookUp
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
@@ -78,7 +71,6 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.loading = false;
     } else {
       this.loading = true;
-
       const inputs = {
         Case: this.omniJsonData.Case,
         Response:
@@ -131,7 +123,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   }
 
   validateCustomerNumber() {
-    var compare = /^[0-9]{10}$/;
+    let compare = /^[0-9]{10}$/;
     if (
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       this.omniJsonData.Case.CustomerDetails.Customer &&
@@ -165,8 +157,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     return false;
   }
   checkIsvalidCustomer() {
-    var details = JSON.parse(JSON.stringify(this.omniJsonData.Case));
-    var customerNumber = JSON.stringify(this.omniJsonData.CustomerNumber);
+    let details = JSON.parse(JSON.stringify(this.omniJsonData.Case));
+    let customerNumber = JSON.stringify(this.omniJsonData.CustomerNumber);
     if (
       (details.isThisCustomerComplaint === "Yes" &&
         details.CustomerDetails.Customer &&

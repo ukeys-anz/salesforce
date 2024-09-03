@@ -3,7 +3,7 @@ name: Security scan
 
 on:
   pull_request:
-    branches: [develop, master, epic/*]
+    branches: [develop, master, epic/*, release]
 
 jobs:
   security-check:

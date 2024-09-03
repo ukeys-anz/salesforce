@@ -973,8 +973,7 @@ Feel free to reach out to us if you have any questions.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MatchingCredit</shortDescription>
-        <value>It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
+        <value>It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_MerchantCredit</fullName>
@@ -990,8 +989,7 @@ Feel free to reach out to us if you have any questions.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MerchantCredited</shortDescription>
-        <value>It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
+        <value>It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_OrderDetailsReviewed</fullName>
@@ -1038,29 +1036,28 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-TalkOff</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_TransactionRecognized</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-TransactionRecognized</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Withdrawn</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Withdrawn</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Writeoff</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Writeoff</shortDescription>
-        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>Regex_Email</fullName>

@@ -41,18 +41,6 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
-        <fullName>MLCRM_Share_Opportunities</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Sharing rule to open up access from ML Team to ANZ Support Team with ML Group.</description>
-        <label>MLCRM Share Opportunities</label>
-        <sharedTo>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_Opportunities_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Support Team to ML Team.</description>
@@ -61,7 +49,7 @@
             <role>ANZ_Mobile_Lending_Team</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -70,10 +58,10 @@
         <description>Sharing rule to open up access from ANZ Mobile Lending Support Team to peer users with role ANZ Mobile Lending Support Team assigned</description>
         <label>MLCRM Support Team Opportunities Self Sharing</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
