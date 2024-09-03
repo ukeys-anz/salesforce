@@ -66,8 +66,8 @@ jobs:
         id: pull-from-gcs
         shell: bash
         run: |
-          mkdir gcs_success_output && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-nonprod-ea5caa gs://salesforce-nonprod-github-workflows/upload-object-changes/success_output gcs_success_output
+          mkdir gcs_bucket && ls -la
+          gcloud storage cp -r --project anz-x-gh-sf-nonprod-ea5caa gs://salesforce-nonprod-github-workflows/upload-object-changes/success_output gcs_bucket
 
       - name: Run diff
         working-directory: salesforce
@@ -75,9 +75,9 @@ jobs:
         shell: bash
         run: |
           odaseva_sha_object_fields="artifactory_success_output/output/odaseva_user_output/fieldsaccessdiff"
-          odaseva_gcs_object_fields="gcs_success_output/success_output/output/odaseva_user_output/fieldsaccessdiff"
+          odaseva_gcs_object_fields="gcs_bucket/success_output/output/odaseva_user_output/fieldsaccessdiff"
           sfdatasync_sha_object_fields="artifactory_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_bucket/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")

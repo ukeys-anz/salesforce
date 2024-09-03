@@ -132,8 +132,8 @@ jobs:
         id: pull-from-gcs
         shell: bash
         run: |
-          mkdir gcs_success_output && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
+          mkdir gcs_bucket && ls -la
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_bucket
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
@@ -142,7 +142,7 @@ jobs:
         shell: bash
         run: |
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_bucket/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
@@ -151,8 +151,7 @@ jobs:
             echo "An error occurred while comparing directories."
             exit 2
           elif [ -n "$diff_output" ]; then
-              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
-              echo "Uploading sfdatasync_sha_object_fields..."
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields..."
               CHANGES_DETECTED=TRUE
           else
               echo "No changes found for sfdatasync user. Moving on..."
@@ -175,11 +174,11 @@ jobs:
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
-      # # Upload Changes to GCS
-      # - id: "upload-folder-to-gcs"
-      #   if: ${{ (steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' && steps.run-diff.outcome == 'success') && !cancelled() }}
-      #   uses: "google-github-actions/upload-cloud-storage@v2"
-      #   with:
-      #     path: "${{ github.workspace }}/salesforce/output/sfdatasync_user_output/"
-      #     destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-      #     project_id: anz-x-gh-sf-sit-4e60a7
+      # Upload Changes to GCS
+      - id: "upload-folder-to-gcs"
+        if: ${{ (steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' && steps.run-diff.outcome == 'success' && steps.push-success-to-artifactory.outcome == 'success') && !cancelled() }}
+        uses: "google-github-actions/upload-cloud-storage@v2"
+        with:
+          path: "${{ github.workspace }}/salesforce/output/sfdatasync_user_output/"
+          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
+          project_id: anz-x-gh-sf-sit-4e60a7
