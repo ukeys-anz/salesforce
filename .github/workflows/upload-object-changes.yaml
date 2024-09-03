@@ -147,18 +147,18 @@ jobs:
           echo "running diff..."
           diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields"
           echo "done...."
-          CHANGES_DETECTED=FALSE
-          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
-          echo "$diff_output\n"
-          if [ -n "$diff_output" ]; then
-              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
-              echo "Uploading sfdatasync_sha_object_fields..."
-              CHANGES_DETECTED=TRUE
-          else
-              echo "No changes found for sfdatasync user. Moving on..."
-          fi
+          # CHANGES_DETECTED=FALSE
+          # diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
+          # echo $diff_output
+          # if [ -n "$diff_output" ]; then
+          #     echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
+          #     echo "Uploading sfdatasync_sha_object_fields..."
+          #     CHANGES_DETECTED=TRUE
+          # else
+          #     echo "No changes found for sfdatasync user. Moving on..."
+          # fi
 
-          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          # echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
 
       # Upload success to artifactory
       - name: Push success changes to artifactory
