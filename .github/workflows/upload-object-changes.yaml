@@ -88,7 +88,7 @@ jobs:
                 errors+=("$object for user sfdatasync.user@anzx.com.test24")
             fi
           done
-          for object in $sfdatasync_object_list; do
+          for object in $odaseva_object_list; do
             echo "running fieldsaccessdiff on odaseva user for $object..."
             if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
                   -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
@@ -119,6 +119,37 @@ jobs:
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
+      - name: Pull current changes from GCS SIT
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
+        working-directory: salesforce
+        id: pull-from-gcs
+        shell: bash
+        run: |
+          mkdir gcs_success_output && ls -la
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_success_output
+
+      - name: Run diff
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
+        working-directory: salesforce
+        id: run-diff
+        shell: bash
+        run: |
+          sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+
+          CHANGES_DETECTED=FALSE
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
+          echo "$diff_output\n"
+          if [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
+              echo "Uploading sfdatasync_sha_object_fields..."
+              CHANGES_DETECTED=TRUE
+          else
+              echo "No changes found for sfdatasync user. Moving on..."
+          fi
+
+          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+
       # Upload success to artifactory
       - name: Push success changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
@@ -134,11 +165,11 @@ jobs:
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
-      # Upload to GCS
-      - id: "upload-folder-to-gcs"
-        if: ${{ (steps.get-changed-objects.outcome == 'success' && steps.push-success-to-artifactory.outcome == 'success') && !cancelled() }}
-        uses: "google-github-actions/upload-cloud-storage@v2"
-        with:
-          path: "${{ github.workspace }}/salesforce/output/sfdatasync_user_output/"
-          destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
-          project_id: anz-x-gh-sf-sit-4e60a7
+      # # Upload Changes to GCS
+      # - id: "upload-folder-to-gcs"
+      #   if: ${{ (steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' && steps.run-diff.outcome == 'success') && !cancelled() }}
+      #   uses: "google-github-actions/upload-cloud-storage@v2"
+      #   with:
+      #     path: "${{ github.workspace }}/salesforce/output/sfdatasync_user_output/"
+      #     destination: "salesforce-sit-github-workflows/upload-object-changes/success_output"
+      #     project_id: anz-x-gh-sf-sit-4e60a7
