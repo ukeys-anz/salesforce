@@ -167,7 +167,14 @@
     "OCV_Profile_ID__c",
     "Sync_Status__c",
     "Victim_External_ID__c",
-    "Victim_Record_ID__c"
+    "Victim_Record_ID__c",
+    "ANZx_Customer__c",
+    "Controlling_Post__c",
+    "CPID__c",
+    "CPID_Link__c",
+    "Deleted_in_OCV__c",
+    "Survivor_Party_ID__c",
+    "Was_ANZx_Customer__c"
   ],
   "User": [
     "AboutMe",
