@@ -1622,8 +1622,8 @@
     &quot;name&quot; : &quot;No&quot;
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;Select ‘yes’ if the customer accepts the offer in the final response. The resolution offered details will pre-populate if the complaint was provisionally closed, otherwise will need to be completed. You will need to select no and complete the fields if the customer did not accept the resolution offered in the final response.&quot;,
+  &quot;help&quot; : true,
   &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
@@ -2664,6 +2664,9 @@
             <type>Formula</type>
         </childElements>
         <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <name>IDR_Subsequent_Issue__c</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -4925,8 +4928,8 @@
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;Select ‘yes’ if the customer accepts the offer in the final response. The resolution offered details will pre-populate if the complaint was provisionally closed, otherwise will need to be completed. You will need to select no and complete the fields if the customer did not accept the resolution offered in the final response.&quot;,
-  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,
