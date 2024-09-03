@@ -341,6 +341,14 @@
         <value>False</value>
     </labels>
     <labels>
+        <fullName>CMOS_Chatter_Group_Name</fullName>
+        <categories>CMOS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CMOS Chatter Group Name</shortDescription>
+        <value>All CMOS Users</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -2486,11 +2494,24 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>true</value>
     </labels>
     <labels>
-        <fullName>CMOS_Chatter_Group_Name</fullName>
-        <categories>CMOS</categories>
+        <fullName>EDRM_Business_Streams_Mapping</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>CMOS Chatter Group Name</shortDescription>
-        <value>All CMOS Users</value>
+        <shortDescription>EDRM Business Streams Mapping</shortDescription>
+        <value>Commercial Lending:CMOS_CS_CL</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_DEV</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_DEV</shortDescription>
+        <value>https://fnedrmicnDEV2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_PROD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_PROD</shortDescription>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
     </labels>
 </CustomLabels>
