@@ -89,13 +89,13 @@ jobs:
                 errors+=("$object for user sfdatasync.user@anzx.com.test24")
             fi
           done
-          # for object in $odaseva_object_list; do
-          #   echo "running fieldsaccessdiff on odaseva user for $object..."
-          #   if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
-          #         -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
-          #       errors+=("$object for user odaseva.user@anzx.com.test24")
-          #   fi
-          # done
+          for object in $odaseva_object_list; do
+            echo "running fieldsaccessdiff on odaseva user for $object..."
+            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
+                  -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
+                errors+=("$object for user odaseva.user@anzx.com.test24")
+            fi
+          done
 
           if [ ${#errors[@]} -ne 0 ]; then
             echo "Errors occurred with the following objects:"
@@ -119,6 +119,12 @@ jobs:
 
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
+
+      - name: "Set up Cloud SDK"
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
+        uses: "anzx/github-reusable-actions/setup-gcloud@main"
+        with:
+          install_components: "core"
 
       - name: Pull current changes from GCS SIT
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
