@@ -141,24 +141,24 @@ jobs:
         id: run-diff
         shell: bash
         run: |
-          ls -la
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
           sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
-          echo "running diff..."
-          diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields"
-          echo "done...."
-          # CHANGES_DETECTED=FALSE
-          # diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
-          # echo $diff_output
-          # if [ -n "$diff_output" ]; then
-          #     echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
-          #     echo "Uploading sfdatasync_sha_object_fields..."
-          #     CHANGES_DETECTED=TRUE
-          # else
-          #     echo "No changes found for sfdatasync user. Moving on..."
-          # fi
 
-          # echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          CHANGES_DETECTED=FALSE
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
+          status=$? && echo $diff_output
+          if [ $status -eq 2 ]; then
+            echo "An error occurred while comparing directories."
+            exit 2
+          elif [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
+              echo "Uploading sfdatasync_sha_object_fields..."
+              CHANGES_DETECTED=TRUE
+          else
+              echo "No changes found for sfdatasync user. Moving on..."
+          fi
+
+          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
 
       # Upload success to artifactory
       - name: Push success changes to artifactory
