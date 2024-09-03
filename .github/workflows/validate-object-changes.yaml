@@ -80,17 +80,6 @@ jobs:
           sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
           CHANGES_DETECTED=FALSE
-
-          diff_output=$(diff -qr "$odaseva_sha_object_fields" "$odaseva_gcs_object_fields")
-          echo "$diff_output\n"
-          if [ -n "$diff_output" ]; then
-              echo "Changes found between $odaseva_sha_object_fields and $odaseva_gcs_object_fields...\n"
-              echo "Uploading odaseva_sha_object_fields..."
-              CHANGES_DETECTED=TRUE
-          else
-              echo "No changes found for odaseva user. Moving on..."
-          fi
-
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
           echo "$diff_output\n"
           if [ -n "$diff_output" ]; then
