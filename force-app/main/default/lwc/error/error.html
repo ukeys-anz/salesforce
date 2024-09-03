@@ -5,7 +5,12 @@
         <img class="error-image" src={errorImageUrl} />
       </template>
       <template lwc:else>
-        <span class="emoji">&#128531;</span>
+        <lightning-icon
+          icon-name="utility:error"
+          alternative-text="Error"
+          size="large"
+          class="emoji"
+        ></lightning-icon>
       </template>
     </div>
     <div class="slds-col">

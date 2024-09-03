@@ -402,6 +402,18 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Logs and return the given exception.
+   * Useful for re-throw from caller.
+   * @param ex The exception to be logged.
+   * @return The logged exception.
+   */
+  public static Exception logExceptionInfo(Exception ex) {
+    Logger.info(ex.getMessage(), ex);
+    Logger.saveLog();
+    return ex;
+  }
+
+  /**
    * @description Logs and return AuraHandledException exception with given errorMessage.
    * Useful for re-throw from caller.
    * @param errorMessage The errorMessage to be logged.
@@ -1174,7 +1186,7 @@ public with sharing class CommonUtil {
     }
     return null;
   }
-  
+
   /**
    * [DEPRECATED] Use `ListUtil.getIds`.
    * @description Returns a set of Ids extracted from a list of SObjects based on a specified field.

@@ -13,7 +13,7 @@ class ButtonFactory {
         label: label,
         actionFunction: buttonConfig.action,
         disable: buttonConfig.buttonDisable(this.card),
-        variant: buttonConfig.variant ? buttonConfig.variant : "Neutral"
+        variant: buttonConfig.variant ? buttonConfig.variant : "brand-outline"
       };
     }
   }
@@ -140,16 +140,16 @@ const buttonConfigObject = {
     action: fraudCardsAction,
     buttonDisable: defaultButtonDisabled
   },
+  "Lock Card": {
+    buttonVisible: lockCardVisible,
+    action: lockCardAction,
+    buttonDisable: lockCardDisabled
+  },
   "Cancel Card": {
     buttonVisible: cancelCardVisible,
     action: fraudCardsAction,
     buttonDisable: defaultButtonDisabled,
     variant: "destructive-text"
-  },
-  "Lock Card": {
-    buttonVisible: lockCardVisible,
-    action: lockCardAction,
-    buttonDisable: lockCardDisabled
   },
   "Replace Card": {
     buttonVisible: replaceCardVisible,
