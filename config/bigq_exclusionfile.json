@@ -157,7 +157,18 @@
     "Temporary_External_Id__c",
     "TFN_Verification__c",
     "Type",
-    "Website"
+    "Website",
+
+    "Date_Victim_Merged__c",
+    "Full_First_Name__c",
+    "Full_Last_Name__c",
+    "Full_Middle_Name__c",
+    "IsSkeleton__c",
+    "IsTruncated__c",
+    "OCV_Profile_ID__c",
+    "Sync_Status__c",
+    "Victim_External_ID__c",
+    "Victim_Record_ID__c"
   ],
   "User": [
     "AboutMe",
