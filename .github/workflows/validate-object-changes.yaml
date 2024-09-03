@@ -74,17 +74,17 @@ jobs:
         id: run-diff
         shell: bash
         run: |
-          odaseva_sha_object_fields="artifactory_success_output/output/odaseva_user_output/fieldsaccessdiff"
-          odaseva_gcs_object_fields="gcs_bucket/success_output/output/odaseva_user_output/fieldsaccessdiff"
-          sfdatasync_sha_object_fields="artifactory_success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
           sfdatasync_gcs_object_fields="gcs_bucket/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
           CHANGES_DETECTED=FALSE
-          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
-          echo "$diff_output\n"
-          if [ -n "$diff_output" ]; then
-              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields...\n"
-              echo "Uploading sfdatasync_sha_object_fields..."
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
+          status=$? && echo $diff_output
+          if [ $status -eq 2 ]; then
+            echo "An error occurred while comparing directories."
+            exit 2
+          elif [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields..."
               CHANGES_DETECTED=TRUE
           else
               echo "No changes found for sfdatasync user. Moving on..."
@@ -92,11 +92,11 @@ jobs:
 
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
 
-      # Upload to GCS
-      - id: "upload-folder-to-gcs"
-        if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
-        uses: "google-github-actions/upload-cloud-storage@v2"
-        with:
-          path: "${{ github.workspace }}/salesforce/output/"
-          destination: "salesforce-nonprod-github-workflows/upload-object-changes/success_output"
-          project_id: anz-x-gh-sf-nonprod-ea5caa
+      # # Upload to GCS
+      # - id: "upload-folder-to-gcs"
+      #   if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
+      #   uses: "google-github-actions/upload-cloud-storage@v2"
+      #   with:
+      #     path: "${{ github.workspace }}/salesforce/output/"
+      #     destination: "salesforce-nonprod-github-workflows/upload-object-changes/success_output"
+      #     project_id: anz-x-gh-sf-nonprod-ea5caa

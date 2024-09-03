@@ -1,4 +1,4 @@
-# This workflow looks for object changes and uploads them to gcs bucket in sit.
+# This workflow looks for object changes and uploads them to BQ gcs bucket in the sit environment.
 name: Upload Object Changes
 
 on:
@@ -133,7 +133,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes/success_output gcs_bucket
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes gcs_bucket
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
@@ -142,7 +142,7 @@ jobs:
         shell: bash
         run: |
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_bucket/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_bucket/sfdatasync_user_output/fieldsaccessdiff"
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
@@ -181,5 +181,5 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          gcloud storage rm -r gs://salesforce-sit-github-workflows/upload-object-changes/success_output
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows/upload-object-changes/success_output
+          gcloud storage rm -r gs://salesforce-sit-github-workflows/upload-object-changes
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows/upload-object-changes
