@@ -144,7 +144,9 @@ jobs:
           ls -la
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
           sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
-
+          echo "running diff..."
+          diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields"
+          echo "done...."
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields")
           echo "$diff_output\n"
