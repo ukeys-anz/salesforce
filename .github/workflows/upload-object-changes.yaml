@@ -141,6 +141,7 @@ jobs:
         id: run-diff
         shell: bash
         run: |
+          ls -la
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
           sfdatasync_gcs_object_fields="gcs_success_output/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
 
@@ -159,7 +160,7 @@ jobs:
 
       # Upload success to artifactory
       - name: Push success changes to artifactory
-        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && !cancelled() }}
         working-directory: salesforce
         id: push-success-to-artifactory
         shell: bash
