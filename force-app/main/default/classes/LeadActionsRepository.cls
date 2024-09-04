@@ -1,39 +1,25 @@
 /**
  * @author MLCRM Developer
  * @since 07/2024
- * @description This class provide SOQL and DML helper for class related to MLCRMLeadActions.
+ * @description This class provide SOQL,DML and mocking helper for class related to MLCRMLeadActions.
  */
 public with sharing class LeadActionsRepository {
+  private static final String ADMIN_PROFILE_NAME = 'System Administrator';
   /**
-   * @description getTerrritories method return Territories associated to teh given ids of the Territory
-   * @param idsOfTerritory Id of the Territories
-   * @return List<Territory__c> Territory__c List
+   * @description to check if the user have 'ML_Allow_Lead_Creation' custom permission
+   * @name isAllowLeadCreationCustomPermission
+   * @return Boolean true if the user have 'ML_Allow_Lead_Creation' custom permission
    */
-  public List<Territory__c> getTerrritories(Set<ID> idsOfTerritory) {
-    if (!Schema.sObjectType.Territory__c.isQueryable()) {
-      return new List<Territory__c>();
-    }
-    if (idsOfTerritory.isEmpty()) {
-      return new List<Territory__c>();
-    }
-    return [
-      SELECT Id, Primary_Franchise_Owner__c
-      FROM Territory__c
-      WHERE Id IN :idsOfTerritory
-      WITH SECURITY_ENFORCED
-    ];
+  public Boolean isAllowLeadCreationCustomPermission() {
+    return FeatureManagement.checkPermission('ML_Allow_Lead_Creation');
   }
+
   /**
-   * @description to check if the user is Unica/Adobe/System Admin or have' ML_Allow_Lead_Creation' custom permission
-   * @name isSkipValidationUser
-   * @return Boolean true if the user is Unica/Adobe/System Admin or have' ML_Allow_Lead_Creation' custom permission
+   * @description Check whether the logged in user is Admin User
+   * @return Boolean True if a user is Admin User false otherwise
    */
-  public Boolean isSkipValidationUser() {
-    String currUsername = UserInfo.getUserName();
-    return (currUsername.startsWith(Label.UnicaIntegrationUserName) ||
-    currUsername.startsWith(Label.AdobeIntegrationUserName) ||
-    UserInfo.getProfileId() ==
-    CommonUtil.getProfileByName(MLCRMConstants.ADMIN_PROFILE_NAME).Id ||
-    FeatureManagement.checkPermission('ML_Allow_Lead_Creation'));
+  public Boolean isCurrentUserAdmin() {
+    return (UserInfo.getProfileId() ==
+    CommonUtil.getProfileByName(ADMIN_PROFILE_NAME).Id);
   }
 }

@@ -213,15 +213,15 @@ describe("c-card-fraud-lock", () => {
         let fraudOptions = element.shadowRoot.querySelectorAll(
           "lightning-button.btnFraudLock"
         );
-        let blockCNPButton = fraudOptions[1];
-        blockCNPButton.click();
+        let fraudLockButton = fraudOptions[1];
+        fraudLockButton.click();
       })
       .then(() => {
         let fraudOptions = element.shadowRoot.querySelectorAll(
           "lightning-button.btnFraudLock"
         );
-        let blockCNPButton = fraudOptions[1];
-        expect(blockCNPButton).toHaveProperty(["variant"], "brand");
+        let fraudLockButton = fraudOptions[1];
+        expect(fraudLockButton).toHaveProperty(["variant"], "brand");
       });
   });
 
@@ -250,8 +250,8 @@ describe("c-card-fraud-lock", () => {
         let fraudOptions = element.shadowRoot.querySelectorAll(
           "lightning-button.btnFraudLock"
         );
-        let blockCNPButton = fraudOptions[1];
-        blockCNPButton.click();
+        let fraudLockButton = fraudOptions[1];
+        fraudLockButton.click();
       })
       .then(() => {
         let submitButton = element.shadowRoot.querySelector(
@@ -290,8 +290,8 @@ describe("c-card-fraud-lock", () => {
         let fraudOptions = element.shadowRoot.querySelectorAll(
           "lightning-button.btnFraudLock"
         );
-        let blockCNPButton = fraudOptions[1];
-        blockCNPButton.click();
+        let fraudLockButton = fraudOptions[1];
+        fraudLockButton.click();
       })
       .then(() => {
         let submitButton = element.shadowRoot.querySelector(
@@ -448,8 +448,8 @@ describe("c-card-fraud-lock", () => {
         let fraudOptions = element.shadowRoot.querySelectorAll(
           "lightning-button.btnFraudLock"
         );
-        let blockCNPButton = fraudOptions[1];
-        blockCNPButton.click();
+        let fraudLockButton = fraudOptions[1];
+        fraudLockButton.click();
       })
       .then(() => {
         let submitButton = element.shadowRoot.querySelector(
@@ -532,6 +532,33 @@ describe("c-card-fraud-lock", () => {
         expect(publishObject.name).toBe("showFraudLock");
         expect(publishObject.show).toBe(true);
       });
+  });
+
+  it("18. check if a Cancel Card batton is clicked, then confirm cancel button should have been disabled", () => {
+    const element = createElement("c-card-fraud-lock", {
+      is: CardFraudLock
+    });
+    element.buttonClicked = "Cancel Card";
+    element.cardStatus = "Issued";
+
+    jest.useFakeTimers();
+    jest.spyOn(global, "setTimeout");
+
+    document.body.appendChild(element);
+    expect(setTimeout).toHaveBeenCalledTimes(1);
+    expect(setTimeout).toHaveBeenLastCalledWith(expect.any(Function), 1000);
+
+    const confirmButton = element.shadowRoot.querySelector(
+      'lightning-button[data-id="confirm-button"]'
+    );
+    expect(confirmButton.label).toContain("(5)");
+    expect(confirmButton.disabled).toBeTruthy();
+    jest.advanceTimersByTime(1000);
+    expect(confirmButton.label).toContain("(4)");
+    jest.advanceTimersByTime(4000);
+    expect(confirmButton.label).toEqual("Confirm Card Cancellation");
+    expect(confirmButton.disabled).toBeFalsy();
+    jest.clearAllTimers();
   });
 });
 

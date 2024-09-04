@@ -1,45 +1,29 @@
 <template>
-  <template lwc:if={currentFileType.stopSpinner}>
-    <div class={cssClass}>
-      <template lwc:if={currentFileType.isImageFinalVersion}>
-        <template lwc:if={showRedBorder}>
-          <img
-            src={currentFileType.imageURL}
-            class="borderRed imgCSS"
-            oncontextmenu={disableRightClick}
-          />
-        </template>
-        <template lwc:else>
-          <img
-            src={currentFileType.imageURL}
-            oncontextmenu={disableRightClick}
-            class="imgCSS"
-          />
-        </template>
-      </template>
-      <template lwc:else>
-        <img
-          src={errorImage}
-          oncontextmenu={disableRightClick}
-          class="imgCSS"
-        />
-        <div class="slds-text-align_center">
-          <lightning-icon
-            icon-name="utility:warning"
-            alternative-text="Warning!"
-            title="Warning"
-          ></lightning-icon>
-          {errorMsg}
-        </div>
-      </template>
-    </div>
-  </template>
-  <template lwc:else>
+  <template lwc:if={showSpinner}>
     <div class="slds-col slds-size_1-of-1 slds-wrap spinnerHolder">
       <lightning-spinner
         alternative-text="Loading"
         variant="brand"
       ></lightning-spinner>
     </div>
+  </template>
+  <template lwc:if={imgSrc}>
+    <img
+      src={imgSrc}
+      oncontextmenu={disableRightClick}
+      class={imgClass}
+      onload={handleImageLoad}
+      onerror={handleErrorLoad}
+    />
+    <template lwc:if={showError}>
+      <div class="slds-text-align_center">
+        <lightning-icon
+          icon-name="utility:warning"
+          alternative-text="Warning!"
+          title="Warning"
+        ></lightning-icon>
+        Image not found
+      </div>
+    </template>
   </template>
 </template>

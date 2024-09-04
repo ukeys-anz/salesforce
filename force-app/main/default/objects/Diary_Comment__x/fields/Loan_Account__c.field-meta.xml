@@ -6,9 +6,9 @@
     <description>Parent Loan account</description>
     <externalDeveloperName>LoanAccount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Loan Account</label>
     <length>255</length>
     <referenceTo>Loan_Account__x</referenceTo>

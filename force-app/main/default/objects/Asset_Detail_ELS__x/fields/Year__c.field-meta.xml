@@ -6,9 +6,9 @@
     <description>Year of manufacture of asset</description>
     <externalDeveloperName>Year</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Year</label>
     <precision>4</precision>
     <required>false</required>

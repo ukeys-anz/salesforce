@@ -7,9 +7,9 @@
     <description>Pledge</description>
     <externalDeveloperName>Pledge</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Pledge</label>
     <securityClassification>Internal</securityClassification>
     <type>Checkbox</type>

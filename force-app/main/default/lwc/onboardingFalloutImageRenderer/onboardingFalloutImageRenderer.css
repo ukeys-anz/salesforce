@@ -7,18 +7,6 @@
   border: 4px solid;
   border-color: red;
 }
-.imgContainer {
-  height: 240px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.imgContainerCases {
-  height: 290px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .imgCSS {
   height: 100%;
   width: 100%;

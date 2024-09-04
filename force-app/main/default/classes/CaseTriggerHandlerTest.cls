@@ -19,107 +19,60 @@ private class CaseTriggerHandlerTest {
 
   private static final String EMPTY_FAILED_REASON = '';
 
+  private static Faker faker = new Faker('AU');
+
+  //User as current user, to get around MIXED_DML_OPERATION error
+  private static User thisUser = new User(Id = UserInfo.getUserId());
+
   @TestSetup
   static void setup() {
-    Faker faker = new Faker('AU');
     // Insert Account & User as current user, to get around MIXED_DML_OPERATION error
-    User thisUser = new User(Id = UserInfo.getUserId());
     Map<String, User> userMap = new Map<String, User>();
     System.runAs(thisUser) {
       /*----------Create users for tests----------*/
 
       // Create a FraudX User with 'FraudX Agent' role
       Profile profile = CommonUtil.getProfileByName('ANZx Standard User');
-      UserRole role = CommonUtil.getUserRoleByDevName('FraudX_Agent');
-      User fraudXAgent = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'FraudXTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => role.Id
-        }
+      userMap.put(
+        'fraudXAgent',
+        createTestUser(profile.Id, 'FraudX_Agent', 'FraudXTest')
       );
-      userMap.put('fraudXAgent', fraudXAgent);
-
-      UserRole coachRole = CommonUtil.getUserRoleByDevName('Coach');
-      User coach = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CoachTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => coachRole.Id
-        }
+      userMap.put('coach', createTestUser(profile.Id, 'Coach', 'CoachTest'));
+      userMap.put(
+        'bohCoach',
+        createTestUser(profile.Id, 'BOH_Coach', 'BOHCoachTest')
       );
-      userMap.put('coach', coach);
-
-      UserRole bohRole = CommonUtil.getUserRoleByDevName('BOH_Coach');
-      User bohCoach = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'BOHCoachTest',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => bohRole.Id
-        }
+      userMap.put(
+        'creditOfficer',
+        createTestUser(
+          profile.Id,
+          'Credit_Assessment_Officer',
+          'CreditAssessmentOfficer'
+        )
       );
-      userMap.put('bohCoach', bohCoach);
-
-      UserRole creditOfficerRole = CommonUtil.getUserRoleByDevName(
-        'Credit_Assessment_Officer'
+      userMap.put(
+        'creditLead',
+        createTestUser(profile.Id, 'Credit_Assessor_Lead', 'CreditLead')
       );
-      User creditOfficer = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CreditAssessmentOfficer',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => creditOfficerRole.Id
-        }
-      );
-      userMap.put('creditOfficer', creditOfficer);
-
-      UserRole creditLeadRole = CommonUtil.getUserRoleByDevName(
-        'Credit_Assessor_Lead'
-      );
-      User creditLead = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CreditLead',
-          'ProfileId' => profile.Id,
-          'UserRoleId' => creditLeadRole.Id
-        }
-      );
-      userMap.put('creditLead', creditLead);
 
       Profile integrationProfile = CommonUtil.getProfileByName(
         'Integration User'
       );
-      UserRole anzxRole = CommonUtil.getUserRoleByDevName('ANZx');
-      User creditRefIntegrationUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'CreditRefIntegrationUser',
-          'ProfileId' => integrationProfile.Id,
-          'UserRoleId' => anzxRole.Id
-        }
+      userMap.put(
+        'creditRefIntegrationUser',
+        createTestUser(
+          integrationProfile.Id,
+          'ANZx',
+          'CreditRefIntegrationUser'
+        )
       );
-      userMap.put('creditRefIntegrationUser', creditRefIntegrationUser);
 
-      // Create IDR L1 user
-      Profile anzProfile = [
-        SELECT Id
-        FROM Profile
-        WHERE Name = 'ANZ Standard User'
-        LIMIT 1
-      ];
-
-      User idrUser = (User) FakerFactory.make(new FakerUserFactory());
-      idrUser.FirstName = 'IDRL1';
-      idrUser.ProfileId = anzProfile.Id;
-      userMap.put('idrUser', idrUser);
-
-      // Create an Integration User
-      UserRole roleAnz = CommonUtil.getUserRoleByDevName('ANZ');
-      User integrationUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'IntegrationTest',
-          'ProfileId' => integrationProfile.Id,
-          'UserRoleId' => roleAnz.Id
-        }
+      Profile anzProfile = CommonUtil.getProfileByName('ANZ Standard User');
+      userMap.put('idrUser', createTestUser(anzProfile.Id, 'ANZ', 'IDRL1'));
+      userMap.put(
+        'integrationUser',
+        createTestUser(integrationProfile.Id, 'ANZ', 'IntegrationTest')
       );
-      userMap.put('integrationUser', integrationUser);
 
       insert userMap.values();
 
@@ -130,19 +83,7 @@ private class CaseTriggerHandlerTest {
         'Customer_Read_Only',
         'Case_Read_Write_Customer_Onboarding'
       };
-      List<PermissionSet> psList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :fraudXPSs
-      ];
-
-      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : psList) {
-        psaList.add(
-          TestUtil.createPSAssignment(userMap.get('fraudXAgent').Id, ps.Id)
-        );
-      }
-      insert psaList;
+      insertPSAList(fraudXPSs, userMap.get('fraudXAgent').Id);
 
       // Coach User permission sets
       List<String> coachPSs = new List<String>{
@@ -152,19 +93,7 @@ private class CaseTriggerHandlerTest {
         'Quality_Assessment_Read_Only',
         'Case_Read_Write_Non_Customer_Complaints'
       };
-      List<PermissionSet> coachPsList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :coachPSs
-      ];
-
-      List<PermissionSetAssignment> coachPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : coachPsList) {
-        coachPsaList.add(
-          TestUtil.createPSAssignment(userMap.get('coach').Id, ps.Id)
-        );
-      }
-      insert coachPsaList;
+      insertPSAList(coachPSs, userMap.get('coach').Id);
 
       // Credit Referral Integration User permission sets
       List<String> creditRefPs = new List<String>{
@@ -172,43 +101,14 @@ private class CaseTriggerHandlerTest {
         'Case_Read_Write_Credit_Referral',
         'Credit_Referral_Integration'
       };
-      List<PermissionSet> creditRefPsList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :creditRefPs
-      ];
-
-      List<PermissionSetAssignment> creditRefPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : creditRefPsList) {
-        creditRefPsaList.add(
-          TestUtil.createPSAssignment(
-            userMap.get('creditRefIntegrationUser').Id,
-            ps.Id
-          )
-        );
-      }
-      insert creditRefPsaList;
+      insertPSAList(creditRefPs, userMap.get('creditRefIntegrationUser').Id);
 
       // IDR user permission sets
       List<String> idrPsets = new List<String>{
         'IDR_User',
         'IDR_User_Level_1'
       };
-      List<PermissionSet> idrPsetList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :idrPsets
-      ];
-
-      List<PermissionSetAssignment> idrPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : idrPsetList) {
-        PermissionSetAssignment psa = new PermissionSetAssignment(
-          AssigneeId = userMap.get('idrUser').Id,
-          PermissionSetId = ps.Id
-        );
-        idrPsaList.add(psa);
-      }
-      insert idrPsaList;
+      insertPSAList(idrPsets, userMap.get('idrUser').Id);
 
       // Integration User permission sets
       List<String> integrationPsets = new List<String>{
@@ -217,88 +117,101 @@ private class CaseTriggerHandlerTest {
         'Case_Read_Write_Dispute',
         'Read_Only_Admin'
       };
-
-      List<PermissionSet> integrationPsList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :integrationPsets
-      ];
-
-      List<PermissionSetAssignment> integrationPsaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : integrationPsList) {
-        integrationPsaList.add(
-          TestUtil.createPSAssignment(userMap.get('integrationUser').Id, ps.Id)
-        );
-      }
-      insert integrationPsaList;
+      insertPSAList(integrationPsets, userMap.get('integrationUser').Id);
 
       Account[] accnts = new List<Account>();
       accnts.add(TestDataFactory.createAccount('CustomerRLA', false));
       for (Integer i = 0; i < 2; i++) {
-        accnts.add(
-          new Account(
-            Name = 'TestAccount',
-            Display_Name__c = 'TestAccount',
-            OCV_ID__c = faker.randomString(10),
-            ANZx_Customer__c = true,
-            // Criteria based sharing rules cannot be tested in APEX unit tests.
-            // Therefore, sharing the test Account record with user by assigning ownership.
-            OwnerId = userMap.get('fraudXAgent').Id,
-            External_Id__c = faker.randomString(10)
-          )
-        );
+        accnts.add(createPersonAccount(userMap.get('fraudXAgent').Id));
       }
-      // Create a PersonAccount
-      Account personAcc = new Account(
-        RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-          .get('PersonAccount')
-          .getRecordTypeId(),
-        FirstName = faker.randomString(5),
-        LastName = faker.randomString(5),
-        OCV_ID__c = 'PERSONOCV879879',
-        ANZx_Customer__c = true
+      accnts.add(
+        createNonPersonAccount(
+          'Complaint Entitlement Account',
+          faker.randomString(10)
+        )
       );
-      accnts.add(personAcc);
 
-      Account a = new Account(
-        Name = 'Complaint Entitlement Account',
-        OCV_ID__c = faker.randomString(10),
-        ANZx_Customer__c = false
+      accnts.add(
+        createNonPersonAccount(
+          'Fraud Entitlement Account',
+          Label.Fraudx_Generic_Customer_OCV_Id
+        )
       );
-      accnts.add(a);
-
-      Account fraudAcc = new Account(
-        Name = 'Fraud Entitlement Account',
-        OCV_ID__c = Label.Fraudx_Generic_Customer_OCV_Id
-      );
-      accnts.add(fraudAcc);
-
-      Account falseCustomerProfileAcc = new Account(
-        FirstName = 'False Customer',
-        LastName = 'Profile Account',
-        OCV_ID__c = faker.randomString(10),
-        RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
-        ANZx_Customer__c = true,
-        PersonMobilePhone = '+61400000000'
-      );
-      accnts.add(falseCustomerProfileAcc);
 
       insert accnts;
 
-      ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        String value = String.valueOf(i);
-        ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
-          value
-        );
-        rla.Credit_ID__c = '000-000-000-00' + value;
-        rla.AccountId = accnts[0].Id;
-
-        newRLA.add(rla);
-      }
-      insert newRLA;
+      //test data for Residential Loan Application
+      createResidentialLoanApps(accnts[0].Id);
     }
     insertTestAccountsForDisputeCases();
+  }
+
+  private static User createTestUser(
+    Id profileId,
+    String roleName,
+    String firstName
+  ) {
+    UserRole role = CommonUtil.getUserRoleByDevName(roleName);
+
+    return TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => firstName,
+        'ProfileId' => profileId,
+        'UserRoleId' => role.Id
+      }
+    );
+  }
+
+  private static void insertPSAList(List<String> userPSList, String userId) {
+    List<PermissionSet> psList = [
+      SELECT Id
+      FROM PermissionSet
+      WHERE Name IN :userPSList
+    ];
+    List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
+    for (PermissionSet ps : psList) {
+      psaList.add(TestUtil.createPSAssignment(userId, ps.Id));
+    }
+    insert psaList;
+  }
+
+  private static Account createPersonAccount(Id userId) {
+    return new Account(
+      RecordTypeId = GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID,
+      FirstName = faker.randomString(5),
+      LastName = faker.randomString(5),
+      OCV_ID__c = 'PERSONOCV879879',
+      ANZx_Customer__c = true,
+      OwnerId = userId,
+      External_Id__c = faker.randomString(10),
+      PersonMobilePhone = '+61400000000'
+    );
+  }
+
+  private static Account createNonPersonAccount(String name, String ocvId) {
+    return new Account(
+      Name = name,
+      OCV_ID__c = ocvId,
+      ANZx_Customer__c = false
+    );
+  }
+
+  private static List<ResidentialLoanApplication> createResidentialLoanApps(
+    Id acctId
+  ) {
+    ResidentialLoanApplication[] newRLA = new List<ResidentialLoanApplication>();
+    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
+      String value = String.valueOf(i);
+      ResidentialLoanApplication rla = TestDataFactory.createTestResidentialLoanApplication(
+        value
+      );
+      rla.Credit_ID__c = '000-000-000-00' + value;
+      rla.AccountId = acctId;
+
+      newRLA.add(rla);
+    }
+    insert newRLA;
+    return newRLA;
   }
 
   @IsTest
@@ -987,7 +900,7 @@ private class CaseTriggerHandlerTest {
     List<Account> accList = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 2
     ];
     // create 2 parent cases
@@ -1038,7 +951,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1076,7 +989,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1111,7 +1024,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1147,7 +1060,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1182,7 +1095,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
@@ -1355,8 +1268,15 @@ private class CaseTriggerHandlerTest {
   //Tests if the Fraud Case Subject is populated correctly based on case record type and type.
   @isTest
   static void testPopulateFraudCaseSubject() {
-    Faker faker = new Faker('AU');
     List<String> caseTypes = new List<String>{ 'Remote Access', 'Not a Scam' };
+
+    //Temporarily disable Validation Rules
+    System.runAs(thisUser) {
+      insert new Salesforce_Library_Settings__c(
+        SetupOwnerId = UserInfo.getOrganizationId(),
+        Disable_VRs__c = true
+      );
+    }
 
     // GIVEN FraudX Agent user has required acces
     // Query for API User
@@ -1367,7 +1287,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE OCV_ID__c = 'PERSONOCV879879'
       LIMIT 1
     ];
 
@@ -1532,7 +1452,6 @@ private class CaseTriggerHandlerTest {
 
   //Test to verify Subject auto-population when Case Type has a numerical value different from the label
   static void testNumericCaseTypeValue() {
-    Faker faker = new Faker('AU');
     // GIVEN the selected Case Types has numerical values as API names
     List<String> caseTypes = new List<String>{ '10', '11' };
 
@@ -1541,7 +1460,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE ANZx_Customer__c = TRUE
       LIMIT 1
     ];
 
@@ -1606,7 +1525,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id
       FROM Account
-      WHERE Display_Name__c = 'TestAccount'
+      WHERE OCV_ID__c = 'PERSONOCV879879'
       LIMIT 1
     ];
 
@@ -1752,7 +1671,7 @@ private class CaseTriggerHandlerTest {
     Account acc = [
       SELECT Id, PersonContactId
       FROM Account
-      WHERE OCV_ID__c = 'PERSONOCV879879'
+      WHERE RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
       LIMIT 1
     ];
 
@@ -1975,7 +1894,6 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testIsAEMConvertedSuccess() {
-    Faker faker = new Faker('AU');
     Case oldRecord = new Case();
     oldRecord.Description = faker.randomString(10);
     oldRecord.Status = IDRConstants.OPEN_STATUS;
@@ -1999,7 +1917,6 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testIsAEMConvertedFailure() {
-    Faker faker = new Faker('AU');
     Case oldRecord = new Case();
     oldRecord.Description = faker.randomString(10);
     oldRecord.Status = IDRConstants.OPEN_STATUS;
@@ -2032,7 +1949,6 @@ private class CaseTriggerHandlerTest {
     ];
     // GIVEN
     // We have one unauthenticated enquiry case
-    Faker faker = new Faker('AU');
     Case caseRecord = new Case();
     caseRecord.Description = faker.randomString(10);
     caseRecord.Status = IDRConstants.OPEN_STATUS;
@@ -2079,7 +1995,6 @@ private class CaseTriggerHandlerTest {
     ];
     // GIVEN
     // We have one unauthenticated enquiry case
-    Faker faker = new Faker('AU');
     Case caseRecord = new Case();
     caseRecord.Description = faker.randomString(10);
     caseRecord.Status = IDRConstants.OPEN_STATUS;
@@ -2119,7 +2034,6 @@ private class CaseTriggerHandlerTest {
     ];
     // GIVEN
     // We have one unauthenticated enquiry case
-    Faker faker = new Faker('AU');
     Case caseRecord = new Case();
     caseRecord.Description = faker.randomString(10);
     caseRecord.Status = IDRConstants.OPEN_STATUS;
@@ -2131,15 +2045,6 @@ private class CaseTriggerHandlerTest {
     caseRecord.AccountId = acc.Id;
     caseRecord.Type = '11';
     insert caseRecord;
-
-    // THEN
-    // the same Entitlement record on Account should be linked on the Case
-    Entitlement accountEntitlement = [
-      SELECT Id
-      FROM Entitlement
-      WHERE AccountId = :acc.Id
-      LIMIT 1
-    ];
 
     Test.startTest();
     caseRecord.RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
@@ -2390,7 +2295,6 @@ private class CaseTriggerHandlerTest {
 
   @isTest
   static void testHandleSLANotifications() {
-    Faker faker = new Faker('AU');
     // GIVEN
     // a case is created linked to an ANZ Plus customer
     Case[] newCases = new List<Case>();
@@ -2845,16 +2749,16 @@ private class CaseTriggerHandlerTest {
   }
 
   private static void insertTestAccountsForDisputeCases() {
+    Id industryRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('IndustriesIndividual')
+      .getRecordTypeId();
+
     List<Account> accountList = new List<Account>();
     Account newAccount1 = TestDataFactory.createTestAccountForDisputeCases('1');
-    newAccount1.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('IndustriesIndividual')
-      .getRecordTypeId();
+    newAccount1.RecordTypeId = industryRecordTypeId;
     accountList.add(newAccount1);
     Account newAccount2 = TestDataFactory.createTestAccountForDisputeCases('2');
-    newAccount2.RecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('IndustriesIndividual')
-      .getRecordTypeId();
+    newAccount2.RecordTypeId = industryRecordTypeId;
     accountList.add(newAccount2);
     insert accountList;
     List<FinServ__FinancialAccount__c> finServFinancialAccountList = new List<FinServ__FinancialAccount__c>();
@@ -3222,7 +3126,26 @@ private class CaseTriggerHandlerTest {
     }
     Test.stopTest();
 
-    assert();
+    List<Case> updatedIdOpsCases = getIdOpsCase();
+
+    //verify Id Ops cases are updated with the correct corresponding status
+    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
+      Assert.areEqual(
+        COB_CLOSED_STATUSES[i],
+        updatedIdOpsCases[i].Status,
+        'Status should be ' + COB_CLOSED_STATUSES[i]
+      );
+
+      if (
+        updatedIdOpsCases[i].Status == GetHelpConstants.COB_FAILED_OK_STATUS
+      ) {
+        Assert.areEqual(
+          FAILED_RESON,
+          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
+          'Failed reasons should be ' + FAILED_RESON
+        );
+      }
+    }
   }
 
   private static void createIDOpsCases(User usr) {
@@ -3274,29 +3197,6 @@ private class CaseTriggerHandlerTest {
     }
 
     return fraudCheckCases;
-  }
-
-  private static void assert() {
-    List<Case> updatedIdOpsCases = getIdOpsCase();
-
-    //verify Id Ops cases are updated with the correct corresponding status
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      Assert.areEqual(
-        COB_CLOSED_STATUSES[i],
-        updatedIdOpsCases[i].Status,
-        'Status should be ' + COB_CLOSED_STATUSES[i]
-      );
-
-      if (
-        updatedIdOpsCases[i].Status == GetHelpConstants.COB_FAILED_OK_STATUS
-      ) {
-        Assert.areEqual(
-          FAILED_RESON,
-          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
-          'Failed reasons should be ' + FAILED_RESON
-        );
-      }
-    }
   }
 
   private static List<Case> getIdOpsCase() {
@@ -3483,7 +3383,8 @@ private class CaseTriggerHandlerTest {
           e.getMessage()
             .contains(
               'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.'
-            )
+            ),
+          'Error message should be displayed'
         );
       }
     }
@@ -3608,7 +3509,8 @@ private class CaseTriggerHandlerTest {
           e.getMessage()
             .contains(
               'You can\'t assign a credit referral case to someone who does not have the authority to resolve it.'
-            )
+            ),
+          'Error message should be displayed'
         );
       }
     }

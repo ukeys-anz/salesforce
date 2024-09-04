@@ -6,9 +6,9 @@
     <description>Id of credit card</description>
     <externalDeveloperName>CreditCardId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Credit Card</label>
     <length>255</length>
     <referenceTo>Credit_Card__x</referenceTo>

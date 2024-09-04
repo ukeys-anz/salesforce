@@ -747,6 +747,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.Transaction_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Transaction_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -862,10 +867,6 @@
         <object>Notification_Handler__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
-    <recordTypeVisibilities>
-        <recordType>Case.ANZx_Complaint</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.ATM_Dispute</recordType>
         <visible>true</visible>

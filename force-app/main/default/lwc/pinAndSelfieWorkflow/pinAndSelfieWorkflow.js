@@ -92,17 +92,17 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
           },
           {
             fileTitle: "Enrolled Selfie",
-            currentFileType: this.workflowDetails.extractedFaceData,
+            currentFileType: this.workflowDetails.selfieData,
             errorImage: this.onboardingSelfieErrorImage,
             errorMessage: "Enrolled selfie not found",
-            changeStyle: this.workflowDetails.extractedFaceData ? true : false
+            changeStyle: this.workflowDetails.selfieData ? true : false
           },
           {
             fileTitle: "Selfie to be Verified",
-            currentFileType: this.workflowDetails.selfieData,
+            currentFileType: this.workflowDetails.extractedFaceData,
             errorImage: this.onboardingSelfieErrorImage,
             errorMessage: "Selfie to be verified not found",
-            changeStyle: this.workflowDetails.selfieData ? true : false
+            changeStyle: this.workflowDetails.extractedFaceData ? true : false
           }
         ];
       });
@@ -217,7 +217,7 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        this.performOperations();
       }
     });
   }
@@ -242,30 +242,19 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        this.performOperations();
       }
     });
   }
 
-  handleRefresh() {
-    window.location.reload();
-  }
   get isApprovButtonDisable() {
     return (
       this.workflowDetails.isPinHistoryCheckFailed ||
-      this.workflowDetails.unProcessedImageData.isImageNotFound ||
-      this.workflowDetails.processedImageData.isImageNotFound ||
-      this.workflowDetails.selfieData.isImageNotFound ||
-      this.workflowDetails.extractedFaceData.isImageNotFound
+      this.workflowDetails.isCaseClosed
     );
   }
 
   get isRejectButtonDisable() {
-    return (
-      this.workflowDetails.unProcessedImageData.isImageNotFound ||
-      this.workflowDetails.processedImageData.isImageNotFound ||
-      this.workflowDetails.selfieData.isImageNotFound ||
-      this.workflowDetails.extractedFaceData.isImageNotFound
-    );
+    return this.workflowDetails.isCaseClosed;
   }
 }

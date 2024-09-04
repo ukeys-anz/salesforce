@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <formula>IF(ISBLANK(FinServ__RelatedContact__r.AccountId), &apos;&apos;, FinServ__RelatedContact__r.Account.Source_System_Id__c)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Source System Id</label>
+    <label>Source System ID</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>

@@ -51,7 +51,8 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       ) {
         data.Case = {
           ResolutionInformation: {
-            realFormMAXId: this.omniJsonData.Case.ResolutionInformation.realFormMAXId.trim()
+            realFormMAXId:
+              this.omniJsonData.Case.ResolutionInformation.realFormMAXId.trim()
           }
         };
         this.callAPI(
