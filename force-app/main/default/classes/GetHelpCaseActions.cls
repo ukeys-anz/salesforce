@@ -757,6 +757,7 @@ public with sharing class GetHelpCaseActions {
         c.IDR_Customer_Number__c = acc.Source_System_ID__c;
         c.CPID__c = acc.CPID__c;
         c.IDR_CC_Gender__c = acc.Gender__pc;
+        c.IDR_Customer_Identifier__c = IDRConstants.CUSTOMER_IDENTIFIER_CAP_ID;
       }
     }
   }
