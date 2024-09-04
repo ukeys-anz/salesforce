@@ -142,7 +142,7 @@ jobs:
         shell: bash
         run: |
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_bucket/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_bucket/upload-object-changes/sfdatasync_user_output/fieldsaccessdiff"
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
