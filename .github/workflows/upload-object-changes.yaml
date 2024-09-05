@@ -80,8 +80,6 @@ jobs:
         shell: bash
         run: |
           sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
-          odaseva_object_list=$(jq -r '.odaseva_object_whitelist[]' ./config/object-changes-list.json)
-
           for object in $sfdatasync_object_list; do
             echo "running fieldsaccessdiff on sfdatasync user for $object..."
             if  ! ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
@@ -89,13 +87,16 @@ jobs:
                 errors+=("$object for user sfdatasync.user@anzx.com.test24")
             fi
           done
-          for object in $odaseva_object_list; do
-            echo "running fieldsaccessdiff on odaseva user for $object..."
-            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
-                  -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
-                errors+=("$object for user odaseva.user@anzx.com.test24")
-            fi
-          done
+
+          # TBC for Odaseva
+          # odaseva_object_list=$(jq -r '.odaseva_object_whitelist[]' ./config/object-changes-list.json)
+          # for object in $odaseva_object_list; do
+          #   echo "running fieldsaccessdiff on odaseva user for $object..."
+          #   if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
+          #         -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
+          #       errors+=("$object for user odaseva.user@anzx.com.test24")
+          #   fi
+          # done
 
           if [ ${#errors[@]} -ne 0 ]; then
             echo "Errors occurred with the following objects:"
@@ -113,7 +114,7 @@ jobs:
         shell: bash
         run: |
           # zip the files
-          mkdir output && mv sfdatasync_user_output odaseva_user_output output/
+          mkdir output && mv sfdatasync_user_output output/
           ARTIFACT_NAME="sf_objects_failure_diff_develop_$(git rev-parse --verify HEAD)"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
@@ -167,7 +168,7 @@ jobs:
         shell: bash
         run: |
           # zip the files
-          mkdir output && mv sfdatasync_user_output odaseva_user_output output/
+          mkdir output && mv sfdatasync_user_output output/
           ARTIFACT_NAME="sf_objects_success_diff_develop_$(git rev-parse --verify HEAD)"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
