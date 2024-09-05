@@ -134,7 +134,8 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/** gcs_bucket
+          gsutil -m cp -r gs://salesforce-sit-github-workflows/** gcs_bucket || echo "No files or folders found to copy."
+          # gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/** gcs_bucket
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() }}
