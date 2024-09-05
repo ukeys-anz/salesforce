@@ -43,7 +43,7 @@ public with sharing class VaultApiRepositoryTest {
         Test.startTest();
         try {
             VaultApiRepository vaultapi = new VaultApiRepository();
-            DetokenizationResponseModel encryptedDataFromGCP = vaultapi.getFullCardNumberDetails(
+            vaultapi.getFullCardNumberDetails(
                 '1111',
                 CardDetailsControllerTest.MOCK_TOKENIZED_CARD_NUMBER
             );
