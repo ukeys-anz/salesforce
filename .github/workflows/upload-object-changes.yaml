@@ -134,7 +134,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows gcs_bucket
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/ gcs_bucket
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
@@ -182,5 +182,5 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          gcloud storage rm -r gs://salesforce-sit-github-workflows/*
+          gcloud storage rm -r gs://salesforce-sit-github-workflows/
           gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows
