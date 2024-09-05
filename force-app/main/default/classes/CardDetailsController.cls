@@ -89,4 +89,23 @@ public with sharing class CardDetailsController {
       }
     }
   }
+
+  
+  /**
+   * @param ocvId ocvId of the customer
+   * @param cardNumberToBeDetokenized tokenized card number
+   * @description handle doing service call to GCP to get full card details in detokenized format
+   * @return fullcardnumber Decrypted full card number recieved from Vault via GCP
+   */
+  @AuraEnabled
+  public static String getFullCardNumberDetails(String ocvId,String cardNumberToBeDetokenized) {
+    VaultApiRepository vaultapi = new VaultApiRepository();
+    try{
+      DetokenizationResponseModel encryptedDataFromGCP = vaultapi.getFullCardNumberDetails(ocvId,cardNumberToBeDetokenized);
+      return CryptoOperationsUtils.decryptDataWithIV(encryptedDataFromGCP.publicKeyId, encryptedDataFromGCP.initializationVector, encryptedDataFromGCP.encryptedData );
+    }
+    catch (Exception objException) {
+      throw CommonUtil.logException(objException);
+    }
+  }
 }
