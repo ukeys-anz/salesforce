@@ -182,5 +182,5 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          gcloud storage rm -r gs://salesforce-sit-github-workflows
+          gcloud storage rm -r gs://salesforce-sit-github-workflows/*
           gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows
