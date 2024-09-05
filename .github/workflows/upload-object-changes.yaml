@@ -114,7 +114,7 @@ jobs:
         shell: bash
         run: |
           # zip the files
-          mkdir output && mv sfdatasync_user_output output/
+          mkdir output && mv sfdatasync_user_output/fieldsaccessdiff/* output/
           ARTIFACT_NAME="sf_objects_failure_diff_develop_$(git rev-parse --verify HEAD)"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
@@ -134,7 +134,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/upload-object-changes gcs_bucket
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows gcs_bucket
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
@@ -143,7 +143,7 @@ jobs:
         shell: bash
         run: |
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_bucket/upload-object-changes/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_bucket/"
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
@@ -168,7 +168,7 @@ jobs:
         shell: bash
         run: |
           # zip the files
-          mkdir output && mv sfdatasync_user_output output/
+          mkdir output && mv sfdatasync_user_output/fieldsaccessdiff/* output/
           ARTIFACT_NAME="sf_objects_success_diff_develop_$(git rev-parse --verify HEAD)"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
@@ -182,5 +182,5 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          gcloud storage rm -r gs://salesforce-sit-github-workflows/upload-object-changes
-          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows/upload-object-changes
+          gcloud storage rm -r gs://salesforce-sit-github-workflows
+          gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows
