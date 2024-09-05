@@ -137,7 +137,7 @@ jobs:
           gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 gs://salesforce-sit-github-workflows/ gcs_bucket
 
       - name: Run diff
-        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() }}
         working-directory: salesforce
         id: run-diff
         shell: bash
@@ -162,7 +162,7 @@ jobs:
 
       # Upload success to artifactory
       - name: Push success changes to artifactory
-        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && !cancelled() }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() }}
         working-directory: salesforce
         id: push-success-to-artifactory
         shell: bash
@@ -178,9 +178,9 @@ jobs:
       # Upload Changes to GCS
       - name: Upload Changes to GCS SIT
         id: "upload-folder-to-gcs"
-        if: ${{ (steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' && steps.run-diff.outcome == 'success' && steps.push-success-to-artifactory.outcome == 'success') && !cancelled() }}
+        if: ${{ (steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && steps.push-success-to-artifactory.outcome == 'success') && !cancelled() }}
         working-directory: salesforce
         shell: bash
         run: |
-          gcloud storage rm -r gs://salesforce-sit-github-workflows/
+          gcloud storage rm -r gs://salesforce-sit-github-workflows/**
           gcloud storage cp -r --project anz-x-gh-sf-sit-4e60a7 output gs://salesforce-sit-github-workflows
