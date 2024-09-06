@@ -848,6 +848,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicantEmployment.EmploymentExtIdentifier</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicantEmployment.EndDate</field>
         <readable>true</readable>
     </fieldPermissions>
