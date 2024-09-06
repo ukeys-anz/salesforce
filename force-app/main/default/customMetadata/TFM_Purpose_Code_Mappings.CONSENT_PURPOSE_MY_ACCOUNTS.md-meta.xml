@@ -11,6 +11,10 @@
         <value xsi:type="xsd:string">to view the accounts, balances and transactions of the {brandName} accounts you chose to see displayed in My Accounts.</value>
     </values>
     <values>
+        <field>Dashboard_Purpose__c</field>
+        <value xsi:type="xsd:string">For display in My Accounts</value>
+    </values>
+    <values>
         <field>Description__c</field>
         <value xsi:type="xsd:string">to view the accounts, balances and transactions of the {brandName} accounts you chose to see displayed in My Accounts.</value>
     </values>

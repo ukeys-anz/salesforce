@@ -626,6 +626,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>RTs_JoinOperationsReader_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Criteria based sharing rule to provide Read Only access to Onboarding , PIN and Selfie Cases to users under Join Operations Reader Role.</description>
+        <label>RTs-JoinOperationsReader-RO</label>
+        <sharedTo>
+            <role>Join_Operations_Reader</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ID Ops Assistance,PIN Recovery,Fraud Check,Selfie Recovery</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_3rdPartyMobileSupport_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Read Write access to General Enquiry and Customer Feedback record type for 3rd Party Mobile Support Team.</description>
