@@ -93,7 +93,7 @@ public with sharing class StravinskyAPIRepositoryTest {
   );
   static Case idOpsCase = new Case(
     PersonaId__c = cobPid.PersonaId__c,
-    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+    RecordTypeId = RTCase.idOpsAssistance
   );
 
   @isTest
@@ -101,7 +101,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Case newCase = new Case(
       AccountId = Lib_FakeIdGenerator.getMockId(Account.sObjectType),
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Package_Id__c = FAKER.randomString(10)
     );
 
@@ -114,7 +114,7 @@ public with sharing class StravinskyAPIRepositoryTest {
       CUSTOMER_OCVIDS_LIST
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       null,
       response.errorinfo,
       'No ErrorInfo Present in Response'
@@ -129,7 +129,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Case newCase = new Case(
       AccountId = Lib_FakeIdGenerator.getMockId(Account.sObjectType),
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID
+      RecordTypeId = RTCase.accountClosure
     );
 
     HttpCalloutResponse res = getMockedResponse(false, 500, null);
@@ -140,7 +140,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     Test.startTest();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
     try {
-      GenesisPackageClosureModel response = stravinskyApi.packageClosure(
+      stravinskyApi.packageClosure(
         newCase,
         ACCOUNT_NUMBER_SET,
         CUSTOMER_OCVIDS_LIST
@@ -149,7 +149,7 @@ public with sharing class StravinskyAPIRepositoryTest {
       resultException = e;
     }
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       'null argument for JSONGenerator.writeStringField()',
       resultException.getMessage(),
       'Exception was expected'
@@ -162,9 +162,9 @@ public with sharing class StravinskyAPIRepositoryTest {
   @isTest
   static void testTriggerTemporalCaseWorkflowFailureResponse() {
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+      RecordTypeId = RTCase.idOpsAssistance,
       PersonaId__c = FAKER.randomString(15),
-      Status = GetHelpConstants.COB_DAON_FAILED_STATUS
+      Status = COBCaseConstants.COB_DAON_FALLOUT_STATUS
     );
 
     HttpCalloutResponse res = getMockedResponse(false, 500, EXCEPTION_JSON);
@@ -237,7 +237,7 @@ public with sharing class StravinskyAPIRepositoryTest {
     }
     Test.stopTest();
 
-    System.assertEquals(
+    Assert.areEqual(
       EXCEPTION_JSON,
       resultException.getMessage(),
       'Exception was expected'
@@ -476,7 +476,7 @@ public with sharing class StravinskyAPIRepositoryTest {
   @isTest
   static void testGenerateJsonRequest() {
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Package_Id__c = FAKER.randomString(10),
       Account_Product__c = 'ANZ Plus Flex Saver'
     );
@@ -490,13 +490,13 @@ public with sharing class StravinskyAPIRepositoryTest {
       CUSTOMER_OCVIDS_LIST
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       true,
       !request.contains('package_resource'),
       'Json request does not have package_resource'
     );
 
-    System.assertEquals(
+    Assert.areEqual(
       true,
       request.contains('1011111111'),
       'Json request have ocvid node with specified value'

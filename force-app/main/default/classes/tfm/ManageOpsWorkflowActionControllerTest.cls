@@ -121,7 +121,7 @@ private with sharing class ManageOpsWorkflowActionControllerTest {
         Subject = 'FAILED_DOC',
         PersonaId__c = personaId,
         Status = 'ID Ops: Daon OK',
-        RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
+        RecordTypeId = RTCase.fraudCheck,
         CustomerOnboardingApplication__c = null
       );
       cases.add(newCase);

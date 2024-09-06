@@ -8,23 +8,15 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>Daon Fallout</fullName>
-        <default>true</default>
+        <fullName>Not a Fraud</fullName>
+        <default>false</default>
     </values>
     <values>
         <fullName>Equifax Fallout</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>ID Check OK</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Failed</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Fraud Check%3A Daon OK</fullName>
-        <default>false</default>
+        <fullName>Daon Fallout</fullName>
+        <default>true</default>
     </values>
 </BusinessProcess>

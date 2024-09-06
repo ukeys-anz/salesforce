@@ -70,7 +70,7 @@ public with sharing class AutoKYCQACaseRepository {
       SELECT Id, CaseNumber, AccountId
       FROM Case
       WHERE
-        RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        RecordTypeId = :RTCase.kycQa
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
     ];
@@ -89,7 +89,7 @@ public with sharing class AutoKYCQACaseRepository {
       SELECT Id, CaseNumber, CustomerOnboardingApplication__c
       FROM Case
       WHERE
-        RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        RecordTypeId = :RTCase.kycQa
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND CustomerOnboardingApplication__c IN :cobAppIds
     ];
@@ -155,7 +155,7 @@ public with sharing class AutoKYCQACaseRepository {
         (
           SELECT OwnerId
           FROM Cases__r
-          WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+          WHERE RecordTypeId = :RTCase.idOpsAssistance
           ORDER BY LastModifiedDate DESC
           LIMIT 1
         )
