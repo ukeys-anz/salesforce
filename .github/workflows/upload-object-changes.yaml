@@ -11,6 +11,9 @@ permissions:
   contents: "read"
   id-token: "write"
 
+env:
+  BUCKET_NAME: salesforce-sit-github-workflows
+
 jobs:
   upload_object_changes:
     # if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
@@ -134,7 +137,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket && ls -la
-          gsutil -m cp -r gs://salesforce-sit-github-workflows/* gcs_bucket/ || echo "No files or folders found to copy."
+          gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/* gcs_bucket/ || echo "No files or folders found to copy."
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() }}
@@ -182,5 +185,5 @@ jobs:
         working-directory: salesforce
         shell: bash
         run: |
-          gcloud storage rm -r gs://salesforce-sit-github-workflows/** || echo "No files or folders found to remove."
-          gsutil -m cp -r output/* gs://salesforce-sit-github-workflows/
+          gcloud storage rm -r gs://${{ env.BUCKET_NAME }}/** || echo "No files or folders found to remove."
+          gsutil -m cp -r output/* gs://${{ env.BUCKET_NAME }}/
