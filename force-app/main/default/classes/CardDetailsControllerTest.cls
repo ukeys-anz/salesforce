@@ -1,13 +1,10 @@
 @isTest
 public with sharing class CardDetailsControllerTest {
-  
-  public static final String MOCK_TOKENIZED_CARD_NUMBER = '8051997368527878';
-  public static final String MOCK_PRIVATE_KEY = 'O0zkiWYRjkrVisuHCb3iUzp3E9CekUH6R7s6lpp2XZE=';
-  
-  static Lib_MockProvider vaultServiceRepoMock;
+
+  static Lib_MockProvider keyServiceRepoMock;
 
   static void registerMocks() {
-    vaultServiceRepoMock = Lib_MockProvider.forType(VaultServiceRepository.class);
+    keyServiceRepoMock = Lib_MockProvider.forType(KeyServiceRepository.class);
   }
   
   /**
@@ -82,19 +79,19 @@ public with sharing class CardDetailsControllerTest {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
     registerMocks();
-    vaultServiceRepoMock.mock(
+    keyServiceRepoMock.mock(
       'retrievePrivateKey',
-      MOCK_PRIVATE_KEY
+      CryptoOperationsUtilsTest.createMockPrivateKeyStorageList()
     );
       Test.startTest();
       String detokenizedCardNumber = CardDetailsController.getFullCardNumberDetails(
         '1111',
-        MOCK_TOKENIZED_CARD_NUMBER
+        CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER
       );
       Test.stopTest();
 
       Assert.areEqual(
-        MOCK_TOKENIZED_CARD_NUMBER, 
+        CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER, 
         detokenizedCardNumber,
         'Full Card Number mock response should be received'
       );
@@ -110,7 +107,7 @@ public with sharing class CardDetailsControllerTest {
     try{
         CardDetailsController.getFullCardNumberDetails(
             '1111',
-            MOCK_TOKENIZED_CARD_NUMBER
+            CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER
         );
     }
     catch (Exception objException) {

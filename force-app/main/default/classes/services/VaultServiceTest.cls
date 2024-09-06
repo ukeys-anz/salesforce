@@ -5,12 +5,6 @@
  */
 @isTest
 public with sharing class VaultServiceTest {
-    public static final StaticResource MOCK_GCP_RESPONSE = [
-        SELECT body
-        FROM StaticResource
-        WHERE Name = 'mock_fullCardNumberSuccess'
-      ];
-
     @isTest
     static void testGetFullCardNumberDetails() {
         Test.setMock(HttpCalloutMock.class, new VaultServiceMockResponse());
@@ -23,7 +17,7 @@ public with sharing class VaultServiceTest {
         Test.startTest();
         VaultService serviceInstance = new VaultService();
         DetokenizationRequestModel contextReq = new DetokenizationRequestModel();
-        contextReq.tokenizedCardNumber = CardDetailsControllerTest.MOCK_TOKENIZED_CARD_NUMBER;
+        contextReq.tokenizedCardNumber = CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER;
         HttpCalloutResponse response = serviceInstance.getFullCardNumberDetails(
             '1111',
             contextReq
@@ -42,7 +36,7 @@ public with sharing class VaultServiceTest {
         public HTTPResponse respond(HTTPRequest req) {
           HTTPResponse res = new HTTPResponse();
           res.setStatusCode(200);
-          res.setBody(JSON.serialize(MOCK_GCP_RESPONSE.body));
+          res.setBody(JSON.serialize(CryptoOperationsUtilsTest.MOCK_GCP_RESPONSE.body));
           res.setHeader('Content-Type', 'application/json');
           return res;
         }

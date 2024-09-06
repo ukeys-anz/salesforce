@@ -5,7 +5,7 @@
  * @group Repository
  */
 public with sharing class VaultApiRepository {
-  private static final String VIEW_CARD_PERMISSION_ERROR = 'User does not have the get full card number permission';
+  private static final String GET_CARD_NUMBER_PERMISSION_ERROR = 'User does not have the get full card number permission';
   /**
    * @param ocvId ocvId of the customer
    * @param cardNumberToBeDetokenized card number to be detokenzed
@@ -16,7 +16,7 @@ public with sharing class VaultApiRepository {
     if (!FeatureManagement.checkPermission('ANZx_View_Card_Number')) {
       throw CommonUtil.logExceptionInfo(
         new CoachBankingAPIRepository.PermissionException(
-          VIEW_CARD_PERMISSION_ERROR
+          GET_CARD_NUMBER_PERMISSION_ERROR
         )
       );
     }
@@ -30,5 +30,13 @@ public with sharing class VaultApiRepository {
       throw CommonUtil.logException(response);
     }
     return DetokenizationResponseModel.parse(response.body);
+  }
+
+  /**
+   * @author Shivam Swaraj
+   * @since September 2024
+   * @description no private key found
+   */
+  public class NoPrivateKeyFoundException extends Exception {
   }
 }

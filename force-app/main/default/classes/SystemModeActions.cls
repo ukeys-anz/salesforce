@@ -39,6 +39,21 @@ public without sharing class SystemModeActions {
   }
 
   /**
+   * @description method to query and return query result with binds
+   * @param soql | String | The SOQL Query
+   * @param bindMap Map<String, Object
+   * @return results | List | A list of the returned database results
+   */
+  public List<SObject> queryWithBinds(String soql, Map<String, Object> bindMap) {
+    List<SObject> results = Database.queryWithBinds(soql, bindMap, AccessLevel.SYSTEM_MODE);
+
+    Logger.info('Query logged without sharing');
+    Logger.saveLog();
+
+    return results;
+  }
+
+  /**
    * @description method to update records in a without sharing context when needed
    * @param records records to update
    * @param objectName object name we're updating

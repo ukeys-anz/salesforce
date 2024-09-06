@@ -5,10 +5,20 @@
  */
 @isTest
 public with sharing class CryptoOperationsUtilsTest { 
-  static Lib_MockProvider vaultServiceRepoMock;
+  
+  //Mock Tokenized Card Number and Private Key for test class to be used in other test classes
+  public static final String MOCK_TOKENIZED_CARD_NUMBER = '8051997368527878';
+  public static final String MOCK_PRIVATE_KEY = 'O0zkiWYRjkrVisuHCb3iUzp3E9CekUH6R7s6lpp2XZE=';
+  public static final StaticResource MOCK_GCP_RESPONSE = [
+        SELECT body
+        FROM StaticResource
+        WHERE Name = 'mock_fullCardNumberSuccess'
+      ];
+
+  static Lib_MockProvider keyServiceRepoMock;
 
   static void registerMocks() {
-    vaultServiceRepoMock = Lib_MockProvider.forType(VaultServiceRepository.class);
+    keyServiceRepoMock = Lib_MockProvider.forType(KeyServiceRepository.class);
   }
 
  /**
@@ -17,12 +27,12 @@ public with sharing class CryptoOperationsUtilsTest {
   @isTest
   public static void testDecryptDataWithIV() {
     registerMocks();
-    vaultServiceRepoMock.mock(
+    keyServiceRepoMock.mock(
       'retrievePrivateKey',
-      CardDetailsControllerTest.MOCK_PRIVATE_KEY
+      createMockPrivateKeyStorageList()
     );
     DetokenizationResponseModel encryptedDataFromGCP = (DetokenizationResponseModel) JSON.deserialize(
-      VaultServiceTest.MOCK_GCP_RESPONSE.body.toString(),
+      MOCK_GCP_RESPONSE.body.toString(),
       DetokenizationResponseModel.class
     );
     Test.startTest();
@@ -34,7 +44,7 @@ public with sharing class CryptoOperationsUtilsTest {
     Test.stopTest();
 
     Assert.areEqual(
-    CardDetailsControllerTest.MOCK_TOKENIZED_CARD_NUMBER, 
+    MOCK_TOKENIZED_CARD_NUMBER, 
     detokenizedCardNumber,
     'Full Card Number mock response should be received'
     );
@@ -44,5 +54,14 @@ public with sharing class CryptoOperationsUtilsTest {
     'retrievePrivateKey should have been called and return a value'
     );
   }
-    
+   
+   /**
+   * @description method to prepare mock private key storage to be used for other test classes as well
+   * @return List<PrivateKeyStorage__c> mock list of PPrivateKeyStorage__cr
+   */
+  public static List<PrivateKeyStorage__c> createMockPrivateKeyStorageList(){
+    PrivateKeyStorage__c mockPrivateKey = new PrivateKeyStorage__c();
+    mockPrivateKey.Private_Key__c = MOCK_PRIVATE_KEY;
+    return new List<PrivateKeyStorage__c>{mockPrivateKey};
+  }
 }

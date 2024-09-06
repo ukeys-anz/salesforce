@@ -24,7 +24,7 @@ public with sharing class VaultApiRepositoryTest {
             VaultApiRepository vaultapi = new VaultApiRepository();
             DetokenizationResponseModel encryptedDataFromGCP = vaultapi.getFullCardNumberDetails(
                 '1111',
-                CardDetailsControllerTest.MOCK_TOKENIZED_CARD_NUMBER
+                CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER
             );
             Test.stopTest();
             
@@ -43,9 +43,9 @@ public with sharing class VaultApiRepositoryTest {
         Test.startTest();
         try {
             VaultApiRepository vaultapi = new VaultApiRepository();
-            vaultapi.getFullCardNumberDetails(
+            DetokenizationResponseModel encryptedDataFromGCP = vaultapi.getFullCardNumberDetails(
                 '1111',
-                CardDetailsControllerTest.MOCK_TOKENIZED_CARD_NUMBER
+                CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER
             );
         }
         catch (Exception objException) {

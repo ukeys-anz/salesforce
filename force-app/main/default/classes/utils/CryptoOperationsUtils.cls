@@ -6,9 +6,10 @@
 
 public with sharing class CryptoOperationsUtils {
     private static final String ENCRYPTION_ALGORITHM = 'AES256';
-    private static final VaultServiceRepository VAULT_REPOSITORY = (VaultServiceRepository) Lib_InstanceProvider.forType(
-        VaultServiceRepository.class
+    private static final KeyServiceRepository PRIVATE_KEY_REPOSITORY = (KeyServiceRepository) Lib_InstanceProvider.forType(
+        KeyServiceRepository.class
         );
+    private static final String NO_PRIVATE_KEY_FOUND_ERROR = 'No Private Key Found With Provided Public Key Id';
    /**
    * @param publicKeyId public key from GCP 
    * @param initializationVector IV from GCP used to decrypt
@@ -17,12 +18,16 @@ public with sharing class CryptoOperationsUtils {
    * @description this method is used to decrypt based on the private key and initialization vector
    */
     public static String decryptDataWithIV(String publicKeyId, String initializationVector, String encryptedData) {
-        String privateKey = VAULT_REPOSITORY.retrievePrivateKey(publicKeyId);
-        if(String.isBlank(privateKey))
+        List<PrivateKeyStorage__c> privateKeyList = PRIVATE_KEY_REPOSITORY.retrievePrivateKey(publicKeyId);
+        if(privateKeyList.isEmpty())
         {
-            return '';
+          throw CommonUtil.logException(
+                new VaultApiRepository.NoPrivateKeyFoundException(
+                    NO_PRIVATE_KEY_FOUND_ERROR
+                )
+              );
         }
-        Blob privateKeyBlob =EncodingUtil.base64Decode(privateKey);
+        Blob privateKeyBlob =EncodingUtil.base64Decode(privateKeyList[0].Private_Key__c);
         Blob initialisationVectorBlob = Blob.valueOf(initializationVector);
         Blob encryptedDataBlob = EncodingUtil.base64Decode(encryptedData);
   
