@@ -377,6 +377,7 @@ private class OnboardingFalloutWorkflowControllerTest {
       workflowDetails,
       cobPIDRec.DaonLocationUri__c
     );
+    workflowDetails.idxExtractedFaceId = 'sampleFaceId';
     workflowDetails.fileTypesList = OnboardingFalloutWorkflowHelper.formFilesList(
       workflowDetails,
       cvList

@@ -2481,4 +2481,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>S2AccountEnabled created for releasing S2 Deliverable in Dormant</shortDescription>
         <value>true</value>
     </labels>
+    <labels>
+        <fullName>DAONImageReloadMaxRetryCount</fullName>
+        <categories>DAON</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DAONImageReloadMaxRetryCount</shortDescription>
+        <value>15</value>
+    </labels>
 </CustomLabels>
