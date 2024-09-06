@@ -217,6 +217,7 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
+        this.performOperations();
       }
     });
   }
@@ -241,6 +242,7 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
+        this.performOperations();
       }
     });
   }

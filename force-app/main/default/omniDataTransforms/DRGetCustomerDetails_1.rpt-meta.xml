@@ -26,23 +26,6 @@
         <name>DRGetCustomerDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| | var:Customer:PersonBirthdate | TODAY DATEDIFF 365.2425 / 0 FLOOR ROUND</formulaConverted>
-        <formulaExpression>ROUND((DATEDIFF(%Customer:PersonBirthdate%, TODAY)/365.2425),0,FLOOR)</formulaExpression>
-        <formulaResultPath>Age</formulaResultPath>
-        <formulaSequence>2.0</formulaSequence>
-        <globalKey>DRGetCustomerDetailsCustom4461</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>DRGetCustomerDetails</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
         <globalKey>DRGetCustomerDetailsCustom804</globalKey>
         <inputFieldName>Customer:PersonOtherCountry</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
@@ -57,16 +40,16 @@
         <name>DRGetCustomerDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <filterValue>AccountId</filterValue>
-        <globalKey>DRGetCustomerDetailsCustom1397</globalKey>
-        <inputFieldName>Id</inputFieldName>
-        <inputObjectName>Account</inputObjectName>
-        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
+        <formulaConverted>| | var:Customer:PersonBirthdate | TODAY DATEDIFF 365.2425 / 0 FLOOR ROUND</formulaConverted>
+        <formulaExpression>ROUND((DATEDIFF(%Customer:PersonBirthdate%, TODAY)/365.2425),0,FLOOR)</formulaExpression>
+        <formulaResultPath>Age</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>DRGetCustomerDetailsCustom4461</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Customer</outputFieldName>
-        <outputObjectName>json</outputObjectName>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
@@ -91,12 +74,15 @@
         <name>DRGetCustomerDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRGetCustomerDetailsCustom1712</globalKey>
-        <inputFieldName>CustomerIdentifier</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <filterOperator>=</filterOperator>
+        <filterValue>AccountId</filterValue>
+        <globalKey>DRGetCustomerDetailsCustom1397</globalKey>
+        <inputFieldName>Id</inputFieldName>
+        <inputObjectName>Account</inputObjectName>
+        <inputObjectQuerySequence>1.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>customerIdentifier</outputFieldName>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Customer</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -119,12 +105,12 @@
         <name>DRGetCustomerDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRGetCustomerDetailsCustom4527</globalKey>
-        <inputFieldName>Customer:Source_System_ID__c</inputFieldName>
+        <globalKey>DRGetCustomerDetailsCustom1712</globalKey>
+        <inputFieldName>CustomerIdentifier</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>customerNumber</outputFieldName>
+        <outputFieldName>customerIdentifier</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -147,12 +133,12 @@
         <name>DRGetCustomerDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRGetCustomerDetailsCustom9699</globalKey>
-        <inputFieldName>Customer:Gender__pc</inputFieldName>
+        <globalKey>DRGetCustomerDetailsCustom4527</globalKey>
+        <inputFieldName>Customer:Source_System_ID__c</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>gender</outputFieldName>
+        <outputFieldName>customerNumber</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -167,6 +153,20 @@
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>age</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRGetCustomerDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRGetCustomerDetailsCustom9699</globalKey>
+        <inputFieldName>Customer:Gender__pc</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>gender</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

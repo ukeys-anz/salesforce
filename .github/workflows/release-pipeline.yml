@@ -19,7 +19,7 @@ jobs:
       options: --user root
       volumes:
         - ${{ github.workspace }}/release:/opt/harness-delegate/release
-    runs-on: [self-hosted, cd-ubuntu-s-prod]
+    runs-on: anzx-default
     concurrency:
       group: "salesforce-release-${{ github.event.inputs.NAME }}"
       cancel-in-progress: false
@@ -92,16 +92,6 @@ jobs:
             prod-consumer-key:projects/810679854929/secrets/${{ env.PROD_CONSUMER_KEY_SECRET_NAME }}/versions/latest
             prod-cert:projects/810679854929/secrets/${{ env.PROD_CERT_SECRET_NAME }}/versions/latest
             artifactory:projects/810679854929/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
-            proxypass:projects/anz-x-bootstrap-prod-3b7a6d/secrets/h-salesforce-prod-proxy-password/versions/1
-
-      - name: "Setup HTTP Proxy (sf-harness-delegate-prod)"
-        id: "proxy-harness-delegate"
-        uses: "anzx/github-reusable-actions/setup-http-proxy@main"
-        with:
-          production: true
-          proxy-username: "sf-harness-delegate-prod"
-          proxy-password: "${{ steps.secrets.outputs.proxypass }}"
-
       - name: Add Genral Secrets to ENV
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV
@@ -120,7 +110,7 @@ jobs:
 
   Cleanup:
     name: "Cleanup"
-    runs-on: [self-hosted, cd-ubuntu-s-prod]
+    runs-on: anzx-default
     needs: [Release]
     if: failure() || always()
     steps:
