@@ -5,18 +5,18 @@
  * @group Services
  */
 public with sharing class VaultServiceMock extends VaultService {
-    /**
-     * @description constructor which sets default status code and successful
-     */
-    public VaultServiceMock() {
-      response.statusCode = 200;
-      response.successful = true;
-    }
-  
-    @TestVisible
-    private static final String FULL_CARD_NUMBER_SUCCESS = getStaticResource(
-      'mock_fullCardNumberSuccess'
-    );
+  /**
+   * @description constructor which sets default status code and successful
+   */
+  public VaultServiceMock() {
+    response.statusCode = 200;
+    response.successful = true;
+  }
+
+  @TestVisible
+  private static final String FULL_CARD_NUMBER_SUCCESS = getStaticResource(
+    'mock_fullCardNumberSuccess'
+  );
 
   /**
    * @param ocvId customer ocvId
@@ -24,13 +24,13 @@ public with sharing class VaultServiceMock extends VaultService {
    * @return `HttpCalloutResponse` method response
    * @description stravinsky package closure api
    */
-    public override HttpCalloutResponse getFullCardNumberDetails(
-      String ocvId,
-      DetokenizationRequestModel cardNumberToBeDetokenizedRequest
-      ) {
-      if (!preset) {
+  public override HttpCalloutResponse getFullCardNumberDetails(
+    String ocvId,
+    DetokenizationRequestModel cardNumberToBeDetokenizedRequest
+  ) {
+    if (!preset) {
       response.body = FULL_CARD_NUMBER_SUCCESS;
-      }
-      return response;
     }
+    return response;
+  }
 }

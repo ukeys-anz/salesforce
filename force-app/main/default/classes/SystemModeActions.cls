@@ -44,8 +44,15 @@ public without sharing class SystemModeActions {
    * @param bindMap Map<String, Object
    * @return results | List | A list of the returned database results
    */
-  public List<SObject> queryWithBinds(String soql, Map<String, Object> bindMap) {
-    List<SObject> results = Database.queryWithBinds(soql, bindMap, AccessLevel.SYSTEM_MODE);
+  public List<SObject> queryWithBinds(
+    String soql,
+    Map<String, Object> bindMap
+  ) {
+    List<SObject> results = Database.queryWithBinds(
+      soql,
+      bindMap,
+      AccessLevel.SYSTEM_MODE
+    );
 
     Logger.info('Query logged without sharing');
     Logger.saveLog();

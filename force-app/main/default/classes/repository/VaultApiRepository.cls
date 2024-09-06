@@ -12,7 +12,10 @@ public with sharing class VaultApiRepository {
    * @return `DetokenizationResponseModel` detokenized card number with the details
    * @description fetches card list from fabric, deserialized to a model
    */
-  public DetokenizationResponseModel getFullCardNumberDetails(String ocvId, String cardNumberToBeDetokenized) {
+  public DetokenizationResponseModel getFullCardNumberDetails(
+    String ocvId,
+    String cardNumberToBeDetokenized
+  ) {
     if (!FeatureManagement.checkPermission('ANZx_View_Card_Number')) {
       throw CommonUtil.logExceptionInfo(
         new CoachBankingAPIRepository.PermissionException(
@@ -25,7 +28,10 @@ public with sharing class VaultApiRepository {
     );
     DetokenizationRequestModel contextReq = new DetokenizationRequestModel();
     contextReq.tokenizedCardNumber = cardNumberToBeDetokenized;
-    HttpCalloutResponse response = serviceInstance.getFullCardNumberDetails(ocvId, contextReq);
+    HttpCalloutResponse response = serviceInstance.getFullCardNumberDetails(
+      ocvId,
+      contextReq
+    );
     if (!response.successful) {
       throw CommonUtil.logException(response);
     }
