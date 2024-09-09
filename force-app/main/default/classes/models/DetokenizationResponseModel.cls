@@ -1,8 +1,4 @@
 /**
- * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
- */
-@SuppressWarnings('PMD.FieldNamingConventions')
-/**
  * @author Shivam Swaraj
  * @since August 2024
  * @description Response Model to store Detokenized Full Card Number response received from Vault via GCP
@@ -11,9 +7,9 @@ public with sharing class DetokenizationResponseModel extends CalloutModel {
   @AuraEnabled
   public String value;
   @AuraEnabled
-  public String initialization_vector;
+  public String initializationVector;
   @AuraEnabled
-  public String public_key_id;
+  public String publicKeyId;
 
   /**
    * @param responseInput input string to deserialize
