@@ -17,7 +17,8 @@ public with sharing class VaultServiceTest {
     Test.startTest();
     VaultService serviceInstance = new VaultService();
     DetokenizationRequestModel contextReq = new DetokenizationRequestModel();
-    contextReq.tokenizedCardNumber = CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER;
+    contextReq.value = CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER;
+    contextReq.type = 'TOKEN_TYPE_CARD_NUMBER';
     HttpCalloutResponse response = serviceInstance.getFullCardNumberDetails(
       '1111',
       contextReq

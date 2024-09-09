@@ -36,9 +36,9 @@ public with sharing class CryptoOperationsUtilsTest {
     );
     Test.startTest();
     String detokenizedCardNumber = CryptoOperationsUtils.decryptDataWithIV(
-      encryptedDataFromGCP.publicKeyId,
-      encryptedDataFromGCP.initializationVector,
-      encryptedDataFromGCP.encryptedData
+      encryptedDataFromGCP.public_key_id,
+      encryptedDataFromGCP.initialization_vector,
+      encryptedDataFromGCP.value
     );
     Test.stopTest();
 

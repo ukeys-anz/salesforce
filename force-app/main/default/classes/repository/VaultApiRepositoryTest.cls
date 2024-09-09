@@ -29,7 +29,7 @@ public with sharing class VaultApiRepositoryTest {
       Test.stopTest();
 
       Assert.isTrue(
-        encryptedDataFromGCP.encryptedData != null,
+        encryptedDataFromGCP.value != null,
         'DetokenizationResponseModel will be generated based on mock response'
       );
     }

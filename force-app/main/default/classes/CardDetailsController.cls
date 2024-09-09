@@ -108,9 +108,9 @@ public with sharing class CardDetailsController {
         cardNumberToBeDetokenized
       );
       return CryptoOperationsUtils.decryptDataWithIV(
-        encryptedDataFromGCP.publicKeyId,
-        encryptedDataFromGCP.initializationVector,
-        encryptedDataFromGCP.encryptedData
+        encryptedDataFromGCP.public_key_id,
+        encryptedDataFromGCP.initialization_vector,
+        encryptedDataFromGCP.value
       );
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
