@@ -54,7 +54,7 @@ public with sharing class VaultApiRepositoryTest {
 
     Assert.areEqual(
       resultException.getMessage(),
-      'User does not have the get full card number permission',
+      'User does not have permission to view full card number',
       'Exception was expected'
     );
   }
