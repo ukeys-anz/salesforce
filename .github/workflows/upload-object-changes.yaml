@@ -141,6 +141,7 @@ jobs:
           for object in "${object_array[@]}"; do
             gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object/* gcs_bucket/ || echo "No files or folders found to copy."
           done
+          ls -la gcs_bucket
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() }}
@@ -149,7 +150,7 @@ jobs:
         shell: bash
         run: |
           sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_bucket/"
+          sfdatasync_gcs_object_fields="gcs_bucket"
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
