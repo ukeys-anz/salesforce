@@ -49,7 +49,7 @@ public with sharing class CryptoOperationsUtilsTest {
     );
 
     Assert.isFalse(
-      vaultServiceRepoMock.getHistories('retrievePrivateKey').isEmpty(),
+      keyServiceRepoMock.getHistories('retrievePrivateKey').isEmpty(),
       'retrievePrivateKey should have been called and return a value'
     );
   }
