@@ -41,34 +41,21 @@ public with sharing class MLCRMLeadActions {
    * @US CC-1057
    */
   public static void setDefaultValue(List<Lead> records) {
-    for (Lead objLead : records) {
+    Map<String, Integer> mapExpiryDays = new Map<String, Integer> {'Sat' => 2,'Sun' => 1};
+    Integer expiryDays = Integer.valueOf(Label.ML_DefaultLeadExpiryDate);
+    String dayName = DateTimeUtils.getDay(System.today().addDays(expiryDays));
+    expiryDays += mapExpiryDays.get(dayName) ?? 0;
+    Date expiryDate = System.today().addDays(expiryDays);
+
+    List<Lead> lstOfMlLeads = getFilteredMLCRMLeads(records);
+    for (Lead objLead : lstOfMlLeads) {
       if (
-        CCRMLeadUtil.isMLCRMLeadType(objLead) &&
-        objLead.Lead_Originator__c == 'MLCRM'
+        objLead.Expiry_Date__c != null ||
+        objLead.Lead_Originator__c != MLCRMConstants.ORIGINATOR_MLCRM
       ) {
-        String dayName = DateTimeUtils.getDay(
-          System.today()
-            .addDays(Integer.valueOf(System.Label.ML_DefaultLeadExpiryDate))
-        );
-        switch on dayName {
-          when 'Sat' {
-            objLead.Expiry_Date__c = System.today()
-              .addDays(
-                Integer.valueOf(System.Label.ML_DefaultLeadExpiryDate) + 2
-              );
-          }
-          when 'Sun' {
-            objLead.Expiry_Date__c = System.today()
-              .addDays(
-                Integer.valueOf(System.Label.ML_DefaultLeadExpiryDate) + 1
-              );
-          }
-          when else {
-            objLead.Expiry_Date__c = System.today()
-              .addDays(Integer.valueOf(System.Label.ML_DefaultLeadExpiryDate));
-          }
-        }
+        continue;
       }
+      objLead.Expiry_Date__c = expiryDate;
     }
   }
 

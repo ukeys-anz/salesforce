@@ -8,105 +8,6 @@
   'PMD.CyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class CommonUtil {
-  public static final String GROUP_TYPE_QUEUE = 'Queue';
-  public static final String GROUP_TYPE_PUBLICGROUP = 'Regular';
-  /**
-   * @description cache profile record by name to reduce SOQL to query for profile
-   */
-  private static Map<String, Profile> mapProfileByName {
-    private get {
-      if (mapProfileByName == null) {
-        mapProfileByName = new Map<String, Profile>();
-        for (Profile prof : [SELECT Id, Name FROM Profile WITH SYSTEM_MODE]) {
-          mapProfileByName.put(prof.Name, prof);
-        }
-      }
-      return mapProfileByName;
-    }
-    private set;
-  }
-
-  /**
-   * @description cache UserRole record by developername to reduce SOQL to query for UserRole
-   */
-  private static Map<String, UserRole> mapUserRoleByDevName {
-    private get {
-      if (mapUserRoleByDevName == null) {
-        mapUserRoleByDevName = new Map<String, UserRole>();
-        for (UserRole ur : [
-          SELECT Id, DeveloperName
-          FROM UserRole
-          WITH SYSTEM_MODE
-        ]) {
-          mapUserRoleByDevName.put(ur.DeveloperName, ur);
-        }
-      }
-      return mapUserRoleByDevName;
-    }
-    private set;
-  }
-
-  /**
-   * @description cache permission set record by name to reduce SOQL to query for permission set
-   */
-  private static Map<String, PermissionSet> mapPermissionSetByName {
-    private get {
-      if (mapPermissionSetByName == null) {
-        mapPermissionSetByName = new Map<String, PermissionSet>();
-        for (PermissionSet ps : [
-          SELECT Id, Name
-          FROM PermissionSet
-          WITH SYSTEM_MODE
-        ]) {
-          mapPermissionSetByName.put(ps.Name, ps);
-        }
-      }
-      return mapPermissionSetByName;
-    }
-    private set;
-  }
-
-  /**
-   * @description Represents a map of Group records, organized by Type and DeveloperName.
-   */
-  private static Map<String, Map<String, Group>> mapGroupsByTypeAndName {
-    private get {
-      if (mapGroupsByTypeAndName == null) {
-        mapGroupsByTypeAndName = new Map<String, Map<String, Group>>();
-        for (Group g : [
-          SELECT Id, Name, Type, DeveloperName
-          FROM Group
-          WITH USER_MODE
-        ]) {
-          if (!mapGroupsByTypeAndName.containsKey(g.Type)) {
-            mapGroupsByTypeAndName.put(g.Type, new Map<String, Group>());
-          }
-          mapGroupsByTypeAndName.get(g.Type).put(g.DeveloperName, g);
-        }
-      }
-      return mapGroupsByTypeAndName;
-    }
-    private set;
-  }
-
-  /**
-   * @description Represents a map of Queue records by DeveloperName.
-   */
-  private static Map<String, Group> mapQueueByName {
-    private get {
-      return mapGroupsByTypeAndName.get(GROUP_TYPE_QUEUE);
-    }
-  }
-
-  /**
-   * @description Represents a map of Public Group records by DeveloperName.
-   */
-  private static Map<String, Group> mapPublicGroupByName {
-    private get {
-      return mapGroupsByTypeAndName.get(GROUP_TYPE_PUBLICGROUP);
-    }
-  }
-
   /**
    * @description Get all the business hours
    */
@@ -234,7 +135,6 @@ public with sharing class CommonUtil {
     String picklistLabel
   ) {
     Schema.DescribeFieldResult fieldPicklist = field.getDescribe();
-    Map<String, String> fieldMap = new Map<String, String>();
     for (Schema.PicklistEntry f : fieldPicklist.getPicklistValues()) {
       if (f.getLabel() == picklistLabel) {
         return f.getValue();
@@ -402,6 +302,18 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Logs and return the given exception.
+   * Useful for re-throw from caller.
+   * @param ex The exception to be logged.
+   * @return The logged exception.
+   */
+  public static Exception logExceptionInfo(Exception ex) {
+    Logger.info(ex.getMessage(), ex);
+    Logger.saveLog();
+    return ex;
+  }
+
+  /**
    * @description Logs and return AuraHandledException exception with given errorMessage.
    * Useful for re-throw from caller.
    * @param errorMessage The errorMessage to be logged.
@@ -427,79 +339,45 @@ public with sharing class CommonUtil {
    */
   private class InsufficientAccessException extends Exception {
   }
+
   /**
+   * [DEPRECATED] Use `QueryProfile.get`.
    * @description Get Profile by Profile Name
    * @param profileName name of the Profile
    * @return Profile
    */
   public static Profile getProfileByName(String profileName) {
-    return mapProfileByName.get(profileName);
+    return QueryProfile.get(profileName);
   }
 
   /**
+   * [DEPRECATED] Use `QueryRole.get`.
    * @description Get UserRole by UserRole DeveloperName
    * @param developerName developer name of the UserRole
    * @return UserRole
    */
   public static UserRole getUserRoleByDevName(String developerName) {
-    return mapUserRoleByDevName.get(developerName);
+    return QueryRole.get(developerName);
   }
 
   /**
+   * [DEPRECATED] Use `QueryPS.get`.
    * @description Get PermissionSet by PermissionSet Name
    * @param name name of the PermissionSet
    * @return PermissionSet
    */
   public static PermissionSet getPermissionSetByName(String name) {
-    return mapPermissionSetByName.get(name);
+    return QueryPS.get(name);
   }
 
   /**
+   * [DEPRECATED] Use `QueryQueue.get`.
    * @description Returns a queue based on the provided name.
    * @param name The name of the queue.
    * @return The Group object associated with the provided name.
    */
   public static Group getQueueByName(String name) {
-    return mapQueueByName.get(name);
-  }
-
-  /**
-   * @description Returns a map of queue records based on the provided set of names.
-   * @param names A set of names of the queues.
-   * @return A map of Group objects associated with the provided names.
-   */
-  public static Map<String, Group> getQueueByName(Set<String> names) {
-    Map<String, Group> mapQueues = new Map<String, Group>();
-    for (String name : names) {
-      if (mapQueueByName.containsKey(name)) {
-        mapQueues.put(name, mapQueueByName.get(name));
-      }
-    }
-    return mapQueues;
-  }
-
-  /**
-   * @description Returns a public group based on the provided name.
-   * @param name The name of the public group.
-   * @return The Group object associated with the provided name.
-   */
-  public static Group getPublicGroupByName(String name) {
-    return mapPublicGroupByName.get(name);
-  }
-
-  /**
-   * @description Returns a map of public group records based on the provided set of names.
-   * @param names A set of names of the public groups.
-   * @return A map of Group objects associated with the provided names.
-   */
-  public static Map<String, Group> getPublicGroupByName(Set<String> names) {
-    Map<String, Group> mapPublicGroups = new Map<String, Group>();
-    for (String name : names) {
-      if (mapPublicGroupByName.containsKey(name)) {
-        mapPublicGroups.put(name, mapPublicGroupByName.get(name));
-      }
-    }
-    return mapPublicGroups;
+    return QueryQueue.get(name);
   }
 
   /**
@@ -627,17 +505,7 @@ public with sharing class CommonUtil {
    * @return Id the Id of the Group or null
    */
   public static Id getGroupId(string queueDeveloperName) {
-    List<Group> contactRequestGroup = new List<Group>();
-    contactRequestGroup = [
-      SELECT Id
-      FROM group
-      WHERE Type = 'Queue' AND DeveloperName = :queueDeveloperName
-    ];
-
-    if (contactRequestGroup.size() > 0) {
-      return contactRequestGroup[0].Id;
-    }
-    return null;
+    return QueryQueue.get(queueDeveloperName).Id;
   }
 
   /**
@@ -926,25 +794,6 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description Filter cases by Record Type Id
-   * @param records List of case records
-   * @param recordTypId Record Type Id
-   * @return List of filtered cases
-   */
-  public static List<Case> filterCasesByRecordTypeId(
-    List<Case> records,
-    Id recordTypId
-  ) {
-    List<Case> cases = new List<Case>();
-    for (Case c : records) {
-      if (c.RecordTypeId == recordTypId) {
-        cases.add(c);
-      }
-    }
-    return cases;
-  }
-
-  /**
    * @description Get SLA Process by process name
    * @param slaProceessName SLA Process name
    * @return SlaProcess
@@ -1148,7 +997,6 @@ public with sharing class CommonUtil {
    * @return String iconName
    */
   public static String getObjectIconName(SObjectType objectName) {
-    List<Schema.DescribeTabSetResult> tabSetDesc = new List<DescribeTabSetResult>();
     List<Schema.DescribeTabResult> tabDesc = new List<Schema.DescribeTabResult>();
     List<Schema.DescribeIconResult> iconDesc = new List<Schema.DescribeIconResult>();
 
@@ -1174,7 +1022,7 @@ public with sharing class CommonUtil {
     }
     return null;
   }
-  
+
   /**
    * [DEPRECATED] Use `ListUtil.getIds`.
    * @description Returns a set of Ids extracted from a list of SObjects based on a specified field.

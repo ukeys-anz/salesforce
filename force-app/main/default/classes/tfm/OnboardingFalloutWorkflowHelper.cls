@@ -24,6 +24,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     workflowDetails.cobPIDRecordId = cobPIDRecord.Id;
     workflowDetails.IDValue = cobPIDRecord.CustomerOnboardingApplication__r.PersonId__c;
     workflowDetails.idxExtractedFaceId = cobPIDRecord.idxExtractedFaceId__c;
+    workflowDetails.parentRecordReference = cobPIDRecord.Name;
     if (caseRecord == null) {
       return workflowDetails;
     }
@@ -46,7 +47,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     workflowDetails.showRedBorder = caseRecord.Subject.contains(
       TFMConstants.FAILED_DOC
     );
-
     workflowDetails.caseId = caseRecord.Id;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
     return workflowDetails;
@@ -197,7 +197,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
         temporaryFilesList
       )
     );
-
     return filesList;
   }
 
@@ -244,10 +243,11 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     for (
       OnboardingWorkflowWrapper.FileTypes fileTypeData : workflowDetails.fileTypesList
     ) {
-      if (!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) {
+      if ((!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) ||
+      (String.isBlank(workflowDetails.idxExtractedFaceId) && fileTypeData.fileType == 'DAON_FILE_TYPE_EXTRACTED_FACE')) {
         continue;
       }
-
+    
       OnboardingRequestModel ob = new OnboardingRequestModel();
       ob.requester_sf_id = UserInfo.getUserId();
       OnboardingRequestModel.DAONFile daonFileNode = formRequestBody(
@@ -286,5 +286,39 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     selfieRecChallenge.idx_challenge_type = workflowDetails.idxChallengeType;
     selfieRecChallenge.idx_challenge_id = workflowDetails.idxRequestId;
     return selfieRecChallenge;
+  }
+
+  /**
+   * @description insert a log recording details of document fetched and viewed from DAON
+   * @param fileTypesList file nodes list
+   * @param parentRecord Case or COB as a value
+   * @param parentRecordName Case Number or COB PID Name
+   */
+  public static void insertDAONFileViewedLog(List<OnboardingWorkflowWrapper.FileTypes> fileTypesList, String parentRecord, String parentRecordName) {
+    Boolean filesLoaded = false;
+    if(fileTypesList.isEmpty()) {
+      return;
+    }
+    for(OnboardingWorkflowWrapper.FileTypes fileType : fileTypesList) {
+      if (fileType.isImageFinalVersion) {
+        filesLoaded = true;
+        break;
+      }
+    }
+
+    if(!filesLoaded) {
+      return;
+    }
+
+    String logMessage =
+      Datetime.now() +
+      ' UserId ' +
+      UserInfo.getUserId() +
+      ' viewed DAON documents on ' + parentRecord + ' Record - ' + 
+      parentRecordName +
+      ' Security Classification: CONFIDENTIAL';
+    
+    Logger.info(logMessage);
+    Logger.saveLog();
   }
 }

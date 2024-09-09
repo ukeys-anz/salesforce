@@ -298,20 +298,8 @@ public with sharing class IDRCaseAssignmentRules {
    */
   public static Map<String, Id> getWorkbaskets(List<String> workBasketNames) {
     Map<String, Id> queueMap = new Map<String, Id>();
-    Group[] queueList = new List<Group>();
-    if (Group.SObjectType.getDescribe().isQueryable()) {
-      queueList = [
-        SELECT Id, DeveloperName
-        FROM Group
-        WHERE
-          DeveloperName IN :workBasketNames
-          AND Type = :IDRCaseActions.QUEUE_TYPE
-      ];
-    }
-    if (!queueList.isEmpty()) {
-      for (Group queueRec : queueList) {
-        queueMap.put(queueRec.DeveloperName, queueRec.Id);
-      }
+    for (Group queueRec : QueryQueue.get(workBasketNames).Values()) {
+      queueMap.put(queueRec.DeveloperName, queueRec.Id);
     }
     return queueMap;
   }

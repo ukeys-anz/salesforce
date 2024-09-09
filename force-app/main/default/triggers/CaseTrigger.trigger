@@ -6,5 +6,6 @@ trigger CaseTrigger on Case(
   before delete
 ) {
   CaseTriggerHandler handler = new CaseTriggerHandler();
+  COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
 }

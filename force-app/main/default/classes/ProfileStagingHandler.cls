@@ -10,7 +10,7 @@ public virtual with sharing class ProfileStagingHandler {
   private static final ProfileStagingRepository REPOSITORY = (ProfileStagingRepository) Lib_InstanceProvider.forType(
     ProfileStagingRepository.class
   );
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
   private static User currentUser {
@@ -42,13 +42,9 @@ public virtual with sharing class ProfileStagingHandler {
       records,
       oldMap
     );
-    DML_REPOSITORY.insertRecords(
-      updates,
-      DmlRepository.ALL_OR_NONE,
-      DmlRepository.USER_MODE
-    );
+    DML.doInsert(updates);
     List<Customer_Profile_Update_Event__e> events = generateEvents(updates);
-    DML_REPOSITORY.publishEvents(events);
+    DML.doPublish(events);
   }
 
   /**

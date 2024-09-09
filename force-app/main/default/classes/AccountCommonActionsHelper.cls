@@ -310,7 +310,7 @@ public with sharing class AccountCommonActionsHelper {
       FROM Case
       WHERE
         OCV_Id__c IN :ocvIds
-        AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        AND RecordTypeId = :RTCase.kycQa
         AND AccountId = NULL
     ];
     for (Case c : cases) {
@@ -336,7 +336,7 @@ public with sharing class AccountCommonActionsHelper {
       FROM Case
       WHERE
         CustomerOnboardingApplication__r.SecurityMobile__c IN :mobileNumbers
-        AND RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        AND RecordTypeId = :RTCase.kycQa
         AND AccountId = NULL
     ];
     for (Case c : cases) {

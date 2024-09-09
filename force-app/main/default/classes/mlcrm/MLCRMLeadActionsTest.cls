@@ -33,7 +33,7 @@ public class MLCRMLeadActionsTest {
   }
 
   @isTest
-  static void testSetDefaultValue() {
+  static void testSetDefaultValueWithoutExpiryDate() {
     Lead leadrecord = new Lead(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
       Expiry_Date__c = null,
@@ -76,6 +76,24 @@ public class MLCRMLeadActionsTest {
         );
       }
     }
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testSetDefaultValueWithExpiryDate() {
+    Lead leadrecord = new Lead(
+      Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+      Expiry_Date__c = System.today() + 7,
+      Lead_Originator__c = MLCRMConstants.ORIGINATOR_MLCRM,
+      RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID
+    );
+    Test.startTest();
+    MLCRMLeadActions.setDefaultValue(new List<Lead>{ leadrecord });
+    System.assertEquals(
+      System.today() + 7,
+      leadrecord.Expiry_Date__c,
+      'Expiry_Date__c is not getting populated correctly when day is Saturday'
+    );
     Test.stopTest();
   }
 
@@ -238,7 +256,6 @@ public class MLCRMLeadActionsTest {
     MLCRMLeadActions.validateMLCRMLeadCreation(new List<Lead>{ leadRecord });
     Test.stopTest();
 
-    List<Database.Error> errors = leadRecord.getErrors();
     System.assertEquals(
       0,
       leadRecord.getErrors().size(),

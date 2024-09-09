@@ -27,42 +27,17 @@ public with sharing class GetHelpCaseActions {
     ComplaintsRepository.class
   );
 
-  private static Map<String, Group> groups {
-    get {
-      if (groups == null) {
-        groups = new Map<String, Group>();
-        for (Group oGroup : [
-          SELECT Id, Name, DeveloperName
-          FROM Group
-          WHERE
-            Type = 'Queue'
-            AND DeveloperName IN (
-              'Account_Closure_Queue',
-              'COB_Fraud_Check_Queue',
-              'CAD_Credit_Referral_Case_Queue',
-              'Digital_Fraud_Queue',
-              'ID_Ops_Queue'
-            )
-          WITH SECURITY_ENFORCED
-        ]) {
-          groups.put(oGroup.DeveloperName, oGroup);
-        }
-      }
-      return groups;
-    }
-    private set;
-  }
-  public static Group accountClosureQueue = groups.get('Account_Closure_Queue');
-
-  public static Group cobFraudCheckQueue = groups.get('COB_Fraud_Check_Queue');
-
-  public static Group cadReferralQueue = groups.get(
+  public static Group accountClosureQueue = QueryQueue.get(
+    'Account_Closure_Queue'
+  );
+  public static Group cobFraudCheckQueue = QueryQueue.get(
+    'COB_Fraud_Check_Queue'
+  );
+  public static Group cadReferralQueue = QueryQueue.get(
     'CAD_Credit_Referral_Case_Queue'
   );
-
-  public static Group digitalFraudQueue = groups.get('Digital_Fraud_Queue');
-
-  public static Group idOpsQueue = groups.get('ID_Ops_Queue');
+  public static Group digitalFraudQueue = QueryQueue.get('Digital_Fraud_Queue');
+  public static Group idOpsQueue = QueryQueue.get('ID_Ops_Queue');
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -77,7 +52,6 @@ public with sharing class GetHelpCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Set<Id> caseIds = new Set<Id>();
     List<Case> validateCaseList = new List<Case>();
-    Set<Id> milestoneCaseIds = new Set<Id>();
 
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
@@ -89,7 +63,7 @@ public with sharing class GetHelpCaseActions {
       }
       GetHelpCaseActionsHelper.checkPaytoDisputeValidations(record, oldRecord);
 
-      if (record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
+      if (record.RecordTypeId == RTCase.generalInquiry) {
         if (
           String.isNotBlank(record.ParentId) &&
           record.ParentId != oldRecord.ParentId
@@ -268,16 +242,11 @@ public with sharing class GetHelpCaseActions {
     if (String.isNotBlank(record.Type)) {
       fetchCaseTypeLabelsByValues();
       // Setting a different Subject format for KYC QA Cases
-      if (record.RecordTypeId == GetHelpConstants.KYCQA_RT_ID) {
+      if (record.RecordTypeId == RTCase.kycQa) {
         record.Subject = caseTypeLabelByValue.get(record.Type);
       } else {
         record.Subject =
-          Schema.getGlobalDescribe()
-            .get('Case')
-            .getDescribe()
-            .getRecordTypeInfosById()
-            .get(record.RecordTypeId)
-            .getName() +
+          QueryRT.of(Case.SObjectType).get(record.RecordTypeId).Name +
           ' - ' +
           caseTypeLabelByValue.get(record.Type);
       }
@@ -293,12 +262,7 @@ public with sharing class GetHelpCaseActions {
     if (String.isNotBlank(record.Dispute_Reason__c)) {
       String caseSubjectPrefix = record.Is_PayTo_Dispute__c
         ? PAY_TO_SUBJECT_PREFIX
-        : Schema.getGlobalDescribe()
-            .get('Case')
-            .getDescribe()
-            .getRecordTypeInfosById()
-            .get(record.RecordTypeId)
-            .getName();
+        : QueryRT.of(Case.SObjectType).get(record.RecordTypeId).Name;
 
       record.Subject = caseSubjectPrefix + ' - ' + record.Dispute_Reason__c;
     }
@@ -364,8 +328,8 @@ public with sharing class GetHelpCaseActions {
     for (Case c : caseList) {
       c.IDR_Correspondence_Reviewed_Date__c = Date.Today();
       if (
-        (c.RecordTypeId == GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID) &&
+        (c.RecordTypeId == RTCase.directDebitDispute ||
+        c.RecordTypeId == RTCase.directEntryDispute) &&
         c.Effective_Date__c != null
       ) {
         if (System.Today().isSameDay(c.Effective_Date__c)) {
@@ -625,50 +589,62 @@ public with sharing class GetHelpCaseActions {
     Map<Id, Case> oldMap
   ) {
     if (!oldMap.isEmpty()) {
-      CustomNotificationType type = CommonUtil.getCustomNotificationTypeByName(
-        'Case_SLA'
-      );
+      Id notificationTypeId = CommonUtil.getCustomNotificationTypeByName(
+          'Case_SLA'
+        )
+        .Id;
 
       for (Case newCase : records) {
         if (
           newCase.SLA_Status__c != null &&
           !newCase.SLA_Status__c.Equals(oldMap.get(newCase.Id).SLA_Status__c)
         ) {
-          String messageBody = '';
+          Map<String, String> mapStatusAndMessageBody = new Map<String, String>{
+            SLA_WARNING => SLA_WARNING_NOTIFICATION_BODY,
+            SLA_BREACH => SLA_BREACH_NOTIFICATION_BODY
+          };
+          String messageBody = mapStatusAndMessageBody.get(
+            newCase.SLA_Status__c
+          );
 
-          if (newCase.SLA_Status__c == SLA_WARNING) {
-            messageBody = SLA_WARNING_NOTIFICATION_BODY;
-          } else if (newCase.SLA_Status__c == SLA_BREACH) {
-            messageBody = SLA_BREACH_NOTIFICATION_BODY;
-          }
-
-          if (!String.isBlank(messageBody)) {
-            String messageTitle =
-              'SLA status for ' +
-              Schema.getGlobalDescribe()
-                .get('Case')
-                .getDescribe()
-                .getRecordTypeInfosById()
-                .get(newCase.RecordTypeId)
-                .getName() +
-              ' ' +
-              newCase.CaseNumber +
-              ' has changed to ' +
-              newCase.SLA_Status__c;
-
-            InAppNotificationWrapper notificationWrapper = new InAppNotificationWrapper(
-              type.Id,
-              newCase.Id,
-              newCase.OwnerId,
-              messageTitle,
-              messageBody
-            );
-
-            CommonUtil.sendInAppNotification(notificationWrapper);
-          }
+          sendSLANotificationMessage(newCase, messageBody, notificationTypeId);
         }
       }
     }
+  }
+
+  /**
+   * @description process sending of SLA related notifications
+   * @param record New record instance to process
+   * @param messageBody Content Body of the Notification to be sent
+   * @param notificationTypeId Id of the Notification Type
+   */
+  private static void sendSLANotificationMessage(
+    Case record,
+    String messageBody,
+    Id notificationTypeId
+  ) {
+    if (String.isBlank(messageBody)) {
+      return;
+    }
+
+    String messageTitle =
+      'SLA status for ' +
+      QueryRT.of(Case.SObjectType).get(record.RecordTypeId).Name +
+      ' ' +
+      record.CaseNumber +
+      ' has changed to ' +
+      record.SLA_Status__c;
+
+    InAppNotificationWrapper notificationWrapper = new InAppNotificationWrapper(
+      notificationTypeId,
+      record.Id,
+      record.OwnerId,
+      messageTitle,
+      messageBody
+    );
+
+    CommonUtil.sendInAppNotification(notificationWrapper);
   }
 
   /**
@@ -728,8 +704,8 @@ public with sharing class GetHelpCaseActions {
   public static void populateCustomerDetailsOnComplaint(List<Case> records) {
     Set<Id> accountIds = new Set<Id>();
     Set<Id> eligibleRecordTypes = new Set<Id>{
-      GetHelpConstants.COMPLAINT_RT_ID,
-      RecordTypeConstants.caseCustomerComplaint
+      RTCase.anzxComplaint,
+      RTCase.customerComplaint
     };
     //Loop through case to create list of account ids
     for (Case c : records) {
@@ -804,90 +780,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description Creates a Fraud Check case everytime a ID Ops Assists case gets changed to 'Potential Fraud' status
-   * @param records Case records from trigger
-   * @param oldMap map of records id and old records
-   */
-  public static void createFraudCheckCase(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    List<Case> fraudCheckCases = new List<Case>();
-
-    for (Case c : records) {
-      Case oldC = oldMap.get(c.Id);
-
-      if (
-        CheckCaseRecordType.isIDOpsAssistance(c) &&
-        c.Status == GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS &&
-        oldC?.Status != GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS
-      ) {
-        Case fraudCheckCase = new Case(
-          RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
-          ParentId = c.Id,
-          OwnerId = cobFraudCheckQueue.Id,
-          Subject = 'Fraud Check Case',
-          CustomerOnboardingApplication__c = c.CustomerOnboardingApplication__c,
-          PersonaId__c = c.PersonaId__c
-        );
-
-        fraudCheckCase.Status = GetHelpConstants.COB_ID_OPS_TO_FRAUD_CHECK_STATUS_MAP.get(
-          oldC?.Status
-        );
-
-        fraudCheckCases.add(fraudCheckCase);
-      }
-    }
-
-    if (!fraudCheckCases.isEmpty()) {
-      List<Database.SaveResult> results = Database.insert(
-        fraudCheckCases,
-        false
-      );
-
-      Logger.debug('Results of inserting Fraud Check cases', results);
-      Logger.saveLog();
-    }
-  }
-
-  /**
-   * @description Update an ID Ops Assistance case with a corresponding Fraud Check Case Status everytime a Fraud Check case status is updated
-   * @param records Case records from trigger
-   * @param oldMap map of records id and old records
-   */
-  public static void updateIdOpsCaseStatus(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    //Create a Map of ID Ops case ids (parentId) with the Fraud Check Case status
-    Map<Id, Case> parentIdAndChildCasedMap = new Map<Id, Case>();
-
-    for (Case newFraudCheckCase : records) {
-      Case oldFraudCheckCase = oldMap.get(newFraudCheckCase.Id);
-
-      //Check if it's a correct record type and the status of the case is changed
-      if (
-        CheckCaseRecordType.isFraudCheck(newFraudCheckCase) &&
-        GetHelpCaseActionsHelper.isStatusChanged(
-          newFraudCheckCase,
-          oldFraudCheckCase
-        )
-      ) {
-        parentIdAndChildCasedMap.put(
-          newFraudCheckCase.ParentId,
-          newFraudCheckCase
-        );
-      }
-    }
-
-    List<Case> idOpsCases = GetHelpCaseActionsHelper.setIDOpsCaseStatus(
-      parentIdAndChildCasedMap
-    );
-
-    DMLUtil.updateRecords(idOpsCases, false, true);
-  }
-
-  /**
    * @description create task on case closure
    * @param records Case records from trigger
    * @param oldMap oldMap of the cases
@@ -949,9 +841,7 @@ public with sharing class GetHelpCaseActions {
   ) {
     for (Case creditRefCase : records) {
       Case oldCase = oldMap.get(creditRefCase.Id);
-      if (
-        creditRefCase.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID
-      ) {
+      if (creditRefCase.RecordTypeId == RTCase.creditReferral) {
         GetHelpCaseActionsHelper.isNoAuthorityAssignment(
           creditRefCase,
           oldCase
@@ -984,9 +874,7 @@ public with sharing class GetHelpCaseActions {
   public static void copyCreditReferralCaseNumbers(List<Case> records) {
     List<Case> creditRefCases = new List<Case>();
     for (Case creditRefCase : records) {
-      if (
-        creditRefCase.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID
-      ) {
+      if (creditRefCase.RecordTypeId == RTCase.creditReferral) {
         Case c = creditRefCase.clone(true, false, true);
         c.CaseNumber__c = creditRefCase.CaseNumber;
         creditRefCases.add(c);
@@ -1010,7 +898,7 @@ public with sharing class GetHelpCaseActions {
   public static void populateFieldsOfPayToDispute(List<Case> caseList) {
     for (Case caseRecord : caseList) {
       if (
-        caseRecord.recordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+        caseRecord.recordTypeId == RTCase.nppDispute &&
         String.isNotBlank(caseRecord.Payment_ID__c) &&
         String.isNotBlank(caseRecord.Dispute_Reason_PayTo__c)
       ) {
@@ -1076,7 +964,7 @@ public with sharing class GetHelpCaseActions {
   public static void setOwnerToIDOpsQueue(List<Case> lstNewCases) {
     for (Case oCase : lstNewCases) {
       if (
-        oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate &&
+        oCase.RecordTypeId == RTCase.profileUpdate &&
         oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA
       ) {
         oCase.OwnerId = idOpsQueue.Id;

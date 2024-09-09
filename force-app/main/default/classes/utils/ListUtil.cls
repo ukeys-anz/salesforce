@@ -5,36 +5,19 @@
  * @group Utils
  */
 public inherited sharing class ListUtil {
+  private static final Type TYPE_STRING = String.class;
+  private static final Map<SoapType, Type> MAP_FIELD_TYPE = new Map<SoapType, Type>{
+    SoapType.ID => Id.class,
+    SoapType.INTEGER => Integer.class,
+    SoapType.BOOLEAN => Boolean.class,
+    SoapType.DATE => Date.class,
+    SoapType.DATETIME => Datetime.class,
+    SoapType.DOUBLE => Decimal.class,
+    SoapType.STRING => String.class,
+    SoapType.TIME => Time.class
+  };
+
   //#region HELPERS
-  private static Map<DisplayType, Type> mapFieldType {
-    get {
-      return mapFieldType ??
-        (mapFieldType = new Map<DisplayType, Type>{
-          DisplayType.ID => Id.class,
-          DisplayType.REFERENCE => Id.class,
-          DisplayType.BOOLEAN => Boolean.class,
-          DisplayType.INTEGER => Integer.class,
-          DisplayType.DOUBLE => Double.class,
-          DisplayType.LONG => Long.class,
-          DisplayType.CURRENCY => Decimal.class,
-          DisplayType.DATE => Date.class,
-          DisplayType.TIME => Time.class,
-          DisplayType.DATETIME => DateTime.class
-        });
-    }
-    set;
-  }
-
-  /**
-   * @description Returns the primitive data type of the given SObject field.
-   * @param field The SObject field for which to determine the primitive type.
-   * @return The primitive type of the field.
-   */
-  @TestVisible
-  private static Type getPrimitiveType(SObjectField field) {
-    return mapFieldType.get(field.getDescribe().Type) ?? String.class;
-  }
-
   /**
    * @description Converts an object or an iterable collection of objects into a set.
    *  - If the input value is not iterable, it will be added as a single element to the set.
@@ -54,15 +37,17 @@ public inherited sharing class ListUtil {
   }
 
   /**
-   * @description Creates a new list of the same SObject type as the input list.
-   * @param records The input list of SObjects.
-   * @return A new list of the same SObject type as the input list.
+   * @description Returns the primitive data type of the given SObject field.
+   * @param field The SObject field for which to determine the primitive type.
+   * @return The primitive type of the field.
    */
-  private static List<SObject> createListOfSameType(List<SObject> records) {
-    return (List<SObject>) Type.forName(
-        'List<' + records.getSObjectType() + '>'
-      )
-      .newInstance();
+  @TestVisible
+  private static Type getPrimitiveType(SObjectField field) {
+    SoapType fieldType = field.getDescribe().SoapType;
+    if (MAP_FIELD_TYPE.containsKey(fieldType)) {
+      return MAP_FIELD_TYPE.get(fieldType);
+    }
+    throw new IllegalArgumentException('Unsupported field type: ' + fieldType);
   }
   //#endregion
 
@@ -74,7 +59,7 @@ public inherited sharing class ListUtil {
    * @return `Set<Id>` A set of Ids extracted from the specified field of the SObjects.
    */
   public static Set<Id> getIds(List<SObject> records, SObjectField field) {
-    return new Set<Id>((List<Id>) getValues(records, field, Id.class));
+    return (Set<Id>) getUniques(records, field.toString(), Id.class);
   }
 
   /**
@@ -87,9 +72,32 @@ public inherited sharing class ListUtil {
     List<SObject> records,
     SObjectField field
   ) {
-    return new Set<String>(
-      (List<String>) getValues(records, field, String.class)
-    );
+    return (Set<String>) getUniques(records, field.toString(), String.class);
+  }
+
+  /**
+   * @description Returns a Set of unique values from the given records based on the specified field and field type.
+   * @param records The list of records.
+   * @param field The field to get unique values from.
+   * @return `Set<T>` A Set of unique values.
+   */
+  public static Object getUniques(List<SObject> records, SObjectField field) {
+    return getUniques(records, field.toString(), getPrimitiveType(field));
+  }
+
+  /**
+   * @description Returns a list of unique values from the given records based on the specified field and field type.
+   * @param records The list of records.
+   * @param field The field to get unique values from.
+   * @param fieldType The type of the field.
+   * @return `Set<T>` A list of unique values.
+   */
+  public static Object getUniques(
+    List<Object> records,
+    String field,
+    Type fieldType
+  ) {
+    return mapByGeneric(records, field, fieldType).keySet();
   }
 
   /**
@@ -102,36 +110,31 @@ public inherited sharing class ListUtil {
     List<SObject> records,
     SObjectField field
   ) {
-    return getValues(records, field, getPrimitiveType(field));
+    return getValues(records, field.toString(), getPrimitiveType(field));
   }
 
   /**
-   * @description Retrieves the values of a specific field from a list of SObjects.
-   * @param records The list of SObjects.
+   * @description Retrieves the values of a specific field from a list of GenericObject.
+   * @param records The list of GenericObject.
    * @param field The field to retrieve values from.
-   * @param dataType The primitive data type of the field.
+   * @param fieldType The primitive data type of the field.
    *  - If set to String, non-string values are converted to String
    *  - If set to non-string, and the field is not of the specified type, exception will be thrown
    * @return A list of values from the specified field.
    */
-  private static List<Object> getValues(
-    List<SObject> records,
-    SObjectField field,
-    Type dataType
+  public static List<Object> getValues(
+    List<Object> records,
+    String field,
+    Type fieldType
   ) {
-    List<Object> values = (List<Object>) Type.forName('List<' + dataType + '>')
+    ObjectHandler handler = ObjectHandler.of(records);
+    List<Object> values = (List<Object>) Type.forName('List<' + fieldType + '>')
       .newInstance();
-    Type stringType = String.class;
-    for (SObject record : records) {
-      Object value = record.get(field);
-      String valueString = String.valueOf(value);
-      if (String.isBlank(valueString)) {
-        continue;
+    for (Object record : records) {
+      Object value = handler.get(record, field);
+      if (value != null) {
+        values.add(value);
       }
-      if (dataType == stringType) {
-        value = valueString;
-      }
-      values.add(value);
     }
     return values;
   }
@@ -139,61 +142,107 @@ public inherited sharing class ListUtil {
 
   //#region MAP BY FIELD
   /**
-   * @description Build a map of records with specified ID field as key (lookup, master-detail etc.) .
-   *   - If multiple record have the same field value, only last one will be included in the map.
-   * @param records The list of SObjects from which to retrieve the records.
-   * @param field The field used to create the map.
-   * @return `Map<Id, SObject>` A map of records with the specified field as the key and the record as the value.
+   * @description Maps the given records based on the specified field and field type.
+   * @param records The list of records.
+   * @param field The field to map by.
+   * @return `Map<T, Object>` A map of records mapped by the field value.
+   * @usage Map<Id, Case> accountIdToCase = (Map<Id, Case) mapBy(cases, Case.AccountId);
    */
-  public static Map<Id, SObject> mapById(
-    List<SObject> records,
-    SObjectField field
-  ) {
-    Map<Id, SObject> recordMap = (Map<Id, SObject>) Type.forName(
-        'Map<Id,' + records.getSObjectType() + '>'
-      )
-      .newInstance();
-    for (SObject record : records) {
-      Id value = (Id) record.get(field);
-      if (value != null) {
-        recordMap.put(value, record);
-      }
-    }
-    return recordMap;
+  public static Object mapBy(List<SObject> records, SObjectField field) {
+    return mapBy(records, field.toString(), getPrimitiveType(field));
   }
 
   /**
-   * @description Build a map of records with specified string field as key (other field types are converted to string) .
-   *   - If multiple record have the same field value, only last one will be included in the map.
-   * @param records The list of SObjects from which to retrieve the records.
-   * @param field The field used to create the map.
-   * @return `Map<String, SObject>` A map of records with the specified field as the key and the record as the value.
+   * @description Maps the given records based on the specified field and field type.
+   * @param records The list of records.
+   * @param field The field to map by.
+   * @param fieldType The type of the field.
+   * @return `Map<T, Object>` A map of records mapped by the field value.
    */
-  public static Map<String, SObject> mapByString(
-    List<SObject> records,
-    SObjectField field
+  public static Object mapBy(
+    List<Object> records,
+    String field,
+    Type fieldType
   ) {
-    Map<String, SObject> recordMap = (Map<String, SObject>) Type.forName(
-        'Map<String,' + records.getSObjectType() + '>'
-      )
-      .newInstance();
-    for (SObject record : records) {
-      String value = String.valueOf(record.get(field));
-      if (value != null) {
-        recordMap.put(value, record);
+    return mapByGeneric(records, field, fieldType).toMap();
+  }
+
+  private static GenericMap mapByGeneric(
+    List<Object> records,
+    String field,
+    Type fieldType
+  ) {
+    ObjectHandler handler = ObjectHandler.of(records);
+    GenericMap output = GenericMap.of(fieldType, handler.itemType);
+    for (Object record : records) {
+      Object key = handler.get(record, field);
+      if (key != null) {
+        output.put(key, record);
       }
     }
-    return recordMap;
+    return output;
+  }
+  //#endregion
+
+  //#region GROUP BY
+  /**
+   * @description Groups the given records based on the specified field and field type.
+   * @param records The list of records.
+   * @param field The field to group by.
+   * @return `Map<T, List<Object>>` A map of records grouped by the field value.
+   * @usage Map<Id, List<Case>> accountIdToCases = (Map<Id, List<Case>>) groupBy(cases, Case.AccountId);
+   */
+  public static Object groupBy(List<SObject> records, SObjectField field) {
+    return groupBy(records, field.toString(), getPrimitiveType(field));
+  }
+
+  /**
+   * @description Groups the given records based on the specified field and field type.
+   * @param records The list of records.
+   * @param field The field to group by.
+   * @param fieldType The type of the field.
+   * @return `Map<T, List<Object>>` A map of records grouped by the field value.
+   */
+  public static Object groupBy(
+    List<Object> records,
+    String field,
+    Type fieldType
+  ) {
+    ObjectHandler handler = ObjectHandler.of(records);
+    GenericMap output = GenericMap.of(
+      fieldType,
+      Type.forName('List<' + handler.itemType + '>')
+    );
+    for (Object record : records) {
+      Object key = handler.get(record, field);
+      if (key == null) {
+        continue;
+      }
+      if (output.containsKey(key) == false) {
+        output.put(key, handler.emptyList);
+      }
+      ((List<Object>) output.get(key)).add(record);
+    }
+    return output.toMap();
   }
   //#endregion
 
   //#region FILTERS
   /**
+   * @description Creates a FilterBuilder instance to build filters for a list of GenericObject records.
+   * @param records The list of GenericObject records to filter.
+   * @return A FilterBuilder instance.
+   */
+  public static GenericFilterBuilder filter(List<GenericObject> records) {
+    return new GenericFilterBuilder(records);
+  }
+
+  /**
    * @description Constructs a new FilterBuilder object with the given list of records.
    * @param records The list of SObjects to be filtered.
    * @return A new FilterBuilder instance.
    */
-  public static FilterBuilder filter(List<SObject> records) {
+  public static SObjectFilterBuilder filter(List<SObject> records) {
     return filter(records, null);
   }
 
@@ -203,276 +252,11 @@ public inherited sharing class ListUtil {
    * @param oldMap The map of old SObjects.
    * @return A new FilterBuilder instance.
    */
-  public static FilterBuilder filter(
+  public static SObjectFilterBuilder filter(
     List<SObject> records,
     Map<Id, SObject> oldMap
   ) {
-    FilterBuilder builder = new FilterBuilder();
-    builder.records = records ?? new List<SObject>();
-    builder.oldMap = oldMap ?? new Map<Id, SObject>();
-    return builder;
-  }
-
-  /**
-   * @description A utility class for filtering lists of SObjects.
-   */
-  public class FilterBuilder {
-    private List<SObject> records;
-    private Map<Id, SObject> oldMap;
-
-    private FilterBuilder() {
-    }
-
-    /**
-     * @description Return the internal list of records.
-     * @return A List<SObject> containing the records.
-     */
-    public List<SObject> toList() {
-      return this.records;
-    }
-
-    /**
-     * @description Filter records with no DML errors.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder noError() {
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        if (record.hasErrors() == false) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with specified field value contains a given string as sub-string.
-     * @param field The field to filter on.
-     * @param subString The value to filter for.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder contains(SObjectField field, String subString) {
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        String fieldValue = String.valueOf(record.get(field));
-        if (fieldValue?.contains(subString) == true) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description FilterBuilder records with specified field changed.
-     * @param field The field to check for changes.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder changed(SObjectField field) {
-      if (this.oldMap.isEmpty()) {
-        return this;
-      }
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        SObject oldRecord = this.oldMap.get(record.Id);
-        if (oldRecord == null || record.get(field) != oldRecord.get(field)) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with specified field updated to a given value or list/set of values
-     * @param field The field to filter on.
-     * @param valueOrCollection The value(s) to filter for. Can be any `primitive` type, `List`, or `Set`.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder changedTo(
-      SObjectField field,
-      Object valueOrCollection
-    ) {
-      if (this.oldMap.isEmpty()) {
-        return this;
-      }
-      Set<Object> newValues = toSet(valueOrCollection);
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        Object fieldValue = record.get(field);
-        if (
-          newValues.contains(fieldValue) &&
-          this.oldMap.get(record.Id)?.get(field) != fieldValue
-        ) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with specified field value equals to a given value or list/set of values
-     * @param field The field to filter on.
-     * @param valueOrCollection The value(s) to filter for. Can be any `primitive` type, `List`, or `Set`.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder equals(SObjectField field, Object valueOrCollection) {
-      Set<Object> newValues = toSet(valueOrCollection);
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        Object fieldValue = record.get(field);
-        if (newValues.contains(fieldValue)) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with specified field value not equals to a given value or list/set of values
-     * @param field The field to filter on.
-     * @param valueOrCollection The value(s) to filter for. Can be any `primitive` type, `List`, or `Set`.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder notEquals(
-      SObjectField field,
-      Object valueOrCollection
-    ) {
-      Set<Object> newValues = toSet(valueOrCollection);
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        Object fieldValue = record.get(field);
-        if (newValues.contains(fieldValue) == false) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with specified field has value.
-     * @param field The field to filter on.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder isNull(SObjectField field) {
-      return this.equals(field, null);
-    }
-
-    /**
-     * @description Filter records with specified field has value.
-     * @param field The field to filter on.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder isNotNull(SObjectField field) {
-      return this.notEquals(field, null);
-    }
-
-    /**
-     * @description Filter records with all specified fields have values.
-     * @param fields The fields to filter on.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder allNotNull(Set<SObjectField> fields) {
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        Boolean isValid = true;
-        for (SObjectField field : fields) {
-          if (record.get(field) == null) {
-            isValid = false;
-            break;
-          }
-        }
-        if (isValid) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with any fields equals to a given value or list/set of values
-     * @param fields The field to compare against.
-     * @param valueOrCollection The values to compare with the field.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder anyEqual(
-      Set<SObjectField> fields,
-      Object valueOrCollection
-    ) {
-      Set<Object> newValues = toSet(valueOrCollection);
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        for (SObjectField field : fields) {
-          Object fieldValue = record.get(field);
-          if (newValues.contains(fieldValue)) {
-            output.add(record);
-            break;
-          }
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with any fields equals to a given value or list/set of values
-     * @param fields The field to compare against.
-     * @param valueOrCollection The values to compare with the field.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder allEqual(
-      Set<SObjectField> fields,
-      Object valueOrCollection
-    ) {
-      Set<Object> newValues = toSet(valueOrCollection);
-      List<SObject> output = createListOfSameType(this.records);
-      for (SObject record : this.records) {
-        Boolean isValid = true;
-        for (SObjectField field : fields) {
-          Object fieldValue = record.get(field);
-          if (newValues.contains(fieldValue) == false) {
-            isValid = false;
-            break;
-          }
-        }
-        if (isValid) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
-
-    /**
-     * @description Filter records with old field value equals to a given value or list/set of values
-     * @param field The field to filter on.
-     * @param valueOrCollection The set of values to filter for. Can be any `primitive` type, `List`, or `Set`.
-     * @return The updated FilterBuilder instance.
-     */
-    public FilterBuilder oldEquals(
-      SObjectField field,
-      Object valueOrCollection
-    ) {
-      List<SObject> output = createListOfSameType(this.records);
-      if (this.oldMap.isEmpty()) {
-        this.records = output;
-        return this;
-      }
-      Set<Object> oldValues = toSet(valueOrCollection);
-      for (SObject record : this.records) {
-        SObject oldRecord = this.oldMap.get(record.Id);
-        if (oldRecord != null && oldValues.contains(oldRecord.get(field))) {
-          output.add(record);
-        }
-      }
-      this.records = output;
-      return this;
-    }
+    return new SObjectFilterBuilder(new GenericFilterBuilder(records), oldMap);
   }
   //#endregion
 }

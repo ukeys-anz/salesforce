@@ -67,9 +67,7 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
       : 'bucket_ids';
 
     String precedingBucketValue = EncodingUtil.urlEncode(
-      'accounts/' +
-      accountNumber +
-      '/buckets/',
+      'accounts/' + accountNumber + '/buckets/',
       'UTF-8'
     );
 
@@ -97,19 +95,27 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
   /**
    * @description handles is valid check for each card in list
    * @param cardListResponse CardListModel returned from get call
+   * @return CardListModel after eliminating invalid cards
    */
-  public void handleCardIsValidCheck(CardListModel cardListResponse) {
-    for (CardListModel.CardCls card : cardListResponse.cards) {
-      if (!card.isValid) {
-        handleErrors(
-          null,
-          new CoachBankingAPIRepository.InvalidInformationException(
-            CARD_INFORMATION_INVALID_ERROR
-          ),
-          CoachBankingAPIRepository.class
-        );
+  public static CardListModel handleCardIsValidCheck(
+    CardListModel cardListResponse
+  ) {
+    for (
+      Integer cardIndex = (cardListResponse.cards.size() - 1);
+      cardIndex >= 0;
+      cardIndex--
+    ) {
+      if (cardListResponse.cards[cardIndex].isValid) {
+        continue;
       }
+      cardListResponse.cards.remove(cardIndex);
+      CommonUtil.logException(
+        new CoachBankingAPIRepository.InvalidInformationException(
+          CARD_INFORMATION_INVALID_ERROR
+        )
+      );
     }
+    return cardListResponse;
   }
 
   /**
@@ -128,87 +134,5 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
         CoachBankingAPIRepositoryHelper.class
       );
     }
-  }
-
-  /**
-   * @description filter the card list based on the financial account status. This is created as part of ANZX-112715 By Shivam, September 2023
-   * @param ocvId String containing ocvId of the customer
-   * @param cardListResponse Response received from Fabric after parsing
-   * @return CardListModel
-   */
-  public static CardListModel filterCardsBasedOnAccountStatus(
-    String ocvId,
-    CardListModel cardListResponse
-  ) {
-    List<String> statusList = new List<String>{
-      GetHelpConstants.CLOSED_STATUS
-    };
-    List<String> allClosedAccountsNumbersList = new List<String>();
-
-    //Return CardListModel after filtering the card list
-    CardListModel filteredCardListResponse;
-
-    //Fetch the financial account list whose status is closed in order to filter the card list.
-    List<FinServ__FinancialAccount__c> finacialAccountListByStatus = FinancialAccountService.fetchFinancialAccountsByStatus(
-      ocvId,
-      statusList
-    );
-
-    //Fetch the map of financial account numbers based on the list of financial accounts in order to filter out card response.
-    Map<String, List<String>> allClosedAccountsMap = FinancialAccountService.getAccountNumbersByStatusMap(
-      finacialAccountListByStatus
-    );
-
-    //Get the account numbers from the Map based on the status passed.
-    if (!allClosedAccountsMap.isEmpty()) {
-      allClosedAccountsNumbersList = allClosedAccountsMap.get(
-        GetHelpConstants.CLOSED_STATUS
-      );
-    }
-
-    //list of cards which is to be removed
-    if (!allClosedAccountsNumbersList.isEmpty()) {
-      for (
-        Integer cardIndex = (cardListResponse.cards.size() - 1);
-        cardIndex >= 0;
-        cardIndex--
-      ) {
-        CardListModel.CardCls card = cardListResponse.cards[cardIndex];
-        if (!card.account_numbers.isEmpty()) {
-          if (
-            checkIfOnlyClosedAccountsAvailable(
-              card.account_numbers,
-              allClosedAccountsNumbersList
-            )
-          ) {
-            cardListResponse.cards.remove(cardIndex);
-          }
-        }
-      }
-    }
-
-    filteredCardListResponse = cardListResponse;
-    return filteredCardListResponse;
-  }
-
-  /**
-   * @description this method is used to find any closed accounts available or not
-   * @param cardAccountNumbersList contains list of account numbers present in a card object of the card list.
-   * @param allClosedAccountsNumbersList contains list of account numbers which are closed for the customer.
-   * @return Boolean
-   */
-  private static Boolean checkIfOnlyClosedAccountsAvailable(
-    List<String> cardAccountNumbersList,
-    List<String> allClosedAccountsNumbersList
-  ) {
-    Boolean foundNonClosedCard = true;
-    for (String acc : cardAccountNumbersList) {
-      if (!allClosedAccountsNumbersList.contains(acc)) {
-        foundNonClosedCard = false;
-        break;
-      }
-    }
-
-    return foundNonClosedCard;
   }
 }

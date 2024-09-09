@@ -110,6 +110,10 @@
     <picklistValues>
         <picklist>Interaction_Purpose__c</picklist>
         <values>
+            <fullName>Branch Staff Member</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Customer</fullName>
             <default>false</default>
         </values>
