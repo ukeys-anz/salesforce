@@ -5,7 +5,7 @@
  * @group Repository
  */
 public with sharing class VaultApiRepository {
-  private static final String GET_CARD_NUMBER_PERMISSION_ERROR = 'User does not have the get full card number permission';
+  private static final String GET_CARD_NUMBER_PERMISSION_ERROR = 'User does not have permission to view full card number';
   private static final String TOKENIZATION_TYPE = 'TOKEN_TYPE_CARD_NUMBER';
   /**
    * @param ocvId ocvId of the customer
