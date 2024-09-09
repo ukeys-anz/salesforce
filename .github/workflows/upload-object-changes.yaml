@@ -139,7 +139,7 @@ jobs:
           mkdir gcs_bucket && ls -la
           object_array=($(find sfdatasync_user_output/fieldsaccessdiff/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
-            gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object/* gcs_bucket/ || echo "No files or folders found to copy."
+            gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket || echo "No files or folders found to copy."
           done
           ls -la gcs_bucket
 
