@@ -16,12 +16,11 @@ if ! response=$(wget --server-response -P artifactory_success_output/ "$ARTIFACT
     echo "Error when pulling artifact from artifactory: $response"
 fi
 
-echo "Unzipping artifact and evaluating response if artifact was downloaded..."
-
 # Get zip from Artifactory
 status_code=$(echo "$response" | awk '/HTTP\// {print $2}' | tail -n 1)
 if [ -n "$status_code" ]; then
     if [ "$status_code" -eq 200 ]; then
+        echo "Unzipping artifact..."
         unzip artifactory_success_output/$ARTIFACTORY_ARTIFACT_NAME.zip -d artifactory_success_output
     elif [ "$status_code" -eq 404 ]; then
         echo "Error: File not found (Status code: $status_code). This means that the upload-object-changes.yml workflow was not run on $1 as a post deployment step on the develop branch. If this was a commit for a conflict fix on master, please merge it into develop first and then run the upload-object-changes.yml workflow on the develop branch. You can then re-run this workflow."
