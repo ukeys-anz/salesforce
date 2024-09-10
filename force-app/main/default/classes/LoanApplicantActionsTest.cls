@@ -78,7 +78,7 @@ private class LoanApplicantActionsTest {
     for (Id eachAccId : accIdList) {
       syncStatusMap.put(eachAccId, '');
     }
-    syncStatusMap.put(accIdList[accIdList.size()-1], 'Blocked');
+    syncStatusMap.put(accIdList[accIdList.size() - 1], 'Blocked');
     Test.startTest();
     List<Account> result = LoanApplicantActions.createResultantSyncStatus(
       syncStatusMap

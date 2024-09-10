@@ -54,7 +54,7 @@ public with sharing class LoanApplicantActions {
       ) {
         continue;
       }
-      
+
       String syncStatus = eachLoanApplicant.Account__r.Sync_Status__c;
       if (
         String.isNotBlank(syncStatus) &&
