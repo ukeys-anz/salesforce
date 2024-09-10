@@ -1,7 +1,6 @@
 @isTest
 private class AccountTriggerHandlerTest {
   private final static Faker TESTFAKER = new Faker('AU');
-  private final static string TEST_MOBILE = '123456789';
 
   @TestSetup
   static void makeData() {
@@ -23,7 +22,7 @@ private class AccountTriggerHandlerTest {
 
     Case kycqa = new Case(
       CustomerOnboardingApplication__c = cob.Id,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      RecordTypeId = RTCase.kycQa,
       Type = 'KYC QA Sample',
       OCV_Id__c = '4324234234',
       PersonaId__c = '123456789'

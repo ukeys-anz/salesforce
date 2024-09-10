@@ -465,7 +465,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>callout:SF_MS_CH2/coach-banking/v1beta1/cards</value>
+        <value>callout:SF_MS_CH2/list-data/v1/listCards</value>
     </labels>
     <labels>
         <fullName>MS_Get_Card_Control_List</fullName>
@@ -1004,8 +1004,7 @@ Feel free to reach out to us if you have any questions.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-PreArbAccepted</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value>We&apos;ve finished our investigation and will send you an email with more information and our contact details.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_PreArbGrantedPartial</fullName>
@@ -2481,5 +2480,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>S2AccountEnabled created for releasing S2 Deliverable in Dormant</shortDescription>
         <value>true</value>
+    </labels>
+    <labels>
+        <fullName>DAONImageReloadMaxRetryCount</fullName>
+        <categories>DAON</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DAONImageReloadMaxRetryCount</shortDescription>
+        <value>15</value>
     </labels>
 </CustomLabels>

@@ -12,14 +12,11 @@ private class GetHelpCaseActionsTest {
     List<Case> lstCases = new List<Case>{
       new Case(
         AccountId = oAccount.Id,
-        RecordTypeId = GetHelpConstants.idrtProfileUpdate,
+        RecordTypeId = RTCase.profileUpdate,
         Type = GetHelpConstants.RESIDENTIAL_ADDRESS_QA,
         Status = GetHelpConstants.OPEN_STATUS
       ),
-      new Case(
-        AccountId = oAccount.Id,
-        RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID
-      )
+      new Case(AccountId = oAccount.Id, RecordTypeId = RTCase.generalInquiry)
     };
 
     Test.startTest();
@@ -29,7 +26,7 @@ private class GetHelpCaseActionsTest {
     Test.stopTest();
 
     for (Case oCase : lstCases) {
-      if (oCase.RecordTypeId == GetHelpConstants.idrtProfileUpdate) {
+      if (oCase.RecordTypeId == RTCase.profileUpdate) {
         Assert.areEqual(
           GetHelpCaseActions.idOpsQueue.Id,
           oCase.OwnerId,

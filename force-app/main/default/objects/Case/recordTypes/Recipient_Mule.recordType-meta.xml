@@ -3068,6 +3068,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Internally Muled Funds</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Scam - Attempts to gain your personal information</fullName>
             <default>false</default>
         </values>
@@ -3077,6 +3081,10 @@
         </values>
         <values>
             <fullName>Scam - Dating %26 romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Impersonation</fullName>
             <default>false</default>
         </values>
         <values>

@@ -77,7 +77,10 @@ private class COBOrphanedKYCQABatchTest {
       FROM CustomerOnboardingApplication__c
       WHERE SecurityMobile__c != NULL
     ];
-    Assert.isTrue(lstCOBApps.size() > 0);
+    Assert.isTrue(
+      lstCOBApps.size() > 0,
+      'COB Application records should be returned'
+    );
     String strMobile = '+' + lstCOBApps[0].SecurityMobile__c;
     // This is the PersonAccount that will be connected to the Case by matching mobile number
     List<Account> lstPersonAccounts = [
@@ -85,7 +88,10 @@ private class COBOrphanedKYCQABatchTest {
       FROM Account
       WHERE PersonMobilePhone = :strMobile
     ];
-    Assert.isTrue(lstPersonAccounts.size() > 0);
+    Assert.isTrue(
+      lstPersonAccounts.size() > 0,
+      'Person Accounts should be returned'
+    );
     // Prevent Case from matching on MobileNumber
     lstPersonAccounts[0].PersonMobilePhone += 9;
     update lstPersonAccounts;
@@ -123,7 +129,7 @@ private class COBOrphanedKYCQABatchTest {
   private static Case createKYCQACase(Id cobAppId, Id caseOwnerId) {
     Case c = new Case(
       Status = GetHelpConstants.OPEN_STATUS,
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+      RecordTypeId = RTCase.kycQa,
       CustomerOnboardingApplication__c = cobAppId,
       OwnerId = caseOwnerId
     );

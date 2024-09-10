@@ -6,19 +6,15 @@
  */
 @isTest
 public with sharing class GetHelpCaseActionsHelperTest {
-  private static final Faker FAKER = new Faker('AU');
   private static final List<String> COB_CLOSED_STATUSES = new List<String>{
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+    COBCaseConstants.COB_FAILED_OK_STATUS,
+    COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
   private static final Integer COB_CASES_COUNT = COB_CLOSED_STATUSES.size();
-
-  private static final String FAILED_REASON = 'Selfie fail - selfie image is not clear enough to match';
-  private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
-
-  private static final String EMPTY_FAILED_REASON = '';
+  private static final String MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE = 'Date_Time_Provisionally_Closed__c should be the current date and time';
+  private static final String MSG_DATE_TIME_PROVISIONALLY_CLOSED_NULL = 'Date_Time_Provisionally_Closed__c should be null';
 
   @TestSetup
   private static void makeData() {
@@ -31,14 +27,12 @@ public with sharing class GetHelpCaseActionsHelperTest {
     for (Integer i = 0; i < COB_CASES_COUNT; i++) {
       cases.add(
         createCase(
-          GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS,
-          GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+          COBCaseConstants.COB_POTENTIAL_FRAUD_STATUS,
+          RTCase.idOpsAssistance
         )
       );
 
-      cases.add(
-        createCase(COB_CLOSED_STATUSES[i], GetHelpConstants.FRAUD_CHECK_RT_ID)
-      );
+      cases.add(createCase(COB_CLOSED_STATUSES[i], RTCase.fraudCheck));
     }
     insert cases;
   }
@@ -48,149 +42,6 @@ public with sharing class GetHelpCaseActionsHelperTest {
     c.Status = status;
     c.RecordTypeId = recordTypeId;
     return c;
-  }
-
-  private static List<Case> getCases(String recordtype) {
-    return [
-      SELECT Id, Status, RecordTypeId
-      FROM Case
-      WHERE RecordTypeId = :recordtype
-    ];
-  }
-
-  @isTest
-  private static void testIsStatusChanged() {
-    Case oldRecord = createCase(
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-    );
-
-    Case newRecord = createCase(
-      GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-    );
-
-    Test.startTest();
-    Boolean isStatusChanged = GetHelpCaseActionsHelper.isStatusChanged(
-      newRecord,
-      oldRecord
-    );
-    Test.stopTest();
-
-    Assert.isTrue(isStatusChanged, 'Status should have changed.');
-  }
-
-  @isTest
-  private static void testGetCasesByIds() {
-    List<Case> caseRecords = getCases(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
-
-    Set<Id> caseIds = new Set<Id>();
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      caseIds.add(caseRecords[i].Id);
-    }
-
-    Test.startTest();
-    List<Case> casesByIds = GetHelpCaseActionsHelper.getCasesByIds(caseIds);
-    Test.stopTest();
-
-    Assert.areEqual(
-      COB_CASES_COUNT,
-      casesByIds.size(),
-      'There should be ' + COB_CASES_COUNT + ' cases.'
-    );
-  }
-
-  @isTest
-  private static void testGetCasesByIdsEmptySet() {
-    Test.startTest();
-    List<Case> casesByIds = GetHelpCaseActionsHelper.getCasesByIds(
-      new Set<Id>()
-    );
-    Test.stopTest();
-
-    Assert.isTrue(
-      casesByIds.isEmpty(),
-      'There should be an empty list of cases.'
-    );
-  }
-
-  @isTest
-  private static void testSetIDOpsCaseStatus() {
-    Map<Id, Case> parentIdAndChildCasesMap = setFraudCheckStatuses();
-
-    Test.startTest();
-    List<Case> updatedIdOpsCases = GetHelpCaseActionsHelper.setIDOpsCaseStatus(
-      parentIdAndChildCasesMap
-    );
-    Test.stopTest();
-
-    assert(updatedIdOpsCases);
-  }
-
-  private static Map<Id, Case> setFraudCheckStatuses() {
-    List<Case> idOpsCases = getCases(GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID);
-    List<Case> fraudCheckCases = getCases(GetHelpConstants.FRAUD_CHECK_RT_ID);
-
-    Map<Id, Case> parentIdAndChildCasedMap = new Map<Id, Case>();
-
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      Case idOpsCase = idOpsCases[i];
-      Case fraudCheckCase = fraudCheckCases[i];
-
-      fraudCheckCase.ParentId = idOpsCase.Id;
-      fraudCheckCase.OnboardingVerificationFailedReason__c = fraudCheckCase.Status ==
-        GetHelpConstants.COB_FAILED_OK_STATUS
-        ? FAILED_REASON
-        : fraudCheckCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-            ? CONFIRMED_FRAUD_REASON
-            : EMPTY_FAILED_REASON;
-
-      parentIdAndChildCasedMap.put(idOpsCase.Id, fraudCheckCase);
-    }
-
-    return parentIdAndChildCasedMap;
-  }
-
-  private static void assert(List<Case> updatedIdOpsCases) {
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      Assert.areEqual(
-        COB_CLOSED_STATUSES[i],
-        updatedIdOpsCases[i].Status,
-        'Status should be ' + COB_CLOSED_STATUSES[i]
-      );
-
-      if (COB_CLOSED_STATUSES[i] == GetHelpConstants.COB_FAILED_OK_STATUS) {
-        Assert.areEqual(
-          FAILED_REASON,
-          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
-          'Failed reason should be ' + FAILED_REASON
-        );
-      }
-
-      if (
-        COB_CLOSED_STATUSES[i] == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-      ) {
-        Assert.areEqual(
-          CONFIRMED_FRAUD_REASON,
-          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
-          'Failed reason should be ' + CONFIRMED_FRAUD_REASON
-        );
-      }
-    }
-  }
-
-  @isTest
-  private static void testSetIDOpsCaseStatusEmptyMap() {
-    Test.startTest();
-    List<Case> updatedIdOpsCases = GetHelpCaseActionsHelper.setIDOpsCaseStatus(
-      new Map<Id, Case>()
-    );
-    Test.stopTest();
-
-    Assert.isTrue(
-      updatedIdOpsCases.isEmpty(),
-      'There should be an empty list of cases.'
-    );
   }
 
   @isTest
@@ -229,9 +80,21 @@ public with sharing class GetHelpCaseActionsHelperTest {
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, cases);
     Test.stopTest();
 
-    System.assertEquals(c1.Date_Time_Provisionally_Closed__c, DateTime.now());
-    System.assertEquals(c2.Date_Time_Provisionally_Closed__c, DateTime.now());
-    System.assertEquals(c3.Date_Time_Provisionally_Closed__c, null);
+    Assert.areEqual(
+      c1.Date_Time_Provisionally_Closed__c,
+      DateTime.now(),
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE
+    );
+    Assert.areEqual(
+      c2.Date_Time_Provisionally_Closed__c,
+      DateTime.now(),
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE
+    );
+    Assert.areEqual(
+      c3.Date_Time_Provisionally_Closed__c,
+      null,
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_NULL
+    );
   }
 
   @isTest
@@ -255,7 +118,15 @@ public with sharing class GetHelpCaseActionsHelperTest {
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, cases);
     Test.stopTest();
 
-    System.assertEquals(c.Date_Time_Provisionally_Closed__c, null);
-    System.assertEquals(c2.Date_Time_Provisionally_Closed__c, DateTime.now());
+    Assert.areEqual(
+      c.Date_Time_Provisionally_Closed__c,
+      null,
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_NULL
+    );
+    Assert.areEqual(
+      c2.Date_Time_Provisionally_Closed__c,
+      DateTime.now(),
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE
+    );
   }
 }

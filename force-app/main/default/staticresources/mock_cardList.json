@@ -1,11 +1,10 @@
 {
   "cards": [
     {
-      "name": "ELVA KOELPIN",
-      "tokenized_card_number": "8051997368527878",
-      "last_4_digits": "0647",
-      "status": "Issued",
-      "expiry_date": {
+      "name": "cards/8051997368527878",
+      "last4Digits": "0796",
+      "cardControlsList": [{ "control_type": "GCT_GLOBAL" }],
+      "expiryDate": {
         "year": {
           "value": 2020
         },
@@ -13,91 +12,74 @@
           "value": 11
         }
       },
-      "account_numbers": ["390845569"],
-      "eligibilities": [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_CARD_ACTIVATION",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": {
-        "applePay": 3
+      "wallets": { "applePay": 3, "goggle_pay": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "ELVA KOELPIN"
       },
-      "card_controls_enabled": true
-    },
-    {
-      "name": "JAIRO REYNOLDS",
-      "tokenized_card_number": "0900601361295097",
-      "last_4_digits": "0654",
-      "status": "Issued",
-      "expiry_date": {
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "8051997368527878",
+      "digital_only": true,
+      "cardIssueDate": {
         "year": {
-          "value": 2020
+          "value": 2016
         },
         "month": {
-          "value": 11
-        }
-      },
-      "account_numbers": ["390845585"],
-      "eligibilities": [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK",
-        "ELIGIBILITY_GET_DETAILS",
-        "ELIGIBILITY_CARD_ON_FILE"
-      ],
-      "wallets": {
-        "applePay": 3,
-        "googlePay": 2,
-        "samsungPay": 1,
-        "fitness": 3,
-        "eCommerce": 2,
-        "other": 1
-      },
-      "card_controls_enabled": true
-    },
-    {
-      "name": "YVONNE KUHLMAN",
-      "tokenized_card_number": "9630441141612226",
-      "last_4_digits": "0662",
-      "status": "Temporary Block",
-      "expiry_date": {
-        "year": {
-          "value": 2020
+          "value": 9
         },
-        "month": {
-          "value": 11
+        "day": {
+          "value": 19
         }
       },
-      "account_numbers": ["390845606"],
-      "eligibilities": [
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_UNBLOCK"
-      ],
-      "wallets": {
-        "samsungPay": 1
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
       }
     },
     {
-      "name": "MARCELINO SMITH",
-      "tokenized_card_number": "9651661556625127",
-      "last_4_digits": "1686",
-      "status": "Issued",
-      "expiry_date": {
+      "name": "cards/0900601361295097",
+      "last4Digits": "0796",
+      "expiryDate": {
         "year": {
           "value": 2020
         },
@@ -105,31 +87,74 @@
           "value": 11
         }
       },
-      "account_numbers": ["390845622"],
-      "eligibilities": [
-        "ELIGIBILITY_APPLE_PAY",
-        "ELIGIBILITY_GOOGLE_PAY",
-        "ELIGIBILITY_SAMSUNG_PAY",
-        "ELIGIBILITY_SET_PIN",
-        "ELIGIBILITY_CARD_REPLACEMENT_LOST",
-        "ELIGIBILITY_CARD_REPLACEMENT_STOLEN",
-        "ELIGIBILITY_CARD_REPLACEMENT_DAMAGED",
-        "ELIGIBILITY_CARD_CONTROLS",
-        "ELIGIBILITY_BLOCK",
-        "ELIGIBILITY_GET_DETAILS",
+      "accounts": ["accounts/390992606"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": {
-        "eCommerce": 1
+      "wallets": { "e_commerce": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
       },
-      "card_controls_enabled": true
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "0900601361295097",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
     },
     {
-      "name": "JED SWANIAWSKI",
-      "tokenized_card_number": "7895348427213347",
-      "last_4_digits": "0902",
-      "status": "Block ATM & POS (Exclude CNP)",
-      "expiry_date": {
+      "name": "cards/1832419570176708",
+      "last4Digits": "0796",
+      "expiryDate": {
         "year": {
           "value": 2020
         },
@@ -137,16 +162,74 @@
           "value": 11
         }
       },
-      "account_numbers": ["390846203"],
-      "eligibilities": ["ELIGIBILITY_FRAUD_SUSPECTED"],
-      "wallets": {}
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "1832419570176708",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
     },
     {
-      "name": "SANTA DUBUQUE",
-      "tokenized_card_number": "1822515293220403",
-      "last_4_digits": "0969",
-      "status": "Lost",
-      "expiry_date": {
+      "name": "cards/9651661556625127",
+      "last4Digits": "0796",
+      "expiryDate": {
         "year": {
           "value": 2020
         },
@@ -154,17 +237,71 @@
           "value": 11
         }
       },
-      "account_numbers": ["390846334"],
-      "eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_LOST"],
-      "new_tokenized_card_number": "1832419570176708",
-      "wallets": {}
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": { "e_commerce": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_BLOCKATMPOSCNPBCH",
+      "tokenizedCardNumber": "9651661556625127",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
     },
     {
-      "name": "EMMA TURNER",
-      "tokenized_card_number": "5787250584894327",
-      "last_4_digits": "0977",
-      "status": "Stolen",
-      "expiry_date": {
+      "name": "cards/3337796764029075",
+      "last4Digits": "0796",
+      "expiryDate": {
         "year": {
           "value": 2020
         },
@@ -172,17 +309,74 @@
           "value": 11
         }
       },
-      "account_numbers": ["390846369"],
-      "eligibilities": ["ELIGIBILITY_CARD_REPLACEMENT_STOLEN"],
-      "new_tokenized_card_number": "3337796764029075",
-      "wallets": {}
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": { "e_commerce": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "3337796764029075",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
     },
     {
-      "name": "J CITIZEN200331",
-      "tokenized_card_number": "8934156628107049",
-      "last_4_digits": "0589",
-      "status": "Delinquent (Retain Card)",
-      "expiry_date": {
+      "name": "cards/3337796764029075",
+      "last4Digits": "0796",
+      "expiryDate": {
         "year": {
           "value": 2020
         },
@@ -190,9 +384,756 @@
           "value": 11
         }
       },
-      "account_numbers": ["390845489"],
-      "eligibilities": ["ELIGIBILITY_FRAUD_CARD_CANCELLED"],
-      "wallets": {}
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": { "google_pay": 2 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "3337796764029075",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/2397229091652090",
+      "last4Digits": "0796",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": { "e_commerce": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "2397229091652090",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/2735331274708236",
+      "last4Digits": "0797",
+      "expiryDate": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/390992614"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": { "e_commerce": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "2735331274708238",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/2735331274708238",
+      "last4Digits": "0797",
+      "expiryDate": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/390992618"],
+      "eligibility": [
+        "ELIGIBILITY_DIGITAL_WALLET",
+        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_REPLACEMENT_LOST",
+        "ELIGIBILITY_REPLACEMENT_STOLEN",
+        "ELIGIBILITY_REPLACEMENT_DAMAGED",
+        "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_DETAILS",
+        "ELIGIBILITY_CARD_ON_FILE"
+      ],
+      "wallets": { "e_commerce": 4 },
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "I AM THE BIG BOSS"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_ISSUED",
+      "tokenizedCardNumber": "2735331274708238",
+      "digital_only": true,
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/8130786547061532",
+      "last4Digits": "7180",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/390992606"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_STOLEN"],
+      "new_name": "cards/2735331274708237",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "NICKLAUSANZX SCHIMMEL"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_STOLEN",
+      "tokenizedCardNumber": "8130786547061532",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/5760153516234117",
+      "last4Digits": "5382",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/222222222"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "new_name": "cards/8130786547061532",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "NICKLAUSANZX SCHIMMEL"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_LOST",
+      "tokenizedCardNumber": "5760153516234117",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/0891598838499875",
+      "last4Digits": "3759",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "new_name": "cards/5760153516234117",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "NICKLAUSANZX SCHIMMEL"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_LOST",
+      "tokenizedCardNumber": "0891598838499875",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/7121931607030402",
+      "last4Digits": "2868",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "new_name": "cards/0891598838499875",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "NICKLAUSANZX SCHIMMEL"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_LOST",
+      "tokenizedCardNumber": "7121931607030402",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/3721116289044713",
+      "last4Digits": "1746",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "new_name": "cards/7121931607030402",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "NICKLAUSANZX SCHIMMEL"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_LOST",
+      "tokenizedCardNumber": "3721116289044713",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/6252727765979807",
+      "last4Digits": "1555",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "new_name": "cards/3721116289044713",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": "NICKLAUSANZX SCHIMMEL"
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_LOST",
+      "tokenizedCardNumber": "6252727765979807",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/7814741521410292",
+      "last4Digits": "1159",
+      "expiryDate": {
+        "year": {
+          "value": 2020
+        },
+        "month": {
+          "value": 11
+        }
+      },
+      "accounts": ["accounts/210406447"],
+      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "new_name": "cards/6252727765979807",
+      "wallets": {},
+      "cardControlsEnabled": true,
+      "embossing": {
+        "lineOne": ""
+      },
+      "design_code": "001",
+      "statusCode": "CARD_STATUS_CODE_LOST",
+      "tokenizedCardNumber": "7814741521410292",
+      "cardIssueDate": {
+        "year": {
+          "value": 2016
+        },
+        "month": {
+          "value": 9
+        },
+        "day": {
+          "value": 19
+        }
+      },
+      "tracking": {
+        "card": "cards/2735331274708237",
+        "address": {
+          "lineOne": "900 anz lane ",
+          "city": "Werribee",
+          "postalCode": "5000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_DELIVERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 4
+          },
+          "endDate": {
+            "year": 2024,
+            "month": 8,
+            "day": 9
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2735331274708237",
+        "recipient": "b345d387-8943-4c3a-9019-22dd80fe8716",
+        "stateReportedBy": "PARTY_POSTAL_SERVICE",
+        "stateReportedDate": {
+          "year": 2024,
+          "month": 7,
+          "day": 30
+        }
+      }
     }
   ]
 }

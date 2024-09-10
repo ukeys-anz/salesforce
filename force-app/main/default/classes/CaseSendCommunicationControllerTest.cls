@@ -6,71 +6,59 @@
 @isTest
 private class CaseSendCommunicationControllerTest {
   private static final Faker FAKER = new Faker('AU');
+  private static Lib_MockProvider caseSendCommunicationRepoMock;
+  private static Group kycQAGroup = QueryQueue.pendingKYCQA;
 
-  @testSetup
-  static void setup() {
-    // Create an Integration User
-    Profile profileIntegration = CommonUtil.getProfileByName(
-      'Minimum Access - External Apps'
+  private static User fraudXUser = new User(
+    Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
+    FirstName = 'FraudXUser',
+    ProfileId = QueryProfile.anzxUser.Id,
+    UserRoleId = QueryRole.fraudXAgent.Id
+  );
+  private static CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
+    Id = Lib_FakeIdGenerator.getMockId(
+      CustomerOnboardingApplication__c.SObjectType
+    ),
+    OCVId__c = '0123456789',
+    PersonaId__c = FAKER.randomString(15),
+    ElectronicVerificationAcknowledged__c = true,
+    VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
+  );
+  private static Case kycQACase = new Case(
+    Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+    Subject = 'KYC QA Sample',
+    CustomerOnboardingApplication__r = cobApp,
+    OwnerId = fraudXUser.Id,
+    Status = 'Pending Documents',
+    Account = new Account(OCV_ID__c = cobApp.OCVId__c),
+    LastModifiedBy = fraudXUser
+  );
+
+  static void registerAndCallMock() {
+    caseSendCommunicationRepoMock = Lib_MockProvider.forType(
+      CaseSendCommunicationRepository.class
     );
-    UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
-    User integrationUser = TestUtil.createTestUser(
-      new Map<String, Object>{
-        'FirstName' => 'IntegrationTest',
-        'ProfileId' => profileIntegration.Id,
-        'UserRoleId' => role.Id
-      }
+
+    caseSendCommunicationRepoMock.mock(
+      'getRelatedCases',
+      new List<Case>{ kycQACase }
     );
-    insert integrationUser;
-
-    System.runAs(integrationUser) {
-      CustomerOnboardingApplication__c cobApp = new CustomerOnboardingApplication__c(
-        OCVId__c = '0123456789',
-        PersonaId__c = FAKER.randomString(15),
-        ElectronicVerificationAcknowledged__c = false,
-        VerificationType__c = COBApplicationActionsHelper.VERIFICATION_TYPE_ASSISTED
-      );
-      insert cobApp;
-
-      COBPrimaryIDDocument__c cobPid = new COBPrimaryIDDocument__c();
-      cobPid.CustomerOnboardingApplication__c = cobApp.Id;
-      cobPid.FirstName__c = FAKER.randomString(5);
-      cobPid.FirstNameOCRServer__c = cobPid.FirstName__c;
-      cobPid.LastName__c = FAKER.randomString(5);
-      cobPid.LastNameOCRServer__c = cobPid.LastName__c;
-      cobPid.MiddleNames__c = FAKER.randomString(5);
-      cobPid.MiddleNamesOCRServer__c = cobPid.MiddleNames__c;
-      cobPid.IdDocumentType__c = COBApplicationActionsHelper.LICENCE;
-      cobPid.LicenceNumber__c = FAKER.randomString(10);
-      cobPid.LicenceNumberOCRServer__c = cobPid.LicenceNumber__c;
-      insert cobPid;
-
-      COBAddress__c cobAddress = new COBAddress__c();
-      cobAddress.CustomerOnboardingApplication__c = cobApp.id;
-      cobAddress.AddressType__c = COBApplicationActions.CURRENT;
-      cobAddress.AddressQASId__c = FAKER.randomString(15);
-      insert cobAddress;
-    }
+    caseSendCommunicationRepoMock.mock(
+      'getUsers',
+      new List<User>{ fraudXUser }
+    );
+    caseSendCommunicationRepoMock.mock(
+      'getGroups',
+      new List<Group>{ kycQAGroup }
+    );
   }
 
   @isTest
   static void testSendCommunicationSuccess() {
-    CustomerOnboardingApplication__c cobApp = [
-      SELECT Id, PersonaId__c
-      FROM CustomerOnboardingApplication__c
-      LIMIT 1
-    ];
-    cobApp.ElectronicVerificationAcknowledged__c = true;
+    registerAndCallMock();
 
     Test.startTest();
-    update cobApp;
-    Case kycQACase = [
-      SELECT Id, CaseNumber
-      FROM Case
-      WHERE CustomerOnboardingApplication__c = :cobApp.Id
-      LIMIT 1
-    ];
-    CaseSendCommunicationController.sendCommunication(kycQACase.Id);
+    CaseSendCommunicationController.sendCommunication(cobApp.Id);
     Test.stopTest();
 
     Assert.areEqual(
@@ -86,10 +74,6 @@ private class CaseSendCommunicationControllerTest {
       'Cloud Event should be generated'
     );
 
-    AutoKYCQACaseCloudEventModel autoKYCQACaseCloudEventModel = (AutoKYCQACaseCloudEventModel) JSON.deserialize(
-      payload,
-      AutoKYCQACaseCloudEventModel.class
-    );
     Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
       payload
     );
@@ -120,12 +104,54 @@ private class CaseSendCommunicationControllerTest {
     try {
       CaseSendCommunicationController.sendCommunication(FAKER.randomString(18));
     } catch (Exception e) {
-      Assert.areEqual(
-        'Script-thrown exception',
-        e.getMessage(),
-        'Error should be thrown.'
-      );
+      Assert.isNotNull(e.getMessage(), 'Error should be thrown.');
     }
     Test.stopTest();
+  }
+
+  @isTest
+  static void testGenerateCloudEventModel() {
+    registerAndCallMock();
+
+    Test.startTest();
+    List<CloudEventModel> cloudEventModelList = CaseSendCommunicationController.generateCloudEventModel(
+      new List<String>{ cobApp.Id }
+    );
+    Test.stopTest();
+
+    Assert.isFalse(
+      caseSendCommunicationRepoMock.getHistories('getRelatedCases').isEmpty(),
+      'getRelatedCases call should have been made.'
+    );
+    Assert.isFalse(
+      caseSendCommunicationRepoMock.getHistories('getUsers').isEmpty(),
+      'getUsers call should have been made.'
+    );
+    Assert.isFalse(
+      caseSendCommunicationRepoMock.getHistories('getGroups').isEmpty(),
+      'getGroups call should have been made.'
+    );
+    Assert.areEqual(
+      1,
+      cloudEventModelList.size(),
+      'Cloud Event Model should be generated'
+    );
+  }
+
+  @isTest
+  static void testGetCloudEventModel() {
+    Test.startTest();
+    List<CloudEventModel> cloudEventModelList = CaseSendCommunicationController.getCloudEventModel(
+      new List<Case>{ kycQACase },
+      new Map<Id, User>{ fraudXUser.Id => fraudXUser },
+      new Map<Id, Group>{ kycQAGroup.Id => kycQAGroup }
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      cloudEventModelList.size(),
+      'Cloud Event Model should be generated'
+    );
   }
 }
