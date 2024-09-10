@@ -192,6 +192,14 @@ jobs:
         run: |
           object_array=($(find output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
-            gcloud storage rm -r gs://${{ env.BUCKET_NAME }}/$object/** || echo "No files or folders found to remove."
+            if ! output=$(gcloud storage rm -r gs://${{ env.BUCKET_NAME }}/$object/** 2>&1); then
+              echo "$output"
+              if echo "$output" | grep -q "The following URLs matched no objects or files"; then
+                echo "No files or folders found to remove."
+              else
+                echo "An error occurred during gsutil copy."
+                exit 1
+              fi
+            fi
             gsutil -m cp -r output/$object/* gs://${{ env.BUCKET_NAME }}/$object/
           done
