@@ -73,7 +73,6 @@ private class LoanApplicantActionsTest {
   static void testCreateResultantSyncStatus() {
     Map<Id, Account> accMap = createCustomerAccount(3);
     Map<Id, String> syncStatusMap = new Map<id, String>();
-    String lastAccId;
     List<Id> accIdList = new List<Id>();
     accIdList.addAll(accMap.keySet());
     for (Id eachAccId : accIdList) {
