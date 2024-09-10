@@ -72,16 +72,17 @@ private class LoanApplicantActionsTest {
   @isTest
   static void testCreateResultantSyncStatus() {
     Map<Id, Account> accMap = createCustomerAccount(3);
-    Map<Id, String> dummySyncStatusMap = new Map<id, String>();
+    Map<Id, String> syncStatusMap = new Map<id, String>();
     String lastAccId;
-    for (Id eachAccId : accMap.keySet()) {
-      dummySyncStatusMap.put(eachAccId, '');
-      lastAccId = eachAccId;
+    List<Id> accIdList = new List<Id>();
+    accIdList.addAll(accMap.keySet());
+    for (Id eachAccId : accIdList) {
+      syncStatusMap.put(eachAccId, '');
     }
-    dummySyncStatusMap.put(lastAccId, 'Blocked');
+    syncStatusMap.put(accIdList[accIdList.size()-1], 'Blocked');
     Test.startTest();
     List<Account> result = LoanApplicantActions.createResultantSyncStatus(
-      dummySyncStatusMap
+      syncStatusMap
     );
     Test.stopTest();
     Assert.areEqual(
