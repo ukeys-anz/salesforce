@@ -10,6 +10,9 @@ permissions:
   contents: "read"
   id-token: "write"
 
+env:
+  BUCKET_NAME: salesforce-nonprod-github-workflows
+
 jobs:
   validate_object_changes:
     runs-on: [anzx-default]
@@ -61,21 +64,31 @@ jobs:
         with:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
-      - name: Pull current changes from GCS
+      - name: Pull current changes from GCS Nonprod
         working-directory: salesforce
         id: pull-from-gcs
         shell: bash
         run: |
-          mkdir gcs_bucket && ls -la
-          gcloud storage cp -r --project anz-x-gh-sf-nonprod-ea5caa gs://salesforce-nonprod-github-workflows/upload-object-changes/success_output gcs_bucket
+          mkdir gcs_bucket
+          object_array=($(find artifactory_success_output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+          for object in "${object_array[@]}"; do
+            gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket || echo "No files or folders found to copy."
+          done
+          ls -la gcs_bucket
 
       - name: Run diff
         working-directory: salesforce
         id: run-diff
         shell: bash
         run: |
-          sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
-          sfdatasync_gcs_object_fields="gcs_bucket/success_output/output/sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_sha_object_fields="artifactory_success_output"
+          sfdatasync_gcs_object_fields="gcs_bucket"
+
+          echo "artifactory_success_output..."
+          ls -la artifactory_success_output
+
+          echo "gcs_bucket..."
+          ls -la gcs_bucket
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
@@ -92,7 +105,7 @@ jobs:
 
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
 
-      # # Upload to GCS
+      # Upload to GCS
       # - id: "upload-folder-to-gcs"
       #   if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
       #   uses: "google-github-actions/upload-cloud-storage@v2"
