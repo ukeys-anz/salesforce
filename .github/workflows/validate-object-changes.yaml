@@ -73,12 +73,11 @@ jobs:
           object_array=($(find artifactory_success_output/output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
             if ! output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1); then
+              echo "$output"
               if echo "$output" | grep -q "No URLs matched"; then
-                echo "$output"
                 echo "No files or folders matched, but continuing without error."
               else
                 echo "An error occurred during gsutil copy."
-                echo "$output"
                 exit 1
               fi
             fi
@@ -93,15 +92,10 @@ jobs:
           sfdatasync_sha_object_fields="artifactory_success_output/output"
           sfdatasync_gcs_object_fields="gcs_bucket"
 
-          echo "artifactory_success_output..."
-          ls -la artifactory_success_output
-
-          echo "gcs_bucket..."
-          ls -la gcs_bucket
-
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
-          status=$? && echo $diff_output
+          status=$?
+          echo $diff_output
           if [ $status -eq 2 ]; then
             echo "An error occurred while comparing directories."
             exit 2
@@ -111,8 +105,8 @@ jobs:
           else
               echo "No changes found for sfdatasync user. Moving on..."
           fi
-
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
 
       # Upload Changes to GCS
       - name: Upload Changes to GCS Nonprod

@@ -91,16 +91,6 @@ jobs:
             fi
           done
 
-          # TBC for Odaseva
-          # odaseva_object_list=$(jq -r '.odaseva_object_whitelist[]' ./config/object-changes-list.json)
-          # for object in $odaseva_object_list; do
-          #   echo "running fieldsaccessdiff on odaseva user for $object..."
-          #   if  ! ../plugin/bin/run doc:fieldsaccessdiff -a odaseva.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
-          #         -f odaseva_user_output -u tech.gcb@anzx.com.test24; then
-          #       errors+=("$object for user odaseva.user@anzx.com.test24")
-          #   fi
-          # done
-
           if [ ${#errors[@]} -ne 0 ]; then
             echo "Errors occurred with the following objects:"
             for err in "${errors[@]}"; do
@@ -140,6 +130,7 @@ jobs:
           object_array=($(find sfdatasync_user_output/fieldsaccessdiff/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
             if ! output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1); then
+              echo "$output"
               if echo "$output" | grep -q "No URLs matched"; then
                 echo "$output"
                 echo "No files or folders matched, but continuing without error."
@@ -163,7 +154,8 @@ jobs:
 
           CHANGES_DETECTED=FALSE
           diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
-          status=$? && echo $diff_output
+          status=$?
+          echo $diff_output
           if [ $status -eq 2 ]; then
             echo "An error occurred while comparing directories."
             exit 2
@@ -173,8 +165,8 @@ jobs:
           else
               echo "No changes found for sfdatasync user. Moving on..."
           fi
-
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
 
       # Upload success to artifactory
       - name: Push success changes to artifactory
