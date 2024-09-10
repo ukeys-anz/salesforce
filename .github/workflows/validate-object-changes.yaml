@@ -72,12 +72,13 @@ jobs:
           mkdir gcs_bucket
           object_array=($(find artifactory_success_output/output -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
-            gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1 | tee /tmp/gsutil_output.log
-            if [ "${PIPESTATUS[0]}" -ne 0 ]; then
-              if grep -q "No URLs matched" /tmp/gsutil_output.log; then
+            output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1)
+            if [ $status -ne 0 ]; then
+              if echo "$output" | grep -q "No URLs matched"; then
                 echo "No files or folders matched, but continuing without error."
               else
                 echo "An error occurred during gsutil copy."
+                echo "$output"
                 exit 1
               fi
             fi
