@@ -73,7 +73,7 @@
     </columns>
     <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over their team&apos;s case resolutions</description>
     <filter>
-        <booleanFilter>1 AND 3 AND 4 AND (2 OR 5)</booleanFilter>
+        <booleanFilter>1 AND 3 AND (4 OR 5) AND (2 OR 6)</booleanFilter>
         <criteriaItems>
             <column>Case$RecordType</column>
             <columnToColumn>false</columnToColumn>
@@ -94,6 +94,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Case$Date_Time_Provisionally_Closed__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>THIS_WEEK</value>
         </criteriaItems>
         <criteriaItems>
             <column>Case$ClosedDate</column>

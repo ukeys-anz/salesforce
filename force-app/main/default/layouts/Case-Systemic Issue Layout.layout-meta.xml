@@ -32,7 +32,7 @@
         <label>Issue Information 2</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Subject</field>
             </layoutItems>
             <layoutItems>
@@ -53,11 +53,11 @@
                 <field>OwnerId</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Origin_Other__c</field>
+                <behavior>Required</behavior>
+                <field>Origin</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>SI_PSI_Source__c</field>
             </layoutItems>
             <layoutItems>
@@ -67,12 +67,12 @@
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
-                <behavior>Required</behavior>
-                <field>Origin</field>
+                <behavior>Edit</behavior>
+                <field>SI_PSI_Ranking__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_PSI_Ranking__c</field>
+                <field>Origin_Other__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -97,7 +97,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>SI_Key_Business_Contacts__c</field>
+                <field>SI_Assigned_BU_Contact__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -183,7 +183,7 @@
                 <field>SI_Subject_of_Breach_Report__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>SI_First_Identified_Date__c</field>
             </layoutItems>
         </layoutColumns>

@@ -133,6 +133,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Escalation_Reason__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Completed_Evaluations__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -494,6 +498,10 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Hardship_Response_updated_on__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CAD_Outcome__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -569,6 +577,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Progressed_Status__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Date_time_Progressed_Status_selected__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -731,7 +743,7 @@
             <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Case.Send_Notification</actionName>
+            <actionName>On_Hold_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
         </platformActionListItems>

@@ -5,8 +5,8 @@
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Executive Owner</description>
     <externalId>false</externalId>
-    <label>Exec Owner</label>
-    <length>255</length>
+    <label>Additional RE#/CMOS#</label>
+    <length>100</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

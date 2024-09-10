@@ -404,14 +404,6 @@
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>adminFilters</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>Status|EQUALS|[&quot;STATE_CAPTURE&quot;,&quot;STATE_REFERRED&quot;,&quot;STATE_CONFIRMED&quot;,&quot;STATE_APPROVED&quot;,&quot;STATE_SUBMITTED&quot;,&quot;STATE_SETTLEMENT_INITATED&quot;]</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
                     <value>6</value>
                 </componentInstanceProperties>
@@ -468,7 +460,14 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList5</identifier>
-            </componentInstance>
+                <!--  <componentInstanceProperties>
+                    <name>adminFilters</name>
+                  <valueList>
+                        <valueListItems>
+                            <value>Status|EQUALS|[&quot;STATE_CAPTURE&quot;,&quot;STATE_REFERRED&quot;,&quot;STATE_CONFIRMED&quot;,&quot;STATE_APPROVED&quot;,&quot;STATE_SUBMITTED&quot;,&quot;STATE_SETTLEMENT_INITATED&quot;]</value>
+                        </valueListItems>
+                    </valueList
+                </componentInstanceProperties>>--></componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>

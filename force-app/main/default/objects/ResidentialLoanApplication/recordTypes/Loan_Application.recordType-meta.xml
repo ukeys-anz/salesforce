@@ -302,7 +302,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>STATE_SETTLEMENT_INITATED</fullName>
+            <fullName>STATE_SETTLEMENT_INITIATED</fullName>
             <default>false</default>
         </values>
         <values>
