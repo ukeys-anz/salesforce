@@ -67,7 +67,7 @@ elif [ -n "$diff_output" ]; then
     echo "Changes found between $SFDATASYNC_SHA_OBJECT_FIELDS and $SFDATASYNC_GCS_OBJECT_FIELDS..."
     object_array=($(find "$SFDATASYNC_SHA_OBJECT_FIELDS/" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
     for object in "${object_array[@]}"; do
-        echo "Uploading artifact to GCS..."
+        echo "Cleaning up objects in GCS and uploading artifact..."
         if ! output=$(gcloud storage rm -r gs://$2/$object/** 2>&1); then
             echo "$output"
             if echo "$output" | grep -q "The following URLs matched no objects or files"; then
@@ -77,7 +77,7 @@ elif [ -n "$diff_output" ]; then
                 exit 1
             fi
         fi
-        gsutil -m cp -r output/$object/* gs://$2/$object/
+        gsutil -m cp -r $SFDATASYNC_SHA_OBJECT_FIELDS/$object/* gs://$2/$object/
     done
 else
     echo "No changes found for sfdatasync user. Moving on..."
