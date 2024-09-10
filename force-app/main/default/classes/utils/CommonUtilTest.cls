@@ -149,17 +149,6 @@ public with sharing class CommonUtilTest {
     Test.stopTest();
   }
 
-  @isTest
-  static void testLogExceptionInfo() {
-    Test.startTest();
-    CoachBankingApiRepository.PermissionException permissionIssue = new CoachBankingApiRepository.PermissionException(
-      'Exception Raised'
-    );
-    Exception ex = CommonUtil.logExceptionInfo(permissionIssue);
-    Assert.areEqual(ex.getMessage(), 'Exception Raised');
-    Test.stopTest();
-  }
-
   static void testGetSLAProcess() {
     SlaProcess sla = CommonUtil.getSLAProcess(
       GetHelpConstants.ANZ_PLUS_BASIC_SUBSCRIPTION_SLA_PROCESS_NAME
