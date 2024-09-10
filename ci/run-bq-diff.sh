@@ -10,13 +10,13 @@ ARTIFACTORY_ARTIFACT_LINK="https://artifactory.gcp.anz/artifactory/anzx-salesfor
 
 echo "ARTIFACTORY_ARTIFACT_LINK=$ARTIFACTORY_ARTIFACT_LINK"
 
-echo "pulling artifact from artifactory..."
+echo "Pulling artifact from artifactory..."
 
 if ! response=$(wget --server-response -P artifactory_success_output/ "$ARTIFACTORY_ARTIFACT_LINK" 2>&1); then
     echo "Error when pulling artifact from artifactory: $response"
 fi
 
-echo "unzipping artifact and evaluating response if artifact was downloaded..."
+echo "Unzipping artifact and evaluating response if artifact was downloaded..."
 
 # Get zip from Artifactory
 status_code=$(echo "$response" | awk '/HTTP\// {print $2}' | tail -n 1)
