@@ -288,6 +288,8 @@
     "UserRoleId",
     "UserPreferencesHideOnlineSalesAppTabVisibilityRequirementsModal",
     "LocaleSidKey",
-    "FederationIdentifier"
+    "FederationIdentifier",
+    "LastPasswordChangeDate",
+    "NumberOfFailedLogins"
   ]
 }
