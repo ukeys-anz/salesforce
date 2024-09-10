@@ -111,7 +111,7 @@ jobs:
       # Upload Changes to GCS
       - name: Upload Changes to GCS Nonprod
         id: "upload-folder-to-gcs"
-        if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
+        if: ${{ steps.run-diff.outcome == 'success' && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
         working-directory: salesforce
         shell: bash
         run: |
