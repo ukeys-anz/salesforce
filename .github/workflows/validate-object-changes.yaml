@@ -28,6 +28,12 @@ jobs:
           fetch-depth: 0
           path: salesforce
 
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
       - name: Pull changes from artifactory
         working-directory: salesforce
         id: pull-from-artifactory
@@ -57,12 +63,6 @@ jobs:
         uses: "anzx/github-reusable-actions/setup-gcloud@main"
         with:
           install_components: "core"
-
-      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
-        id: "authenticate-harness-delegate"
-        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
-        with:
-          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: Pull current changes from GCS Nonprod
         working-directory: salesforce
