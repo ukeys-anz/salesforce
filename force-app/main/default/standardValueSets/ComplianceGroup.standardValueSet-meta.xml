@@ -166,4 +166,9 @@
         <default>false</default>
         <label>Source - Property Domain</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source - GCP</fullName>
+        <default>false</default>
+        <label>Source - GCP</label>
+    </standardValue>
 </StandardValueSet>

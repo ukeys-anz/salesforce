@@ -929,4 +929,29 @@ public with sharing class GetHelpCaseActionsHelper {
     );
     return relatedAccountsMap;
   }
+
+  /**
+   * @description  This method determines the contact id to be populated on the case
+   * @param relatedAccountsMap Map of Id and Account related to the case
+   * @param newCaseRecord Case Record for which contact need to be populated
+   * @return  Id of the person contact to be populated on the case
+   */
+  private static Id fetchContactIdFromAccount(
+    Map<Id, Account> relatedAccountsMap,
+    Case newCaseRecord
+  ) {
+    if (
+      relatedAccountsMap.isEmpty() ||
+      !(relatedAccountsMap.containsKey(newCaseRecord.AccountId))
+    ) {
+      return null;
+    }
+
+    Account relatedAccount = relatedAccountsMap.get(newCaseRecord.AccountId);
+    if (!relatedAccount.isPersonAccount) {
+      return null;
+    }
+
+    return relatedAccount.PersonContactId;
+  }
 }

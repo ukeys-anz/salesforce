@@ -27,7 +27,9 @@ public with sharing class GenesisPackageClosureModel extends CalloutModel {
    * @return `GenesisPackageClosureModel`
    * @description deserializes the input string into the model, using the base method
    */
-  public static GenesisPackageClosureModel parse(String packageClosureResponse) {
+  public static GenesisPackageClosureModel parse(
+    String packageClosureResponse
+  ) {
     return (GenesisPackageClosureModel) deserialize(
       packageClosureResponse,
       GenesisPackageClosureModel.class

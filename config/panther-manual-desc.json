@@ -268,6 +268,7 @@
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
+    "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product_Preference__c": "High level generalised information relating to a group of applicants",
     "Product2": "ANZ or ANZx product",
@@ -3388,6 +3389,17 @@
         "CreatedById",
         "CreatedDate",
         "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
+    "PrivateKeyStorage__c": {
+      "IA-2530753": ["Name"],
+      "IA-2468704": ["Private_Key__c", "Public_Key_Id__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
       ]
