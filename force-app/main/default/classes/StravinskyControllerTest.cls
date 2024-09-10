@@ -62,7 +62,7 @@ public with sharing class StravinskyControllerTest {
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Package_Id__c = faker.randomString(10),
       Account_Product__c = 'ANZ Plus & ANZ Save'
     );
@@ -76,7 +76,7 @@ public with sharing class StravinskyControllerTest {
       );
 
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         null,
         response.errorinfo,
         'No ErrorInfo Present in Response'
@@ -96,7 +96,7 @@ public with sharing class StravinskyControllerTest {
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Package_Id__c = faker.randomString(10),
       Account_Product__c = 'ANZ Plus & ANZ Save'
     );
@@ -106,9 +106,8 @@ public with sharing class StravinskyControllerTest {
       Test.startTest();
       try {
         StravinskyController.getPackageClosureAura(newCase.Id);
-        System.assert(false, 'Should have thrown an exception');
       } catch (AuraHandledException e) {
-        System.assertEquals(
+        Assert.areEqual(
           'Failed to retrieve financial account data. Please refresh and try again. Raise a fault through TechAssist if the problem persists.',
           e.getMessage(),
           'Exception message was not as expected'
@@ -129,7 +128,7 @@ public with sharing class StravinskyControllerTest {
     Case newCase = new Case(
       AccountId = acc.Id,
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     insert newCase;
@@ -138,9 +137,8 @@ public with sharing class StravinskyControllerTest {
       Test.startTest();
       try {
         StravinskyController.getPackageClosureAura(newCase.Id);
-        System.assert(false, 'Should have thrown an exception');
       } catch (AuraHandledException e) {
-        System.assertEquals(
+        Assert.areEqual(
           'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.',
           e.getMessage(),
           'Exception message was not as expected'
@@ -179,7 +177,7 @@ public with sharing class StravinskyControllerTest {
       Case newCase = new Case(
         AccountId = jointCustomer.Id,
         Account_Type__c = 'Joint',
-        RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+        RecordTypeId = RTCase.accountClosure,
         Package_Id__c = faker.randomString(10),
         Account_Product__c = 'ANZ Plus & ANZ Save'
       );
@@ -190,7 +188,7 @@ public with sharing class StravinskyControllerTest {
       );
 
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         null,
         response.errorinfo,
         'No ErrorInfo Present in Response'
@@ -248,7 +246,7 @@ public with sharing class StravinskyControllerTest {
       Case newCase = new Case(
         AccountId = jointCustomer.Id,
         Account_Type__c = 'Joint',
-        RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+        RecordTypeId = RTCase.accountClosure,
         Package_Id__c = faker.randomString(10),
         Account_Product__c = 'ANZ Plus & ANZ Save'
       );
@@ -256,9 +254,8 @@ public with sharing class StravinskyControllerTest {
 
       try {
         StravinskyController.getPackageClosureAura(newCase.Id);
-        System.assert(false, 'Should have thrown an exception');
       } catch (AuraHandledException e) {
-        System.assertEquals(
+        Assert.areEqual(
           'Failed to perform account closure because there are more than one Joint Account associated with the customer',
           e.getMessage(),
           'Exception message was not as expected'
@@ -273,27 +270,36 @@ public with sharing class StravinskyControllerTest {
     Faker faker = new Faker('AU');
     Case newCase = new Case(
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Package_Id__c = FAKER.randomString(10),
       Account_Product__c = 'ANZ Plus & ANZ Save'
     );
+
+    Exception error;
     Test.startTest();
-    StravinskyController.validatePackageId(newCase);
+
+    try {
+      StravinskyController.validatePackageId(newCase);
+    } catch (AuraHandledException e) {
+      error = e;
+    }
     Test.stopTest();
+
+    Assert.isNull(error, 'No Exception Thrown');
   }
 
   @isTest
   static void testValidatePackageIdFailure() {
     Case newCase = new Case(
       Account_Type__c = 'Individual',
-      RecordTypeId = GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
+      RecordTypeId = RTCase.accountClosure,
       Account_Product__c = 'ANZ Plus & ANZ Save'
     );
     Test.startTest();
     try {
       StravinskyController.validatePackageId(newCase);
     } catch (AuraHandledException e) {
-      System.assertEquals(
+      Assert.areEqual(
         'No package id found. Please ensure a package id has been added to the case. Raise a fault through TechAssist if the problem persists.',
         e.getMessage(),
         'Exception Message As Expected'

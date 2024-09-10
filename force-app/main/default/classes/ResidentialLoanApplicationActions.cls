@@ -6,7 +6,6 @@
  */
 public with sharing class ResidentialLoanApplicationActions {
   private static final String HOME_LOAN_APP_DEV_NAME = 'Home_Loan_Applications_Queue';
-  private static final String QUEUE_TYPE = 'Queue';
   @TestVisible
   private static final String ACCREDITATION_RETAIL = 'Retail';
 
@@ -19,11 +18,7 @@ public with sharing class ResidentialLoanApplicationActions {
       if (homeLoanAppQueue != null) {
         return homeLoanAppQueue;
       }
-      homeLoanAppQueue = [
-        SELECT Id
-        FROM Group
-        WHERE developername = :HOME_LOAN_APP_DEV_NAME AND Type = :QUEUE_TYPE
-      ];
+      homeLoanAppQueue = QueryQueue.get(HOME_LOAN_APP_DEV_NAME);
       return homeLoanAppQueue;
     }
     private set;

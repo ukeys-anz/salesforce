@@ -309,7 +309,7 @@ public with sharing class TestUtil {
       recordMap.put(field, value);
     }
 
-    String objectName = record.getSObjectType().getDescribe().Name;
+    String objectName = record.getSObjectType().toString();
     Type objectType = Type.forName(objectName);
     String serializedRecord = JSON.serialize(recordMap);
 

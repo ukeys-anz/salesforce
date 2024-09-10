@@ -63,7 +63,7 @@ public with sharing class COBPIDViewAndEditRepository {
       FROM Case
       WHERE
         PersonaId__c = :record.PersonaId__c
-        AND RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+        AND RecordTypeId = :RTCase.idOpsAssistance
       WITH USER_MODE
       ORDER BY LastModifiedDate DESC
       LIMIT 1

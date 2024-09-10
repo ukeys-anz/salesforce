@@ -54,40 +54,13 @@ public with sharing class GetHelpConstants {
     .get('Scam')
     .getRecordTypeId();
 
-  public static final Id KYCQA_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('KYC_QA')
-    .getRecordTypeId();
-
   public static final Id CUSTOMER_FEEDBACK_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Customer_Feedback')
-    .getRecordTypeId();
-
-  public static final Id ID_OPS_ASSISTANCE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('ID_Ops_Assistance')
-    .getRecordTypeId();
-
-  public static final Id FRAUD_CHECK_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Fraud_Check')
     .getRecordTypeId();
 
   public static final Id FALSE_CUSTOMER_PROFILE_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('False_Customer_Profile')
     .getRecordTypeId();
-
-  /**
-   * @description get Case.Profile_Update record type on demand
-   */
-  public static final Id idrtProfileUpdate {
-    get {
-      if (idrtProfileUpdate == null) {
-        idrtProfileUpdate = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-          .get('Profile_Update')
-          ?.getRecordTypeId();
-      }
-      return idrtProfileUpdate;
-    }
-    private set;
-  }
 
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
@@ -286,14 +259,6 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_FUTURE_RELEASE = 'Closed - Future Release';
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
-  public static final String COB_DAON_FAILED_STATUS = 'Daon Fallout';
-  public static final String COB_ID_OPS_DAON_APPROVED_STATUS = 'ID Ops: Daon OK';
-  public static final String COB_FRAUD_CHECK_DAON_APPROVED_STATUS = 'Fraud Check: Daon OK';
-  public static final String COB_EQUIFAX_FAILED_STATUS = 'Equifax Fallout';
-  public static final String COB_EQUIFAX_PASSED_STATUS = 'ID Check OK';
-  public static final String COB_FAILED_OK_STATUS = 'Failed';
-  public static final String COB_POTENTIAL_FRAUD_STATUS = 'Potential Fraud';
-  public static final String COB_CONFIRMED_FRAUD_STATUS = 'Confirmed Fraud';
   public static final String CUSTOMER_UPDATE_PENDING = 'Customer Update Pending';
 
   //ANZx Case Sub Status
@@ -336,20 +301,6 @@ public with sharing class GetHelpConstants {
 
   // Email Task Description
   public static final String TASK_EMAIL_DESCRIPTION = 'Please send the customer the relevant closure email(s)';
-
-  //Customer Onboarding 'ID Ops'->'Fraud Check' corresponding Case statuses
-  public static final Map<String, String> COB_ID_OPS_TO_FRAUD_CHECK_STATUS_MAP = new Map<String, String>{
-    GetHelpConstants.COB_DAON_FAILED_STATUS => GetHelpConstants.COB_DAON_FAILED_STATUS,
-    GetHelpConstants.COB_EQUIFAX_FAILED_STATUS => GetHelpConstants.COB_EQUIFAX_FAILED_STATUS
-  };
-
-  //Customer Onboarding 'Fraud Check'->'ID Ops' corresponding Case statuses
-  public static final Map<String, String> COB_FRAUD_CHECK_TO_ID_OPS_STATUS_MAP = new Map<String, String>{
-    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS => GetHelpConstants.COB_FAILED_OK_STATUS,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-  };
 
   // Basic Subscription Entitlment Process Name
   public static final String BASIC_SUBSCRIPTION_ENTITLEMENT_NAME = 'Basic Subscription';

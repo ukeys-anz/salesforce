@@ -8,6 +8,7 @@
     <columns>Archived_Description__c</columns>
     <columns>PurposeCollection__c</columns>
     <columns>SharingPurpose__c</columns>
+    <columns>Dashboard_Purpose__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
     <language>en_US</language>

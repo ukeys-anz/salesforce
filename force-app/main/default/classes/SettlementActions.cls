@@ -53,11 +53,7 @@ public with sharing class SettlementActions {
       return settlementsQueue;
     }
 
-    settlementsQueue = [
-      SELECT Id
-      FROM Group
-      WHERE developername = :SETTLEMENTS_QUEUE AND Type = :QUEUE_TYPE
-    ];
+    settlementsQueue = QueryQueue.get(SETTLEMENTS_QUEUE);
     return settlementsQueue;
   }
 
