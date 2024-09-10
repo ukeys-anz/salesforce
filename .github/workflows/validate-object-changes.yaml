@@ -74,6 +74,7 @@ jobs:
           for object in "${object_array[@]}"; do
             output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1)
             status=$?
+            echo $output
             if [ "$status" -ne 0 ]; then
               if echo "$output" | grep -q "No URLs matched"; then
                 echo "No files or folders matched, but continuing without error."
