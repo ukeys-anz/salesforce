@@ -72,6 +72,7 @@ jobs:
           mkdir gcs_bucket
           object_array=($(find artifactory_success_output/output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
+            gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1
             output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1)
             status=$?
             if [ "$status" -ne 0 ]; then
@@ -120,11 +121,15 @@ jobs:
             exit 1
           fi
 
-      # Upload to GCS
-      # - id: "upload-folder-to-gcs"
-      #   if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
-      #   uses: "google-github-actions/upload-cloud-storage@v2"
-      #   with:
-      #     path: "${{ github.workspace }}/salesforce/output/"
-      #     destination: "salesforce-nonprod-github-workflows/upload-object-changes/success_output"
-      #     project_id: anz-x-gh-sf-nonprod-ea5caa
+      # Upload Changes to GCS
+      - name: Upload Changes to GCS Nonprod
+        id: "upload-folder-to-gcs"
+        if: ${{ steps.run-diff.outcome == success() && !cancelled() && steps.run-diff.outputs.CHANGES_DETECTED == 'TRUE' }}
+        working-directory: salesforce
+        shell: bash
+        run: |
+          object_array=($(find artifactory_success_output/output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+          for object in "${object_array[@]}"; do
+            gcloud storage rm -r gs://${{ env.BUCKET_NAME }}/$object/** || echo "No files or folders found to remove."
+            gsutil -m cp -r output/$object/* gs://${{ env.BUCKET_NAME }}/$object/
+          done
