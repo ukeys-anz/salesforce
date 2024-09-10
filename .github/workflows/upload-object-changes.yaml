@@ -140,7 +140,8 @@ jobs:
           object_array=($(find sfdatasync_user_output/fieldsaccessdiff/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
             output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1)
-            if [ $status -ne 0 ]; then
+            status=$?
+            if [ "$status" -ne 0 ]; then
               if echo "$output" | grep -q "No URLs matched"; then
                 echo "No files or folders matched, but continuing without error."
               else
