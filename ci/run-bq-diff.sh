@@ -10,9 +10,13 @@ ARTIFACTORY_ARTIFACT_LINK="https://artifactory.gcp.anz/artifactory/anzx-salesfor
 
 echo "ARTIFACTORY_ARTIFACT_LINK=$ARTIFACTORY_ARTIFACT_LINK"
 
+echo "pulling artifact from artifactory..."
+
 if ! response=$(wget --server-response -P artifactory_success_output/ "$ARTIFACTORY_ARTIFACT_LINK" 2>&1); then
     echo "Error when pulling artifact from artifactory: $response"
 fi
+
+echo "unzipping artifact and evaluating response if artifact was downloaded..."
 
 # Get zip from Artifactory
 status_code=$(echo "$response" | awk '/HTTP\// {print $2}' | tail -n 1)
@@ -33,6 +37,8 @@ fi
 mkdir gcs_bucket
 SFDATASYNC_SHA_OBJECT_FIELDS="artifactory_success_output/output"
 
+echo "Downloading files from GCS for the objects..."
+
 object_array=($(find "$SFDATASYNC_SHA_OBJECT_FIELDS/" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
 for object in "${object_array[@]}"; do
     if ! output=$(gsutil -m cp -r gs://$2/$object gcs_bucket 2>&1); then
@@ -49,6 +55,8 @@ done
 SFDATASYNC_GCS_OBJECT_FIELDS="gcs_bucket"
 ls -la "$SFDATASYNC_GCS_OBJECT_FIELDS"
 
+echo "Carrying out diff..."
+
 # diff and upload to GCS if changes are detected
 diff_output=$(diff -qr "$SFDATASYNC_SHA_OBJECT_FIELDS" "$SFDATASYNC_GCS_OBJECT_FIELDS" || true)
 status=$?
@@ -60,6 +68,7 @@ elif [ -n "$diff_output" ]; then
     echo "Changes found between $SFDATASYNC_SHA_OBJECT_FIELDS and $SFDATASYNC_GCS_OBJECT_FIELDS..."
     object_array=($(find "$SFDATASYNC_SHA_OBJECT_FIELDS/" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
     for object in "${object_array[@]}"; do
+        echo "Uploading artifact to GCS..."
         if ! output=$(gcloud storage rm -r gs://$2/$object/** 2>&1); then
             echo "$output"
             if echo "$output" | grep -q "The following URLs matched no objects or files"; then
