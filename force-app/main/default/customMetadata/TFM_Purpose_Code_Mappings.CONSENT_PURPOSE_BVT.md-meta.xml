@@ -12,6 +12,10 @@
 This may have included:&lt;ul&gt;&lt;li&gt;Account and balance data verification&lt;/li&gt;&lt;li&gt;Transaction data verification&lt;/li&gt;&lt;/ul&gt;</value>
     </values>
     <values>
+        <field>Dashboard_Purpose__c</field>
+        <value xsi:type="xsd:string">For your business verification testing</value>
+    </values>
+    <values>
         <field>Description__c</field>
         <value xsi:type="xsd:string">display the accounts you hold and transactions you make with other financial institutions in the ANZ Plus app for the purpose of business verification testing.
 This can include:&lt;ul&gt;&lt;li&gt;Account and balance data verification&lt;/li&gt;&lt;li&gt;Transaction data verification&lt;/li&gt;&lt;/ul&gt;</value>

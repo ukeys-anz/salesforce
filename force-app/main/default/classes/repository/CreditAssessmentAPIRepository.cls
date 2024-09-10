@@ -4,7 +4,7 @@
  * @description Credit Referral API repository for all Gearbox callouts
  * @group Repository
  */
-public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
+public with sharing class CreditAssessmentAPIRepository {
   /**
    * @param creditId request arg for gearbox callout
    * @param ocvId customer ocv id
@@ -20,13 +20,13 @@ public with sharing class CreditAssessmentAPIRepository extends RepositoryBase {
     if (response.successful == false) {
       throw response.error;
     }
-    CreditReferralModel credRef;
     try {
-      credRef = CreditReferralModel.parse(response.body);
+      return CreditReferralModel.parse(response.body);
     } catch (Exception e) {
-      handleErrors(response, e, CreditAssessmentAPIRepository.class);
+      Logger.error('Failed to parse Credit Assessments response body', e);
+      Logger.saveLog();
+      throw e;
     }
-    return credRef;
   }
 
   /**

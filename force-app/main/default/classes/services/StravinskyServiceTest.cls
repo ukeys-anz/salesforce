@@ -6,7 +6,6 @@
  */
 @isTest
 public inherited sharing class StravinskyServiceTest {
-  private static final String COB_PID_TOKEN_TRANSFORM_VALUE = 'fpe.personal-identifier';
   private static final String SUCCESS_CLOSE_PACKAGE_RESPONSE =
     '{' +
     '   \"accountsClosed\": "1"' +
@@ -67,14 +66,14 @@ public inherited sharing class StravinskyServiceTest {
 
   static Case idOpsCase = new Case(
     PersonaId__c = cobPid.PersonaId__c,
-    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
+    RecordTypeId = RTCase.idOpsAssistance
   );
 
   static Case newCase = new Case(
     Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
+    RecordTypeId = RTCase.idOpsAssistance,
     PersonaId__c = faker.randomString(15),
-    Status = GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS
+    Status = COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS
   );
 
   @isTest
@@ -109,7 +108,7 @@ public inherited sharing class StravinskyServiceTest {
     );
     Test.stopTest();
 
-    System.assertNotEquals(
+    Assert.areNotEqual(
       null,
       response.body,
       'Response body should not be null.'
@@ -135,7 +134,7 @@ public inherited sharing class StravinskyServiceTest {
     );
     Test.stopTest();
 
-    System.assertEquals(null, response.body, 'Response body should be null.');
+    Assert.areEqual(null, response.body, 'Response body should be null.');
   }
 
   @isTest
@@ -197,8 +196,8 @@ public inherited sharing class StravinskyServiceTest {
   static void testGetCaseWorkflowPayloadIdOpsEmpty() {
     Case newCase = new Case(
       ParentId = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-      Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
+      RecordTypeId = RTCase.idOpsAssistance,
+      Status = COBCaseConstants.COB_ID_CHECK_OK_STATUS
     );
 
     Test.startTest();
@@ -214,33 +213,11 @@ public inherited sharing class StravinskyServiceTest {
   }
 
   @isTest
-  static void testGetCaseWorkflowPayloadFraudCheckDaonApproved() {
-    Case newCase = new Case(
-      Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-      ParentId = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-      RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
-      Status = GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS
-    );
-
-    Test.startTest();
-    StravinskyService temporalCaseWorkflowAPI = new StravinskyService();
-    String payload = temporalCaseWorkflowAPI.getCaseWorkflowPayload(newCase);
-    Test.stopTest();
-
-    Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
-    Assert.areEqual(
-      '{\"caseId\":\"' + newCase.ParentId + '\"}',
-      payload,
-      'Payload is not correct.'
-    );
-  }
-
-  @isTest
   static void testGetCaseWorkflowPayloadFraudCheckEmpty() {
     Case newCase = new Case(
       ParentId = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-      RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
-      Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
+      RecordTypeId = RTCase.fraudCheck,
+      Status = COBCaseConstants.COB_ID_CHECK_OK_STATUS
     );
 
     Test.startTest();
@@ -259,8 +236,8 @@ public inherited sharing class StravinskyServiceTest {
   static void testGetCaseWorkflowPayloadIdOpsWatchlistConfirmedFraud() {
     Case newCase = new Case(
       Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-      RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-      Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS,
+      RecordTypeId = RTCase.idOpsAssistance,
+      Status = COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS,
       Subject = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT'
     );
 
@@ -272,7 +249,7 @@ public inherited sharing class StravinskyServiceTest {
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
       '{\"reason\":\"' +
-        COBCaseStatusPathController.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON +
+        COBCaseConstants.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON +
         '\"}',
       payload,
       'Payload is not correct.'
@@ -283,8 +260,8 @@ public inherited sharing class StravinskyServiceTest {
   static void testGetCaseWorkflowPayloadFraudCheckConfirmedFraud() {
     Case newCase = new Case(
       Id = Lib_FakeIdGenerator.getMockId(Case.sObjectType),
-      RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
-      Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      RecordTypeId = RTCase.fraudCheck,
+      Status = COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
     );
 
     Test.startTest();
@@ -294,7 +271,7 @@ public inherited sharing class StravinskyServiceTest {
 
     Assert.isFalse(String.isBlank(payload), 'Payload should not be empty.');
     Assert.areEqual(
-      '{\"reason\":\"' + GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS + '\"}',
+      '{\"reason\":\"' + COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS + '\"}',
       payload,
       'Payload is not correct.'
     );

@@ -550,4 +550,11 @@ public without sharing class LogEventBuilder {
   public Boolean shouldSave() {
     return this.shouldSave;
   }
+
+  /**
+   * @description Saves any entries in Logger's buffer. By default, entries are saved via Apex's EventBus.
+   */
+  public void save() {
+    LoggerHelper.saveLog(LoggerHelper.transactionSaveMethod);
+  }
 }

@@ -28,7 +28,7 @@
 
             <lightning-textarea
               name="payload"
-              disabled="true"
+              read-only
               label="Payload"
               class="large-area"
               value={eventData.payload}
@@ -38,7 +38,7 @@
           <lightning-tab label="Raw payload">
             <lightning-textarea
               name="payload"
-              disabled="true"
+              read-only
               label="Payload"
               class="large-area"
               value={eventData.rawPayload}
@@ -56,7 +56,7 @@
 
               <lightning-textarea
                 name="payload"
-                disabled="true"
+                read-only
                 class="large-area"
                 lwc:ref="deepViewData"
               ></lightning-textarea>

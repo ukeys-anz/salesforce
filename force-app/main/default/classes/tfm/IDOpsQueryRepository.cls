@@ -31,7 +31,8 @@ public with sharing class IDOpsQueryRepository {
         Status,
         PersonaId__c,
         Status_Update_Error__c,
-        IsClosed
+        IsClosed,
+        CaseNumber
       FROM Case
       WHERE ID = :recordId
       WITH USER_MODE

@@ -36,6 +36,13 @@
             <componentInstance>
                 <componentName>cobCaseStatusPath</componentName>
                 <identifier>c_cobCaseStatusPath</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Join_Operations_Reader</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>

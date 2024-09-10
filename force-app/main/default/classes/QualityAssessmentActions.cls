@@ -44,6 +44,7 @@ public with sharing class QualityAssessmentActions {
     GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
     GetHelpConstants.COMPLAINT_RT_ID
   };
+
   private static final List<Id> CMOS_QA_REC_TYPES = new List<Id>{
     IDRConstants.idrtCallLetterReviewQualityAssessment,
     IDRConstants.idrtCQQualityAssessment
@@ -200,7 +201,6 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> records
   ) {
     Set<Id> caseIds = new Set<Id>();
-    List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
     for (Quality_Assessment__c record : records) {
       if (
         !CMOS_QA_REC_TYPES.contains(record.recordTypeId) ||
@@ -325,23 +325,6 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> records,
     Map<Id, Quality_Assessment__c> oldMap
   ) {
-    List<String> queueNameList = new List<String>{
-      'Quality_Assessor',
-      'Coach_Lead_Escalation'
-    };
-
-    Map<String, Group> queueMap = new Map<String, Group>();
-
-    if (Group.SObjectType.getDescribe().isAccessible()) {
-      for (Group q : [
-        SELECT Id, DeveloperName
-        FROM Group
-        WHERE Type = 'Queue' AND DeveloperName IN :queueNameList
-      ]) {
-        queueMap.put(q.DeveloperName, q);
-      }
-    }
-
     for (Quality_Assessment__c record : records) {
       if (oldMap != null) {
         Quality_Assessment__c oldRecord = oldMap.get(record.Id);
@@ -349,14 +332,14 @@ public with sharing class QualityAssessmentActions {
           oldRecord.Sub_Status__c != 'Compliance Review' &&
           record.Sub_Status__c == 'Compliance Review'
         ) {
-          record.OwnerId = queueMap.get('Coach_Lead_Escalation').Id;
+          record.OwnerId = QueryQueue.get('Coach_Lead_Escalation').Id;
         }
       } else {
         if (
           record.Status__c == 'Referred' &&
           record.Sub_Status__c == 'Compliance Review'
         ) {
-          record.OwnerId = queueMap.get('Coach_Lead_Escalation').Id;
+          record.OwnerId = QueryQueue.get('Coach_Lead_Escalation').Id;
         }
       }
     }
