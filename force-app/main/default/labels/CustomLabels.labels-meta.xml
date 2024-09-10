@@ -2489,4 +2489,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>DAONImageReloadMaxRetryCount</shortDescription>
         <value>15</value>
     </labels>
+    <labels>
+        <fullName>HideCardDetailsAfterMiliseconds</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HideCardDetailsAfterMiliseconds</shortDescription>
+        <value>120000</value>
+    </labels>
 </CustomLabels>
