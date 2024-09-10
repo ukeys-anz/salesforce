@@ -70,7 +70,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket
-          object_array=($(find artifactory_success_output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+          object_array=($(find artifactory_success_output/output -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
             gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1 | tee /tmp/gsutil_output.log
             if [ "${PIPESTATUS[0]}" -ne 0 ]; then
@@ -89,7 +89,7 @@ jobs:
         id: run-diff
         shell: bash
         run: |
-          sfdatasync_sha_object_fields="artifactory_success_output"
+          sfdatasync_sha_object_fields="artifactory_success_output/output"
           sfdatasync_gcs_object_fields="gcs_bucket"
 
           echo "artifactory_success_output..."
