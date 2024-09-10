@@ -70,11 +70,11 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket
-          ls -la artifactory_success_output
-          echo "subfolders..."
-          ls -la artifactory_success_output/output
           object_array=($(find artifactory_success_output/output/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+          echo "object_array..."
+          echo "$object_array"
           for object in "${object_array[@]}"; do
+            echo "$object"
             output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1)
             status=$?
             if [ "$status" -ne 0 ]; then
@@ -104,24 +104,19 @@ jobs:
           ls -la gcs_bucket
 
           CHANGES_DETECTED=FALSE
-          if [ -d "$sfdatasync_sha_object_fields" ] && [ -d "$sfdatasync_gcs_object_fields" ]; then
-            diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
-            status=$? && echo $diff_output
-            if [ $status -eq 2 ]; then
-              echo "An error occurred while comparing directories."
-              exit 2
-            elif [ -n "$diff_output" ]; then
-                echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields..."
-                CHANGES_DETECTED=TRUE
-            else
-                echo "No changes found for sfdatasync user. Moving on..."
-            fi
-
-            echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
+          status=$? && echo $diff_output
+          if [ $status -eq 2 ]; then
+            echo "An error occurred while comparing directories."
+            exit 2
+          elif [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields..."
+              CHANGES_DETECTED=TRUE
           else
-            echo "Error: Either folders $sfdatasync_sha_object_fields or $sfdatasync_gcs_object_fields don't exist. Please check the logs to troubleshoot." >&2
-            exit 1
+              echo "No changes found for sfdatasync user. Moving on..."
           fi
+
+          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
 
       # Upload Changes to GCS
       - name: Upload Changes to GCS Nonprod
