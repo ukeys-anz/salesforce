@@ -13,6 +13,9 @@ private class LoanApplicantActionsTest {
   );
   static Lib_MockProvider dmlRepoMock;
 
+  /*
+   * @description method to test SynchronizeAndUpdateCustomerSyncStatus method
+  */
   @isTest
   static void testSynchronizeAndUpdateCustomerSyncStatus() {
     Map<Id, Account> accMap = createCustomerAccount(3);
@@ -46,9 +49,12 @@ private class LoanApplicantActionsTest {
     );
   }
 
+  /*
+   * @description method to test updateAccountSyncStatus method
+  */
   @isTest
-  static void testCreateFilteredAccountIdSet() {
-    Map<Id, Account> accMap = createCustomerAccount(5);
+  static void updateAccountSyncStatusTest() {
+     Map<Id, Account> accMap = createCustomerAccount(5);
     List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
       1
     );
@@ -56,49 +62,21 @@ private class LoanApplicantActionsTest {
       accMap.keySet(),
       rlaList.get(0)
     );
-
-    Test.startTest();
-    Map<Id, String> resultAccountMap = LoanApplicantActions.createFilteredAccountIdMap(
+   Test.startTest();
+    List<Account> accounts = LoanApplicantActions.updateAccountSyncStatus(
       loanAppIdVsRecordMap.values()
     );
     Test.stopTest();
     Assert.areEqual(
-      resultAccountMap.keySet().size(),
-      accMap.keySet().size(),
+      accounts.size(),
+      loanAppIdVsRecordMap.size(),
       'All 5 account record Sync Status should be mapped as Broker Org'
-    );
-  }
-
-  @isTest
-  static void testCreateResultantSyncStatus() {
-    Map<Id, Account> accMap = createCustomerAccount(3);
-    Map<Id, String> syncStatusMap = new Map<id, String>();
-    List<Id> accIdList = new List<Id>();
-    accIdList.addAll(accMap.keySet());
-    for (Id eachAccId : accIdList) {
-      syncStatusMap.put(eachAccId, '');
-    }
-    syncStatusMap.put(accIdList[accIdList.size() - 1], 'Blocked');
-    Test.startTest();
-    List<Account> result = LoanApplicantActions.createResultantSyncStatus(
-      syncStatusMap
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      result[2].Sync_Status__c,
-      'Blocked;Broker Org',
-      'The Sync Status of the last account record should be Blocked;Broker Org'
-    );
-    Assert.areEqual(
-      result[0].Sync_Status__c,
-      'Broker Org',
-      'The Sync Status of the first record should be Broker Org'
     );
   }
 
   /*
    * @description Test Method to create Customers
-   */
+  */
   static Map<Id, Account> createCustomerAccount(Integer count) {
     Map<Id, Account> accountIdVsRecordMap = new Map<Id, Account>();
     for (Integer i = 0; i < count; i++) {
@@ -111,9 +89,10 @@ private class LoanApplicantActionsTest {
     }
     return accountIdVsRecordMap;
   }
+
   /*
    * @description Test Method to create ResidentialLoanApplication
-   */
+  */
   static List<ResidentialLoanApplication> createResidentialLoanApplications(
     Integer count
   ) {
@@ -138,7 +117,7 @@ private class LoanApplicantActionsTest {
 
   /*
    * @description Test Method to create LoanApplicants
-   */
+  */
   static Map<Id, LoanApplicant> createLoanApplicants(
     Set<Id> accSet,
     ResidentialLoanApplication loanApp

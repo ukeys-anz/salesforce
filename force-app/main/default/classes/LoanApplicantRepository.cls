@@ -7,27 +7,31 @@ public with sharing class LoanApplicantRepository {
   /**
    * @description get associated ResidentialLoanApplicantRecords
    * @return List<ResidentialLoanApplication>
-   * @param loanApplicantIds List of LoanApplicant Ids
+   * @param loanApplicantIds Set of LoanApplicant Ids
    */
   public List<LoanApplicant> queryLoanApplicationOfApplicants(
     Set<Id> loanApplicantIds
   ) {
-    List<LoanApplicant> loanApplicantRecords = new List<LoanApplicant>();
+    List<LoanApplicant> loanApplicants = new List<LoanApplicant>();
     if (
       loanApplicantIds.isEmpty() ||
-      !LoanApplicant.SObjectType.getDescribe().isQueryable()
+      !PermissionUtils.canQuery(BrokerConstants.LOAN_APPLICANT_OBJECT)
     ) {
-      return loanApplicantRecords;
+      return loanApplicants;
     }
-    loanApplicantRecords = [
+    loanApplicants = [
       SELECT
         Id,
         LoanApplication.Assisted_Broker_TPMI_SAO__c,
         Account__r.Sync_Status__c,
         Account__c
       FROM LoanApplicant
-      WHERE Id IN :loanApplicantIds
+      WHERE Id IN : loanApplicantIds
+        AND (Account__c != NULL 
+             AND Account__r.Sync_Status__c EXCLUDES(:BrokerConstants.SYNC_STATUS_BROKER_ORG))
+        AND (LoanApplication.Assisted_Broker_TPMI_SAO__c != NULL 
+             AND LoanApplication.Assisted_Broker_TPMI_SAO__c != '')
     ];
-    return loanApplicantRecords;
+    return loanApplicants;
   }
 }
