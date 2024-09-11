@@ -4963,7 +4963,6 @@
         <field>Complaint_Resolution__c.IDR_Complaint_Sub_Remedy__c</field>
         <readable>true</readable>
     </fieldPermissions>
-
     <fieldPermissions>
         <editable>true</editable>
         <field>Complaint_Resolution__c.IDR_Complaint_Remedy_Offered__c</field>
@@ -5009,8 +5008,6 @@
         <field>Complaint_Resolution__c.Offered_details_to_Product_Manufacturer__c</field>
         <readable>true</readable>
     </fieldPermissions>
-
-
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Broker_Accreditation_Type__c</field>

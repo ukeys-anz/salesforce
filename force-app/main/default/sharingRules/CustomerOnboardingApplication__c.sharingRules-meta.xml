@@ -61,6 +61,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Join_Operations_Reader_All</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share all Customer Onboarding Application records with Join Operations Reader with Read Only access.</description>
+        <label>Join Operations Reader All</label>
+        <sharedTo>
+            <role>Join_Operations_Reader</role>
+        </sharedTo>
+        <sharedFrom>
+            <allInternalUsers/>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Stat_Comp_Agent_RO_All</fullName>
         <accessLevel>Read</accessLevel>
         <description>Share all Customer Onboarding Application records with Statutory Compliance Agent with Read Only access.</description>

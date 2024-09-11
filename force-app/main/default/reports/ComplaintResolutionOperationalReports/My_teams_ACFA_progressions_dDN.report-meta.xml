@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
+    <name>My team&apos;s ACFA progressions</name>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -128,7 +129,6 @@
         <field>Case.IDR_Date_time_Progressed_Status_selected__c</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
-    <name>My team&apos;s ACFA progressions</name>
     <params>
         <name>units</name>
         <value>h</value>

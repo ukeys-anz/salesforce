@@ -78,14 +78,14 @@ public with sharing class AutoKYCQACaseActions {
   public static void populateAutoKYCQAChecks(List<Case> cases) {
     Logger.debug('Set KYC QA fields from COB App started: ' + System.now());
 
-    Map<String, Case> personaIdToCaseMap = (Map<String, Case>) ListUtil.mapByString(
+    Map<String, Case> personaIdToCaseMap = (Map<String, Case>) ListUtil.mapBy(
       cases,
       Case.PersonaId__c
     );
     List<CustomerOnboardingApplication__c> cobApps = REPOSITORY.queryCobsByPersonaIds(
       personaIdToCaseMap.keySet()
     );
-    Map<String, CustomerOnboardingApplication__c> cobMap = (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapByString(
+    Map<String, CustomerOnboardingApplication__c> cobMap = (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapBy(
       cobApps,
       CustomerOnboardingApplication__c.PersonaId__c
     );
@@ -284,7 +284,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerAccount(List<Case> cases) {
-    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       cases,
       Case.AccountId
     );
@@ -306,7 +306,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerCOBApp(List<Case> cases) {
-    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       cases,
       Case.CustomerOnboardingApplication__c
     );
@@ -377,7 +377,7 @@ public with sharing class AutoKYCQACaseActions {
       .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
       .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
       .toList();
-    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToDowngrade,
       Case.AccountId
     );
@@ -435,7 +435,7 @@ public with sharing class AutoKYCQACaseActions {
       .equals(Case.Fraud_Defects_Rectified__c, YES)
       .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
       .toList();
-    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToUpgrade,
       Case.AccountId
     );

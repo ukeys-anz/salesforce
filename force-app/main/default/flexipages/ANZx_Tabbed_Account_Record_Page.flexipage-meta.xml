@@ -403,14 +403,6 @@
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
-               <!--  <componentInstanceProperties>
-                    <name>adminFilters</name>
-                  <valueList>
-                        <valueListItems>
-                            <value>Status|EQUALS|[&quot;STATE_CAPTURE&quot;,&quot;STATE_REFERRED&quot;,&quot;STATE_CONFIRMED&quot;,&quot;STATE_APPROVED&quot;,&quot;STATE_SUBMITTED&quot;,&quot;STATE_SETTLEMENT_INITATED&quot;]</value>
-                        </valueListItems>
-                    </valueList
-                </componentInstanceProperties>>-->
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
                     <value>6</value>
@@ -468,7 +460,14 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList5</identifier>
-            </componentInstance>
+                <!--  <componentInstanceProperties>
+                    <name>adminFilters</name>
+                  <valueList>
+                        <valueListItems>
+                            <value>Status|EQUALS|[&quot;STATE_CAPTURE&quot;,&quot;STATE_REFERRED&quot;,&quot;STATE_CONFIRMED&quot;,&quot;STATE_APPROVED&quot;,&quot;STATE_SUBMITTED&quot;,&quot;STATE_SETTLEMENT_INITATED&quot;]</value>
+                        </valueListItems>
+                    </valueList
+                </componentInstanceProperties>>--></componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
@@ -724,8 +723,28 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>viewCards</componentName>
-                <identifier>c_viewCards</identifier>
+                <componentInstanceProperties>
+                    <name>buttonName</name>
+                    <value>Go to Card Details</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>iconName</name>
+                    <value>custom:custom40</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>stateParams</name>
+                    <value>[{&quot;key&quot;: &quot;c__ocvId&quot;,&quot;field&quot;: &quot;Account.OCV_ID__c&quot;},{&quot;key&quot;: &quot;c__recordId&quot;,&quot;field&quot;: &quot;Account.Id&quot;}]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabName</name>
+                    <value>Card_Details</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Cards</value>
+                </componentInstanceProperties>
+                <componentName>clickToAction</componentName>
+                <identifier>c_clickToAction2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>

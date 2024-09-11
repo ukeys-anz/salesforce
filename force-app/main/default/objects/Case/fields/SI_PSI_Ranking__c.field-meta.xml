@@ -36,6 +36,11 @@
                 <default>false</default>
                 <label>4</label>
             </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -17,7 +17,7 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
    * @return `Boolean` returns true if record is relevant, false if record is not relevant
    */
   public override Boolean isValidRecord(SObject record) {
-    return record.get('RecordTypeId') == GetHelpConstants.KYCQA_RT_ID;
+    return ((Case) record).RecordTypeId == RTCase.kycQa;
   }
 
   /**

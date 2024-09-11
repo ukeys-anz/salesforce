@@ -156,9 +156,10 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
    * @description handle received response and either return the response or throw exception
    */
   public HttpCalloutResponse handleResponse(HttpCalloutResponse response) {
+    List<Integer> insufficientAccessCodes = new List<Integer> {401, 403, 405};
     if (response.successful) {
       return response;
-    } else if (response.statusCode == 401 || response.statusCode == 403) {
+    } else if (insufficientAccessCodes.contains(response.statusCode)) {
       throw new InsufficientAccessException(response.error.getMessage());
     } else {
       throw response.error;

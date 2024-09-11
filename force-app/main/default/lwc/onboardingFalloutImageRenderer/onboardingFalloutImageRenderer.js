@@ -1,4 +1,5 @@
 import { LightningElement, api } from "lwc";
+import reloadMaxRetryCount from "@salesforce/label/c.DAONImageReloadMaxRetryCount";
 
 export default class OnboardingFalloutImageRenderer extends LightningElement {
   @api currentFileType;
@@ -7,7 +8,8 @@ export default class OnboardingFalloutImageRenderer extends LightningElement {
   @api showRedBorder;
   @api changeStyle;
   loading;
-  reLoad;
+  reLoadCount = 0;
+  imageReloadMaxRetryCount = reloadMaxRetryCount;
 
   disableRightClick(event) {
     event.preventDefault();
@@ -22,14 +24,14 @@ export default class OnboardingFalloutImageRenderer extends LightningElement {
   }
 
   get imgSrc() {
-    if (this.reLoad) {
-      return `${this.currentFileType.imageURL}&TIMESTAMP=${new Date()}`;
+    if (!this.currentFileType.isImageFinalVersion) {
+      return this.errorImage;
     }
 
-    if (this.currentFileType.isImageFinalVersion) {
-      return this.currentFileType.imageURL;
+    if (this.reLoadCount) {
+      return `${this.currentFileType.imageURL}&RETRYCOUNT=${this.reLoadCount}`;
     }
-    return this.errorImage;
+    return this.currentFileType.imageURL;
   }
 
   get imgClass() {
@@ -45,11 +47,11 @@ export default class OnboardingFalloutImageRenderer extends LightningElement {
   }
 
   handleErrorLoad() {
-    this.loading = true;
-    this.reLoad = true;
-    // eslint-disable-next-line @lwc/lwc/no-async-operation
-    setTimeout(() => {
+    if (this.reLoadCount < this.imageReloadMaxRetryCount) {
+      this.loading = true;
+      this.reLoadCount += 1;
+    } else {
       this.loading = false;
-    }, 200);
+    }
   }
 }

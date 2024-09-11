@@ -481,15 +481,15 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTask</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>TransferAnyCase</name>
         <enabled>true</enabled>
+        <name>TransferAnyCase</name>
     </userPermissions>
 </PermissionSet>

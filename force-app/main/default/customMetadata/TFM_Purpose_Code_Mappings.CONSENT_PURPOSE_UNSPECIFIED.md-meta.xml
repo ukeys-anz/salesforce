@@ -13,6 +13,10 @@ This may have included:&lt;ul&gt;&lt;li&gt;Completing your statement of position
 &lt;/li&gt;&lt;/ul&gt;</value>
     </values>
     <values>
+        <field>Dashboard_Purpose__c</field>
+        <value xsi:type="xsd:string">For your home loan application</value>
+    </values>
+    <values>
         <field>Description__c</field>
         <value xsi:type="xsd:string">for your home loan application.
 This can include:&lt;ul&gt;&lt;li&gt;Completing your statement of position&lt;/li&gt;&lt;li&gt;Calculating your borrowing capacity

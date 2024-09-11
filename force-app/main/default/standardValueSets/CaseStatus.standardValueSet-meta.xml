@@ -260,6 +260,12 @@
         <closed>true</closed>
     </standardValue>
     <standardValue>
+        <fullName>Not a Fraud</fullName>
+        <default>false</default>
+        <label>Not a Fraud</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Confirmed Fraud</fullName>
         <default>false</default>
         <label>Confirmed Fraud</label>

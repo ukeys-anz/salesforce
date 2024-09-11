@@ -9,8 +9,8 @@ private class CaseTriggerHandlerTest {
   );
 
   private static final List<String> COB_CLOSED_STATUSES = new List<String>{
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS
+    COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+    COBCaseConstants.COB_FAILED_OK_STATUS
   };
 
   private static final Integer COB_CASES_COUNT = COB_CLOSED_STATUSES.size();
@@ -219,9 +219,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN cases are created
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
-      );
+      newCases.add(new Case(RecordTypeId = RTCase.nonCustomerComplaint));
     }
     // WHEN they are inserted
     insert newCases;
@@ -249,7 +247,7 @@ private class CaseTriggerHandlerTest {
   static void testFalseCustomerProfileDefaultValue() {
     Account personAcc = [SELECT Id, Name FROM Account LIMIT 1];
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       AccountId = personAcc.Id
     );
     Test.startTest();
@@ -283,7 +281,7 @@ private class CaseTriggerHandlerTest {
       LIMIT 1
     ];
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       AccountId = fraudAcc.Id
     );
 
@@ -318,7 +316,7 @@ private class CaseTriggerHandlerTest {
       LIMIT 2
     ];
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       AccountId = personAcc[0].Id
     );
 
@@ -360,7 +358,7 @@ private class CaseTriggerHandlerTest {
     insert cob;
 
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       AccountId = acc.Id
     );
 
@@ -389,7 +387,7 @@ private class CaseTriggerHandlerTest {
     ];
 
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       AccountId = acc.Id
     );
 
@@ -430,7 +428,7 @@ private class CaseTriggerHandlerTest {
     insert cob;
 
     Case newCase = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       AccountId = acc.Id
     );
 
@@ -466,7 +464,7 @@ private class CaseTriggerHandlerTest {
       casesWithCopiedCaseNumber.add(
         new Case(
           CaseNumber__c = '123' + i,
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = RTCase.nonCustomerComplaint
         )
       );
     }
@@ -501,7 +499,7 @@ private class CaseTriggerHandlerTest {
           IDR_Complainant_Desired_Outcome__c = 'Test decription 1234-5678-9101-3321 check mask',
           IDR_Description_of_Outcome__c = 'Test decription 1234-5678-9101-3321 check mask',
           IDR_Systemic_Issue_Description__c = 'Test decription 1234-5678-9101-3321 check mask',
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.customerComplaint,
           IDR_Customer_Number__c = '1234567890'
         )
       );
@@ -558,7 +556,7 @@ private class CaseTriggerHandlerTest {
           Status = 'Escalated',
           IDR_Escalated_to__c = '1',
           IDR_Escalation_Reason__c = '1',
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = RTCase.nonCustomerComplaint
         )
       );
     }
@@ -578,9 +576,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN cases are created as not escalated
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
-      );
+      newCases.add(new Case(RecordTypeId = RTCase.nonCustomerComplaint));
     }
     // WHEN they are inserted
     insert newCases;
@@ -612,7 +608,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           Status = 'Open',
           IDR_Escalated_to__c = '1'
         )
@@ -658,7 +654,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.CREDIT_REFERRAL_RT_ID,
+          RecordTypeId = RTCase.creditReferral,
           Status = GetHelpConstants.OPEN_STATUS,
           AccountId = acc.Id,
           Credit_Id__c = '000-000-000-00' + String.valueOf(i)
@@ -737,7 +733,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           Status = 'Closed',
           IDR_Complaint_Outcome__c = '1',
           IDR_Description_of_Outcome__c = 'test'
@@ -783,7 +779,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           IDR_NC_Is_Consent_Obtained__c = false,
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+          RecordTypeId = RTCase.nonCustomerComplaint
         )
       );
     }
@@ -821,9 +817,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN complaints are created
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
-      );
+      newCases.add(new Case(RecordTypeId = RTCase.nonCustomerComplaint));
     }
     Test.startTest();
     // WHEN they are inserted
@@ -878,9 +872,7 @@ private class CaseTriggerHandlerTest {
   static void testIDRCaseDelete() {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID)
-      );
+      newCases.add(new Case(RecordTypeId = RTCase.nonCustomerComplaint));
     }
     insert newCases;
 
@@ -909,7 +901,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < 2; i++) {
       parentCaseList.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           AccountId = accList[0].Id
         )
       );
@@ -920,7 +912,7 @@ private class CaseTriggerHandlerTest {
     // create a child case
     Case childCase = new Case(
       ParentId = parentCaseList[0].Id,
-      RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+      RecordTypeId = RTCase.generalInquiry,
       AccountId = accList[1].Id
     );
     insert childCase;
@@ -957,7 +949,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           AccountId = acc.Id,
           Type = 'Card',
           Additional_Type__c = 'App Support;Card;'
@@ -995,7 +987,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           AccountId = acc.Id,
           Additional_Type__c = 'App Support;Card;Coaching'
         )
@@ -1030,7 +1022,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           Type = 'Cards',
           Sub_Type__c = 'Damaged card',
           AccountId = acc.Id
@@ -1066,7 +1058,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           Type = 'Cards',
           Sub_Type__c = '',
           AccountId = acc.Id
@@ -1101,7 +1093,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           Type = 'Cards',
           Sub_Type__c = 'Damaged card;Using card',
           AccountId = acc.Id
@@ -1154,7 +1146,7 @@ private class CaseTriggerHandlerTest {
           IDR_Complainant_Desired_Outcome__c = 'entitlement id populated',
           IDR_Description_of_Outcome__c = 'entitlement id populated',
           IDR_Systemic_Issue_Description__c = 'None',
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.customerComplaint,
           IDR_Customer_Number__c = '1234567890'
         )
       );
@@ -1205,7 +1197,7 @@ private class CaseTriggerHandlerTest {
       newCases.add(
         new Case(
           Related_Bug__c = bugId,
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           AccountId = accountId
         )
       );
@@ -1240,10 +1232,7 @@ private class CaseTriggerHandlerTest {
     List<Case> newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-          AccountId = accountId
-        )
+        new Case(RecordTypeId = RTCase.generalInquiry, AccountId = accountId)
       );
     }
 
@@ -1355,7 +1344,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       caseList1.add(
         new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           IDR_Is_Common__c = 'Yes',
           IDR_Systemic_Issue_Description__c = 'Test Description',
           IDR_Systemic_Issue_Category__c = '1',
@@ -1411,7 +1400,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+          RecordTypeId = RTCase.cardDispute,
           Type = '',
           Dispute_Reason__c = disputeReason,
           AccountId = acc.Id,
@@ -1434,7 +1423,7 @@ private class CaseTriggerHandlerTest {
   static void testPopulateFalseCustomerProfileCaseSubject() {
     Account acc = [SELECT Id, Name FROM Account LIMIT 1];
     Case c = new Case(
-      RecordTypeId = GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
+      RecordTypeId = RTCase.falseCustomerProfile,
       Type = 'Not Fraud',
       Origin = 'Other',
       AccountId = acc.Id
@@ -1467,7 +1456,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.SCAM_RT_ID,
+          RecordTypeId = RTCase.scam,
           Type = faker.randomElement(caseTypes),
           AccountId = acc.Id
         )
@@ -1599,7 +1588,7 @@ private class CaseTriggerHandlerTest {
   @istest
   static void testBusinessHoursAssignment() {
     Case newCase = new Case();
-    newCase.RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    newCase.RecordTypeId = RTCase.nonCustomerComplaint;
     insert newCase;
 
     BusinessHours bhs = [
@@ -1623,7 +1612,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           IDR_Date_Received__c = system.now()
         )
       );
@@ -1679,10 +1668,7 @@ private class CaseTriggerHandlerTest {
     Case[] newCases = new List<Case>();
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-          AccountId = acc.Id
-        )
+        new Case(RecordTypeId = RTCase.generalInquiry, AccountId = acc.Id)
       );
     }
 
@@ -1753,7 +1739,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.customerComplaint,
           Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
           IDR_AFCA_Status__c = '10',
           IDR_AFCA_Due_Date__c = System.TODAY(),
@@ -1899,7 +1885,7 @@ private class CaseTriggerHandlerTest {
     oldRecord.Status = IDRConstants.OPEN_STATUS;
     oldRecord.ANZx_Customer__c = true;
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
-    oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    oldRecord.RecordTypeId = RTCase.generalInquiryCmos;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     oldRecord.Type = '11';
     oldRecord.IDR_Product_Category__c = 'Not product related';
@@ -1907,7 +1893,7 @@ private class CaseTriggerHandlerTest {
 
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
-    newRecord.RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID;
+    newRecord.RecordTypeId = RTCase.generalInquiry;
     System.assert(
       GetHelpCaseActionsHelper.isAEMConverted(oldRecord, newRecord),
       'This should be an AEM converted Case'
@@ -1922,7 +1908,7 @@ private class CaseTriggerHandlerTest {
     oldRecord.Status = IDRConstants.OPEN_STATUS;
     oldRecord.ANZx_Customer__c = true;
     oldRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
-    oldRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    oldRecord.RecordTypeId = RTCase.generalInquiryCmos;
     oldRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     oldRecord.Type = '11';
     oldRecord.IDR_Product_Category__c = 'Not product related';
@@ -1930,7 +1916,7 @@ private class CaseTriggerHandlerTest {
 
     Test.startTest();
     Case newRecord = oldRecord.clone(true, true);
-    newRecord.RecordTypeId = GetHelpConstants.FRAUD_RT_ID;
+    newRecord.RecordTypeId = RTCase.fraud;
     System.assert(
       !GetHelpCaseActionsHelper.isAEMConverted(oldRecord, newRecord),
       'This should not be an AEM converted Case'
@@ -1954,7 +1940,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Status = IDRConstants.OPEN_STATUS;
     caseRecord.ANZx_Customer__c = true;
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
-    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    caseRecord.RecordTypeId = RTCase.generalInquiryCmos;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
@@ -1972,7 +1958,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
     // WHEN
     // the recordType is changed to new recordType
-    caseRecord.RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID;
+    caseRecord.RecordTypeId = RTCase.generalInquiry;
     update caseRecord;
 
     System.assert(
@@ -2000,7 +1986,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Status = IDRConstants.OPEN_STATUS;
     caseRecord.ANZx_Customer__c = true;
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
-    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    caseRecord.RecordTypeId = RTCase.generalInquiryCmos;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
@@ -2008,8 +1994,8 @@ private class CaseTriggerHandlerTest {
     insert caseRecord;
 
     Test.startTest();
-    // Case caseRecord = prepareCaseForTestingEntitlement(GetHelpConstants.COMPLAINT_RT_ID);
-    caseRecord.RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID;
+    // Case caseRecord = prepareCaseForTestingEntitlement(RTCase.anzxComplaint);
+    caseRecord.RecordTypeId = RTCase.anzxComplaint;
     update caseRecord;
 
     //THEN
@@ -2039,7 +2025,7 @@ private class CaseTriggerHandlerTest {
     caseRecord.Status = IDRConstants.OPEN_STATUS;
     caseRecord.ANZx_Customer__c = true;
     caseRecord.Origin = GetHelpConstants.ANZ_PLUS_WEB_ORIGIN;
-    caseRecord.RecordTypeId = GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID;
+    caseRecord.RecordTypeId = RTCase.generalInquiryCmos;
     caseRecord.IDR_NC_Mobile__c = String.valueOf(faker.randomDecimal(10, 0));
     caseRecord.IDR_Product_Category__c = 'Not product related';
     caseRecord.AccountId = acc.Id;
@@ -2047,7 +2033,7 @@ private class CaseTriggerHandlerTest {
     insert caseRecord;
 
     Test.startTest();
-    caseRecord.RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID;
+    caseRecord.RecordTypeId = RTCase.nonCustomerComplaint;
     update caseRecord;
     System.assert(
       IDRCaseActions.getEntitlement() ==
@@ -2074,7 +2060,7 @@ private class CaseTriggerHandlerTest {
     Test.startTest();
 
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = RTCase.directEntryDispute,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transaction',
@@ -2116,7 +2102,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN
     // a Dispute case is created against an ANZ Plus customer, and correct entitlement process is applied
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = RTCase.directEntryDispute,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transaction',
@@ -2165,7 +2151,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN
     // an ANZ Plus Dispute case is in status 'Under Investigation'
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = RTCase.directEntryDispute,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transaction',
@@ -2219,7 +2205,7 @@ private class CaseTriggerHandlerTest {
     // a Direct Debit / Direct Entry dispute Case is being created
     List<Case> disputes = new List<Case>();
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = RTCase.directEntryDispute,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transaction',
@@ -2263,7 +2249,7 @@ private class CaseTriggerHandlerTest {
     // a Direct Debit / Direct Entry dispute Case is being created
     List<Case> disputes = new List<Case>();
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = RTCase.directEntryDispute,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transaction',
@@ -2307,7 +2293,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.GENERAL_INQUIRY_RT_ID,
+          RecordTypeId = RTCase.generalInquiry,
           Type = 'Cards',
           Sub_Type__c = 'Damaged card',
           AccountId = acc.Id
@@ -2358,7 +2344,7 @@ private class CaseTriggerHandlerTest {
       LIMIT 1
     ];
     Case disputeCase = new Case(
-      RecordTypeId = GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
+      RecordTypeId = RTCase.directEntryDispute,
       AccountId = acc.Id,
       Auto_Created__c = false,
       Dispute_Reason__c = 'Duplicate Transaction',
@@ -2414,7 +2400,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           Status = GetHelpConstants.OPEN_STATUS
         )
       );
@@ -2430,7 +2416,7 @@ private class CaseTriggerHandlerTest {
       SELECT Id
       FROM Case
       WHERE
-        RecordTypeId = :GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+        RecordTypeId = :RTCase.nonCustomerComplaint
         AND ANZx_Customer__c = TRUE
     ];
 
@@ -2460,7 +2446,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.anzxComplaint,
           Status = GetHelpConstants.OPEN_STATUS,
           AccountId = acc.Id,
           ContactId = acc.PersonContactId
@@ -2475,9 +2461,7 @@ private class CaseTriggerHandlerTest {
     List<Case> newCaseRecords = [
       SELECT Id
       FROM Case
-      WHERE
-        RecordTypeId = :GetHelpConstants.COMPLAINT_RT_ID
-        AND OCV_Id__c = :acc.OCV_ID__c
+      WHERE RecordTypeId = :RTCase.anzxComplaint AND OCV_Id__c = :acc.OCV_ID__c
     ];
 
     System.assertEquals(
@@ -2497,7 +2481,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       newCases.add(
         new Case(
-          RecordTypeId = GetHelpConstants.CARD_DISPUTE_RT_ID,
+          RecordTypeId = RTCase.cardDispute,
           Type = '',
           Dispute_Reason__c = 'Don\'t recognise the transaction',
           AccountId = acc.Id,
@@ -2537,7 +2521,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       casesToInsert.add(
         new Case(
-          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           Status = GetHelpConstants.OPEN_STATUS,
           Type = 'Cards'
         )
@@ -2574,7 +2558,7 @@ private class CaseTriggerHandlerTest {
     for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
       casesToInsert.add(
         new Case(
-          RecordTypeId = GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
+          RecordTypeId = RTCase.nonCustomerComplaint,
           Type = '2',
           IDR_Subsequent_Issue__c = 'Fee or interest dispute',
           AccountId = acc.Id,
@@ -3030,181 +3014,6 @@ private class CaseTriggerHandlerTest {
         );
       }
     }
-  }
-
-  // Test create Fraud Check Case when ID Ops Case changes to 'Potential Fraud' status
-  @isTest
-  public static void testCreateFraudCheckCase() {
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-    //create an onboarding application
-    List<CustomerOnboardingApplication__c> cobs = new List<CustomerOnboardingApplication__c>();
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      cobs.add(
-        new CustomerOnboardingApplication__c(
-          PersonaId__c = 'dsfsadfasdf' + i,
-          OCVId__c = '4324234234' + i
-        )
-      );
-    }
-
-    insert cobs;
-
-    //create an id ops case with application
-    List<Case> idOpsAssistsCases = new List<Case>();
-
-    for (CustomerOnboardingApplication__c a : cobs) {
-      idOpsAssistsCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-          Status = GetHelpConstants.OPEN_STATUS,
-          CustomerOnboardingApplication__c = a.Id
-        )
-      );
-    }
-
-    insert idOpsAssistsCases;
-
-    //move id ops case to potential fraud
-    idOpsAssistsCases = [
-      SELECT Id, Status, OwnerId
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-    ];
-
-    for (Case c : idOpsAssistsCases) {
-      c.OwnerId = usr.Id;
-    }
-
-    update idOpsAssistsCases;
-
-    for (Case c : idOpsAssistsCases) {
-      c.Status = GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS;
-    }
-
-    Test.startTest();
-
-    System.runAs(usr) {
-      update idOpsAssistsCases;
-    }
-
-    //verify fraud check case gets created
-    List<Case> fraudCheckCases = [
-      SELECT Id
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.FRAUD_CHECK_RT_ID
-    ];
-
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      fraudCheckCases.size(),
-      'Should have ' + Label.Test_Bulk_Size + ' new Fraud Check cases.'
-    );
-
-    Test.stopTest();
-  }
-
-  // Test update Id Ops case by a corresponding Fraud Check Case
-  @isTest
-  public static void testUpdateIdOpsCaseStatus() {
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-
-    //create ID Ops Cases
-    createIdOpsCases(usr);
-
-    //create Fraud Check Cases as child cases of the Id Ops Cases and set statuses
-    List<Case> fraudCheckCases = createFraudCheckCases();
-
-    List<Case> fraudCheckWithStatuses = setFraudCheckCasesStatuses(
-      fraudCheckCases
-    );
-
-    Test.startTest();
-
-    System.runAs(usr) {
-      update fraudCheckWithStatuses;
-    }
-    Test.stopTest();
-
-    List<Case> updatedIdOpsCases = getIdOpsCase();
-
-    //verify Id Ops cases are updated with the correct corresponding status
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      Assert.areEqual(
-        COB_CLOSED_STATUSES[i],
-        updatedIdOpsCases[i].Status,
-        'Status should be ' + COB_CLOSED_STATUSES[i]
-      );
-
-      if (
-        updatedIdOpsCases[i].Status == GetHelpConstants.COB_FAILED_OK_STATUS
-      ) {
-        Assert.areEqual(
-          FAILED_RESON,
-          updatedIdOpsCases[i].OnboardingVerificationFailedReason__c,
-          'Failed reasons should be ' + FAILED_RESON
-        );
-      }
-    }
-  }
-
-  private static void createIDOpsCases(User usr) {
-    List<Case> idOpsCases = new List<Case>();
-
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      idOpsCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-          Status = GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS,
-          OwnerId = usr.Id
-        )
-      );
-    }
-    insert idOpsCases;
-  }
-
-  private static List<Case> createFraudCheckCases() {
-    // Retrieve created ID Ops Cases with Ids and OwnerIds
-    List<Case> idOpsCases = getIdOpsCase();
-
-    List<Case> fraudCheckCases = new List<Case>();
-    for (Case idOpsCase : idOpsCases) {
-      fraudCheckCases.add(
-        new Case(
-          RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
-          OwnerId = idOpsCase.OwnerId,
-          ParentId = idOpsCase.Id
-        )
-      );
-    }
-
-    insert fraudCheckCases;
-
-    return fraudCheckCases;
-  }
-
-  private static List<Case> setFraudCheckCasesStatuses(
-    List<Case> fraudCheckCases
-  ) {
-    // transition Fraud Check Cases to the Closed statuses
-    for (Integer i = 0; i < COB_CASES_COUNT; i++) {
-      fraudCheckCases[i].Status = COB_CLOSED_STATUSES[i];
-      fraudCheckCases[i]
-        .OnboardingVerificationFailedReason__c = COB_CLOSED_STATUSES[i] ==
-        GetHelpConstants.COB_FAILED_OK_STATUS
-        ? FAILED_RESON
-        : EMPTY_FAILED_REASON;
-    }
-
-    return fraudCheckCases;
-  }
-
-  private static List<Case> getIdOpsCase() {
-    return [
-      SELECT Id, Status, OwnerId, OnboardingVerificationFailedReason__c
-      FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID
-    ];
   }
 
   @isTest

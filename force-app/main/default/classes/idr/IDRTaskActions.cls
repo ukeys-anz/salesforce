@@ -36,13 +36,7 @@ public without sharing class IDRTaskActions {
     '%' +
     IDRConstants.TASK_SUBJECT_DAY1 +
     '%';
-  public static Group siQueue = [
-    SELECT Id
-    FROM Group
-    WHERE
-      DeveloperName = :SI_QUEUE_DEVELOPER_NAME
-      AND Type = :IDRConstants.QUEUE_TYPE
-  ];
+  public static Group siQueue = QueryQueue.get(SI_QUEUE_DEVELOPER_NAME);
 
   public static Boolean siSystemDeletingAutoGenTask = false;
 
@@ -144,21 +138,8 @@ public without sharing class IDRTaskActions {
    * @param records The Task record list.
    */
   public static void assignToCollectionsQueue(List<Task> records) {
-    Group stopQueue = [
-      SELECT Id
-      FROM Group
-      WHERE
-        DeveloperName = :STOP_COLLECTIONS_QUEUE_NAME
-        AND Type = :IDRCaseActions.QUEUE_TYPE
-    ];
-
-    Group startQueue = [
-      SELECT Id
-      FROM Group
-      WHERE
-        DeveloperName = :START_COLLECTIONS_QUEUE_NAME
-        AND Type = :IDRCaseActions.QUEUE_TYPE
-    ];
+    Group stopQueue = QueryQueue.get(STOP_COLLECTIONS_QUEUE_NAME);
+    Group startQueue = QueryQueue.get(START_COLLECTIONS_QUEUE_NAME);
 
     for (Task record : records) {
       if (
@@ -186,7 +167,7 @@ public without sharing class IDRTaskActions {
   public static void afterInsertActions(List<Task> records) {
     closeOldIDRMaximumTimeTasks(records);
     IDRTaskActions2.checkForUrgentCaseAllocationTask(records);
-    IDRTaskActions2.updateOnHoldDateonCase(records,true);
+    IDRTaskActions2.updateOnHoldDateonCase(records, true);
   }
   /**
    * @description beforeUpdateActions is called onBeforeUpdate
@@ -232,7 +213,7 @@ public without sharing class IDRTaskActions {
   public static void afterUpdateActions(List<Task> records) {
     closeMilestonesOfClosedTask(records);
     IDRTaskActionHelper.updateCases(records);
-    IDRTaskActions2.updateOnHoldDateonCase(records,false);
+    IDRTaskActions2.updateOnHoldDateonCase(records, false);
   }
   /**
    * @description closeOldIDRMaximumTimeTasks will close out old IDR Task reminders against case when a new Task is created.
