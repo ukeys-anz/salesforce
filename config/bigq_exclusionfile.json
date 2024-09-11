@@ -157,7 +157,8 @@
     "Temporary_External_Id__c",
     "TFN_Verification__c",
     "Type",
-    "Website"
+    "Website",
+    "IsPriorityRecord"
   ],
   "User": [
     "AboutMe",
