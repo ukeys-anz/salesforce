@@ -76,23 +76,17 @@ public with sharing class UserProvisioningAfterActions {
    * @description This method is called in assignMembership to assign Permission sets to user record.
    * @param record User record from trigger
    * @param businessFunctionMap Business Function and Role combinations
-   * @param pSetMap Permission Set Map with permission set name as a key
    * @return `List<PermissionSetAssignment>` List of permission set assignment for insert
    */
   private static List<PermissionSetAssignment> assignPermissionSet(
     User record,
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
-    Map<String, PermissionSet> pSetMap
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap
   ) {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String pSetNames;
-    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
-
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      pSetNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Permission_sets__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<PermissionSetAssignment>();
     }
 
     if (String.isBlank(pSetNames)) {
@@ -115,23 +109,19 @@ public with sharing class UserProvisioningAfterActions {
    * @description This method is called in assignMembership to assign Permission set groups to user record.
    * @param record User record from trigger
    * @param businessFunctionMap Business Function and Role combinations
-   * @param pSetGroupMap Permission Set Group Map with permission set group name as a key
+
    * @return `List<PermissionSetAssignment>` List of permission set assignment for insert
    */
   private static List<PermissionSetAssignment> assignPermissionSetGroup(
     User record,
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
-    Map<String, PermissionSetGroup> pSetGroupMap
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap
   ) {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String pSetGroupNames;
-    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
 
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      pSetGroupNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Permission_Set_Groups__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<PermissionSetAssignment>();
     }
     if (String.isBlank(pSetGroupNames)) {
       return psetAssignmentList;
@@ -164,12 +154,9 @@ public with sharing class UserProvisioningAfterActions {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String pSetLicenseNames;
-    List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
 
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      pSetLicenseNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Permission_Set_Licences__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<PermissionSetLicenseAssign>();
     }
     if (String.isBlank(pSetLicenseNames)) {
       return psetLicenseAssignmentList;
@@ -195,23 +182,18 @@ public with sharing class UserProvisioningAfterActions {
    * @description This method is called in assignMembership to assign Public Groups to user record.
    * @param record User record from trigger
    * @param businessFunctionMap Business Function and Role combinations
-   * @param publicGroupMap Public Group Map with group name as a key
    * @return `List<GroupMember>` List of group member for insert
    */
   private static List<GroupMember> assignPublicGroup(
     User record,
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
-    Map<String, Group> publicGroupMap
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap
   ) {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String groupNames;
-    List<GroupMember> groupMemberList = new List<GroupMember>();
 
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      groupNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Public_Groups__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<GroupMember>();
     }
     if (String.isBlank(groupNames)) {
       return groupMemberList;
