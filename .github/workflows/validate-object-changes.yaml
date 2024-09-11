@@ -1,4 +1,3 @@
-# Currently under development. This workflow syncs object changes to gcs bucket in non-prod.
 name: Validate Object Changes
 
 on:
