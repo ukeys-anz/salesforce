@@ -114,4 +114,8 @@ export default class TotalBalance extends LightningElement {
       event.target.dataset.id === "total-fin-position" ? true : false;
     this.showInfoModal = !this.showInfoModal;
   }
+
+  closeModal() {
+    this.showInfoModal = false;
+  }
 }
