@@ -41,24 +41,20 @@ public with sharing class UserProvisioningAfterActions {
     if (businessFunctionMap.isEmpty()) {
       return;
     }
-    Map<String, PermissionSet> pSetMap = UserProvisioningCommonActions.getAllPSetMap();
-    Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
+
     Map<String, PermissionSetLicense> pSetLicenseMap = UserProvisioningCommonActions.getAllPSetLicenseMap();
-    Map<String, Group> publicGroupMap = UserProvisioningCommonActions.getAllPublicGroupMap();
 
     for (User record : records) {
       psetLicenseAssignmentList.addAll(
         assignPermissionSetLicences(record, businessFunctionMap, pSetLicenseMap)
       );
       psetAssignmentList.addAll(
-        assignPermissionSet(record, businessFunctionMap, pSetMap)
+        assignPermissionSet(record, businessFunctionMap)
       );
       psetAssignmentList.addAll(
-        assignPermissionSetGroup(record, businessFunctionMap, pSetGroupMap)
+        assignPermissionSetGroup(record, businessFunctionMap)
       );
-      groupMemberList.addAll(
-        assignPublicGroup(record, businessFunctionMap, publicGroupMap)
-      );
+      groupMemberList.addAll(assignPublicGroup(record, businessFunctionMap));
     }
 
     if (!psetLicenseAssignmentList.isEmpty()) {
@@ -88,16 +84,15 @@ public with sharing class UserProvisioningAfterActions {
     if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
       return new List<PermissionSetAssignment>();
     }
-
-    if (String.isBlank(pSetNames)) {
-      return psetAssignmentList;
-    }
-    List<String> pSetList = pSetNames.deleteWhitespace().split(';');
+    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
+    List<String> pSetList = businessFunctionMap.get(businessFunctionRoleKey)
+      .Permission_sets__c.deleteWhitespace()
+      .split(';');
     for (String pSetName : pSetList) {
       PermissionSetAssignment assignPset = new PermissionSetAssignment();
       assignPset.AssigneeId = record.id;
-      if (pSetMap.containskey(PsetName)) {
-        assignPset.PermissionSetId = pSetMap.get(pSetName).Id;
+      if (QueryPS.get(PsetName) != null) {
+        assignPset.PermissionSetId = QueryPS.get(pSetName).Id;
         psetAssignmentList.add(assignPset);
       }
     }
@@ -123,15 +118,17 @@ public with sharing class UserProvisioningAfterActions {
     if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
       return new List<PermissionSetAssignment>();
     }
-    if (String.isBlank(pSetGroupNames)) {
-      return psetAssignmentList;
-    }
-    List<String> pSetGroupList = pSetGroupNames.deleteWhitespace().split(';');
+    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
+    List<String> pSetGroupList = businessFunctionMap.get(
+        businessFunctionRoleKey
+      )
+      .Permission_Set_Groups__c.deleteWhitespace()
+      .split(';');
     for (String pSetGroupName : pSetGroupList) {
       PermissionSetAssignment assignPset = new PermissionSetAssignment();
       assignPset.AssigneeId = record.id;
-      if (pSetGroupMap.containskey(pSetGroupName)) {
-        assignPset.PermissionSetGroupId = pSetGroupMap.get(pSetGroupName).Id;
+      if (QueryPSG.get(pSetGroupName) != null) {
+        assignPset.PermissionSetGroupId = QueryPSG.get(pSetGroupName).Id;
         psetAssignmentList.add(assignPset);
       }
     }
@@ -158,11 +155,14 @@ public with sharing class UserProvisioningAfterActions {
     if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
       return new List<PermissionSetLicenseAssign>();
     }
-    if (String.isBlank(pSetLicenseNames)) {
-      return psetLicenseAssignmentList;
-    }
-    List<String> pSetLicenseList = pSetLicenseNames.deleteWhitespace()
+
+    List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
+    List<String> pSetLicenseList = businessFunctionMap.get(
+        businessFunctionRoleKey
+      )
+      .Permission_Set_Licences__c.deleteWhitespace()
       .split(';');
+
     for (String pSetLicenseName : pSetLicenseList) {
       PermissionSetLicenseAssign assignPsetLicense = new PermissionSetLicenseAssign();
       assignPsetLicense.AssigneeId = record.id;
@@ -195,18 +195,14 @@ public with sharing class UserProvisioningAfterActions {
     if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
       return new List<GroupMember>();
     }
-    if (String.isBlank(groupNames)) {
-      return groupMemberList;
-    }
-
-    List<String> groupList = groupNames.deleteWhitespace().split(';');
+    List<GroupMember> groupMemberList = new List<GroupMember>();
+    List<String> groupList = businessFunctionMap.get(businessFunctionRoleKey)
+      .Public_Groups__c.deleteWhitespace()
+      .split(';');
     for (String groupName : groupList) {
       GroupMember assignGroup = new GroupMember();
       assignGroup.UserOrGroupId = record.id;
-      if (!publicGroupMap.containskey(groupName)) {
-        continue;
-      }
-      assignGroup.GroupId = publicGroupMap.get(groupName).Id;
+      assignGroup.GroupId = QueryPublicGroup.get(groupName).Id;
       groupMemberList.add(assignGroup);
     }
 
@@ -584,16 +580,12 @@ public with sharing class UserProvisioningAfterActions {
     if (cmosGroup.isEmpty()) {
       return;
     }
-
-    for (User userObj : users) {
+    List<User> updatedUsers = ListUtil.filter(users, oldMap)
+      .equals(User.IsActive, true)
+      .changed(User.ProfileId)
+      .toList();
+    for (User userObj : updatedUsers) {
       User oldRec = oldMap.get(userObj.Id);
-      if (
-        !userObj.IsActive ||
-        (oldRec != null &&
-        !RecordComparisonUtil.fieldWasChanged(userObj, oldRec, user.ProfileId))
-      ) {
-        continue;
-      }
       if (checkforValidUserProfile(userObj)) {
         addUserIds.add(userObj.Id);
       }
@@ -606,12 +598,8 @@ public with sharing class UserProvisioningAfterActions {
       }
     }
 
-    if (!addUserIds.isEmpty()) {
-      addUserToGroup(addUserIds, cmosGroup[0].Id);
-    }
-    if (!removeUserIds.isEmpty()) {
-      removeUserToGroup(removeUserIds, cmosGroup[0].Id);
-    }
+    addUserToGroup(addUserIds, cmosGroup[0].Id);
+    removeUserToGroup(removeUserIds, cmosGroup[0].Id);
   }
   /**
    * @description Method to check valid user to be addedd to Group

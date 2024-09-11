@@ -49,18 +49,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>AFCA Decision Report</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>BU referral to SI team</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Capability %26 Quality referral</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Other</fullName>
             <default>false</default>
         </values>
@@ -103,6 +91,10 @@
         </values>
         <values>
             <fullName>Banking Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Banking</fullName>
             <default>false</default>
         </values>
         <values>
@@ -790,29 +782,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>SI_PSI_Source__c</picklist>
-        <values>
-            <fullName>Email</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>NLP</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>SI flag</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Reporting</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>SI_Potential_Consequence_to_Customer__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -990,6 +959,10 @@
         </values>
         <values>
             <fullName>Migration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mobile Lending</fullName>
             <default>false</default>
         </values>
         <values>
