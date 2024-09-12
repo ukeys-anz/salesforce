@@ -65,6 +65,5 @@
     <permissionSets>View_Refer_to_ANZ_button</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>View_Transaction_History</permissionSets>
-    <permissionSets>AccessAegisFeatures</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
