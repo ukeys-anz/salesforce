@@ -15,7 +15,7 @@ private class LoanApplicantActionsTest {
 
   /*
    * @description method to test SynchronizeAndUpdateCustomerSyncStatus method
-  */
+   */
   @isTest
   static void testSynchronizeAndUpdateCustomerSyncStatus() {
     Map<Id, Account> accMap = createCustomerAccount(3);
@@ -51,10 +51,10 @@ private class LoanApplicantActionsTest {
 
   /*
    * @description method to test updateAccountSyncStatus method
-  */
+   */
   @isTest
   static void updateAccountSyncStatusTest() {
-     Map<Id, Account> accMap = createCustomerAccount(5);
+    Map<Id, Account> accMap = createCustomerAccount(5);
     List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
       1
     );
@@ -62,7 +62,7 @@ private class LoanApplicantActionsTest {
       accMap.keySet(),
       rlaList.get(0)
     );
-   Test.startTest();
+    Test.startTest();
     List<Account> accounts = LoanApplicantActions.updateAccountSyncStatus(
       loanAppIdVsRecordMap.values()
     );
@@ -76,7 +76,7 @@ private class LoanApplicantActionsTest {
 
   /*
    * @description Test Method to create Customers
-  */
+   */
   static Map<Id, Account> createCustomerAccount(Integer count) {
     Map<Id, Account> accountIdVsRecordMap = new Map<Id, Account>();
     for (Integer i = 0; i < count; i++) {
@@ -92,7 +92,7 @@ private class LoanApplicantActionsTest {
 
   /*
    * @description Test Method to create ResidentialLoanApplication
-  */
+   */
   static List<ResidentialLoanApplication> createResidentialLoanApplications(
     Integer count
   ) {
@@ -117,7 +117,7 @@ private class LoanApplicantActionsTest {
 
   /*
    * @description Test Method to create LoanApplicants
-  */
+   */
   static Map<Id, LoanApplicant> createLoanApplicants(
     Set<Id> accSet,
     ResidentialLoanApplication loanApp

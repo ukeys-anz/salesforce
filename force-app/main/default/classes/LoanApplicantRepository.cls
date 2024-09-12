@@ -26,11 +26,14 @@ public with sharing class LoanApplicantRepository {
         Account__r.Sync_Status__c,
         Account__c
       FROM LoanApplicant
-      WHERE Id IN : loanApplicantIds
-        AND (Account__c != NULL 
-             AND Account__r.Sync_Status__c EXCLUDES(:BrokerConstants.SYNC_STATUS_BROKER_ORG))
-        AND (LoanApplication.Assisted_Broker_TPMI_SAO__c != NULL 
-             AND LoanApplication.Assisted_Broker_TPMI_SAO__c != '')
+      WHERE
+        Id IN :loanApplicantIds
+        AND Account__c != NULL
+        AND Account__r.Sync_Status__c EXCLUDES (
+          :BrokerConstants.SYNC_STATUS_BROKER_ORG
+        )
+        AND LoanApplication.Assisted_Broker_TPMI_SAO__c != NULL
+        AND LoanApplication.Assisted_Broker_TPMI_SAO__c != ''
       WITH USER_MODE
     ];
     return loanApplicants;

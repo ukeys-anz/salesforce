@@ -11,7 +11,6 @@ public with sharing class LoanApplicantActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  public static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
 
   /**
    * @description Orchestration method for updating the Customer Sync Status
@@ -23,9 +22,7 @@ public with sharing class LoanApplicantActions {
     List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );
-    List<Account> accounts = updateAccountSyncStatus(
-      loanApplicants
-    );
+    List<Account> accounts = updateAccountSyncStatus(loanApplicants);
     DML_REPOSITORY.updateRecords(
       accounts,
       DmlRepository.ALLOW_PARTIAL,
@@ -43,8 +40,10 @@ public with sharing class LoanApplicantActions {
   ) {
     List<Account> accounts = new List<Account>();
     for (LoanApplicant loanApplicant : loanApplicants) {
-            Account account = new Account(Id = loanApplicant.Account__c);
-      List<String> picklistValues = new List<String>{ SYNC_STATUS_BROKER_ORG };
+      Account account = new Account(Id = loanApplicant.Account__c);
+      List<String> picklistValues = new List<String>{
+        BrokerConstants.SYNC_STATUS_BROKER_ORG
+      };
       account.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
         loanApplicant.Account__r.Sync_Status__c,
         picklistValues
