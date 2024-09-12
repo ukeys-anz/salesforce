@@ -9,12 +9,13 @@ export default class DynamicTooltipUtil extends LightningElement {
   renderedCallback() {
     if (!this.hasRendered) {
       this.hasRendered = true;
+      const contentSpan = document.createElement("span");
+      contentSpan.innerHTML = fetchTooltipContent(this.resourceName);
       const tooltipContentMarkup = this.template.querySelector(
         ".tooltip-content-markup"
       );
       if (tooltipContentMarkup) {
-        // eslint-disable-next-line @lwc/lwc/no-inner-html
-        tooltipContentMarkup.innerHTML = fetchTooltipContent(this.resourceName);
+        tooltipContentMarkup.appendChild(contentSpan);
       }
     }
   }

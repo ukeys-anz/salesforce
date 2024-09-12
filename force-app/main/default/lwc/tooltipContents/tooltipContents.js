@@ -1,5 +1,4 @@
-const totalFinancialPosition = `<span>
-                    <p class="slds-text-title_bold" data-id="total-fin-pos-tooltip">
+const totalFinancialPosition = `<p class="slds-text-title_bold" data-id="total-fin-pos-tooltip">
                     The amount shown is indicative of the amount a customer may be
                     able to use but may not be what should be available or is actually available.
                     </p>
@@ -34,11 +33,9 @@ const totalFinancialPosition = `<span>
                     </ul>
                     If a customer proceeds with a transaction when there may be
                     insufficient funds, their account may go overdrawn or the
-                    transaction may be declined.
-                </span>`;
+                    transaction may be declined.`;
 
-const totalSavedFinancialPosition = `<span>
-                    <p class="slds-text-title_bold">
+const totalSavedFinancialPosition = `<p class="slds-text-title_bold">
                     The amount shown is indicative of the amount you may be
                     able to use but may not be what is actually available.
                     </p>
@@ -71,11 +68,9 @@ const totalSavedFinancialPosition = `<span>
                     </ul>
                     If you proceed with a transaction when there may be
                     insufficient funds, your account may go overdrawn or the
-                    transaction may be declined.
-                </span>`;
+                    transaction may be declined.`;
 
-const savings = `<span>
-                    <p class="slds-text-title_bold">
+const savings = `<p class="slds-text-title_bold">
                     The amount shown is indicative of the amount you may be able to
                     use but may not be what is actually available.
                     </p>
@@ -105,11 +100,9 @@ const savings = `<span>
                     </ul>
                     If you proceed with a transaction when there may be insufficient
                     funds, your account may go overdrawn or the transaction may be
-                    declined.
-                </span>`;
+                    declined.`;
 
-const checking = `<span>
-                <p class="slds-text-title_bold">
+const checking = `<p class="slds-text-title_bold">
                 The amount shown is indicative of the amount you may be able to
                 use but may not be what is actually available.
                 </p>
@@ -139,11 +132,9 @@ const checking = `<span>
                 </ul>
                 If you proceed with a transaction when there may be insufficient
                 funds, your account may go overdrawn or the transaction may be
-                declined.
-            </span>`;
+                declined.`;
 
-const savingss2 = `<span>
-                    <p class="slds-text-title_bold">
+const savingss2 = `<p class="slds-text-title_bold">
                     The amount shown is indicative of the amount a customer may be able to
                     use but may not be what should be avaialble or is actually available.
                     </p>
@@ -176,8 +167,7 @@ const savingss2 = `<span>
                     </ul>
                     If a customer proceeds with a transaction when there may be insufficient
                     funds, their account may go overdrawn or the transaction may be
-                    declined.
-                </span>`;
+                    declined.`;
 
 // map to store key value pair of resourcename and tooltip content to display based on resourcename
 const TOOLTIP_MAP = {
