@@ -525,10 +525,10 @@
     },
     {
       "name": "cards/2735331274708236",
-      "last4Digits": "0797",
+      "last4Digits": "1686",
       "expiryDate": {
         "year": {
-          "value": 2021
+          "value": 2020
         },
         "month": {
           "value": 11
@@ -536,19 +536,22 @@
       },
       "accounts": ["accounts/390992614"],
       "eligibility": [
-        "ELIGIBILITY_DIGITAL_WALLET",
-        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_APPLE_PAY",
+        "ELIGIBILITY_GOOGLE_PAY",
+        "ELIGIBILITY_SAMSUNG_PAY",
+        "ELIGIBILITY_SET_PIN",
         "ELIGIBILITY_REPLACEMENT_LOST",
         "ELIGIBILITY_REPLACEMENT_STOLEN",
         "ELIGIBILITY_REPLACEMENT_DAMAGED",
         "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_BLOCK",
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 4 },
+      "wallets": { "e_commerce": 1 },
       "cardControlsEnabled": true,
       "embossing": {
-        "lineOne": "I AM THE BIG BOSS"
+        "lineOne": "MARCELINO SMITH"
       },
       "design_code": "001",
       "statusCode": "CARD_STATUS_CODE_ISSUED",
@@ -600,10 +603,10 @@
     },
     {
       "name": "cards/2735331274708238",
-      "last4Digits": "0797",
+      "last4Digits": "0654",
       "expiryDate": {
         "year": {
-          "value": 2021
+          "value": 2020
         },
         "month": {
           "value": 11
@@ -611,19 +614,29 @@
       },
       "accounts": ["accounts/390992618"],
       "eligibility": [
-        "ELIGIBILITY_DIGITAL_WALLET",
-        "ELIGIBILITY_CHANGE_PIN",
+        "ELIGIBILITY_APPLE_PAY",
+        "ELIGIBILITY_GOOGLE_PAY",
+        "ELIGIBILITY_SAMSUNG_PAY",
+        "ELIGIBILITY_SET_PIN",
         "ELIGIBILITY_REPLACEMENT_LOST",
         "ELIGIBILITY_REPLACEMENT_STOLEN",
         "ELIGIBILITY_REPLACEMENT_DAMAGED",
         "ELIGIBILITY_CONTROLS",
+        "ELIGIBILITY_BLOCK",
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 4 },
+      "wallets": {
+        "applePay": 3,
+        "googlePay": 2,
+        "samsungPay": 1,
+        "fitness": 3,
+        "e_commerce": 2,
+        "other": 1
+      },
       "cardControlsEnabled": true,
       "embossing": {
-        "lineOne": "I AM THE BIG BOSS"
+        "lineOne": "JAIRO REYNOLDS"
       },
       "design_code": "001",
       "statusCode": "CARD_STATUS_CODE_ISSUED",
