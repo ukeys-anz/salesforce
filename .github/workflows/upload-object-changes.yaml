@@ -11,7 +11,7 @@ permissions:
   id-token: "write"
 
 env:
-  BUCKET_NAME: sfdatasync-v3-bucket-dev
+  BUCKET_NAME: sfdatasync-v3-bucket-sit
 
 jobs:
   upload_object_changes:

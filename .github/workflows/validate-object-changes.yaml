@@ -10,7 +10,7 @@ permissions:
   id-token: "write"
 
 env:
-  BUCKET_NAME: salesforce-nonprod-github-workflows
+  BUCKET_NAME: sfdatasync-v3-bucket-nonprod
 
 jobs:
   validate_object_changes:
