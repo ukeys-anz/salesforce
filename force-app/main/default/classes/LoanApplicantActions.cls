@@ -20,7 +20,7 @@ public with sharing class LoanApplicantActions {
   public static void synchronizeAndUpdateCustomerSyncStatus(
     Set<Id> loanApplicantIds
   ) {
-        List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
+    List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );
     List<Account> accounts = updateAccountSyncStatus(
@@ -34,7 +34,7 @@ public with sharing class LoanApplicantActions {
   }
 
   /**
-   * @description Sets the Account Sync Status picklist value from Map
+   * @description Sets the Account Sync Status picklist value from LoanApplicant
    * @param loanApplicants LoanApplicants list
    * @return List<Account> accountList updated accountList
    */
