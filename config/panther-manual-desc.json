@@ -683,7 +683,10 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Review_Date__c",
+        "Segment_Type__c",
+        "Source_System_Identifier__c"
       ],
       "IA-2415984": [
         "Name",
@@ -693,9 +696,12 @@
         "Customer__c",
         "Opportunity__c",
         "Personal_Banking__c",
-        "Transaction_Banking__c"
+        "Transaction_Banking__c",
+        "CLG_Number__c",
+        "CPID__c",
+        "Customer_Number__c"
       ],
-      "IA-2423278": ["OwnerId"]
+      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -835,6 +841,7 @@
         "SI_COR_ID_Record__c",
         "SI_Relevant_Tribes__c",
         "SI_Key_Business_Contacts__c",
+        "SI_Assigned_BU_Contact__c",
         "SI_Key_Tribes_BU_s__c",
         "SI_LRK_Category__c",
         "SI_Lead_Portfolio__c",
@@ -862,6 +869,7 @@
         "IDR_Final_Letter_Outcome__c",
         "IDR_Hardship_Status__c",
         "IDR_Hardship_Response_updated_on__c",
+        "CAD_Outcome__c",
         "IDR_Is_Hardship_Resolution_Letter_Sent__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Progressed_Status__c",
@@ -1112,7 +1120,9 @@
         "My_extended_team_s_cases__c",
         "AFCA_Stage__c",
         "Date_time_Registration_Response_Provided__c",
-        "IDR_Complaint_Outcome_Offered__c"
+        "IDR_Complaint_Outcome_Offered__c",
+        "IDR_Completed_Evaluations__c",
+        "IDR_Date_time_Progressed_Status_selected__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -2223,7 +2233,7 @@
       ]
     },
     "FinServ__AccountAccountRelation__c": {
-      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
       "IA-2453350": ["External_Id__c"],
       "IA-2460507": ["FinServ__Role__c"],
       "IA-2530753": [
@@ -2231,7 +2241,8 @@
         "FinServ__Active__c",
         "FinServ__EndDate__c",
         "FinServ__StartDate__c",
-        "System_Individual_Relationship__c"
+        "System_Individual_Relationship__c",
+        "CPID__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
@@ -2262,7 +2273,8 @@
       "IA-2468715": [
         "Customer_Type__c",
         "Customer_SourceSystemId__c",
-        "OCV_ID__c"
+        "OCV_ID__c",
+        "Relationship__c"
       ],
       "IA-2530753": [
         "CreatedById",
@@ -2270,7 +2282,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "CPID__c"
       ],
       "IA-2594111": [
         "Broker__c",
@@ -2901,7 +2914,8 @@
         "Loan_Applicant_Group__c",
         "Party_ID__c",
         "Name",
-        "Application_Number__c"
+        "Application_Number__c",
+        "LoanApplicationId"
       ],
       "IA-2415720": ["Customer_Number__c"],
       "IA-2415984": ["Occupation_Code__c", "Occupation_Description__c"],
@@ -2998,7 +3012,8 @@
         "Property_ID__c",
         "Property_Status__c",
         "Year_Built__c",
-        "Address_Details__c"
+        "Address_Details__c",
+        "Ineligible_Reasons__c"
       ],
       "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
       "IA-2594111": ["LoanApplicationId"],
@@ -4304,7 +4319,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2594109": ["Call_Transcript__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],

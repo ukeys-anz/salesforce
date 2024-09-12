@@ -6,9 +6,9 @@
     <description>Redraw Amount</description>
     <externalDeveloperName>RedrawAmount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Redraw Amount($)</label>
     <precision>18</precision>
     <required>false</required>

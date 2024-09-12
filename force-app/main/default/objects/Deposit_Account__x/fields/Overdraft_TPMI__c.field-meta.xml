@@ -6,9 +6,9 @@
     <description>Broker Code. Unique identifier of a loan broker</description>
     <externalDeveloperName>OverdraftTPMI</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>TPMI</label>
     <length>255</length>
     <required>false</required>

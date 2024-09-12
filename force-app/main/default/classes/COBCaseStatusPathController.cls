@@ -15,21 +15,13 @@ public with sharing class COBCaseStatusPathController {
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
   @TestVisible
   private static final String PERSONA_ID_ERROR = 'Persona ID is missing on a case. Please check again.';
-  @TestVisible
-  private static final String CONFIRMED_FRAUD_REASON = 'Confirmed Fraud';
-  @TestVisible
-  private static final String DML_ERROR_MESSAGE = 'Error occured during DML. Please contact your administrator';
-
-  public static final String DAON_FALLOUT_WATCHLIST_HIT_SUBJECT = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT';
-  public static final String CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON = 'Confirmed Fraud - Selfie Watchlist';
 
   // Statuses with Callout API
   private static final List<String> COB_CASE_STATUSES_WITH_ENDPOINT = new List<String>{
-    GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS,
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS,
+    COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+    COBCaseConstants.COB_FAILED_OK_STATUS,
+    COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
   /**
@@ -131,14 +123,14 @@ public with sharing class COBCaseStatusPathController {
       return;
     }
 
-    if (cobCase.Status != GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
+    if (cobCase.Status != COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS) {
       return;
     }
 
-    cobCase.OnboardingVerificationFailedReason__c = CONFIRMED_FRAUD_REASON;
-    if (cobCase.Subject?.contains(DAON_FALLOUT_WATCHLIST_HIT_SUBJECT) == true) {
-      cobCase.OnboardingVerificationFailedReason__c = CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON;
-    }
+    cobCase.OnboardingVerificationFailedReason__c = cobCase.Subject
+        ?.contains(COBCaseConstants.DAON_FALLOUT_WATCHLIST_HIT_SUBJECT)
+      ? COBCaseConstants.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON
+      : COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS;
   }
 
   @TestVisible
@@ -147,11 +139,11 @@ public with sharing class COBCaseStatusPathController {
     StravinskyAPIRepository.CxStageWrapper cobStage
   ) {
     Map<String, String> statusByRetryStageStatusMap = new Map<String, String>{
-      StravinskyAPIRepository.STAGE_ASSISTED_SELFIE => GetHelpConstants.COB_DAON_FAILED_STATUS,
-      StravinskyAPIRepository.STAGE_ASSISTED_KYC => GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
-      StravinskyAPIRepository.STAGE_ACK_ID_CHECK => GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-      StravinskyAPIRepository.STAGE_TNC => GetHelpConstants.COB_FAILED_OK_STATUS,
-      StravinskyAPIRepository.STAGE_TERMINATED => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      StravinskyAPIRepository.STAGE_ASSISTED_SELFIE => COBCaseConstants.COB_DAON_FALLOUT_STATUS,
+      StravinskyAPIRepository.STAGE_ASSISTED_KYC => COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS,
+      StravinskyAPIRepository.STAGE_ACK_ID_CHECK => COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+      StravinskyAPIRepository.STAGE_TNC => COBCaseConstants.COB_FAILED_OK_STATUS,
+      StravinskyAPIRepository.STAGE_TERMINATED => COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
     };
 
     cobCase.Status = statusByRetryStageStatusMap.get(

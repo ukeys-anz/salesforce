@@ -8,6 +8,9 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   private static final String VIEW_CARD_PERMISSION_ERROR = 'User does not have the view cards permission';
   private static final String ACCOUNTS_AND_GOALS_PERMISSION_ERROR = 'User does not have the ANZx Accounts and Goals permission';
   private static final String VIEW_TRANSACTION_HISTORY_ERROR = 'User does not have the transaction history permission';
+  private static final FinancialAccountRepository FINACC_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
 
   /**
    * @param ocvId customer id
@@ -166,48 +169,37 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     CardListModel result;
     List<FinServ__FinancialAccount__c> finanancialAccountList;
     Map<String, String> mapOfAccountNumberAndOwnership = new Map<String, String>();
-    if (FeatureManagement.checkPermission('ANZx_View_Cards')) {
-      Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getCardList(ocvId);
-      if (response.successful) {
-        try {
-          finanancialAccountList = FinancialAccountService.fetchFinancialAccountsByStatus(
-            ocvId,
-            null
-          );
-          for (FinServ__FinancialAccount__c finAcc : finanancialAccountList) {
-            mapOfAccountNumberAndOwnership.put(
-              finAcc.FinServ__FinancialAccountNumber__c,
-              finAcc.Ownership__c
-            );
-          }
-          result = CardListModel.parse(
-            response.body,
-            mapOfAccountNumberAndOwnership
-          );
-          CoachBankingAPIRepositoryHelper helper = new CoachBankingAPIRepositoryHelper();
-          helper.handleCardIsValidCheck(result);
-          // Adding this line to filter the card list based on the status as part of ANZX-112715 - By Shivam , Sept 2023
-          result = CoachBankingAPIRepositoryHelper.filterCardsBasedOnAccountStatus(
-            ocvId,
-            result
-          );
-        } catch (Exception e) {
-          handleErrors(null, e, CoachBankingAPIRepository.class);
-        }
-      } else {
-        handleErrors(response, null, CoachBankingAPIRepository.class);
-      }
-    } else {
-      handleErrorAsInfo(
-        null,
-        new PermissionException(VIEW_CARD_PERMISSION_ERROR),
-        CoachBankingAPIRepository.class
+    if (!FeatureManagement.checkPermission('ANZx_View_Cards')) {
+      throw CommonUtil.logExceptionInfo(
+        new CoachBankingAPIRepository.PermissionException(
+          VIEW_CARD_PERMISSION_ERROR
+        )
       );
     }
+
+    Service serviceInstance = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = serviceInstance.getCardList(ocvId);
+    if (!response.successful) {
+      throw CommonUtil.logException(response);
+    }
+    try {
+      finanancialAccountList = FINACC_REPOSITORY.fetchFinancialAccountsByStatus(
+        ocvId
+      );
+      mapOfAccountNumberAndOwnership = fetchMapOfAccountNumberAndOwnership(
+        finanancialAccountList
+      );
+      result = CardListModelV1.parse(
+        response.body,
+        mapOfAccountNumberAndOwnership
+      );
+      result = CoachBankingAPIRepositoryHelper.handleCardIsValidCheck(result);
+    } catch (Exception objException) {
+      throw CommonUtil.logException(objException);
+    }
+
     return result;
   }
-
   /**
    * @param cardNumber card number to be locked
    * @param ocvId customer id
@@ -329,5 +321,24 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @description invaid information exception
    */
   public class InvalidInformationException extends Exception {
+  }
+
+  /**
+   * @description this method will create map of ownership and financial account number list
+   * @param finanancialAccountList list of financial account numbers associated with the customer
+   * @return map of account numbers and ownership of the account
+   */
+  @TestVisible
+  private static Map<String, String> fetchMapOfAccountNumberAndOwnership(
+    List<FinServ__FinancialAccount__c> finanancialAccountList
+  ) {
+    Map<String, String> mapOfAccountNumberAndOwnership = new Map<String, String>();
+    for (FinServ__FinancialAccount__c finAcc : finanancialAccountList) {
+      mapOfAccountNumberAndOwnership.put(
+        finAcc.FinServ__FinancialAccountNumber__c,
+        finAcc.Ownership__c
+      );
+    }
+    return mapOfAccountNumberAndOwnership;
   }
 }

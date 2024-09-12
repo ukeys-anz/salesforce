@@ -133,7 +133,7 @@ public with sharing class IDRCaseActionsHelper {
       IDRConstants.ESCALATED_STATUS
     };
     for (Case c : records) {
-      Case oldRec = oldMap.get(c.Id) != null ? oldMap.get(c.Id) : null;
+      Case oldRec = oldMap.get(c.Id);
 
       if (
         oldRec.Status == IDRConstants.ON_HOLD_STATUS &&

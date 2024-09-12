@@ -41,7 +41,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records, null);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
-    GetHelpCaseActions.populateOCVOnComplaint(records);
+    GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
     GetHelpCaseActions.setOwnerToIDOpsQueue(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
@@ -137,7 +137,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
         (Map<Id, Case>) oldMap
       )
     ) {
-      GetHelpCaseActions.populateOCVOnComplaint(records);
+      GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     }
     GetHelpCaseActions.validateCreditReferralOwnershipChange(
       records,
@@ -179,13 +179,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
     CaseCEController.publishCloudEvents(records, (Map<Id, Case>) oldMap);
-    GetHelpCaseActions.createFraudCheckCase(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
-    //Update ID Ops Case's status (parent) following the Fraud Check case's (child) status update. Using afterUpdate context as the child must be closed before the parent's status can be updated.
-    GetHelpCaseActions.updateIdOpsCaseStatus(records, (Map<Id, Case>) oldMap);
-    // craete task for dispute cases on case closure
     GetHelpCaseActions.createTaskOnDisputeCaseClosure(
       (List<Case>) records,
       (Map<Id, Case>) oldMap
@@ -218,7 +211,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     if (!System.isFuture()) {
       Set<Id> bugIdSet = new Set<Id>();
       for (Case c : (List<Case>) records) {
-        if (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID) {
+        if (c.RecordTypeId == RTCase.generalInquiry) {
           bugIdSet.add(c.Related_Bug__c);
         }
       }

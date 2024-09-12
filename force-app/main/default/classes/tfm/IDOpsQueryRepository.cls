@@ -30,7 +30,9 @@ public with sharing class IDOpsQueryRepository {
         OnboardingVerificationFailedReason__c,
         Status,
         PersonaId__c,
-        Status_Update_Error__c
+        Status_Update_Error__c,
+        IsClosed,
+        CaseNumber
       FROM Case
       WHERE ID = :recordId
       WITH USER_MODE

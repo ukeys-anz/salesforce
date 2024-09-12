@@ -41,11 +41,11 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
             <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
@@ -99,11 +99,6 @@
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
-        <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -114,7 +109,7 @@
         <sharedTo>
             <role>Business_Admin</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -138,7 +133,12 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -228,36 +228,10 @@
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
         </sharedTo>
-        <booleanFilter>(1 OR 2 OR 3) AND (4 OR 5 OR 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Customer Complaint,Non-Customer Complaint</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Unauthenticated Enquiry</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>CFMS Migrated Case</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>IsEscalated</field>
-            <operation>equals</operation>
-            <value>True</value>
-        </criteriaItems>
-        <criteriaItems>
-            <field>Status</field>
-            <operation>equals</operation>
-            <value>Closed</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -277,6 +251,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>General_Enquiry_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>provide read and write access to general enquiry case</description>
+        <label>General Enquiry RW</label>
+        <sharedTo>
+            <group>General_Enquiry_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_Coach_And_Coach_Lead_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback, and AEM cases are to be shared with Coach Public Group with Read/Write access.</description>
@@ -284,11 +273,11 @@
         <sharedTo>
             <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,Customer Feedback,BPAY,Account Closure</value>
+            <value>Account Closure,Direct Debit,Direct Entry,Customer Feedback,BPAY,ATM,ANZ Plus Complaint,General Enquiry,NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -308,7 +297,22 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -320,7 +324,7 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
-        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR (9 AND 10 AND 11) OR 12</booleanFilter>
+        <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR (9 AND 10 AND 11) OR 12 OR (13 AND 14 AND (15 AND 16) AND 17)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -381,6 +385,31 @@
             <operation>equals</operation>
             <value>Credit Referral</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
@@ -391,11 +420,11 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,Customer Feedback,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP,BPAY,Account Closure</value>
+            <value>Account Closure,Direct Debit,Direct Entry,Customer Feedback,BPAY,ATM,ANZ Plus Complaint,General Enquiry,KYC QA,NPP</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -415,7 +444,22 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -426,10 +470,36 @@
         <sharedTo>
             <role>Card_Dispute_Agent</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,Customer Feedback,BPAY,Profile Update</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -440,14 +510,30 @@
         <sharedTo>
             <role>FinCrime_Agent</role>
         </sharedTo>
+        <booleanFilter>(1 AND 2 AND (3 AND 4) AND 5)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
             <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
@@ -506,12 +592,53 @@
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,KYC QA,Scam,Identity,PIN Recovery,Selfie Recovery</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RTs_JoinOperationsReader_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Criteria based sharing rule to provide Read Only access to Onboarding , PIN and Selfie Cases to users under Join Operations Reader Role.</description>
+        <label>RTs-JoinOperationsReader-RO</label>
+        <sharedTo>
+            <role>Join_Operations_Reader</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ID Ops Assistance,PIN Recovery,Fraud Check,Selfie Recovery</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_3rdPartyMobileSupport_RW</fullName>
@@ -633,10 +760,36 @@
         <sharedTo>
             <role>Join_Lead</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Direct Debit,Recipient/Mule,ATM,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
+            <value>Customer Feedback,Direct Entry,Fraud,General Enquiry,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,ATM,KYC QA,Scam,Identity</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -677,14 +830,30 @@
         <sharedTo>
             <roleAndSubordinates>Join_Lead</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 AND 2 AND (3 AND 4) AND 5</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Non-Customer Complaint</value>
+            <value>Customer Complaint,Non-Customer Complaint</value>
         </criteriaItems>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
             <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>notEqual</operation>
+            <value>Closed</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
             <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
@@ -890,6 +1059,36 @@
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Card</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Complaint_Unauth_RT</fullName>
+        <accessLevel>Edit</accessLevel>
+        <label>Complaint Unauth RT</label>
+        <sharedTo>
+            <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Unauthenticated Enquiry</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>False</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsEscalated</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Status</field>
+            <operation>equals</operation>
+            <value>Closed</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

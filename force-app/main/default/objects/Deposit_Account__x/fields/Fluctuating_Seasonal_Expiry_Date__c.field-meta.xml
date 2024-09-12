@@ -6,9 +6,9 @@
     <description>The end date of a calendar year a given limit applies</description>
     <externalDeveloperName>FluctuatingSeasonalExpiryDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Fluctuating/Seasonal Expiry Date</label>
     <length>50</length>
     <required>false</required>

@@ -34,6 +34,12 @@
     <label>Coach Nudge Unassigned</label>
     <queue>Coach_Nudge_Open_Task_Queue</queue>
     <sharedTo>
-        <allInternalUsers/>
+        <role>BOH_Coach</role>
+        <role>Business_Admin</role>
+        <role>Coach</role>
+        <role>Coach_Lead</role>
+        <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
+        <role>Support_Coach</role>
     </sharedTo>
 </ListView>

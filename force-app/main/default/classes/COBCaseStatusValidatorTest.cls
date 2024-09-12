@@ -7,9 +7,6 @@
 public with sharing class COBCaseStatusValidatorTest {
   private static final Faker FAKER = new Faker('AU');
   private static final String EMPTY_STR = '';
-  private static final String COBCASE_SUBJECT_WATCHLIST = 'ID Ops Assistance - Daon Fallout: WATCHLIST_HIT';
-  private static final String FRAUDX_USER = 'FraudX_Agent_Test';
-  private static final String ERROR_SHOULD_BE_NO_CHILD = 'There should be no child cases';
   private static final String FAILED_REASON = 'Selfie fail - selfie image is not clear enough to match';
   private static final String DAON_FALLOUT_NO_MATCH_SUBJECT = 'ID Ops Assistance - Daon Fallout: NO_MATCH';
   private static Lib_MockProvider cobCaseRepoMock;
@@ -22,16 +19,16 @@ public with sharing class COBCaseStatusValidatorTest {
 
   static Case cobIdOpsCase = new Case(
     Id = cobIdOpsCaseId,
-    RecordTypeId = GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID,
-    Status = GetHelpConstants.COB_DAON_FAILED_STATUS,
+    RecordTypeId = RTCase.idOpsAssistance,
+    Status = COBCaseConstants.COB_DAON_FALLOUT_STATUS,
     Subject = DAON_FALLOUT_NO_MATCH_SUBJECT,
     PersonaId__c = FAKER.randomString(15),
     Status_Update_Error__c = 'Previous case status update error'
   );
 
   static Case cobFraudCheckCase = new Case(
-    RecordTypeId = GetHelpConstants.FRAUD_CHECK_RT_ID,
-    Status = GetHelpConstants.COB_DAON_FAILED_STATUS,
+    RecordTypeId = RTCase.fraudCheck,
+    Status = COBCaseConstants.COB_DAON_FALLOUT_STATUS,
     Subject = DAON_FALLOUT_NO_MATCH_SUBJECT,
     PersonaId__c = FAKER.randomString(15),
     Status_Update_Error__c = 'Previous case status update error'
@@ -42,12 +39,12 @@ public with sharing class COBCaseStatusValidatorTest {
     registerMocks();
     cobCaseRepoMock.mock('queryCountOpenChildren', 0);
 
-    cobIdOpsCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
+    cobIdOpsCase.Status = COBCaseConstants.COB_FAILED_OK_STATUS;
     cobIdOpsCase.OnboardingVerificationFailedReason__c = FAILED_REASON;
 
     Test.startTest();
     String errorMsg = COBCaseStatusValidator.validateCaseStatusChange(
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       cobIdOpsCase
     );
     Test.stopTest();
@@ -75,12 +72,12 @@ public with sharing class COBCaseStatusValidatorTest {
     registerMocks();
     cobCaseRepoMock.mock('queryCountOpenChildren', 0);
 
-    cobIdOpsCase.Subject = COBCaseStatusPathController.DAON_FALLOUT_WATCHLIST_HIT_SUBJECT;
-    cobIdOpsCase.Status = GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
+    cobIdOpsCase.Subject = COBCaseConstants.DAON_FALLOUT_WATCHLIST_HIT_SUBJECT;
+    cobIdOpsCase.Status = COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS;
 
     Test.startTest();
     String errorMsg = COBCaseStatusValidator.validateCaseStatusChange(
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       cobIdOpsCase
     );
     Test.stopTest();
@@ -190,11 +187,11 @@ public with sharing class COBCaseStatusValidatorTest {
     //mock cob with DVS = PASS
     cobCaseRepoMock.mock('isCobEquifaxDvsPass', true);
 
-    cobIdOpsCase.Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS;
+    cobIdOpsCase.Status = COBCaseConstants.COB_ID_CHECK_OK_STATUS;
 
     Test.startTest();
     String errorMsg = COBCaseStatusValidator.validateCaseStatusChange(
-      GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
+      COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS,
       cobIdOpsCase
     );
     Test.stopTest();
@@ -214,11 +211,11 @@ public with sharing class COBCaseStatusValidatorTest {
     //mock cob with DVS != PASS
     cobCaseRepoMock.mock('isCobEquifaxDvsPass', false);
 
-    cobIdOpsCase.Status = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS;
+    cobIdOpsCase.Status = COBCaseConstants.COB_ID_CHECK_OK_STATUS;
 
     Test.startTest();
     String errorMsg = COBCaseStatusValidator.validateCaseStatusChange(
-      GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
+      COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS,
       cobIdOpsCase
     );
     Test.stopTest();
@@ -238,8 +235,8 @@ public with sharing class COBCaseStatusValidatorTest {
     //mock cob with DVS != PASS
     cobCaseRepoMock.mock('isCobEquifaxDvsPass', false);
 
-    String sourceStatus = GetHelpConstants.COB_EQUIFAX_FAILED_STATUS;
-    String destinationStatus = GetHelpConstants.COB_EQUIFAX_PASSED_STATUS;
+    String sourceStatus = COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS;
+    String destinationStatus = COBCaseConstants.COB_ID_CHECK_OK_STATUS;
 
     cobIdOpsCase.Status = destinationStatus;
 
@@ -272,7 +269,7 @@ public with sharing class COBCaseStatusValidatorTest {
 
     Test.startTest();
     String errorMsg = COBCaseStatusValidator.validateCaseStatusChange(
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       cobIdOpsCase
     );
     Test.stopTest();

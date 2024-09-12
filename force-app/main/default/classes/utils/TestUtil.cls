@@ -178,11 +178,10 @@ public with sharing class TestUtil {
     List<User> users
   ) {
     List<PermissionSetAssignment> psAssignments = new List<PermissionSetAssignment>();
-    Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
     List<String> lstPSGIds = new List<String>();
 
     for (String permissionSetGroupName : psgNames) {
-      PermissionSetGroup psg = pSetGroupMap.get(permissionSetGroupName);
+      PermissionSetGroup psg = QueryPSG.get(permissionSetGroupName);
       lstPSGIds.add(psg.Id);
       for (User currentUser : users) {
         PermissionSetAssignment psa = new PermissionSetAssignment(
@@ -309,7 +308,7 @@ public with sharing class TestUtil {
       recordMap.put(field, value);
     }
 
-    String objectName = record.getSObjectType().getDescribe().Name;
+    String objectName = record.getSObjectType().toString();
     Type objectType = Type.forName(objectName);
     String serializedRecord = JSON.serialize(recordMap);
 

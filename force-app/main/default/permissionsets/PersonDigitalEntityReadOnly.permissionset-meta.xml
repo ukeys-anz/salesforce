@@ -116,8 +116,12 @@
         <apexClass>ManageOpsWorkflowActionController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-     <classAccesses>
+    <classAccesses>
         <apexClass>ManageOpsWorkflowRequestModel</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OnboardingFalloutWorkflowHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <customMetadataTypeAccesses>
@@ -314,4 +318,8 @@
         <recordType>Case.Selfie_Recovery</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>TFMManageOpenBankingPage</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

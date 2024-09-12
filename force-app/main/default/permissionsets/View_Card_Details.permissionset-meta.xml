@@ -5,10 +5,14 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>ANZx_View_Cards</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>Provides access to the apex classes required for calling the cards API. Also provides access to the custom setting for viewing cards.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>View Card Details</label>
+    <tabSettings>
+        <tab>Card_Details</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
 </PermissionSet>

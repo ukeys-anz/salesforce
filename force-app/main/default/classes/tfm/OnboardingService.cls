@@ -19,7 +19,16 @@ public with sharing virtual class OnboardingService extends Service {
     List<OnboardingRequestModel> onboardingModelList
   ) {
     Map<String, String> headers = new Map<String, String>();
+    Logger.debug(
+      'Before token exchange time stamp for Document API - ' + System.now()
+    );
+
     headers = commonFuncs.setCommonHeadersInMap(staffModel);
+
+    Logger.debug(
+      'After token exchange time stamp for Document API - ' + System.now()
+    );
+    Logger.saveLog();
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_OnboardingUpload_API,
@@ -43,7 +52,6 @@ public with sharing virtual class OnboardingService extends Service {
     Map<String, String> headers = new Map<String, String>();
     headers = commonFuncs.setCommonHeadersInMap(staffModel);
     headers.put('action', staffModel.apiScopesRequested);
-    
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       System.Label.MS_OnboardingUpdateStatus_API,

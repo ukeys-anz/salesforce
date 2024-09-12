@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import performOnboardingOperations from "@salesforce/apex/PinAndSelfieWorkflowController.performOnboardingOperations";
 import fetchOnboardingDocuments from "@salesforce/apex/PinAndSelfieWorkflowController.fetchOnboardingDocumentsLWC";
 import apiCallToFetchImages from "@salesforce/apex/PinAndSelfieWorkflowController.apiCallToFetchImagesLWC";
@@ -8,11 +8,12 @@ import daonMaxPollingCount from "@salesforce/label/c.DAONMaxPollingCount";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import ApprovalModal from "c/manageOpsWorkflowApproval";
 import RejectModal from "c/manageOpsWorkflowReject";
-import { NavigationMixin } from "lightning/navigation";
+import { getRecord, notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 
-export default class PinAndSelfieWorkflow extends NavigationMixin(
-  LightningElement
-) {
+export default class PinAndSelfieWorkflow extends LightningElement {
+  @wire(getRecord, { recordId: "$recordId", fields: ["Case.Status"] })
+  record;
+
   @api recordId;
   noAccess = false;
   @track workflowDetails = {};
@@ -40,7 +41,7 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
   performOperations() {
     this.componentSpinner = true;
     performOnboardingOperations({ recordId: this.recordId })
-      .then((result) => {
+      .then(async (result) => {
         this.workflowDetails = JSON.parse(JSON.stringify(result));
         if (this.workflowDetails.responseMsg === "NoAccessAegisFeatures") {
           this.noAccess = true;
@@ -56,9 +57,16 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
           return;
         }
 
-        if (this.workflowDetails.draftCVIDs.length !== 0) {
-          this.pollingMethod();
+        if (
+          this.workflowDetails.draftCVIDs &&
+          this.workflowDetails.draftCVIDs.length !== 0
+        ) {
+          this.componentSpinner = false;
+          await this.pollingMethod();
         }
+
+        this.formFilesToRender();
+
         if (this.workflowDetails.fileCreatedCounter !== 4) {
           this.stopSpinnerMethod();
         }
@@ -70,45 +78,44 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
           "Error occurred while fetching onboarding details.",
           "error"
         );
-      })
-      .finally(() => {
-        this.componentSpinner = false;
-        this.filesToRender = [
-          {
-            fileTitle: "Unprocessed Document Image",
-            currentFileType: this.workflowDetails.unProcessedImageData,
-            errorImage: this.onboardingDocumentErrorImage,
-            errorMessage: "User document not found",
-            changeStyle: !this.workflowDetails.unProcessedImageData
-              ? true
-              : false
-          },
-          {
-            fileTitle: "Processed Document Image",
-            currentFileType: this.workflowDetails.processedImageData,
-            errorImage: this.onboardingDocumentErrorImage,
-            errorMessage: "User document not found",
-            changeStyle: !this.workflowDetails.processedImageData ? true : false
-          },
-          {
-            fileTitle: "Enrolled Selfie",
-            currentFileType: this.workflowDetails.extractedFaceData,
-            errorImage: this.onboardingSelfieErrorImage,
-            errorMessage: "Enrolled selfie not found",
-            changeStyle: this.workflowDetails.extractedFaceData ? true : false
-          },
-          {
-            fileTitle: "Selfie to be Verified",
-            currentFileType: this.workflowDetails.selfieData,
-            errorImage: this.onboardingSelfieErrorImage,
-            errorMessage: "Selfie to be verified not found",
-            changeStyle: this.workflowDetails.selfieData ? true : false
-          }
-        ];
       });
   }
 
-  callFetchOnboardingDocuments() {
+  formFilesToRender() {
+    this.componentSpinner = false;
+    this.filesToRender = [
+      {
+        fileTitle: "Unprocessed Document Image",
+        currentFileType: this.workflowDetails.unProcessedImageData,
+        errorImage: this.onboardingDocumentErrorImage,
+        errorMessage: "User document not found",
+        changeStyle: !this.workflowDetails.unProcessedImageData ? true : false
+      },
+      {
+        fileTitle: "Processed Document Image",
+        currentFileType: this.workflowDetails.processedImageData,
+        errorImage: this.onboardingDocumentErrorImage,
+        errorMessage: "User document not found",
+        changeStyle: !this.workflowDetails.processedImageData ? true : false
+      },
+      {
+        fileTitle: "Enrolled Selfie",
+        currentFileType: this.workflowDetails.selfieData,
+        errorImage: this.onboardingSelfieErrorImage,
+        errorMessage: "Enrolled selfie not found",
+        changeStyle: this.workflowDetails.selfieData ? true : false
+      },
+      {
+        fileTitle: "Selfie to be Verified",
+        currentFileType: this.workflowDetails.extractedFaceData,
+        errorImage: this.onboardingSelfieErrorImage,
+        errorMessage: "Selfie to be verified not found",
+        changeStyle: this.workflowDetails.extractedFaceData ? true : false
+      }
+    ];
+  }
+
+  async callFetchOnboardingDocuments() {
     fetchOnboardingDocuments({
       workflowDetailsJSON: JSON.stringify(this.workflowDetails)
     })
@@ -126,27 +133,35 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
   }
 
   pollingMethod() {
-    //eslint-disable-next-line @lwc/lwc/no-async-operation
-    this._interval = setInterval(() => {
-      if (
-        this.callCount < this.maxCalls &&
-        this.workflowDetails.filesCreatedCounter !== 4
-      ) {
-        this.callFetchOnboardingDocuments();
-        this.callCount += 1;
-      } else {
-        clearInterval(this._interval);
-        if (this.apiCallMade) {
-          this.stopSpinnerMethod();
-          return;
+    return new Promise((resolve, reject) => {
+      //eslint-disable-next-line @lwc/lwc/no-async-operation
+      this._interval = setInterval(async () => {
+        try {
+          if (
+            this.callCount < this.maxCalls &&
+            this.workflowDetails.filesCreatedCounter !== 4
+          ) {
+            await this.callFetchOnboardingDocuments();
+            this.callCount += 1;
+          } else {
+            clearInterval(this._interval);
+            if (this.apiCallMade) {
+              this.stopSpinnerMethod();
+              return;
+            }
+            //check for all flags, form the body and then make a API call
+            await this.makeAPICallToFetchImages();
+            resolve();
+          }
+        } catch (error) {
+          clearInterval(this._interval);
+          reject(error);
         }
-        //check for all flags, form the body and then make a API call
-        this.makeAPICallToFetchImages();
-      }
-    }, 5000);
+      }, 5000);
+    });
   }
 
-  makeAPICallToFetchImages() {
+  async makeAPICallToFetchImages() {
     apiCallToFetchImages({
       workflowDetailsJSON: JSON.stringify(this.workflowDetails)
     })
@@ -156,8 +171,6 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
           this.workflowDetails.draftCVIDs = [];
           this.callCount = 0;
           this.apiCallMade = true;
-          //call polling
-          this.pollingMethod();
         } else {
           this.showNotification(
             "Error",
@@ -217,7 +230,8 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        this.performOperations();
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
       }
     });
   }
@@ -242,30 +256,20 @@ export default class PinAndSelfieWorkflow extends NavigationMixin(
       },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        this.performOperations();
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
       }
     });
   }
 
-  handleRefresh() {
-    window.location.reload();
-  }
   get isApprovButtonDisable() {
     return (
       this.workflowDetails.isPinHistoryCheckFailed ||
-      this.workflowDetails.unProcessedImageData.isImageNotFound ||
-      this.workflowDetails.processedImageData.isImageNotFound ||
-      this.workflowDetails.selfieData.isImageNotFound ||
-      this.workflowDetails.extractedFaceData.isImageNotFound
+      this.workflowDetails.isCaseClosed
     );
   }
 
   get isRejectButtonDisable() {
-    return (
-      this.workflowDetails.unProcessedImageData.isImageNotFound ||
-      this.workflowDetails.processedImageData.isImageNotFound ||
-      this.workflowDetails.selfieData.isImageNotFound ||
-      this.workflowDetails.extractedFaceData.isImageNotFound
-    );
+    return this.workflowDetails.isCaseClosed;
   }
 }

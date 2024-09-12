@@ -30,6 +30,7 @@ public with sharing class PinAndSelfieWorkflowController {
 
     fetchOnboardingDocuments(workflowDetails);
     apiCallToFetchImages(workflowDetails);
+    OnboardingFalloutWorkflowHelper.insertDAONFileViewedLog(workflowDetails.fileTypesList, 'Case', workflowDetails.parentRecordReference);
     return workflowDetails;
   }
 
@@ -61,13 +62,17 @@ public with sharing class PinAndSelfieWorkflowController {
       .Daon_Auth_Request_Id__c;
     workflowDetails.idxRegistrationChallengeId = caseRecord
       .Daon_Reg_Challenge_Id__c;
+    workflowDetails.idxRequestId = caseRecord.Daon_Auth_Request_Id__c != null
+      ? caseRecord.Daon_Auth_Request_Id__c
+      : caseRecord.Daon_Reg_Challenge_Id__c;
     workflowDetails.isPinWorkflow = caseRecord.RecordType.DeveloperName ==
       TFMConstants.PIN_RECOVERY_API_NAME
       ? true
       : false;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
     workflowDetails.isPinHistoryCheckFailed = caseRecord.Pin_History_Check_Failed__c;
-
+    workflowDetails.isCaseClosed = caseRecord.IsClosed;
+    workflowDetails.parentRecordReference = caseRecord.CaseNumber;
     return workflowDetails;
   }
 
@@ -104,6 +109,7 @@ public with sharing class PinAndSelfieWorkflowController {
       workflowDetails,
       cvList
     );
+    workflowDetails.draftCVIDs = workflowDetails.getDraftCVIDs;
   }
 
   /**
@@ -134,18 +140,18 @@ public with sharing class PinAndSelfieWorkflowController {
     for (
       OnboardingWorkflowWrapper.FileTypes fileData : workflowDetails.fileTypesList
     ) {
-      if (fileData.isImageNotFound) {
+      if (fileData.isImageNotFound || fileData.isImageDraft) {
         filesNotFoundInCV.add(fileData.fileType);
       }
     }
     if (filesNotFoundInCV.isEmpty()) {
       return;
     }
-    List<OnboardingRequestModel> doanList = new List<OnboardingRequestModel>();
 
     List<OnboardingRequestModel> daonList = OnboardingFalloutWorkflowHelper.requestBodyAPICallout(
       workflowDetails
     );
+ 
     Map<String, Object> responseMap = OnboardingUtility.fetchOnboardingDocumentsAPI(
       workflowDetails.IDValue,
       daonList

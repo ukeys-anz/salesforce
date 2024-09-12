@@ -7,9 +7,9 @@
     <externalDeveloperName>InterestOnlyExpiryDate</externalDeveloperName>
     <externalId>false</externalId>
     <inlineHelpText>Expiry date of interest only term</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Interest Only Expiry Date</label>
     <length>50</length>
     <required>false</required>

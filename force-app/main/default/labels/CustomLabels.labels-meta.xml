@@ -401,7 +401,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Create_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations</value>
     </labels>
     <labels>
         <fullName>MS_Maintain_Party</fullName>
@@ -409,7 +409,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Maintain_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/individuals</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/individuals</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
@@ -465,7 +465,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Cards</shortDescription>
-        <value>callout:SF_MS_CH2/coach-banking/v1beta1/cards</value>
+        <value>callout:SF_MS_CH2/list-data/v1/listCards</value>
     </labels>
     <labels>
         <fullName>MS_Get_Card_Control_List</fullName>
@@ -489,7 +489,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
-        <value>callout:SF_MS_Fabric/cfaas/read/getdownloadurl</value>
+        <value>callout:SF_MS_CH2/cfaas/read/getdownloadurl</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>
@@ -561,7 +561,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_Address</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/search</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/search</value>
     </labels>
     <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
@@ -585,7 +585,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById_V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/format/</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/format/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -601,7 +601,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations/search-results?</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations/search-results?</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party_Params</fullName>
@@ -973,8 +973,7 @@ Feel free to reach out to us if you have any questions.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MatchingCredit</shortDescription>
-        <value>It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
+        <value>It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_MerchantCredit</fullName>
@@ -990,8 +989,7 @@ Feel free to reach out to us if you have any questions.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MerchantCredited</shortDescription>
-        <value>It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
+        <value>It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_OrderDetailsReviewed</fullName>
@@ -1006,8 +1004,7 @@ Feel free to reach out to us if you have any questions.</value>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-PreArbAccepted</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value>We&apos;ve finished our investigation and will send you an email with more information and our contact details.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_PreArbGrantedPartial</fullName>
@@ -1038,29 +1035,28 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-TalkOff</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_TransactionRecognized</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-TransactionRecognized</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Withdrawn</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Withdrawn</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. Please send us a message if you didn’t request this.</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Writeoff</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Writeoff</shortDescription>
-        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>Regex_Email</fullName>
@@ -1827,7 +1823,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -1835,7 +1831,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Diary Comments Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/diary-comments</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/diary-comments</value>
     </labels>
     <labels>
         <fullName>MLCRM_Lead_MisMatch_Warning_Message</fullName>
@@ -2113,7 +2109,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Financial Account Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/</value>
     </labels>
     <labels>
         <fullName>Fraudx_Generic_Customer_OCV_Id</fullName>
@@ -2332,14 +2328,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Postcode Lookup V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/lookup?postcode=</value>
     </labels>
     <labels>
         <fullName>MS_Validate_Address_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Validate Address V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/validate</value>
     </labels>
     <labels>
         <fullName>CCRM_Validate_Manual_Address</fullName>
@@ -2462,7 +2458,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Onboarding_InsufficientAccess_Message</shortDescription>
-        <value>You don't have required permission to perform this action.</value>
+        <value>You don&apos;t have required permission to perform this action.</value>
     </labels>
     <labels>
         <fullName>Onboarding_ServerError_Message</fullName>
@@ -2484,5 +2480,21 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>S2AccountEnabled created for releasing S2 Deliverable in Dormant</shortDescription>
         <value>true</value>
+    </labels>
+    <labels>
+        <fullName>CMOS_Chatter_Group_Name</fullName>
+        <categories>CMOS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CMOS Chatter Group Name</shortDescription>
+        <value>All CMOS Users</value>
+    </labels>
+    <labels>
+        <fullName>DAONImageReloadMaxRetryCount</fullName>
+        <categories>DAON</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DAONImageReloadMaxRetryCount</shortDescription>
+        <value>15</value>
     </labels>
 </CustomLabels>

@@ -7,9 +7,9 @@
     <description>Customer Review Flag</description>
     <externalDeveloperName>CustomerReview</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Customer Review (Y/N)</label>
     <securityClassification>Confidential</securityClassification>
     <type>Checkbox</type>

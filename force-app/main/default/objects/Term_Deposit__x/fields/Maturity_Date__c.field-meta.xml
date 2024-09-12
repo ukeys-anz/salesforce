@@ -6,9 +6,9 @@
     <description>Maturity Date</description>
     <externalDeveloperName>MaturityDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Maturity Date</label>
     <length>50</length>
     <required>false</required>

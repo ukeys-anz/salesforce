@@ -209,4 +209,17 @@ public with sharing class DateTimeUtils {
     }
     return businessDay;
   }
+
+  /**
+   *@description Returns age
+   * @param birthDate Date of Birth
+   * @return Integer age
+   */
+  public static Integer getAge(Date birthDate) {
+    if (birthDate == null || birthDate > Date.today()) {
+      return null;
+    }
+    Integer days = birthDate.daysBetween(Date.today());
+    return Integer.valueOf(days / 365.25);
+  }
 }

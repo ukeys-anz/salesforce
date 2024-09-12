@@ -13,6 +13,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Twilio_Details__c.Call_Transcript__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Twilio_Details__c.Chat_or_Call_SID__c</field>
         <readable>true</readable>
     </fieldPermissions>

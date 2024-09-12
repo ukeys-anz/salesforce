@@ -6,8 +6,12 @@
 @isTest
 public class MLCRMLeadActionsTest {
   static Lib_MockProvider leadActionsRepoMock;
+  static Lib_MockProvider territoryActionsRepoMock;
   static void registerMocks() {
     leadActionsRepoMock = Lib_MockProvider.forType(LeadActionsRepository.class);
+    territoryActionsRepoMock = Lib_MockProvider.forType(
+      TerritoryActionsRepository.class
+    );
   }
   @isTest
   static void testNoLongerNewLeads() {
@@ -29,7 +33,7 @@ public class MLCRMLeadActionsTest {
   }
 
   @isTest
-  static void testSetDefaultValue() {
+  static void testSetDefaultValueWithoutExpiryDate() {
     Lead leadrecord = new Lead(
       Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
       Expiry_Date__c = null,
@@ -76,6 +80,24 @@ public class MLCRMLeadActionsTest {
   }
 
   @isTest
+  static void testSetDefaultValueWithExpiryDate() {
+    Lead leadrecord = new Lead(
+      Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+      Expiry_Date__c = System.today() + 7,
+      Lead_Originator__c = MLCRMConstants.ORIGINATOR_MLCRM,
+      RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID
+    );
+    Test.startTest();
+    MLCRMLeadActions.setDefaultValue(new List<Lead>{ leadrecord });
+    System.assertEquals(
+      System.today() + 7,
+      leadrecord.Expiry_Date__c,
+      'Expiry_Date__c is not getting populated correctly when day is Saturday'
+    );
+    Test.stopTest();
+  }
+
+  @isTest
   static void testPopulatePrimaryFranchise() {
     registerMocks();
     Id newTerritoryID = Lib_FakeIdGenerator.getMockId(
@@ -88,7 +110,7 @@ public class MLCRMLeadActionsTest {
         Primary_Franchise_Owner__c = userInfo.getUserId()
       )
     };
-    leadActionsRepoMock.mock('getTerrritories', territoryList);
+    territoryActionsRepoMock.mock('getTerrritories', territoryList);
     Lead oldLeadRecord = new Lead(
       Id = leadID,
       Territory__c = Lib_FakeIdGenerator.getMockId(
@@ -113,6 +135,85 @@ public class MLCRMLeadActionsTest {
     );
   }
 
+  @isTest
+  static void testGetTerritoryUpdatedLeads() {
+    Id leadID = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType());
+    Lead oldLeadRecord = new Lead(
+      Id = leadID,
+      Territory__c = Lib_FakeIdGenerator.getMockId(
+        Schema.Territory__c.getSObjectType()
+      ),
+      Primary_Franchise_Owner__c = null
+    );
+    Map<Id, Lead> oldMap = new Map<Id, Lead>(new List<Lead>{ oldLeadRecord });
+    List<Lead> newLeadList = new List<Lead>{
+      new Lead(
+        Id = leadID,
+        RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID,
+        Territory__c = Lib_FakeIdGenerator.getMockId(
+          Schema.Territory__c.getSObjectType()
+        )
+      )
+    };
+    Test.startTest();
+    List<Lead> leadList = MLCRMLeadActions.getTerritoryUpdatedLeads(
+      newLeadList,
+      oldMap
+    );
+    Test.stopTest();
+    System.assertEquals(
+      false,
+      leadList.isEmpty(),
+      'Territory value is not updated on Lead'
+    );
+  }
+
+  @isTest
+  static void testGetRelatedTerritoryIds() {
+    Lead leadRecord = new Lead(
+      Territory__c = Lib_FakeIdGenerator.getMockId(
+        Schema.Territory__c.getSObjectType()
+      )
+    );
+    Test.startTest();
+    Set<ID> territoryIdsSet = MLCRMLeadActions.getRelatedTerritoryIds(
+      new List<Lead>{ leadRecord }
+    );
+    Test.stopTest();
+    System.assertEquals(
+      false,
+      territoryIdsSet.isEmpty(),
+      'Territory value is blank on Lead'
+    );
+  }
+
+  @isTest
+  static void testSetLeadPrimaryFranchiseOwner() {
+    Id territoryID = Lib_FakeIdGenerator.getMockId(
+      Schema.Territory__c.getSObjectType()
+    );
+    List<Territory__c> territoryList = new List<Territory__c>{
+      new Territory__c(
+        Id = territoryID,
+        Primary_Franchise_Owner__c = userInfo.getUserId()
+      )
+    };
+    Lead leadRecord = new Lead(
+      Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
+      RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID,
+      Territory__c = territoryID
+    );
+    List<Lead> leadList = new List<Lead>{ leadRecord };
+    Test.startTest();
+    MLCRMLeadActions.setLeadPrimaryFranchiseOwner(leadList, territoryList);
+    Test.stopTest();
+    System.assertNotEquals(
+      null,
+      leadRecord.Primary_Franchise_Owner__c,
+      'Primay Franchise Owner is not Poulated on Lead'
+    );
+  }
+
   // Test Method to validate if there is leads creation allowed as Field Team User
   @IsTest
   static void testValidateMLCRMLeadCreationForFieldTeam() {
@@ -121,7 +222,8 @@ public class MLCRMLeadActionsTest {
       Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
       RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID
     );
-    leadActionsRepoMock.mock('isSkipValidationUser', false);
+    leadActionsRepoMock.mock('isCurrentUserAdmin', false);
+    leadActionsRepoMock.mock('isAllowLeadCreationCustomPermission', false);
     Test.startTest();
     MLCRMLeadActions.validateMLCRMLeadCreation(new List<Lead>{ leadRecord });
     Test.stopTest();
@@ -148,12 +250,12 @@ public class MLCRMLeadActionsTest {
       Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
       RecordTypeId = MLCRMConstants.MLCRM_LEAD_RT_ID
     );
-    leadActionsRepoMock.mock('isSkipValidationUser', true);
+    leadActionsRepoMock.mock('isCurrentUserAdmin', true);
+    leadActionsRepoMock.mock('isAllowLeadCreationCustomPermission', true);
     Test.startTest();
     MLCRMLeadActions.validateMLCRMLeadCreation(new List<Lead>{ leadRecord });
     Test.stopTest();
 
-    List<Database.Error> errors = leadRecord.getErrors();
     System.assertEquals(
       0,
       leadRecord.getErrors().size(),

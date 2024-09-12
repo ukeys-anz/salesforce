@@ -23,7 +23,7 @@ public with sharing class DAONFilesCleanup {
     Integer filesElapsedByHour,
     Integer filesElapsedByMinutes
   ) {
-    if(!QUERY_REPOSITORY.checkCustomPermission('DAONFileCleanup')) {
+    if (!QUERY_REPOSITORY.checkCustomPermission('DAONFileCleanup')) {
       Logger.info('User does not have permission to delete DAON Files');
       Logger.saveLog();
       return;
@@ -50,6 +50,11 @@ public with sharing class DAONFilesCleanup {
       DmlRepository.ALLOW_PARTIAL,
       DmlRepository.USER_MODE
     );
+
+    if (!listContentDocument.isEmpty()) {
+      Database.emptyRecycleBin(listContentDocument);
+    }
+
     Logger.error(
       'Error occured while updating deleting files.',
       results,

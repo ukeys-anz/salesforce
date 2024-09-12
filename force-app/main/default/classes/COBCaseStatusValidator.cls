@@ -19,63 +19,59 @@ public with sharing class COBCaseStatusValidator {
 
   //Invalid COB Case statuses transions for ID Ops Assistance record type
   public static final Map<String, List<String>> ID_OPS_STATUSES_INVALID_TRANSITION_MAP = new Map<String, List<String>>{
-    GetHelpConstants.COB_DAON_FAILED_STATUS => new List<String>{
-      GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
-      GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_DAON_FALLOUT_STATUS => new List<String>{
+      COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS,
+      COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+      COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
     },
-    GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => new List<String>{
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
-      GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-      GetHelpConstants.COB_FAILED_OK_STATUS,
-      GetHelpConstants.COB_POTENTIAL_FRAUD_STATUS,
-      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS => new List<String>{
+      COBCaseConstants.COB_DAON_FALLOUT_STATUS,
+      COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS,
+      COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+      COBCaseConstants.COB_FAILED_OK_STATUS,
+      COBCaseConstants.COB_POTENTIAL_FRAUD_STATUS,
+      COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
     },
-    GetHelpConstants.COB_EQUIFAX_FAILED_STATUS => new List<String>{
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS,
-      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS => new List<String>{
+      COBCaseConstants.COB_DAON_FALLOUT_STATUS,
+      COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS,
+      COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
     }
   };
 
   //Invalid COB Case statuses transions for Fraud Check record type
   public static final Map<String, List<String>> FRAUD_CHECK_STATUSES_INVALID_TRANSITION_MAP = new Map<String, List<String>>{
-    GetHelpConstants.COB_DAON_FAILED_STATUS => new List<String>{
-      GetHelpConstants.COB_EQUIFAX_FAILED_STATUS,
-      GetHelpConstants.COB_EQUIFAX_PASSED_STATUS
+    COBCaseConstants.COB_DAON_FALLOUT_STATUS => new List<String>{
+      COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS
     },
-    GetHelpConstants.COB_EQUIFAX_FAILED_STATUS => new List<String>{
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
-      GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS
+    COBCaseConstants.COB_EQUIFAX_FALLOUT_STATUS => new List<String>{
+      COBCaseConstants.COB_DAON_FALLOUT_STATUS
     }
   };
 
   //A map for Invalid COB Case statuses transions by record type
   public static final Map<Id, Map<String, List<String>>> INVALID_TRANSITION_MAP_PER_RECORD_TYPE = new Map<Id, Map<String, List<String>>>{
-    GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID => ID_OPS_STATUSES_INVALID_TRANSITION_MAP,
-    GetHelpConstants.FRAUD_CHECK_RT_ID => FRAUD_CHECK_STATUSES_INVALID_TRANSITION_MAP
+    RTCase.idOpsAssistance => ID_OPS_STATUSES_INVALID_TRANSITION_MAP,
+    RTCase.fraudCheck => FRAUD_CHECK_STATUSES_INVALID_TRANSITION_MAP
   };
 
   //Closed COB Case statuses for ID Ops Assistance record type
   public static final List<String> ID_OPS_CLOSED_STATUSES = new List<String>{
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_ID_CHECK_OK_STATUS,
+    COBCaseConstants.COB_FAILED_OK_STATUS,
+    COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
   //Closed COB Case statuses for Fraud Check record type
   public static final List<String> FRAUD_CHECK_CLOSED_STATUSES = new List<String>{
-    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS,
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS,
-    GetHelpConstants.COB_FAILED_OK_STATUS,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+    COBCaseConstants.COB_NOT_A_FRAUD_STATUS,
+    COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
   //A map for Closed COB Case statuses by record type
   public static final Map<Id, List<String>> CLOSED_STATUSES_MAP_PER_RECORD_TYPE = new Map<Id, List<String>>{
-    GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID => ID_OPS_CLOSED_STATUSES,
-    GetHelpConstants.FRAUD_CHECK_RT_ID => FRAUD_CHECK_CLOSED_STATUSES
+    RTCase.idOpsAssistance => ID_OPS_CLOSED_STATUSES,
+    RTCase.fraudCheck => FRAUD_CHECK_CLOSED_STATUSES
   };
 
   /**
@@ -109,7 +105,7 @@ public with sharing class COBCaseStatusValidator {
     }
 
     if (
-      cobCase.Status == GetHelpConstants.COB_EQUIFAX_PASSED_STATUS &&
+      cobCase.Status == COBCaseConstants.COB_ID_CHECK_OK_STATUS &&
       COB_CASE_REPO.isCurrentUserJoinLead() == false &&
       COB_CASE_REPO.isCobEquifaxDvsPass(cobCase.Id) == false
     ) {
@@ -134,8 +130,8 @@ public with sharing class COBCaseStatusValidator {
   public static Boolean isInWatchList(Case cobCase) {
     return String.IsNotBlank(cobCase.Subject) &&
       cobCase.Subject.contains(
-        COBCaseStatusPathController.DAON_FALLOUT_WATCHLIST_HIT_SUBJECT
+        COBCaseConstants.DAON_FALLOUT_WATCHLIST_HIT_SUBJECT
       ) &&
-      cobCase.Status == GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS;
+      cobCase.Status == COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS;
   }
 }
