@@ -35,7 +35,8 @@ jobs:
           repository: anzx/salesforce-doc-gen
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
-          ref: master
+          ref: e2ea86e0a326309dd6422d866e70d1f35b4d227b
+          # this is a particular commit on master. Change this when a new plugin version is required for doc:fieldsaccessdiff
 
       - name: Install npm packages
         working-directory: salesforce
