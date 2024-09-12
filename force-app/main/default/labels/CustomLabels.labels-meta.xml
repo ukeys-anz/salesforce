@@ -2493,4 +2493,25 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>CMOS Chatter Group Name</shortDescription>
         <value>All CMOS Users</value>
     </labels>
+    <labels>
+        <fullName>EDRM_Business_Streams_Mapping</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Business Streams Mapping</shortDescription>
+        <value>Commercial Lending:CMOS_CS_CL</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_DEV</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_DEV</shortDescription>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_PROD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_PROD</shortDescription>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+    </labels>
 </CustomLabels>
