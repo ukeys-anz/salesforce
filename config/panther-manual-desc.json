@@ -1611,6 +1611,7 @@
         "Email",
         "Fax",
         "Name",
+        "Name__c",
         "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",

@@ -6,6 +6,12 @@
 @IsTest
 private class CCRMContactActionsTest {
   static Faker faker = new Faker('AU');
+  static Lib_MockProvider contactRepoMock;
+  static void registerMocks() {
+    contactRepoMock = Lib_MockProvider.forType(
+      CommercialContactRepository.class
+    );
+  }
 
   @TestSetup
   static void makeData() {
@@ -68,7 +74,8 @@ private class CCRMContactActionsTest {
         new Contact(
           LastName = faker.person.lastName(),
           AccountId = prospect.Id,
-          Phone = faker.person.phone(true, false)
+          Phone = faker.person.phone(true, false),
+          Name__c = faker.person.lastName()
         )
       );
     }
@@ -155,7 +162,8 @@ private class CCRMContactActionsTest {
         new Contact(
           LastName = faker.person.lastName(),
           AccountId = activeAccount.Id,
-          Phone = faker.person.phone(true, false)
+          Phone = faker.person.phone(true, false),
+          Name__c = faker.person.lastName()
         )
       );
     }
@@ -174,6 +182,50 @@ private class CCRMContactActionsTest {
     System.assert(
       newContact.hasErrors(),
       'Banker should not be able to add more than 10 contacts to a active Account'
+    );
+  }
+
+  @isTest
+  static void testPopulateLastName() {
+    List<Contact> conList = new List<Contact>{
+      new Contact(
+        Id = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType()),
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType()),
+        Name__c = 'Sample Contact',
+        RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID
+      )
+    };
+
+    Test.startTest();
+    CCRMContactActions.populateLastName(conList);
+    Test.stopTest();
+
+    Assert.isNotNull(conList[0].LastName, 'Last Name not updated');
+  }
+
+  @isTest
+  static void testPopulateName() {
+    registerMocks();
+    List<Contact> conList = new List<Contact>{
+      new Contact(
+        Id = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType()),
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType()),
+        LastName = 'Sample Contact',
+        RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID,
+        Name__c = 'Danny'
+      )
+    };
+
+    contactRepoMock.mock('getUserName', 'ocvintegration.user@anzx.com');
+
+    Test.startTest();
+    CCRMContactActions.populateName(conList);
+    Test.stopTest();
+
+    Assert.areEqual(
+      conList[0].LastName,
+      conList[0].Name__c,
+      'Contact name not get updated'
     );
   }
 }
