@@ -12,11 +12,12 @@ echo "ARTIFACTORY_ARTIFACT_LINK=$ARTIFACTORY_ARTIFACT_LINK"
 
 echo "Pulling artifact from artifactory..."
 
+# Get zip from Artifactory
 if ! response=$(wget --server-response -P artifactory_success_output/ "$ARTIFACTORY_ARTIFACT_LINK" 2>&1); then
     echo "Error when pulling artifact from artifactory: $response"
 fi
 
-# Get zip from Artifactory
+# Evaluate response from artifactory and unzip artifact
 status_code=$(echo "$response" | awk '/HTTP\// {print $2}' | tail -n 1)
 if [ -n "$status_code" ]; then
     if [ "$status_code" -eq 200 ]; then
@@ -41,13 +42,14 @@ echo "Downloading files from GCS for the objects..."
 object_array=($(find "$SFDATASYNC_SHA_OBJECT_FIELDS/" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
 for object in "${object_array[@]}"; do
     if ! output=$(gsutil -m cp -r gs://$2/$object gcs_bucket 2>&1); then
-        echo "$output"
         if echo "$output" | grep -q "No URLs matched"; then
             echo "No files or folders matched, but continuing without error."
         else
             echo "An error occurred during gsutil copy."
             exit 1
         fi
+    else
+        echo "$output"
     fi
 done
 
@@ -69,13 +71,14 @@ elif [ -n "$diff_output" ]; then
     echo "Cleaning up objects in GCS and uploading artifact..."
     for object in "${object_array[@]}"; do
         if ! output=$(gcloud storage rm -r gs://$2/$object/** 2>&1); then
-            echo "$output"
             if echo "$output" | grep -q "The following URLs matched no objects or files"; then
                 echo "No files or folders found to remove."
             else
                 echo "An error occurred during gsutil copy."
                 exit 1
             fi
+        else
+            echo "$output"
         fi
         gsutil -m cp -r $SFDATASYNC_SHA_OBJECT_FIELDS/$object/* gs://$2/$object/
     done
