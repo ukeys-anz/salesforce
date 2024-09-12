@@ -35,7 +35,7 @@ public with sharing class LoanApplicantActions {
 
   /**
    * @description Sets the Account Sync Status picklist value from Map
-   * @param accountMap map of Account Id and Sync Status
+   * @param loanApplicants LoanApplicants list
    * @return List<Account> accountList updated accountList
    */
   public static List<Account> updateAccountSyncStatus(
