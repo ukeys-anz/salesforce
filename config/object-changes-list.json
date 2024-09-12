@@ -3,7 +3,11 @@
     "Account",
     "User",
     "Case",
-    "Complaint_Resolution__c"
+    "Complaint_Resolution__c",
+    "PicklistValueInfo",
+    "Complaint_Resolution__History",
+    "RecordType",
+    "CaseHistory"
   ],
   "odaseva_object_whitelist": [
     "Account",

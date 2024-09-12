@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - develop
+      - feature/object-changes-workflow-1
 permissions:
   contents: "read"
   id-token: "write"
@@ -14,7 +15,7 @@ env:
 
 jobs:
   upload_object_changes:
-    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
+    #if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
