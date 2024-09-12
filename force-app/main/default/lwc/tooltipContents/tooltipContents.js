@@ -190,6 +190,5 @@ const TOOLTIP_MAP = {
 
 //this method is use to fetch the tooltip content dynamically based on the resourcename
 export function fetchTooltipContent(resourceName) {
-  let tooltipContent = resourceName ? TOOLTIP_MAP[resourceName] : "";
-  return tooltipContent;
+    return resourceName ? TOOLTIP_MAP[resourceName] : "";
 }

@@ -13,7 +13,7 @@ export default class DynamicTooltipUtil extends LightningElement {
         ".tooltip-content-markup"
       );
       if (tooltipContentMarkup) {
-        tooltipContentMarkup.innerHTML = "";
+        // eslint-disable-next-line @lwc/lwc/no-inner-html
         tooltipContentMarkup.innerHTML = fetchTooltipContent(this.resourceName);
       }
     }
