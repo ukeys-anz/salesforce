@@ -7,6 +7,9 @@
 @IsTest
 private class ResidentialLoanAppActionsTest {
   private static final String BROKER_CODE = 'TPMI123456789';
+  static Lib_MockProvider rlarRepoMock = Lib_MockProvider.forType(
+    ResidentialLoanApplicationRepository.class
+  );
 
   @IsTest
   static void testPopulateAssistedBroker() {
@@ -171,5 +174,120 @@ private class ResidentialLoanAppActionsTest {
         loanApp.Assisted_Broker_TPMI_SAO__c + '_Old';
     }
     return new Map<Id, ResidentialLoanApplication>(oldLoanApps);
+  }
+
+  /**
+   * @description Method for testing processTPMIBasedSyncStatus
+   * @author Deepro De | 06-03-2024
+   **/
+  @isTest
+  static void testProcessTPMIBasedSyncStatus() {
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      2
+    );
+    loanApps[1].Sync_Status__c = 'Blocked';
+    Test.startTest();
+    ResidentialLoanApplicationActions.processTPMIBasedSyncStatus(loanApps);
+    Test.stopTest();
+    Assert.areEqual(
+      'Blocked',
+      loanApps[1].Sync_Status__c,
+      'Expected Residential Loan Application Sync Status to be Blocked'
+    );
+
+    Assert.areEqual(
+      'Broker Org',
+      loanApps[0].Sync_Status__c,
+      'Expected Residential Loan Application Sync Status to be Broker Org'
+    );
+  }
+
+  /**
+   * @description Method for testing synchronizeAndPublishCloudEvents
+   * @author Deepro De | 06-03-2024
+   **/
+  @isTest
+  static void testSynchronizeAndPublishCloudEvents() {
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      10
+    );
+    List<Id> loanAppIds = new List<Id>();
+    for (ResidentialLoanApplication eachLoanApp : loanApps) {
+      eachLoanApp.Sync_Status__c = 'Broker Org';
+      loanAppIds.add(eachLoanApp.Id);
+    }
+    rlarRepoMock.mock('queryMultipleLoanApplications', loanApps);
+    Test.startTest();
+    ResidentialLoanApplicationActions.mockBrokerSettings = new BrokerSettings__c(
+      BypassApplicationSyncEvents__c = false
+    );
+    List<SObject> cloudEvents = ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+      loanApps,
+      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      10,
+      cloudEvents.size(),
+      '10 Cloud Events should be published'
+    );
+    Assert.isFalse(
+      rlarRepoMock.getHistories('queryMultipleLoanApplications').isEmpty(),
+      'queryMultipleLoanApplications should have been called at least once'
+    );
+    List<Id> loanApplicationIds = (List<Id>) rlarRepoMock.getHistory(
+        'queryMultipleLoanApplications'
+      )
+      .getParam('loanIds');
+    Assert.isFalse(
+      loanApplicationIds.isEmpty(),
+      'loanApplicationIds should have been passed on to the queryMultipleLoanApplications method'
+    );
+  }
+
+  /**
+   * @description Method for testing filterLoanAppsBasedOnSyncStatus
+   * @author Deepro De | 06-03-2024
+   **/
+  @isTest
+  static void testFilterLoanAppsBasedOnSyncStatus() {
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      3
+    );
+    loanApps[0].Sync_Status__c = 'Broker Org';
+    loanApps[1].Sync_Status__c = 'Broker Org';
+    loanApps[2].Sync_Status__c = 'Blocked';
+    Test.startTest();
+    List<Id> loanAppList = ResidentialLoanApplicationActions.filterLoanAppsBasedOnSyncStatus(
+      loanApps
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      2,
+      loanAppList.size(),
+      'Expected size of loanAppList should be 2'
+    );
+  }
+
+  /**
+   * @description Method for testing filterOutBlockedApplications
+   * @author Deepro De | 16-07-2024
+   **/
+  @isTest
+  static void testfilterOutBlockedApplications() {
+    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
+      10
+    );
+    loanApps[0].Sync_Status__c = 'Blocked';
+    Test.startTest();
+    List<ResidentialLoanApplication> loanApplications = ResidentialLoanApplicationActions.filterOutBlockedApplications(
+      loanApps
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      9,
+      loanApplications.size(),
+      'Expected size of loanAppList should be 9'
+    );
   }
 }
