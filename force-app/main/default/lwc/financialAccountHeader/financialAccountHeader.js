@@ -84,4 +84,8 @@ export default class FinancialAccount extends NavigationMixin(
   handleInfoModal() {
     this.showInfoModal = !this.showInfoModal;
   }
+
+  closeModal() {
+    this.showInfoModal = false;
+  }
 }
