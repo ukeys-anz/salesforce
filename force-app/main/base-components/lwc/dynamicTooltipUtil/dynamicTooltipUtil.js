@@ -1,5 +1,5 @@
 import { LightningElement, api } from "lwc";
-import { fetchTooltipContent } from "./helper/dynamicTooltipUtils";
+import { fetchTooltipContent } from "./helper/dynamicTooltipUtilHelper";
 
 export default class DynamicTooltipUtil extends LightningElement {
   @api headerTitle;
