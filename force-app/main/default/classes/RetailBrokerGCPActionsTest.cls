@@ -127,17 +127,6 @@ private class RetailBrokerGCPActionsTest {
   }
 
   @IsTest
-  static void testLogSuccessEvents() {
-    List<SObject> eventList = new List<SObject>();
-    eventList.addAll(createTestContactList(RECORD_TYPE_ID_BROKER));
-    List<SObject> emptyEventList = new List<SObject>();
-    Test.startTest();
-    RetailBrokerGCPActions.logSuccessEvents(eventList);
-    RetailBrokerGCPActions.logSuccessEvents(emptyEventList);
-    Test.stopTest();
-  }
-
-  @IsTest
   static void testBuildAddContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();

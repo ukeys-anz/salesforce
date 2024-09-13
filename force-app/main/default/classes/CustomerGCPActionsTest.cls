@@ -1,7 +1,7 @@
 /**
  * @description       : Test Class for CustomerGCPActions
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-16-2024
+ * @last modified on  : 09-13-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 @isTest
@@ -70,8 +70,17 @@ public with sharing class CustomerGCPActionsTest {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
-    CustomerGCPActions.publishGCPEventForCustomers(accList, oldMap, 'update');
+    List<Cloud_Event__e> cloudEvents = CustomerGCPActions.publishGCPEventForCustomers(
+      accList,
+      oldMap,
+      'update'
+    );
     Test.stopTest();
+    Assert.areEqual(
+      2,
+      cloudEvents.size(),
+      '2 Cloud Event Model instances should be created'
+    );
   }
 
   /*
