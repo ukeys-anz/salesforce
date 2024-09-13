@@ -19,15 +19,15 @@ public with sharing class LoanApplicantActions {
   public static void synchronizeAndUpdateCustomerSyncStatus(
     Set<Id> loanApplicantIds
   ) {
-    List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
-      loanApplicantIds
-    );
-    List<Account> accounts = updateAccountSyncStatus(loanApplicants);
-    DML_REPOSITORY.updateRecords(
-      accounts,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+      List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
+        loanApplicantIds
+      );
+      List<Account> accounts = updateAccountSyncStatus(loanApplicants);
+      DML_REPOSITORY.updateRecords(
+        accounts,
+        DmlRepository.ALLOW_PARTIAL,
+        DmlRepository.USER_MODE
+      );
   }
 
   /**
@@ -39,11 +39,11 @@ public with sharing class LoanApplicantActions {
     List<LoanApplicant> loanApplicants
   ) {
     List<Account> accounts = new List<Account>();
+    List<String> picklistValues = new List<String> {
+      BrokerConstants.SYNC_STATUS_BROKER_ORG
+    };
     for (LoanApplicant loanApplicant : loanApplicants) {
       Account account = new Account(Id = loanApplicant.Account__c);
-      List<String> picklistValues = new List<String>{
-        BrokerConstants.SYNC_STATUS_BROKER_ORG
-      };
       account.Sync_Status__c = PicklistUtil.addMultiPicklistValues(
         loanApplicant.Account__r.Sync_Status__c,
         picklistValues
