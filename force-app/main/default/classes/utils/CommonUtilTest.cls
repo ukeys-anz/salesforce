@@ -135,33 +135,18 @@ public with sharing class CommonUtilTest {
   }
 
   @isTest
-  static void testFilterCasesByRecordTypeId() {
-    List<Case> cases = new List<Case>();
-
-    Integer kycQACaseCount = 2;
-
-    List<Id> recordTypes = new List<Id>{
-      GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID
-    };
-
-    for (Integer i = 0; i < kycQACaseCount; i++) {
-      recordTypes.add(GetHelpConstants.KYCQA_RT_ID);
-    }
-
-    for (Id recordType : recordTypes) {
-      cases.add(new Case(RecordTypeId = recordType));
-    }
-
-    List<Case> filteredKYCQACases = CommonUtil.filterCasesByRecordTypeId(
-      cases,
-      GetHelpConstants.KYCQA_RT_ID
+  static void testLogExceptionInfo() {
+    Test.startTest();
+    CoachBankingApiRepository.PermissionException permissionIssue = new CoachBankingApiRepository.PermissionException(
+      'Exception Raised'
     );
-
+    Exception ex = CommonUtil.logExceptionInfo(permissionIssue);
     Assert.areEqual(
-      kycQACaseCount,
-      filteredKYCQACases.size(),
-      'Should be ' + kycQACaseCount + ' filtered Cases'
+      ex.getMessage(),
+      'Exception Raised',
+      'Message should match'
     );
+    Test.stopTest();
   }
 
   static void testGetSLAProcess() {
@@ -176,12 +161,14 @@ public with sharing class CommonUtilTest {
     );
   }
 
+  @isTest
   static void testGetSLAProcessNoSlaProcessName() {
     SlaProcess sla = CommonUtil.getSLAProcess(null);
 
     Assert.isNull(sla, 'There should be no SLA Process found.');
   }
 
+  @isTest
   static void testAddPersonAccountEntitlements() {
     Faker faker = new Faker('AU');
     List<Account> accs = new List<Account>();
@@ -209,6 +196,7 @@ public with sharing class CommonUtilTest {
     );
   }
 
+  @isTest
   static void testRemoveExtraSpaces() {
     String expected = '';
     String content = '';
@@ -249,73 +237,6 @@ public with sharing class CommonUtilTest {
   }
 
   @isTest
-  static void testGetQueueByName() {
-    List<Group> queues = [
-      SELECT Id, DeveloperName
-      FROM Group
-      WHERE Type = :CommonUtil.GROUP_TYPE_QUEUE
-      LIMIT 2
-    ];
-
-    Group queue = CommonUtil.getQueueByName(queues[0].Developername);
-    Map<String, Group> mapQueueByNames = CommonUtil.getQueueByName(
-      new Set<String>{ queues[0].Developername, queues[1].Developername }
-    );
-
-    Assert.areEqual(
-      queues[0].Id,
-      queue.Id,
-      'Queue ID should be retrieved by DeveloperName'
-    );
-    Assert.areEqual(
-      queues[0].Id,
-      mapQueueByNames.get(queues[0].DeveloperName).Id,
-      'Queue ID should be retrieved by DeveloperName'
-    );
-    Assert.areEqual(
-      queues[1].Id,
-      mapQueueByNames.get(queues[1].DeveloperName).Id,
-      'Queue ID should be retrieved by DeveloperName'
-    );
-  }
-
-  @isTest
-  static void testGetPublicGroupByName() {
-    List<Group> publicGroups = [
-      SELECT Id, DeveloperName
-      FROM Group
-      WHERE Type = :CommonUtil.GROUP_TYPE_PUBLICGROUP
-      LIMIT 2
-    ];
-
-    Group publicGroup = CommonUtil.getPublicGroupByName(
-      publicGroups[0].Developername
-    );
-    Map<String, Group> mapPublicGroupByName = CommonUtil.getPublicGroupByName(
-      new Set<String>{
-        publicGroups[0].Developername,
-        publicGroups[1].Developername
-      }
-    );
-
-    Assert.areEqual(
-      publicGroups[0].Id,
-      publicGroup.Id,
-      'Public group ID should be retrieved by DeveloperName'
-    );
-    Assert.areEqual(
-      publicGroups[0].Id,
-      mapPublicGroupByName.get(publicGroups[0].DeveloperName).Id,
-      'Public group ID should be retrieved by DeveloperName'
-    );
-    Assert.areEqual(
-      publicGroups[1].Id,
-      mapPublicGroupByName.get(publicGroups[1].DeveloperName).Id,
-      'Public group ID should be retrieved by DeveloperName'
-    );
-  }
-
-  @IsTest
   static void testGetIds() {
     List<Case> cases = new List<Case>{
       new Case(AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType)),

@@ -196,7 +196,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
     return [
       SELECT Id, AccountId, OCV_Id__c
       FROM Case
-      WHERE RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+      WHERE RecordTypeId = :RTCase.kycQa
     ];
   }
 
@@ -208,7 +208,7 @@ public with sharing class COBApplicationTriggerHandlerTest {
     for (CustomerOnboardingApplication__c cobApp : cobApps) {
       Case kycQACase = new Case(
         CustomerOnboardingApplication__c = cobApp.Id,
-        RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
+        RecordTypeId = RTCase.kycQa,
         OCV_Id__c = cobApp.OCVId__c
       );
 

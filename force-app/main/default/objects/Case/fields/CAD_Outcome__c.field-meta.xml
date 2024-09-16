@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CAD_Outcome__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>This field allows the user to select whether the case decision has been overturned,
+        upheld, enhanced or is a commercial decision.</description>
+    <externalId>false</externalId>
+    <inlineHelpText>This field should only be updated by Customer Resolution (CR) if the CAD outcome
+        has changed for a complaint related to financial difficulty &amp; hardship, collections or
+        credit reporting.</inlineHelpText>
+    <label>CAD Outcome</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Decision Upheld</fullName>
+                <default>false</default>
+                <label>Decision Upheld</label>
+            </value>
+            <value>
+                <fullName>Decision Enhanced</fullName>
+                <default>false</default>
+                <label>Decision Enhanced</label>
+            </value>
+            <value>
+                <fullName>Decision Overturned</fullName>
+                <default>false</default>
+                <label>Decision Overturned</label>
+            </value>
+            <value>
+                <fullName>Commercial Decision</fullName>
+                <default>false</default>
+                <label>Commercial Decision</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

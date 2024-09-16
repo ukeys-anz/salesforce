@@ -60,7 +60,7 @@ public with sharing class OnboardingFalloutWorkflowController {
 
     fetchOnboardingDocuments(workflowDetails);
     apiCallToFetchImages(workflowDetails);
-
+    OnboardingFalloutWorkflowHelper.insertDAONFileViewedLog(workflowDetails.fileTypesList, 'COB', workflowDetails.parentRecordReference);
     Logger.debug( 'Apex execution for performOnboardingOperations ended at - ' + System.now());
     Logger.saveLog();
 
@@ -132,7 +132,7 @@ public with sharing class OnboardingFalloutWorkflowController {
     for (
       OnboardingWorkflowWrapper.FileTypes fileData : workflowDetails.fileTypesList
     ) {
-      if (fileData.isImageNotFound) {
+      if (fileData.isImageNotFound || fileData.isImageDraft) {
         filesNotFoundInCV.add(fileData.fileType);
       }
     }

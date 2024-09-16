@@ -3,6 +3,9 @@
     <description>This permission set group consolidates all Permissions related to Join Operations Reader functions. All permissions are Read Only</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Join Operations Reader</label>
+    <permissionSets>AccessAegisFeatures</permissionSets>
+    <permissionSets>IDOps_Workbench</permissionSets>
     <permissionSets>Join_Operations_Read_Only</permissionSets>
+    <permissionSets>PersonDigitalEntityReadOnly</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

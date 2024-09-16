@@ -2,7 +2,7 @@
  * @description       : LWC Controller for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 08-09-2024
+ * @last modified on  : 07-10-2024
  **/
 public with sharing class PinAndSelfieWorkflowController {
   private static final IDOpsQueryRepository WORKFLOW_QUERY_REPOSITORY = (IDOpsQueryRepository) Lib_InstanceProvider.forType(
@@ -30,6 +30,7 @@ public with sharing class PinAndSelfieWorkflowController {
 
     fetchOnboardingDocuments(workflowDetails);
     apiCallToFetchImages(workflowDetails);
+    OnboardingFalloutWorkflowHelper.insertDAONFileViewedLog(workflowDetails.fileTypesList, 'Case', workflowDetails.parentRecordReference);
     return workflowDetails;
   }
 
@@ -71,6 +72,7 @@ public with sharing class PinAndSelfieWorkflowController {
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
     workflowDetails.isPinHistoryCheckFailed = caseRecord.Pin_History_Check_Failed__c;
     workflowDetails.isCaseClosed = caseRecord.IsClosed;
+    workflowDetails.parentRecordReference = caseRecord.CaseNumber;
     return workflowDetails;
   }
 
@@ -138,7 +140,7 @@ public with sharing class PinAndSelfieWorkflowController {
     for (
       OnboardingWorkflowWrapper.FileTypes fileData : workflowDetails.fileTypesList
     ) {
-      if (fileData.isImageNotFound) {
+      if (fileData.isImageNotFound || fileData.isImageDraft) {
         filesNotFoundInCV.add(fileData.fileType);
       }
     }
@@ -149,6 +151,7 @@ public with sharing class PinAndSelfieWorkflowController {
     List<OnboardingRequestModel> daonList = OnboardingFalloutWorkflowHelper.requestBodyAPICallout(
       workflowDetails
     );
+ 
     Map<String, Object> responseMap = OnboardingUtility.fetchOnboardingDocumentsAPI(
       workflowDetails.IDValue,
       daonList

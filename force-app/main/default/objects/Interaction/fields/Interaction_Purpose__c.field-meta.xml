@@ -28,6 +28,11 @@
                 <label>ANZ Plus Customer</label>
             </value>
             <value>
+                <fullName>Branch Staff Member</fullName>
+                <default>false</default>
+                <label>Branch Staff Member</label>
+            </value>
+            <value>
                 <fullName>Customer</fullName>
                 <default>false</default>
                 <label>Customer</label>
@@ -133,6 +138,10 @@
             <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <valueName>Branch Staff Member</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Store</controllingFieldValue>

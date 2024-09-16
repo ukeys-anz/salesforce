@@ -5,9 +5,6 @@
  * TO BE CLEANED UP AFTER NEW KYC IMPLEMENTATION IS RELEASED
  */
 public with sharing class COBApplicationActionsHelper {
-  public static final Group PENDING_KYC_QA_QUEUE = CommonUtil.getQueueByName(
-    'Pending_KYC_QA'
-  );
   public static final Map<String, String> VERIFICATION_TYPE_PRIORITY = new Map<String, String>{
     'MANUAL' => 'High',
     'UNSPECIFIED' => 'High',
@@ -19,8 +16,6 @@ public with sharing class COBApplicationActionsHelper {
   private static final String YES = 'Yes';
   @TestVisible
   private static final String NONE = null;
-  @TestVisible
-  private static final String PASS = 'PASS';
   @TestVisible
   private static final String LICENCE = 'Licence';
   @TestVisible
@@ -39,8 +34,8 @@ public with sharing class COBApplicationActionsHelper {
     CustomerOnboardingApplication__c cobApp
   ) {
     Case kycQACase = new Case(
-      RecordTypeId = GetHelpConstants.KYCQA_RT_ID,
-      OwnerId = PENDING_KYC_QA_QUEUE.Id,
+      RecordTypeId = RTCase.kycQa,
+      OwnerId = QueryQueue.pendingKYCQA.Id,
       CustomerOnboardingApplication__c = cobApp.Id,
       PersonaId__c = cobApp.PersonaId__c,
       OCV_Id__c = cobApp.OCVId__c,
