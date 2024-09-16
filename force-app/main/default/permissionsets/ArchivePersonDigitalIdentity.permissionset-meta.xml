@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>ArchiveCustomer</name>
+    </customPermissions>
+    <description>This permission set controls visibility of the Archive User action on Person Digital Identity record</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Archive Person Digital Identity</label>
+</PermissionSet>
