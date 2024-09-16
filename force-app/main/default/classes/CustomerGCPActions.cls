@@ -1,24 +1,20 @@
 /**
  * @description       : description Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 08-19-2024
+ * @last modified on  : 09-13-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerGCPActions {
-  @TestVisible
-  private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
-  @TestVisible
-  private static final String SYNC_STATUS_BLOCKED = 'Blocked';
-
   /**
    * @description  Generate and dispatch customer GCP cloud events
    * This function is designed to be a void function as it's the end of the publish process.
    * @param records The Account records passed from Trigger.new()
    * @param oldMap  old trigger values
    * @param triggerContext trigger Context
+   * @return List<Cloud_Event__e> Cloud Event List
    */
   @TestVisible
-  public static void publishGCPEventForCustomers(
+  public static List<Cloud_Event__e> publishGCPEventForCustomers(
     List<Account> records,
     Map<Id, Account> oldMap,
     String triggerContext
@@ -48,9 +44,11 @@ public with sharing class CustomerGCPActions {
       );
 
       logSuccessEvents(successPublishedEvents);
+      return successPublishedEvents;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
+      return null;
     }
   }
 
@@ -70,8 +68,8 @@ public with sharing class CustomerGCPActions {
       if (
         record.Sync_Status__c != null &&
         oldMap.get(record.id).Sync_Status__c != null &&
-        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
-        record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
+        !record.Sync_Status__c.contains(BrokerConstants.SYNC_STATUS_BLOCKED) &&
+        record.Sync_Status__c.contains(BrokerConstants.SYNC_STATUS_BROKER_ORG)
       ) {
         filteredAccounts.add(record);
       }
