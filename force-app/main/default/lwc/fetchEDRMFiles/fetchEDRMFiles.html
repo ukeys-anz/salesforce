@@ -1,0 +1,70 @@
+<template>
+  <div class="slds-box slds-theme_shade">
+    <h1 style="font-size: medium">EDRM Search</h1>
+    <lightning-layout horizontal-align="space">
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          if:true={showCustomerComplaint}
+          data-id="customerNumber"
+          class="fileNameSearch"
+          type="text"
+          label="Customer Number"
+          value={customerNumber}
+          onchange={updateCustomerNumber}
+          read-only="true"
+        >
+        </lightning-input>
+        <lightning-input
+          if:false={showCustomerComplaint}
+          class="fileNameSearch"
+          type="search"
+          label="Account Number"
+          value={accountNumber}
+          onchange={updateAccountNumber}
+          pattern="[0-9]{1,10}"
+          title="Enter a valid Account Number"
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-input
+          class="fileTypeSearch"
+          type="search"
+          label="Application Number"
+          value={applicationNumber}
+          onchange={updateApplicationNumber}
+          pattern="[0-9]{1,10}"
+          title="Enter a valid Application Number"
+        >
+        </lightning-input>
+      </lightning-layout-item>
+      <lightning-layout-item padding="around-small">
+        <lightning-combobox
+          name="businessStream"
+          label="Business Stream"
+          value={businessStream}
+          placeholder="Select Business Stream"
+          options={edrmMapping}
+          onchange={updateBusinessStream}
+          required="true"
+        >
+        </lightning-combobox>
+      </lightning-layout-item>
+    </lightning-layout>
+  </div>
+  <lightning-layout>
+    <lightning-layout-item class="slds-float_right">
+      <div
+        class="slds-float_right slds-var-m-top_small slds-var-m-bottom_medium"
+      >
+        <lightning-button
+          label="Request Documents"
+          variant="brand"
+          onclick={handleNavigate}
+          class="slds-var-m-left_x-small"
+        ></lightning-button>
+      </div>
+    </lightning-layout-item>
+  </lightning-layout>
+  <br />
+</template>
