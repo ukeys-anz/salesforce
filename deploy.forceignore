@@ -217,3 +217,12 @@ force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml
 
 #AR-150463 ignore Data_Diposal Deployment until testing for CMOS DATA Purging is completed
 salesforce/force-app/main/default/permissionsets/Data_Disposal_CMOS.permissionset-meta.xml
+
+#Ignore Winter'25 conflicts
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+force-app/main/default/sharingRules/CustomerOnboardingApplication__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Customer_Relationship__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Interaction.sharingRules-meta.xml
+force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
+force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
+
