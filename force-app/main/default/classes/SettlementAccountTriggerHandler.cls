@@ -25,7 +25,7 @@ public with sharing class SettlementAccountTriggerHandler extends Lib_TriggerHan
   public override void onAfterInsert() {
     SettlementAccountActions.publishSettlementAccountCloudEvents(
       records,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+      ApplicationEventActions.APPLICATION_EVENT_ADD
     );
   }
 
@@ -44,7 +44,7 @@ public with sharing class SettlementAccountTriggerHandler extends Lib_TriggerHan
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     SettlementAccountActions.publishSettlementAccountCloudEvents(
       records,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_UPDATE
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
   }
 }
