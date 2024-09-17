@@ -122,7 +122,7 @@ describe("c-totalBalance", () => {
 
     return Promise.resolve().then(() => {
       let finPositionModal = element.shadowRoot.querySelector(
-        "section[data-id='fin-position-modal']"
+        "c-dynamic-tooltip-util[data-id='fin-position-modal']"
       );
       expect(finPositionModal).toBeTruthy();
     });
@@ -152,7 +152,7 @@ describe("c-totalBalance", () => {
 
     return Promise.resolve().then(() => {
       let totalSavedModal = element.shadowRoot.querySelector(
-        "section[data-id='total-saved-modal']"
+        "c-dynamic-tooltip-util[data-id='total-saved-modal']"
       );
       expect(totalSavedModal).toBeTruthy();
     });
