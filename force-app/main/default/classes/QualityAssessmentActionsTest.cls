@@ -185,7 +185,7 @@ private class QualityAssessmentActionsTest {
   //method to test autoCalculateScore
   @IsTest
   private static void testCaseManagerScoreAndBusinessScore() {
-    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
     UserRole cqRole = CommonUtil.getUserRoleByDevName(
       'Capability_Quality_C_Q_Team'
     );
