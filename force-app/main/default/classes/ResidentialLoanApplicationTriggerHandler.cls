@@ -24,7 +24,7 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
       records,
       new Map<Id, ResidentialLoanApplication>()
     );
-    ResidentialLoanApplicationActions.processTPMIBasedSyncStatus(records);
+    ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
   }
 
   /**
@@ -43,9 +43,9 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
    */
   @TestVisible
   public override void onAfterInsert() {
-    ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+    ResidentialLoanApplicationActions.publishSyncEvents(
       records,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+      ApplicationEventActions.APPLICATION_EVENT_ADD
     );
   }
 
@@ -65,9 +65,9 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
       records,
       (Map<Id, ResidentialLoanApplication>) oldMap
     );
-    ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+    ResidentialLoanApplicationActions.publishSyncEvents(
       records,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_UPDATE
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
   }
 }
