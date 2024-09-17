@@ -1,6 +1,7 @@
 import { LightningElement, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
+import pubsub from "omnistudio/pubsub";
 
 export default class TFMRedirectToRecordPage extends NavigationMixin(
   LightningElement
@@ -17,6 +18,7 @@ export default class TFMRedirectToRecordPage extends NavigationMixin(
     setTimeout(() => {
       this.refreshTab();
     }, 5000);
+    pubsub.fire("DeviceDetailsCard", "reloadDeviceDetails");
   }
 
   navigateToPersonIdentityPage() {
