@@ -1,5 +1,5 @@
 /**
- * @description       : Configuration Class Created for GCP Events
+ * @description       : Configuration Class Created for Events
  * @author            : Madhuri Edke | Salesforce
  * @last modified on  : 09-17-2024
  * @last modified by  : Madhuri Edke | Salesforce
