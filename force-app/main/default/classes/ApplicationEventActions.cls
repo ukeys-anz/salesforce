@@ -1,7 +1,7 @@
 /**
  * @author Deepro De
  * @since 05/2024
- * @Service layer for GCP event related actions for application event
+ * @description Service layer for GCP event related actions for application event
  * @runTests ApplicationEventActionsTest
  */
 public with sharing class ApplicationEventActions {
