@@ -1,12 +1,12 @@
 /**
- * @description       : description Service layer for GCP event related actions for customer event
+ * @description       : description Service layer for customer event related actions
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-13-2024
+ * @last modified on  : 09-17-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
-public with sharing class CustomerGCPActions {
+public with sharing class CustomerEventActions {
   /**
-   * @description  Generate and dispatch customer GCP cloud events
+   * @description  Generate and dispatch customer cloud events
    * This function is designed to be a void function as it's the end of the publish process.
    * @param records The Account records passed from Trigger.new()
    * @param oldMap  old trigger values
@@ -14,7 +14,7 @@ public with sharing class CustomerGCPActions {
    * @return List<Cloud_Event__e> Cloud Event List
    */
   @TestVisible
-  public static List<Cloud_Event__e> publishGCPEventForCustomers(
+  public static List<Cloud_Event__e> publishEventForCustomers(
     List<Account> records,
     Map<Id, Account> oldMap,
     String triggerContext

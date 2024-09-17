@@ -92,7 +92,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     AccountCommonActions.updateEntitlement(records, oldMap);
-    CustomerGCPActions.publishGCPEventForCustomers(
+    CustomerEventActions.publishEventForCustomers(
       records,
       (Map<Id, Account>) oldMap,
       GCPEventConfigs.GCP_EVENT_UPDATE
