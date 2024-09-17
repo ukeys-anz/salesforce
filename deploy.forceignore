@@ -164,6 +164,7 @@ force-app/main/default/objects/Account/fields/AR_C_Customer__c.field-meta.xml
 
 #Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
 force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml //added for merge to cmos-a remove later
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
@@ -207,7 +208,6 @@ force-app/main/default/flows/CCRM_Hide_Expired_Contacts_Schedule.flow-meta.xml
 #CC-8329 Dependent Components Manual Deployment until next release
 force-app/main/default/lwc/realFormIdBtn
 force-app/main/default/quickActions/Case.Validate_Event_ID.quickAction-meta.xml
-force-app/main/default/flexipages/Complaint_Record_Page.flexipage-meta.xml
 
 #ANZX-155504 ignore for manual delete
 force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
