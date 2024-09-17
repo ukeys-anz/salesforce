@@ -16,9 +16,7 @@ public with sharing class LoanApplicantActions {
    * @description Orchestration method for updating the Customer Sync Status
    * @param loanApplicantIds loan applicants to process
    */
-  public static void synchronizeAndUpdateCustomerSyncStatus(
-    Set<Id> loanApplicantIds
-  ) {
+  public static void accountSyncStatusUpdate(Set<Id> loanApplicantIds) {
     List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );

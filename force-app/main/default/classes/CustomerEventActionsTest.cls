@@ -30,6 +30,11 @@ public with sharing class CustomerEventActionsTest {
       result.size(),
       'Expected one account with valid sync status'
     );
+    Assert.areEqual(
+      'Broker Org',
+      result[0].Sync_Status__c,
+      'Expected Sync Status is Broker Org'
+    );
   }
 
   /*
@@ -46,6 +51,11 @@ public with sharing class CustomerEventActionsTest {
     );
     Test.stopTest();
     Assert.areEqual(1, result.size(), 'Expected One Valid OCV Version Account');
+    Assert.areEqual(
+      1,
+      result[0].OCV_Event_Version__c,
+      'Expected version of OCV is 1'
+    );
   }
 
   /*
