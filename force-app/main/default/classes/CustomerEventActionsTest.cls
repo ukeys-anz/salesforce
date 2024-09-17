@@ -11,16 +11,16 @@ public with sharing class CustomerEventActionsTest {
     .getRecordTypeId();
 
   /*
-   * @description unit test for filterAccountsBasedOnSyncStatus
+   * @description unit test for validateSyncStatus
    */
   @isTest
-  static void filterAccountsBasedOnSyncStatusTest() {
+  static void validateSyncStatusTest() {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     accList[0].Sync_Status__c = 'Blocked';
 
     Test.startTest();
-    List<Account> result = CustomerEventActions.filterAccountsBasedOnSyncStatus(
+    List<Account> result = CustomerEventActions.validateSyncStatus(
       accList,
       oldMap
     );
@@ -38,14 +38,14 @@ public with sharing class CustomerEventActionsTest {
   }
 
   /*
-   * @description unit test for filterAccountsBasedonOCVVersion
+   * @description unit test for validateOCVVersion
    */
   @isTest
-  static void filterAccountsBasedonOCVVersionTest() {
+  static void validateOCVVersionTest() {
     List<Account> accList = createCustomerAccount(1);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
-    List<Account> result = CustomerEventActions.filterAccountsBasedonOCVVersion(
+    List<Account> result = CustomerEventActions.validateOCVVersion(
       accList,
       oldMap
     );
@@ -59,13 +59,13 @@ public with sharing class CustomerEventActionsTest {
   }
 
   /*
-   * @description unit test for generateCustomerCEModelBundle
+   * @description unit test for generateCustomerCEModel
    */
   @isTest
-  static void generateCustomerCEModelBundleTest() {
+  static void generateCustomerCEModelTest() {
     List<Account> accList = createCustomerAccount(2);
     Test.startTest();
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = CustomerEventActions.generateCustomerCEModelBundle(
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = CustomerEventActions.generateCustomerCEModel(
       accList
     );
     Test.stopTest();
@@ -99,7 +99,7 @@ public with sharing class CustomerEventActionsTest {
   @isTest
   static void generateCloudEventModelTest() {
     List<Account> accList = createCustomerAccount(1);
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerEventActions.generateCustomerCEModelBundle(
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerEventActions.generateCustomerCEModel(
       accList
     );
     Test.startTest();
