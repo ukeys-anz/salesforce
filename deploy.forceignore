@@ -225,4 +225,5 @@ force-app/main/default/sharingRules/Customer_Relationship__c.sharingRules-meta.x
 force-app/main/default/sharingRules/Interaction.sharingRules-meta.xml
 force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
 force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
+force-app/main/default/permissionsets/SF_Data_Sync_Integration.permissionset-meta.xml
 
