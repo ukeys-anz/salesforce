@@ -1,11 +1,11 @@
 /**
- * @description       : Test Class for CustomerGCPActions
+ * @description       : Test Class for CustomerEventActions
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-13-2024
+ * @last modified on  : 09-17-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 @isTest
-public with sharing class CustomerGCPActionsTest {
+public with sharing class CustomerEventActionsTest {
   private static final String PERSONACC_RECORDTYPEID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
     .get('PersonAccount')
     .getRecordTypeId();
@@ -20,7 +20,7 @@ public with sharing class CustomerGCPActionsTest {
     accList[0].Sync_Status__c = 'Blocked';
 
     Test.startTest();
-    List<Account> result = CustomerGCPActions.filterAccountsBasedOnSyncStatus(
+    List<Account> result = CustomerEventActions.filterAccountsBasedOnSyncStatus(
       accList,
       oldMap
     );
@@ -40,7 +40,7 @@ public with sharing class CustomerGCPActionsTest {
     List<Account> accList = createCustomerAccount(1);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
-    List<Account> result = CustomerGCPActions.filterAccountsBasedonOCVVersion(
+    List<Account> result = CustomerEventActions.filterAccountsBasedonOCVVersion(
       accList,
       oldMap
     );
@@ -55,7 +55,7 @@ public with sharing class CustomerGCPActionsTest {
   static void generateCustomerCEModelBundleTest() {
     List<Account> accList = createCustomerAccount(2);
     Test.startTest();
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = CustomerGCPActions.generateCustomerCEModelBundle(
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = CustomerEventActions.generateCustomerCEModelBundle(
       accList
     );
     Test.stopTest();
@@ -63,14 +63,14 @@ public with sharing class CustomerGCPActionsTest {
   }
 
   /*
-   * @description unit test for publishGCPEventForCustomers
+   * @description unit test for publishEventForCustomers
    */
   @isTest
-  static void publishGCPEventForCustomersTest() {
+  static void publishEventForCustomersTest() {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
-    List<Cloud_Event__e> cloudEvents = CustomerGCPActions.publishGCPEventForCustomers(
+    List<Cloud_Event__e> cloudEvents = CustomerEventActions.publishEventForCustomers(
       accList,
       oldMap,
       'update'
@@ -89,11 +89,11 @@ public with sharing class CustomerGCPActionsTest {
   @isTest
   static void generateCloudEventModelTest() {
     List<Account> accList = createCustomerAccount(1);
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerGCPActions.generateCustomerCEModelBundle(
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerEventActions.generateCustomerCEModelBundle(
       accList
     );
     Test.startTest();
-    List<BrokerCloudEventModel> result = CustomerGCPActions.generateCloudEventModel(
+    List<BrokerCloudEventModel> result = CustomerEventActions.generateCloudEventModel(
       accList,
       masterNodes,
       'update'
