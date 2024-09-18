@@ -61,7 +61,7 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     if (brokerSettings().BypassBrokerSyncEvents__c == true) {
       return;
     }
-    RetailBrokerContactActions.publishBrokerGCPEvents(
+    RetailBrokerContactActions.publishBrokerEvents(
       records,
       (Map<Id, Contact>) oldMap
     );
