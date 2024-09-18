@@ -87,10 +87,10 @@ public with sharing class SettlementAccountActions {
     List<Id> loanApplicationIds = getLoanApplicationIdFromSettlementAccounts(
       records
     );
-    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryMultipleLoanApplications(
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
       loanApplicationIds
     );
-    ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+    ResidentialLoanApplicationActions.publishSyncEvents(
       rlaList,
       cloudEventType
     );

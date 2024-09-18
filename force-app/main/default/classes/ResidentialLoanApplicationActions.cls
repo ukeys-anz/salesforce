@@ -154,7 +154,7 @@ public with sharing class ResidentialLoanApplicationActions {
    * @param triggerContext
    * @return List<Cloud_Event__e> published events
    **/
-  public static List<Cloud_Event__e> synchronizeAndPublishCloudEvents(
+  public static List<Cloud_Event__e> publishSyncEvents(
     List<ResidentialLoanApplication> records,
     String triggerContext
   ) {
@@ -167,12 +167,12 @@ public with sharing class ResidentialLoanApplicationActions {
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
     //Fetch the RLA records and the related parent record details
-    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryMultipleLoanApplications(
+    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
       filteredLoanAppList
     );
 
     //Creating cloud event model from records vs event type map in order to pass into publish method
-    List<BrokerCloudEventModel> cloudEventModels = ResidentialLoanApplicationGCPActions.createCloudEventModels(
+    List<BrokerCloudEventModel> cloudEventModels = ApplicationEventActions.createCloudEventModels(
       rlaRecordList,
       triggerContext
     );
@@ -181,7 +181,7 @@ public with sharing class ResidentialLoanApplicationActions {
     List<Cloud_Event__e> cloudEvents = CloudEventController.publishCloudEvents(
       cloudEventModels
     );
-    ResidentialLoanApplicationGCPActions.logSuccessEvents(cloudEvents);
+    ApplicationEventActions.logSuccessEvents(cloudEvents);
     return cloudEvents;
   }
 
@@ -237,11 +237,11 @@ public with sharing class ResidentialLoanApplicationActions {
    * @author  Deepro De | Salesforce | 05-30-2024
    * @param records
    **/
-  public static void processTPMIBasedSyncStatus(
+  public static void updateApplicationSyncStatus(
     List<ResidentialLoanApplication> records
   ) {
     //filtering out the applications which have the sync status as blocked
-    List<ResidentialLoanApplication> filteredList = filterOutBlockedApplications(
+    List<ResidentialLoanApplication> filteredList = getUnblockedApplication(
       records
     );
 
@@ -265,7 +265,7 @@ public with sharing class ResidentialLoanApplicationActions {
    * @param records
    * @return List<ResidentialLoanApplication> filtered list
    **/
-  public static List<ResidentialLoanApplication> filterOutBlockedApplications(
+  public static List<ResidentialLoanApplication> getUnblockedApplication(
     List<ResidentialLoanApplication> records
   ) {
     List<ResidentialLoanApplication> filteredList = new List<ResidentialLoanApplication>();

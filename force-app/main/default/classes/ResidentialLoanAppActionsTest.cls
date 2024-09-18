@@ -177,17 +177,17 @@ private class ResidentialLoanAppActionsTest {
   }
 
   /**
-   * @description Method for testing processTPMIBasedSyncStatus
+   * @description Method for testing updateApplicationSyncStatus
    * @author Deepro De | 06-03-2024
    **/
   @isTest
-  static void testProcessTPMIBasedSyncStatus() {
+  static void testUpdateApplicationSyncStatus() {
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
       2
     );
     loanApps[1].Sync_Status__c = 'Blocked';
     Test.startTest();
-    ResidentialLoanApplicationActions.processTPMIBasedSyncStatus(loanApps);
+    ResidentialLoanApplicationActions.updateApplicationSyncStatus(loanApps);
     Test.stopTest();
     Assert.areEqual(
       'Blocked',
@@ -203,11 +203,11 @@ private class ResidentialLoanAppActionsTest {
   }
 
   /**
-   * @description Method for testing synchronizeAndPublishCloudEvents
+   * @description Method for testing publishSyncEvents
    * @author Deepro De | 06-03-2024
    **/
   @isTest
-  static void testSynchronizeAndPublishCloudEvents() {
+  static void testPublishSyncEvents() {
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
       10
     );
@@ -216,14 +216,14 @@ private class ResidentialLoanAppActionsTest {
       eachLoanApp.Sync_Status__c = 'Broker Org';
       loanAppIds.add(eachLoanApp.Id);
     }
-    rlarRepoMock.mock('queryMultipleLoanApplications', loanApps);
+    rlarRepoMock.mock('queryLoanApplicatioins', loanApps);
     Test.startTest();
     ResidentialLoanApplicationActions.mockBrokerSettings = new BrokerSettings__c(
       BypassApplicationSyncEvents__c = false
     );
-    List<SObject> cloudEvents = ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+    List<SObject> cloudEvents = ResidentialLoanApplicationActions.publishSyncEvents(
       loanApps,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+      ApplicationEventActions.APPLICATION_EVENT_ADD
     );
     Test.stopTest();
     Assert.areEqual(
@@ -232,16 +232,16 @@ private class ResidentialLoanAppActionsTest {
       '10 Cloud Events should be published'
     );
     Assert.isFalse(
-      rlarRepoMock.getHistories('queryMultipleLoanApplications').isEmpty(),
-      'queryMultipleLoanApplications should have been called at least once'
+      rlarRepoMock.getHistories('queryLoanApplicatioins').isEmpty(),
+      'queryLoanApplicatioins should have been called at least once'
     );
     List<Id> loanApplicationIds = (List<Id>) rlarRepoMock.getHistory(
-        'queryMultipleLoanApplications'
+        'queryLoanApplicatioins'
       )
       .getParam('loanIds');
     Assert.isFalse(
       loanApplicationIds.isEmpty(),
-      'loanApplicationIds should have been passed on to the queryMultipleLoanApplications method'
+      'loanApplicationIds should have been passed on to the queryLoanApplicatioins method'
     );
   }
 
@@ -270,17 +270,17 @@ private class ResidentialLoanAppActionsTest {
   }
 
   /**
-   * @description Method for testing filterOutBlockedApplications
+   * @description Method for testing getUnblockedApplication
    * @author Deepro De | 16-07-2024
    **/
   @isTest
-  static void testfilterOutBlockedApplications() {
+  static void testGetUnblockedApplication() {
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
       10
     );
     loanApps[0].Sync_Status__c = 'Blocked';
     Test.startTest();
-    List<ResidentialLoanApplication> loanApplications = ResidentialLoanApplicationActions.filterOutBlockedApplications(
+    List<ResidentialLoanApplication> loanApplications = ResidentialLoanApplicationActions.getUnblockedApplication(
       loanApps
     );
     Test.stopTest();

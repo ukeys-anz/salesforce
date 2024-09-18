@@ -1,12 +1,12 @@
 /**
  * @author Deepro De
  * @since 05/2024
- * @description class for Residential Loan Application GCP actions
- * @runTests ResidentialLoanApplicationGCPActionsTest
+ * @description Service layer for GCP event related actions for application event
+ * @runTests ApplicationEventActionsTest
  */
-public with sharing class ResidentialLoanApplicationGCPActions {
-  public static final String GCP_EVENT_ADD = 'add';
-  public static final String GCP_EVENT_UPDATE = 'update';
+public with sharing class ApplicationEventActions {
+  public static final String APPLICATION_EVENT_ADD = 'add';
+  public static final String APPLICATION_EVENT_UPDATE = 'update';
 
   /**
    * @description Creating Cloud Event Model structure which is subsequently passed into the publishing method from the caller method

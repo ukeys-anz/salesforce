@@ -15,8 +15,6 @@ public with sharing class LoanApplicantTriggerHandler extends Lib_TriggerHandler
    * @description onAfterInsert to handle after insert trigger actions
    */
   public override void onAfterInsert() {
-    LoanApplicantActions.synchronizeAndUpdateCustomerSyncStatus(
-      Trigger.newMap.keySet()
-    );
+    LoanApplicantActions.accountSyncStatusUpdate(Trigger.newMap.keySet());
   }
 }

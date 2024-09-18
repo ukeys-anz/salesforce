@@ -4,7 +4,7 @@
  * @description test class for Residential Loan Application trigger handler
  */
 @isTest
-private class ResidentialLoanApplicationGCPActionsTest {
+private class ApplicationEventActionsTest {
   private static final Id LOAN_APP_RECORD_TYPE_ID = SObjectType.ResidentialLoanApplication.getRecordTypeInfosByDeveloperName()
     .get('Loan_Application')
     .recordTypeId;
@@ -44,9 +44,9 @@ private class ResidentialLoanApplicationGCPActionsTest {
       LOAN_APP_RECORD_TYPE_ID
     );
     Test.startTest();
-    List<BrokerCloudEventModel> cloudEventModels = ResidentialLoanApplicationGCPActions.createCloudEventModels(
+    List<BrokerCloudEventModel> cloudEventModels = ApplicationEventActions.createCloudEventModels(
       newLoanApps,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+      ApplicationEventActions.APPLICATION_EVENT_ADD
     );
     Test.stopTest();
     Assert.areEqual(

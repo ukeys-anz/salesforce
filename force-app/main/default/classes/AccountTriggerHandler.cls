@@ -95,7 +95,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     CustomerEventActions.publishEventForCustomers(
       records,
       (Map<Id, Account>) oldMap,
-      EventConfigs.EVENT_UPDATE
+      CustomerEventActions.CUSTOMER_EVENT_UPDATE
     );
   }
 }
