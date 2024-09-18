@@ -62,7 +62,7 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-   @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
   static void testPublishBrokerEvents() {
     // Prepare test data for add event
     List<Contact> newContactsForAdd = createTestContactList();
