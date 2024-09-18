@@ -7,6 +7,20 @@
 @IsTest
 private class ResidentialLoanAppActionsTest {
   private static final String BROKER_CODE = 'TPMI123456789';
+  private static final Id FAKER_RLA_ID = Lib_FakeIdGenerator.getMockId(
+    ResidentialLoanApplication.getSObjectType()
+  );
+
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider rlaRepoMock;
+
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    rlaRepoMock = Lib_MockProvider.forType(
+        ResidentialLoanApplicationRepository.class
+      )
+      .mock('queryRelatedCreditReferralCases', createMockCaseRelatedToRla());
+  }
 
   @IsTest
   static void testPopulateAssistedBroker() {
@@ -171,5 +185,210 @@ private class ResidentialLoanAppActionsTest {
         loanApp.Assisted_Broker_TPMI_SAO__c + '_Old';
     }
     return new Map<Id, ResidentialLoanApplication>(oldLoanApps);
+  }
+
+  @isTest
+  private static void testProcessCancelledRLARecords() {
+    registerMocks();
+
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      GetHelpConstants.RLA_STATUS_CANCELLED
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE'
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+
+    List<Case> caseRecordBeforeUpdate = createMockCaseRelatedToRla();
+    System.assertEquals(
+      'Open',
+      caseRecordBeforeUpdate[0].Status,
+      'The Case record status should be created with "Open" status'
+    );
+
+    Test.startTest();
+    ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
+      newRlaRecords,
+      oldRlaRecords
+    );
+    Test.stopTest();
+
+    List<Case> caseRecordAfterUpdate = (List<Case>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    System.assertEquals(
+      GetHelpConstants.CLOSED_CANCELLED_STATUS,
+      caseRecordAfterUpdate[0].Status,
+      'The Case record status should update to Closed Cancelled'
+    );
+  }
+
+  @isTest
+  private static void testprepareCaseWithFieldsUpdatePositive() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = createMockCaseRelatedToRla();
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+    System.assertEquals(
+      'Open',
+      masterCaseList[0].Status,
+      'The Case record status should be Open'
+    );
+
+    Test.startTest();
+    caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      GetHelpConstants.CLOSED_CANCELLED_STATUS,
+      caseRecordsToBeUpdated[0].Status,
+      'The Case record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  private static void testprepareCaseWithFieldsUpdatePositiveExpired() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    newRlaRecordsList.get(0)
+      .Cancellation_Reason__c = GetHelpConstants.RLA_CANCELLATION_REASON_CREDIT_ASSESMENT_EXPIRED;
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = createMockCaseRelatedToRla();
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+    System.assertEquals(
+      'Open',
+      masterCaseList[0].Status,
+      'The Case record status should be Open'
+    );
+
+    Test.startTest();
+    caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      GetHelpConstants.CLOSED_EXPIRED_STATUS,
+      caseRecordsToBeUpdated[0].Status,
+      'The Case record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  private static void testprepareCaseWithFieldsUpdateNegative() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = new List<Case>();
+    List<Case> caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+    System.assertEquals(
+      true,
+      caseRecordsToBeUpdated.isEmpty(),
+      'Case records should not be returned'
+    );
+  }
+
+  private static List<ResidentialLoanApplication> createMockRlaRecord(
+    String status
+  ) {
+    List<ResidentialLoanApplication> rlaRecordsList = new List<ResidentialLoanApplication>();
+    ResidentialLoanApplication rlaRecord = new ResidentialLoanApplication();
+    rlaRecord.Id = FAKER_RLA_ID;
+    rlaRecord.Status = status;
+
+    rlaRecordsList.add(rlaRecord);
+    return rlaRecordsList;
+  }
+
+  private static List<Case> createMockCaseRelatedToRla() {
+    List<Case> strCaselist = new List<Case>();
+
+    Case creditRefCase = TestDataFactory.createCase('Credit_Referral');
+    creditRefCase.Loan_Application__c = FAKER_RLA_ID;
+    strCaselist.add(creditRefCase);
+    return strCaselist;
+  }
+
+  @isTest
+  private static void testfilterRlaAndReturnCancelledStatusRecordsPositive() {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE'
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Test.startTest();
+    rlaRecordIds = ResidentialLoanApplicationActions.filterRlaAndReturnCancelledStatusRecords(
+      newRlaRecords,
+      oldRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      true,
+      !rlaRecordIds.isEmpty(),
+      'Residential Loan Application records should be returned'
+    );
+  }
+
+  @isTest
+  private static void testfilterRlaAndReturnCancelledStatusRecordsNegative() {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
+      'STATE_UNSPECIFIED'
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE'
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Test.startTest();
+    rlaRecordIds = ResidentialLoanApplicationActions.filterRlaAndReturnCancelledStatusRecords(
+      newRlaRecords,
+      oldRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      true,
+      rlaRecordIds.isEmpty(),
+      'Residential Loan Application records should not be returned'
+    );
   }
 }

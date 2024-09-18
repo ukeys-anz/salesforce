@@ -8,7 +8,15 @@
         <default>false</default>
     </values>
     <values>
+        <fullName>Closed - Cancelled</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Closed - Declined</fullName>
+        <default>false</default>
+    </values>
+    <values>
+        <fullName>Closed - Expired</fullName>
         <default>false</default>
     </values>
     <values>
