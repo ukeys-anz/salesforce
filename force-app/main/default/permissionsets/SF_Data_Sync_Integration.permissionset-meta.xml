@@ -3773,6 +3773,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Chat_or_Call_SID_Formula__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Coaching_Summary__c</field>
         <readable>true</readable>
     </fieldPermissions>
