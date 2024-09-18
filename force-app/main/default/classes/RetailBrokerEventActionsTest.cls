@@ -1,11 +1,11 @@
 /**
  * @author Zhiren Jason Guan
  * @since  04/03/2024
- * @description Test class for RetailBrokerGCPService
+ * @description Test class for RetailBrokerEventActions
  */
 
 @IsTest
-private class RetailBrokerGCPActionsTest {
+private class RetailBrokerEventActionsTest {
   private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
     .get('Broker')
     .recordTypeId;
@@ -25,18 +25,18 @@ private class RetailBrokerGCPActionsTest {
   }
 
   @IsTest
-  static void testPublishGCPEvent() {
+  static void testPublishEvent() {
     List<Contact> newContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
-    RetailBrokerGCPActions.mockBrokerContacts = newContacts;
+    RetailBrokerEventActions.mockBrokerContacts = newContacts;
     Map<Id, String> brokerIdToEventTypeMap = new Map<Id, String>();
     for (Contact broker : newContacts) {
       brokerIdToEventTypeMap.put(
         broker.Id,
-        RetailBrokerGCPActions.GCP_EVENT_ADD
+        RetailBrokerEventActions.BROKER_EVENT_ADD
       );
     }
     Test.startTest();
-    List<SObject> successEvents = RetailBrokerGCPActions.publishGCPEventForBrokers(
+    List<SObject> successEvents = RetailBrokerEventActions.publishEventForBrokers(
       brokerIdToEventTypeMap
     );
     Test.stopTest();
@@ -48,15 +48,15 @@ private class RetailBrokerGCPActionsTest {
   }
 
   @IsTest
-  static void testPublishGCPEventNegative() {
+  static void testPublishEventEventNegative() {
     Test.startTest();
-    List<SObject> successEvents = RetailBrokerGCPActions.publishGCPEventForBrokers(
+    List<SObject> successEvents = RetailBrokerEventActions.publishEventForBrokers(
       null
     );
     Test.stopTest();
     Assert.isTrue(
       successEvents.isEmpty(),
-      'The success events should be empty as no valid gcp event map passed in'
+      'The success events should be empty as no valid event map passed in'
     );
   }
 
@@ -65,7 +65,7 @@ private class RetailBrokerGCPActionsTest {
     List<Contact> newContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
     Map<Id, Contact> newMap = new Map<Id, Contact>(newContacts);
     Test.startTest();
-    List<Contact> results = RetailBrokerGCPActions.getBrokerContactsByIds(
+    List<Contact> results = RetailBrokerEventActions.getBrokerContactsByIds(
       newMap.keySet()
     );
     Assert.areEqual(
@@ -73,8 +73,8 @@ private class RetailBrokerGCPActionsTest {
       results.isEmpty(),
       'The query result should be empty as no test data inserted by DML'
     );
-    RetailBrokerGCPActions.mockBrokerContacts = newContacts;
-    results = RetailBrokerGCPActions.getBrokerContactsByIds(newMap.keySet());
+    RetailBrokerEventActions.mockBrokerContacts = newContacts;
+    results = RetailBrokerEventActions.getBrokerContactsByIds(newMap.keySet());
     Test.stopTest();
     Assert.areEqual(
       newContacts,
@@ -87,13 +87,13 @@ private class RetailBrokerGCPActionsTest {
   static void testGenerateBrokerCEModel() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();
-    BrokerCloudEventModel addModel = RetailBrokerGCPActions.generateBrokerCEModel(
+    BrokerCloudEventModel addModel = RetailBrokerEventActions.generateBrokerCEModel(
       newContact,
-      RetailBrokerGCPActions.GCP_EVENT_ADD
+      RetailBrokerEventActions.BROKER_EVENT_ADD
     );
-    BrokerCloudEventModel updateModel = RetailBrokerGCPActions.generateBrokerCEModel(
+    BrokerCloudEventModel updateModel = RetailBrokerEventActions.generateBrokerCEModel(
       newContact,
-      RetailBrokerGCPActions.GCP_EVENT_UPDATE
+      RetailBrokerEventActions.BROKER_EVENT_UPDATE
     );
     Test.stopTest();
     Assert.areEqual(
@@ -107,7 +107,7 @@ private class RetailBrokerGCPActionsTest {
       'The sequence should be the same as the contact OCV event version'
     );
     Assert.isTrue(
-      addModel.ce_type.contains(RetailBrokerGCPActions.GCP_EVENT_ADD),
+      addModel.ce_type.contains(RetailBrokerEventActions.BROKER_EVENT_ADD),
       'The ce_type should be add event'
     );
     Assert.areEqual(
@@ -121,7 +121,9 @@ private class RetailBrokerGCPActionsTest {
       'The sequence should be the same as the contact OCV event version'
     );
     Assert.isTrue(
-      updateModel.ce_type.contains(RetailBrokerGCPActions.GCP_EVENT_UPDATE),
+      updateModel.ce_type.contains(
+        RetailBrokerEventActions.BROKER_EVENT_UPDATE
+      ),
       'The ce_type should be update event'
     );
   }
@@ -130,7 +132,7 @@ private class RetailBrokerGCPActionsTest {
   static void testBuildAddContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();
-    List<BrokerCloudEventModel.MasterNode> results = RetailBrokerGCPActions.buildAddContact(
+    List<BrokerCloudEventModel.MasterNode> results = RetailBrokerEventActions.buildAddContact(
       newContact
     );
     Test.stopTest();
@@ -151,7 +153,7 @@ private class RetailBrokerGCPActionsTest {
   static void testBuildUpdateContract() {
     Contact newContact = createTestContactList(RECORD_TYPE_ID_BROKER)[0];
     Test.startTest();
-    List<BrokerCloudEventModel.MasterNode> results = RetailBrokerGCPActions.buildUpdateContact(
+    List<BrokerCloudEventModel.MasterNode> results = RetailBrokerEventActions.buildUpdateContact(
       newContact
     );
     Test.stopTest();
