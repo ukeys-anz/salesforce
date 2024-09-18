@@ -2473,6 +2473,7 @@
         "CaseId__c",
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
+        "Chat_or_Call_SID_Formula__c",
         "Coaching_Summary__c",
         "Comment__c",
         "Contact_Mobile__c",
