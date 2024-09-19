@@ -34,7 +34,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       'Potential Fraud'
     };
 
-    UserRole usrRole = CommonUtil.getUserRoleByDevName('Join_Operations_Reader');
+    UserRole usrRole = QueryRole.get('Join_Operations_Reader');
 
     if (
       String.isNotBlank(cobPIDRecord.DaonLocationUri__c) &&

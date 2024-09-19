@@ -73,7 +73,7 @@ public with sharing class PinAndSelfieWorkflowController {
     workflowDetails.isPinHistoryCheckFailed = caseRecord.Pin_History_Check_Failed__c;
     workflowDetails.isCaseClosed = caseRecord.IsClosed;
     workflowDetails.parentRecordReference = caseRecord.CaseNumber;
-    UserRole usrRole = CommonUtil.getUserRoleByDevName('Join_Operations_Reader');
+    UserRole usrRole = QueryRole.get('Join_Operations_Reader');
     workflowDetails.isJoinOperationsReader = usrRole.Id == UserInfo.getUserRoleId();
     return workflowDetails;
   }
