@@ -188,6 +188,12 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
   public String parentRecordReference{ get; set; }
 
   /**
+   * @description isJoinOperationsReader
+   */
+  @AuraEnabled
+  public Boolean isJoinOperationsReader { get; set; }
+  
+  /**
    * @description This is wrapper class for FileTypes
    * @name FileTypes
    * @author Shivraj Kadam
