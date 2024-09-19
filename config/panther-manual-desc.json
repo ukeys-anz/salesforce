@@ -2233,7 +2233,7 @@
       ]
     },
     "FinServ__AccountAccountRelation__c": {
-      "IA-2415984": ["OCV_Role__c", "Role_Description__c"],
+      "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
       "IA-2453350": ["External_Id__c"],
       "IA-2460507": ["FinServ__Role__c"],
       "IA-2530753": [
@@ -2241,7 +2241,8 @@
         "FinServ__Active__c",
         "FinServ__EndDate__c",
         "FinServ__StartDate__c",
-        "System_Individual_Relationship__c"
+        "System_Individual_Relationship__c",
+        "CPID__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
@@ -2272,7 +2273,8 @@
       "IA-2468715": [
         "Customer_Type__c",
         "Customer_SourceSystemId__c",
-        "OCV_ID__c"
+        "OCV_ID__c",
+        "Relationship__c"
       ],
       "IA-2530753": [
         "CreatedById",
@@ -2280,7 +2282,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
-        "RecordTypeId"
+        "RecordTypeId",
+        "CPID__c"
       ],
       "IA-2594111": [
         "Broker__c",
@@ -3009,7 +3012,8 @@
         "Property_ID__c",
         "Property_Status__c",
         "Year_Built__c",
-        "Address_Details__c"
+        "Address_Details__c",
+        "Ineligible_Reasons__c"
       ],
       "IA-2530753": ["CreatedDate", "LastModifiedDate", "Last_Updated_Date__c"],
       "IA-2594111": ["LoanApplicationId"],
@@ -4315,7 +4319,8 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate"
-      ]
+      ],
+      "IA-2594109": ["Call_Transcript__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],

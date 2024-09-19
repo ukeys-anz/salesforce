@@ -131,6 +131,11 @@ private class UserProvisioningAfterActionsTest {
       collaborationGroupList.size(),
       'One Group Member should be updated'
     );
+    System.assertEquals(
+      newUser.Id,
+      collaborationGroupList[0].MemberId,
+      'New User Should be addedd to the List'
+    );
   }
   @isTest
   static void testRemoveUsertoChatterGroup() {

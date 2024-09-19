@@ -1,0 +1,9 @@
+.customAccordian {
+  --slds-c-accordion-summary-color-background: #f3f2f2;
+  --slds-c-accordion-color-border: #f3f2f2;
+}
+
+.componentMargin {
+  margin-bottom: 12.5rem;
+  margin-top: 0.625rem;
+}

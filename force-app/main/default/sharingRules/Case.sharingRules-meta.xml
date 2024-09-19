@@ -251,6 +251,21 @@
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>General_Enquiry_RW</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>provide read and write access to general enquiry case</description>
+        <label>General Enquiry RW</label>
+        <sharedTo>
+            <group>General_Enquiry_RW_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>General Enquiry</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>RTs_Coach_And_Coach_Lead_Group_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All Cases having Dispute record types, ANZ Plus Complaint, General Enquiry, Customer Feedback, and AEM cases are to be shared with Coach Public Group with Read/Write access.</description>
@@ -581,7 +596,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,KYC QA,Scam,Identity</value>
+            <value>ID Ops Assistance,Direct Entry,Customer Feedback,Fraud,General Enquiry,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,KYC QA,Scam,Identity,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -609,6 +624,21 @@
             <value>True</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>RTs_JoinOperationsReader_RO</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Criteria based sharing rule to provide Read Only access to Onboarding , PIN and Selfie Cases to users under Join Operations Reader Role.</description>
+        <label>RTs-JoinOperationsReader-RO</label>
+        <sharedTo>
+            <role>Join_Operations_Reader</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ID Ops Assistance,PIN Recovery,Fraud Check,Selfie Recovery</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_3rdPartyMobileSupport_RW</fullName>

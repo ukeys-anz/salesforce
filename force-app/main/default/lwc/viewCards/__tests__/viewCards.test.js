@@ -2,794 +2,506 @@ import { createElement } from "lwc";
 import { ShowToastEventName } from "lightning/platformShowToastEvent";
 import { publish, subscribe } from "lightning/messageService";
 import { createTestWireAdapter } from "@salesforce/wire-service-jest-util";
-import { getRecord } from "lightning/uiRecordApi";
-import { setImmediate } from "timers";
-
-import ViewCards from "c/viewCards";
-import CardControl from "c/cardControl";
-import getCardList from "@salesforce/apex/CardDetailsController.getCardList";
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
+import ViewCards from "c/viewCards";
 
 const MessageContext = createTestWireAdapter();
-const APEX_NO_CARDS = require("./data/noCard.json");
 const APEX_CARDS_SUCCESS = require("./data/response.json");
+const APEX_CARDS_LOAD_MORE_SUCCESS = require("./data/loadMoreLink.json");
 const APEX_CARDS_INACTIVE = require("./data/responseInactiveCard.json");
-const APEX_CARDS_INVALID = require("./data/invalidResp.json");
 const APEX_CARDS_NO_ELIGIBILITIES = require("./data/responseNoEligibilities.json");
 const APEX_CARDS_TEMP_LOCK = require("./data/responseTempLockedCard.json");
 const APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS = require("./data/fraudLockCards-notTemporaryLockStatus.json");
 const APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS = require("./data/fraudLockCards-temporaryLockStatus.json");
 const APEX_CARD_BLOCK_CNP = require("./data/fraudLockCards-fraudStatus.json");
-const APEX_GET_CARD_LIST_FAILURE = require("./data/getCardList-failure.json");
-const APEX_STORE_CARD_CONTROLS_FAILURE = require("./data/storeCardControls-failure.json");
-const mockWireViewCard = require("./data/wire-mock-viewCard.json");
-
-jest.mock(
-  "@salesforce/apex/CardDetailsController.getCardList",
-  () => {
-    return {
-      default: jest.fn()
-    };
-  },
-  { virtual: true }
-);
+const APEX_CLOSED_CARD_LIST = require("./data/listOfClosedCard.json");
 
 describe("c-view-cards", () => {
   afterEach(() => {
-    // The jsdom instance is shared across test cases in a single file so reset the DOM
     while (document.body.firstChild) {
       document.body.removeChild(document.body.firstChild);
     }
   });
 
-  function flushPromises() {
-    // eslint-disable-next-line no-undef
-    return new Promise((resolve) => setImmediate(resolve));
+  async function flushPromises() {
+    return Promise.resolve();
   }
 
-  it("1. tests if view cards button visible", () => {
+  it("1. tests if card detail are visible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+
+    await flushPromises();
+    let cardHolderName = element.shadowRoot.querySelector(
+      "p[data-test-id='cardholder']"
     );
-    expect(button).toBeTruthy();
+    expect(cardHolderName).toBeTruthy();
+    expect(cardHolderName.textContent).toBe("Peter Charalambous");
+
+    let last4digit = element.shadowRoot.querySelector(
+      "p[data-test-id='last-4-digits']"
+    );
+    expect(last4digit.textContent).toBe("9876");
+
+    let status = element.shadowRoot.querySelector("p[data-test-id='status']");
+    expect(status.textContent).toBe("Issued");
   });
 
-  it("2. tests if card detail is visible", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("2. tests load more link visibility when the user has greater than six cards", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_LOAD_MORE_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+
+    await flushPromises();
+    let loadMore = element.shadowRoot.querySelector(
+      "button[data-test-id='load-more']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let status = element.shadowRoot.querySelector(".status");
-
-      expect(status.textContent).toBe("Issued");
-
-      let initialWalletSection = element.shadowRoot.querySelector(
-        ".dig-wallet"
-      );
-      expect(initialWalletSection).toBeTruthy();
-
-      let initialWallets = Array.from(
-        element.shadowRoot.querySelectorAll(".dig-wallet>.wallet-detail")
-      );
-      expect(initialWallets.length).toBe(2);
-
-      let walletList = initialWallets.map((p) => p.textContent);
-      expect(walletList[0]).toBe("SamsungPay - 1");
-    });
+    expect(loadMore).not.toBeNull();
   });
 
-  it("3. tests invalid json renders error message", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_INVALID);
+  it("3. tests load more link visibility when the user has fewer than six cards.", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+
+    await flushPromises();
+    let loadMore = element.shadowRoot.querySelector(
+      "button[data-test-id='load-more']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let error = element.shadowRoot.querySelector("c-error");
-      expect(error).toBeTruthy();
-    });
+    expect(loadMore).toBeNull();
   });
 
-  it("4. tests load more cards", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("4. tests if all the card buttons are made for active card section", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises()
-      .then(() => {
-        let button = element.shadowRoot.querySelector(
-          "button[data-id='load-more-button']"
-        );
-        expect(button).toBeTruthy();
-        button.click();
-      })
-      .then(() => {
-        let card = element.shadowRoot.querySelector(
-          "div[data-id='loaded-card-details']"
-        );
-        expect(card).toBeTruthy();
-      });
+    expect(buttons.length).toBe(9);
   });
 
-  it("5. tests collapse cards", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("5. tests if card buttons are not made for closed Section", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises()
-      .then(() => {
-        let button = element.shadowRoot.querySelector(
-          "button[data-id='load-more-button']"
-        );
-        expect(button).toBeTruthy();
-
-        button.click();
-      })
-      .then(() => {
-        let button = element.shadowRoot.querySelector(
-          "lightning-button[data-id='collapse-expand-button']"
-        );
-        expect(button).toBeTruthy();
-        button.click();
-      })
-      .then(() => {
-        let loadedCard = element.shadowRoot.querySelector(
-          "div[data-id='loaded-card-details']"
-        );
-        expect(loadedCard).toBeTruthy();
-      });
+    expect(buttons.length).toBe(0);
   });
 
-  it("6. tests if all the card buttons are made", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("6. tests if lock card is enabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      expect(buttons.length).toBe(5);
+    let lockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Lock Card") {
+        lockButton = btn;
+      }
     });
+    expect(lockButton).toHaveProperty("disabled", false);
   });
 
-  it("7. tests if lock card is enabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("7. tests if lock card is enabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-      let lockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Lock Card") {
-          lockButton = btn;
-        }
-      });
-      expect(lockButton).toHaveProperty("disabled", false);
+    let lockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Lock Card") {
+        lockButton = btn;
+      }
     });
+    expect(lockButton).toHaveProperty("disabled", false);
   });
 
-  it("8. tests if lock card is disabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_TEMP_LOCK);
+  it("8. tests if lock card is disabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let lockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Lock Card") {
-          lockButton = btn;
-        }
-      });
-
-      expect(lockButton).toHaveProperty("disabled", true);
+    let lockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Lock Card") {
+        lockButton = btn;
+      }
     });
+    expect(lockButton).toHaveProperty("disabled", true);
   });
 
-  it("9. tests if lock card is invisible", () => {
-    getCardList.mockResolvedValue(APEX_CARD_BLOCK_CNP);
+  it("9. tests if lock card is invisible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARD_BLOCK_CNP;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let lockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Lock Card") {
-          lockButton = btn;
-        }
-      });
-
-      expect(lockButton).toBeFalsy();
+    let lockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Lock Card") {
+        lockButton = btn;
+      }
     });
+
+    expect(lockButton).toBeFalsy();
   });
 
-  it("10. tests if replace card is enabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("10. tests if replace card is enabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let replaceButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Replace Card") {
-          replaceButton = btn;
-        }
-      });
-
-      expect(replaceButton).toHaveProperty("disabled", false);
+    let replaceButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Replace Card") {
+        replaceButton = btn;
+      }
     });
+
+    expect(replaceButton).toHaveProperty("disabled", false);
   });
 
-  it("11. tests if replace card is disabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_NO_ELIGIBILITIES);
+  it("11. tests if replace card is disabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_NO_ELIGIBILITIES;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let replaceButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Replace Card") {
-          replaceButton = btn;
-        }
-      });
-      expect(replaceButton).toHaveProperty("disabled", true);
+    let replaceButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Replace Card") {
+        replaceButton = btn;
+      }
     });
+    expect(replaceButton).toHaveProperty("disabled", true);
   });
 
-  it("12. tests if fraud lock button is enabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("12. tests if fraud lock button is enabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let fraudLockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Fraud Lock") {
-          fraudLockButton = btn;
-        }
-      });
-      expect(fraudLockButton).toHaveProperty("disabled", false);
+    let fraudLockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Fraud Lock") {
+        fraudLockButton = btn;
+      }
     });
+    expect(fraudLockButton).toHaveProperty("disabled", false);
   });
 
-  it("13. tests if fraud unlock button is disabled", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("13. tests if fraud unlock button is disabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let fraudUnlockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Fraud Unlock") {
-          fraudUnlockButton = btn;
-        }
-      });
-      expect(fraudUnlockButton).toHaveProperty("disabled", true);
+    let fraudLockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Fraud Unlock") {
+        fraudLockButton = btn;
+      }
     });
+    expect(fraudLockButton).toHaveProperty("disabled", true);
   });
 
-  it("14. tests if fraud unlock button is enabled", () => {
-    getCardList.mockResolvedValue(APEX_CARD_BLOCK_CNP);
+  it("14. tests if fraud unlock button is enabled", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARD_BLOCK_CNP;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelectorAll(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let fraudUnlockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Fraud Unlock") {
-          fraudUnlockButton = btn;
-        }
-      });
-      expect(fraudUnlockButton).toHaveProperty("disabled", false);
+    let fraudUnlockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Fraud Unlock") {
+        fraudUnlockButton = btn;
+      }
     });
+    expect(fraudUnlockButton).toHaveProperty("disabled", false);
   });
 
-  it("15. tests if cancel card button is visible", () => {
-    getCardList.mockResolvedValue(
-      APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
-    );
+  it("15. tests if cancel card button is visible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelectorAll(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let cancelCardButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Cancel Card") {
-          cancelCardButton = btn;
-        }
-      });
-      expect(cancelCardButton).toBeTruthy();
+    let cancelCardButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Cancel Card") {
+        cancelCardButton = btn;
+      }
     });
+    expect(cancelCardButton).toBeTruthy();
   });
 
-  it("16. tests if remove temporary lock button is invisible", () => {
-    getCardList.mockResolvedValue(
-      APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
-    );
+  it("16. tests if remove temporary lock button is invisible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelectorAll(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let removeTempLockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Remove Temporary Lock") {
-          removeTempLockButton = btn;
-        }
-      });
-
-      expect(removeTempLockButton).toBeFalsy();
+    let removeTempLockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Remove Temporary Lock") {
+        removeTempLockButton = btn;
+      }
     });
+
+    expect(removeTempLockButton).toBeFalsy();
   });
 
-  it("17. tests if remove temporary lock button is visible", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS);
+  it("17. tests if remove temporary lock button is visible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelectorAll(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let removeTempLockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Remove Temporary Lock") {
-          removeTempLockButton = btn;
-        }
-      });
-      expect(removeTempLockButton).toBeTruthy();
+    let removeTempLockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Remove Temporary Lock") {
+        removeTempLockButton = btn;
+      }
     });
+    expect(removeTempLockButton).toBeTruthy();
   });
 
-  it("18. tests if fraud lock and fraud unlock button are invisible", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS);
+  it("18. tests if fraud lock and fraud unlock button are invisible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_TEMP_LOCK_STATUS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelectorAll(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
-
-      let buttons = element.shadowRoot.querySelectorAll(
-        "lightning-button[data-button='card-button']"
-      );
-
-      let fraudLockButton;
-      let fraudUnlockButton;
-      buttons.forEach((btn) => {
-        if (btn.label === "Fraud Lock") {
-          fraudLockButton = btn;
-        } else if (btn.label === "Fraud Unlock") {
-          fraudUnlockButton = btn;
-        }
-      });
-      expect(fraudLockButton).toBeFalsy();
-      expect(fraudUnlockButton).toBeFalsy();
+    let fraudLockButton;
+    let fraudUnlockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Fraud Lock") {
+        fraudLockButton = btn;
+      } else if (btn.label === "Fraud Unlock") {
+        fraudUnlockButton = btn;
+      }
     });
+    expect(fraudLockButton).toBeFalsy();
+    expect(fraudUnlockButton).toBeFalsy();
   });
 
-  it("19. check if there is no cards", () => {
-    getCardList.mockResolvedValue(APEX_NO_CARDS);
+  it("19. check clicking on fraud lock button take us to the cardFraudLock component", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let noCardSpan = element.shadowRoot.querySelector("span");
-      expect(noCardSpan).toBeTruthy();
-      expect(noCardSpan.textContent).toBe("No cards available on account");
+    let fraudLockButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Fraud Lock") {
+        fraudLockButton = btn;
+      }
     });
+
+    expect(fraudLockButton).toBeTruthy();
+    fraudLockButton.click();
+    await flushPromises();
+    let child = element.shadowRoot.querySelector("c-card-fraud-lock");
+    expect(child).toBeTruthy();
   });
 
-  it("20. check clicking on fraud lock button take us to the cardFraudLock component", () => {
-    getCardList.mockResolvedValue(
-      APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
-    );
+  it("20. check clicking on lock button take us to the cardTempLock component", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
+    let loackCardButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Lock Card") {
+        loackCardButton = btn;
+      }
+    });
 
-    return flushPromises()
-      .then(() => {
-        let cardButtons = element.shadowRoot.querySelectorAll(
-          "lightning-button[data-button='card-button']"
-        );
-        let fraudLockButton;
-        cardButtons.forEach((btn) => {
-          if (btn.label === "Fraud Lock") {
-            fraudLockButton = btn;
-          }
-        });
-
-        expect(fraudLockButton).toBeTruthy();
-        fraudLockButton.click();
-      })
-      .then(() => {
-        let child = element.shadowRoot.querySelector("c-card-fraud-lock");
-        expect(child).toBeTruthy();
-      });
+    expect(loackCardButton).toBeTruthy();
+    loackCardButton.click();
+    await flushPromises();
+    let child = element.shadowRoot.querySelector("c-card-temp-lock");
+    expect(child).toBeTruthy();
   });
 
-  it("21. check clicking on lock button take us to the cardTempLock component", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("21. check clicking on replace card button take us to the replaceCard component", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
+    let replaceCardButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Replace Card") {
+        replaceCardButton = btn;
+      }
+    });
 
-    return flushPromises()
-      .then(() => {
-        let cardButtons = element.shadowRoot.querySelectorAll(
-          "lightning-button[data-button='card-button']"
-        );
-        let lockButton;
-        cardButtons.forEach((btn) => {
-          if (btn.label === "Lock Card") {
-            lockButton = btn;
-          }
-        });
-
-        expect(lockButton).toBeTruthy();
-        lockButton.click();
-      })
-      .then(() => {
-        let child = element.shadowRoot.querySelector("c-card-temp-lock");
-        expect(child).toBeTruthy();
-      });
+    expect(replaceCardButton).toBeTruthy();
+    replaceCardButton.click();
+    await flushPromises();
+    let child = element.shadowRoot.querySelector("c-replace-card");
+    expect(child).toBeTruthy();
   });
 
-  it("22. check clicking on replace card button take us to the replaceCard component", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("22. tests clicking on lock card within replace/lost path takes us to the lockCard component", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    await flushPromises();
+    let buttons = element.shadowRoot.querySelectorAll(
+      "lightning-button[data-button='card-button']"
     );
-    button.click();
-
-    return flushPromises()
-      .then(() => {
-        let cardButtons = element.shadowRoot.querySelectorAll(
-          "lightning-button[data-button='card-button']"
-        );
-        let replaceButton;
-        cardButtons.forEach((btn) => {
-          if (btn.label === "Replace Card") {
-            replaceButton = btn;
-          }
-        });
-
-        expect(replaceButton).toBeTruthy();
-        replaceButton.click();
-      })
-      .then(() => {
-        let child = element.shadowRoot.querySelector("c-replace-card");
-        expect(child).toBeTruthy();
-      });
-  });
-
-  it("23. tests clicking on lock card within replace/lost path takes us to the lockCard component", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
-    const viewCardsElement = createElement("c-view-cards", {
-      is: ViewCards
+    let replaceButton;
+    buttons.forEach((btn) => {
+      if (btn.label === "Replace Card") {
+        replaceButton = btn;
+      }
     });
 
-    document.body.appendChild(viewCardsElement);
-
-    let button = viewCardsElement.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+    replaceButton.click();
+    await flushPromises();
+    let replaceCardComponent = element.shadowRoot.querySelector(
+      "c-replace-card"
     );
-    button.click();
 
-    return flushPromises()
-      .then(() => {
-        let cardButtons = viewCardsElement.shadowRoot.querySelectorAll(
-          "lightning-button[data-button='card-button']"
-        );
-        let replaceButton;
-        cardButtons.forEach((btn) => {
-          if (btn.label === "Replace Card") {
-            replaceButton = btn;
-          }
-        });
-
-        replaceButton.click();
-      })
-      .then(() => {
-        let replaceCardComponent = viewCardsElement.shadowRoot.querySelector(
-          "c-replace-card"
-        );
-
-        replaceCardComponent.replaceLostUnavailable = false;
-        replaceCardComponent.replaceLockUnavailable = false;
-        return flushPromises()
-          .then(() => {
-            let lostButton = replaceCardComponent.shadowRoot.querySelector(
-              "button[data-id='lost-path']"
-            );
-
-            lostButton.click();
-          })
-          .then(() => {
-            let lockButtonPath = replaceCardComponent.shadowRoot.querySelector(
-              "button[data-id='lock-button-path']"
-            );
-            lockButtonPath.click();
-          })
-          .then(() => {
-            let lockCardComponent = viewCardsElement.shadowRoot.querySelector(
-              "c-card-temp-lock"
-            );
-            expect(lockCardComponent).toBeTruthy();
-          });
-      });
+    replaceCardComponent.replaceLostUnavailable = false;
+    let lostButton = replaceCardComponent.shadowRoot.querySelector(
+      "button[data-id='lost-path']"
+    );
+    lostButton.click();
+    await flushPromises();
+    let lockButtonPath = replaceCardComponent.shadowRoot.querySelector(
+      "button[data-id='lock-button-path']"
+    );
+    lockButtonPath.click();
+    await flushPromises();
+    let lockCardComponent = element.shadowRoot.querySelector(
+      "c-card-temp-lock"
+    );
+    expect(lockCardComponent).toBeTruthy();
   });
 
-  it("24. check the show toast", () => {
-    getCardList.mockRejectedValue(APEX_GET_CARD_LIST_FAILURE);
+  it("23. check the first subscribe and it's toast message", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
 
-    const handler = jest.fn();
-    element.addEventListener(ShowToastEventName, handler);
-
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
-    );
-    button.click();
-
-    return flushPromises().catch(() => {
-      const cError = element.shadowRoot.querySelector("c-error");
-      expect(handler).toHaveBeenCalled();
-      expect(cError).toBeTruthy();
-    });
-  });
-
-  it("25. check the first subscribe and it's toast message", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
-
-    const element = createElement("c-view-cards", {
-      is: ViewCards
-    });
-
-    document.body.appendChild(element);
+    await flushPromises();
 
     const handler = jest.fn();
     element.addEventListener(ShowToastEventName, handler);
@@ -819,150 +531,92 @@ describe("c-view-cards", () => {
     });
   });
 
-  it("26. tests if not activated flag is visible when applicable", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_INACTIVE);
+  it("24. tests status of non activated card", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_INACTIVE;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
-    );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
 
-      let cardControls = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-controls']"
-      );
-      expect(cardControls).toBeTruthy();
-      let status = element.shadowRoot.querySelector(".status");
+    await flushPromises();
 
-      expect(status.textContent).toBe("Issued (Not Activated)");
-    });
+    let status = element.shadowRoot.querySelector("p[data-test-id='status']");
+    expect(status.textContent).toBe("Issued (Not Activated)");
   });
 
-  it("27. tests failure of storing card controls for issued card renders error message", () => {
-    getCardList.mockResolvedValue(APEX_STORE_CARD_CONTROLS_FAILURE);
+  it("25. tests if card controls are visible", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
+
+    await flushPromises();
+
+    let cardControls = element.shadowRoot.querySelectorAll(
+      "div[data-id='loaded-card-controls']"
     );
-    button.click();
-    return flushPromises().then(() => {
-      let error = element.shadowRoot.querySelector("c-error");
-      expect(error).toBeTruthy();
-    });
+    expect(cardControls).toBeTruthy();
   });
 
-  it("28. tests if card controls are visible", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_SUCCESS);
+  it("26. tests if controls are hidden on fraud statuses", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
-    );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
 
-      let cardControls = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-controls']"
-      );
-      expect(cardControls).toBeTruthy();
-    });
+    await flushPromises();
+
+    let fraudMessage = element.shadowRoot.querySelectorAll(
+      "p[data-id='fraud-no-controls']"
+    );
+    expect(fraudMessage).toBeTruthy();
   });
 
-  it("29. tests if controls are hidden on fraud statuses", () => {
-    getCardList.mockResolvedValue(
-      APEX_CARDS_FRAUD_SUCCESS_NOT_TEMP_LOCK_STATUS
-    );
+  it("27. tests if temp lock flag is visible when applicable", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
-
+    element.cardsFromParent = APEX_CARDS_TEMP_LOCK;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
-    );
-    button.click();
-    return flushPromises().then(() => {
-      let fraudMessage = element.shadowRoot.querySelectorAll(
-        "p[data-id='fraud-no-controls']"
-      );
-      expect(fraudMessage).toBeTruthy();
-    });
+
+    await flushPromises();
+
+    let status = element.shadowRoot.querySelector(".status");
+
+    expect(status.textContent).toBe("Issued (Temporary Lock)");
   });
 
-  it("30. tests if temp lock flag is visible when applicable", () => {
-    getCardList.mockResolvedValue(APEX_CARDS_TEMP_LOCK);
+  it("28. tests if status is not visible for closed cards section", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CLOSED_CARD_LIST;
     document.body.appendChild(element);
-    let button = element.shadowRoot.querySelector(
-      "lightning-button[data-id='get-cards-button']"
-    );
-    button.click();
-    return flushPromises().then(() => {
-      let card = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-details']"
-      );
-      expect(card).toBeTruthy();
 
-      let cardControls = element.shadowRoot.querySelector(
-        "div[data-id='loaded-card-controls']"
-      );
-      expect(cardControls).toBeTruthy();
-      let status = element.shadowRoot.querySelector(".status");
-
-      expect(status.textContent).toBe("Issued (Temporary Lock)");
-    });
+    await flushPromises();
+    let status = element.shadowRoot.querySelector(".status");
+    expect(status).toBeFalsy();
   });
-});
 
-describe("c-view-cards | wire", () => {
-  beforeEach(() => {
+  it("29. tests delivery status of activated card", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
+    element.cardsFromParent = APEX_CARDS_SUCCESS;
+    element.isActiveCardSection = "true";
     document.body.appendChild(element);
-  });
 
-  function flushPromises() {
-    // eslint-disable-next-line no-undef
-    return new Promise((resolve) => setImmediate(resolve));
-  }
-  it("1. check wire OCV_ID", () => {
-    getRecord.emit(mockWireViewCard);
-    return flushPromises().then(() => {
-      const ocvID = mockWireViewCard.fields.OCV_ID__c.value;
-      expect(ocvID).toBe("Test OCV_ID");
-    });
-  });
+    await flushPromises();
 
-  it("2. should through an error when there is no ocvId", () => {
-    expect(() => {
-      getRecord.emit({});
-    }).toThrow();
-  });
-
-  it("3. check wire the current logged-in username", () => {
-    getRecord.emit(mockWireViewCard);
-    return flushPromises().then(() => {
-      const currentUsername = mockWireViewCard.fields.Name.value;
-      expect(currentUsername).toBe("Test Logged-in Username");
-    });
+    let deliveryStatus = element.shadowRoot.querySelector(
+      "p[data-test-id='deliveryStatus']"
+    );
+    expect(deliveryStatus.textContent).toBe("Delivered 03/11/2023");
   });
 });

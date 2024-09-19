@@ -2664,10 +2664,13 @@
             <type>Formula</type>
         </childElements>
         <childElements>
+            <name>IDR_Subsequent_Issue__c</name>
+            <isActive>true</isActive>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>IDR_Subsequent_Issue__c</name>
+            <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 6,

@@ -36,10 +36,6 @@ public with sharing class CardDetailsController {
         cardControlsListResponse,
         cardByTokenizedNumberMap
       );
-
-      /* [AR-21317] commenting out to adjust fabric changes to card controls being missing even when
-       eligibilities contain ELIGIBILITY_CARD_CONTROLS and card_controls_enabled == true */
-      //verifyCardControlsStored(cardListResponse);
     }
 
     return cardListResponse;

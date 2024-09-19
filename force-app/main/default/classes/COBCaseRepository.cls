@@ -44,11 +44,22 @@ public with sharing class COBCaseRepository {
   }
 
   /**
+   * @description Get cases by ids
+   * @param caseIds Case ids
+   * @return List<Case> List of cases
+   */
+  public List<Case> getCasesByIds(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
+    }
+    return [SELECT Id, Status FROM Case WHERE Id IN :caseIds WITH USER_MODE];
+  }
+
+  /**
    * @description Check whether the logged in user has Join Leasd role
    * @return Boolean True if a user is Join Lead, false otherwise
    */
   public Boolean isCurrentUserJoinLead() {
-    return UserInfo.GetUserRoleId() ==
-      CommonUtil.getUserRoleByDevName('Join_Lead').Id;
+    return UserInfo.GetUserRoleId() == QueryRole.joinLead.Id;
   }
 }

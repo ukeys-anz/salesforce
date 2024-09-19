@@ -6379,10 +6379,23 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 8.0,
+  &quot;controlWidth&quot; : 8,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
+      }, {
+        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;true&quot;
+      } ]
+    }
+  },
   &quot;dataJSON&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;textKey&quot; : &quot;&quot;,
@@ -6543,7 +6556,7 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;&quot;,
   &quot;elementValueMap&quot; : {
     &quot;custMap&quot; : [ {
@@ -6668,5 +6681,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_23</uniqueName>
     <versionNumber>23.0</versionNumber>
-    <webComponentKey>5bcd2ed7-7d89-fd33-3d01-3ea55d8c1cc9</webComponentKey>
+    <webComponentKey>1eb66c5b-26a8-a78d-b9a6-6e062b169643</webComponentKey>
 </OmniScript>

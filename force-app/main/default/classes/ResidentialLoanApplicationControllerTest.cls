@@ -8,7 +8,6 @@
 public with sharing class ResidentialLoanApplicationControllerTest {
   @isTest
   static void testGetSOP() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
 
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
@@ -53,7 +52,6 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
   @isTest
   static void testDeleteIncome() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
 
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
@@ -103,8 +101,14 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
     System.runAs(coach) {
       ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
-      System.assertEquals(true, sopAssets.showEditExpenseBtn);
-      System.assertEquals(true, sopAssets.showAddIncomeBtn);
+      Assert.isTrue(
+        sopAssets.showEditExpenseBtn,
+        'Edit Expense button should be visible'
+      );
+      Assert.isTrue(
+        sopAssets.showAddIncomeBtn,
+        'Add Income button should be visible'
+      );
     }
   }
 
@@ -125,7 +129,10 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
     System.runAs(coach) {
       ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
-      System.assertEquals(false, sopAssets.showAddIncomeBtn);
+      Assert.isFalse(
+        sopAssets.showAddIncomeBtn,
+        'Add Income button should not be visible'
+      );
     }
   }
 
@@ -166,10 +173,9 @@ public with sharing class ResidentialLoanApplicationControllerTest {
       sopAssets,
       'TestAbc'
     );
-
-    System.assertEquals(
-      false,
-      sopAssets.liabilitiesSummary.liabilities[0].hasRefinance
+    Assert.isFalse(
+      sopAssets.liabilitiesSummary.liabilities[0].hasRefinance,
+      'Liability hasRefinance flag should be false'
     );
   }
 
@@ -234,7 +240,6 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
   @isTest
   static void testDeleteDebt() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
 
     ResidentialLoanApplication rla = new ResidentialLoanApplication();

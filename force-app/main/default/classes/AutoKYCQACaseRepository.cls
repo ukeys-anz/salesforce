@@ -70,7 +70,7 @@ public with sharing class AutoKYCQACaseRepository {
       SELECT Id, CaseNumber, AccountId
       FROM Case
       WHERE
-        RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        RecordTypeId = :RTCase.kycQa
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
     ];
@@ -89,7 +89,7 @@ public with sharing class AutoKYCQACaseRepository {
       SELECT Id, CaseNumber, CustomerOnboardingApplication__c
       FROM Case
       WHERE
-        RecordTypeId = :GetHelpConstants.KYCQA_RT_ID
+        RecordTypeId = :RTCase.kycQa
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND CustomerOnboardingApplication__c IN :cobAppIds
     ];
@@ -134,6 +134,34 @@ public with sharing class AutoKYCQACaseRepository {
    */
   public List<Account> queryExitedAccountsByOcvIds(Set<String> ocvIds) {
     return new SystemAction().queryExitedAccountsByOcvIds(ocvIds);
+  }
+
+  /**
+   * @description Queries Customer Onboarding Applications with the latest ID Ops Assistance Case.
+   * @param cobIds A set of Customer Onboarding Application record IDs.
+   * @return A list of Customer Onboarding Application records with the latest ID Ops Assistance Case.
+   */
+  public List<CustomerOnboardingApplication__c> queryCobsWithLatestIdOpsCase(
+    Set<Id> cobIds
+  ) {
+    if (
+      cobIds.isEmpty() ||
+      SObjectType.CustomerOnboardingApplication__c.isQueryable() == false
+    ) {
+      return new List<CustomerOnboardingApplication__c>();
+    }
+    return [
+      SELECT
+        (
+          SELECT OwnerId
+          FROM Cases__r
+          WHERE RecordTypeId = :RTCase.idOpsAssistance
+          ORDER BY LastModifiedDate DESC
+          LIMIT 1
+        )
+      FROM CustomerOnboardingApplication__c
+      WHERE Id IN :cobIds
+    ];
   }
 
   /**

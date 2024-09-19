@@ -19,12 +19,14 @@ public with sharing class IDRTaskActionsRepository {
       WHERE Id IN :caseIds
     ];
   }
-   /**
+  /**
    * @description Quality Assessments for validating QA Compliance Task
    * @param assessmentIds Quality Assessmnet Ids in current context
    * @return list of Quality Assessments
    */
-  public List<Quality_Assessment__c> queryQualityAssessments(Set<Id> assessmentIds) {
+  public List<Quality_Assessment__c> queryQualityAssessments(
+    Set<Id> assessmentIds
+  ) {
     if (assessmentIds.isEmpty()) {
       return new List<Quality_Assessment__c>();
     }
@@ -37,10 +39,8 @@ public with sharing class IDRTaskActionsRepository {
         Case_Manager__r.Name,
         Related_Case__r.CaseNumber__c
       FROM Quality_Assessment__c
-      WHERE
-        Id IN :assessmentIds
+      WHERE Id IN :assessmentIds
+      WITH SECURITY_ENFORCED
     ];
-  } 
-    
-    
+  }
 }

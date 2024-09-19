@@ -5,6 +5,10 @@
  * @description Controller for the lightning component wrapping the Case creation flow, currently only for Complaints.
  */
 public with sharing class NewCaseFlowWrapperController {
+  private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
+    ComplaintsRepository.class
+  );
+
   // Shell case conversion Change Record type Button
   public static Boolean isShellCaseCRTB = false;
   /**
@@ -28,35 +32,10 @@ public with sharing class NewCaseFlowWrapperController {
   @AuraEnabled
   public static String getCaseDetailsById(Id caseId, String newRecordTypeId) {
     Case caseRecord = new Case();
-    if (Case.sObjectType.getDescribe().isQueryable()) {
-      caseRecord = [
-        SELECT
-          Id,
-          IDR_AFCA_Status__c,
-          Origin,
-          IDR_Subsequent_Issue__c,
-          IDR_Is_Written_Resp_Requested__c,
-          IDR_Is_Written_Resp_Required__c,
-          IDR_Is_Common__c,
-          IDR_Escalation_Reason__c,
-          IDR_Complainant_Type__c,
-          IDR_Product_Category__c,
-          RecordType.DeveloperName,
-          RecordTypeId,
-          Type,
-          Priority,
-          CaseNumber,
-          IDR_Complainant_Desired_Outcome__c,
-          Description,
-          ANZx_Customer__c
-        FROM Case
-        WHERE Id = :caseId
-        LIMIT 1
-      ];
+    Case record = COMPLAINTS_REPOSITORY.getCaseDetailsById(caseId);
+    if (record != null) {
+      caseRecord = record;
     }
-
-    Map<String, String> caseDetails = new Map<String, String>();
-
     if (CheckCaseRecordType.isAEM(caseRecord)) {
       return getCaseDetailsByCaseRecordAEM(caseRecord, newRecordTypeId);
     } else {
@@ -187,19 +166,13 @@ public with sharing class NewCaseFlowWrapperController {
 
   /**
    * @description Query for Customer OCV ID by passing in the Account ID
-   * @param accountID SF Account ID related to the Customer
+   * @param accountId SF Account ID related to the Customer
    * @return String
    */
-  private static String getOCVId(Id accountID) {
-    if (Account.sObjectType.getDescribe().isQueryable()) {
-      List<Account> accounts = [
-        SELECT OCV_ID__c
-        FROM Account
-        WHERE Id = :accountID
-      ];
-      if (!accounts.isEmpty()) {
-        return accounts[0].OCV_ID__c;
-      }
+  private static String getOCVId(Id accountId) {
+    Account account = COMPLAINTS_REPOSITORY.getAccountById(accountId);
+    if (account != null) {
+      return account.OCV_ID__c;
     }
     return null;
   }
@@ -211,20 +184,7 @@ public with sharing class NewCaseFlowWrapperController {
    */
   @AuraEnabled
   public static String getCaseRecordTypesChangeRTBtn(Id caseId) {
-    Case caseRecord = new Case();
-    if (Case.sObjectType.getDescribe().isQueryable()) {
-      caseRecord = [
-        SELECT
-          Id,
-          RecordType.DeveloperName,
-          RecordTypeId,
-          Origin,
-          ANZx_Customer__c
-        FROM Case
-        WHERE Id = :caseId
-        LIMIT 1
-      ];
-    }
+    Case caseRecord = COMPLAINTS_REPOSITORY.getCaseById(caseId);
 
     if (CheckCaseRecordType.isAEM(caseRecord)) {
       return getCaseRecordTypesForAEM();
@@ -245,7 +205,7 @@ public with sharing class NewCaseFlowWrapperController {
     List<Id> acceptedRecordTypeForAEMCases = new List<Id>{
       GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
       GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-      GetHelpConstants.CUSTOMER_COMPLAINT_RT_ID
+      RecordTypeConstants.caseCustomerComplaint
     };
 
     try {

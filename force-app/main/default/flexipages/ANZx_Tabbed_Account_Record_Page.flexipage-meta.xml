@@ -724,8 +724,28 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>viewCards</componentName>
-                <identifier>c_viewCards</identifier>
+                <componentInstanceProperties>
+                    <name>buttonName</name>
+                    <value>Go to Card Details</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>iconName</name>
+                    <value>custom:custom40</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>stateParams</name>
+                    <value>[{&quot;key&quot;: &quot;c__ocvId&quot;,&quot;field&quot;: &quot;Account.OCV_ID__c&quot;},{&quot;key&quot;: &quot;c__recordId&quot;,&quot;field&quot;: &quot;Account.Id&quot;}]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabName</name>
+                    <value>Card_Details</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Cards</value>
+                </componentInstanceProperties>
+                <componentName>clickToAction</componentName>
+                <identifier>c_clickToAction2</identifier>
             </componentInstance>
         </itemInstances>
         <itemInstances>
