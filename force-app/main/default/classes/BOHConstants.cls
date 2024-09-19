@@ -22,6 +22,50 @@ public class BOHConstants {
     BOH_REFERRED_TO_CLASSIC_SUB_STATUS
   };
 
+  /**
+   * @description fetch ANZx case status Closed - Expired
+   * @return String case status Closed - Expired
+   */
+  public static final String caseClosedExpiredStatus {
+    get {
+      return 'Closed - Expired';
+    }
+    private set;
+  }
+
+  /**
+   * @description fetch ANZx case status Closed - Cancelled
+   * @return String case status Closed - Cancelled
+   */
+  public static final String caseClosedCancelledStatus {
+    get {
+      return 'Closed - Cancelled';
+    }
+    private set;
+  }
+
+  /**
+   * @description fetch Residential Loan Application Reason Credit Assessment Expired
+   * @return String Residential Loan Application Reason Credit Assessment Expired
+   */
+  public static final String rlaReasonCreditAssessmentExpired {
+    get {
+      return 'Credit Assessment Expired';
+    }
+    private set;
+  }
+
+   /**
+   * @description fetch ANZx rla status State_Cancelled
+   * @return String rla status State_Cancelled
+   */
+  public static final String rlaStateCancelledStatus {
+    get {
+      return 'STATE_CANCELLED';
+    }
+    private set;
+  }
+
   public enum EXPENSE_CONTROL {
     EXPENSE_CONTROL_WARNING,
     EXPENSE_CONTROL_BREACHED,
