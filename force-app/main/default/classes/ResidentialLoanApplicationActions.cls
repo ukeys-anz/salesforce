@@ -158,6 +158,34 @@ public with sharing class ResidentialLoanApplicationActions {
   }
 
   /**
+   * @description cancelResidentialLoanApplication cancels residential loan application
+   * @param rlaObject map of residential loan application fields
+   * @return response from mule
+   */
+  @AuraEnabled
+  public static String cancelResidentialLoanApplication(
+    Map<String, String> rlaObject
+  ) {
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      HttpCalloutResponse response = rlaRepo.cancelResidentialLoanApp(
+        rlaObject.get('requestId'),
+        rlaObject.get('ocvId')
+      );
+      if (response.statusCode != 200) {
+        return response.error.getMessage();
+      }
+      ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
+        rlaObject
+      );
+      ResidentialLoanApplicationHelper.postNotesToChatter(rlaObject);
+      return 'success';
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
+  /**
    * @description update Status field on Case to cancel if related RLA has cancelled status
    * @param newRlaRecords  Residential Loan application records from trigger on insert/update
    * @param  oldRlaRecords  Holds records information before update

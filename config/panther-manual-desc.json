@@ -3883,7 +3883,9 @@
         "Settlement_ID__c",
         "Status",
         "Credit_Reassess_Required__c",
-        "Loan_Term__c"
+        "Loan_Term__c",
+        "Other_Cancellation_Reason__c",
+        "Cancellation_Reason__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [

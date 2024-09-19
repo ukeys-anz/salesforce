@@ -388,6 +388,13 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Cancel_Loan_Application</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Cancel Loan Application</shortDescription>
+        <value>callout:SF_MS_CH2/api/loanapplication/v1beta1/{loanapplications}:cancel</value>
+    </labels>
+    <labels>
         <fullName>MS_Income</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -1991,6 +1998,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>PayTo Fraud Reason Code</shortDescription>
         <value>MD21</value>
+    </labels>
+    <labels>
+        <fullName>RLA_Cancellation_Confirmation_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RLA_Cancellation_Confirmation_Message</shortDescription>
+        <value>Are you sure you want to withdraw this application? Once saved this cannot be changed. If there is an open credit referral case linked to this application, then the credit referral case will be closed.  Please click ok to confirm or cancel to review.</value>
     </labels>
     <labels>
         <fullName>CCRM_JWT_Siging_Certificate_NP</fullName>

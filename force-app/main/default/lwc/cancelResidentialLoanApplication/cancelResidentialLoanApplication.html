@@ -1,0 +1,68 @@
+<template>
+  <lightning-quick-action-panel header="Withdraw This Application">
+    <div>
+      <div lwc:if={mainWindow}>
+        <lightning-combobox
+          name="Cancellation_Reason__c"
+          label="Reason"
+          value={value}
+          data-id="Cancellation_Reason__c"
+          placeholder="Select cancellation reason"
+          options={options}
+          required
+          onchange={handleChange}
+          onblur={checkFieldsValidity}
+        >
+        </lightning-combobox>
+        <div lwc:if={otherReasonVisible}>
+          <lightning-input
+            type="text"
+            name="Other_Reason__c"
+            label="Enter Details"
+            data-id="Other_Reason__c"
+            max-length="255"
+            required
+            onblur={checkFieldsValidity}
+          ></lightning-input>
+        </div>
+        <lightning-textarea
+          name="Notes"
+          label="Notes"
+          placeholder="type here..."
+          data-id="Notes"
+          required
+          onblur={checkFieldsValidity}
+        ></lightning-textarea>
+      </div>
+      <div lwc:else>{confirmationMessage}</div>
+    </div>
+    <div slot="footer">
+      <div slot="footer" lwc:if={mainWindow}>
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCloseModel}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          label="Save"
+          onclick={handleSave}
+          class="slds-m-left_x-small"
+        ></lightning-button>
+      </div>
+      <div lwc:else slot="footer">
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCloseModel}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          label="Ok"
+          onclick={handleSubmit}
+          class="slds-m-left_x-small"
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-quick-action-panel>
+</template>

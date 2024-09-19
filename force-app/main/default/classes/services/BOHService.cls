@@ -541,4 +541,30 @@ public with sharing class BOHService extends Service {
 
     return response;
   }
+
+  /**
+   * @param loanAppNumber loan application number
+   * @param ocvId ocv id of the customer account
+   * @return `HttpCalloutResponse` the api response
+   * @description cancelResidentialLoanApp cancels residential loan application
+   */
+  public override HttpCalloutResponse cancelResidentialLoanApp(
+    String loanAppNumber,
+    String ocvId
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    Map<String, String> headers = new Map<String, String>();
+    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    //headers.put('Content-Type', 'application/json');
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      Label.MS_Upadte_Signing_Authority.replace(
+        '{loanapplications}',
+        loanAppNumber
+      ),
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      ''
+    );
+    return response;
+  }
 }
