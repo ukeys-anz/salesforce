@@ -339,43 +339,6 @@ public with sharing class IDRConstants {
     'Credit assessment'
   };
 
-  /**
-   * @description Static variable to list CMOS workbaskets' API names
-   */
-  @TestVisible
-  public static final List<String> workBasketNames {
-    get {
-      if (workBasketNames == null) {
-        workBasketNames = new List<String>{
-          'Specialised_Early_Resolution_Hardship',
-          'Specialised_EarlyRes_Responsible_Lending',
-          'EDR_Early_Resolution',
-          'IDR_Hardship',
-          'IDR_Responsible_Lending',
-          'IDR_CEO',
-          'IDR_Business_Owners',
-          'IDR_Everyday_Banking',
-          'IDR_Home_Owners',
-          'IDR_Wealth',
-          'IDR_Early_Resolution',
-          'IDR_Early_Resolution_Unassisted_Channel',
-          'CCR_Complaints',
-          'Hardship_IDR_Letter',
-          'IDR_ANZ_Plus',
-          'EDR_Hardship',
-          'EDR_Wealth',
-          'IDR_Satellite',
-          'IDR_Spare', //IDR Disputes
-          'EDR_CM_Everyday_Banking_Wealth', // EDR Scams
-          'IDR_Scams', // IDR Scams
-          'IDR_Deceased_Estates'
-        };
-      }
-      return workBasketNames;
-    }
-    set;
-  }
-
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
 
