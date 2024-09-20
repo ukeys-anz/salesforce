@@ -1,22 +1,22 @@
 /**
  * @author Zhiren Jason Guan
  * @since  04/03/2024
- * @description Service layer for GCP event related actions
- * @runTests  RetailBrokerGCPServiceTest
+ * @description Service layer for GCP event related actions for broker event
+ * @runTests  RetailBrokerEventActionsTest
  */
 
-public with sharing class RetailBrokerGCPActions {
-  public static final String GCP_EVENT_ADD = 'add';
-  public static final String GCP_EVENT_UPDATE = 'update';
+public with sharing class RetailBrokerEventActions {
+  public static final String BROKER_EVENT_ADD = 'add';
+  public static final String BROKER_EVENT_UPDATE = 'update';
   @TestVisible
   private static List<Contact> mockBrokerContacts = new List<Contact>();
 
   /**
-   * @description Publish GCP event for brokers
-   * @param brokerIdToEventTypeMap Map of broker Id to GCP event type
+   * @description Publish event for brokers
+   * @param brokerIdToEventTypeMap Map of broker Id to event type
    * @return List of success published events
    */
-  public static List<SObject> publishGCPEventForBrokers(
+  public static List<SObject> publishEventForBrokers(
     Map<Id, String> brokerIdToEventTypeMap
   ) {
     if (brokerIdToEventTypeMap == null || brokerIdToEventTypeMap.isEmpty()) {
@@ -67,7 +67,7 @@ public with sharing class RetailBrokerGCPActions {
   /**
    * @description Generate Broker related Cloud Event Model
    * @param broker Contact record
-   * @param eventType GCP event type
+   * @param eventType event type
    * @return BrokerCloudEventModel
    */
   @TestVisible
@@ -76,7 +76,7 @@ public with sharing class RetailBrokerGCPActions {
     String eventType
   ) {
     List<BrokerCloudEventModel.MasterNode> masterNodes = eventType ==
-      GCP_EVENT_ADD
+      BROKER_EVENT_ADD
       ? buildAddContact(broker)
       : buildUpdateContact(broker);
     return new BrokerDataCloudEventModel(broker, masterNodes, eventType);

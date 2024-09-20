@@ -30,7 +30,7 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
     SettlementActions.createActionPlans(records, null);
     SettlementActions.publishSettlementCloudEvents(
       records,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_ADD
+      ApplicationEventActions.APPLICATION_EVENT_ADD
     );
   }
 
@@ -46,7 +46,7 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
     );
     SettlementActions.publishSettlementCloudEvents(
       records,
-      ResidentialLoanApplicationGCPActions.GCP_EVENT_UPDATE
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
   }
 }

@@ -14,10 +14,10 @@ private class LoanApplicantActionsTest {
   static Lib_MockProvider dmlRepoMock;
 
   /*
-   * @description method to test SynchronizeAndUpdateCustomerSyncStatus method
+   * @description method to test accountSyncStatusUpdate method
    */
   @isTest
-  static void testSynchronizeAndUpdateCustomerSyncStatus() {
+  static void testAccountSyncStatusUpdate() {
     Map<Id, Account> accMap = createCustomerAccount(3);
     List<ResidentialLoanApplication> rlaList = createResidentialLoanApplications(
       1
@@ -39,9 +39,7 @@ private class LoanApplicantActionsTest {
     };
     dmlRepoMock.mock('updateRecords', saveResults);
     Test.startTest();
-    LoanApplicantActions.synchronizeAndUpdateCustomerSyncStatus(
-      loanAppIdVsRecordMap.keySet()
-    );
+    LoanApplicantActions.accountSyncStatusUpdate(loanAppIdVsRecordMap.keySet());
     Test.stopTest();
     Assert.isFalse(
       dmlRepoMock.getHistories('updateRecords').isEmpty(),
@@ -71,6 +69,11 @@ private class LoanApplicantActionsTest {
       accounts.size(),
       loanAppIdVsRecordMap.size(),
       'All 5 account record Sync Status should be mapped as Broker Org'
+    );
+    Assert.areEqual(
+      'Broker Org',
+      accounts[0].Sync_Status__c,
+      'Sync Status of the updated account must be Broker Org'
     );
   }
 

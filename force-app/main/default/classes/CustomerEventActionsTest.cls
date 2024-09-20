@@ -1,26 +1,26 @@
 /**
- * @description       : Test Class for CustomerGCPActions
+ * @description       : Test Class for CustomerEventActions
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-13-2024
+ * @last modified on  : 09-17-2024
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 @isTest
-public with sharing class CustomerGCPActionsTest {
+public with sharing class CustomerEventActionsTest {
   private static final String PERSONACC_RECORDTYPEID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
     .get('PersonAccount')
     .getRecordTypeId();
 
   /*
-   * @description unit test for filterAccountsBasedOnSyncStatus
+   * @description unit test for validateSyncStatus
    */
   @isTest
-  static void filterAccountsBasedOnSyncStatusTest() {
+  static void validateSyncStatusTest() {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     accList[0].Sync_Status__c = 'Blocked';
 
     Test.startTest();
-    List<Account> result = CustomerGCPActions.filterAccountsBasedOnSyncStatus(
+    List<Account> result = CustomerEventActions.validateSyncStatus(
       accList,
       oldMap
     );
@@ -30,32 +30,42 @@ public with sharing class CustomerGCPActionsTest {
       result.size(),
       'Expected one account with valid sync status'
     );
+    Assert.areEqual(
+      'Broker Org',
+      result[0].Sync_Status__c,
+      'Expected Sync Status is Broker Org'
+    );
   }
 
   /*
-   * @description unit test for filterAccountsBasedonOCVVersion
+   * @description unit test for validateOCVVersion
    */
   @isTest
-  static void filterAccountsBasedonOCVVersionTest() {
+  static void validateOCVVersionTest() {
     List<Account> accList = createCustomerAccount(1);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
-    List<Account> result = CustomerGCPActions.filterAccountsBasedonOCVVersion(
+    List<Account> result = CustomerEventActions.validateOCVVersion(
       accList,
       oldMap
     );
     Test.stopTest();
     Assert.areEqual(1, result.size(), 'Expected One Valid OCV Version Account');
+    Assert.areEqual(
+      1,
+      result[0].OCV_Event_Version__c,
+      'Expected version of OCV is 1'
+    );
   }
 
   /*
-   * @description unit test for generateCustomerCEModelBundle
+   * @description unit test for generateCustomerCEModel
    */
   @isTest
-  static void generateCustomerCEModelBundleTest() {
+  static void generateCustomerCEModelTest() {
     List<Account> accList = createCustomerAccount(2);
     Test.startTest();
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = CustomerGCPActions.generateCustomerCEModelBundle(
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = CustomerEventActions.generateCustomerCEModel(
       accList
     );
     Test.stopTest();
@@ -63,14 +73,14 @@ public with sharing class CustomerGCPActionsTest {
   }
 
   /*
-   * @description unit test for publishGCPEventForCustomers
+   * @description unit test for publishEventForCustomers
    */
   @isTest
-  static void publishGCPEventForCustomersTest() {
+  static void publishEventForCustomersTest() {
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
-    List<Cloud_Event__e> cloudEvents = CustomerGCPActions.publishGCPEventForCustomers(
+    List<Cloud_Event__e> cloudEvents = CustomerEventActions.publishEventForCustomers(
       accList,
       oldMap,
       'update'
@@ -89,11 +99,11 @@ public with sharing class CustomerGCPActionsTest {
   @isTest
   static void generateCloudEventModelTest() {
     List<Account> accList = createCustomerAccount(1);
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerGCPActions.generateCustomerCEModelBundle(
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = CustomerEventActions.generateCustomerCEModel(
       accList
     );
     Test.startTest();
-    List<BrokerCloudEventModel> result = CustomerGCPActions.generateCloudEventModel(
+    List<BrokerCloudEventModel> result = CustomerEventActions.generateCloudEventModel(
       accList,
       masterNodes,
       'update'

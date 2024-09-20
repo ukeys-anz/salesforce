@@ -62,7 +62,9 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-  static void testPublishBrokerGCPEvents() {
+  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
+  // Added SuppressWarnings as calling method is void and didn't return anything for Assert.
+  static void testPublishBrokerEvents() {
     // Prepare test data for add event
     List<Contact> newContactsForAdd = createTestContactList();
     List<Contact> oldContactsForAdd = newContactsForAdd.deepClone(true);
@@ -87,11 +89,11 @@ private class RetailBrokerContactActionsTest {
     );
     Test.startTest();
     // no assertion required for void methods
-    RetailBrokerContactActions.publishBrokerGCPEvents(
+    RetailBrokerContactActions.publishBrokerEvents(
       newContactsForAdd,
       new Map<Id, Contact>(oldContactsForAdd)
     );
-    RetailBrokerContactActions.publishBrokerGCPEvents(
+    RetailBrokerContactActions.publishBrokerEvents(
       newContactsForUpdate,
       new Map<Id, Contact>(oldContactsForUpdate)
     );

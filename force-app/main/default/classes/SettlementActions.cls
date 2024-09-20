@@ -254,10 +254,10 @@ public with sharing class SettlementActions {
     String cloudEventType
   ) {
     List<Id> loanApplicationIds = getLoanApplicationIdFromSettlements(records);
-    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryMultipleLoanApplications(
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
       loanApplicationIds
     );
-    ResidentialLoanApplicationActions.synchronizeAndPublishCloudEvents(
+    ResidentialLoanApplicationActions.publishSyncEvents(
       rlaList,
       cloudEventType
     );
