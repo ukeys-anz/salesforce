@@ -21,9 +21,14 @@ public with sharing class StaffTokenRequestModel {
    */
   public String apiScopesRequested { get; set; }
   /**
+   * @description Name of the realm custom metadata that contains the scopes requested by the API
+   */
+  public String realm { get; set; }
+  /**
    * @description constructor to set the default value for apiScopesRequested
    */
   public StaffTokenRequestModel() {
     apiScopesRequested = 'ForgeV2';
+    realm = 'customer';
   }
 }
