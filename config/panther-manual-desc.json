@@ -2189,6 +2189,8 @@
       "IA-2415999": [
         "Case__c",
         "Customer_Message__c",
+        "Customer_Status__c",
+        "New_Customer_Message__c",
         "External_Status__c",
         "Internal_Description__c",
         "Is_Outcome_in_Customer_Favour__c",
