@@ -136,7 +136,7 @@ public with sharing class TFMConstants {
   public static final String DATEFORMAT = 'dd/MM/yyyy hh:mm:ss';
   public static final String CREDENTIALSRESID = 'CID-F7AE26D3-FAKE-FAKE-FAKE-FFBE0B599CC4(fakecCaxncctGHKuTySauJN-vA),DID-fakecCaxncctGHKuTySauJN-vA';
   public static final String INTERNAL_USER_ID = '1x1x1x1x1x';
-  public static final String OCV_ID_VALUE = '100000000';
+  public static final String UUID_VALUE = '100000000';
   public static final String USE_MOCK = 'useMock';
   public static final String CONTENTTYPE = 'Content-Type';
   public static final String APPLICATIONJSON = 'application/json';
@@ -224,4 +224,4 @@ public with sharing class TFMConstants {
   public static final String SUCCESS = 'Success';
   public static final String WARNING = 'Warning';
   public static final String ERRORSTATUS = 'Error';
-}
+  }
