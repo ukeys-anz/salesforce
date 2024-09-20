@@ -11754,6 +11754,9 @@
     <layoutAssignments>
         <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Term_Deposit__x-Term Deposit Layout</layout>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
         <allowDelete>true</allowDelete>
