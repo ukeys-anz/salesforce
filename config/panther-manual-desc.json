@@ -3905,7 +3905,8 @@
         "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
         "Owner_Name__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Is_SOP_Ineligible__c"
       ],
       "IA-2594111": [
         "AccountId",

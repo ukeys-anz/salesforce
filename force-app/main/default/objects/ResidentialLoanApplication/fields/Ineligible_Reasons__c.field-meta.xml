@@ -18,7 +18,7 @@
             <value>
                 <fullName>INELIGIBLE_REASON_SOP_INELIGIBLE</fullName>
                 <default>false</default>
-                <label>Ineligible due to finances. See Finances tab</label>
+                <label>Ineligible reason(s) identified. See Ineligible reasons below</label>
             </value>
             <value>
                 <fullName>INELIGIBLE_REASON_UNDER_AGE</fullName>
