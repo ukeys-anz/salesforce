@@ -32,11 +32,11 @@ public with sharing class CryptoOperationsUtils {
         )
       );
     }
-    Blob privateKeyBlob = EncodingUtil.base64Decode(
+    Blob privateKeyBlob = Blob.valueOf(
       privateKeyList[0].Private_Key__c
     );
-    Blob initialisationVectorBlob = Blob.valueOf(initializationVector);
-    Blob encryptedDataBlob = EncodingUtil.base64Decode(encryptedData);
+    Blob initialisationVectorBlob = EncodingUtil.convertFromHex(initializationVector);
+    Blob encryptedDataBlob = EncodingUtil.convertFromHex(encryptedData);
 
     Blob decryptedDataBlob = Crypto.decrypt(
       ENCRYPTION_ALGORITHM,
