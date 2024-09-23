@@ -12,8 +12,7 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">It looks like the merchant has already issued a refund. We&apos;ll send you an email with the refund information and our contact details.
-Feel free to reach out to us if you have any questions.</value>
+        <value xsi:type="xsd:string">It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </values>
     <values>
         <field>Customer_Status__c</field>

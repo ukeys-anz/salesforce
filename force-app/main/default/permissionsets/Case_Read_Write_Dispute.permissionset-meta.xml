@@ -20,6 +20,10 @@
         <name>PegaExternalCaseStatuses__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>External_Case_Status_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Grants Read/Write permissions for disputes related objects and fields</description>
     <fieldPermissions>
         <editable>true</editable>
