@@ -7,7 +7,7 @@
 public with sharing class CryptoOperationsUtilsTest {
   //Mock Tokenized Card Number and Private Key for test class to be used in other test classes
   public static final String MOCK_TOKENIZED_CARD_NUMBER = 'test';
-  public static final String MOCK_PRIVATE_KEY = 'f2aaee13f7ac58c3518144432eae24dc';
+  public static final String MOCK_PRIVATE_KEY = 'G8yZk7Bqj5fR8kN2vT1wQ3sLbP9xAeWz';
   public static final StaticResource MOCK_GCP_RESPONSE = [
     SELECT body
     FROM StaticResource
