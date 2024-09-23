@@ -55,7 +55,7 @@ public class BOHConstants {
     private set;
   }
 
-   /**
+  /**
    * @description fetch ANZx rla status State_Cancelled
    * @return String rla status State_Cancelled
    */
