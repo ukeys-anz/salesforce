@@ -134,6 +134,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>IDR_Nominated_3rd_Party_Company_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>IDR_3rdParty_Relationship_To_Complainant__c</field>
             </layoutItems>
             <layoutItems>
