@@ -1208,6 +1208,7 @@
         "ContactEmail",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
+        "IDR_Nominated_3rd_Party_Company_Name__c",
         "IDR_3rdParty_Mobile__c",
         "IDR_3rdParty_Name__c",
         "IDR_3rdParty_Phone__c",

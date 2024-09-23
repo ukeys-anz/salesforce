@@ -422,6 +422,41 @@
                 <label>Fraud / Falcon block placed</label>
             </value>
             <value>
+                <fullName>115</fullName>
+                <default>false</default>
+                <label>Default judgement obtained</label>
+            </value>
+            <value>
+                <fullName>116</fullName>
+                <default>false</default>
+                <label>Unclear/confusing customer comms</label>
+            </value>
+            <value>
+                <fullName>117</fullName>
+                <default>false</default>
+                <label>Unclear rationale for change</label>
+            </value>
+            <value>
+                <fullName>118</fullName>
+                <default>false</default>
+                <label>Product removal/decommissioning</label>
+            </value>
+            <value>
+                <fullName>119</fullName>
+                <default>false</default>
+                <label>Product Feature removal/change</label>
+            </value>
+            <value>
+                <fullName>120</fullName>
+                <default>false</default>
+                <label>Digitial Notices &amp; Statements</label>
+            </value>
+            <value>
+                <fullName>121</fullName>
+                <default>false</default>
+                <label>Impacts to broader banking experience</label>
+            </value>
+            <value>
                 <fullName>109</fullName>
                 <default>false</default>
                 <label>Blocks placed on customers account/profile</label>
@@ -610,6 +645,34 @@
         <valueSettings>
             <controllingFieldValue>Know Your Customer</controllingFieldValue>
             <valueName>110</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>22</controllingFieldValue>
+            <valueName>116</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>22</controllingFieldValue>
+            <valueName>117</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>22</controllingFieldValue>
+            <valueName>118</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>22</controllingFieldValue>
+            <valueName>119</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>22</controllingFieldValue>
+            <valueName>120</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>22</controllingFieldValue>
+            <valueName>121</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>17</controllingFieldValue>
+            <valueName>115</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Know Your Customer</controllingFieldValue>
