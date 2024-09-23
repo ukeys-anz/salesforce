@@ -23,4 +23,12 @@ public with sharing class IDRCaseActionsRepository {
         AND RecordType.Id = :IDRConstants.IDR_TASK_RT_ID
     ];
   }
+  /**
+   * @description Query Feature Management to get if the current user is having required permissions
+   * @param permissionName String custom permission name
+   * @return Boolean true/false based on users assigned permissions
+   */
+  public Boolean checkUserPermission(String permissionName) {
+    return FeatureManagement.checkPermission(permissionName);
+  }
 }
