@@ -175,6 +175,9 @@ public without sharing class TestDataFactory {
       when 'Credit_Referral' {
         newCase = createCreditReferralCase();
       }
+      when 'PayTo_Dispute' {
+        newCase = TestHelper.createPayToDispute();
+      }
     }
     newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
       .get(recordTypeDeveloperName)
@@ -182,6 +185,33 @@ public without sharing class TestDataFactory {
     List<String> listDispute = getDisputeReason(recordTypeDeveloperName);
     newCase.Dispute_Reason__c = listDispute == null ? '' : listDispute[0];
     return newCase;
+  }
+
+  /**
+   * @description Populate Recordtype object
+   * @param record SObject record
+   * @param rt RecordType record
+   * @return SObject
+   */
+  public static SObject populateRecordType(SObject record, RecordType rt) {
+    String objString = JSON.serialize(record);
+    Integer index = objString.indexOf('"RecordTypeId":');
+    if (index != -1) {
+      objString = objString.replace(
+        '"RecordTypeId":',
+        '"RecordType":' + JSON.serialize(rt) + ',"RecordTypeId":'
+      );
+    }
+    switch on record.getSObjectType().toString() {
+      when 'Case' {
+        return (Case) JSON.deserialize((objString), Case.class);
+      }
+      when 'Account' {
+        return (Account) JSON.deserialize((objString), Account.class);
+      }
+    }
+
+    return null;
   }
 
   /**
@@ -361,6 +391,11 @@ public without sharing class TestDataFactory {
         'Incorrect Account Details',
         'Incorrect Amount Transferred',
         'Return money received from an unknown person'
+      },
+      'PayTo_Dispute' => new List<String>{
+        'Wrong Amount',
+        'Duplicate Transaction',
+        'Not as per agreement'
       }
     };
     return reasonsByRecordtype.get(recordTypeDeveloperName);

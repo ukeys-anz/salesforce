@@ -24,6 +24,7 @@ public class SOPDebt {
   public String uid;
   public Boolean paidOffAndClosed;
   public Boolean evidenceProvided;
+  public Boolean customerStatedClosed;
   public Boolean validatedOutstandingBalance;
   public SOPInstitutionalLiability institutionalLiability;
   public SOPAccounts account;
@@ -32,6 +33,16 @@ public class SOPDebt {
   public Datetime updateTime;
   public String etag;
   public Boolean showDeleteDebtBtn;
+  /**
+   * @description return readable value of customer stated closed
+   */
+  public String customerExcludedDebt {
+    get {
+      return customerStatedClosed == true
+        ? ResidentialLoanApplicationModel.Y
+        : ResidentialLoanApplicationModel.N;
+    }
+  }
   /**
    * @description return readable value of term type
    */

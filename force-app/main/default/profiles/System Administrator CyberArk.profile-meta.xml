@@ -8830,6 +8830,10 @@
         <recordType>Case.Non_Customer_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-PayTo Dispute Layout</layout>
+        <recordType>Case.PayTo_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Recipient%2FMule Layout</layout>
         <recordType>Case.Recipient_Mule</recordType>
     </layoutAssignments>

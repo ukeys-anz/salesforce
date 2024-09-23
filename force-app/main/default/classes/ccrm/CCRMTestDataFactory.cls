@@ -1741,7 +1741,7 @@ public with sharing class CCRMTestDataFactory {
     }
     return interactionList;
   }
-  
+
   /**
    * @description create Email Message record Instance
    * @param emId email message Id

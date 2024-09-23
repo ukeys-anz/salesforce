@@ -447,32 +447,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Dispute_Reason_PayTo__c</fieldItem>
-                <identifier>RecordDispute_Reason_PayTo_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Is_PayTo_Dispute__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Dispute_Reason__c</fieldItem>
                 <identifier>RecordDispute_Reason_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Is_PayTo_Dispute__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -523,23 +499,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Payment_ID__c</fieldItem>
                 <identifier>RecordPayment_ID_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Mandate_ID__c</fieldItem>
-                <identifier>RecordMandate_ID_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Is_PayTo_Dispute__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1075,7 +1034,7 @@
                 <componentName>force:relatedListSingleContainer</componentName>
                 <identifier>force_relatedListSingleContainer1</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR (3 AND 4)</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1090,11 +1049,6 @@
                         <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>NPP_Dispute</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Is_PayTo_Dispute__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

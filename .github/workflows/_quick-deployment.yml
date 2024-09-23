@@ -16,7 +16,7 @@ jobs:
   Quick-Deployment:
     name: Quick Deployment ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.4"
       options: --user root
     runs-on: anzx-default-np
     steps:

@@ -31,16 +31,6 @@
   --sds-c-icon-color-foreground-default: #014486;
 }
 
-.close-modal {
-  cursor: pointer;
-  --sds-c-icon-color-foreground-default: #fff;
-}
-
-.modal-header {
-  background: #014486;
-  color: #fff;
-}
-
 .vertical-align {
   position: relative;
   top: 50%;

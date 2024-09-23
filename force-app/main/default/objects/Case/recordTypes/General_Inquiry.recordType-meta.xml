@@ -11763,7 +11763,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Offset Maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Power of attorney</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Pricing Request</fullName>
             <default>false</default>
         </values>
         <values>

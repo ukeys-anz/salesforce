@@ -176,6 +176,16 @@
                 <default>false</default>
                 <label>Payment not received by biller</label>
             </value>
+            <value>
+                <fullName>Wrong Amount</fullName>
+                <default>false</default>
+                <label>Wrong Amount</label>
+            </value>
+            <value>
+                <fullName>Not as per agreement</fullName>
+                <default>false</default>
+                <label>Not as per agreement</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
