@@ -2525,6 +2525,50 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+              <isActive>true</isActive>
+              <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+              <level>2.0</level>
+              <name>thirdPartyCompanyName</name>
+              <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+              <propertySetConfig>{
+&quot;disOnTplt&quot; : false,
+&quot;hide&quot; : false,
+&quot;HTMLTemplateId&quot; : &quot;&quot;,
+&quot;debounceValue&quot; : 0,
+&quot;accessibleInFutureSteps&quot; : false,
+&quot;conditionType&quot; : &quot;Hide if False&quot;,
+&quot;show&quot; : {
+  &quot;group&quot; : {
+    &quot;rules&quot; : [ {
+      &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;,
+      &quot;condition&quot; : &quot;=&quot;,
+      &quot;data&quot; : &quot;Yes&quot;
+    } ],
+    &quot;operator&quot; : &quot;AND&quot;
+  }
+},
+&quot;placeholder&quot; : &quot;&quot;,
+&quot;maxLength&quot; : 255,
+&quot;minLength&quot; : 0,
+&quot;ptrnErrText&quot; : &quot;&quot;,
+&quot;pattern&quot; : &quot;&quot;,
+&quot;mask&quot; : &quot;&quot;,
+&quot;helpTextPos&quot; : &quot;&quot;,
+&quot;helpText&quot; : &quot;&quot;,
+&quot;help&quot; : false,
+&quot;readOnly&quot; : false,
+&quot;repeatClone&quot; : false,
+&quot;repeat&quot; : false,
+&quot;required&quot; : true,
+&quot;inputWidth&quot; : 12,
+&quot;showInputWidth&quot; : false,
+&quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
+&quot;controlWidth&quot; : 3
+}</propertySetConfig>
+              <sequenceNumber>35.0</sequenceNumber>
+              <type>Text</type>
+          </childElements>
+            <childElements>
                 <name>thirdPartyCountry</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
