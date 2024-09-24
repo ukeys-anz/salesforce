@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Statement_Mailing_Address__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>This is the mailing address of the account statement. This field is required for mobile lenders to check if statements are sent to the right address.
+
+This must include the statement address where there are up to two lines of the title, up to 3 street addresses plus the city, state, post code and optionally the country.</description>
+    <externalDeveloperName>StatementMailingAddress</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>true</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Statement Mailing Address</label>
+    <length>32768</length>
+    <type>LongTextArea</type>
+    <securityClassification>Confidential</securityClassification>
+    <visibleLines>4</visibleLines>
+</CustomField>

@@ -100,5 +100,107 @@
     }
   ],
   "etag": "1688608326165083000",
-  "ineligibleReasons": []
+  "ineligibleReasons": [
+    "SOP_INELIGIBLE_REASON_UNSUPPORTED_PRODUCTS","SOP_INELIGIBLE_REASON_UNSUPPORTED_RELATIONSHIP","SOP_INELIGIBLE_REASON_CUSTOMER_PROFILE","SOP_INELIGIBLE_REASON_PARTY_MATCHED","SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND","SOP_INELIGIBLE_REASON_OCV_FABRIC_ACCOUNT_MISSING","SOP_INELIGIBLE_REASON_PARTY_UNMERGED"
+  ],
+  "ineligibleReasonsWithInfo": [
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_UNSUPPORTED_PRODUCTS",
+      "details": [
+        {
+            "ocvId": "123456789",
+            "accountNumber": "12532452359",
+            "productSubCode": "CAP-CIS:OLL"
+        },
+        {
+            "ocvId": "123456789",
+            "accountNumber": "6745624232",
+            "productSubCode": "CAP-CIS:FMV"
+        }            
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_UNSUPPORTED_RELATIONSHIP",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "accountNumber": "123456789",
+          "productSubCode": "CAP-CIS:ILSIVC",
+          "accountRelationshipType": "TSF"
+        },
+        {
+          "ocvId": "123456789",
+          "accountNumber": "534534534",
+          "productSubCode": "CAP-CIS:DDAET",
+          "accountRelationshipType": "PRI"
+        }            
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_CUSTOMER_PROFILE",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+        },
+        {
+            "ocvId": "123456789",
+            "CAPCISID": "473631128"
+        }
+      ]
+    },
+      {
+        "ineligibleReasonType": "SOP_INELIGIBLE_REASON_PARTY_MATCHED",
+        "details": [
+          {
+            "ocvId": "123456789",
+            "CAPCISID": "473652198"
+        },
+        {
+            "ocvId": "123456789",
+            "CAPCISID": "473631128"
+        }          ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_PARTY_UNMERGED",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+      },
+      {
+          "ocvId": "123456789",
+          "CAPCISID": "473631128"
+      }          ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+      },
+      {
+          "ocvId": "123456789",
+          "CAPCISID": "473631128"
+      }          ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_OCV_FABRIC_ACCOUNT_MISSING",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "accountNumber": "123456789",
+          "productSubCode": "CAPCIS:DDASA",
+          "accountRelationshipType": "COF"
+        },
+        {
+            "OCVID": "123456789",
+            "accountNumber": "186544489",
+            "productSubCode": "CAPCIS:ILSOVC",
+            "accountRelationshipType": "SOL"
+        }
+      ]
+    }
+  ]
 }

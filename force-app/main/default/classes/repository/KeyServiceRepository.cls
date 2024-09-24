@@ -10,8 +10,7 @@ public with sharing class KeyServiceRepository {
    * @return String | The Private Key stored in Salesforce based on the public key
    */
   public List<PrivateKeyStorage__c> retrievePrivateKey(String publicKeyId) {
-    if(String.isBlank(publicKeyId))
-    {
+    if (String.isBlank(publicKeyId)) {
       return new List<PrivateKeyStorage__c>();
     }
     SystemModeActions systemAction = new SystemModeActions(
@@ -19,7 +18,7 @@ public with sharing class KeyServiceRepository {
       'retrievePrivateKey'
     );
 
-    return (List<PrivateKeyStorage__c>)systemAction.queryWithBinds(
+    return (List<PrivateKeyStorage__c>) systemAction.queryWithBinds(
       'Select Private_Key__c From PrivateKeyStorage__c where Public_Key_Id__c = :publicKeyId',
       new Map<String, Object>{ 'publicKeyId' => publicKeyId }
     );

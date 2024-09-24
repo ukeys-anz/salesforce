@@ -2335,6 +2335,11 @@
             <field>Customer_Notification_Consent__c</field>
             <table>Case</table>
         </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>IDR_Date_time_Progressed_Status_selected__c</field>
+            <table>Case</table>
+        </columns>
         <masterLabel>Cases</masterLabel>
     </sections>
     <sections>

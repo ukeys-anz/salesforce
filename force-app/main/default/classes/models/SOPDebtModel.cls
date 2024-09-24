@@ -24,6 +24,7 @@ public with sharing class SOPDebtModel extends CalloutModel {
   public Boolean validatedOutstandingBalance;
   public Boolean paidOffAndClosed;
   public Boolean evidenceProvided;
+  public Boolean customerStatedClosed;
 
   /**
    * @description convert the ownership string to set of ownerships

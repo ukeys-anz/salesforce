@@ -6,7 +6,7 @@
     <description>Additional Comments on the systemic issue, e.g. if being subject of a breach report.</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <label>Additional Comments</label>
+    <label>Issue Status</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

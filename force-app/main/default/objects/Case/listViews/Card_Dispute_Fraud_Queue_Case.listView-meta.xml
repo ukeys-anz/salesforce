@@ -12,6 +12,8 @@
     <label>Card Dispute - Fraud Queue</label>
     <queue>Card_Dispute_Fraud_Queue</queue>
     <sharedTo>
+        <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>
+        <role>Join_Lead</role>
     </sharedTo>
 </ListView>

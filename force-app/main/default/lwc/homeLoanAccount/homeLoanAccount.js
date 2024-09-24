@@ -86,6 +86,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             this.handleRepaymentFrequency(finAccount);
           finAccount.rateType = this.handleRateType(finAccount);
         });
+
         if (this.objectApiName === "FinServ__FinancialAccount__c") {
           this.singleFinAccount = this.financialAccounts[0];
         }

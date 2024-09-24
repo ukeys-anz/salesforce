@@ -28,7 +28,8 @@ const ALLOWED_TRANSACTION_TYPES = [
   TRANSACTION_TYPES.Payment,
   TRANSACTION_TYPES.Interest,
   TRANSACTION_TYPES.PAYID,
-  TRANSACTION_TYPES.BPAY
+  TRANSACTION_TYPES.BPAY,
+  TRANSACTION_TYPES.PayTo
 ]; // Transaction types that a coach can raise a dispute for, as specified in ANZX-5492
 
 const ALLOWED_DISPUTE_TYPES_FOR_SALARY = [

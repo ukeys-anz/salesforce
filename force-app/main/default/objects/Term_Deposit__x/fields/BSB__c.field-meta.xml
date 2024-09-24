@@ -6,11 +6,10 @@
     <description>Branch code</description>
     <externalDeveloperName>BSB</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Branch code</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>BSB</label>
+    <label>Branch</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

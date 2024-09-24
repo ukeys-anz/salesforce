@@ -16,8 +16,13 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
     super();
     String caseType = '';
     Map<String, String> caseTypeByRecordtype = new Map<String, String>{
-      GetHelpConstants.ATM_DISPUTE_RT_ID => 'atm.',
-      GetHelpConstants.CARD_DISPUTE_RT_ID => 'card.'
+      RTCase.atmDispute => 'atm.',
+      RTCase.cardDispute => 'card.',
+      RTCase.nppDispute => 'npp.',
+      RTCase.payToDispute => 'payto.',
+      RTCase.directEntryDispute => 'de.',
+      RTCase.directDebitDispute => 'dd.',
+      RTCase.bpayDispute => 'bpay.'
     };
     if (caseTypeByRecordtype.containsKey(theCase.RecordTypeId)) {
       caseType = caseTypeByRecordtype.get(theCase.RecordTypeId);
@@ -80,7 +85,7 @@ public without sharing class ExternalCaseStatusCloudEventModel extends CloudEven
       Case theCase
     ) {
       this.caseNumber = theCase.CaseNumber;
-      this.customerMessage = externalCaseStatus.Customer_Message__c;
+      this.customerMessage = externalCaseStatus.New_Customer_Message__c;
       this.externalStatus = externalCaseStatus.External_Status__c;
       this.internalDescription = externalCaseStatus.Internal_Description__c;
       this.isOutcomeInCustomerFavour = externalCaseStatus.Is_Outcome_in_Customer_Favour__c;

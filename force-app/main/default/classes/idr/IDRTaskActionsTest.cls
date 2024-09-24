@@ -99,9 +99,6 @@ private with sharing class IDRTaskActionsTest {
       }
       insert psaList;
 
-      Profile stdXUserProfile = CommonUtil.getProfileByName(
-        'ANZx Standard User'
-      );
       Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
       UserRole cqRole = CommonUtil.getUserRoleByDevName(
         'Capability_Quality_C_Q_Team'
@@ -117,7 +114,7 @@ private with sharing class IDRTaskActionsTest {
         oQAUser = TestUtil.createTestUser(
           new Map<String, Object>{
             'FirstName' => 'QA_User',
-            'ProfileId' => stdXUserProfile.Id,
+            'ProfileId' => stdUserProfile.Id,
             'UserRoleId' => cqRole.Id
           }
         ),

@@ -8,7 +8,10 @@
                 &quot;accountNumber&quot;: &quot;C12477942&quot;,
                 &quot;arrangementType&quot;: &quot;Fixed Amount&quot;,
                 &quot;debtType&quot;: &quot;Buy Now Pay Later&quot;,
-                &quot;institution&quot;: &quot;BNPL - LatitudePay Australia Pty Ltd&quot;
+                &quot;institution&quot;: &quot;BNPL - LatitudePay Australia Pty Ltd&quot;,
+                &quot;excludedDebtBlock&quot;: {
+                    &quot;customerExcludedDebt&quot;: &quot;Yes&quot;
+                }
             },
             &quot;debtAmountsLimit&quot;: null,
             &quot;debtAmountsFixed&quot;: {
@@ -69,7 +72,7 @@
   &quot;label&quot; : &quot;ResponseAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -90,16 +93,8 @@
     &quot;etag&quot; : &quot;%debt:etag%&quot;,
     &quot;strOwnership&quot; : &quot;%editDebtsForm:detailsGroup:debtDetails:belongsToValue%&quot;,
     &quot;institutionalLiability:financialInstitution&quot; : &quot;=%editDebtsForm:detailsGroup:debtDetails:institution%&quot;,
-    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
-    &quot;outstandingBalance:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,0,&apos;.&apos;)&quot;,
-    &quot;outstandingBalance:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1)))&quot;,
     &quot;evidenceProvided&quot; : &quot;=IF(%editDebtsForm:evidenceGroup:debtEvidenced:evidenceReceived%!= null, %editDebtsForm:evidenceGroup:debtEvidenced:evidenceReceived%, false)&quot;,
-    &quot;paidOffAndClosed&quot; : &quot;=IF(%editDebtsForm:paidGroup:closeDebt:debtPaidOff% != null, %editDebtsForm:paidGroup:closeDebt:debtPaidOff%, false)&quot;,
-    &quot;institutionalLiability:principalInterestRemainingTerm&quot; : &quot;=%editDebtsForm:detailsGroup:debtAmounts:years% * 12 + %editDebtsForm:detailsGroup:debtAmounts:months%&quot;,
-    &quot;institutionalLiability:repaymentFrequency&quot; : &quot;%editDebtsForm:detailsGroup:debtAmounts:repaymentFrequency%&quot;,
-    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;,
-    &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,0,&apos;.&apos;)&quot;,
-    &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1)))&quot;
+    &quot;paidOffAndClosed&quot; : &quot;=IF(%editDebtsForm:paidGroup:closeDebt:debtPaidOff% != null, %editDebtsForm:paidGroup:closeDebt:debtPaidOff%, false)&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
@@ -141,6 +136,37 @@
   &quot;label&quot; : &quot;SetValues1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>setSourceBureauExcludedValues</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%debt:sources|1% != &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos; ||\n(%debt:sources|1% == &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos; &amp;&amp; %editDebtsForm:detailsGroup:debtDetails:excludedDebtBlock:customerExcludedDebt% == &apos;No&apos;)&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;outstandingBalance:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,0,&apos;.&apos;)&quot;,
+    &quot;outstandingBalance:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:balanceOwing%,&apos;.&apos;) + 1)))&quot;,
+    &quot;institutionalLiability:principalInterestRemainingTerm&quot; : &quot;=%editDebtsForm:detailsGroup:debtAmounts:years% * 12 + %editDebtsForm:detailsGroup:debtAmounts:months%&quot;,
+    &quot;institutionalLiability:repaymentFrequency&quot; : &quot;%editDebtsForm:detailsGroup:debtAmounts:repaymentFrequency%&quot;,
+    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,0,&apos;.&apos;)&quot;,
+    &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmounts:repaymentAmount%,&apos;.&apos;) + 1)))&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues4&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
         <sequenceNumber>3.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
@@ -163,7 +189,8 @@
     &quot;institutionalLiability:verifiedPrincipalInterestRemainingTerm&quot; : &quot;%debt:institutionalLiability:verifiedPrincipalInterestRemainingTerm%&quot;,
     &quot;institutionalLiability:validatedPrincipalInterestRemainingTerm&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmounts:useUpdatedRemainingTermForUMI%!= null, %editDebtsForm:detailsGroup:debtAmounts:useUpdatedRemainingTermForUMI%, false)&quot;,
     &quot;termType&quot; : &quot;=IF(%debt:type% == &apos;LIABILITY_TYPE_PERSONAL_LOAN&apos;,%debt:termType%,null)&quot;,
-    &quot;validatedOutstandingBalance&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmounts:useUpdatedBalance%!= null, %editDebtsForm:detailsGroup:debtAmounts:useUpdatedBalance%, false)&quot;
+    &quot;validatedOutstandingBalance&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmounts:useUpdatedBalance%!= null, %editDebtsForm:detailsGroup:debtAmounts:useUpdatedBalance%, false)&quot;,
+    &quot;customerStatedClosed&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtDetails:excludedDebtBlock:customerExcludedDebt% == &apos;Yes&apos;, true, false)&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
@@ -208,5 +235,5 @@
     <type>SOPEditDebts</type>
     <uniqueName>SOPEditDebts_transformToSOPEditOtherLoan_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>efd649dc-06e9-b90a-74de-22bdd4cf74bd</webComponentKey>
+    <webComponentKey>472e4bf0-b123-8de1-df15-5d36d46cbb74</webComponentKey>
 </OmniIntegrationProcedure>

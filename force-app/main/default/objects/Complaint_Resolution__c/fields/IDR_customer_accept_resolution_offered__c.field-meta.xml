@@ -5,6 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Customer Accept Resolution offered?</description>
     <externalId>false</externalId>
+    <inlineHelpText>Select ‘yes’ if the customer accepts the offer in the final response. The resolution offered details will pre-populate if the complaint was provisionally closed, otherwise will need to be completed. You will need to select no and complete the fields if the customer did not accept the resolution offered in the final response.</inlineHelpText>
     <label>Customer Accept the Resolution offered?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
