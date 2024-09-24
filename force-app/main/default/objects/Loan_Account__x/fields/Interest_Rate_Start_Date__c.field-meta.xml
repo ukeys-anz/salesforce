@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Interest_Only_Expiry_Date__c</fullName>
+    <fullName>Interest_Rate_Start_Date__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
-    <description>Expiry date of interest only term</description>
-    <externalDeveloperName>InterestOnlyExpiryDate</externalDeveloperName>
+    <complianceGroup>Integrity - Accurate;Privacy_Non_Personal_Information;Source - CAPS</complianceGroup>
+    <description>Beginning date of Interest only term</description>
+    <externalDeveloperName>InterestRateStartDate</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Expiry date of interest only term</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Interest Only Expiry Date</label>
+    <label>Interest Rate Start Date</label>
     <length>50</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

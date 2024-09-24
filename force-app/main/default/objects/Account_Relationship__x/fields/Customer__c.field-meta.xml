@@ -6,9 +6,9 @@
     <description>Indirect Lookup to Customer(Account) object</description>
     <externalDeveloperName>Customer</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Related Customer</label>
     <length>255</length>
     <referenceTargetField>Account.External_Id__c</referenceTargetField>

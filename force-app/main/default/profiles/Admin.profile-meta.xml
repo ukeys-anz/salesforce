@@ -11656,6 +11656,9 @@
         <layout>Legal_Entity__c-Legal Entity Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Loan_Account__x-Loan Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>LogEntry__c-Log Entry Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
