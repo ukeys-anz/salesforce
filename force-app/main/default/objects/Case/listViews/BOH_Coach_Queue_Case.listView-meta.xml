@@ -12,6 +12,6 @@
     <label>BOH Coach Queue</label>
     <queue>BOH_Coach_Queue</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

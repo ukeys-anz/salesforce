@@ -19,6 +19,6 @@
     <label>Open Support Coach Queue</label>
     <queue>Support_Coach_Queue</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

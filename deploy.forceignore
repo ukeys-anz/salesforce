@@ -164,7 +164,6 @@ force-app/main/default/objects/Account/fields/AR_C_Customer__c.field-meta.xml
 
 #Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
 force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
-force-app/main/default/sharingRules/Case.sharingRules-meta.xml //added for merge to cmos-a remove later
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
@@ -214,13 +213,5 @@ force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
 
 #AR-138661 ignore Query All Files due to error with Production Objects
 force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml
-
-#Ignore Winter'25 conflicts
-force-app/main/default/sharingRules/Case.sharingRules-meta.xml
-force-app/main/default/sharingRules/CustomerOnboardingApplication__c.sharingRules-meta.xml
-force-app/main/default/sharingRules/Customer_Relationship__c.sharingRules-meta.xml
-force-app/main/default/sharingRules/Interaction.sharingRules-meta.xml
-force-app/main/default/sharingRules/Lead.sharingRules-meta.xml
-force-app/main/default/sharingRules/Opportunity.sharingRules-meta.xml
 force-app/main/default/permissionsets/SF_Data_Sync_Integration.permissionset-meta.xml
 
