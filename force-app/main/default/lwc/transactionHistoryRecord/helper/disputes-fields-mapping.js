@@ -34,8 +34,12 @@ const directEntryDisputesFieldsMapping = {
 
 const nppDisputesFieldsMapping = {
   Payment_ID__c: "pay_anyone.payment_id",
-  Receipt__c: "pay_anyone.payment_receipt_number.value",
-  Is_PayTo_Dispute__c: "isPayToDispute"
+  Receipt__c: "pay_anyone.payment_receipt_number.value"
+};
+
+const payToDisputesFieldsMapping = {
+  Payment_ID__c: "pay_anyone.payment_id",
+  Receipt__c: "pay_anyone.payment_receipt_number.value"
 };
 
 const bpayDisputesFieldsMapping = {
@@ -114,6 +118,9 @@ export function prepopulateDisputesFields(
       break;
     case "NPP":
       mappingObj = nppDisputesFieldsMapping;
+      break;
+    case "PayTo":
+      mappingObj = payToDisputesFieldsMapping;
       break;
     case "BPAY":
       mappingObj = bpayDisputesFieldsMapping;

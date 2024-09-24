@@ -5,34 +5,16 @@
  */
 @isTest
 public with sharing class GetHelpExternalCaseStatusActionsTest {
-  // test method to check that non NPP disputes should not be returned
-  @isTest
-  public static void testGetRelatedNPPCaseIds() {
-    Case caseRecord = TestDataFactory.createCase('ATM_Dispute');
-    caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-
-    External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
-      Case__c = caseRecord.Id,
-      External_Status__c = 'Resolved-Completed',
-      Status_Event_ID__c = 'Status_Event_ID__c_0',
-      Result_Message__c = 'Accept',
-      Internal_Description__c = ''
-    );
-    Test.startTest();
-    // Dummy call for test coverage
-    GetHelpExternalCaseStatusActions.updateInternalDescription(
-      new List<External_Case_Status__c>{ externalCaseStatus }
-    );
-    Set<Id> relatedNPPCasesId = GetHelpExternalCaseStatusActionHelper.getRelatedNppCasesIds(
-      new List<Id>{ caseRecord.Id }
-    );
-    Test.stopTest();
-    Assert.isTrue(relatedNPPCasesId.size() == 0, 'List size is incorrect');
-  }
-
   @isTest
   public static void testUpdateIntDescForNonNPPDispute() {
     Case caseRecord = TestDataFactory.createCase('ATM_Dispute');
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(caseRecord.RecordTypeId)
+      LIMIT 1
+    ];
+    caseRecord = (Case) TestDataFactory.populateRecordType(caseRecord, rt);
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
@@ -43,7 +25,7 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       Internal_Description__c = ''
     );
     Test.startTest();
-    GetHelpExternalCaseStatusActions.updateInternalDescription(
+    GetHelpExternalCaseStatusActions.updateExternalCaseStatusFields(
       new List<External_Case_Status__c>{ externalCaseStatus }
     );
     Test.stopTest();
@@ -52,11 +34,17 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
 
   // test method to check if internal description when result message is unkonwn
   @isTest
-  public static void testGetInternalDescriptionForNPPDispute() {
+  public static void testGetStatusToMetadataMap() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
-    caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(caseRecord.RecordTypeId)
+      LIMIT 1
+    ];
+    caseRecord = (Case) TestDataFactory.populateRecordType(caseRecord, rt);
     ExternalCaseStatusMappingQueryHelper caseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
-    Map<String, String> statusToInternalDescMap = caseStatusQueryHelper.getStatusToInternalDescriptionMap();
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = caseStatusQueryHelper.getStatusToMetadataMap();
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = caseRecord.Id,
@@ -66,14 +54,19 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       Internal_Description__c = ''
     );
     Test.startTest();
-    GetHelpExternalCaseStatusActionHelper.getInternalDescription(
+    GetHelpExternalCaseStatusActions.populateExternalCaseStatusFields(
       new List<External_Case_Status__c>{ externalCaseStatus },
-      statusToInternalDescMap
+      statusToMetadataMap,
+      new Map<Id, Case>{ caseRecord.Id => caseRecord }
     );
     Test.stopTest();
     Assert.isTrue(
       externalCaseStatus.Internal_Description__c == 'Dispute Successful',
       'Internal Description is not correct'
+    );
+    Assert.isTrue(
+      externalCaseStatus.Customer_Message__c != '',
+      'Customer Message is not correct'
     );
   }
 
@@ -81,9 +74,15 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
   @isTest
   public static void testUpdateIntDesForUnknownValues() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
-    caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(caseRecord.RecordTypeId)
+      LIMIT 1
+    ];
+    caseRecord = (Case) TestDataFactory.populateRecordType(caseRecord, rt);
     ExternalCaseStatusMappingQueryHelper caseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
-    Map<String, String> statusToInternalDescMap = caseStatusQueryHelper.getStatusToInternalDescriptionMap();
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = caseStatusQueryHelper.getStatusToMetadataMap();
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = caseRecord.Id,
@@ -93,14 +92,15 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       Internal_Description__c = ''
     );
     Test.startTest();
-    GetHelpExternalCaseStatusActionHelper.getInternalDescription(
+    GetHelpExternalCaseStatusActions.populateExternalCaseStatusFields(
       new List<External_Case_Status__c>{ externalCaseStatus },
-      statusToInternalDescMap
+      statusToMetadataMap,
+      new Map<Id, Case>{ caseRecord.Id => caseRecord }
     );
     Test.stopTest();
     Assert.isTrue(
       externalCaseStatus.Internal_Description__c ==
-      GetHelpExternalCaseStatusActionHelper.DEFAULT_NPP_INTERNAL_DESCRIPTION,
+      GetHelpExternalCaseStatusActions.DEFAULT_NPP_INTERNAL_DESCRIPTION,
       'Internal Description is not correct'
     );
   }
@@ -118,7 +118,7 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       Internal_Description__c = ''
     );
     Test.startTest();
-    Map<Id, String> caseIdToExtStatus = GetHelpExternalCaseStatusActionHelper.getCaseIdToExternalStatusMap(
+    Map<Id, String> caseIdToExtStatus = GetHelpExternalCaseStatusActions.getCaseIdToExternalStatusMap(
       new List<External_Case_Status__c>{ externalCaseStatus }
     );
     Test.stopTest();
@@ -129,6 +129,13 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
   @isTest
   public static void testUpdateNPPCaseRecordsToClosed() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(caseRecord.RecordTypeId)
+      LIMIT 1
+    ];
+    caseRecord = (Case) TestDataFactory.populateRecordType(caseRecord, rt);
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
@@ -140,19 +147,19 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
     );
     Test.startTest();
     // Dummy callout for test coverage
-    GetHelpExternalCaseStatusActions.updateRelatedNPPCases(
+    GetHelpExternalCaseStatusActions.updateRelatedCases(
       new List<External_Case_Status__c>{ externalCaseStatus }
     );
 
-    Map<String, String> statusToCaseStatusMap = ExternalCaseStatusMappingQueryHelper.getInstance()
-      .getStatusToCaseStatusMap();
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = ExternalCaseStatusMappingQueryHelper.getInstance()
+      .getRecordTypeStatusToMetadataMap();
 
-    List<Case> updatedCases = GetHelpExternalCaseStatusActionHelper.updateNPPCaseRecords(
+    List<Case> updatedCases = GetHelpExternalCaseStatusActions.updateCaseRecords(
       new List<Case>{ caseRecord },
       new Map<Id, String>{
         externalCaseStatus.Case__c => externalCaseStatus.External_Status__c
       },
-      statusToCaseStatusMap
+      statusToMetadataMap
     );
     Test.stopTest();
     Assert.isTrue(
@@ -161,10 +168,17 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
     );
   }
 
-  // test method to check if case status is uupdated according to mapping
+  // test method to check if case status is updated according to mapping
   @isTest
   public static void testUpdateNPPCaseRecords() {
     Case caseRecord = TestDataFactory.createCase('NPP_Dispute');
+    RecordType rt = [
+      SELECT Id, DeveloperName
+      FROM RecordType
+      WHERE Id = :(caseRecord.RecordTypeId)
+      LIMIT 1
+    ];
+    caseRecord = (Case) TestDataFactory.populateRecordType(caseRecord, rt);
     caseRecord.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
@@ -175,15 +189,15 @@ public with sharing class GetHelpExternalCaseStatusActionsTest {
       Internal_Description__c = ''
     );
     Test.startTest();
-    Map<String, String> statusToCaseStatusMap = ExternalCaseStatusMappingQueryHelper.getInstance()
-      .getStatusToCaseStatusMap();
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = ExternalCaseStatusMappingQueryHelper.getInstance()
+      .getRecordTypeStatusToMetadataMap();
 
-    List<Case> updatedCases = GetHelpExternalCaseStatusActionHelper.updateNPPCaseRecords(
+    List<Case> updatedCases = GetHelpExternalCaseStatusActions.updateCaseRecords(
       new List<Case>{ caseRecord },
       new Map<Id, String>{
         externalCaseStatus.Case__c => externalCaseStatus.External_Status__c
       },
-      statusToCaseStatusMap
+      statusToMetadataMap
     );
     Test.stopTest();
     Assert.isTrue(

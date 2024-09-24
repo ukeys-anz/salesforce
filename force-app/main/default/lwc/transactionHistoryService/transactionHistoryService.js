@@ -25,7 +25,8 @@ export const TRANSACTION_TYPES = {
   BPAY: "BPAY",
   Other: "Other",
   Salary: "Salary",
-  Payment: "Payment"
+  Payment: "Payment",
+  PayTo: "PayTo"
 };
 
 export const CARD_TYPES = {
@@ -98,6 +99,7 @@ export const transactionTypeMapping = {
   BPAY: TRANSACTION_TYPES.BPAY,
   SALARY: TRANSACTION_TYPES.Salary,
   PAYMENT: TRANSACTION_TYPES.Payment,
+  PAYTO: TRANSACTION_TYPES.PayTo,
 
   //For BetaV1, this will be removed once Mule has onboarded V1
   TRANSACTION_TYPE_UNSPECIFIED: TRANSACTION_TYPES.Unknown, // common in both v1 and v1b1
