@@ -2655,7 +2655,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -2711,7 +2711,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3.0,
-  &quot;label&quot; : &quot;Nominated 3rd party name&quot;,
+  &quot;label&quot; : &quot;Nominated 3rd party representative name&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
@@ -2881,7 +2881,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>36.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
