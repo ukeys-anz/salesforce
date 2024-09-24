@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Related_Party_Names__c</fullName>
+    <fullName>Sequence__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
-    <description>Related customer names</description>
-    <externalDeveloperName>RelatedPartyNames</externalDeveloperName>
+    <description>Sequence</description>
+    <externalDeveloperName>Sequence</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>false</isNameField>
+    <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Related Party Names</label>
+    <label>Sequence</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

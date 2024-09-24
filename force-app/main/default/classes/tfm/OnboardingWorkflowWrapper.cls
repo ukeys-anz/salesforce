@@ -192,7 +192,7 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    */
   @AuraEnabled
   public Boolean isJoinOperationsReader { get; set; }
-
+  
   /**
    * @description This is wrapper class for FileTypes
    * @name FileTypes
