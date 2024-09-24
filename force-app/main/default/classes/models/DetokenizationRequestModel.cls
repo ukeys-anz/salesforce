@@ -9,9 +9,8 @@ public with sharing class DetokenizationRequestModel {
    */
   public String value { get; set; }
 
-   /**
+  /**
    * @description Token type, which uses to identify the type detokenized value
    */
-  public String type {get; set;}
-
+  public String type { get; set; }
 }

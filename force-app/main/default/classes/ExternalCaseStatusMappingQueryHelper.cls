@@ -13,6 +13,9 @@ public with sharing class ExternalCaseStatusMappingQueryHelper {
   private ExternalCaseStatusMappingQueryHelper() {
     externalCaseStatusMappingList = [
       SELECT
+        Case_Record_Type__c,
+        Customer_Message__c,
+        Customer_Status__c,
         PEGA_Dispute_Status__c,
         PEGA_Investigation_Outcome__c,
         Case_Status__c,
@@ -34,42 +37,80 @@ public with sharing class ExternalCaseStatusMappingQueryHelper {
   }
 
   /**
-   * @description getStatusToInternalDescriptionMap is called to get external status to intenal description map
-   * @return `getStatusToInternalDescriptionMap` Map<String, String>
+   * @description getstatusToMetadataMap is called to get external status to metadata map
+   * @return `getstatusToMetadataMap` Map<String, String>
    */
-  public Map<String, String> getStatusToInternalDescriptionMap() {
-    Map<String, String> statusToInternalDescriptionMap = new Map<String, String>();
+  public Map<String, External_Case_Status_Mapping__mdt> getStatusToMetadataMap() {
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = new Map<String, External_Case_Status_Mapping__mdt>();
     for (
       External_Case_Status_Mapping__mdt mapping : this.externalCaseStatusMappingList
     ) {
-      String investigationOutcome = String.isNotBlank(
-          mapping.PEGA_Investigation_Outcome__c
-        )
-        ? mapping.PEGA_Investigation_Outcome__c.toLowerCase()
-        : '';
-      String key =
-        mapping.PEGA_Dispute_Status__c.toLowerCase() +
-        '_' +
-        investigationOutcome;
-      statusToInternalDescriptionMap.put(key, mapping.Internal_Description__c);
+      if (String.isBlank(mapping.PEGA_Dispute_Status__c)) {
+        continue;
+      }
+      String key = (String.join(
+          new List<String>{
+            mapping.Case_Record_Type__c,
+            mapping.PEGA_Dispute_Status__c,
+            mapping.PEGA_Investigation_Outcome__c
+          },
+          '_'
+        ))
+        .toLowerCase();
+      statusToMetadataMap.put(key, mapping);
     }
-    return statusToInternalDescriptionMap;
+    return statusToMetadataMap;
   }
 
   /**
-   * @description getStatusToCaseStatusMap is called to get external status to case status map
-   * @return `statusToCaseStatusMap` Map<String, String>
+   * @description getSalesforceStatusToMetadataMap is called to get salesforce status to metadata map
+   * @return `getSalesforceStatusToMetadataMap` Map<String, String>
    */
-  public Map<String, String> getStatusToCaseStatusMap() {
-    Map<String, String> statusToCaseStatusMap = new Map<String, String>();
+  public Map<String, External_Case_Status_Mapping__mdt> getSalesforceStatusToMetadataMap() {
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = new Map<String, External_Case_Status_Mapping__mdt>();
     for (
       External_Case_Status_Mapping__mdt mapping : this.externalCaseStatusMappingList
     ) {
-      statusToCaseStatusMap.put(
-        mapping.PEGA_Dispute_Status__c,
-        mapping.Case_Status__c
-      );
+      if (String.isBlank(mapping.Case_Status__c)) {
+        continue;
+      }
+      String key = (String.join(
+          new List<String>{
+            mapping.Case_Record_Type__c,
+            mapping.Case_Status__c
+          },
+          '_'
+        ))
+        .toLowerCase();
+      statusToMetadataMap.put(key, mapping);
     }
-    return statusToCaseStatusMap;
+    return statusToMetadataMap;
+  }
+
+  /**
+   * @description getrecordTypeStatusToCaseStatusMap is called to get external status to case status map
+   * @return `recordTypeStatusToCaseStatusMap` Map<String, String>
+   */
+  public Map<String, External_Case_Status_Mapping__mdt> getRecordTypeStatusToMetadataMap() {
+    Map<String, External_Case_Status_Mapping__mdt> recordTypeStatusToCaseStatusMap = new Map<String, External_Case_Status_Mapping__mdt>();
+    for (
+      External_Case_Status_Mapping__mdt mapping : this.externalCaseStatusMappingList
+    ) {
+      if (String.isBlank(mapping.PEGA_Dispute_Status__c)) {
+        continue;
+      }
+
+      String key = (String.join(
+          new List<String>{
+            mapping.Case_Record_Type__c,
+            mapping.PEGA_Dispute_Status__c
+          },
+          '_'
+        ))
+        .toLowerCase();
+
+      recordTypeStatusToCaseStatusMap.put(key, mapping);
+    }
+    return recordTypeStatusToCaseStatusMap;
   }
 }

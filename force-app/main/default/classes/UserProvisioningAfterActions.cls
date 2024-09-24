@@ -9,6 +9,17 @@
 public with sharing class UserProvisioningAfterActions {
   private static Set<Id> failedRecordIds = new Set<Id>();
 
+  private static final UserProvisioningActionsRepository USER_REPOSITORY = (UserProvisioningActionsRepository) Lib_InstanceProvider.forType(
+    UserProvisioningActionsRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static Id anzProfile = CommonUtil.getProfileByName(
+      'ANZ Standard User'
+    )
+    .Id;
+
   /**
    * @description This method is called in OnAfterInsert & OnAfterUpdate to assign Permission sets, Permission set groups and public groups to user record.
    * Permission set name, Permission set group name and Public group names are identified from User_Provisioning_Setting__mdt object based on the combination of Business Function and Business Role from user object.
@@ -27,30 +38,23 @@ public with sharing class UserProvisioningAfterActions {
       businessFuncAndRoles
     );
 
-    if (!businessFunctionMap.isEmpty()) {
-      Map<String, PermissionSet> pSetMap = UserProvisioningCommonActions.getAllPSetMap();
-      Map<String, PermissionSetGroup> pSetGroupMap = UserProvisioningCommonActions.getAllPsetGroupMap();
-      Map<String, PermissionSetLicense> pSetLicenseMap = UserProvisioningCommonActions.getAllPSetLicenseMap();
-      Map<String, Group> publicGroupMap = UserProvisioningCommonActions.getAllPublicGroupMap();
+    if (businessFunctionMap.isEmpty()) {
+      return;
+    }
 
-      for (User record : records) {
-        psetLicenseAssignmentList.addAll(
-          assignPermissionSetLicences(
-            record,
-            businessFunctionMap,
-            pSetLicenseMap
-          )
-        );
-        psetAssignmentList.addAll(
-          assignPermissionSet(record, businessFunctionMap, pSetMap)
-        );
-        psetAssignmentList.addAll(
-          assignPermissionSetGroup(record, businessFunctionMap, pSetGroupMap)
-        );
-        groupMemberList.addAll(
-          assignPublicGroup(record, businessFunctionMap, publicGroupMap)
-        );
-      }
+    Map<String, PermissionSetLicense> pSetLicenseMap = UserProvisioningCommonActions.getAllPSetLicenseMap();
+
+    for (User record : records) {
+      psetLicenseAssignmentList.addAll(
+        assignPermissionSetLicences(record, businessFunctionMap, pSetLicenseMap)
+      );
+      psetAssignmentList.addAll(
+        assignPermissionSet(record, businessFunctionMap)
+      );
+      psetAssignmentList.addAll(
+        assignPermissionSetGroup(record, businessFunctionMap)
+      );
+      groupMemberList.addAll(assignPublicGroup(record, businessFunctionMap));
     }
 
     if (!psetLicenseAssignmentList.isEmpty()) {
@@ -68,36 +72,31 @@ public with sharing class UserProvisioningAfterActions {
    * @description This method is called in assignMembership to assign Permission sets to user record.
    * @param record User record from trigger
    * @param businessFunctionMap Business Function and Role combinations
-   * @param pSetMap Permission Set Map with permission set name as a key
    * @return `List<PermissionSetAssignment>` List of permission set assignment for insert
    */
   private static List<PermissionSetAssignment> assignPermissionSet(
     User record,
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
-    Map<String, PermissionSet> pSetMap
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap
   ) {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String pSetNames;
-    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
-
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      pSetNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Permission_sets__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<PermissionSetAssignment>();
     }
-
-    if (String.isNotBlank(pSetNames)) {
-      List<String> pSetList = pSetNames.deleteWhitespace().split(';');
-      for (String pSetName : pSetList) {
-        PermissionSetAssignment assignPset = new PermissionSetAssignment();
-        assignPset.AssigneeId = record.id;
-        if (pSetMap.containskey(PsetName)) {
-          assignPset.PermissionSetId = pSetMap.get(pSetName).Id;
-          psetAssignmentList.add(assignPset);
-        }
+    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
+    List<String> pSetList = businessFunctionMap.get(businessFunctionRoleKey)
+      .Permission_sets__c.deleteWhitespace()
+      .split(';');
+    for (String pSetName : pSetList) {
+      PermissionSetAssignment assignPset = new PermissionSetAssignment();
+      assignPset.AssigneeId = record.id;
+      if (QueryPS.get(PsetName) != null) {
+        assignPset.PermissionSetId = QueryPS.get(pSetName).Id;
+        psetAssignmentList.add(assignPset);
       }
     }
+
     return psetAssignmentList;
   }
 
@@ -105,35 +104,35 @@ public with sharing class UserProvisioningAfterActions {
    * @description This method is called in assignMembership to assign Permission set groups to user record.
    * @param record User record from trigger
    * @param businessFunctionMap Business Function and Role combinations
-   * @param pSetGroupMap Permission Set Group Map with permission set group name as a key
+
    * @return `List<PermissionSetAssignment>` List of permission set assignment for insert
    */
   private static List<PermissionSetAssignment> assignPermissionSetGroup(
     User record,
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
-    Map<String, PermissionSetGroup> pSetGroupMap
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap
   ) {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String pSetGroupNames;
-    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
 
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      pSetGroupNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Permission_Set_Groups__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<PermissionSetAssignment>();
     }
-    if (String.isNotBlank(pSetGroupNames)) {
-      List<String> pSetGroupList = pSetGroupNames.deleteWhitespace().split(';');
-      for (String pSetGroupName : pSetGroupList) {
-        PermissionSetAssignment assignPset = new PermissionSetAssignment();
-        assignPset.AssigneeId = record.id;
-        if (pSetGroupMap.containskey(pSetGroupName)) {
-          assignPset.PermissionSetGroupId = pSetGroupMap.get(pSetGroupName).Id;
-          psetAssignmentList.add(assignPset);
-        }
+    List<PermissionSetAssignment> psetAssignmentList = new List<PermissionSetAssignment>();
+    List<String> pSetGroupList = businessFunctionMap.get(
+        businessFunctionRoleKey
+      )
+      .Permission_Set_Groups__c.deleteWhitespace()
+      .split(';');
+    for (String pSetGroupName : pSetGroupList) {
+      PermissionSetAssignment assignPset = new PermissionSetAssignment();
+      assignPset.AssigneeId = record.id;
+      if (QueryPSG.get(pSetGroupName) != null) {
+        assignPset.PermissionSetGroupId = QueryPSG.get(pSetGroupName).Id;
+        psetAssignmentList.add(assignPset);
       }
     }
+
     return psetAssignmentList;
   }
 
@@ -152,28 +151,30 @@ public with sharing class UserProvisioningAfterActions {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String pSetLicenseNames;
-    List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
 
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      pSetLicenseNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Permission_Set_Licences__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<PermissionSetLicenseAssign>();
     }
-    if (String.isNotBlank(pSetLicenseNames)) {
-      List<String> pSetLicenseList = pSetLicenseNames.deleteWhitespace()
-        .split(';');
-      for (String pSetLicenseName : pSetLicenseList) {
-        PermissionSetLicenseAssign assignPsetLicense = new PermissionSetLicenseAssign();
-        assignPsetLicense.AssigneeId = record.id;
-        if (pSetLicenseMap.containskey(pSetLicenseName)) {
-          assignPsetLicense.PermissionSetLicenseId = pSetLicenseMap.get(
-              pSetLicenseName
-            )
-            .Id;
-          psetLicenseAssignmentList.add(assignPsetLicense);
-        }
+
+    List<PermissionSetLicenseAssign> psetLicenseAssignmentList = new List<PermissionSetLicenseAssign>();
+    List<String> pSetLicenseList = businessFunctionMap.get(
+        businessFunctionRoleKey
+      )
+      .Permission_Set_Licences__c.deleteWhitespace()
+      .split(';');
+
+    for (String pSetLicenseName : pSetLicenseList) {
+      PermissionSetLicenseAssign assignPsetLicense = new PermissionSetLicenseAssign();
+      assignPsetLicense.AssigneeId = record.id;
+      if (pSetLicenseMap.containskey(pSetLicenseName)) {
+        assignPsetLicense.PermissionSetLicenseId = pSetLicenseMap.get(
+            pSetLicenseName
+          )
+          .Id;
+        psetLicenseAssignmentList.add(assignPsetLicense);
       }
     }
+
     return psetLicenseAssignmentList;
   }
 
@@ -181,35 +182,30 @@ public with sharing class UserProvisioningAfterActions {
    * @description This method is called in assignMembership to assign Public Groups to user record.
    * @param record User record from trigger
    * @param businessFunctionMap Business Function and Role combinations
-   * @param publicGroupMap Public Group Map with group name as a key
    * @return `List<GroupMember>` List of group member for insert
    */
   private static List<GroupMember> assignPublicGroup(
     User record,
-    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap,
-    Map<String, Group> publicGroupMap
+    Map<String, User_Provisioning_Setting__mdt> businessFunctionMap
   ) {
     String businessFunctionRoleKey = UserProvisioningCommonActions.generateKey(
       record
     );
-    String groupNames;
-    List<GroupMember> groupMemberList = new List<GroupMember>();
 
-    if (businessFunctionMap.containskey(businessFunctionRoleKey)) {
-      groupNames = businessFunctionMap.get(businessFunctionRoleKey)
-        .Public_Groups__c;
+    if (businessFunctionMap.containskey(businessFunctionRoleKey) == false) {
+      return new List<GroupMember>();
     }
-    if (String.isNotBlank(groupNames)) {
-      List<String> groupList = groupNames.deleteWhitespace().split(';');
-      for (String groupName : groupList) {
-        GroupMember assignGroup = new GroupMember();
-        assignGroup.UserOrGroupId = record.id;
-        if (publicGroupMap.containskey(groupName)) {
-          assignGroup.GroupId = publicGroupMap.get(groupName).Id;
-          groupMemberList.add(assignGroup);
-        }
-      }
+    List<GroupMember> groupMemberList = new List<GroupMember>();
+    List<String> groupList = businessFunctionMap.get(businessFunctionRoleKey)
+      .Public_Groups__c.deleteWhitespace()
+      .split(';');
+    for (String groupName : groupList) {
+      GroupMember assignGroup = new GroupMember();
+      assignGroup.UserOrGroupId = record.id;
+      assignGroup.GroupId = QueryPublicGroup.get(groupName).Id;
+      groupMemberList.add(assignGroup);
     }
+
     return groupMemberList;
   }
 
@@ -235,15 +231,18 @@ public with sharing class UserProvisioningAfterActions {
         Database.SaveResult sr = results[i];
         PermissionSetLicenseAssign rec = psetLicenseAssignmentList[i];
 
-        if (!sr.isSuccess()) {
-          for (Database.Error err : sr.getErrors()) {
-            if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
-              failedRecordIds.add(rec.AssigneeId);
-              logError(rec.AssigneeId, err);
-            }
-          }
-          Logger.saveLog();
+        if (sr.isSuccess()) {
+          continue;
         }
+
+        for (Database.Error err : sr.getErrors()) {
+          if (String.valueOf(err.getStatusCode()) == 'DUPLICATE_VALUE') {
+            continue;
+          }
+          failedRecordIds.add(rec.AssigneeId);
+          logError(rec.AssigneeId, err);
+        }
+        Logger.saveLog();
       }
     } else {
       CommonUtil.logAndThrowIAE(
@@ -277,15 +276,17 @@ public with sharing class UserProvisioningAfterActions {
         Database.SaveResult sr = results[i];
         PermissionSetAssignment rec = psetAssignmentList[i];
 
-        if (!sr.isSuccess()) {
-          for (Database.Error err : sr.getErrors()) {
-            if (String.valueOf(err.getStatusCode()) != 'DUPLICATE_VALUE') {
-              failedRecordIds.add(rec.AssigneeId);
-              logError(rec.AssigneeId, err);
-            }
-          }
-          Logger.saveLog();
+        if (sr.isSuccess()) {
+          continue;
         }
+        for (Database.Error err : sr.getErrors()) {
+          if (String.valueOf(err.getStatusCode()) == 'DUPLICATE_VALUE') {
+            continue;
+          }
+          failedRecordIds.add(rec.AssigneeId);
+          logError(rec.AssigneeId, err);
+        }
+        Logger.saveLog();
       }
     } else {
       CommonUtil.logAndThrowIAE(
@@ -315,13 +316,14 @@ public with sharing class UserProvisioningAfterActions {
         Database.SaveResult sr = results[i];
         GroupMember rec = groupMemberList[i];
 
-        if (!sr.isSuccess()) {
-          for (Database.Error err : sr.getErrors()) {
-            failedRecordIds.add(rec.UserOrGroupId);
-            logError(rec.UserOrGroupId, err);
-          }
-          Logger.saveLog();
+        if (sr.isSuccess()) {
+          continue;
         }
+        for (Database.Error err : sr.getErrors()) {
+          failedRecordIds.add(rec.UserOrGroupId);
+          logError(rec.UserOrGroupId, err);
+        }
+        Logger.saveLog();
       }
     } else {
       CommonUtil.logAndThrowIAE(
@@ -479,13 +481,14 @@ public with sharing class UserProvisioningAfterActions {
       for (Integer i = 0; i < deletePsetList.size(); i++) {
         Database.DeleteResult sr = deleteResult[i];
         PermissionSetAssignment rec = deletePsetList[i];
-        if (!sr.isSuccess()) {
-          for (Database.Error err : sr.getErrors()) {
-            failedRecordIds.add(rec.AssigneeId);
-            logError(rec.AssigneeId, err);
-          }
-          Logger.saveLog();
+        if (sr.isSuccess()) {
+          continue;
         }
+        for (Database.Error err : sr.getErrors()) {
+          failedRecordIds.add(rec.AssigneeId);
+          logError(rec.AssigneeId, err);
+        }
+        Logger.saveLog();
       }
     } else {
       Logger.error('PermissionSetAssignment is not deletable');
@@ -508,13 +511,14 @@ public with sharing class UserProvisioningAfterActions {
       for (Integer i = 0; i < deleteGroupMemberList.size(); i++) {
         Database.DeleteResult sr = deleteResult[i];
         GroupMember rec = deleteGroupMemberList[i];
-        if (!sr.isSuccess()) {
-          for (Database.Error err : sr.getErrors()) {
-            failedRecordIds.add(rec.UserOrGroupId);
-            logError(rec.UserOrGroupId, err);
-          }
-          Logger.saveLog();
+        if (sr.isSuccess()) {
+          continue;
         }
+        for (Database.Error err : sr.getErrors()) {
+          failedRecordIds.add(rec.UserOrGroupId);
+          logError(rec.UserOrGroupId, err);
+        }
+        Logger.saveLog();
       }
     } else {
       Logger.error('GroupMember is not deletable');
@@ -556,5 +560,98 @@ public with sharing class UserProvisioningAfterActions {
       );
       Logger.saveLog();
     }
+  }
+  /**
+     * @description Method to Add or Remove User to Chatter Group
+     * @param users List<User> User records created
+     * @param oldMap oldmap of user record
+
+     */
+
+  public static void addOrRemoveUsertoChatterGroup(
+    List<User> users,
+    Map<Id, User> oldMap
+  ) {
+    Set<Id> addUserIds = new Set<Id>();
+    Set<Id> removeUserIds = new Set<Id>();
+    List<CollaborationGroup> cmosGroup = USER_REPOSITORY.queryChatterGroup(
+      System.Label.CMOS_Chatter_Group_Name
+    );
+    if (cmosGroup.isEmpty()) {
+      return;
+    }
+    List<User> updatedUsers = ListUtil.filter(users, oldMap)
+      .equals(User.IsActive, true)
+      .changed(User.ProfileId)
+      .toList();
+    for (User userObj : updatedUsers) {
+      User oldRec = oldMap.get(userObj.Id);
+      if (checkforValidUserProfile(userObj)) {
+        addUserIds.add(userObj.Id);
+      }
+      if (
+        oldRec != null &&
+        oldRec.ProfileId == anzProfile &&
+        !checkforValidUserProfile(userObj)
+      ) {
+        removeUserIds.add(userObj.Id);
+      }
+    }
+
+    addUserToGroup(addUserIds, cmosGroup[0].Id);
+    removeUserToGroup(removeUserIds, cmosGroup[0].Id);
+  }
+  /**
+   * @description Method to check valid user to be addedd to Group
+   * @param newUser new version of user record
+   * @return Boolean isValidUser
+   */
+  @TestVisible
+  private static Boolean checkforValidUserProfile(User newUser) {
+    Boolean isValidUser = false;
+    if (newUser.ProfileId == anzProfile) {
+      isValidUser = true;
+    }
+    return isValidUser;
+  }
+  /**
+     * @description Method to add user to chatter group
+     * @param userId userIds going to be addedd in group
+     * @param groupId Id of Chatter group
+
+     */
+  @future
+  private static void addUserToGroup(set<Id> userId, Id groupId) {
+    List<CollaborationGroupMember> collGroupMembers = new List<CollaborationGroupMember>();
+    for (Id usrId : userId) {
+      CollaborationGroupMember member = new CollaborationGroupMember();
+      member.MemberId = usrId;
+      member.CollaborationGroupId = groupId;
+      collGroupMembers.add(member);
+    }
+    DML_REPOSITORY.insertRecords(
+      collGroupMembers,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.SYSTEM_MODE
+    );
+  }
+  /**
+     * @description Method to remove user to chatter group
+     * @param userId userIds going to be removed from group
+     * @param groupId Id of Chatter group
+
+     */
+  @future
+  private static void removeUserToGroup(set<Id> userId, Id groupId) {
+    List<CollaborationGroupMember> collGroupMembers = USER_REPOSITORY.queryChatterGroupUser(
+      userId,
+      groupId
+    );
+
+    DML_REPOSITORY.deleteRecords(
+      collGroupMembers,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.SYSTEM_MODE
+    );
   }
 }

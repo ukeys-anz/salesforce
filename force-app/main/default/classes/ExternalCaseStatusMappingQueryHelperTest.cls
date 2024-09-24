@@ -5,22 +5,22 @@
  */
 @isTest
 public with sharing class ExternalCaseStatusMappingQueryHelperTest {
-  // Test method to check if the statusToInternalDesMap map is not empty
+  // Test method to check if the statusToMetadataMap map is not empty
   @isTest
   public static void testGetStatusToInternalDescriptionMap() {
     Test.startTest();
-    Map<String, String> statusToInternalDesMap = ExternalCaseStatusMappingQueryHelper.getInstance()
-      .getStatusToInternalDescriptionMap();
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = ExternalCaseStatusMappingQueryHelper.getInstance()
+      .getStatusToMetadataMap();
     Test.stopTest();
-    Assert.isTrue(!statusToInternalDesMap.isEmpty(), 'Map should not be empty');
+    Assert.isTrue(!statusToMetadataMap.isEmpty(), 'Map should not be empty');
   }
 
   // Test method to check if the statusToCaseStatusMap map is not empty
   @isTest
   public static void testGetStatusToCaseStatusMap() {
     Test.startTest();
-    Map<String, String> statusToCaseStatusMap = ExternalCaseStatusMappingQueryHelper.getInstance()
-      .getStatusToCaseStatusMap();
+    Map<String, External_Case_Status_Mapping__mdt> statusToCaseStatusMap = ExternalCaseStatusMappingQueryHelper.getInstance()
+      .getRecordTypeStatusToMetadataMap();
     Test.stopTest();
     Assert.isTrue(!statusToCaseStatusMap.isEmpty(), 'Map should not be empty');
   }

@@ -33,13 +33,17 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       'Failed',
       'Potential Fraud'
     };
+
+    UserRole usrRole = QueryRole.get('Join_Operations_Reader');
+
     if (
       String.isNotBlank(cobPIDRecord.DaonLocationUri__c) &&
       String.isNotBlank(caseRecord.Aegis_Workflow_Id__c) &&
       cobPIDRecord.CustomerOnboardingApplication__r.CXOnboardingStage__c.equalsIgnoreCase(
         TFMConstants.ASSISTED_SELFIE
       ) &&
-      !statusValues.contains(cobPIDRecord.Verification_Status__c)
+      !statusValues.contains(cobPIDRecord.Verification_Status__c) &&
+      usrRole.Id != UserInfo.getUserRoleId()
     ) {
       workflowDetails.showCheckboxes = true;
     }

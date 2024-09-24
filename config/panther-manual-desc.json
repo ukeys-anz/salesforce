@@ -842,6 +842,7 @@
         "SI_COR_ID_Record__c",
         "SI_Relevant_Tribes__c",
         "SI_Key_Business_Contacts__c",
+        "SI_Assigned_BU_Contact__c",
         "SI_Key_Tribes_BU_s__c",
         "SI_LRK_Category__c",
         "SI_Lead_Portfolio__c",
@@ -869,6 +870,7 @@
         "IDR_Final_Letter_Outcome__c",
         "IDR_Hardship_Status__c",
         "IDR_Hardship_Response_updated_on__c",
+        "CAD_Outcome__c",
         "IDR_Is_Hardship_Resolution_Letter_Sent__c",
         "IDR_Parent_Systemic_Issue__c",
         "IDR_Progressed_Status__c",
@@ -1119,7 +1121,9 @@
         "My_extended_team_s_cases__c",
         "AFCA_Stage__c",
         "Date_time_Registration_Response_Provided__c",
-        "IDR_Complaint_Outcome_Offered__c"
+        "IDR_Complaint_Outcome_Offered__c",
+        "IDR_Completed_Evaluations__c",
+        "IDR_Date_time_Progressed_Status_selected__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -2186,6 +2190,8 @@
       "IA-2415999": [
         "Case__c",
         "Customer_Message__c",
+        "Customer_Status__c",
+        "New_Customer_Message__c",
         "External_Status__c",
         "Internal_Description__c",
         "Is_Outcome_in_Customer_Favour__c",
@@ -2470,6 +2476,7 @@
         "CaseId__c",
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
+        "Chat_or_Call_SID_Formula__c",
         "Coaching_Summary__c",
         "Comment__c",
         "Contact_Mobile__c",
@@ -3912,7 +3919,8 @@
         "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
         "Owner_Name__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Is_SOP_Ineligible__c"
       ],
       "IA-2594111": [
         "AccountId",
@@ -4654,13 +4662,19 @@
         "Pledge__c",
         "Pledge_Amount__c",
         "Previous_Interest_Rate__c",
-        "Relationship__c",
         "Restraints_Hold__c",
         "Sub_Product_Code__c",
         "Term_Months__c",
         "Term_Years__c",
-        "Stops_Pay__c"
-      ]
+        "Stops_Pay__c",
+        "Available_Funds__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c",
+        "Relationship__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Other_Limits_and_Liabilities__x": {
       "IA-2415720": [
@@ -4742,12 +4756,13 @@
       "IA-2415720": [
         "Deposit_Account__c",
         "Loan_Account__c",
-        "Related_Party_Names__c",
         "Relationship__c",
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
-        "Asset_Finance_AMBIT__c"
-      ]
+        "Asset_Finance_AMBIT__c",
+        "Sequence__c"
+      ],
+      "IA-2530753": ["Customer__c"]
     },
     "Balance_History__x": {
       "IA-2415720": [

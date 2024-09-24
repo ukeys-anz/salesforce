@@ -279,6 +279,14 @@
         <fields>Permanent__c</fields>
         <relatedList>Diary_Comment__x.Account__c</relatedList>
     </relatedLists>
+    <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>Balance__c</fields>
+        <fields>Account_Status__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Term_Deposit__x.Customer__c</relatedList>
+    </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
     <showInteractionLogPanel>false</showInteractionLogPanel>

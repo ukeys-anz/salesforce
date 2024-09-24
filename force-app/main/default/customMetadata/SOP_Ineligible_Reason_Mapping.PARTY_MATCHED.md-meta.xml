@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>PARTY_MATCHED</label>
+    <protected>false</protected>
+    <values>
+        <field>Ineligible_Reason_Display_Name__c</field>
+        <value xsi:type="xsd:string">Has a new CAP profile recently matched to the Customer</value>
+    </values>
+    <values>
+        <field>Ineligible_Reason_Type__c</field>
+        <value xsi:type="xsd:string">SOP_INELIGIBLE_REASON_PARTY_MATCHED</value>
+    </values>
+</CustomMetadata>

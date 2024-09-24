@@ -203,9 +203,9 @@ public with sharing class NewCaseFlowWrapperController {
 
   public static String getCaseRecordTypesForAEM() {
     List<Id> acceptedRecordTypeForAEMCases = new List<Id>{
-      GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-      GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-      RecordTypeConstants.caseCustomerComplaint
+      RTCase.nonCustomerComplaint,
+      RTCase.generalInquiry,
+      RTCase.customerComplaint
     };
 
     try {
@@ -244,8 +244,7 @@ public with sharing class NewCaseFlowWrapperController {
       WHERE Id = :userinfo.getProfileId()
       LIMIT 1
     ];
-    String profileName = profiles[0].Name;
-
+    
     if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
       recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
       recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
@@ -282,7 +281,8 @@ public with sharing class NewCaseFlowWrapperController {
               'FraudX_Agent',
               'Card_Dispute_Agent',
               'BOH_Coach',
-              'Support_Coach'
+              'Support_Coach',
+              'Coach_Lead'
             }
           )
         ) {

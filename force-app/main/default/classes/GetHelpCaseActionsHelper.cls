@@ -12,7 +12,6 @@
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
   public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
-  public static final String UNCHECK_IS_PAYTO_DISPUTE_ERROR = 'Can\'t uncheck is PayTo Dispute once checked';
   // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
     RTCase.atmDispute,
@@ -870,20 +869,6 @@ public with sharing class GetHelpCaseActionsHelper {
       creditId = creditId.left(creditId.indexOf('@'));
     }
     return creditId;
-  }
-
-  /**
-   * @description To validate the Payto Dsipute cases
-   * @param record new case record
-   * @param oldRecord old case record
-   */
-  public static void checkPaytoDisputeValidations(Case record, Case oldRecord) {
-    if (
-      oldRecord.Is_PayTo_Dispute__c == true &&
-      record.Is_PayTo_Dispute__c == false
-    ) {
-      record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
-    }
   }
 
   /**
