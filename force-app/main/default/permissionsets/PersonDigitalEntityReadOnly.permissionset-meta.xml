@@ -300,7 +300,7 @@
         <field>Case.Person_Digital_Identity__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.PersonaAttemptCount__c</field>
         <readable>true</readable>

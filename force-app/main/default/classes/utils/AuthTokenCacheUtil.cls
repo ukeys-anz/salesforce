@@ -243,7 +243,9 @@ public with sharing class AuthTokenCacheUtil {
         STAFFPART +
         getHashedKey(
           'forgeJWTToken' +
-            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue  ?? '' ) +
+            TextUtils.removeNonAlphanumericChar(
+              staffModelWrapper.idValue ?? ''
+            ) +
             staffModelWrapper.apiScopesRequested
         )
       );
@@ -272,7 +274,9 @@ public with sharing class AuthTokenCacheUtil {
         STAFFPART +
         getHashedKey(
           'forgeJWTToken' +
-            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue  ?? '') +
+            TextUtils.removeNonAlphanumericChar(
+              staffModelWrapper.idValue ?? ''
+            ) +
             staffModelWrapper.apiScopesRequested
         ),
         staffToken,

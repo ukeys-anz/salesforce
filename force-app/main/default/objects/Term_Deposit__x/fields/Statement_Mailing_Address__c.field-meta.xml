@@ -13,7 +13,7 @@ This must include the statement address where there are up to two lines of the t
     <isSortingDisabled>true</isSortingDisabled>
     <label>Statement Mailing Address</label>
     <length>32768</length>
-    <type>LongTextArea</type>
     <securityClassification>Confidential</securityClassification>
+    <type>LongTextArea</type>
     <visibleLines>4</visibleLines>
 </CustomField>

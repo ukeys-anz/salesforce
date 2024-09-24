@@ -2,7 +2,7 @@
  * @description       : Test class for ADRController
  * @author            : Hinduja Upadhyay
  * @group             : TFM
- * @last modified on  : 09-11-2024
+ * @last modified on  : 09-24-2024
  **/
 @isTest
 public with sharing class ADRControllerTest {
@@ -91,7 +91,7 @@ public with sharing class ADRControllerTest {
 
   @isTest
   static void testperformADRActionError401() {
-    String exceptionMsg = 'Insufficient access';
+    String exceptionMsg = 'You don\'t have required permission to perform this action.';
     Integer statusCode = 401;
     HttpCalloutResponse res = ADRServiceMock.setMockErrorResponse(statusCode);
     Service s = ServiceProvider.getService(ADRService.class);

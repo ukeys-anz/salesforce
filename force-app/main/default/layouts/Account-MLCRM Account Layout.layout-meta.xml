@@ -270,7 +270,7 @@
         <fields>TASK.WHAT_NAME</fields>
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
-        <relatedLists>
+    <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>
