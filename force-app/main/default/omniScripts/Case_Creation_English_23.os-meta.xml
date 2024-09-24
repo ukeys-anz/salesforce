@@ -2559,7 +2559,7 @@
 &quot;readOnly&quot; : false,
 &quot;repeatClone&quot; : false,
 &quot;repeat&quot; : false,
-&quot;required&quot; : true,
+&quot;required&quot; : false,
 &quot;inputWidth&quot; : 12,
 &quot;showInputWidth&quot; : false,
 &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
@@ -6616,7 +6616,7 @@
       &quot;Postcode&quot; : &quot;Postcode&quot;
     } ],
     &quot;thirdPartyMap&quot; : [ {
-      &quot;thirdPartyName&quot; : &quot;Nominated 3rd party name&quot;
+      &quot;thirdPartyName&quot; : &quot;Nominated 3rd party representative name&quot;
     }, {
       &quot;thirdPartyRel&quot; : &quot;Relationship to complaint&quot;
     }, {
