@@ -13,7 +13,7 @@ public with sharing class SettlementActionsTest {
   @isTest
   static void testGetLoanApplicationIdFromSettlement() {
     List<Settlement__c> settlementList = createTestSettlement();
-    String loanApplicationId = settlementList[0]?.Loan_Application_Number__c;
+    String loanApplicationId = settlementList[0].Loan_Application_Number__c;
     Test.startTest();
     List<Id> loanApplicationIds = SettlementActions.getLoanApplicationIdFromSettlements(
       settlementList
@@ -60,15 +60,10 @@ public with sharing class SettlementActionsTest {
         Name = 'Test ResidentialLoanApplication'
       )
     };
-    Settlement__c settlement = new Settlement__c(
-      Id = Lib_FakeIdGenerator.getMockId(Settlement__c.SObjectType),
-      Loan_Application_Number__c = loanApps[0].Id,
-      Type__c = 'TYPE_REFINANCE_OFI'
-    );
 
     String jsonSettlement =
       '{"Name":"TEST_NAME", "Loan_Application_Number__c":"' +
-      settlement.Loan_Application_Number__c +
+      loanApps[0].Id +
       '", "IsValidCloudEvent__c": true}';
 
     Settlement__c settlementSerialized = (Settlement__c) JSON.deserialize(
