@@ -73,7 +73,6 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         .trackFields(
           Schema.SObjectType.Contact.fieldSets.CCRMProspectTrackedFields
         )
-        .copyFields(Schema.SObjectType.Contact.fieldSets.DCRMProspectCopyFields)
     },
     Schema.SObjectType.ContactPointEmail.Name => new List<TrackingConfig>{
       new TrackingConfig(
@@ -409,8 +408,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
       if (
         this.oldRecord != null ||
         (this.record.get(field) != null &&
-        this.record.get(field) != false) ||
-        sendDefaultValue(field)
+        this.record.get(field) != false)
       ) {
         this.addFieldToMap(
           this.newValues,
@@ -435,17 +433,6 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
           getValue(field, field, this.oldRecord)
         );
       }
-    }
-
-    /**
-     * @description sendDefaultValue It check if we need to send the value of the field or not
-     * @param field The name of the field whose value we need to send
-     * @return Boolean True in case if we want to send the value
-     */
-    @TestVisible
-    private Boolean sendDefaultValue(String field) {
-      return (this.objectInfo.Name == CCRMConstants.SOBJECT_CONTACT &&
-      field == CCRMConstants.PREFERRED_CONTACT);
     }
 
     /**
@@ -570,12 +557,6 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         Schema.SObjectType.Contact.Name => new List<TrackingConfig>{
           new TrackingConfig(Schema.SObjectType.Contact.Label + NAME_SUFFIX)
             .trackFieldsActive(
-              objectFieldsMap
-                ?.get(
-                  Schema.SObjectType.Contact.Name + '-' + this.recordTypeName
-                )
-            )
-            .copyFieldsActive(
               objectFieldsMap
                 ?.get(
                   Schema.SObjectType.Contact.Name + '-' + this.recordTypeName

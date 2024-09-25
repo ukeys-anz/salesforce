@@ -96,7 +96,6 @@ public with sharing class CCRMConstants {
   public static final String INTER_CAT_GENERAL = 'General';
   public static final String ACTION_CODE_CREATE = 'create';
   public static final String ACTION_CODE_UPDATE = 'update';
-  public static final String PREFERRED_CONTACT = 'Is_Preferred_Contact__c';
   public static final String CCRM_PROFILE_NAME = 'ANZ CCRM Standard User';
   public static final String DELETE_ERROR = 'You cannot delete leads';
   public static final List<String> BUSINESS_PARTY_RECORDTYPES = new List<String>{
