@@ -23631,12 +23631,8 @@
         <recordType>Contact.Hidden</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Contact-FinServ__Contact %28Business%29 Layout</layout>
-        <recordType>Contact.FinServ__IndustriesBusiness</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
         <layout>Contact-CCRM Contact Business Layout</layout>
-        <recordType>Contact.Organisation</recordType>
+        <recordType>Contact.FinServ__IndustriesBusiness</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>ContactPointAddress-DCRM Contact Point Address Layout</layout>
@@ -25159,7 +25155,7 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>true</default>
-        <recordType>Contact.Organisation</recordType>
+        <recordType>Contact.FinServ__IndustriesBusiness</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

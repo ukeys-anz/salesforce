@@ -15,11 +15,11 @@
         <value xsi:type="xsd:string">Contact</value>
     </values>
     <values>
-        <field>Profile_Name__c</field>
-        <value xsi:type="xsd:string">ANZ CCRM Standard User</value>
+        <field>RecordType_Name__c</field>
+        <value xsi:type="xsd:string">IndustriesBusiness</value>
     </values>
     <values>
-        <field>RecordType_Name__c</field>
-        <value xsi:type="xsd:string">Organisation</value>
+        <field>Profile_Name__c</field>
+        <value xsi:type="xsd:string">ANZ CCRM Standard User</value>
     </values>
 </CustomMetadata>
