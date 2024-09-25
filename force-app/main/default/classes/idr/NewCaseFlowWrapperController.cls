@@ -244,7 +244,6 @@ public with sharing class NewCaseFlowWrapperController {
       WHERE Id = :userinfo.getProfileId()
       LIMIT 1
     ];
-
     if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
       recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
       recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);

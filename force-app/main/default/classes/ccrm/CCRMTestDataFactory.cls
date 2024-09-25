@@ -813,6 +813,7 @@ public with sharing class CCRMTestDataFactory {
     Contact contact = new Contact();
     contact.FirstName = faker.person.firstName();
     contact.LastName = faker.randomString(10);
+    contact.Name__c = faker.randomString(10);
     contact.Email = faker.internet.companyEmail();
     contact.MobilePhone = faker.person.phone(true, true);
     contact.Phone = faker.person.phone(true, false);
@@ -1764,5 +1765,113 @@ public with sharing class CCRMTestDataFactory {
       )
     );
     return emRecord;
+  }
+
+  /**
+   * @description Create Account Relationship test context for API
+   * @name createAccountRelationshipContextForAPI
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createAccountRelationshipContextForAPI() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMAccountRelationshipQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'AccountRelationship'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+
+  /**
+   * @description Create Account Relationship test context for SOQL
+   * @name createAccountRelationshipContextForSOQL
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createAccountRelationshipContextForSOQL() {
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContextForSOQL(
+      'AccountRelationship'
+    );
+    conn.query(context);
+    return context;
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMAccountRelationshipQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_accountRelationship');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'account-relationship-query');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description Create Term Deposit test context for API
+   * @name createTermDepositContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createTermDepositContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMTermDepositTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'TermDeposit'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMTermDepositTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_termDepositResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }
