@@ -56,6 +56,7 @@ public class CCRMFinancialAccountQueryBaseRepository {
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Product_Type__c IN :productTypes
         AND Role_Type__c IN :roleTypes.keyset()
+        AND FinServ__EndDate__c = NULL
       ORDER BY FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
     ];
   }
@@ -121,7 +122,7 @@ public class CCRMFinancialAccountQueryBaseRepository {
       WHERE
         FinServ__FinancialAccount__r.Account_Key__c = :accountKey
         AND FinServ__Active__c = TRUE
-        AND Role_Type__c IN :roleTypes
+        AND FinServ__EndDate__c = NULL
     ];
   }
 

@@ -6,6 +6,7 @@
     <description>Date Placed</description>
     <externalDeveloperName>DatePlaced</externalDeveloperName>
     <externalId>false</externalId>
+    <inlineHelpText>Time recorded is in Australian Eastern Standard Time</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

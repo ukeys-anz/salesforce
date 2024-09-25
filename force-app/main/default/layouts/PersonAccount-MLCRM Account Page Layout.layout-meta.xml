@@ -271,7 +271,7 @@
         <relatedList>ContactPointPhones</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Sequence__c</fields>
         <fields>Description__c</fields>
         <fields>Date_Placed__c</fields>
         <fields>Operator__c</fields>

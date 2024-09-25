@@ -93,7 +93,10 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     HttpCalloutResponse response = makeCallout();
     parseResponse(response.body);
     CCRMExternalObjectQueryBase.ExternalQueryResult queryResult = createFinancialAccounts();
-    setNextPageId(queryResult.queryMoreToken);
+
+    if (this.productCategory != 'transactions') {
+      setNextPageId(queryResult.queryMoreToken);
+    }
 
     return queryResult;
   }
@@ -538,12 +541,15 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
         '"' +
         ',"pageSize":"' +
         String.valueOf(this.queryContext?.maxResults) +
+        '"' +
+        ',"offSet":"' +
+        String.valueOf(this.queryContext?.offSet) +
         '"';
       payload += String.isNotBlank(this.fieldSet)
         ? ',"fieldSet": "' + this.fieldSet + '"}'
-        : getNextPageId() != null
+        : (this.productCategory != 'transactions'
             ? ',"nextPageId": "' + getNextPageId() + '"}'
-            : '}';
+            : '}');
     }
     return payload;
   }
