@@ -52,6 +52,7 @@ public with sharing class ResidentialLoanApplicationRepository {
       WHERE Id IN :loanIds
     ];
     return loanApplicationRecords;
+  }
   /**
    * @description get RLA by id
    * @param recordId RLA recordId
