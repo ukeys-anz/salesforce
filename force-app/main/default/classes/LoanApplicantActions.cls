@@ -21,9 +21,7 @@ public with sharing class LoanApplicantActions {
       loanApplicantIds
     );
     List<Account> accounts = updateAccountSyncStatus(loanApplicants);
-    DmlConfig config = new DmlConfig();
-    config.optAccess = AccessLevel.USER_MODE;
-    DML_REPOSITORY.doUpdate(accounts, config.allowPartial());
+    DML_REPOSITORY.doUpdate(accounts, new DmlConfig().allowPartial());
   }
 
   /**
