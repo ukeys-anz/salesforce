@@ -8076,6 +8076,10 @@
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-PayTo Dispute Layout</layout>
+        <recordType>Case.PayTo_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Profile Update Layout</layout>
         <recordType>Case.Profile_Update</recordType>
     </layoutAssignments>

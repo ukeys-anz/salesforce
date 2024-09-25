@@ -6,7 +6,6 @@
     <description>How often repayments are made</description>
     <externalDeveloperName>RepaymentFrequency</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>How often repayments are made</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

@@ -4,80 +4,152 @@
  * @group CCRM (Commercial CRM)
  * @description Loan Account external query class
  * @runTests CCRMLoanAccountQueryTest
+ * @pmd Used PMD.TooManyFields as we need to have those fields in wrapper CCRMLoanAccountModel as response from external system
  */
-@SuppressWarnings(
-  'PMD.ExcessivePublicCount,PMD.TooManyFields,PMD.NcssMethodCount'
-)
+@SuppressWarnings('PMD.TooManyFields')
 public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQueryBase {
   /**
    * @description Loan account Model class
    */
+  @testVisible
   private class CCRMLoanAccountModel extends CCRMFinancialAccountModelBase {
-    public String subProductCode;
-    public DateTime startDate;
-    public Decimal amountInAdvance;
-    public Decimal originalAmountFinanced;
-    public String purpose;
-    public String purposeCode;
-    public String interestType;
-    public Integer loanTermYear;
-    public Integer loanTermMonth;
-    public Boolean fullyDrawn;
-    public DateTime progressDrawExpiryDate;
-    public String offsetAccountNumber;
-    public String anzsicCode;
-    public String controllingPostID;
-    public DateTime endDate;
-    public String tpmiNumber;
-    public String subApprovedOrignation;
-    public Boolean anzPlusIdentifier;
-    public String accountShortName;
-    public DateTime closedDate;
-    public DateTime lastRenewalDate;
-    public String branchName;
-    public Decimal redrawAmount;
-    public Integer redrawNumberOfSignatories;
-    public DateTime dateLoanIssued;
-    public DateTime loanMaturityDate;
-    public Boolean redrawRegistration;
-    public String referenceIndexType;
-    public Decimal referenceIndexRate;
-    public Decimal interestRateMargin;
-    public Decimal interestRate;
-    public Integer fixedRateTermYear;
-    public Integer fixedRateTermMonth;
-    public DateTime fixedRateStartDate;
-    public DateTime fixedRateEndDate;
-    public String repaymentFrequency;
-    public String interestRepayments;
-    public String interestChargeMethod;
-    public String repaymentType;
-    public Integer daysDelinquent;
-    public Integer timesPastDueG;
-    public Integer timesPastDue30;
-    public Integer timesPastDue60;
-    public Integer timesPastDue90;
-    public Integer timesPastDue120;
-    public Decimal piRepaymentAmount;
-    public DateTime piPrincipalRepaymentStartDate;
-    public DateTime piPrincipalRepaymentEndDate;
-    public String piInterestFrequency;
-    public Decimal ioRepaymentAmount;
-    public String ioInterestRepaymentAccountNumber;
-    public Integer ioTermYear;
-    public Integer ioTermMonth;
-    public DateTime ioStartDate;
-    public DateTime ioExpiryDate;
-    public DateTime ioNextRepaymentDate;
-    public String ioInterestFrequency;
-    public Decimal ioInitialInterestRate;
-    public Decimal ioInitialDiscount;
-    public Decimal ioSubsequentInterestRate;
-    public Decimal ioSubsequentDiscount;
-    public Integer piInitialRepaymentCycleDay;
-    public String dlpRepaymentAccountNumber;
-    public Decimal piElectedRepaymentAmount;
+    private String subProductCode;
+    private DateTime startDate;
+    private Decimal amountInAdvance;
+    private Decimal originalAmountFinanced;
+    private String purpose;
+    private String purposeCode;
+    private String interestType;
+    private Integer loanTermYear;
+    private Integer loanTermMonth;
+    private Boolean fullyDrawn;
+    private DateTime progressDrawExpiryDate;
+    private String offsetAccountNumber;
+    private String anzsicCode;
+    private String controllingPostID;
+    private DateTime endDate;
+    private Boolean anzPlusIdentifier;
+    private String accountShortName;
+    private DateTime closedDate;
+    private DateTime lastRenewalDate;
+    private String branchName;
+    private Decimal redrawAmount;
+    private Integer redrawNumberOfSignatories;
+    private DateTime dateLoanIssued;
+    private DateTime loanMaturityDate;
+    private Boolean redrawRegistration;
+    private String referenceIndexType;
+    private Decimal referenceIndexRate;
+    private Decimal interestRateMargin;
+    private Decimal interestRate;
+    private String tpmiNumber;
+    private String subApprovedOrignation;
+
+    private String repaymentFrequency;
+    private String interestRepayments;
+    private String interestChargeMethod;
+    private String repaymentType;
+    private Integer daysDelinquent;
+    private Integer timesPastDueG;
+    private Integer timesPastDue30;
+    private Integer timesPastDue60;
+    private Integer timesPastDue90;
+    private Integer timesPastDue120;
+    private Decimal piRepaymentAmount;
+    private DateTime piPrincipalRepaymentStartDate;
+    private DateTime piPrincipalRepaymentEndDate;
+    private String piInterestFrequency;
+    private String ioInterestRepaymentAccountNumber;
+    private Integer ioTermYear;
+    private Integer ioTermMonth;
+    private DateTime ioExpiryDate;
+    private DateTime ioNextRepaymentDate;
+    private Decimal ioSubsequentInterestRate;
+    private Decimal ioSubsequentDiscount;
+    private String dlpRepaymentAccountNumber;
+    private Decimal piElectedRepaymentAmount;
+    private String futureInterestType;
+    private String futureReferenceIndexType;
+    private Decimal futureReferenceIndexRate;
+    private Integer interestRateTermYear;
+    private Integer interestRateTermMonths;
+    private DateTime interestRateStartDate;
+    private DateTime interestRateExpiryDate;
+    private String creditRiskGrade;
+    private String statementMailingAddress;
+    private String lmiIndicator;
+    private Decimal amountAdvancedToDate;
   }
+
+  private static Map<String, String> mapOfPurposeCode = new Map<String, String>{
+    '000' => '000 - Revolving Line Of Credit',
+    '100' => '100 - Purchase New Cars and Station Wagons',
+    '101' => '101 - Purchase Used Cars and Station Wagons',
+    '102' => '102 - Purchase Other Motor Vehicles',
+    '103' => '103 - Purchase Motorcycles and Scooters',
+    '104' => '104 - Purchase Boats, Caravans and Trailers',
+    '120' => '120 - Purchase Residential Land Owner-Occupied',
+    '130' => '130 - Unsecured Alteration or Addition to Existing Dwelling Owner-Occupied',
+    '131' => '131 - Unsecured Purchase or Construct Dwelling Owner-Occupied',
+    '140' => '140 - Purchase Household and Personal Goods',
+    '141' => '141 - Ongoing Facility for Temporary Financing',
+    '145' => '145 - Education',
+    '150' => '150 - Debt Consolidation Non ANZ Loans',
+    '155' => '155 - Graduates',
+    '160' => '160 - Purchase Travel and Holidays',
+    '170' => '170 - Refinance Existing ANZ Non-Business Loan',
+    '180' => '180 - Dwellings for Rental or Resale',
+    '185' => '185 - Other Shares, Bonds and Investments',
+    '190' => '190 - Refinance OFI Investment Loan',
+    '199' => '199 - Other Personal Use, Pools, Kitchens etc',
+    '200' => '200 - Construct Dwellings for Rental or Resale',
+    '201' => '201 - Construct Shops',
+    '202' => '202 - Construct Non-Building Structures',
+    '203' => '203 - Alteration or Addition to Commercial Buildings',
+    '204' => '204 - Construct Offices',
+    '205' => '205 - Construct Industrial Buildings',
+    '206' => '206 - Construct Other Buildings',
+    '210' => '210 - Purchase Dwellings for Rental or Resale',
+    '211' => '211 - Purchase Shops',
+    '212' => '212 - Purchase Rural Property',
+    '213' => '213 - Purchase Land for Residential Block Development',
+    '214' => '214 - Purchase Offices',
+    '215' => '215 - Purchase Industrial Buildings',
+    '216' => '216 - Purchase Other Buildings',
+    '219' => '219 - Purchase Other Land',
+    '220' => '220 - Purchase Motor Vehicles',
+    '225' => '225 - Purchase Other Transport Equipment',
+    '229' => '229 - Purchase Other Plant and Equipment',
+    '230' => '230 - Factoring',
+    '240' => '240 - Refinance Non-ANZ Business Loans',
+    '241' => '241 - Refinance ANZ Business Loans',
+    '250' => '250 - Wholesale Finance',
+    '260' => '260 - Establish Business',
+    '261' => '261 - Purchase Business',
+    '299' => '299 - Other Commercial Use, Maintenance and Repairs',
+    '300' => '300 - Construct House Not First Home-Buyer',
+    '301' => '301 - Construct House First Home-Buyer',
+    '310' => '310 - Construct Other Dwelling Not First Home-Buyer',
+    '311' => '311 - Construct Other Dwelling First Home-Buyer',
+    '320' => '320 - Purchase New House Not First Home-Buyer',
+    '321' => '321 - Purchase New House First Home-Buyer',
+    '330' => '330 - Purchase New Other Dwelling Not First Home-Buyer',
+    '331' => '331 - Purchase New Other Dwelling First Home-Buyer',
+    '340' => '340 - Purchase Existing House Not First Home-Buyer',
+    '341' => '341 - Purchase Existing House First Home-Buyer',
+    '350' => '350 - Purchase Existing Other Dwelling Not First Home-Buyer',
+    '351' => '351 - Purchase Existing Other Dwelling First Home-Buyer',
+    '360' => '360 - Alteration or Addition to Existing Dwellings',
+    '370' => '370 - Refinance Non-ANZ Home Loans',
+    '371' => '371 - Refinance ANZ Home Loans',
+    '407' => '407 - Working Capital Other'
+  };
+
+  private static Map<Integer, String> mapOfRedrawNoOfSignatories = new Map<Integer, String>{
+    1 => '1-ANY ONE TO SIGN',
+    2 => '2-BOTH TO SIGN (CONJOINTLY)',
+    3 => '3-REFER TO ACCOUNT SIGNING AUTHORITY'
+  };
 
   /**
    * @description LoanAccount API callout response
@@ -101,11 +173,11 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
+  @testVisible
   protected override void parseResponse(String responseBody) {
     if (String.isBlank(responseBody)) {
       return;
     }
-
     this.calloutResponse = (LoanAccountCalloutResponse) CalloutModel.deserialize(
       responseBody,
       LoanAccountCalloutResponse.class
@@ -116,104 +188,159 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
    * @description Transform API response to Loan account records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
+  @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
     String customerId;
     Map<String, Object> row;
-    List<CCRMLoanAccountModel> accounts = new List<CCRMLoanAccountModel>();
+    String accNumber;
+    String dlpRepaymentAccountNum;
+    String offsetAccountNum;
+    String ioInterestRepaymentAccountNum;
+    List<String> accNumLst;
+    Map<String, String> mapOfAccNumToFormattedAccountNumbers;
 
-    if (this.calloutResponse != null) {
-      accounts = ((LoanAccountCalloutResponse) this.calloutResponse).accounts;
+    if (this.calloutResponse == null) {
+      return result;
     }
 
-    for (CCRMLoanAccountModel fa : accounts) {
-      row = new Map<String, Object>();
+    for (
+      CCRMLoanAccountModel fa : ((LoanAccountCalloutResponse) this.calloutResponse)
+        .accounts
+    ) {
       customerId = getCustomerId(fa.accountNumber);
+
       if (String.isBlank(customerId)) {
         continue;
       }
-      row.put('CustomerId', customerId);
-      row.put('ExternalId', getExternalId(fa));
-      row.put('DisplayUrl', getDisplayUrl(fa));
-      row.put('Relationship', getAccountRelationship(fa.accountNumber));
 
-      row.put('AccountName', fa.accountName);
-      row.put('AccountNumber', formatAccountNumber(fa.accountNumber));
-      row.put('AccountStatus', fa.status);
-      row.put('Balance', fa.accountBalance);
-      row.put('ProductCode', fa.productCode);
-      // Detail fields
-      row.put('SubProductCode', fa.subProductCode);
-      row.put('LoanTermMonth', fa.loanTermMonth);
-      row.put('LoanTermYear', fa.loanTermYear);
-      row.put('DateLoanIssued', formatDate(fa.dateLoanIssued));
-      row.put('PurposeCode', fa.purposeCode);
-      row.put('FullyDrawn', fa.fullyDrawn);
-      row.put('ProgressDrawExpiryDate', formatDate(fa.progressDrawExpiryDate));
-      row.put('ANZSICCode', fa.anzsicCode);
-      row.put('CPID', fa.controllingPostID);
-      row.put('Expires', formatDate(fa.loanMaturityDate));
-      row.put('TPMI', fa.tpmiNumber);
-      row.put('SAO', fa.subApprovedOrignation);
-      row.put('ANZPlusIdentifier', fa.anzPlusIdentifier);
-      row.put('BranchName', fa.branchName);
-      row.put('AmountInAdvance', fa.amountInAdvance);
-      row.put('OriginalAmountFinanced', fa.originalAmountFinanced);
-      row.put('InterestType', fa.interestType);
-      row.put('OffsetAccountNumber', fa.offsetAccountNumber);
-      row.put('RedrawAmount', fa.redrawAmount);
-      row.put('RedrawNumberofSignatories', fa.redrawNumberOfSignatories);
-      row.put('RedrawRegistration', fa.redrawRegistration);
-      row.put('ReferenceIndexType', fa.referenceIndexType);
-      row.put('ReferenceIndexRate', fa.referenceIndexRate);
-      row.put('InterestRateMargin', fa.interestRateMargin);
-      row.put('InterestRate', fa.interestRate);
-      row.put('FixedRateTermYear', fa.fixedRateTermYear);
-      row.put('FixedRateTermMonth', fa.fixedRateTermMonth);
-      row.put('FixedRateStartDate', formatDate(fa.fixedRateStartDate));
-      row.put('FixedRateExpiryDate', formatDate(fa.fixedRateEndDate));
-      row.put('RepaymentFrequency', fa.repaymentFrequency);
-      row.put('InterestRepayments', fa.interestRepayments);
-      row.put('InterestChargeMethod', fa.interestChargeMethod);
-      row.put('RepaymentType', fa.repaymentType);
-      row.put('DaysDelinquent', fa.daysDelinquent);
-      row.put('GraceDays', fa.timesPastDueG);
-      row.put('PastDue30', fa.timesPastDue30);
-      row.put('PastDue60', fa.timesPastDue60);
-      row.put('PastDue90', fa.timesPastDue90);
-      row.put('PastDue120', fa.timesPastDue120);
-      row.put('PIRepaymentAmount', fa.piRepaymentAmount);
-      row.put(
-        'PIPrincipalRepaymentStartDate',
-        formatDate(fa.piPrincipalRepaymentStartDate)
-      );
-      row.put(
-        'PIPrincipalRepaymentEndDate',
-        formatDate(fa.piPrincipalRepaymentEndDate)
-      );
-      row.put('PIInterestFrequency', fa.piInterestFrequency);
-      row.put('InterestOnlyRepaymentAmount', fa.ioRepaymentAmount);
-      row.put(
-        'IOInterestRepaymentAccountNumber',
-        formatAccountNumber(fa.ioInterestRepaymentAccountNumber)
-      );
-      row.put('InterestOnlyTermYear', fa.ioTermYear);
-      row.put('InterestOnlyTermMonth', fa.ioTermMonth);
+      if (this.sourceSystem == SourceSystemEnum.CAP) {
+        accNumber = getAccountNumberwithFormat(fa.accountNumber);
 
-      row.put('InterestOnlyStartDate', formatDate(fa.ioStartDate));
-      row.put('InterestOnlyExpiryDate', formatDate(fa.ioExpiryDate));
-      row.put('IONextRepaymentDate', formatDate(fa.ioNextRepaymentDate));
-      row.put('IOInterestFrequency', fa.ioInterestFrequency);
-      row.put('IOInitialInterestRate', fa.ioInitialInterestRate);
-      row.put('IOInitialDiscount', fa.ioInitialDiscount);
-      row.put('IOSubsequentInterestRate', fa.ioSubsequentInterestRate);
-      row.put('IOSubsequentDiscount', fa.ioSubsequentDiscount);
-      row.put('PIInitialRepaymentCycleDay', fa.piInitialRepaymentCycleDay);
-      row.put(
-        'DLPRepaymentAccountNumber',
-        formatAccountNumber(fa.dlpRepaymentAccountNumber)
-      );
-      row.put('PIElectedRepaymentAmount', fa.piElectedRepaymentAmount);
+        accNumLst = new List<String>{
+          fa.dlpRepaymentAccountNumber,
+          fa.offsetAccountNumber,
+          fa.ioInterestRepaymentAccountNumber
+        };
+
+        mapOfAccNumToFormattedAccountNumbers = getformattedFinancialAccountNumbers(
+          accNumLst
+        );
+
+        dlpRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
+            fa.dlpRepaymentAccountNumber
+          )
+          ? mapOfAccNumToFormattedAccountNumbers.get(
+              fa.dlpRepaymentAccountNumber
+            )
+          : formatAccountNumber(fa.dlpRepaymentAccountNumber);
+
+        offsetAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
+            fa.offsetAccountNumber
+          )
+          ? mapOfAccNumToFormattedAccountNumbers.get(fa.offsetAccountNumber)
+          : formatAccountNumber(fa.offsetAccountNumber);
+
+        ioInterestRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
+            fa.ioInterestRepaymentAccountNumber
+          )
+          ? mapOfAccNumToFormattedAccountNumbers.get(
+              fa.ioInterestRepaymentAccountNumber
+            )
+          : formatAccountNumber(fa.ioInterestRepaymentAccountNumber);
+      } else {
+        accNumber = formatAccountNumber(fa.accountNumber);
+        dlpRepaymentAccountNum = formatAccountNumber(
+          fa.dlpRepaymentAccountNumber
+        );
+        offsetAccountNum = formatAccountNumber(fa.offsetAccountNumber);
+        ioInterestRepaymentAccountNum = formatAccountNumber(
+          fa.ioInterestRepaymentAccountNumber
+        );
+      }
+
+      row = new Map<String, Object>{
+        'CustomerId' => customerId,
+        'ExternalId' => getExternalId(fa),
+        'DisplayUrl' => getDisplayUrl(fa),
+        'Relationship' => getAccountRelationship(fa.accountNumber),
+        'AccountName' => fa.accountName,
+        'AccountNumber' => accNumber,
+        'AccountStatus' => fa.status,
+        'Balance' => fa.accountBalance,
+        'ProductCode' => fa.productCode,
+        'SubProductCode' => fa.subProductCode,
+        'LoanTermMonth' => fa.loanTermMonth,
+        'LoanTermYear' => fa.loanTermYear,
+        'DateLoanIssued' => formatDate(fa.dateLoanIssued),
+        'PurposeCode' => mapOfPurposeCode.containsKey(fa.purposeCode)
+          ? mapOfPurposeCode.get(fa.purposeCode)
+          : fa.purposeCode,
+        'FullyDrawn' => fa.fullyDrawn,
+        'ProgressDrawExpiryDate' => formatDate(fa.progressDrawExpiryDate),
+        'ANZSICCode' => retrieveIndustryCodeAndDescription(fa.anzsicCode),
+        'CPID' => fa.controllingPostID,
+        'Expires' => formatDate(fa.loanMaturityDate),
+        'TPMISAO' => String.isBlank(fa.tpmiNumber)
+          ? ''
+          : fa.tpmiNumber + '-' + fa.subApprovedOrignation,
+        'ANZPlusIdentifier' => fa.anzPlusIdentifier,
+        'BranchName' => fa.branchName,
+        'AmountInAdvance' => fa.amountInAdvance,
+        'OriginalAmountFinanced' => fa.originalAmountFinanced,
+        'InterestType' => fa.interestType,
+        'OffsetAccountNumber' => offsetAccountNum,
+        'RedrawAmount' => fa.redrawAmount,
+        'RedrawNumberofSignatories' => mapOfRedrawNoOfSignatories.containsKey(
+            fa.redrawNumberOfSignatories
+          )
+          ? mapOfRedrawNoOfSignatories.get(fa.redrawNumberOfSignatories)
+          : String.valueof(fa.redrawNumberOfSignatories),
+        'RedrawRegistration' => fa.redrawRegistration,
+        'IndexCodeCurrent' => fa.referenceIndexType,
+        'IndexRateCurrent' => fa.referenceIndexRate,
+        'InterestRateMargin' => fa.interestRateMargin,
+        'InterestRate' => fa.interestRate,
+        'RepaymentFrequency' => fa.repaymentFrequency,
+        'InterestRepayments' => fa.interestRepayments,
+        'InterestChargeMethod' => fa.interestChargeMethod,
+        'RepaymentType' => fa.repaymentType,
+        'DaysDelinquent' => fa.daysDelinquent,
+        'GraceDays' => fa.timesPastDueG,
+        'PastDue30' => fa.timesPastDue30,
+        'PastDue60' => fa.timesPastDue60,
+        'PastDue90' => fa.timesPastDue90,
+        'PastDue120' => fa.timesPastDue120,
+        'PIRepaymentAmount' => fa.piRepaymentAmount,
+        'PIPrincipalRepaymentStartDate' => formatDate(
+          fa.piPrincipalRepaymentStartDate
+        ),
+        'PIPrincipalRepaymentEndDate' => formatDate(
+          fa.piPrincipalRepaymentEndDate
+        ),
+        'PIInterestFrequency' => fa.piInterestFrequency,
+        'IOInterestRepaymentAccountNumber' => ioInterestRepaymentAccountNum,
+        'InterestOnlyTermYear' => fa.ioTermYear,
+        'InterestOnlyTermMonth' => fa.ioTermMonth,
+        'InterestOnlyExpiryDate' => formatDate(fa.ioExpiryDate),
+        'IONextRepaymentDate' => formatDate(fa.ioNextRepaymentDate),
+        'IOSubsequentInterestRate' => fa.ioSubsequentInterestRate,
+        'IOSubsequentDiscount' => fa.ioSubsequentDiscount,
+        'DLPRepaymentAccountNumber' => dlpRepaymentAccountNum,
+        'PIElectedRepaymentAmount' => fa.piElectedRepaymentAmount,
+        'InterestTypeFuture' => fa.futureInterestType,
+        'IndexCodeFuture' => fa.futureReferenceIndexType,
+        'IndexRateFuture' => fa.futureReferenceIndexRate,
+        'InterestRateTermYear' => fa.interestRateTermYear,
+        'InterestRateTermMonth' => fa.interestRateTermMonths,
+        'InterestRateStartDate' => formatDate(fa.interestRateStartDate),
+        'InterestRateExpiryDate' => formatDate(fa.interestRateExpiryDate),
+        'ProductName' => getProductName(fa.accountNumber),
+        'StatementMailingAddress' => fa.statementMailingAddress,
+        'LendersMortgageInsurance' => fa.lmiIndicator,
+        'CCR' => fa.creditRiskGrade,
+        'AmountAdvancedToDate' => fa.amountAdvancedToDate
+      };
       result.queryResult.add(row);
     }
     return result;

@@ -28,8 +28,13 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>External_Case_Status__c.Customer_Message__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>External_Case_Status__c.Customer_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -45,6 +50,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.New_Customer_Message__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

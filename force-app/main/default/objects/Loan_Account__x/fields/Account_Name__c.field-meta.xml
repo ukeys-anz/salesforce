@@ -6,7 +6,6 @@
     <description>Name attached to the product instance on CAP</description>
     <externalDeveloperName>AccountName</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Name attached to the product instance on CAP</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

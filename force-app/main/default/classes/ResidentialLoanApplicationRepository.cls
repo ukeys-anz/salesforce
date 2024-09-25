@@ -26,7 +26,6 @@ public with sharing class ResidentialLoanApplicationRepository {
         AND Property_ID__c != NULL
     ];
   }
-
   /**
    * @description get multiple loan application record details
    * @return List<ResidentialLoanApplication>
@@ -53,5 +52,31 @@ public with sharing class ResidentialLoanApplicationRepository {
       WHERE Id IN :loanIds
     ];
     return loanApplicationRecords;
+  /**
+   * @description get RLA by id
+   * @param recordId RLA recordId
+   * @return  `ResidentialLoanApplication`
+   */
+  public ResidentialLoanApplication queryRLAById(String recordId) {
+    if (
+      String.isBlank(recordId) ||
+      !PermissionUtils.canQuery('ResidentialLoanApplication')
+    ) {
+      return null;
+    }
+
+    return [
+      SELECT
+        Id,
+        Assessment_Outcome__c,
+        Status,
+        Credit_ID__c,
+        SOP_Id__c,
+        Name,
+        Account.OCV_ID__c,
+        Credit_Reassess_Required__c
+      FROM ResidentialLoanApplication
+      WHERE Id = :recordId
+    ];
   }
 }

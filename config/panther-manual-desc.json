@@ -2208,6 +2208,8 @@
       "IA-2415999": [
         "Case__c",
         "Customer_Message__c",
+        "Customer_Status__c",
+        "New_Customer_Message__c",
         "External_Status__c",
         "Internal_Description__c",
         "Is_Outcome_in_Customer_Favour__c",
@@ -3927,13 +3929,15 @@
         "LastModifiedDate",
         "Version__c",
         "Last_Updated_Date__c",
+        "SunsetTimestamp__c",
         "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c",
         "Created_Date__c",
         "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
         "Owner_Name__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Is_SOP_Ineligible__c"
       ],
       "IA-2594111": [
         "AccountId",
@@ -4520,7 +4524,8 @@
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
         "Other_Limits_and_Liabilities__c",
-        "Additional_Information__c"
+        "Additional_Information__c",
+        "Sequence__c"
       ]
     },
     "Deposit_Account__x": {
@@ -4606,21 +4611,10 @@
         "Interest_Charge_Method__c",
         "Interest_Only_Expiry_Date__c",
         "Interest_Only_Repayment_Amount__c",
-        "Interest_Only_Start_Date__c",
-        "Interest_Only_Term_Month__c",
-        "Interest_Only_Term_Year__c",
         "Interest_Rate__c",
-        "Interest_Rate_Fixed_Rate_Expiry_Date__c",
-        "Interest_Rate_Fixed_Rate_Start_Date__c",
-        "Interest_Rate_Fixed_Rate_Term_Month__c",
-        "Interest_Rate_Fixed_Rate_Term_Year__c",
         "Interest_Rate_Margin__c",
-        "Interest_Rate_Reference_Index_Rate__c",
-        "Interest_Rate_Reference_Index_Type__c",
+        "Index_Rate_Current__c",
         "Interest_Type__c",
-        "IO_Initial_Discount__c",
-        "IO_Initial_Interest_Rate__c",
-        "IO_Interest_Frequency__c",
         "IO_Interest_Repayment_Account_Number__c",
         "IO_Next_Repayment_Date__c",
         "IO_Subsequent_Discount__c",
@@ -4630,7 +4624,6 @@
         "Offset_Account_Number__c",
         "Original_Amount_Financed__c",
         "PI_Elected_Repayment_Amount__c",
-        "PI_Initial_Repayment_Cycle_Day__c",
         "PI_Interest_Frequency__c",
         "PI_Principal_Repayment_End_Date__c",
         "PI_Principal_Repayment_Start_Date__c",
@@ -4646,15 +4639,29 @@
         "Repayment_Details_Interest_Repayments__c",
         "Repayment_Details_Repayment_Frequency__c",
         "Repayment_Details_Repayment_Type__c",
-        "SAO__c",
         "Sub_Product_Code__c",
-        "TPMI__c",
         "Expires__c",
         "Times_Past_Due_90_Days__c",
         "Times_Past_Due_30_Days__c",
         "Times_Past_Due_120_Days__c",
         "Times_Past_Due_60_Days__c",
-        "Grace_Days__c"
+        "Grace_Days__c",
+        "Interest_Type_Future__c",
+        "TPMI_SAO__c",
+        "Index_Code_Future__c",
+        "Index_Rate_Future__c",
+        "Interest_Rate_Term_Year__c",
+        "Interest_Rate_Term_Month__c",
+        "Interest_Rate_Start_Date__c",
+        "Interest_Rate_Expiry_Date__c",
+        "Product_Name__c",
+        "Statement_Mailing_Address__c",
+        "Lenders_Mortgage_Insurance__c",
+        "CCR__c",
+        "Source_System_Status__c",
+        "Amount_Advanced_To_Date__c",
+        "Index_Code_Current__c",
+        "Interest_Type_Current__c"
       ]
     },
     "Term_Deposit__x": {
@@ -4677,13 +4684,19 @@
         "Pledge__c",
         "Pledge_Amount__c",
         "Previous_Interest_Rate__c",
-        "Relationship__c",
         "Restraints_Hold__c",
         "Sub_Product_Code__c",
         "Term_Months__c",
         "Term_Years__c",
-        "Stops_Pay__c"
-      ]
+        "Stops_Pay__c",
+        "Available_Funds__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c",
+        "Relationship__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Other_Limits_and_Liabilities__x": {
       "IA-2415720": [
@@ -4765,12 +4778,12 @@
       "IA-2415720": [
         "Deposit_Account__c",
         "Loan_Account__c",
-        "Related_Party_Names__c",
         "Relationship__c",
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
         "Asset_Finance_AMBIT__c"
-      ]
+      ],
+      "IA-2530753": ["Customer__c", "Sequence__c"]
     },
     "Balance_History__x": {
       "IA-2415720": [

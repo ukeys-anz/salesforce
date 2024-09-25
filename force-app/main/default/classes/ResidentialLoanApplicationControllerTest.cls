@@ -51,6 +51,36 @@ public with sharing class ResidentialLoanApplicationControllerTest {
   }
 
   @isTest
+  static void testHomeLoanSplits() {
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.Name = '239XXXXXXXXXXX';
+    rla.AccountId = TestDataFactory.createAccount(true).Id;
+    insert rla;
+
+    LoanApplicationLiability lal1 = new LoanApplicationLiability(
+      Name = 'liability1',
+      LoanApplicationId = rla.Id
+    );
+    insert lal1;
+
+    SOPDebt homeLoan = new SOPDebt();
+    homeLoan.type = ResidentialLoanApplicationModel.HOME_LOAN;
+    homeLoan.name = lal1.Name;
+
+    ResidentialLoanApplicationModel rlaModel = new ResidentialLoanApplicationModel();
+    rlaModel.liabilitiesSummary = new SOPDebtSummary();
+    rlaModel.liabilitiesSummary.liabilities = new List<SOPDebt>{ homeLoan };
+
+    ResidentialLoanApplicationController.setRefinanceSettings(rlaModel, rla.Id);
+
+    for (SOPDebt debt : rlaModel.liabilitiesSummary.liabilities) {
+      if (debt.type == ResidentialLoanApplicationModel.HOME_LOAN) {
+        System.assert(debt.hasRefinance == true, 'Split Loans exists');
+      }
+    }
+  }
+
+  @isTest
   static void testDeleteIncome() {
     Account acc = TestDataFactory.createAccount(true);
 

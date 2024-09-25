@@ -247,11 +247,14 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     for (
       OnboardingWorkflowWrapper.FileTypes fileTypeData : workflowDetails.fileTypesList
     ) {
-      if ((!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) ||
-      (String.isBlank(workflowDetails.idxExtractedFaceId) && fileTypeData.fileType == 'DAON_FILE_TYPE_EXTRACTED_FACE')) {
+      if (
+        (!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) ||
+        (String.isBlank(workflowDetails.idxExtractedFaceId) &&
+        fileTypeData.fileType == 'DAON_FILE_TYPE_EXTRACTED_FACE')
+      ) {
         continue;
       }
-    
+
       OnboardingRequestModel ob = new OnboardingRequestModel();
       ob.requester_sf_id = UserInfo.getUserId();
       OnboardingRequestModel.DAONFile daonFileNode = formRequestBody(
@@ -298,19 +301,23 @@ public with sharing class OnboardingFalloutWorkflowHelper {
    * @param parentRecord Case or COB as a value
    * @param parentRecordName Case Number or COB PID Name
    */
-  public static void insertDAONFileViewedLog(List<OnboardingWorkflowWrapper.FileTypes> fileTypesList, String parentRecord, String parentRecordName) {
+  public static void insertDAONFileViewedLog(
+    List<OnboardingWorkflowWrapper.FileTypes> fileTypesList,
+    String parentRecord,
+    String parentRecordName
+  ) {
     Boolean filesLoaded = false;
-    if(fileTypesList.isEmpty()) {
+    if (fileTypesList.isEmpty()) {
       return;
     }
-    for(OnboardingWorkflowWrapper.FileTypes fileType : fileTypesList) {
+    for (OnboardingWorkflowWrapper.FileTypes fileType : fileTypesList) {
       if (fileType.isImageFinalVersion) {
         filesLoaded = true;
         break;
       }
     }
 
-    if(!filesLoaded) {
+    if (!filesLoaded) {
       return;
     }
 
@@ -318,10 +325,12 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       Datetime.now() +
       ' UserId ' +
       UserInfo.getUserId() +
-      ' viewed DAON documents on ' + parentRecord + ' Record - ' + 
+      ' viewed DAON documents on ' +
+      parentRecord +
+      ' Record - ' +
       parentRecordName +
       ' Security Classification: CONFIDENTIAL';
-    
+
     Logger.info(logMessage);
     Logger.saveLog();
   }

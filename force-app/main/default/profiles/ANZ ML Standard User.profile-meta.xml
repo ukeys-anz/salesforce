@@ -7521,6 +7521,9 @@
         <recordType>Lead.MLCRM_Lead</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Loan_Account__x-Loan Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>PersonAccount-MLCRM Account Page Layout</layout>
         <recordType>PersonAccount.PersonAccount</recordType>
     </layoutAssignments>
@@ -7549,6 +7552,9 @@
     <layoutAssignments>
         <layout>Task-MLCRM Task Layout</layout>
         <recordType>Task.MLCRM_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Term_Deposit__x-Term Deposit Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>

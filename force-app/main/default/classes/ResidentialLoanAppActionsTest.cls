@@ -10,6 +10,8 @@ private class ResidentialLoanAppActionsTest {
   static Lib_MockProvider rlarRepoMock = Lib_MockProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
+  private static final String SUNSET_STATUS = 'STATE_UNSPECIFIED';
+  private static final String NON_SUNSET_STATUS = 'STATE_CAPTURE';
 
   @IsTest
   static void testPopulateAssistedBroker() {
@@ -117,6 +119,105 @@ private class ResidentialLoanAppActionsTest {
     );
     Test.stopTest();
     Assert.areEqual(brokerCodes.size(), 10, 'Broker Codes should be populated');
+  }
+
+  /**
+   * @description
+   * Scenarios:
+   * 1. insert status = sunset: set timestamp
+   * 2. insert status = non sunset: do not set timestamp
+   */
+  @IsTest
+  static void testSetSunsetTimestampForInsert() {
+    // Test Data Prep
+    List<ResidentialLoanApplication> testLoanAppsToInsert = createResidentialLoanApplications(
+      2
+    );
+    Map<Id, ResidentialLoanApplication> oldLoanAppMap = new Map<Id, ResidentialLoanApplication>();
+    // Set new apps attributes
+    testLoanAppsToInsert[0].Status = SUNSET_STATUS;
+    testLoanAppsToInsert[1].Status = NON_SUNSET_STATUS;
+
+    // Test insert scenarios
+    Test.startTest();
+    ResidentialLoanApplicationActions.setSunsetTimestamp(
+      testLoanAppsToInsert,
+      oldLoanAppMap
+    );
+    Test.stopTest();
+
+    // Assert
+    Assert.isTrue(
+      testLoanAppsToInsert[0].SunsetTimestamp__c.isSameDay(Date.today()),
+      'Application Sunset Timestamp should be set as current date time'
+    );
+    Assert.isNull(
+      testLoanAppsToInsert[1].SunsetTimestamp__c,
+      'Application Sunset Timestamp should not be set'
+    );
+  }
+
+  /**
+   * @description
+   * Scenarios:
+   * 1. update from non sunset to non sunset: do not set timestamp
+   * 2. update from sunset to sunset: keep the timestamp no change
+   * 3. update from non sunset to sunset: set timestamp
+   * 4. update from sunset to non sunset: clear timestamp
+   */
+  @IsTest
+  static void testSetSunsetTimestampForUpdate() {
+    // Test Data Prep
+    List<ResidentialLoanApplication> testLoanAppsToUpdate = createResidentialLoanApplications(
+      4
+    );
+    List<ResidentialLoanApplication> oldLoanApps = testLoanAppsToUpdate.deepClone(
+      true
+    );
+    Map<Id, ResidentialLoanApplication> oldLoanAppMap = new Map<Id, ResidentialLoanApplication>(
+      oldLoanApps
+    );
+
+    // Set new apps attributes
+    testLoanAppsToUpdate[0].Status = NON_SUNSET_STATUS;
+    testLoanAppsToUpdate[1].Status = SUNSET_STATUS;
+    testLoanAppsToUpdate[2].Status = SUNSET_STATUS;
+    testLoanAppsToUpdate[3].Status = NON_SUNSET_STATUS;
+    testLoanAppsToUpdate[3].SunsetTimestamp__c = System.now();
+
+    // Set old apps attributes
+    oldLoanApps[0].Status = NON_SUNSET_STATUS;
+    oldLoanApps[1].Status = SUNSET_STATUS;
+    oldLoanApps[2].Status = NON_SUNSET_STATUS;
+    oldLoanApps[3].Status = SUNSET_STATUS;
+
+    Test.startTest();
+    // Test update scenarios
+    ResidentialLoanApplicationActions.setSunsetTimestamp(
+      testLoanAppsToUpdate,
+      oldLoanAppMap
+    );
+    Test.stopTest();
+
+    // Assert
+    Assert.areEqual(
+      testLoanAppsToUpdate[0].SunsetTimestamp__c,
+      oldLoanApps[0].SunsetTimestamp__c,
+      'Application Sunset Timestamp should not be set'
+    );
+    Assert.areEqual(
+      testLoanAppsToUpdate[1].SunsetTimestamp__c,
+      oldLoanApps[1].SunsetTimestamp__c,
+      'Application Sunset Timestamp should remain the same'
+    );
+    Assert.isTrue(
+      testLoanAppsToUpdate[2].SunsetTimestamp__c.isSameDay(Date.today()),
+      'Application Sunset Timestamp should be set as current date time'
+    );
+    Assert.isNull(
+      testLoanAppsToUpdate[3].SunsetTimestamp__c,
+      'Application Sunset Timestamp should be cleared'
+    );
   }
 
   static List<ResidentialLoanApplication> createResidentialLoanApplications(
