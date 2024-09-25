@@ -16,16 +16,16 @@ public with sharing class LoanApplicantActions {
    * @description Orchestration method for updating the Customer Sync Status
    * @param loanApplicantIds loan applicants to process
    */
-  public static void accountSyncStatusUpdate(Set<Id> loanApplicantIds) {
+  public static void accountSyncStatusUpdate(
+    Set<Id> loanApplicantIds
+  ) {
     List<LoanApplicant> loanApplicants = LOAN_APPLICANT_REPOSITORY.queryLoanApplicationOfApplicants(
       loanApplicantIds
     );
     List<Account> accounts = updateAccountSyncStatus(loanApplicants);
-    DML_REPOSITORY.updateRecords(
-      accounts,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+    DmlConfig config = new DmlConfig();
+      config.optAccess = AccessLevel.USER_MODE;
+      DML_REPOSITORY.doUpdate(accounts, config.allowPartial());
   }
 
   /**

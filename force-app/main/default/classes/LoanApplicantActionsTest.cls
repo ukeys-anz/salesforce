@@ -26,7 +26,6 @@ private class LoanApplicantActionsTest {
       accMap.keySet(),
       rlaList.get(0)
     );
-    laRepoMock.mock('queryAccounts', accMap.values());
     laRepoMock.mock(
       'queryLoanApplicationOfApplicants',
       loanAppIdVsRecordMap.values()
@@ -37,13 +36,15 @@ private class LoanApplicantActionsTest {
         '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
       )
     };
-    dmlRepoMock.mock('updateRecords', saveResults);
+    dmlRepoMock.mock('doUpdate', saveResults);
     Test.startTest();
     LoanApplicantActions.accountSyncStatusUpdate(loanAppIdVsRecordMap.keySet());
     Test.stopTest();
-    Assert.isFalse(
-      dmlRepoMock.getHistories('updateRecords').isEmpty(),
-      'updateRecords should have been called.'
+    List<Account> accountsRecordAfterUpdate = (List<Account>) dmlRepoMock.getHistory('doUpdate').getParam('records');
+     Assert.areEqual(
+      true,
+      accountsRecordAfterUpdate[0].Sync_Status__c.contains('Broker Org'),
+      'The account record sync status should update to Broker org'
     );
   }
 
