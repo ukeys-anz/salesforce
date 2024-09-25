@@ -312,10 +312,8 @@ private class ResidentialLoanAppActionsTest {
     List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
       10
     );
-    List<Id> loanAppIds = new List<Id>();
     for (ResidentialLoanApplication eachLoanApp : loanApps) {
       eachLoanApp.Sync_Status__c = 'Broker Org';
-      loanAppIds.add(eachLoanApp.Id);
     }
     rlarRepoMock.mock('queryLoanApplicatioins', loanApps);
     Test.startTest();
