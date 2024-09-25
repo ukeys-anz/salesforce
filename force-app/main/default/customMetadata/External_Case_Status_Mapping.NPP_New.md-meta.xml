@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">Your dispute has been submitted. Any updates on the status of your case will appear here.</value>
+        <value xsi:type="xsd:string">Your dispute has been submitted and we&apos;ll get to it as soon as we can. Any updates on the status of your case will appear here.</value>
     </values>
     <values>
         <field>Customer_Status__c</field>
