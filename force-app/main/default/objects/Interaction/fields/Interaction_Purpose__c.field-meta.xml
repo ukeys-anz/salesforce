@@ -131,6 +131,12 @@
         <valueSettings>
             <controllingFieldValue>In Person</controllingFieldValue>
             <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Test Out a Home Loan</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Call</controllingFieldValue>
             <controllingFieldValue>Chat</controllingFieldValue>
             <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
