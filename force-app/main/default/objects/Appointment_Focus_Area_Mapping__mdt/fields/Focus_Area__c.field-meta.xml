@@ -50,9 +50,9 @@
                 <label>First appointment</label>
             </value>
             <value>
-                <fullName>Follow up appointment</fullName>
+                <fullName>Follow-up appointment</fullName>
                 <default>false</default>
-                <label>Follow up appointment</label>
+                <label>Follow-up appointment</label>
             </value>
         </valueSetDefinition>
     </valueSet>

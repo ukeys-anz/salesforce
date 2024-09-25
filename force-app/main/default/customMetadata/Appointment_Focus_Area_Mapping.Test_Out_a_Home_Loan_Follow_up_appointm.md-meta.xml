@@ -12,6 +12,6 @@
     </values>
     <values>
         <field>Focus_Area__c</field>
-        <value xsi:type="xsd:string">Follow up appointment</value>
+        <value xsi:type="xsd:string">Follow-up appointment</value>
     </values>
 </CustomMetadata>

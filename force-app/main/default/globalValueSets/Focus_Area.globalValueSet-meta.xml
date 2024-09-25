@@ -36,9 +36,9 @@
         <label>First appointment</label>
     </customValue>
     <customValue>
-        <fullName>Follow up appointment</fullName>
+        <fullName>Follow-up appointment</fullName>
         <default>false</default>
-        <label>Follow up appointment</label>
+        <label>Follow-up appointment</label>
     </customValue>
     <customValue>
         <fullName>Unpack spending &amp; saving</fullName>
