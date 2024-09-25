@@ -274,6 +274,15 @@
         <fields>Account_Number__c</fields>
         <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>
+        <fields>Limit__c</fields>
+        <fields>Account_Status__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Deposit_Account__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>Balance__c</fields>
         <fields>Account_Status__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>Loan_Account__x.Customer__c</relatedList>

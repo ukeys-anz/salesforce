@@ -4540,6 +4540,7 @@
         "BSB__c",
         "CPID__c",
         "Customer__c",
+        "Date_Closed__c",
         "Expiry_Date__c",
         "Limit__c",
         "Stop_Pay_Number__c",
@@ -4565,8 +4566,25 @@
         "Sub_Product_Code__c",
         "Fluctuating_Seasonal_Start_Date__c",
         "Fluctuating_Seasonal_Limit__c",
-        "Fluctuating_Seasonal_Expiry_Date__c"
-      ]
+        "CCR__c",
+        "Linked_Loan_Offsets__c",
+        "OD_Service_Charge_Code__c",
+        "OD_Service_Charge_Waive_Code__c",
+        "OD_Service_Charge_Waive_Expiry__c",
+        "Product_Name__c",
+        "Regulated_Account__c",
+        "Service_Charge_Code__c",
+        "Service_Charge_Waive_Code__c",
+        "Service_Charge_Waive_Expiry__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c",
+        "Fluctuating_Seasonal_Limit_2__c",
+        "Fluctuating_Seasonal_Limit_3__c",
+        "Fluctuating_Seasonal_Start_Expiry_Limit1__c",
+        "Fluctuating_Seasonal_Start_Expiry_Limit2__c",
+        "Fluctuating_Seasonal_Start_Expiry_Limit3__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Credit_Card__x": {
       "IA-2415720": [
@@ -4792,7 +4810,13 @@
         "Maximum_Balance__c",
         "Minimum_Balance__c",
         "Month__c",
-        "Year__c"
+        "Year__c",
+        "Days_in_Excess__c",
+        "Items_In_Excess__c",
+        "Returned_Items__c",
+        "Times_In_Excess__c",
+        "Period__c",
+        "Additional_Information__c"
       ]
     },
     "Indemnity_Guarantee__x": {
@@ -4887,7 +4911,8 @@
         "Time__c",
         "Deposit_Account__c",
         "Term_Deposit__c",
-        "Loan_Account__c"
+        "Loan_Account__c",
+        "Additional_Information__c"
       ]
     },
     "Commercial_Bill__x": {

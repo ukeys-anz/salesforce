@@ -7496,6 +7496,9 @@
         <layout>Customer_Relationship__c-MLCRM Customer Relationship Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Deposit_Account__x-Deposit Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
