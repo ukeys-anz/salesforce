@@ -5945,6 +5945,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Deposit_Account__x.Date_Closed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Disputes_PEGA_Integration_Event__e.Case_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11555,6 +11560,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>CustomerOnboardingApplication__c-Customer Onboarding Application Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Deposit_Account__x-Deposit Account Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>EmailMessage-Email Message Layout - Email-to-Case</layout>

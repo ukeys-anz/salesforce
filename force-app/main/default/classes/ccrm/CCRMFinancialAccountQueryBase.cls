@@ -918,6 +918,13 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     return relatedCustomers;
   }
   /**
+   * @description calles execute method of class CCRMExternalObjectQueryBase
+   * @param queryContext query context
+   */
+  protected void callExecuteOfQueryBase(DataSource.QueryContext queryContext) {
+    super.execute(queryContext);
+  }
+  /**
    * @description get industry code and discription
    * @param  industryCode
    * @return String industryCode plus discription

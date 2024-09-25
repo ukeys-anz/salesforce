@@ -102,7 +102,7 @@
     </relatedLists>
     <relatedLists>
         <fields>ExternalId</fields>
-        <fields>Related_Party_Names__c</fields>
+        <fields>Customer__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>Account_Relationship__x.Portfolio_Of_Loan__c</relatedList>
     </relatedLists>

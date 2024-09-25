@@ -38,6 +38,28 @@ public with sharing class CCRMTransactionHistoryQuery extends CCRMFinancialAccou
   }
 
   /**
+   * @description public execute method
+   * @param queryContext DataSource.QueryContext
+   * @return CCRMExternalObjectQueryBase.ExternalQueryResult query result + queryMoreToken
+   */
+  public virtual override CCRMExternalObjectQueryBase.ExternalQueryResult execute(
+    DataSource.QueryContext queryContext
+  ) {
+    CCRMExternalObjectQueryBase.ExternalQueryResult queryResult = new CCRMFinancialAccountQueryBase.ExternalQueryResult();
+    super.callExecuteOfQueryBase(queryContext);
+    prepareCallout();
+
+    if (displayDummayFinancialAccount(this.externalId, this.parentId)) {
+      queryResult = createDummyFinancialAccounts(this.externalId);
+      return queryResult;
+    }
+    HttpCalloutResponse response = makeCallout();
+    parseResponse(response.body);
+    queryResult = createFinancialAccounts();
+    return queryResult;
+  }
+
+  /**
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
@@ -56,41 +78,101 @@ public with sharing class CCRMTransactionHistoryQuery extends CCRMFinancialAccou
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
-    String customerId;
     Map<String, Object> row;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
     List<CCRMTransactionHistoryModel> transactions = new List<CCRMTransactionHistoryModel>();
+    final Map<String, String> mapOfTypeTranslation = new Map<String, String>{
+      'D' => 'D - Debit',
+      'C' => 'C - Credit'
+    };
 
-    if (this.calloutResponse != null) {
-      transactions = ((TransactionHistoryCalloutResponse) this.calloutResponse)
-          .transactions != null
-        ? ((TransactionHistoryCalloutResponse) this.calloutResponse)
-            .transactions
-        : new List<CCRMTransactionHistoryModel>();
-      //Pass pagination token
-      result.queryMoreToken = this.calloutResponse.nextPageId;
+    if (this.calloutResponse == null) {
+      return result;
     }
 
+    transactions = ((TransactionHistoryCalloutResponse) this.calloutResponse)
+        .transactions != null
+      ? ((TransactionHistoryCalloutResponse) this.calloutResponse).transactions
+      : new List<CCRMTransactionHistoryModel>();
+    //Pass pagination token
+    result.queryMoreToken = this.calloutResponse.nextPageId;
+
     for (CCRMTransactionHistoryModel th : transactions) {
-      row = new Map<String, Object>();
-      row.put('ExternalId', th.compositeId);
-      row.put(
-        'DisplayUrl',
-        URL.getOrgDomainUrl().toExternalForm() +
+      String transactionType = (mapOfTypeTranslation.containsKey(
+          th.transactionType
+        )
+        ? mapOfTypeTranslation.get(th.transactionType)
+        : th.transactionType);
+
+      row = new Map<String, Object>{
+        'ExternalId' => th.compositeId,
+        'DisplayUrl' => URL.getOrgDomainUrl().toExternalForm() +
         '/' +
-        th.compositeId
-      );
-      row.put('Amount', th.amount);
-      row.put(this.parent, this.parentId);
-      row.put('Description', th.description);
-      row.put('EffectiveDate', formatDate(th.transactionDate));
-      row.put('PostDate', formatDate(th.postedDate));
-      row.put('RunningBalance', th.runningBalance);
-      row.put('Source', th.source);
-      row.put('Time', th.transactionTime);
-      row.put('Type', th.transactionType);
+        th.compositeId,
+        'Amount' => th.amount,
+        this.parent => this.parentId,
+        'Description' => th.description,
+        'EffectiveDate' => formatDate(th.transactionDate),
+        'PostDate' => formatDate(th.postedDate),
+        'RunningBalance' => th.runningBalance,
+        'Source' => formatSource(th.source),
+        'Time' => th.transactionTime,
+        'Type' => transactionType
+      };
       result.queryResult.add(row);
     }
     return result;
+  }
+
+  /**
+   * @description Create Dummy FA record
+   * @param externalId Format RSV-929490053-0-11-0001
+   * @return dummy FA record. externalId Id will be formatted from RSV-929490053-0-11-0001 to RSV-929490053
+   **/
+  @TestVisible
+  private CCRMExternalObjectQueryBase.ExternalQueryResult createDummyFinancialAccounts(
+    String externalId
+  ) {
+    String accountNumber = externalId.indexOf('-', 5) != -1
+      ? externalId.subString(0, externalId.indexOf('-', 5))
+      : externalId;
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
+    Map<String, Object> row = new Map<String, Object>{
+      'ExternalId' => accountNumber,
+      'AdditionalInformation' => 'No further information available'
+    };
+    result.queryResult.add(row);
+    return result;
+  }
+
+  /**
+   * @description Return true if detail API is needed. ExternalId : True => Detail API Call
+   * @param externalId externalId value
+   * @param parentId parentId value
+   * @return boolean true/false
+   */
+  @TestVisible
+  private static Boolean displayDummayFinancialAccount(
+    String externalId,
+    String parentId
+  ) {
+    return !String.isEmpty(externalId) && String.isEmpty(parentId);
+  }
+
+  /**
+   * @description Capialize first Character of words seperated by underscore, and replace underscore by space.
+   * @param source Souce Name
+   * @return string. Sample: heLLo_WoRlD_new => Hello World New
+   */
+  @TestVisible
+  private static String formatSource(String source) {
+    if (String.isBlank(source)) {
+      return '';
+    }
+    List<String> sourceSplit = source.toLowerCase().split('_');
+    for (integer i = 0; i < sourceSplit.size(); i++) {
+      sourceSplit[i] = sourceSplit[i].capitalize();
+    }
+    return String.join(sourceSplit, ' ');
   }
 }
