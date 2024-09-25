@@ -6,9 +6,10 @@
  **/
 @isTest
 public with sharing class CustomerEventActionsTest {
-  private static final String PERSONACC_RECORDTYPEID = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-    .get('PersonAccount')
-    .getRecordTypeId();
+  private static final Id PERSONACC_RECORDTYPEID = QueryRT.of(
+      Account.SObjectType
+    )
+    .getId('PersonAccount');
 
   /*
    * @description unit test for filterBrokerOrgSyncStatus
