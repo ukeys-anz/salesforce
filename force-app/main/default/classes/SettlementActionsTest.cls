@@ -52,18 +52,12 @@ public with sharing class SettlementActionsTest {
   }
 
   static List<Settlement__c> createTestSettlement() {
-    List<ResidentialLoanApplication> loanApps = new List<ResidentialLoanApplication>{
-      new ResidentialLoanApplication(
-        Id = Lib_FakeIdGenerator.getMockId(
-          ResidentialLoanApplication.getSObjectType()
-        ),
-        Name = 'Test ResidentialLoanApplication'
-      )
-    };
-
+    Id loanApplicationId = Lib_FakeIdGenerator.getMockId(
+      ResidentialLoanApplication.getSObjectType()
+    );
     String jsonSettlement =
       '{"Name":"TEST_NAME", "Loan_Application_Number__c":"' +
-      loanApps[0].Id +
+      loanApplicationId +
       '", "IsValidCloudEvent__c": true}';
 
     Settlement__c settlementSerialized = (Settlement__c) JSON.deserialize(
