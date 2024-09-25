@@ -3901,6 +3901,7 @@
         "LastModifiedDate",
         "Version__c",
         "Last_Updated_Date__c",
+        "SunsetTimestamp__c",
         "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c",
         "Created_Date__c",
