@@ -21,7 +21,10 @@ public with sharing class CustomerEventActions {
     String triggerContext
   ) {
     try {
-      List<Account> accBasedOnOCVVersion = filterOCVVersionUpdate(records, oldMap);
+      List<Account> accBasedOnOCVVersion = filterOCVVersionUpdate(
+        records,
+        oldMap
+      );
 
       List<Account> filteredAccounts = filterBrokerOrgSyncStatus(
         accBasedOnOCVVersion,

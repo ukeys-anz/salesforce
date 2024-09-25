@@ -206,7 +206,7 @@ public with sharing class ResidentialLoanApplicationActions {
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
     //Fetch the RLA records and the related parent record details
-    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
+    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
       filteredLoanAppList
     );
 

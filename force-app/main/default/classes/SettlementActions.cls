@@ -250,7 +250,7 @@ public with sharing class SettlementActions {
     String cloudEventType
   ) {
     List<Id> loanApplicationIds = getLoanApplicationIdFromSettlements(records);
-    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
       loanApplicationIds
     );
     ResidentialLoanApplicationActions.publishSyncEvents(

@@ -40,8 +40,11 @@ private class LoanApplicantActionsTest {
     Test.startTest();
     LoanApplicantActions.accountSyncStatusUpdate(loanAppIdVsRecordMap.keySet());
     Test.stopTest();
-    List<Account> accountsRecordAfterUpdate = (List<Account>) dmlRepoMock.getHistory('doUpdate').getParam('records');
-     Assert.areEqual(
+    List<Account> accountsRecordAfterUpdate = (List<Account>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
       true,
       accountsRecordAfterUpdate[0].Sync_Status__c.contains('Broker Org'),
       'The account record sync status should update to Broker org'

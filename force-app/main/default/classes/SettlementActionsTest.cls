@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Madhuri Edke | Salesforce
  * @group             :
- * @last modified on  : 09-17-2024
- * @last modified by  : Madhuri Edke | Salesforce
+ * @last modified on  : 09-25-2024
+ * @last modified by  :  Harshit Goyal | Salesforce
  **/
 @isTest
 public with sharing class SettlementActionsTest {
@@ -41,12 +41,12 @@ public with sharing class SettlementActionsTest {
         Name = 'Test ResidentialLoanApplication'
       )
     };
-    rlarRepoMock.mock('queryLoanApplicatioins', loanApps);
+    rlarRepoMock.mock('queryLoanApplications', loanApps);
     Test.startTest();
     SettlementActions.publishSettlementCloudEvents(settlementList, 'Add');
     Test.stopTest();
     Assert.isFalse(
-      rlarRepoMock.getHistories('queryLoanApplicatioins').isEmpty(),
+      rlarRepoMock.getHistories('queryLoanApplications').isEmpty(),
       'ResidentialLoanApplications mock method should be called'
     );
   }

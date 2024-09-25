@@ -31,7 +31,7 @@ public with sharing class ResidentialLoanApplicationRepository {
    * @return List<ResidentialLoanApplication>
    * @param loanIds List of ResidentialLoanapplication Ids
    */
-  public List<ResidentialLoanApplication> queryLoanApplicatioins(
+  public List<ResidentialLoanApplication> queryLoanApplications(
     List<Id> loanIds
   ) {
     List<ResidentialLoanApplication> loanApplicationRecords = new List<ResidentialLoanApplication>();

@@ -315,7 +315,7 @@ private class ResidentialLoanAppActionsTest {
     for (ResidentialLoanApplication eachLoanApp : loanApps) {
       eachLoanApp.Sync_Status__c = 'Broker Org';
     }
-    rlarRepoMock.mock('queryLoanApplicatioins', loanApps);
+    rlarRepoMock.mock('queryLoanApplications', loanApps);
     Test.startTest();
     ResidentialLoanApplicationActions.mockBrokerSettings = new BrokerSettings__c(
       BypassApplicationSyncEvents__c = false
@@ -331,16 +331,16 @@ private class ResidentialLoanAppActionsTest {
       '10 Cloud Events should be published'
     );
     Assert.isFalse(
-      rlarRepoMock.getHistories('queryLoanApplicatioins').isEmpty(),
-      'queryLoanApplicatioins should have been called at least once'
+      rlarRepoMock.getHistories('queryLoanApplications').isEmpty(),
+      'queryLoanApplications should have been called at least once'
     );
     List<Id> loanApplicationIds = (List<Id>) rlarRepoMock.getHistory(
-        'queryLoanApplicatioins'
+        'queryLoanApplications'
       )
       .getParam('loanIds');
     Assert.isFalse(
       loanApplicationIds.isEmpty(),
-      'loanApplicationIds should have been passed on to the queryLoanApplicatioins method'
+      'loanApplicationIds should have been passed on to the queryLoanApplications method'
     );
   }
 
