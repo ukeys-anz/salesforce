@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Test Out a Home Loan	 Follow up appointm</label>
+    <protected>false</protected>
+    <values>
+        <field>Appointment_Type__c</field>
+        <value xsi:type="xsd:string">Test Out a Home Loan</value>
+    </values>
+    <values>
+        <field>Available__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Focus_Area__c</field>
+        <value xsi:type="xsd:string">Follow up appointment</value>
+    </values>
+</CustomMetadata>

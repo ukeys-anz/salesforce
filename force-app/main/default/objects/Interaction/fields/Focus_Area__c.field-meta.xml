@@ -11,8 +11,107 @@
     <trackHistory>true</trackHistory>
     <type>MultiselectPicklist</type>
     <valueSet>
+        <controllingField>Interaction_Purpose__c</controllingField>
         <restricted>true</restricted>
         <valueSetName>Focus_Area</valueSetName>
+        <valueSettings>
+            <controllingFieldValue>Home Loan</controllingFieldValue>
+            <controllingFieldValue>Branch Staff Member</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <valueName>Reach your savings goals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loan</controllingFieldValue>
+            <controllingFieldValue>Branch Staff Member</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <valueName>Improve your habits</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loan</controllingFieldValue>
+            <controllingFieldValue>Branch Staff Member</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <valueName>Plan upcoming expenses</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loan</controllingFieldValue>
+            <controllingFieldValue>Branch Staff Member</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <valueName>Find new ways to save</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loan</controllingFieldValue>
+            <controllingFieldValue>Branch Staff Member</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <valueName>Explore refinancing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loan</controllingFieldValue>
+            <controllingFieldValue>Branch Staff Member</controllingFieldValue>
+            <controllingFieldValue>Financial Wellbeing</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <controllingFieldValue>Digital Support</controllingFieldValue>
+            <controllingFieldValue>Customer</controllingFieldValue>
+            <controllingFieldValue>Non-Customer</controllingFieldValue>
+            <controllingFieldValue>Testing</controllingFieldValue>
+            <controllingFieldValue>Wrong Number</controllingFieldValue>
+            <controllingFieldValue>Existing ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Customer</controllingFieldValue>
+            <controllingFieldValue>ANZ Plus Customer</controllingFieldValue>
+            <valueName>Help with my application</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Test Out a Home Loan</controllingFieldValue>
+            <valueName>First appointment</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Test Out a Home Loan</controllingFieldValue>
+            <valueName>Follow up appointment</valueName>
+        </valueSettings>
     </valueSet>
     <visibleLines>3</visibleLines>
 </CustomField>

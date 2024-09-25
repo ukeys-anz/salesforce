@@ -44,6 +44,16 @@
                 <default>false</default>
                 <label>Help with my application</label>
             </value>
+            <value>
+                <fullName>First appointment</fullName>
+                <default>false</default>
+                <label>First appointment</label>
+            </value>
+            <value>
+                <fullName>Follow up appointment</fullName>
+                <default>false</default>
+                <label>Follow up appointment</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
