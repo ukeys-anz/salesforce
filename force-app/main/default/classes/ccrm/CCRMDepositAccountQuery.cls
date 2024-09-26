@@ -54,6 +54,7 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
     private String address;
     private String creditRiskGrade;
     private DateTime closeDate;
+    private String sourceSystemStatus;
   }
   /**
    * @description SeasonalLimits class
@@ -186,35 +187,42 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
     3 => '3 - REFER TO ACCOUNT SIGNING AUTHORITY'
   };
 
+  private static final Map<String, String> MAP_SOURCE_SYSTEM_STATUS = new Map<String, String>{
+    '03' => '03 - Inactive',
+    '05' => '05 - Dormant',
+    '06' => '06 - Unclaimed',
+    '07' => '07 - Closed',
+    '08' => '08 - Purgeable',
+    '12' => '12 - Closing',
+    '80' => '80 - SSA Active',
+    '82' => '82 - SSA Inactive',
+    '99' => '99 - Active'
+  };
+
   /**
    * @description Transform API response to DepositAccount records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
   @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
-    String customerId;
-    Map<String, Object> row;
-    String accNumber;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
     List<CCRMDepositAccountModel> accounts = new List<CCRMDepositAccountModel>();
-
     if (this.calloutResponse == null) {
       return result;
     }
-
     for (
       CCRMDepositAccountModel fa : ((DepositAccountCalloutResponse) this.calloutResponse)
         .accounts
     ) {
-      customerId = getCustomerId(fa.accountNumber);
+      String customerId = getCustomerId(fa.accountNumber);
       if (String.isBlank(customerId)) {
         continue;
       }
-      accNumber = this.sourceSystem == SourceSystemEnum.CAP
+      String accNumber = this.sourceSystem == SourceSystemEnum.CAP
         ? getAccountNumberwithFormat(fa.accountNumber)
         : formatAccountNumber(fa.accountNumber);
 
-      row = new Map<String, Object>{
+      Map<String, Object> row = new Map<String, Object>{
         'CustomerId' => customerId,
         'ExternalId' => getExternalId(fa),
         'DisplayUrl' => getDisplayUrl(fa),
@@ -242,11 +250,9 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
         'Limit' => fa.accountLimit,
         'OverdraftMargin' => fa.tempODMargin,
         'OverdraftInterestRate' => fa.tempODInterestRate,
-        'OverdraftLimitInterestRepaymentFrequency' => mapOfCycleCode.containsKey(
-            fa.tempODInterestRepaymentFrequency
-          )
-          ? mapOfCycleCode.get(fa.tempODInterestRepaymentFrequency)
-          : fa.tempODInterestRepaymentFrequency,
+        'OverdraftLimitInterestRepaymentFrequency' => mapOfCycleCode.get(
+          fa.tempODInterestRepaymentFrequency
+        ) ?? fa.tempODInterestRepaymentFrequency,
         'OverdraftExpiryDate' => formatDate(fa.expiryDate),
         'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures),
         'StopPayNumber' => fa.restrainsStopPayNumber,
@@ -266,6 +272,9 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
         'ProductName' => getProductName(fa.accountNumber),
         'StatementMailingAddress' => fa.address,
         'CCR' => fa.creditRiskGrade,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'Date_Closed' => formatDate(fa.closeDate),
         'ExpiryDate' => formatDate(fa.limitExpiryDate)
       };
@@ -288,47 +297,29 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
     if (seasonalLimits == null || seasonalLimits.isEmpty()) {
       return;
     }
-    if (seasonalLimits[0].seasonalLimit != null) {
-      row.put('FluctuatingSeasonalLimit', seasonalLimits[0].seasonalLimit);
+    Map<String, SeasonalLimits> seasonalLimitMap = new Map<String, SeasonalLimits>{
+      'FluctuatingSeasonalLimit' => seasonalLimits[0],
+      'Fluctuating_Seasonal_Limit_2' => seasonalLimits[1],
+      'Fluctuating_Seasonal_Limit_3' => seasonalLimits[2]
+    };
+    Map<String, SeasonalLimits> expiryLimitMap = new Map<String, SeasonalLimits>{
+      'Fluctuating_Seasonal_Start_Expiry_Limit1' => seasonalLimits[0],
+      'Fluctuating_Seasonal_Start_Expiry_Limit2' => seasonalLimits[1],
+      'Fluctuating_Seasonal_Start_Expiry_Limit3' => seasonalLimits[2]
+    };
+    for (String slKey : seasonalLimitMap.keySet()) {
+      SeasonalLimits sl = seasonalLimitMap.get(slKey);
+      if (sl.seasonalLimit == null) {
+        continue;
+      }
+      row.put(slKey, sl.seasonalLimit);
     }
-    if (
-      seasonalLimits[0].startDate != null &&
-      seasonalLimits[0].endDate != null
-    ) {
-      row.put(
-        'Fluctuating_Seasonal_Start_Expiry_Limit1',
-        formatDate(seasonalLimits[0].startDate) +
-        ' - ' +
-        formatDate(seasonalLimits[0].endDate)
-      );
-    }
-    if (seasonalLimits[1].seasonalLimit != null) {
-      row.put('Fluctuating_Seasonal_Limit_2', seasonalLimits[1].seasonalLimit);
-    }
-    if (
-      seasonalLimits[1].startDate != null &&
-      seasonalLimits[1].endDate != null
-    ) {
-      row.put(
-        'Fluctuating_Seasonal_Start_Expiry_Limit2',
-        formatDate(seasonalLimits[1].startDate) +
-        ' - ' +
-        formatDate(seasonalLimits[1].endDate)
-      );
-    }
-    if (seasonalLimits[2].seasonalLimit != null) {
-      row.put('Fluctuating_Seasonal_Limit_3', seasonalLimits[2].seasonalLimit);
-    }
-    if (
-      seasonalLimits[2].startDate != null &&
-      seasonalLimits[2].endDate != null
-    ) {
-      row.put(
-        'Fluctuating_Seasonal_Start_Expiry_Limit3',
-        formatDate(seasonalLimits[2].startDate) +
-        ' - ' +
-        formatDate(seasonalLimits[2].endDate)
-      );
+    for (String elKey : expiryLimitMap.keySet()) {
+      SeasonalLimits sl = expiryLimitMap.get(elKey);
+      if (sl.startDate == null || sl.endDate == null) {
+        continue;
+      }
+      row.put(elKey, formatDate(sl.startDate) + ' - ' + formatDate(sl.endDate));
     }
   }
 

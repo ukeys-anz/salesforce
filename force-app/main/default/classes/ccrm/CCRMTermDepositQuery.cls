@@ -33,6 +33,7 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
     private string address;
     private string tpmiNumber;
     private string tpmiSAO;
+    private String sourceSystemStatus;
   }
 
   /**
@@ -74,6 +75,17 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
     '1' => '1 - ANY ONE TO SIGN',
     '2' => '2 - BOTH TO SIGN (CONJOINTLY)',
     '3' => '3 - REFER TO ACCOUNT SIGNING AUTHORITY'
+  };
+
+  private static final Map<String, String> MAP_SOURCE_SYSTEM_STATUS = new Map<String, String>{
+    '99' => '99 - Active',
+    '01' => '01 - New',
+    '03' => '03 - Inactive',
+    '05' => '05 - Dormant',
+    '06' => '06 - Unclaimed',
+    '07' => '07 - Closed',
+    '08' => '08 - Purgeable',
+    '11' => '11 - Matured'
   };
 
   /**
@@ -127,6 +139,9 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
         'BalanceAvailable' => fa.availableBalance,
         'ProductCode' => getProductCode(fa.accountNumber),
         'ProductName' => getProductName(fa.accountNumber),
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'AccountStatus' => fa.status,
         'StatementMailingAddress' => fa.address,
         'TPMISAO' => '',

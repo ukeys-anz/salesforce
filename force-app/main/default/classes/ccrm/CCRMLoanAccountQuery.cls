@@ -79,6 +79,7 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
     private String statementMailingAddress;
     private String lmiIndicator;
     private Decimal amountAdvancedToDate;
+    private String sourceSystemStatus;
   }
 
   private static Map<String, String> mapOfPurposeCode = new Map<String, String>{
@@ -149,6 +150,16 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
     1 => '1-ANY ONE TO SIGN',
     2 => '2-BOTH TO SIGN (CONJOINTLY)',
     3 => '3-REFER TO ACCOUNT SIGNING AUTHORITY'
+  };
+
+  private static final Map<String, String> MAP_SOURCE_SYSTEM_STATUS = new Map<String, String>{
+    'NON' => 'NON - Non-Accrual',
+    'CAN' => 'CAN - Cancelled',
+    'RI' => 'RI - Reserved Interest',
+    'BNK' => 'BNK - Bankrupt',
+    'BYP' => 'BYP - Bypass',
+    'C-O' => 'C-O - Charged Off',
+    'P-O' => 'P-O - Paid Off'
   };
 
   /**
@@ -227,27 +238,17 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
           accNumLst
         );
 
-        dlpRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
-            fa.dlpRepaymentAccountNumber
-          )
-          ? mapOfAccNumToFormattedAccountNumbers.get(
-              fa.dlpRepaymentAccountNumber
-            )
-          : formatAccountNumber(fa.dlpRepaymentAccountNumber);
+        dlpRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.get(
+          fa.dlpRepaymentAccountNumber
+        ) ?? formatAccountNumber(fa.dlpRepaymentAccountNumber);
 
-        offsetAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
-            fa.offsetAccountNumber
-          )
-          ? mapOfAccNumToFormattedAccountNumbers.get(fa.offsetAccountNumber)
-          : formatAccountNumber(fa.offsetAccountNumber);
+        offsetAccountNum = mapOfAccNumToFormattedAccountNumbers.get(
+          fa.offsetAccountNumber
+        ) ?? formatAccountNumber(fa.offsetAccountNumber);
 
-        ioInterestRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
-            fa.ioInterestRepaymentAccountNumber
-          )
-          ? mapOfAccNumToFormattedAccountNumbers.get(
-              fa.ioInterestRepaymentAccountNumber
-            )
-          : formatAccountNumber(fa.ioInterestRepaymentAccountNumber);
+        ioInterestRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.get(
+          fa.ioInterestRepaymentAccountNumber
+        ) ?? formatAccountNumber(fa.ioInterestRepaymentAccountNumber);
       } else {
         accNumber = formatAccountNumber(fa.accountNumber);
         dlpRepaymentAccountNum = formatAccountNumber(
@@ -273,9 +274,7 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
         'LoanTermMonth' => fa.loanTermMonth,
         'LoanTermYear' => fa.loanTermYear,
         'DateLoanIssued' => formatDate(fa.dateLoanIssued),
-        'PurposeCode' => mapOfPurposeCode.containsKey(fa.purposeCode)
-          ? mapOfPurposeCode.get(fa.purposeCode)
-          : fa.purposeCode,
+        'PurposeCode' => mapOfPurposeCode.get(fa.purposeCode) ?? fa.purposeCode,
         'FullyDrawn' => fa.fullyDrawn,
         'ProgressDrawExpiryDate' => formatDate(fa.progressDrawExpiryDate),
         'ANZSICCode' => retrieveIndustryCodeAndDescription(fa.anzsicCode),
@@ -291,11 +290,9 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
         'InterestType' => fa.interestType,
         'OffsetAccountNumber' => offsetAccountNum,
         'RedrawAmount' => fa.redrawAmount,
-        'RedrawNumberofSignatories' => mapOfRedrawNoOfSignatories.containsKey(
-            fa.redrawNumberOfSignatories
-          )
-          ? mapOfRedrawNoOfSignatories.get(fa.redrawNumberOfSignatories)
-          : String.valueof(fa.redrawNumberOfSignatories),
+        'RedrawNumberofSignatories' => mapOfRedrawNoOfSignatories.get(
+          fa.redrawNumberOfSignatories
+        ) ?? String.valueof(fa.redrawNumberOfSignatories),
         'RedrawRegistration' => fa.redrawRegistration,
         'IndexCodeCurrent' => fa.referenceIndexType,
         'IndexRateCurrent' => fa.referenceIndexRate,
@@ -339,6 +336,9 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
         'StatementMailingAddress' => fa.statementMailingAddress,
         'LendersMortgageInsurance' => fa.lmiIndicator,
         'CCR' => fa.creditRiskGrade,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'AmountAdvancedToDate' => fa.amountAdvancedToDate
       };
       result.queryResult.add(row);
