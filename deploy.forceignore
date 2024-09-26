@@ -169,11 +169,14 @@ force-app/main/default/objects/Account/fields/AR_C_Customer__c.field-meta.xml
 force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml 
 
-#added for merge to cmos-a remove later
+#added for merge to cmos-a DO NOT MERGE TO HIGHER ORGS
 force-app/main/default/objects/Task/listViews
 force-app/main/default/objects/Opportunity/listViews
 force-app/main/default/objects/Customer_Relationship__c/listViews
 force-app/main/default/objects/Lead/listViews
+force-app/main/default/objects/Case/listViews/BOH_Coach_Queue_Case.listView-meta.xml
+force-app/main/default/objects/Case/listViews/Coach_Queue_Case.listView-meta.xml
+force-app/main/default/objects/Case/listViews/Home_Loan_Pricing_Requests.listView-meta.xml
 
 force-app/main/default/sharingRules/Customer_Relationship__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Interaction.sharingRules-meta.xml
