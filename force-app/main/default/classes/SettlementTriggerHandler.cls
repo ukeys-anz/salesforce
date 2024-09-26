@@ -28,6 +28,10 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     //Create Action Plan
     SettlementActions.createActionPlans(records, null);
+    SettlementActions.publishSettlementCloudEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_ADD
+    );
   }
 
   /**
@@ -39,6 +43,10 @@ public with sharing class SettlementTriggerHandler extends Lib_TriggerHandler {
     SettlementActions.createActionPlans(
       records,
       (Map<Id, Settlement__c>) oldMap
+    );
+    SettlementActions.publishSettlementCloudEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
   }
 }

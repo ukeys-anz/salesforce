@@ -6,7 +6,6 @@
     <description>The charging type on the loan account held (interest only or principal and interest) once the customer draws down the loan.</description>
     <externalDeveloperName>RepaymentType</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>The charging type on the loan account held (interest only or principal and interest) once the customer draws down the loan.</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

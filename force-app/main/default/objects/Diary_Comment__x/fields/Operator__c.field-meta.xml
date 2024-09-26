@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Placed By</label>
+    <label>Last Updated By</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

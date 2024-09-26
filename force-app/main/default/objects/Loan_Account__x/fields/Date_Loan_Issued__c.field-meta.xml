@@ -6,7 +6,6 @@
     <description>Date the account was opened</description>
     <externalDeveloperName>DateLoanIssued</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Date the account was opened</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

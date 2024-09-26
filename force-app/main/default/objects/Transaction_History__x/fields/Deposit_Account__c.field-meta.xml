@@ -12,7 +12,7 @@
     <label>Deposit Account</label>
     <length>255</length>
     <referenceTo>Deposit_Account__x</referenceTo>
-    <relationshipLabel>Transaction Histories</relationshipLabel>
+    <relationshipLabel>Transaction History</relationshipLabel>
     <relationshipName>Transaction_Histories</relationshipName>
     <securityClassification>Confidential</securityClassification>
     <type>ExternalLookup</type>

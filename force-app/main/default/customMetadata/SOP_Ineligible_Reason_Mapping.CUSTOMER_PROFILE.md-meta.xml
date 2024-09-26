@@ -8,6 +8,6 @@
     </values>
     <values>
         <field>Ineligible_Reason_Type__c</field>
-        <value xsi:type="xsd:string">SOP_INELIGIBLE_REASON_CUSTOMER_PROFILE</value>
+        <value xsi:type="xsd:string">SOP_INELIGIBLE_REASON_CUSTOMER_PROFILES</value>
     </values>
 </CustomMetadata>

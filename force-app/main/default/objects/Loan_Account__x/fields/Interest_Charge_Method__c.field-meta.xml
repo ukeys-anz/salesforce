@@ -6,7 +6,6 @@
     <description>Interest charge type</description>
     <externalDeveloperName>InterestChargeMethod</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Interest charge type</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
