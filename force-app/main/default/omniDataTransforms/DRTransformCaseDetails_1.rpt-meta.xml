@@ -1462,6 +1462,20 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom4757</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyCompanyName</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyCompanyName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:Case:CustomerDetails:expressCaseCreationCheckbox &quot;Yes&quot; == true false IF</formulaConverted>
         <formulaExpression>IF(Case:CustomerDetails:expressCaseCreationCheckbox==&quot;Yes&quot;,true,false)</formulaExpression>
         <formulaResultPath>expressCMOS</formulaResultPath>

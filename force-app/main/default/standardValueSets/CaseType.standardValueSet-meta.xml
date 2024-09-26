@@ -431,4 +431,9 @@
         <default>false</default>
         <label>Know Your Customer</label>
     </standardValue>
+    <standardValue>
+        <fullName>22</fullName>
+        <default>false</default>
+        <label>Simplification/Decommissioning</label>
+    </standardValue>
 </StandardValueSet>

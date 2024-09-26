@@ -67,7 +67,7 @@
         <label>Ineligible</label>
     </standardValue>
     <standardValue>
-        <fullName>STATE_SETTLEMENT_INITATED</fullName>
+        <fullName>STATE_SETTLEMENT_INITIATED</fullName>
         <default>false</default>
         <label>Settlement Initiated</label>
     </standardValue>

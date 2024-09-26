@@ -355,6 +355,14 @@
         <value>False</value>
     </labels>
     <labels>
+        <fullName>CMOS_Chatter_Group_Name</fullName>
+        <categories>CMOS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CMOS Chatter Group Name</shortDescription>
+        <value>All CMOS Users</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>

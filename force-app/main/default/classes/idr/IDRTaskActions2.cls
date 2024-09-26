@@ -159,9 +159,17 @@ public with sharing class IDRTaskActions2 {
         lstQATasks.add(oTask);
       }
     }
-    List<Quality_Assessment__c> lstQAassessments = TASK_REPOSITORY.queryQualityAssessments(
-      mpQualityAssessmentId2Tasks.keySet()
-    );
+    List<Quality_Assessment__c> lstQAassessments = [
+      SELECT
+        Id,
+        Team_Manager_Response__c,
+        Team_Manager_Comments__c,
+        Case_Manager__c,
+        Case_Manager__r.Name,
+        Related_Case__r.CaseNumber__c
+      FROM Quality_Assessment__c
+      WHERE Id IN :mpQualityAssessmentId2Tasks.keySet()
+    ];
     for (Quality_Assessment__c oAssessment : lstQAassessments) {
       if (
         (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
