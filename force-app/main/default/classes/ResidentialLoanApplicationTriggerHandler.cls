@@ -24,6 +24,7 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
       records,
       new Map<Id, ResidentialLoanApplication>()
     );
+    ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
     ResidentialLoanApplicationActions.setSunsetTimestamp(
       records,
       new Map<Id, ResidentialLoanApplication>()
@@ -46,6 +47,17 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
   }
 
   /**
+   * @description onAfterInsert to handle after insert trigger actions
+   */
+  @TestVisible
+  public override void onAfterInsert() {
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_ADD
+    );
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions
    * @param oldMap old trigger values
    */
@@ -60,6 +72,10 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
     CoachNudgeTaskAction.processCancelledRLARecords(
       records,
       (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
   }
 }

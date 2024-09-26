@@ -18,7 +18,7 @@ public with sharing class RetailBrokerContactActions {
    * @param records map of new contacts from trigger context
    * @param oldMap map of old contacts from trigger context
    */
-  public static void publishBrokerGCPEvents(
+  public static void publishBrokerEvents(
     List<Contact> records,
     Map<Id, Contact> oldMap
   ) {
@@ -28,16 +28,16 @@ public with sharing class RetailBrokerContactActions {
       if (isBrokerAdded(record, oldRecord)) {
         brokerIdToEventTypeMap.put(
           record.Id,
-          RetailBrokerGCPActions.GCP_EVENT_ADD
+          RetailBrokerEventActions.BROKER_EVENT_ADD
         );
       } else if (isBrokerUpdated(record, oldRecord)) {
         brokerIdToEventTypeMap.put(
           record.Id,
-          RetailBrokerGCPActions.GCP_EVENT_UPDATE
+          RetailBrokerEventActions.BROKER_EVENT_UPDATE
         );
       }
     }
-    RetailBrokerGCPActions.publishGCPEventForBrokers(brokerIdToEventTypeMap);
+    RetailBrokerEventActions.publishEventForBrokers(brokerIdToEventTypeMap);
   }
 
   /**
