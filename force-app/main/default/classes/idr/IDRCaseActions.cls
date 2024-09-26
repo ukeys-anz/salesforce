@@ -123,7 +123,7 @@ public with sharing class IDRCaseActions {
       }
     }
     IDRTaskActions.possibleSystemicIssueActions(records, null);
-    IDRCollectionActions.stopCollections(records, null);
+    IDRCollectionActions.stopCollections(records, new Map<Id, Case>{});
     IDRCollectionActions.startCollections(records, null);
     IDRCaseAssignmentRules.assignUnescalatedCases(records, null);
     IDRComplaintFlagActions.setComplaintsFlag(records, null);
