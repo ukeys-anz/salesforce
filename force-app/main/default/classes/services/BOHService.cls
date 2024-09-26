@@ -555,15 +555,11 @@ public with sharing class BOHService extends Service {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
-    //headers.put('Content-Type', 'application/json');
     HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_Upadte_Signing_Authority.replace(
-        '{loanapplications}',
-        loanAppNumber
-      ),
+      Label.MS_Cancel_Loan_Application.replace('{loanAppNum}', loanAppNumber),
       HTTP_METHOD.HTTP_POST,
       headers,
-      ''
+      null
     );
     return response;
   }

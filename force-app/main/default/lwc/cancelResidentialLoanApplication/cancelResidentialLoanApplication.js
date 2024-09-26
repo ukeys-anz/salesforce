@@ -3,6 +3,7 @@ import { CloseActionScreenEvent } from "lightning/actions";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import ConfirmationMessage from "@salesforce/label/c.RLA_Cancellation_Confirmation_Message";
 import cancelResidentialLoanApplication from "@salesforce/apex/ResidentialLoanApplicationActions.cancelResidentialLoanApplication";
 
@@ -12,9 +13,6 @@ import RESIDENTIAL_LOAN_APPLICATION_NUMBER from "@salesforce/schema/ResidentialL
 
 export default class CancelResidentialLoanApplication extends LightningElement {
   @api recordId;
-  title;
-  message;
-  variant;
   value;
   otherReasonVisible = false;
   rlaRecordTypeId;
@@ -23,6 +21,7 @@ export default class CancelResidentialLoanApplication extends LightningElement {
   rlaObject = {};
   loanApplicationNumber;
   ocvId;
+  spinnerDisabled = true;
 
   // fetches the Loan Application Number
   @wire(getRecord, {
@@ -85,25 +84,30 @@ export default class CancelResidentialLoanApplication extends LightningElement {
   }
 
   handleSubmit() {
+    let title;
+    let message;
+    let variant;
+    this.spinnerDisabled = false;
     cancelResidentialLoanApplication({ rlaObject: this.rlaObject })
       .then((result) => {
         if (result === "success") {
-          this.title = "success";
-          this.message = "Your application has been cancelled";
-          this.variant = "success";
-          this.showNotification();
+          title = "Success";
+          message = "The application was successfully withdrawn.";
+          variant = "success";
+          this.showNotificationAndRefreshTab(title, message, variant);
         } else {
-          this.title = "Error";
-          this.message = result;
-          this.variant = "error";
-          this.showNotification();
+          title = "Error";
+          message =
+            "The application could not be withdrawn. Please review and try again.";
+          variant = "error";
+          this.showNotificationAndRefreshTab(title, message, variant);
         }
       })
       .catch((error) => {
-        this.title = "Error";
-        this.message = error.body.message;
-        this.variant = "error";
-        this.showNotification();
+        title = "Error";
+        message = error.body.message;
+        variant = "error";
+        this.showNotificationAndRefreshTab(title, message, variant);
       });
   }
 
@@ -119,13 +123,21 @@ export default class CancelResidentialLoanApplication extends LightningElement {
     return allValid;
   }
 
-  showNotification() {
+  async showNotificationAndRefreshTab(title, message, variant) {
     const evt = new ShowToastEvent({
-      title: this.title,
-      message: this.message,
-      variant: this.variant
+      title: title,
+      message: message,
+      variant: variant
     });
     this.dispatchEvent(evt);
+    await this.refreshTab();
     this.handleCloseModel();
+  }
+
+  async refreshTab() {
+    const { tabId } = await getFocusedTabInfo();
+    await refreshTab(tabId, {
+      includeAllSubtabs: false
+    });
   }
 }

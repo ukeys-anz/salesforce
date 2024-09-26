@@ -17,9 +17,9 @@
         <div lwc:if={otherReasonVisible}>
           <lightning-input
             type="text"
-            name="Other_Reason__c"
+            name="Other_Cancellation_Reason__c"
             label="Enter Details"
-            data-id="Other_Reason__c"
+            data-id="Other_Cancellation_Reason__c"
             max-length="255"
             required
             onblur={checkFieldsValidity}
@@ -34,7 +34,15 @@
           onblur={checkFieldsValidity}
         ></lightning-textarea>
       </div>
-      <div lwc:else>{confirmationMessage}</div>
+      <div lwc:else>
+        <div lwc:if={spinnerDisabled}>{confirmationMessage}</div>
+        <div lwc:else class="spinnerClass">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="medium"
+          ></lightning-spinner>
+        </div>
+      </div>
     </div>
     <div slot="footer">
       <div slot="footer" lwc:if={mainWindow}>

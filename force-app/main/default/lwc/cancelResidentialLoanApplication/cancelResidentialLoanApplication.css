@@ -2,3 +2,7 @@
   --slds-c-modal-header-color-background: #004486;
   --slds-c-modal-header-text-color: #ffffff;
 }
+.spinnerClass {
+  position: relative;
+  height: 3rem;
+}
