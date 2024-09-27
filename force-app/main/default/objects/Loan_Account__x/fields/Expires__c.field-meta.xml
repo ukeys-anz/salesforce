@@ -6,9 +6,10 @@
     <description>Expiry Date</description>
     <externalDeveloperName>Expires</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <inlineHelpText>Loan Maturity Date</inlineHelpText>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Expiry Date</label>
     <length>50</length>
     <required>false</required>

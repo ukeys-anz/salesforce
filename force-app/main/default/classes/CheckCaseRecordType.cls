@@ -6,44 +6,65 @@
  */
 public with sharing class CheckCaseRecordType {
   public static final Set<Id> FRAUD_RT_IDS = new Set<Id>{
-    GetHelpConstants.FRAUD_RT_ID,
-    GetHelpConstants.IDENTITY_RT_ID,
-    GetHelpConstants.RECIPIENT_MULE_RT_ID,
-    GetHelpConstants.SCAM_RT_ID,
-    GetHelpConstants.KYCQA_RT_ID
+    RTCase.fraud,
+    RTCase.identity,
+    RTCase.recipientMule,
+    RTCase.scam,
+    RTCase.kycQa
   };
 
   public static final Set<Id> DISPUTE_RT_IDS = new Set<Id>{
-    GetHelpConstants.ATM_DISPUTE_RT_ID,
-    GetHelpConstants.CARD_DISPUTE_RT_ID,
-    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
-    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.NPP_DISPUTE_RT_ID,
-    GetHelpConstants.BPAY_DISPUTE_RT_ID
+    RTCase.atmDispute,
+    RTCase.cardDispute,
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.nppDispute,
+    RTCase.bpayDispute,
+    RTCase.payToDispute
   };
 
   public static final Set<Id> ANZX_RT_IDS = new Set<Id>{
     //fraud record types
-    GetHelpConstants.FRAUD_RT_ID,
-    GetHelpConstants.IDENTITY_RT_ID,
-    GetHelpConstants.RECIPIENT_MULE_RT_ID,
-    GetHelpConstants.SCAM_RT_ID,
-    GetHelpConstants.KYCQA_RT_ID,
+    RTCase.fraud,
+    RTCase.identity,
+    RTCase.recipientMule,
+    RTCase.scam,
+    RTCase.kycQa,
     //dispute redcord types
-    GetHelpConstants.ATM_DISPUTE_RT_ID,
-    GetHelpConstants.CARD_DISPUTE_RT_ID,
-    GetHelpConstants.DIRECT_DEBIT_DISPUTE_RT_ID,
-    GetHelpConstants.DIRECT_ENTRY_DISPUTE_RT_ID,
-    GetHelpConstants.NPP_DISPUTE_RT_ID,
-    GetHelpConstants.BPAY_DISPUTE_RT_ID,
+    RTCase.atmDispute,
+    RTCase.cardDispute,
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.nppDispute,
+    RTCase.bpayDispute,
     //other record types
-    GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-    GetHelpConstants.COMPLAINT_RT_ID,
-    GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID,
-    GetHelpConstants.ACCOUNT_CLOSURE_RT_ID,
-    GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID,
-    GetHelpConstants.idrtProfileUpdate
+    RTCase.generalInquiry,
+    RTCase.anzxComplaint,
+    RTCase.customerFeedback,
+    RTCase.accountClosure,
+    RTCase.falseCustomerProfile,
+    RTCase.profileUpdate
   };
+
+  public static final Set<Id> VALID_RTS_TO_CREATE_EXT_CASE_STATUS = new Set<Id>{
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.bpayDispute,
+    RTCase.payToDispute
+  };
+
+  /**
+   * @description isValidCaseToCreateExtCaseStatus checks if record type is of ANZ Plus type and supoprts external Case status creation.
+   *
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type supports external Case status creation false otherwise.
+   */
+  public static Boolean isValidCaseToCreateExtCaseStatus(Case record) {
+    return VALID_RTS_TO_CREATE_EXT_CASE_STATUS.contains(record?.RecordTypeId) ||
+      (record.RecordTypeId == RTCase.nppDispute &&
+      record.Dispute_Reason__c ==
+      GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION);
+  }
 
   /**
    * @description isANZPlusCaseType checks if record type is of ANZ Plus type.
@@ -91,8 +112,7 @@ public with sharing class CheckCaseRecordType {
    * @return true if the case is a Unauthenticated Enquiry Case
    */
   public static Boolean isUnauthenticatedEnquiry(Case record) {
-    return GetHelpConstants.UNAUTHENTICATED_ENQUIRY_RT_ID ==
-      record.RecordTypeId;
+    return RTCase.generalInquiryCmos == record.RecordTypeId;
   }
 
   /**
@@ -101,7 +121,7 @@ public with sharing class CheckCaseRecordType {
    * @return true if the case is a General Enquiry Case
    */
   public static Boolean isGeneralEnquiry(Case record) {
-    return GetHelpConstants.GENERAL_INQUIRY_RT_ID == record.RecordTypeId;
+    return RTCase.generalInquiry == record.RecordTypeId;
   }
 
   /**
@@ -110,7 +130,7 @@ public with sharing class CheckCaseRecordType {
    * @return true if the case is a ANZ Plus Complaint Case
    */
   public static Boolean isANZPlusComplaint(Case record) {
-    return GetHelpConstants.COMPLAINT_RT_ID == record?.RecordTypeId;
+    return RTCase.anzxComplaint == record?.RecordTypeId;
   }
 
   /**
@@ -119,7 +139,7 @@ public with sharing class CheckCaseRecordType {
    * @return true if the case is a False Customer Profile Case
    */
   public static Boolean isFalseCustomerProfile(Case record) {
-    return GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID == record.RecordTypeId;
+    return RTCase.falseCustomerProfile == record.RecordTypeId;
   }
 
   /**
@@ -128,7 +148,7 @@ public with sharing class CheckCaseRecordType {
    * @return true if the case is a Non Customer Complaint Case
    */
   public static Boolean isNonCustomerComplaint(Case record) {
-    return GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID == record.RecordTypeId;
+    return RTCase.nonCustomerComplaint == record.RecordTypeId;
   }
 
   /**
@@ -139,7 +159,7 @@ public with sharing class CheckCaseRecordType {
    */
   public static Boolean isComplaint(Case record, Case oldCase) {
     if (
-      record.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID &&
+      record.RecordTypeId == RTCase.anzxComplaint &&
       (oldCase == null ||
       record.Type != oldCase.Type)
     ) {
@@ -160,7 +180,7 @@ public with sharing class CheckCaseRecordType {
     Map<Id, Case> oldCaseMap
   ) {
     if (
-      record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+      record.RecordTypeId == RTCase.nonCustomerComplaint &&
       String.isNotBlank(record.Type) &&
       record.ANZx_Customer__c &&
       (oldCaseMap == null ||
@@ -181,7 +201,7 @@ public with sharing class CheckCaseRecordType {
    */
   public static Boolean isAccountClosure(Case record, Case oldCase) {
     if (
-      record.RecordTypeId == GetHelpConstants.ACCOUNT_CLOSURE_RT_ID &&
+      record.RecordTypeId == RTCase.accountClosure &&
       (oldCase == null ||
       record.Type != oldCase.Type)
     ) {
@@ -199,7 +219,7 @@ public with sharing class CheckCaseRecordType {
    */
   public static Boolean isCreditReferral(Case record, Case oldCase) {
     if (
-      record.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID &&
+      record.RecordTypeId == RTCase.creditReferral &&
       (oldCase == null ||
       record.Type != oldCase.Type)
     ) {
@@ -207,6 +227,17 @@ public with sharing class CheckCaseRecordType {
     } else {
       return false;
     }
+  }
+
+  /**
+   * @description Check if a case is Non Fraud NPP Case
+   * @param record The case record to check
+   * @return true if the case is a Non Fraud NPP Case
+   */
+  public static Boolean isNPPNonFraudDispute(Case record) {
+    return record.RecordTypeId == RTCase.nppDispute &&
+      record.Dispute_Reason__c !=
+      GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION;
   }
 
   /**
@@ -219,23 +250,5 @@ public with sharing class CheckCaseRecordType {
     return isUnauthenticatedEnquiry(record) &&
       record.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN &&
       record.ANZx_Customer__c;
-  }
-
-  /**
-   * @description Check if a case is ID Ops Assistance Case
-   * @param record The case record to check
-   * @return true if the case is an ID Ops Assistance Case
-   */
-  public static Boolean isIDOpsAssistance(Case record) {
-    return record.RecordTypeId == GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID;
-  }
-
-  /**
-   * @description Check if a case is Fraud Check Case
-   * @param record The case record to check
-   * @return true if the case is an Fraud Check Case
-   */
-  public static Boolean isFraudCheck(Case record) {
-    return record.RecordTypeId == GetHelpConstants.FRAUD_CHECK_RT_ID;
   }
 }

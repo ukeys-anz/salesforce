@@ -8,6 +8,8 @@
   'PMD.ExcessivePublicCount, PMD.CyclomaticComplexity, PMD.ExcessiveClassLength'
 )
 public with sharing class Logger {
+  private static final LogEventBuilder EMPTY = new LogEventBuilder(null, false);
+
   // ERROR logging level methods
   /**
    * @description Enum used to control Severity values
@@ -45,7 +47,7 @@ public with sharing class Logger {
     Severity severity
   ) {
     if (deleteResult.isSuccess()) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(deleteResult)
@@ -79,7 +81,7 @@ public with sharing class Logger {
     Severity severity
   ) {
     if (mergeResult.isSuccess()) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(mergeResult)
@@ -113,7 +115,7 @@ public with sharing class Logger {
     Severity severity
   ) {
     if (saveResult.isSuccess()) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(saveResult)
@@ -147,7 +149,7 @@ public with sharing class Logger {
     Severity severity
   ) {
     if (undeleteResult.isSuccess()) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(undeleteResult)
@@ -181,7 +183,7 @@ public with sharing class Logger {
     Severity severity
   ) {
     if (upsertResult.isSuccess()) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(upsertResult)
@@ -248,7 +250,7 @@ public with sharing class Logger {
     if (
       String.isBlank(DatabaseResultHelper.getDeleteResultError(deleteResults))
     ) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(deleteResults)
@@ -284,7 +286,7 @@ public with sharing class Logger {
     if (
       String.isBlank(DatabaseResultHelper.getMergeResultError(mergeResults))
     ) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(mergeResults)
@@ -318,7 +320,7 @@ public with sharing class Logger {
     Severity severity
   ) {
     if (String.isBlank(DatabaseResultHelper.getSaveResultError(saveResults))) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(saveResults)
@@ -356,7 +358,7 @@ public with sharing class Logger {
         DatabaseResultHelper.getUndeleteResultError(undeleteResults)
       )
     ) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(undeleteResults)
@@ -392,7 +394,7 @@ public with sharing class Logger {
     if (
       String.isBlank(DatabaseResultHelper.getUpsertResultError(upsertResults))
     ) {
-      return null;
+      return EMPTY;
     }
     return error()
       .setDatabaseResult(upsertResults)

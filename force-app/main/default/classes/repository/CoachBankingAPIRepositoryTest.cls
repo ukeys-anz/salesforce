@@ -9,6 +9,12 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   //jwt containing a single claim of exp 26/11/2050
   public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
+  static Lib_MockProvider finAccRepoMock;
+
+  static void registerMocks() {
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+  }
+
   /**
    * @description Add required PermissionSet
    */
@@ -22,6 +28,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       }
     );
   }
+
   /**
    * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_financialAccount.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
@@ -216,17 +223,25 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   @isTest
   static void cardListValidResponse() {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    registerMocks();
+    finAccRepoMock.mock(
+      'fetchFinancialAccountsByStatus',
+      createMockFinancialAccount()
+    );
     System.runAs(thisUser) {
       Test.startTest();
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
-      System.assertEquals(
-        8,
-        cardsModel.cards.size(),
+      Assert.isTrue(
+        cardsModel.cards.size() == 15,
         'The number of cards should be as expected.'
       );
     }
+    Assert.isFalse(
+      finAccRepoMock.getHistories('fetchFinancialAccountsByStatus').isEmpty(),
+      'fetchFinancialAccountsByStatus should have been called and return a value'
+    );
   }
 
   /**
@@ -237,23 +252,13 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   static void cardListInvalidInformation() {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
-      CardListModel cardsModel;
-      HttpCalloutResponse res = getCardListIncompleteInformation();
-      Service s = ServiceProvider.getService(FabricService.class);
-      s.setCalloutResponse(res);
-      Exception resultException;
       Test.startTest();
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-      try {
-        cardsModel = coachAPI.getCardList('1111');
-      } catch (Exception e) {
-        resultException = e;
-      }
+      CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
-      System.assertEquals(
-        'Card Information is invalid. Please reach out to your system administrator.',
-        resultException.getMessage(),
-        'Error message should be as expected.'
+      Assert.isTrue(
+        cardsModel.cards.size() == 15,
+        'Invalid Card will be removed from the Card List Having total 30 Cards'
       );
     }
   }
@@ -369,7 +374,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       // THEN
       // parsing data on to CardListModel should not fail
       System.assertEquals(
-        8,
+        15,
         cardsModel.cards.size(),
         'Error occured while parsing JSON payload related to cards'
       );
@@ -586,6 +591,18 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       'Parameter URL string should be built as expected'
     );
   }
+  @isTest
+  static void testFetchMapOfAccountNumberAndOwnership() {
+    Test.startTest();
+    Map<String, String> mapFinAccNumberWithOwnership = CoachBankingAPIRepository.fetchMapOfAccountNumberAndOwnership(
+      createMockFinancialAccount()
+    );
+    Test.stopTest();
+    Assert.isFalse(
+      mapFinAccNumberWithOwnership.isEmpty(),
+      'Financial Account Number with Ownership Detail found'
+    );
+  }
 
   private static HttpCalloutResponse getFinancialAccountInvalidResponse() {
     return generateInvalidResponse('Get accounts failed');
@@ -597,11 +614,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
 
   private static HttpCalloutResponse getAccountBucketsInvalidResponse() {
     return generateInvalidResponse('Get account buckets failed');
-  }
-
-  private static HttpCalloutResponse getCardListIncompleteInformation() {
-    String responseBody = '{"cards":[{"name":"Bruce Willis","tokenizedCardNumber":"1234567890"}]}';
-    return generateValidResponse(responseBody);
   }
 
   private static HttpCalloutResponse getCardListInvalidResponse() {
@@ -641,5 +653,22 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     response.statusCode = 500;
     response.successful = false;
     return response;
+  }
+
+  private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
+    Id fakerAccountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+    Id fakerAccountRoleId = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccountRole__c.getSObjectType()
+    );
+    Account testAccount = TestDataFactory.createPersonAccount('1111', false);
+    testAccount.Id = fakerAccountId;
+    List<FinServ__FinancialAccount__c> financialAccountsList = new List<FinServ__FinancialAccount__c>();
+    FinServ__FinancialAccount__c finAccount1 = TestDataFactory.createFinancialAccountRecord(
+      GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
+      fakerAccountRoleId,
+      false
+    );
+    financialAccountsList.add(finAccount1);
+    return financialAccountsList;
   }
 }

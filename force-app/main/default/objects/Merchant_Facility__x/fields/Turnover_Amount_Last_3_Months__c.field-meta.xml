@@ -6,9 +6,9 @@
     <description>The amount turned over using the merchant facility in the last 3 months</description>
     <externalDeveloperName>TurnoverAmountLast3Months</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Turnover Amount (Last 3 Months) ($)</label>
     <precision>18</precision>
     <required>false</required>

@@ -42,11 +42,7 @@ public with sharing class SettlementActions {
       return settlementsQueue;
     }
 
-    settlementsQueue = [
-      SELECT Id
-      FROM Group
-      WHERE developername = :SETTLEMENTS_QUEUE AND Type = :QUEUE_TYPE
-    ];
+    settlementsQueue = QueryQueue.get(SETTLEMENTS_QUEUE);
     return settlementsQueue;
   }
 
@@ -254,7 +250,7 @@ public with sharing class SettlementActions {
     String cloudEventType
   ) {
     List<Id> loanApplicationIds = getLoanApplicationIdFromSettlements(records);
-    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
       loanApplicationIds
     );
     ResidentialLoanApplicationActions.publishSyncEvents(

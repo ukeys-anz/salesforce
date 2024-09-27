@@ -6,10 +6,10 @@
     <description>Date the limit expires</description>
     <externalDeveloperName>ExpiryDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Expiry Date</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Limit Expiry Date</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>DateTime</type>

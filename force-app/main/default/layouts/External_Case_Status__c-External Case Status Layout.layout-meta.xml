@@ -43,7 +43,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>Customer_Message__c</field>
+                <field>New_Customer_Message__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

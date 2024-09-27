@@ -87,7 +87,7 @@ public with sharing class SettlementAccountActions {
     List<Id> loanApplicationIds = getLoanApplicationIdFromSettlementAccounts(
       records
     );
-    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
       loanApplicationIds
     );
     ResidentialLoanApplicationActions.publishSyncEvents(

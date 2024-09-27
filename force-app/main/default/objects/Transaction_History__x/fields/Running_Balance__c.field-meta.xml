@@ -6,10 +6,10 @@
     <description>Remaining balance on account</description>
     <externalDeveloperName>RunningBalance</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Running Balance ($)</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Balance ($)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

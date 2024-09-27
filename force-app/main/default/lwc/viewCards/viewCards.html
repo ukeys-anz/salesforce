@@ -1,212 +1,213 @@
 <template>
-  <template lwc:if={loading}>
-    <article class="slds-card slds-m-bottom_small">
-      <div class="slds-align_absolute-center" style="height: 4rem">
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
-        </div>
-      </div>
-    </article>
-  </template>
-
-  <template lwc:else>
-    <template lwc:if={hasError}>
-      <template lwc:if={hasPermissionIssue}>
-        <c-error permission-issue={hasPermissionIssue}></c-error>
-      </template>
-      <template lwc:else>
-        <c-error message={errorMsg}></c-error>
-      </template>
-    </template>
-
-    <template lwc:else>
-      <div class="slds-m-bottom_xx-small">
-        <lightning-card>
-          <h1 class="card-title">
-            <lightning-icon
-              icon-name="custom:custom40"
-              size="medium"
-              class="slds-m-right_small"
-            ></lightning-icon>
-            Card Details
-          </h1>
-          <template lwc:if={showFetch}>
-            <lightning-button
-              label="Get Card Details"
-              onclick={getCardDetails}
-              slot="actions"
-              data-id="get-cards-button"
-              data-test-id="get-card-details-button"
-            ></lightning-button>
-
-            <div class="slds-card__body slds-card__body_inner">
-              <div class="slds-col slds-size_1-of-3">
-                <img
-                  src={defaultImage}
-                  class="slds-carousel__image slds-carousel__image slds-m-bottom_small"
-                  alt={defaultImage}
-                />
-              </div>
-            </div>
-          </template>
-
-          <template lwc:if={noCards}>
-            <article class="slds-card">
-              <h1 class="slds-card__header-title main-title">
-                <span>No cards available on account</span>
-              </h1>
-            </article>
-          </template>
-
-          <template lwc:if={showDetails}>
-            <template lwc:if={showExpandCollapse}>
-              <lightning-button
-                label={collapseExpandText}
-                slot="actions"
-                onclick={handleViewAll}
-                data-id="collapse-expand-button"
-                data-test-id="collapse-expand-button"
-              ></lightning-button>
-            </template>
-
-            <template for:each={cardDetails} for:item="card">
-              <div
-                class="slds-m-bottom_xx-small slds-border_top"
-                key={card.name}
-                data-test-id="card-details"
-              >
-                <lightning-card>
-                  <div class={card.className}>
-                    <template
-                      lwc:if={card.buttons}
-                      for:each={card.buttons}
-                      for:item="btn"
-                    >
-                      <lightning-button
-                        key={btn.label}
-                        class="btn"
-                        label={btn.label}
-                        slot="actions"
-                        data-button="card-button"
-                        data-card-number={card.tokenized_card_number}
-                        disabled={btn.disable}
-                        onclick={handleActionAccordingClickedButton}
-                        variant={btn.variant}
-                      >
-                      </lightning-button>
-                    </template>
-                  </div>
-
-                  <div
-                    class="slds-card__body slds-card__body_inner"
-                    data-id="loaded-card-details"
+  <div class="slds-m-bottom_xx-small">
+    <lightning-card>
+      <template lwc:if={showDetails}>
+        <template for:each={cardDetails} for:item="card">
+          <div
+            class="slds-m-bottom_xx-small slds-border_bottom"
+            key={card.name}
+            data-test-id="card-details"
+          >
+            <lightning-card>
+              <div class="buttonsContainer">
+                <template lwc:if={isActiveCardSection}>
+                  <template
+                    lwc:if={card.buttons}
+                    for:each={card.buttons}
+                    for:item="btn"
                   >
-                    <article class="card-container">
-                      <div class="cardDetail">
-                        <div class="slds-col slds-size_1-of-3">
-                          <img
-                            src={card.image}
-                            class="slds-carousel__image"
-                            alt={card.image}
-                          />
+                    <lightning-button
+                      key={btn.label}
+                      label={btn.label}
+                      slot="actions"
+                      data-button="card-button"
+                      data-card-number={card.tokenized_card_number}
+                      disabled={btn.disable}
+                      onclick={handleActionAccordingClickedButton}
+                      variant={btn.variant}
+                    >
+                    </lightning-button>
+                  </template>
+                </template>
+              </div>
+
+              <div
+                class="slds-card__body slds-card__body_inner"
+                data-id="loaded-card-details"
+              >
+                <template lwc:if={card.isFraudBlocked}>
+                  <div class="slds-col slds-size_1-of-1">
+                    <div class="slds-col slds-size_1-of-1">
+                      <div class="slds-p-bottom_large">
+                        <p
+                          class="slds-text-align_center slds-text-title_bold"
+                          data-id="fraud-no-controls"
+                        >
+                          Card controls are unavailable due to an existing fraud
+                          block. See chatter posts for more details.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </template>
+                <article class="card-container">
+                  <div class="cardDetail">
+                    <div class="slds-col slds-size_1-of-8">
+                      <img
+                        width="91"
+                        height="58.32"
+                        src={card.image}
+                        class="slds-carousel__image"
+                        alt={card.image}
+                      />
+                    </div>
+
+                    <div class="slds-col slds-size_7-of-8">
+                      <div class="slds-grid slds-wrap">
+                        <div
+                          class="slds-col slds-size_1-of-2 slds-p-right_large"
+                        >
+                          <div class="slds-p-bottom_medium">
+                            <div class="slds-grid slds-form-element__label">
+                              Cardholder
+                            </div>
+                            <p
+                              class="slds-text-body_regular slds-border_bottom"
+                              data-test-id="cardholder"
+                            >
+                              {card.name}
+                            </p>
+                          </div>
                         </div>
 
-                        <div class="slds-col slds-size_2-of-3">
-                          <div class="slds-grid slds-wrap">
-                            <div class="slds-col slds-size_1-of-2">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">Cardholder</p>
-                                <p
-                                  class="slds-text-body_regular"
-                                  data-test-id="cardholder"
-                                >
-                                  {card.name}
-                                </p>
-                              </div>
+                        <div
+                          class="slds-col slds-size_1-of-2 slds-p-right_large"
+                        >
+                          <div class="slds-p-bottom_medium">
+                            <div class="slds-grid slds-form-element__label">
+                              Expiry Date
                             </div>
+                            <p
+                              class="slds-text-body_regular slds-border_bottom"
+                              data-test-id="expiry-date"
+                            >
+                              {card.expiry_date.month.value}/{card.expiry_date.year.value}
+                            </p>
+                          </div>
+                        </div>
 
-                            <div class="slds-col slds-size_1-of-2">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">Expiry Date</p>
-                                <p
-                                  class="slds-text-body_regular"
-                                  data-test-id="expiry-date"
-                                >
-                                  {card.expiry_date.month.value}/{card.expiry_date.year.value}
-                                </p>
-                              </div>
+                        <div
+                          class="slds-col slds-size_1-of-2 slds-p-right_large"
+                        >
+                          <div class="slds-p-bottom_medium">
+                            <div class="slds-grid slds-form-element__label">
+                              Last 4 Digits
                             </div>
+                            <p
+                              class="slds-text-body_regular slds-border_bottom"
+                              data-test-id="last-4-digits"
+                            >
+                              {card.last_4_digits}
+                            </p>
+                          </div>
+                        </div>
 
-                            <div class="slds-col slds-size_1-of-2">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">
-                                  Last 4 Digits
-                                </p>
-                                <p
-                                  class="slds-text-body_regular"
-                                  data-test-id="last-4-digits"
+                        <div
+                          class="slds-col slds-size_1-of-2 slds-p-right_large"
+                        >
+                          <div class="slds-p-bottom_medium">
+                            <div class="slds-grid slds-form-element__label">
+                              Status
+                              <template lwc:if={card.isLocked}>
+                                <lightning-helptext
+                                  class="tooltip"
+                                  content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
                                 >
-                                  {card.last_4_digits}
-                                </p>
-                              </div>
+                                </lightning-helptext>
+                              </template>
                             </div>
+                            <p
+                              class="slds-text-body_regular slds-border_bottom status singleLineText"
+                              data-test-id="status"
+                            >
+                              {card.statusToShow}
+                            </p>
+                          </div>
+                        </div>
 
-                            <div class="slds-col slds-size_1-of-2">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">
-                                  Status
-                                  <template lwc:if={card.isLocked}>
-                                    <lightning-helptext
-                                      class="tooltip"
-                                      content="Coaches don't have the ability to remove a temporary lock. Customers can unlock their card anytime on their mobile app."
-                                    >
-                                    </lightning-helptext>
-                                  </template>
-                                </p>
-                                <p
-                                  class="slds-text-body_regular status singleLineText"
-                                  data-test-id="status"
-                                >
-                                  {card.statusToShow}
-                                </p>
-                              </div>
+                        <div
+                          class="slds-col slds-size_1_of-2 slds-p-right_large"
+                        >
+                          <div class="slds-p-bottom_medium">
+                            <div class="slds-grid slds-form-element__label">
+                              Account Number
                             </div>
+                            <p
+                              class="slds-text-body_regular slds-border_bottom account-number"
+                              data-test-id="account-number"
+                            >
+                              {card.concatAccountNumber}
+                            </p>
+                          </div>
+                        </div>
 
-                            <div class="slds-col slds-size_1_of-2">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">
-                                  Account Number
-                                </p>
-                                <p
-                                  class="slds-text-body_regular account-number"
-                                  data-test-id="account-number"
-                                >
-                                  {card.concatAccountNumber}
-                                </p>
-                              </div>
+                        <div
+                          class="slds-col slds-size_1-of-2 slds-p-right_large"
+                        >
+                          <div class="slds-p-bottom_medium">
+                            <div class="slds-grid slds-form-element__label">
+                              Account Type
                             </div>
-
-                            <div class="slds-col slds-size_1-of-2">
-                              <div class="slds-p-bottom_medium">
-                                <p class="slds-text-title_bold">Account Type</p>
-                                <p
-                                  class="slds-text-body_regular"
-                                  data-test-id="account-type"
-                                >
-                                  {card.accountType}
-                                </p>
+                            <p
+                              class="slds-text-body_regular slds-border_bottom"
+                              data-test-id="account-type"
+                            >
+                              {card.accountType}
+                            </p>
+                          </div>
+                        </div>
+                        <template lwc:if={isActiveCardSection}>
+                          <div
+                            class="slds-col slds-size_1-of-2 slds-p-right_large"
+                          >
+                            <div class="slds-p-bottom_medium">
+                              <div class="slds-grid slds-form-element__label">
+                                Card Issued Date
                               </div>
+                              <p
+                                class="slds-text-body_regular slds-border_bottom"
+                                data-test-id="card-issued-date"
+                              >
+                                {card.cardIssueDate}
+                              </p>
                             </div>
+                          </div>
 
-                            <div class="slds-col slds-size_1-of-2">
-                              <div class="slds-p-bottom_medium dig-wallet">
-                                <p class="slds-text-title_bold">
-                                  Digital Wallet
-                                </p>
-                                <template lwc:if={card.hasWallet}>
+                          <div
+                            class="slds-col slds-size_1-of-2 slds-p-right_large"
+                          >
+                            <div class="slds-p-bottom_medium">
+                              <div class="slds-grid slds-form-element__label">
+                                Delivery Status
+                              </div>
+                              <p
+                                class="slds-text-body_regular slds-border_bottom status singleLineText"
+                                data-test-id="deliveryStatus"
+                              >
+                                {card.delivery_status}
+                              </p>
+                            </div>
+                          </div>
+
+                          <div
+                            class="slds-col slds-size_1-of-2 slds-p-right_large"
+                          >
+                            <div class="slds-p-bottom_medium dig-wallet">
+                              <div class="slds-grid slds-form-element__label">
+                                Digital Wallet
+                              </div>
+                              <template lwc:if={card.hasWallet}>
+                                <div class="slds-border_bottom">
                                   <template
                                     for:each={card.walletList}
                                     for:item="wallet"
@@ -218,94 +219,90 @@
                                       {wallet}
                                     </p>
                                   </template>
-                                </template>
-                                <template lwc:else>
-                                  <p class="slds-text-body_regular">N/A</p>
-                                </template>
-                              </div>
+                                </div>
+                              </template>
+                              <template lwc:else>
+                                <p
+                                  class="slds-text-body_regular slds-border_bottom"
+                                >
+                                  N/A
+                                </p>
+                              </template>
                             </div>
                           </div>
+                        </template>
+                      </div>
+                    </div>
+                  </div>
+                  <template lwc:if={isActiveCardSection}>
+                    <template lwc:if={card.isIssued}>
+                      <div
+                        class="cardDetail cardControl"
+                        data-id="loaded-card-controls"
+                      >
+                        <div class="slds-col slds-size_1-of-8"></div>
+                        <div class="slds-col slds-size_7-of-8">
+                          <div
+                            class="slds-grid slds-form-element__label slds-p-bottom_small textStyle"
+                          >
+                            Card Controls
+                          </div>
+                          <c-card-control card={card}> </c-card-control>
                         </div>
                       </div>
-                      <template lwc:if={card.isIssued}>
-                        <div
-                          class="cardDetail cardControl"
-                          data-id="loaded-card-controls"
-                        >
-                          <div class="slds-col slds-size_1-of-3"></div>
-                          <div class="slds-col slds-size_2-of-3">
-                            <c-card-control card={card}> </c-card-control>
-                          </div>
-                        </div>
-                      </template>
-                      <template lwc:if={card.isFraudBlocked}>
-                        <div class="slds-col slds-size_1-of-1">
-                          <div class="slds-col slds-size_1-of-1">
-                            <div class="slds-p-bottom_medium">
-                              <p
-                                class="slds-text-align_center slds-text-title_bold"
-                                data-id="fraud-no-controls"
-                              >
-                                Card controls are unavailable due to an existing
-                                fraud block. See chatter posts for more details.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </template>
-                    </article>
-                  </div>
-                </lightning-card>
+                    </template>
+                  </template>
+                </article>
               </div>
-            </template>
+            </lightning-card>
+          </div>
+        </template>
 
-            <template lwc:if={showLock}>
-              <c-card-temp-lock
-                show-modal={showLock}
-                card-number={tokenizedCardNumber}
-                record-id={recordId}
-              >
-              </c-card-temp-lock>
-            </template>
+        <template lwc:if={showLock}>
+          <c-card-temp-lock
+            show-modal={showLock}
+            card-number={tokenizedCardNumber}
+            record-id={recordId}
+          >
+          </c-card-temp-lock>
+        </template>
 
-            <template lwc:if={showReplace}>
-              <c-replace-card
-                show-modal={showReplace}
-                card-number={tokenizedCardNumber}
-                record-id={recordId}
-                replace-lost-unavailable={replaceLostUnavailable}
-                replace-stolen-unavailable={replaceStolenUnavailable}
-                replace-damaged-unavailable={replaceDamagedUnavailable}
-                replace-lock-unavailable={replaceLockUnavailable}
-              ></c-replace-card>
-            </template>
+        <template lwc:if={showReplace}>
+          <c-replace-card
+            show-modal={showReplace}
+            card-number={tokenizedCardNumber}
+            record-id={recordId}
+            replace-lost-unavailable={replaceLostUnavailable}
+            replace-stolen-unavailable={replaceStolenUnavailable}
+            replace-damaged-unavailable={replaceDamagedUnavailable}
+            replace-lock-unavailable={replaceLockUnavailable}
+          ></c-replace-card>
+        </template>
 
-            <template lwc:if={showFraudLock}>
-              <c-card-fraud-lock
-                card-status={cardFraudLockStatus}
-                show-modal={showFraudLock}
-                card-number={tokenizedCardNumber}
-                record-id={recordId}
-                button-clicked={buttonClicked}
-                last-4-digits={last4Digits}
-                onstatuschange={changeStatusHadnler}
-                current-user-name={currentUserName}
-              ></c-card-fraud-lock>
-            </template>
-          </template>
+        <template lwc:if={showFraudLock}>
+          <c-card-fraud-lock
+            card-status={cardFraudLockStatus}
+            show-modal={showFraudLock}
+            card-number={tokenizedCardNumber}
+            record-id={recordId}
+            button-clicked={buttonClicked}
+            last-4-digits={last4Digits}
+            onstatuschange={changeStatusHadnler}
+            current-user-name={currentUserName}
+          ></c-card-fraud-lock>
+        </template>
+      </template>
 
-          <template lwc:if={showViewAllButton}>
-            <button
-              class="slds-button slds-align_absolute-center"
-              onclick={handleViewAll}
-              data-id="load-more-button"
-              data-test-id="load-more"
-            >
-              Load More
-            </button>
-          </template>
-        </lightning-card>
-      </div>
-    </template>
-  </template>
+      <template lwc:if={showViewAllButton}>
+        <button
+          class="slds-button slds-align_absolute-center"
+          onclick={handleViewAll}
+          data-id="load-more-button"
+          data-test-id="load-more"
+        >
+          View All ({cardsLeftToView})
+        </button>
+      </template>
+    </lightning-card>
+  </div>
 </template>

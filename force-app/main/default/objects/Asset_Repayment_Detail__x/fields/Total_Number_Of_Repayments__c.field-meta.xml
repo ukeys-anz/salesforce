@@ -6,9 +6,9 @@
     <description>Total  Number of  Repayments</description>
     <externalDeveloperName>TotalNumberOfRepayments</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Total Number Of Repayments</label>
     <precision>18</precision>
     <required>false</required>

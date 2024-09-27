@@ -6,10 +6,10 @@
     <description>IO Next Repayment Date</description>
     <externalDeveloperName>IONextRepaymentDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Next Repayment Date</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Next Principal Repayment Date</label>
     <length>50</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

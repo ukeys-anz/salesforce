@@ -44,6 +44,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       records
     );
+    AccountCommonActions.revertAccountChanges(records, oldMap);
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
     if (isAllowedProfileCheck) {
       MLCRMAccountActions.revertShellProspectBillingAddress(records);
@@ -64,7 +65,6 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     AccountCommonActions.populateFieldsValue(records);
 
     CCRMAccountActions.setControllingPost(records, (Map<Id, Account>) oldMap);
-    AccountCommonActions.revertAccountChanges(records, oldMap);
 
     if (isAllowedProfileCheck) {
       CCRMAccountActions.revertAccountChanges(records, oldMap);

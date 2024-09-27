@@ -1,18 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingOwnerRules>
-        <fullName>MLCRM_Sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>Sharing rule to open up access from ML Team to ANZ Support Team with ML Group.</description>
-        <label>MLCRM Sharing</label>
-        <sharedTo>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Team</roleAndSubordinates>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_CR_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
         <description>Sharing rule to open up access from ML Support Team to ML Team.</description>
@@ -21,19 +9,19 @@
             <role>ANZ_Mobile_Lending_Team</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_CR_Self_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
-        <description>Share Customer Relationsip from Support Team to Support Team.</description>
+        <description>Share Customer Relationship from Support Team to Support Team.</description>
         <label>MLCRM Support Team CR Self Sharing</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZ_Mobile_Lending_Support_Team</roleAndSubordinates>
+            <role>ANZ_Mobile_Lending_Support_Team</role>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>

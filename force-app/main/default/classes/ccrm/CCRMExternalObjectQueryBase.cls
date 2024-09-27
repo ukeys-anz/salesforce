@@ -16,9 +16,14 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
   protected DataSource.QueryContext queryContext;
   protected DataSource.TableSelection tableSelection;
   protected String externalField;
+  @testVisible
   protected String externalId;
+  @testVisible
   protected String parentId;
+  @testVisible
   protected String parent;
+  protected String paginationKey;
+  protected Boolean enableServerPagination = false;
 
   /**
    * @description Main execute method
@@ -30,6 +35,9 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
   ) {
     this.queryContext = queryContext;
     this.tableSelection = queryContext.TableSelection;
+    if (enableServerPagination) {
+      paginationKey = constructPaginationKey();
+    }
     return null;
   }
 
@@ -104,6 +112,33 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
   }
 
   /**
+   * @description construct pagination key using user Id-table name-parent Id
+   * @param
+   * @return String
+   */
+  protected virtual String constructPaginationKey() {
+    String key =
+      UserInfo.getUserId() +
+      '-' +
+      queryContext.tableSelection.tableSelected +
+      '-' +
+      parentId;
+    return generateHash(key);
+  }
+
+  /**
+   * @description generate Hashed string
+   * @param key string value to be hashed
+   * @return String
+   */
+  protected virtual String generateHash(String key) {
+    Blob data = Blob.valueOf(key);
+    Blob hash = Crypto.generateDigest('SHA-256', data);
+    String hashedString = EncodingUtil.convertToHex(hash);
+    return hashedString;
+  }
+
+  /**
    * @description get UTC datetime from GMT+10 datetime
    * @param localTime localTime
    * @return DateTime UTC datetime
@@ -114,9 +149,7 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
       TimeZone tz = TimeZone.getTimeZone('Australia/Sydney');
       //getOffset returns the value in ms, we need it in seconds.
       DateTime utcTime = localTime.addSeconds(
-        -1 *
-        tz.getOffset(localTime) /
-        1000
+        -1 * tz.getOffset(localTime) / 1000
       );
       return utcTime;
     }
@@ -145,5 +178,18 @@ public abstract with sharing class CCRMExternalObjectQueryBase {
       return null;
     }
     return dateTimeParam.format('dd/MM/yyyy', 'GMT');
+  }
+
+  /**
+   * @description Format index as sequence string
+   * @param indexParam Integer param
+   * @return String four digit index
+   */
+  @TestVisible
+  protected String formatSequence(Integer indexParam) {
+    if (indexParam == null) {
+      return null;
+    }
+    return String.valueOf(indexParam).leftPad(4, '0');
   }
 }

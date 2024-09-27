@@ -1,4 +1,4 @@
-import { LightningElement, api, track } from "lwc";
+import { LightningElement, api, track, wire } from "lwc";
 import performOnboardingOperations from "@salesforce/apex/OnboardingFalloutWorkflowController.performOnboardingOperations";
 import fetchOnboardingDocuments from "@salesforce/apex/OnboardingFalloutWorkflowController.fetchOnboardingDocumentsLWC";
 import apiCallToFetchImages from "@salesforce/apex/OnboardingFalloutWorkflowController.apiCallToFetchImagesLWC";
@@ -8,11 +8,32 @@ import daonMaxPollingCount from "@salesforce/label/c.DAONMaxPollingCount";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import ApprovalModal from "c/manageOpsWorkflowApproval";
 import RejectModal from "c/manageOpsWorkflowReject";
-import { NavigationMixin } from "lightning/navigation";
+import { getRecord, notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
+import {
+  getFocusedTabInfo,
+  refreshTab,
+  getTabInfo
+} from "lightning/platformWorkspaceApi";
 
-export default class OnboardingFalloutWorkflow extends NavigationMixin(
-  LightningElement
-) {
+export default class OnboardingFalloutWorkflow extends LightningElement {
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [
+      "COBPrimaryIDDocument__c.Verification_Status__c",
+      "COBPrimaryIDDocument__c.Verification_Failed_Reason__c",
+      "COBPrimaryIDDocument__c.Verification_Date_Time__c",
+      "COBPrimaryIDDocument__c.Verified_By__c",
+      "COBPrimaryIDDocument__c.Failed_Message__c"
+    ]
+  })
+  record;
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: ["Case.Status"]
+  })
+  caseRecord;
+
   @api recordId;
   noAccess = false;
   @track workflowDetails = {};
@@ -40,7 +61,7 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
   performOperations() {
     this.componentSpinner = true;
     performOnboardingOperations({ recordId: this.recordId })
-      .then((result) => {
+      .then(async (result) => {
         this.workflowDetails = JSON.parse(JSON.stringify(result));
         if (this.workflowDetails.responseMsg === "NoAccessAegisFeatures") {
           this.noAccess = true;
@@ -56,9 +77,16 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
           return;
         }
 
-        if (this.workflowDetails.draftCVIDs.length !== 0) {
-          this.pollingMethod();
+        if (
+          this.workflowDetails.draftCVIDs &&
+          this.workflowDetails.draftCVIDs.length !== 0
+        ) {
+          this.componentSpinner = false;
+          await this.pollingMethod();
         }
+
+        this.formFilesToRender();
+
         if (this.workflowDetails.fileCreatedCounter !== 4) {
           this.stopSpinnerMethod();
         }
@@ -70,77 +98,77 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
           "Error occurred while fetching onboarding details.",
           "error"
         );
-      })
-      .finally(() => {
-        this.componentSpinner = false;
-        this.filesToRender = [
-          {
-            fileTitle: "Processed Document Image",
-            currentFileType: this.workflowDetails.processedImageData,
-            errorImage: this.onboardingDocumentErrorImage,
-            errorMessage: "User document not found",
-            showRedBorder: this.workflowDetails.showRedBorder,
-            changeStyle: false,
-            size: 6,
-            isImage: true
-          },
-          {
-            fileTitle: "Unprocessed Document Image",
-            currentFileType: this.workflowDetails.unProcessedImageData,
-            errorImage: this.onboardingDocumentErrorImage,
-            errorMessage: "User document not found",
-            showRedBorder: this.workflowDetails.showRedBorder,
-            changeStyle: false,
-            size: 6,
-            isImage: true
-          },
-          {
-            size: 4,
-            isEmptySpace: true
-          },
-          {
-            label: "Is this a valid document?",
-            name: "validDocument",
-            size: 5,
-            isCheckBox: true,
-            showCheckbox: this.workflowDetails?.showCheckboxes,
-            cssStyle: "slds-m-top--medium"
-          },
-          {
-            size: 3,
-            isEmptySpace: true
-          },
-          {
-            fileTitle: "Document Extracted Face",
-            currentFileType: this.workflowDetails.extractedFaceData,
-            errorImage: this.onboardingSelfieErrorImage,
-            errorMessage: "Enrolled selfie not found",
-            changeStyle: this.workflowDetails.extractedFaceData ? true : false,
-            size: 5,
-            isImage: true
-          },
-          {
-            label: "Matches",
-            name: "selfieMatch",
-            size: 2,
-            isCheckBox: true,
-            cssStyle: "slds-align_absolute-center",
-            showCheckbox: this.workflowDetails?.showCheckboxes
-          },
-          {
-            fileTitle: "Selfie to be enrolled",
-            currentFileType: this.workflowDetails.selfieData,
-            errorImage: this.onboardingSelfieErrorImage,
-            errorMessage: "Selfie to be verified not found",
-            changeStyle: this.workflowDetails.selfieData ? true : false,
-            size: 5,
-            isImage: true
-          }
-        ];
       });
   }
 
-  callFetchOnboardingDocuments() {
+  formFilesToRender() {
+    this.componentSpinner = false;
+    this.filesToRender = [
+      {
+        fileTitle: "Processed Document Image",
+        currentFileType: this.workflowDetails.processedImageData,
+        errorImage: this.onboardingDocumentErrorImage,
+        errorMessage: "User document not found",
+        showRedBorder: this.workflowDetails.showRedBorder,
+        changeStyle: false,
+        size: 6,
+        isImage: true
+      },
+      {
+        fileTitle: "Unprocessed Document Image",
+        currentFileType: this.workflowDetails.unProcessedImageData,
+        errorImage: this.onboardingDocumentErrorImage,
+        errorMessage: "User document not found",
+        showRedBorder: this.workflowDetails.showRedBorder,
+        changeStyle: false,
+        size: 6,
+        isImage: true
+      },
+      {
+        size: 4,
+        isEmptySpace: true
+      },
+      {
+        label: "Is this a valid document?",
+        name: "validDocument",
+        size: 5,
+        isCheckBox: true,
+        showCheckbox: this.workflowDetails?.showCheckboxes,
+        cssStyle: "slds-m-top--medium"
+      },
+      {
+        size: 3,
+        isEmptySpace: true
+      },
+      {
+        fileTitle: "Document Extracted Face",
+        currentFileType: this.workflowDetails.extractedFaceData,
+        errorImage: this.onboardingSelfieErrorImage,
+        errorMessage: "Enrolled selfie not found",
+        changeStyle: this.workflowDetails.extractedFaceData ? true : false,
+        size: 5,
+        isImage: true
+      },
+      {
+        label: "Matches",
+        name: "selfieMatch",
+        size: 2,
+        isCheckBox: true,
+        cssStyle: "slds-align_absolute-center",
+        showCheckbox: this.workflowDetails?.showCheckboxes
+      },
+      {
+        fileTitle: "Selfie to be enrolled",
+        currentFileType: this.workflowDetails.selfieData,
+        errorImage: this.onboardingSelfieErrorImage,
+        errorMessage: "Selfie to be verified not found",
+        changeStyle: this.workflowDetails.selfieData ? true : false,
+        size: 5,
+        isImage: true
+      }
+    ];
+  }
+  async callFetchOnboardingDocuments() {
     fetchOnboardingDocuments({
       workflowDetailsJSON: JSON.stringify(this.workflowDetails)
     })
@@ -158,27 +186,35 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
   }
 
   pollingMethod() {
-    //eslint-disable-next-line @lwc/lwc/no-async-operation
-    this._interval = setInterval(() => {
-      if (
-        this.callCount < this.maxCalls &&
-        this.workflowDetails.filesCreatedCounter !== 4
-      ) {
-        this.callFetchOnboardingDocuments();
-        this.callCount += 1;
-      } else {
-        clearInterval(this._interval);
-        if (this.apiCallMade) {
-          this.stopSpinnerMethod();
-          return;
+    return new Promise((resolve, reject) => {
+      //eslint-disable-next-line @lwc/lwc/no-async-operation
+      this._interval = setInterval(async () => {
+        try {
+          if (
+            this.callCount < this.maxCalls &&
+            this.workflowDetails.filesCreatedCounter !== 4
+          ) {
+            await this.callFetchOnboardingDocuments();
+            this.callCount += 1;
+          } else {
+            clearInterval(this._interval);
+            if (this.apiCallMade) {
+              this.stopSpinnerMethod();
+              return;
+            }
+            //check for all flags, form the body and then make a API call
+            await this.makeAPICallToFetchImages();
+            resolve();
+          }
+        } catch (error) {
+          clearInterval(this._interval);
+          reject(error);
         }
-        //check for all flags, form the body and then make a API call
-        this.makeAPICallToFetchImages();
-      }
-    }, 5000);
+      }, 5000);
+    });
   }
 
-  makeAPICallToFetchImages() {
+  async makeAPICallToFetchImages() {
     apiCallToFetchImages({
       workflowDetailsJSON: JSON.stringify(this.workflowDetails)
     })
@@ -188,8 +224,6 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
           this.workflowDetails.draftCVIDs = [];
           this.callCount = 0;
           this.apiCallMade = true;
-          //call polling
-          this.pollingMethod();
         } else {
           this.showNotification(
             "Error",
@@ -254,7 +288,8 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
       options: { caseId, parentComponent, workflowId, IdValue, cobId },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
+        this.refreshTab();
       }
     });
   }
@@ -271,9 +306,19 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
       options: { caseId, parentComponent, workflowId, IdValue, cobId },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleRefresh();
+        notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
+        this.refreshTab();
       }
     });
+  }
+
+  async refreshTab() {
+    const { tabId } = await getFocusedTabInfo();
+    let tabInfo = await getTabInfo(tabId);
+    await refreshTab(tabInfo.parentTabId, {
+      includeAllSubtabs: false
+    });
+    this.handleModalClose();
   }
 
   get isApprovButtonDisable() {
@@ -284,7 +329,13 @@ export default class OnboardingFalloutWorkflow extends NavigationMixin(
     return !this.workflowDetails?.showCheckboxes;
   }
 
-  handleRefresh() {
-    window.location.reload();
+  handleModalClose() {
+    this.dispatchEvent(
+      new CustomEvent("closeparentmodel", {
+        detail: {
+          message: "closeModel"
+        }
+      })
+    );
   }
 }

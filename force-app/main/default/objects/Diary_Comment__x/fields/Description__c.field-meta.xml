@@ -6,10 +6,10 @@
     <description>Diary comments</description>
     <externalDeveloperName>Description</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Description</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Comment</label>
     <length>200</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

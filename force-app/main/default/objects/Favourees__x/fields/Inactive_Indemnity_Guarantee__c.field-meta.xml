@@ -6,9 +6,9 @@
     <description>Associated Id Of Inactive Indemnity Guarantee</description>
     <externalDeveloperName>InactiveGuaranteeId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Inactive Indemnity Guarantee</label>
     <length>18</length>
     <referenceTo>Inactive_Indemnity_Guarantee__x</referenceTo>

@@ -47,19 +47,19 @@ private class ProfileStagingHandlerTest {
     Test.stopTest();
 
     Assert.isNotNull(
-      dmlRepoMock.getHistory('insertRecords'),
-      'insertRecords should have been invoked'
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
     );
     Assert.isNotNull(
-      dmlRepoMock.getHistory('publishEvents'),
-      'publishEvents should have been invoked'
+      dmlRepoMock.getHistory('doPublish'),
+      'doPublish should have been invoked'
     );
     List<Customer_Profile_Updates__c> updates = (List<Customer_Profile_Updates__c>) dmlRepoMock.getHistory(
-        'insertRecords'
+        'doInsert'
       )
       .getParam('records');
     List<Customer_Profile_Update_Event__e> events = (List<Customer_Profile_Update_Event__e>) dmlRepoMock.getHistory(
-        'publishEvents'
+        'doPublish'
       )
       .getParam('events');
 

@@ -73,9 +73,14 @@ private class CCRMARNCServiceTest {
     Map<String, Object> firstRec = (Map<String, Object>) res[0];
     system.assertEquals(
       (string) firstRec.get('accountName'),
-      'TO_BE_CLARIFIED'
+      'TO_BE_CLARIFIED',
+      'incorrect value'
     );
-    system.assertEquals((string) firstRec.get('accountNumber'), '431214465');
+    system.assertEquals(
+      (string) firstRec.get('accountNumber'),
+      '431214465',
+      'incorrect value'
+    );
     Test.stopTest();
   }
 
@@ -101,9 +106,14 @@ private class CCRMARNCServiceTest {
     Map<String, Object> firstRec = (Map<String, Object>) res[0];
     system.assertEquals(
       (string) firstRec.get('accountName'),
-      'TO_BE_CLARIFIED'
+      'TO_BE_CLARIFIED',
+      'incorrect value'
     );
-    system.assertEquals((string) firstRec.get('accountNumber'), '431214465');
+    system.assertEquals(
+      (string) firstRec.get('accountNumber'),
+      '431214465',
+      'incorrect value'
+    );
     Test.stopTest();
   }
 
@@ -127,9 +137,14 @@ private class CCRMARNCServiceTest {
     Map<String, Object> firstRec = (Map<String, Object>) res[0];
     system.assertEquals(
       (string) firstRec.get('accountName'),
-      'VAALEPU CORP. NOMINEES TRUST'
+      'VAALEPU CORP. NOMINEES TRUST',
+      'incorrect value'
     );
-    system.assertEquals((string) firstRec.get('accountNumber'), '901221265');
+    system.assertEquals(
+      (string) firstRec.get('accountNumber'),
+      '901221265',
+      'incorrect value'
+    );
     Test.stopTest();
   }
 
@@ -144,12 +159,7 @@ private class CCRMARNCServiceTest {
     String parent = '901221265';
     Map<String, String> params = new Map<String, String>();
     params.put(parent, '4040r00000E3yPTAAZ-4034567890|DDA-901221265');
-    String nextPageId = '';
-    HttpCalloutResponse response = service.queryDiaryComment(
-      parent,
-      params,
-      nextPageId
-    );
+    HttpCalloutResponse response = service.queryDiaryComment(parent, params);
     Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(
       response.body
     );
@@ -190,7 +200,7 @@ private class CCRMARNCServiceTest {
     System.runAs(u) {
       CCRMARNCService service = new CCRMARNCService();
       String response = service.getSecurityCode(customerId);
-      System.assertEquals(response, 'BRANCH TO LOAD');
+      System.assertEquals(response, 'BRANCH TO LOAD', 'incorrect value');
     }
 
     Test.stopTest();
@@ -200,7 +210,11 @@ private class CCRMARNCServiceTest {
       WHERE Source_System_ID__c = '901221245'
       LIMIT 1
     ];
-    System.assertNotEquals(acc.Security_Code_Requested__c, null);
+    System.assertNotEquals(
+      acc.Security_Code_Requested__c,
+      null,
+      'incorrect value'
+    );
   }
 
   @isTest
@@ -221,15 +235,18 @@ private class CCRMARNCServiceTest {
     CCRMARNCService service = new CCRMARNCService();
     system.assertEquals(
       service.createDiaryComment(customerId, comment, 'IdTheft'),
-      true
+      true,
+      'incorrect value'
     );
     system.assertEquals(
       service.createDiaryComment(customerId, comment, 'ExistingBranch'),
-      true
+      true,
+      'incorrect value'
     );
     system.assertEquals(
       service.createDiaryComment(customerId, comment, 'FailedAuth'),
-      true
+      true,
+      'incorrect value'
     );
     Test.stopTest();
   }
@@ -256,13 +273,17 @@ private class CCRMARNCServiceTest {
       CCRMARNCService service = new CCRMARNCService();
       Boolean response = service.updateSecurityCode(customerId, securityCode);
 
-      System.assertEquals(response, true);
+      System.assertEquals(response, true, 'incorrect value');
       Account acc = [
         SELECT id, Security_Code_Updated__c
         FROM Account
         WHERE id = :customerId
       ];
-      System.assertNotEquals(acc.Security_Code_Updated__c, null);
+      System.assertNotEquals(
+        acc.Security_Code_Updated__c,
+        null,
+        'incorrect value'
+      );
     }
     Test.stopTest();
   }
@@ -291,14 +312,18 @@ private class CCRMARNCServiceTest {
         FROM Account
         WHERE id = :customerId
       ];
-      system.assertNotEquals(acc.Security_Code_Updated__c, null);
-      system.assertEquals(response, true);
+      system.assertNotEquals(
+        acc.Security_Code_Updated__c,
+        null,
+        'incorrect value'
+      );
+      system.assertEquals(response, true, 'incorrect value');
       User u = [SELECT id FROM user WHERE email = 'testUser1991@anz.com'];
       System.runAs(u) {
         service.updateSecurityCode(customerId, securityCode);
       }
     } catch (Exception e) {
-      system.assert(true);
+      system.assert(true, 'incorrect value');
     }
     Test.stopTest();
   }
@@ -322,13 +347,15 @@ private class CCRMARNCServiceTest {
     try {
       system.assertEquals(
         service.createDiaryComment(customerId, comment, 'IdTheft'),
-        false
+        false,
+        'incorrect value'
       );
       User u = [SELECT id FROM user WHERE email = 'testUser1991@anz.com'];
       System.runAs(u) {
         system.assertEquals(
           service.createDiaryComment(customerId, comment, 'IdTheft'),
-          false
+          false,
+          'incorrect value'
         );
       }
     } catch (Exception e) {

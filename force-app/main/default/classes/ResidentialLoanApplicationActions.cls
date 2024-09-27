@@ -6,7 +6,16 @@
  */
 public with sharing class ResidentialLoanApplicationActions {
   private static final String HOME_LOAN_APP_DEV_NAME = 'Home_Loan_Applications_Queue';
-  private static final String QUEUE_TYPE = 'Queue';
+  @TestVisible
+  private static final Set<String> SUNSET_STATUSES = new Set<String>{
+    'STATE_UNSPECIFIED',
+    'STATE_INELIGIBLE',
+    'STATE_COMPLETED',
+    'STATE_DECLINED',
+    'STATE_CANCELLED',
+    'STATE_EXPIRED'
+  };
+
   @TestVisible
   private static final String ACCREDITATION_RETAIL = 'Retail';
   @TestVisible
@@ -40,11 +49,7 @@ public with sharing class ResidentialLoanApplicationActions {
       if (homeLoanAppQueue != null) {
         return homeLoanAppQueue;
       }
-      homeLoanAppQueue = [
-        SELECT Id
-        FROM Group
-        WHERE developername = :HOME_LOAN_APP_DEV_NAME AND Type = :QUEUE_TYPE
-      ];
+      homeLoanAppQueue = QueryQueue.get(HOME_LOAN_APP_DEV_NAME);
       return homeLoanAppQueue;
     }
     private set;
@@ -82,6 +87,35 @@ public with sharing class ResidentialLoanApplicationActions {
       recordsToUpdate,
       ACCREDITATION_RETAIL
     );
+  }
+
+  /**
+   * @description Set the sunset timestamp date time value
+   * @param records records to update
+   * @param oldMap old records map
+   * @return List<ResidentialLoanApplication> updated records
+   */
+  public static List<ResidentialLoanApplication> setSunsetTimestamp(
+    List<ResidentialLoanApplication> records,
+    Map<Id, ResidentialLoanApplication> oldMap
+  ) {
+    for (ResidentialLoanApplication loanApp : records) {
+      ResidentialLoanApplication oldRecord = oldMap?.get(loanApp.Id);
+      Boolean isOldStatusSunset = SUNSET_STATUSES.contains(oldRecord?.Status);
+      Boolean isNewStatusSunset = SUNSET_STATUSES.contains(loanApp.Status);
+      if (isNewStatusSunset == true && isOldStatusSunset == false) {
+        loanApp.SunsetTimestamp__c = System.now();
+        continue;
+      }
+      if (
+        isNewStatusSunset == false &&
+        isOldStatusSunset == true &&
+        loanApp.SunsetTimestamp__c != null
+      ) {
+        loanApp.SunsetTimestamp__c = null;
+      }
+    }
+    return records;
   }
 
   /**
@@ -172,7 +206,7 @@ public with sharing class ResidentialLoanApplicationActions {
     List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
 
     //Fetch the RLA records and the related parent record details
-    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplicatioins(
+    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
       filteredLoanAppList
     );
 

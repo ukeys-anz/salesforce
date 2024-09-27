@@ -2,14 +2,13 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Product_Code__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The ANZ product code</description>
     <externalDeveloperName>ProductCode</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>The ANZ product code</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Product Code</label>
     <length>255</length>
     <required>false</required>

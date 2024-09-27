@@ -6,11 +6,10 @@
  */
 public with sharing class StravinskyService extends Service {
   private Map<String, String> temporalCaseWorkflowEndpoints = new Map<String, String>{
-    GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => Label.ST_ApproveSelfieIDCheck,
-    GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => Label.ST_ApproveSelfieIDCheck,
-    GetHelpConstants.COB_EQUIFAX_PASSED_STATUS => Label.ST_Approve_ID_Verification,
-    GetHelpConstants.COB_FAILED_OK_STATUS => Label.ST_Retry_Stage,
-    GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS => Label.ST_Confirm_Fraud
+    COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS => Label.ST_ApproveSelfieIDCheck,
+    COBCaseConstants.COB_ID_CHECK_OK_STATUS => Label.ST_Approve_ID_Verification,
+    COBCaseConstants.COB_FAILED_OK_STATUS => Label.ST_Retry_Stage,
+    COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS => Label.ST_Confirm_Fraud
   };
 
   @TestVisible
@@ -153,12 +152,11 @@ public with sharing class StravinskyService extends Service {
   @TestVisible
   private String getCaseWorkflowPayload(Case cobCase) {
     Map<String, String> statusCaseIdMap = new Map<String, String>{
-      GetHelpConstants.COB_ID_OPS_DAON_APPROVED_STATUS => cobCase.Id,
-      GetHelpConstants.COB_FRAUD_CHECK_DAON_APPROVED_STATUS => cobCase.ParentId
+      COBCaseConstants.COB_ID_OPS_DAON_OK_STATUS => cobCase.Id
     };
     Map<Id, String> reasonMap = new Map<Id, String>{
-      GetHelpConstants.ID_OPS_ASSISTANCE_RT_ID => COBCaseStatusPathController.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON,
-      GetHelpConstants.FRAUD_CHECK_RT_ID => GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
+      RTCase.idOpsAssistance => COBCaseConstants.CONFIRMED_FRAUD_SELFIE_WATCHLIST_REASON,
+      RTCase.fraudCheck => COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
     };
     RetryStagePayload retryStagePayload = new RetryStagePayload();
 
@@ -167,11 +165,11 @@ public with sharing class StravinskyService extends Service {
       selfieIdPayload.caseId = statusCaseIdMap.get(cobCase.Status);
       return JSON.serialize(selfieIdPayload);
     }
-    if (cobCase.Status == GetHelpConstants.COB_FAILED_OK_STATUS) {
+    if (cobCase.Status == COBCaseConstants.COB_FAILED_OK_STATUS) {
       retryStagePayload.reason = cobCase.OnboardingVerificationFailedReason__c;
       return JSON.serialize(retryStagePayload);
     }
-    if (cobCase.Status != GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS) {
+    if (cobCase.Status != COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS) {
       return EMPTY_BODY;
     }
     if (!reasonMap.containsKey(cobCase.RecordTypeId)) {

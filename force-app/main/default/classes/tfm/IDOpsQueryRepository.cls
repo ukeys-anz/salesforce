@@ -2,8 +2,8 @@
  * @description       : Repository for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 08-13-2024
- * @last modified by  : Madhuri Edke | Salesforce
+ * @last modified on  : 07-31-2024
+ * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public with sharing class IDOpsQueryRepository {
   /**
@@ -30,7 +30,9 @@ public with sharing class IDOpsQueryRepository {
         OnboardingVerificationFailedReason__c,
         Status,
         PersonaId__c,
-        Status_Update_Error__c
+        Status_Update_Error__c,
+        IsClosed,
+        CaseNumber
       FROM Case
       WHERE ID = :recordId
       WITH USER_MODE

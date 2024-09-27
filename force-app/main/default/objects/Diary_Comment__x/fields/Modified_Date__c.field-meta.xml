@@ -3,13 +3,13 @@
     <fullName>Modified_Date__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
-    <description>Date modified </description>
+    <description>Date modified</description>
     <externalDeveloperName>ModifiedDate</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Modified Date</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Date Changed</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <type>DateTime</type>

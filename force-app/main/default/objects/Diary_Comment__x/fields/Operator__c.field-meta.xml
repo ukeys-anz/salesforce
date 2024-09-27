@@ -6,10 +6,10 @@
     <description> Operator </description>
     <externalDeveloperName>Operator</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Placed By</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Last Updated By</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

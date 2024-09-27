@@ -6,10 +6,9 @@
     <description>Unique Identifier of the Account</description>
     <externalDeveloperName>AccountNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Unique Identifier of the Account</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>true</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Account Number</label>
     <length>255</length>
     <required>false</required>

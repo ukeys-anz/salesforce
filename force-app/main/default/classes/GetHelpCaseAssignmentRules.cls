@@ -85,15 +85,12 @@ public with sharing class GetHelpCaseAssignmentRules {
   public static void setTransactionStatus(Case[] cases) {
     for (Case rec : cases) {
       if (
-        rec.RecordTypeId == GetHelpConstants.CARD_DISPUTE_RT_ID &&
-        rec.Origin == 'App'
+        rec.RecordTypeId == RTCase.cardDispute &&
+        rec.Origin == 'App' &&
+        (rec.Date_Posted__c == null ||
+        rec.Date_Posted__c.year() == 1970)
       ) {
-        if (rec.Date_Posted__c == null || rec.Date_Posted__c.year() == 1970) {
-          rec.Transaction_Status__c = GetHelpConstants.TRANSACTION_STATUS_PENDING;
-          rec.Submitted__c = false;
-        } else {
-          rec.Transaction_Status__c = GetHelpConstants.TRANSACTION_STATUS_POSTED;
-        }
+        rec.Submitted__c = false;
       }
     }
   }
@@ -186,8 +183,8 @@ public with sharing class GetHelpCaseAssignmentRules {
         SUB_TYPE_TO_TYPE_MAP_DIGITAL_FRAUD_QUEUE.get(recordSubType) ==
         recordType
       ) {
-        record.OwnerId = DIGITAL_FRAUD_QUEUE.Id;
-        record.Queue__c = DIGITAL_FRAUD_QUEUE.Name;
+        record.OwnerId = QueryQueue.digitalFraudQueue.Id;
+        record.Queue__c = QueryQueue.digitalFraudQueue.Name;
       }
     }
   }

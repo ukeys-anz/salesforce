@@ -6,13 +6,15 @@
     <description>Controlling post ID</description>
     <externalDeveloperName>CPID</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>CPID</label>
     <length>255</length>
-    <required>false</required>
+    <referenceTargetField>Controlling_Post__c.CPID__c</referenceTargetField>
+    <referenceTo>Controlling_Post__c</referenceTo>
+    <relationshipLabel>Deposit Accounts</relationshipLabel>
+    <relationshipName>Deposit_Accounts</relationshipName>
     <securityClassification>Internal</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>IndirectLookup</type>
 </CustomField>

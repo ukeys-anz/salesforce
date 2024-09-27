@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Highly_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Capture other Business contacts</description>
     <externalId>false</externalId>
-    <label>Key Business Contacts</label>
+    <label>NFR Case Manager</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

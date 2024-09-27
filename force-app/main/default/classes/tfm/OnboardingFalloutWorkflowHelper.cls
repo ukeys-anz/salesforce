@@ -21,7 +21,11 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     Case caseRecord
   ) {
     OnboardingWorkflowWrapper workflowDetails = new OnboardingWorkflowWrapper();
-    if(caseRecord == null) {
+    workflowDetails.cobPIDRecordId = cobPIDRecord.Id;
+    workflowDetails.IDValue = cobPIDRecord.CustomerOnboardingApplication__r.PersonId__c;
+    workflowDetails.idxExtractedFaceId = cobPIDRecord.idxExtractedFaceId__c;
+    workflowDetails.parentRecordReference = cobPIDRecord.Name;
+    if (caseRecord == null) {
       return workflowDetails;
     }
     List<String> statusValues = new List<String>{
@@ -29,26 +33,26 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       'Failed',
       'Potential Fraud'
     };
+
+    UserRole usrRole = QueryRole.get('Join_Operations_Reader');
+
     if (
       String.isNotBlank(cobPIDRecord.DaonLocationUri__c) &&
-      String.isNotBlank(cobPIDRecord.idxExtractedFaceId__c) &&
       String.isNotBlank(caseRecord.Aegis_Workflow_Id__c) &&
       cobPIDRecord.CustomerOnboardingApplication__r.CXOnboardingStage__c.equalsIgnoreCase(
         TFMConstants.ASSISTED_SELFIE
       ) &&
-      !statusValues.contains(cobPIDRecord.Verification_Status__c)
+      !statusValues.contains(cobPIDRecord.Verification_Status__c) &&
+      usrRole.Id != UserInfo.getUserRoleId()
     ) {
       workflowDetails.showCheckboxes = true;
     }
 
     workflowDetails.showRedBorder = caseRecord.Subject.contains(
-        TFMConstants.FAILED_DOC
-      );
-    workflowDetails.cobPIDRecordId = cobPIDRecord.Id;
+      TFMConstants.FAILED_DOC
+    );
     workflowDetails.caseId = caseRecord.Id;
     workflowDetails.workflowId = caseRecord.Aegis_Workflow_Id__c;
-    workflowDetails.IDValue = cobPIDRecord.CustomerOnboardingApplication__r.PersonId__c;
-    workflowDetails.idxExtractedFaceId = cobPIDRecord.idxExtractedFaceId__c;
     return workflowDetails;
   }
 
@@ -103,6 +107,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     daonFileData.idx_id_check_id = workflowDetails.idCheck;
     daonFileData.idx_document_id = workflowDetails.documentId;
     daonFileData.idx_extracted_face_id = workflowDetails.idxExtractedFaceId;
+    daonFileData.workflowId = workflowDetails.workflowId;
     daonFileData.content_version_id = String.isNotBlank(cvId)
       ? cvId
       : TFMConstants.EMPTY;
@@ -130,9 +135,9 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     fileData.uuid = '';
     fileData.isImageNotFound = false;
     fileData.isImageDraft = (cvRecord != null &&
-      cvRecord.Document_Flag__c == '1');
+    cvRecord.Document_Flag__c == '1');
     fileData.isImageFinalVersion = (cvRecord != null &&
-      cvRecord.Document_Flag__c == '4');
+    cvRecord.Document_Flag__c == '4');
     fileData.stopSpinner = false;
     fileData.imageURL = (cvRecord != null &&
       cvRecord.Document_Flag__c == '4')
@@ -159,21 +164,24 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     OnboardingWorkflowWrapper workflowDetails,
     List<ContentVersion> cvList
   ) {
-    Map<String, String> fileTypeByUUID = new Map<String, String> {
+    Map<String, String> fileTypeByUUID = new Map<String, String>{
       'DAON_FILE_TYPE_FRONT_UNPROCESSED' => workflowDetails.frontUnprocessedId,
       'DAON_FILE_TYPE_FRONT_PROCESSED' => workflowDetails.frontProcessedId,
       'DAON_FILE_TYPE_EXTRACTED_FACE' => workflowDetails.extractedFaceId,
       'DAON_FILE_TYPE_SELFIE' => workflowDetails.selfieImageId,
       'DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED' => workflowDetails.selfieToBeVerifiedId
     };
-    
+
     List<OnboardingWorkflowWrapper.FileTypes> filesList = new List<OnboardingWorkflowWrapper.FileTypes>();
     List<String> temporaryFilesList = new List<String>();
 
     for (ContentVersion cv : cvList) {
       OnboardingWorkflowWrapper.FileTypes fileData = formFileTypeData(cv);
       for (String type : fileTypeByUUID.keySet()) {
-        if (fileData.fileType != type && fileData.uuid != fileTypeByUUID.get(type)) {
+        if (
+          fileData.fileType != type &&
+          fileData.uuid != fileTypeByUUID.get(type)
+        ) {
           continue;
         }
         if (cv.Document_Flag__c == '4') {
@@ -193,7 +201,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
         temporaryFilesList
       )
     );
-    
     return filesList;
   }
 
@@ -203,7 +210,11 @@ public with sharing class OnboardingFalloutWorkflowHelper {
    * @param fileData fileData node
    * @param workflowDetails wrapper details
    **/
-  public static void loadData(String type, OnboardingWorkflowWrapper.FileTypes fileData, OnboardingWorkflowWrapper workflowDetails) {
+  public static void loadData(
+    String type,
+    OnboardingWorkflowWrapper.FileTypes fileData,
+    OnboardingWorkflowWrapper workflowDetails
+  ) {
     switch on type {
       when 'DAON_FILE_TYPE_FRONT_UNPROCESSED' {
         workflowDetails.unProcessedImageData = fileData;
@@ -218,7 +229,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
         workflowDetails.selfieData = fileData;
       }
       when 'DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED' {
-        if(String.isNotBlank(workflowDetails.idxRegistrationChallengeId)) {
+        if (String.isNotBlank(workflowDetails.idxRequestId)) {
           workflowDetails.extractedFaceData = fileData;
         }
       }
@@ -236,10 +247,14 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     for (
       OnboardingWorkflowWrapper.FileTypes fileTypeData : workflowDetails.fileTypesList
     ) {
-      if (!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) {
+      if (
+        (!fileTypeData.isImageDraft && !fileTypeData.isImageNotFound) ||
+        (String.isBlank(workflowDetails.idxExtractedFaceId) &&
+        fileTypeData.fileType == 'DAON_FILE_TYPE_EXTRACTED_FACE')
+      ) {
         continue;
       }
-      
+
       OnboardingRequestModel ob = new OnboardingRequestModel();
       ob.requester_sf_id = UserInfo.getUserId();
       OnboardingRequestModel.DAONFile daonFileNode = formRequestBody(
@@ -250,7 +265,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
       ob.daon_file = daonFileNode;
       daonList.add(ob);
     }
-
     return daonList;
   }
 
@@ -262,7 +276,6 @@ public with sharing class OnboardingFalloutWorkflowHelper {
   public static OnboardingRequestModel.PinRecoveryChallenge getPinWorkflowData(
     OnboardingWorkflowWrapper workflowDetails
   ) {
-    OnboardingRequestModel.DAONFile daonFileData = new OnboardingRequestModel.DAONFile();
     OnboardingRequestModel.PinRecoveryChallenge pinRecChallenge = new OnboardingRequestModel.PinRecoveryChallenge();
     pinRecChallenge.idx_challenge_id = workflowDetails.idxRegistrationChallengeId;
     return pinRecChallenge;
@@ -276,30 +289,49 @@ public with sharing class OnboardingFalloutWorkflowHelper {
   public static OnboardingRequestModel.SelfieRecoveryChallenge getSelfieWorkflowData(
     OnboardingWorkflowWrapper workflowDetails
   ) {
-    OnboardingRequestModel.DAONFile daonFileData = new OnboardingRequestModel.DAONFile();
     OnboardingRequestModel.SelfieRecoveryChallenge selfieRecChallenge = new OnboardingRequestModel.SelfieRecoveryChallenge();
     selfieRecChallenge.idx_challenge_type = workflowDetails.idxChallengeType;
-    selfieRecChallenge.idx_challenge_id = getChallengeIdForSelfie(
-      workflowDetails
-    );
+    selfieRecChallenge.idx_challenge_id = workflowDetails.idxRequestId;
     return selfieRecChallenge;
   }
 
   /**
-   * @description get challengeIdForSelfie
-   * @param workflowDetails wrapper details
-   * @return OnboardingRequestModel.DAONFiles inner wrapper with details filled
-   **/
-  public static String getChallengeIdForSelfie(
-    OnboardingWorkflowWrapper workflowDetails
+   * @description insert a log recording details of document fetched and viewed from DAON
+   * @param fileTypesList file nodes list
+   * @param parentRecord Case or COB as a value
+   * @param parentRecordName Case Number or COB PID Name
+   */
+  public static void insertDAONFileViewedLog(
+    List<OnboardingWorkflowWrapper.FileTypes> fileTypesList,
+    String parentRecord,
+    String parentRecordName
   ) {
-    Map<String, String> getChallengeIdVsType = new Map<String, String>{
-       TFMConstants.SELFIE_RECOVERY_CHALLENGE_TYPE => workflowDetails.idxRegistrationChallengeId,
-       TFMConstants.SELFIE_RECOVERY_AUTH_REQUEST => workflowDetails.idxAuthenticationRequestId
-    };
-    if (!getChallengeIdVsType.containsKey(workflowDetails.idxChallengeType)) {
-       return TFMConstants.EMPTY;
+    Boolean filesLoaded = false;
+    if (fileTypesList.isEmpty()) {
+      return;
     }
-    return getChallengeIdVsType.get(workflowDetails.idxChallengeType);
+    for (OnboardingWorkflowWrapper.FileTypes fileType : fileTypesList) {
+      if (fileType.isImageFinalVersion) {
+        filesLoaded = true;
+        break;
+      }
+    }
+
+    if (!filesLoaded) {
+      return;
+    }
+
+    String logMessage =
+      Datetime.now() +
+      ' UserId ' +
+      UserInfo.getUserId() +
+      ' viewed DAON documents on ' +
+      parentRecord +
+      ' Record - ' +
+      parentRecordName +
+      ' Security Classification: CONFIDENTIAL';
+
+    Logger.info(logMessage);
+    Logger.saveLog();
   }
 }

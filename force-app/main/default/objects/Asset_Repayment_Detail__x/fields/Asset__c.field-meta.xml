@@ -6,9 +6,9 @@
     <description>Associated Id of asset</description>
     <externalDeveloperName>AssetId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Asset</label>
     <length>18</length>
     <referenceTo>Asset__x</referenceTo>

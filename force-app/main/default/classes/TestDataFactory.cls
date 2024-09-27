@@ -3,7 +3,7 @@
  * @group Utils
  * Note ExcessivePublicCount Surpressed : The count of the public count here is 25. Since this is a TestDataFactory class,we need to add generic data creation logic so suppressing this wrarning in order to create the pr.
  */
-@SuppressWarnings('PMD.ExcessivePublicCount')
+@SuppressWarnings('PMD.ExcessivePublicCount,PMD.CyclomaticComplexity')
 @isTest
 public without sharing class TestDataFactory {
   public static User thisUser = new User(Id = UserInfo.getUserId());
@@ -175,6 +175,9 @@ public without sharing class TestDataFactory {
       when 'Credit_Referral' {
         newCase = createCreditReferralCase();
       }
+      when 'PayTo_Dispute' {
+        newCase = TestHelper.createPayToDispute();
+      }
     }
     newCase.RecordTypeId = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
       .get(recordTypeDeveloperName)
@@ -182,6 +185,33 @@ public without sharing class TestDataFactory {
     List<String> listDispute = getDisputeReason(recordTypeDeveloperName);
     newCase.Dispute_Reason__c = listDispute == null ? '' : listDispute[0];
     return newCase;
+  }
+
+  /**
+   * @description Populate Recordtype object
+   * @param record SObject record
+   * @param rt RecordType record
+   * @return SObject
+   */
+  public static SObject populateRecordType(SObject record, RecordType rt) {
+    String objString = JSON.serialize(record);
+    Integer index = objString.indexOf('"RecordTypeId":');
+    if (index != -1) {
+      objString = objString.replace(
+        '"RecordTypeId":',
+        '"RecordType":' + JSON.serialize(rt) + ',"RecordTypeId":'
+      );
+    }
+    switch on record.getSObjectType().toString() {
+      when 'Case' {
+        return (Case) JSON.deserialize((objString), Case.class);
+      }
+      when 'Account' {
+        return (Account) JSON.deserialize((objString), Account.class);
+      }
+    }
+
+    return null;
   }
 
   /**
@@ -361,6 +391,11 @@ public without sharing class TestDataFactory {
         'Incorrect Account Details',
         'Incorrect Amount Transferred',
         'Return money received from an unknown person'
+      },
+      'PayTo_Dispute' => new List<String>{
+        'Wrong Amount',
+        'Duplicate Transaction',
+        'Not as per agreement'
       }
     };
     return reasonsByRecordtype.get(recordTypeDeveloperName);
@@ -845,5 +880,94 @@ public without sharing class TestDataFactory {
     //Set status to Final to "publish"
     apTempVer.Status = 'Final';
     update apTempVer;
+  }
+
+  /**
+   * @description Create Loan Account summary test context
+   * @name createLoanAccountSummaryContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createLoanAccountSummaryContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new TestDataFactory.CCRMLoanAccountSummaryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'LoanAccount'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+
+  /**
+   * @description Create Loan Account detail test context
+   * @name createLoanAccountDetailContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createLoanAccountDetailContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new TestDataFactory.CCRMLoanAccountDetailTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContextWithExternalId(
+      'LoanAccount'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMLoanAccountSummaryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_loanAccountResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'ils-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMLoanAccountDetailTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_loanDetailResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'ils-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }

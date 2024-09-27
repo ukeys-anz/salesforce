@@ -50,8 +50,14 @@ export default class cardFraudLock extends LightningElement {
   chatterMessage = "";
   reason = "";
   confirmButtonTriggered = false;
+  confirmButton;
+
+  get isCanceledCard() {
+    return this.buttonClicked === "Cancel Card";
+  }
 
   connectedCallback() {
+    this.confirmButtonTriggered = this.isCanceledCard ? true : false;
     this.displayTeamToContact = showFraudLockOptions(this.buttonClicked);
     this.message = messageHandler(this.buttonClicked);
     this.reason = cardActionReason(this.buttonClicked);
@@ -68,6 +74,26 @@ export default class cardFraudLock extends LightningElement {
       );
       this.newCardStatus = primaryButtonToCardStatus(this.buttonClicked);
     }
+  }
+
+  renderedCallback() {
+    this.confirmButton = this.template.querySelector(
+      'lightning-button[data-id="confirm-button"]'
+    );
+    if (this.confirmButton && this.isCanceledCard) {
+      this.timer();
+    }
+  }
+
+  timer(timeleft = 5) {
+    if (timeleft === 0) {
+      this.confirmButton.label = this.message.label;
+      this.confirmButton.disabled = false;
+      return;
+    }
+    this.confirmButton.label = `${this.message.label} (${timeleft})`;
+    // eslint-disable-next-line @lwc/lwc/no-async-operation
+    setTimeout(() => this.timer(--timeleft), 1000);
   }
 
   @wire(MessageContext)
@@ -154,7 +180,7 @@ export default class cardFraudLock extends LightningElement {
       })
       .catch(() => {
         let errorMessage = `Oh no! There was an issue ${
-          this.buttonClicked === "Cancel Card" ? "cancelling" : "locking"
+          this.isCanceledCard ? "cancelling" : "locking"
         } this card. Please refresh and try again. Raise a fault through TechAssist if the problem persists.`;
 
         publish(this.messageContext, CloseModal, {
@@ -165,7 +191,7 @@ export default class cardFraudLock extends LightningElement {
         });
         this.closeAction();
       });
-    this.confirmButtonTriggered = true;
+    this.confirmButton.disabled = true;
   };
 
   showSuccessToast() {

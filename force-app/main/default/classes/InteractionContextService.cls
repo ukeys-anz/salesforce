@@ -14,6 +14,9 @@ global with sharing class InteractionContextService {
   public static final String DEFAULT_CHAT_FOR = 'Customer';
   public static final String DEFAULT_CHAT_AUTHENTICATED_METHOD = 'Authenticated';
   private static Map<String, String> supportTopicMap = new Map<String, String>();
+  private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
+    InteractionRepository.class
+  );
 
   /**
    * @description HTTP POST method passing incoming interaction context in to Salesforce.
@@ -48,13 +51,10 @@ global with sharing class InteractionContextService {
     //Fetching Valid Support Topic Values and Create the map to verify the callOrChatStatus received from Twilio
     populateSupportTopicMap();
 
-    //For Creating List of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
-    if (!callOrChatSidList.isEmpty()) {
-      queryExistingInteractionFromCallOrChatSID(
-        callOrChatSidList,
-        existingInteractionsBySID
-      );
-    }
+    //For Creating Map of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
+    existingInteractionsBySID = INTERACTION_REPOSITORY.queryExistingInteractionFromCallOrChatSID(
+      callOrChatSidList
+    );
 
     //Finding available accounts based on OCV Id received from Twilio to populate in Interaction
     if (!requestByOCVId.isEmpty()) {
@@ -464,29 +464,6 @@ global with sharing class InteractionContextService {
       return supportTopicMap.get(issueSubType.toLowerCase());
     } else {
       return 'Support Enquiry';
-    }
-  }
-
-  /**
-   * @description query existing Interaction Record
-   * @param callOrChatSidList Set<String> containing callOrChatSid from Interaction
-   * @param existingInteractionsBySID Map<String, Interaction>
-   */
-  private static void queryExistingInteractionFromCallOrChatSID(
-    Set<String> callOrChatSidList,
-    Map<String, Interaction> existingInteractionsBySID
-  ) {
-    for (Interaction interact : [
-      SELECT
-        Id,
-        Interaction_External_Id__c,
-        Account.OCV_ID__c,
-        Chat_or_Call_SID__c
-      FROM Interaction
-      WHERE Chat_or_Call_SID__c IN :callOrChatSidList
-      WITH SECURITY_ENFORCED
-    ]) {
-      existingInteractionsBySID.put(interact.Chat_or_Call_SID__c, interact);
     }
   }
 

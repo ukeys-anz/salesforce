@@ -6,10 +6,9 @@
     <description>Account status on CAP</description>
     <externalDeveloperName>AccountStatus</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Account status on CAP</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Account Status</label>
     <length>255</length>
     <required>false</required>

@@ -13,6 +13,7 @@ public with sharing class AutoKYCQACaseActions {
     ProfileStagingHandler.class
   );
 
+  private static final String ERROR_SAME_OWNER_IDOPS = 'Cannot have the same owner as the ID Ops Case';
   @TestVisible
   private static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
   @TestVisible
@@ -77,15 +78,14 @@ public with sharing class AutoKYCQACaseActions {
   public static void populateAutoKYCQAChecks(List<Case> cases) {
     Logger.debug('Set KYC QA fields from COB App started: ' + System.now());
 
-    cases = ListUtil.filterNoError(cases);
-    Map<String, Case> personaIdToCaseMap = (Map<String, Case>) ListUtil.mapByString(
+    Map<String, Case> personaIdToCaseMap = (Map<String, Case>) ListUtil.mapBy(
       cases,
       Case.PersonaId__c
     );
     List<CustomerOnboardingApplication__c> cobApps = REPOSITORY.queryCobsByPersonaIds(
       personaIdToCaseMap.keySet()
     );
-    Map<String, CustomerOnboardingApplication__c> cobMap = (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapByString(
+    Map<String, CustomerOnboardingApplication__c> cobMap = (Map<String, CustomerOnboardingApplication__c>) ListUtil.mapBy(
       cobApps,
       CustomerOnboardingApplication__c.PersonaId__c
     );
@@ -284,7 +284,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerAccount(List<Case> cases) {
-    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       cases,
       Case.AccountId
     );
@@ -306,7 +306,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    */
   public static void validateDuplicateKYCQACasePerCOBApp(List<Case> cases) {
-    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    Map<Id, Case> cobAppIdAndCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       cases,
       Case.CustomerOnboardingApplication__c
     );
@@ -371,8 +371,13 @@ public with sharing class AutoKYCQACaseActions {
    * @param oldMap Old Map of Cases
    */
   public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
-    List<Case> casesToDowngrade = filterDowngradeCases(cases, oldMap);
-    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    List<Case> casesToDowngrade = ListUtil.filter(cases, oldMap)
+      .allNotNull(TEST_FIELDS)
+      .anyEqual(TEST_FIELDS, NO)
+      .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
+      .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
+      .toList();
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToDowngrade,
       Case.AccountId
     );
@@ -385,45 +390,6 @@ public with sharing class AutoKYCQACaseActions {
     );
     PROFILE_STAGING_HANDLER
       .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
-  }
-
-  /**
-   * @description Filter Cases to Downgrade
-   * @param cases List of Cases
-   * @param oldMap Old Map of Cases
-   * @return List of Downgrade Cases
-   */
-  @TestVisible
-  private static List<Case> filterDowngradeCases(
-    List<Case> cases,
-    Map<Id, Case> oldMap
-  ) {
-    List<Case> casesToDowngrade = new List<Case>();
-    for (Case kycQaCase : cases) {
-      Case oldCase = oldMap.get(kycQaCase.Id);
-      if (
-        hasKycCheckCompletedWithDefect(kycQaCase) == true &&
-        checkValidStatusForDowngrade(kycQaCase, oldCase)
-      ) {
-        casesToDowngrade.add(kycQaCase);
-      }
-    }
-    return casesToDowngrade;
-  }
-
-  /**
-   * @description Check if the KYC QA Case status change is valid
-   * @param kycQaCase KYC QA Case
-   * @param oldCase Old Cases
-   * @return True if the KYC QA Case has a valid status, false otherwise
-   */
-  @TestVisible
-  private static Boolean checkValidStatusForDowngrade(
-    Case kycQaCase,
-    Case oldCase
-  ) {
-    return DOWNGRADE_OLD_STATUSES.contains(oldCase.Status) &&
-      DOWNGRADE_NEW_STATUSES.contains(kycQaCase.Status);
   }
 
   /**
@@ -465,8 +431,11 @@ public with sharing class AutoKYCQACaseActions {
    * @param oldMap Old Map of Cases
    */
   public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
-    List<Case> casesToUpgrade = filterUpgradeCases(cases, oldMap);
-    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapById(
+    List<Case> casesToUpgrade = ListUtil.filter(cases, oldMap)
+      .equals(Case.Fraud_Defects_Rectified__c, YES)
+      .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
+      .toList();
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToUpgrade,
       Case.AccountId
     );
@@ -487,31 +456,6 @@ public with sharing class AutoKYCQACaseActions {
     );
     PROFILE_STAGING_HANDLER
       .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
-  }
-
-  /**
-   * @description Filter Cases to Upgrade
-   * @param cases List of Cases
-   * @param oldMap Old Map of Cases
-   * @return List of Upgrade Cases - initial list
-   */
-  @TestVisible
-  private static List<Case> filterUpgradeCases(
-    List<Case> cases,
-    Map<Id, Case> oldMap
-  ) {
-    List<Case> casesToUpgrade = new List<Case>();
-    for (Case kycQaCase : cases) {
-      Case oldCase = oldMap.get(kycQaCase.Id);
-      if (
-        kycQaCase.Fraud_Defects_Rectified__c == YES &&
-        kycQaCase.Status != oldCase.Status &&
-        kycQaCase.Status == GetHelpConstants.CLOSED_STATUS
-      ) {
-        casesToUpgrade.add(kycQaCase);
-      }
-    }
-    return casesToUpgrade;
   }
 
   /**
@@ -590,6 +534,49 @@ public with sharing class AutoKYCQACaseActions {
     Boolean wasDowngraded =
       hasKycCheckCompletedWithDefect(record) &&
       record.Fraud_Defects_Rectified__c == YES;
-    return closedAsNoDefect && !wasDowngraded && !record.hasErrors();
+    return closedAsNoDefect && !wasDowngraded;
+  }
+
+  /**
+   * @description Validates the owner change for a list of Case records.
+   * @param cases The list of Case records to validate.
+   * @param oldMap The map of old Case records, with record Ids as keys.
+   */
+  public static void validateOwnerChange(
+    List<Case> cases,
+    Map<Id, Case> oldMap
+  ) {
+    cases = ListUtil.filter(cases, oldMap).changed(Case.OwnerId).toList();
+    Set<Id> cobIds = ListUtil.getIds(
+      cases,
+      Case.CustomerOnboardingApplication__c
+    );
+    Map<Id, CustomerOnboardingApplication__c> cobMap = new Map<Id, CustomerOnboardingApplication__c>(
+      REPOSITORY.queryCobsWithLatestIdOpsCase(cobIds)
+    );
+    preventSameOwnerAsIdOpsCases(cases, cobMap);
+  }
+
+  /**
+   * @description Prevents Case records from having the same owner as the ID Ops Case.
+   * @param cases The list of Case records to validate.
+   * @param cobMap The map of CustomerOnboardingApplication__c records, with record Ids as keys.
+   */
+  @TestVisible
+  private static void preventSameOwnerAsIdOpsCases(
+    List<Case> cases,
+    Map<Id, CustomerOnboardingApplication__c> cobMap
+  ) {
+    for (Case record : cases) {
+      CustomerOnboardingApplication__c cob = cobMap.get(
+        record.CustomerOnboardingApplication__c
+      );
+      if (cob == null || cob.Cases__r.isEmpty()) {
+        continue;
+      }
+      if (cob.Cases__r[0].OwnerId == record.OwnerId) {
+        record.addError(ERROR_SAME_OWNER_IDOPS);
+      }
+    }
   }
 }
