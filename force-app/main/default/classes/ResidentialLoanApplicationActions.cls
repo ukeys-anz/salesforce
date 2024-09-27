@@ -304,7 +304,7 @@ public with sharing class ResidentialLoanApplicationActions {
     }
   }
 
-  /* @description cancelResidentialLoanApplication cancels residential loan application
+  /** @description cancelResidentialLoanApplication cancels residential loan application
    * @param rlaObject map of residential loan application fields
    * @return response from mule
    */
