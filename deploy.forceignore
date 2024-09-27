@@ -141,7 +141,7 @@ force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-m
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
 force-app/main/default/objects/Case/listViews/Deceased_Estate_Cases.listView-meta.xml
-force-app/main/default/objects/Case/Home_Loan_Pricing_Requests.listView-meta.xml
+force-app/main/default/objects/Case/listViews/Home_Loan_Pricing_Requests.listView-meta.xml
 
 #ignore to allow linting
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
