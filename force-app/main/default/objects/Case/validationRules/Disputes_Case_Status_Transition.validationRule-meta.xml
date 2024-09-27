@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Disputes_Case_Status_Transition</fullName>
+    <active>true</active>
+    <description>To prevent the case status transition (Closed → Open)</description>
+    <errorConditionFormula>AND( 
+    NOT($Setup.Salesforce_Library_Settings__c.Disable_VRs__c),
+    OR(
+        AND(RecordType.DeveloperName  = &apos;NPP_Dispute&apos;,
+            ISPICKVAL(Dispute_Reason__c,&apos;Unauthorised Transaction&apos;)),
+        RecordType.DeveloperName  = &apos;Direct_Debit_Dispute&apos;,
+        RecordType.DeveloperName  = &apos;Direct_Entry_Dispute&apos;,
+        RecordType.DeveloperName  = &apos;BPAY_Dispute&apos;,
+        RecordType.DeveloperName  = &apos;PayTo_Dispute&apos;),
+    ISCHANGED(Status),     
+    ISPICKVAL(PRIORVALUE(Status), &apos;Closed&apos;),
+    ISPICKVAL(Status,&apos;Open&apos;))</errorConditionFormula>
+    <errorMessage>Cannot move a case from Closed to Open, if you have closed the case in error, please move the case back to &apos;Under Investigation&apos; or &apos;On Hold&apos;</errorMessage>
+</ValidationRule>

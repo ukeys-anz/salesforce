@@ -2525,12 +2525,12 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-              <isActive>true</isActive>
-              <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-              <level>2.0</level>
-              <name>thirdPartyCompanyName</name>
-              <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-              <propertySetConfig>{
+                <name>thirdPartyCompanyName</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
 &quot;disOnTplt&quot; : false,
 &quot;hide&quot; : false,
 &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -2565,9 +2565,9 @@
 &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
 &quot;controlWidth&quot; : 3
 }</propertySetConfig>
-              <sequenceNumber>35.0</sequenceNumber>
-              <type>Text</type>
-          </childElements>
+                <sequenceNumber>35.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
             <childElements>
                 <name>thirdPartyCountry</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>

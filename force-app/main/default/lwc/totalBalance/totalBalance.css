@@ -37,16 +37,6 @@
   --sds-c-icon-color-foreground-default: #014486;
 }
 
-.close-modal {
-  cursor: pointer;
-  --sds-c-icon-color-foreground-default: #fff;
-}
-
-.modal-header {
-  background: #014486;
-  color: #fff;
-}
-
 .card-title-header {
   width: 100%;
   padding: 0.5rem;

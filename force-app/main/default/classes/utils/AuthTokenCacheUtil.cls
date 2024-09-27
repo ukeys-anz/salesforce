@@ -153,10 +153,8 @@ public with sharing class AuthTokenCacheUtil {
   @testVisible
   private static String refreshIdToken(String existingRefreshToken) {
     Id userId = UserInfo.getUserId();
-    User user = new User(Id = userId);
     String idToken;
     String refreshToken;
-    HTTPResponse res;
     try {
       AuthRepository authRepo = new AuthRepository();
       IdentityModel idenModel = authRepo.getRefreshIdToken(
@@ -245,7 +243,9 @@ public with sharing class AuthTokenCacheUtil {
         STAFFPART +
         getHashedKey(
           'forgeJWTToken' +
-            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue) +
+            TextUtils.removeNonAlphanumericChar(
+              staffModelWrapper.idValue ?? ''
+            ) +
             staffModelWrapper.apiScopesRequested
         )
       );
@@ -274,7 +274,9 @@ public with sharing class AuthTokenCacheUtil {
         STAFFPART +
         getHashedKey(
           'forgeJWTToken' +
-            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue) +
+            TextUtils.removeNonAlphanumericChar(
+              staffModelWrapper.idValue ?? ''
+            ) +
             staffModelWrapper.apiScopesRequested
         ),
         staffToken,

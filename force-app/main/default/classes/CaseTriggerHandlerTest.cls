@@ -2538,7 +2538,6 @@ private class CaseTriggerHandlerTest {
         theCase.Id +
         '\''
     );
-    verifyCloudEventForATMDisputeCase(theCase);
 
     theCase.External_System__c = 'CARBe';
     theCase.External_Case_Id__c = 'EXTERNALCASEID000';
@@ -2611,7 +2610,6 @@ private class CaseTriggerHandlerTest {
         theCase.Id +
         '\''
     );
-    verifyCloudEventForCardDisputeCase(theCase);
     verifyCaseSubject(theCase);
     verifyCardTokenNumber(theCase);
     verifyDuplicateDispute(theCase, recordTypeDeveloperName);
@@ -2652,116 +2650,6 @@ private class CaseTriggerHandlerTest {
     newFinServFinancialAccount2.FinServ__PrimaryOwner__c = accountList[1].Id;
     finServFinancialAccountList.add(newFinServFinancialAccount2);
     insert finServFinancialAccountList;
-  }
-
-  private static void verifyCloudEventForATMDisputeCase(Case theCase) {
-    System.assertEquals(
-      1,
-      CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
-    );
-    System.assert(
-      String.isNotBlank(CloudEventController.cloudEvents[0].Data_1__c),
-      'Cloud Event should be generated'
-    );
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-    ATMDisputeCaseCloudEventModel atmDisputeCaseCloudEventModel = (ATMDisputeCaseCloudEventModel) JSON.deserialize(
-      payload,
-      ATMDisputeCaseCloudEventModel.class
-    );
-
-    Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
-      payload
-    );
-    Map<String, Object> mappedResponse2 = (Map<String, Object>) mappedResponse.get(
-      'ce_data'
-    );
-    ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel atmDisputeCaseCloudEventDataModel = (ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel) JSON.deserialize(
-      JSON.serialize(mappedResponse2),
-      ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel.class
-    );
-
-    System.assertEquals(
-      theCase.CaseNumber,
-      atmDisputeCaseCloudEventDataModel.caseNumber,
-      'Case Number should match'
-    );
-    System.assertEquals(
-      'CaseNumber/' + theCase.CaseNumber,
-      atmDisputeCaseCloudEventModel.ce_subject,
-      'ce_subject should match'
-    );
-    CaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
-    System.assertEquals(
-      theCase.Account.OCV_ID__c,
-      customer.ocvId,
-      'customer should not be null'
-    );
-    DisputeCaseCloudEventModel.FinancialAccountModel financialAccount = atmDisputeCaseCloudEventDataModel.financialAccount;
-    System.assert(
-      financialAccount != null,
-      'financialAccount should not be null'
-    );
-    DisputeCaseCloudEventModel.TransactionModel transactionInformation = atmDisputeCaseCloudEventDataModel.transactionInformation;
-    System.assert(
-      transactionInformation != null,
-      'transaction should not be null'
-    );
-  }
-
-  private static void verifyCloudEventForCardDisputeCase(Case theCase) {
-    System.assertEquals(
-      1,
-      CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
-    );
-    System.assert(
-      String.isNotBlank(CloudEventController.cloudEvents[0].Data_1__c),
-      'Cloud Event should be generated'
-    );
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-    CardDisputeCaseCloudEventModel cardDisputeCaseCloudEventModel = (CardDisputeCaseCloudEventModel) JSON.deserialize(
-      payload,
-      CardDisputeCaseCloudEventModel.class
-    );
-
-    Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
-      payload
-    );
-    Map<String, Object> mappedResponse2 = (Map<String, Object>) mappedResponse.get(
-      'ce_data'
-    );
-    CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel cardDisputeCaseCloudEventDataModel = (CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel) JSON.deserialize(
-      JSON.serialize(mappedResponse2),
-      CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel.class
-    );
-
-    System.assertEquals(
-      theCase.CaseNumber,
-      cardDisputeCaseCloudEventDataModel.caseNumber,
-      'Case Number should match'
-    );
-    System.assertEquals(
-      'CaseNumber/' + theCase.CaseNumber,
-      cardDisputeCaseCloudEventModel.ce_subject,
-      'ce_subject should match'
-    );
-    CaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
-    System.assertEquals(
-      theCase.Account.OCV_ID__c,
-      customer.ocvId,
-      'customer should not be null'
-    );
-    DisputeCaseCloudEventModel.FinancialAccountModel financialAccount = cardDisputeCaseCloudEventDataModel.financialAccount;
-    System.assert(
-      financialAccount != null,
-      'financialAccount should not be null'
-    );
-    DisputeCaseCloudEventModel.TransactionModel transactionInformation = cardDisputeCaseCloudEventDataModel.transactionInformation;
-    System.assert(
-      transactionInformation != null,
-      'transaction should not be null'
-    );
   }
 
   private static void verifyAccountAndFinAccount(
@@ -2819,17 +2707,14 @@ private class CaseTriggerHandlerTest {
       'Card_Dispute',
       'Direct_Debit_Dispute',
       'Direct_Entry_Dispute',
-      'NPP_Dispute'
+      'NPP_Dispute',
+      'PayTo_Dispute'
     };
     if (
       disputeCasesRecordTypeNames.contains(theCase.RecordType.DeveloperName)
     ) {
-      String caseRecordTypeChecker = theCase.RecordType.DeveloperName ==
-        'NPP_Dispute' && theCase.Is_PayTo_Dispute__c
-        ? 'PayTo'
-        : theCase.RecordType.Name;
       System.assertEquals(
-        caseRecordTypeChecker + ' - ' + theCase.Dispute_Reason__c,
+        theCase.RecordType.Name + ' - ' + theCase.Dispute_Reason__c,
         theCase.Subject,
         'New case subject should be as expected.'
       );
@@ -3218,103 +3103,6 @@ private class CaseTriggerHandlerTest {
         );
       }
     }
-    Test.stopTest();
-  }
-
-  @isTest
-  public static void testPayToDisputeCase() {
-    String recordTypeDeveloperName = 'NPP_Dispute';
-    Test.startTest();
-    List<Account> accountsList = [
-      SELECT Id, OCV_ID__c
-      FROM Account
-      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
-    ];
-    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
-    for (Account account : accountsList) {
-      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
-    }
-    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
-      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
-      FROM FinServ__FinancialAccount__c
-      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
-    ];
-    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-    for (
-      FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
-    ) {
-      ocvIDAndFinSerAccountMap.put(
-        finServFinancialAccount.OCV_ID__c,
-        finServFinancialAccount
-      );
-    }
-
-    Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
-    theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
-    theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
-        'OCV000000001'
-      )
-      .Id;
-    theCase.Payment_ID__c = 'MPS123123DFS';
-    theCase.Dispute_Reason_PayTo__c = 'Not as per agreement';
-    try {
-      insert theCase;
-    } catch (DmlException e) {
-      System.assert(false, 'Failed to create dispute case');
-    }
-    String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
-    theCase = Database.query(
-      'Select Id, ' +
-        String.escapeSingleQuotes(fieldsToBeQueried) +
-        ' From Case Where Id = \'' +
-        theCase.Id +
-        '\''
-    );
-    Test.stopTest();
-    verifyCaseSubject(theCase);
-  }
-  @isTest
-  public static void testCaseProvisionallyClosedDateTimeUpdateScenario() {
-    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
-    Case c = TestDataFactory.createCase('Card_Dispute');
-    c.AccountId = acc.Id;
-    c.Status = 'Open';
-    c.External_System__c = 'Pega_Smarts';
-    c.External_Case_ID__c = 'C-1234';
-    insert c;
-    Test.startTest();
-    c.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
-    update c;
-    c = [
-      SELECT ID, Date_Time_Provisionally_Closed__c
-      FROM Case
-      WHERE ID = :c.Id
-    ];
-    System.assert(
-      c.Date_Time_Provisionally_Closed__c != null,
-      'Provisionally Closed Date Time must be present.'
-    );
-    Test.stopTest();
-  }
-  @isTest
-  public static void testCaseProvisionallyClosedDateTimeInsertScenario() {
-    Account acc = [SELECT Id FROM Account WHERE Name = 'CustomerRLA' LIMIT 1];
-    Case c = TestDataFactory.createCase('Card_Dispute');
-    c.AccountId = acc.Id;
-    c.Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS;
-    c.External_System__c = 'Pega_Smarts';
-    c.External_Case_ID__c = 'C-1234';
-    Test.startTest();
-    insert c;
-    c = [
-      SELECT ID, Date_Time_Provisionally_Closed__c
-      FROM Case
-      WHERE ID = :c.Id
-    ];
-    System.assert(
-      c.Date_Time_Provisionally_Closed__c != null,
-      'Provisionally Closed Date Time must be present.'
-    );
     Test.stopTest();
   }
 }

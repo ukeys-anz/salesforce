@@ -103,6 +103,16 @@
                 <default>false</default>
                 <label>Update Signing Authority</label>
             </value>
+            <value>
+                <fullName>TYPE_REVERIFY_KYC</fullName>
+                <default>false</default>
+                <label>Re-Verify KYC</label>
+            </value>
+            <value>
+                <fullName>TYPE_SET_LOAN_OFFSET_ACCOUNT</fullName>
+                <default>false</default>
+                <label>Set Loan Offset Account</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

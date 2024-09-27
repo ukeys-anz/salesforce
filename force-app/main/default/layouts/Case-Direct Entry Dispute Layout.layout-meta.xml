@@ -319,6 +319,18 @@
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
+        <excludeButtons>New</excludeButtons>
+        <fields>NAME</fields>
+        <fields>External_Status__c</fields>
+        <fields>Internal_Description__c</fields>
+        <fields>Status_Timestamp__c</fields>
+        <fields>New_Customer_Message__c</fields>
+        <relatedList>External_Case_Status__c.Case__c</relatedList>
+        <sortField>Status_Timestamp__c</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>MassChangeOwner</excludeButtons>
         <fields>NAME</fields>
         <fields>Interaction_Type__c</fields>
         <fields>Interaction_Owner__c</fields>

@@ -2191,6 +2191,8 @@
       "IA-2415999": [
         "Case__c",
         "Customer_Message__c",
+        "Customer_Status__c",
+        "New_Customer_Message__c",
         "External_Status__c",
         "Internal_Description__c",
         "Is_Outcome_in_Customer_Favour__c",
@@ -2475,6 +2477,7 @@
         "CaseId__c",
         "Channel_Booked__c",
         "Chat_or_Call_SID__c",
+        "Chat_or_Call_SID_Formula__c",
         "Coaching_Summary__c",
         "Comment__c",
         "Contact_Mobile__c",
@@ -3906,7 +3909,8 @@
         "Needs_Assessment_Last_Updated_Date__c",
         "Needs_Assessment_Created_Date__c",
         "Owner_Name__c",
-        "RecordTypeId"
+        "RecordTypeId",
+        "Is_SOP_Ineligible__c"
       ],
       "IA-2594111": [
         "AccountId",

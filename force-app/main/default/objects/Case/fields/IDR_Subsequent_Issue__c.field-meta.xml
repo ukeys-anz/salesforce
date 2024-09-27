@@ -421,7 +421,7 @@
                 <default>false</default>
                 <label>Fraud / Falcon block placed</label>
             </value>
-			<value>
+            <value>
                 <fullName>115</fullName>
                 <default>false</default>
                 <label>Default judgement obtained</label>
@@ -646,7 +646,7 @@
             <controllingFieldValue>Know Your Customer</controllingFieldValue>
             <valueName>110</valueName>
         </valueSettings>
-		 <valueSettings>
+        <valueSettings>
             <controllingFieldValue>22</controllingFieldValue>
             <valueName>116</valueName>
         </valueSettings>
@@ -670,7 +670,7 @@
             <controllingFieldValue>22</controllingFieldValue>
             <valueName>121</valueName>
         </valueSettings>
-		<valueSettings>
+        <valueSettings>
             <controllingFieldValue>17</controllingFieldValue>
             <valueName>115</valueName>
         </valueSettings>

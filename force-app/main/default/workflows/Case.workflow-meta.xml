@@ -108,7 +108,7 @@
             <name>Case_SLA_Stop</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Case.Status</field>
             <operation>equals</operation>
@@ -123,7 +123,7 @@
             <name>Case_SLA_Start</name>
             <type>FieldUpdate</type>
         </actions>
-        <active>true</active>
+        <active>false</active>
         <criteriaItems>
             <field>Case.Status</field>
             <operation>notEqual</operation>

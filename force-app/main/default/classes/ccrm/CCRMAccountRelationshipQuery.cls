@@ -108,8 +108,8 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        relationship.compositeAccountRelationshipId
+          '/' +
+          relationship.compositeAccountRelationshipId
       );
       row.put(this.parent, this.parentId);
       row.put('RelatedPartyNames', relationship.relatedPartyCustomerId);
