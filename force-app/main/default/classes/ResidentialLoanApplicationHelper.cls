@@ -7,6 +7,9 @@ public with sharing class ResidentialLoanApplicationHelper {
   private static final ResidentialLoanApplicationRepository LOAN_APPLICATION_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   /**
    * @description overwrite property address and value from sop with SF property record values
@@ -66,5 +69,45 @@ public with sharing class ResidentialLoanApplicationHelper {
       }
     }
     return assets;
+  }
+
+  /**
+   * @description update fields on residential loan application cancellation
+   * @param fieldInfo map of fields to update
+   */
+  public static void updateFieldsOnLoanCancellation(
+    Map<String, String> fieldInfo
+  ) {
+    ResidentialLoanApplication loanApplication = new ResidentialLoanApplication();
+    loanApplication.Id = fieldInfo.get('recordId');
+    loanApplication.Cancellation_Reason__c = fieldInfo.get(
+      'Cancellation_Reason__c'
+    );
+    loanApplication.Other_Cancellation_Reason__c = fieldInfo.get(
+      'Other_Cancellation_Reason__c'
+    );
+    DML_REPOSITORY.doUpdate(loanApplication, new DmlConfig());
+  }
+
+  /**
+   * @description postNotesToChatter post notes to chatter
+   * @param fieldInfo map of fields to update
+   */
+  public static void postNotesToChatter(Map<String, String> fieldInfo) {
+    String postContent =
+      'Reason: ' +
+      fieldInfo.get('Cancellation_Reason__c') +
+      '<p>&nbsp;</p> Notes: ' +
+      fieldInfo.get('Notes') +
+      '<p>&nbsp;</p> Other Reason: ' +
+      fieldInfo.get('Other_Cancellation_Reason__c');
+    if (String.isBlank(fieldInfo.get('Other_Cancellation_Reason__c'))) {
+      postContent = postContent.replace('<p>&nbsp;</p> Other Reason: null', '');
+    }
+    ChatterUtils.makeAPost(
+      fieldInfo.get('recordId'),
+      postContent,
+      ChatterUtils.POST_TYPE_RICH_TEXT
+    );
   }
 }

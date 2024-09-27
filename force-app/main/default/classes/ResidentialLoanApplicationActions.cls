@@ -39,6 +39,12 @@ public with sharing class ResidentialLoanApplicationActions {
     }
     return BrokerSettings__c.getOrgDefaults();
   }
+  private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
+    ResidentialLoanApplicationRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   /**
    * @description get Home Loan Applications Queue
@@ -298,6 +304,33 @@ public with sharing class ResidentialLoanApplicationActions {
     }
   }
 
+  /* @description cancelResidentialLoanApplication cancels residential loan application
+   * @param rlaObject map of residential loan application fields
+   * @return response from mule
+   */
+  @AuraEnabled
+  public static String cancelResidentialLoanApplication(
+    Map<String, String> rlaObject
+  ) {
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      HttpCalloutResponse response = rlaRepo.cancelResidentialLoanApp(
+        rlaObject.get('requestId'),
+        rlaObject.get('ocvId')
+      );
+      if (response.statusCode != 200) {
+        return response.error.getMessage();
+      }
+      ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
+        rlaObject
+      );
+      ResidentialLoanApplicationHelper.postNotesToChatter(rlaObject);
+      return 'success';
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
+  }
+
   /**
    * @description Evaluates and filters out the applications which have Blocked Sync Status
    * @author  Deepro De | Salesforce | 05-30-2024
@@ -320,5 +353,94 @@ public with sharing class ResidentialLoanApplicationActions {
       filteredList.add(eachRecord);
     }
     return filteredList;
+  }
+
+  /** @description update Status field on Case to cancel if related RLA has cancelled status
+   * @param newRlaRecords  Residential Loan application records from trigger on insert/update
+   * @param  oldRlaRecords  Holds records information before update
+   */
+  public static void cancelRelatedCreditReferralCases(
+    Map<Id, ResidentialLoanApplication> newRlaRecords,
+    Map<Id, ResidentialLoanApplication> oldRlaRecords
+  ) {
+    try {
+      Set<Id> rlaRecordIds = filterRlaAndReturnCancelledStatusRecords(
+        newRlaRecords.values(),
+        oldRlaRecords
+      );
+
+      List<Case> masterCaseList = RLA_REPOSITORY.queryRelatedCreditReferralCases(
+        rlaRecordIds
+      );
+
+      List<Case> caseRecordsToBeUpdated = prepareCaseWithFieldsUpdate(
+        masterCaseList,
+        newRlaRecords
+      );
+
+      DML_REPOSITORY.doUpdate(
+        caseRecordsToBeUpdated,
+        new DmlConfig().systemMode()
+      );
+    } catch (Exception objException) {
+      Logger.error('Error in ResidentialLoanApplicationActions ', objException);
+      Logger.saveLog();
+    }
+  }
+
+  /**
+   * @description prepareCaseWithFieldsUpdate prepare Case record's field value which needs to be updated
+   * @param masterCaseList master list of Case with all the related detail
+   * @param newRlaRecords Map of RLAs with updated fields
+   * @return List<Case>  Case records with status value as expired and sub status field value as Customer Cancelled.
+   */
+  @TestVisible
+  private static List<Case> prepareCaseWithFieldsUpdate(
+    List<Case> masterCaseList,
+    Map<Id, ResidentialLoanApplication> newRlaRecords
+  ) {
+    if (masterCaseList.isEmpty()) {
+      return new List<Case>();
+    }
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+    for (Case caseRecord : masterCaseList) {
+      if (
+        newRlaRecords.get(caseRecord.Loan_Application__c)
+          .Cancellation_Reason__c ==
+        GetHelpConstants.RLA_CANCELLATION_REASON_CREDIT_ASSESMENT_EXPIRED
+      ) {
+        caseRecord.Status = GetHelpConstants.CLOSED_EXPIRED_STATUS;
+      } else {
+        caseRecord.Status = GetHelpConstants.CLOSED_CANCELLED_STATUS;
+      }
+      caseRecordsToBeUpdated.add(caseRecord);
+    }
+    return caseRecordsToBeUpdated;
+  }
+
+  /**
+   * @description To filter out the RLA records with Cancelled status
+   * @param newRlaRecords Residential Loan application records from trigger on update
+   * @param oldRlaRecords Holds records information before update
+   * @return Residential Loan Application records with Cancelled status to process
+   */
+  @TestVisible
+  public static Set<Id> filterRlaAndReturnCancelledStatusRecords(
+    List<ResidentialLoanApplication> newRlaRecords,
+    Map<Id, ResidentialLoanApplication> oldRlaRecords
+  ) {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    for (ResidentialLoanApplication rlaRecord : newRlaRecords) {
+      if (
+        (RecordComparisonUtil.fieldWasChanged(
+          rlaRecord,
+          oldRlaRecords.get(rlaRecord.Id),
+          ResidentialLoanApplication.Status
+        )) && (rlaRecord.Status == GetHelpConstants.RLA_STATUS_CANCELLED)
+      ) {
+        rlaRecordIds.add(rlaRecord.Id);
+      }
+    }
+    return rlaRecordIds;
   }
 }

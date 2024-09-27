@@ -80,4 +80,23 @@ public with sharing class ResidentialLoanApplicationRepository {
       WHERE Id = :recordId
     ];
   }
+
+  /**
+   * @description
+   * @param rlaRecordIds set of RLA ids
+   * @return  `List<Case>` Cases related to the RLAs
+   */
+  public List<Case> queryRelatedCreditReferralCases(Set<Id> rlaRecordIds) {
+    if (rlaRecordIds.isEmpty() || !PermissionUtils.canQuery('Case')) {
+      return new List<Case>();
+    }
+    return [
+      SELECT Id, Loan_Application__c
+      FROM Case
+      WHERE
+        Loan_Application__c IN :rlaRecordIds
+        AND RecordTypeId = :RTCase.creditReferral
+        AND IsClosed = FALSE
+    ];
+  }
 }
