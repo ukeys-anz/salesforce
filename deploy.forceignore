@@ -268,6 +268,7 @@ force-app/main/default/objects/Case/listViews/IDR_Hardship_Case.listView-meta.xm
 force-app/main/default/objects/Case/listViews/IDR_Home_Owners_Case.listView-meta.xml
 force-app/main/default/objects/Case/listViews/IDR_Incident_Management_Case.listView-meta.xml
 force-app/main/default/objects/Case/listViews/IDR_Responsible_Lending_Case.listView-meta.xml
+force-app/main/default/objects/Case/listViews/Home_Loan_Pricing_Requests.listView-meta.xml
 force-app/main/default/objects/Case/listViews/IDR_Satellite_Case.listView-meta.xml
 force-app/main/default/objects/Case/listViews/IDR_Spare_Case.listView-meta.xml
 force-app/main/default/objects/Case/listViews/IDR_Wealth_Case.listView-meta.xml
