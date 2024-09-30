@@ -1088,6 +1088,7 @@ public with sharing class GetHelpCaseActions {
     extCaseStatusRecord.Internal_Description__c = metadetaRecord.Internal_Description__c;
     extCaseStatusRecord.Customer_Status__c = metadetaRecord.Customer_Status__c;
     extCaseStatusRecord.New_Customer_Message__c = metadetaRecord.Customer_Message__c;
+    extCaseStatusRecord.Status_Timestamp__c = DateTime.now();
     extCaseStatusRecord.Status_Event_ID__c =
       caseRecord.CaseNumber +
       '_' +
