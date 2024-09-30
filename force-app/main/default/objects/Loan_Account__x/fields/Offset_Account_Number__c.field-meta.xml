@@ -6,10 +6,9 @@
     <description>Linked offset account number for this loan</description>
     <externalDeveloperName>OffsetAccountNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Linked offset account number for this loan</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Offset Account Number</label>
     <length>255</length>
     <required>false</required>

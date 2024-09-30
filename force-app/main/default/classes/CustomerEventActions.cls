@@ -1,8 +1,8 @@
 /**
  * @description       : Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-17-2024
- * @last modified by  : Madhuri Edke | Salesforce
+ * @last modified on  : 09-27-2024
+ * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 public with sharing class CustomerEventActions {
   public static final String CUSTOMER_EVENT_UPDATE = 'update';
@@ -21,9 +21,12 @@ public with sharing class CustomerEventActions {
     String triggerContext
   ) {
     try {
-      List<Account> accBasedOnOCVVersion = validateOCVVersion(records, oldMap);
+      List<Account> accBasedOnOCVVersion = filterOCVVersionUpdate(
+        records,
+        oldMap
+      );
 
-      List<Account> filteredAccounts = validateSyncStatus(
+      List<Account> filteredAccounts = filterBrokerOrgSyncStatus(
         accBasedOnOCVVersion,
         oldMap
       );
@@ -57,7 +60,7 @@ public with sharing class CustomerEventActions {
    * @return List<Account> The account records that has a valid sync status.
    */
   @TestVisible
-  private static List<Account> validateSyncStatus(
+  private static List<Account> filterBrokerOrgSyncStatus(
     List<Account> records,
     Map<Id, Account> oldMap
   ) {
@@ -82,7 +85,7 @@ public with sharing class CustomerEventActions {
    * @return List<Account> The account records that has a valid OCV Version.
    */
   @TestVisible
-  private static List<Account> validateOCVVersion(
+  private static List<Account> filterOCVVersionUpdate(
     List<Account> records,
     Map<Id, Account> oldMap
   ) {

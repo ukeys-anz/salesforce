@@ -1096,7 +1096,7 @@
     </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Case.ANZx_Complaint</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.ATM_Dispute</recordType>
@@ -1140,6 +1140,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.NPP_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.PayTo_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

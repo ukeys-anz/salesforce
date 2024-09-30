@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IDR_Assigned_Portfolio_Tribe_Mandatory</fullName>
+    <active>true</active>
+    <description>Assigned Portfolio/BU and Assigned Tribe/BU-1 fields must be completed before the record can be saved/ closed if PSI Ranking is either 1,2 or 3.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+RecordType.DeveloperName = &apos;Systemic_Issue&apos;,
+ISPICKVAL(Status, &quot;Closed&quot;),
+OR(
+  ISNULL(SI_Assigned_to_Portfolios__c),
+  ISNULL(SI_Relevant_Tribes__c) 
+),
+  OR(
+  ISPICKVAL(SI_PSI_Ranking__c, &quot;1&quot;),
+  ISPICKVAL(SI_PSI_Ranking__c, &quot;2&quot;),
+  ISPICKVAL(SI_PSI_Ranking__c, &quot;3&quot;)
+  )
+  
+)</errorConditionFormula>
+    <errorMessage>Assigned Portfolio/BU and Assigned Tribe/BU-1 fields are required.</errorMessage>
+</ValidationRule>

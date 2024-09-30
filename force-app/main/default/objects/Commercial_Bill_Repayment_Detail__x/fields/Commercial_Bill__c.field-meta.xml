@@ -6,9 +6,9 @@
     <description>Associated Id of Commercial Bill</description>
     <externalDeveloperName>CommercialBillId</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Commercial Bill</label>
     <length>18</length>
     <referenceTo>Commercial_Bill__x</referenceTo>

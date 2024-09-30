@@ -129,7 +129,6 @@ private class OnboardingFalloutWorkflowControllerTest {
     OnboardingWorkflowWrapper workflowDetails;
     Case caseRec = caseRecord[0];
     ContentVersion cVRec = cvList[0];
-    CustomerOnboardingApplication__c cobApp = coaAppRecord[0];
     COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
 
     onboardingQueryMock.mock('getCOBPIDRecord', cobPIDRec);
@@ -164,7 +163,6 @@ private class OnboardingFalloutWorkflowControllerTest {
     addCustomPermission();
     Case caseRec = caseRecord[0];
     ContentVersion cVRec = cvList[0];
-    CustomerOnboardingApplication__c cobApp = coaAppRecord[0];
     COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
 
     onboardingQueryMock.mock('getCOBPIDRecord', cobPIDRec);
@@ -197,7 +195,6 @@ private class OnboardingFalloutWorkflowControllerTest {
     OnboardingWorkflowWrapper workflowDetailsAPI;
     Case caseRec = caseRecord[0];
     ContentVersion cVRec = cvList[0];
-    CustomerOnboardingApplication__c cobApp = coaAppRecord[0];
     COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
 
     onboardingQueryMock.mock('getCOBPIDRecord', cobPIDRec);
@@ -218,7 +215,6 @@ private class OnboardingFalloutWorkflowControllerTest {
       JSON.serialize(details)
     );
     Test.stopTest();
-    
 
     Assert.areEqual(
       'Success',
@@ -381,6 +377,7 @@ private class OnboardingFalloutWorkflowControllerTest {
       workflowDetails,
       cobPIDRec.DaonLocationUri__c
     );
+    workflowDetails.idxExtractedFaceId = 'sampleFaceId';
     workflowDetails.fileTypesList = OnboardingFalloutWorkflowHelper.formFilesList(
       workflowDetails,
       cvList
@@ -416,23 +413,6 @@ private class OnboardingFalloutWorkflowControllerTest {
       'testidxChallengeType',
       selfieRecChallenge.idx_challenge_type,
       'selfieRecChallenge wrapper not filled'
-    );
-  }
-
-  @isTest
-  static void testGetChallengeIdForSelfie() {
-    OnboardingWorkflowWrapper workflowDetails = new OnboardingWorkflowWrapper();
-    workflowDetails.idxRegistrationChallengeId = 'testidxRegistrationChallengeId';
-    workflowDetails.idxChallengeType = 'SELFIE_RECOVERY_CHALLENGE_TYPE_REG_CHALLENGE';
-    Test.startTest();
-    String idxChallengeId = OnboardingFalloutWorkflowHelper.getChallengeIdForSelfie(
-      workflowDetails
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      'testidxRegistrationChallengeId',
-      idxChallengeId,
-      'testidxRegistrationChallengeId is not returned'
     );
   }
 

@@ -62,6 +62,11 @@
                 <label>Scam - Attempts to gain your personal information</label>
             </value>
             <value>
+                <fullName>Scam - Impersonation</fullName>
+                <default>false</default>
+                <label>Scam - Impersonation</label>
+            </value>
+            <value>
                 <fullName>Scam - Other</fullName>
                 <default>false</default>
                 <label>Scam - Other</label>
@@ -95,6 +100,11 @@
                 <fullName>Fraud - Other</fullName>
                 <default>false</default>
                 <label>Fraud - Other</label>
+            </value>
+            <value>
+                <fullName>Internally Muled Funds</fullName>
+                <default>false</default>
+                <label>Internally Muled Funds</label>
             </value>
         </valueSetDefinition>
     </valueSet>

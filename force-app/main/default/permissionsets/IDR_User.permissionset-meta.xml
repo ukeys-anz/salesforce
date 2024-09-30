@@ -399,6 +399,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Date_time_Progressed_Status_selected__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Determination_Due__c</field>
         <readable>true</readable>
@@ -486,6 +491,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Hardship_Response_updated_on__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.CAD_Outcome__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -971,6 +981,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.SI_Key_Business_Contacts__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.SI_Assigned_BU_Contact__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -6,18 +6,6 @@
  */
 @isTest
 private class CCRMDiaryCommentQueryTest {
-  @TestSetup
-  static void createTestData() {
-    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('Business_Account')
-      .getRecordTypeId();
-    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
-      'CAP-CIS_4011643101',
-      customerRecordTypeId,
-      '4011643101'
-    );
-  }
-
   @isTest
   static void createDiaryCommentTest() {
     Test.startTest();
@@ -44,9 +32,9 @@ private class CCRMDiaryCommentQueryTest {
     );
     Test.stopTest();
     System.assertEquals(
-      2,
+      1,
       result.queryResult.size(),
-      'Size of comments is not 2'
+      'Size of comments is not 1'
     );
     Map<String, Object> firstRecord = result.queryResult[0];
     System.assertEquals(
@@ -54,6 +42,18 @@ private class CCRMDiaryCommentQueryTest {
       firstRecord.get('Description'),
       'Comment mismatch'
     );
+  }
+
+  /**
+   * @description test method for formatSequence
+   */
+  @isTest
+  static void formatSequenceTest() {
+    Test.startTest();
+    CCRMDiaryCommentQuery instance = new CCRMDiaryCommentQuery();
+    String fsResult = instance.formatSequence(1);
+    Test.stopTest();
+    System.assertEquals('0001', fsResult, 'Incorrect sequence formatting');
   }
 
   /**

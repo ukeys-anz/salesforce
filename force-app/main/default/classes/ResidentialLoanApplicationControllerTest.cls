@@ -8,7 +8,6 @@
 public with sharing class ResidentialLoanApplicationControllerTest {
   @isTest
   static void testGetSOP() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
 
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
@@ -52,8 +51,37 @@ public with sharing class ResidentialLoanApplicationControllerTest {
   }
 
   @isTest
+  static void testHomeLoanSplits() {
+    ResidentialLoanApplication rla = new ResidentialLoanApplication();
+    rla.Name = '239XXXXXXXXXXX';
+    rla.AccountId = TestDataFactory.createAccount(true).Id;
+    insert rla;
+
+    LoanApplicationLiability lal1 = new LoanApplicationLiability(
+      Name = 'liability1',
+      LoanApplicationId = rla.Id
+    );
+    insert lal1;
+
+    SOPDebt homeLoan = new SOPDebt();
+    homeLoan.type = ResidentialLoanApplicationModel.HOME_LOAN;
+    homeLoan.name = lal1.Name;
+
+    ResidentialLoanApplicationModel rlaModel = new ResidentialLoanApplicationModel();
+    rlaModel.liabilitiesSummary = new SOPDebtSummary();
+    rlaModel.liabilitiesSummary.liabilities = new List<SOPDebt>{ homeLoan };
+
+    ResidentialLoanApplicationController.setRefinanceSettings(rlaModel, rla.Id);
+
+    for (SOPDebt debt : rlaModel.liabilitiesSummary.liabilities) {
+      if (debt.type == ResidentialLoanApplicationModel.HOME_LOAN) {
+        System.assert(debt.hasRefinance == true, 'Split Loans exists');
+      }
+    }
+  }
+
+  @isTest
   static void testDeleteIncome() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
 
     ResidentialLoanApplication rla = new ResidentialLoanApplication();
@@ -103,8 +131,14 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
     System.runAs(coach) {
       ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
-      System.assertEquals(true, sopAssets.showEditExpenseBtn);
-      System.assertEquals(true, sopAssets.showAddIncomeBtn);
+      Assert.isTrue(
+        sopAssets.showEditExpenseBtn,
+        'Edit Expense button should be visible'
+      );
+      Assert.isTrue(
+        sopAssets.showAddIncomeBtn,
+        'Add Income button should be visible'
+      );
     }
   }
 
@@ -125,7 +159,10 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
     System.runAs(coach) {
       ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
-      System.assertEquals(false, sopAssets.showAddIncomeBtn);
+      Assert.isFalse(
+        sopAssets.showAddIncomeBtn,
+        'Add Income button should not be visible'
+      );
     }
   }
 
@@ -166,10 +203,9 @@ public with sharing class ResidentialLoanApplicationControllerTest {
       sopAssets,
       'TestAbc'
     );
-
-    System.assertEquals(
-      false,
-      sopAssets.liabilitiesSummary.liabilities[0].hasRefinance
+    Assert.isFalse(
+      sopAssets.liabilitiesSummary.liabilities[0].hasRefinance,
+      'Liability hasRefinance flag should be false'
     );
   }
 
@@ -234,7 +270,6 @@ public with sharing class ResidentialLoanApplicationControllerTest {
 
   @isTest
   static void testDeleteDebt() {
-    Faker faker = new Faker('AU');
     Account acc = TestDataFactory.createAccount(true);
 
     ResidentialLoanApplication rla = new ResidentialLoanApplication();

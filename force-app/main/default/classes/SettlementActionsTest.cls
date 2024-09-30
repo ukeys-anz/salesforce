@@ -2,8 +2,8 @@
  * @description       :
  * @author            : Madhuri Edke | Salesforce
  * @group             :
- * @last modified on  : 09-17-2024
- * @last modified by  : Madhuri Edke | Salesforce
+ * @last modified on  : 09-27-2024
+ * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 @isTest
 public with sharing class SettlementActionsTest {
@@ -13,7 +13,7 @@ public with sharing class SettlementActionsTest {
   @isTest
   static void testGetLoanApplicationIdFromSettlement() {
     List<Settlement__c> settlementList = createTestSettlement();
-    String loanApplicationId = settlementList[0]?.Loan_Application_Number__c;
+    String loanApplicationId = settlementList[0].Loan_Application_Number__c;
     Test.startTest();
     List<Id> loanApplicationIds = SettlementActions.getLoanApplicationIdFromSettlements(
       settlementList
@@ -41,34 +41,23 @@ public with sharing class SettlementActionsTest {
         Name = 'Test ResidentialLoanApplication'
       )
     };
-    rlarRepoMock.mock('queryLoanApplicatioins', loanApps);
+    rlarRepoMock.mock('queryLoanApplications', loanApps);
     Test.startTest();
     SettlementActions.publishSettlementCloudEvents(settlementList, 'Add');
     Test.stopTest();
     Assert.isFalse(
-      rlarRepoMock.getHistories('queryLoanApplicatioins').isEmpty(),
+      rlarRepoMock.getHistories('queryLoanApplications').isEmpty(),
       'ResidentialLoanApplications mock method should be called'
     );
   }
 
   static List<Settlement__c> createTestSettlement() {
-    List<ResidentialLoanApplication> loanApps = new List<ResidentialLoanApplication>{
-      new ResidentialLoanApplication(
-        Id = Lib_FakeIdGenerator.getMockId(
-          ResidentialLoanApplication.getSObjectType()
-        ),
-        Name = 'Test ResidentialLoanApplication'
-      )
-    };
-    Settlement__c settlement = new Settlement__c(
-      Id = Lib_FakeIdGenerator.getMockId(Settlement__c.SObjectType),
-      Loan_Application_Number__c = loanApps[0].Id,
-      Type__c = 'TYPE_REFINANCE_OFI'
+    Id loanApplicationId = Lib_FakeIdGenerator.getMockId(
+      ResidentialLoanApplication.getSObjectType()
     );
-
     String jsonSettlement =
       '{"Name":"TEST_NAME", "Loan_Application_Number__c":"' +
-      settlement.Loan_Application_Number__c +
+      loanApplicationId +
       '", "IsValidCloudEvent__c": true}';
 
     Settlement__c settlementSerialized = (Settlement__c) JSON.deserialize(

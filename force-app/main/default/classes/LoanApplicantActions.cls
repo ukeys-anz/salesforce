@@ -21,11 +21,7 @@ public with sharing class LoanApplicantActions {
       loanApplicantIds
     );
     List<Account> accounts = updateAccountSyncStatus(loanApplicants);
-    DML_REPOSITORY.updateRecords(
-      accounts,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+    DML_REPOSITORY.doUpdate(accounts, new DmlConfig().allowPartial());
   }
 
   /**

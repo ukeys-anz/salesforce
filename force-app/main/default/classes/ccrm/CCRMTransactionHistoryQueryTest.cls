@@ -6,18 +6,6 @@
  */
 @isTest
 private class CCRMTransactionHistoryQueryTest {
-  @TestSetup
-  static void createTestData() {
-    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('Business_Account')
-      .getRecordTypeId();
-    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
-      'CAP-CIS_4011643101',
-      customerRecordTypeId,
-      '4011643101'
-    );
-  }
-
   @isTest
   static void createTransactionHistoryTest() {
     Test.startTest();
@@ -53,6 +41,58 @@ private class CCRMTransactionHistoryQueryTest {
       8867.81,
       firstRecord.get('RunningBalance'),
       'Running Balance mismatch'
+    );
+  }
+
+  @isTest
+  static void displayDummayFinancialAccountTest() {
+    system.assertEquals(
+      true,
+      CCRMTransactionHistoryQuery.displayDummayFinancialAccount('dummyVal', ''),
+      'displayDummayFinancialAccount is not returning correct result when parentId is empty'
+    );
+    system.assertEquals(
+      false,
+      CCRMTransactionHistoryQuery.displayDummayFinancialAccount('', 'dummyVal'),
+      'isDepositProductCategory is not returning correct result when externalId is empty'
+    );
+  }
+
+  @isTest
+  static void formatSourceTest() {
+    system.assertEquals(
+      'Hello World New',
+      CCRMTransactionHistoryQuery.formatSource('hElLO_WoRlD_nEW'),
+      'formatSource is not returning correct result with given string'
+    );
+    system.assertEquals(
+      '',
+      CCRMTransactionHistoryQuery.formatSource(null),
+      'formatSource is not returning correct result when null string'
+    );
+    system.assertEquals(
+      '',
+      CCRMTransactionHistoryQuery.formatSource(''),
+      'formatSource is not returning correct result when empty string'
+    );
+  }
+
+  @isTest
+  static void createDummyFinancialAccountsTest() {
+    CCRMTransactionHistoryQuery accQuery = new CCRMTransactionHistoryQuery();
+    CCRMExternalObjectQueryBase.ExternalQueryResult dummyAcc = accQuery.createDummyFinancialAccounts(
+      'DDA-929490053-0-11-0001'
+    );
+
+    system.assertEquals(
+      'No further information available',
+      dummyAcc.queryResult.get(0).get('AdditionalInformation'),
+      'createDummyFinancialAccounts is not returning correct result'
+    );
+    system.assertEquals(
+      'DDA-929490053',
+      dummyAcc.queryResult.get(0).get('ExternalId'),
+      'createDummyFinancialAccounts is not returning correct result'
     );
   }
 

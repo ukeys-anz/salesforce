@@ -8,7 +8,7 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Related_Party_Names__c</field>
+                <field>Customer__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

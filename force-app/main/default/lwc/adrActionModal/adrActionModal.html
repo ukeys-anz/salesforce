@@ -1,0 +1,32 @@
+<!--
+  @description       : 
+  @author            : ChangeMeIn@UserSettingsUnder.SFDoc
+  @group             : 
+  @last modified on  : 09-11-2024
+  @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
+-->
+<template>
+  <lightning-modal-header label={ModalLabel}></lightning-modal-header>
+  <lightning-modal-body>
+    <div class="slds-grid slds-wrap slds-align_absolute-center">
+      {Modalcontent}
+    </div>
+    <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+      <div class="slds-p-around--medium">
+        <lightning-button
+          label={ModalButtonName}
+          onclick={handleClick}
+          variant={ModalButtonVariant}
+        ></lightning-button>
+        <div>
+          <template if:true={showSpinner}>
+            <lightning-spinner
+              variant="brand"
+              alternative-text="Loading"
+            ></lightning-spinner>
+          </template>
+        </div>
+      </div>
+    </div>
+  </lightning-modal-body>
+</template>

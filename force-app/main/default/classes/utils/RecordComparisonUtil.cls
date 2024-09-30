@@ -176,14 +176,12 @@ public class RecordComparisonUtil {
     SObject oldRecord,
     Set<SObjectField> fields
   ) {
-     List <SObjectField> changedFields = new List<SObjectField>();
+    List<SObjectField> changedFields = new List<SObjectField>();
     for (SObjectField field : fields) {
-      if (
-        fieldWasChangedAndNotEqualNull(newRecord, oldRecord, field)
-      ) {
+      if (fieldWasChangedAndNotEqualNull(newRecord, oldRecord, field)) {
         changedFields.add(field);
       }
     }
-      return changedFields;
+    return changedFields;
   }
 }

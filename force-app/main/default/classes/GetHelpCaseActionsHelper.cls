@@ -12,18 +12,17 @@
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
   public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
-  public static final String UNCHECK_IS_PAYTO_DISPUTE_ERROR = 'Can\'t uncheck is PayTo Dispute once checked';
   // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
-    GetHelpConstants.ATM_DISPUTE_RT_ID,
-    GetHelpConstants.CARD_DISPUTE_RT_ID,
-    GetHelpConstants.NPP_DISPUTE_RT_ID
+    RTCase.atmDispute,
+    RTCase.cardDispute,
+    RTCase.nppDispute
   };
 
   // Set of all the dispute record Types for case closure
   public static final Set<Id> CASE_CLOSURE_EMAIL_DISPUTE_RT_IDS = new Set<Id>{
-    GetHelpConstants.ATM_DISPUTE_RT_ID,
-    GetHelpConstants.CARD_DISPUTE_RT_ID
+    RTCase.atmDispute,
+    RTCase.cardDispute
   };
 
   // Parent Case validation error message
@@ -210,9 +209,9 @@ public with sharing class GetHelpCaseActionsHelper {
 
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.KYCQA_RT_ID ||
+        (c.RecordTypeId == RTCase.generalInquiry ||
+        c.RecordTypeId == RTCase.customerFeedback ||
+        c.RecordTypeId == RTCase.kycQa ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
@@ -257,8 +256,8 @@ public with sharing class GetHelpCaseActionsHelper {
   ) {
     for (Case c : caseList) {
       if (
-        (c.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID ||
-        c.RecordTypeId == GetHelpConstants.CUSTOMER_FEEDBACK_RT_ID ||
+        (c.RecordTypeId == RTCase.generalInquiry ||
+        c.RecordTypeId == RTCase.customerFeedback ||
         CheckCaseRecordType.isDispute(c)) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
@@ -267,12 +266,12 @@ public with sharing class GetHelpCaseActionsHelper {
           c.EntitlementId = entMap.get(c.AccountId);
         }
       } else if (
-        (c.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+        (c.RecordTypeId == RTCase.nonCustomerComplaint &&
         c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN)
       ) {
         c.EntitlementId = IDRCaseActions.getEntitlement();
         c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-      } else if (c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID) {
+      } else if (c.RecordTypeId == RTCase.anzxComplaint) {
         c.EntitlementId = IDRCaseActions.getEntitlement();
         c.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
           c.Status,
@@ -294,7 +293,7 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<Id, Case> oldCaseMap
   ) {
     if (
-      record.RecordTypeId == GetHelpConstants.GENERAL_INQUIRY_RT_ID &&
+      record.RecordTypeId == RTCase.generalInquiry &&
       (String.isNotBlank(record.Type) ||
       String.isNotBlank(record.Additional_Type__c)) &&
       (oldCaseMap == null ||
@@ -377,7 +376,7 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Boolean isValidPegaDispute(Case record) {
     if (
-      (record.RecordTypeId == GetHelpConstants.NPP_DISPUTE_RT_ID &&
+      (record.RecordTypeId == RTCase.nppDispute &&
       record.Dispute_Reason__c ==
       GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION) ||
       record.Is_PayTo_Dispute__c
@@ -404,12 +403,9 @@ public with sharing class GetHelpCaseActionsHelper {
         Original_Case_Number__c = (record.CaseNumber__c != null)
           ? record.CaseNumber__c
           : record.CaseNumber,
-        Record_Type_Name__c = Schema.getGlobalDescribe()
-          .get('Case')
-          .getDescribe()
-          .getRecordTypeInfosById()
+        Record_Type_Name__c = QueryRT.of(Case.SObjectType)
           .get(record.RecordTypeId)
-          .getName(),
+          .Name,
         Span_Id__c = UniqueIdUtil.generateSpanId(),
         Correlation_Id__c = UniqueIdUtil.getTraceId()
       );
@@ -426,7 +422,7 @@ public with sharing class GetHelpCaseActionsHelper {
   public static void setANZxCustomerNonCustomerComplaints(List<Case> records) {
     for (Case record : records) {
       if (
-        record.RecordTypeId == GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID &&
+        record.RecordTypeId == RTCase.nonCustomerComplaint &&
         UserInfo.getProfileId() ==
         CommonUtil.getProfileByName('ANZx Standard User').Id
       ) {
@@ -488,9 +484,7 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<Id, Case> caseList = new Map<Id, Case>();
     set<Id> accountIds = new Set<Id>();
     for (Case record : records) {
-      if (
-        record.RecordTypeId == GetHelpConstants.FALSE_CUSTOMER_PROFILE_RT_ID
-      ) {
+      if (record.RecordTypeId == RTCase.falseCustomerProfile) {
         accountIds.add(record.AccountId);
         caseList.put(record.AccountId, record);
       }
@@ -539,7 +533,7 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<String, Case> mapCase = new Map<String, Case>();
     for (Case record : records) {
       if (
-        record.RecordTypeId == GetHelpConstants.CREDIT_REFERRAL_RT_ID &&
+        record.RecordTypeId == RTCase.creditReferral &&
         String.isNotBlank(record.Credit_Id__c)
       ) {
         //Strip the version from the credit id as the RLA doesnt have a version
@@ -604,9 +598,9 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static Boolean isAEMConverted(Case oldRecord, Case newRecord) {
     List<String> convertedTypes = new List<String>{
-      GetHelpConstants.GENERAL_INQUIRY_RT_ID,
-      GetHelpConstants.COMPLAINT_RT_ID,
-      GetHelpConstants.NON_CUSTOMER_COMPLAINT_RT_ID
+      RTCase.generalInquiry,
+      RTCase.anzxComplaint,
+      RTCase.nonCustomerComplaint
     };
     return CheckCaseRecordType.isUnauthenticatedEnquiry(oldRecord) &&
       newRecord.ANZx_Customer__c &&
@@ -661,64 +655,6 @@ public with sharing class GetHelpCaseActionsHelper {
     if (record.IDR_Date_Received__c != oldRec.IDR_Date_Received__c) {
       record.SlaStartDate = record.IDR_Date_Received__c;
     }
-  }
-
-  /**
-   * @description Check if the case status was changed
-   * @param newRecord The actual case record from the trigger
-   * @param oldRecord The old record values for the case
-   * @return Boolean True if current status is different from previous status
-   */
-  public static Boolean isStatusChanged(Case newRecord, Case oldRecord) {
-    return newRecord.Status != oldRecord?.Status;
-  }
-
-  /**
-   * @description Get cases by ids
-   * @param caseIds Case ids
-   * @return List<Case> List of cases
-   */
-  public static List<Case> getCasesByIds(Set<Id> caseIds) {
-    if (caseIds.isEmpty()) {
-      return new List<Case>();
-    }
-
-    List<Case> cases = new List<Case>();
-    if (PermissionUtils.canQuery('Case')) {
-      cases = [SELECT Id, Status FROM Case WHERE Id IN :caseIds];
-    }
-
-    return cases;
-  }
-
-  /**
-   * @description Get ID Ops Cases with set status to be updated
-   * @param parentIdAndChildCasedMap Id Ops ids and case details
-   * @return List<Case> List of cases with set status
-   */
-  public static List<Case> setIDOpsCaseStatus(
-    Map<Id, Case> parentIdAndChildCasedMap
-  ) {
-    List<String> caseStatusesWithReason = new List<String>{
-      GetHelpConstants.COB_FAILED_OK_STATUS,
-      GetHelpConstants.COB_CONFIRMED_FRAUD_STATUS
-    };
-
-    List<Case> idOpsCases = getCasesByIds(parentIdAndChildCasedMap.keySet());
-
-    for (Case idOpsCase : idOpsCases) {
-      Case fraudCheckCase = parentIdAndChildCasedMap.get(idOpsCase.Id);
-
-      idOpsCase.Status = GetHelpConstants.COB_FRAUD_CHECK_TO_ID_OPS_STATUS_MAP.get(
-        fraudCheckCase.Status
-      );
-
-      if (caseStatusesWithReason.contains(idOpsCase.Status) == true) {
-        idOpsCase.OnboardingVerificationFailedReason__c = fraudCheckCase.OnboardingVerificationFailedReason__c;
-      }
-    }
-
-    return idOpsCases;
   }
 
   /**
@@ -781,7 +717,7 @@ public with sharing class GetHelpCaseActionsHelper {
     newTask.Description = GetHelpConstants.TASK_EMAIL_DESCRIPTION;
     newTask.PEGA_Case_Status__c = externalCaseStatusRecord.External_Status__c;
     newTask.OwnerId = taskOwnerId;
-    newTask.RecordTypeId = GetHelpConstants.TASK_EMAIL_RT;
+    newTask.RecordTypeId = RTTask.emailTask;
     newTask.Case__c = caseRecord.Id;
     newTask.ActivityDate = DateTimeUtils.addBusinessDays(
         caseRecord.BusinessHoursId,
@@ -933,20 +869,6 @@ public with sharing class GetHelpCaseActionsHelper {
       creditId = creditId.left(creditId.indexOf('@'));
     }
     return creditId;
-  }
-
-  /**
-   * @description To validate the Payto Dsipute cases
-   * @param record new case record
-   * @param oldRecord old case record
-   */
-  public static void checkPaytoDisputeValidations(Case record, Case oldRecord) {
-    if (
-      oldRecord.Is_PayTo_Dispute__c == true &&
-      record.Is_PayTo_Dispute__c == false
-    ) {
-      record.addError(UNCHECK_IS_PAYTO_DISPUTE_ERROR);
-    }
   }
 
   /**

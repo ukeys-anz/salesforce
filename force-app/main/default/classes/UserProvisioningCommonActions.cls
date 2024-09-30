@@ -128,38 +128,6 @@ public with sharing class UserProvisioningCommonActions {
   }
 
   /**
-   * @description This method is called to get all permission set names and their ids.
-   * @return `Map<String, PermissionSet>`
-   */
-
-  public static Map<String, PermissionSet> getAllPSetMap() {
-    Map<String, PermissionSet> pSetMap = new Map<String, PermissionSet>();
-
-    for (PermissionSet pSet : [SELECT Id, Name FROM PermissionSet LIMIT 500]) {
-      pSetMap.put(pSet.Name, pSet);
-    }
-    return pSetMap;
-  }
-
-  /**
-   * @description This method is called to get all permission set group names and their ids.
-   * @return `Map<String, PermissionSetGroup>`
-   */
-
-  public static Map<String, PermissionSetGroup> getAllPsetGroupMap() {
-    Map<String, PermissionSetGroup> pSetGroupMap = new Map<String, PermissionSetGroup>();
-
-    for (PermissionSetGroup pSetGroup : [
-      SELECT Id, DeveloperName
-      FROM PermissionSetGroup
-      LIMIT 200
-    ]) {
-      pSetGroupMap.put(pSetGroup.DeveloperName, pSetGroup);
-    }
-    return pSetGroupMap;
-  }
-
-  /**
    * @description This method is called to get all permission set license names and their ids.
    * @return `Map<String, PermissionSetLicense>`
    */
@@ -175,23 +143,5 @@ public with sharing class UserProvisioningCommonActions {
       pSetLicenseMap.put(pSetLicense.DeveloperName, pSetLicense);
     }
     return pSetLicenseMap;
-  }
-
-  /**
-   * @description This method is called to get all Group names and their ids.
-   * @return `Map<String, Group>`
-   */
-
-  public static Map<String, Group> getAllPublicGroupMap() {
-    Map<String, Group> publicGroupMap = new Map<String, Group>();
-
-    for (Group publicGroup : [
-      SELECT Id, DeveloperName
-      FROM Group
-      WHERE Type IN ('Regular', 'Queue')
-    ]) {
-      publicGroupMap.put(publicGroup.DeveloperName, publicGroup);
-    }
-    return publicGroupMap;
   }
 }

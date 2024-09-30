@@ -25,6 +25,10 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
       new Map<Id, ResidentialLoanApplication>()
     );
     ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
+    ResidentialLoanApplicationActions.setSunsetTimestamp(
+      records,
+      new Map<Id, ResidentialLoanApplication>()
+    );
   }
 
   /**
@@ -33,6 +37,10 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+    ResidentialLoanApplicationActions.setSunsetTimestamp(
       records,
       (Map<Id, ResidentialLoanApplication>) oldMap
     );

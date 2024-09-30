@@ -62,8 +62,6 @@ private class RetailBrokerContactActionsTest {
   }
 
   @IsTest
-  @SuppressWarnings('PMD.ApexUnitTestClassShouldHaveAsserts')
-  // Added SuppressWarnings as calling method is void and didn't return anything for Assert.
   static void testPublishBrokerEvents() {
     // Prepare test data for add event
     List<Contact> newContactsForAdd = createTestContactList();

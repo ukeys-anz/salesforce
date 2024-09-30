@@ -16,7 +16,7 @@ jobs:
   validation:
     name: Validation ${{inputs.sfdx_name}}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.1"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.4"
       options: --user root
     runs-on: anzx-default-np
     steps:
@@ -45,6 +45,7 @@ jobs:
       - name: ENV vars
         run: |
           baseRef="${{ github.base_ref }}"
+          [[ "$baseRef" == "release" ]] && baseRef=develop
           echo BASE_REF="$baseRef" >> $GITHUB_ENV
           echo BRANCH_NAME="${{ github.head_ref }}" >> $GITHUB_ENV
           echo PR_NUMBER="${{ github.event.number }}" >> $GITHUB_ENV

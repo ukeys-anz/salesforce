@@ -6,9 +6,9 @@
     <description>Month</description>
     <externalDeveloperName>Month</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
-    <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
+    <isNameField>true</isNameField>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Month</label>
     <length>255</length>
     <required>false</required>

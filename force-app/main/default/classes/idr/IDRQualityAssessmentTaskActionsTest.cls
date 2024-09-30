@@ -75,8 +75,7 @@ public class IDRQualityAssessmentTaskActionsTest {
   }
 
   static User createComplianceTasksImpl(Boolean fFillMandatoryFields) {
-    Profile stdXUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
-    Profile stdUserProfile = CommonUtil.getProfileByName('ANZ Standard User');
+    Profile stdUserProfile = QueryProfile.anzUser;
     UserRole cqRole = CommonUtil.getUserRoleByDevName(
       'Capability_Quality_C_Q_Team'
     );
@@ -91,7 +90,7 @@ public class IDRQualityAssessmentTaskActionsTest {
       oQAUser = TestUtil.createTestUser(
         new Map<String, Object>{
           'FirstName' => 'QA_User',
-          'ProfileId' => stdXUserProfile.Id,
+          'ProfileId' => stdUserProfile.Id,
           'UserRoleId' => cqRole.Id
         }
       ),

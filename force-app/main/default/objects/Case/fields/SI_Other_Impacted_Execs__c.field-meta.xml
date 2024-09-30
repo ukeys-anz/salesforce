@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Capture other impacted executives</description>
     <externalId>false</externalId>
-    <label>Other Impacted Execs</label>
+    <label>Additional Issue Description</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

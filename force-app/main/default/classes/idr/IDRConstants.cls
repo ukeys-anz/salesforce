@@ -506,22 +506,20 @@ public with sharing class IDRConstants {
    */
   public static final Map<String, String> qaAssessmentStatusMapping {
     get {
-        if(qaAssessmentStatusMapping == null){
-        
-      qaAssessmentStatusMapping = new Map<String, String>{
-        'Awaiting response from TM' => 'Submitted',
-        'Accepted by TM' => 'Accepted',
-        'Rejected by TM' => 'Disputed',
-        'C&Q Team Lead accepts TM\'s view' => 'C&Q manager amended original review',
-        'C&Q Team Lead rejects TM\'s view' => 'C&Q manager upheld original review',
-        'TM Rejects C&Q Manager\'s review' => 'C&Q manager\'s view not accepted',
-        'TM Accepts C&Q Manager\'s review' => 'C&Q manager\'s view accepted',
-        'C&Q Lead upholds C&Q Manager\'s review' => 'C&Q Lead upholds C&Q Manager\'s review',
-        'C&Q Lead disagrees with C&Q Manager\'s review' => 'C&Q Lead disagrees with C&Q Manager\'s review'
-      };
-     
-        }
-         return qaAssessmentStatusMapping;
+      if (qaAssessmentStatusMapping == null) {
+        qaAssessmentStatusMapping = new Map<String, String>{
+          'Awaiting response from TM' => 'Submitted',
+          'Accepted by TM' => 'Accepted',
+          'Rejected by TM' => 'Disputed',
+          'C&Q Team Lead accepts TM\'s view' => 'C&Q manager amended original review',
+          'C&Q Team Lead rejects TM\'s view' => 'C&Q manager upheld original review',
+          'TM Rejects C&Q Manager\'s review' => 'C&Q manager\'s view not accepted',
+          'TM Accepts C&Q Manager\'s review' => 'C&Q manager\'s view accepted',
+          'C&Q Lead upholds C&Q Manager\'s review' => 'C&Q Lead upholds C&Q Manager\'s review',
+          'C&Q Lead disagrees with C&Q Manager\'s review' => 'C&Q Lead disagrees with C&Q Manager\'s review'
+        };
+      }
+      return qaAssessmentStatusMapping;
     }
     private set;
   }

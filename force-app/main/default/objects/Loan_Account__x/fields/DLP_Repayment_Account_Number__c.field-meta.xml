@@ -6,10 +6,9 @@
     <description>Loan repayment account number</description>
     <externalDeveloperName>DLPRepaymentAccountNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Loan repayment account number</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>DLP Repayment Account Number</label>
     <length>255</length>
     <required>false</required>

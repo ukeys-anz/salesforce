@@ -8076,6 +8076,10 @@
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-PayTo Dispute Layout</layout>
+        <recordType>Case.PayTo_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Profile Update Layout</layout>
         <recordType>Case.Profile_Update</recordType>
     </layoutAssignments>
@@ -9412,8 +9416,13 @@
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <default>true</default>
+        <default>false</default>
         <recordType>ContentVersion.DAON_File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>ContentVersion.File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

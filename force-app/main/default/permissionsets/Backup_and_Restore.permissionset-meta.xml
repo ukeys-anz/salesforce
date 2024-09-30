@@ -4,6 +4,16 @@
         restore all records in our system</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.Banker_LAN_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Banker_Salary_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>A_Z_Review__c.Borrowing_OFI_Relationship__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -14,7 +24,22 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.CLG_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>A_Z_Review__c.Completed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Customer_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -35,6 +60,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>A_Z_Review__c.Personal_Banking__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Review_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Segment_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.Source_System_Identifier__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4514,6 +4554,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>External_Case_Status__c.New_Customer_Message__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>External_Case_Status__c.Result_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4915,6 +4960,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Interaction.Chat_or_Call_SID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Interaction.Chat_or_Call_SID_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8554,6 +8604,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.SunsetTimestamp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -10746,6 +10801,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.NPP_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.PayTo_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>

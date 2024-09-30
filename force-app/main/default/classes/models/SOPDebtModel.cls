@@ -24,6 +24,7 @@ public with sharing class SOPDebtModel extends CalloutModel {
   public Boolean validatedOutstandingBalance;
   public Boolean paidOffAndClosed;
   public Boolean evidenceProvided;
+  public Boolean customerStatedClosed;
 
   /**
    * @description convert the ownership string to set of ownerships
@@ -100,7 +101,7 @@ public with sharing class SOPDebtModel extends CalloutModel {
      */
     public Integer nanos {
       get {
-        return nanos * 10000000;
+        return nanos != null ? nanos * 10000000 : null;
       }
       set;
     }

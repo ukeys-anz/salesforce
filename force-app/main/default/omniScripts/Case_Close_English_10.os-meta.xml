@@ -1622,8 +1622,8 @@
     &quot;name&quot; : &quot;No&quot;
   } ],
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;&quot;,
-  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;Select ‘yes’ if the customer accepts the offer in the final response. The resolution offered details will pre-populate if the complaint was provisionally closed, otherwise will need to be completed. You will need to select no and complete the fields if the customer did not accept the resolution offered in the final response.&quot;,
+  &quot;help&quot; : true,
   &quot;defaultValue&quot; : &quot;No&quot;,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;readOnly&quot; : false,
@@ -3450,8 +3450,8 @@
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
   &quot;defaultValue&quot; : &quot;No&quot;,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;If the customer accepts a subsequent offer made after the final response that was enhanced (for example, a larger payment amount was accepted), select ‘Yes’. If the customer did not accept any subsequent offer from ANZ or accepted the initial offer, select ‘No’. Continue to enter details of the resolution provided.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,

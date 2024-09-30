@@ -31,6 +31,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Date_time_Progressed_Status_selected__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.Date_Closed__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -127,6 +132,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Event.My_extended_team_s_tasks__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.Date_Case_on_Hold_From__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Date_Case_on_Hold_From__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

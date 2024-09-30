@@ -6,10 +6,10 @@
     <description>Branch Name</description>
     <externalDeveloperName>BranchName</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Branch Name</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Branch</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

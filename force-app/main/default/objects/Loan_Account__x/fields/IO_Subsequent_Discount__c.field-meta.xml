@@ -6,10 +6,10 @@
     <description>IO Subsquent Discount</description>
     <externalDeveloperName>IOSubsequentDiscount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
-    <label>Subsequent Discount</label>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Margin (%)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

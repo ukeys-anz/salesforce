@@ -434,7 +434,7 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
         this.setInvalidLead();
         this.validationMessage.push({
           id: this.validationMessage.length + 1,
-          body: "Please select a valid Industry Code."
+          body: "Please select a valid ANZSIC Code."
         });
       }
       //# Criteria #6

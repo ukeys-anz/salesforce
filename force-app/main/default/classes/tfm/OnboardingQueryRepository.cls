@@ -2,8 +2,8 @@
  * @description       : Repository for OnboardingFalloutWorkflowController
  * @author            : Shivraj - TFM Squad
  * @group             :
- * @last modified on  : 08-13-2024
- * @last modified by  : Madhuri Edke | Salesforce
+ * @last modified on  : 07-15-2024
+ * @last modified by  : Anuj Jain - JOIN Squad
  **/
 public with sharing class OnboardingQueryRepository {
   /**
@@ -21,7 +21,8 @@ public with sharing class OnboardingQueryRepository {
         DaonLocationUri__c,
         idxExtractedFaceId__c,
         CustomerOnboardingApplication__r.CXOnboardingStage__c,
-        Verification_Status__c
+        Verification_Status__c,
+        Name
       FROM COBPrimaryIDDocument__c
       WHERE Id = :recordId
       WITH USER_MODE

@@ -76,7 +76,7 @@
             <value>
                 <fullName>CG</fullName>
                 <default>false</default>
-                <label>CG</label>
+                <label>Customer Lending Group</label>
             </value>
             <value>
                 <fullName>Transaction</fullName>

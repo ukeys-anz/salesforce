@@ -54,7 +54,11 @@ const salesforceSecretNames = {
   "epic/profileupdate": "sf-platform-np-profileupd",
   "epic/main-rb-customer-details": "sf-platform-np-main-rb-customer-details",
   "epic/marvelepic": "sf-platform-np-marvelepic",
-  "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade"
+  "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade",
+  "epic/complaint": "sf-platform-np-complaint",
+  "epic/go4bmain": "sf-platform-np-go4bmain",
+  "epic/transcript": "sf-platform-np-transcript",
+  "epic/sopineligible": "sf-platform-np-ineligible"
 };
 
 const brokerSecretNames = {

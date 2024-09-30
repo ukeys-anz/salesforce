@@ -6,14 +6,13 @@
     <description>Redraw Number of Signatories</description>
     <externalDeveloperName>RedrawNumberofSignatories</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Redraw Number of Signatories</label>
-    <precision>18</precision>
+    <length>255</length>
     <required>false</required>
-    <scale>0</scale>
     <securityClassification>Confidential</securityClassification>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

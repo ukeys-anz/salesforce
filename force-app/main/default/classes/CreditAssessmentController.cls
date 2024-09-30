@@ -4,6 +4,14 @@
  * @description Controller for Credit Assessment flex card
  */
 global with sharing class CreditAssessmentController implements omnistudio.VlocityOpenInterface, Callable {
+  private static final CreditAsssessmentRepository CREDIT_REPOSITORY = (CreditAsssessmentRepository) Lib_InstanceProvider.forType(
+    CreditAsssessmentRepository.class
+  );
+
+  private static final CreditAssessmentAPIRepository CREDIT_API = (CreditAssessmentAPIRepository) Lib_InstanceProvider.forType(
+    CreditAssessmentAPIRepository.class
+  );
+
   private static final String STATUS_DECLINED = 'STATE_DECLINED';
   private static final String DECLINED = 'Declined';
 
@@ -66,20 +74,18 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @return `Boolean`
    * @description calls callout framework and sanitizes payload for flexcard
    */
+  @TestVisible
   private Boolean getCreditAssessments(
     Map<String, Object> input,
     Map<String, Object> output,
     Map<String, Object> options
   ) {
     try {
-      Case c = [
-        SELECT Account.OCV_Id__c
-        FROM Case
-        WHERE Id = :String.valueOf(input.get('recordId'))
-      ];
+      Case c = CREDIT_REPOSITORY.getCaseRecord(
+        String.valueOf(input.get('recordId'))
+      );
 
-      CreditAssessmentAPIRepository api = new CreditAssessmentAPIRepository();
-      CreditReferralModel cr = api.getCreditAssessments(
+      CreditReferralModel cr = CREDIT_API.getCreditAssessments(
         String.valueOf(input.get('creditId')),
         c.Account.OCV_ID__c
       );
@@ -109,46 +115,43 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @return `Boolean`
    * @description output is the credit assessment result details for flexcard
    */
+  @TestVisible
   private Boolean getAssessmentOutcome(
     Map<String, Object> input,
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    ResidentialLoanApplication rla = [
-      SELECT Account.OCV_Id__c, Credit_ID__c, Status
-      FROM ResidentialLoanApplication
-      WHERE Id = :String.valueOf(input.get('ApplicationId'))
-    ];
+    ResidentialLoanApplication rla = CREDIT_REPOSITORY.getResidentialLoanApplicationRecord(
+      String.valueOf(input.get('ApplicationId'))
+    );
     if (rla.Status != STATUS_DECLINED) {
       return false;
     }
 
-    CreditAssessmentAPIRepository api = new CreditAssessmentAPIRepository();
-    CreditReferralModel cr = api.getCreditAssessments(
+    CreditReferralModel cr = CREDIT_API.getCreditAssessments(
       rla.Credit_ID__c,
       rla.Account.OCV_ID__c
     );
-    if (cr.assessments.isEmpty()) {
-      return false;
-    }
+
     AssessmentOutcome outcome = new AssessmentOutcome();
     List<AssessmentOutcomeRow> lstOutcomeRow = new List<AssessmentOutcomeRow>();
 
     for (CreditReferralModel.Assessment crAssessment : cr.assessments) {
-      if (crAssessment?.outcome == DECLINED) {
-        outcome.lastModified = crAssessment.assessTime;
-        for (CreditReferralModel.Reason r : crAssessment.reasons) {
-          AssessmentOutcomeRow outcomeRow = new AssessmentOutcomeRow();
-          outcomeRow.reasonCode = r.reasonCode;
-          outcomeRow.description = r.reasonDescription;
-          lstOutcomeRow.add(outcomeRow);
-        }
-        outcome.rows = lstOutcomeRow;
-        break;
+      if (crAssessment?.outcome != DECLINED) {
+        continue;
       }
+      outcome.lastModified = crAssessment.assessTime;
+      for (CreditReferralModel.Reason r : crAssessment.reasons) {
+        AssessmentOutcomeRow outcomeRow = new AssessmentOutcomeRow();
+        outcomeRow.reasonCode = r.reasonCode;
+        outcomeRow.description = r.reasonDescription;
+        lstOutcomeRow.add(outcomeRow);
+      }
+      outcome.rows = lstOutcomeRow;
+      output.put('object', JSON.deserializeUntyped(JSON.serialize(outcome)));
+      return true;
     }
-    output.put('object', JSON.deserializeUntyped(JSON.serialize(outcome)));
-    return true;
+    return false;
   }
 
   /**
@@ -156,21 +159,16 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @param recordId case record id
    * @description picks up other reason fields from the Referral_Reason__c for flex card reference
    */
+  @TestVisible
   private static void assignReasonFields(
     CreditReferralModel cr,
     String recordId
   ) {
-    Case caseRecord = [
-      SELECT Id, OwnerId, Status
-      FROM Case
-      WHERE Id = :recordId
-    ];
+    Case caseRecord = CREDIT_REPOSITORY.getCaseRecord(recordId);
 
     Set<CreditReferralModel.Reason> setCrReason = new Set<CreditReferralModel.Reason>();
     for (CreditReferralModel.Assessment crAssessment : cr.assessments) {
-      if (!crAssessment.reasons.isEmpty()) {
-        setCrReason.addAll(crAssessment.reasons);
-      }
+      setCrReason.addAll(crAssessment.reasons);
     }
 
     Set<String> setReasonCode = new Set<String>();
@@ -185,39 +183,31 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     Map<String, Referral_Reason__c> mapReasons = getReferralReasonMap(
       setReasonCode
     );
+    if (mapReasons.isEmpty()) {
+      return;
+    }
+
     Map<String, Reason_Outcome__c> mapOutcomes = getReferralReasonOutcomeMap(
       setRefOutcomeCode
     );
     Map<String, User> mapUsers = new Map<String, User>();
 
-    SystemModeActions systemActions = new SystemModeActions(
-      'CreditAssessmentController',
-      'assignReasonFields'
-    );
     String emails = '\'' + String.join(setCreatedBy, '\',\'') + '\'';
-    //Remove null as a potential check so we dont get random users with no fed ids
-    List<User> userList = systemActions.query(
-      'SELECT Name, FederationIdentifier FROM User WHERE FederationIdentifier != null AND FederationIdentifier IN (' +
-        emails +
-        ')'
-    );
+    List<User> userList = CREDIT_REPOSITORY.getUserList(emails);
 
     for (User user : userList) {
       mapUsers.put(user.FederationIdentifier, user);
     }
 
-    if (mapReasons.isEmpty()) {
-      return;
-    }
     for (CreditReferralModel.Reason crReason : setCrReason) {
       Referral_Reason__c referralReason = mapReasons.get(crReason.reasonCode);
+      if (referralReason == null) {
+        continue;
+      }
       Reason_Outcome__c refOutcome = mapOutcomes.get(
         crReason.referralOutcomeCode
       );
       User user = mapUsers.get(crReason.createdBy);
-      if (referralReason == null) {
-        continue;
-      }
 
       crReason.guidanceCode = referralReason.Guidance_Code__c;
       crReason.assessmentCategory = referralReason.Assessment_Category__c;
@@ -249,6 +239,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @return `Map<String, Object>`
    * @description adds current and history parent nodes to distinguish assessment list
    */
+  @TestVisible
   private static Map<String, Object> splitCurrentAndHistory(
     CreditReferralModel cr
   ) {
@@ -291,19 +282,18 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @return `Boolean`
    * @description returns ui options for credit referral reason outcomes
    */
+  @TestVisible
   private Boolean getSelectOptions(
     Map<String, Object> input,
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    PermissionUtils.canQuery('Reason_Outcome__c');
-
     List<Map<String, String>> uiOptions = new List<Map<String, String>>();
-    for (Reason_Outcome__c outcome : [
-      SELECT Outcome_Code__c, Outcome_Description__c
-      FROM Reason_Outcome__c
-      WHERE Referral_Reason__c = :String.valueOf(input.get('reasonCodeId'))
-    ]) {
+    for (
+      Reason_Outcome__c outcome : CREDIT_REPOSITORY.getReasonOutcomeByReferralReason(
+        String.valueOf(input.get('reasonCodeId'))
+      )
+    ) {
       Map<String, String> tempMap = new Map<String, String>();
       tempMap.put('name', outcome.Outcome_Description__c);
       tempMap.put('value', outcome.Outcome_Code__c);
@@ -321,16 +311,15 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @return `Boolean`
    * @description returns result from saving referral change
    */
+  @TestVisible
   private Boolean saveReferralChange(
     Map<String, Object> input,
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    Case c = [
-      SELECT Account.OCV_Id__c, Assessment_Id__c
-      FROM Case
-      WHERE Id = :String.valueOf(input.get('recordId'))
-    ];
+    Case c = CREDIT_REPOSITORY.getCaseRecord(
+      String.valueOf(input.get('recordId'))
+    );
 
     String creditId = String.valueOf(input.get('creditId'));
 
@@ -339,7 +328,6 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       creditId = creditId.left(creditId.indexOf('@'));
     }
 
-    CreditAssessmentAPIRepository creditApi = new CreditAssessmentAPIRepository();
     //Create map with payload values
     Map<String, String> payload = new Map<String, String>();
     payload.put('creditId', creditId);
@@ -351,7 +339,7 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     payload.put('recordId', String.valueOf(input.get('recordId')));
     payload.put('propertyId', String.valueOf(input.get('propertyId')));
 
-    return creditApi.createCreditEnquiryAssessment(payload);
+    return CREDIT_API.createCreditEnquiryAssessment(payload);
   }
 
   /**
@@ -361,16 +349,15 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @return `Boolean`
    * @description returns result from saving referral change
    */
+  @TestVisible
   private Boolean deleteReferralOutcome(
     Map<String, Object> input,
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    Case c = [
-      SELECT Account.OCV_Id__c, Assessment_Id__c
-      FROM Case
-      WHERE Id = :String.valueOf(input.get('recordId'))
-    ];
+    Case c = CREDIT_REPOSITORY.getCaseRecord(
+      String.valueOf(input.get('recordId'))
+    );
 
     String creditId = String.valueOf(input.get('creditId'));
 
@@ -379,13 +366,12 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       creditId = creditId.left(creditId.indexOf('@'));
     }
 
-    return new CreditAssessmentAPIRepository()
-      .deleteReferralOutcome(
-        creditId,
-        String.valueOf(input.get('assessmentId')),
-        c.Account.OCV_ID__c,
-        String.valueOf(input.get('outcomeId'))
-      );
+    return CREDIT_API.deleteReferralOutcome(
+      creditId,
+      String.valueOf(input.get('assessmentId')),
+      c.Account.OCV_ID__c,
+      String.valueOf(input.get('outcomeId'))
+    );
   }
 
   /**
@@ -393,20 +379,16 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @param setReasonCode a Set<String> contains reason code
    * @return `Map<String, Referral_Reason__c>`
    */
+  @TestVisible
   private static Map<String, Referral_Reason__c> getReferralReasonMap(
     Set<String> setReasonCode
   ) {
     Map<String, Referral_Reason__c> mapReasons = new Map<String, Referral_Reason__c>();
-    for (Referral_Reason__c referralReason : [
-      SELECT
-        Id,
-        Reason_Code__c,
-        Guidance_Code__c,
-        Assessment_Category__c,
-        Authority_Level__c
-      FROM Referral_Reason__c
-      WHERE Reason_Code__c IN :setReasonCode
-    ]) {
+    for (
+      Referral_Reason__c referralReason : CREDIT_REPOSITORY.getReferralReasonList(
+        setReasonCode
+      )
+    ) {
       mapReasons.put(referralReason.Reason_Code__c, referralReason);
     }
     return mapReasons;
@@ -417,15 +399,16 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
    * @param setRefOutcomeCode a Set<String> contains outcome code
    * @return `Map<String, Reason_Outcome__c>`
    */
+  @TestVisible
   private static Map<String, Reason_Outcome__c> getReferralReasonOutcomeMap(
     Set<String> setRefOutcomeCode
   ) {
     Map<String, Reason_Outcome__c> mapOutcomes = new Map<String, Reason_Outcome__c>();
-    for (Reason_Outcome__c reasonOutcome : [
-      SELECT Outcome_Code__c, Outcome_Description__c
-      FROM Reason_Outcome__c
-      WHERE Outcome_Code__c IN :setRefOutcomeCode
-    ]) {
+    for (
+      Reason_Outcome__c reasonOutcome : CREDIT_REPOSITORY.getReasonOutcomeByOutcomeCode(
+        setRefOutcomeCode
+      )
+    ) {
       mapOutcomes.put(reasonOutcome.Outcome_Code__c, reasonOutcome);
     }
     return mapOutcomes;

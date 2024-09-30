@@ -6,10 +6,13 @@
  */
 @isTest
 public with sharing class GetHelpCaseAssignmentRulesTest {
+  private static final String COACH_TEST_FIRST_NAME = 'CoachUserDisTest22';
+
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
     User thisUser = new User(Id = UserInfo.getUserId());
+
     System.runAs(thisUser) {
       Account ac = new Account(
         FirstName = 'AssignSupportCoachTest',
@@ -57,7 +60,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     }
     cases[1]
       .Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION;
-
     Test.startTest();
     insert cases;
     Test.stopTest();
@@ -184,7 +186,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     }
     cases[1]
       .Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION;
-
     Test.startTest();
     insert cases;
 
@@ -376,6 +377,7 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
       Is_this_a_Business_Customer__c = 'No',
       Amount_Of_Authorised_Transaction__c = 20,
       Origin = 'App',
+      Transaction_Status__c = GetHelpConstants.TRANSACTION_STATUS_PENDING,
       Priority = 'Standard',
       Description = 'Test',
       Type = '13',
@@ -574,17 +576,14 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     GetHelpCaseAssignmentRules.assignGeneralEnquiryCases(cases);
     Test.stopTest();
 
-    Group digitalFraudQueue = CommonUtil.getQueueByName(
-      GetHelpConstants.DIGITAL_FRAUD_QUEUE
-    );
     Assert.areEqual(
       cases[0].OwnerId,
-      digitalFraudQueue.Id,
+      QueryQueue.digitalFraudQueue.Id,
       'Should return the Id of expected queue.'
     );
     Assert.areEqual(
       cases[0].Queue__c,
-      digitalFraudQueue.Name,
+      QueryQueue.digitalFraudQueue.Name,
       'Should return the Name of expected queue.'
     );
   }

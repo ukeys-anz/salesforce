@@ -6,10 +6,9 @@
     <description>Margin applied on base rate interest.</description>
     <externalDeveloperName>InterestRateMargin</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Margin applied on base rate interest.</inlineHelpText>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Margin (%)</label>
     <precision>18</precision>
     <required>false</required>

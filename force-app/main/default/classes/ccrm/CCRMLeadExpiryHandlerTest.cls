@@ -70,9 +70,7 @@ public class CCRMLeadExpiryHandlerTest {
       FROM User
       WHERE LastName IN :lstOfMLUser
     ]) {
-      if (
-        objUser.LastName == 'Batch User' && objUser.FirstName.contains('CRM')
-      ) {
+      if (objUser.LastName == 'Batch User') {
         objBatchUser = objUser;
       } else {
         adminUser = objUser;
@@ -146,9 +144,7 @@ public class CCRMLeadExpiryHandlerTest {
       FROM User
       WHERE LastName IN :lstOfMLUser AND IsActive = TRUE
     ]) {
-      if (
-        objUser.LastName == 'Batch User' && objUser.FirstName.contains('CRM')
-      ) {
+      if (objUser.LastName == 'Batch User') {
         objBatchUser = objUser;
       } else if (objUser.LastName == 'Admin') {
         adminUser = objUser;

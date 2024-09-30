@@ -6,7 +6,7 @@
     <description>Rectification/Remediation Actions</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <label>Rectification/Remediation Actions</label>
+    <label># of potential/known impacted customers</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

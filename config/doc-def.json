@@ -336,8 +336,10 @@
         "Enforce_mTLS",
         "API_Only",
         "Customer_Onboarding_Integration",
+        "Customer_Onboarding_View_All",
         "Case_Read_Write_Customer_Onboarding_Integration",
         "Case_Read_Write_KYC_QA",
+        "Case_Read_Write_KYC_QA_Integration",
         "Disable_MFA",
         "Customer_Read_Only"
       ],
@@ -560,7 +562,13 @@
       "name": "Odaseva  User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["Muted_Backup_and_Restore"],
-      "permissionsets": ["API_Only", "Password_Never_Expires", "Disable_MFA"],
+      "permissionsets": [
+        "API_Only",
+        "Password_Never_Expires",
+        "Disable_MFA",
+        "Query_All_Files",
+        "Manage_Users"
+      ],
       "type": "system"
     },
     {

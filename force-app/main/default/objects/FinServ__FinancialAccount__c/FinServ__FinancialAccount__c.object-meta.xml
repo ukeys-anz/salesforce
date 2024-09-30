@@ -174,7 +174,7 @@
         <fields>FinServ__PrimaryOwner__c</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
-    <recordTypeTrackHistory>false</recordTypeTrackHistory>
+    <recordTypeTrackHistory>true</recordTypeTrackHistory>
     <searchLayouts>
         <customTabListAdditionalFields>FinServ__Status__c</customTabListAdditionalFields>
         <customTabListAdditionalFields>FinServ__FinancialAccountNumber__c</customTabListAdditionalFields>

@@ -1,0 +1,87 @@
+<template>
+  <lightning-card>
+    <div class="centered-container">
+      <div
+        class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-text-heading--large slds-p-around--small"
+      >
+        Accredited Data Recipients
+      </div>
+      <template lwc:if={showError}>
+        <div
+          class="slds-text-color_error slds-text-align_center slds-p-around--large slds-text-heading--medium"
+        >
+          {errorMessage}
+        </div>
+      </template>
+      <template lwc:else>
+        <!-- Spinner: Show while data is loading -->
+        <template lwc:if={isLoading}>
+          <div class="spinner-container">
+            <lightning-spinner
+              alternative-text="Loading"
+              size="medium"
+            ></lightning-spinner>
+          </div>
+        </template>
+        <!-- Hide the datatable until the data is loaded -->
+        <template lwc:else>
+          <div>
+            <!-- Search bar that triggers search functionality on input -->
+            <div
+              class="slds-m-bottom_medium slds-size_1-of-1 slds-text-align_center"
+            >
+              <lightning-input
+                type="search"
+                placeholder="Search..."
+                value={searchKey}
+                onchange={handleSearchInput}
+              >
+              </lightning-input>
+            </div>
+
+            <div
+              class="slds-col slds-size_1-of-1 slds-align_absolute-center slds-p-around--small"
+            ></div>
+
+            <!-- DataTable with sorting -->
+            <lightning-datatable
+              class="adr-datatable"
+              key-field="id"
+              data={paginatedData}
+              columns={columns}
+              hide-checkbox-column
+              onsort={handleSort}
+              sorted-by={sortBy}
+              sorted-direction={sortDirection}
+              onrowaction={handleRowLevelAct}
+            >
+            </lightning-datatable>
+          </div>
+          <div class="slds-m-top_medium slds-text-align_center">
+            <lightning-button-icon
+              icon-name="utility:chevronleft"
+              alternative-text="Previous"
+              onclick={handlePrevious}
+              class="arrow-button slds-m-right_small"
+              variant="brand"
+              disabled={isFirstPage}
+            >
+            </lightning-button-icon>
+
+            <span>Page {currentPage} of {totalPages}</span>
+
+            <lightning-button-icon
+              icon-name="utility:chevronright"
+              alternative-text="Next"
+              onclick={handleNext}
+              class="arrow-button slds-m-left_small"
+              variant="brand"
+              disabled={isLastPage}
+            >
+            </lightning-button-icon>
+          </div>
+        </template>
+      </template>
+    </div>
+  </lightning-card>
+</template>

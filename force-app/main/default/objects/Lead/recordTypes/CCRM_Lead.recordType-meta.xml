@@ -2791,10 +2791,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Set up a new Business %28Start Up%29</fullName>
             <default>false</default>
         </values>

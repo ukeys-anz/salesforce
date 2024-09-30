@@ -6,9 +6,9 @@
     <description>Minimum balance</description>
     <externalDeveloperName>MinimumBalance</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Minimum Balance ($)</label>
     <precision>18</precision>
     <required>false</required>

@@ -5,9 +5,10 @@
  */
 @isTest
 private class ApplicationEventActionsTest {
-  private static final Id LOAN_APP_RECORD_TYPE_ID = SObjectType.ResidentialLoanApplication.getRecordTypeInfosByDeveloperName()
-    .get('Loan_Application')
-    .recordTypeId;
+  private static final Id LOAN_APP_RECORD_TYPE_ID = QueryRT.of(
+      ResidentialLoanApplication.SObjectType
+    )
+    .getId('Loan_Application');
   /**
    * @description Create a list of Residential Loan Applications
    * @author Deepro De | 06-05-2024

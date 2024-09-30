@@ -57,7 +57,7 @@ export default class LogInteractionOnCustomer extends LightningElement {
   };
   searchKey;
   searchResults = [];
-  todayDate;
+  tomorrowDateFormatted;
   defaultExpiryDate;
 
   @wire(getObjectInfo, { objectApiName: INTERACTION_OBJECT })
@@ -75,12 +75,13 @@ export default class LogInteractionOnCustomer extends LightningElement {
 
   connectedCallback() {
     let date = new Date();
-    this.todayDate =
-      date.getFullYear() +
+    let tomorrowDate = new Date(date.getTime() + 86400000);
+    this.tomorrowDateFormatted =
+      tomorrowDate.getFullYear() +
       "-" +
-      (date.getMonth() + 1) +
+      (tomorrowDate.getMonth() + 1) +
       "-" +
-      (date.getDate() + 1);
+      tomorrowDate.getDate();
     this.defaultExpiryDate =
       date.getFullYear() +
       7 +
@@ -238,7 +239,7 @@ export default class LogInteractionOnCustomer extends LightningElement {
         this.interactionFields.Comment__c = this.commentValue;
         if (this.expiryDateValue) {
           this.interactionFields.Expiry_Date__c = this.expiryDateValue;
-        } else {
+        } else if (this.permanentValue === false) {
           this.interactionFields.Expiry_Date__c = this.defaultExpiryDate;
         }
         this.interactionFields.Permanent__c = this.permanentValue;
