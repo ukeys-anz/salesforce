@@ -96,6 +96,18 @@ button.vlocity-btn.slds-button.slds-button_base span {
   padding-right: 25px;
   font-size: 14px;
 }
+
 .editSOPModalContainer {
   text-align: initial;
+}
+
+[data-omni-key="excludedDebtBlock"] {
+  --slds-c-accordion-summary-color-background: transparent;
+  padding: unset;
+}
+
+[data-omni-key="excludedDebtBlock"] .slds-accordion__content,
+[data-omni-key="excludedDebtBlock"] .slds-accordion__section,
+[data-omni-key="excludedDebtBlock"] .slds-accordion__summary {
+  padding: unset;
 }
