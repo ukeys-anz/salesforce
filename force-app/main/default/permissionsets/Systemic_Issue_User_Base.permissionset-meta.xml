@@ -148,6 +148,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.SI_Assigned_BU_Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.SI_PSI_Ranking__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -476,15 +481,15 @@
         <visibility>Visible</visibility>
     </tabSettings>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTask</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>TransferAnyCase</name>
         <enabled>true</enabled>
+        <name>TransferAnyCase</name>
     </userPermissions>
 </PermissionSet>

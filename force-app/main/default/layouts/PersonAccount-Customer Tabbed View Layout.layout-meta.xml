@@ -85,6 +85,10 @@
                 <behavior>Edit</behavior>
                 <field>Bankrupt_Date__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CustomerExitFlag__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -98,6 +102,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Deceased_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CustomerExitDate__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>

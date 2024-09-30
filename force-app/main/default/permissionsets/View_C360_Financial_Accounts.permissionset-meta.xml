@@ -307,7 +307,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account_Relationship__x.Related_Party_Names__c</field>
+        <field>Account_Relationship__x.Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

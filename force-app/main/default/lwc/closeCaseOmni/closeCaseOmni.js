@@ -109,16 +109,27 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
             }
             this.showModal = true;
           } else {
-            let url = window.location.origin + "/" + this.omniJsonData.recordId;
-            window.open(url, "_self");
+            this.closeModalAndRefreshTab(this.omniJsonData.recordId);
           }
         } else {
-          let url = window.location.origin + "/" + this.omniJsonData.recordId;
-          window.open(url, "_self");
+          this.closeModalAndRefreshTab(this.omniJsonData.recordId);
         }
       });
     }
   }
+
+  closeModalAndRefreshTab(recordId) {
+    this.dispatchEvent(
+      new CustomEvent("closeModalAndRefreshTab", {
+        detail: {
+          caseRecId: recordId
+        },
+        bubbles: true,
+        composed: true
+      })
+    );
+  }
+
   validateIssueTypeFieldValues() {
     let details = this.omniJsonData.Case;
     let issueTypeCombinationMap = this.omniJsonData.issueTypeCombinationMap;

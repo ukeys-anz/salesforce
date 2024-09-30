@@ -128,6 +128,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.SI_Assigned_BU_Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.SI_PSI_Ranking__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -236,7 +241,7 @@
         <field>Event.WhatId</field>
         <readable>true</readable>
     </fieldPermissions>
-        <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Task.Action__c</field>
         <readable>true</readable>
