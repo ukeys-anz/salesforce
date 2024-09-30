@@ -295,4 +295,16 @@
         <label>Refer to Fraud</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>Closed - Cancelled</fullName>
+        <default>false</default>
+        <label>Closed - Cancelled</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Expired</fullName>
+        <default>false</default>
+        <label>Closed - Expired</label>
+        <closed>true</closed>
+    </standardValue>
 </StandardValueSet>

@@ -205,8 +205,6 @@ public with sharing class GetHelpConstants {
 
   //Residential Loan App Status : Cancelled
   public static final String RLA_STATUS_CANCELLED = 'STATE_CANCELLED';
-  public static final String RLA_CANCELLATION_REASON_CREDIT_ASSESMENT_EXPIRED = 'Credit Assessment Expired';
-
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
@@ -261,9 +259,6 @@ public with sharing class GetHelpConstants {
   public static final String CLOSED_STATUS_RESOLVED = 'Closed - Resolved';
   public static final String CLOSED_STATUS_NO_FIX = 'Closed - Won\'t Be Fixed';
   public static final String CUSTOMER_UPDATE_PENDING = 'Customer Update Pending';
-  public static final String ON_HOLD_STATUS = 'On Hold';
-  public static final String CLOSED_EXPIRED_STATUS = 'Closed - Expired';
-  public static final String CLOSED_CANCELLED_STATUS = 'Closed - Cancelled';
 
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';

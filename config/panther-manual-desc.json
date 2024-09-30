@@ -1307,7 +1307,8 @@
         "IAL_Status__c",
         "Context_Id__c",
         "Context_Type__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Credit_Assessment_Expiry_Date__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",

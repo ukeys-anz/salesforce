@@ -407,11 +407,11 @@ public with sharing class ResidentialLoanApplicationActions {
       if (
         newRlaRecords.get(caseRecord.Loan_Application__c)
           .Cancellation_Reason__c ==
-        GetHelpConstants.RLA_CANCELLATION_REASON_CREDIT_ASSESMENT_EXPIRED
+        BOHConstants.rlaReasonCreditAssessmentExpired
       ) {
-        caseRecord.Status = GetHelpConstants.CLOSED_EXPIRED_STATUS;
+        caseRecord.Status = BOHConstants.caseClosedExpiredStatus;
       } else {
-        caseRecord.Status = GetHelpConstants.CLOSED_CANCELLED_STATUS;
+        caseRecord.Status = BOHConstants.caseClosedCancelledStatus;
       }
       caseRecordsToBeUpdated.add(caseRecord);
     }
@@ -436,7 +436,7 @@ public with sharing class ResidentialLoanApplicationActions {
           rlaRecord,
           oldRlaRecords.get(rlaRecord.Id),
           ResidentialLoanApplication.Status
-        )) && (rlaRecord.Status == GetHelpConstants.RLA_STATUS_CANCELLED)
+        )) && (rlaRecord.Status == BOHConstants.rlaStateCancelledStatus)
       ) {
         rlaRecordIds.add(rlaRecord.Id);
       }
