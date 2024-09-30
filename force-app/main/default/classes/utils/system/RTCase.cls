@@ -28,6 +28,7 @@ public class RTCase {
   public static Id kycQa = base.getId('KYC_QA');
   public static Id nonCustomerComplaint = base.getId('Non_Customer_Complaint');
   public static Id nppDispute = base.getId('NPP_Dispute');
+  public static Id payToDispute = base.getId('PayTo_Dispute');
   public static Id pinRecovery = base.getId('PIN_Recovery');
   public static Id profileUpdate = base.getId('Profile_Update');
   public static Id recipientMule = base.getId('Recipient_Mule');

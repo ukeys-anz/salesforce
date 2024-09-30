@@ -12,7 +12,7 @@
     <label>Debit Interest Rate (%)</label>
     <precision>18</precision>
     <required>false</required>
-    <scale>4</scale>
+    <scale>2</scale>
     <securityClassification>Internal</securityClassification>
     <type>Number</type>
     <unique>false</unique>

@@ -6,10 +6,13 @@
  */
 @isTest
 public with sharing class GetHelpCaseAssignmentRulesTest {
+  private static final String COACH_TEST_FIRST_NAME = 'CoachUserDisTest22';
+
   @TestSetup
   static void setup() {
     Faker faker = new Faker('AU');
     User thisUser = new User(Id = UserInfo.getUserId());
+
     System.runAs(thisUser) {
       Account ac = new Account(
         FirstName = 'AssignSupportCoachTest',
@@ -57,7 +60,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     }
     cases[1]
       .Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION;
-
     Test.startTest();
     insert cases;
     Test.stopTest();
@@ -184,7 +186,6 @@ public with sharing class GetHelpCaseAssignmentRulesTest {
     }
     cases[1]
       .Dispute_Reason__c = GetHelpCaseAssignmentRules.DID_NOT_AUTHORISE_TRANSACTION;
-
     Test.startTest();
     insert cases;
 

@@ -1382,6 +1382,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.SunsetTimestamp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1443,6 +1448,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>User.Business_Role__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Fluctuating_Seasonal_Start_Expiry_Limit1__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
+    <description>Limit 1 Start/Expiry</description>
+    <externalId>false</externalId>
+    <isFilteringDisabled>true</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>true</isSortingDisabled>
+    <label>Limit 1 Start/Expiry</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

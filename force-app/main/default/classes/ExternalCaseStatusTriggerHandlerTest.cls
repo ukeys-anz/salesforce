@@ -42,7 +42,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
     String caseStatusBefore = theCase.Status;
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
-      External_Status__c = 'Pending-xxxxx',
+      External_Status__c = 'Pending-CustomerResponse',
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
     System.runAs(TestDataFactory.cardDisputeAgentUser) {
@@ -89,7 +89,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
     Case theCase = [SELECT Id, CaseNumber, Status FROM Case LIMIT 1];
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
-      External_Status__c = 'Pending-xxxxx',
+      External_Status__c = 'Pending-CustomerResponse',
       Status_Event_ID__c = 'Status_Event_ID__c_0'
     );
 
@@ -114,7 +114,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
     Case theCase
   ) {
     System.assertEquals(
-      1,
+      2,
       CloudEventController.cloudEvents.size(),
       'Cloud Event should be generated'
     );
@@ -154,7 +154,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
   private static void verifyRelatedCaseUpdate(Case theCase) {
     External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
-      External_Status__c = 'Resolved-xxxxx',
+      External_Status__c = 'Resolved-MerchantCredited',
       Status_Event_ID__c = 'Status_Event_ID__c_1'
     );
     System.runAs(TestDataFactory.cardDisputeAgentUser) {
@@ -177,7 +177,7 @@ public class ExternalCaseStatusTriggerHandlerTest {
 
     externalCaseStatus = new External_Case_Status__c(
       Case__c = theCase.Id,
-      External_Status__c = 'Pending-xxxxx',
+      External_Status__c = 'Pending-CustomerResponse',
       Status_Event_ID__c = 'Status_Event_ID__c_2'
     );
     System.runAs(TestDataFactory.cardDisputeAgentUser) {

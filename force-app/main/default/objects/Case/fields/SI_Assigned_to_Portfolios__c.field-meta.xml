@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Non-mandatory field for &apos;Which portfolio is the matter assigned to?&apos; (pick list of portfolios - options should be all portfolios/business units.); also want to be able to list multiple portfolios if there are more than one.</description>
     <externalId>false</externalId>
-    <label>Assigned Portfolio</label>
+    <label>Assigned Portfolio/BU</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

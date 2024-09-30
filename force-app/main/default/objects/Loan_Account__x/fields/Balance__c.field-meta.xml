@@ -6,7 +6,6 @@
     <description>Balance Amount on ANZ source system</description>
     <externalDeveloperName>Balance</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Balance Amount on ANZ source system</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

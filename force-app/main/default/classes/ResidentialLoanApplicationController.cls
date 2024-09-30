@@ -165,18 +165,24 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     ResidentialLoanApplicationModel sopAssets,
     String loanId
   ) {
-    List<LoanApplicationLiability> refinanceList = [
-      SELECT Id, Name
+    Set<String> refinanceSet = new Set<String>();
+    for (LoanApplicationLiability lal : [
+      SELECT Name
       FROM LoanApplicationLiability
       WHERE LoanApplicationId = :loanId
-    ];
-    // a safe assumption here is a refinance homeloan always have one LoanApplicationLiability record
+    ]) {
+      refinanceSet.add(lal.Name);
+    }
+
+    if (refinanceSet.size() == 0) {
+      return;
+    }
+
     for (SOPDebt debt : sopAssets?.liabilitiesSummary?.liabilities) {
-      if (
-        refinanceList.size() > 0 &&
-        refinanceList[0].Name == debt.name &&
-        debt.type == ResidentialLoanApplicationModel.HOME_LOAN
-      ) {
+      if (debt.type != ResidentialLoanApplicationModel.HOME_LOAN) {
+        continue;
+      }
+      if (refinanceSet.contains(debt.name)) {
         debt.hasRefinance = true;
       }
     }

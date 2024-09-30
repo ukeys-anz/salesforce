@@ -6,7 +6,6 @@
     <description>Number of days repayments were late</description>
     <externalDeveloperName>DaysDelinquent</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Number of days repayments were late</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

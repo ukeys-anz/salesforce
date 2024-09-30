@@ -12,6 +12,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Account_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Product_Code__c</field>
             </layoutItems>
             <layoutItems>
@@ -20,23 +24,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>ANZ_Plus_Identifier__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>ANZSIC_Code__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Purpose_Code__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>TPMI__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SAO__c</field>
+                <field>Product_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -50,15 +38,31 @@
                 <behavior>Edit</behavior>
                 <field>Original_Amount_Financed__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Fully_Drawn__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Amount_Advanced_To_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Progress_Draw_Expiry_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Lenders_Mortgage_Insurance__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Statement_Mailing_Address__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Account_Status__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Date_Loan_Issued__c</field>
+                <field>Source_System_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -66,11 +70,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Account_Number__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Type__c</field>
+                <field>Date_Loan_Issued__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -86,19 +86,31 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Offset_Account_Number__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Fully_Drawn__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Progress_Draw_Expiry_Date__c</field>
+                <field>Purpose_Code__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CPID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TPMI_SAO__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ANZSIC_Code__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CCR__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Offset_Account_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>ANZ_Plus_Identifier__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -142,7 +154,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Repayment_Details_Days_Delinquent__c</field>
+                <field>IO_Interest_Repayment_Account_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>PI_Principal_Repayment_Start_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IO_Next_Repayment_Date__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -154,62 +174,6 @@
                 <behavior>Edit</behavior>
                 <field>Repayment_Details_Repayment_Type__c</field>
             </layoutItems>
-        </layoutColumns>
-        <style>TwoColumnsLeftToRight</style>
-    </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>true</editHeading>
-        <label>Interest Rate</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Reference_Index_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Reference_Index_Rate__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Margin__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Fixed_Rate_Term_Year__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Fixed_Rate_Term_Month__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Fixed_Rate_Start_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Rate_Fixed_Rate_Expiry_Date__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <style>TwoColumnsLeftToRight</style>
-    </layoutSections>
-    <layoutSections>
-        <customLabel>true</customLabel>
-        <detailHeading>true</detailHeading>
-        <editHeading>true</editHeading>
-        <label>Principal and Interest</label>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>PI_Interest_Frequency__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>DLP_Repayment_Account_Number__c</field>
@@ -218,23 +182,56 @@
                 <behavior>Edit</behavior>
                 <field>PI_Repayment_Amount__c</field>
             </layoutItems>
+        </layoutColumns>
+        <style>TwoColumnsLeftToRight</style>
+    </layoutSections>
+    <layoutSections>
+        <customLabel>true</customLabel>
+        <detailHeading>true</detailHeading>
+        <editHeading>true</editHeading>
+        <label>Current Interest Details</label>
+        <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PI_Elected_Repayment_Amount__c</field>
+                <field>Interest_Type_Current__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Index_Code_Current__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Index_Rate_Current__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Interest_Rate_Margin__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Interest_Rate__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PI_Principal_Repayment_Start_Date__c</field>
+                <field>PI_Interest_Frequency__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PI_Principal_Repayment_End_Date__c</field>
+                <field>Interest_Rate_Start_Date__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>PI_Initial_Repayment_Cycle_Day__c</field>
+                <field>Interest_Rate_Expiry_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Interest_Rate_Term_Year__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Interest_Rate_Term_Month__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
@@ -243,23 +240,19 @@
         <customLabel>true</customLabel>
         <detailHeading>true</detailHeading>
         <editHeading>true</editHeading>
-        <label>Interest only</label>
+        <label>Future Interest Details</label>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IO_Interest_Frequency__c</field>
+                <field>Interest_Type_Future__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IO_Initial_Interest_Rate__c</field>
+                <field>Index_Code_Future__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IO_Initial_Discount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IO_Subsequent_Interest_Rate__c</field>
+                <field>Index_Rate_Future__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -267,36 +260,10 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>IO_Next_Repayment_Date__c</field>
+                <field>IO_Subsequent_Interest_Rate__c</field>
             </layoutItems>
         </layoutColumns>
-        <layoutColumns>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Only_Term_Year__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Only_Term_Month__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Only_Start_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Only_Expiry_Date__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Interest_Only_Repayment_Amount__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IO_Interest_Repayment_Account_Number__c</field>
-            </layoutItems>
-        </layoutColumns>
-        <style>TwoColumnsLeftToRight</style>
+        <style>OneColumn</style>
     </layoutSections>
     <layoutSections>
         <customLabel>true</customLabel>
@@ -326,6 +293,10 @@
                 <behavior>Edit</behavior>
                 <field>Times_Past_Due_90_Days__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Repayment_Details_Days_Delinquent__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>
@@ -349,13 +320,13 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Related_Party_Names__c</fields>
+        <fields>Sequence__c</fields>
+        <fields>Customer__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>Account_Relationship__x.Loan_Account__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Sequence__c</fields>
         <fields>Description__c</fields>
         <fields>Date_Placed__c</fields>
         <fields>Operator__c</fields>
@@ -364,14 +335,15 @@
         <relatedList>Diary_Comment__x.Loan_Account__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Amount__c</fields>
-        <fields>Effective_Date__c</fields>
         <fields>Post_Date__c</fields>
-        <fields>Type__c</fields>
+        <fields>Effective_Date__c</fields>
         <fields>Description__c</fields>
+        <fields>Source__c</fields>
+        <fields>Amount__c</fields>
         <fields>Running_Balance__c</fields>
         <relatedList>Transaction_History__x.Loan_Account__c</relatedList>
+        <sortField>Post_Date__c</sortField>
+        <sortOrder>Desc</sortOrder>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -379,7 +351,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9t000004iajp</masterLabel>
+        <masterLabel>00h9h000002JFqM</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

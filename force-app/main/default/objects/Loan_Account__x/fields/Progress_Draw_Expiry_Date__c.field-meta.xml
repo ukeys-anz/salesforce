@@ -6,7 +6,6 @@
     <description>Expiry date of a progressive draw loan</description>
     <externalDeveloperName>ProgressDrawExpiryDate</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Expiry date of a progressive draw loan</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

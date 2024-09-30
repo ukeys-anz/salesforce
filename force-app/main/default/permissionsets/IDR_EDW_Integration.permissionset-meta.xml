@@ -22,6 +22,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.SI_Assigned_BU_Contact__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.IDR_Collection_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>

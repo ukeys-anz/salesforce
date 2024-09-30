@@ -1,28 +1,23 @@
 {
   "conversationControl": "C00010C0001401677721509931",
-  "totalComments": 119,
-  "commentsCount": 50,
-  "moreComments": "Y",
-  "permanentComment": {
-    "branch": 3026,
-    "datePlaced": "2020-11-13T00:00:00",
-    "dateChanged": "2023-04-05T00:00:00",
-    "operatorId": "GTS132",
-    "comment": "TEST COMMENT CHECK"
-  },
+  "totalComments": 8,
+  "commentsCount": 9,
+  "moreComments": "N",
   "commentDetails": [
     {
-      "branch": 5535,
-      "customerReviewFlag": "N",
+      "branch": 3026,
+      "customerReviewFlag": "",
       "cycleCode": "",
       "workQueue": "",
       "datePrompt": null,
-      "datePlaced": "2023-10-03T16:31:30",
+      "datePlaced": "2020-11-13T00:00:00",
       "dateChanged": null,
-      "operatorId": "LANID123",
-      "dateExpires": "2023-12-12T00:00:00",
-      "commentId": "01677721509881",
-      "comment": "TEST ADDED A COMMENT 3"
+      "operatorId": "CSPUSR24",
+      "dateExpires": null,
+      "itemSubKey": "11111",
+      "compositeId": "4011643101-11111",
+      "comment": "TEST COMMENT CHECK",
+      "sequenceNumber": "0001"
     }
   ]
 }

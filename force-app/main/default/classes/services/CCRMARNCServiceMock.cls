@@ -50,7 +50,7 @@ public with sharing class CCRMARNCServiceMock extends Service {
    */
   public HttpCalloutResponse queryDiaryComments() {
     HttpCalloutResponse calloutResponse = new HttpCalloutResponse();
-    calloutResponse.body = '{"conversationControl":"","totalComments":93,"commentsCount":43,"moreComments":"N","permanentComment":{"branch":3026,"datePlaced":"2020-11-13","dateChanged":"2023-04-05","operatorId":"GTS132","comment":"TEST COMMENT CHECK"},"commentDetails":[{"branch":3026,"customerReviewFlag":"N","cycleCode":"","workQueue":"","datePrompt":"","datePlaced":"2017-12-12","timePlaced":"173448","dateChanged":"","operatorId":"TALLYMAN","dateExpires":"2023-12-12","commentId":"01677721509957","comment":"PERICHAS ADDED A COMMENT5"}]}';
+    calloutResponse.body = '{"conversationControl":"","totalComments":93,"commentsCount":43,"moreComments":"N","commentDetails":[{"branch":3026,"customerReviewFlag":"N","cycleCode":"","workQueue":"","datePrompt":"","datePlaced":"2017-12-12","timePlaced":"173448","dateChanged":"","operatorId":"TALLYMAN","dateExpires":"2023-12-12","commentId":"01677721509957","comment":"PERICHAS ADDED A COMMENT5", "compositeId" : "2001437661-01677721509957", "sequenceNumber" : "0001"}]}';
     return calloutResponse;
   }
 

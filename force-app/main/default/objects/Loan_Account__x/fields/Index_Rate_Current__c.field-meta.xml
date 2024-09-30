@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Index_Rate_Current__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy_Non_Personal_Information;Source - CAPS</complianceGroup>
+    <description>Current Index Rate</description>
+    <externalDeveloperName>IndexRateCurrent</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Index Rate (%)</label>
+    <precision>18</precision>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <scale>2</scale>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

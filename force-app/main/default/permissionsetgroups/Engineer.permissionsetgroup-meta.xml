@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Permission set group for Engineers</description>
+    <hasActivationRequired>false</hasActivationRequired>
     <label>Engineer</label>
     <permissionSets>Logs_Monitoring</permissionSets>
+    <permissionSets>Manage_Dev_Sandboxes</permissionSets>
     <permissionSets>PAM_Requestor</permissionSets>
     <permissionSets>SFDX_Snapshots</permissionSets>
     <status>Updated</status>
