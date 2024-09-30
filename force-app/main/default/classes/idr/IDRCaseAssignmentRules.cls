@@ -52,37 +52,38 @@ public with sharing class IDRCaseAssignmentRules {
    * @param oldMap old map of case record in current trigger context
    */
   public static void assignProductFamily(Case[] cases, Map<Id, Case> oldMap) {
-    for (Case c : cases) {
-      Case oldCase = (oldMap != null ? oldMap.get(c.Id) : null);
-      List<Case> casesUpdatedwithProduct = ListUtil.filter(
-          new List<Case>{ c },
-          new Map<Id, Case>{ oldCase?.Id => oldCase }
-        )
-        .changed(Case.Product__c)
-        .isNotNull(Case.Product__c)
-        .toList();
-      List<Case> casesUpdatedwithProductCategory = ListUtil.filter(
-          new List<Case>{ c },
-          new Map<Id, Case>{ oldCase?.Id => oldCase }
-        )
-        .changed(Case.IDR_Product_Category__c)
-        .isNotNull(Case.IDR_Product_Category__c)
-        .toList();
+    List<Case> casesUpdatedwithProduct = ListUtil.filter(cases, oldMap)
+      .changed(Case.Product__c)
+      .isNotNull(Case.Product__c)
+      .toList();
+
+    List<Case> casesUpdatedwithProductCategory = ListUtil.filter(cases, oldMap)
+      .changed(Case.IDR_Product_Category__c)
+      .isNotNull(Case.IDR_Product_Category__c)
+      .toList();
+
+    for (Case c : casesUpdatedwithProduct) {
+      Case oldCase = oldMap.get(c.Id);
+      if (!IDRCaseActions.isIDRComplaintType(c)) {
+        continue;
+      }
       if (
-        IDRCaseActions.isIDRComplaintType(c) &&
-        (oldCase == null ||
-        !casesUpdatedwithProduct.isEmpty() ||
-        IDRCaseActions.isANZPlusComplaintConvertedToIDR(oldCase, c))
+        oldCase == null ||
+        IDRCaseActions.isANZPlusComplaintConvertedToIDR(oldCase, c)
       ) {
         c.IDR_Product_Family__c = QueryProducts.getById(c.Product__c)
           ?.IDR_Product_Family__c;
         c.IDR_Product_Category__c = QueryProducts.getById(c.Product__c)
           ?.IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c;
-      } else if (
-        c.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID &&
-        (oldCase == null || !casesUpdatedwithProductCategory.isEmpty()) &&
-        c.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
-      ) {
+      }
+    }
+
+    for (Case c : casesUpdatedwithProductCategory) {
+      Case oldCase = oldMap.get(c.Id);
+      if (c.RecordTypeId != RTCase.generalInquiryCmos) {
+        continue;
+      }
+      if (oldCase == null || c.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN) {
         c.IDR_Product_Family__c = QueryProductFamily.getByCategory(
             c.IDR_Product_Category__c
           )
