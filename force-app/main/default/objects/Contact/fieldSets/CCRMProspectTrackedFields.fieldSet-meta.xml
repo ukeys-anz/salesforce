@@ -13,6 +13,11 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>Name__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>Is_Preferred_Contact__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>
