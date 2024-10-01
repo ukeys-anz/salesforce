@@ -20,6 +20,11 @@ public with sharing class IDRConstants {
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
 
+  //Case SI_Worflow_Step
+  public static final String SI_WF_STEP_ASSESSING = 'Assessing';
+  public static final String SI_WF_STEP_MONITORING = 'Monitoring';
+  public static final String SI_WF_STEP_INVESTIGATING = 'Investigating';
+
   //Customer Notification Template
   public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseRegister';
 
@@ -206,6 +211,7 @@ public with sharing class IDRConstants {
   public static final String INVALID_ACC_NO_MESSAGE = 'Account numbers can not include any symbols or special characters. Only use a Semicolon to separate account numbers if more than 1 account';
 
   //Task fields Constants
+  public static final String TASK_PRIORITY_NORMAL = 'Normal';
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
   public static final String TASK_TYPE_SYSTEMIC_ISSUE = 'Systemic Issue';

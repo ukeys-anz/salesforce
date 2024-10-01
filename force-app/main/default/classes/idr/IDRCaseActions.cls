@@ -90,8 +90,8 @@ public with sharing class IDRCaseActions {
       }
     }
     handleOfficeAssignment(changeOfficeCaseList);
-    IDRCaseAssignmentRules.assignProductFamily(records, null);
-    IDRCaseAssignmentRules.assignCases(records, null);
+    IDRCaseAssignmentRules.assignProductFamily(records, new Map<Id, Case>{});
+    IDRCaseAssignmentRules.assignCases(records, new Map<Id, Case>{});
     stampQueueName(records, null);
     //Update Date/Time PSI Ticked if complaint is flagged as PSI
     if (!updatePsiTicked.isEmpty()) {
@@ -122,7 +122,7 @@ public with sharing class IDRCaseActions {
         }
       }
     }
-    IDRTaskActions.possibleSystemicIssueActions(records, null);
+    IDRTaskActions.possibleSystemicIssueActions(records, new Map<Id, Case>{});
     IDRCollectionActions.stopCollections(records, new Map<Id, Case>{});
     IDRCollectionActions.startCollections(records, null);
     IDRCaseAssignmentRules.assignUnescalatedCases(records, null);
