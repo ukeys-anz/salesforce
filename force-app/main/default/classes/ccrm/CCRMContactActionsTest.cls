@@ -45,7 +45,7 @@ private class CCRMContactActionsTest {
     //WHEN That contact is updated
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      contact.FirstName = contact.FirstName + faker.person.firstName();
+      contact.Name__c = contact.FirstName + faker.person.firstName();
       contact.Occurrence_Number__c = faker.randomInteger(2);
       update contact;
     }
@@ -74,8 +74,7 @@ private class CCRMContactActionsTest {
         new Contact(
           LastName = faker.person.lastName(),
           AccountId = prospect.Id,
-          Phone = faker.person.phone(true, false),
-          Name__c = faker.person.lastName()
+          Phone = faker.person.phone(true, false)
         )
       );
     }
@@ -162,8 +161,7 @@ private class CCRMContactActionsTest {
         new Contact(
           LastName = faker.person.lastName(),
           AccountId = activeAccount.Id,
-          Phone = faker.person.phone(true, false),
-          Name__c = faker.person.lastName()
+          Phone = faker.person.phone(true, false)
         )
       );
     }
@@ -186,46 +184,117 @@ private class CCRMContactActionsTest {
   }
 
   @isTest
-  static void testPopulateLastName() {
+  static void testPopulateLastNameOnInsert() {
+    registerMocks();
     List<Contact> conList = new List<Contact>{
       new Contact(
         Id = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType()),
         AccountId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType()),
         Name__c = 'Sample Contact',
-        RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID
+        RecordTypeId = RTContact.organisation
       )
     };
 
+    contactRepoMock.mock(
+      'getUserProfileId',
+      QueryProfile.anzCCRMStandardUser.Id
+    );
     Test.startTest();
-    CCRMContactActions.populateLastName(conList);
+    CCRMContactActions.populateLastName(conList, null);
     Test.stopTest();
 
-    Assert.isNotNull(conList[0].LastName, 'Last Name not updated');
+    Assert.isNotNull(conList[0].LastName, 'Last Name not populated correctly');
   }
 
   @isTest
-  static void testPopulateName() {
+  static void testPopulateLastNameOnUpdate() {
+    registerMocks();
+    Id conId = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType());
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    List<Contact> conList = new List<Contact>{
+      new Contact(
+        Id = conId,
+        AccountId = accId,
+        Name__c = 'Sample Contact New',
+        RecordTypeId = RTContact.organisation
+      )
+    };
+    Map<Id, Contact> conMap = new Map<Id, Contact>{
+      conId => new Contact(
+        Id = conId,
+        AccountId = accId,
+        Name__c = 'Sample Contact Old',
+        RecordTypeId = RTContact.organisation
+      )
+    };
+    contactRepoMock.mock(
+      'getUserProfileId',
+      QueryProfile.anzCCRMStandardUser.Id
+    );
+    Test.startTest();
+    CCRMContactActions.populateLastName(conList, conMap);
+    Test.stopTest();
+    Assert.areEqual(
+      conList[0].Name__c,
+      conList[0].LastName,
+      'Last Name not updated correctly'
+    );
+  }
+
+  @isTest
+  static void testPopulateNameOnInsert() {
     registerMocks();
     List<Contact> conList = new List<Contact>{
       new Contact(
         Id = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType()),
         AccountId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType()),
         LastName = 'Sample Contact',
-        RecordTypeId = CCRMConstants.CONTACT_BUSINESS_RT_ID,
-        Name__c = 'Danny'
+        RecordTypeId = RTContact.organisation
+      )
+    };
+    contactRepoMock.mock('getUserName', 'ocvintegration.user@anzx.com.test24');
+    Test.startTest();
+    CCRMContactActions.populateName(conList, null);
+    Test.stopTest();
+    Assert.areEqual(
+      conList[0].LastName,
+      conList[0].Name__c,
+      'Contact name not get populated correctly'
+    );
+  }
+
+  @isTest
+  static void testPopulateNameOnUpdate() {
+    registerMocks();
+    Id conId = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType());
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    List<Contact> conList = new List<Contact>{
+      new Contact(
+        Id = conId,
+        AccountId = accId,
+        LastName = 'Sample Contact New',
+        RecordTypeId = RTContact.organisation
+      )
+    };
+    Map<Id, Contact> conMap = new Map<Id, Contact>{
+      conId => new Contact(
+        Id = conId,
+        AccountId = accId,
+        LastName = 'Sample Contact Old',
+        RecordTypeId = RTContact.organisation
       )
     };
 
-    contactRepoMock.mock('getUserName', 'ocvintegration.user@anzx.com');
+    contactRepoMock.mock('getUserName', 'ocvintegration.user@anzx.com.test24');
 
     Test.startTest();
-    CCRMContactActions.populateName(conList);
+    CCRMContactActions.populateName(conList, conMap);
     Test.stopTest();
 
     Assert.areEqual(
       conList[0].LastName,
       conList[0].Name__c,
-      'Contact name not get updated'
+      'Contact name not get updated correctly'
     );
   }
 }

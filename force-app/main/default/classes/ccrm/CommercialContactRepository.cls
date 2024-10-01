@@ -12,4 +12,12 @@ public with sharing class CommercialContactRepository {
   public String getUserName() {
     return UserInfo.getUserName();
   }
+
+  /**
+   * @description It will fetch the current user's Profile Id
+   * @return Id - Profile Id of current user
+   */
+  public Id getUserProfileId() {
+    return UserInfo.getProfileId();
+  }
 }
