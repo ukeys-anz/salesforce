@@ -2555,7 +2555,7 @@
         <field>Territory__c.Territory_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Transaction_History__x.Additional_Information__c</field>
         <readable>true</readable>
@@ -3205,7 +3205,7 @@
         <field>Diary_Comment__x.Sequence__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Diary_Comment__x.Work_Queue__c</field>
         <readable>true</readable>

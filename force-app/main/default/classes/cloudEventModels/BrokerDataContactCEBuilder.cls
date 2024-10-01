@@ -104,16 +104,15 @@ public with sharing class BrokerDataContactCEBuilder {
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
 
-  
   /**
-  * @description method used for building the cloud event structure using the loan app details
-  * @author Deepro De | 05-30-2024 
-  * @param record 
-  * @return BrokerCloudEventModel.MasterNode 
-  **/
+   * @description method used for building the cloud event structure using the loan app details
+   * @author Deepro De | 05-30-2024
+   * @param record
+   * @return BrokerCloudEventModel.MasterNode
+   **/
   public static BrokerCloudEventModel.MasterNode buildResidentialLoanAppNode(
     ResidentialLoanApplication record
-  ){
+  ) {
     Map<String, String> dataLoanAppMap = new Map<String, String>{
       'sourceObjectName' => OBJECT_RESIDENTIAL_LOAN_APP,
       'sourceObjectExtId' => record.ApplicationExtIdentifier,

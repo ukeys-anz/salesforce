@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">v
     <classAccesses>
         <apexClass>CCRMAPIRepository</apexClass>
         <enabled>true</enabled>
@@ -386,7 +386,7 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <field>Account.Survivor_Party_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
-   <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account_Relationship__x.Customer__c</field>
         <readable>true</readable>
@@ -420,7 +420,7 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <editable>false</editable>
         <field>Account_Relationship__x.Sequence__c</field>
         <readable>true</readable>
-    </fieldPermissions>v
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Balance_History__x.Additional_Information__c</field>
