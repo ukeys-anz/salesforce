@@ -598,6 +598,16 @@
                 <label>Unacceptable customer behaviour</label>
             </value>
             <value>
+                <fullName>Offset Maintenance</fullName>
+                <default>false</default>
+                <label>Offset Maintenance</label>
+            </value>
+            <value>
+                <fullName>Pricing Request</fullName>
+                <default>false</default>
+                <label>Pricing Request</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -985,6 +995,14 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Repayment Reversals</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Offset Maintenance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Pricing Request</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>

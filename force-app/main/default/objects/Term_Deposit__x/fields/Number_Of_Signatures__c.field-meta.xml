@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Number Of Signatures</label>
+    <label>Number of Signatories</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

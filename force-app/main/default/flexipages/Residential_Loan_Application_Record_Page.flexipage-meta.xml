@@ -371,6 +371,23 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>flexcardName</name>
+                    <value>SOP_Ineligibility_Details_Display</value>
+                </componentInstanceProperties>
+                <componentName>runtime_omnistudio:flexcard</componentName>
+                <identifier>runtime_omnistudio_flexcard6</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Is_SOP_Ineligible__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-400204a3-e187-4ad7-adc6-f94eb1cc3081</value>
                 </componentInstanceProperties>

@@ -61,6 +61,73 @@ public class CCRMQueryContextMock {
     }
     return context;
   }
+
+  /**
+   * @description Create DataSource.QueryContext for unit testing purpose
+   * @param tableName String External object name
+   * @return DataSource.QueryContext
+   */
+  public static DataSource.QueryContext createQueryContextForSOQL(
+    String tableName
+  ) {
+    Map<String, List<String>> parentColumnMap = new Map<String, List<String>>();
+    parentColumnMap.put(
+      'AccountRelationship',
+      new List<String>{
+        'DepositAccount',
+        'CAP-CIS_4011643101-234500817|DDA-234500817'
+      }
+    );
+    Map<String, List<String>> tableColumnMap = createTableColumns();
+
+    DataSource.QueryContext context = new DataSource.QueryContext();
+    context.tableSelection = new DataSource.TableSelection();
+    context.tableSelection.tableSelected = tableName;
+    context.queryMoreToken = null;
+    context.tableSelection.columnsSelected = new List<DataSource.ColumnSelection>();
+    try {
+      context.tableSelection.filter = createFilter(
+        tableName,
+        null,
+        null,
+        DataSource.FilterType.OR_
+      );
+      context.tableSelection.filter.subfilters = new List<DataSource.Filter>();
+      DataSource.Filter subFilter;
+      if (
+        !(parentColumnMap.keySet().isEmpty()) &&
+        parentColumnMap.keySet().contains(tableName)
+      ) {
+        subFilter = createFilter(
+          tableName,
+          parentColumnMap.get(tableName)[0],
+          parentColumnMap.get(tableName)[1],
+          DataSource.FilterType.EQUALS
+        );
+      } else {
+        subFilter = createFilter(
+          tableName,
+          'CustomerId',
+          'CAP-CIS_4011643101',
+          DataSource.FilterType.EQUALS
+        );
+      }
+
+      context.tableSelection.filter.subfilters.add(subFilter);
+      context.maxResults = 11;
+      context.offset = 0;
+      context = createColumns(
+        tableName,
+        tableColumnMap.get(tableName),
+        context
+      );
+    } catch (Exception ex) {
+      Logger.error('Unexpected errors: ' + ex.getMessage());
+      Logger.saveLog();
+    }
+    return context;
+  }
+
   /**
    * @description Create DataSource.QueryContext with external Id as default column
    * @param tableName String External object name
@@ -124,6 +191,10 @@ public class CCRMQueryContextMock {
     parentColumnMap.put(
       'CommercialBillFee',
       new List<String>{ 'CommercialBillId', '4011643101' }
+    );
+    parentColumnMap.put(
+      'AccountRelationship',
+      new List<String>{ 'AMBITId', '4019028722-13521-0' }
     );
     return parentColumnMap;
   }

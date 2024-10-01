@@ -30,7 +30,11 @@ public with sharing class PinAndSelfieWorkflowController {
 
     fetchOnboardingDocuments(workflowDetails);
     apiCallToFetchImages(workflowDetails);
-    OnboardingFalloutWorkflowHelper.insertDAONFileViewedLog(workflowDetails.fileTypesList, 'Case', workflowDetails.parentRecordReference);
+    OnboardingFalloutWorkflowHelper.insertDAONFileViewedLog(
+      workflowDetails.fileTypesList,
+      'Case',
+      workflowDetails.parentRecordReference
+    );
     return workflowDetails;
   }
 
@@ -73,6 +77,9 @@ public with sharing class PinAndSelfieWorkflowController {
     workflowDetails.isPinHistoryCheckFailed = caseRecord.Pin_History_Check_Failed__c;
     workflowDetails.isCaseClosed = caseRecord.IsClosed;
     workflowDetails.parentRecordReference = caseRecord.CaseNumber;
+    UserRole usrRole = QueryRole.get('Join_Operations_Reader');
+    workflowDetails.isJoinOperationsReader =
+      usrRole.Id == UserInfo.getUserRoleId();
     return workflowDetails;
   }
 
@@ -151,7 +158,7 @@ public with sharing class PinAndSelfieWorkflowController {
     List<OnboardingRequestModel> daonList = OnboardingFalloutWorkflowHelper.requestBodyAPICallout(
       workflowDetails
     );
- 
+
     Map<String, Object> responseMap = OnboardingUtility.fetchOnboardingDocumentsAPI(
       workflowDetails.IDValue,
       daonList

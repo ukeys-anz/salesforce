@@ -32,7 +32,9 @@
     />
   </aura:renderIf>
   <aura:renderIf isTrue="{!v.showOmni}">
-    <c:caseCreationEnglish layout="lightning" />
+    <div class="maxHeightCustomAura">
+      <c:caseCreationEnglish layout="lightning" />
+    </div>
   </aura:renderIf>
 
   <aura:if isTrue="{! v.loading }">

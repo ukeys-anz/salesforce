@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">Your dispute has been withdrawn as a matching dispute was raised at the same time.
+        <value xsi:type="xsd:string">Your dispute has been withdrawn as a matching dispute was  already raised for the same transaction.
 
 Please message us if you have any questions</value>
     </values>

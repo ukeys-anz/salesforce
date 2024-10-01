@@ -123,7 +123,7 @@
     <enableSearch>false</enableSearch>
     <externalDataSource>Core_Banking_Data_Source</externalDataSource>
     <externalName>BalanceHistory</externalName>
-    <label>Balance History</label>
-    <pluralLabel>Balance Histories</pluralLabel>
+    <label>Balance and Overdrawn History</label>
+    <pluralLabel>Balance and Overdrawn Histories</pluralLabel>
     <searchLayouts/>
 </CustomObject>

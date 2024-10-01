@@ -9,6 +9,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import ApprovalModal from "c/manageOpsWorkflowApproval";
 import RejectModal from "c/manageOpsWorkflowReject";
 import { getRecord, notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
+import { RefreshEvent } from "lightning/refresh";
 
 export default class PinAndSelfieWorkflow extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields: ["Case.Status"] })
@@ -232,6 +233,7 @@ export default class PinAndSelfieWorkflow extends LightningElement {
         e.stopPropagation();
         this.performOperations();
         notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
+        this.dispatchEvent(new RefreshEvent());
       }
     });
   }
@@ -258,6 +260,7 @@ export default class PinAndSelfieWorkflow extends LightningElement {
         e.stopPropagation();
         this.performOperations();
         notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
+        this.dispatchEvent(new RefreshEvent());
       }
     });
   }
@@ -265,11 +268,15 @@ export default class PinAndSelfieWorkflow extends LightningElement {
   get isApprovButtonDisable() {
     return (
       this.workflowDetails.isPinHistoryCheckFailed ||
-      this.workflowDetails.isCaseClosed
+      this.workflowDetails.isCaseClosed ||
+      this.workflowDetails.isJoinOperationsReader
     );
   }
 
   get isRejectButtonDisable() {
-    return this.workflowDetails.isCaseClosed;
+    return (
+      this.workflowDetails.isCaseClosed ||
+      this.workflowDetails.isJoinOperationsReader
+    );
   }
 }
