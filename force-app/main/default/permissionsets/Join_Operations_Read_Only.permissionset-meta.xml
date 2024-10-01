@@ -443,6 +443,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>CustomerOnboardingApplication__c.EquifaxAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CustomerOnboardingApplication__c.DaonEnrolmentId__c</field>
         <readable>true</readable>
     </fieldPermissions>

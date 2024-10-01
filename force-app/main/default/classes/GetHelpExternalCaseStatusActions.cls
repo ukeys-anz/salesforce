@@ -13,6 +13,12 @@ public with sharing class GetHelpExternalCaseStatusActions {
 
   public static final String DEFAULT_NPP_INTERNAL_DESCRIPTION = 'Status Unknown - Refer to Pega PRS';
   public static final String DEFAULT_NPP_CASE_STATUS = 'On Hold';
+  public static final String CASE_STATUS_CLOSED = 'Closed';
+
+  public static final List<Id> CARD_AND_ATM_DISPUTE_RT_IDS = new List<Id>{
+    RTCase.atmDispute,
+    RTCase.cardDispute
+  };
 
   /**
    * @description update fields on external case status
@@ -100,12 +106,20 @@ public with sharing class GetHelpExternalCaseStatusActions {
     Map<Id, Case> relatedCases
   ) {
     for (External_Case_Status__c externalCaseStatus : records) {
+      String resultMessage = '';
+      if (
+        !CARD_AND_ATM_DISPUTE_RT_IDS.contains(
+          relatedCases.get(externalCaseStatus.Case__c).RecordTypeId
+        )
+      ) {
+        resultMessage = externalCaseStatus.Result_Message__c;
+      }
       String key = (String.join(
           new List<String>{
             relatedCases.get(externalCaseStatus.Case__c)
               .RecordType.DeveloperName,
             externalCaseStatus.External_Status__c,
-            externalCaseStatus.Result_Message__c
+            resultMessage
           },
           '_'
         ))
@@ -177,6 +191,13 @@ public with sharing class GetHelpExternalCaseStatusActions {
         String.isNotBlank(statusToMetadatasMap.get(key).Case_Status__c)
       ) {
         record.Status = statusToMetadatasMap.get(key).Case_Status__c;
+        caseToUpdateList.add(record);
+        continue;
+      }
+      if (
+        caseIdToExternalStatus.get(record.Id).toLowerCase().contains('resolved')
+      ) {
+        record.Status = CASE_STATUS_CLOSED;
         caseToUpdateList.add(record);
         continue;
       }

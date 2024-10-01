@@ -7,26 +7,14 @@ public with sharing class SettlementActions {
   private static final String SETTLEMENTS_QUEUE = 'Settlements_Queue';
   private static final String QUEUE_TYPE = 'Queue';
   private static Group settlementsQueue;
-  private static final String EXTERNAL_SETTLEMENT_PLAN = 'External Settlement Action Plan';
-  private static final String INTERNAL_SETTLEMENT_PLAN = 'Internal Settlement Action Plan';
-
-  @TestVisible
-  private static List<ActionPlanTemplateVersion> actionPlanTemplateVersionList {
-    get {
-      if (actionPlanTemplateVersionList != null) {
-        return actionPlanTemplateVersionList;
-      }
-      actionPlanTemplateVersionList = [
-        SELECT Id, Name
-        FROM ActionPlanTemplateVersion
-        WHERE
-          Name IN (:EXTERNAL_SETTLEMENT_PLAN, :INTERNAL_SETTLEMENT_PLAN)
-          AND Status = 'Final'
-      ];
-      return actionPlanTemplateVersionList;
-    }
-    set;
-  }
+  public static final String EXTERNAL_SETTLEMENT_PLAN = 'External Settlement Action Plan';
+  public static final String INTERNAL_SETTLEMENT_PLAN = 'Internal Settlement Action Plan';
+  private static final ResidentialLoanApplicationRepository RESIDENTIAL_LOAN_APP_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
+    ResidentialLoanApplicationRepository.class
+  );
+  private static final SettlementRepository SETTLEMENT_REPO = (SettlementRepository) Lib_InstanceProvider.forType(
+    SettlementRepository.class
+  );
 
   @TestVisible
   private static Map<String, ActionPlanTemplateVersion> actionPlansMap {
@@ -36,6 +24,7 @@ public with sharing class SettlementActions {
       }
 
       actionPlansMap = new Map<String, ActionPlanTemplateVersion>();
+      List<ActionPlanTemplateVersion> actionPlanTemplateVersionList = SETTLEMENT_REPO.queryActionPlanTemplateVersion();
       for (ActionPlanTemplateVersion ap : actionPlanTemplateVersionList) {
         actionPlansMap.put(ap.Name, ap);
       }
@@ -233,5 +222,40 @@ public with sharing class SettlementActions {
     }
 
     return settlementList;
+  }
+  /**
+   * @description  filter the loanappIds from settlement
+   * @param records settlement  records for filtering
+   *  @return List<loanapplicationIds>
+   */
+  @Testvisible
+  private static List<Id> getLoanApplicationIdFromSettlements(
+    List<Settlement__c> records
+  ) {
+    List<Id> loanApplicationIds = new List<Id>();
+    for (Settlement__c settleRec : records) {
+      if (settleRec.IsValidCloudEvent__c == true) {
+        loanApplicationIds.add(settleRec.Loan_Application_Number__c);
+      }
+    }
+    return loanApplicationIds;
+  }
+  /**
+   * @description on settlement update/insert publish application event to migrate data to broker org.
+   * @param records records to publish the application event
+   * @param cloudEventType  add or update event
+   */
+  public static void publishSettlementCloudEvents(
+    List<Settlement__c> records,
+    String cloudEventType
+  ) {
+    List<Id> loanApplicationIds = getLoanApplicationIdFromSettlements(records);
+    List<ResidentialLoanApplication> rlaList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
+      loanApplicationIds
+    );
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      rlaList,
+      cloudEventType
+    );
   }
 }

@@ -6,7 +6,6 @@
     <description>Interest payments are paid in advance or in arrears</description>
     <externalDeveloperName>InterestRepayments</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Interest payments are paid in advance or in arrears</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

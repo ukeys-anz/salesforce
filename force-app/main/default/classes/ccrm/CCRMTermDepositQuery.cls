@@ -3,37 +3,47 @@
  * @since  07/2023
  * @group CCRM (Commercial CRM)
  * @description Term Deposit external query class
+ * @runTests CCRMTermDepositQueryTest
+ * @pmd Used PMD.TooManyFields as we need to have those fields in wrapper CCRMTermDepositModel as response from external system
  */
+@SuppressWarnings('PMD.TooManyFields')
 public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQueryBase {
   /**
    * @description TermDeposit Model class
    */
-  public class CCRMTermDepositModel extends CCRMFinancialAccountModelBase {
-    public String subProductCode;
-    public Boolean restrainsHardHold;
-    public Boolean pledge;
-    public Decimal pledgeAmount;
-    public Integer restrainsStopPayNumber;
-    public DateTime openDate;
-    public DateTime closeDate;
-    public String bsbCode;
-    public String anzsicCode;
-    public String controllingPostId;
-    public String noOfSignatures;
-    public DateTime cdaIssueDate;
-    public DateTime maturityDate;
-    public Integer termYear;
-    public Integer termMonth;
-    public List<Decimal> creditInterestRateArray;
-    public List<Integer> creditInterestLimitsArray;
+  @testVisible
+  private class CCRMTermDepositModel extends CCRMFinancialAccountModelBase {
+    private String subProductCode;
+    private Boolean restrainsHardHold;
+    private Boolean pledge;
+    private Decimal pledgeAmount;
+    private DateTime openDate;
+    private DateTime closeDate;
+    private String bsbCode;
+    private String anzsicCode;
+    private String controllingPostId;
+    private String noOfSignatures;
+    private DateTime cdaIssueDate;
+    private DateTime maturityDate;
+    private Integer termYear;
+    private Integer termMonth;
+    private List<Decimal> creditInterestRateArray;
+    private List<Integer> creditInterestLimitsArray;
+    private Decimal availableBalance;
+    private string address;
+    private string tpmiNumber;
+    private string tpmiSAO;
+    private String sourceSystemStatus;
   }
 
   /**
    * @description TermDeposit API callout response
    */
-  public class TermAccountCalloutResponse extends FinancialAccountCalloutResponse {
-    public String customerid;
-    public List<CCRMTermDepositModel> accounts;
+  @testVisible
+  private class TermAccountCalloutResponse extends FinancialAccountCalloutResponse {
+    private String customerid;
+    @testVisible
+    private List<CCRMTermDepositModel> accounts;
   }
 
   /**
@@ -50,6 +60,7 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
+  @testVisible
   protected override void parseResponse(String responseBody) {
     if (String.isBlank(responseBody)) {
       return;
@@ -60,74 +71,113 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
     );
   }
 
+  private static final Map<String, String> MAP_NO_OF_SIGNATURES = new Map<String, String>{
+    '1' => '1 - ANY ONE TO SIGN',
+    '2' => '2 - BOTH TO SIGN (CONJOINTLY)',
+    '3' => '3 - REFER TO ACCOUNT SIGNING AUTHORITY'
+  };
+
+  private static final Map<String, String> MAP_SOURCE_SYSTEM_STATUS = new Map<String, String>{
+    '99' => '99 - Active',
+    '01' => '01 - New',
+    '03' => '03 - Inactive',
+    '05' => '05 - Dormant',
+    '06' => '06 - Unclaimed',
+    '07' => '07 - Closed',
+    '08' => '08 - Purgeable',
+    '11' => '11 - Matured'
+  };
+
   /**
    * @description Transform API response to TermDeposit records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
+
+  @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
     String customerId;
+    String accNumber;
     Map<String, Object> row;
     List<CCRMTermDepositModel> accounts = new List<CCRMTermDepositModel>();
-
-    if (this.calloutResponse != null) {
-      accounts = ((TermAccountCalloutResponse) this.calloutResponse).accounts;
+    if (this.calloutResponse == null) {
+      return result;
     }
-
-    for (CCRMTermDepositModel fa : accounts) {
-      row = new Map<String, Object>();
+    for (
+      CCRMTermDepositModel fa : ((TermAccountCalloutResponse) this.calloutResponse)
+        .accounts
+    ) {
       customerId = getCustomerId(fa.accountNumber);
       if (String.isBlank(customerId)) {
         continue;
       }
-      row.put('CustomerId', customerId);
-      row.put('ExternalId', getExternalId(fa));
-      row.put('DisplayUrl', getDisplayUrl(fa));
-      row.put('Relationship', getAccountRelationship(fa.accountNumber));
+      accNumber = this.sourceSystem == SourceSystemEnum.CAP
+        ? getAccountNumberwithFormat(fa.accountNumber)
+        : formatAccountNumber(fa.accountNumber);
 
-      row.put('AccountName', fa.accountName);
-      row.put('AccountNumber', formatAccountNumber(fa.accountNumber));
-      row.put('AccountStatus', fa.status);
-      row.put('Balance', fa.accountBalance);
-      row.put('ProductCode', fa.productCode);
-      row.put('SubProductCode', fa.subProductCode);
-      row.put('RestraintsHold', fa.restrainsHardHold);
-      row.put('Pledge', fa.pledge);
-      row.put('PledgeAmount', fa.pledgeAmount);
-      row.put('StopsPay', fa.restrainsStopPayNumber);
-      row.put('DateOpened', formatDate(fa.openDate));
-      row.put('DateClosed', formatDate(fa.closeDate));
-      row.put('BSB', fa.bsbCode);
-      row.put('ANZSICCode', fa.anzsicCode);
-      row.put('CPID', fa.controllingPostId);
-      row.put('NumberOfSignatures', fa.noOfSignatures);
-      row.put('IssueDate', formatDate(fa.cdaIssueDate));
-      row.put('MaturityDate', formatDate(fa.maturityDate));
-      row.put('TermYear', fa.termYear);
-      row.put('TermMonth', fa.termMonth);
-      List<Decimal> creditInterestRateArray = new List<Decimal>();
-      List<Integer> creditInterestLimitsArray = new List<Integer>();
-      if (fa.creditInterestRateArray != null) {
-        creditInterestRateArray.addAll(fa.creditInterestRateArray);
-      }
-      if (fa.creditInterestLimitsArray != null) {
-        creditInterestLimitsArray.addAll(fa.creditInterestLimitsArray);
-      }
-
-      for (Integer i = 0; i < creditInterestLimitsArray.size() - 1; i++) {
-        if (
-          fa.accountBalance >= creditInterestLimitsArray[i] &&
-          (fa.accountBalance <= creditInterestLimitsArray[i + 1] ||
-          (creditInterestLimitsArray[i + 1] == 0 &&
-          fa.accountBalance != 0))
-        ) {
-          row.put('InterestRate', creditInterestRateArray[i]);
-          break;
-        }
-      }
-
+      row = new Map<String, Object>{
+        'CustomerId' => customerId,
+        'ExternalId' => getExternalId(fa),
+        'DisplayUrl' => getDisplayUrl(fa),
+        'AccountName' => fa.accountName,
+        'AccountNumber' => accNumber,
+        'Balance' => fa.accountBalance,
+        'SubProductCode' => fa.subProductCode,
+        'RestraintsHold' => fa.restrainsHardHold,
+        'Pledge' => fa.pledge,
+        'PledgeAmount' => fa.pledgeAmount,
+        'DateOpened' => formatDate(fa.openDate),
+        'DateClosed' => formatDate(fa.closeDate),
+        'BSB' => fa.bsbCode,
+        'ANZSICCode' => retrieveIndustryCodeAndDescription(fa.anzsicCode),
+        'CPID' => fa.controllingPostId,
+        'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures),
+        'IssueDate' => formatDate(fa.cdaIssueDate),
+        'MaturityDate' => formatDate(fa.maturityDate),
+        'TermYear' => fa.termYear,
+        'TermMonth' => fa.termMonth,
+        'BalanceAvailable' => fa.availableBalance,
+        'ProductCode' => getProductCode(fa.accountNumber),
+        'ProductName' => getProductName(fa.accountNumber),
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
+        'AccountStatus' => fa.status,
+        'StatementMailingAddress' => fa.address,
+        'TPMISAO' => '',
+        'Relationship' => getAccountRelationship(fa.accountNumber)
+      };
+      populateInterestRate(row, fa);
       result.queryResult.add(row);
     }
     return result;
+  }
+  /**
+   * @description This is used to populate the seasonal limits
+   * @param row Map<String, Object>
+   * @param fa CCRMTermDepositModel
+   **/
+  @testVisible
+  private static void populateInterestRate(
+    Map<String, Object> row,
+    CCRMTermDepositModel fa
+  ) {
+    List<Decimal> creditInterestRateArray = new List<Decimal>(
+      fa.creditInterestRateArray
+    );
+    List<Integer> creditInterestLimitsArray = new List<Integer>(
+      fa.creditInterestLimitsArray
+    );
+    for (Integer i = 0; i < creditInterestLimitsArray.size() - 1; i++) {
+      if (
+        fa.accountBalance >= creditInterestLimitsArray[i] &&
+        (fa.accountBalance <= creditInterestLimitsArray[i + 1] ||
+        (creditInterestLimitsArray[i + 1] == 0 &&
+        fa.accountBalance != 0))
+      ) {
+        row.put('InterestRate', creditInterestRateArray[i]);
+        break;
+      }
+    }
   }
 }

@@ -4964,6 +4964,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.Chat_or_Call_SID_Formula__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.Coaching_Summary__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8595,6 +8600,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ResidentialLoanApplication.Status</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.SunsetTimestamp__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

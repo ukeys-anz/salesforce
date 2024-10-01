@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Expiry Date</label>
+    <label>Limit Expiry Date</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>DateTime</type>

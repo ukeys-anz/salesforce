@@ -84,7 +84,7 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    */
   @AuraEnabled
   public List<String> draftCVIDs { get; set; }
-  
+
   /**
    * @description fileTypesList
    */
@@ -185,7 +185,13 @@ public class OnboardingWorkflowWrapper extends CalloutModel {
    * @description parentRecordReference
    */
   @AuraEnabled
-  public String parentRecordReference{ get; set; }
+  public String parentRecordReference { get; set; }
+
+  /**
+   * @description isJoinOperationsReader
+   */
+  @AuraEnabled
+  public Boolean isJoinOperationsReader { get; set; }
 
   /**
    * @description This is wrapper class for FileTypes

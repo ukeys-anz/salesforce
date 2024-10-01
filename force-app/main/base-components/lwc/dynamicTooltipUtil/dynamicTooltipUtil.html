@@ -1,0 +1,27 @@
+<template>
+  <section role="dialog" class="slds-modal slds-fade-in-open">
+    <div class="slds-modal__container">
+      <header class="slds-modal__header modal-header">
+        <lightning-icon
+          icon-name="utility:close"
+          onclick={closeModal}
+          class="slds-button slds-button_icon slds-modal__close close-modal"
+        ></lightning-icon>
+        <h2 class="slds-modal__title slds-hyphenate">
+          What does {headerTitle} mean?
+        </h2>
+      </header>
+      <div
+        lwc:dom="manual"
+        class="slds-modal__content slds-p-around_medium tooltip-content-markup"
+        data-id="tooltip-content-loaded"
+      ></div>
+      <footer class="slds-modal__footer">
+        <button class="slds-button slds-button_neutral" onclick={closeModal}>
+          Close
+        </button>
+      </footer>
+    </div>
+  </section>
+  <div class="slds-backdrop slds-backdrop_open"></div>
+</template>

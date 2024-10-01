@@ -748,6 +748,7 @@
     <tabs>standard-Interaction</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
     <tabs>Quality_Assessment__c</tabs>
+    <tabs>accreditedDataRecipient</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>IDOps_Workbench_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -759,6 +760,9 @@
         </mappings>
         <mappings>
             <tab>Quality_Assessment__c</tab>
+        </mappings>
+        <mappings>
+            <tab>accreditedDataRecipient</tab>
         </mappings>
         <mappings>
             <tab>standard-Account</tab>

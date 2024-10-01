@@ -7,7 +7,6 @@
     <description>If the loan has been fully drawn</description>
     <externalDeveloperName>FullyDrawn</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>If the loan has been fully drawn</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

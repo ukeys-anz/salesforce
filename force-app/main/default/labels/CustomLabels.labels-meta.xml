@@ -15,6 +15,13 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX_ResidentialLoanApplication_event_ce_type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.retailplusapplication.</value>
+    </labels>
+    <labels>
         <fullName>MS_SOP_Debt</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -127,6 +134,13 @@
         <protected>false</protected>
         <shortDescription>ANZx_Customer_Tab_Whats_Happening</shortDescription>
         <value>What&apos;s Happening</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Customer_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX Customer event ce type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.customerdata</value>
     </labels>
     <labels>
         <fullName>ANZ_com_Sender_Address</fullName>
@@ -2216,7 +2230,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_ForgeV2_Token</shortDescription>
-        <value>callout:SF_MS_CH2/forge/oauth/v2/customer/token?anz_token_type=</value>
+        <value>callout:SF_MS_CH2/forge/oauth/v2/{realm}/token?anz_token_type=</value>
     </labels>
     <labels>
         <fullName>MS_GetDeviceWithBiometric</fullName>
@@ -2510,5 +2524,33 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>DAONImageReloadMaxRetryCount</shortDescription>
         <value>15</value>
+    </labels>
+    <labels>
+        <fullName>MS_ADR_API</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_ADR_API</shortDescription>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/rsp</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_Business_Streams_Mapping</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Business Streams Mapping</shortDescription>
+        <value>Commercial Lending:CMOS_CS_CL</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_DEV</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_DEV</shortDescription>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_PROD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_PROD</shortDescription>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
     </labels>
 </CustomLabels>
