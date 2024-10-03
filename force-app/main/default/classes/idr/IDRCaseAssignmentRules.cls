@@ -60,6 +60,7 @@ public with sharing class IDRCaseAssignmentRules {
     List<Case> casesUpdatedwithProductCategory = ListUtil.filter(cases, oldMap)
       .changed(Case.IDR_Product_Category__c)
       .isNotNull(Case.IDR_Product_Category__c)
+      .equals(Case.RecordTypeId, RTCase.generalInquiryCmos)
       .toList();
 
     for (Case c : casesUpdatedwithProduct) {
@@ -80,9 +81,6 @@ public with sharing class IDRCaseAssignmentRules {
 
     for (Case c : casesUpdatedwithProductCategory) {
       Case oldCase = oldMap.get(c.Id);
-      if (c.RecordTypeId != RTCase.generalInquiryCmos) {
-        continue;
-      }
       if (oldCase == null || c.Origin != GetHelpConstants.ANZ_PLUS_WEB_ORIGIN) {
         c.IDR_Product_Family__c = QueryProductFamily.getByCategory(
             c.IDR_Product_Category__c
@@ -135,6 +133,7 @@ public with sharing class IDRCaseAssignmentRules {
     }
 
     if (
+      oldCase != null &&
       oldcaseStatus.contains(oldCase.Status) &&
       (oldCase.Status != rec.Status ||
       oldCase.RecordTypeId == rec.RecordTypeId)

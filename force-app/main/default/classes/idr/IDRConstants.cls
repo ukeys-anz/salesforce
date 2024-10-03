@@ -16,6 +16,10 @@ public with sharing class IDRConstants {
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String RESOLVED_STATUS = 'Resolved';
   public static final String ON_HOLD_STATUS = 'Case - On Hold';
+  public static final String SYSTEMIC_ISSUE_YES = 'yes';
+
+  //Product Family
+  public static final String ASSET_FINANCE_PRODUCT_FAMILY = 'Asset Finance';
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';

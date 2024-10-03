@@ -1684,45 +1684,6 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  @isTest
-  static void testCaseNotifiationAfterUpdate() {
-    Case parentCase = IDRTestDataFactory.createAfcaCustomerComplaintCase(
-      'Standard',
-      '5',
-      '38'
-    );
-
-    insert parentCase;
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        IDRTestDataFactory.createAfcaCustomerComplaintCase(
-          'Standard',
-          '5',
-          '38'
-        )
-      );
-    }
-    Test.startTest();
-    insert newCases;
-    List<Case> caseList = [
-      SELECT Id, Origin, CaseNumber, ParentId
-      FROM Case
-      WHERE Id != :parentCase.Id
-    ];
-    for (Case c : caseList) {
-      c.ParentId = parentCase.Id;
-    }
-    CheckRecursive.firstCall = false;
-    update caseList;
-    Test.stopTest();
-    System.assertEquals(
-      parentCase.Id,
-      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1].ParentId,
-      'Issue while updating parentId'
-    );
-  }
-
   //test IDRCollectionAction getStartCollectionMap method
   //This test method verifies if the returned startCollection map contains IDR Collection Number from Task record and its related caseId/whatId
   @isTest

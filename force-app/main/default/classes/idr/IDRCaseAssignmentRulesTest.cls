@@ -10,12 +10,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
 
   static Case caseRecord1 = new Case(
     Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
-    RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+    RecordTypeId = RTCase.customerComplaint,
     Status = IDRConstants.OPEN_STATUS
   );
   static Case caseRecord2 = new Case(
     Id = caseRecord1.Id,
-    RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+    RecordTypeId = RTCase.customerComplaint,
     Status = IDRConstants.ESCALATED_STATUS,
     OwnerId = testUserId
   );
@@ -37,10 +37,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newcase.IDR_Product_Family__c = Lib_FakeIdGenerator.getMockId(
       Product_Family__c.SObjectType
     );
+    Test.startTest();
     IDRCaseAssignmentRules.assignCases(
       new List<Case>{ newcase },
       new Map<Id, Case>{ oldcase.Id => oldcase }
     );
+    Test.stopTest();
     System.assertEquals(
       newcase.OwnerId,
       IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(newcase, oldcase),
@@ -52,38 +54,34 @@ private with sharing class IDRCaseAssignmentRulesTest {
    */
   @IsTest
   private static void testassignProductFamily() {
-    Product2 product1 = new Product2(
-      Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType)
-    );
-    Product2 product2 = new Product2(
+    Product2 testProduct = new Product2(
       Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType),
       IDR_Product_Family__c = Lib_FakeIdGenerator.getMockId(
         Product_Family__c.SObjectType
       )
     );
 
-    Map<Id, Product2> mockProducts = new Map<Id, Product2>{
-      product1.Id => product1,
-      product2.Id => product2
+    // adding mock product to selector
+    QueryProducts.productsById = new Map<Id, Product2>{
+      testProduct.Id => testProduct
     };
-    QueryProducts.productsById = mockProducts;
-    Product2 newProduct = QueryProducts.productsById.get(product2.Id);
 
     Case oldCase = new Case(
       Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
-      RecordTypeId = GetHelpConstants.COMPLAINT_RT_ID
+      RecordTypeId = RTCase.anzxComplaint
     );
 
     Case newCase = caseRecord2;
-    newCase.Product__c = newProduct.Id;
-
+    newCase.Product__c = testProduct.Id;
+    Test.startTest();
     IDRCaseAssignmentRules.assignProductFamily(
       new List<Case>{ newCase },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
+    Test.stopTest();
     System.assertEquals(
       newCase.IDR_Product_Family__c,
-      newProduct.IDR_Product_Family__c,
+      testProduct.IDR_Product_Family__c,
       'Product Family should be updated on Case'
     );
   }
@@ -100,7 +98,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
 
     Case newcase = new Case(
       Id = oldcase.Id,
-      RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
+      RecordTypeId = RTCase.customerComplaint,
       Status = IDRConstants.ON_HOLD_STATUS,
       Type = '4',
       IDR_Subsequent_Issue__c = '21',
@@ -134,11 +132,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.OwnerId = testUserId;
     newCase.Status = IDRConstants.UNDER_INVESTIGATION_STATUS;
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       testUserId,
@@ -160,11 +159,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
       Status = IDRConstants.ESCALATED_STATUS,
       OwnerId = testUserId
     );
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       testUserId,
@@ -181,11 +181,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Origin = '9';
     newCase.Status = IDRConstants.ESCALATED_STATUS;
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_CEO').Id,
@@ -207,11 +208,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
     newCase.Type = '4';
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('EDR_Hardship').Id,
@@ -233,11 +235,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Type = '4';
     newCase.OwnerId = testUserId;
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Hardship').Id,
@@ -259,11 +262,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
     newCase.IDR_Subsequent_Issue__c = '38';
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('Specialised_EarlyRes_Responsible_Lending').Id,
@@ -284,11 +288,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
 
     Case newCase = caseRecord2;
     newCase.IDR_Subsequent_Issue__c = '38';
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Responsible_Lending').Id,
@@ -310,11 +315,13 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Type = 'Scam';
     newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
+
     System.assertEquals(
       workbasketId,
       QueryQueue.get('EDR_CM_Everyday_Banking_Wealth').Id,
@@ -355,10 +362,13 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
     newCase.IDR_Product_Family__c = newproductfamily.Id;
 
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
+
     System.assertEquals(
       workbasketId,
       QueryQueue.get('EDR_Wealth').Id,
@@ -380,10 +390,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
     newCase.Type = 'Fraud';
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('EDR_Early_Resolution').Id,
@@ -406,10 +418,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newCase.Type = '19';
     newCase.IDR_Issue_Type_2__c = '19';
     newCase.IDR_Issue_Type_3__c = '19';
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('CCR_Complaints').Id,
@@ -448,11 +462,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
 
     Case newcase = caseRecord2;
     newCase.IDR_Product_Family__c = newproductfamily.Id;
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_ANZ_Plus').Id,
@@ -474,10 +489,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Type = 'Fraud';
     newCase.IDR_Subsequent_Issue__c = '109';
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Spare').Id,
@@ -499,10 +516,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Type = 'Fraud';
     newCase.IDR_Subsequent_Issue__c = '110';
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Scams').Id,
@@ -524,10 +543,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newCase = caseRecord2;
     newCase.Type = '16';
     newCase.IDR_Subsequent_Issue__c = '80';
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Deceased_Estates').Id,
@@ -553,10 +574,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newCase.IDR_Subsequent_Issue__c = '11';
     newCase.IDR_Second_Issue__c = false;
     newCase.IDR_Third_Issue__c = false;
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Early_Resolution_Unassisted_Channel').Id,
@@ -577,11 +600,12 @@ private with sharing class IDRCaseAssignmentRulesTest {
 
     Case newCase = caseRecord2;
     newCase.Type = '13';
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldCase
     );
+    Test.stopTest();
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Early_Resolution').Id,
@@ -598,29 +622,27 @@ private with sharing class IDRCaseAssignmentRulesTest {
    */
   @IsTest
   private static void testOwnerisEverydayBanking() {
-    Product2 product1 = new Product2(
-      Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType)
-    );
-    Product2 product2 = new Product2(
+    Product2 testProduct = new Product2(
       Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType),
       ANZ_Product_Code__c = '231'
     );
 
-    Map<Id, Product2> mockProducts = new Map<Id, Product2>{
-      product1.Id => product1,
-      product2.Id => product2
+    // adding mock product to selector
+    QueryProducts.productsById = new Map<Id, Product2>{
+      testProduct.Id => testProduct
     };
-    QueryProducts.productsById = mockProducts;
 
-    Product2 newProduct = QueryProducts.productsById.get(product2.Id);
     Case oldCase = caseRecord1;
     Case newCase = caseRecord2;
-    newCase.Product__c = newProduct.Id;
+    newCase.Product__c = testProduct.Id;
 
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
       oldcase
     );
+    Test.stopTest();
+
     System.assertEquals(
       workbasketId,
       QueryQueue.get('IDR_Everyday_Banking').Id,
@@ -648,9 +670,9 @@ private with sharing class IDRCaseAssignmentRulesTest {
       Status = IDRConstants.ON_HOLD_STATUS,
       OwnerId = testUserId
     );
-
+    Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerId(newCase, oldCase);
-
+    Test.stopTest();
     System.AssertEquals(
       workbasketId,
       testUserId,
@@ -666,7 +688,9 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newCase.IDR_Issue_Type_2__c = '4';
     newCase.IDR_Subsequent_Issue_2__c = '21';
 
+    Test.startTest();
     Boolean isValidIssueType = IDRCaseAssignmentRules.isValidIssueType(newCase);
+    Test.stopTest();
 
     System.AssertEquals(isValidIssueType, true, 'Boolean should return true');
   }
@@ -679,7 +703,9 @@ private with sharing class IDRCaseAssignmentRulesTest {
     newCase.IDR_Issue_Type_3__c = '4';
     newCase.IDR_Subsequent_Issue_3__c = '21';
 
+    Test.startTest();
     Boolean isValidIssueType = IDRCaseAssignmentRules.isValidIssueType(newCase);
+    Test.stopTest();
 
     System.AssertEquals(isValidIssueType, true, 'Boolean should return true');
   }
