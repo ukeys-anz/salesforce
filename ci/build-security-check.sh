@@ -54,8 +54,8 @@ function checkBypassString() {
 }
 
 function checkValidationRuleBypass() {
-    if [[ -d ./tmp/deploy/force-app/main/default/objects/ ]]; then
-        for fi in ./tmp/deploy/force-app/main/default/objects/*/$1/*; do
+    if [[ -d ./tmp/deploy/force-app/main/default/objects/*/validationRules ]]; then
+        for fi in ./tmp/deploy/force-app/main/default/objects/*/validationRules/*; do
             fieldMetadata=$(cat "$fi")
             f=$(basename "$fi") && f=${f/.validationRule-meta.xml/}
             if [[ $fieldMetadata != *"Salesforce_Library_Settings__c.Disable_VRs__c"* ]]; then
