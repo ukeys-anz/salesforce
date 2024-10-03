@@ -7,9 +7,22 @@
 public without sharing class CaseCEController {
   public static set<Id> caseCloudSet = new Set<Id>();
   private static set<Id> cloudEventCaseRecordTypes = new Set<Id>{
-    GetHelpConstants.ATM_DISPUTE_RT_ID,
-    GetHelpConstants.CARD_DISPUTE_RT_ID
+    RTCase.atmDispute,
+    RTCase.cardDispute,
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.nppDispute,
+    RTCase.bpayDispute,
+    RTCase.payToDispute
   };
+  private static set<Id> caseRecordTypesForAlpha1 = new Set<Id>{
+    RTCase.atmDispute,
+    RTCase.cardDispute
+  };
+
+  private static final CaseDisputesRepository CASE_DISPUTES_REPOSITORY = (CaseDisputesRepository) Lib_InstanceProvider.forType(
+    CaseDisputesRepository.class
+  );
   /**
    * @description method to be called to clear the current set cache. In case of multiple dml to same element need to call this
    */
@@ -74,26 +87,10 @@ public without sharing class CaseCEController {
    * @return Map<Id, Account> Map of Account Id and related Accounts
    */
   private static Map<Id, Account> getRelatedAccounts(List<Case> theCases) {
-    Set<Id> relatedAccountIds = new Set<Id>();
-    for (Case theCase : theCases) {
-      relatedAccountIds.add(theCase.AccountId);
-    }
-    Map<Id, Account> relatedAccounts = new Map<Id, Account>(
-      [
-        SELECT
-          Id,
-          FirstName,
-          LastName,
-          OCV_ID__c,
-          Source_System_ID__c,
-          Source_System_Name__c,
-          PersonEmail,
-          PersonMobilePhone
-        FROM Account
-        WHERE Id IN :relatedAccountIds
-      ]
+    Set<Id> relatedAccountIds = ListUtil.getIds(theCases, Case.AccountId);
+    Map<Id, Account> relatedAccounts = CASE_DISPUTES_REPOSITORY.getAccountDetailsFromId(
+      relatedAccountIds
     );
-
     return relatedAccounts;
   }
 
@@ -103,14 +100,10 @@ public without sharing class CaseCEController {
    * @return Map<Id, User> Map of user Id and related Users
    */
   private static Map<Id, User> getRelatedUsers(List<Case> theCases) {
-    Set<Id> relatedUserIds = new Set<Id>();
-    for (Case theCase : theCases) {
-      relatedUserIds.add(theCase.LastModifiedById);
-    }
-    Map<Id, User> relatedUsers = new Map<Id, User>(
-      [SELECT Id, Email, UserName FROM User WHERE Id IN :relatedUserIds]
+    Set<Id> relatedUserIds = ListUtil.getIds(theCases, Case.LastModifiedById);
+    Map<Id, User> relatedUsers = CASE_DISPUTES_REPOSITORY.getUserDetailsFromId(
+      relatedUserIds
     );
-
     return relatedUsers;
   }
 
@@ -133,18 +126,19 @@ public without sharing class CaseCEController {
     }
     Map<Id, CloudEventModel.UserModel> relatedUsers = new Map<Id, CloudEventModel.UserModel>();
 
-    for (User userRec : [
-      SELECT Id, Email, UserName
-      FROM User
-      WHERE Id IN :relatedUserOrQueueIds
-    ]) {
+    for (
+      User userRec : CASE_DISPUTES_REPOSITORY.getUserDetailsFromId(
+          relatedUserOrQueueIds
+        )
+        .values()
+    ) {
       relatedUsers.put(userRec.Id, new CloudEventModel.UserModel(userRec));
     }
-    for (Group groupRec : [
-      SELECT Id, Email, Name
-      FROM Group
-      WHERE Id IN :relatedUserOrQueueIds
-    ]) {
+    for (
+      Group groupRec : CASE_DISPUTES_REPOSITORY.getGroupDetails(
+        relatedUserOrQueueIds
+      )
+    ) {
       relatedUsers.put(groupRec.Id, new CloudEventModel.UserModel(groupRec));
     }
 
@@ -166,8 +160,10 @@ public without sharing class CaseCEController {
    * @description generate Cloud Event Models for Case only when there is a change in the data
    * @param theCasesNew Case records with new values
    * @param theCasesOld Case records with old values
+   * NcssMethodCount Suppressed : To have all the code lines together in one place. Code generates cloud event models on insert, update and status change
    * @return List<CloudEventModel> List of Case Cloud Event Model
    */
+  @SuppressWarnings('PMD.CognitiveComplexity')
   public static List<CloudEventModel> generateCloudEventModel(
     List<Case> theCasesNew,
     Map<Id, Case> theCasesOld
@@ -184,12 +180,13 @@ public without sharing class CaseCEController {
       theCasesOld.values()
     );
 
-    List<CloudEventModel> ceList = new List<CloudEventModel>();
     for (Case theCaseNew : theCasesNew) {
       if (caseCloudSet.contains(theCaseNew.Id)) {
         continue;
       }
-
+      String caseRecordType = QueryRT.of(Case.SObjectType)
+        .get(theCaseNew.RecordTypeId)
+        .getDeveloperName();
       Id relatedAccountId = theCaseNew.AccountId;
       Account relatedAccount = relatedAccounts.get(relatedAccountId);
       User relatedUser = relatedUsers.get(theCaseNew.LastModifiedById);
@@ -199,7 +196,7 @@ public without sharing class CaseCEController {
       Case theCaseOld = theCasesOld.get(theCaseNew.Id);
 
       if (theCaseOld == null) {
-        CloudEventModel ceModel = getCloudEventModel(
+        CloudEventModel ceModel = CloudEventBuildHelper.createCloudEvent(
           theCaseNew,
           relatedAccount,
           'created',
@@ -207,6 +204,17 @@ public without sharing class CaseCEController {
           relatedOwner
         );
         cloudEventModels.add(ceModel);
+        if (caseRecordTypesForAlpha1.contains(theCaseNew.RecordTypeId)) {
+          cloudEventModels.add(
+            CloudEventBuildHelper.createCloudEventForAlpha1(
+              theCaseNew,
+              relatedAccount,
+              'created',
+              relatedUser,
+              relatedOwner
+            )
+          );
+        }
         caseCloudSet.add(theCaseNew.Id);
         continue;
       }
@@ -214,18 +222,20 @@ public without sharing class CaseCEController {
         theCaseOld.OwnerId
       );
 
-      String caseNewDataPayload = getCloudEventDataPayload(
+      String caseNewDataPayload = CloudEventBuildHelper.getCloudEventDataPayload(
         theCaseNew,
         relatedAccount,
-        relatedOwner
+        relatedOwner,
+        relatedUser
       );
-      String caseOldDataPayload = getCloudEventDataPayload(
+      String caseOldDataPayload = CloudEventBuildHelper.getCloudEventDataPayload(
         theCaseOld,
         relatedAccount,
-        oldOwner
+        oldOwner,
+        relatedUser
       );
       if (caseNewDataPayload != caseOldDataPayload) {
-        CloudEventModel ceModel = getCloudEventModel(
+        CloudEventModel ceModel = CloudEventBuildHelper.createCloudEvent(
           theCaseNew,
           relatedAccount,
           'updated',
@@ -233,10 +243,21 @@ public without sharing class CaseCEController {
           relatedOwner
         );
         cloudEventModels.add(ceModel);
+        if (caseRecordTypesForAlpha1.contains(theCaseNew.RecordTypeId)) {
+          cloudEventModels.add(
+            CloudEventBuildHelper.createCloudEventForAlpha1(
+              theCaseNew,
+              relatedAccount,
+              'updated',
+              relatedUser,
+              relatedOwner
+            )
+          );
+        }
         caseCloudSet.add(theCaseNew.Id);
       }
       if (theCaseNew.Status != theCaseOld.Status) {
-        CloudEventModel ceModel = getCloudEventModel(
+        CloudEventModel ceModel = CloudEventBuildHelper.createCloudEvent(
           theCaseNew,
           relatedAccount,
           'status.' + theCaseNew.Status.toLowerCase().replace(' ', '_'),
@@ -244,77 +265,20 @@ public without sharing class CaseCEController {
           relatedOwner
         );
         cloudEventModels.add(ceModel);
+        if (caseRecordTypesForAlpha1.contains(theCaseNew.RecordTypeId)) {
+          cloudEventModels.add(
+            CloudEventBuildHelper.createCloudEventForAlpha1(
+              theCaseNew,
+              relatedAccount,
+              'status.' + theCaseNew.Status.toLowerCase().replace(' ', '_'),
+              relatedUser,
+              relatedOwner
+            )
+          );
+        }
       }
     }
 
     return cloudEventModels;
-  }
-
-  /**
-   * @description get Cloud Event Models for Case
-   * @param theCase Case record
-   * @param theAccount related Account record
-   * @param action created, or updated
-   * @param theUser related last modifed user
-   * @param theOwner related owner user
-   * @return CloudEventModel Case Cloud Event Model
-   */
-  private static CloudEventModel getCloudEventModel(
-    Case theCase,
-    Account theAccount,
-    String action,
-    User theUser,
-    CloudEventModel.UserModel theOwner
-  ) {
-    CloudEventModel cloudEventModel;
-    if (theCase.RecordTypeId == GetHelpConstants.ATM_DISPUTE_RT_ID) {
-      cloudEventModel = new ATMDisputeCaseCloudEventModel(
-        theCase,
-        theAccount,
-        action,
-        theUser,
-        theOwner
-      );
-    } else if (theCase.RecordTypeId == GetHelpConstants.CARD_DISPUTE_RT_ID) {
-      cloudEventModel = new CardDisputeCaseCloudEventModel(
-        theCase,
-        theAccount,
-        action,
-        theUser,
-        theOwner
-      );
-    }
-    return cloudEventModel;
-  }
-
-  /**
-   * @description get ce_data payload for Case, to be used in comparing the new data model with the old data model
-   * @param theCase Case record
-   * @param theAccount related Account record
-   * @param theOwner related owner user record
-   * @return String ce_data payload for cloud event
-   */
-  private static String getCloudEventDataPayload(
-    Case theCase,
-    Account theAccount,
-    CloudEventModel.UserModel theOwner
-  ) {
-    String cloudEventDataPayload;
-    if (theCase.RecordTypeId == GetHelpConstants.ATM_DISPUTE_RT_ID) {
-      ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel cloudEventDataModel = new ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel(
-        theCase,
-        theAccount,
-        theOwner
-      );
-      cloudEventDataPayload = JSON.serialize(cloudEventDataModel);
-    } else if (theCase.RecordTypeId == GetHelpConstants.CARD_DISPUTE_RT_ID) {
-      CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel cloudEventDataModel = new CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel(
-        theCase,
-        theAccount,
-        theOwner
-      );
-      cloudEventDataPayload = JSON.serialize(cloudEventDataModel);
-    }
-    return cloudEventDataPayload;
   }
 }

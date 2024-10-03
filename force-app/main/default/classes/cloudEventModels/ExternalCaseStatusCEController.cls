@@ -39,10 +39,12 @@ public without sharing class ExternalCaseStatusCEController {
         SELECT
           Id,
           CaseNumber,
+          Dispute_Reason__c,
           RecordTypeId,
           Account.OCV_ID__c,
           Transaction_UUID__c,
           OCV_ID__c,
+          LastModifiedDate,
           AccountId,
           Account.Source_System_Name__c,
           Account.Source_System_ID__c,
@@ -68,7 +70,14 @@ public without sharing class ExternalCaseStatusCEController {
         action,
         relatedUser
       );
+      CloudEventModel cloudEventModelV2 = new ExternalCaseStatusCloudEventModelV2(
+        externalCaseStatus,
+        relatedCase,
+        action,
+        relatedUser
+      );
       cloudEventModels.add(cloudEventModel);
+      cloudEventModels.add(cloudEventModelV2);
     }
     return cloudEventModels;
   }

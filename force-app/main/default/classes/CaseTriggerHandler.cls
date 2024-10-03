@@ -51,7 +51,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     CustomerDisputeManagementService.restrictDisputeCreationIfLimitReached(
       records
     );
-
+    GetHelpCaseActions.markSLAStatus(records, null);
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -72,7 +72,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     Logger.debug('On_After_Insert started: ' + System.now());
     IDRCaseActions.completeAfterActions();
-    SICaseActions.afterInsert(records);
+    SICaseActions.processMonitoringTasks(records, new Map<Id, Case>());
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
@@ -86,6 +86,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       new Map<Id, Case>()
     );
+    GetHelpCaseActions.createExternalCaseStatuses(records, null);
     Logger.debug('On_After_Insert finished: ' + System.now());
     Logger.saveLog();
   }
@@ -144,6 +145,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
 
+    GetHelpCaseActions.markSLAStatus(records, (Map<Id, Case>) oldMap);
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }
@@ -172,7 +174,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<ID, Case>) oldMap
     );
-    SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
+    SICaseActions.processMonitoringTasks(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleDisputesPEGAIntegration(
       records,
@@ -197,7 +199,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Case>) oldMap
     );
-
+    GetHelpCaseActions.createExternalCaseStatuses(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();
   }

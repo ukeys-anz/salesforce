@@ -1,0 +1,30 @@
+.large-button .slds-button {
+  padding: 0.3rem 1.5rem !important;
+  width: 10rem;
+}
+.centered-container {
+  width: 80%;
+  margin: 0 auto;
+}
+.adr-datatable table > tbody {
+  font-size: medium;
+}
+
+.adr-datatable table > tbody > tr > td.column-padding {
+  padding: 10px 0;
+}
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+}
+
+.adr-datatable table > thead {
+  font-size: medium;
+}
+
+.adr-datatable .lightning-primitive-cell-button {
+  display: none;
+}

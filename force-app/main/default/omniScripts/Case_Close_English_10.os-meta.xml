@@ -53,15 +53,24 @@
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Restricted Case&quot;,
+        &quot;data&quot; : &quot;Escalated&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;
+        &quot;field&quot; : &quot;Case:ComplaintStatus_OLD&quot;
       }, {
-        &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;No Restriction&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Restricted Case&quot;
+          }, {
+            &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;No Restriction&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -718,31 +727,6 @@
         </childElements>
         <childElements>
             <name>ComplaintRemedy2Offered</name>
-            <name>ComplaintRemedy2Offer</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dataType&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
-  &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(%ComplaintRemedy2Offered% != NULL ,%ComplaintRemedy2Offered%,%Case:ComplaintRemedy2FrmOffer%)&quot;,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;ComplaintRemedy2Offer&quot;,
-  &quot;controlWidth&quot; : null
-}</propertySetConfig>
-            <sequenceNumber>54.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <name>ComplaintRemedy2Offered</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
@@ -879,31 +863,6 @@
         </childElements>
         <childElements>
             <name>ComplaintRemedy3Accepted</name>
-            <name>ComplaintRemedy3Accept</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;disOnTplt&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dataType&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;show&quot; : null,
-  &quot;hide&quot; : true,
-  &quot;expression&quot; : &quot;IF(%ComplaintRemedy3Accepted% != NULL ,%ComplaintRemedy3Accepted%,%Case:ComplaintRemedy3FrmAccept%)&quot;,
-  &quot;inputWidth&quot; : 12,
-  &quot;showInputWidth&quot; : false,
-  &quot;label&quot; : &quot;ComplaintRemedy3Accept&quot;,
-  &quot;controlWidth&quot; : null
-}</propertySetConfig>
-            <sequenceNumber>83.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <name>ComplaintRemedy3Accepted</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
@@ -960,31 +919,6 @@
             <type>Select</type>
         </childElements>
         <childElements>
-            <name>ComplaintRemedy3Offer</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;ComplaintRemedy3FrmOffer&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF(%ComplaintRemedy3Offered% != NULL ,%ComplaintRemedy3Offered%,%Case:ComplaintRemedy3FrmOffer%)&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>84.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <name>ComplaintRemedy3Offered</name>
             <name>ComplaintRemedy3Offer</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -1110,7 +1044,6 @@
             <type>Formula</type>
         </childElements>
         <childElements>
-            <name>ComplaintStatus</name>
             <name>ComplaintStatus</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
@@ -2946,22 +2879,6 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
             <sequenceNumber>113.0</sequenceNumber>
-            <type>Line Break</type>
-        </childElements>
-        <childElements>
-            <name>LineBreak11</name>
-            <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak11&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-            <sequenceNumber>116.0</sequenceNumber>
             <type>Line Break</type>
         </childElements>
         <childElements>
@@ -4983,7 +4900,6 @@
         </childElements>
         <childElements>
             <name>RewardPoints1</name>
-            <name>rewardPoints1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
@@ -5021,8 +4937,8 @@
   &quot;pattern&quot; : &quot;[0-9]+&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;helpText&quot; : &quot;Select ‘yes’ if the customer accepts the offer in the final response. The resolution offered details will pre-populate if the complaint was provisionally closed, otherwise will need to be completed. You will need to select no and complete the fields if the customer did not accept the resolution offered in the final response.&quot;,
-  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;readOnly&quot; : false,
   &quot;repeatLimit&quot; : null,

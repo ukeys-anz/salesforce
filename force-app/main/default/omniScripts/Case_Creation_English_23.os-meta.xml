@@ -1937,7 +1937,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Couldn&apos;t Retrieve Customer Data&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Data Retrieval Issue: Retry; if problems persist, manually input details by selecting &apos;No&apos; above (Non-ANZ Customer).&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -2525,6 +2525,50 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
+                <name>thirdPartyCompanyName</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+&quot;disOnTplt&quot; : false,
+&quot;hide&quot; : false,
+&quot;HTMLTemplateId&quot; : &quot;&quot;,
+&quot;debounceValue&quot; : 0,
+&quot;accessibleInFutureSteps&quot; : false,
+&quot;conditionType&quot; : &quot;Hide if False&quot;,
+&quot;show&quot; : {
+  &quot;group&quot; : {
+    &quot;rules&quot; : [ {
+      &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;,
+      &quot;condition&quot; : &quot;=&quot;,
+      &quot;data&quot; : &quot;Yes&quot;
+    } ],
+    &quot;operator&quot; : &quot;AND&quot;
+  }
+},
+&quot;placeholder&quot; : &quot;&quot;,
+&quot;maxLength&quot; : 255,
+&quot;minLength&quot; : 0,
+&quot;ptrnErrText&quot; : &quot;&quot;,
+&quot;pattern&quot; : &quot;&quot;,
+&quot;mask&quot; : &quot;&quot;,
+&quot;helpTextPos&quot; : &quot;&quot;,
+&quot;helpText&quot; : &quot;&quot;,
+&quot;help&quot; : false,
+&quot;readOnly&quot; : false,
+&quot;repeatClone&quot; : false,
+&quot;repeat&quot; : false,
+&quot;required&quot; : false,
+&quot;inputWidth&quot; : 12,
+&quot;showInputWidth&quot; : false,
+&quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
+&quot;controlWidth&quot; : 3
+}</propertySetConfig>
+                <sequenceNumber>35.0</sequenceNumber>
+                <type>Text</type>
+            </childElements>
+            <childElements>
                 <name>thirdPartyCountry</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
@@ -2611,7 +2655,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -2667,7 +2711,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 3.0,
-  &quot;label&quot; : &quot;Nominated 3rd party name&quot;,
+  &quot;label&quot; : &quot;Nominated 3rd party representative name&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
@@ -2837,7 +2881,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>36.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -6572,7 +6616,7 @@
       &quot;Postcode&quot; : &quot;Postcode&quot;
     } ],
     &quot;thirdPartyMap&quot; : [ {
-      &quot;thirdPartyName&quot; : &quot;Nominated 3rd party name&quot;
+      &quot;thirdPartyName&quot; : &quot;Nominated 3rd party representative name&quot;
     }, {
       &quot;thirdPartyRel&quot; : &quot;Relationship to complaint&quot;
     }, {
