@@ -1509,10 +1509,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetHelpCaseActionsHelperTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>GetHelpCaseAssignmentRules</apexClass>
         <enabled>false</enabled>
     </classAccesses>

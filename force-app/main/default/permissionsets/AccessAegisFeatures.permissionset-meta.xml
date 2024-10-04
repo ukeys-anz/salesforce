@@ -1,44 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customPermissions>
+        <enabled>true</enabled>
         <name>AccessAegisFeatures</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>AccessOpenBanking</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>ArchiveCustomer</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
+        <name>DeregisterDevice</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
         <name>LockPin</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>ResetPin</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>SuspendCustomer</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>UnlockPin</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>UnsuspendCustomer</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
+        <enabled>true</enabled>
         <name>UpdateMobileNumber</name>
-        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
-        <name>UpdateOCVID</name>
         <enabled>true</enabled>
+        <name>UpdateOCVID</name>
     </customPermissions>
     <description>For Pilot user to access Aegis Assisted User Functions and Onboarding features</description>
     <hasActivationRequired>false</hasActivationRequired>
