@@ -2567,11 +2567,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Access_Request__c.Requestor__c</field>
         <readable>false</readable>
     </fieldPermissions>

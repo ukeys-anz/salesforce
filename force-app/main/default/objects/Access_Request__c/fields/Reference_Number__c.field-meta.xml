@@ -8,7 +8,7 @@
     <inlineHelpText>Reference Number to a job, Jira story or CR</inlineHelpText>
     <label>Reference Number</label>
     <length>150</length>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Text</type>
