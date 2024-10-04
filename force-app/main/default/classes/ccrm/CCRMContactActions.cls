@@ -17,10 +17,6 @@ public with sharing class CCRMContactActions {
   private static final Boolean IS_CCRM_USER = (CURRENT_USER_PROFILE?.Name ==
   Label.CCRM_Profile_Name);
 
-  private static final CommercialContactRepository CONTACT_REPOSITORY = (CommercialContactRepository) Lib_InstanceProvider.forType(
-    CommercialContactRepository.class
-  );
-
   /**
    * @description getExistingOrProspectContact to get the CPE related to Existing or Prospect Contact
    * @param records List of Contact Records
@@ -121,52 +117,6 @@ public with sharing class CCRMContactActions {
       ) {
         record.addError(CONTACT_METHOD_ERROR);
       }
-    }
-  }
-
-  /**
-   * @description This is used to populate the last name field on contact during creation/updation
-   * @param contactList the list of contacts
-   * @param oldContactMap contains old value of contact
-   */
-  public static void populateLastName(
-    List<Contact> contactList,
-    Map<Id, Contact> oldContactMap
-  ) {
-    Id anzCCRMStandrdUserProfileId = QueryProfile.anzCCRMStandardUser.Id;
-    Id curentUserProfileId = CONTACT_REPOSITORY.getUserProfileId();
-    if (curentUserProfileId != anzCCRMStandrdUserProfileId) {
-      return;
-    }
-    List<Contact> filterConList = ListUtil.filter(contactList, oldContactMap)
-      .equals(Contact.RecordTypeId, RTContact.Organisation)
-      .changed(Contact.Name__c)
-      .toList();
-    for (Contact conRec : filterConList) {
-      conRec.LastName = conRec.Name__c;
-    }
-  }
-
-  /**
-   * @description This is used to populate the custom name field on contact during creation/updation
-   * @param contactList the list of contacts
-   * @param oldContactMap contains old value of contact
-   */
-  public static void populateName(
-    List<Contact> contactList,
-    Map<Id, Contact> oldContactMap
-  ) {
-    String currentUsername = CONTACT_REPOSITORY.getUserName();
-    if (!currentUsername.contains(Label.CCRM_OCVIntegrationUsername)) {
-      return;
-    }
-
-    List<Contact> filterConList = ListUtil.filter(contactList, oldContactMap)
-      .equals(Contact.RecordTypeId, RTContact.Organisation)
-      .changed(Contact.LastName)
-      .toList();
-    for (Contact conRec : filterConList) {
-      conRec.Name__c = conRec.LastName;
     }
   }
 

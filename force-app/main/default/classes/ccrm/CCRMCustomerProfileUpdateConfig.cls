@@ -13,6 +13,8 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
     WITH USER_MODE
   ];
 
+  private static final String PREFERRED_CONTACT = 'Is_Preferred_Contact__c';
+
   public static Map<String, Set<String>> objectFieldsMap = new Map<String, Set<String>>();
 
   public static final Map<String, Map<String, String>> TRANSFORM_CONFIGS = new Map<String, Map<String, String>>{
@@ -445,7 +447,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
     @TestVisible
     private Boolean sendDefaultValue(String field) {
       return (this.objectInfo.Name == CCRMConstants.SOBJECT_CONTACT &&
-      field == CCRMConstants.PREFERRED_CONTACT);
+      field == PREFERRED_CONTACT);
     }
 
     /**

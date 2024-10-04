@@ -25,14 +25,12 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
       conList.addAll(existingOrProspectContacts.prospectContacts);
       conList.addAll(existingOrProspectContacts.existingContacts);
 
-      CCRMContactActions.populateLastName(conList, null);
       CCRMContactActions.validateOrgIndividualContactsLinking(records);
 
       CCRMContactActions.validateExistingOrProspectContacts(conList);
 
       CCRMContactActions.checkMaxContactsPerOrganisation(records);
     }
-    CCRMContactActions.populateName(records, null);
   }
 
   /**
@@ -85,7 +83,6 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
       conList.addAll(existingOrProspectContacts.prospectContacts);
       conList.addAll(existingOrProspectContacts.existingContacts);
 
-      CCRMContactActions.populateLastName(conList, (Map<Id, Contact>) oldMap);
       CCRMContactActions.validateExistingOrProspectContacts(conList);
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         existingOrProspectContacts.prospectContacts,
@@ -106,7 +103,6 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
-    CCRMContactActions.populateName(records, (Map<Id, Contact>) oldMap);
     CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }
 }
