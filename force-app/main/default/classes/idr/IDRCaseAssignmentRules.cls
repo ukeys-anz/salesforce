@@ -259,19 +259,15 @@ public with sharing class IDRCaseAssignmentRules {
   @TestVisible
   private static Id getOwnerId(Case newCase, Case oldCase) {
     if (
-      (!caseStatuses.contains(newCase.Status) &&
-      oldCase != null &&
-      oldCase.Status == IDRConstants.ESCALATED_STATUS)
-    ) {
-      return newCase.OwnerId;
-    }
-    if (
+      caseStatuses.contains(newCase.Status) &&
+      (oldCase == null ||
+      oldCase.Status != IDRConstants.ESCALATED_STATUS) &&
       isValidIssueType(newCase) &&
       (CASE_REPOSITORY.checkUserPermission('IDR_Level_2') ||
       CASE_REPOSITORY.checkUserPermission('IDR_Level_3'))
     ) {
       //To auto assign cases to the workbasket 'Hardship_IDR_Letter'
-      return QueryQueue.get('IDR_Everyday_Banking').Id;
+      return QueryQueue.get('Hardship_IDR_Letter').Id;
     }
     return newCase.OwnerId;
   }

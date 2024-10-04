@@ -99,7 +99,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case newcase = new Case(
       Id = oldcase.Id,
       RecordTypeId = RTCase.customerComplaint,
-      Status = IDRConstants.ON_HOLD_STATUS,
+      Status = IDRConstants.CLOSED_STATUS,
       Type = '4',
       IDR_Subsequent_Issue__c = '21',
       IDR_Issue_Type_2__c = '4',
@@ -118,8 +118,8 @@ private with sharing class IDRCaseAssignmentRulesTest {
     System.assertEquals(1, cases.size(), '1 Case should be updated');
     System.assertEquals(
       cases[0].OwnerId,
-      QueryQueue.get('IDR_Everyday_Banking').Id,
-      'Owner should be IDR_Everyday_Banking'
+      QueryQueue.get('Hardship_IDR_Letter').Id,
+      'Owner should be Hardship_IDR_Letter'
     );
   }
   /**
