@@ -136,6 +136,11 @@
                 <default>false</default>
                 <label>Know Your Customer</label>
             </value>
+            <value>
+                <fullName>22</fullName>
+                <default>false</default>
+                <label>Simplification/Decommissioning</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -25,6 +25,6 @@
     <filterScope>Everything</filterScope>
     <label>Won</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

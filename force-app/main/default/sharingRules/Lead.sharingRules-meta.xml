@@ -33,7 +33,7 @@
         <accessLevel>Read</accessLevel>
         <label>CCRM Lead Read Only Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -48,7 +48,7 @@
         <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
         <label>CCRM_LeadEditAccessToCLO</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Lending_Operations</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -63,10 +63,10 @@
         <description>It will provide the Read/Write access on Lead for SBB NBC User.</description>
         <label>CCRM SBB NBC Lead Read Write Sharing</label>
         <sharedTo>
-            <roleAndSubordinates>Small_Business_Banking_NBC</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>Small_Business_Banking_NBC</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>

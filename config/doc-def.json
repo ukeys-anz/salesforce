@@ -120,7 +120,7 @@
       "name": "Api Enabled User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Interaction_Read_Only", "Disable_MFA"],
+      "permissionsets": ["Interaction_Read_Only", "Disable_MFA", "Bypass_TSP"],
       "type": "system"
     },
     {
@@ -269,7 +269,23 @@
       "name": "CFMS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Migration"],
+      "permissionsets": ["Enforce_mTLS", "IDR_CFMS_Migration", "Bypass_TSP"],
+      "type": "system"
+    },
+    {
+      "name": "CFMS Migration User",
+      "profile": "Integration User",
+      "permissionsetgroups": ["IDR_CRP_LT"],
+      "permissionsets": [
+        "API_Only",
+        "ContentVersion_RT_Access",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "IDR_CFMS_Migration",
+        "Set_Audit_Fields",
+        "View_All_Files",
+        "Bypass_TSP"
+      ],
       "type": "system"
     },
     {
@@ -311,7 +327,12 @@
       "name": "COSMOS Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Enforce_mTLS", "COSMOS_Integration", "Disable_MFA"],
+      "permissionsets": [
+        "Enforce_mTLS",
+        "COSMOS_Integration",
+        "Disable_MFA",
+        "Bypass_TSP"
+      ],
       "type": "system"
     },
     {
@@ -381,7 +402,21 @@
         "Case_Read_Write_Dispute_Integration",
         "Customer_Dispute_Management_Read_Write",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "Enforce_mTLS",
+        "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Contract Event Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Financial_Accounts_Read_and_Edit",
+        "FinancialServicesCloudStandard",
+        "Disable_MFA",
+        "Enforce_mTLS",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -397,7 +432,8 @@
         "Product_Read_Only",
         "Systemic_Issue_Read_Only",
         "View_All_Files",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -416,7 +452,8 @@
         "API_Only",
         "Disable_MFA",
         "Enforce_mTLS",
-        "KYC_QA_Integration"
+        "KYC_QA_Integration",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -537,7 +574,21 @@
       "permissionsets": [
         "Enforce_mTLS",
         "IDR_Notification_Broker_Integration",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "NLP Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "IDR_NLP_Integration",
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -554,12 +605,13 @@
         "Customer_Relationships_Read_Write",
         "Disable_MFA",
         "Broker_Details_Integration",
-        "Feature_FA_Feature_Read_Write"
+        "Feature_FA_Feature_Read_Write",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
     {
-      "name": "Odaseva  User",
+      "name": "Odaseva User",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["Muted_Backup_and_Restore"],
       "permissionsets": [
@@ -586,7 +638,22 @@
         "API_Only",
         "Enforce_mTLS",
         "PEGA_Integration",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "PEGA Status Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "PEGA_Status_Integration",
+        "Disable_MFA",
+        "View_and_Edit_Tasks",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -598,7 +665,8 @@
         "Case_Read_Write_Qualtrics_Integration",
         "Customer_Feedback_Read_Write",
         "Lead_Read_Write_Qualtrics_Integration",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Password_Never_Expires"
       ],
       "type": "system"
     },
@@ -665,7 +733,11 @@
       "name": "Splunk Sec Ops Integration User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["Splunk_Integration_Sec_Ops", "Disable_MFA"],
+      "permissionsets": [
+        "Splunk_Integration_Sec_Ops",
+        "Disable_MFA",
+        "Bypass_TSP"
+      ],
       "type": "system"
     },
     {
@@ -701,10 +773,10 @@
       "type": "system"
     },
     {
-      "name": "User Provisioning",
+      "name": "Provisioning User",
       "profile": "Integration User",
       "permissionsetgroups": [],
-      "permissionsets": ["User_Provisioning", "Disable_MFA"],
+      "permissionsets": ["User_Provisioning", "Disable_MFA", "Bypass_TSP"],
       "type": "system"
     },
     {
@@ -780,7 +852,8 @@
         "API_Only",
         "Enforce_mTLS",
         "IDR_Collections_Access",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -792,7 +865,8 @@
         "API_Only",
         "Enforce_mTLS",
         "IDR_Complaints_Event_Access",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -805,7 +879,8 @@
         "Enforce_mTLS",
         "Complaint_Read_Only",
         "IDR_System_Task_Access",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -817,19 +892,34 @@
         "API_Only",
         "Enforce_mTLS",
         "IDR_Xpression_Integration",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
     {
-      "name": "Commercial Integration User",
-      "profile": "Minimum Access - Salesforce",
+      "name": "Commercial Hierarchy Integration User",
+      "profile": "Integration User",
       "permissionsetgroups": [],
       "permissionsets": [
         "API_Only",
         "Enforce_mTLS",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "Platform Event Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Enforce_mTLS",
+        "Financial_Summary_Calculation_Publish",
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -841,7 +931,8 @@
         "API_Only",
         "Enforce_mTLS",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -853,7 +944,8 @@
         "API_Only",
         "Enforce_mTLS",
         "CCRM_Marketing_Integration_User",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -872,7 +964,8 @@
         "API_Only",
         "SF_Data_Sync_Integration",
         "Disable_MFA",
-        "Mortgage"
+        "Mortgage",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -885,7 +978,8 @@
         "Mortgage",
         "BoH_Read_Write",
         "Disable_MFA",
-        "Enforce_mTLS"
+        "Enforce_mTLS",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -968,7 +1062,8 @@
         "API_Only",
         "Appointment_Booking_Integration",
         "FinancialServicesCloudExtension",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },
@@ -982,6 +1077,18 @@
         "API_Only",
         "Enforce_mTLS",
         "Disable_MFA"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "CloudEvent Integration User",
+      "profile": "Integration User",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Cloud_Event_Integration",
+        "Password_Never_Expires"
       ],
       "type": "system"
     },
@@ -1033,7 +1140,8 @@
         "API_Only",
         "Case_Read_Write_Get_Help",
         "Case_View_All",
-        "Disable_MFA"
+        "Disable_MFA",
+        "Bypass_TSP"
       ],
       "type": "system"
     },

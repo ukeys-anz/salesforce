@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <WaveApplication xmlns="http://soap.sforce.com/2006/04/metadata">
     <folder>NLP_Reporting</folder>
     <masterLabel>IDR - NLP Reporting</masterLabel>
@@ -15,6 +15,6 @@
     <shares>
         <accessLevel>Manage</accessLevel>
         <sharedTo>Engineer</sharedTo>
-        <sharedToType>RoleAndSubordinates</sharedToType>
+        <sharedToType>roleAndSubordinatesInternal</sharedToType>
     </shares>
 </WaveApplication>
