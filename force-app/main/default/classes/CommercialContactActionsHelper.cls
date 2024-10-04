@@ -14,12 +14,12 @@ public with sharing class CommercialContactActionsHelper {
   /**
    * @description getExistingOrProspectContact to get the contact related to Existing or Prospect Accounts
    * @param records List of commercial contact Records
-   * @return ContactWrapper return List of Existing or Prospect Contact
+   * @return List<Contact> return List of Existing or Prospect Contact
    */
-  public static ContactWrapper getExistingOrProspectContacts(
+  public static List<Contact> getExistingOrProspectContacts(
     List<Contact> records
   ) {
-    ContactWrapper contactWrapper = new ContactWrapper();
+    List<Contact> existingAndProspectContactsList = new List<Contact>();
     List<Account> existingAndProspectAccounts = new List<Account>();
     Set<Id> accIdsSet = ListUtil.getIds(records, Contact.AccountId);
     List<Account> accList = ACCOUNT_REPOSITORY.fetchAccounts(accIdsSet);
@@ -28,20 +28,9 @@ public with sharing class CommercialContactActionsHelper {
     );
     existingAndProspectAccounts.addAll(accountWrap.prospectAccounts.values());
     existingAndProspectAccounts.addAll(accountWrap.existingAccounts.values());
-    ContactWrapper.existingAndProspectContacts = ListUtil.filter(records)
+    existingAndProspectContactsList = ListUtil.filter(records)
       .notEquals(Contact.AccountId, existingAndProspectAccounts)
       .toList();
-    return contactWrapper;
-  }
-
-  /**
-   * @author Naman Garg
-   * @since  09/2023
-   * @group CCRM (Commercial CRM)
-   * @description ContactWrapper wrapper class to hold Existing and Prospect Contact
-   * @name ContactWrapper
-   */
-  public class ContactWrapper {
-    public List<Contact> existingAndProspectContacts = new List<Contact>();
+    return existingAndProspectContactsList;
   }
 }

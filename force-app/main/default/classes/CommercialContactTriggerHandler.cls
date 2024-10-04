@@ -4,10 +4,6 @@
  * @description  : CommercialContactTriggerHandler is the handler class for Contact Trigger which extends Lib_TriggerHandler from the trigger framework used.
  **/
 public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHandler {
-  private static final Id ORGANISATION_RT_ID = Schema.SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Organisation')
-    .getRecordTypeId();
-
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
@@ -24,7 +20,7 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    */
   public override Boolean isValidRecord(SObject record) {
     Contact contactRecord = (Contact) record;
-    return contactRecord.RecordTypeId == ORGANISATION_RT_ID;
+    return contactRecord.RecordTypeId == RTContact.organisation;
   }
 
   /**
@@ -35,15 +31,15 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
     if (CCRMLeadConversionActions.leadConverionFlow) {
       return;
     }
-    CommercialContactActionsHelper.ContactWrapper contactWrapper = CommercialContactActionsHelper.getExistingOrProspectContacts(
+    List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
       records
     );
     CommercialContactActions.populateLastName(
-      contactWrapper.existingAndProspectContacts,
+      existingAndProspectContactsList,
       null
     );
     CommercialContactActions.populateName(
-      contactWrapper.existingAndProspectContacts,
+      existingAndProspectContactsList,
       null
     );
   }
@@ -57,15 +53,15 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
     if (CCRMLeadConversionActions.leadConverionFlow) {
       return;
     }
-    CommercialContactActionsHelper.ContactWrapper contactWrapper = CommercialContactActionsHelper.getExistingOrProspectContacts(
+    List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
       records
     );
     CommercialContactActions.populateLastName(
-      contactWrapper.existingAndProspectContacts,
+      existingAndProspectContactsList,
       (Map<Id, Contact>) oldMap
     );
     CommercialContactActions.populateName(
-      contactWrapper.existingAndProspectContacts,
+      existingAndProspectContactsList,
       (Map<Id, Contact>) oldMap
     );
   }

@@ -42,7 +42,7 @@ public class CommercialContactActionsHelperTest {
 
     //WHEN we call the method to get Existing or Prospect contacts
     Test.startTest();
-    CommercialContactActionsHelper.ContactWrapper conWrapper = CommercialContactActionsHelper.getExistingOrProspectContacts(
+    List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
       conList
     );
     Test.stopTest();
@@ -50,7 +50,7 @@ public class CommercialContactActionsHelperTest {
     //THEN it should find 1 record
     Assert.areEqual(
       1,
-      conWrapper.existingAndProspectContacts.size(),
+      existingAndProspectContactsList.size(),
       'Not able to form the contact wrapper'
     );
   }

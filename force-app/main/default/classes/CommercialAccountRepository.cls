@@ -11,7 +11,7 @@ public with sharing class CommercialAccountRepository {
    * @return List<Account> return List of Accounts
    */
   public List<Account> fetchAccounts(Set<Id> accIds) {
-    if (!PermissionUtils.canQuery('Account')) {
+    if (accIds.isEmpty() || !PermissionUtils.canQuery('Account')) {
       return new List<Account>();
     }
     return [
