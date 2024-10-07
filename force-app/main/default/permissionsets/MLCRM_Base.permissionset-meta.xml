@@ -193,6 +193,26 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>FinancialSummaryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryResponseWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HttpCalloutResponse</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -244,6 +264,14 @@
         <name>DCRM_StateMapping__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>Financial_Summary_Setting__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>View_C360_Financial_Summary</name>
+    </customPermissions>
     <description>Baseline PS for using the Mobile Lending CRM app.</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -3361,6 +3389,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>ContactPointPhone</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Financial_Summary_Calculation__e</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

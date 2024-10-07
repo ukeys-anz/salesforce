@@ -1,0 +1,20 @@
+<template>
+  <div class="slds-p-left_x-large">{headerName}</div>
+  <br />
+  <template lwc:if={showOtherValue}>
+    <lightning-formatted-text
+      class="slds-italic slds-p-left_x-large"
+      value={headerOtherValue}
+      padding="around-small"
+    ></lightning-formatted-text>
+  </template>
+  <template lwc:else>
+    <lightning-formatted-number
+      padding="around-small"
+      class="slds-p-left_x-large slds-text-heading_x-small slds-text-title_bold"
+      value={headerValue}
+      format-style="currency"
+      currency-code="AUD"
+    ></lightning-formatted-number>
+  </template>
+</template>
