@@ -10,7 +10,9 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Limit Expiry Date</label>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <type>DateTime</type>
+    <type>Text</type>
+    <unique>false</unique>
 </CustomField>
