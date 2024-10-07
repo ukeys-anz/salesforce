@@ -31,68 +31,87 @@
         ></lightning-button-icon>
       </div>
     </div>
-    <div class="slds-p-left_x-large">
-      <lightning-layout multiple-rows>
-        <lightning-layout-item size="3" padding="around-small">
-          <p>Total Customer Balance</p>
+    <lightning-layout multiple-rows>
+      <template if:true={showTotalCustmerBalanceInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Total Customer Balance"
+            header-value={totalCustBalance}
+            show-other-value={showTotalBalOtherValue}
+            header-other-value={totalBalOtherValue}
+          ></c-financial-summary-view-card>
         </lightning-layout-item>
-        <lightning-layout-item size="3" padding="around-small">
-          <p>No. Merchant Terminals</p>
+      </template>
+      <template if:true={showTerminalInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="No. Merchant Terminals"
+            header-value={totalTerminal}
+            show-other-value={showTerminalOtherValue}
+            header-other-value={terminalOtherValue}
+          ></c-financial-summary-view-card>
         </lightning-layout-item>
-        <lightning-layout-item size="3" padding="around-small">
-          <p>Total Asset Financial Balance</p>
+      </template>
+      <template if:true={showAssetFinanceInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Total Asset Financial Balance"
+            header-value={totalAssetBalance}
+            show-other-value={showAssetOtherValue}
+            header-other-value={assetOtherValue}
+          ></c-financial-summary-view-card>
         </lightning-layout-item>
-        <lightning-layout-item
-          size="3"
-          padding="around-small"
-        ></lightning-layout-item>
-        <lightning-layout-item size="3" padding="around-small">
-          <template lwc:if={showTotalBalOtherValue}>
-            <lightning-formatted-text
-              class="slds-italic"
-              value={totalBalOtherValue}
-            ></lightning-formatted-text>
-          </template>
-          <template lwc:if={showTotalBalValue}>
-            <lightning-formatted-number
-              class="slds-text-heading_x-small slds-text-title_bold"
-              value={totalCustBalance}
-              format-style="currency"
-              currency-code="AUD"
-            ></lightning-formatted-number>
-          </template>
+      </template>
+      <template if:true={showDebitBalanceInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Total Debit Balance"
+            header-value={totalDebitBalance}
+            show-other-value={showDebitBalOtherValue}
+            header-other-value={totalDebitOtherBalance}
+          ></c-financial-summary-view-card>
         </lightning-layout-item>
-        <lightning-layout-item size="3" padding="around-small">
-          <template lwc:if={showTerminalOtherValue}>
-            <lightning-formatted-text
-              class="slds-italic"
-              value={terminalOtherValue}
-            ></lightning-formatted-text>
-          </template>
-          <template lwc:if={showTerminalValue}>
-            <lightning-formatted-number
-              class="slds-text-heading_x-small slds-text-title_bold"
-              value={totalTerminal}
-            ></lightning-formatted-number>
-          </template>
+      </template>
+      <template if:true={showCreditBalanceInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Total Credit Balance"
+            header-value={totalCreditBalance}
+            show-other-value={showCreditBalOtherValue}
+            header-other-value={totalCreditOtherBalance}
+          ></c-financial-summary-view-card>
         </lightning-layout-item>
-        <lightning-layout-item size="3" padding="around-small">
-          <template lwc:if={showAssetOtherValue}>
-            <lightning-formatted-text
-              class="slds-italic"
-              value={assetOtherValue}
-            ></lightning-formatted-text>
-          </template>
-          <template lwc:if={showAssetValue}>
-            <lightning-formatted-number
-              class="slds-text-heading_x-small slds-text-title_bold"
-              value={totalAssetBalance}
-              format-style="currency"
-              currency-code="AUD"
-            ></lightning-formatted-number>
-          </template>
+      </template>
+      <template if:true={showTotalLimitInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Total Limits"
+            header-value={totalLimitValue}
+            show-other-value={showLimitOtherValue}
+            header-other-value={totalLimitOtherValue}
+          ></c-financial-summary-view-card>
         </lightning-layout-item>
-      </lightning-layout>
-    </div>
+      </template>
+      <template if:true={showClgCreditRatingInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="CLG Credit Rating"
+            header-value=""
+            show-other-value="true"
+            header-other-value={clgCreditRating}
+          ></c-financial-summary-view-card>
+        </lightning-layout-item>
+      </template>
+      <template if:true={showMortageLimitInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Total Mortgage Limit"
+            header-value={totalMortageValue}
+            show-other-value={showTotalMortageOtherValue}
+            header-other-value={totalMortageOtherValue}
+          ></c-financial-summary-view-card>
+        </lightning-layout-item>
+      </template>
+    </lightning-layout>
   </div>
 </template>

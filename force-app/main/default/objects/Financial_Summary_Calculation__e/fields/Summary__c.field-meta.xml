@@ -9,10 +9,8 @@
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Summary</label>
-    <precision>18</precision>
-    <required>true</required>
-    <scale>2</scale>
+    <length>32768</length>
     <securityClassification>Internal</securityClassification>
-    <type>Number</type>
-    <unique>false</unique>
-</CustomField>
+    <type>LongTextArea</type>
+    <visibleLines>18</visibleLines>
+</CustomField> 
