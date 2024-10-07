@@ -66,5 +66,10 @@
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_Statements</permissionSets>
     <permissionSets>View_Transaction_History</permissionSets>
+    <permissionSets>IDOps_Workbench</permissionSets>
+    <permissionSets>PersonDigitalEntityReadOnly</permissionSets>
+    <permissionSets>Suspend_Unsuspend_Customer</permissionSets>
+    <permissionSets>Lock_Unlock_Customer</permissionSets>
+    <permissionSets>Deregister_Device</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>
