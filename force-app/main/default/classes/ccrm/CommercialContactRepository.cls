@@ -6,14 +6,6 @@
 
 public with sharing class CommercialContactRepository {
   /**
-   * @description It will fetch the current user's user name
-   * @return String userName of the current user
-   */
-  public String getUserName() {
-    return UserInfo.getUserName();
-  }
-
-  /**
    * @description It will fetch the current user's Profile Id
    * @return Id - Profile Id of current user
    */

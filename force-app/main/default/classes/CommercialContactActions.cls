@@ -42,8 +42,9 @@ public with sharing class CommercialContactActions {
     List<Contact> contactList,
     Map<Id, Contact> oldContactMap
   ) {
-    String currentUsername = CONTACT_REPOSITORY.getUserName();
-    if (!currentUsername.contains(Label.CCRM_OCVIntegrationUsername)) {
+    Id integrationUserProfileId = QueryProfile.integrationUser.Id;
+    String curentUserProfileId = CONTACT_REPOSITORY.getUserProfileId();
+    if (curentUserProfileId != integrationUserProfileId) {
       return;
     }
 

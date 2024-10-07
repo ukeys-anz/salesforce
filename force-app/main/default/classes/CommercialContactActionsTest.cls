@@ -83,7 +83,7 @@ public with sharing class CommercialContactActionsTest {
       )
     };
 
-    contactRepoMock.mock('getUserName', 'ocvintegration.user@anzx.com.test24');
+    contactRepoMock.mock('getUserProfileId', QueryProfile.integrationUser.Id);
 
     Test.startTest();
     CommercialContactActions.populateName(conList, null);
@@ -121,7 +121,7 @@ public with sharing class CommercialContactActionsTest {
       )
     };
 
-    contactRepoMock.mock('getUserName', 'ocvintegration.user@anzx.com.test24');
+    contactRepoMock.mock('getUserProfileId', QueryProfile.integrationUser.Id);
 
     Test.startTest();
     CommercialContactActions.populateName(conList, conMap);
