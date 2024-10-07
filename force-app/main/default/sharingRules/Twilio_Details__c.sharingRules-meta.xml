@@ -154,7 +154,7 @@
         <accessLevel>Read</accessLevel>
         <label>Twilio Details for CMOS</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>Name</field>

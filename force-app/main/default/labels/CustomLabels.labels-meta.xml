@@ -525,7 +525,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>callout:Mulesoft/anz-exp-sfdc-customers-api/api/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
+        <value>callout:Mulesoft/sfdc/customers/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
     </labels>
     <labels>
         <fullName>MS_Get_CustomerChatChannels</fullName>
