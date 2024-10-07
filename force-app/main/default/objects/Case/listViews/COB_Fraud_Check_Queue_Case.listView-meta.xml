@@ -9,8 +9,8 @@
     <columns>CORE.USERS.ALIAS</columns>
     <filters>
         <field>CASES.STATUS</field>
-        <operation>notContain</operation>
-        <value>Fraud Check: Daon OK,ID Check OK,Failed,Confirmed Fraud</value>
+        <operation>equals</operation>
+        <value>Daon Fallout,Equifax Fallout</value>
     </filters>
     <filterScope>Queue</filterScope>
     <label>COB Fraud Check Queue</label>

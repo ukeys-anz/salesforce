@@ -25,6 +25,10 @@ Feel free to reach out to us if you have any questions.</value>
         <value xsi:nil="true"/>
     </values>
     <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
         <field>PEGA_Dispute_Status__c</field>
         <value xsi:type="xsd:string">Resolved-MerchantCredit</value>
     </values>

@@ -1509,10 +1509,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetHelpCaseActionsHelperTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>GetHelpCaseAssignmentRules</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2567,11 +2563,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Access_Request__c.Expected_Start__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

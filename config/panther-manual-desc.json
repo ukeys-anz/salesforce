@@ -1221,6 +1221,7 @@
         "ContactEmail",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
+        "IDR_Nominated_3rd_Party_Company_Name__c",
         "IDR_3rdParty_Mobile__c",
         "IDR_3rdParty_Name__c",
         "IDR_3rdParty_Phone__c",
@@ -2251,6 +2252,13 @@
         "Status__c",
         "Summary__c",
         "Summary_Type__c"
+      ]
+    },
+    "Financial_Summary_Setting__mdt": {
+      "IA-2453350":[
+        "Active__c",
+        "Summary_Name__c",
+        "User_Profile__c"
       ]
     },
     "FinServ__AccountAccountRelation__c": {

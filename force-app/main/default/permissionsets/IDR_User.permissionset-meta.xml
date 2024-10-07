@@ -130,6 +130,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Case.IDR_Nominated_3rd_Party_Company_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.IDR_3rdParty_Mobile__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -194,14 +194,44 @@ public class SOPDebt {
    */
   public string ownerName {
     get {
-      if (this.ownership.size() > 1) {
+      if (isJoint) {
         return ResidentialLoanApplicationModel.JOINT_ACCOUNT;
       }
-      if (Integer.valueOf(this.ownership[0].proportion.value) == 50) {
-        return this.ownership[0].ownerName +
-          ResidentialLoanApplicationModel.SOMEONE_ELSE;
+      for (SOPOwnership owner : this.ownership) {
+        if (
+          ResidentialLoanApplicationModel.partyIdToAccountMap.keySet()
+            .contains(owner.partyId)
+        ) {
+          //assumes sop.parties size <= 2
+          if (Integer.valueOf(owner.proportion.value) == 50) {
+            return owner.ownerName +
+              ResidentialLoanApplicationModel.SOMEONE_ELSE;
+          }
+          return owner.ownerName;
+        }
       }
-      return this.ownership[0].ownerName;
+      return ownerName;
+    }
+  }
+
+  /**
+   * @description returns true if all owners in a debt are part of the sop.parties[]
+   */
+  public Boolean isJoint {
+    get {
+      if (this.ownershipSize < 2) {
+        return false;
+      }
+      //isJoint if both (all) parties are in the map
+      for (SOPOwnership owner : this.ownership) {
+        if (
+          !ResidentialLoanApplicationModel.partyIdToAccountMap.keySet()
+            .contains(owner.partyId)
+        ) {
+          return false;
+        }
+      }
+      return true;
     }
   }
 

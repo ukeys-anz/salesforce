@@ -22,6 +22,21 @@
                 <label>Yes</label>
             </value>
             <value>
+                <fullName>Yes - Remitter</fullName>
+                <default>false</default>
+                <label>Yes - Remitter</label>
+            </value>
+            <value>
+                <fullName>Yes - Crypto</fullName>
+                <default>false</default>
+                <label>Yes - Crypto</label>
+            </value>
+            <value>
+                <fullName>Yes - Both</fullName>
+                <default>false</default>
+                <label>Yes - Both</label>
+            </value>
+            <value>
                 <fullName>No</fullName>
                 <default>false</default>
                 <label>No</label>

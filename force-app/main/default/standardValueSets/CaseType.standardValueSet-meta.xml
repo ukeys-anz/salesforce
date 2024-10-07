@@ -412,6 +412,11 @@
         <label>Recipient</label>
     </standardValue>
     <standardValue>
+        <fullName>Recovery</fullName>
+        <default>false</default>
+        <label>Recovery</label>
+    </standardValue>
+    <standardValue>
         <fullName>Potential AML</fullName>
         <default>false</default>
         <label>Potential AML</label>
@@ -430,5 +435,10 @@
         <fullName>Know Your Customer</fullName>
         <default>false</default>
         <label>Know Your Customer</label>
+    </standardValue>
+    <standardValue>
+        <fullName>22</fullName>
+        <default>false</default>
+        <label>Simplification/Decommissioning</label>
     </standardValue>
 </StandardValueSet>

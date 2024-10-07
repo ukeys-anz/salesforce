@@ -142,7 +142,8 @@ public with sharing class IDRConstants {
     '42',
     '96',
     '97',
-    '98'
+    '98',
+    '115'
   };
 
   //To auto assign cases checking for Subsequent Issue Type Set
@@ -444,7 +445,8 @@ public with sharing class IDRConstants {
     '21',
     'Chat',
     'ANZ Plus App',
-    'Know Your Customer'
+    'Know Your Customer',
+    '22'
   };
 
   public static final List<String> IDR_ESCALATION_VALUES = new List<String>{

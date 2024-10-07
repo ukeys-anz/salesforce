@@ -106,6 +106,10 @@ public with sharing class GetHelpExternalCaseStatusActions {
     Map<Id, Case> relatedCases
   ) {
     for (External_Case_Status__c externalCaseStatus : records) {
+      if (!relatedCases.containsKey(externalCaseStatus.Case__c)) {
+        continue;
+      }
+
       String resultMessage = '';
       if (
         !CARD_AND_ATM_DISPUTE_RT_IDS.contains(
