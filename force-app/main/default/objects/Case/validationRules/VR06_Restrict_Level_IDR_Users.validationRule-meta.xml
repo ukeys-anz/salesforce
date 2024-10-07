@@ -7,12 +7,13 @@
 !ISNEW() &amp;&amp;
 (!isChanged(IDR_Complaint_Resolution_Count__c)) &amp;&amp;
 ($Permission.IDR_Level_2 || $Permission.IDR_Level_3) &amp;&amp;
+(!isChanged(IDR_Real_Form_Ref_No__c)|| !isChanged(IDR_Real_Form_Req__c))
+&amp;&amp;
 (
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; ||
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;
 ) &amp;&amp;
 (!isChanged(IDR_Additional_Correspondence_reviewed__c)) &amp;&amp;
-(!isChanged(IDR_Real_Form_Req__c)) &amp;&amp;(!isChanged(IDR_Real_Form_Ref_No__c))&amp;&amp;
 (!isChanged(IDR_Document_Count__c)) &amp;&amp;
 (
 (!isChanged(OwnerId) &amp;&amp; !($User.Id = OwnerId ||
