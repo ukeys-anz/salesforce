@@ -3,8 +3,8 @@
  * @description : This class is used to display the Financial Summaries.
  * @since : Aug 2023
  */
-
-public class CCRMFinancialSummaryController {
+@SuppressWarnings('PMD.CyclomaticComplexity')
+public with sharing class FinancialSummaryController {
   private final static String ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME = 'BankingAccount';
   private static Map<String, String> roleTypes = new Map<String, String>{
     'BCC' => 'Business Card Customer',
@@ -28,9 +28,20 @@ public class CCRMFinancialSummaryController {
     'CAP-CIS:RSV',
     'CAP-CIS:ILS',
     'CAP-CIS:PCA',
-    'CAP-CIS:CDA'
+    'CAP-CIS:CDA',
+    'CAP-CIS:OLL'
   };
 
+  private static final FinancialAccountQueryBaseRepository FA_REPOSITORY = (FinancialAccountQueryBaseRepository) Lib_InstanceProvider.forType(
+    FinancialAccountQueryBaseRepository.class
+  );
+  private static final FinancialSummaryRepository FS_REPOSITORY = (FinancialSummaryRepository) Lib_InstanceProvider.forType(
+    FinancialSummaryRepository.class
+  );
+
+  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
+  );
   @TestVisible
   private static final String BASE_CALLOUT_URL = Label.Financial_Account_Endpoint;
   @TestVisible
@@ -45,20 +56,20 @@ public class CCRMFinancialSummaryController {
   private static final String MULE_RESPONSE = 'Request Received';
   @TestVisible
   private static final String CACHE_ACK = 'Data found in cache';
+  @TestVisible
+  private static final String TOTAL_CUSTOMER_LIMIT = 'TOTAL_CUSTOMER_LIMIT';
 
   /**
    * @description - This method is used to fetch the summaries values from the cache and if no values present then it will
    * 			   make a callout to mule to get the Financial Summaries result
-   * @param finSumCallout - CCRMFinancialSummaryWrapper.FinSummaryCallout contains the responseId and the the Api which need to be call
-   * @return CCRMFinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
+   * @param finSumCallout - FinancialSummaryWrapper.FinSummaryCallout contains the responseId and the the Api which need to be call
+   * @return FinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
    */
   @AuraEnabled
-  public static CCRMFinancialSummaryResponseWrapper getSummariesByResponseId(
-    CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout
+  public static FinancialSummaryResponseWrapper getSummariesByResponseId(
+    FinancialSummaryWrapper.FinSummaryCallout finSumCallout
   ) {
-    Cache.SessionPartition sessionPart = Cache.Session.getPartition(
-      'local.DataPartition'
-    );
+    Cache.SessionPartition sessionPart = DataPartitionUtil.dataPartition;
     //It will check if the responseId i.e Customer Id is exists in the cache or not
     //If yes, then it will fetch the data of the Financial summaries from the cache
     //Else it will make a callout to retrieve the respective financial Summaries data.
@@ -72,19 +83,19 @@ public class CCRMFinancialSummaryController {
    * @description - This method is used to fetch the data from the cache
    * @param sessionPart - Cache SessionPartition to get the Cache partition
    * @param finSumCallout - Instance of Financial Summary Callout containing response Id and the the Api which need to be call
-   * @return CCRMFinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
+   * @return FinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
    */
   @TestVisible
-  private static CCRMFinancialSummaryResponseWrapper getDataFromCache(
+  private static FinancialSummaryResponseWrapper getDataFromCache(
     Cache.SessionPartition sessionPart,
-    CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout
+    FinancialSummaryWrapper.FinSummaryCallout finSumCallout
   ) {
-    CCRMFinancialSummaryResponseWrapper finSumRespFromCache = new CCRMFinancialSummaryResponseWrapper();
+    FinancialSummaryResponseWrapper finSumRespFromCache = new FinancialSummaryResponseWrapper();
 
     String cachedJson = (String) sessionPart.get(finSumCallout.responseId);
-    finSumRespFromCache = (CCRMFinancialSummaryResponseWrapper) JSON.deserialize(
+    finSumRespFromCache = (FinancialSummaryResponseWrapper) JSON.deserialize(
       cachedJson,
-      CCRMFinancialSummaryResponseWrapper.class
+      FinancialSummaryResponseWrapper.class
     );
     finSumRespFromCache.responseId = finSumCallout.responseId;
     finSumRespFromCache.cacheAck = CACHE_ACK;
@@ -94,15 +105,15 @@ public class CCRMFinancialSummaryController {
   /**
    * @description - This method is used to fetch the data by making a callout
    * @param finSumCallout - Instance of Financial Summary Callout containing response Id and the the Api which need to be call
-   * @return CCRMFinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
+   * @return FinancialSummaryResponseWrapper - Wrapper that will contains the different financial summaries responses
    */
   @AuraEnabled
-  public static CCRMFinancialSummaryResponseWrapper getDataFromCallout(
-    CCRMFinancialSummaryWrapper.FinSummaryCallout finSumCallout
+  public static FinancialSummaryResponseWrapper getDataFromCallout(
+    FinancialSummaryWrapper.FinSummaryCallout finSumCallout
   ) {
-    List<String> accountNumberList = new List<String>();
-    CCRMFinancialSummaryResponseWrapper finSumRespFromCallout = new CCRMFinancialSummaryResponseWrapper();
-    CCRMFinancialSummaryWrapper.CustomerIdWrapper custIdWrapper = new CCRMFinancialSummaryWrapper.CustomerIdWrapper();
+    Set<String> accountNumberList = new Set<String>();
+    FinancialSummaryResponseWrapper finSumRespFromCallout = new FinancialSummaryResponseWrapper();
+    FinancialSummaryWrapper.CustomerIdWrapper custIdWrapper = new FinancialSummaryWrapper.CustomerIdWrapper();
 
     finSumRespFromCallout.responseId = finSumCallout.responseId;
     custIdWrapper = getCLGRelatedCustomerIds(finSumRespFromCallout.responseId);
@@ -118,6 +129,10 @@ public class CCRMFinancialSummaryController {
       TOTAL_CUSTOMER_BALANCE_FIELDSET,
       finSumCallout.callTotalCustBalanceApi
     );
+
+    //TotalDebitBalance and TotalCreditBalance will have same acknowledgement as TotalBalance
+    finSumRespFromCallout.totalDebitBalanceAck = finSumRespFromCallout.totalBalanceAck;
+    finSumRespFromCallout.totalCreditBalanceAck = finSumRespFromCallout.totalBalanceAck;
 
     //Making a callout to get the Total Merchant Terminal
     //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
@@ -138,7 +153,19 @@ public class CCRMFinancialSummaryController {
       finSumCallout.callAssetFinanceBalanceApi
     );
 
-    populateDataInCache(finSumRespFromCallout);
+    try {
+      //Making a callout to get the Total Limits
+      finSumRespFromCallout.totalLimitAck = getTotalLimts(
+        finSumRespFromCallout.responseId,
+        accountNumberList,
+        TOTAL_CUSTOMER_LIMIT,
+        finSumCallout.callTotalLimitsApi
+      );
+
+      populateDataInCache(finSumRespFromCallout);
+    } catch (Exception ex) {
+      finSumRespFromCallout.totalLimitAck = null;
+    }
 
     return finSumRespFromCallout;
   }
@@ -149,20 +176,14 @@ public class CCRMFinancialSummaryController {
    * @return List<String> List of External Ids
    */
   @TestVisible
-  private static CCRMFinancialSummaryWrapper.CustomerIdWrapper getCLGRelatedCustomerIds(
+  private static FinancialSummaryWrapper.CustomerIdWrapper getCLGRelatedCustomerIds(
     String customerId
   ) {
-    CCRMFinancialSummaryWrapper.CustomerIdWrapper custIdWrapper = new CCRMFinancialSummaryWrapper.CustomerIdWrapper();
+    FinancialSummaryWrapper.CustomerIdWrapper custIdWrapper = new FinancialSummaryWrapper.CustomerIdWrapper();
     String capId = '';
     Set<String> capIdSet = new Set<String>();
-    List<String> capIdsModifiedList = new List<String>();
 
-    Account accountRec = [
-      SELECT Id, External_Id__c, RecordType.DeveloperName
-      FROM Account
-      WHERE Id = :customerId
-      LIMIT 1
-    ];
+    Account accountRec = FS_REPOSITORY.getAccountById(customerId);
     if (
       accountRec.RecordType.DeveloperName != 'CLG' &&
       accountRec.External_Id__c != null
@@ -175,16 +196,11 @@ public class CCRMFinancialSummaryController {
       return custIdWrapper;
     }
     try {
-      for (FinServ__AccountAccountRelation__c aar : [
-        SELECT Id, FinServ__RelatedAccount__r.External_Id__c
-        FROM FinServ__AccountAccountRelation__c
-        WHERE
-          FinServ__Account__c = :customerId
-          AND FinServ__Active__c = TRUE
-          AND FinServ__Account__r.RecordType.DeveloperName = 'CLG'
-          AND FinServ__RelatedAccount__r.External_Id__c != NULL
-        WITH SECURITY_ENFORCED
-      ]) {
+      for (
+        FinServ__AccountAccountRelation__c aar : FS_REPOSITORY.getActiveClgAccAccRelations(
+          customerId
+        )
+      ) {
         if (
           !custIdWrapper.capIdsList.contains(
             aar.FinServ__RelatedAccount__r.External_Id__c
@@ -216,10 +232,10 @@ public class CCRMFinancialSummaryController {
    * @return List<String> list of account Number
    */
   @TestVisible
-  private static List<String> retrieveFinancialAccountsByCustomerId(
+  private static Set<String> retrieveFinancialAccountsByCustomerId(
     List<String> customerIds
   ) {
-    List<String> accountNumberList = new List<String>();
+    Set<String> accountNumberList = new Set<String>();
     String prodType = '';
 
     if (customerIds.IsEmpty()) {
@@ -234,27 +250,15 @@ public class CCRMFinancialSummaryController {
     }
 
     try {
-      for (FinServ__FinancialAccountRole__c faRole : [
-        SELECT
-          FinServ__FinancialAccount__c,
-          FinServ__FinancialAccount__r.Account_Key__c,
-          FinServ__FinancialAccount__r.Name,
-          FinServ__FinancialAccount__r.FinServ__Status__c,
-          FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
-          FinServ__FinancialAccount__r.Product_Type__c,
-          FinServ__FinancialAccount__r.Product_SubCode__c,
-          FinServ__RelatedAccount__r.External_Id__c,
-          Role_Type__c
-        FROM FinServ__FinancialAccountRole__c
-        WHERE
-          FinServ__RelatedAccount__r.External_Id__c IN :customerIds
-          AND FinServ__FinancialAccount__r.RecordType.DeveloperName = :ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME
-          AND FinServ__Active__c = TRUE
-          AND FinServ__FinancialAccount__r.Product_Type__c IN :productTypes
-          AND Role_Type__c IN :roleTypes.keyset()
-        WITH SECURITY_ENFORCED
-        ORDER BY FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-      ]) {
+      List<FinServ__FinancialAccountRole__c> listOfFinancialAccountRoles = FA_REPOSITORY.getFinancialAccountsWithCustomerId(
+        new Set<String>(customerIds),
+        ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME,
+        productTypes,
+        roleTypes
+      );
+      for (
+        FinServ__FinancialAccountRole__c faRole : listOfFinancialAccountRoles
+      ) {
         prodType = splitExternalId(
           faRole.FinServ__FinancialAccount__r.Product_Type__c,
           ':'
@@ -301,7 +305,7 @@ public class CCRMFinancialSummaryController {
   @TestVisible
   private static String getTotalBalance(
     String responseId,
-    List<String> accountNumbers,
+    Set<String> accountNumbers,
     String fieldSet,
     Boolean callTotalCustBalanceApi
   ) {
@@ -316,7 +320,7 @@ public class CCRMFinancialSummaryController {
     Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'summaries';
 
-    CCRMFinancialSummaryWrapper.TotalBalance totalBalanceWrapper = new CCRMFinancialSummaryWrapper.TotalBalance(
+    FinancialSummaryWrapper.TotalBalance totalBalanceWrapper = new FinancialSummaryWrapper.TotalBalance(
       accountNumbers,
       fieldSet,
       responseId
@@ -354,7 +358,7 @@ public class CCRMFinancialSummaryController {
     Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'merchant-facility-accounts';
 
-    CCRMFinancialSummaryWrapper.TerminalAndTotalAsset terminalWrapper = new CCRMFinancialSummaryWrapper.TerminalAndTotalAsset(
+    FinancialSummaryWrapper.TerminalAndTotalAsset terminalWrapper = new FinancialSummaryWrapper.TerminalAndTotalAsset(
       capCustomerIds,
       fieldSet,
       responseId
@@ -395,7 +399,7 @@ public class CCRMFinancialSummaryController {
     Map<String, String> headers = generateHeader();
     String endPoint = BASE_CALLOUT_URL + 'asset-finance-accounts';
 
-    CCRMFinancialSummaryWrapper.TerminalAndTotalAsset assetFinanceWrapper = new CCRMFinancialSummaryWrapper.TerminalAndTotalAsset(
+    FinancialSummaryWrapper.TerminalAndTotalAsset assetFinanceWrapper = new FinancialSummaryWrapper.TerminalAndTotalAsset(
       capCustomerIds,
       type,
       fieldSet,
@@ -431,10 +435,7 @@ public class CCRMFinancialSummaryController {
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
-    headers.put(
-      'Authorization',
-      'Bearer ' + CCRMARNCService.generateJWTToken()
-    );
+    headers.put('Authorization', 'Bearer ' + ARNCService.generateJWTToken());
     return headers;
   }
 
@@ -482,12 +483,10 @@ public class CCRMFinancialSummaryController {
    */
   @TestVisible
   private static void populateDataInCache(
-    CCRMFinancialSummaryResponseWrapper finSumResponse
+    FinancialSummaryResponseWrapper finSumResponse
   ) {
-    CCRMFinancialSummaryWrapper.CacheData cacheWrapper = new CCRMFinancialSummaryWrapper.CacheData();
-    Cache.SessionPartition sessionPart = Cache.Session.getPartition(
-      'local.DataPartition'
-    );
+    FinancialSummaryWrapper.CacheData cacheWrapper = new FinancialSummaryWrapper.CacheData();
+    Cache.SessionPartition sessionPart = DataPartitionUtil.dataPartition;
     if (finSumResponse.totalBalanceAck != null) {
       cacheWrapper.totalBalanceAck = finSumResponse.totalBalanceAck;
     }
@@ -508,23 +507,17 @@ public class CCRMFinancialSummaryController {
    */
   @AuraEnabled
   public static void insertDataInCache(String response) {
-    CCRMFinancialSummaryWrapper.CacheData cacheWrapper = new CCRMFinancialSummaryWrapper.CacheData();
-    Cache.SessionPartition sessionPart = Cache.Session.getPartition(
-      'local.DataPartition'
+    Cache.SessionPartition sessionPart = DataPartitionUtil.dataPartition;
+    Map<String, String> resMap = prepareResponseMap(response);
+    Map<String, String> summaryMap = prepareSummaryMap(
+      resMap.get('Summary__c')
     );
-    Map<String, Object> resMap = (Map<String, Object>) JSON.deserializeUntyped(
-      response
-    );
+    resMap.putAll(summaryMap);
     String responseId = (String) resMap.get('Response_Id__c');
     String status = (String) resMap.get('Status__c');
-
-    if (sessionPart.contains(responseId)) {
-      String cachedData = (String) sessionPart.get(responseId);
-      cacheWrapper = (CCRMFinancialSummaryWrapper.CacheData) JSON.deserialize(
-        cachedData,
-        CCRMFinancialSummaryWrapper.CacheData.class
-      );
-    }
+    FinancialSummaryWrapper.CacheData cacheWrapper = prepareCacheWrapper(
+      responseId
+    );
 
     if (status == 'Error') {
       handleErrorResponse(cacheWrapper, responseId, sessionPart, resMap);
@@ -542,34 +535,54 @@ public class CCRMFinancialSummaryController {
    * @param resMap - platform event response
    */
   private static void handleErrorResponse(
-    CCRMFinancialSummaryWrapper.CacheData cacheWrapper,
+    FinancialSummaryWrapper.CacheData cacheWrapper,
     String responseId,
     Cache.SessionPartition sessionPart,
     Map<String, Object> resMap
   ) {
-    String summaryType = (String) resMap.get('Summary_Type__c');
     String errorDescription = (String) resMap.get('Error_Description__c');
 
-    switch on summaryType {
-      when 'TOTAL_CUSTOMER_BALANCE' {
-        cacheWrapper.totalBalanceAck = CCRMConstants.ERROR_RESPONSE;
-        Logger.error(errorDescription, responseId);
-        Logger.saveLog();
-      }
-      when 'TERMINALS' {
-        cacheWrapper.terminalAck = CCRMConstants.ERROR_RESPONSE;
-        Logger.error(errorDescription, responseId);
-        Logger.saveLog();
-      }
-      when else {
-        cacheWrapper.assetBalanceAck = CCRMConstants.ERROR_RESPONSE;
-        Logger.error(errorDescription, responseId);
-        Logger.saveLog();
-      }
+    if (resMap.containsKey('TOTAL_CUSTOMER_BALANCE')) {
+      cacheWrapper.totalBalanceAck = CCRMConstants.ERROR_RESPONSE;
+      cacheWrapper.totalCreditBalanceAck = CCRMConstants.ERROR_RESPONSE;
+      cacheWrapper.totalDebitBalanceAck = CCRMConstants.ERROR_RESPONSE;
     }
+    if (resMap.containsKey('TERMINALS')) {
+      cacheWrapper.terminalAck = CCRMConstants.ERROR_RESPONSE;
+    }
+    if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
+      cacheWrapper.assetBalanceAck = CCRMConstants.ERROR_RESPONSE;
+    }
+    if (resMap.containsKey('TOTAL_CUSTOMER_LIMIT')) {
+      cacheWrapper.totalLimitAck = CCRMConstants.ERROR_RESPONSE;
+    }
+
     cacheWrapper.lastSummaryUpdateDate = DateTime.now()
       .format('dd/MM/yyyy hh:mm a');
     sessionPart.put(responseId, JSON.serialize(cacheWrapper));
+    Logger.error(errorDescription, responseId);
+    Logger.saveLog();
+  }
+
+  /**
+   * @description This method create CacheWrapper from CustomerId and SessionPart
+   * @param responseId - Customer Id
+   * @return cacheWrapper - cachedWrapper
+   */
+  @TestVisible
+  private static FinancialSummaryWrapper.CacheData prepareCacheWrapper(
+    String responseId
+  ) {
+    FinancialSummaryWrapper.CacheData cacheWrapper = new FinancialSummaryWrapper.CacheData();
+    Cache.SessionPartition sessionPart = DataPartitionUtil.dataPartition;
+    if (sessionPart.contains(responseId)) {
+      String cachedData = (String) sessionPart.get(responseId);
+      cacheWrapper = (FinancialSummaryWrapper.CacheData) JSON.deserialize(
+        cachedData,
+        FinancialSummaryWrapper.CacheData.class
+      );
+    }
+    return cacheWrapper;
   }
 
   /**
@@ -580,33 +593,172 @@ public class CCRMFinancialSummaryController {
    * @param resMap - platform event response
    */
   private static void handleSuccessResponse(
-    CCRMFinancialSummaryWrapper.CacheData cacheWrapper,
+    FinancialSummaryWrapper.CacheData cacheWrapper,
     String responseId,
     Cache.SessionPartition sessionPart,
     Map<String, Object> resMap
   ) {
-    String summaryType = (String) resMap.get('Summary_Type__c');
-
-    switch on summaryType {
-      when 'TOTAL_CUSTOMER_BALANCE' {
-        cacheWrapper.totalBalance = (Decimal) resMap.get('Summary__c');
-        cacheWrapper.totalBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
-      }
-      when 'TERMINALS' {
-        cacheWrapper.totalMerchantTerminals = (Decimal) resMap.get(
-          'Summary__c'
-        );
-        cacheWrapper.terminalAck = CCRMConstants.SUCCESS_RESPONSE;
-      }
-      when else {
-        cacheWrapper.totalAssetFinanceBalance = (Decimal) resMap.get(
-          'Summary__c'
-        );
-        cacheWrapper.assetBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
-      }
+    if (resMap.containsKey('TOTAL_CUSTOMER_BALANCE')) {
+      cacheWrapper.totalBalance = Decimal.valueOf(
+        (string) resMap.get('TOTAL_CUSTOMER_BALANCE')
+      );
+      cacheWrapper.totalBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.totalDebitBalance = Decimal.valueOf(
+        (string) resMap.get('TOTAL_DEBIT_BALANCE')
+      );
+      cacheWrapper.totalDebitBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+      cacheWrapper.totalCreditBalance = Decimal.valueOf(
+        (string) resMap.get('TOTAL_CREDIT_BALANCE')
+      );
+      cacheWrapper.totalCreditBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+    }
+    if (resMap.containsKey('TERMINALS')) {
+      cacheWrapper.totalMerchantTerminals = Decimal.valueOf(
+        (string) resMap.get('TERMINALS')
+      );
+      cacheWrapper.terminalAck = CCRMConstants.SUCCESS_RESPONSE;
+    }
+    if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
+      cacheWrapper.totalAssetFinanceBalance = Decimal.valueOf(
+        (string) resMap.get('TOTAL_ASSET_FINANCE_BALANCE')
+      );
+      cacheWrapper.assetBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
+    }
+    if (resMap.containsKey('TOTAL_CUSTOMER_LIMIT')) {
+      cacheWrapper.totalLimitValue = Decimal.valueOf(
+        (string) resMap.get('TOTAL_CUSTOMER_LIMIT')
+      );
+      cacheWrapper.totalLimitAck = CCRMConstants.SUCCESS_RESPONSE;
     }
     cacheWrapper.lastSummaryUpdateDate = DateTime.now()
       .format('dd/MM/yyyy hh:mm a');
     sessionPart.put(responseId, JSON.serialize(cacheWrapper));
+  }
+
+  /**
+   * @description This method will convert JSON Response to a Map.
+   * @param response - response value. Ex - {"Response_Id__c": "0019h000009g1TxAAI","Status__c": "Success","Summary__c":" {"items": ["subType": "TOTAL_CREDIT_BALANCE","subTypeValue" : 0}]}"}
+   * @return responseMap - parsedMap of Response.
+   */
+  @TestVisible
+  private static Map<String, String> prepareResponseMap(String response) {
+    Map<String, String> responseMap = new Map<String, String>();
+    Map<String, Object> eventMap = (Map<String, Object>) JSON.deserializeUntyped(
+      response
+    );
+
+    if (eventMap.containsKey('Error_Description__c')) {
+      responseMap.put(
+        'Error_Description__c',
+        (String) eventMap.get('Error_Description__c')
+      );
+    }
+    responseMap.put('Status__c', (String) eventMap.get('Status__c'));
+    responseMap.put('Response_Id__c', (String) eventMap.get('Response_Id__c'));
+    responseMap.put('Summary__c', (String) eventMap.get('Summary__c'));
+    return responseMap;
+  }
+
+  /**
+   * @description This method will convert JSON Summary to a Map.
+   * @param summary - response value. Ex - {"Summary__c":" {"items": ["subType": "TOTAL_CREDIT_BALANCE","subTypeValue" : 0}]}"}
+   * @return summaryMap - parsedMap of Response.
+   */
+  @TestVisible
+  private static Map<String, String> prepareSummaryMap(String summary) {
+    Map<String, Object> parsedMap = (Map<String, Object>) JSON.deserializeUntyped(
+      summary
+    );
+    List<Object> items = (List<Object>) parsedMap.get('items');
+    Map<String, String> summaryMap = new Map<String, String>();
+    for (Object item : items) {
+      Map<String, Object> itemMap = (Map<String, Object>) item;
+      summaryMap.put(
+        (string) itemMap.get('subType'),
+        String.valueof(itemMap.get('subTypeValue'))
+      );
+    }
+    return summaryMap;
+  }
+
+  /**
+   * @description This method provides List of Financial_Summary_Setting__mdt Metadata Records
+   * @return wrapFinancialSummary wrapper of summary setting and user profile records
+   */
+  @AuraEnabled(cacheable=true)
+  public static wrapFinancialSummary getFinSummaryMetadata() {
+    Id strCurrentUserId = userinfo.getuserid();
+    Map<Id, User> mapOfUser = USER_REPOSITORY.getUserMapFromUserIds(
+      new Set<Id>{ strCurrentUserId }
+    );
+    wrapFinancialSummary objWrapper = new wrapFinancialSummary();
+    objWrapper.lstOfSymmarySetting = FS_REPOSITORY.getFinSummaryMetadata();
+    objWrapper.strCurrentUserProfileName = mapOfUser.get(strCurrentUserId)
+      .Profile.Name;
+    return objWrapper;
+  }
+  /**
+   * @description This clas is used to wrap of financial summary setting and user profile records
+   */
+  public class WrapFinancialSummary {
+    /**
+     * @description list of financial summary setting records
+     */
+    @AuraEnabled
+    public List<Financial_Summary_Setting__mdt> lstOfSymmarySetting {
+      get;
+      set;
+    }
+    /**
+     * @description variable to store ciurrent user profile name
+     */
+    @AuraEnabled
+    public String strCurrentUserProfileName { get; set; }
+  }
+
+  /**
+   * @description This method is used to make a callout to get the Total Merchant Terminals
+   * @param responseId - Id of the record
+   * @param accountNumbers - List of accountNumbers
+   * @param fieldSet - Constant keyword to unique Identify the callout
+   * @param callTotalLimitsApi - true if we need to call this API
+   * @return String - callout response
+   */
+  @TestVisible
+  private static String getTotalLimts(
+    String responseId,
+    Set<String> accountNumbers,
+    String fieldSet,
+    Boolean callTotalLimitsApi
+  ) {
+    if (accountNumbers.isEmpty()) {
+      return CCRMConstants.NO_AVAILABLE_BALANCE;
+    }
+
+    if (!callTotalLimitsApi) {
+      return null;
+    }
+
+    Map<String, String> headers = generateHeader();
+    String endPoint = BASE_CALLOUT_URL + 'summaries';
+
+    FinancialSummaryWrapper.TotalLimits totalLimitsWrapper = new FinancialSummaryWrapper.TotalLimits(
+      accountNumbers,
+      fieldSet,
+      responseId
+    );
+
+    try {
+      return makeApiCallout(
+        endPoint,
+        HTTP_METHOD.HTTP_POST,
+        headers,
+        JSON.serialize(totalLimitsWrapper)
+      );
+    } catch (Exception ex) {
+      Logger.error(ex.getMessage());
+      Logger.saveLog();
+      return CCRMConstants.ERROR_RESPONSE;
+    }
   }
 }
