@@ -10,15 +10,15 @@
     <columns>OWNER_NAME</columns>
     <columns>CASES.RECORDTYPE</columns>
     <columns>CASES.PRIORITY</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Open Cases</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

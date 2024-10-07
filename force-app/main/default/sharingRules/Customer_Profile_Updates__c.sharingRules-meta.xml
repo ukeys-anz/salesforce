@@ -24,7 +24,7 @@
             <role>ANZx</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

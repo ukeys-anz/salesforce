@@ -60,6 +60,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>First appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Follow-up appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Help with my application</fullName>
             <default>false</default>
         </values>
@@ -107,6 +115,10 @@
         </values>
         <values>
             <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Test Out a Home Loan</fullName>
             <default>false</default>
         </values>
     </picklistValues>

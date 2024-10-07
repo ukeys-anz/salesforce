@@ -24,6 +24,11 @@
                 <default>false</default>
                 <label>Home Loan</label>
             </value>
+            <value>
+                <fullName>Test Out a Home Loan</fullName>
+                <default>false</default>
+                <label>Test Out a Home Loan</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

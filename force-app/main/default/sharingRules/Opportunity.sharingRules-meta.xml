@@ -5,7 +5,7 @@
         <accessLevel>Read</accessLevel>
         <label>CCRM Opportunity Read Only Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -19,7 +19,7 @@
         <accessLevel>Edit</accessLevel>
         <label>CCRM Opportunity CLO Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Commercial_Lending_Operations</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -34,10 +34,10 @@
         <description>It will provide the Read/Write access on Opportunity for SBB NBC User.</description>
         <label>CCRM SBB NBC Opportunity Read Write Sharing</label>
         <sharedTo>
-            <roleAndSubordinates>Small_Business_Banking_NBC</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinates>Small_Business_Banking_NBC</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
