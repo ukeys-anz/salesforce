@@ -20,6 +20,7 @@ public with sharing class ExternalCaseStatusMappingQueryHelper {
         PEGA_Investigation_Outcome__c,
         Case_Status__c,
         Internal_Description__c,
+        Is_Created_In_SF__c,
         Id
       FROM External_Case_Status_Mapping__mdt
     ];
@@ -45,7 +46,7 @@ public with sharing class ExternalCaseStatusMappingQueryHelper {
     for (
       External_Case_Status_Mapping__mdt mapping : this.externalCaseStatusMappingList
     ) {
-      if (String.isBlank(mapping.PEGA_Dispute_Status__c)) {
+      if (mapping.Is_Created_In_SF__c) {
         continue;
       }
       String key = (String.join(
@@ -71,7 +72,7 @@ public with sharing class ExternalCaseStatusMappingQueryHelper {
     for (
       External_Case_Status_Mapping__mdt mapping : this.externalCaseStatusMappingList
     ) {
-      if (String.isBlank(mapping.Case_Status__c)) {
+      if (!mapping.Is_Created_In_SF__c) {
         continue;
       }
       String key = (String.join(
@@ -96,7 +97,7 @@ public with sharing class ExternalCaseStatusMappingQueryHelper {
     for (
       External_Case_Status_Mapping__mdt mapping : this.externalCaseStatusMappingList
     ) {
-      if (String.isBlank(mapping.PEGA_Dispute_Status__c)) {
+      if (mapping.Is_Created_In_SF__c) {
         continue;
       }
 
