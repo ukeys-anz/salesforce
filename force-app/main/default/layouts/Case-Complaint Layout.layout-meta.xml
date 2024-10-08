@@ -461,11 +461,11 @@
                 <field>IDR_Real_Form_Req__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Is_Written_Resp_Required__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Is_Written_Resp_Requested__c</field>
             </layoutItems>
         </layoutColumns>
@@ -743,7 +743,7 @@
             <sortOrder>6</sortOrder>
         </platformActionListItems>
         <platformActionListItems>
-            <actionName>Case.Send_Notification</actionName>
+            <actionName>On_Hold_Task</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
         </platformActionListItems>
