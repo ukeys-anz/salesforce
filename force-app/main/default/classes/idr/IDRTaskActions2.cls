@@ -11,6 +11,8 @@
 public with sharing class IDRTaskActions2 {
   public static final String TASK_TYPE_GENERAL = 'General Task/ Reminder';
   public static final String TASK_SUBJECT_URGENT = 'Urgent Case Allocation';
+  public static final String IDR_TASK_SUBJECT = 'Please Review PSI';
+  private static final String IDR_LEVEL_1 = 'IDR_Level_1';
 
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
@@ -30,27 +32,27 @@ public with sharing class IDRTaskActions2 {
     String strCasePrefix = Case.getSObjectType().getDescribe().getKeyPrefix();
     String strGroupPrefix = Group.getSObjectType().getDescribe().getKeyPrefix();
     Map<Id, Set<String>> mpGroup2Recipients = new Map<Id, Set<String>>();
-    for (Task oTask : lstTasks) {
+    List<Task> listUrgentTasks = ListUtil.filter(lstTasks)
+      .equals(Task.Type, TASK_TYPE_GENERAL)
+      .isNotNull(Task.Subject)
+      .contains(Task.Subject, TASK_SUBJECT_URGENT)
+      .isNotNull(Task.WhatId)
+      .toList();
+    for (Task oTask : listUrgentTasks) {
+      if (((String) oTask.WhatId).left(3) != strCasePrefix) {
+        continue;
+      }
+      stCaseIds.add(oTask.WhatId);
       if (
-        oTask.Type == TASK_TYPE_GENERAL &&
-        String.isNotEmpty(oTask.Subject) &&
-        oTask.Subject.contains(TASK_SUBJECT_URGENT) &&
-        String.isNotEmpty(oTask.WhatId) &&
-        ((String) oTask.WhatId).left(3) == strCasePrefix
+        ((String) oTask.OwnerId).left(3) == strGroupPrefix &&
+        !mpGroup2Recipients.containsKey(oTask.OwnerId)
       ) {
-        stCaseIds.add(oTask.WhatId);
-        if (
-          ((String) oTask.OwnerId).left(3) == strGroupPrefix &&
-          !mpGroup2Recipients.containsKey(oTask.OwnerId)
-        ) {
-          mpGroup2Recipients.put(oTask.OwnerId, new Set<String>());
-        }
+        mpGroup2Recipients.put(oTask.OwnerId, new Set<String>());
       }
     }
-    if (stCaseIds.size() == 0) {
+    if (stCaseIds.isEmpty()) {
       return;
     }
-
     CustomNotificationType oNotificationType = CommonUtil.getCustomNotificationTypeByName(
       'CMOS'
     );
@@ -59,23 +61,17 @@ public with sharing class IDRTaskActions2 {
       Logger.saveLog();
       return;
     }
-
-    Map<Id, Case> mpId2Case = new Map<Id, Case>();
     Set<String> stRecipients;
-    for (Case oCase : [
-      SELECT Id, CaseNumber
-      FROM Case
-      WHERE Id IN :stCaseIds
-    ]) {
-      mpId2Case.put(oCase.Id, oCase);
-    }
+    List<Case> urgentCases = TASK_REPOSITORY.queryCasesForUrgentTasks(
+      stCaseIds
+    );
+    Map<Id, Case> mpId2Case = new Map<Id, Case>(urgentCases);
     Map<Id, Set<Id>> mpUserId2Groups = new Map<Id, Set<Id>>();
     Set<Id> stGroups;
-    for (GroupMember oGroupMember : [
-      SELECT GroupId, UserOrGroupId
-      FROM GroupMember
-      WHERE GroupId IN :mpGroup2Recipients.keySet()
-    ]) {
+    List<GroupMember> memberList = TASK_REPOSITORY.queryGroupMember(
+      mpGroup2Recipients
+    );
+    for (GroupMember oGroupMember : memberList) {
       stRecipients = mpGroup2Recipients.get(oGroupMember.GroupId);
       stRecipients.add(oGroupMember.UserOrGroupId);
       if (
@@ -87,41 +83,37 @@ public with sharing class IDRTaskActions2 {
       stGroups.add(oGroupMember.GroupId);
     }
     // Find all inactive users in groups
-    for (User oUser : [
-      SELECT Id
-      FROM User
-      WHERE IsActive = FALSE AND Id IN :mpUserId2Groups.keySet()
-    ]) {
+    List<User> users = TASK_REPOSITORY.queryInactiveUsers(mpUserId2Groups);
+    for (User oUser : users) {
       for (Id idGroup : mpUserId2Groups.get(oUser.Id)) {
         // Remove inactive users from all recipient lists
         mpGroup2Recipients.get(idGroup).remove(oUser.Id);
       }
     }
-
-    for (Task oTask : lstTasks) {
-      if (
-        oTask.Type == TASK_TYPE_GENERAL &&
-        String.isNotEmpty(oTask.Subject) &&
-        oTask.Subject.contains(TASK_SUBJECT_URGENT)
-      ) {
-        if (((String) oTask.OwnerId).left(3) == strGroupPrefix) {
-          stRecipients = mpGroup2Recipients.get(oTask.OwnerId);
-        } else {
-          stRecipients = new Set<String>{ oTask.OwnerId };
-        }
-        if (stRecipients != null) {
-          CommonUtil.sendInAppNotification(
-            new InAppNotificationWrapper(
-              oNotificationType.Id,
-              oTask.Id,
-              stRecipients,
-              TASK_SUBJECT_URGENT,
-              'Request for urgent allocation of Case: ' +
-              mpId2Case.get(oTask.WhatId).CaseNumber
-            )
-          );
-        }
+    List<Task> finalTasksToUpdate = ListUtil.filter(lstTasks)
+      .equals(Task.Type, TASK_TYPE_GENERAL)
+      .isNotNull(Task.Subject)
+      .contains(Task.Subject, TASK_SUBJECT_URGENT)
+      .toList();
+    for (Task oTask : finalTasksToUpdate) {
+      if (((String) oTask.OwnerId).left(3) == strGroupPrefix) {
+        stRecipients = mpGroup2Recipients.get(oTask.OwnerId);
+      } else {
+        stRecipients = new Set<String>{ oTask.OwnerId };
       }
+      if (stRecipients == null) {
+        continue;
+      }
+      CommonUtil.sendInAppNotification(
+        new InAppNotificationWrapper(
+          oNotificationType.Id,
+          oTask.Id,
+          stRecipients,
+          TASK_SUBJECT_URGENT,
+          'Request for urgent allocation of Case: ' +
+          mpId2Case.get(oTask.WhatId).CaseNumber
+        )
+      );
     }
   }
 
@@ -134,46 +126,42 @@ public with sharing class IDRTaskActions2 {
     List<Task> lstTasks,
     Map<Id, Task> mpOldTasks
   ) {
-    Task oOldTask;
     Map<Id, List<Task>> mpQualityAssessmentId2Tasks = new Map<Id, List<Task>>();
     List<Task> lstQATasks;
     String strQAPrefix = Quality_Assessment__c.getSObjectType()
       .getDescribe()
       .getKeyPrefix();
-    for (Task oTask : lstTasks) {
-      if (
-        oTask.RecordTypeId == GetHelpConstants.TASK_COMPLIANCE_RT_ID &&
-        oTask.Status == 'Completed' &&
-        String.isNotEmpty(oTask.WhatId) &&
-        ((String) oTask.WhatId).left(3) == strQAPrefix &&
-        (mpOldTasks == null ||
-        (oOldTask = mpOldTasks.get(oTask.Id)) == null ||
-        oTask.Status != oOldTask.Status)
-      ) {
-        if (
-          (lstQATasks = mpQualityAssessmentId2Tasks.get(oTask.WhatId)) == null
-        ) {
-          lstQATasks = new List<Task>();
-          mpQualityAssessmentId2Tasks.put(oTask.WhatId, lstQATasks);
-        }
-        lstQATasks.add(oTask);
+    List<Task> updatedTasks = ListUtil.filter(lstTasks, mpOldTasks)
+      .equals(Task.RecordTypeId, GetHelpConstants.TASK_COMPLIANCE_RT_ID)
+      .equals(Task.Status, IDRConstants.TASK_STATUS_COMPLETED)
+      .isNotNull(Task.WhatId)
+      .toList();
+    for (Task oTask : updatedTasks) {
+      lstQATasks = mpQualityAssessmentId2Tasks.get(oTask.WhatId);
+      if (((String) oTask.WhatId).left(3) != strQAPrefix) {
+        continue;
       }
+      if (lstQATasks == null) {
+        lstQATasks = new List<Task>();
+        mpQualityAssessmentId2Tasks.put(oTask.WhatId, lstQATasks);
+      }
+      lstQATasks.add(oTask);
     }
     List<Quality_Assessment__c> lstQAassessments = TASK_REPOSITORY.queryQualityAssessments(
       mpQualityAssessmentId2Tasks.keySet()
     );
     for (Quality_Assessment__c oAssessment : lstQAassessments) {
-      if (
-        (lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id)) != null
-      ) {
-        for (Task oTask : lstQATasks) {
-          if (
-            (String.isBlank(oAssessment.Team_Manager_Response__c) ||
-            String.isBlank(oAssessment.Team_Manager_Comments__c)) &&
-            oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
-          ) {
-            oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
-          }
+      lstQATasks = mpQualityAssessmentId2Tasks.get(oAssessment.Id);
+      if (lstQATasks.isEmpty()) {
+        continue;
+      }
+      for (Task oTask : lstQATasks) {
+        if (
+          (String.isBlank(oAssessment.Team_Manager_Response__c) ||
+          String.isBlank(oAssessment.Team_Manager_Comments__c)) &&
+          oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
+        ) {
+          oTask.addError(IDRConstants.TASK_QA_CLOSE_ERROR);
         }
       }
     }
@@ -296,5 +284,91 @@ public with sharing class IDRTaskActions2 {
       }
       oTask.OwnerId = caseMap.get(oTask.WhatId).OwnerId;
     }
+  }
+  /**
+   * @description method to get existing SI Tasks on a case record
+   * @param caseIds Set of Complaint Case Id where IDR_Is_Common__c ='yes'
+   * @param subject Subject of the Task
+   * @return new Map<Id, Task>(existingTasksOnCase) Map of Tasks for Case records
+   */
+  public static Map<Id, Task> getExistingSITasksOnCase(
+    Set<Id> caseIds,
+    String subject
+  ) {
+    List<Task> existingTasksOnCase = TASK_REPOSITORY.getExistingSITasksOnCase(
+      caseIds,
+      subject
+    );
+    return new Map<Id, Task>(existingTasksOnCase);
+  }
+  /**
+   * @description method to get existing SI Tasks on a case record
+   * @param oldMap Map of Old case records
+   * @param records List of new case records
+   * @param siCaseTasks Map of existing tasks for case records
+   * @return siTasksToInsert List of SI Tasks to insert
+   */
+  public static List<Task> getSITasksToInsert(
+    Map<Id, SObject> oldMap,
+    List<Case> records,
+    Map<Id, Task> siCaseTasks
+  ) {
+    List<Task> siTasksToInsert = new List<Task>();
+    for (Case record : records) {
+      Case oldRec = (Case) oldMap.get(record.Id);
+      //validate case for PSI task creation
+      if (validateCaseForPSITask(record, oldRec, siCaseTasks)) {
+        siTasksToInsert.add(populateTaskFields(record));
+      }
+    }
+    return siTasksToInsert;
+  }
+  /**
+   * @description Validates a complaint record for creating PSI task
+   * @param record from case trigger
+   * @param oldRec from case trigger
+   * @param siCaseTasks store existing SI task on a case
+   * @return Boolean returns true or false based on validation
+   */
+  private static Boolean validateCaseForPSITask(
+    Case record,
+    Case oldRec,
+    Map<Id, Task> siCaseTasks
+  ) {
+    if (
+      record.IDR_Is_Common__c == 'No' ||
+      !FeatureManagement.checkPermission(IDR_LEVEL_1) ||
+      !record.IsClosed
+    ) {
+      return false;
+    }
+    if (
+      (oldRec == null ||
+      (oldRec.Status != record.Status &&
+      (!(siCaseTasks.containsKey(record.Id)))) ||
+      oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c)
+    ) {
+      return true;
+    }
+    return false;
+  }
+  /**
+   * @description populate task fields for creating possible systemic issue task
+   * @param c Parent case of the tasks
+   * @return An instance of a Task
+   */
+  private static Task populateTaskFields(Case c) {
+    Date activityDate = Date.today().addDays(5);
+    return new Task(
+      RecordTypeId = RTTask.idrSystemTask,
+      Type = IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE,
+      Priority = IDRConstants.TASK_PRIORITY_NORMAL,
+      OwnerId = QueryQueue.get('Systemic_Issue_Team').Id,
+      WhatId = c.Id,
+      Subject = IDR_TASK_SUBJECT,
+      ActivityDate = activityDate,
+      IsReminderSet = true,
+      ReminderDateTime = (Datetime) (activityDate - 2)
+    );
   }
 }

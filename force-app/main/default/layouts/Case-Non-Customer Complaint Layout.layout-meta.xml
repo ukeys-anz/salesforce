@@ -22,6 +22,22 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Express_CMOS_Complaint__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Date_Case_allocated_to_CM__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Previous_Case_Owner__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>IDR_Complaint_Outcome_Offered__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>Show_Resolution_Launcher__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -199,6 +215,10 @@
                 <behavior>Edit</behavior>
                 <field>IDR_Avoidable_Escalation__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Completed_Evaluations__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -323,10 +343,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
-                <field>IDR_Complaint_Outcome_Offered__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
                 <field>IDR_Complaint_Remedy__c</field>
             </layoutItems>
             <layoutItems>
@@ -380,10 +396,6 @@
         <editHeading>false</editHeading>
         <label>Description of Outcome</label>
         <layoutColumns>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>IDR_Description_of_Outcome_Offered__c</field>
-            </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>
                 <field>IDR_Description_of_Outcome__c</field>
@@ -515,15 +527,15 @@
                 <field>IDR_Possible_Systemic_Issues__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Real_Form_Req__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Is_Written_Resp_Required__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Is_Written_Resp_Requested__c</field>
             </layoutItems>
         </layoutColumns>
@@ -541,7 +553,7 @@
                 <field>IDR_Datetime_PSI_Ticked__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
             <layoutItems>
@@ -723,7 +735,7 @@
                 <field>LastModifiedById</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Date_Time_Provisionally_Closed__c</field>
             </layoutItems>
             <layoutItems>
@@ -796,6 +808,11 @@
             <actionName>Case.Send_Notification</actionName>
             <actionType>QuickAction</actionType>
             <sortOrder>7</sortOrder>
+        </platformActionListItems>
+        <platformActionListItems>
+            <actionName>On_Hold_Task</actionName>
+            <actionType>QuickAction</actionType>
+            <sortOrder>8</sortOrder>
         </platformActionListItems>
     </platformActionList>
     <relatedContent>
@@ -893,8 +910,6 @@
     </relatedLists>
     <relatedLists>
         <fields>NAME</fields>
-        <fields>Total_Open_Time__c</fields>
-        <fields>IDR_Response_Time_RG271__c</fields>
         <relatedList>Case_Reporting_Field__c.Case__c</relatedList>
     </relatedLists>
     <relatedObjects>ContactId</relatedObjects>

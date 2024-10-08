@@ -625,7 +625,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Merged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merits Assessment</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>N%2FA - open case</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Response From Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outside of Rules</fullName>
             <default>false</default>
         </values>
     </picklistValues>

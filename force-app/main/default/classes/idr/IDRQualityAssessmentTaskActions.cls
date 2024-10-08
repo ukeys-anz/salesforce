@@ -6,6 +6,12 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class IDRQualityAssessmentTaskActions {
+  private static final IDRQualityAssessmentRepository QA_REPOSITORY = (IDRQualityAssessmentRepository) Lib_InstanceProvider.forType(
+    IDRQualityAssessmentRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
    * @param lstAssessments new Trigger Values
@@ -15,88 +21,58 @@ public with sharing class IDRQualityAssessmentTaskActions {
     List<Quality_Assessment__c> lstAssessments,
     Map<Id, Quality_Assessment__c> mpOldAssessments
   ) {
-    if (
-      Task.SObjectType.getDescribe().isUpdateable() &&
-      Schema.SObjectType.Task.fields.Status.isUpdateable() &&
-      Quality_Assessment__Share.SObjectType.getDescribe().isDeletable()
-    ) {
-      Quality_Assessment__c oOldAssessment;
-      Map<Id, Quality_Assessment__c> mpId2PendingAssessments = new Map<Id, Quality_Assessment__c>();
-      Map<Id, Quality_Assessment__c> mpId2CallLetterPendingAssessments = new Map<Id, Quality_Assessment__c>();
-      Set<Id> stUserIds = new Set<Id>();
-      for (Quality_Assessment__c oAssessment : lstAssessments) {
-        if (
-          oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment &&
-          (oAssessment.Status__c == QualityAssessmentActions.STATUS_PENDING ||
-          oAssessment.Status__c == QualityAssessmentActions.STATUS_WITHDRAWN) &&
-          mpOldAssessments != null &&
-          (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
-          oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
-        ) {
-          mpId2PendingAssessments.put(oAssessment.Id, oAssessment);
-          stUserIds.add(oAssessment.TeamManager__c);
-          stUserIds.add(oAssessment.Case_Manager__c);
-        }
-        if (
-          oAssessment.RecordTypeId ==
-          IDRConstants.idrtCallLetterReviewQualityAssessment &&
-          (oAssessment.Status__c == QualityAssessmentActions.STATUS_PENDING ||
-          oAssessment.Status__c == QualityAssessmentActions.STATUS_WITHDRAWN) &&
-          mpOldAssessments != null &&
-          (oOldAssessment = mpOldAssessments.get(oAssessment.Id)) != null &&
-          oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
-        ) {
-          mpId2CallLetterPendingAssessments.put(oAssessment.Id, oAssessment);
-          if (oAssessment.OwnerId != oAssessment.TeamManager__c) {
-            stUserIds.add(oAssessment.TeamManager__c);
-          }
-          stUserIds.add(oAssessment.Case_Manager__c);
-        }
-      }
-      List<Task> lstUpdateTasks = getUpdatedTasks(
-        mpId2PendingAssessments.keySet()
+    Map<Id, Quality_Assessment__c> mpId2PendingAssessments = new Map<Id, Quality_Assessment__c>();
+    Set<Id> stUserIds = new Set<Id>();
+
+    for (Quality_Assessment__c oAssessment : lstAssessments) {
+      Quality_Assessment__c oOldAssessment = mpOldAssessments.get(
+        oAssessment.Id
       );
-      DMLUtil.updateRecords(
-        lstUpdateTasks,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
-      List<Quality_Assessment__Share> lstQAShare = new List<Quality_Assessment__Share>();
-      Quality_Assessment__c oQAssessment;
-      for (Quality_Assessment__Share oQAShare : [
-        SELECT Id, UserOrGroupId, ParentId
-        FROM Quality_Assessment__Share
-        WHERE
-          (ParentId IN :mpId2PendingAssessments.keySet()
-          OR ParentId IN :mpId2CallLetterPendingAssessments.keySet())
-          AND UserOrGroupId IN :stUserIds
-      ]) {
-        if (
-          (oQAssessment = mpId2PendingAssessments.get(oQAShare.ParentId)) !=
-          null &&
-          (oQAShare.UserOrGroupId == oQAssessment.TeamManager__c ||
-          oQAShare.UserOrGroupId == oQAssessment.Case_Manager__c)
-        ) {
-          lstQAShare.add(oQAShare);
-        }
-        if (
-          (oQAssessment = mpId2CallLetterPendingAssessments.get(
-            oQAShare.ParentId
-          )) != null &&
-          (oQAShare.UserOrGroupId == oQAssessment.TeamManager__c ||
-          oQAShare.UserOrGroupId == oQAssessment.Case_Manager__c)
-        ) {
-          lstQAShare.add(oQAShare);
-        }
+      if (!isValidRecordForReversion(oAssessment, oOldAssessment)) {
+        continue;
       }
-      if (!lstQAShare.isEmpty()) {
-        DMLUtil.deleteRecords(
-          lstQAShare,
-          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-          DMLUtil.SYSTEM_MODE
-        );
+      mpId2PendingAssessments.put(oAssessment.Id, oAssessment);
+      stUserIds.add(oAssessment.Case_Manager__c);
+      if (oAssessment.RecordTypeId == IDRConstants.idrtCQQualityAssessment) {
+        stUserIds.add(oAssessment.TeamManager__c);
+      }
+      if (
+        oAssessment.RecordTypeId ==
+        IDRConstants.idrtCallLetterReviewQualityAssessment &&
+        oAssessment.OwnerId != oAssessment.TeamManager__c
+      ) {
+        stUserIds.add(oAssessment.TeamManager__c);
       }
     }
+    updateCQAssessmentsTasks(mpId2PendingAssessments);
+
+    List<Quality_Assessment__Share> lstQAShare = new List<Quality_Assessment__Share>();
+    List<Quality_Assessment__Share> qaSharerecords = QA_REPOSITORY.getQAShareRecords(
+      mpId2PendingAssessments,
+      stUserIds
+    );
+    for (Quality_Assessment__Share oQAShare : qaSharerecords) {
+      Quality_Assessment__c oQAssessment = mpId2PendingAssessments.get(
+        oQAShare.ParentId
+      );
+      if (
+        oQAShare.UserOrGroupId == oQAssessment.TeamManager__c ||
+        oQAShare.UserOrGroupId == oQAssessment.Case_Manager__c
+      ) {
+        lstQAShare.add(oQAShare);
+      }
+    }
+    if (
+      lstQAShare.isEmpty() ||
+      !Quality_Assessment__Share.SObjectType.getDescribe().isDeletable()
+    ) {
+      return;
+    }
+    DML_REPOSITORY.deleteRecords(
+      lstQAShare,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.SYSTEM_MODE
+    );
   }
   /**
    * @description method to create Compliance Task if Quality Assessment record's status is changed to Completed
@@ -167,7 +143,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
           String strSubject =
             IDRConstants.TASK_QA_COMPLIANCE_SUBJECT +
             String.valueOf(oAssessment.Case_Manager__r.Name) +
-            ': case' +
+            ' : CMOS Case ' +
             String.valueOf(oAssessment.Related_Case__r.CaseNumber__c);
           lstComplianceTasks.add(
             getComplianceTask(oAssessment, '', strSubject)
@@ -265,15 +241,11 @@ public with sharing class IDRQualityAssessmentTaskActions {
      */
 
     public void insertQAShare(List<Quality_Assessment__Share> lstQAShare) {
-      try {
-        insert lstQAShare;
-      } catch (Exception e) {
-        System.debug('Exception: ' + e.getMessage());
-        Logger.error(
-          'Error creating Quality Assessment Sharing records: ' + e.getMessage()
-        );
-        Logger.saveLog();
-      }
+      DMLUtil.insertRecords(
+        lstQAShare,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.SYSTEM_MODE
+      );
     }
   }
   /**
@@ -311,5 +283,64 @@ public with sharing class IDRQualityAssessmentTaskActions {
       return true;
     }
     return false;
+  }
+  /**
+   * @description Check if record is valid for reversion process
+   * @param oAssessment QA new record
+   * @param oOldAssessment QA old record
+   * @return Boolean is the subject is valid
+   */
+  private static boolean isValidRecordForReversion(
+    Quality_Assessment__c oAssessment,
+    Quality_Assessment__c oOldAssessment
+  ) {
+    Set<String> allowedStatus = new Set<String>{
+      QualityAssessmentActions.STATUS_PENDING,
+      QualityAssessmentActions.STATUS_WITHDRAWN
+    };
+    Set<String> allowedRecTypes = new Set<String>{
+      IDRConstants.idrtCQQualityAssessment,
+      IDRConstants.idrtCallLetterReviewQualityAssessment
+    };
+    if (
+      !allowedRecTypes.contains(oAssessment.RecordTypeId) ||
+      !allowedStatus.contains(oAssessment.Status__c)
+    ) {
+      return false;
+    }
+    if (
+      oOldAssessment != null &&
+      oOldAssessment.Status__c == QualityAssessmentActions.STATUS_COMPLETE
+    ) {
+      return true;
+    }
+    return false;
+  }
+  /**
+   * @description updates the Tasks related to only CQ assessments
+   * @param mpId2PendingAssessments Map of ID and CQ/Call_Letter Assessments
+   */
+  private static void updateCQAssessmentsTasks(
+    Map<Id, Quality_Assessment__c> mpId2PendingAssessments
+  ) {
+    List<Task> lstUpdateTasks = new List<Task>();
+    for (Quality_Assessment__c qaRecord : mpId2PendingAssessments.values()) {
+      if (qaRecord.RecordTypeId != IDRConstants.idrtCQQualityAssessment) {
+        continue;
+      }
+      lstUpdateTasks = getUpdatedTasks(mpId2PendingAssessments.keySet());
+    }
+    if (
+      lstUpdateTasks.isEmpty() ||
+      !Task.SObjectType.getDescribe().isUpdateable() ||
+      !Schema.SObjectType.Task.fields.Status.isUpdateable()
+    ) {
+      return;
+    }
+    DML_REPOSITORY.updateRecords(
+      lstUpdateTasks,
+      DmlRepository.ALLOW_PARTIAL,
+      DmlRepository.SYSTEM_MODE
+    );
   }
 }
