@@ -20,35 +20,34 @@ public with sharing class IDRCollectionActions {
 
   private static List<Task> startCollectionTaskList = new List<Task>();
 
-  public static Map<Id, Product2> productNameMap = new Map<Id, Product2>();
-
   /**
    * @description method to copy customer account number in bankend field for collection purposes
    * @param record Case record from the trigger
    */
   public static void populateCollectionNumber(Case record) {
-    if (record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-      if (
-        String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
-        record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
-        String.isBlank(record.IDR_Collection_Number__c)
-      ) {
-        record.IDR_Collection_Number__c = record.IDR_Account_Card_Policy_Number__c;
-      }
-      if (
-        String.isNotBlank(record.IDR_Account_Card_Policy_Number_2__c) &&
-        record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
-        String.isBlank(record.IDR_Collection_Number_2__c)
-      ) {
-        record.IDR_Collection_Number_2__c = record.IDR_Account_Card_Policy_Number_2__c;
-      }
-      if (
-        String.isNotBlank(record.IDR_Account_Card_Policy_Number_3__c) &&
-        record.IDR_Account_Card_Policy_Number_3__c != ACC_NUMBER_NA &&
-        String.isBlank(record.IDR_Collection_Number_3__c)
-      ) {
-        record.IDR_Collection_Number_3__c = record.IDR_Account_Card_Policy_Number_3__c;
-      }
+    if (record.RecordTypeId != RTCase.customerComplaint) {
+      return;
+    }
+    if (
+      String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
+      record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
+      String.isBlank(record.IDR_Collection_Number__c)
+    ) {
+      record.IDR_Collection_Number__c = record.IDR_Account_Card_Policy_Number__c;
+    }
+    if (
+      String.isNotBlank(record.IDR_Account_Card_Policy_Number_2__c) &&
+      record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
+      String.isBlank(record.IDR_Collection_Number_2__c)
+    ) {
+      record.IDR_Collection_Number_2__c = record.IDR_Account_Card_Policy_Number_2__c;
+    }
+    if (
+      String.isNotBlank(record.IDR_Account_Card_Policy_Number_3__c) &&
+      record.IDR_Account_Card_Policy_Number_3__c != ACC_NUMBER_NA &&
+      String.isBlank(record.IDR_Collection_Number_3__c)
+    ) {
+      record.IDR_Collection_Number_3__c = record.IDR_Account_Card_Policy_Number_3__c;
     }
   }
 
@@ -58,34 +57,38 @@ public with sharing class IDRCollectionActions {
    * @param oldRecord trigger context variable to check on old values.
    */
   public static void validateAccNumberPattern(Case record, Case oldRecord) {
-    if (record.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-      if (
-        String.isNotBlank(record.IDR_Account_Card_Policy_Number__c) &&
-        record.IDR_Account_Card_Policy_Number__c !=
-        oldRecord.IDR_Account_Card_Policy_Number__c &&
-        record.IDR_Account_Card_Policy_Number__c != ACC_NUMBER_NA &&
-        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number__c)
-      ) {
-        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
-      }
-      if (
-        String.isNotBlank(record.IDR_Account_Card_Policy_Number_2__c) &&
-        record.IDR_Account_Card_Policy_Number_2__c !=
-        oldRecord.IDR_Account_Card_Policy_Number_2__c &&
-        record.IDR_Account_Card_Policy_Number_2__c != ACC_NUMBER_NA &&
-        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number_2__c)
-      ) {
-        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
-      }
-      if (
-        String.isNotBlank(record.IDR_Account_Card_Policy_Number_3__c) &&
-        record.IDR_Account_Card_Policy_Number_3__c !=
-        oldRecord.IDR_Account_Card_Policy_Number_3__c &&
-        record.IDR_Account_Card_Policy_Number_3__c != ACC_NUMBER_NA &&
-        !isAccountNumberRegexValid(record.IDR_Account_Card_Policy_Number_3__c)
-      ) {
-        record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
-      }
+    if (record.RecordTypeId != RTCase.customerComplaint) {
+      return;
+    }
+
+    if (
+      isInValidAccount(
+        record,
+        oldRecord,
+        Case.IDR_Account_Card_Policy_Number__c
+      )
+    ) {
+      record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
+    }
+
+    if (
+      isInValidAccount(
+        record,
+        oldRecord,
+        Case.IDR_Account_Card_Policy_Number_2__c
+      )
+    ) {
+      record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
+    }
+
+    if (
+      isInValidAccount(
+        record,
+        oldRecord,
+        Case.IDR_Account_Card_Policy_Number_3__c
+      )
+    ) {
+      record.addError(IDRConstants.INVALID_ACC_NO_MESSAGE);
     }
   }
 
@@ -109,29 +112,16 @@ public with sharing class IDRCollectionActions {
     List<Case> records,
     Map<Id, SObject> oldMap
   ) {
-    //get product names from Product2 table and store the mapping in local variable
-    productNameMap = getProductNames(records);
-
-    List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
     List<Id> caseIds = new List<Id>();
-
-    List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
-
-    for (Case rec : records) {
-      Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
-      if (rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-        stopCollectionAccList = validateRecordForStopCollection(rec, oldRec);
-        if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
-          caseIds.add(rec.Id);
-          collectionsCasesEventList.add(
-            buildCollectionEvent(rec, stopCollectionAccList)
-          );
-        }
-      }
+    List<IDR_Collections_Event__e> collectionsCasesEventList = buildCaseCollectionsEvent(
+      records,
+      oldMap
+    );
+    for (IDR_Collections_Event__e e : collectionsCasesEventList) {
+      caseIds.add(e.IDR_Complaint_Case_Id__c);
     }
-    if (!collectionsCasesEventList.isEmpty()) {
-      publishCollectionEvent(collectionsCasesEventList);
-    }
+    publishCollectionEvent(collectionsCasesEventList);
+
     if (!isCollectionEventFailed && !stopCollectionTaskList.isEmpty()) {
       //AR-15023 Using IDRTaskActions.insertSystemTasks as it has without sharing, as task creation is failing due to user access
       IDRTaskActions.insertSystemTasks(
@@ -153,92 +143,57 @@ public with sharing class IDRCollectionActions {
   ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
     if (checkIssueOne(rec, oldRec)) {
-      stopCollectionAccList.addAll(stopCollectionForIssueOne(rec));
+      stopCollectionAccList.addAll(
+        stopCollectionForIssue(
+          rec,
+          rec.IDR_Collection_Number__c,
+          rec.Product__c
+        )
+      );
     }
     if (checkIssueTwo(rec, oldRec)) {
-      stopCollectionAccList.addAll(stopCollectionForIssueTwo(rec));
+      stopCollectionAccList.addAll(
+        stopCollectionForIssue(
+          rec,
+          rec.IDR_Collection_Number_2__c,
+          rec.IDR_Product_2__c
+        )
+      );
     }
     if (checkIssueThree(rec, oldRec)) {
-      stopCollectionAccList.addAll(stopCollectionForIssueThree(rec));
+      stopCollectionAccList.addAll(
+        stopCollectionForIssue(
+          rec,
+          rec.IDR_Collection_Number_3__c,
+          rec.IDR_Product_3__c
+        )
+      );
     }
     return stopCollectionAccList;
   }
-
   /**
-   * @description method to add issue one into stop collection event and task creation if it is eligible
+   * @description method to add issue into stop collection event and task creation if it is eligible
    * @param rec Case record from the trigger
+   * @param collectionNumber Collection Number of case record
+   * @param productId  of case record
    * @return List<IDRCollectionsAccounts> collection account list
    */
-  private static List<IDRCollectionsAccounts> stopCollectionForIssueOne(
-    Case rec
+  private static List<IDRCollectionsAccounts> stopCollectionForIssue(
+    Case rec,
+    String collectionNumber,
+    String productId
   ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
-    for (
-      String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
-    ) {
+    for (String accNumber : collectionNumber.split(';')) {
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           accNumber,
-          productNameMap.get(rec.Product__c)?.Name,
+          QueryProducts.getById(productId)?.Name,
           rec.IDR_Product_Category__c
         )
       );
       stopCollectionTaskList.add(
         populateSystemTask(rec, STOP_COLLEC_TASK_SUBJECT, accNumber)
-      );
-    }
-    return stopCollectionAccList;
-  }
-
-  /**
-   * @description method to add issue two into stop collection event and task creation if it is eligible
-   * @param rec Case record from the trigger
-   * @return List<IDRCollectionsAccounts> collection account list
-   */
-  private static List<IDRCollectionsAccounts> stopCollectionForIssueTwo(
-    Case rec
-  ) {
-    List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
-    for (
-      String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
-        .split(';')
-    ) {
-      stopCollectionAccList.add(
-        new IDRCollectionsAccounts(
-          accNumber2,
-          productNameMap.get(rec.IDR_Product_2__c)?.Name,
-          rec.IDR_Product_Category__c
-        )
-      );
-      stopCollectionTaskList.add(
-        populateSystemTask(rec, STOP_COLLEC_TASK_SUBJECT, accNumber2)
-      );
-    }
-    return stopCollectionAccList;
-  }
-
-  /**
-   * @description method to add issue three into stop collection event and task creation if it is eligible
-   * @param rec Case record from the trigger
-   * @return List<IDRCollectionsAccounts> collection account list
-   */
-  private static List<IDRCollectionsAccounts> stopCollectionForIssueThree(
-    Case rec
-  ) {
-    List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
-    for (
-      String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
-        .split(';')
-    ) {
-      stopCollectionAccList.add(
-        new IDRCollectionsAccounts(
-          accNumber3,
-          productNameMap.get(rec.IDR_Product_3__c)?.Name,
-          rec.IDR_Product_Category__c
-        )
-      );
-      stopCollectionTaskList.add(
-        populateSystemTask(rec, STOP_COLLEC_TASK_SUBJECT, accNumber3)
       );
     }
     return stopCollectionAccList;
@@ -265,7 +220,7 @@ public with sharing class IDRCollectionActions {
       oldRec.IDR_Account_Card_Policy_Number__c !=
       c.IDR_Account_Card_Policy_Number__c)) &&
       String.isNotBlank(c.IDR_Collection_Number__c) &&
-      (productNameMap.containsKey(c.Product__c) ||
+      (QueryProducts.getById(c.Product__c) != null ||
       c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.Type) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
@@ -296,7 +251,7 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
-      (productNameMap.containsKey(c.IDR_Product_2__c) ||
+      (QueryProducts.getById(c.IDR_Product_2__c) != null ||
       c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_2__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
@@ -327,7 +282,7 @@ public with sharing class IDRCollectionActions {
       (oldRec.Status != c.Status &&
       IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
-      (productNameMap.containsKey(c.IDR_Product_3__c) ||
+      (QueryProducts.getById(c.IDR_Product_3__c) != null ||
       c.IDR_Product_Category__c != null) &&
       IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(c.IDR_Issue_Type_3__c) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
@@ -403,6 +358,9 @@ public with sharing class IDRCollectionActions {
   private static void publishCollectionEvent(
     List<IDR_Collections_Event__e> collectionsEventList
   ) {
+    if (collectionsEventList.isEmpty()) {
+      return;
+    }
     List<Database.SaveResult> publishResults = EventBus.publish(
       collectionsEventList
     );
@@ -448,32 +406,29 @@ public with sharing class IDRCollectionActions {
     List<IDR_Collections_Event__e> collectionsStartEventList = new List<IDR_Collections_Event__e>();
 
     //get only closed records for start collections
-    for (Case rec : records) {
-      Case oldRec = (oldMap != null ? (Case) oldMap.get(rec.Id) : null);
-      if (
-        rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID &&
-        rec.IsClosed &&
-        (oldRec == null ||
-        oldRec.Status != rec.Status)
-      ) {
-        if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
-          collectionAcctsList.addAll(
-            String.valueOf(rec.IDR_Collection_Number__c).split(';')
-          );
-        }
-        if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
-          collectionAcctsList.addAll(
-            String.valueOf(rec.IDR_Collection_Number_2__c).split(';')
-          );
-        }
-        if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
-          collectionAcctsList.addAll(
-            String.valueOf(rec.IDR_Collection_Number_3__c).split(';')
-          );
-        }
-        caseIds.add(rec.Id);
-        finalList.add(rec);
+    List<Case> casesUpdatedwithStatus = ListUtil.filter(records, oldMap)
+      .changed(Case.Status)
+      .equals(Case.RecordTypeId, RTCase.customerComplaint)
+      .equals(Case.IsClosed, true)
+      .toList();
+    for (Case rec : casesUpdatedwithStatus) {
+      if (String.isNotBlank(rec.IDR_Collection_Number__c)) {
+        collectionAcctsList.addAll(
+          String.valueOf(rec.IDR_Collection_Number__c).split(';')
+        );
       }
+      if (String.isNotBlank(rec.IDR_Collection_Number_2__c)) {
+        collectionAcctsList.addAll(
+          String.valueOf(rec.IDR_Collection_Number_2__c).split(';')
+        );
+      }
+      if (String.isNotBlank(rec.IDR_Collection_Number_3__c)) {
+        collectionAcctsList.addAll(
+          String.valueOf(rec.IDR_Collection_Number_3__c).split(';')
+        );
+      }
+      caseIds.add(rec.Id);
+      finalList.add(rec);
     }
 
     //Build collection map (will ony contain trimmed account numbers)
@@ -541,19 +496,20 @@ public with sharing class IDRCollectionActions {
           )
       ]) {
         // Only build startCollectionMap on trimmed Account Numbers.
-        if (taskRec.IDR_Collection_Number__c != null) {
-          String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
-            '^0+',
-            ''
+        if (String.isBlank(taskRec.IDR_Collection_Number__c)) {
+          continue;
+        }
+        String strAccountNumber = taskRec.IDR_Collection_Number__c.replaceFirst(
+          '^0+',
+          ''
+        );
+        if (!startCollectionMap.containsKey(strAccountNumber)) {
+          startCollectionMap.put(
+            strAccountNumber,
+            new Set<Id>{ taskRec.WhatId }
           );
-          if (!startCollectionMap.containsKey(strAccountNumber)) {
-            startCollectionMap.put(
-              strAccountNumber,
-              new Set<Id>{ taskRec.WhatId }
-            );
-          } else {
-            startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
-          }
+        } else {
+          startCollectionMap.get(strAccountNumber).add(taskRec.WhatId);
         }
       }
     }
@@ -629,12 +585,13 @@ public with sharing class IDRCollectionActions {
         stCaseIds.contains(rec.Id)
       ) {
         if (
-          (stCaseIds.size() == 1) && productNameMap.containsKey(rec.Product__c)
+          (stCaseIds.size() == 1) &&
+          QueryProducts.getById(rec.Product__c) != null
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber,
-              productNameMap.get(rec.Product__c).Name,
+              QueryProducts.getById(rec.Product__c)?.Name,
               null
             )
           );
@@ -673,12 +630,12 @@ public with sharing class IDRCollectionActions {
       ) {
         if (
           (stCaseIds.size() == 1) &&
-          productNameMap.containsKey(rec.IDR_Product_2__c)
+          QueryProducts.getById(rec.IDR_Product_2__c) != null
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber2,
-              productNameMap.get(rec.IDR_Product_2__c).Name,
+              QueryProducts.getById(rec.IDR_Product_2__c)?.Name,
               null
             )
           );
@@ -717,12 +674,12 @@ public with sharing class IDRCollectionActions {
       ) {
         if (
           (stCaseIds.size() == 1) &&
-          productNameMap.containsKey(rec.IDR_Product_3__c)
+          QueryProducts.getById(rec.IDR_Product_3__c) != null
         ) {
           startCollectionAccList.add(
             new IDRCollectionsAccounts(
               accNumber3,
-              productNameMap.get(rec.IDR_Product_3__c).Name,
+              QueryProducts.getById(rec.IDR_Product_3__c)?.Name,
               null
             )
           );
@@ -733,38 +690,6 @@ public with sharing class IDRCollectionActions {
       }
     }
     return startCollectionAccList;
-  }
-
-  /**
-   * @description method to query product names using product ids
-   * @param records List of case records from trigger
-   * @return Map<Id, String> product id as key and Product Name as value
-   */
-  public static Map<Id, Product2> getProductNames(List<Case> records) {
-    Set<Id> productIds = new Set<Id>();
-    Map<Id, Product2> productMap = new Map<Id, Product2>();
-
-    for (Case rec : records) {
-      if (rec.RecordTypeId == IDRConstants.CUSTOMER_COMPLAINT_RT_ID) {
-        if (String.isNotBlank(rec.Product__c)) {
-          productIds.add(rec.Product__c);
-        }
-        if (String.isNotBlank(rec.IDR_Product_2__c)) {
-          productIds.add(rec.IDR_Product_2__c);
-        }
-        if (String.isNotBlank(rec.IDR_Product_3__c)) {
-          productIds.add(rec.IDR_Product_3__c);
-        }
-      }
-    }
-    if (
-      !productIds.isEmpty() && Product2.SObjectType.getDescribe().isQueryable()
-    ) {
-      productMap = new Map<Id, Product2>(
-        [SELECT Id, Name FROM Product2 WHERE Id IN :productIds]
-      );
-    }
-    return productMap;
   }
 
   /**
@@ -779,5 +704,88 @@ public with sharing class IDRCollectionActions {
   ) {
     return IDRConstants.ISSUE_TYPE_COLLECTIONS.contains(strIssueType) &&
       IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(strSubIssueType);
+  }
+  /**
+   * @description method to check if Issue Types and Sub-Issue Types are changed on Complaint.
+   * @param newRecord New Version of Record
+   * @param oldRecord Old Version of Record
+   * @return Boolean if Issue Type and Subsequent Issue Type changed.
+   */
+  @testVisible
+  private static Boolean checkForIssueTypesChanged(
+    Case newRecord,
+    Case oldRecord
+  ) {
+    if (oldRecord == null || newRecord.Status == IDRConstants.REOPENED_STATUS) {
+      return true;
+    }
+    List<SObjectField> changedfieldAPIName = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
+      newRecord,
+      oldRecord,
+      IDRConstants.COLLECTIONS_FIELDS
+    );
+
+    return !changedfieldAPIName.isEmpty();
+  }
+  /**
+   * @description method to check if Account Policy Number is invalid
+   * @param newRecord new Case record
+   * @param oldRecord old Case record
+   * @param accPolicyNumber Account Policy Number
+   * @return Boolean which indicates its an invalid Account Policy Number
+   */
+  @testVisible
+  private static Boolean isInValidAccount(
+    Case newRecord,
+    Case oldRecord,
+    SObjectField accPolicyNumber
+  ) {
+    if (newRecord.get(accPolicyNumber) == null) {
+      return false;
+    }
+    if (
+      RecordComparisonUtil.fieldWasChanged(
+        newRecord,
+        oldRecord,
+        accPolicyNumber
+      ) &&
+      String.valueOf(newRecord.get(accPolicyNumber)) != ACC_NUMBER_NA &&
+      !isAccountNumberRegexValid(String.valueOf(newRecord.get(accPolicyNumber)))
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * @description method to populate IDR Collection Events
+   * @param records List of Case records in current  trigger context
+   * @param oldMap old Map of Case records in current  trigger context
+   * @return List<IDR_Collections_Event__e> Filtered list of IDR Collection Events
+   */
+  private static List<IDR_Collections_Event__e> buildCaseCollectionsEvent(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<IDR_Collections_Event__e> collectionsCasesEventList = new List<IDR_Collections_Event__e>();
+    List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
+
+    for (Case rec : records) {
+      if (rec.RecordTypeId != RTCase.customerComplaint) {
+        continue;
+      }
+      Case oldRec = (Case) oldMap.get(rec.Id);
+      if (!checkForIssueTypesChanged(rec, oldRec)) {
+        continue;
+      }
+      stopCollectionAccList = validateRecordForStopCollection(rec, oldRec);
+      if (!stopCollectionAccList.isEmpty() && !rec.IsClosedOnCreate) {
+        collectionsCasesEventList.add(
+          buildCollectionEvent(rec, stopCollectionAccList)
+        );
+      }
+    }
+    return collectionsCasesEventList;
   }
 }

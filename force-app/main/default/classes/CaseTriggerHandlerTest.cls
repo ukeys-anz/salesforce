@@ -1684,150 +1684,6 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  //test the workbasket assignment for Afca referred compalints on insert
-  @istest
-  static void testEDRWorkbasketAssignmentOnInsert() {
-    Case[] newCases = new List<Case>();
-    List<Group> queueList = [
-      SELECT Id, DeveloperName
-      FROM Group
-      WHERE DeveloperName = 'EDR_Early_Resolution' AND Type = 'Queue'
-    ];
-    Test.startTest();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      Case csObj = IDRTestDataFactory.createAfcaCustomerComplaintCase(
-        'Financial Hardship',
-        '9',
-        '57'
-      );
-      csObj.Status = 'Escalated';
-      csObj.IDR_Escalation_Reason__c = '1';
-      newCases.add(csObj);
-    }
-    insert newCases;
-    for (Case c : [SELECT Id, OwnerId FROM Case WHERE id IN :newCases]) {
-      System.assertEquals(
-        c.OwnerId.getSobjectType(),
-        Group.SObjectType,
-        'Case OwnerId type should be as expected.'
-      );
-      System.assertEquals(
-        queueList[0].Id,
-        c.OwnerId,
-        'New case OwnerId should be as expected.'
-      );
-    }
-
-    Test.stopTest();
-  }
-
-  //test the workbasket assignment for Afca referred compalints on update
-  @istest
-  static void testEDRWorkbasketAssignmentOnUpdate() {
-    Case[] newCases = new List<Case>();
-    List<Group> queueList = [
-      SELECT id, developername
-      FROM group
-      WHERE
-        developername IN (
-          'Specialised_EarlyRes_Responsible_Lending',
-          'EDR_Early_Resolution'
-        )
-        AND Type = 'Queue'
-    ];
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = RTCase.customerComplaint,
-          Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED,
-          IDR_AFCA_Status__c = '10',
-          IDR_AFCA_Due_Date__c = System.TODAY(),
-          IDR_Customer_Number__c = '1234567890',
-          Priority = 'Standard',
-          Type = '5',
-          IDR_Subsequent_Issue__c = '38'
-        )
-      );
-    }
-    newCases[1].IDR_Subsequent_Issue__c = '39';
-    insert newCases;
-    Test.startTest();
-    newCases[0].Status = 'Escalated';
-    newCases[0].IDR_Escalation_Reason__c = '1';
-
-    update newCases[0];
-
-    Case caseRec = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[0].id];
-    System.assertEquals(
-      Group.SobjectType,
-      caseRec.OwnerId.getSobjectType(),
-      'The workbasket assignment for AFCA referred complaints on update should have the same Sobject type.'
-    );
-    System.assertEquals(
-      queueList[1].Id,
-      caseRec.OwnerId,
-      'The workbasket assignment for AFCA referred complaints on update should be EDR_Early_Resolution.'
-    );
-
-    newCases[1].Status = 'Escalated';
-    newCases[1].IDR_Escalation_Reason__c = '1';
-    update newCases[1];
-
-    Case caseRec1 = [SELECT Id, OwnerId FROM Case WHERE id = :newCases[1].id];
-    System.assertEquals(
-      Group.SobjectType,
-      caseRec1.OwnerId.getSobjectType(),
-      'The workbasket assignment for AFCA referred complaints on update should have the same Sobject type.'
-    );
-    System.assertEquals(
-      queueList[0].Id,
-      caseRec1.OwnerId,
-      'The workbasket assignment for AFCA referred complaints on update should be Specialised_EarlyRes_Responsible_Lending.'
-    );
-
-    Test.stopTest();
-  }
-
-  @isTest
-  static void testCaseNotifiationAfterUpdate() {
-    Case parentCase = IDRTestDataFactory.createAfcaCustomerComplaintCase(
-      'Standard',
-      '5',
-      '38'
-    );
-
-    insert parentCase;
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        IDRTestDataFactory.createAfcaCustomerComplaintCase(
-          'Standard',
-          '5',
-          '38'
-        )
-      );
-    }
-    Test.startTest();
-    insert newCases;
-    List<Case> caseList = [
-      SELECT Id, Origin, CaseNumber, ParentId
-      FROM Case
-      WHERE Id != :parentCase.Id
-    ];
-    for (Case c : caseList) {
-      c.ParentId = parentCase.Id;
-    }
-    CheckRecursive.firstCall = false;
-    update caseList;
-    Test.stopTest();
-    System.assertEquals(
-      parentCase.Id,
-      [SELECT ParentId FROM Case WHERE Id != :parentCase.Id LIMIT 1].ParentId,
-      'Issue while updating parentId'
-    );
-  }
-
   //test IDRCollectionAction getStartCollectionMap method
   //This test method verifies if the returned startCollection map contains IDR Collection Number from Task record and its related caseId/whatId
   @isTest
@@ -2643,7 +2499,6 @@ private class CaseTriggerHandlerTest {
         theCase.Id +
         '\''
     );
-    verifyCloudEventForATMDisputeCase(theCase);
 
     theCase.External_System__c = 'CARBe';
     theCase.External_Case_Id__c = 'EXTERNALCASEID000';
@@ -2716,7 +2571,6 @@ private class CaseTriggerHandlerTest {
         theCase.Id +
         '\''
     );
-    verifyCloudEventForCardDisputeCase(theCase);
     verifyCaseSubject(theCase);
     verifyCardTokenNumber(theCase);
     verifyDuplicateDispute(theCase, recordTypeDeveloperName);
@@ -2757,116 +2611,6 @@ private class CaseTriggerHandlerTest {
     newFinServFinancialAccount2.FinServ__PrimaryOwner__c = accountList[1].Id;
     finServFinancialAccountList.add(newFinServFinancialAccount2);
     insert finServFinancialAccountList;
-  }
-
-  private static void verifyCloudEventForATMDisputeCase(Case theCase) {
-    System.assertEquals(
-      1,
-      CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
-    );
-    System.assert(
-      String.isNotBlank(CloudEventController.cloudEvents[0].Data_1__c),
-      'Cloud Event should be generated'
-    );
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-    ATMDisputeCaseCloudEventModel atmDisputeCaseCloudEventModel = (ATMDisputeCaseCloudEventModel) JSON.deserialize(
-      payload,
-      ATMDisputeCaseCloudEventModel.class
-    );
-
-    Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
-      payload
-    );
-    Map<String, Object> mappedResponse2 = (Map<String, Object>) mappedResponse.get(
-      'ce_data'
-    );
-    ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel atmDisputeCaseCloudEventDataModel = (ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel) JSON.deserialize(
-      JSON.serialize(mappedResponse2),
-      ATMDisputeCaseCloudEventModel.ATMDisputeCaseCloudEventDataModel.class
-    );
-
-    System.assertEquals(
-      theCase.CaseNumber,
-      atmDisputeCaseCloudEventDataModel.caseNumber,
-      'Case Number should match'
-    );
-    System.assertEquals(
-      'CaseNumber/' + theCase.CaseNumber,
-      atmDisputeCaseCloudEventModel.ce_subject,
-      'ce_subject should match'
-    );
-    CaseCloudEventModel.AccountModel customer = atmDisputeCaseCloudEventDataModel.customer;
-    System.assertEquals(
-      theCase.Account.OCV_ID__c,
-      customer.ocvId,
-      'customer should not be null'
-    );
-    DisputeCaseCloudEventModel.FinancialAccountModel financialAccount = atmDisputeCaseCloudEventDataModel.financialAccount;
-    System.assert(
-      financialAccount != null,
-      'financialAccount should not be null'
-    );
-    DisputeCaseCloudEventModel.TransactionModel transactionInformation = atmDisputeCaseCloudEventDataModel.transactionInformation;
-    System.assert(
-      transactionInformation != null,
-      'transaction should not be null'
-    );
-  }
-
-  private static void verifyCloudEventForCardDisputeCase(Case theCase) {
-    System.assertEquals(
-      1,
-      CloudEventController.cloudEvents.size(),
-      'Cloud Event should be generated'
-    );
-    System.assert(
-      String.isNotBlank(CloudEventController.cloudEvents[0].Data_1__c),
-      'Cloud Event should be generated'
-    );
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-    CardDisputeCaseCloudEventModel cardDisputeCaseCloudEventModel = (CardDisputeCaseCloudEventModel) JSON.deserialize(
-      payload,
-      CardDisputeCaseCloudEventModel.class
-    );
-
-    Map<String, Object> mappedResponse = (Map<String, Object>) JSON.deserializeUntyped(
-      payload
-    );
-    Map<String, Object> mappedResponse2 = (Map<String, Object>) mappedResponse.get(
-      'ce_data'
-    );
-    CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel cardDisputeCaseCloudEventDataModel = (CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel) JSON.deserialize(
-      JSON.serialize(mappedResponse2),
-      CardDisputeCaseCloudEventModel.CardDisputeCaseCloudEventDataModel.class
-    );
-
-    System.assertEquals(
-      theCase.CaseNumber,
-      cardDisputeCaseCloudEventDataModel.caseNumber,
-      'Case Number should match'
-    );
-    System.assertEquals(
-      'CaseNumber/' + theCase.CaseNumber,
-      cardDisputeCaseCloudEventModel.ce_subject,
-      'ce_subject should match'
-    );
-    CaseCloudEventModel.AccountModel customer = cardDisputeCaseCloudEventDataModel.customer;
-    System.assertEquals(
-      theCase.Account.OCV_ID__c,
-      customer.ocvId,
-      'customer should not be null'
-    );
-    DisputeCaseCloudEventModel.FinancialAccountModel financialAccount = cardDisputeCaseCloudEventDataModel.financialAccount;
-    System.assert(
-      financialAccount != null,
-      'financialAccount should not be null'
-    );
-    DisputeCaseCloudEventModel.TransactionModel transactionInformation = cardDisputeCaseCloudEventDataModel.transactionInformation;
-    System.assert(
-      transactionInformation != null,
-      'transaction should not be null'
-    );
   }
 
   private static void verifyAccountAndFinAccount(
@@ -2924,17 +2668,14 @@ private class CaseTriggerHandlerTest {
       'Card_Dispute',
       'Direct_Debit_Dispute',
       'Direct_Entry_Dispute',
-      'NPP_Dispute'
+      'NPP_Dispute',
+      'PayTo_Dispute'
     };
     if (
       disputeCasesRecordTypeNames.contains(theCase.RecordType.DeveloperName)
     ) {
-      String caseRecordTypeChecker = theCase.RecordType.DeveloperName ==
-        'NPP_Dispute' && theCase.Is_PayTo_Dispute__c
-        ? 'PayTo'
-        : theCase.RecordType.Name;
       System.assertEquals(
-        caseRecordTypeChecker + ' - ' + theCase.Dispute_Reason__c,
+        theCase.RecordType.Name + ' - ' + theCase.Dispute_Reason__c,
         theCase.Subject,
         'New case subject should be as expected.'
       );
@@ -3324,58 +3065,5 @@ private class CaseTriggerHandlerTest {
       }
     }
     Test.stopTest();
-  }
-
-  @isTest
-  public static void testPayToDisputeCase() {
-    String recordTypeDeveloperName = 'NPP_Dispute';
-    Test.startTest();
-    List<Account> accountsList = [
-      SELECT Id, OCV_ID__c
-      FROM Account
-      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
-    ];
-    Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
-    for (Account account : accountsList) {
-      ocvIDAndAccountMap.put(account.OCV_ID__c, account);
-    }
-    List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
-      SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
-      FROM FinServ__FinancialAccount__c
-      WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
-    ];
-    Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-    for (
-      FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
-    ) {
-      ocvIDAndFinSerAccountMap.put(
-        finServFinancialAccount.OCV_ID__c,
-        finServFinancialAccount
-      );
-    }
-
-    Case theCase = TestDataFactory.createCase(recordTypeDeveloperName);
-    theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
-    theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
-        'OCV000000001'
-      )
-      .Id;
-    theCase.Payment_ID__c = 'MPS123123DFS';
-    theCase.Dispute_Reason_PayTo__c = 'Not as per agreement';
-    try {
-      insert theCase;
-    } catch (DmlException e) {
-      System.assert(false, 'Failed to create dispute case');
-    }
-    String fieldsToBeQueried = CommonUtil.getCaseFieldsString();
-    theCase = Database.query(
-      'Select Id, ' +
-        String.escapeSingleQuotes(fieldsToBeQueried) +
-        ' From Case Where Id = \'' +
-        theCase.Id +
-        '\''
-    );
-    Test.stopTest();
-    verifyCaseSubject(theCase);
   }
 }

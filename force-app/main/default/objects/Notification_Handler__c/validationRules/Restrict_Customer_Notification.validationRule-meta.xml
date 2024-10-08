@@ -6,6 +6,10 @@
  Case__r.RecordType.DeveloperName != &apos;Customer_Complaint&apos;,
  Case__r.RecordType.DeveloperName != &apos;ANZx_Complaint&apos;,   	
  ISBLANK(Case__r.IDR_NC_Email__c ),
- ISBLANK(Case__r.IDR_NC_Mobile__c))</errorConditionFormula>
+ ISBLANK(Case__r.IDR_NC_Mobile__c),
+ ISBLANK(Case__r.IDR_3rdParty_Email__c),
+ ISBLANK(Case__r.IDR_3rdParty_Mobile__c)
+
+)</errorConditionFormula>
     <errorMessage>Please make sure that it is either a customer/anzx complaint or mobile/email is populated</errorMessage>
 </ValidationRule>
