@@ -28,9 +28,6 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    * @name onBeforeInsert
    */
   public override void onBeforeInsert() {
-    if (CCRMLeadConversionActions.leadConverionFlow) {
-      return;
-    }
     List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
       records
     );
@@ -50,9 +47,6 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    if (CCRMLeadConversionActions.leadConverionFlow) {
-      return;
-    }
     List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
       records
     );

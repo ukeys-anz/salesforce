@@ -21,6 +21,11 @@ public with sharing class CommercialContactActionsHelper {
   ) {
     List<Contact> existingAndProspectContactsList = new List<Contact>();
     List<Account> existingAndProspectAccounts = new List<Account>();
+
+    if (CCRMLeadConversionActions.leadConverionFlow) {
+      return new List<Contact>();
+    }
+
     Set<Id> accIdsSet = ListUtil.getIds(records, Contact.AccountId);
     List<Account> accList = ACCOUNT_REPOSITORY.fetchAccounts(accIdsSet);
     CCRMAccountActions.AccountWrapper accountWrap = new CCRMAccountActions.AccountWrapper(
