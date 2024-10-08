@@ -11,10 +11,11 @@ RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
 
-OR(
-AND(NOT(ISPICKVAL(Type,&apos;4&apos;)),NOT(ISBLANK(TEXT((Type))))),
-AND(NOT(ISPICKVAL(IDR_Issue_Type_2__c,&apos;4&apos;)),NOT(ISBLANK(TEXT(IDR_Issue_Type_2__c)))),
-AND(NOT(ISPICKVAL(IDR_Issue_Type_3__c,&apos;4&apos;)),NOT(ISBLANK(TEXT(IDR_Issue_Type_3__c))))),
+AND(
+NOT(ISPICKVAL(Type,&apos;4&apos;)),NOT(ISBLANK(TEXT(Type))),
+NOT(ISPICKVAL(IDR_Issue_Type_2__c,&apos;4&apos;)),
+NOT(ISPICKVAL(IDR_Issue_Type_3__c,&apos;4&apos;))
+),
 
 OR(
 ISBLANK(TEXT(IDR_Is_Written_Resp_Requested__c)),
