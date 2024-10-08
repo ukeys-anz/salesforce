@@ -110,7 +110,7 @@ export default class CancelResidentialLoanApplication extends LightningElement {
       })
       .catch((error) => {
         title = "Error";
-        message = error.body.message;
+        message = "Something went wrong. Please try again.";
         variant = "error";
         this.showNotificationAndRefreshTab(title, message, variant);
       });

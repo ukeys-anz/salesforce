@@ -43,11 +43,9 @@ export default class CreditFinalise extends LightningElement {
         data,
         CREDIT_ASSES_EXPIRY_FIELD
       );
-
-      if (
-        new Date(this.creditAssessmentExpired).setHours(0, 0, 0, 0) <=
-          new Date().setHours(0, 0, 0, 0) &&
-        this.assessmentOutcome === "Approved"
+      if ((new Date(this.creditAssessmentExpired) <=
+          new Date()) &&
+          this.assessmentOutcome === "Approved"
       ) {
         this.isExpired = true;
       }
