@@ -20,7 +20,7 @@
         <field>Type</field>
         <literalValue>Pend Case</literalValue>
     </fieldOverrides>
-    <label>On Hold</label>
+    <label>Case On Hold</label>
     <optionsCreateFeedItem>true</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
