@@ -13,7 +13,8 @@ public with sharing class QueryProducts {
         Name,
         IDR_Product_Family__c,
         ANZ_Product_Code__c,
-        IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c
+        IDR_Product_Family__r.IDR_ANZ_com_Product_Category__c,
+        IDR_Product_Family__r.Name
       FROM Product2
     ]) {
       productsById.put(p.Id, p);
