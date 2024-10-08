@@ -72,7 +72,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterInsert() {
     Logger.debug('On_After_Insert started: ' + System.now());
     IDRCaseActions.completeAfterActions();
-    SICaseActions.afterInsert(records);
+    SICaseActions.processMonitoringTasks(records, new Map<Id, Case>());
     GetHelpCaseActions.handleDisputesPEGAIntegration(records, null);
     CaseCEController.publishCloudEvents(records);
     GetHelpCaseActions.copyCreditReferralCaseNumbers(records);
@@ -172,7 +172,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<ID, Case>) oldMap
     );
-    SICaseActions.afterUpdate(records, (Map<Id, Case>) oldMap);
+    SICaseActions.processMonitoringTasks(records, new Map<Id, Case>());
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleDisputesPEGAIntegration(
       records,
