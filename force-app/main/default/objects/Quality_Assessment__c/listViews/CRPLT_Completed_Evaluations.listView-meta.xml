@@ -12,6 +12,8 @@
     <columns>Assessment_Completion_Date__c</columns>
     <columns>Status__c</columns>
     <columns>UPDATEDBY_USER</columns>
+    <columns>Review_Period_Year__c</columns>
+    <columns>Review_Period_Month__c</columns>
     <filters>
         <field>Evaluation_Type__c</field>
         <operation>equals</operation>
