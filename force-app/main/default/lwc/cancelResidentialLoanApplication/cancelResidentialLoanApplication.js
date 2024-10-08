@@ -100,17 +100,11 @@ export default class CancelResidentialLoanApplication extends LightningElement {
             "Application for withdrawal has been submitted successfully";
           variant = "success";
           this.showNotificationAndRefreshTab(title, message, variant);
-        } else {
-          title = "Error";
-          message =
-            "The application could not be withdrawn. Please review and try again.";
-          variant = "error";
-          this.showNotificationAndRefreshTab(title, message, variant);
         }
       })
       .catch((error) => {
         title = "Error";
-        message = "Something went wrong. Please try again.";
+        message = "The application could not be withdrawn. Please review and try again.";
         variant = "error";
         this.showNotificationAndRefreshTab(title, message, variant);
       });

@@ -318,7 +318,7 @@ public with sharing class ResidentialLoanApplicationActions {
         rlaObject.get('requestId'),
         rlaObject.get('ocvId')
       );
-      if (response.statusCode != 200) {
+      if (!response.successful) {
         throw CommonUtil.logException(response);
       }
       ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
