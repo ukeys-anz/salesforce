@@ -1,3 +1,9 @@
+/**
+ * @author Naman Garg
+ * @since Oct 2024
+ * @description  CommercialContactActionsTest is the test class for CommercialContactActions.
+ */
+
 @isTest
 public with sharing class CommercialContactActionsTest {
   static Lib_MockProvider contactRepoMock;
