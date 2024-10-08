@@ -23303,6 +23303,10 @@
         <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>qualtrics__Survey_Response__c-Commercial A-Z Review Survey Response Layout</layout>
+        <recordType>qualtrics__Survey_Response__c.Commercial_A_Z_Review_Survey_Response</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>

@@ -3579,9 +3579,22 @@
         "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
-        "UUID__c"
+        "UUID__c",
+        "Banker_Satisfaction_Doing_What_Said__c",
+        "Banker_Satisfaction_Feel_Valued__c",
+        "Banker_Satisfaction_Knowledgeable__c",
+        "Banker_Satisfaction_Meeting_Needs__c",
+        "CLG__c",
+        "CPID__c",
+        "Customer_Number__c",
+        "Interaction_Date__c",
+        "NPS_Groups__c"
       ],
-      "IA-2415984": ["qualtrics__Account__c", "qualtrics__Contact__c"],
+      "IA-2415984": [
+        "qualtrics__Account__c",
+        "qualtrics__Contact__c",
+        "A_Z_Review__c"
+      ],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
