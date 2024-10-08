@@ -9,8 +9,13 @@ import {
 } from "lightning/uiRecordApi";
 import ASSESSMENT_OUTCOME_FIELD from "@salesforce/schema/Case.Assessment_Outcome__c";
 import CREDIT_REASSESS_FIELD from "@salesforce/schema/Case.Loan_Application__r.Credit_Reassess_Required__c";
+import CREDIT_ASSES_EXPIRY_FIELD from "@salesforce/schema/Case.Credit_Assessment_Expiry_Date__c";
 
-const FIELDS = [ASSESSMENT_OUTCOME_FIELD, CREDIT_REASSESS_FIELD];
+const FIELDS = [
+  ASSESSMENT_OUTCOME_FIELD,
+  CREDIT_REASSESS_FIELD,
+  CREDIT_ASSES_EXPIRY_FIELD
+];
 
 export default class CreditFinalise extends LightningElement {
   @api recordId;
@@ -21,6 +26,8 @@ export default class CreditFinalise extends LightningElement {
   assessmentOutcome;
   showSubmitBtn;
   isCaseLoaded = false;
+  creditAssessmentExpired;
+  isExpired = false;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -32,6 +39,18 @@ export default class CreditFinalise extends LightningElement {
       //If values change, css class names need to change to match.
       this.assessmentOutcome = getFieldValue(data, ASSESSMENT_OUTCOME_FIELD);
       this.creditReassess = getFieldValue(data, CREDIT_REASSESS_FIELD);
+      this.creditAssessmentExpired = getFieldValue(
+        data,
+        CREDIT_ASSES_EXPIRY_FIELD
+      );
+
+      if (
+        new Date(this.creditAssessmentExpired).setHours(0, 0, 0, 0) <=
+          new Date().setHours(0, 0, 0, 0) &&
+        this.assessmentOutcome === "Approved"
+      ) {
+        this.isExpired = true;
+      }
       if (
         this.assessmentOutcome !== "Approved" &&
         this.assessmentOutcome !== "Declined"
@@ -44,7 +63,8 @@ export default class CreditFinalise extends LightningElement {
       this.showSubmitBtn = !(
         this.unapprovedState ||
         this.creditReassess ||
-        this.isAssessed
+        this.isAssessed ||
+        this.isExpired
       );
       this.isCaseLoaded = true;
     }
@@ -58,11 +78,16 @@ export default class CreditFinalise extends LightningElement {
     return this.isAssessed ? true : false;
   }
   get showErrorIcon() {
-    return this.unapprovedState || this.creditReassess ? true : false;
+    return this.unapprovedState || this.creditReassess || this.isExpired
+      ? true
+      : false;
   }
 
   get closeBtnLabel() {
-    return this.isAssessed || this.unapprovedState || this.creditReassess
+    return this.isAssessed ||
+      this.unapprovedState ||
+      this.creditReassess ||
+      this.isExpired
       ? "Close"
       : "Cancel";
   }

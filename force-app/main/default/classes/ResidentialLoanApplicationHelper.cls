@@ -94,18 +94,53 @@ public with sharing class ResidentialLoanApplicationHelper {
    * @param fieldInfo map of fields to update
    */
   public static void postNotesToChatter(Map<String, String> fieldInfo) {
+    String status = CommonUtil.getSinglePicklistLabel(
+      ResidentialLoanApplication.Status,
+      fieldInfo.get('status')
+    );
     String postContent =
-      'Reason: ' +
+      '<p><b>Status: </b>' +
+      status +
+      ' to Cancelled process initiated</p>' +
+      '<p><b>Reason: </b>' +
       fieldInfo.get('Cancellation_Reason__c') +
-      '<p>&nbsp;</p> Notes: ' +
+      '</p>' +
+      '<p><b>Other Reason: </b>' +
+      fieldInfo.get('Other_Cancellation_Reason__c') +
+      '</p>' +
+      '<p><b>Notes: </b>' +
       fieldInfo.get('Notes') +
-      '<p>&nbsp;</p> Other Reason: ' +
-      fieldInfo.get('Other_Cancellation_Reason__c');
+      '</p>';
     if (String.isBlank(fieldInfo.get('Other_Cancellation_Reason__c'))) {
-      postContent = postContent.replace('<p>&nbsp;</p> Other Reason: null', '');
+      postContent = postContent.replace('<p><b>Other Reason: </b>null</p>', '');
     }
     ChatterUtils.makeAPost(
       fieldInfo.get('recordId'),
+      postContent,
+      ChatterUtils.POST_TYPE_RICH_TEXT
+    );
+  }
+
+  /**
+   * @description postNotesToChatterWhenCancelled post notes to chatter when RLA status changed to Cancelled
+   * @param oldStatus oldStatus previous status of RLA
+   * @param newRLAId newRLAId Id of RLA
+   */
+  public static void postNotesToChatterWhenCancelled(
+    String oldStatus,
+    Id newRLAId
+  ) {
+    String status = CommonUtil.getSinglePicklistLabel(
+      ResidentialLoanApplication.Status,
+      oldStatus
+    );
+    String postContent =
+      'Application Status updated' +
+      '<p><b>Status: </b>' +
+      status +
+      ' to Cancelled</p>';
+    ChatterUtils.makeAPost(
+      newRLAId,
       postContent,
       ChatterUtils.POST_TYPE_RICH_TEXT
     );

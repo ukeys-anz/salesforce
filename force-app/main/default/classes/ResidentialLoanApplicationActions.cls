@@ -369,6 +369,10 @@ public with sharing class ResidentialLoanApplicationActions {
         oldRlaRecords
       );
 
+      if (rlaRecordIds.isEmpty()) {
+        return;
+      }
+
       List<Case> masterCaseList = RLA_REPOSITORY.queryRelatedCreditReferralCases(
         rlaRecordIds
       );
@@ -439,6 +443,10 @@ public with sharing class ResidentialLoanApplicationActions {
         )) && (rlaRecord.Status == BOHConstants.rlaStateCancelledStatus)
       ) {
         rlaRecordIds.add(rlaRecord.Id);
+        ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
+          oldRlaRecords.get(rlaRecord.Id).Status,
+          rlaRecord.Id
+        );
       }
     }
     return rlaRecordIds;

@@ -1308,7 +1308,8 @@
         "Context_Id__c",
         "Context_Type__c",
         "Verified_Date__c",
-        "Credit_Assessment_Expiry_Date__c"
+        "Credit_Assessment_Expiry_Date__c",
+        "Has_Credit_Assessment_Expired__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",

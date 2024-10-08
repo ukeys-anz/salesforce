@@ -10,6 +10,7 @@ import cancelResidentialLoanApplication from "@salesforce/apex/ResidentialLoanAp
 import CANCELLATION_REASON from "@salesforce/schema/ResidentialLoanApplication.Cancellation_Reason__c";
 import OCV_ID from "@salesforce/schema/ResidentialLoanApplication.Account.OCV_ID__c";
 import RESIDENTIAL_LOAN_APPLICATION_NUMBER from "@salesforce/schema/ResidentialLoanApplication.ApplicationExtIdentifier";
+import APPLICATION_STATUS from "@salesforce/schema/ResidentialLoanApplication.Status";
 
 export default class CancelResidentialLoanApplication extends LightningElement {
   @api recordId;
@@ -21,12 +22,13 @@ export default class CancelResidentialLoanApplication extends LightningElement {
   rlaObject = {};
   loanApplicationNumber;
   ocvId;
+  status;
   spinnerDisabled = true;
 
   // fetches the Loan Application Number
   @wire(getRecord, {
     recordId: "$recordId",
-    fields: [RESIDENTIAL_LOAN_APPLICATION_NUMBER, OCV_ID]
+    fields: [RESIDENTIAL_LOAN_APPLICATION_NUMBER, OCV_ID, APPLICATION_STATUS]
   })
   loanApplciation({ data }) {
     if (data) {
@@ -36,6 +38,7 @@ export default class CancelResidentialLoanApplication extends LightningElement {
         RESIDENTIAL_LOAN_APPLICATION_NUMBER
       );
       this.ocvId = getFieldValue(data, OCV_ID);
+      this.status = getFieldValue(data, APPLICATION_STATUS);
     }
   }
 
@@ -79,6 +82,7 @@ export default class CancelResidentialLoanApplication extends LightningElement {
       this.rlaObject.requestId = this.loanApplicationNumber;
       this.rlaObject.recordId = this.recordId;
       this.rlaObject.ocvId = this.ocvId;
+      this.rlaObject.status = this.status;
       this.mainWindow = false;
     }
   }
@@ -92,7 +96,8 @@ export default class CancelResidentialLoanApplication extends LightningElement {
       .then((result) => {
         if (result === "success") {
           title = "Success";
-          message = "The application was successfully withdrawn.";
+          message =
+            "Application for withdrawal has been submitted successfully";
           variant = "success";
           this.showNotificationAndRefreshTab(title, message, variant);
         } else {
