@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Provides view and edit access to commercial object to Business admin users.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CCRM Business Admin Access</label>
+    <permissionSets>CCRM_Business_Admin</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

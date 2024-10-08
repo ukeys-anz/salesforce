@@ -609,14 +609,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMRegionSharingUtil</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMRegionSharingUtilTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMRevertAccExternalIdBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -24245,10 +24237,10 @@
         <layout>TimeSlot-Time Slot Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>User-User Layout</layout>
+        <layout>User-Commercial User Page Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>UserAlt-New User Profile Layout</layout>
+        <layout>UserAlt-Commercial User Profile Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>UserAppMenuItem-Application Layout</layout>
