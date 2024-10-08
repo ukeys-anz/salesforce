@@ -1,10 +1,10 @@
 /**
  * @author : Naman Garg
- * @description : This class is the wrapper class of CCRMFinancialSummaryController
+ * @description : This class is the wrapper class of FinancialSummaryController
  * @since : Jan 2024
  */
 
-public class CCRMFinancialSummaryWrapper {
+public class FinancialSummaryWrapper {
   /**
    * @author Naman Garg
    * @group CCRM (Commercial CRM)
@@ -12,7 +12,7 @@ public class CCRMFinancialSummaryWrapper {
    * @name TotalBalance
    */
   public class TotalBalance {
-    List<String> accounts = new List<String>();
+    Set<String> accounts = new Set<String>();
     String fieldSet;
     String responseId;
 
@@ -23,7 +23,7 @@ public class CCRMFinancialSummaryWrapper {
      * @param responseId Record Id of customer
      */
     public TotalBalance(
-      List<String> accounts,
+      Set<String> accounts,
       String fieldSet,
       String responseId
     ) {
@@ -82,6 +82,32 @@ public class CCRMFinancialSummaryWrapper {
   }
 
   /**
+   * @description TotalLimits wrapper class to call Total Limits Balance API
+   * @name TotalBalance
+   */
+  public class TotalLimits {
+    Set<String> accounts = new Set<String>();
+    String fieldSet;
+    String responseId;
+
+    /**
+     * @description It is the constructor to populate the Total Limits
+     * @param accounts List of Account Ids
+     * @param fieldSet Name of the FieldSet
+     * @param responseId Record Id of customer
+     */
+    public TotalLimits(
+      Set<String> accounts,
+      String fieldSet,
+      String responseId
+    ) {
+      this.accounts = accounts;
+      this.fieldSet = fieldSet;
+      this.responseId = responseId;
+    }
+  }
+
+  /**
    * @author Naman Garg
    * @group CCRM (Commercial CRM)
    * @description CacheData wrapper class to insert the data in cache.
@@ -95,6 +121,12 @@ public class CCRMFinancialSummaryWrapper {
     public String terminalAck;
     public String assetBalanceAck;
     public String lastSummaryUpdateDate;
+    public Decimal totalCreditBalance;
+    public String totalCreditBalanceAck;
+    public Decimal totalDebitBalance;
+    public String totalDebitBalanceAck;
+    public Decimal totalLimitValue;
+    public String totalLimitAck;
   }
 
   /**
@@ -124,6 +156,11 @@ public class CCRMFinancialSummaryWrapper {
      */
     @AuraEnabled
     public Boolean callAssetFinanceBalanceApi { get; set; }
+    /**
+     * @description True if we want to call TotalCustomerLimit Balance API
+     */
+    @AuraEnabled
+    public Boolean callTotalLimitsApi { get; set; }
   }
 
   /**

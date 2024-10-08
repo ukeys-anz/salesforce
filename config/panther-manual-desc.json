@@ -2254,6 +2254,13 @@
         "Summary_Type__c"
       ]
     },
+    "Financial_Summary_Setting__mdt": {
+      "IA-2453350":[
+        "Active__c",
+        "Summary_Name__c",
+        "User_Profile__c"
+      ]
+    },
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
       "IA-2453350": ["External_Id__c"],

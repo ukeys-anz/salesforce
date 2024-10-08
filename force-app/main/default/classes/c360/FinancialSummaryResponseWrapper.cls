@@ -4,7 +4,7 @@
  * @description FinSummaryResponse wrapper class to get the response published by mule.
  * @name FinSummaryResponse
  */
-public class CCRMFinancialSummaryResponseWrapper {
+public class FinancialSummaryResponseWrapper {
   /**
    * @description Id of the Customer Record
    */
@@ -50,4 +50,34 @@ public class CCRMFinancialSummaryResponseWrapper {
    */
   @AuraEnabled
   public String assetBalanceAck { get; set; }
+  /**
+   * @description Hold the value of TotalDebit value published by mule
+   */
+  @AuraEnabled
+  public String totalDebitBalance { get; set; }
+  /**
+   * @description Hold the value of Creditbalance published by mule
+   */
+  @AuraEnabled
+  public String totalCreditBalance { get; set; }
+  /**
+   * @description Tells if the TotalDebitBalance value exist in cache
+   */
+  @AuraEnabled
+  public String totalDebitBalanceAck { get; set; }
+  /**
+   * @description Tells if the TotalCreditBalance value exist in cache
+   */
+  @AuraEnabled
+  public String totalCreditBalanceAck { get; set; }
+  /**
+   * @description Tells if the TotalLimitValue value exist in cache
+   */
+  @AuraEnabled
+  public String totalLimitAck { get; set; }
+  /**
+   * @description Hold the value of TotalLimit response published by mule
+   */
+  @AuraEnabled
+  public String totalLimitValue { get; set; }
 }
