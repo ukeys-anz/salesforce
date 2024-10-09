@@ -75,7 +75,6 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     CCRMOpportunityActions.populateFieldsAfterInsert(records);
-    CCRMRegionSharingUtil.shareOpportunitiesToOwnerRegion(records);
     CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
       records,
       null,
@@ -104,10 +103,6 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
         (Map<Id, Opportunity>) oldMap
       );
     }
-    CCRMOpportunityActions.transferOpportunityOwnership(
-      (List<Opportunity>) records,
-      (Map<Id, Opportunity>) oldMap
-    );
 
     CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
       records,
@@ -178,22 +173,6 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values of Opportunity.
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    CCRMRegionSharingUtil.shareOpportunityToUpdatedOwnerRegion(
-      records,
-      (Map<Id, Opportunity>) oldMap
-    );
-
-    //gets CCRM Opportunities
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
-      records,
-      (Map<Id, Opportunity>) oldMap,
-      true
-    );
-
-    CCRMActionPlanActions.validateAndInsertActionPlans(
-      oppWrapper,
-      (Map<Id, Opportunity>) oldMap
-    );
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Opportunity');
   }
