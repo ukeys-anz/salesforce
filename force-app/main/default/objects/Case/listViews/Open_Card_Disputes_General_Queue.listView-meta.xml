@@ -8,15 +8,15 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Queue</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Queue</filterScope>
     <label>Open Card Disputes - General Queue</label>
     <queue>Card_Dispute_General_Queue</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

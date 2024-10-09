@@ -21,6 +21,6 @@
     <label>Open BPAY Disputes - Digital Fraud Queue</label>
     <queue>Digital_Fraud_Queue</queue>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

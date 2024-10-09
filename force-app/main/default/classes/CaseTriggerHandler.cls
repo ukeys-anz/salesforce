@@ -181,10 +181,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap
     );
     CaseCEController.publishCloudEvents(records, (Map<Id, Case>) oldMap);
-    GetHelpCaseActions.createTaskOnDisputeCaseClosure(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
 
     ToastAlertService.publishRecordMonitoringEvent(
       new Map<String, Object>(),

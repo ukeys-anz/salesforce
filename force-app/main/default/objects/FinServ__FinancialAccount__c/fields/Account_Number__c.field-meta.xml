@@ -6,17 +6,17 @@
     <description>Shows account number with hyphens similar to hyperlink number on related list</description>
     <externalId>false</externalId>
     <formula>CASE( Product_Code_Display__c ,
-&apos;DDA&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
-&apos;ILS&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
-&apos;CDA&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
-&apos;RSV&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
-&apos;OLL&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
+&apos;DDA&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
+&apos;ILS&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
+&apos;CDA&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
+&apos;RSV&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
+&apos;OLL&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
 &apos;PCA&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+MID(FinServ__FinancialAccountNumber__c,5,4)+&apos;-&apos;+
 MID(FinServ__FinancialAccountNumber__c,9,4)+&apos;-&apos;+MID(FinServ__FinancialAccountNumber__c,13,4),
 &apos;PCB&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+MID(FinServ__FinancialAccountNumber__c,5,4)+&apos;-&apos;+
 MID(FinServ__FinancialAccountNumber__c,9,4)+&apos;-&apos;+MID(FinServ__FinancialAccountNumber__c,13,4),
-&apos;FM&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
-&apos;SSI&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,5),
+&apos;FM&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
+&apos;SSI&apos;,LEFT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),4)+&apos;-&apos;+RIGHT(LPAD(FinServ__FinancialAccountNumber__c, 9,&apos;0&apos;),5),
 &apos;PTF&apos;,LEFT(FinServ__FinancialAccountNumber__c,4)+&apos;-&apos;+MID(FinServ__FinancialAccountNumber__c,5,3)+&apos;-&apos;+RIGHT(FinServ__FinancialAccountNumber__c,4),
 &apos;&apos;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>

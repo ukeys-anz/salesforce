@@ -6,8 +6,7 @@
 public with sharing class CaseDisputesRepository {
   private static final Set<Id> VALID_DISPUTE_RT_IDS_TO_UPDATE_CASE = new Set<Id>{
     RTCase.atmDispute,
-    RTCase.cardDispute,
-    RTCase.nppDispute
+    RTCase.cardDispute
   };
 
   /**
@@ -90,7 +89,9 @@ public with sharing class CaseDisputesRepository {
       WHERE
         Id IN :casesIds
         AND Status != :GetHelpConstants.CLOSED_STATUS
-        AND RecordTypeId IN :VALID_DISPUTE_RT_IDS_TO_UPDATE_CASE
+        AND (RecordTypeId IN :VALID_DISPUTE_RT_IDS_TO_UPDATE_CASE
+        OR (RecordTypeId = :RTCase.nppDispute
+        AND Dispute_Reason__c != :GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION))
     ];
   }
 
@@ -113,7 +114,9 @@ public with sharing class CaseDisputesRepository {
       FROM Case
       WHERE
         Id IN :casesIds
-        AND RecordTypeId IN :VALID_DISPUTE_RT_IDS_TO_UPDATE_CASE
+        AND (RecordTypeId IN :VALID_DISPUTE_RT_IDS_TO_UPDATE_CASE
+        OR (RecordTypeId = :RTCase.nppDispute
+        AND Dispute_Reason__c != :GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION))
     ];
   }
 }

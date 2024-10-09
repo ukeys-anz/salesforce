@@ -20,6 +20,6 @@
     <filterScope>Everything</filterScope>
     <label>New This Week</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

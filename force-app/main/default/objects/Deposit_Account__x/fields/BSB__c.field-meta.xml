@@ -10,7 +10,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>BSB</label>
+    <label>Branch</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

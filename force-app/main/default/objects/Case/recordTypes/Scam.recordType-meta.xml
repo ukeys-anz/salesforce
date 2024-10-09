@@ -1048,7 +1048,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Yes - Remitter</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - Crypto</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes - Both</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -4033,6 +4041,10 @@
         </values>
         <values>
             <fullName>Unexpected Money%2FWinnings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Recovery</fullName>
             <default>false</default>
         </values>
     </picklistValues>

@@ -100,7 +100,7 @@
         <description>Grant Read write access to C&amp;Q Assessment records for new role.</description>
         <label>Quality Assessor C&amp;Q Read/Write</label>
         <sharedTo>
-            <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Capability_Quality_C_Q_Team</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">We&apos;re working on getting this sorted as quickly as possible and hope to resolve this for you within 21 business days. We&apos;ll be in touch if we need any more information and keep you updated on the status of your case here.</value>
+        <value xsi:type="xsd:string">We&apos;re working on getting this sorted as quickly as possible. Some disputes take longer to resolve than others, so we&apos;ll be in touch if we need any more information and keep you updated on the status of your case here.</value>
     </values>
     <values>
         <field>Customer_Status__c</field>
@@ -21,6 +21,10 @@
     <values>
         <field>Internal_Description__c</field>
         <value xsi:type="xsd:string">Under investigation</value>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
         <field>PEGA_Dispute_Status__c</field>

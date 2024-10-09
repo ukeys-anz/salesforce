@@ -1,6 +1,6 @@
 /**
  * @author Hannah Sainumkheaw
- * @last modified:   19 July 2024
+ * @last modified:   1 Oct 2024
  * @description Test class for {@link NonANZNetworkEventHandler}
  */
 
@@ -9,6 +9,10 @@ public with sharing class NonANZNetworkEventHandlerTest {
   static Faker faker = new Faker('AU');
   static String anzxUserProfile = 'ANZx Standard User';
   static String externalAppProfile = 'Minimum Access - External Apps';
+
+  static Lib_MockProvider testUserMock = Lib_MockProvider.forType(
+    TSPRepository.class
+  );
 
   static User anzxUser = new User(
     Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
@@ -44,10 +48,7 @@ public with sharing class NonANZNetworkEventHandlerTest {
   @isTest
   static void testApiEventAllowListIpNotAllowed() {
     //GIVEN ApiEvent with for non ANZ Network with non-ip exempted profile (ANZxStandard User)
-    Lib_MockProvider anzxUserMock = Lib_MockProvider.forType(
-        TSPRepository.class
-      )
-      .mock('queryProfilebyEventUserId', anzxUser);
+    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
     ApiEvent testevent = new ApiEvent();
     testevent.sourceIp = '165.225.222';
 
@@ -66,10 +67,7 @@ public with sharing class NonANZNetworkEventHandlerTest {
   @isTest
   static void testApiEventWithExemptedProfile() {
     //GIVEN ApiEvent with for non ANZ Network with exempted profile
-    Lib_MockProvider anzxUserMock = Lib_MockProvider.forType(
-        TSPRepository.class
-      )
-      .mock('queryProfilebyEventUserId', externalAppUser);
+    testUserMock.mock('queryProfilebyEventUserId', externalAppUser);
     ApiEvent testevent = new ApiEvent();
 
     //WHEN evalute for TSP & policycheck for AllowList is called
@@ -87,10 +85,7 @@ public with sharing class NonANZNetworkEventHandlerTest {
   @isTest
   static void testApiEventAllowListIpAllowed() {
     //GIVEN ApiEvent with for non ANZ Network and known ZScaler IP Address for ANZ
-    Lib_MockProvider anzxUserMock = Lib_MockProvider.forType(
-        TSPRepository.class
-      )
-      .mock('queryProfilebyEventUserId', anzxUser);
+    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
     ApiEvent testevent = new ApiEvent();
     testevent.sourceIp = '165.225.226.251';
 
@@ -108,13 +103,10 @@ public with sharing class NonANZNetworkEventHandlerTest {
 
   @isTest
   static void testApiEventAtBraodCastIPAllowed() {
-    //GIVEN IP Address at a known ZScaler Australia's Broadcast Ip of 203.110.235.0
-    Lib_MockProvider anzxUserMock = Lib_MockProvider.forType(
-        TSPRepository.class
-      )
-      .mock('queryProfilebyEventUserId', anzxUser);
+    //GIVEN IP Address at a known ZScaler Australia's Broadcast Ip of 165.225.0.0
+    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
     ApiEvent testevent = new ApiEvent();
-    testevent.sourceIp = '203.110.235.0';
+    testevent.sourceIp = '165.225.0.0';
 
     //WHEN evalute for TSP & policycheck for AllowList is called
     Test.startTest();
@@ -129,8 +121,8 @@ public with sharing class NonANZNetworkEventHandlerTest {
 
   @isTest
   static void testIsAllowedSourceIpAllowed() {
-    //GIVEN IP Address at a known ZScaler Australia's Broadcast Ip of 203.110.235.0 & Exception IP for Internal Salesforce IP
-    String testKnownAnzIPeventSourceIp = '203.110.235.0';
+    //GIVEN IP Address at a known ZScaler Australia's Broadcast Ip of 165.225.0.0 & Exception IP for Internal Salesforce IP
+    String testKnownAnzIPeventSourceIp = '165.225.0.0';
     String testSalesforceIPeventSourceIp = 'Salesforce.com IP';
 
     //WHEN validate incoming source IPs

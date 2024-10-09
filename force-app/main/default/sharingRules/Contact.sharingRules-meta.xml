@@ -7,7 +7,7 @@
             Subordinates.</description>
         <label>Broker Contacts</label>
         <sharedTo>
-            <roleAndSubordinates>Retail_Broker</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Retail_Broker</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -21,7 +21,7 @@
         <accessLevel>Edit</accessLevel>
         <label>Display Contacts</label>
         <sharedTo>
-            <roleAndSubordinates>ANZ</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

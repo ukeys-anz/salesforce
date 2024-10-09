@@ -543,6 +543,11 @@
                 <label>Reinstate Home Loan</label>
             </value>
             <value>
+                <fullName>Bureau Decline</fullName>
+                <default>false</default>
+                <label>Bureau Decline</label>
+            </value>
+            <value>
                 <fullName>Loan Auto Repayment (DLP)</fullName>
                 <default>false</default>
                 <label>Loan Auto Repayment (DLP)</label>
@@ -1015,6 +1020,10 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Settlement Enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Bureau Decline</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>

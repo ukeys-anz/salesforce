@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">We&amp;apos;ve finished our investigation and will send you an email with more information and our contact details.</value>
+        <value xsi:type="xsd:string">We&apos;ve finished our investigation and will send you an email with more information and our contact details.</value>
     </values>
     <values>
         <field>Customer_Status__c</field>
@@ -21,6 +21,10 @@
     <values>
         <field>Internal_Description__c</field>
         <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
         <field>PEGA_Dispute_Status__c</field>

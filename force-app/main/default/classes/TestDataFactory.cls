@@ -3,7 +3,7 @@
  * @group Utils
  * Note ExcessivePublicCount Surpressed : The count of the public count here is 25. Since this is a TestDataFactory class,we need to add generic data creation logic so suppressing this wrarning in order to create the pr.
  */
-@SuppressWarnings('PMD.ExcessivePublicCount')
+@SuppressWarnings('PMD.ExcessivePublicCount,PMD.CyclomaticComplexity')
 @isTest
 public without sharing class TestDataFactory {
   public static User thisUser = new User(Id = UserInfo.getUserId());
@@ -880,5 +880,94 @@ public without sharing class TestDataFactory {
     //Set status to Final to "publish"
     apTempVer.Status = 'Final';
     update apTempVer;
+  }
+
+  /**
+   * @description Create Loan Account summary test context
+   * @name createLoanAccountSummaryContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createLoanAccountSummaryContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new TestDataFactory.CCRMLoanAccountSummaryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'LoanAccount'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+
+  /**
+   * @description Create Loan Account detail test context
+   * @name createLoanAccountDetailContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createLoanAccountDetailContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new TestDataFactory.CCRMLoanAccountDetailTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContextWithExternalId(
+      'LoanAccount'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMLoanAccountSummaryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_loanAccountResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'ils-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMLoanAccountDetailTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_loanDetailResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('ms2-example', 'ils-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }

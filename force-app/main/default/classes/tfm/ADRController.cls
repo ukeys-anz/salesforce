@@ -62,7 +62,10 @@ public with sharing class ADRController {
       );
     } catch (ADRRepository.InsufficientAccessException ex) {
       returnMap.put('status', 'Error');
-      returnMap.put('responseMessage', 'You don\'t have required permission to perform this action.');
+      returnMap.put(
+        'responseMessage',
+        'You don\'t have required permission to perform this action.'
+      );
       Logger.error(ex.getMessage(), ex);
       Logger.saveLog();
     } catch (Exception ex) {

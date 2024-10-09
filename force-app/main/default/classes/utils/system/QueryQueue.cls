@@ -18,9 +18,12 @@ public with sharing class QueryQueue {
     }
   }
 
-  public static Group pendingKYCQA = get('Pending_KYC_QA');
-  public static Group digitalFraudQueue = get('Digital_Fraud_Queue');
+  public static Group cardDisputeGeneralQueue = get(
+    'Card_Dispute_General_Queue'
+  );
   public static Group cobFraudCheckQueue = get('COB_Fraud_Check_Queue');
+  public static Group digitalFraudQueue = get('Digital_Fraud_Queue');
+  public static Group pendingKYCQA = get('Pending_KYC_QA');
 
   /**
    * @description Returns a queue based on the provided name.

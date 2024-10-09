@@ -2758,78 +2758,6 @@ private class CaseTriggerHandlerTest {
   }
 
   @isTest
-  static void testEmailTaskOnCaseClosureCreation() {
-    User usr = TestUtil.getUserByFirstName('IntegrationTest');
-    Case theCase;
-
-    Test.startTest();
-    System.runAs(usr) {
-      String recordTypeDeveloperName = 'Card_Dispute';
-      List<Account> accountsList = [
-        SELECT Id, OCV_ID__c
-        FROM Account
-        WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
-      ];
-      Map<String, Account> ocvIDAndAccountMap = new Map<String, Account>();
-      for (Account account : accountsList) {
-        ocvIDAndAccountMap.put(account.OCV_ID__c, account);
-      }
-      List<FinServ__FinancialAccount__c> finServFinancialAccountsList = [
-        SELECT Id, FinServ__PrimaryOwner__c, OCV_ID__c
-        FROM FinServ__FinancialAccount__c
-        WHERE OCV_ID__c IN ('OCV000000001', 'OCV000000002')
-      ];
-      Map<String, FinServ__FinancialAccount__c> ocvIDAndFinSerAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-      for (
-        FinServ__FinancialAccount__c finServFinancialAccount : finServFinancialAccountsList
-      ) {
-        ocvIDAndFinSerAccountMap.put(
-          finServFinancialAccount.OCV_ID__c,
-          finServFinancialAccount
-        );
-      }
-
-      theCase = TestDataFactory.createCase(recordTypeDeveloperName);
-      theCase.AccountId = ocvIDAndAccountMap.get('OCV000000001').Id;
-      theCase.FinServ__FinancialAccount__c = ocvIDAndFinSerAccountMap.get(
-          'OCV000000001'
-        )
-        .Id;
-      theCase.External_System__c = 'Pega_Smarts';
-      theCase.External_Case_ID__c = 'C-1234';
-      insert theCase;
-
-      External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
-        Case__c = theCase.Id,
-        External_Status__c = 'Resolved-WriteOff',
-        Status_Event_ID__c = 'Status_Event_ID',
-        Result_Code__c = 'Result_Code',
-        Result_Message__c = 'Result_Message'
-      );
-      insert externalCaseStatus;
-
-      theCase.Status = 'Closed';
-      Test.stopTest();
-      update theCase;
-    }
-
-    String taskRecordTypeId = Schema.SObjectType.Task.getRecordTypeInfosByDeveloperName()
-      .get('Email_Task')
-      .getRecordTypeId();
-    Task tsk = [
-      SELECT Id, Description
-      FROM Task
-      WHERE WhatId = :theCase.Id AND RecordTypeId = :taskRecordTypeId
-      LIMIT 1
-    ];
-    Assert.areEqual(
-      GetHelpConstants.TASK_EMAIL_DESCRIPTION,
-      tsk.Description,
-      'Description should be ' + GetHelpConstants.TASK_EMAIL_DESCRIPTION
-    );
-  }
-
-  @isTest
   static void testEmailTaskOnCaseClosureCreationNegative() {
     String recordTypeDeveloperName = 'Card_Dispute';
     Test.startTest();
@@ -2872,7 +2800,7 @@ private class CaseTriggerHandlerTest {
 
       External_Case_Status__c externalCaseStatus = new External_Case_Status__c(
         Case__c = theCase.Id,
-        External_Status__c = 'Resolved-SystemClosure',
+        External_Status__c = 'Resolved-Duplicate',
         Status_Event_ID__c = 'Status_Event_ID',
         Result_Code__c = 'Result_Code',
         Result_Message__c = 'Result_Message'

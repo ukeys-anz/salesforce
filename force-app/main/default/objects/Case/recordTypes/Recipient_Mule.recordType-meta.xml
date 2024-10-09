@@ -3100,6 +3100,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Scam - Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Scam - Remote access</fullName>
             <default>false</default>
         </values>

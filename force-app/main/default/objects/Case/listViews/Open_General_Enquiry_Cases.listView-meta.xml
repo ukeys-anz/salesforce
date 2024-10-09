@@ -8,7 +8,6 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>OWNER_NAME</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
@@ -19,8 +18,9 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Open General Enquiry Cases</label>
     <sharedTo>
-        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
