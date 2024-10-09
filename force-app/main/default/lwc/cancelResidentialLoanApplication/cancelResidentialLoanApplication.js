@@ -104,7 +104,8 @@ export default class CancelResidentialLoanApplication extends LightningElement {
       })
       .catch(() => {
         title = "Error";
-        message = "The application could not be withdrawn. Please review and try again.";
+        message =
+          "The application could not be withdrawn. Please review and try again.";
         variant = "error";
         this.showNotificationAndRefreshTab(title, message, variant);
       });
