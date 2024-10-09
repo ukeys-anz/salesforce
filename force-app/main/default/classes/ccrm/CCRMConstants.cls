@@ -88,6 +88,8 @@ public with sharing class CCRMConstants {
   public static final String ACC_ORG_LABEL = 'Organisation Type';
   public static final String ERROR_RESPONSE = 'Unexpected error';
   public static final String SUCCESS_RESPONSE = 'Success';
+  public static final string CUSTOMER_REGISTRATION_NUMBER = 'Customer Registration Number';
+  public static final string CARD_NUMBER = 'Card Number';
   public static final String FINANCIAL_ACCOUNT_OBJECT_NAME = 'FinServ__FinancialAccount__c';
   public static final String INTER_CAT_CAPDIARYCOMMENTS = 'CAP Diary Comments';
   public static final String INTER_CAT_GENERAL = 'General';

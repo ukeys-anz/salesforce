@@ -4963,6 +4963,21 @@
         "Additional_Information__c"
       ]
     },
+    "Account_Registration__x": {
+      "IA-2415720": [
+        "Credit_Card__c",
+        "Deposit_Account__c",
+        "ExternalId__c",
+        "Loan_Account__c",
+        "Name__c",
+        "Number__c",
+        "Number_Tokenised__c",
+        "Status__c",
+        "Term_Deposit__c",
+        "Type__c"
+      ],
+      "IA-2530753": ["Additional_Information__c"]
+    },
     "Commercial_Bill__x": {
       "IA-2415720": [
         "Account_Number__c",
