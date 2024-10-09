@@ -318,16 +318,16 @@ public with sharing class ResidentialLoanApplicationActions {
         rlaObject.get('requestId'),
         rlaObject.get('ocvId')
       );
-      if (response.statusCode != 200) {
-        return response.error.getMessage();
+      if (!response.successful) {
+        throw CommonUtil.logException(response);
       }
       ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
         rlaObject
       );
       ResidentialLoanApplicationHelper.postNotesToChatter(rlaObject);
       return 'success';
-    } catch (Exception e) {
-      throw new AuraHandledException(e.getMessage());
+    } catch (Exception objException) {
+      throw CommonUtil.logException(objException);
     }
   }
 

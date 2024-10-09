@@ -2,9 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Has_Credit_Assessment_Expired__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Source - Salesforce;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Check if credit assessment expiry date has passed</description>
-    <formula>IF(Credit_Assessment_Expiry_Date__c &lt;= TODAY(),true, false)</formula>
+    <externalId>false</externalId>
+    <formula>IF(Credit_Assessment_Expiry_Date__c &lt;= NOW(),true, false)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Has Credit Assessment Expired?</label>
     <securityClassification>Internal</securityClassification>
