@@ -1334,7 +1334,9 @@
         "IAL_Status__c",
         "Context_Id__c",
         "Context_Type__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Credit_Assessment_Expiry_Date__c",
+        "Has_Credit_Assessment_Expired__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -2281,11 +2283,7 @@
       ]
     },
     "Financial_Summary_Setting__mdt": {
-      "IA-2453350":[
-        "Active__c",
-        "Summary_Name__c",
-        "User_Profile__c"
-      ]
+      "IA-2453350": ["Active__c", "Summary_Name__c", "User_Profile__c"]
     },
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
@@ -3966,7 +3964,9 @@
         "Settlement_ID__c",
         "Status",
         "Credit_Reassess_Required__c",
-        "Loan_Term__c"
+        "Loan_Term__c",
+        "Other_Cancellation_Reason__c",
+        "Cancellation_Reason__c"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [

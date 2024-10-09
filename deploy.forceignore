@@ -141,6 +141,7 @@ force-app/main/default/objects/Interaction/listViews/All_Interactions.listView-m
 force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
 force-app/main/default/objects/Case/listViews/Deceased_Estate_Cases.listView-meta.xml
+force-app/main/default/objects/Case/listViews/Home_Loan_Pricing_Requests.listView-meta.xml
 
 #ignore to allow linting
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
@@ -164,6 +165,9 @@ force-app/main/default/objects/Account/fields/AR_C_Customer__c.field-meta.xml
 
 #Temporarily adding FinServ__FinancialAccount__c sharing rule to avoid deployment issues.
 force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-meta.xml
+
+#Temporarily adding Case sharing rule to avoid deployment issues.
+force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
