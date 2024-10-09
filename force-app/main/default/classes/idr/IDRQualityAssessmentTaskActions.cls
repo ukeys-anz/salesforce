@@ -230,23 +230,10 @@ public with sharing class IDRQualityAssessmentTaskActions {
       }
     }
 
-    if (lstQAShare.size() > 0) {
-      (new WithoutSharing()).insertQAShare(lstQAShare);
+    if (lstQAShare.isEmpty()) {
+      return;
     }
-  }
-  private without sharing class WithoutSharing {
-    /**
-     * @description Insert Quality_Assessment__Share records
-     * @param lstQAShare list of Quality_Assessment__Share records to insert
-     */
-
-    public void insertQAShare(List<Quality_Assessment__Share> lstQAShare) {
-      DMLUtil.insertRecords(
-        lstQAShare,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
-    }
+    DML_REPOSITORY.doInsert(lstQAShare, new DmlConfig().withoutSharing());
   }
   /**
    * @description Get List Of Updated Tasks
@@ -337,10 +324,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
     ) {
       return;
     }
-    DML_REPOSITORY.updateRecords(
+    DML_REPOSITORY.doUpdate(
       lstUpdateTasks,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
+      new DmlConfig().allowPartial().systemMode()
     );
   }
 }

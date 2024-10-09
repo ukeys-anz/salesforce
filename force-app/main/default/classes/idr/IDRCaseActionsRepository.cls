@@ -44,6 +44,7 @@ public with sharing class IDRCaseActionsRepository {
       SELECT Id, WhatId, OwnerId, Last_Assigned_Owner__c
       FROM Task
       WHERE WhatId IN :caseIds AND IsClosed != TRUE
+      WITH SECURITY_ENFORCED
     ];
   }
 }
