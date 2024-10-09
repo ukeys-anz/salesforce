@@ -7554,6 +7554,9 @@
     <layoutAssignments>
         <layout>Term_Deposit__x-Term Deposit Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account_Registration__x-Account Registration Layout</layout>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

@@ -214,8 +214,6 @@ force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
 #AR-138661 ignore Query All Files due to error with Production Objects
 force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml
 
-force-app/main/default/permissionsets/SF_Data_Sync_Integration.permissionset-meta.xml
-
 # Ignore Winter'25 conflicts | AR-160240
 #------------------
 ## Dashboards
@@ -389,6 +387,16 @@ force-app/main/default/objects/Task/listViews/Specialised_Spare_Task.listView-me
 force-app/main/default/objects/Task/listViews/Systemic_Issue_Team_Task.listView-meta.xml
 force-app/main/default/objects/Task/listViews/TodaysTasks.listView-meta.xml
 force-app/main/default/objects/Task/listViews/UnscheduledTasks.listView-meta.xml
+force-app/main/default/objects/Lead/listViews/All_Leads_for_Branch_Solutions.listView-meta.xml
+force-app/main/default/objects/Lead/listViews/All_Leads_for_Cashflow_Solutions.listView-meta.xml
+force-app/main/default/objects/Lead/listViews/All_Leads_for_Customer_Engagement.listView-meta.xml
+force-app/main/default/objects/Lead/listViews/All_Leads_for_Lending_Solutions.listView-meta.xml
+force-app/main/default/objects/Lead/listViews/All_Leads_for_Remote_Optimisation.listView-meta.xml
+force-app/main/default/objects/Opportunity/listViews/All_Opportunities_for_Branch_Solutions.listView-meta.xml
+force-app/main/default/objects/Opportunity/listViews/All_Opportunities_for_Cashflow_Solutions.listView-meta.xml
+force-app/main/default/objects/Opportunity/listViews/All_Opportunities_for_Cust_Engagement.listView-meta.xml
+force-app/main/default/objects/Opportunity/listViews/All_Opportunities_for_Lending_Solutions.listView-meta.xml
+force-app/main/default/objects/Opportunity/listViews/All_Opportunities_for_Rmt_Optimisation.listView-meta.xml
 #------------------
 ## Reports
 force-app/main/default/reports/CommercialReports.reportFolder-meta.xml

@@ -61,7 +61,7 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     }
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
     model = api.searchCustAPI(staffModel);
-    lstReturnDataset = setRowsOfObject(model, refId);
+    lstReturnDataset = setRowsOfObject(model, refId, searchText);
     return lstReturnDataset;
   }
 
@@ -99,10 +99,11 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
    * @description method is setting the rows from api to external object records
    * @param  result TFMPersonDigitalIdentityModel
    * @param refId Service.IdType
+   * @param searchText String
    * @return  List<Map<String, Object>>
    */
   public static List<Map<String, Object>> setRowsOfObject(
-    TFMPersonDigitalIdentityModel result, Service.IdType refId
+    TFMPersonDigitalIdentityModel result, Service.IdType refId, String searchText
   ) {
     String resouceIds;
     List<Map<String, Object>> lstReturnDataset = new List<Map<String, Object>>();
@@ -113,13 +114,14 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
       curRow.put(TFMConstants.PREFERRED_NAME, res.preferredName ?? res.id);
       curRow.put(TFMConstants.OCV_ID, res.ocvId);
       curRow.put(TFMConstants.STATUS, nameFormat(String.valueOf(res.status)));
-      curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile ?? String.valueOf(res.archivedIdentifiers[0]));
+      curRow.put(TFMConstants.MOBILE_NUMBER, searchText);
       curRow.put(TFMConstants.COL_HEADER_EXTERNAL_ID, res.id);
       curRow.put(
         TFMConstants.COL_HEADER_DISPLAYURL,
         URL.getOrgDomainURL() + '/' + res.id
       );
       if (refId != Service.IdType.IDENTIFIER) {
+        curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile ?? String.valueOf(res.archivedIdentifiers[0]));
         curRow.put(TFMConstants.EMAIL, res.securityEmail);
         curRow.put(
           TFMConstants.CREATED_ON,
