@@ -813,6 +813,7 @@ public with sharing class CCRMTestDataFactory {
     Contact contact = new Contact();
     contact.FirstName = faker.person.firstName();
     contact.LastName = faker.randomString(10);
+    contact.Name__c = faker.randomString(10);
     contact.Email = faker.internet.companyEmail();
     contact.MobilePhone = faker.person.phone(true, true);
     contact.Phone = faker.person.phone(true, false);
