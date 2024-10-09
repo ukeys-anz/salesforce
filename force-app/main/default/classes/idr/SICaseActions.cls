@@ -52,14 +52,18 @@ public with sharing class SICaseActions {
    * @param records Records to process
    * @param oldMap Map of the old values of the records to process
    */
-  public static void processMonitoringTasks(List<Case> records, Map<Id, Case> oldMap) {
+  public static void processMonitoringTasks(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
     Task[] monitoringTasks = new List<Task>();
     if (!oldMap.isEmpty()) {
       removePendingMonitoringTasks(records, oldMap);
     }
     List<Case> filteredSICases = ListUtil.filter(records, oldMap)
       .equals(Case.RecordTypeId, RTCase.systemicIssue)
-      .changedTo(Case.SI_Workflow_Step__c, IDRConstants.SI_WF_STEP_MONITORING)
+      .changed(Case.SI_Workflow_Step__c)
+      .equals(Case.SI_Workflow_Step__c, IDRConstants.SI_WF_STEP_MONITORING)
       .toList();
     for (Case record : filteredSICases) {
       monitoringTasks.add(createMonitoringTask(record, 3));
@@ -75,11 +79,7 @@ public with sharing class SICaseActions {
         'Not enough permissions to create Task.'
       );
     }
-    DML_REPOSITORY.insertRecords(
-      monitoringTasks,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+    DML_REPOSITORY.doInsert(monitoringTasks, new DmlConfig().allowPartial());
   }
 
   /**

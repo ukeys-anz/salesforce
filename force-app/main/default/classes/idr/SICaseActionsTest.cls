@@ -55,15 +55,18 @@ private with sharing class SICaseActionsTest {
     testCase.SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_MONITORING;
 
     Test.startTest();
-    SICaseActions.processMonitoringTasks(new List<Case>{ testCase }, new Map<Id, Case>());
+    SICaseActions.processMonitoringTasks(
+      new List<Case>{ testCase },
+      new Map<Id, Case>()
+    );
     Test.stopTest();
-    List<Task> taskslist = (List<Task>) dmlRepoMock.getHistory('insertRecords')
+    List<Task> taskslist = (List<Task>) dmlRepoMock.getHistory('doInsert')
       .getParam('records');
 
     System.assertEquals(2, taskslist.size(), '2 Tasks should be inserted');
 
     Assert.isFalse(
-      dmlRepoMock.getHistories('insertRecords').isEmpty(),
+      dmlRepoMock.getHistories('doInsert').isEmpty(),
       'insertRecords should have been invoked at least once'
     );
   }
@@ -110,7 +113,7 @@ private with sharing class SICaseActionsTest {
     );
     Test.stopTest();
 
-    List<Task> taskslist = (List<Task>) dmlRepoMock.getHistory('insertRecords')
+    List<Task> taskslist = (List<Task>) dmlRepoMock.getHistory('doInsert')
       .getParam('records');
     System.assertEquals(
       2,
@@ -132,7 +135,7 @@ private with sharing class SICaseActionsTest {
     Test.stopTest();
 
     Assert.isTrue(
-      dmlRepoMock.getHistories('insertRecords').isEmpty(),
+      dmlRepoMock.getHistories('doInsert').isEmpty(),
       'No Monitoring Task should be created'
     );
   }
