@@ -184,14 +184,14 @@ private class CCRMDepositAccountQueryTest {
     List<CCRMDepositAccountQuery.SeasonalLimits> seasonalLimitsList = new List<CCRMDepositAccountQuery.SeasonalLimits>();
     CCRMDepositAccountQuery.SeasonalLimits seasonalLimit1 = new CCRMDepositAccountQuery.SeasonalLimits();
     seasonalLimit1.seasonalLimit = 0.0;
-    seasonalLimit1.startDate = DateTime.newInstance(2014, 05, 26, 0, 0, 0);
-    seasonalLimit1.endDate =DateTime.newInstance(2099, 05, 26, 0, 0, 0);
+    seasonalLimit1.startDate = DateTime.newInstance(2014, 5, 26, 0, 0, 0);
+    seasonalLimit1.endDate = DateTime.newInstance(2099, 5, 26, 0, 0, 0);
     seasonalLimitsList.add(seasonalLimit1);
 
     CCRMDepositAccountQuery.SeasonalLimits seasonalLimit2 = new CCRMDepositAccountQuery.SeasonalLimits();
     seasonalLimit2.seasonalLimit = 0.0;
-    seasonalLimit2.startDate = DateTime.newInstance(2015, 05, 26, 0, 0, 0);
-    seasonalLimit2.endDate = DateTime.newInstance(2099, 05, 26, 0, 0, 0);
+    seasonalLimit2.startDate = DateTime.newInstance(2015, 5, 26, 0, 0, 0);
+    seasonalLimit2.endDate = DateTime.newInstance(2099, 5, 26, 0, 0, 0);
     seasonalLimitsList.add(seasonalLimit2);
 
     CCRMDepositAccountQuery.SeasonalLimits seasonalLimit3 = new CCRMDepositAccountQuery.SeasonalLimits();
@@ -200,8 +200,8 @@ private class CCRMDepositAccountQueryTest {
     seasonalLimitsList.add(seasonalLimit3);
 
     Test.startTest();
-      CCRMDepositAccountQuery depositQuery =new CCRMDepositAccountQuery();
-      depositQuery.populateSeasonalLimits(row, seasonalLimitsList);
+    CCRMDepositAccountQuery depositQuery = new CCRMDepositAccountQuery();
+    depositQuery.populateSeasonalLimits(row, seasonalLimitsList);
     Test.stopTest();
     Assert.areEqual(5, row.size(), 'Not able to populate seasonal Limits');
   }

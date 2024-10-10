@@ -14,6 +14,6 @@
     <filterScope>Delegated</filterScope>
     <label>My Delegated Tasks</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Role xmlns="http://soap.sforce.com/2006/04/metadata">
+    <caseAccessLevel>Read</caseAccessLevel>
+    <contactAccessLevel>Read</contactAccessLevel>
+    <mayForecastManagerShare>false</mayForecastManagerShare>
+    <name>PB Head of Teams</name>
+    <opportunityAccessLevel>Read</opportunityAccessLevel>
+    <parentRole>PB_General_Manager</parentRole>
+</Role>

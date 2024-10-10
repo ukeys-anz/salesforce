@@ -11563,6 +11563,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Bureau Decline</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Cancel a Dispute</fullName>
             <default>false</default>
         </values>

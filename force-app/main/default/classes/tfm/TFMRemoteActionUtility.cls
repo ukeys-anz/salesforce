@@ -137,9 +137,11 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
           response.body
         );
         output.put('responseMap', responseMap);
+        output.put('showSuccessToast', true);
         output.put('isValid', true);
       }
     } catch (Exception e) {
+      output.put('showSuccessToast', false);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
       return false;

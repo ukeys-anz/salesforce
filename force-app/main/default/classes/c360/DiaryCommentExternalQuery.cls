@@ -129,8 +129,7 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
         'ModifiedDate' => adjustUTCDateTime(cd.dateChanged)
       };
       if (
-        String.isNotBlank(this.parentField) &&
-        String.isNotBlank(this.parentId)
+        String.isNotBlank(this.parentField) && String.isNotBlank(this.parentId)
       ) {
         row.put('ExternalId', cd.compositeId);
         row.put(this.parentField, this.parentId);
@@ -164,8 +163,7 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
     ARNCService service = new ARNCService();
     Map<String, String> attributes = new Map<String, String>();
     if (
-      String.isNotBlank(this.parentField) &&
-      String.isNotBlank(this.parentId)
+      String.isNotBlank(this.parentField) && String.isNotBlank(this.parentId)
     ) {
       attributes.put(this.parentField, this.parentId);
     }

@@ -12,7 +12,6 @@ public with sharing class CCRMOpportunityActions {
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
   public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
   public static Boolean insertOpportunityContext = false;
-  private static final String OPPORTUNITY_OWNERSHIP_ERROR = 'Opportunity can only be transferred within your segment.';
   private static final String MULTIPLE_CUSTOMER_NEEDS = 'Multiple Customer Needs';
 
   private static final Profile CURRENT_USER_PROFILE = MLCRMCommonUtils.getProfileById(
@@ -134,11 +133,7 @@ public with sharing class CCRMOpportunityActions {
       ];
       setNameForOpportunityFromLead(accountIds, opps);
     } catch (System.QueryException e) {
-      Logger.error(
-        'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
-        e
-      );
-      Logger.savelog();
+      Logger.error('InsufficientAccessException', e).save();
     }
   }
 
@@ -190,11 +185,7 @@ public with sharing class CCRMOpportunityActions {
         ]
       );
     } catch (System.QueryException e) {
-      Logger.error(
-        'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
-        e
-      );
-      Logger.saveLog();
+      Logger.error('InsufficientAccessException', e).save();
     }
     return new Map<Id, Account>();
   }
@@ -706,140 +697,6 @@ public with sharing class CCRMOpportunityActions {
     CCRMOpportunityActions.insertOpportunityContext = true;
     List<Database.saveResult> results = Database.update(updatedOpps, false);
     return results;
-  }
-
-  /**
-   * @description Throw error if we try to transfer the Opportunity ownership from BB to SBB/SBB-NBC and vice versa
-   * - ownerID: throw error when try to change between segment.
-   * @name transferOpportunityOwnership
-   * @param newOppList List of new lead records.
-   * @param oldOppMap Map of old lead records.
-   */
-  public static void transferOpportunityOwnership(
-    List<Opportunity> newOppList,
-    Map<Id, Opportunity> oldOppMap
-  ) {
-    Map<Id, User> userMap = new Map<Id, User>();
-    Set<Id> ownerIdSet = new Set<Id>();
-    if (
-      System.UserInfo.getProfileId() !=
-      CommonUtil.getProfileByName('ANZ CCRM Standard User').Id
-    ) {
-      return;
-    }
-    updateBulkOppOwnership(newOppList, oldOppMap);
-    userMap = getOwnerCommercialSegment(newOppList, oldOppMap);
-    validateOwnerChange(newOppList, oldOppMap, userMap);
-  }
-
-  /**
-   * @description update the Opportunity_Owner__c with the OwnerId field
-   * @name updateBulkOppOwnership
-   * @param opportunityList list of new records
-   * @param oldOppMap map of old recordsList
-   */
-  @TestVisible
-  private static void updateBulkOppOwnership(
-    List<Opportunity> opportunityList,
-    Map<Id, Opportunity> oldOppMap
-  ) {
-    for (Opportunity opportunityRec : opportunityList) {
-      if (opportunityRec.RecordTypeId != CCRMConstants.CCRM_OPP_RT_ID) {
-        continue;
-      }
-      if (
-        opportunityRec.Opportunity_Owner__c !=
-        oldOppMap.get(opportunityRec.Id).Opportunity_Owner__c
-      ) {
-        opportunityRec.OwnerId = opportunityRec.Opportunity_Owner__c;
-      }
-    }
-  }
-
-  /**
-   * @description Get the commercial segment of New and Old Owner
-   * @name getOwnerCommercialSegment
-   * @param opportunityList list of new records
-   * @param oldOppMap map of old recordsList
-   * @return Map<Id, User> User map containing the Id and Commerical Segment
-   */
-  @TestVisible
-  private static Map<Id, User> getOwnerCommercialSegment(
-    List<Opportunity> opportunityList,
-    Map<Id, Opportunity> oldOppMap
-  ) {
-    Set<Id> ownerIdsSet = new Set<Id>();
-    Map<Id, User> userMap;
-    for (Opportunity opportunityRec : opportunityList) {
-      if (opportunityRec.RecordTypeId != CCRMConstants.CCRM_OPP_RT_ID) {
-        continue;
-      }
-      if (opportunityRec.OwnerId != oldOppMap.get(opportunityRec.Id).OwnerId) {
-        ownerIdsSet.add(opportunityRec.OwnerId);
-        ownerIdsSet.add(oldOppMap.get(opportunityRec.Id).OwnerId);
-      }
-    }
-    if (!ownerIdsSet.isEmpty()) {
-      try {
-        userMap = new Map<Id, User>(
-          [
-            SELECT Id, Commercial_Segment__c
-            FROM User
-            WHERE Id IN :ownerIdsSet
-            WITH SECURITY_ENFORCED
-          ]
-        );
-      } catch (System.QueryException e) {
-        Logger.error(
-          'InsufficientAccessException' + e.getMessage() + e.getTypeName(),
-          e
-        );
-        Logger.savelog();
-      }
-    }
-    return userMap;
-  }
-
-  /**
-   * @description Validate if the ownerChange within segment
-   * @name validateOwnerChange
-   * @param opportunityList list of new records
-   * @param oldOppMap map of old recordsList
-   * @param userMap map of User to get its Commercial Segment
-   */
-  private static void validateOwnerChange(
-    List<Opportunity> opportunityList,
-    Map<Id, Opportunity> oldOppMap,
-    Map<Id, User> userMap
-  ) {
-    String newCommercialSegment = '';
-    String oldCommercialSegment = '';
-    String newOppOwner = '';
-    String oldOppOwner = '';
-
-    for (Opportunity opportunityRec : opportunityList) {
-      if (opportunityRec.RecordTypeId != CCRMConstants.CCRM_OPP_RT_ID) {
-        continue;
-      }
-      newOppOwner = opportunityRec.OwnerId;
-      oldOppOwner = oldOppMap.get(opportunityRec.Id).OwnerId;
-      newCommercialSegment = userMap
-        ?.get(opportunityRec.OwnerId)
-        .Commercial_Segment__c;
-      oldCommercialSegment = userMap
-        ?.get(oldOppMap.get(opportunityRec.Id).OwnerId)
-        .Commercial_Segment__c;
-      if (
-        newOppOwner != oldOppOwner &&
-        (String.isBlank(newCommercialSegment) ||
-        (newCommercialSegment != oldCommercialSegment))
-      ) {
-        opportunityRec.addError(OPPORTUNITY_OWNERSHIP_ERROR);
-      }
-      if (opportunityRec.Opportunity_Owner__c != opportunityRec.OwnerId) {
-        opportunityRec.Opportunity_Owner__c = opportunityRec.OwnerId;
-      }
-    }
   }
 
   /**

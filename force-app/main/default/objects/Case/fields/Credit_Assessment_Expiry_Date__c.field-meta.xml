@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Credit_Assessment_Expiry_Date__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
+    <complianceGroup>Source - Loan Domain;Privacy - Non Personal Information;Integrity - Accurate</complianceGroup>
     <description>Credit Assessment Expiry date</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
