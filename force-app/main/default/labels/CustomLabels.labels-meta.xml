@@ -420,7 +420,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Cancel Loan Application</shortDescription>
-        <value>callout:SF_MS_CH2/api/loanapplication/v1beta1/loanapplications/(loanAppNum):cancel</value>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/cancel/{loanAppNum}</value>
     </labels>
     <labels>
         <fullName>MS_Income</fullName>
