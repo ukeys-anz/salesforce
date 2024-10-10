@@ -6,7 +6,11 @@ public class ChatterUtilsTest {
   @isTest
   static void testChatterUtilsSuccess() {
     String info;
-    info = ChatterUtils.makeAPost('MockParentRecordId', 'MockingPost');
+    info = ChatterUtils.makeAPost(
+      'MockParentRecordId',
+      'MockingPost',
+      ChatterUtils.POST_TYPE_TEXT
+    );
 
     System.assertEquals(
       info,
@@ -23,7 +27,11 @@ public class ChatterUtilsTest {
   static void testChatterUtilsUnSuccess() {
     String info;
 
-    info = ChatterUtils.makeAPost('WrongId', 'WrongPost');
+    info = ChatterUtils.makeAPost(
+      'WrongId',
+      'WrongPost',
+      ChatterUtils.POST_TYPE_TEXT
+    );
     System.assertNotEquals(
       info,
       'WrongPostId',
@@ -39,7 +47,11 @@ public class ChatterUtilsTest {
   static void testChatterUtilsError() {
     try {
       String info;
-      info = ChatterUtils.makeAPost('23572357', 'NoChatterPostTest');
+      info = ChatterUtils.makeAPost(
+        '23572357',
+        'NoChatterPostTest',
+        ChatterUtils.POST_TYPE_TEXT
+      );
     } catch (AuraHandledException e) {
       System.assertEquals(
         'No Chatter post has been made',
