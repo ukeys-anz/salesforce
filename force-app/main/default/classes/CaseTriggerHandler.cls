@@ -172,7 +172,7 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (List<Case>) records,
       (Map<ID, Case>) oldMap
     );
-    SICaseActions.processMonitoringTasks(records, new Map<Id, Case>());
+    SICaseActions.processMonitoringTasks(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleSLANotifications(records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handleDisputesPEGAIntegration(
       records,

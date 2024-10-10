@@ -163,6 +163,9 @@ public with sharing class SICaseActions {
     Set<id> systemicIssueIds = new Set<id>();
     //get the ids of the SIs to update
     for (Case complaint : complaints) {
+      if (String.isBlank(complaint.IDR_Parent_Systemic_Issue__c)) {
+        continue;
+      }
       systemicIssueIds.add(complaint.IDR_Parent_Systemic_Issue__c);
     }
     //query the SIs and the related complaints and add the size of the complaints to the SI's SI_Complaint_Count__c

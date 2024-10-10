@@ -610,7 +610,7 @@ public without sharing class IDRTaskActions {
       }
       //should a parent systemic issue's rollup field be updated?
       if (
-        oldRec == null && String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
+        oldRec == null || String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
       ) {
         childComplaints.add(record);
       }
@@ -659,7 +659,7 @@ public without sharing class IDRTaskActions {
     DML_REPOSITORY.insertRecords(
       siTasks,
       DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
+      DmlRepository.SYSTEM_MODE
     );
   }
   /**
