@@ -2560,4 +2560,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Account Registration Endpoint</shortDescription>
         <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/{accountNumber}/crns</value>
     </labels>
+    <labels>
+        <fullName>HideCardDetailsAfterMiliseconds</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HideCardDetailsAfterMiliseconds</shortDescription>
+        <value>120000</value>
+    </labels>
 </CustomLabels>

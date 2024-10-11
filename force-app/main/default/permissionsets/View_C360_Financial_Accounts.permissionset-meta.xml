@@ -1977,11 +1977,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Term_Deposit__x.Stops_Pay__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Term_Deposit__x.Sub_Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
