@@ -36,6 +36,7 @@ public with sharing class SICaseActionsRepository {
         Id IN :closedCases
         AND Status = :IDRConstants.CLOSED_STATUS
         AND SI_Workflow_step__c = :IDRConstants.SI_WF_STEP_ASSESSING
+        WITH SECURITY_ENFORCED
     ];
   }
 
@@ -55,6 +56,7 @@ public with sharing class SICaseActionsRepository {
         Type = :IDRConstants.SI_WF_STEP_MONITORING
         AND IsClosed = FALSE
         AND WhatId IN :caseIds
+        WITH SECURITY_ENFORCED
     ];
   }
 }

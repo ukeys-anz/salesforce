@@ -21,6 +21,7 @@ public with sharing class IDRCaseActionsRepository {
         AND Status != :IDRConstants.TASK_STATUS_COMPLETED
         AND Type = :IDRConstants.TASK_TYPE_PEND_CASE
         AND RecordType.Id = :IDRConstants.IDR_TASK_RT_ID
+      WITH SECURITY_ENFORCED
     ];
   }
   /**

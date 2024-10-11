@@ -656,10 +656,9 @@ public without sharing class IDRTaskActions {
         'Not enough permissions to create Task.'
       );
     }
-    DML_REPOSITORY.insertRecords(
+    DML_REPOSITORY.doInsert(
       siTasks,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
+      new DmlConfig().allowPartial().systemMode()
     );
   }
   /**

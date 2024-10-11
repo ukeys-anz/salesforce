@@ -68,10 +68,9 @@ public with sharing class IDRQualityAssessmentTaskActions {
     ) {
       return;
     }
-    DML_REPOSITORY.deleteRecords(
+    DML_REPOSITORY.doDelete(
       lstQAShare,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
+      new DmlConfig().allowPartial().systemMode()
     );
   }
   /**

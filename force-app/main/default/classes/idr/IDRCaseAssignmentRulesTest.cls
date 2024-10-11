@@ -113,7 +113,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
       new Map<Id, Case>{ oldcase.Id => oldcase }
     );
     Test.stopTest();
-    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('updateRecords')
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('doUpdate')
       .getParam('records');
     System.assertEquals(1, cases.size(), '1 Case should be updated');
     System.assertEquals(

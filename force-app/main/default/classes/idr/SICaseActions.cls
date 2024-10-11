@@ -145,11 +145,7 @@ public with sharing class SICaseActions {
       ) {
         IDRTaskActions.siSystemDeletingAutoGenTask = true;
         //delete tasksToReplace;
-        DML_REPOSITORY.deleteRecords(
-          tasksToDelete,
-          DmlRepository.ALLOW_PARTIAL,
-          DmlRepository.USER_MODE
-        );
+        DML_REPOSITORY.doDelete(tasksToDelete, new DmlConfig().allowPartial());
       }
     }
   }
@@ -178,20 +174,17 @@ public with sharing class SICaseActions {
         new Case(id = si.Id, SI_Complaint_Count__c = si.Complaints__r.size())
       );
     }
-    if (Case.sObjectType.getDescribe().isUpdateable()) {
-      //update systemicIssuesToUpdate;
-      DML_REPOSITORY.updateRecords(
-        systemicIssuesToUpdate,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.USER_MODE
-      );
-    } else {
+    if (!Case.sObjectType.getDescribe().isUpdateable()) {
       CommonUtil.logAndThrowIAE(
         'SICaseActions',
         'rollupToParentSI',
         'Not enough permissions to update Case.'
       );
     }
+    DML_REPOSITORY.doUpdate(
+      systemicIssuesToUpdate,
+      new DmlConfig().allowPartial().systemMode()
+    );
   }
   /**
    * @description check if current User has permission to create Task

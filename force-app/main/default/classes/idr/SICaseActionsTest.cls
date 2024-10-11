@@ -94,7 +94,7 @@ private with sharing class SICaseActionsTest {
     Test.stopTest();
 
     Assert.isFalse(
-      dmlRepoMock.getHistories('deleteRecords').isEmpty(),
+      dmlRepoMock.getHistories('doDelete').isEmpty(),
       'deleteRecords should have been invoked at least once'
     );
   }
@@ -159,12 +159,12 @@ private with sharing class SICaseActionsTest {
     SICaseActions.rollupToParentSI(new List<case>{ testCase1 });
     Test.stopTest();
 
-    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('updateRecords')
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('doUpdate')
       .getParam('records');
 
     Assert.isFalse(
-      dmlRepoMock.getHistories('updateRecords').isEmpty(),
-      'updateRecords should have been invoked at least once'
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been invoked at least once'
     );
     System.assertEquals(
       testCase1.IDR_Parent_Systemic_Issue__c,

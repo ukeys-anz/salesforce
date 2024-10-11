@@ -112,11 +112,7 @@ public with sharing class IDRCaseAssignmentRules {
       }
     }
 
-    DML_REPOSITORY.updateRecords(
-      lstUpdates,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+    DML_REPOSITORY.doUpdate(lstUpdates, new DmlConfig().allowPartial());
   }
 
   /**
