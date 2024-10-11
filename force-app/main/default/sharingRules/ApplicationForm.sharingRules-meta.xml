@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sharingOwnerRules>
+        <fullName>Commercial_Application_Form_Read_Only_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is to provide Read only access.</description>
+        <label>Commercial Application Form Read Only Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+</SharingRules>
