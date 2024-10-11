@@ -2537,7 +2537,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>DAONImageReloadMaxRetryCount</shortDescription>
-        <value>15</value>
+        <value>20</value>
     </labels>
     <labels>
         <fullName>MS_ADR_API</fullName>
