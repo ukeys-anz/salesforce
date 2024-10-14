@@ -1187,11 +1187,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Access_Request__c.Requestor__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7923,6 +7918,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Originated_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.SunsetTimestamp__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -1,0 +1,39 @@
+{
+  "crnDetails": [
+    {
+      "tokenizedRegistrationNo": "5015594075863429",
+      "crnLast4Digits": "5685",
+      "customerPreferredName": "VINCE PEET",
+      "registrationType": "Customer Registration Number",
+      "registrationStatus": "A"
+    },
+    {
+      "tokenizedRegistrationNo": "9337967764912424",
+      "crnLast4Digits": "5686",
+      "customerPreferredName": "LUIGI RIDDIFORD",
+      "registrationType": "Customer Registration Number",
+      "registrationStatus": "A"
+    },
+    {
+      "tokenizedRegistrationNo": "1766935907499487",
+      "crnLast4Digits": "5687",
+      "customerPreferredName": "TRUDIE ANABELLE ZBONCAK",
+      "registrationType": "Customer Registration Number",
+      "registrationStatus": "A"
+    },
+    {
+      "tokenizedRegistrationNo": "6538124087838275",
+      "crnLast4Digits": "5688",
+      "customerPreferredName": "AARON GARDINER",
+      "registrationType": "Customer Registration Number",
+      "registrationStatus": "A"
+    },
+    {
+      "tokenizedRegistrationNo": "4476751517094977",
+      "crnLast4Digits": "5698",
+      "customerPreferredName": "MR TURNER",
+      "registrationType": "Card Number",
+      "cardStatus": "I"
+    }
+  ]
+}

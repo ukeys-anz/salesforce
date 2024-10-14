@@ -39,7 +39,7 @@ private class CCRMContactActionsTest {
     //WHEN That contact is updated
     Test.startTest();
     System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      contact.FirstName = contact.FirstName + faker.person.firstName();
+      contact.Name__c = contact.FirstName + faker.person.firstName();
       contact.Occurrence_Number__c = faker.randomInteger(2);
       update contact;
     }

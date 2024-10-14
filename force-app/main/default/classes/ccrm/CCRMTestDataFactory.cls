@@ -813,6 +813,7 @@ public with sharing class CCRMTestDataFactory {
     Contact contact = new Contact();
     contact.FirstName = faker.person.firstName();
     contact.LastName = faker.randomString(10);
+    contact.Name__c = faker.randomString(10);
     contact.Email = faker.internet.companyEmail();
     contact.MobilePhone = faker.person.phone(true, true);
     contact.Phone = faker.person.phone(true, false);
@@ -1868,6 +1869,50 @@ public with sharing class CCRMTestDataFactory {
       String jsonBody = Service.getStaticResource('mock_termDepositResponse');
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description Create Balance History test context
+   * @name createBalanceHistoryContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createBalanceHistoryContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMBalanceHistoryQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'BalanceHistory'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMBalanceHistoryQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_balanceHistory');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'balance-history-query');
       res.setBody(jsonBody);
       res.setStatusCode(200);
       return res;

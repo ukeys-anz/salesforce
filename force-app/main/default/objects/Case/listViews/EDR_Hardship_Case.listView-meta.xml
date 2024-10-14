@@ -21,6 +21,6 @@
     <filterScope>Everything</filterScope>
     <label>EDR Hardship</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

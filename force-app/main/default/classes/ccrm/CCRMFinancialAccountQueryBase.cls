@@ -93,7 +93,10 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     HttpCalloutResponse response = makeCallout();
     parseResponse(response.body);
     CCRMExternalObjectQueryBase.ExternalQueryResult queryResult = createFinancialAccounts();
-    setNextPageId(queryResult.queryMoreToken);
+
+    if (this.productCategory != 'transactions') {
+      setNextPageId(queryResult.queryMoreToken);
+    }
 
     return queryResult;
   }
@@ -116,12 +119,12 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     if (accountRoleMap.keySet().isEmpty()) {
       Logger.error(
         'Invalid financial account request: ' +
-        ' parent = ' +
-        this.parent +
-        ' parentId = ' +
-        this.parentId +
-        ' externalId = ' +
-        this.externalId
+          ' parent = ' +
+          this.parent +
+          ' parentId = ' +
+          this.parentId +
+          ' externalId = ' +
+          this.externalId
       );
       Logger.saveLog();
     }
@@ -425,9 +428,9 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     for (FinServ__FinancialAccountRole__c faRole : faRoles) {
       this.accountNumberList.add(
         faRole.FinServ__FinancialAccount__r.Product_Type__c.right(3)
-          .remove(':') +
-        '-' +
-        faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+            .remove(':') +
+          '-' +
+          faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
       );
       this.accountRoleMap.put(
         faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
@@ -512,9 +515,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     //Account detail view
     if (isQuerySingleAccount()) {
       String accountNumber = this.externalId.right(
-        this.externalId.length() -
-        this.externalId.indexOf('|') -
-        1
+        this.externalId.length() - this.externalId.indexOf('|') - 1
       );
       payload = '{"' + this.externalField + '": "' + accountNumber + '"';
       payload += String.isNotBlank(this.assetFinanceType)
@@ -532,9 +533,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     //Child summary view
     if (isQueryCAPChildAccounts()) {
       String accountNumber = this.parentId.right(
-        this.parentId.length() -
-        this.parentId.indexOf('|') -
-        1
+        this.parentId.length() - this.parentId.indexOf('|') - 1
       );
       payload =
         '{"accountNumber": "' +
@@ -542,12 +541,15 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
         '"' +
         ',"pageSize":"' +
         String.valueOf(this.queryContext?.maxResults) +
+        '"' +
+        ',"offSet":"' +
+        String.valueOf(this.queryContext?.offSet) +
         '"';
       payload += String.isNotBlank(this.fieldSet)
         ? ',"fieldSet": "' + this.fieldSet + '"}'
-        : getNextPageId() != null
+        : (this.productCategory != 'transactions'
             ? ',"nextPageId": "' + getNextPageId() + '"}'
-            : '}';
+            : '}');
     }
     return payload;
   }
@@ -892,9 +894,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   private String getNextPageIdCacheKey() {
     if (String.isNotBlank(this.parentId)) {
       String key = this.parentId.right(
-          this.parentId.length() -
-          this.parentId.indexOf('|') -
-          1
+          this.parentId.length() - this.parentId.indexOf('|') - 1
         )
         .remove('-')
         .remove('_');
@@ -916,6 +916,13 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   ) {
     relatedCustomers = FA_Repository.getRelatedCustomers(accountKey, roleTypes);
     return relatedCustomers;
+  }
+  /**
+   * @description calles execute method of class CCRMExternalObjectQueryBase
+   * @param queryContext query context
+   */
+  protected void callExecuteOfQueryBase(DataSource.QueryContext queryContext) {
+    super.execute(queryContext);
   }
   /**
    * @description get industry code and discription

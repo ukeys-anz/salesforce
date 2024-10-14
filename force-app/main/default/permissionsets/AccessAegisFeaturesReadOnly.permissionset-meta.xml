@@ -4,6 +4,10 @@
         <enabled>true</enabled>
         <name>AccessAegisFeatures</name>
     </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>AccessOpenBanking</name>
+    </customPermissions>
     <description>Read only permission set to access Onboarding Workflow images</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>AccessAegisFeatures ReadOnly</label>

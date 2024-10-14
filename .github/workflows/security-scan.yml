@@ -18,21 +18,12 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Security Check Profiles
+      - name: Run Security and Bypass String Check
         run: |
           rm -rf ./tmp
           BRANCH_NAME=${{ github.base_ref }}
 
           if [[ -f ci/build-security-check.sh ]];then
             chmod +x ci/build-security-check.sh
-            source ci/build-security-check.sh "force-app/main/default/profiles" "profiles"
-          fi
-
-      - name: Security Check Permission sets
-        run: |
-          rm -rf ./tmp
-          BRANCH_NAME=${{ github.base_ref }}
-          if [[ -f ci/build-security-check.sh ]];then
-            chmod +x ci/build-security-check.sh
-            source ci/build-security-check.sh "force-app/main/default/permissionsets" "permissionsets"
+            source ci/build-security-check.sh
           fi

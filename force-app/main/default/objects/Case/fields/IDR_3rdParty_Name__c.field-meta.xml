@@ -5,7 +5,7 @@
     <complianceGroup>Source_Salesforce;Integrity_Accurate;Privacy_Personal_Information</complianceGroup>
     <description>Nominated 3rd party name (Also used in Get Help for Preferred Contact details)</description>
     <externalId>false</externalId>
-    <label>Nominated 3rd party name</label>
+    <label>Nominated 3rd party representative name</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

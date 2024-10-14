@@ -2,7 +2,7 @@
  * @description       : LWC Controller for ADR
  * @author            : Hinduja Upadhyay
  * @group             :
- * @last modified on  : 09-16-2024
+ * @last modified on  : 09-24-2024
  **/
 public with sharing class ADRController {
   /**
@@ -62,7 +62,10 @@ public with sharing class ADRController {
       );
     } catch (ADRRepository.InsufficientAccessException ex) {
       returnMap.put('status', 'Error');
-      returnMap.put('responseMessage', 'Insufficient access');
+      returnMap.put(
+        'responseMessage',
+        'You don\'t have required permission to perform this action.'
+      );
       Logger.error(ex.getMessage(), ex);
       Logger.saveLog();
     } catch (Exception ex) {

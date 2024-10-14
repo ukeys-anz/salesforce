@@ -12,8 +12,7 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">We&apos;ve finished our investigation. A refund is on the way and should be in your account within 3 business days.
-We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
+        <value xsi:type="xsd:string">We&apos;ve finished our investigation. A refund is on the way and should be in your account within 3 business days. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </values>
     <values>
         <field>Customer_Status__c</field>
@@ -22,6 +21,10 @@ We&apos;ll send you an email with more information and our contact details. Feel
     <values>
         <field>Internal_Description__c</field>
         <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
     </values>
     <values>
         <field>PEGA_Dispute_Status__c</field>

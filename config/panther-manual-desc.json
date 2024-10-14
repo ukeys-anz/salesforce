@@ -320,14 +320,7 @@
       "IA-2415997": ["PI_Score__c"],
       "IA-2468715": [
         "AccountNumber",
-        "External_Id__c",
-        "OCV_Event_Version__c",
-        "OCV_ID__c",
         "PPID__c",
-        "RecordTypeId",
-        "Source_System_ID__c",
-        "Source_System_Name__c",
-        "Survivor_Party_ID__c",
         "Temporary_External_Id__c",
         "CreatedById",
         "CreatedDate",
@@ -372,7 +365,14 @@
         "Full_Middle_Name__c",
         "Full_Last_Name__c",
         "Tax_Exemption_Type__c",
-        "TFN_Verification__c"
+        "TFN_Verification__c",
+        "Salutation",
+        "FirstName",
+        "LastName",
+        "MiddleName",
+        "Gender__pc",
+        "FinServ__MaritalStatus__pc",
+        "FinServ__NumberOfDependents__pc"
       ],
       "IA-2415831": ["ABN__c", "ACN__c", "ARBN__c"],
       "IA-2530753": [
@@ -395,11 +395,21 @@
       "IA-2460507": ["Last_Updated_By__c"],
       "IA-2594111": [
         "OCV_Profile_ID__c",
-        "Victim_External_ID__c",
         "Victim_Record_ID__c",
         "Date_Victim_Merged__c"
       ],
-      "IA-2486234": ["Sync_Status__c"],
+      "IA-2486234": [
+        "Sync_Status__c",
+        "OCV_ID__c",
+        "OCV_Event_Version__c",
+        "Source_System_ID__c",
+        "Source_System_Name__c",
+        "AccountSource",
+        "Victim_External_ID__c",
+        "Survivor_Party_ID__c",
+        "External_Id__c",
+        "RecordTypeId"
+      ],
       "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
     "Access_Request__c": {
@@ -550,6 +560,32 @@
       "IA-2415840": [],
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
+    },
+    "ApplicationForm": {
+      "IA-2423227": ["OpportunityId"],
+      "IA-2434298": [
+        "Application_Amount__c",
+        "Application_Number__c",
+        "Application_Status__c",
+        "Name"
+      ],
+      "IA-2468715": ["OwnerId"]
+    },
+    "ApplicationFormProduct": {
+      "IA-2434298": [
+        "Name",
+        "ProductId",
+        "ApplicationFormId",
+        "Stage",
+        "Close_Date__c",
+        "Reference_Number__c"
+      ],
+      "IA-2423227": [
+        "Won_from_Lost_to__c",
+        "Lost_reason__c",
+        "Lost_Reason_Detail__c"
+      ],
+      "IA-2468715": ["OwnerId"]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -703,6 +739,9 @@
         "Customer_Number__c"
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
+    },
+    "BrokerSettings__c": {
+      "IA-253075": ["BypassApplicationSyncEvents__c"]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1209,6 +1248,7 @@
         "ContactEmail",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
+        "IDR_Nominated_3rd_Party_Company_Name__c",
         "IDR_3rdParty_Mobile__c",
         "IDR_3rdParty_Name__c",
         "IDR_3rdParty_Phone__c",
@@ -1599,6 +1639,7 @@
         "Email",
         "Fax",
         "Name",
+        "Name__c",
         "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",
@@ -1656,8 +1697,7 @@
         "Last_Modified_Date__c",
         "LastModifiedById",
         "LastModifiedDate",
-        "Previous_Related_Account__c",
-        "RecordTypeId"
+        "Previous_Related_Account__c"
       ],
       "IA-2415790": ["Persona_Type__c"],
       "IA-2415984": [
@@ -1669,16 +1709,17 @@
         "Street_Name__c",
         "Street_Number__c",
         "Street_Type__c",
-        "Unit__c"
+        "Unit__c",
+        "AddressType",
+        "ActiveFromDate",
+        "ActiveToDate"
       ],
       "IA-2415831": ["Global_Address_Key__c", "Delivery_Identifier__c"],
       "IA-2415840": ["QAS_Valid_Address__c"],
-      "IA-2415860": ["ActiveToDate"],
-      "IA-2415720": ["AddressType"],
-      "IA-2594111": ["ParentId"]
+      "IA-2594111": ["ParentId"],
+      "IA-2453350": ["RecordTypeId"]
     },
     "ContactPointEmail": {
-      "IA-2415860": ["ActiveToDate", "Occurrence_Number__c"],
       "IA-2530753": [
         "CreatedById",
         "CreatedDate",
@@ -1689,18 +1730,24 @@
         "Created_By__c",
         "Created_Date__c",
         "Customer_Name__c",
-        "External_Id__c",
         "Last_Modified_By__c",
         "Last_Modified_Date__c",
-        "Previous_Related_Account__c",
-        "UsageType"
+        "Previous_Related_Account__c"
       ],
       "IA-2415790": ["Persona_Type__c"],
-      "IA-2415984": ["EmailAddress", "OwnerId", "Preferred_Indicator__c"],
-      "IA-2415720": [
-        "Verification_Status__c",
+      "IA-2415984": [
+        "EmailAddress",
+        "OwnerId",
+        "Preferred_Indicator__c",
+        "ActiveFromDate",
+        "ActiveToDate",
+        "External_Id__c",
+        "Occurrence_Number__c",
+        "UsageType",
         "Verification_Date__c",
-        "Verification_Method__c"
+        "Verification_Method__c",
+        "Verification_Status__c",
+        "RecordTypeId"
       ],
       "IA-2594111": ["ParentId"]
     },
@@ -2234,6 +2281,9 @@
         "Summary__c",
         "Summary_Type__c"
       ]
+    },
+    "Financial_Summary_Setting__mdt": {
+      "IA-2453350": ["Active__c", "Summary_Name__c", "User_Profile__c"]
     },
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
@@ -2832,15 +2882,13 @@
         "UNICA_Lead_Status__c"
       ]
     },
-    "CCRM_Commercial_Stage_Action_Plan__mdt": {
+    "Commercial_Stage__mdt": {
       "IA-2460507": [
         "Next_Stage__c",
         "Previous_Stage__c",
         "Commercial_Segment__c",
-        "Opportunity_Record_Type__c",
-        "Template_Name__c",
-        "Opportunity_Stage_Name__c",
-        "Current_Stage__c"
+        "Current_Stage__c",
+        "Object_Name__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -2942,6 +2990,15 @@
         "Is_Confirmed__c"
       ],
       "IA-2530753": ["Confirmation_Date__c"]
+    },
+    "LoanApplicantEmployment": {
+      "IA-2415984": [
+        "EmployerName",
+        "JobTitle",
+        "EmployerAddress",
+        "StartDate",
+        "EndDate"
+      ]
     },
     "LoanApplicantLiability": {
       "IA-2415983": ["LoanApplicationLiabilityId", "Proportion_Percent__c"],
@@ -3191,7 +3248,6 @@
         "Probability",
         "Progress_Indicator__c",
         "RecordTypeId",
-        "StageName",
         "TotalOpportunityQuantity",
         "Opp_Id__c",
         "Type",
@@ -3216,8 +3272,7 @@
         "Source_Lead_Id__c",
         "Source_Lead_Link__c",
         "Follow_Up_Date__c",
-        "Opportunity_ID__c",
-        "New_to_Bank__c"
+        "Opportunity_ID__c"
       ],
       "IA-2415984": [
         "Contact__c",
@@ -3276,6 +3331,7 @@
         "Waiting_Flag__c",
         "LeadSource"
       ],
+      "IA-2423227": ["StageName"],
       "IA-2460507": [
         "My_Sub_Team__c",
         "My_Team__c",
@@ -3283,7 +3339,9 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c"
       ],
-      "IA-2530753": ["Opportunity_Owner__c"]
+      "IA-2530753": ["Opportunity_Owner__c"],
+      "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
+      "IA-2434298": ["Total_Application_Amount__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [
@@ -3304,7 +3362,8 @@
         "Has_Legal_Entity__c",
         "Amount",
         "Name",
-        "ProductCode"
+        "ProductCode",
+        "Sub_Product_Code__c"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],
@@ -3318,7 +3377,8 @@
         "ServiceDate"
       ],
       "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"],
-      "IA-2530753": ["OpportunityId", "UnitPrice", "Product2Id", "Quantity"]
+      "IA-2530753": ["OpportunityId", "UnitPrice", "Product2Id", "Quantity"],
+      "IA-2434298": ["Expected_Settlement_Date__c"]
     },
     "OpportunityTeamMember": {
       "IA-2460507": ["TeamMemberRole", "UserId"],
@@ -3528,9 +3588,22 @@
         "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
-        "UUID__c"
+        "UUID__c",
+        "Banker_Satisfaction_Doing_What_Said__c",
+        "Banker_Satisfaction_Feel_Valued__c",
+        "Banker_Satisfaction_Knowledgeable__c",
+        "Banker_Satisfaction_Meeting_Needs__c",
+        "CLG__c",
+        "CPID__c",
+        "Customer_Number__c",
+        "Interaction_Date__c",
+        "NPS_Groups__c"
       ],
-      "IA-2415984": ["qualtrics__Account__c", "qualtrics__Contact__c"],
+      "IA-2415984": [
+        "qualtrics__Account__c",
+        "qualtrics__Contact__c",
+        "A_Z_Review__c"
+      ],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -3913,6 +3986,7 @@
         "LastModifiedDate",
         "Version__c",
         "Last_Updated_Date__c",
+        "SunsetTimestamp__c",
         "Expiry_Date__c",
         "Loan_Purpose_Updated_Date__c",
         "Created_Date__c",
@@ -4019,7 +4093,8 @@
         "Lodgement_Dealing_Number__c",
         "Incoming_Mortgagee_Signed_on_Date__c",
         "Mortgagee_on_Title_Signed_on_Date__c",
-        "First_Principal_Due_Date__c"
+        "First_Principal_Due_Date__c",
+        "IsValidCloudEvent__c"
       ],
       "IA-2415720": [
         "Nominated_BSB__c",
@@ -4052,7 +4127,8 @@
         "Nominated_By__c",
         "Nominated_Account_State__c",
         "Settlement_Id__c",
-        "Settlement__c"
+        "Settlement__c",
+        "IsValidCloudEvent__c"
       ],
       "IA-2415720": ["Nominated_BSB__c", "Nominated_Account_Number__c"],
       "IA-2415840": ["Nominated_Date__c", "Version__c"],
@@ -4505,7 +4581,8 @@
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
         "Other_Limits_and_Liabilities__c",
-        "Additional_Information__c"
+        "Additional_Information__c",
+        "Sequence__c"
       ]
     },
     "Deposit_Account__x": {
@@ -4520,6 +4597,7 @@
         "BSB__c",
         "CPID__c",
         "Customer__c",
+        "Date_Closed__c",
         "Expiry_Date__c",
         "Limit__c",
         "Stop_Pay_Number__c",
@@ -4545,8 +4623,25 @@
         "Sub_Product_Code__c",
         "Fluctuating_Seasonal_Start_Date__c",
         "Fluctuating_Seasonal_Limit__c",
-        "Fluctuating_Seasonal_Expiry_Date__c"
-      ]
+        "CCR__c",
+        "Linked_Loan_Offsets__c",
+        "OD_Service_Charge_Code__c",
+        "OD_Service_Charge_Waive_Code__c",
+        "OD_Service_Charge_Waive_Expiry__c",
+        "Product_Name__c",
+        "Regulated_Account__c",
+        "Service_Charge_Code__c",
+        "Service_Charge_Waive_Code__c",
+        "Service_Charge_Waive_Expiry__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c",
+        "Fluctuating_Seasonal_Limit_2__c",
+        "Fluctuating_Seasonal_Limit_3__c",
+        "Fluctuating_Seasonal_Start_Expiry_Limit1__c",
+        "Fluctuating_Seasonal_Start_Expiry_Limit2__c",
+        "Fluctuating_Seasonal_Start_Expiry_Limit3__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Credit_Card__x": {
       "IA-2415720": [
@@ -4591,21 +4686,10 @@
         "Interest_Charge_Method__c",
         "Interest_Only_Expiry_Date__c",
         "Interest_Only_Repayment_Amount__c",
-        "Interest_Only_Start_Date__c",
-        "Interest_Only_Term_Month__c",
-        "Interest_Only_Term_Year__c",
         "Interest_Rate__c",
-        "Interest_Rate_Fixed_Rate_Expiry_Date__c",
-        "Interest_Rate_Fixed_Rate_Start_Date__c",
-        "Interest_Rate_Fixed_Rate_Term_Month__c",
-        "Interest_Rate_Fixed_Rate_Term_Year__c",
         "Interest_Rate_Margin__c",
-        "Interest_Rate_Reference_Index_Rate__c",
-        "Interest_Rate_Reference_Index_Type__c",
+        "Index_Rate_Current__c",
         "Interest_Type__c",
-        "IO_Initial_Discount__c",
-        "IO_Initial_Interest_Rate__c",
-        "IO_Interest_Frequency__c",
         "IO_Interest_Repayment_Account_Number__c",
         "IO_Next_Repayment_Date__c",
         "IO_Subsequent_Discount__c",
@@ -4615,7 +4699,6 @@
         "Offset_Account_Number__c",
         "Original_Amount_Financed__c",
         "PI_Elected_Repayment_Amount__c",
-        "PI_Initial_Repayment_Cycle_Day__c",
         "PI_Interest_Frequency__c",
         "PI_Principal_Repayment_End_Date__c",
         "PI_Principal_Repayment_Start_Date__c",
@@ -4631,15 +4714,29 @@
         "Repayment_Details_Interest_Repayments__c",
         "Repayment_Details_Repayment_Frequency__c",
         "Repayment_Details_Repayment_Type__c",
-        "SAO__c",
         "Sub_Product_Code__c",
-        "TPMI__c",
         "Expires__c",
         "Times_Past_Due_90_Days__c",
         "Times_Past_Due_30_Days__c",
         "Times_Past_Due_120_Days__c",
         "Times_Past_Due_60_Days__c",
-        "Grace_Days__c"
+        "Grace_Days__c",
+        "Interest_Type_Future__c",
+        "TPMI_SAO__c",
+        "Index_Code_Future__c",
+        "Index_Rate_Future__c",
+        "Interest_Rate_Term_Year__c",
+        "Interest_Rate_Term_Month__c",
+        "Interest_Rate_Start_Date__c",
+        "Interest_Rate_Expiry_Date__c",
+        "Product_Name__c",
+        "Statement_Mailing_Address__c",
+        "Lenders_Mortgage_Insurance__c",
+        "CCR__c",
+        "Source_System_Status__c",
+        "Amount_Advanced_To_Date__c",
+        "Index_Code_Current__c",
+        "Interest_Type_Current__c"
       ]
     },
     "Term_Deposit__x": {
@@ -4759,10 +4856,9 @@
         "Relationship__c",
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
-        "Asset_Finance_AMBIT__c",
-        "Sequence__c"
+        "Asset_Finance_AMBIT__c"
       ],
-      "IA-2530753": ["Customer__c"]
+      "IA-2530753": ["Customer__c", "Sequence__c"]
     },
     "Balance_History__x": {
       "IA-2415720": [
@@ -4771,7 +4867,13 @@
         "Maximum_Balance__c",
         "Minimum_Balance__c",
         "Month__c",
-        "Year__c"
+        "Year__c",
+        "Days_in_Excess__c",
+        "Items_In_Excess__c",
+        "Returned_Items__c",
+        "Times_In_Excess__c",
+        "Period__c",
+        "Additional_Information__c"
       ]
     },
     "Indemnity_Guarantee__x": {
@@ -4866,8 +4968,24 @@
         "Time__c",
         "Deposit_Account__c",
         "Term_Deposit__c",
-        "Loan_Account__c"
+        "Loan_Account__c",
+        "Additional_Information__c"
       ]
+    },
+    "Account_Registration__x": {
+      "IA-2415720": [
+        "Credit_Card__c",
+        "Deposit_Account__c",
+        "ExternalId__c",
+        "Loan_Account__c",
+        "Name__c",
+        "Number__c",
+        "Number_Tokenised__c",
+        "Status__c",
+        "Term_Deposit__c",
+        "Type__c"
+      ],
+      "IA-2530753": ["Additional_Information__c"]
     },
     "Commercial_Bill__x": {
       "IA-2415720": [
@@ -5148,6 +5266,12 @@
       "Assisted_Broker_TPMI_SAO__c": "ANZx::Lex::LoanApplication",
       "Originated_By__c": "ANZx::MuleSoft::Broker",
       "Sync_Status__c": "ANZx::MuleSoft::Broker"
+    },
+    "Settlement__c": {
+      "IsValidCloudEvent__c": "ANZx::Salesforce"
+    },
+    "Settlement_Account__c": {
+      "IsValidCloudEvent__c": "ANZx::Salesforce"
     }
   },
   "lineageTransformInformation": {
@@ -5317,6 +5441,12 @@
       "Assisted_Broker_TPMI_SAO__c": "1:1 Transformation",
       "Originated_By__c": "If TPMI_SAO__c is NOT blank then set Originated By to Broker",
       "Sync_Status__c": "If GCP Event Publish where Sync_Status_c not equals to Blocked and Update = TRUE THEN set Sync_Status_c to Broker Org"
+    },
+    "Settlement__c": {
+      "IsValidCloudEvent__c": "If Loan Application Sync_Status is Broker org set isvalidcloudevent to true"
+    },
+    "Settlement_Account__c": {
+      "IsValidCloudEvent__c": "If Loan Application Sync_Status is Broker org set isvalidcloudevent to true"
     }
   },
   "systemObjects": {

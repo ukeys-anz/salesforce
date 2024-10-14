@@ -10,17 +10,6 @@ private class StreamingMonitorControllerTest {
     }
   }
 
-  //Need to uncomment when creating delta pr
-  /*@isTest
-  static void publishPlatformEventshouldfailwheneventNameisnotplatformevent() {
-    try {
-      StreamingMonitorController.publishEvent('PlatformEvent', 'Account', '{}');
-      System.assert(false, 'Exception was expected');
-    } catch (Exception e) {
-      System.assert(e instanceof AuraHandledException);
-    }
-  }*/
-
   @isTest
   static void publishPlatformEventshouldfailwhenpayloadisinvalidjson() {
     try {

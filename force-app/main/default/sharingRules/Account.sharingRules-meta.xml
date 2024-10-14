@@ -11,7 +11,7 @@
         <description>If ANZx Customer, ANZx and subordinates can view</description>
         <label>ANZx Customer</label>
         <sharedTo>
-            <roleAndSubordinates>ANZx</roleAndSubordinates>
+            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 OR 2</booleanFilter>
         <criteriaItems>
@@ -63,7 +63,7 @@
         <description>provide read only access to all AR &amp; C customers</description>
         <label>DCRM_Account_RO</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -83,7 +83,7 @@
         <description>Individual Person Account records to be shared with Read/Write access.</description>
         <label>MLCRM Account RW</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -118,7 +118,7 @@
         <description>provide read only access to all ANZ customers to AR &amp; C Role</description>
         <label>MLCRM Account RO</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
@@ -138,7 +138,7 @@
         <description>Providing Read/Write access to existing account to AR&amp;C.</description>
         <label>CCRM Existing Account RW</label>
         <sharedTo>
-            <roleAndSubordinates>AR_C</roleAndSubordinates>
+            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
         </sharedTo>
         <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
         <criteriaItems>
@@ -174,7 +174,7 @@
         <description>Read Only for CMOS to access account</description>
         <label>CMOS customer access RO</label>
         <sharedTo>
-            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>

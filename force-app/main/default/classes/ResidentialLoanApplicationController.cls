@@ -915,9 +915,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       SOPDebtModel debtBody = SOPDebtModel.parse(
         JSON.serialize(inputMap.get('liabilities'))
       );
-      if (debtBody.customerStatedClosed == true) {
-        debtBody.outstandingBalance = null;
-      }
 
       ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
       String loanId = (String) inputMap.get('loanAppId');

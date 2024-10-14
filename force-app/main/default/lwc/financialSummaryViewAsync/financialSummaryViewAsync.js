@@ -1,17 +1,25 @@
 import { LightningElement, api } from "lwc";
-import getSummariesByResponseId from "@salesforce/apex/CCRMFinancialSummaryController.getSummariesByResponseId";
-import getDataFromCallout from "@salesforce/apex/CCRMFinancialSummaryController.getDataFromCallout";
-import insertDataInCache from "@salesforce/apex/CCRMFinancialSummaryController.insertDataInCache";
+import getSummariesByResponseId from "@salesforce/apex/FinancialSummaryController.getSummariesByResponseId";
+import getDataFromCallout from "@salesforce/apex/FinancialSummaryController.getDataFromCallout";
+import insertDataInCache from "@salesforce/apex/FinancialSummaryController.insertDataInCache";
+import getFinSummaryMetadata from "@salesforce/apex/FinancialSummaryController.getFinSummaryMetadata";
 import { subscribe, unsubscribe } from "lightning/empApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 const CALCULATION_IN_PROGRESS = "Calculation is in progress";
-const NO_AVAILABLE_BALANCE = "No Available Balance";
+const NO_AVAILABLE_BALANCE = "No available balance";
 const UNEXPECTED_ERROR = "Unexpected error";
 const DATA_FOUND_IN_CACHE = "Data found in cache";
 const TOTAL_CUSTOMER_BALANCE = "TOTAL_CUSTOMER_BALANCE";
 const TERMINALS = "TERMINALS";
 const TOTAL_ASSET_FINANCE_BALANCE = "TOTAL_ASSET_FINANCE_BALANCE";
+const TOTAL_DEBIT_BALANCE = "TOTAL_DEBIT_BALANCE";
+const TOTAL_CREDIT_BALANCE = "TOTAL_CREDIT_BALANCE";
+const TOTAL_CUSTOMER_LIMIT = "TOTAL_CUSTOMER_LIMIT";
+const CLG_CREDIT_RISK = "CLG_CREDIT_RISK";
+const TOTAL_MORTAGE_LIMIT = "TOTAL_MORTAGE_LIMIT";
+const CCRM_PROFILE = "ANZ CCRM Standard User";
+
 export default class financialSummaryViewAsync extends LightningElement {
   @api recordId;
   @api channelName = "/event/Financial_Summary_Calculation__e";
@@ -25,9 +33,10 @@ export default class financialSummaryViewAsync extends LightningElement {
   countTotalBalance = 0;
   countNoOfTerminals = 0;
   countTotalAssetBalance = 0;
-  callTotalCustBalanceApi = true;
-  callTerminalApi = true;
-  callAssetFinanceBalanceApi = true;
+  callTotalCustBalanceApi = false;
+  callTerminalApi = false;
+  callTotalLimitsApi = false;
+  callAssetFinanceBalanceApi = false;
   showTotalBalValue = false;
   showTerminalValue = false;
   showAssetValue = false;
@@ -42,14 +51,55 @@ export default class financialSummaryViewAsync extends LightningElement {
   showAssetOtherValue = false;
   assetOtherValue;
   financialSummariesCallout;
+  showDebitBalOtherValue = false;
+  totalDebitOtherBalance;
+  showDebitBalValue = false;
+  totalDebitBalance;
+  showCreditBalValue = false;
+  showCreditBalOtherValue = false;
+  totalCreditBalance;
+  totalCreditOtherBalance;
+  showLimitOtherValue = false;
+  totalLimitOtherValue;
+  showLimitValue = false;
+  totalLimitValue;
+  totalLimitCount = 0;
+  clgCreditRating = NO_AVAILABLE_BALANCE;
+  totalMortageValue;
+  showTotalMortageValue = false;
+  totalMortageOtherValue = NO_AVAILABLE_BALANCE;
+  showTotalMortageOtherValue = true;
+  totalMortageCount = 0;
+  callMorageLimitApi = false;
+  @api jtestRunning = false;
+  currentUserProfile;
+  summaryValuesToDisplay = [];
+  showAssetFinanceInfo = false;
+  showTotalCustmerBalanceInfo = false;
+  showTerminalInfo = false;
+  showTotalLimitInfo = false;
+  showClgCreditRatingInfo = false;
+  showCreditBalanceInfo = false;
+  showDebitBalanceInfo = false;
+  showMortageLimitInfo = false;
 
   async connectedCallback() {
     this.handleSubscribe();
     this.showSpinner = true;
 
-    this.populateFinancialSummaryCallout();
-
     try {
+      if (this.jtestRunning === true) {
+        this.currentUserProfile = CCRM_PROFILE;
+      }
+      let finSummaryWrapperSettingRecords = await getFinSummaryMetadata();
+      this.currentUserProfile =
+        finSummaryWrapperSettingRecords.strCurrentUserProfileName;
+      this.populateSummaryValuesToDisplayList(
+        finSummaryWrapperSettingRecords.lstOfSymmarySetting
+      );
+      this.handleValuesToDisplay();
+      this.populateFinancialSummaryCallout();
+
       let resultSummaries = await getSummariesByResponseId({
         finSumCallout: this.financialSummariesCallout
       });
@@ -59,22 +109,35 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.showTerminalOtherValue =
         this.showAssetOtherValue =
           true;
-      this.totalBalOtherValue =
+      this.showDebitBalOtherValue =
+        this.showCreditBalOtherValue =
+        this.showLimitOtherValue =
+          true;
+      this.totalLimitOtherValue =
+        this.totalCreditOtherBalance =
+        this.totalDebitOtherBalance =
+        this.totalBalOtherValue =
         this.terminalOtherValue =
         this.assetOtherValue =
           CALCULATION_IN_PROGRESS;
     } catch (error) {
-      this.errorResponse = error.body.message;
+      this.errorResponse = error;
       this.showSpinner = false;
       this.handleError();
     }
-
     if (this.financialSummaryData.cacheAck === DATA_FOUND_IN_CACHE) {
       if (this.financialSummaryData.totalBalance !== undefined) {
         this.showTotalBalValue = true;
         this.showTotalBalOtherValue = false;
         this.totalCustBalance = this.financialSummaryData.totalBalance;
         this.countTotalBalance++;
+        this.showDebitBalValue = true;
+        this.showDebitBalOtherValue = false;
+        this.showDebitBalValue = this.financialSummaryData.totalDebitBalance;
+        this.showCreditBalValue = true;
+        this.showCreditBalOtherValue = false;
+        this.totalCreditBalance = this.financialSummaryData.totalCreditBalance;
+        this.callTotalCustBalanceApi = false;
       }
       if (
         this.financialSummaryData.totalBalance === undefined &&
@@ -85,12 +148,20 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.showTotalBalOtherValue = true;
         this.totalBalOtherValue = this.financialSummaryData.totalBalanceAck;
         this.countTotalBalance++;
+        this.showDebitBalValue = false;
+        this.showDebitBalOtherValue = true;
+        this.showDebitBalValue = this.financialSummaryData.totalDebitBalanceAck;
+        this.showCreditBalValue = false;
+        this.showCreditBalOtherValue = true;
+        this.totalCreditBalance =
+          this.financialSummaryData.totalCreditBalanceAck;
       }
       if (this.financialSummaryData.totalMerchantTerminals !== undefined) {
         this.showTerminalValue = true;
         this.showTerminalOtherValue = false;
         this.totalTerminal = this.financialSummaryData.totalMerchantTerminals;
         this.countNoOfTerminals++;
+        this.callTerminalApi = false;
       }
       if (
         this.financialSummaryData.totalMerchantTerminals === undefined &&
@@ -108,6 +179,7 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.totalAssetBalance =
           this.financialSummaryData.totalAssetFinanceBalance;
         this.countTotalAssetBalance++;
+        this.callAssetFinanceBalanceApi = false;
       }
       if (
         this.financialSummaryData.totalAssetFinanceBalance === undefined &&
@@ -119,38 +191,38 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.assetOtherValue = this.financialSummaryData.assetBalanceAck;
         this.countTotalAssetBalance++;
       }
+
+      if (this.financialSummaryData.totalLimitValue !== undefined) {
+        this.showLimitValue = true;
+        this.showLimitOtherValue = false;
+        this.totalLimitValue = this.financialSummaryData.totalLimitValue;
+        this.totalLimitCount++;
+        this.callTotalLimitsApi = false;
+      }
+      if (
+        this.financialSummaryData.totalLimitValue === undefined &&
+        (this.financialSummaryData.totalLimitsAck === NO_AVAILABLE_BALANCE ||
+          this.financialSummaryData.totalLimitsAck === UNEXPECTED_ERROR)
+      ) {
+        this.showLimitValue = false;
+        this.showLimitOtherValue = true;
+        this.totalLimitValue = this.financialSummaryData.totalLimitAck;
+        this.totalLimitCount++;
+      }
+
       this.lastSummaryCalculated =
         "Last summary calculated : " +
         this.financialSummaryData.lastSummaryUpdateDate;
-      if (
-        this.countTotalBalance > 0 &&
-        this.countNoOfTerminals > 0 &&
-        this.countTotalAssetBalance > 0
+      if (this.canUnsubscribePlatformEvent()) {
+        this.unsubscribePlatformEvent();
+      } else if (
+        this.callTotalCustBalanceApi === true ||
+        this.callTerminalApi === true ||
+        this.callAssetFinanceBalanceApi === true ||
+        this.callTotalLimitsApi === true
       ) {
-        unsubscribe(this.subscription, () => {
-          this.subscription = "";
-        });
-      } else {
-        if (this.totalCustBalance !== undefined) {
-          this.countTotalBalance++;
-          this.callTotalCustBalanceApi = false;
-        }
-        if (this.totalTerminal !== undefined) {
-          this.countNoOfTerminals++;
-          this.callTerminalApi = false;
-        }
-        if (this.totalAssetBalance !== undefined) {
-          this.countTotalAssetBalance++;
-          this.callAssetFinanceBalanceApi = false;
-        }
-        if (
-          this.callTotalCustBalanceApi === true ||
-          this.callTerminalApi === true ||
-          this.callAssetFinanceBalanceApi === true
-        ) {
-          this.populateFinancialSummaryCallout();
-          this.handleSummariesCalloutOnRefresh(this.financialSummariesCallout);
-        }
+        this.populateFinancialSummaryCallout();
+        this.handleSummariesCalloutOnRefresh(this.financialSummariesCallout);
       }
     } else {
       this.handleNoAvailableBalance(this.financialSummaryData);
@@ -165,24 +237,9 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.handleInsert();
       }
       this.handlePlatformEvent(message);
-      if (message.data.payload.Summary_Type__c === TOTAL_CUSTOMER_BALANCE) {
-        this.countTotalBalance++;
-      } else if (message.data.payload.Summary_Type__c === TERMINALS) {
-        this.countNoOfTerminals++;
-      } else if (
-        message.data.payload.Summary_Type__c === TOTAL_ASSET_FINANCE_BALANCE
-      ) {
-        this.countTotalAssetBalance++;
-      }
-      if (
-        this.countTotalBalance > 0 &&
-        this.countNoOfTerminals > 0 &&
-        this.countTotalAssetBalance > 0
-      ) {
+      if (this.canUnsubscribePlatformEvent()) {
         this.isDisableRefresh = false;
-        unsubscribe(this.subscription, () => {
-          this.subscription = "";
-        });
+        this.unsubscribePlatformEvent();
       }
     }).then((response) => {
       this.subscription = response;
@@ -202,59 +259,112 @@ export default class financialSummaryViewAsync extends LightningElement {
   }
 
   handlePlatformEvent(message) {
+    let mapOfSummaries = this.createMapOfSummaries(message.data.payload);
     if (
       message.data.payload.Response_Id__c === this.recordId &&
       message.data.payload.Status__c === "Success"
     ) {
-      this.handlePlatformEventSuccess(message);
+      this.handlePlatformEventSuccess(mapOfSummaries);
     } else if (
       message.data.payload.Response_Id__c === this.recordId &&
       message.data.payload.Status__c === "Error"
     ) {
-      this.handlePlatformEventError(message);
+      this.handlePlatformEventError(mapOfSummaries);
     }
   }
 
-  handlePlatformEventSuccess(message) {
+  handlePlatformEventSuccess(mapOfSummaries) {
     this.showSpinner = true;
-    if (message.data.payload.Summary_Type__c === TOTAL_CUSTOMER_BALANCE) {
+    if (mapOfSummaries.has(TOTAL_CUSTOMER_BALANCE)) {
       this.showTotalBalValue = true;
       this.showTotalBalOtherValue = false;
-      this.totalCustBalance = message.data.payload.Summary__c;
-    } else if (message.data.payload.Summary_Type__c === TERMINALS) {
+      this.totalCustBalance = mapOfSummaries.get(TOTAL_CUSTOMER_BALANCE);
+      this.countTotalBalance += 1;
+      this.callTotalCustBalanceApi = false;
+
+      this.showDebitBalValue = true;
+      this.showDebitBalOtherValue = false;
+      this.totalDebitBalance = mapOfSummaries.get(TOTAL_DEBIT_BALANCE);
+
+      this.showCreditBalValue = true;
+      this.showCreditBalOtherValue = false;
+      this.totalCreditBalance = mapOfSummaries.get(TOTAL_CREDIT_BALANCE);
+    }
+    if (mapOfSummaries.has(TERMINALS)) {
       this.showTerminalValue = true;
       this.showTerminalOtherValue = false;
-      this.totalTerminal = message.data.payload.Summary__c;
-    } else if (
-      message.data.payload.Summary_Type__c === TOTAL_ASSET_FINANCE_BALANCE
-    ) {
+      this.totalTerminal = mapOfSummaries.get(TERMINALS);
+      this.countNoOfTerminals += 1;
+      this.callTerminalApi = false;
+    }
+    if (mapOfSummaries.has(TOTAL_ASSET_FINANCE_BALANCE)) {
       this.showAssetValue = true;
       this.showAssetOtherValue = false;
-      this.totalAssetBalance = message.data.payload.Summary__c;
+      this.totalAssetBalance = mapOfSummaries.get(TOTAL_ASSET_FINANCE_BALANCE);
+      this.countTotalAssetBalance += 1;
+      this.callAssetFinanceBalanceApi = false;
+    }
+    if (mapOfSummaries.has(TOTAL_CUSTOMER_LIMIT)) {
+      this.showLimitValue = true;
+      this.showLimitOtherValue = false;
+      this.totalLimitValue = mapOfSummaries.get(TOTAL_CUSTOMER_LIMIT);
+      this.totalLimitCount += 1;
+      this.callTotalLimitsApi = false;
     }
     this.handleLastSummaryCalculation();
     this.showSpinner = false;
   }
 
-  handlePlatformEventError(message) {
+  handlePlatformEventError(mapOfSummaries) {
     this.showSpinner = true;
-    if (message.data.payload.Summary_Type__c === TOTAL_CUSTOMER_BALANCE) {
+    if (mapOfSummaries.has(TOTAL_CUSTOMER_BALANCE)) {
       this.showTotalBalValue = false;
       this.showTotalBalOtherValue = true;
       this.totalBalOtherValue = UNEXPECTED_ERROR;
-    } else if (message.data.payload.Summary_Type__c === TERMINALS) {
+      this.countTotalBalance += 1;
+      this.callTotalCustBalanceApi = false;
+      this.showDebitBalValue = false;
+      this.showDebitBalOtherValue = true;
+      this.totalDebitOtherBalance = UNEXPECTED_ERROR;
+      this.showCreditBalValue = false;
+      this.showCreditBalOtherValue = true;
+      this.totalCreditOtherBalance = UNEXPECTED_ERROR;
+    }
+    if (mapOfSummaries.has(TERMINALS)) {
       this.showTerminalValue = false;
       this.showTerminalOtherValue = true;
       this.terminalOtherValue = UNEXPECTED_ERROR;
-    } else if (
-      message.data.payload.Summary_Type__c === TOTAL_ASSET_FINANCE_BALANCE
-    ) {
+      this.countNoOfTerminals += 1;
+      this.callTerminalApi = false;
+    }
+    if (mapOfSummaries.has(TOTAL_ASSET_FINANCE_BALANCE)) {
       this.showAssetValue = false;
       this.showAssetOtherValue = true;
       this.assetOtherValue = UNEXPECTED_ERROR;
+      this.countTotalAssetBalance += 1;
+      this.callAssetFinanceBalanceApi = false;
+    }
+    if (mapOfSummaries.has(TOTAL_CUSTOMER_LIMIT)) {
+      this.showLimitValue = false;
+      this.showLimitOtherValue = true;
+      this.totalLimitOtherValue = UNEXPECTED_ERROR;
+      this.totalLimitCount += 1;
+      this.callTotalLimitsApi = false;
     }
     this.handleLastSummaryCalculation();
     this.showSpinner = false;
+  }
+
+  // Format of Summary : {"Summary__c":" {"items": ["subType": "TOTAL_CREDIT_BALANCE","subTypeValue" : 0}]}"}
+  // will return map of SubType -> SubTypeValue
+  createMapOfSummaries(msgPayload) {
+    const summaryJson = JSON.parse(JSON.stringify(msgPayload)).Summary__c;
+    const items = JSON.parse(summaryJson).items;
+    let mapOfSummaries = new Map();
+    items.forEach((item) => {
+      mapOfSummaries.set(item.subType, item.subTypeValue);
+    });
+    return mapOfSummaries;
   }
 
   handleLastSummaryCalculation() {
@@ -300,7 +410,7 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.showSpinner = false;
       this.handleNoAvailableBalance(this.updatedResponse);
     } catch (error) {
-      this.errorResponse = error.body.message;
+      this.errorResponse = error;
       this.showSpinner = false;
       this.handleError();
     }
@@ -310,14 +420,12 @@ export default class financialSummaryViewAsync extends LightningElement {
     this.platformEventList = [];
     this.showSpinner = true;
     this.isDisableRefresh = true;
-    this.countTotalBalance =
+    this.totalLimitCount =
+      this.countTotalBalance =
       this.countNoOfTerminals =
       this.countTotalAssetBalance =
         0;
-    this.callTotalCustBalanceApi =
-      this.callTerminalApi =
-      this.callAssetFinanceBalanceApi =
-        true;
+    this.handleValuesToDisplay();
     if (!this.subscription) {
       this.handleSubscribe();
     }
@@ -330,7 +438,8 @@ export default class financialSummaryViewAsync extends LightningElement {
       responseId: this.recordId,
       callTotalCustBalanceApi: this.callTotalCustBalanceApi,
       callTerminalApi: this.callTerminalApi,
-      callAssetFinanceBalanceApi: this.callAssetFinanceBalanceApi
+      callAssetFinanceBalanceApi: this.callAssetFinanceBalanceApi,
+      callTotalLimitsApi: this.callTotalLimitsApi
     };
   }
 
@@ -340,6 +449,12 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.showTotalBalOtherValue = true;
       this.totalBalOtherValue = NO_AVAILABLE_BALANCE;
       this.countTotalBalance++;
+      this.showDebitBalValue = false;
+      this.showDebitBalOtherValue = true;
+      this.totalDebitOtherBalance = NO_AVAILABLE_BALANCE;
+      this.showCreditBalValue = false;
+      this.showCreditBalOtherValue = true;
+      this.totalCreditOtherBalance = NO_AVAILABLE_BALANCE;
     }
     if (result.terminalAck === NO_AVAILABLE_BALANCE) {
       this.showTerminalValue = false;
@@ -353,22 +468,77 @@ export default class financialSummaryViewAsync extends LightningElement {
       this.assetOtherValue = NO_AVAILABLE_BALANCE;
       this.countTotalAssetBalance++;
     }
-    if (
-      this.countTotalBalance > 0 &&
-      this.countNoOfTerminals > 0 &&
-      this.countTotalAssetBalance > 0
-    ) {
-      unsubscribe(this.subscription, () => {
-        this.subscription = "";
-      });
+    if (result.totalLimitAck === NO_AVAILABLE_BALANCE) {
+      this.showLimitValue = false;
+      this.showLimitOtherValue = true;
+      this.totalLimitOtherValue = NO_AVAILABLE_BALANCE;
+      this.totalLimitCount++;
+    }
+    if (this.canUnsubscribePlatformEvent()) {
+      this.unsubscribePlatformEvent();
     }
   }
 
   disconnectedCallback() {
     if (this.subscription) {
-      unsubscribe(this.subscription, () => {
-        this.subscription = "";
-      });
+      this.unsubscribePlatformEvent();
     }
+  }
+
+  canUnsubscribePlatformEvent() {
+    return !(
+      this.callTotalCustBalanceApi ||
+      this.callTerminalApi ||
+      this.callTotalLimitsApi ||
+      this.callAssetFinanceBalanceApi
+    );
+  }
+
+  unsubscribePlatformEvent() {
+    unsubscribe(this.subscription, () => {
+      this.subscription = "";
+    });
+  }
+
+  handleValuesToDisplay() {
+    if (this.summaryValuesToDisplay.includes(TOTAL_ASSET_FINANCE_BALANCE)) {
+      this.showAssetFinanceInfo = true;
+      this.callAssetFinanceBalanceApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(TOTAL_CUSTOMER_BALANCE)) {
+      this.showTotalCustmerBalanceInfo = true;
+      this.callTotalCustBalanceApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(TERMINALS)) {
+      this.showTerminalInfo = true;
+      this.callTerminalApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(TOTAL_CUSTOMER_LIMIT)) {
+      this.showTotalLimitInfo = true;
+      this.callTotalLimitsApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(CLG_CREDIT_RISK)) {
+      this.showClgCreditRating = true;
+    }
+    if (this.summaryValuesToDisplay.includes(TOTAL_CREDIT_BALANCE)) {
+      this.showCreditBalanceInfo = true;
+      this.callTotalCustBalanceApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(TOTAL_DEBIT_BALANCE)) {
+      this.showDebitBalanceInfo = true;
+      this.callTotalCustBalanceApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(TOTAL_MORTAGE_LIMIT)) {
+      this.showMortageLimitInfo = true;
+      this.callMorageLimitApi = true;
+    }
+  }
+
+  populateSummaryValuesToDisplayList(finSummarySettingRecords) {
+    finSummarySettingRecords.forEach((record) => {
+      if (record.User_Profile__c.split(";").includes(this.currentUserProfile)) {
+        this.summaryValuesToDisplay.push(record.Summary_Name__c);
+      }
+    });
   }
 }

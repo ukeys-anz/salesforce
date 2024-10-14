@@ -9,220 +9,105 @@
                         <valueListItems>
                             <value>Edit</value>
                             <visibilityRule>
-                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>BB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
+                                <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>NE</operator>
+                                    <operator>EQUAL</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
+                                    <rightValue>false</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>System Administrator</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Share</value>
                             <visibilityRule>
-                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>BB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
+                                <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>NE</operator>
+                                    <operator>EQUAL</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>System Administrator</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>CustomButton.Opportunity.Launch_BBD</value>
                             <visibilityRule>
-                                <booleanFilter>((9 OR ((1 OR 2 OR 3 OR 4 OR 5) AND (6 OR 7) AND 8)) AND 10)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.StageName}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Solution Development</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.StageName}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Approved &amp; Offered</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.StageName}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Customer Acceptance</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.StageName}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Opportunity Won</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.StageName}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Opportunity Lost</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
+                                <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>NE</operator>
+                                    <operator>EQUAL</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>System Administrator</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Opportunity.Log_Interaction_CCRM</value>
                             <visibilityRule>
-                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>BB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
+                                <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>NE</operator>
+                                    <operator>EQUAL</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>System Administrator</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Global.Create_Task_CCRM</value>
                             <visibilityRule>
-                                <booleanFilter>((6 OR ((1 AND (2 OR 3)) OR (4 AND 5))) AND 7)</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.My_Region_Flag__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>BB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Owner.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Commercial_Segment__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>SBB NBC</rightValue>
-                                </criteria>
+                                <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>NE</operator>
+                                    <operator>EQUAL</operator>
                                     <rightValue>ANZ CCRM Standard User</rightValue>
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>false</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!$User.Profile.Name}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>System Administrator</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

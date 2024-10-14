@@ -10,6 +10,7 @@ public class BOHConstants {
   public static final String MANDATORY_FIELD_MISSING = 'Please fill in all the mandatory fields. ';
   public static final String MANDATORY_DETAIL_MISSING = 'Mandatory Information is missing from the Income Details. An entry is required for all the fields within each Income Type. Please review and try again.';
   public static final String START_DATE_ERROR = 'The Start Date cannot be in the future. Please review and try again.';
+  public static final String CACHE_DATA_KEY_PREFIX_SOPINELIGIBLE = 'SOPIneligible';
 
   public static final String BOH_CLOSED_STATUS = 'Closed';
   public static final String BOH_NEW_STATUS = 'New';

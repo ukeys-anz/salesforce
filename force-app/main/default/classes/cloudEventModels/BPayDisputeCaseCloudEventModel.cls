@@ -26,7 +26,7 @@ public with sharing class BPayDisputeCaseCloudEventModel extends DisputeCaseClou
       action;
     ce_dataschema =
       System.Label.ANZX_Disputes_Event_Proto_Data_Schema_v1beta1 +
-      '#BPayDispute';
+      '#BPAYDispute';
     this.ce_data = new BPayDisputeCaseCloudEventDataModel(
       theCase,
       theAccount,

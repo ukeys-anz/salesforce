@@ -5,7 +5,6 @@
     <columns>IDR_Product_or_Service_Line__c</columns>
     <columns>IDR_Product_or_Service_Category__c</columns>
     <columns>IDR_Product_or_Service_Type__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>PRODUCT2.ACTIVE</field>
         <operation>equals</operation>
@@ -16,8 +15,9 @@
         <operation>equals</operation>
         <value>Product2.ANZ_Product_or_Service</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Active ANZ Products</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

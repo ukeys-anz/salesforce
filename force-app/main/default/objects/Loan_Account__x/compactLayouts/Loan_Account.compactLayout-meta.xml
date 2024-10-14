@@ -2,9 +2,10 @@
 <CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Loan_Account</fullName>
     <fields>Account_Name__c</fields>
+    <fields>Account_Number__c</fields>
+    <fields>Product_Name__c</fields>
     <fields>Balance__c</fields>
-    <fields>Amount_In_Advance__c</fields>
-    <fields>Original_Amount_Financed__c</fields>
+    <fields>Redraw_Amount__c</fields>
     <fields>Account_Status__c</fields>
     <fields>CPID__c</fields>
     <label>Loan Account</label>

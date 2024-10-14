@@ -229,6 +229,7 @@ public with sharing class AuthTokenCacheUtil {
    */
   public static String getStaffToken(StaffTokenRequestModel staffModelWrapper) {
     String staffToken;
+    String cacheKey = staffModelWrapper.anzTokenType == TFMConstants.ANZ_STAFF_TOKEN_TYPE ? '' : TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue);
     if (!Forgerock_Auth__mdt.sObjectType.getDescribe().isQueryable()) {
       throw new AuraHandledException(
         'Unable to query Foregerock - permission denied'
@@ -243,7 +244,7 @@ public with sharing class AuthTokenCacheUtil {
         STAFFPART +
         getHashedKey(
           'forgeJWTToken' +
-            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue  ?? '' ) +
+            cacheKey +
             staffModelWrapper.apiScopesRequested
         )
       );
@@ -272,7 +273,7 @@ public with sharing class AuthTokenCacheUtil {
         STAFFPART +
         getHashedKey(
           'forgeJWTToken' +
-            TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue  ?? '') +
+            cacheKey +
             staffModelWrapper.apiScopesRequested
         ),
         staffToken,

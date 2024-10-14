@@ -307,7 +307,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Account_Relationship__x.Related_Party_Names__c</field>
+        <field>Account_Relationship__x.Customer__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1973,11 +1973,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Term_Deposit__x.Restraints_Hold__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Term_Deposit__x.Stops_Pay__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

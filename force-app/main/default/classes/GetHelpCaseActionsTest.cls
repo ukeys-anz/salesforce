@@ -5,11 +5,47 @@
  */
 @IsTest
 private class GetHelpCaseActionsTest {
-  static Lib_MockProvider dmlRepoMock;
+  static final Faker FAKER = new Faker('en-AU');
 
-  static void registerMocks() {
-    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-  }
+  static final String MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE = 'Date_Time_Provisionally_Closed__c should be the current date and time';
+  static final String MSG_DATE_TIME_PROVISIONALLY_CLOSED_NULL = 'Date_Time_Provisionally_Closed__c should be null';
+
+  static Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+  static final String EXTERNAL_SYSTEM_VALUE = 'Pega_Smarts';
+  static final String EXTERNAL_CASE_ID = FAKER.randomString(10);
+
+  //Used as oldMap case record
+  static Case case0 = new Case(
+    Status = GetHelpConstants.OPEN_STATUS,
+    External_System__c = EXTERNAL_SYSTEM_VALUE,
+    External_Case_ID__c = EXTERNAL_CASE_ID,
+    Id = caseId,
+    RecordTypeId = RTCase.cardDispute
+  );
+
+  static Case case1 = new Case(
+    Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS,
+    External_System__c = EXTERNAL_SYSTEM_VALUE,
+    External_Case_ID__c = EXTERNAL_CASE_ID,
+    Id = caseId,
+    RecordTypeId = RTCase.cardDispute
+  );
+
+  static Case case2 = new Case(
+    Status = GetHelpConstants.PROVISIONALLY_CLOSED_STATUS,
+    External_System__c = EXTERNAL_SYSTEM_VALUE,
+    External_Case_ID__c = EXTERNAL_CASE_ID,
+    Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+    RecordTypeId = RTCase.cardDispute
+  );
+
+  static Case case3 = new Case(
+    Status = GetHelpConstants.OPEN_STATUS,
+    External_System__c = EXTERNAL_SYSTEM_VALUE,
+    External_Case_ID__c = FAKER.randomString(10),
+    Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+    RecordTypeId = RTCase.cardDispute
+  );
 
   @IsTest
   static void setOwnerToIDOpsQueue() {
@@ -26,9 +62,7 @@ private class GetHelpCaseActionsTest {
     };
 
     Test.startTest();
-
     GetHelpCaseActions.setOwnerToIDOpsQueue(lstCases);
-
     Test.stopTest();
 
     for (Case oCase : lstCases) {
@@ -48,119 +82,49 @@ private class GetHelpCaseActionsTest {
     }
   }
 
-  // Checks if case is valid to create external case status record
   @isTest
-  public static void testIsValidCaseToCreateExtCaseStatus() {
-    ExternalCaseStatusMappingQueryHelper externalCaseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
-    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = externalCaseStatusQueryHelper.getSalesforceStatusToMetadataMap();
-
-    Case theCase = TestDataFactory.createCase('ATM_Dispute');
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Case theOldCase = theCase;
-    theOldCase.Id = theCase.Id;
-    theOldCase.Status = 'On Hold';
-    Test.startTest();
-    Boolean isValid = GetHelpCaseActions.isValidCaseToCreateExtCaseStatus(
-      new Map<Id, Case>{ theOldCase.Id => theOldCase },
-      theCase,
-      statusToMetadataMap
-    );
-    Test.stopTest();
-    Assert.isFalse(
-      isValid,
-      'Dispute should be valid to create external case status'
-    );
-  }
-
-  // Checks and creates external case status record
-  @isTest
-  public static void testCreateExternalCaseStatus() {
-    registerMocks();
-
-    dmlRepoMock.mock(
-      'insertRecords',
-      new List<Database.SaveResult>{
-        TestUtil.getMockSaveResult('{"success":true}')
-      }
-    );
-
-    List<Case> lstCases = new List<Case>{
-      new Case(
-        Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
-        AccountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
-        RecordTypeId = GetHelpConstants.NPP_DISPUTE_RT_ID,
-        Type = GetHelpConstants.RESIDENTIAL_ADDRESS_QA,
-        Status = GetHelpConstants.UNDER_INVESTIGATION_STATUS,
-        Dispute_Reason__c = 'Unauthorised Transaction'
-      )
-    };
-    Case oldCase = TestDataFactory.createCase('NPP_Dispute');
-    oldCase.Dispute_Reason__c = 'Unauthorised Transaction';
-    oldCase.Status = 'On Hold';
+  public static void testCaseProvisionallyClosedDateTimeUpdateScenario() {
+    List<Case> cases = new List<Case>{ case1, case2, case3 };
+    Map<Id, Case> oldMap = new Map<Id, Case>{ case0.Id => case0 };
 
     Test.startTest();
-    GetHelpCaseActions.createExternalCaseStatuses(
-      lstCases,
-      new Map<Id, Case>{ lstCases[0].Id => oldCase }
-    );
+    GetHelpCaseActions.handleProvisionallyClosedDateTimeField(oldMap, cases);
     Test.stopTest();
-    List<External_Case_Status__c> extCaseStatuses = (List<External_Case_Status__c>) dmlRepoMock.getHistory(
-        'insertRecords'
-      )
-      .getParam('records');
-    Assert.isTrue(
-      extCaseStatuses.size() == 1,
-      'Only one external case record should be created'
+
+    Assert.areEqual(
+      case1.Date_Time_Provisionally_Closed__c,
+      DateTime.now(),
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE
     );
-    Assert.isTrue(
-      extCaseStatuses[0].Case__c == lstCases[0].Id,
-      'External Case Status is not created correctly'
+    Assert.areEqual(
+      case2.Date_Time_Provisionally_Closed__c,
+      DateTime.now(),
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE
+    );
+    Assert.areEqual(
+      case3.Date_Time_Provisionally_Closed__c,
+      null,
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_NULL
     );
   }
 
   @isTest
-  public static void testExternalCaseStatusNotCreated() {
-    registerMocks();
-
-    dmlRepoMock.mock(
-      'insertRecords',
-      new List<Database.SaveResult>{
-        TestUtil.getMockSaveResult('{"success":false}')
-      }
-    );
-    Case theCase = TestDataFactory.createCase('NPP_Dispute');
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    Case oldCase = theCase;
-    oldCase.Status = 'On Hold';
+  public static void testCaseProvisionallyClosedDateTimeInsertScenario() {
+    List<Case> cases = new List<Case>{ case0, case2 };
 
     Test.startTest();
-    GetHelpCaseActions.createExternalCaseStatuses(
-      new List<Case>{ theCase },
-      new Map<Id, Case>{ theCase.Id => oldCase }
-    );
+    GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, cases);
     Test.stopTest();
-    List<External_Case_Status__c> extCaseStatuses = (List<External_Case_Status__c>) dmlRepoMock.getHistory(
-        'insertRecords'
-      )
-      .getParam('records');
-    Assert.isTrue(
-      extCaseStatuses.size() == 0,
-      'Only one external case record should be created'
-    );
-  }
 
-  @isTest
-  public static void testMarkSlaStatus() {
-    Case theCase = TestDataFactory.createCase('Credit_Referral');
-    theCase.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
-    theCase.Status = 'On Hold';
-    Case oldCase = TestDataFactory.createCase('Credit_Referral');
-    Test.startTest();
-    GetHelpCaseActions.markSLAStatus(
-      new List<Case>{ theCase },
-      new Map<Id, Case>{ theCase.Id => oldCase }
+    Assert.areEqual(
+      case0.Date_Time_Provisionally_Closed__c,
+      null,
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_NULL
     );
-    Test.stopTest();
-    Assert.isTrue(theCase.IsStopped, 'IsStopped should be true');
+    Assert.areEqual(
+      case2.Date_Time_Provisionally_Closed__c,
+      DateTime.now(),
+      MSG_DATE_TIME_PROVISIONALLY_CLOSED_CURRENT_DATE
+    );
   }
 }

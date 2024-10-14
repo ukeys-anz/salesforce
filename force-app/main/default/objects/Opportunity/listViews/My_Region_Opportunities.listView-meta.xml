@@ -26,6 +26,11 @@
     <filterScope>Everything</filterScope>
     <label>My Region Opportunities</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <role>SME_General_Manager</role>
+        <roleAndSubordinatesInternal>CBO_General_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>DSI_General_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>PB_General_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SME_State_Head</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>TB_General_Manager</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

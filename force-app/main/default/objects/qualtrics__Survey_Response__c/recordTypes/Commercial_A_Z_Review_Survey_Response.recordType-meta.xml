@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commercial_A_Z_Review_Survey_Response</fullName>
+    <active>true</active>
+    <description>Commercial A-Z Review Survey Response</description>
+    <label>Commercial A-Z Review Survey Response</label>
+    <picklistValues>
+        <picklist>NPS_Groups__c</picklist>
+        <values>
+            <fullName>Detractor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Passive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Promoter</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Did_we_offer_lowest_bid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Expectations_Met__c</picklist>
+        <values>
+            <fullName>Equals expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceeds expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Far exceeds expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Far short of expectations</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Short of expectations</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Other_Vendor_offer_lowest_bid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Overal_Satisfaction__c</picklist>
+        <values>
+            <fullName>Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neutral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Satisfied</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Overall_Satisfaction__c</picklist>
+        <values>
+            <fullName>Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Neutral</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Satisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Dissatisfied</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Very Satisfied</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Respondent_Role__c</picklist>
+        <values>
+            <fullName>I am a major influencer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I am the sole decision maker</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I have little or no role in these decisions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I participate with others in making these decisions</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Team_Knowledgeable__c</picklist>
+        <values>
+            <fullName>Above Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Below Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceptional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Team_Pleasant_to_work_with__c</picklist>
+        <values>
+            <fullName>Above Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Below Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceptional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Team_Professional__c</picklist>
+        <values>
+            <fullName>Above Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Below Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceptional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Team_Understood_your_Needs__c</picklist>
+        <values>
+            <fullName>Above Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Below Average</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Exceptional</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Poor</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Timeline_Met__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Vendors_Considered__c</picklist>
+        <values>
+            <fullName>Company A</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>qualtrics__Vendors_Using__c</picklist>
+        <values>
+            <fullName>Company A</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

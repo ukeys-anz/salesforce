@@ -101,7 +101,7 @@ public with sharing class SOPDebtModel extends CalloutModel {
      */
     public Integer nanos {
       get {
-        return nanos * 10000000;
+        return nanos != null ? nanos * 10000000 : null;
       }
       set;
     }

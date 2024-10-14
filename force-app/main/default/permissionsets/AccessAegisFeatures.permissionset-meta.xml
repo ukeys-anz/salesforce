@@ -14,6 +14,10 @@
     </customPermissions>
     <customPermissions>
         <enabled>true</enabled>
+        <name>DeregisterDevice</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
         <name>LockPin</name>
     </customPermissions>
     <customPermissions>

@@ -7,7 +7,6 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
-    <filterScope>Mine</filterScope>
     <filters>
         <field>CASES.LAST_UPDATE_DATE_ONLY</field>
         <operation>lessOrEqual</operation>
@@ -18,8 +17,9 @@
         <operation>notEqual</operation>
         <value>Resolved,Closed</value>
     </filters>
+    <filterScope>Mine</filterScope>
     <label>My Inactive Cases</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
