@@ -1,7 +1,3 @@
-/**
- * @last modified on  : 10-10-2024
- * @last modified by  : Madhuri Edke | Salesforce
- **/
 
 @IsTest
 private class ListUtilTest {
@@ -590,7 +586,7 @@ private class ListUtilTest {
     Test.stopTest();
 
     Assert.areEqual(
-      new List<Account>{ accounts[1] },
+      new List<Account>{ accounts[1] , accounts[2] },
       results,
       'Expected accounts without specified Name'
     );
@@ -794,7 +790,7 @@ private class ListUtilTest {
     Test.stopTest();
 
     Assert.areEqual(
-      new List<MyAccount>{ myAccounts[0] },
+      new List<MyAccount>{ myAccounts[0],myAccounts[2] },
       results,
       'Expected first account'
     );

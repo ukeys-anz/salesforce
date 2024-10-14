@@ -57,7 +57,7 @@ public class GenericFilterBuilder {
     List<Object> output = this.handler.emptyList;
     for (Object record : this.records) {
       String fieldValue = String.valueOf(this.handler.get(record, field));
-      if (String.isNotBlank(fieldValue) || fieldValue.contains(subString) == false) {
+      if (fieldValue == null || fieldValue.contains(subString) == false) {
         output.add(record);
       }
     }
