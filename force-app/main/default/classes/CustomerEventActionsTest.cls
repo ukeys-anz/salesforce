@@ -1,8 +1,8 @@
 /**
  * @description       : Test Class for CustomerEventActions
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-27-2024
- * @last modified by  : Smruti Khobragade |  Salesforce
+ * @last modified on  : 10-08-2024
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
 @isTest
 public with sharing class CustomerEventActionsTest {
@@ -10,33 +10,6 @@ public with sharing class CustomerEventActionsTest {
       Account.SObjectType
     )
     .getId('PersonAccount');
-
-  /*
-   * @description unit test for filterBrokerOrgSyncStatus
-   */
-  @isTest
-  static void filterBrokerOrgSyncStatusTest() {
-    List<Account> accList = createCustomerAccount(2);
-    Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
-    accList[0].Sync_Status__c = 'Blocked';
-
-    Test.startTest();
-    List<Account> result = CustomerEventActions.filterBrokerOrgSyncStatus(
-      accList,
-      oldMap
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      1,
-      result.size(),
-      'Expected one account with valid sync status'
-    );
-    Assert.areEqual(
-      'Broker Org',
-      result[0].Sync_Status__c,
-      'Expected Sync Status is Broker Org'
-    );
-  }
 
   /*
    * @description unit test for filterOCVVersionUpdate
@@ -78,6 +51,9 @@ public with sharing class CustomerEventActionsTest {
    */
   @isTest
   static void publishEventForCustomersTest() {
+    CustomerEventActions.mockBrokerSettings = new BrokerSettings__c(
+      BypassCustomerSyncEvents__c = false
+    );
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
