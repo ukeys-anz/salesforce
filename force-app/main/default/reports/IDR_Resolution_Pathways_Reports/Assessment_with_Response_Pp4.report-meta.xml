@@ -32,6 +32,9 @@
         <field>Assessment$Case.IDR_Complaint_Outcome__c</field>
     </columns>
     <columns>
+        <field>Assessment$Case.Fraud_Customer_Resolution_Provided__c</field>
+    </columns>
+    <columns>
         <field>Assessment$Case.IDR_Complaint_Remedy__c</field>
     </columns>
     <columns>
@@ -50,7 +53,7 @@
         <field>Assessment$Case.IDR_Complaint_Sub_Remedy_3__c</field>
     </columns>
     <columns>
-        <field>Assessment$Case.Fraud_Customer_Resolution_Provided__c</field>
+        <field>Assessment$Case.IDR_Total_Financial_Amount__c</field>
     </columns>
     <columns>
         <field>Assessment$Case.Type</field>
