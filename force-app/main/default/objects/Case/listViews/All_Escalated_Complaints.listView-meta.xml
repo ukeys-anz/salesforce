@@ -9,14 +9,14 @@
     <columns>CORE.USERS.ALIAS</columns>
     <columns>IDR_NC_First_Name__c</columns>
     <columns>IDR_NC_Last_Name__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
         <value>Escalated</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Escalated Complaints</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

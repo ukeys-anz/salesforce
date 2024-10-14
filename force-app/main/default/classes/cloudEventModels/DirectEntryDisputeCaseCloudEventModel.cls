@@ -46,7 +46,7 @@ public with sharing class DirectEntryDisputeCaseCloudEventModel extends DisputeC
     /**
      * @description is this a business customer (TBF)
      */
-    public String isBusinessCustomer { get; set; }
+    public Boolean isBusinessCustomer { get; set; }
 
     /**
      * @description Constructor
@@ -68,7 +68,8 @@ public with sharing class DirectEntryDisputeCaseCloudEventModel extends DisputeC
           theCase.Amount_Of_Authorised_Transaction__c
         );
       }
-      this.isBusinessCustomer = theCase.Is_this_a_Business_Customer__c;
+      this.isBusinessCustomer = (theCase.Is_this_a_Business_Customer__c ==
+      'Yes');
     }
   }
 }

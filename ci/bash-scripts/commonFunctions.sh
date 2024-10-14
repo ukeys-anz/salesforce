@@ -89,7 +89,7 @@ function changeMetadata(){
             replace=$( sed 's+<userPermissions> <enabled>true</enabled> <name>CustomizeApplication</name> </userPermissions>++g' "$1")
             echo $replace > "$1"
         elif [[ $2 == 'NLPReporting' ]]; then
-            replace=$( sed 's+<shares> <accessLevel>Manage</accessLevel> <sharedTo>Engineer</sharedTo> <sharedToType>RoleAndSubordinates</sharedToType> </shares>+<shares> <accessLevel>View</accessLevel> <sharedTo>Engineer</sharedTo> <sharedToType>RoleAndSubordinates</sharedToType> </shares>+g' "$1")
+            replace=$( sed 's+<shares> <accessLevel>Manage</accessLevel> <sharedTo>Engineer</sharedTo> <sharedToType>roleAndSubordinatesInternal</sharedToType> </shares>+<shares> <accessLevel>View</accessLevel> <sharedTo>Engineer</sharedTo> <sharedToType>roleAndSubordinatesInternal</sharedToType> </shares>+g' "$1")
             echo $replace > "$1"
         elif [[ $2 == 'myTrailheadContentAccess' ]];then
             replace=$( sed 's+<classAccesses> <apexClass>TH_Assignments</apexClass> <enabled>true</enabled> </classAccesses>++g' "$1")

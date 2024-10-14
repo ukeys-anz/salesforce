@@ -12,8 +12,8 @@
     <label>Days In Excess</label>
     <precision>18</precision>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
     <scale>0</scale>
+    <securityClassification>Confidential</securityClassification>
     <type>Number</type>
     <unique>false</unique>
 </CustomField>

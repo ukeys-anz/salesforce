@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">v
     <classAccesses>
         <apexClass>CCRMAPIRepository</apexClass>
         <enabled>true</enabled>
@@ -113,6 +113,26 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>FinancialSummaryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryResponseWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>LeadTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -124,6 +144,10 @@
         <apexClass>MLCRMOpportunityActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>Financial_Summary_Setting__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Baseline PS for using the Mobile Lending CRM app giving read only access to fields
 CC-6187 - read only to fields for ML Field Team users</description>
     <fieldPermissions>
@@ -386,7 +410,7 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <field>Account.Survivor_Party_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
-   <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account_Relationship__x.Customer__c</field>
         <readable>true</readable>
@@ -420,7 +444,57 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <editable>false</editable>
         <field>Account_Relationship__x.Sequence__c</field>
         <readable>true</readable>
-    </fieldPermissions>v
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Credit_Card__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Deposit_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Loan_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Number_Tokenised__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Term_Deposit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Additional_Information__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Balance_History__x.Additional_Information__c</field>
@@ -2908,6 +2982,15 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
+        <object>Account_Registration__x</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Balance_History__x</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -2981,6 +3064,15 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>ContactPointPhone</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Financial_Summary_Calculation__e</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

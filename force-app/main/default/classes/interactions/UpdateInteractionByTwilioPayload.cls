@@ -52,4 +52,8 @@ global class UpdateInteractionByTwilioPayload {
    * @description isConference to detect whether the conference happened
    */
   public Boolean isConference { get; set; }
+  /**
+  * @description nlpTopic : NLP Topic comes from twilio
+  */
+  public String nlpTopic { get; set; }
 }

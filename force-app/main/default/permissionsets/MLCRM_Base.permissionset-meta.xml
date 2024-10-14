@@ -193,6 +193,26 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>FinancialSummaryController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryResponseWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryTest</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryWrapper</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>FinancialSummaryRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HttpCalloutResponse</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -244,6 +264,14 @@
         <name>DCRM_StateMapping__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>Financial_Summary_Setting__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>View_C360_Financial_Summary</name>
+    </customPermissions>
     <description>Baseline PS for using the Mobile Lending CRM app.</description>
     <fieldPermissions>
         <editable>true</editable>
@@ -588,6 +616,56 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account_Relationship__x.Sequence__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Credit_Card__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Deposit_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Loan_Account__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Number_Tokenised__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Term_Deposit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Registration__x.Additional_Information__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2555,7 +2633,7 @@
         <field>Territory__c.Territory_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Transaction_History__x.Additional_Information__c</field>
         <readable>true</readable>
@@ -3205,7 +3283,7 @@
         <field>Diary_Comment__x.Sequence__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Diary_Comment__x.Work_Queue__c</field>
         <readable>true</readable>
@@ -3297,6 +3375,15 @@
         <allowEdit>false</allowEdit>
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
+        <object>Account_Registration__x</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
         <object>Balance_History__x</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
@@ -3361,6 +3448,15 @@
         <allowRead>true</allowRead>
         <modifyAllRecords>false</modifyAllRecords>
         <object>ContactPointPhone</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Financial_Summary_Calculation__e</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <objectPermissions>

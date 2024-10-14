@@ -10,14 +10,14 @@
     <columns>OWNER_NAME</columns>
     <columns>IDR_NC_First_Name__c</columns>
     <columns>IDR_NC_Last_Name__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.Customer_Complaint</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Customer Complaints</label>
     <sharedTo>
-        <roleAndSubordinates>ANZ</roleAndSubordinates>
+        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
