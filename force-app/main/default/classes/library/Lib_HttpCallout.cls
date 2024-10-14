@@ -7,6 +7,24 @@
  * @group Library
  */
 public with sharing class Lib_HttpCallout {
+
+  private Boolean logResponseBody ;
+
+  /**
+  * @description Constructor to set default value of logResponseBody to log the response body in secure log entries.
+  */
+  public Lib_HttpCallout(){
+    this.logResponseBody = true;
+  }
+
+  /**
+  * @param logResponseBodyOrNot this boolean value will decide whether you want to log response body in secure log
+  * @description Parameterized Constructor to identify whether to log response body or not in secure logs
+  */
+  public Lib_HttpCallout(Boolean logResponseBodyOrNot){
+    this.logResponseBody = logResponseBodyOrNot;
+  }
+
   /**
    * @param endpoint API endpoint to make the request against
    * @param method which HTTP method to use
@@ -90,7 +108,9 @@ public with sharing class Lib_HttpCallout {
       response = http.send(request);
       Logger.debug('HttpResponse Header')
         .setPayload(JSON.serializePretty(getHeaders(response)));
-      Logger.debug('HttpResponse Body').setPayload(response.getBody());
+      if(logResponseBody){
+        Logger.debug('HttpResponse Body').setPayload(response.getBody());
+      }
       Logger.debug('HttpResponse Status Code: ' + response.getStatusCode());
       if (response == null) {
         callResponse.successful = false;
