@@ -207,7 +207,7 @@ public with sharing class ResidentialLoanApplicationActions {
     List<ResidentialLoanApplication> rlaFilteredRecords = ListUtil.filter(
         records
       )
-      .notEquals(ResidentialLoanApplication.Sync_Status__c, '')
+      .isNotNull(ResidentialLoanApplication.Sync_Status__c)
       .notContains(
         ResidentialLoanApplication.Sync_Status__c,
         SYNC_STATUS_BLOCKED
