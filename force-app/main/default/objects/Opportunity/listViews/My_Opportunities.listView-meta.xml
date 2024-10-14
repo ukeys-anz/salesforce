@@ -4,7 +4,6 @@
     <columns>OPPORTUNITY.NAME</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>OPPORTUNITY.AMOUNT</columns>
-    <columns>Multiple_Products__c</columns>
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>Progress_Indicator__c</columns>
