@@ -5,6 +5,10 @@
  * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class BrokerSettingRepository {
+  /**
+   * @description
+   * @return  `BrokerSettings__c` Broker Setting defaults
+   */
   public BrokerSettings__c getBrokerSettings() {
     return BrokerSettings__c.getOrgDefaults();
   }
