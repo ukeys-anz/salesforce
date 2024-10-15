@@ -321,10 +321,20 @@ public with sharing class ResidentialLoanApplicationActions {
       if (!response.successful) {
         throw CommonUtil.logException(response);
       }
-      ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
-        rlaObject
+
+      DML_REPOSITORY.doUpdate(
+        ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
+          rlaObject
+        ),
+        new DmlConfig()
       );
-      ResidentialLoanApplicationHelper.postNotesToChatter(rlaObject);
+
+      ChatterUtils.makeAPost(
+        rlaObject.get('recordId'),
+        ResidentialLoanApplicationHelper.postNotesToChatter(rlaObject),
+        ChatterUtils.POST_TYPE_RICH_TEXT
+      );
+
       return 'success';
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
@@ -364,7 +374,7 @@ public with sharing class ResidentialLoanApplicationActions {
     Map<Id, ResidentialLoanApplication> oldRlaRecords
   ) {
     try {
-      Set<Id> rlaRecordIds = filterRlaAndReturnCancelledStatusRecords(
+      Set<Id> rlaRecordIds = getCancelledRlaRecordsPostChatter(
         newRlaRecords.values(),
         oldRlaRecords
       );
@@ -376,7 +386,9 @@ public with sharing class ResidentialLoanApplicationActions {
       List<Case> masterCaseList = RLA_REPOSITORY.queryRelatedCreditReferralCases(
         rlaRecordIds
       );
-
+      if (masterCaseList.isEmpty()) {
+        return;
+      }
       List<Case> caseRecordsToBeUpdated = prepareCaseWithFieldsUpdate(
         masterCaseList,
         newRlaRecords
@@ -403,9 +415,6 @@ public with sharing class ResidentialLoanApplicationActions {
     List<Case> masterCaseList,
     Map<Id, ResidentialLoanApplication> newRlaRecords
   ) {
-    if (masterCaseList.isEmpty()) {
-      return new List<Case>();
-    }
     List<Case> caseRecordsToBeUpdated = new List<Case>();
     for (Case caseRecord : masterCaseList) {
       if (
@@ -429,7 +438,7 @@ public with sharing class ResidentialLoanApplicationActions {
    * @return Residential Loan Application records with Cancelled status to process
    */
   @TestVisible
-  public static Set<Id> filterRlaAndReturnCancelledStatusRecords(
+  public static Set<Id> getCancelledRlaRecordsPostChatter(
     List<ResidentialLoanApplication> newRlaRecords,
     Map<Id, ResidentialLoanApplication> oldRlaRecords
   ) {
@@ -443,9 +452,12 @@ public with sharing class ResidentialLoanApplicationActions {
         )) && (rlaRecord.Status == BOHConstants.rlaStateCancelledStatus)
       ) {
         rlaRecordIds.add(rlaRecord.Id);
-        ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
-          oldRlaRecords.get(rlaRecord.Id).Status,
-          rlaRecord.Id
+        ChatterUtils.makeAPost(
+          rlaRecord.Id,
+          ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
+            oldRlaRecords.get(rlaRecord.Id).Status
+          ),
+          ChatterUtils.POST_TYPE_RICH_TEXT
         );
       }
     }

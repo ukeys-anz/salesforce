@@ -24,16 +24,13 @@ public with sharing class ChatterUtils {
     String postContents,
     String postType
   ) {
-    String info;
     if (!Test.isRunningTest()) {
       if (postType == POST_TYPE_RICH_TEXT) {
-        info = RealChatterPoster.makeAPostWithRichText(recordId, postContents);
-      } else {
-        info = RealChatterPoster.makeAPost(recordId, postContents);
+        return RealChatterPoster.makeAPostWithRichText(recordId, postContents);
       }
+      return RealChatterPoster.makeAPost(recordId, postContents);
     } else {
-      info = MockChatterPoster.makeAPost('MockParentRecordId', 'MockingPost');
+      return MockChatterPoster.makeAPost('MockParentRecordId', 'MockingPost');
     }
-    return info;
   }
 }

@@ -74,8 +74,9 @@ public with sharing class ResidentialLoanApplicationHelper {
   /**
    * @description update fields on residential loan application cancellation
    * @param fieldInfo map of fields to update
+   * @return `loanApplication` Residential Loan Application
    */
-  public static void updateFieldsOnLoanCancellation(
+  public static ResidentialLoanApplication updateFieldsOnLoanCancellation(
     Map<String, String> fieldInfo
   ) {
     ResidentialLoanApplication loanApplication = new ResidentialLoanApplication();
@@ -86,14 +87,15 @@ public with sharing class ResidentialLoanApplicationHelper {
     loanApplication.Other_Cancellation_Reason__c = fieldInfo.get(
       'Other_Cancellation_Reason__c'
     );
-    DML_REPOSITORY.doUpdate(loanApplication, new DmlConfig());
+    return loanApplication;
   }
 
   /**
    * @description postNotesToChatter post notes to chatter
    * @param fieldInfo map of fields to update
+   * @return `postContent` Chatter post content
    */
-  public static void postNotesToChatter(Map<String, String> fieldInfo) {
+  public static String postNotesToChatter(Map<String, String> fieldInfo) {
     String status = CommonUtil.getSinglePicklistLabel(
       ResidentialLoanApplication.Status,
       fieldInfo.get('status')
@@ -114,35 +116,22 @@ public with sharing class ResidentialLoanApplicationHelper {
     if (String.isBlank(fieldInfo.get('Other_Cancellation_Reason__c'))) {
       postContent = postContent.replace('<p><b>Other Reason: </b>null</p>', '');
     }
-    ChatterUtils.makeAPost(
-      fieldInfo.get('recordId'),
-      postContent,
-      ChatterUtils.POST_TYPE_RICH_TEXT
-    );
+    return postContent;
   }
 
   /**
    * @description postNotesToChatterWhenCancelled post notes to chatter when RLA status changed to Cancelled
    * @param oldStatus oldStatus previous status of RLA
-   * @param newRLAId newRLAId Id of RLA
+   * @return Chatter post content
    */
-  public static void postNotesToChatterWhenCancelled(
-    String oldStatus,
-    Id newRLAId
-  ) {
+  public static String postNotesToChatterWhenCancelled(String oldStatus) {
     String status = CommonUtil.getSinglePicklistLabel(
       ResidentialLoanApplication.Status,
       oldStatus
     );
-    String postContent =
-      'Application Status updated' +
+    return 'Application Status updated' +
       '<p><b>Status: </b>' +
       status +
       ' to Cancelled</p>';
-    ChatterUtils.makeAPost(
-      newRLAId,
-      postContent,
-      ChatterUtils.POST_TYPE_RICH_TEXT
-    );
   }
 }
