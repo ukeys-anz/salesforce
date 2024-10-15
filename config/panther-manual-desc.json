@@ -754,7 +754,10 @@
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
     },
     "BrokerSettings__c": {
-      "IA-253075": ["BypassApplicationSyncEvents__c"]
+      "IA-253075": [
+        "BypassApplicationSyncEvents__c",
+        "BypassCustomerSyncEvents__c"
+      ]
     },
     "Campaign": {
       "IA-2415860": [
@@ -2295,11 +2298,7 @@
       ]
     },
     "Financial_Summary_Setting__mdt": {
-      "IA-2453350":[
-        "Active__c",
-        "Summary_Name__c",
-        "User_Profile__c"
-      ]
+      "IA-2453350": ["Active__c", "Summary_Name__c", "User_Profile__c"]
     },
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],

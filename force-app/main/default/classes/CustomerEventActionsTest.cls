@@ -1,8 +1,8 @@
 /**
  * @description       : Test Class for CustomerEventActions
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-27-2024
- * @last modified by  : Smruti Khobragade |  Salesforce
+ * @last modified on  : 10-08-2024
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
 @isTest
 public with sharing class CustomerEventActionsTest {
@@ -11,32 +11,9 @@ public with sharing class CustomerEventActionsTest {
     )
     .getId('PersonAccount');
 
-  /*
-   * @description unit test for filterBrokerOrgSyncStatus
-   */
-  @isTest
-  static void filterBrokerOrgSyncStatusTest() {
-    List<Account> accList = createCustomerAccount(2);
-    Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
-    accList[0].Sync_Status__c = 'Blocked';
-
-    Test.startTest();
-    List<Account> result = CustomerEventActions.filterBrokerOrgSyncStatus(
-      accList,
-      oldMap
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      1,
-      result.size(),
-      'Expected one account with valid sync status'
-    );
-    Assert.areEqual(
-      'Broker Org',
-      result[0].Sync_Status__c,
-      'Expected Sync Status is Broker Org'
-    );
-  }
+  static Lib_MockProvider brokerRepoMock = Lib_MockProvider.forType(
+    BrokerSettingRepository.class
+  );
 
   /*
    * @description unit test for filterOCVVersionUpdate
@@ -78,6 +55,9 @@ public with sharing class CustomerEventActionsTest {
    */
   @isTest
   static void publishEventForCustomersTest() {
+    BrokerSettings__c brokerCustomSetting = createBrokerSettingRecord();
+    brokerRepoMock.mock('getBrokerSettings', brokerCustomSetting);
+
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
@@ -143,5 +123,18 @@ public with sharing class CustomerEventActionsTest {
       acc.OCV_Event_Version__c = 0;
     }
     return new Map<Id, Account>(oldAccList);
+  }
+
+  /*
+   * @description Test Method to create BrokerSetting record
+   */
+  static BrokerSettings__c createBrokerSettingRecord() {
+    BrokerSettings__c brokerCustomSettting = new BrokerSettings__c();
+    brokerCustomSettting.Name = 'Default';
+    brokerCustomSettting.BypassCustomerSyncEvents__c = false;
+    brokerCustomSettting.id = Lib_FakeIdGenerator.getMockId(
+      BrokerSettings__c.SObjectType
+    );
+    return brokerCustomSettting;
   }
 }

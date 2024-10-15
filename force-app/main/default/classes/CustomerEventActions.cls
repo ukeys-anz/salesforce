@@ -1,11 +1,15 @@
 /**
  * @description       : Service layer for GCP event related actions for customer event
  * @author            : Madhuri Edke | Salesforce
- * @last modified on  : 09-27-2024
- * @last modified by  : Smruti Khobragade |  Salesforce
+ * @last modified on  : 10-09-2024
+ * @last modified by  : Madhuri Edke | Salesforce
  **/
 public with sharing class CustomerEventActions {
   public static final String CUSTOMER_EVENT_UPDATE = 'update';
+  private static final BrokerSettingRepository BROKER_SETTING_REPOSITORY = (BrokerSettingRepository) Lib_InstanceProvider.forType(
+    BrokerSettingRepository.class
+  );
+
   /**
    * @description  Generate and dispatch customer cloud events
    * This function is designed to be a void function as it's the end of the publish process.
@@ -21,15 +25,33 @@ public with sharing class CustomerEventActions {
     String triggerContext
   ) {
     try {
+      //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
+      if (
+        BROKER_SETTING_REPOSITORY.getBrokerSettings()
+          .BypassCustomerSyncEvents__c == true
+      ) {
+        return null;
+      }
       List<Account> accBasedOnOCVVersion = filterOCVVersionUpdate(
         records,
         oldMap
       );
 
-      List<Account> filteredAccounts = filterBrokerOrgSyncStatus(
-        accBasedOnOCVVersion,
-        oldMap
-      );
+      List<Account> filteredAccounts = ListUtil.filter(
+          accBasedOnOCVVersion,
+          oldMap
+        )
+        .isNotNull(Account.Sync_Status__c)
+        .oldNotEquals(Account.Sync_Status__c, null)
+        .notContains(
+          Account.Sync_Status__c,
+          BrokerConstants.SYNC_STATUS_BLOCKED
+        )
+        .contains(
+          Account.Sync_Status__c,
+          BrokerConstants.SYNC_STATUS_BROKER_ORG
+        )
+        .toList();
 
       Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodesByAccountIdMap = generateCustomerCEModel(
         filteredAccounts
@@ -51,31 +73,6 @@ public with sharing class CustomerEventActions {
       Logger.saveLog();
       return null;
     }
-  }
-
-  /**
-   * @description Validate if account sync status is valid or not.
-   * @param records The Account records
-   * @param oldMap old trigger values
-   * @return List<Account> The account records that has a valid sync status.
-   */
-  @TestVisible
-  private static List<Account> filterBrokerOrgSyncStatus(
-    List<Account> records,
-    Map<Id, Account> oldMap
-  ) {
-    List<Account> filteredAccounts = new List<Account>();
-    for (Account record : records) {
-      if (
-        record.Sync_Status__c != null &&
-        oldMap.get(record.id).Sync_Status__c != null &&
-        !record.Sync_Status__c.contains(BrokerConstants.SYNC_STATUS_BLOCKED) &&
-        record.Sync_Status__c.contains(BrokerConstants.SYNC_STATUS_BROKER_ORG)
-      ) {
-        filteredAccounts.add(record);
-      }
-    }
-    return filteredAccounts;
   }
 
   /**
