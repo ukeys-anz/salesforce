@@ -6,7 +6,7 @@
     <description>This field will track the sub team code that the NBC Bankers belongs to</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Sub Team Code</label>
+    <label>Pod</label>
     <length>100</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

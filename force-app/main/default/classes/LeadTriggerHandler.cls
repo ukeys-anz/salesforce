@@ -79,10 +79,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMLeadActionsHelper.transferLeadOwnership(
-      (List<Lead>) records,
-      (Map<Id, Lead>) oldMap
-    );
     //Check ABN and ACN
     AbnAcnUtil.validateABN(records, (Map<Id, Lead>) oldMap);
     AbnAcnUtil.validateACN(records, (Map<Id, Lead>) oldMap);
@@ -166,7 +162,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     //Keep these methods at end
     CCRMLeadActions.sendManualLeadsToUnica(records, null);
     CCRMLeadActions.copyLeadId(records);
-    CCRMRegionSharingUtil.shareLeadsToOwnerRegion(records);
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Lead');
     CCRMLeadActions.notifyLeadOwners(null, records);
   }
@@ -180,10 +175,6 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     if (!checkRecursive.firstCall) {
       CheckRecursive.run();
       CCRMLeadActions.validateAbnAcnForCallout(records, (Map<Id, Lead>) oldMap);
-      CCRMRegionSharingUtil.shareLeadsToUpdatedOwnerRegion(
-        records,
-        (Map<Id, Lead>) oldMap
-      );
       //Keep this at end
       if (!System.isFuture()) {
         CCRMLeadActions.publishLeadResponseUpdateToAdobeOrUnica(
