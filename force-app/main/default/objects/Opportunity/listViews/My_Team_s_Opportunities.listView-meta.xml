@@ -29,6 +29,6 @@
     <label>My Team&apos;s Opportunities</label>
     <sharedTo>
         <role>SME_General_Manager</role>
-        <roleAndSubordinatesInternal>SME_Head_of_NBC</roleAndSubordinatesInternal>
+        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

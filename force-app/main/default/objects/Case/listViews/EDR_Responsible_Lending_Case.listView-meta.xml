@@ -21,6 +21,6 @@
     <filterScope>Everything</filterScope>
     <label>EDR CM Responsible Lending</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
