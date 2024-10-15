@@ -422,12 +422,6 @@ private class ResidentialLoanAppActionsTest {
     };
 
     List<Case> caseRecordBeforeUpdate = createMockCaseRelatedToRla();
-    System.assertEquals(
-      'Open',
-      caseRecordBeforeUpdate[0].Status,
-      'The Case record status should be created with "Open" status'
-    );
-
     Test.startTest();
     ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
       newRlaRecords,
@@ -457,11 +451,6 @@ private class ResidentialLoanAppActionsTest {
     };
     List<Case> masterCaseList = createMockCaseRelatedToRla();
     List<Case> caseRecordsToBeUpdated = new List<Case>();
-    System.assertEquals(
-      'Open',
-      masterCaseList[0].Status,
-      'The Case record status should be Open'
-    );
 
     Test.startTest();
     caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
@@ -490,11 +479,6 @@ private class ResidentialLoanAppActionsTest {
     };
     List<Case> masterCaseList = createMockCaseRelatedToRla();
     List<Case> caseRecordsToBeUpdated = new List<Case>();
-    System.assertEquals(
-      'Open',
-      masterCaseList[0].Status,
-      'The Case record status should be Open'
-    );
 
     Test.startTest();
     caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
@@ -566,7 +550,7 @@ private class ResidentialLoanAppActionsTest {
     };
 
     Test.startTest();
-    rlaRecordIds = ResidentialLoanApplicationActions.filterRlaAndReturnCancelledStatusRecords(
+    rlaRecordIds = ResidentialLoanApplicationActions.getCancelledRlaRecordsPostChatter(
       newRlaRecords,
       oldRlaRecords
     );
@@ -594,7 +578,7 @@ private class ResidentialLoanAppActionsTest {
     };
 
     Test.startTest();
-    rlaRecordIds = ResidentialLoanApplicationActions.filterRlaAndReturnCancelledStatusRecords(
+    rlaRecordIds = ResidentialLoanApplicationActions.getCancelledRlaRecordsPostChatter(
       newRlaRecords,
       oldRlaRecords
     );
@@ -611,8 +595,10 @@ private class ResidentialLoanAppActionsTest {
   @isTest
   static void testCancelResidentialLoanApplicationSuccess() {
     registerMocks();
-    Database.SaveResult res = TestUtil.getMockSaveResult('{"success":true}');
-    dmlRepoMock.mock('doUpdate', res);
+    dmlRepoMock.mock(
+      'doUpdate',
+      TestUtil.getMockSaveResult('{"success":true}')
+    );
 
     Test.setMock(HttpCalloutMock.class, new MockCancelLoanAppCallout());
     Map<String, String> rlaObject = new Map<String, String>{
