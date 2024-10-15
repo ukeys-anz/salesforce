@@ -152,34 +152,34 @@ public with sharing class IDRComplaintFlagActions {
   private static String getProductListJson(Case c) {
     List<IDRComplaintProducts> complaintProductList = new List<IDRComplaintProducts>();
 
-    if (IDRCollectionActions.productNameMap.containsKey(c.Product__c)) {
+    if (QueryProducts.getById(c.Product__c) != null) {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.Type,
-          IDRCollectionActions.productNameMap.get(c.Product__c).Name
+          QueryProducts.getById(c.Product__c).Name
         )
       );
     }
     if (
       c.IDR_Second_Issue__c &&
-      IDRCollectionActions.productNameMap.containsKey(c.IDR_Product_2__c)
+      QueryProducts.getById(c.IDR_Product_2__c) != null
     ) {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.IDR_Issue_Type_2__c,
-          IDRCollectionActions.productNameMap.get(c.IDR_Product_2__c).Name
+          QueryProducts.getById(c.IDR_Product_2__c).Name
         )
       );
     }
 
     if (
       c.IDR_Third_Issue__c &&
-      IDRCollectionActions.productNameMap.containsKey(c.IDR_Product_3__c)
+      QueryProducts.getById(c.IDR_Product_3__c) != null
     ) {
       complaintProductList.add(
         new IDRComplaintProducts(
           c.IDR_Issue_Type_3__c,
-          IDRCollectionActions.productNameMap.get(c.IDR_Product_3__c).Name
+          QueryProducts.getById(c.IDR_Product_3__c).Name
         )
       );
     }

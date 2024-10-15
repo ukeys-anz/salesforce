@@ -2,7 +2,6 @@
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <description>Record Page for COB ID Ops Assistance and Fraud Check record types.</description>
     <flexiPageRegions>
-        <name>header</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -46,10 +45,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>header</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-dcba593c-baae-4d28-a529-fe1d82bb8b25</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -107,10 +106,10 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-dcba593c-baae-4d28-a529-fe1d82bb8b25</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-8cd29b0f-4060-4734-b914-dfa2e930e5bc</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -171,10 +170,10 @@
                 <identifier>RecordAegis_Workflow_Id__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-8cd29b0f-4060-4734-b914-dfa2e930e5bc</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-7348b572-c7da-46c4-8521-80900d0f4476</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -195,10 +194,10 @@
                 <identifier>flexipage_column2</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-7348b572-c7da-46c4-8521-80900d0f4476</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-1db74b1b-a7c3-4f29-9108-be6df92201a6</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -239,10 +238,10 @@
                 <identifier>RecordCreatedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-1db74b1b-a7c3-4f29-9108-be6df92201a6</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-d5126d37-3845-4cdf-8fff-7d11794b38ba</name>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -283,10 +282,10 @@
                 <identifier>RecordLastModifiedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-d5126d37-3845-4cdf-8fff-7d11794b38ba</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-97d605cd-dd2f-4485-8a23-5ce9622afeb4</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -307,10 +306,10 @@
                 <identifier>flexipage_column5</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-97d605cd-dd2f-4485-8a23-5ce9622afeb4</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-c5555b3a-d749-466c-9dcb-dfc3867ce671</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -345,10 +344,10 @@
                 <identifier>force_recordDetailPanelMobile</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-c5555b3a-d749-466c-9dcb-dfc3867ce671</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>tabs</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -364,20 +363,20 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>tabs</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-a9cb1ca2-7bcf-4e7c-b4dd-c924439bf26f</name>
         <itemInstances>
             <componentInstance>
                 <componentName>forceChatter:recordFeedContainer</componentName>
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-a9cb1ca2-7bcf-4e7c-b4dd-c924439bf26f</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>Facet-39325b74-0e93-4edf-82a7-ebc3842ea74c</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -392,10 +391,10 @@
                 <identifier>flexipage_tab3</identifier>
             </componentInstance>
         </itemInstances>
+        <name>Facet-39325b74-0e93-4edf-82a7-ebc3842ea74c</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>main</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -417,10 +416,10 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>main</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>sidebar</name>
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
@@ -440,6 +439,7 @@
             </componentInstance>
         </itemInstances>
         <mode>Replace</mode>
+        <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>COB ID Ops Assistance Case Record Page</masterLabel>
