@@ -4,10 +4,13 @@ import modal from "@salesforce/resourceUrl/accreditedDataRecipientCSS";
 import { loadStyle } from "lightning/platformResourceLoader";
 import ADRModal from "c/adrActionModal";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import hasReactivatePermission from "@salesforce/customPermission/Reactivate_ADR";
+import hasSuspendPermission from "@salesforce/customPermission/Suspend_ADR";
 
 const RECORDS_PER_PAGE = 100;
 
 export default class AccreditedDataRecipient extends LightningElement {
+  
   scrollToTop() {
     const cardContent = this.template.querySelector(".centered-container");
     if (cardContent) {
@@ -90,11 +93,14 @@ export default class AccreditedDataRecipient extends LightningElement {
         let buttonVariant = "";
         let isButtonDisabled = true;
 
-        if (item.status === "ACTIVE") {
+        if (item.status === "ACTIVE" && hasSuspendPermission) {
           this.actionName = "Suspend";
           buttonVariant = "destructive";
           isButtonDisabled = false;
-        } else if (item.status === "ANZX_SUSPENDED") {
+        } else if (
+          item.status === "ANZX_SUSPENDED" &&
+          hasReactivatePermission
+        ) {
           this.actionName = "Reactivate";
           buttonVariant = "brand";
           isButtonDisabled = false;

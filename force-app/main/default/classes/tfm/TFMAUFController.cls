@@ -10,6 +10,7 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
   private static final String UPDATEMOBILENUMBER = 'updateMobileNumberAndOcvid';
   private static final String DEREGISTERDEVICE = 'deregisterDevice';
   private static final String ARCHIVEUSER = 'archiveUser';
+  private static final String RESETPIN = 'resetPin';
   /**
    * @param action String value of local method to invoke
    * @param args arg Map that will contain input, output and options Map
@@ -45,6 +46,8 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       return deregisterDevice(input, output, options);
     } else if (methodName.equals(ARCHIVEUSER)) {
       return archiveUser(input, output, options);
+    } else if (methodName.equals(RESETPIN)) {
+      return resetPin(input, output, options);
     }
     return false;
   }
@@ -113,19 +116,60 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     String action = (String) input.get(TFMConstants.ACTION_NAME);
     String mobileNumber = (String) input.get(TFMConstants.AUF_MOBILE_NUMBER);
     String ocvid = (String) input.get(TFMConstants.AUF_OCV_ID);
-    String pin = (String) input.get(TFMConstants.RESET_PIN_KEY);
     try {
       HttpCalloutResponse response = new HttpCalloutResponse();
       if (
         action != TFMConstants.UPDATE_MOBILE_NUMBER &&
-        action != TFMConstants.UPDATE_OCV_NUMBER &&
-        pin == null
+        action != TFMConstants.UPDATE_OCV_NUMBER
       ) {
         return false;
       } else if (action == TFMConstants.UPDATE_MOBILE_NUMBER) {
         response = api.updateMobileNumber(staffModel, mobileNumber);
       } else if (action == TFMConstants.UPDATE_OCV_NUMBER) {
         response = api.updateOcvid(staffModel, ocvid);
+      }
+      output.put(TFMConstants.ISVALID, true);
+      output.put(TFMConstants.SHOWSUCCESSTOAST, true);
+    } catch (TFMAUFAPIRepository.InsufficientAccessException e) {
+      output.put(TFMConstants.ISVALID, false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    } catch (TFMAUFAPIRepository.DuplicateMobileNumberException e) {
+      output.put(TFMConstants.DUPLICATE_MOBILE_NUMBER, true);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    } catch (Exception e) {
+      output.put(TFMConstants.SHOWSUCCESSTOAST, false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    }
+    return true;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description update Mobile number or OCV ID based on user's input
+   */
+  private Boolean resetPin(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    TFMAUFAPIRepository api = new TFMAUFAPIRepository();
+    StaffTokenRequestModel staffModel = TFMCommonFunctionUtility.setStaffModel(
+      (String) input.get(TFMConstants.IDVALUE)
+    );
+    String action = (String) input.get(TFMConstants.ACTION_NAME);
+    String mobileNumber = (String) input.get(TFMConstants.AUF_MOBILE_NUMBER);
+    String ocvid = (String) input.get(TFMConstants.AUF_OCV_ID);
+    String pin = (String) input.get(TFMConstants.RESET_PIN_KEY);
+    try {
+      HttpCalloutResponse response = new HttpCalloutResponse();
+      if (pin == null) {
+        return false;
       } else {
         response = api.resetPin(staffModel, pin);
         output.put(
@@ -141,10 +185,6 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       Logger.saveLog();
     } catch (TFMAUFAPIRepository.ResetPinBadException e) {
       output.put(TFMConstants.OUTPUT, TFMConstants.RESET_PIN_HISTORY_CHECK);
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
-    } catch (TFMAUFAPIRepository.DuplicateMobileNumberException e) {
-      output.put(TFMConstants.DUPLICATE_MOBILE_NUMBER, true);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
     } catch (Exception e) {
@@ -208,29 +248,18 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     String action = (String) input.get(TFMConstants.ACTION_NAME);
     TFMAUFAPIRepository api = new TFMAUFAPIRepository();
     try {
-      TFMArchiveUserModel archiveUserModel = api.archiveUser(
+      HttpCalloutResponse archiveUserModel = api.archiveUser(
         staffModel,
         action
       );
-      if (
-        archiveUserModel.totalActiveConsents !=
-        archiveUserModel.successfullyArchivedConsents
-      ) {
-        output.put(TFMConstants.SHOWSUCCESSTOAST, false);
-        output.put(
-          TFMConstants.TOTAL_ACTIVE_CONSENTS,
-          archiveUserModel.totalActiveConsents
-        );
-        output.put(
-          TFMConstants.SUCCESSFULLY_ARCHIVED_CONSENTS,
-          archiveUserModel.successfullyArchivedConsents
-        );
-      } else {
-        output.put(TFMConstants.ISVALID, true);
-        output.put(TFMConstants.SHOWSUCCESSTOAST, true);
-      }
+      output.put(TFMConstants.ISVALID, true);
+      output.put(TFMConstants.SHOWSUCCESSTOAST, true);
     } catch (TFMAUFAPIRepository.InsufficientAccessException e) {
       output.put(TFMConstants.ISVALID, false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    } catch (TFMAUFAPIRepository.ArchiveFailException e) {
+      output.put(TFMConstants.ARCHIVED, false);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
     } catch (Exception e) {
