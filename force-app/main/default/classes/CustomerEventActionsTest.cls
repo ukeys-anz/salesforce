@@ -11,6 +11,10 @@ public with sharing class CustomerEventActionsTest {
     )
     .getId('PersonAccount');
 
+  static Lib_MockProvider brokerRepoMock = Lib_MockProvider.forType(
+    BrokerSettingRepository.class
+  );
+
   /*
    * @description unit test for filterOCVVersionUpdate
    */
@@ -51,9 +55,9 @@ public with sharing class CustomerEventActionsTest {
    */
   @isTest
   static void publishEventForCustomersTest() {
-    CustomerEventActions.mockBrokerSettings = new BrokerSettings__c(
-      BypassCustomerSyncEvents__c = false
-    );
+    BrokerSettings__c brokerCustomSetting = createBrokerSettingRecord();
+    brokerRepoMock.mock('getBrokerSettings', brokerCustomSetting);
+
     List<Account> accList = createCustomerAccount(2);
     Map<Id, Account> oldMap = convertRecordsToOldMap(accList);
     Test.startTest();
@@ -119,5 +123,18 @@ public with sharing class CustomerEventActionsTest {
       acc.OCV_Event_Version__c = 0;
     }
     return new Map<Id, Account>(oldAccList);
+  }
+
+  /*
+   * @description Test Method to create BrokerSetting record
+   */
+  static BrokerSettings__c createBrokerSettingRecord() {
+    BrokerSettings__c brokerCustomSettting = new BrokerSettings__c();
+    brokerCustomSettting.Name = 'Default';
+    brokerCustomSettting.BypassCustomerSyncEvents__c = false;
+    brokerCustomSettting.id = Lib_FakeIdGenerator.getMockId(
+      BrokerSettings__c.SObjectType
+    );
+    return brokerCustomSettting;
   }
 }

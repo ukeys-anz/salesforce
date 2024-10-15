@@ -6,21 +6,10 @@
  **/
 public with sharing class CustomerEventActions {
   public static final String CUSTOMER_EVENT_UPDATE = 'update';
+  private static final BrokerSettingRepository BROKER_SETTING_REPOSITORY = (BrokerSettingRepository) Lib_InstanceProvider.forType(
+    BrokerSettingRepository.class
+  );
 
-  /**
-   * @description To set the mock broker settings
-   * @return The BrokerSettings__c custom setting
-   */
-  @TestVisible
-  private static BrokerSettings__c brokerSettings() {
-    if (mockBrokerSettings != null) {
-      return mockBrokerSettings;
-    }
-    return BrokerSettings__c.getOrgDefaults();
-  }
-
-  @TestVisible
-  private static BrokerSettings__c mockBrokerSettings;
   /**
    * @description  Generate and dispatch customer cloud events
    * This function is designed to be a void function as it's the end of the publish process.
@@ -37,7 +26,10 @@ public with sharing class CustomerEventActions {
   ) {
     try {
       //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
-      if (brokerSettings().BypassCustomerSyncEvents__c == true) {
+      if (
+        BROKER_SETTING_REPOSITORY.getBrokerSettings()
+          .BypassCustomerSyncEvents__c == true
+      ) {
         return null;
       }
       List<Account> accBasedOnOCVVersion = filterOCVVersionUpdate(
