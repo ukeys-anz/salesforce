@@ -55,7 +55,7 @@ private class CCRMOpportunityActionsTest {
   @isTest
   static void getFilteredCCRMOppsTest() {
     User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    ccrmBaseUser.Commercial_Segment__c = 'BB';
+    ccrmBaseUser.Commercial_Segment__c = 'SME';
     update ccrmBaseUser;
 
     System.runAs(ccrmBaseUser) {
@@ -108,7 +108,7 @@ private class CCRMOpportunityActionsTest {
   @isTest
   static void getStageSegmentOrTemplateMapTest() {
     User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    ccrmBaseUser.Commercial_Segment__c = 'BB';
+    ccrmBaseUser.Commercial_Segment__c = 'SME';
     update ccrmBaseUser;
     System.runAs(ccrmBaseUser) {
       Map<Id, Opportunity> oldOppMap;
