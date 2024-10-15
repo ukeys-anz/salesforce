@@ -32,6 +32,6 @@
         <role>Commercial_Operations_Team</role>
         <role>Credit_Overview_Team</role>
         <role>SME_General_Manager</role>
-        <roleAndSubordinatesInternal>SME_Head_of_NBC</roleAndSubordinatesInternal>
+        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

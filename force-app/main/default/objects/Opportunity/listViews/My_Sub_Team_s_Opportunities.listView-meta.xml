@@ -26,7 +26,7 @@
     <label>My Pod&apos;s Opportunities</label>
     <sharedTo>
         <role>SME_General_Manager</role>
-        <roleAndSubordinatesInternal>AF_General_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>SME_Head_of_NBC</roleAndSubordinatesInternal>
+        <roleAndSubordinates>AF_General_Manager</roleAndSubordinates>
+        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

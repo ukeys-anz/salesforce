@@ -21,6 +21,6 @@
     <filterScope>Everything</filterScope>
     <label>Open General Enquiry Cases</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>
