@@ -112,6 +112,21 @@ private class CCRMBalanceHistoryQueryTest {
   }
 
   @isTest
+  static void getPayloadForCAPChildAccountsTest() {
+    String result;
+    CCRMBalanceHistoryQuery balHistoryQuery = new CCRMBalanceHistoryQuery();
+    balHistoryQuery.parentId = 'CAP-CIS_107130129985-234500817|DDA-234500817';
+    Test.startTest();
+    result = balHistoryQuery.getPayloadForCAPChildAccounts('');
+    Test.stopTest();
+    Assert.areEqual(
+      '{"accountNumber": "DDA-234500817","pageSize":"null","offSet":"null","fieldSet": "BALANCE_HISTORY"}',
+      result,
+      'Payload is empty'
+    );
+  }
+
+  @isTest
   static void createDummyFinancialAccountsTest() {
     system.assertEquals(
       0,

@@ -16,7 +16,15 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
     public DateTime ollExpiryDate;
     public Integer tpmiNumber;
     public Integer tpmiSubNumber;
+    public String productName;
+    public String sourceSystemStatus;
   }
+
+  private static final Map<String, String> MAP_SOURCE_SYSTEM_STATUS = new Map<String, String>{
+    'ACT' => 'ACT - Active',
+    'DEL' => 'DEL - Deleted',
+    'INA' => 'INA - Inactive'
+  };
 
   /**
    * @description Facility callout response
@@ -39,6 +47,7 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
+  @testVisible
   protected override void parseResponse(String responseBody) {
     this.calloutResponse = (FacilityCalloutResponse) CalloutModel.deserialize(
       responseBody,
@@ -50,6 +59,7 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
    * @description Transform API response to Facility records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
+  @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     String customerId;
     Map<String, Object> row;
@@ -59,21 +69,26 @@ public with sharing class CCRMFacilitiesQuery extends CCRMFinancialAccountQueryB
       FacilityModel fac : ((FacilityCalloutResponse) this.calloutResponse)
         .facilities
     ) {
-      row = new Map<String, Object>();
-      row.put('ExternalId', fac.compositeFacilityId);
-      row.put(
-        'DisplayUrl',
-        URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        fac.compositeFacilityId
-      );
-      row.put(this.parent, this.parentId);
-      row.put('Sequence', fac.ollSequence);
-      row.put('Type', fac.ollType);
-      row.put('Amount', fac.ollAmount);
-      row.put('ExpiryDate', formatDate(fac.ollExpiryDate));
-      row.put('TPMINo', fac.tpmiNumber);
-      row.put('TPMISubNo', fac.tpmiSubNumber);
+      row = new Map<String, Object>{
+        'ExternalId' => fac.compositeFacilityId,
+        'DisplayUrl' => getDisplayUrl(fac),
+        this.parent => this.parentId,
+        'Sequence' => fac.ollSequence,
+        'Type' => fac.ollType,
+        'Amount' => fac.ollAmount,
+        'ExpiryDate' => formatDate(fac.ollExpiryDate),
+        'Account_Name' => fac.accountName,
+        'Account_Number' => formatAccountNumber(fac.accountNumber),
+        'Source_System_Status' => MAP_SOURCE_SYSTEM_STATUS.containsKey(
+            fac.sourceSystemStatus
+          )
+          ? MAP_SOURCE_SYSTEM_STATUS.get(fac.sourceSystemStatus)
+          : fac.sourceSystemStatus,
+        'Product_Name' => fac.productName,
+        'TPMI_SAO' => fac.tpmiNumber +
+        '-' +
+        fac.tpmiSubNumber
+      };
       result.queryResult.add(row);
     }
     return result;

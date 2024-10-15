@@ -6,9 +6,9 @@
     <description>The controlling post which account belongs to</description>
     <externalDeveloperName>CPID</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
+    <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
+    <isSortingDisabled>false</isSortingDisabled>
     <label>CPID</label>
     <length>255</length>
     <referenceTargetField>Controlling_Post__c.CPID__c</referenceTargetField>

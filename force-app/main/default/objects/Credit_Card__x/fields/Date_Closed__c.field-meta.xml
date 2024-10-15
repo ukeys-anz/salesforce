@@ -6,7 +6,7 @@
     <description>Date Closed</description>
     <externalDeveloperName>DateClosed</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
+    <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Date Closed</label>

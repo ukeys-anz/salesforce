@@ -49,7 +49,7 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
         .subStringAfter(':')
         .subStringBefore('|');
       switch on productCode {
-        when 'DDA', 'FM', 'SSI', 'RSV', 'CDA', 'ILS', 'PTF', 'PCA' {
+        when 'DDA', 'FM', 'SSI', 'RSV', 'CDA', 'ILS', 'PTF', 'OLL', 'PCA' {
           this.retrieveBySOQLQuery = true;
         }
         when else {
@@ -64,6 +64,7 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
           'TermDepositId',
           'LoanAccount',
           'PortfolioOfLoanId',
+          'OLLId',
           'CreditCard' {
           this.retrieveBySOQLQuery = true;
         }

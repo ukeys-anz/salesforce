@@ -236,4 +236,95 @@ public with sharing class FinancialAccountQueryBaseRepository {
       WHERE Code__c IN :industryCodesSet
     ];
   }
+
+  /**
+   * @description get Customer record
+   * @param  externalIdValue
+   * @return List<Account>
+   */
+  public List<Account> getCustomerUsingExternalId(String externalIdValue) {
+    if (
+      !PermissionUtils.canQuery('Account') || String.isBlank(externalIdValue)
+    ) {
+      return new List<Account>();
+    }
+    List<Account> result;
+    result = [
+      SELECT Id, Name, External_Id__c
+      FROM Account
+      WHERE External_Id__c = :externalIdValue
+    ];
+    return result;
+  }
+
+  /**
+   * @description get Customer record
+   * @param  externalIdValue
+   * @param recordTypeName
+   * @return List<Account>
+   */
+  public List<Account> getCustomerUsingExternalIdAndRtName(
+    String externalIdValue,
+    String recordTypeName
+  ) {
+    if (
+      !PermissionUtils.canQuery('Account') ||
+      String.isBlank(externalIdValue) ||
+      String.isBlank(recordTypeName)
+    ) {
+      return new List<Account>();
+    }
+    List<Account> result = new List<Account>();
+    result = [
+      SELECT Id, Name, External_Id__c
+      FROM Account
+      WHERE
+        External_Id__c = :externalIdValue
+        AND RecordType.DeveloperName = :recordTypeName
+      LIMIT 1
+    ];
+    return result;
+  }
+
+  /**
+   * @description get Customer record
+   * @param  customerId
+   * @return List<FinServ__AccountAccountRelation__c>
+   */
+  public List<FinServ__AccountAccountRelation__c> getCustomerAAR(
+    String customerId
+  ) {
+    if (
+      !PermissionUtils.canQuery('FinServ__AccountAccountRelation__c') ||
+      String.isBlank(customerId)
+    ) {
+      return new List<FinServ__AccountAccountRelation__c>();
+    }
+    List<FinServ__AccountAccountRelation__c> result = new List<FinServ__AccountAccountRelation__c>();
+    result = [
+      SELECT Id, FinServ__RelatedAccount__r.External_Id__c
+      FROM FinServ__AccountAccountRelation__c
+      WHERE
+        FinServ__Account__r.External_Id__c = :customerId
+        AND FinServ__Active__c = TRUE
+    ];
+    return result;
+  }
+
+  /**
+   * @description get industry records bsed on codes
+   * @param  industryCodesSet set of industryCodes
+   * @return List<Industry__c> list of industry codes
+   */
+  public List<Industry__c> getIndustry(Set<String> industryCodesSet) {
+    if (!Schema.sObjectType.Industry__c.isQueryable()) {
+      return new List<Industry__c>();
+    }
+
+    return [
+      SELECT Id, Name, Code__c
+      FROM Industry__c
+      WHERE Code__c IN :industryCodesSet
+    ];
+  }
 }

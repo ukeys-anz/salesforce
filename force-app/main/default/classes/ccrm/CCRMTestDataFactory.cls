@@ -1641,6 +1641,90 @@ public with sharing class CCRMTestDataFactory {
     return finAccountRole;
   }
   /**
+   * @description InactiveIndemnityGuarantee test context
+   * @name createInactiveIndemnityGuaranteeContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createInactiveIndemnityGuaranteeContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMInactiveIndemnityGuaranteeQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'InactiveIndemnityGuarantee'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMInactiveIndemnityGuaranteeQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_inactiveIGResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description ActiveIndemnityGuarantee test context
+   * @name createActiveIndemnityGuaranteeContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createActiveIndemnityGuaranteeContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMActiveIndemnityGuaranteeQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'ActiveIndemnityGuarantee'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    return context;
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMActiveIndemnityGuaranteeQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_activeIGResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
    * @description creates and/or returns list of CCRMA2ZReview records for testing purpose
    * note that the lookup on these records are not populated
    * @param count
@@ -1914,6 +1998,44 @@ public with sharing class CCRMTestDataFactory {
       String jsonBody = Service.getStaticResource('mock_termDepositResponse');
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+  /**
+   * @description Create OLL test context
+   * @name createOLLContext
+   * @return Returns DataSource.QueryContext context
+   */
+  public static DataSource.QueryContext createOLLContext() {
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMTestDataFactory.CCRMOtherLimitsAndLiabilitiesQueryTestMock()
+    );
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'OtherLimitsAndLiabilities'
+    );
+    conn.query(context);
+    return context;
+  }
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMOtherLimitsAndLiabilitiesQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_OLLResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setHeader('example', 'other-limit-liablity');
       res.setBody(jsonBody);
       res.setStatusCode(200);
       return res;
