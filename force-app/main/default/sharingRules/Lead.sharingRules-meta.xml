@@ -34,7 +34,7 @@
         <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
         <label>CCRM_LeadEditAccessToCLO</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Commercial_Lending_Operations</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

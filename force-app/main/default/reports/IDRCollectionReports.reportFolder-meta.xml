@@ -4,7 +4,7 @@
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>Customer_Resolution_Leadership</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </folderShares>
     <folderShares>
         <accessLevel>View</accessLevel>

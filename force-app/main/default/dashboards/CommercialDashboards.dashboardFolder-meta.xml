@@ -4,6 +4,6 @@
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>Commercial_Banking</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </folderShares>
 </DashboardFolder>
