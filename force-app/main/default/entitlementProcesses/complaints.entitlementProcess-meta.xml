@@ -138,7 +138,7 @@ NOT(CreatedBy.UserRole.DeveloperName = &apos;Customer_Resolution_with_ANZ_Plus_R
   OR(
     ISPICKVAL(Status , &apos;Open&apos;),
     ISPICKVAL(Status , &apos;Under Investigation&apos;),
-    ISPICKVAL(Status , &apos;On Hold&apos;),
+    ISPICKVAL(Status , &apos;Case - On Hold&apos;),
     ISPICKVAL( Status, &apos;Escalated&apos;)
   ),
   NOT(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;20&apos;)),

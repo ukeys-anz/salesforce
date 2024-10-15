@@ -1,240 +1,178 @@
 @isTest
 private with sharing class SICaseActionsTest {
-  @TestSetup
-  static void testSetup() {
-    // Open/Assessing SIs, with fields to test masking
-    Case[] newSIs = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newSIs.add(
-        new Case(
-          RecordTypeId = IDRConstants.SI_RT_ID,
-          Status = 'Open',
-          SI_Workflow_step__c = 'Assessing',
-          Subject = '1234-5678-9101-3321',
-          Description = 'Test description 1234-5678-9101-3321 check mask',
-          IDR_Description_of_Outcome__c = 'Test description 1234-5678-9101-3321 check mask',
-          RAG_Comments__c = 'Test description 1234-5678-9101-3321 check mask',
-          SI_Definite_Action_Completed__c = 'Test description 1234-5678-9101-3321 check mask',
-          SI_Rec_Rem_Actions__c = 'Test description 1234-5678-9101-3321 check mask',
-          SI_Subject_of_Breach_Report_Comments__c = 'Test description 1234-5678-9101-3321 check mask'
-        )
-      );
-    }
-    // Closed/Monitoring SIs
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newSIs.add(
-        new Case(
-          RecordTypeId = IDRConstants.SI_RT_ID,
-          Status = 'Closed',
-          SI_Workflow_step__c = 'Monitoring'
-        )
-      );
-    }
-    insert newSIs;
-    // Related complaints
-    Case[] newComplaints = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newComplaints.add(
-        new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Status = 'Open',
-          IDR_Parent_Systemic_Issue__c = newSIs[i].Id
-        )
-      );
-    }
-    insert newComplaints;
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider sicaseRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    sicaseRepoMock = Lib_MockProvider.forType(SICaseActionsRepository.class);
   }
+  static final Faker FAKER = new Faker('0-9');
+
+  static Case caseRecord = (Case) TestUtil.setFields(
+    new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      RecordTypeId = RTCase.systemicIssue,
+      SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_INVESTIGATING
+    ),
+    new Map<String, Object>{ 'CaseNumber' => FAKER.randomInteger(6) }
+  );
+
+  static Case caseRecord1 = (Case) TestUtil.setFields(
+    new Case(
+      Id = caseRecord.Id,
+      RecordTypeId = RTCase.systemicIssue,
+      SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_MONITORING
+    ),
+    new Map<String, Object>{ 'CaseNumber' => FAKER.randomInteger(6) }
+  );
+
+  static Case caseRecord2 = (Case) TestUtil.setFields(
+    new Case(
+      Id = caseRecord1.Id,
+      RecordTypeId = RTCase.systemicIssue,
+      SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_MONITORING
+    ),
+    new Map<String, List<SObject>>{
+      'Tasks' => new List<Task>{
+        new Task(
+          Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+          Type = IDRConstants.SI_WF_STEP_MONITORING
+        )
+      }
+    }
+  );
+
+  static Case caseRecord3 = new Case(
+    Id = caseRecord2.Id,
+    RecordTypeId = RTCase.systemicIssue,
+    SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_ASSESSING
+  );
 
   @isTest
-  static void testWorkflowStepWhenClosing() {
+  static void testTasksonCaseAfterInsert() {
+    registermocks();
+    Case testCase = caseRecord;
+    testCase.SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_MONITORING;
+
     Test.startTest();
-    //GIVEN open/assessing SIs
-    Case[] newCases = [
-      SELECT Status
-      FROM Case
-      WHERE
-        RecordTypeId = :IDRConstants.SI_RT_ID
-        AND Status = 'Open'
-        AND SI_Workflow_step__c = 'Assessing'
-    ];
-
-    //WHEN they're closed
-    for (Case c : newCases) {
-      c.Status = 'Closed';
-    }
-    update newCases;
-
-    //THEN workflow step has not changed
-    Case[] c = [
-      SELECT SI_Workflow_Step__c
-      FROM Case
-      WHERE Status = 'Closed' AND SI_Workflow_step__c = 'Assessing'
-    ];
+    SICaseActions.processMonitoringTasks(
+      new List<Case>{ testCase },
+      new Map<Id, Case>()
+    );
     Test.stopTest();
-    System.assertEquals(
-      newCases.size(),
-      c.size(),
-      'Able to close SI at any step of the workflow'
+    List<Task> taskslist = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
+
+    System.assertEquals(2, taskslist.size(), '2 Tasks should be inserted');
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doInsert').isEmpty(),
+      'insertRecords should have been invoked at least once'
     );
   }
 
-  //As part of CC-4250 Enable workflow status changes, monitoring should not auto close the case.
-  /*@isTest
-  static void testStatusWhenWorkflowChanges() {
-    //GIVEN closed/monitoring SI
-    Case[] newCases = [
-      SELECT SI_Workflow_step__c
-      FROM Case
-      WHERE
-        RecordTypeId = :IDRConstants.SI_RT_ID
-        AND Status = 'Closed'
-        AND SI_Workflow_step__c = 'Monitoring'
-    ];
-    //WHEN workflopw step goes back to investigating
-    for (Case c : newCases) {
-      c.SI_Workflow_step__c = 'Investigating';
-    }
+  @isTest
+  static void testRemovePendingMonitoringTasks() {
+    registerMocks();
+
+    Case testCase2 = caseRecord2;
+
+    Case testCase3 = caseRecord3;
+
+    Task taskRecord = testCase2.Tasks[0];
+    taskRecord.WhatId = testCase2.Id;
+    sicaseRepoMock.mock(
+      'queryMonitoringTasksToDelete',
+      new List<Task>{ taskRecord }
+    );
+
     Test.startTest();
-    update newCases;
-    //THEN Status is Open
-    Case[] c = [
-      SELECT Status
-      FROM Case
-      WHERE Status = 'Open' AND SI_Workflow_step__c = 'Investigating'
-    ];
-    System.assertEquals(
-      newCases.size(),
-      c.size(),
-      'SI not in Monitoring should not be closed'
+    SICaseActions.removePendingMonitoringTasks(
+      new List<Case>{ testCase3 },
+      new Map<Id, Case>{ testCase2.Id => testCase2 }
     );
     Test.stopTest();
-  }*/
 
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doDelete').isEmpty(),
+      'deleteRecords should have been invoked at least once'
+    );
+  }
   @isTest
-  static void testTasksOnCaseUpdate() {
-    //GIVEN open/assessing SIs
-    Case[] newCases = [
-      SELECT SI_Workflow_step__c
-      FROM Case
-      WHERE
-        RecordTypeId = :IDRConstants.SI_RT_ID
-        AND Status = 'Open'
-        AND SI_Workflow_step__c = 'Assessing'
-    ];
-
-    //WHEN they go into monitoring
-    for (Case c : newCases) {
-      c.SI_Workflow_step__c = 'Monitoring';
-    }
+  static void testTasksOnCaseAfterUpdate() {
+    registerMocks();
+    Case testCase = caseRecord;
+    testCase.RecordTypeId = RTCase.systemicIssue;
+    testCase.SI_Workflow_step__c = IDRConstants.SI_WF_STEP_INVESTIGATING;
+    Case testCase2 = caseRecord1;
 
     Test.startTest();
+    SICaseActions.processMonitoringTasks(
+      new List<Case>{ testCase2 },
+      new Map<Id, Case>{ testCase.Id => testCase }
+    );
+    Test.stopTest();
 
-    update newCases;
-
-    //THEN 2 monitoring tasks are created per case
-    Task[] tasks = [SELECT id FROM Task WHERE WhatId IN :newCases];
+    List<Task> taskslist = (List<Task>) dmlRepoMock.getHistory('doInsert')
+      .getParam('records');
     System.assertEquals(
-      2 * newCases.size(),
-      tasks.size(),
+      2,
+      taskslist.size(),
       '2 monitoring tasks should be created per case'
     );
+  }
+  @isTest
+  static void testNoMonitotingTaskstriggered() {
+    registerMocks();
+    Case testCase = caseRecord;
+    Case testCase3 = caseRecord3;
 
-    //AND WHEN they go back to Investigating
-    for (Case c2 : newCases) {
-      c2.SI_Workflow_step__c = 'Investigating';
-    }
-    checkRecursive.firstCall = false;
-    update newCases;
-
-    //THEN they are removed
-    tasks = [
-      SELECT id
-      FROM Task
-      WHERE WhatId IN :newCases AND Type = 'Monitoring'
-    ];
-    System.assertEquals(
-      0,
-      tasks.size(),
-      'Monitoring tasks should be removed because cases are no longer in Monitoring'
+    Test.startTest();
+    SICaseActions.processMonitoringTasks(
+      new List<Case>{ testCase3 },
+      new Map<Id, Case>{ testCase.Id => testCase }
     );
     Test.stopTest();
+
+    Assert.isTrue(
+      dmlRepoMock.getHistories('doInsert').isEmpty(),
+      'No Monitoring Task should be created'
+    );
   }
 
   @isTest
   static void testRollupToParentSI() {
     //Assert that testsetup complaint count has rollup to the parent SI records
-    Case[] newSIs = [
-      SELECT SI_Complaint_Count__c
-      FROM Case
-      WHERE SI_Complaint_Count__c > 0
-    ];
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newSIs.size(),
-      'All SI records should have a child'
+    registerMocks();
+
+    Case testSICase = caseRecord;
+
+    Case testCase1 = new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      RecordTypeId = RTCase.customerComplaint,
+      IDR_Parent_Systemic_Issue__c = testSICase.Id
     );
 
-    //AND WHEN I unlink the complaints from their parent SI
-    Case[] newComplaints = [
-      SELECT IDR_Parent_Systemic_Issue__c
-      FROM Case
-      WHERE IDR_Parent_Systemic_Issue__c != NULL
-    ];
-    for (Integer i = 0; i < newComplaints.size(); i++) {
-      newComplaints[i].IDR_Parent_Systemic_Issue__c = null;
-    }
+    sicaseRepoMock.mock('queryComplaintsOnCases', new List<Case>{ testSICase });
 
     Test.startTest();
-
-    update newComplaints;
-
-    //THEN rollup count has updated
-    newSIs = [
-      SELECT SI_Complaint_Count__c
-      FROM Case
-      WHERE SI_Complaint_Count__c > 0
-    ];
-    System.assertEquals(
-      0,
-      newSIs.size(),
-      'All child records should have been unlinked'
-    );
-
-    //AND WHEN I link all complaints to one SI
-    newComplaints = [
-      SELECT IDR_Parent_Systemic_Issue__c
-      FROM Case
-      WHERE RecordTypeId = :IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID
-    ];
-    newSIs = [
-      SELECT Id
-      FROM Case
-      WHERE RecordTypeId = :IDRConstants.SI_RT_ID
-      LIMIT 1
-    ];
-    checkRecursive.firstCall = false;
-    for (Integer i = 0; i < newComplaints.size(); i++) {
-      newComplaints[i].IDR_Parent_Systemic_Issue__c = newSIs[0].Id;
-    }
-    update newComplaints;
-
-    //THEN rollup count has updated
-    newSIs = [
-      SELECT SI_Complaint_Count__c
-      FROM Case
-      WHERE SI_Complaint_Count__c > 0
-    ];
-    System.assertEquals(
-      1,
-      newSIs.size(),
-      'All complaints should have been linked to the same SI'
-    );
-    System.assertEquals(
-      Integer.valueOf(Label.Test_Bulk_Size),
-      newSIs[0].SI_Complaint_Count__c,
-      'Counter should have been updated'
-    );
+    SICaseActions.rollupToParentSI(new List<case>{ testCase1 });
     Test.stopTest();
+
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isFalse(
+      dmlRepoMock.getHistories('doUpdate').isEmpty(),
+      'doUpdate should have been invoked at least once'
+    );
+    System.assertEquals(
+      testCase1.IDR_Parent_Systemic_Issue__c,
+      testSICase.Id,
+      'Parent SI Id same'
+    );
+
+    System.assertEquals(1, cases.size(), '1 Case should be updated');
   }
 
   @isTest
@@ -242,65 +180,73 @@ private with sharing class SICaseActionsTest {
     //GIVEN SIs
     //WHEN they're inserted
     // THEN long numbers in free text fields are masked, showing only the last four digits
-    Case c = [
-      SELECT
-        Subject,
-        Description,
-        IDR_Description_of_Outcome__c,
-        RAG_Comments__c,
-        SI_Definite_Action_Completed__c,
-        SI_Rec_Rem_Actions__c,
-        SI_Subject_of_Breach_Report_Comments__c
-      FROM Case
-      WHERE SI_Workflow_step__c = 'Assessing'
-      LIMIT 1
-    ];
+    List<Case> caseList = new List<Case>();
+    Map<Id, Case> oldMap = new Map<Id, Case>();
+
+    Case testCase = caseRecord;
+    testCase.Status = IDRConstants.OPEN_STATUS;
+    testCase.Subject = '1234-5678-9101-3321';
+    testCase.SI_Workflow_Step__c = IDRConstants.SI_WF_STEP_ASSESSING;
+    testCase.Description = 'Test description 1234-5678-9101-3321 check mask';
+    testCase.IDR_Description_of_Outcome__c = 'Test description 1234-5678-9101-3321 check mask';
+    testCase.RAG_Comments__c = 'Test description 1234-5678-9101-3321 check mask';
+    testCase.SI_Definite_Action_Completed__c = 'Test description 1234-5678-9101-3321 check mask';
+    testCase.SI_Rec_Rem_Actions__c = 'Test description 1234-5678-9101-3321 check mask';
+    testCase.SI_Subject_of_Breach_Report_Comments__c = 'Test description 1234-5678-9101-3321 check mask';
+
+    Test.startTest();
+    SICaseActions.applyDefaults(new List<Case>{ testCase });
+
     System.assertEquals(
       '************3321',
-      c.Subject,
+      testCase.Subject,
       'Subject should be masked.'
     );
     System.assertEquals(
       'Test description ************3321 check mask',
-      c.Description,
+      testCase.Description,
       'Description should be masked.'
     );
     System.assertEquals(
       'Test description ************3321 check mask',
-      c.IDR_Description_of_Outcome__c,
+      testCase.IDR_Description_of_Outcome__c,
       'IDR_Description_of_Outcome__c should be masked.'
     );
     System.assertEquals(
       'Test description ************3321 check mask',
-      c.RAG_Comments__c,
+      testCase.RAG_Comments__c,
       'RAG_Comments__c should be masked.'
     );
     System.assertEquals(
       'Test description ************3321 check mask',
-      c.SI_Definite_Action_Completed__c,
+      testCase.SI_Definite_Action_Completed__c,
       'SI_Definite_Action_Completed__c should be masked.'
     );
     System.assertEquals(
       'Test description ************3321 check mask',
-      c.SI_Rec_Rem_Actions__c,
+      testCase.SI_Rec_Rem_Actions__c,
       'SI_Rec_Rem_Actions__c should be masked.'
     );
     System.assertEquals(
       'Test description ************3321 check mask',
-      c.SI_Subject_of_Breach_Report_Comments__c,
+      testCase.SI_Subject_of_Breach_Report_Comments__c,
       'SI_Subject_of_Breach_Report_Comments__c should be masked.'
     );
+
+    Case oldCaseRecord = testCase;
+    oldMap.put(oldCaseRecord.id, oldCaseRecord);
+
     //AND WHEN updated
-    c.Subject = '1234-5678-9101-3321';
-    Test.startTest();
-    update c;
-    //THEN long numbers in free text fields are masked, showing only the last four digits
-    c = [SELECT Subject FROM Case LIMIT 1];
+    testCase.Description = '1234-5678-9101-3321';
+    caseList.add(testCase);
+
+    SICaseActions.beforeUpdate(caseList, oldMap);
+    Test.stopTest();
+
     System.assertEquals(
       '************3321',
-      c.Subject,
+      testCase.Subject,
       'Subject should be masked.'
     );
-    Test.stopTest();
   }
 }

@@ -56,6 +56,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>Case - On Hold</fullName>
+        <default>false</default>
+        <label>Case - On Hold</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Escalated</fullName>
         <default>false</default>
         <label>Escalated</label>
