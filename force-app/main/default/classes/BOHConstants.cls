@@ -31,7 +31,6 @@ public class BOHConstants {
     get {
       return 'Closed - Expired';
     }
-    private set;
   }
 
   /**
@@ -42,7 +41,6 @@ public class BOHConstants {
     get {
       return 'Closed - Cancelled';
     }
-    private set;
   }
 
   /**
@@ -53,7 +51,6 @@ public class BOHConstants {
     get {
       return 'Credit Assessment Expired';
     }
-    private set;
   }
 
   /**
@@ -64,7 +61,6 @@ public class BOHConstants {
     get {
       return 'STATE_CANCELLED';
     }
-    private set;
   }
 
   public enum EXPENSE_CONTROL {
