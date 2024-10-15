@@ -67,6 +67,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>LoanApplicant.Applicant_Type__c</field>
         <readable>true</readable>
@@ -119,6 +124,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>LoanApplicant.Loan_Applicant_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.Loan_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
