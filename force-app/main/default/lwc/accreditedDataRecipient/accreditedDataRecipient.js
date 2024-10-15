@@ -10,7 +10,6 @@ import hasSuspendPermission from "@salesforce/customPermission/Suspend_ADR";
 const RECORDS_PER_PAGE = 100;
 
 export default class AccreditedDataRecipient extends LightningElement {
-  
   scrollToTop() {
     const cardContent = this.template.querySelector(".centered-container");
     if (cardContent) {
