@@ -162,9 +162,6 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     StaffTokenRequestModel staffModel = TFMCommonFunctionUtility.setStaffModel(
       (String) input.get(TFMConstants.IDVALUE)
     );
-    String action = (String) input.get(TFMConstants.ACTION_NAME);
-    String mobileNumber = (String) input.get(TFMConstants.AUF_MOBILE_NUMBER);
-    String ocvid = (String) input.get(TFMConstants.AUF_OCV_ID);
     String pin = (String) input.get(TFMConstants.RESET_PIN_KEY);
     try {
       HttpCalloutResponse response = new HttpCalloutResponse();
@@ -207,7 +204,6 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     Map<String, Object> output,
     Map<String, Object> options
   ) {
-    Map<String, Object> responseMap = new Map<String, Object>();
     TFMAUFAPIRepository api = new TFMAUFAPIRepository();
     StaffTokenRequestModel staffModel = TFMCommonFunctionUtility.setStaffModel(
       (String) input.get(TFMConstants.IDVALUE)
@@ -248,10 +244,7 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     String action = (String) input.get(TFMConstants.ACTION_NAME);
     TFMAUFAPIRepository api = new TFMAUFAPIRepository();
     try {
-      HttpCalloutResponse archiveUserModel = api.archiveUser(
-        staffModel,
-        action
-      );
+      api.archiveUser(staffModel, action);
       output.put(TFMConstants.ISVALID, true);
       output.put(TFMConstants.SHOWSUCCESSTOAST, true);
     } catch (TFMAUFAPIRepository.InsufficientAccessException e) {
