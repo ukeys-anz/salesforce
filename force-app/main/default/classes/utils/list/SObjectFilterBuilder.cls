@@ -64,6 +64,16 @@ public class SObjectFilterBuilder {
     base.contains(field.toString(), subString);
     return this;
   }
+  /**
+   * @description Filter records with specified field value not contains a given string as sub-string.
+   * @param field The field to filter on.
+   * @param subString The value to filter for.
+   * @return The updated SObjectFilterBuilder instance.
+ */
+public SObjectFilterBuilder notContains(SObjectField field, String subString) {
+  base.notContains(field.toString(), subString);
+  return this;
+}
 
   /**
    * @description Filter records with specified field changed.
@@ -218,6 +228,34 @@ public class SObjectFilterBuilder {
     for (SObject record : this.toList()) {
       SObject oldRecord = this.oldMap.get(record.Id);
       if (oldRecord != null && oldValues.contains(oldRecord.get(field))) {
+        output.add(record);
+      }
+    }
+    base.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with old field value not equals to a given value or list/set of values
+   * @param field The field to filter on.
+   * @param valueOrCollection The set of values to filter for. Can be any `primitive` type, `List`, or `Set`.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder oldNotEquals(
+    SObjectField field,
+    Object valueOrCollection
+  ) {
+    if (this.oldMap.isEmpty()) {
+      return this;
+    }
+    List<Object> output = base.handler.emptyList;
+    Set<Object> oldValues = ListUtil.toSet(valueOrCollection);
+    for (SObject record : this.toList()) {
+      SObject oldRecord = this.oldMap.get(record.Id);
+      if (
+        oldRecord == null ||
+        oldValues.contains(oldRecord.get(field)) == false
+      ) {
         output.add(record);
       }
     }
