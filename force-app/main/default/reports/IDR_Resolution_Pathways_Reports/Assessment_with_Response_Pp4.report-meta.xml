@@ -32,7 +32,7 @@
         <field>Assessment$Case.IDR_Complaint_Outcome__c</field>
     </columns>
     <columns>
-        <field>Assessment$Case.Fraud_Customer_Resolution_Provided__c</field>
+        <field>Assessment$Case.IDR_Complaint_Outcome_Offered__c</field>
     </columns>
     <columns>
         <field>Assessment$Case.IDR_Complaint_Remedy__c</field>
