@@ -1459,7 +1459,7 @@
         <name>DRCreateCase</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>DRCreateCaseCustom4866</globalKey>
+        <globalKey>DRCreateCaseCustom4842</globalKey>
         <inputFieldName>Case:CustomerDetails:thirdPartyState</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
