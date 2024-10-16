@@ -5,18 +5,24 @@
  * @group Util
  */
 public inherited sharing class Lib_HttpCalloutConfig {
-   /**
-   * @description determines whether to not log response body on successful callouts default
-   */
-   public Boolean logResponseBody = false;
 
-    /**
+   private Boolean logResponseBody ;
+
+   /**
    * @description Setter to set the value of logResponseBody to true.
    * @return boolean value to true for logging response body
    */
-   public Boolean logResponseBody()
+   public Boolean getLogResponseBody()
     {
-        this.logResponseBody = true ;
         return this.logResponseBody;
+    }
+
+   /**
+   * @description Setter to set the value of logResponseBody whether to log or not.
+   * @param logResponseBodyOrNot boolean value to set for logResponseBody
+   */
+    public void setLogResponseBody(Boolean logResponseBodyOrNot)
+    {
+        this.logResponseBody = logResponseBodyOrNot;
     }
 }

@@ -8,21 +8,17 @@
  */
 public with sharing class Lib_HttpCallout {
 
-  private Boolean logResponseBody ;
+  private Boolean logResponseBody = true;
 
   /**
-  * @description Constructor to set default value of logResponseBody to log the response body in secure log entries.
+  * @description Setter to set the value of logResponseBody to log the response body in secure log entries or not.
+  * @param libConfig Lib_HttpCalloutConfig to fetch the logResponseBody value
   */
-  public Lib_HttpCallout(){
-    this.logResponseBody = true;
-  }
-
-  /**
-  * @param logResponseBodyOrNot this boolean value will decide whether you want to log response body in secure log
-  * @description Parameterized Constructor to identify whether to log response body or not in secure logs
-  */
-  public Lib_HttpCallout(Boolean logResponseBodyOrNot){
-    this.logResponseBody = logResponseBodyOrNot;
+  public void setLogResponseBody(Lib_HttpCalloutConfig libConfig){
+    if(libConfig != null)
+    {
+      this.logResponseBody = libConfig.getLogResponseBody();
+    }
   }
 
   /**
