@@ -19,7 +19,7 @@ public with sharing virtual class VaultService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
     headers.put('x-correlation-id', CommonUtil.generateUUID());
     headers.put('Content-Type', 'application/json');
-    Lib_HttpCallout calloutService = new Lib_HttpCallout(false);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout(new Lib_HttpCalloutConfig().logResponseBody);
     return calloutService.makeRestCallout(
       Label.MS_Get_Full_Card_Number,
       HTTP_METHOD.HTTP_GET,
