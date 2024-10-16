@@ -96,9 +96,6 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
   @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
-    String customerId;
-    String accNumber;
-    Map<String, Object> row;
     List<CCRMTermDepositModel> accounts = new List<CCRMTermDepositModel>();
     if (this.calloutResponse == null) {
       return result;
@@ -107,20 +104,17 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
       CCRMTermDepositModel fa : ((TermAccountCalloutResponse) this.calloutResponse)
         .accounts
     ) {
-      customerId = getCustomerId(fa.accountNumber);
+      String customerId = getCustomerId(fa.accountNumber);
       if (String.isBlank(customerId)) {
         continue;
       }
-      accNumber = this.sourceSystem == SourceSystemEnum.CAP
-        ? getAccountNumberwithFormat(fa.accountNumber)
-        : formatAccountNumber(fa.accountNumber);
 
-      row = new Map<String, Object>{
+      Map<String, Object> row = new Map<String, Object>{
         'CustomerId' => customerId,
         'ExternalId' => getExternalId(fa),
         'DisplayUrl' => getDisplayUrl(fa),
         'AccountName' => fa.accountName,
-        'AccountNumber' => accNumber,
+        'AccountNumber' => formatAccountNumber(fa.accountNumber),
         'Balance' => fa.accountBalance,
         'SubProductCode' => fa.subProductCode,
         'RestraintsHold' => fa.restrainsHardHold,

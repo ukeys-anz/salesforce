@@ -119,12 +119,12 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     if (accountRoleMap.keySet().isEmpty()) {
       Logger.error(
         'Invalid financial account request: ' +
-          ' parent = ' +
-          this.parent +
-          ' parentId = ' +
-          this.parentId +
-          ' externalId = ' +
-          this.externalId
+        ' parent = ' +
+        this.parent +
+        ' parentId = ' +
+        this.parentId +
+        ' externalId = ' +
+        this.externalId
       );
       Logger.saveLog();
     }
@@ -282,54 +282,6 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   }
 
   /**
-   * @description get Account Number with Format
-   * @param accountNumber Account Number
-   * @return Account Number with Format
-   */
-  @testVisible
-  protected String getAccountNumberwithFormat(String accountNumber) {
-    String result = '';
-    if (
-      accountRoleMap.containsKey(accountNumber) &&
-      String.isNotEmpty(
-        accountRoleMap.get(accountNumber)
-          .FinServ__FinancialAccount__r.Account_Number__c
-      )
-    ) {
-      result = accountRoleMap.get(accountNumber)
-        .FinServ__FinancialAccount__r.Account_Number__c;
-    }
-    return result;
-  }
-
-  /**
-   * @description Retrieves formatted financial account numbers related to a customer for Financial Account Numbers
-   * @param accountNumbers List of account numbers
-   * @return Map of account numbers to formatted Financial Account Numbers
-   */
-  @testVisible
-  protected Map<String, String> getformattedFinancialAccountNumbers(
-    List<String> accountNumbers
-  ) {
-    Map<String, String> formattedAccountNumbers = new Map<String, String>();
-    List<FinServ__FinancialAccount__c> faAccnts = FA_Repository.getformattedFinancialAccounts(
-      accountNumbers
-    );
-
-    if (faAccnts == null) {
-      return formattedAccountNumbers;
-    }
-
-    for (FinServ__FinancialAccount__c fa : faAccnts) {
-      formattedAccountNumbers.put(
-        fa.FinServ__FinancialAccountNumber__c,
-        fa.Account_Number__c
-      );
-    }
-    return formattedAccountNumbers;
-  }
-
-  /**
    * @description get sub product code
    * @param accountNumber Account Number
    * @return sub product code
@@ -428,9 +380,9 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     for (FinServ__FinancialAccountRole__c faRole : faRoles) {
       this.accountNumberList.add(
         faRole.FinServ__FinancialAccount__r.Product_Type__c.right(3)
-            .remove(':') +
-          '-' +
-          faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+          .remove(':') +
+        '-' +
+        faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
       );
       this.accountRoleMap.put(
         faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
@@ -515,7 +467,9 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     //Account detail view
     if (isQuerySingleAccount()) {
       String accountNumber = this.externalId.right(
-        this.externalId.length() - this.externalId.indexOf('|') - 1
+        this.externalId.length() -
+        this.externalId.indexOf('|') -
+        1
       );
       payload = '{"' + this.externalField + '": "' + accountNumber + '"';
       payload += String.isNotBlank(this.assetFinanceType)
@@ -533,7 +487,9 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     //Child summary view
     if (isQueryCAPChildAccounts()) {
       String accountNumber = this.parentId.right(
-        this.parentId.length() - this.parentId.indexOf('|') - 1
+        this.parentId.length() -
+        this.parentId.indexOf('|') -
+        1
       );
       payload =
         '{"accountNumber": "' +
@@ -894,7 +850,9 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   private String getNextPageIdCacheKey() {
     if (String.isNotBlank(this.parentId)) {
       String key = this.parentId.right(
-          this.parentId.length() - this.parentId.indexOf('|') - 1
+          this.parentId.length() -
+          this.parentId.indexOf('|') -
+          1
         )
         .remove('-')
         .remove('_');
@@ -948,55 +906,45 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
    * @param accountNumber Account Number
    * @return String formatted Account Number
    */
-  @testvisible
-  protected String formatAccountNumber(String accountNumber) {
+  public String formatAccountNumber(String accountNumber) {
     if (String.isBlank(accountNumber)) {
       return '';
     }
-    switch on accountNumber.length() {
-      when 8 {
-        accountNumber = '0' + accountNumber;
-        return String.format(
-          '{0}-{1}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 9)
-          }
-        );
-      }
-      when 9 {
-        return String.format(
-          '{0}-{1}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 9)
-          }
-        );
-      }
-      when 11 {
-        return String.format(
-          '{0}-{1}-{2}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 7),
-            accountNumber.subString(7, 11)
-          }
-        );
-      }
-      when 16 {
-        return String.format(
-          '{0}-{1}-{2}-{3}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 8),
-            accountNumber.subString(8, 12),
-            accountNumber.subString(12, 16)
-          }
-        );
-      }
-      when else {
-        return accountNumber;
-      }
+
+    Map<Integer, List<Integer>> lengthFormat = new Map<Integer, List<Integer>>{
+      9 => new List<Integer>{ 0, 4, 9 },
+      11 => new List<Integer>{ 0, 4, 7, 11 },
+      16 => new List<Integer>{ 0, 4, 8, 12, 16 }
+    };
+
+    if (accountNumber.length() < 9) {
+      accountNumber = accountNumber.leftPad(9, '0');
     }
+
+    if (!lengthFormat.containsKey(accountNumber.length())) {
+      return accountNumber;
+    }
+
+    return joinAccountNumberParts(
+      accountNumber,
+      lengthFormat.get(accountNumber.length())
+    );
+  }
+
+  /**
+   * @description join subparts of the account number
+   * @param accountNumber Account Number
+   * @param formatter formatter
+   * @return String account number
+   */
+  public String joinAccountNumberParts(
+    String accountNumber,
+    List<Integer> formatter
+  ) {
+    List<String> parts = new List<String>();
+    for (Integer i = 0; i < (formatter.size() - 1); i++) {
+      parts.add(accountNumber.subString(formatter[i], formatter[i + 1]));
+    }
+    return String.join(parts, '-');
   }
 }
