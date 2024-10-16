@@ -137,12 +137,6 @@ export default class TransactionHistoryBoard extends LightningElement {
           currentTransaction.disputeRecordTypeId =
             this.getRecordTypeId(currentTransaction);
 
-          // Set flag if transaction is of PayTo Dispute Type
-          currentTransaction.isPayToDispute =
-            currentTransaction.pay_anyone?.payment_id.substring(0, 3) === "MPS"
-              ? true
-              : false;
-
           //Process date and time, set showDateTitle
           let currentDate = this.getDateObject(
             currentTransaction.transactionDateLocal
@@ -503,7 +497,7 @@ export default class TransactionHistoryBoard extends LightningElement {
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
         ].includes(transaction.pay_anyone?.clearing_sub_method):
         return this.transactionTypeDisputeIdMapFromParent.Direct_Entry_Dispute;
-      case ([TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
+      case [TRANSACTION_TYPES.BSB_ACC, TRANSACTION_TYPES.PAYID].includes(
         transaction.formatted_type
       ) &&
         transaction.pay_anyone?.clearing_method ===
@@ -511,9 +505,10 @@ export default class TransactionHistoryBoard extends LightningElement {
         [
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ICS1,
           PAYMENT_SUB_TYPES.PAYMENT_SUB_TYPE_ONUS
-        ].includes(transaction.pay_anyone?.clearing_sub_method)) ||
-        transaction.pay_anyone?.payment_id.substring(0, 3) === "MPS":
+        ].includes(transaction.pay_anyone?.clearing_sub_method):
         return this.transactionTypeDisputeIdMapFromParent.NPP_Dispute;
+      case transaction.formatted_type === TRANSACTION_TYPES.PayTo:
+        return this.transactionTypeDisputeIdMapFromParent.PayTo_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.Direct_Debit:
         return this.transactionTypeDisputeIdMapFromParent.Direct_Debit_Dispute;
       case transaction.formatted_type === TRANSACTION_TYPES.BPAY:

@@ -149,11 +149,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Access_Request__c.Requestor__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -7496,6 +7491,9 @@
         <layout>Customer_Relationship__c-MLCRM Customer Relationship Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Deposit_Account__x-Deposit Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Knowledge__kav-Knowledge Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -7519,6 +7517,9 @@
     <layoutAssignments>
         <layout>Lead-MLCRM Lead Layout</layout>
         <recordType>Lead.MLCRM_Lead</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Loan_Account__x-Loan Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>PersonAccount-MLCRM Account Page Layout</layout>
@@ -7549,6 +7550,12 @@
     <layoutAssignments>
         <layout>Task-MLCRM Task Layout</layout>
         <recordType>Task.MLCRM_Task</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Term_Deposit__x-Term Deposit Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account_Registration__x-Account Registration Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>

@@ -10,9 +10,9 @@
                             <value>PersonDigitalIdentity__x.DataSharing</value>
                             <visibilityRule>
                                 <criteria>
-                                    <leftValue>{!Record.Status__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>Archived</rightValue>
+                                    <leftValue>{!$Permission.CustomPermission.AccessOpenBanking}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -41,7 +41,7 @@
                                     <rightValue>4</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.ArchiveCustomer}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -67,7 +67,7 @@
                                     <rightValue>1</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.LockPin}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -98,7 +98,7 @@
                                     <rightValue>1</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.UnlockPin}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -129,7 +129,7 @@
                                     <rightValue>1</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.SuspendCustomer}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -155,7 +155,7 @@
                                     <rightValue>1</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.UnsuspendCustomer}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -186,7 +186,7 @@
                                     <rightValue>Suspended</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.UpdateMobileNumber}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -217,7 +217,7 @@
                                     <rightValue>Suspended</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.UpdateOCVID}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>
@@ -233,7 +233,7 @@
                                     <rightValue>Suspended</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.AccessAegisFeatures}</leftValue>
+                                    <leftValue>{!$Permission.CustomPermission.ResetPin}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>

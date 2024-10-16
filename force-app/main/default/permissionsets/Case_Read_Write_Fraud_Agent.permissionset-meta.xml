@@ -1143,6 +1143,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>Case.PayTo_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Case.Recipient_Mule</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

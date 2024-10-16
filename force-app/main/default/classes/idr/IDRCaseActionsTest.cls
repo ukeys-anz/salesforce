@@ -451,7 +451,7 @@ private with sharing class IDRCaseActionsTest {
       )
       .IDR_Product_Family__r;
     oldCase.Id = caseRecordId;
-    
+
     Case newCase = IDRTestDataFactory.createComplaint();
     newCase.Product__c = testProduct1.Id;
     newCase.Id = oldCase.Id;

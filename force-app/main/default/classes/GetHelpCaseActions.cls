@@ -21,10 +21,15 @@ public with sharing class GetHelpCaseActions {
   public static final String SLA_WARNING = 'Warning';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
-  public static final String PAY_TO_DISPUTE_PAYMENTID_PREFIX = 'MPS';
-  public static final String PAY_TO_SUBJECT_PREFIX = 'PayTo';
+
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
+  );
+
+  public static final String ON_HOLD_CASE_STATUS = 'On Hold';
+
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
   );
 
   public static Group accountClosureQueue = QueryQueue.get(
@@ -61,7 +66,6 @@ public with sharing class GetHelpCaseActions {
       ) {
         updateCaseDurationTime(record);
       }
-      GetHelpCaseActionsHelper.checkPaytoDisputeValidations(record, oldRecord);
 
       if (record.RecordTypeId == RTCase.generalInquiry) {
         if (
@@ -260,10 +264,9 @@ public with sharing class GetHelpCaseActions {
   public static void populateDisputeCaseSubject(Case record) {
     // For dispute cases, subject will be text comprising "<Record Type Name> - <Dispute Reason>
     if (String.isNotBlank(record.Dispute_Reason__c)) {
-      String caseSubjectPrefix = record.Is_PayTo_Dispute__c
-        ? PAY_TO_SUBJECT_PREFIX
-        : QueryRT.of(Case.SObjectType).get(record.RecordTypeId).Name;
-
+      String caseSubjectPrefix = QueryRT.of(Case.SObjectType)
+        .get(record.RecordTypeId)
+        .Name;
       record.Subject = caseSubjectPrefix + ' - ' + record.Dispute_Reason__c;
     }
   }
@@ -780,57 +783,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description create task on case closure
-   * @param records Case records from trigger
-   * @param oldMap oldMap of the cases
-   */
-  public static void createTaskOnDisputeCaseClosure(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    if (!Schema.sObjectType.External_Case_Status__c.isQueryable()) {
-      return;
-    }
-    List<Task> taskList = new List<Task>();
-    Map<Id, Case> mapClosedCases = GetHelpCaseActionsHelper.createClosedCaseMap(
-      records,
-      oldMap
-    );
-
-    if (mapClosedCases.isEmpty()) {
-      return;
-    }
-
-    Set<String> externalCaseStatusSet = new Set<String>{
-      'Resolved-PreArbGranted',
-      'Resolved-PreArbAccepted',
-      'Resolved-Writeoff',
-      'Resolved-AcqAccepted',
-      'Resolved-AcquirerLiable',
-      'Resolved-Duplicate'
-    };
-    Map<String, Id> queueMap = IDRCaseAssignmentRules.getAnzxWorkbaskets();
-    Id taskOwnerId = queueMap.get(GetHelpConstants.CARD_DISPUTE_GENERAL_QUEUE);
-    for (External_Case_Status__c externalCaseStatus : [
-      SELECT Id, External_Status__c, Case__c, Case__r.ContactId
-      FROM External_Case_Status__c
-      WHERE
-        Case__c IN :mapClosedCases.keySet()
-        AND External_Status__c IN :externalCaseStatusSet
-    ]) {
-      taskList.add(
-        GetHelpCaseActionsHelper.createEmailTask(
-          mapClosedCases.get(externalCaseStatus.Case__c),
-          externalCaseStatus,
-          taskOwnerId
-        )
-      );
-    }
-
-    DMLUtil.insertRecords(taskList, false, true);
-  }
-
-  /**
    * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
    * @param records Case records from trigger
    * @param oldMap map of records id and old records
@@ -897,18 +849,11 @@ public with sharing class GetHelpCaseActions {
    */
   public static void populateFieldsOfPayToDispute(List<Case> caseList) {
     for (Case caseRecord : caseList) {
-      if (
-        caseRecord.recordTypeId == RTCase.nppDispute &&
-        String.isNotBlank(caseRecord.Payment_ID__c) &&
-        String.isNotBlank(caseRecord.Dispute_Reason_PayTo__c)
-      ) {
-        caseRecord.Dispute_Reason__c = caseRecord.Dispute_Reason_PayTo__c;
-        caseRecord.Is_PayTo_Dispute__c = caseRecord.Payment_ID__c.startsWith(
-          PAY_TO_DISPUTE_PAYMENTID_PREFIX
-        );
-      }
+      caseRecord.Is_PayTo_Dispute__c = (caseRecord.recordTypeId ==
+      RTCase.payToDispute);
     }
   }
+
   /**
    * @description Handles populating the Provisionally closed field.
    * @param oldRecordMap Old Map of Records from Trigger, only in case of Update.
@@ -970,5 +915,136 @@ public with sharing class GetHelpCaseActions {
         oCase.OwnerId = idOpsQueue.Id;
       }
     }
+  }
+
+  /**
+   * @description Creates External Case Status record if the status of a case has been changed or new case has been created.
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void createExternalCaseStatuses(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<External_Case_Status__c> externalcaseStatuses = new List<External_Case_Status__c>();
+    ExternalCaseStatusMappingQueryHelper externalCaseStatusQueryHelper = ExternalCaseStatusMappingQueryHelper.getInstance();
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap = externalCaseStatusQueryHelper.getSalesforceStatusToMetadataMap();
+    for (Case caseRecord : records) {
+      if (
+        isValidCaseToCreateExtCaseStatus(
+          oldMap,
+          caseRecord,
+          statusToMetadataMap
+        )
+      ) {
+        String key = getRecordTypeAndStatusKey(caseRecord);
+        External_Case_Status_Mapping__mdt metadataRecord = statusToMetadataMap.get(
+          key
+        );
+        if (metadataRecord == null) {
+          continue;
+        }
+        externalcaseStatuses.add(
+          populateExternalCaseStatuses(caseRecord, metadataRecord)
+        );
+      }
+    }
+    DML_REPOSITORY.insertRecords(
+      externalcaseStatuses,
+      DmlRepository.ALL_OR_NONE,
+      DmlRepository.SYSTEM_MODE
+    );
+  }
+
+  /**
+   * @description Marks the IsStopped field base on Status.
+   * @param records Case records from trigger
+   * @param oldMap map of records id and old records
+   */
+  public static void markSLAStatus(List<Case> records, Map<Id, Case> oldMap) {
+    for (Case caseRecord : records) {
+      if (
+        oldMap == null ||
+        RecordComparisonUtil.fieldWasChanged(
+          caseRecord,
+          oldMap.get(caseRecord.Id),
+          Case.Status
+        )
+      ) {
+        caseRecord.IsStopped = (caseRecord.Status == ON_HOLD_CASE_STATUS);
+      }
+    }
+  }
+
+  /**
+   * @description Returns a unique key by appending recordtype and Status
+   * @param caseRecord Case Record
+   * @return String key
+   */
+  public static String getRecordTypeAndStatusKey(Case caseRecord) {
+    return (String.join(
+        new List<String>{
+          QueryRT.of(Case.SObjectType)
+            .get(caseRecord.RecordTypeId)
+            ?.getDeveloperName(),
+          caseRecord.Status
+        },
+        '_'
+      ))
+      .toLowerCase();
+  }
+
+  /**
+   * @description Checks if case is eligible for creating external case statuses
+   * @param oldMap map of records id and old records
+   * @param caseRecord Case Record
+   * @param statusToMetadataMap Metadata map of External_Case_Status_Mapping__mdt
+   * @return Boolean
+   */
+  @TestVisible
+  private static Boolean isValidCaseToCreateExtCaseStatus(
+    Map<Id, Case> oldMap,
+    Case caseRecord,
+    Map<String, External_Case_Status_Mapping__mdt> statusToMetadataMap
+  ) {
+    Boolean isStatusChanged = (oldMap == null ||
+    RecordComparisonUtil.fieldWasChanged(
+      caseRecord,
+      oldMap.get(caseRecord.Id),
+      Case.Status
+    ));
+    Boolean isCaseEligible = CheckCaseRecordType.isValidCaseToCreateExtCaseStatus(
+      caseRecord
+    );
+    String key = getRecordTypeAndStatusKey(caseRecord);
+    return (isCaseEligible &&
+    isStatusChanged &&
+    statusToMetadataMap.containsKey(key));
+  }
+
+  /**
+   * @description Populates the external case status records.
+   * @param caseRecord Case Record
+   * @param metadetaRecord External_Case_Status_Mapping__mdt record
+   * @return External_Case_Status__c record
+   */
+  private static External_Case_Status__c populateExternalCaseStatuses(
+    Case caseRecord,
+    External_Case_Status_Mapping__mdt metadetaRecord
+  ) {
+    External_Case_Status__c extCaseStatusRecord = new External_Case_Status__c();
+    extCaseStatusRecord.Case__c = caseRecord.Id;
+    extCaseStatusRecord.Internal_Description__c = metadetaRecord.Internal_Description__c;
+    extCaseStatusRecord.Customer_Status__c = metadetaRecord.Customer_Status__c;
+    extCaseStatusRecord.New_Customer_Message__c = metadetaRecord.Customer_Message__c;
+    extCaseStatusRecord.External_Status__c = metadetaRecord.PEGA_Dispute_Status__c;
+    extCaseStatusRecord.Status_Timestamp__c = DateTime.now();
+    extCaseStatusRecord.Status_Event_ID__c =
+      caseRecord.CaseNumber +
+      '_' +
+      DateTime.Now() +
+      '_' +
+      CommonUtil.generateUUID();
+    return extCaseStatusRecord;
   }
 }

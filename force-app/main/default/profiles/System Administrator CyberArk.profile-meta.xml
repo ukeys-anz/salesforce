@@ -1183,11 +1183,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
         <field>Access_Request__c.Requestor__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7923,6 +7918,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.SunsetTimestamp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8824,6 +8824,10 @@
     <layoutAssignments>
         <layout>Case-Non-Customer Complaint Layout</layout>
         <recordType>Case.Non_Customer_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-PayTo Dispute Layout</layout>
+        <recordType>Case.PayTo_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Recipient%2FMule Layout</layout>

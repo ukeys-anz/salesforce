@@ -1,0 +1,25 @@
+{
+  "lstOfSymmarySetting": [
+  {
+    "Summary_Name__c": "TOTAL_ASSET_FINANCE_BALANCE",
+    "User_Profile__c": "ANZ CCRM Standard User;System Administrator"
+  },
+  {
+    "Summary_Name__c": "TOTAL_CUSTOMER_BALANCE",
+    "User_Profile__c": "ANZ CCRM Standard User;System Administrator"
+  },
+  {
+    "Summary_Name__c": "TOTAL_CREDIT_BALANCE",
+    "User_Profile__c": "ANZ ML Standard User;System Administrator"
+  },
+  {
+    "Summary_Name__c": "TOTAL_DEBIT_BALANCE",
+    "User_Profile__c": "ANZ ML Standard User;System Administrator"
+  },
+  {
+    "Summary_Name__c": "TOTAL_CUSTOMER_LIMIT",
+    "User_Profile__c": "ANZ ML Standard User;ANZ CCRM Standard User;System Administrator"
+  }
+],
+  "strCurrentUserProfileName": "System Administrator"
+}

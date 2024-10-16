@@ -12,7 +12,7 @@
     <label>Deposit Account</label>
     <length>255</length>
     <referenceTo>Deposit_Account__x</referenceTo>
-    <relationshipLabel>Balance Histories</relationshipLabel>
+    <relationshipLabel>Balance and Overdrawn Histories</relationshipLabel>
     <relationshipName>Balance_Histories</relationshipName>
     <securityClassification>Internal</securityClassification>
     <type>ExternalLookup</type>

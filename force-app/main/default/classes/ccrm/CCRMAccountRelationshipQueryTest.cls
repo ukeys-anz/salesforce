@@ -6,72 +6,109 @@
  */
 @isTest
 private class CCRMAccountRelationshipQueryTest {
-  @TestSetup
-  static void createTestData() {
-    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('Business_Account')
-      .getRecordTypeId();
-    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
-      '4040r00000E3yPTABB',
-      customerRecordTypeId,
-      '4040r00000E3yPTABB'
+  static Lib_MockProvider faRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    faRepoMock = Lib_MockProvider.forType(
+      CCRMFinancialAccountQueryBaseRepository.class
     );
+  }
 
-    Id bankingRecordTypeId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
-      .get('BankingAccount')
-      .getRecordTypeId();
-    FinServ__FinancialAccount__c finAccount = TestDataFactory.createC360FinancialAccount(
-      bankingRecordTypeId,
-      'CAP-CIS:DDA',
-      acct.Id,
-      '3424909811',
-      '000000000'
-    );
+  @isTest
+  static void testGetSequence() {
+    Test.startTest();
+    CCRMAccountRelationshipQuery accRelQry = new CCRMAccountRelationshipQuery();
+    String result = accRelQry.getSequence(1);
+    Test.stopTest();
+    Assert.areEqual('0001', result, 'result is not 0001');
   }
 
   @isTest
   static void testAccountRelationshipQuery() {
     Test.startTest();
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMAccountRelationshipQueryTest.CCRMAccountRelationshipQueryTestMock()
-    );
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    conn.sync();
-    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
-      'AccountRelationship'
-    );
-    conn.query(context);
+    DataSource.QueryContext context = CCRMTestDataFactory.createAccountRelationshipContextForAPI();
     CCRMAccountRelationshipQuery accRelQry = new CCRMAccountRelationshipQuery();
     CCRMExternalObjectQueryBase.ExternalQueryResult result = accRelQry.execute(
       context
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(5, result.queryResult.size(), 'Size of accounts is not 5');
+  }
+
+  @isTest
+  static void testAccountRelationshipQueryWithSOQL() {
+    registerMocks();
+    Test.startTest();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
+
+    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
+      FinServ__Active__c = true,
+      Role_Type__c = 'UNO',
+      FinServ__FinancialAccount__r = new FinServ__FinancialAccount__c(
+        Name = 'Test',
+        FinServ__Status__c = 'Active',
+        FinServ__FinancialAccountType__c = 'Savings',
+        FinServ__PrimaryOwner__c = accId,
+        Account_Key__c = 'CAP-CIS_4011643101-234500817',
+        FinServ__FinancialAccountNumber__c = '234500817',
+        Product_Type__c = 'CAP-CIS:DDA'
+      ),
+      FinServ__RelatedAccount__r = new Account(
+        External_Id__c = 'CAP-CIS_4011643101'
+      )
+    );
+    DataSource.QueryContext context = CCRMTestDataFactory.createAccountRelationshipContextForSOQL();
+    CCRMAccountRelationshipQuery accRelQry = new CCRMAccountRelationshipQuery();
+    faRepoMock.mock(
+      'getRelatedCustomers',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = accRelQry.execute(
+      context
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      1,
       result.queryResult.size(),
-      5,
-      'Size of accounts is not 5'
+      'Size of related customer is not 1'
     );
   }
 
-  /**
-   * @description create HTTP mock response for testing
-   */
-  public class CCRMAccountRelationshipQueryTestMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String jsonBody = Service.getStaticResource('mock_accountRelationship');
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('example', 'account-relationship-query');
-      res.setBody(jsonBody);
-      res.setStatusCode(200);
-      return res;
-    }
+  @isTest
+  static void getRelatedCustomersOfAccountTest() {
+    registerMocks();
+    Test.startTest();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
+
+    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
+      FinServ__Active__c = true,
+      Role_Type__c = 'UNO',
+      FinServ__FinancialAccount__r = new FinServ__FinancialAccount__c(
+        Name = 'Test',
+        FinServ__Status__c = 'Active',
+        FinServ__FinancialAccountType__c = 'Savings',
+        FinServ__PrimaryOwner__c = accId,
+        Account_Key__c = 'CAP-CIS_4011643101-234500817',
+        FinServ__FinancialAccountNumber__c = '234500817',
+        Product_Type__c = 'CAP-CIS:DDA'
+      ),
+      FinServ__RelatedAccount__r = new Account(
+        External_Id__c = 'CAP-CIS_4011643101'
+      )
+    );
+
+    CCRMAccountRelationshipQuery accRelQry = new CCRMAccountRelationshipQuery();
+    faRepoMock.mock(
+      'getRelatedCustomers',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+
+    List<FinServ__FinancialAccountRole__c> roles = accRelQry.getRelatedCustomersOfAccount(
+      'CAP-CIS_4011643101-234500817',
+      new Set<String>{ 'UNO' }
+    );
+    Test.stopTest();
+    Assert.areEqual(1, roles.size(), 'No related customers found');
   }
 }

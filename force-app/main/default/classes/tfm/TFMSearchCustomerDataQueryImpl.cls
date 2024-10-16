@@ -55,9 +55,13 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     staffModel.idType = refId;
     staffModel.idValue = searchText;
     staffModel.anzTokenType = TFMConstants.ANZTOKENTYPE;
+    if (refId == Service.IdType.IDENTIFIER) {
+      staffModel.realm = TFMConstants.ANZ_REALM_SYSTEM_VALUE;
+      staffModel.anzTokenType = TFMConstants.ANZ_STAFF_TOKEN_TYPE;
+    }
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
     model = api.searchCustAPI(staffModel);
-    lstReturnDataset = setRowsOfObject(model);
+    lstReturnDataset = setRowsOfObject(model, refId, searchText);
     return lstReturnDataset;
   }
 
@@ -94,10 +98,12 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
   /**
    * @description method is setting the rows from api to external object records
    * @param  result TFMPersonDigitalIdentityModel
+   * @param refId Service.IdType
+   * @param searchText String
    * @return  List<Map<String, Object>>
    */
   public static List<Map<String, Object>> setRowsOfObject(
-    TFMPersonDigitalIdentityModel result
+    TFMPersonDigitalIdentityModel result, Service.IdType refId, String searchText
   ) {
     String resouceIds;
     List<Map<String, Object>> lstReturnDataset = new List<Map<String, Object>>();
@@ -105,35 +111,31 @@ public with sharing class TFMSearchCustomerDataQueryImpl {
     for (TFMPersonDigitalIdentityModel.Result res : lstResult) {
       Map<String, Object> curRow = new Map<String, Object>();
       curRow.put(TFMConstants.UUID, res.id);
-      curRow.put(TFMConstants.PREFERRED_NAME, res.preferredName);
-      curRow.put(TFMConstants.EMAIL, res.securityEmail);
-      curRow.put(
-        TFMConstants.CREATED_ON,
-        dateFormat(String.valueOf(res.createDateTime))
-      );
+      curRow.put(TFMConstants.PREFERRED_NAME, res.preferredName ?? res.id);
       curRow.put(TFMConstants.OCV_ID, res.ocvId);
-      curRow.put(TFMConstants.IAL, Integer.valueOf(res.identityAssuranceLevel));
       curRow.put(TFMConstants.STATUS, nameFormat(String.valueOf(res.status)));
-      curRow.put(TFMConstants.INTERNALUSERID, res.idxInternalUserId);
-      if (res.securityMobile != null) {
-        curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile);
-      } else {
-        curRow.put(
-          TFMConstants.MOBILE_NUMBER,
-          String.valueOf(res.archivedIdentifiers[0])
-        );
-      }
-      List<TFMPersonDigitalIdentityModel.Persona> persona = (List<TFMPersonDigitalIdentityModel.Persona>) res.persona;
-      List<TFMPersonDigitalIdentityModel.Credential> credential = (List<TFMPersonDigitalIdentityModel.Credential>) res.credential;
-      curRow.putAll(addPersonaId(persona));
-      curRow.putAll(addPinStatus(credential));
-      resouceIds = getResourceIds(credential);
-      curRow.put(TFMConstants.COL_HEADER_CREDENTIAL, resouceIds);
+      curRow.put(TFMConstants.MOBILE_NUMBER, searchText);
       curRow.put(TFMConstants.COL_HEADER_EXTERNAL_ID, res.id);
       curRow.put(
         TFMConstants.COL_HEADER_DISPLAYURL,
         URL.getOrgDomainURL() + '/' + res.id
       );
+      if (refId != Service.IdType.IDENTIFIER) {
+        curRow.put(TFMConstants.MOBILE_NUMBER, res.securityMobile ?? String.valueOf(res.archivedIdentifiers[0]));
+        curRow.put(TFMConstants.EMAIL, res.securityEmail);
+        curRow.put(
+          TFMConstants.CREATED_ON,
+          dateFormat(String.valueOf(res.createDateTime))
+        );
+        curRow.put(TFMConstants.IAL, Integer.valueOf(res.identityAssuranceLevel));
+        curRow.put(TFMConstants.INTERNALUSERID, res.idxInternalUserId);
+        List<TFMPersonDigitalIdentityModel.Persona> persona = (List<TFMPersonDigitalIdentityModel.Persona>) res.persona;
+        List<TFMPersonDigitalIdentityModel.Credential> credential = (List<TFMPersonDigitalIdentityModel.Credential>) res.credential;
+        curRow.putAll(addPersonaId(persona));
+        curRow.putAll(addPinStatus(credential));
+        resouceIds = getResourceIds(credential);
+        curRow.put(TFMConstants.COL_HEADER_CREDENTIAL, resouceIds);
+      }
       lstReturnDataset.add(curRow);
     }
     return lstReturnDataset;

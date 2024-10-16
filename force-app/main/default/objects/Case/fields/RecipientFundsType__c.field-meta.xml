@@ -67,6 +67,11 @@
                 <label>Scam - Impersonation</label>
             </value>
             <value>
+                <fullName>Scam - Recovery</fullName>
+                <default>false</default>
+                <label>Scam - Recovery</label>
+            </value>
+            <value>
                 <fullName>Scam - Other</fullName>
                 <default>false</default>
                 <label>Scam - Other</label>

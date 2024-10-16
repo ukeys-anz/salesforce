@@ -1,10 +1,15 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { LightningElement, track } from "lwc";
+import { LightningElement, track, wire } from "lwc";
 import {
   validate,
   getCustomerNumberValidationMsg
 } from "./formValidator/caseFormValidator";
 import { handleErrorShowToast } from "c/utils";
+import {
+  EnclosingTabId,
+  openTab,
+  closeTab
+} from "lightning/platformWorkspaceApi";
 export default class CreateCaseOmni extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -13,6 +18,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   @track missingFields = [];
   @track modalMsg;
   @track modalHeader = "Error";
+
+  @wire(EnclosingTabId) tabId;
 
   closeModal() {
     this.modalMsg = null;
@@ -94,10 +101,18 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       // Navigate to the case record that is closed
       this.omniRemoteCall(params, true).then((res) => {
         let result = res.result.IPResult;
-        this.loading = false;
         if (result.CaseId) {
-          let url = window.location.origin + "/" + result.CaseId;
-          window.open(url, "_self");
+          openTab({
+            recordId: result.CaseId,
+            focus: true
+          })
+            .then(() => {
+              this.loading = false;
+              closeTab(this.tabId);
+            })
+            .catch(() => {
+              this.loading = false;
+            });
         }
       });
     }

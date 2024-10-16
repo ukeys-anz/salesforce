@@ -18,6 +18,6 @@
     <filterScope>Everything</filterScope>
     <label>All Customer Complaints</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

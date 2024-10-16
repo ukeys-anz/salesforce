@@ -13,6 +13,6 @@
     <label>General Case Queue</label>
     <queue>General_Case_Queue</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

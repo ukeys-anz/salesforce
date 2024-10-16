@@ -21,17 +21,17 @@
     <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>Coach_Lead</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </shares>
     <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>FraudX_Agent</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </shares>
     <shares>
         <accessLevel>View</accessLevel>
         <sharedTo>Support_Coach</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </shares>
     <shares>
         <accessLevel>Manage</accessLevel>

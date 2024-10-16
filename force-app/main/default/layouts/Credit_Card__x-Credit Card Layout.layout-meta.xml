@@ -73,11 +73,12 @@
         <relatedList>CardHolder__x.Credit_Card__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Sequence__c</fields>
         <fields>Description__c</fields>
         <fields>Date_Placed__c</fields>
         <fields>Operator__c</fields>
         <fields>Expiry_Date__c</fields>
+        <fields>Permanent__c</fields>
         <relatedList>Diary_Comment__x.Credit_Card__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -85,6 +86,13 @@
         <fields>Fee_Amount__c</fields>
         <fields>Fee_Type__c</fields>
         <relatedList>Credit_Card_Fee__x.Credit_Card__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Number__c</fields>
+        <fields>Name__c</fields>
+        <fields>Type__c</fields>
+        <fields>Status__c</fields>
+        <relatedList>Account_Registration__x.Credit_Card__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

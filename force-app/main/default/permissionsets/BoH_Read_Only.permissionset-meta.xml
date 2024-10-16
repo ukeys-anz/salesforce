@@ -544,6 +544,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>LoanApplicant.Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>LoanApplicant.Last_Updated_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -560,6 +565,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicant.Loan_Applicant_Group__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicant.Loan_Purpose__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -820,6 +830,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicationProperty.Image_Link__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicationProperty.Ineligible_Reasons__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1330,6 +1345,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Ineligible_Reasons__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Is_SOP_Ineligible__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

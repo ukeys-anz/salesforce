@@ -193,6 +193,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Is_this_a_Business_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Registration_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Address__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Location__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -338,6 +353,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>External_Case_Status__c.Customer_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>External_Case_Status__c.External_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -349,6 +369,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>External_Case_Status__c.New_Customer_Message__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -440,6 +465,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.NPP_Dispute</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Case.PayTo_Dispute</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>

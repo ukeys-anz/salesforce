@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>ATM_Resolved-MerchantCredit</label>
+    <protected>false</protected>
+    <values>
+        <field>Case_Record_Type__c</field>
+        <value xsi:type="xsd:string">ATM_Dispute</value>
+    </values>
+    <values>
+        <field>Case_Status__c</field>
+        <value xsi:type="xsd:string">Closed</value>
+    </values>
+    <values>
+        <field>Customer_Message__c</field>
+        <value xsi:type="xsd:string">It looks like the merchant has already issued a refund. You can find the credit information and our contact details in the last email we sent you.
+
+Feel free to reach out to us if you have any questions.</value>
+    </values>
+    <values>
+        <field>Customer_Status__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Internal_Description__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>PEGA_Dispute_Status__c</field>
+        <value xsi:type="xsd:string">Resolved-MerchantCredit</value>
+    </values>
+    <values>
+        <field>PEGA_Investigation_Outcome__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

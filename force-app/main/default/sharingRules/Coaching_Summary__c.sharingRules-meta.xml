@@ -9,7 +9,7 @@
             <role>ANZ_Plus_Operations_Read_Only</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -21,7 +21,7 @@
             <role>Business_Admin</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -33,7 +33,7 @@
             <role>Coach_Lead</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -45,7 +45,7 @@
             <role>Coach</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -57,7 +57,7 @@
             <role>Quality_Analyst</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

@@ -12,7 +12,10 @@ public with sharing class SandboxSetupRepository {
     return [
       SELECT Id, ProfileId, Name
       FROM User
-      WHERE Email LIKE '%anz.com' AND (NOT Name LIKE '%system%') AND IsActive = true
+      WHERE
+        Email LIKE '%anz.com'
+        AND (NOT Name LIKE '%system%')
+        AND IsActive = TRUE
       WITH SECURITY_ENFORCED
       LIMIT 1
     ];

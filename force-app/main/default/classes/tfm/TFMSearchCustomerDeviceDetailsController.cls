@@ -59,7 +59,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
             Id,
             credentialsResId__c,
             Internal_User_ID__c,
-            OCV_ID__c,
+            UUID__c,
             Status__c
           FROM PersonDigitalIdentity__x
           WHERE Id = :recordId
@@ -70,8 +70,8 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
       return true;
     } else {
       StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
-      staffModel.idType = Service.IdType.OCVID;
-      staffModel.idValue = digitalIdentityRecord.OCV_ID__c;
+      staffModel.idType = Service.IdType.UUID;
+      staffModel.idValue = digitalIdentityRecord.UUID__c;
       staffModel.anzTokenType = TFMConstants.ANZTOKENTYPE;
       List<Map<String, Object>> transformedDeviceDetailsList = getDetails(
         digitalIdentityRecord,
@@ -129,7 +129,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
         dRName
       );
       Boolean hasAccessToAegisFeatures = FeatureManagement.checkPermission(
-          'AccessAegisFeatures'
+          'DeregisterDevice'
         ) &&
         digitalIdentityRecord.Status__c.toLowerCase() != TFMConstants.ARCHIVED
         ? true
@@ -257,7 +257,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
     PersonDigitalIdentity__x digitalIdentityRecord = new PersonDigitalIdentity__x(
       credentialsResId__c = TFMConstants.CREDENTIALSRESID,
       Internal_User_ID__c = TFMConstants.INTERNAL_USER_ID,
-      OCV_ID__c = TFMConstants.OCV_ID_VALUE,
+      UUID__c = TFMConstants.UUID_VALUE,
       Id = Lib_FakeIdGenerator.getMockId(
         PersonDigitalIdentity__x.getSObjectType()
       ),

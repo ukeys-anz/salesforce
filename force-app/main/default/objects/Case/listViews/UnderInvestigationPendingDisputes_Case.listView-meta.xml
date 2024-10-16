@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UnderInvestigationPendingDisputes_Case</fullName>
+    <filterScope>Queue</filterScope>
+    <label>Under Investigation - Pending Disputes</label>
+    <queue>UnderInvestigationPendingDisputes</queue>
+    <sharedTo>
+        <role>Card_Dispute_Agent</role>
+        <role>FraudX_Agent</role>
+        <role>Join_Lead</role>
+    </sharedTo>
+</ListView>

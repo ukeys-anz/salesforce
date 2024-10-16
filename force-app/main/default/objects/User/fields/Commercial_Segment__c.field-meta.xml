@@ -25,7 +25,7 @@
                 <label>Business Banking</label>
             </value>
             <value>
-                <fullName>CBK</fullName>
+                <fullName>CBO</fullName>
                 <default>false</default>
                 <label>Commercial Broker</label>
             </value>
@@ -42,12 +42,27 @@
             <value>
                 <fullName>TB</fullName>
                 <default>false</default>
-                <label>Transaction Banking</label>
+                <label>Transactional Banking</label>
             </value>
             <value>
-                <fullName>SBB NBC</fullName>
+                <fullName>SME</fullName>
                 <default>false</default>
-                <label>SBB National Business Center</label>
+                <label>Small to Medium Enterprises</label>
+            </value> 
+            <value>
+                <fullName>SME NBC</fullName>
+                <default>false</default>
+                <label>Small to Medium Enterprises - NBC</label>
+            </value> 
+            <value>
+                <fullName>DSI</fullName>
+                <default>false</default>
+                <label>Diversified and Specialist Industries</label>
+            </value> 
+            <value>
+                <fullName>PB</fullName>
+                <default>false</default>
+                <label>Private Bank and Advise</label>
             </value>
         </valueSetDefinition>
     </valueSet>

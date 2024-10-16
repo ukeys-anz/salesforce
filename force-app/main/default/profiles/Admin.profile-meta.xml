@@ -742,10 +742,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetHelpCaseActionsHelperTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>GetHelpCaseAssignmentRules</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1558,11 +1554,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Access_Request__c.Expected_Start__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5946,6 +5937,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Deposit_Account__x.Date_Closed__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Disputes_PEGA_Integration_Event__e.Case_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6181,6 +6177,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>External_Case_Status__c.Customer_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>External_Case_Status__c.External_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6192,6 +6193,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>External_Case_Status__c.Is_Outcome_in_Customer_Favour__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>External_Case_Status__c.New_Customer_Message__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -10370,6 +10376,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.SunsetTimestamp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11412,6 +11423,10 @@
         <recordType>Case.NPP_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-PayTo Dispute Layout</layout>
+        <recordType>Case.PayTo_Dispute</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Profile Update Layout</layout>
         <recordType>Case.Profile_Update</recordType>
     </layoutAssignments>
@@ -11539,6 +11554,9 @@
         <layout>CustomerOnboardingApplication__c-Customer Onboarding Application Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Deposit_Account__x-Deposit Account Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>EmailMessage-Email Message Layout - Email-to-Case</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -11641,6 +11659,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Legal_Entity__c-Legal Entity Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Loan_Account__x-Loan Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>LogEntry__c-Log Entry Layout</layout>
@@ -11754,6 +11775,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Term_Deposit__x-Term Deposit Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>

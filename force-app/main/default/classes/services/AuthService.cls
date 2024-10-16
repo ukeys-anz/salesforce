@@ -73,6 +73,7 @@ public with sharing class AuthService extends Service {
     Forgerock_Auth__mdt forgeAuth
   ) {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = new HttpCalloutResponse();
     Map<String, String> headers = new Map<String, String>();
     headers.put('client_id', '{!$Credential.Username}');
     headers.put('client_secret', '{!$Credential.Password}');
@@ -80,8 +81,9 @@ public with sharing class AuthService extends Service {
     headers.put('traceparent', CommonUtil.generateTraceParent());
     headers.put('x-anz-application-id', 'salesforce');
     String payload = getJWT2Payload(staffModelWrapper, idToken, forgeAuth);
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      Label.MS_ForgeV2_Token + staffModelWrapper.anzTokenType,
+    response = calloutService.makeRestCallout(
+      Label.MS_ForgeV2_Token.replace('{realm}', staffModelWrapper.realm) +
+      staffModelWrapper.anzTokenType,
       HTTP_METHOD.HTTP_POST,
       headers,
       payload
@@ -110,10 +112,6 @@ public with sharing class AuthService extends Service {
         forgeAuth.Encrypted_forge_client_secret__c,
         'UTF-8'
       ) +
-      '&rqf_id_type=' +
-      idType.substring(1, idType.length() - 1) +
-      '&rqf_id_value=' +
-      EncodingUtil.urlEncode(staffModelWrapper.idValue, 'UTF-8') +
       '&scope=' +
       forgeAuth.RequestedScopes__c +
       '&subject_token_type=' +
@@ -121,7 +119,14 @@ public with sharing class AuthService extends Service {
       '&subject_token=' +
       idToken +
       '&grant_type=client_credentials';
-
+    if (staffModelWrapper.realm == 'customer') {
+      payload =
+        payload +
+        '&rqf_id_type=' +
+        idType.substring(1, idType.length() - 1) +
+        '&rqf_id_value=' +
+        EncodingUtil.urlEncode(staffModelWrapper.idValue, 'UTF-8');
+    }
     return payload;
   }
 }

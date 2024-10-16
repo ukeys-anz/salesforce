@@ -4,8 +4,15 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
-  public static Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
   public static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
+  public static Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
+    InteractionRepository.class
+  );
+
   static {
     //Fetch Status Mapping for Twilio and Interaction
     List<InteractionStatusMappingForTwilio__mdt> statusMap = [
@@ -28,93 +35,67 @@ public with sharing class TwilioServiceUtil {
   public static List<TwilioContextResponse> upsertTwilioDetailsRecord(
     List<UpdateInteractionByTwilioPayload> twilioContextRequest
   ) {
-    List<Interaction> interactionToBeUpdated = new List<Interaction>();
-    List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
-    List<Twilio_Details__c> twilioDetailRecordToInsertOrUpdate = new List<Twilio_Details__c>();
-    List<Database.UpsertResult> lstUpsertResult = new List<Database.UpsertResult>();
-    Set<String> agentEmailList = new Set<String>();
-
-    for (
-      Integer intCount = 0; intCount < twilioContextRequest.size(); intCount++
-    ) {
-      UpdateInteractionByTwilioPayload res = twilioContextRequest.get(intCount);
-      Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
-      //Checking whether the transaction made for Update or Insert.
-      if (String.isNotBlank(res.twilioDetailRecordId)) {
-        twilioDetailRecord.Id = res.twilioDetailRecordId;
-      } else if (!String.isNotBlank(res.twilioDetailRecordId)) {
-        twilioDetailRecord.Id = [
-          SELECT TwilioDetailsID__c
-          FROM Interaction
-          WHERE Id = :res.interactionId
-          WITH SECURITY_ENFORCED
-        ]
-        .TwilioDetailsID__c;
-      }
-
-      if (String.isNotBlank(res.twilioId)) {
-        twilioDetailRecord.Twilio_ID__c = res.twilioId;
-      }
-      if (String.isNotBlank(res.chatOrCallId)) {
-        twilioDetailRecord.Chat_or_Call_SID__c = res.chatOrCallId;
-      }
-      if (String.isNotBlank(res.callRecordingId)) {
-        twilioDetailRecord.Call_Recording_Id__c = res.callRecordingId;
-      }
-      if (String.isNotBlank(res.queueName)) {
-        twilioDetailRecord.ANZ_Queue__c = res.queueName;
-      }
-      if (String.isNotBlank(res.agentEmail)) {
-        agentEmailList.add(res.agentEmail);
-      }
-      twilioDetailRecordToInsertOrUpdate.add(twilioDetailRecord);
-    }
-
-    //Creating map of agent email and owner id
-    for (User agent : [
-      SELECT Id, FederationIdentifier, Email
-      FROM User
-      WHERE
-        (Email IN :agentEmailList
-        OR FederationIdentifier IN :agentEmailList)
-        AND IsActive = TRUE
-    ]) {
-      agentOwnerIdMap.put(agent.FederationIdentifier.toLowerCase(), agent.Id);
-    }
-
-    //create Twilio Details upsert list based on from which context it is called
-    lstUpsertResult = Database.upsert(
-      twilioDetailRecordToInsertOrUpdate,
-      Twilio_Details__c.Id,
-      false
+    
+    //there will be always a single Twilio Context payload present in the list 
+    UpdateInteractionByTwilioPayload twilioContextRequestForUpdate = twilioContextRequest.get(
+      0
     );
 
-    for (
-      Integer intUpsertCount = 0;
-      intUpsertCount < lstUpsertResult.size();
-      intUpsertCount++
-    ) {
-      Database.UpsertResult twilioRecordUpserted = lstUpsertResult.get(
-        intUpsertCount
+    Twilio_Details__c twilioDetailRecord = buildTwilioDetails(
+      twilioContextRequestForUpdate
+    );
+    List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
+    //create Twilio Details upsert list based on from which context it is called
+    try{
+      Database.UpsertResult upsertResult = DML_REPOSITORY.doUpsert(
+        twilioDetailRecord
       );
-      UpdateInteractionByTwilioPayload payLoad = twilioContextRequest.get(
-        intUpsertCount
+      Interaction interactionToBeUpdated = createInteractionDetailInstance(
+        twilioContextRequestForUpdate,
+        upsertResult
       );
+      responseList.add(updateInteraction(interactionToBeUpdated));
+      return responseList;
+    }
+    catch(Exception objException){
+      responseList.add(generateErrorResponse(objException.getMessage()));
+      return responseList;
+    }
+  }
 
-      if (twilioRecordUpserted.isSuccess()) {
-        interactionToBeUpdated.add(
-          createInteractionDetailInstance(payLoad, twilioRecordUpserted)
-        );
-      } else {
-        List<Database.Error> err = twilioRecordUpserted.getErrors();
-        String errorvalues = String.join(err, '/n');
-        responseList.add(generateErrorResponse(errorvalues));
+  private static Twilio_Details__c buildTwilioDetails(
+    UpdateInteractionByTwilioPayload twilioContextRequestForUpdate
+  ) {
+    Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
+    Interaction interactionWithTwilioId = INTERACTION_REPOSITORY.fetchTwilioDetailIdFromInteraction(
+      twilioContextRequestForUpdate.interactionId
+    ); 
+    twilioDetailRecord.Id = interactionWithTwilioId?.TwilioDetailsID__c;
+
+    if (String.isNotBlank(twilioContextRequestForUpdate.twilioId)) {
+      twilioDetailRecord.Twilio_ID__c = twilioContextRequestForUpdate.twilioId;
+    }
+    if (String.isNotBlank(twilioContextRequestForUpdate.chatOrCallId)) {
+      twilioDetailRecord.Chat_or_Call_SID__c = twilioContextRequestForUpdate.chatOrCallId;
+    }
+    if (String.isNotBlank(twilioContextRequestForUpdate.callRecordingId)) {
+      twilioDetailRecord.Call_Recording_Id__c = twilioContextRequestForUpdate.callRecordingId;
+    }
+    if (String.isNotBlank(twilioContextRequestForUpdate.queueName)) {
+      twilioDetailRecord.ANZ_Queue__c = twilioContextRequestForUpdate.queueName;
+    }
+    if (String.isNotBlank(twilioContextRequestForUpdate.nlpTopic)) {
+      twilioDetailRecord.NLP_Topic__c = twilioContextRequestForUpdate.nlpTopic;
+    }
+    if(String.isNotBlank(twilioContextRequestForUpdate.agentEmail)){
+      for (User userFromDB : INTERACTION_REPOSITORY.fetchAgentUserId(
+        twilioContextRequestForUpdate.agentEmail)
+        ){
+        agentOwnerIdMap.put(userFromDB.FederationIdentifier.toLowerCase(), userFromDB.Id);
       }
     }
-    if (!interactionToBeUpdated.isEmpty()) {
-      responseList.addAll(updateInteraction(interactionToBeUpdated));
-    }
-    return responseList;
+
+    return twilioDetailRecord;
   }
 
   /**
@@ -156,32 +137,16 @@ public with sharing class TwilioServiceUtil {
 
   /**
    * @description Method to generate a response instance for interaction update.
-   * @param interactionToBeUpdatedList list of interaction
+   * @param interactionToBeUpdated Interaction to be updated
    * @return It will return the response list.
    */
-  public static List<TwilioContextResponse> updateInteraction(
-    List<Interaction> interactionToBeUpdatedList
+  private static TwilioContextResponse updateInteraction(
+    Interaction interactionToBeUpdated
   ) {
-    List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
-    List<Database.SaveResult> results = DMLUtil.updateRecords(
-      interactionToBeUpdatedList,
-      false,
-      true
-    );
-    Logger.error('Error in Updating Interaction', results);
-    Logger.saveLog();
-
-    for (Integer i = 0; i < interactionToBeUpdatedList.size(); i++) {
-      Database.SaveResult sr = results[i];
-      if (sr.isSuccess()) {
-        responseList.add(generateResponse());
-      } else {
-        List<Database.Error> err = sr.getErrors();
-        String errorvalues = String.join(err, '/n');
-        responseList.add(generateErrorResponse(errorvalues));
-      }
-    }
-    return responseList;
+      DML_REPOSITORY.doUpdate(
+        interactionToBeUpdated
+      );
+      return generateResponse();
   }
 
   /**

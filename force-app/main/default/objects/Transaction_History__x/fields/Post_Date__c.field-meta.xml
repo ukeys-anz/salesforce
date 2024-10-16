@@ -7,7 +7,7 @@
     <externalDeveloperName>PostDate</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>false</isNameField>
+    <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Post Date</label>
     <length>50</length>

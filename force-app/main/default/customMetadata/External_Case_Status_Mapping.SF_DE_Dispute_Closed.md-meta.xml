@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>SF_DE_Dispute_Closed</label>
+    <protected>false</protected>
+    <values>
+        <field>Case_Record_Type__c</field>
+        <value xsi:type="xsd:string">Direct_Entry_Dispute</value>
+    </values>
+    <values>
+        <field>Case_Status__c</field>
+        <value xsi:type="xsd:string">Closed</value>
+    </values>
+    <values>
+        <field>Customer_Message__c</field>
+        <value xsi:type="xsd:string">We&apos;ve finished our investigation and will send you an email with more information and our contact details.</value>
+    </values>
+    <values>
+        <field>Customer_Status__c</field>
+        <value xsi:type="xsd:string">Outcome</value>
+    </values>
+    <values>
+        <field>Internal_Description__c</field>
+        <value xsi:type="xsd:string">Dispute Resolved</value>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>PEGA_Dispute_Status__c</field>
+        <value xsi:type="xsd:string">Resolved</value>
+    </values>
+    <values>
+        <field>PEGA_Investigation_Outcome__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>
