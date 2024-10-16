@@ -221,7 +221,7 @@ public class CCRMLeadConversionTest {
         lstOfTerritory[0].Id
       );
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
-      leadRec.ExpiryDate = DateTimeUtils.getWeekday(
+      leadRec.Expiry_Date__c = DateTimeUtils.getWeekday(
         system.today().addDays(1),
         true,
         true
