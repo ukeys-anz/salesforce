@@ -4864,7 +4864,9 @@
         "Balloon_Amount__c",
         "Limit__c",
         "Customer__c",
-        "Total_Number_Of_Repayments__c"
+        "Total_Number_Of_Repayments__c",
+        "Product_Name__c",
+        "Loan_Term_Months__c"
       ]
     },
     "Portfolio_Of_Loan__x": {
@@ -5096,7 +5098,9 @@
         "Model__c",
         "Purchase_Price__c",
         "Serial_No__c",
-        "Year__c"
+        "Year__c",
+        "Value__c",
+        "Value_Type__c"
       ]
     },
     "Active_Indemnity_Guarantee__x": {
