@@ -311,9 +311,10 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         c.RecordTypeId == CUSCOMPLAINTRECORDTYPEID)
         ? ''
         : c.IDR_NC_First_Name__c;
-      notification.ComplainantMobile__c = PhoneUtils.cleanupMobile(
-        c.IDR_NC_Mobile__c
-      );
+      notification.ComplainantMobile__c = (c.RecordTypeId ==
+        CUSCOMPLAINTRECORDTYPEID
+        ? ''
+        : PhoneUtils.cleanupMobile(c.IDR_NC_Mobile__c));
     }
     return notification;
   }
