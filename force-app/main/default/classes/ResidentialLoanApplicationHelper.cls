@@ -96,14 +96,8 @@ public with sharing class ResidentialLoanApplicationHelper {
    * @return `postContent` Chatter post content
    */
   public static String postNotesToChatter(Map<String, String> fieldInfo) {
-    String status = CommonUtil.getSinglePicklistLabel(
-      ResidentialLoanApplication.Status,
-      fieldInfo.get('status')
-    );
     String postContent =
-      '<p><b>Status: </b>' +
-      status +
-      ' to Cancelled process initiated</p>' +
+      '<p><b>Subject: </b> Application Withdrawn</p>' +
       '<p><b>Reason: </b>' +
       fieldInfo.get('Cancellation_Reason__c') +
       '</p>' +

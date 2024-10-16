@@ -2032,7 +2032,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>RLA_Cancellation_Confirmation_Message</shortDescription>
-        <value>Are you sure you want to withdraw this application? Once saved this cannot be changed. If there is an open credit referral case linked to this application, then the credit referral case will be closed.  Please click ok to confirm or cancel to review.</value>
+        <value>Are you sure you want to withdraw this application? Once saved this cannot be changed. If there is an open credit referral case linked to this application, then the credit referral case will be closed.  Please click OK to confirm or cancel to review.</value>
     </labels>
     <labels>
         <fullName>CCRM_JWT_Siging_Certificate_NP</fullName>
