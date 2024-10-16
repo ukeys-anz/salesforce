@@ -89,11 +89,6 @@ public with sharing class MLCRMAutoTaskOnLeadConversionQueueTest {
       ];
       Lead record = [SELECT id FROM Lead LIMIT 1];
       record.FinServ__RelatedAccount__c = testAccount.id;
-      record.Expiry_Date__c = DateTimeUtils.getWeekday(
-        system.today().addDays(1),
-        true,
-        true
-      );
       update record;
       CCRMLeadConversion.LeadConversionWrapper leadWrapper = CCRMLeadConversion.getLeadRecordForConversion(
         record.id

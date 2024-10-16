@@ -221,11 +221,6 @@ public class CCRMLeadConversionTest {
         lstOfTerritory[0].Id
       );
       Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
-      leadRec.Expiry_Date__c = DateTimeUtils.getWeekday(
-        system.today().addDays(1),
-        true,
-        true
-      );
       insert leadRec;
       Faker faker = new Faker('AU');
       Account testAccount = new Account(
