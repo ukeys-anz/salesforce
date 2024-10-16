@@ -269,8 +269,8 @@
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>View_C360_Financial_Summary</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>Baseline PS for using the Mobile Lending CRM app.</description>
     <fieldPermissions>
@@ -2436,6 +2436,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Description</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Due_in_Days__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
