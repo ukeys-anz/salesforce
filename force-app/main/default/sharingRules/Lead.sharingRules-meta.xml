@@ -29,20 +29,6 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>CCRM_Lead_Read_Only_Sharing_Rule</fullName>
-        <accessLevel>Read</accessLevel>
-        <label>CCRM Lead Read Only Sharing Rule</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Commercial CRM Lead</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>CCRM_LeadEditAccessToCLO</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
@@ -57,18 +43,6 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
-    <sharingOwnerRules>
-        <fullName>CCRM_SBB_NBC_Lead_Read_Write_Sharing</fullName>
-        <accessLevel>Edit</accessLevel>
-        <description>It will provide the Read/Write access on Lead for SBB NBC User.</description>
-        <label>CCRM SBB NBC Lead Read Write Sharing</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
-        </sharedTo>
-        <sharedFrom>
-            <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
-        </sharedFrom>
-    </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_Lead_Sharing</fullName>
         <accessLevel>Edit</accessLevel>
@@ -103,6 +77,78 @@
         </sharedTo>
         <sharedFrom>
             <role>ANZ_Mobile_Lending_Support_Team</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Lead_Read_Write_Access_AF</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to AF.</description>
+        <label>Commercial Lead Read Write Access AF</label>
+        <sharedTo>
+            <group>Asset_Finance</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Asset_Finance</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Lead_Read_Write_Access_CBO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to CBO.</description>
+        <label>Commercial Lead Read Write Access CBO</label>
+        <sharedTo>
+            <group>Commercial_Broker</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Commercial_Broker</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Lead_Read_Write_Access_DSI</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to DSI.</description>
+        <label>Commercial Lead Read Write Access DSI</label>
+        <sharedTo>
+            <group>Diversified_and_Specialist_Industries</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Diversified_and_Specialist_Industries</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Lead_Read_Write_Access_PB</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to PB.</description>
+        <label>Commercial Lead Read Write Access PB</label>
+        <sharedTo>
+            <group>Private_Bank_and_Advise</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Private_Bank_and_Advise</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Lead_Read_Write_Access_SME</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This is used to provide Read and Write access to SME.</description>
+        <label>Commercial Lead Read Write Access SME</label>
+        <sharedTo>
+            <group>Small_to_Medium_Enterprises</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Small_to_Medium_Enterprises</group>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Commercial_Lead_Read_Write_Access_TB</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This is used to provide Read and Write access to TB.</description>
+        <label>Commercial Lead Read Write Access TB</label>
+        <sharedTo>
+            <group>Transactional_Banking</group>
+        </sharedTo>
+        <sharedFrom>
+            <group>Transactional_Banking</group>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

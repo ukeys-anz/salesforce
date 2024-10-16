@@ -23,8 +23,10 @@
         <value>Opportunity.Commercial_Opportunity</value>
     </filters>
     <filterScope>Everything</filterScope>
-    <label>My Sub Team&apos;s Opportunities</label>
+    <label>My Pod&apos;s Opportunities</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
+        <role>SME_General_Manager</role>
+        <roleAndSubordinatesInternal>AF_General_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinatesInternal>SME_Head_of_NBC</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>

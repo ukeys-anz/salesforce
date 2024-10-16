@@ -239,6 +239,31 @@ public with sharing class CCRMARNCService extends Service {
   }
 
   /**
+   * @param endPoint parameters
+   * @return HttpCalloutResponse
+   * @description query exernal Account Registration for customer/financial accounts via API
+   */
+  public HttpCalloutResponse queryAccountRegistrations(String endPoint) {
+    Map<String, String> headers = new Map<String, String>();
+    setCommonHeaders(headers);
+    HttpCalloutResponse response;
+    try {
+      Lib_HttpCallout calloutService = new Lib_HttpCallout();
+      response = calloutService.makeRestCallout(
+        endPoint,
+        HTTP_METHOD.HTTP_GET,
+        headers,
+        null
+      );
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+      throw new AuraHandledException('Error : ' + e.getMessage());
+    }
+    return response;
+  }
+
+  /**
    * @param headers key value pairs of headers to set
    * @return `Map<String, String>` header map
    * @description sets all headers required for a mulesoft callout, loads client id and secret from named credential

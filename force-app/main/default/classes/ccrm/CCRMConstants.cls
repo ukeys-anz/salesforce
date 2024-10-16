@@ -59,9 +59,6 @@ public with sharing class CCRMConstants {
   public static final string INVALID_OCV_ROLE_ERROR_MESSAGE = 'OCV Role Id is not found in the Reciprocal Role table';
   public static final String PROSPECT = 'Prospect';
   public static final String SOURCE_SYSTEM_NAME = 'CAP-CIS';
-  public static final String BB_SEGMENT = 'BB';
-  public static final String SBB_SEGMENT = 'SBB';
-  public static final String SBB_NBC_SEGMENT = 'SBB NBC';
   public static final String NEED_ANALYSIS = 'Needs Analysis';
   public static final String SOL_DEV = 'Solution Development';
   public static final String APPROVED_OFFERED = 'Approved & Offered';
@@ -91,6 +88,8 @@ public with sharing class CCRMConstants {
   public static final String ACC_ORG_LABEL = 'Organisation Type';
   public static final String ERROR_RESPONSE = 'Unexpected error';
   public static final String SUCCESS_RESPONSE = 'Success';
+  public static final string CUSTOMER_REGISTRATION_NUMBER = 'Customer Registration Number';
+  public static final string CARD_NUMBER = 'Card Number';
   public static final String FINANCIAL_ACCOUNT_OBJECT_NAME = 'FinServ__FinancialAccount__c';
   public static final String INTER_CAT_CAPDIARYCOMMENTS = 'CAP Diary Comments';
   public static final String INTER_CAT_GENERAL = 'General';

@@ -24,7 +24,6 @@ public with sharing class FinancialSummaryController {
   private static Set<String> productTypes = new Set<String>{
     'CAP-CIS:DDA',
     'CAP-CIS:FM',
-    'CAP-CIS:SSI',
     'CAP-CIS:RSV',
     'CAP-CIS:ILS',
     'CAP-CIS:PCA',
