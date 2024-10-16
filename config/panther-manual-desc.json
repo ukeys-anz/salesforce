@@ -2952,7 +2952,9 @@
         "Eligibility_Accepted__c",
         "Applicant_Type__c",
         "Privacy_Version_Accepted__c",
-        "Application_Status__c"
+        "Application_Status__c",
+        "Loan_Purpose__c",
+        "Expiry_Date__c"
       ],
       "IA-2530753": [
         "CreatedDate",
