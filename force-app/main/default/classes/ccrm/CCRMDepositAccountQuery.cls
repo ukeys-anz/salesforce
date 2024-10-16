@@ -218,17 +218,13 @@ public with sharing class CCRMDepositAccountQuery extends CCRMFinancialAccountQu
       if (String.isBlank(customerId)) {
         continue;
       }
-      String accNumber = this.sourceSystem == SourceSystemEnum.CAP
-        ? getAccountNumberwithFormat(fa.accountNumber)
-        : formatAccountNumber(fa.accountNumber);
-
       Map<String, Object> row = new Map<String, Object>{
         'CustomerId' => customerId,
         'ExternalId' => getExternalId(fa),
         'DisplayUrl' => getDisplayUrl(fa),
         'Relationship' => getAccountRelationship(fa.accountNumber),
         'AccountName' => fa.accountName,
-        'AccountNumber' => accNumber,
+        'AccountNumber' => formatAccountNumber(fa.accountNumber),
         'AccountStatus' => fa.status,
         'ANZSICCode' => retrieveIndustryCodeAndDescription(fa.anzsicCode),
         'accountRestrictions' => fa.accountRestrictions,
