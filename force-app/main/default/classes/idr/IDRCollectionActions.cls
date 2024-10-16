@@ -185,6 +185,9 @@ public with sharing class IDRCollectionActions {
   ) {
     List<IDRCollectionsAccounts> stopCollectionAccList = new List<IDRCollectionsAccounts>();
     for (String accNumber : collectionNumber.split(';')) {
+      if (accNumber == ACC_NUMBER_NA) {
+        continue;
+      }
       stopCollectionAccList.add(
         new IDRCollectionsAccounts(
           accNumber,
@@ -212,8 +215,7 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue__c
       ) ||
-      (oldRec.Status != c.Status &&
-      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status)) ||
+      checkStatusWithIssueTypes(c, oldRec, 1) ||
       //AR-14452 Below scenario is for shell cases ingested by NLP model, hence why it only in checkIssueOne method
       ((String.isBlank(oldRec.IDR_Account_Card_Policy_Number__c) ||
       oldRec.IDR_Account_Card_Policy_Number__c == 'N/A') &&
@@ -248,8 +250,7 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_2__c
       ) ||
-      (oldRec.Status != c.Status &&
-      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
+      checkStatusWithIssueTypes(c, oldRec, 2)) &&
       String.isNotBlank(c.IDR_Collection_Number_2__c) &&
       (QueryProducts.getById(c.IDR_Product_2__c) != null ||
       c.IDR_Product_Category__c != null) &&
@@ -279,8 +280,7 @@ public with sharing class IDRCollectionActions {
       !IDRConstants.SUB_ISSUE_TYPE_COLLECTIONS.contains(
         oldRec.IDR_Subsequent_Issue_3__c
       ) ||
-      (oldRec.Status != c.Status &&
-      IDRConstants.STATUS_STOP_COLLECTIONS.contains(c.Status))) &&
+      checkStatusWithIssueTypes(c, oldRec, 3)) &&
       String.isNotBlank(c.IDR_Collection_Number_3__c) &&
       (QueryProducts.getById(c.IDR_Product_3__c) != null ||
       c.IDR_Product_Category__c != null) &&
@@ -578,6 +578,9 @@ public with sharing class IDRCollectionActions {
     for (
       String accNumber : String.valueOf(rec.IDR_Collection_Number__c).split(';')
     ) {
+      if (accNumber == ACC_NUMBER_NA) {
+        continue;
+      }
       String accNumberTrim = (accNumber.replaceFirst('^0+', ''));
       Set<Id> stCaseIds;
       if (
@@ -620,6 +623,9 @@ public with sharing class IDRCollectionActions {
       String accNumber2 : String.valueOf(rec.IDR_Collection_Number_2__c)
         .split(';')
     ) {
+      if (accNumber2 == ACC_NUMBER_NA) {
+        continue;
+      }
       String accNumberTrim = (accNumber2.replaceFirst('^0+', ''));
       Set<Id> stCaseIds;
       if (
@@ -664,6 +670,9 @@ public with sharing class IDRCollectionActions {
       String accNumber3 : String.valueOf(rec.IDR_Collection_Number_3__c)
         .split(';')
     ) {
+      if (accNumber3 == ACC_NUMBER_NA) {
+        continue;
+      }
       String accNumberTrim = (accNumber3.replaceFirst('^0+', ''));
       Set<Id> stCaseIds;
       if (
@@ -787,5 +796,62 @@ public with sharing class IDRCollectionActions {
       }
     }
     return collectionsCasesEventList;
+  }
+  /**
+   * @description method to check Issue Type is changed on status changed
+   * @param newCase New Case record in current  trigger context
+   * @param oldRec old Case record in current  trigger context
+   * @param issueNumber indicates IssueType Number
+   * @return Boolean if stop collection should trigger or not
+   */
+  private static Boolean checkStatusWithIssueTypes(
+    Case newCase,
+    Case oldRec,
+    Integer issueNumber
+  ) {
+    if (
+      RecordComparisonUtil.fieldWasChanged(newCase, oldRec, Case.Status) &&
+      newCase.status == IDRConstants.REOPENED_STATUS
+    ) {
+      return true;
+    }
+
+    if (issueNumber == 1) {
+      return (RecordComparisonUtil.fieldWasChanged(
+        newCase,
+        oldRec,
+        Case.Status
+      ) &&
+      RecordComparisonUtil.fieldWasChanged(newCase, oldRec, Case.Type) &&
+      IDRConstants.STATUS_STOP_COLLECTIONS.contains(newCase.Status));
+    }
+
+    if (issueNumber == 2) {
+      return (RecordComparisonUtil.fieldWasChanged(
+        newCase,
+        oldRec,
+        Case.Status
+      ) &&
+      RecordComparisonUtil.fieldWasChanged(
+        newCase,
+        oldRec,
+        Case.IDR_Issue_Type_2__c
+      ) &&
+      IDRConstants.STATUS_STOP_COLLECTIONS.contains(newCase.Status));
+    }
+    if (issueNumber == 3) {
+      return (RecordComparisonUtil.fieldWasChanged(
+        newCase,
+        oldRec,
+        Case.Status
+      ) &&
+      RecordComparisonUtil.fieldWasChanged(
+        newCase,
+        oldRec,
+        Case.IDR_Issue_Type_3__c
+      ) &&
+      IDRConstants.STATUS_STOP_COLLECTIONS.contains(newCase.Status));
+    }
+    return false;
   }
 }
