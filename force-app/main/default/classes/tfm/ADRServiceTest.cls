@@ -26,7 +26,7 @@ public with sharing class ADRServiceTest {
       false
     );
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
-    staffModel.anzTokenType = 'satff';
+    staffModel.anzTokenType = 'staff';
     staffModel.realm = 'System';
     Test.setMock(HttpCalloutMock.class, new MockADRResponse());
     Test.startTest();
@@ -51,7 +51,7 @@ public with sharing class ADRServiceTest {
       false
     );
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
-    staffModel.anzTokenType = 'satff';
+    staffModel.anzTokenType = 'staff';
     staffModel.realm = 'System';
     String rspId = 'fake-8f20-445f-ac7b-b8fdb5394fb8';
     String actionToPerform = 'suspend';
@@ -82,7 +82,7 @@ public with sharing class ADRServiceTest {
       false
     );
     StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
-    staffModel.anzTokenType = 'satff';
+    staffModel.anzTokenType = 'staff';
     staffModel.realm = 'System';
     String rspId = 'fake-8f20-445f-ac7b-b8fdb5394fb8';
     String actionToPerform = 'suspend';

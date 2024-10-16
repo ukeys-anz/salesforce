@@ -560,6 +560,32 @@
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
     },
+    "ApplicationForm": {
+      "IA-2423227": ["OpportunityId"],
+      "IA-2434298": [
+        "Application_Amount__c",
+        "Application_Number__c",
+        "Application_Status__c",
+        "Name"
+      ],
+      "IA-2468715": ["OwnerId"]
+    },
+    "ApplicationFormProduct": {
+      "IA-2434298": [
+        "Name",
+        "ProductId",
+        "ApplicationFormId",
+        "Stage",
+        "Close_Date__c",
+        "Reference_Number__c"
+      ],
+      "IA-2423227": [
+        "Won_from_Lost_to__c",
+        "Lost_reason__c",
+        "Lost_Reason_Detail__c"
+      ],
+      "IA-2468715": ["OwnerId"]
+    },
     "Appointment_Commitment__c": {
       "IA-2453595": [
         "Appointment_Channel__c",
@@ -1221,6 +1247,7 @@
         "ContactEmail",
         "IDR_3rdParty_Country__c",
         "IDR_3rdParty_Email__c",
+        "IDR_Nominated_3rd_Party_Company_Name__c",
         "IDR_3rdParty_Mobile__c",
         "IDR_3rdParty_Name__c",
         "IDR_3rdParty_Phone__c",
@@ -2253,6 +2280,13 @@
         "Summary_Type__c"
       ]
     },
+    "Financial_Summary_Setting__mdt": {
+      "IA-2453350":[
+        "Active__c",
+        "Summary_Name__c",
+        "User_Profile__c"
+      ]
+    },
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
       "IA-2453350": ["External_Id__c"],
@@ -2850,15 +2884,13 @@
         "UNICA_Lead_Status__c"
       ]
     },
-    "CCRM_Commercial_Stage_Action_Plan__mdt": {
+    "Commercial_Stage__mdt": {
       "IA-2460507": [
         "Next_Stage__c",
         "Previous_Stage__c",
         "Commercial_Segment__c",
-        "Opportunity_Record_Type__c",
-        "Template_Name__c",
-        "Opportunity_Stage_Name__c",
-        "Current_Stage__c"
+        "Current_Stage__c",
+        "Object_Name__c"
       ]
     },
     "Loan_Applicant_Group__c": {
@@ -3218,7 +3250,6 @@
         "Probability",
         "Progress_Indicator__c",
         "RecordTypeId",
-        "StageName",
         "TotalOpportunityQuantity",
         "Opp_Id__c",
         "Type",
@@ -3243,8 +3274,7 @@
         "Source_Lead_Id__c",
         "Source_Lead_Link__c",
         "Follow_Up_Date__c",
-        "Opportunity_ID__c",
-        "New_to_Bank__c"
+        "Opportunity_ID__c"
       ],
       "IA-2415984": [
         "Contact__c",
@@ -3303,6 +3333,7 @@
         "Waiting_Flag__c",
         "LeadSource"
       ],
+      "IA-2423227": ["StageName"],
       "IA-2460507": [
         "My_Sub_Team__c",
         "My_Team__c",
@@ -3310,7 +3341,9 @@
         "FinServ__ReferredByContact__c",
         "FinServ__ReferredByUser__c"
       ],
-      "IA-2530753": ["Opportunity_Owner__c"]
+      "IA-2530753": ["Opportunity_Owner__c"],
+      "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
+      "IA-2434298": ["Total_Application_Amount__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [
@@ -3331,7 +3364,8 @@
         "Has_Legal_Entity__c",
         "Amount",
         "Name",
-        "ProductCode"
+        "ProductCode",
+        "Sub_Product_Code__c"
       ],
       "IA-2415720": ["Reference_Number__c"],
       "IA-2415840": ["Purpose__c"],
@@ -3345,7 +3379,8 @@
         "ServiceDate"
       ],
       "IA-2415860": ["Funding_purpose__c", "Interest_Rate_Quoted__c"],
-      "IA-2530753": ["OpportunityId", "UnitPrice", "Product2Id", "Quantity"]
+      "IA-2530753": ["OpportunityId", "UnitPrice", "Product2Id", "Quantity"],
+      "IA-2434298": ["Expected_Settlement_Date__c"]
     },
     "OpportunityTeamMember": {
       "IA-2460507": ["TeamMemberRole", "UserId"],
@@ -3544,9 +3579,22 @@
         "Survey_Name__c",
         "Survey_Trigger__c",
         "Survey_Variation__c",
-        "UUID__c"
+        "UUID__c",
+        "Banker_Satisfaction_Doing_What_Said__c",
+        "Banker_Satisfaction_Feel_Valued__c",
+        "Banker_Satisfaction_Knowledgeable__c",
+        "Banker_Satisfaction_Meeting_Needs__c",
+        "CLG__c",
+        "CPID__c",
+        "Customer_Number__c",
+        "Interaction_Date__c",
+        "NPS_Groups__c"
       ],
-      "IA-2415984": ["qualtrics__Account__c", "qualtrics__Contact__c"],
+      "IA-2415984": [
+        "qualtrics__Account__c",
+        "qualtrics__Contact__c",
+        "A_Z_Review__c"
+      ],
       "IA-2468715": [
         "CreatedById",
         "CreatedDate",
@@ -4914,6 +4962,21 @@
         "Loan_Account__c",
         "Additional_Information__c"
       ]
+    },
+    "Account_Registration__x": {
+      "IA-2415720": [
+        "Credit_Card__c",
+        "Deposit_Account__c",
+        "ExternalId__c",
+        "Loan_Account__c",
+        "Name__c",
+        "Number__c",
+        "Number_Tokenised__c",
+        "Status__c",
+        "Term_Deposit__c",
+        "Type__c"
+      ],
+      "IA-2530753": ["Additional_Information__c"]
     },
     "Commercial_Bill__x": {
       "IA-2415720": [

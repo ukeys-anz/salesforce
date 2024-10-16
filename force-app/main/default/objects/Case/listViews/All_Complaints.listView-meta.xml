@@ -10,12 +10,12 @@
     <columns>OWNER_NAME</columns>
     <columns>IDR_NC_First_Name__c</columns>
     <columns>IDR_NC_Last_Name__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.CFMS_Migrated_Case,Case.Customer_Complaint,Case.Non_Customer_Complaint</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Complaints</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_Leads_for_Remote_Optimisation</fullName>
+    <booleanFilter>1 AND (2 OR (3 AND 4)) AND 5</booleanFilter>
+    <columns>Priority__c</columns>
+    <columns>LEAD.COMPANY</columns>
+    <columns>FULL_NAME</columns>
+    <columns>My_Sub_Team__c</columns>
+    <columns>LEAD.LEAD_SOURCE</columns>
+    <columns>LEAD.STATUS</columns>
+    <columns>Lead_Owner_Link__c</columns>
+    <columns>Followup_Date__c</columns>
+    <columns>Expiry_Indicator__c</columns>
+    <filters>
+        <field>My_Team__c</field>
+        <operation>equals</operation>
+        <value>1</value>
+    </filters>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>Assigned,In progress</value>
+    </filters>
+    <filters>
+        <field>LEAD.STATUS</field>
+        <operation>equals</operation>
+        <value>Outcome</value>
+    </filters>
+    <filters>
+        <field>Lead_Outcome__c</field>
+        <operation>equals</operation>
+        <value>Opportunity Identified</value>
+    </filters>
+    <filters>
+        <field>LEAD.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Lead.CCRM_Lead</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>All Leads for Remote Optimisation</label>
+    <sharedTo>
+        <group>Admin_and_Operations_Team</group>
+        <role>Channel_Segment_Manager</role>
+        <role>Commercial_Group_Executive</role>
+        <role>Commercial_Operations_Team</role>
+        <role>Credit_Overview_Team</role>
+        <role>SME_General_Manager</role>
+        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
+    </sharedTo>
+</ListView>

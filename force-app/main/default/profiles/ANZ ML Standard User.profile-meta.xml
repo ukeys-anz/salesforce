@@ -149,11 +149,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Access_Request__c.Reference_Number__c</field>
-        <readable>false</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Access_Request__c.Requestor__c</field>
         <readable>false</readable>
     </fieldPermissions>
@@ -7558,6 +7553,9 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Term_Deposit__x-Term Deposit Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account_Registration__x-Account Registration Layout</layout>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>

@@ -129,7 +129,7 @@ global with sharing class TFMSearchCustomerDeviceDetailsController implements om
         dRName
       );
       Boolean hasAccessToAegisFeatures = FeatureManagement.checkPermission(
-          'AccessAegisFeatures'
+          'DeregisterDevice'
         ) &&
         digitalIdentityRecord.Status__c.toLowerCase() != TFMConstants.ARCHIVED
         ? true

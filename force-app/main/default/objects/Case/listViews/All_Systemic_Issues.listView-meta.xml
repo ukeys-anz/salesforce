@@ -9,12 +9,12 @@
     <columns>OWNER_NAME</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CASES.LAST_UPDATE_DATE_ONLY</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
         <value>Case.Systemic_Issue</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Possible Systemic Issues</label>
     <sharedTo>
         <roleAndSubordinates>ANZ</roleAndSubordinates>
