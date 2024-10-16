@@ -4931,7 +4931,8 @@
         "Opened_Date__c",
         "Product_Code__c",
         "Security_Type__c",
-        "Undrawn_Balance__c"
+        "Undrawn_Balance__c",
+        "Expiry_Date__c"
       ]
     },
     "Asset__x": {
@@ -5085,7 +5086,8 @@
         "Fee_Charge_Account__c",
         "Fee_Type__c",
         "Indemnity_Guarantee__c",
-        "Next_Due_Date__c"
+        "Next_Due_Date__c",
+        "Seq__c"
       ]
     },
     "Asset_Detail_ELS__x": {
@@ -5132,7 +5134,8 @@
         "Next_Due_Date__c",
         "Per_Bank_G_tee_Fee__c",
         "Per_Bank_G_tee_Fee_Amount__c",
-        "Per_Bank_G_tee_Fee_Frequency__c"
+        "Per_Bank_G_tee_Fee_Frequency__c",
+        "Seq__c"
       ]
     },
     "Favourees__x": {
@@ -5140,7 +5143,8 @@
         "ABN__c",
         "Active_Indemnity_Guarantee__c",
         "Inactive_Indemnity_Guarantee__c",
-        "Name__c"
+        "Name__c",
+        "Seq__c"
       ]
     }
   },

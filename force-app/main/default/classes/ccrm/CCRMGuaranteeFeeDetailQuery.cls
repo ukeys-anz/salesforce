@@ -51,11 +51,12 @@ public with sharing class CCRMGuaranteeFeeDetailQuery extends CCRMFinancialAccou
     String customerId;
     Map<String, Object> row;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
-
+    Integer index = 0;
     for (
       GuaranteeFeeModel fee : ((GuaranteeFeeCalloutResponse) this.calloutResponse)
         .guaranteesFees
     ) {
+      index++;
       row = new Map<String, Object>();
       row.put('ExternalId', fee.compositeGuaranteesFeeId);
       row.put(
@@ -77,6 +78,7 @@ public with sharing class CCRMGuaranteeFeeDetailQuery extends CCRMFinancialAccou
       row.put('Frequency', fee.feeFrequency);
       row.put('FeeChargeAccount', fee.feeChargeAccount);
       row.put('NextDueDate', formatDate(fee.nextDueDate));
+      row.put('Seq', index);
       result.queryResult.add(row);
     }
     return result;

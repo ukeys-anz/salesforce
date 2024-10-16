@@ -13,10 +13,19 @@ public with sharing class CCRMIndemnityGuaranteeQuery extends CCRMFinancialAccou
     public String accountNumber;
     public String ollType;
     public DateTime openedDate;
+    public DateTime expiryDate;
     public Decimal undrawnBalance;
     public String securityType;
     public String productCode;
   }
+  private static final Map<String, String> SECURITY_TYPES = new Map<String, String>{
+    '1' => '1 - Registered Mortgage',
+    '2' => '2 - Cash Secured',
+    '3' => '3 - Partially Secured',
+    '4' => '4 - Other',
+    '97' => '97 - Incorrect Record',
+    '98' => '98 - Missing Record '
+  };
   /**
    * @description IG API callout response
    */
@@ -84,8 +93,14 @@ public with sharing class CCRMIndemnityGuaranteeQuery extends CCRMFinancialAccou
       row.put('ProductCode', fa.productCode);
       row.put('OLLType', fa.ollType);
       row.put('OpenedDate', formatDate(fa.openedDate));
+      row.put('ExpiryDate', formatDate(fa.expiryDate));
       row.put('UndrawnBalance', fa.undrawnBalance);
-      row.put('SecurityType', fa.securityType);
+      row.put(
+        'SecurityType',
+        SECURITY_TYPES.containsKey(fa.securityType)
+          ? SECURITY_TYPES.get(fa.securityType)
+          : fa.securityType
+      );
       result.queryResult.add(row);
     }
     return result;

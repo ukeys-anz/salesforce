@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Active_Indemnity_Guarantee_Compact_Layout</fullName>
+    <fullName>Inactive_Indemnity_Guarantee_Compact_Layout</fullName>
     <fields>Serial_Number__c</fields>
-    <label>Active Indemnity Guarantee Compact Layout</label>
+    <label>Inactive Indemnity Guarantee Compact Layout</label>
 </CompactLayout>

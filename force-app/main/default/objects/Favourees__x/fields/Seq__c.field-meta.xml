@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>OLL_Type__c</fullName>
+    <fullName>Seq__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - CAPS</complianceGroup>
-    <description>Sub Product code</description>
-    <externalDeveloperName>OLLType</externalDeveloperName>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
+    <description>Sequence Number</description>
+    <externalDeveloperName>Seq</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>false</isNameField>
+    <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Sub-Product Code</label>
+    <label>Seq</label>
     <length>255</length>
     <required>false</required>
-    <securityClassification>Confidential</securityClassification>
+    <securityClassification>Internal</securityClassification>
     <type>Text</type>
     <unique>false</unique>
 </CustomField>

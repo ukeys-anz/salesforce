@@ -32,6 +32,7 @@ public with sharing class CCRMFavoureeQuery extends CCRMFinancialAccountQueryBas
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
+  @testvisible
   protected override void parseResponse(String responseBody) {
     this.calloutResponse = (FavoureeCalloutResponse) CalloutModel.deserialize(
       responseBody,
@@ -43,22 +44,25 @@ public with sharing class CCRMFavoureeQuery extends CCRMFinancialAccountQueryBas
    * @description Transform API response to Favouree records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
+  @testvisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     String customerId;
     Map<String, Object> row;
+    Integer index = 0;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
 
     for (
       FavoureeModel favouree : ((FavoureeCalloutResponse) this.calloutResponse)
         .guaranteesFavourees
     ) {
+      index++;
       row = new Map<String, Object>();
       row.put('ExternalId', favouree.compositeGuaranteesFavoureesId);
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        favouree.compositeGuaranteesFavoureesId
+          '/' +
+          favouree.compositeGuaranteesFavoureesId
       );
       List<String> values = favouree.compositeGuaranteesFavoureesId != null
         ? favouree.compositeGuaranteesFavoureesId.split('-')
@@ -69,6 +73,7 @@ public with sharing class CCRMFavoureeQuery extends CCRMFinancialAccountQueryBas
       row.put(this.parent, parentId);
       row.put('ABN', favouree.abn);
       row.put('Name', favouree.name);
+      row.put('Seq', index);
       result.queryResult.add(row);
     }
     return result;

@@ -14,7 +14,7 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
     public String status;
     public DateTime startDate;
     public DateTime expiryDate;
-    public Decimal remainingFaceValue;
+    public Decimal amount;
     public String purpose;
     public String bankGuaranteeType;
   }
@@ -38,6 +38,7 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
+  @testVisible
   protected override void parseResponse(String responseBody) {
     this.calloutResponse = (IndemnityGuaranteeCalloutResponse) CalloutModel.deserialize(
       responseBody,
@@ -49,6 +50,7 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
    * @description Transform API response to active  IG records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
+  @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     String customerId;
     Map<String, Object> row;
@@ -63,8 +65,8 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        guarantee.compositeGuaranteesId
+          '/' +
+          guarantee.compositeGuaranteesId
       );
       List<String> values = guarantee.compositeGuaranteesId != null
         ? guarantee.compositeGuaranteesId.split('-')
@@ -73,7 +75,7 @@ public with sharing class CCRMActiveIndemnityGuaranteeQuery extends CCRMFinancia
       row.put(this.parent, parentId);
       row.put('SerialNumber', guarantee.id);
       row.put('Status', guarantee.status);
-      row.put('Amount', guarantee.remainingFaceValue);
+      row.put('Amount', guarantee.amount);
       row.put('PurposeCode', guarantee.purpose);
       row.put('StartDate', formatDate(guarantee.startDate));
       row.put('ExpiryDate', formatDate(guarantee.expiryDate));
