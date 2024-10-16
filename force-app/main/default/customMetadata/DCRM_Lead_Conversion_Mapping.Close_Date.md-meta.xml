@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Lead_Record_Types__c</field>
-        <value xsi:type="xsd:string">CCRM_Lead</value>
+        <value xsi:type="xsd:string">MLCRM_Lead;CCRM_Lead</value>
     </values>
     <values>
         <field>Mapping_Type__c</field>
