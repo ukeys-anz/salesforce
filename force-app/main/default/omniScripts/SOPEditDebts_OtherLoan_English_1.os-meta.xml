@@ -425,7 +425,16 @@
   &quot;debounceValue&quot; : 0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      } ]
+    }
+  },
   &quot;hideGroupSep&quot; : false,
   &quot;allowNegative&quot; : false,
   &quot;placeholder&quot; : &quot;&quot;,
@@ -471,9 +480,9 @@
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : null,
   &quot;min&quot; : null,
-  &quot;max&quot; : 99999999,
+  &quot;max&quot; : null,
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;allowNegative&quot; : false,
+  &quot;allowNegative&quot; : true,
   &quot;hideGroupSep&quot; : false,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -700,12 +709,10 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
-        &quot;field&quot; : &quot;debtSource&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Credit Bureau&quot;
-      }, {
         &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
           &quot;rules&quot; : [ {
             &quot;data&quot; : &quot;ANZ&quot;,
             &quot;condition&quot; : &quot;=&quot;,
@@ -714,20 +721,31 @@
             &quot;data&quot; : &quot;Personal Loan&quot;,
             &quot;condition&quot; : &quot;=&quot;,
             &quot;field&quot; : &quot;debtType&quot;
-          } ],
-          &quot;operator&quot; : &quot;AND&quot;
+          } ]
         }
       }, {
         &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
           &quot;rules&quot; : [ {
             &quot;data&quot; : &quot;Manual&quot;,
             &quot;condition&quot; : &quot;=&quot;,
             &quot;field&quot; : &quot;debtSource&quot;
-          } ],
-          &quot;operator&quot; : &quot;AND&quot;
+          } ]
         }
-      } ],
-      &quot;operator&quot; : &quot;OR&quot;
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;debtSource&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Credit Bureau&quot;
+          }, {
+            &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : &quot;Yes&quot;
+          } ]
+        }
+      } ]
     }
   },
   &quot;mask&quot; : null,
@@ -763,7 +781,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;dataJSON&quot; : false,
   &quot;show&quot; : null,
-  &quot;text&quot; : &quot;&lt;h3&gt;Other Loan Details&lt;/h3&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;h3&gt;%otherDetailsTitle%&lt;/h3&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
@@ -803,7 +821,16 @@
   &quot;debounceValue&quot; : 0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      } ]
+    }
+  },
   &quot;hideGroupSep&quot; : false,
   &quot;allowNegative&quot; : false,
   &quot;placeholder&quot; : &quot;&quot;,
@@ -869,7 +896,16 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;show&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -896,6 +932,10 @@
         &quot;data&quot; : &quot;Credit Bureau&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;debtSource&quot;
+      }, {
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
       } ]
     }
   },
@@ -924,7 +964,7 @@
   &quot;help&quot; : false,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
-  &quot;checkLabel&quot; : &quot;Use Updated Balance Owing for UMI&quot;,
+  &quot;checkLabel&quot; : &quot;Use updated Balance Owing for UMI&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -932,6 +972,10 @@
         &quot;data&quot; : &quot;Credit Bureau&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;debtSource&quot;
+      }, {
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
       } ]
     }
   },
@@ -958,15 +1002,19 @@
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
         &quot;field&quot; : &quot;debtSource&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Credit Bureau&quot;
-      } ],
-      &quot;operator&quot; : &quot;AND&quot;
+      }, {
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      } ]
     }
   },
-  &quot;checkLabel&quot; : &quot;Use Updated Remaining Term for UMI&quot;,
+  &quot;checkLabel&quot; : &quot;Use updated Remaining Term for UMI&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;helpText&quot; : &quot;&quot;,
   &quot;help&quot; : false,
@@ -1009,10 +1057,6 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Credit Bureau&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;debtSource&quot;
-      }, {
         &quot;group&quot; : {
           &quot;operator&quot; : &quot;AND&quot;,
           &quot;rules&quot; : [ {
@@ -1032,6 +1076,19 @@
             &quot;field&quot; : &quot;debtSource&quot;,
             &quot;condition&quot; : &quot;=&quot;,
             &quot;data&quot; : &quot;Manual&quot;
+          } ]
+        }
+      }, {
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;AND&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;debtSource&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Credit Bureau&quot;
+          }, {
+            &quot;field&quot; : &quot;customerExcludedDebt&quot;,
+            &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+            &quot;data&quot; : &quot;Yes&quot;
           } ]
         }
       } ]
@@ -1324,6 +1381,122 @@
 }</propertySetConfig>
                     <sequenceNumber>1.0</sequenceNumber>
                     <type>Text</type>
+                </childElements>
+                <childElements>
+                    <name>excludedDebtBlock</name>
+                    <childElements>
+                        <name>customerExcludedDebt</name>
+                        <isActive>true</isActive>
+                        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                        <level>4.0</level>
+                        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Customer Excluded Debt&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;required&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;readOnly&quot; : false,
+  &quot;defaultValue&quot; : null,
+  &quot;help&quot; : false,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;options&quot; : [ {
+    &quot;name&quot; : &quot;Yes&quot;,
+    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;No&quot;,
+    &quot;value&quot; : &quot;No&quot;,
+    &quot;autoAdv&quot; : null
+  } ],
+  &quot;optionSource&quot; : {
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;controllingField&quot; : {
+    &quot;element&quot; : &quot;&quot;,
+    &quot;type&quot; : &quot;&quot;,
+    &quot;source&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Readonly if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                        <sequenceNumber>0.0</sequenceNumber>
+                        <type>Select</type>
+                    </childElements>
+                    <childElements>
+                        <name>TextBlock10</name>
+                        <isActive>true</isActive>
+                        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                        <level>4.0</level>
+                        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;em&gt;&lt;span style=\&quot;color: #7e8c8d;\&quot;&gt;When applying for the loan, this customer&amp;rsquo;s indicated that this debt is closed.&lt;/span&gt;&lt;/em&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;customerExcludedDebt&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                        <sequenceNumber>1.0</sequenceNumber>
+                        <type>Text Block</type>
+                    </childElements>
+                    <isActive>true</isActive>
+                    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                    <level>3.0</level>
+                    <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                    <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;collapse&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeatLimit&quot; : null,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Credit Bureau&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;debtSource&quot;
+      } ]
+    }
+  },
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;hide&quot; : false
+}</propertySetConfig>
+                    <sequenceNumber>6.0</sequenceNumber>
+                    <type>Block</type>
                 </childElements>
                 <childElements>
                     <name>institution</name>
@@ -2036,7 +2209,6 @@
     &quot;BSB&quot; : &quot;=%debt:account:bsb%&quot;,
     &quot;accountNumber&quot; : &quot;=%debt:account:accountNumber%&quot;,
     &quot;accountStatus&quot; : &quot;=%debt:account:readableStatus%&quot;,
-    &quot;creditBureauBalanceOwing&quot; : &quot;=CURRENCY(ROUND(%debt:verifiedOutstandingBalance:value%,2))&quot;,
     &quot;availableRedraw&quot; : &quot;=CURRENCY(ROUND(%debt:institutionalLiability:redrawAmount:value%,2))&quot;,
     &quot;useUpdatedRemainingTermForUMI&quot; : &quot;=%debt:institutionalLiability:validatedPrincipalInterestRemainingTerm%&quot;,
     &quot;years&quot; : &quot;=%debt:institutionalLiability:years%&quot;,
@@ -2046,7 +2218,10 @@
     &quot;repaymentAmount&quot; : &quot;=CURRENCY(ROUND(%debt:institutionalLiability:repaymentAmount:value%,2))&quot;,
     &quot;creditBureauRemainingTerm&quot; : &quot;=%debt:institutionalLiability:readableVerifiedPIRemainingTerm%&quot;,
     &quot;debtPaidOff&quot; : &quot;=%debt:paidOffAndClosed%&quot;,
-    &quot;useUpdatedBalance&quot; : &quot;=%debt:validatedOutstandingBalance%&quot;
+    &quot;useUpdatedBalance&quot; : &quot;=%debt:validatedOutstandingBalance%&quot;,
+    &quot;customerExcludedDebt&quot; : &quot;=%debt:customerExcludedDebt%&quot;,
+    &quot;otherDetailsTitle&quot; : &quot;=IF(CONTAINS(%debt:type%, &apos;CREDIT_CARD&apos;), &apos;Other Credit Card Details&apos;, \n    IF(CONTAINS(%debt:type%, &apos;PERSONAL&apos;), &apos;Other Personal Loan Details&apos;, \n        IF(CONTAINS(%debt:type%,&apos;VEHICLE&apos;), &apos;Other Vehicle Loan Details&apos;, \n            IF(CONTAINS(%debt:type%,&apos;LEASE&apos;),&apos;Other Vehicle Lease/Hire Purchase Details&apos;, \n                IF(CONTAINS(%debt:type%,&apos;OTHER&apos;),&apos;Other Loan Details&apos;,\n                    IF(CONTAINS(%debt:type%,&apos;STUDENT&apos;),&apos;Other HECS-HELP Details&apos;,&apos;&apos;))))))\n&quot;,
+    &quot;creditBureauBalanceOwing&quot; : &quot;=ROUND(%debt:verifiedOutstandingBalance:minusValue%,2)&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;show&quot; : null,
@@ -2129,5 +2304,5 @@
     <type>SOPEditDebts</type>
     <uniqueName>SOPEditDebts_OtherLoan_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>a647dcf9-8ddc-83b4-2558-440b1fe134c2</webComponentKey>
+    <webComponentKey>59b8735c-28d5-241b-fc25-370fa4ef09d9</webComponentKey>
 </OmniScript>

@@ -12,12 +12,8 @@ private class SandboxSetupTest {
   static PermissionSet enforceSsoPs = QueryPS.get('Enforce_SSO');
 
   static void registerMocks() {
-  dmlRepoMock = Lib_MockProvider.forType(
-    DmlRepository.class
-  );
-  ssRepoMock = Lib_MockProvider.forType(
-    SandboxSetupRepository.class
-  );
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    ssRepoMock = Lib_MockProvider.forType(SandboxSetupRepository.class);
     User user = new User(
       Id = userId,
       ProfileId = QueryProfile.minimumAccessSalesforce.Id,

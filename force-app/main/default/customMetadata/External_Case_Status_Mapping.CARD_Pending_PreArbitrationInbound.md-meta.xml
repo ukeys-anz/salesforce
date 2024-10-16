@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>CARD_Pending-PreArbitrationInbound</label>
+    <protected>false</protected>
+    <values>
+        <field>Case_Record_Type__c</field>
+        <value xsi:type="xsd:string">Card_Dispute</value>
+    </values>
+    <values>
+        <field>Case_Status__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Customer_Message__c</field>
+        <value xsi:type="xsd:string">While our investigation is underway, we&apos;ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn&apos;t in your favour.</value>
+    </values>
+    <values>
+        <field>Customer_Status__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Internal_Description__c</field>
+        <value xsi:nil="true"/>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>PEGA_Dispute_Status__c</field>
+        <value xsi:type="xsd:string">Pending-PreArbitrationInbound</value>
+    </values>
+    <values>
+        <field>PEGA_Investigation_Outcome__c</field>
+        <value xsi:nil="true"/>
+    </values>
+</CustomMetadata>

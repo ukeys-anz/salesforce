@@ -161,8 +161,7 @@ public with sharing class IDRComplaintFlagActions {
       );
     }
     if (
-      c.IDR_Second_Issue__c &&
-      QueryProducts.getById(c.IDR_Product_2__c) != null
+      c.IDR_Second_Issue__c && QueryProducts.getById(c.IDR_Product_2__c) != null
     ) {
       complaintProductList.add(
         new IDRComplaintProducts(
@@ -173,8 +172,7 @@ public with sharing class IDRComplaintFlagActions {
     }
 
     if (
-      c.IDR_Third_Issue__c &&
-      QueryProducts.getById(c.IDR_Product_3__c) != null
+      c.IDR_Third_Issue__c && QueryProducts.getById(c.IDR_Product_3__c) != null
     ) {
       complaintProductList.add(
         new IDRComplaintProducts(

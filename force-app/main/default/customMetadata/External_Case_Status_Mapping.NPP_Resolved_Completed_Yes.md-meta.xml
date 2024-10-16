@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>NPP_Resolved-Completed_Yes</label>
+    <protected>false</protected>
+    <values>
+        <field>Case_Record_Type__c</field>
+        <value xsi:type="xsd:string">NPP_Dispute</value>
+    </values>
+    <values>
+        <field>Case_Status__c</field>
+        <value xsi:type="xsd:string">Closed</value>
+    </values>
+    <values>
+        <field>Customer_Message__c</field>
+        <value xsi:type="xsd:string">Good news! We&apos;ve resolved your case and you&apos;ll receive credit in your account for the amount you&apos;re owed soon - we&apos;ll send you an email with more information. If you have any questions please feel free to send us a message.</value>
+    </values>
+    <values>
+        <field>Customer_Status__c</field>
+        <value xsi:type="xsd:string">Outcome</value>
+    </values>
+    <values>
+        <field>Internal_Description__c</field>
+        <value xsi:type="xsd:string">Dispute Successful - Payment Plan</value>
+    </values>
+    <values>
+        <field>Is_Created_In_SF__c</field>
+        <value xsi:type="xsd:boolean">false</value>
+    </values>
+    <values>
+        <field>PEGA_Dispute_Status__c</field>
+        <value xsi:type="xsd:string">Resolved-Completed</value>
+    </values>
+    <values>
+        <field>PEGA_Investigation_Outcome__c</field>
+        <value xsi:type="xsd:string">Yes</value>
+    </values>
+</CustomMetadata>

@@ -6,99 +6,206 @@
  */
 @isTest
 private class CCRMTermDepositQueryTest {
-  @TestSetup
-  static void createTestData() {
-    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('Business_Account')
-      .getRecordTypeId();
-    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
-      'CAP-CIS_4011643101',
-      customerRecordTypeId,
-      '4011643101'
+  static Lib_MockProvider faRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    faRepoMock = Lib_MockProvider.forType(
+      CCRMFinancialAccountQueryBaseRepository.class
     );
+  }
 
-    Id bankingRecordTypeId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
-      .get('BankingAccount')
-      .getRecordTypeId();
-    FinServ__FinancialAccount__c finAccount = TestDataFactory.createC360FinancialAccount(
-      bankingRecordTypeId,
-      'CAP-CIS:CDA',
-      acct.Id,
-      '4011643101-403456789',
-      '403456789'
+  private static FinServ__FinancialAccountRole__c getMockedData() {
+    Id finAccountId = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccount__c.SobjectType
     );
-    if (finAccount.Id != null) {
-      FinServ__FinancialAccountRole__c finRole = [
-        SELECT Id, FinServ__FinancialAccount__c, Role_Type__c
-        FROM FinServ__FinancialAccountRole__c
-        WHERE FinServ__FinancialAccount__c = :finAccount.Id
-        LIMIT 1
-      ];
-      finRole.Role_Type__c = 'PRI';
-      update finRole;
-    }
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
+
+    FinServ__FinancialAccount__c mockFinAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
+      new FinServ__FinancialAccount__c(
+        Id = finAccountId,
+        Name = 'Test',
+        FinServ__Status__c = 'Active',
+        FinServ__FinancialAccountType__c = 'Savings',
+        FinServ__PrimaryOwner__c = accId,
+        Account_Key__c = '4011643101-403456789',
+        FinServ__FinancialAccountNumber__c = '403456789',
+        Product_Type__c = 'CAP-CIS:CDA',
+        Source_System_Status_Display__c = 'Open'
+      ),
+      new Map<String, Object>{
+        'Product_Code_Display__c' => 'DDA',
+        'Product_Name_Display__c' => 'Monthly Interest Account',
+        'Account_Number__c' => '4034-56789'
+      }
+    );
+    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
+      FinServ__Active__c = true,
+      Role_Type__c = 'UNO',
+      FinServ__FinancialAccount__r = mockFinAccount,
+      FinServ__RelatedAccount__r = new Account(
+        External_Id__c = 'CAP-CIS_4011643101'
+      )
+    );
+    return mockFar;
   }
 
   @isTest
-  static void createDepositAccountsTest() {
+  static void testParseResponse() {
     Test.startTest();
-    Test.setMock(HttpCalloutMock.class, new CCRMTermDepositTestMock());
-    //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    conn.sync();
-    //query
-    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
-      'TermDeposit'
-    );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
-      null
-    );
-    aConn.query(context);
+    String responseBody =
+      ' {' +
+      '   "accounts": [' +
+      '     {' +
+      '       "accountName": "Denis Lai",' +
+      '       "accountNumber": "403456789",' +
+      '       "productCode": "CDA",' +
+      '       "accountBalance": "50.01",' +
+      '       "accountLimit": "1000",' +
+      '       "status": "Active"' +
+      '     }' +
+      '   ]' +
+      ' }';
+
     CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    query.parseResponse(responseBody);
+    Test.stopTest();
+    Assert.isFalse(query.calloutResponse == null, 'Response is not null');
+  }
+
+  @isTest
+  static void testCreateFinancialAccounts() {
+    registerMocks();
+    Test.startTest();
+    FinServ__FinancialAccountRole__c mockFar = getMockedData();
+    DataSource.QueryContext context = CCRMTestDataFactory.createTermDepositContext();
+    CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+    query.execute(context);
+    query.calloutResponse = new CCRMTermDepositQuery.TermAccountCalloutResponse();
+    ((CCRMTermDepositQuery.TermAccountCalloutResponse) query.calloutResponse)
+      .accounts = new List<CCRMTermDepositQuery.CCRMTermDepositModel>();
+    CCRMTermDepositQuery.CCRMTermDepositModel termModel = new CCRMTermDepositQuery.CCRMTermDepositModel();
+    termModel.accountName = 'Denis Lai';
+    termModel.accountNumber = '403456789';
+    ((CCRMTermDepositQuery.TermAccountCalloutResponse) query.calloutResponse)
+      .accounts.add(termModel);
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = query.createFinancialAccounts();
+    Test.stopTest();
+    Assert.areEqual(1, result.queryResult.size(), 'Size of accounts is not 1');
+  }
+
+  @isTest
+  static void createTermDepositAccountsTest() {
+    registerMocks();
+    Test.startTest();
+    //Setting up mocked data
+    FinServ__FinancialAccountRole__c mockFar = getMockedData();
+    DataSource.QueryContext context = CCRMTestDataFactory.createTermDepositContext();
+    CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
     CCRMExternalObjectQueryBase.ExternalQueryResult result = query.execute(
       context
     );
     Test.stopTest();
-    System.assertEquals(
-      1,
-      result.queryResult.size(),
-      'Size of accounts is not 1'
-    );
-    System.assertEquals(
+    Assert.areEqual(1, result.queryResult.size(), 'Size of accounts is not 1');
+    Assert.areEqual(
       'Denis Lai',
       result.queryResult[0].get('AccountName'),
       'Name mismatch'
     );
-    System.assertEquals(
-      'CDA',
-      result.queryResult[0].get('ProductCode'),
-      'Product code mismatch'
-    );
-    System.assertEquals(
+    Assert.areEqual(
       '4034-56789',
       result.queryResult[0].get('AccountNumber'),
-      'Product code mismatch'
+      'Account Number mismatch'
     );
   }
 
-  /**
-   * @description create HTTP mock response for testing
-   */
-  public class CCRMTermDepositTestMock implements HttpCalloutMock {
-    /**
-     * @description HTTP mock response
-     * @param req HTTP request
-     * @return HTTPResponse
-     */
-    public HTTPResponse respond(HTTPRequest req) {
-      String jsonBody = Service.getStaticResource('mock_termDepositResponse');
-      HTTPResponse res = new HTTPResponse();
-      res.setHeader('ms2-example', 'dda-success-with-multiple-accounts');
-      res.setBody(jsonBody);
-      res.setStatusCode(200);
-      return res;
-    }
+  @isTest
+  static void getProductCodeTest() {
+    registerMocks();
+    //Setting up mocked data
+    FinServ__FinancialAccountRole__c mockFar = getMockedData();
+    DataSource.QueryContext context = CCRMTestDataFactory.createTermDepositContext();
+    CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+    query.execute(context);
+    Test.startTest();
+    string prodCode = query.getProductCode('403456789');
+    Test.stopTest();
+    Assert.areEqual('DDA', prodCode, 'Product code matches');
+  }
+
+  @isTest
+  static void getProductNameTest() {
+    registerMocks();
+    //Setting up mocked data
+    FinServ__FinancialAccountRole__c mockFar = getMockedData();
+    DataSource.QueryContext context = CCRMTestDataFactory.createTermDepositContext();
+    CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+    query.execute(context);
+    Test.startTest();
+    string productName = query.getProductName(
+      mockFar.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'Monthly Interest Account',
+      productName,
+      'Product Name Matched'
+    );
+  }
+
+  @isTest
+  static void getSourceSystemStatusTest() {
+    registerMocks();
+    //Setting up mocked data
+    FinServ__FinancialAccountRole__c mockFar = getMockedData();
+    DataSource.QueryContext context = CCRMTestDataFactory.createTermDepositContext();
+    CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+    query.execute(context);
+    Test.startTest();
+    String sourcestatus = query.getSourceSystemStatus(
+      mockFar.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+    );
+    Test.stopTest();
+    Assert.areEqual('Open', sourcestatus, 'Source system status is matched');
+  }
+
+  @isTest
+  static void getFinStatusTest() {
+    registerMocks();
+    //Setting up mocked data
+    FinServ__FinancialAccountRole__c mockFar = getMockedData();
+    DataSource.QueryContext context = CCRMTestDataFactory.createTermDepositContext();
+    CCRMTermDepositQuery query = new CCRMTermDepositQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
+    query.execute(context);
+    Test.startTest();
+    String accountStatus = query.getFinStatus(
+      mockFar.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+    );
+    Test.stopTest();
+    Assert.areEqual('Active', accountStatus, 'Account status is active');
   }
 }

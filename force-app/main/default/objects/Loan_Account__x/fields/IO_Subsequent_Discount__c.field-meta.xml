@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Subsequent Discount</label>
+    <label>Margin (%)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

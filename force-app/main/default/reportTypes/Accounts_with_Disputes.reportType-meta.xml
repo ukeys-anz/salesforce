@@ -332,6 +332,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>New_Customer_Message__c</field>
+            <table>Account.Cases.External_Case_Statuses__r</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Fraud_Total_Reimbursed__c</field>
             <table>Account.Cases</table>
         </columns>

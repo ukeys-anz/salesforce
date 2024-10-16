@@ -357,8 +357,10 @@
         "Enforce_mTLS",
         "API_Only",
         "Customer_Onboarding_Integration",
+        "Customer_Onboarding_View_All",
         "Case_Read_Write_Customer_Onboarding_Integration",
         "Case_Read_Write_KYC_QA",
+        "Case_Read_Write_KYC_QA_Integration",
         "Disable_MFA",
         "Customer_Read_Only"
       ],

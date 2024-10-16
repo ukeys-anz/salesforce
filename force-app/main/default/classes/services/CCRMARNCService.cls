@@ -13,7 +13,7 @@ public with sharing class CCRMARNCService extends Service {
    * @description Financial account API call request wrapper class
    */
   public class FinancialAccountQueryParameters {
-    public List<String> accounts = new List<String>();
+    public Set<String> accounts = new Set<String>();
     public String nextPageId;
     public List<String> capCustomerIds = new List<String>();
     public String type;
@@ -171,14 +171,12 @@ public with sharing class CCRMARNCService extends Service {
   /**
    * @param parent parent
    * @param params parameters
-   * @param nextPageId nextPageId
    * @return HttpCalloutResponse
    * @description query exernal Diary Comment for customer/financial accounts via API
    */
   public HttpCalloutResponse queryDiaryComment(
     String parent,
-    Map<String, String> params,
-    String nextPageId
+    Map<String, String> params
   ) {
     HttpCalloutResponse response;
 
@@ -199,15 +197,14 @@ public with sharing class CCRMARNCService extends Service {
       }
     }
     parentId = String.isNotBlank(parentId) ? parentId : null;
-    nextPageId = nextPageId != null
-      ? EncodingUtil.urlEncode(nextPageId, 'UTF-8')
-      : '';
     if (parent == 'Customer') {
       endPoint +=
         '?customer-id=' +
         parentId +
-        '&conversation-control=' +
-        nextPageId;
+        '&offSet=' +
+        params.get('offSet') +
+        '&pageSize=' +
+        params.get('pageSize');
     } else if (String.isNotBlank(parentValue)) {
       String product = parentValue.contains('|')
         ? parentValue.substringAfter('|')
@@ -221,10 +218,37 @@ public with sharing class CCRMARNCService extends Service {
         parentId +
         '&product-code=' +
         productCode +
-        '&conversation-control=' +
-        nextPageId;
+        '&offSet=' +
+        params.get('offSet') +
+        '&pageSize=' +
+        params.get('pageSize');
     }
     try {
+      response = calloutService.makeRestCallout(
+        endPoint,
+        HTTP_METHOD.HTTP_GET,
+        headers,
+        null
+      );
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+      throw new AuraHandledException('Error : ' + e.getMessage());
+    }
+    return response;
+  }
+
+  /**
+   * @param endPoint parameters
+   * @return HttpCalloutResponse
+   * @description query exernal Account Registration for customer/financial accounts via API
+   */
+  public HttpCalloutResponse queryAccountRegistrations(String endPoint) {
+    Map<String, String> headers = new Map<String, String>();
+    setCommonHeaders(headers);
+    HttpCalloutResponse response;
+    try {
+      Lib_HttpCallout calloutService = new Lib_HttpCallout();
       response = calloutService.makeRestCallout(
         endPoint,
         HTTP_METHOD.HTTP_GET,

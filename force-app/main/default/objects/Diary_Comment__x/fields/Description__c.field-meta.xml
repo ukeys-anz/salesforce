@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Description</label>
+    <label>Comment</label>
     <length>200</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

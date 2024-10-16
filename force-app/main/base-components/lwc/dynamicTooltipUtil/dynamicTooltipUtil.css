@@ -1,0 +1,10 @@
+.close-modal {
+  cursor: pointer;
+  --sds-c-icon-color-foreground-default: #fff;
+  background-color: var(--slds-c-icon-color-background, transparent);
+}
+
+.modal-header {
+  background: #014486;
+  color: #fff;
+}

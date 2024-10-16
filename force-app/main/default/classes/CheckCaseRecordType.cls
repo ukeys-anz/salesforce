@@ -19,7 +19,8 @@ public with sharing class CheckCaseRecordType {
     RTCase.directDebitDispute,
     RTCase.directEntryDispute,
     RTCase.nppDispute,
-    RTCase.bpayDispute
+    RTCase.bpayDispute,
+    RTCase.payToDispute
   };
 
   public static final Set<Id> ANZX_RT_IDS = new Set<Id>{
@@ -44,6 +45,26 @@ public with sharing class CheckCaseRecordType {
     RTCase.falseCustomerProfile,
     RTCase.profileUpdate
   };
+
+  public static final Set<Id> VALID_RTS_TO_CREATE_EXT_CASE_STATUS = new Set<Id>{
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.bpayDispute,
+    RTCase.payToDispute
+  };
+
+  /**
+   * @description isValidCaseToCreateExtCaseStatus checks if record type is of ANZ Plus type and supoprts external Case status creation.
+   *
+   * @param record The record for which the recordType needs to be checked
+   * @return `Boolean` True if the the record type supports external Case status creation false otherwise.
+   */
+  public static Boolean isValidCaseToCreateExtCaseStatus(Case record) {
+    return VALID_RTS_TO_CREATE_EXT_CASE_STATUS.contains(record?.RecordTypeId) ||
+      (record.RecordTypeId == RTCase.nppDispute &&
+      record.Dispute_Reason__c ==
+      GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION);
+  }
 
   /**
    * @description isANZPlusCaseType checks if record type is of ANZ Plus type.
@@ -206,6 +227,17 @@ public with sharing class CheckCaseRecordType {
     } else {
       return false;
     }
+  }
+
+  /**
+   * @description Check if a case is Non Fraud NPP Case
+   * @param record The case record to check
+   * @return true if the case is a Non Fraud NPP Case
+   */
+  public static Boolean isNPPNonFraudDispute(Case record) {
+    return record.RecordTypeId == RTCase.nppDispute &&
+      record.Dispute_Reason__c !=
+      GetHelpCaseAssignmentRules.UNAUTHORISED_TRANSACTION;
   }
 
   /**

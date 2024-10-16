@@ -9,6 +9,11 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import ApprovalModal from "c/manageOpsWorkflowApproval";
 import RejectModal from "c/manageOpsWorkflowReject";
 import { getRecord, notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
+import {
+  getFocusedTabInfo,
+  refreshTab,
+  getTabInfo
+} from "lightning/platformWorkspaceApi";
 
 export default class OnboardingFalloutWorkflow extends LightningElement {
   @wire(getRecord, {
@@ -283,11 +288,8 @@ export default class OnboardingFalloutWorkflow extends LightningElement {
       options: { caseId, parentComponent, workflowId, IdValue, cobId },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleModalClose();
         notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
-        notifyRecordUpdateAvailable([
-          { recordId: this.workflowDetails?.caseId }
-        ]);
+        this.refreshTab();
       }
     });
   }
@@ -304,13 +306,19 @@ export default class OnboardingFalloutWorkflow extends LightningElement {
       options: { caseId, parentComponent, workflowId, IdValue, cobId },
       onrefresh: (e) => {
         e.stopPropagation();
-        this.handleModalClose();
         notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
-        notifyRecordUpdateAvailable([
-          { recordId: this.workflowDetails?.caseId }
-        ]);
+        this.refreshTab();
       }
     });
+  }
+
+  async refreshTab() {
+    const { tabId } = await getFocusedTabInfo();
+    let tabInfo = await getTabInfo(tabId);
+    await refreshTab(tabInfo.parentTabId, {
+      includeAllSubtabs: false
+    });
+    this.handleModalClose();
   }
 
   get isApprovButtonDisable() {

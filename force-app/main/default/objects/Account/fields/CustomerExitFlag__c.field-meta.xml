@@ -6,7 +6,7 @@
     <defaultValue>false</defaultValue>
     <description>To identify whether the customer has been exited by ANZ Plus based on Fraudulent Actions.</description>
     <externalId>false</externalId>
-    <label>Customer Exit Flag</label>
+    <label>Customer Exited</label>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>

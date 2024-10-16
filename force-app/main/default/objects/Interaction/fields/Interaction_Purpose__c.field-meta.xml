@@ -73,6 +73,11 @@
                 <label>Testing</label>
             </value>
             <value>
+                <fullName>Test Out a Home Loan</fullName>
+                <default>false</default>
+                <label>Test Out a Home Loan</label>
+            </value>
+            <value>
                 <fullName>Wrong Number</fullName>
                 <default>false</default>
                 <label>Wrong Number</label>
@@ -122,6 +127,12 @@
             <controllingFieldValue>Store</controllingFieldValue>
             <controllingFieldValue>Video</controllingFieldValue>
             <valueName>Digital Support</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Call</controllingFieldValue>
+            <controllingFieldValue>Video</controllingFieldValue>
+            <valueName>Test Out a Home Loan</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>In Person</controllingFieldValue>

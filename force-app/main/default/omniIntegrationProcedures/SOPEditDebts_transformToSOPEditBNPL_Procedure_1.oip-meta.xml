@@ -68,8 +68,41 @@
   &quot;label&quot; : &quot;ResponseAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Response Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>setBNPLFixedSourceBureauExcludedValues</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%debt:type% == &apos;LIABILITY_TYPE_BPL_LOAN&apos; &amp;&amp; (%debt:sources|1% != &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos; ||\n(%debt:sources|1% == &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos; &amp;&amp; %editDebtsForm:detailsGroup:debtDetails:excludedDebtBlock:customerExcludedDebt% == &apos;No&apos;))&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;outstandingBalance:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,0,&apos;.&apos;)&quot;,
+    &quot;outstandingBalance:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1)))&quot;,
+    &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,0,&apos;.&apos;)&quot;,
+    &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1)))&quot;,
+    &quot;institutionalLiability:repaymentFrequency&quot; : &quot;=%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentFrequency%&quot;,
+    &quot;validatedOutstandingBalance&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedBalanceOwingForUMI% != null, %editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedBalanceOwingForUMI%, false)&quot;,
+    &quot;institutionalLiability:validatedPrincipalInterestRemainingTerm&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedRemainingTermForUMI% != null, %editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedRemainingTermForUMI%, false)&quot;,
+    &quot;institutionalLiability:principalInterestRemainingTerm&quot; : &quot;=SUM(%editDebtsForm:detailsGroup:debtAmountsFixed:months%,%editDebtsForm:detailsGroup:debtAmountsFixed:years%*12)&quot;,
+    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
         <name>setBNPLFixedSourceBureauValues</name>
@@ -82,20 +115,14 @@
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;elementValueMap&quot; : {
-    &quot;outstandingBalance:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,0,&apos;.&apos;)&quot;,
-    &quot;outstandingBalance:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:balanceOwingFixed%,&apos;.&apos;) + 1)))&quot;,
-    &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,0,&apos;.&apos;)&quot;,
-    &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1)))&quot;,
-    &quot;institutionalLiability:repaymentFrequency&quot; : &quot;=%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentFrequency%&quot;,
     &quot;institutionalLiability:principalInterestRemainingTerm&quot; : &quot;=SUM(%editDebtsForm:detailsGroup:debtAmountsFixed:months%,%editDebtsForm:detailsGroup:debtAmountsFixed:years%*12)&quot;,
-    &quot;validatedOutstandingBalance&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedBalanceOwingForUMI% != null, %editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedBalanceOwingForUMI%, false)&quot;,
-    &quot;institutionalLiability:validatedPrincipalInterestRemainingTerm&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedRemainingTermForUMI% != null, %editDebtsForm:detailsGroup:debtAmountsFixed:UseUpdatedRemainingTermForUMI%, false)&quot;,
     &quot;institutionalLiability:verifiedPrincipalInterestRemainingTerm&quot; : &quot;%debt:institutionalLiability:verifiedPrincipalInterestRemainingTerm%&quot;,
     &quot;account:id&quot; : &quot;%debt:account:id%&quot;,
     &quot;account:bsb&quot; : &quot;%debt:account:bsb%&quot;,
     &quot;account:status&quot; : &quot;%debt:account:status%&quot;,
     &quot;account:accountNumber&quot; : &quot;%debt:account:accountNumber%&quot;,
-    &quot;verifiedOutstandingBalance&quot; : &quot;%debt:verifiedOutstandingBalance%&quot;
+    &quot;verifiedOutstandingBalance&quot; : &quot;%debt:verifiedOutstandingBalance%&quot;,
+    &quot;customerStatedClosed&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtDetails:excludedDebtBlock:customerExcludedDebt% == &apos;Yes&apos;, true, false)&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
@@ -105,7 +132,7 @@
   &quot;label&quot; : &quot;SetValues1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -124,7 +151,9 @@
     &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,0,&apos;.&apos;)&quot;,
     &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentAmount%,&apos;.&apos;) + 1)))&quot;,
     &quot;institutionalLiability:repaymentFrequency&quot; : &quot;=%editDebtsForm:detailsGroup:debtAmountsFixed:repaymentFrequency%&quot;,
-    &quot;institutionalLiability:principalInterestRemainingTerm&quot; : &quot;=SUM(%editDebtsForm:detailsGroup:debtAmountsFixed:months%,%editDebtsForm:detailsGroup:debtAmountsFixed:years%*12)&quot;
+    &quot;institutionalLiability:principalInterestRemainingTerm&quot; : &quot;=SUM(%editDebtsForm:detailsGroup:debtAmountsFixed:months%,%editDebtsForm:detailsGroup:debtAmountsFixed:years%*12)&quot;,
+    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
@@ -134,7 +163,7 @@
   &quot;label&quot; : &quot;SetValues1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>5.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -148,21 +177,12 @@
   &quot;failureConditionalFormula&quot; : &quot;&quot;,
   &quot;failOnStepError&quot; : true,
   &quot;elementValueMap&quot; : {
-    &quot;outstandingBalance:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1)))&quot;,
-    &quot;outstandingBalance:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,0,&apos;.&apos;)&quot;,
-    &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,0,&apos;.&apos;)&quot;,
-    &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1)))&quot;,
-    &quot;institutionalLiability:repaymentFrequency&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:paidInFull%=&apos;No&apos;,&apos;FREQUENCY_MONTHLY&apos;,null)&quot;,
-    &quot;institutionalLiability:limit:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,0,&apos;.&apos;)&quot;,
-    &quot;institutionalLiability:limit:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1)))&quot;,
-    &quot;institutionalLiability:paidInFull&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:paidInFull%=&apos;Yes&apos;,true,false)&quot;,
-    &quot;institutionalLiability:limit:currencyCode&quot; : &quot;AUD&quot;,
-    &quot;institutionalLiability:validatedLimit&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:UseUpdatedLimitForUMI% != null, %editDebtsForm:detailsGroup:debtAmountsLimit:UseUpdatedLimitForUMI%, false)&quot;,
     &quot;account:id&quot; : &quot;%debt:account:id%&quot;,
     &quot;account:bsb&quot; : &quot;%debt:account:bsb%&quot;,
     &quot;account:status&quot; : &quot;%debt:account:status%&quot;,
     &quot;account:accountNumber&quot; : &quot;%debt:account:accountNumber%&quot;,
-    &quot;verifiedOutstandingBalance&quot; : &quot;%debt:verifiedOutstandingBalance%&quot;
+    &quot;verifiedOutstandingBalance&quot; : &quot;%debt:verifiedOutstandingBalance%&quot;,
+    &quot;customerStatedClosed&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtDetails:excludedDebtBlock:customerExcludedDebt% == &apos;Yes&apos;, true, false)&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
@@ -194,7 +214,9 @@
     &quot;institutionalLiability:limit:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,0,&apos;.&apos;)&quot;,
     &quot;institutionalLiability:limit:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1)))&quot;,
     &quot;institutionalLiability:paidInFull&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:paidInFull%=&apos;Yes&apos;,true,false)&quot;,
-    &quot;institutionalLiability:limit:currencyCode&quot; : &quot;AUD&quot;
+    &quot;institutionalLiability:limit:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;
   },
   &quot;responseJSONPath&quot; : &quot;&quot;,
   &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
@@ -224,8 +246,6 @@
     &quot;uid&quot; : &quot;%debt:uid%&quot;,
     &quot;etag&quot; : &quot;%debt:etag%&quot;,
     &quot;strOwnership&quot; : &quot;%editDebtsForm:detailsGroup:debtDetails:belongsToValue%&quot;,
-    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
-    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;,
     &quot;institutionalLiability:financialInstitution&quot; : &quot;=%editDebtsForm:detailsGroup:debtDetails:institution%&quot;,
     &quot;evidenceProvided&quot; : &quot;=IF(%editDebtsForm:evidenceGroup:debtEvidenced:evidenceReceived%!= null, %editDebtsForm:evidenceGroup:debtEvidenced:evidenceReceived%, false)&quot;,
     &quot;paidOffAndClosed&quot; : &quot;=IF(%editDebtsForm:paidGroup:closeDebt:paidOffAndClosed% != null, %editDebtsForm:paidGroup:closeDebt:paidOffAndClosed%, false)&quot;
@@ -239,6 +259,41 @@
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
         <sequenceNumber>1.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>setSourceLimitBureauExcludedValues</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%debt:type% == &apos;LIABILITY_TYPE_BPL_FACILITY&apos; &amp;&amp; (%debt:sources|1% != &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos; ||\n(%debt:sources|1% == &apos;LIABILITY_SOURCE_TYPE_BUREAU&apos; &amp;&amp; %editDebtsForm:detailsGroup:debtDetails:excludedDebtBlock:customerExcludedDebt% == &apos;No&apos;))&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;outstandingBalance:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,&apos;.&apos;) + 1)))&quot;,
+    &quot;outstandingBalance:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:balanceOwingLimit%,0,&apos;.&apos;)&quot;,
+    &quot;institutionalLiability:repaymentAmount:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,0,&apos;.&apos;)&quot;,
+    &quot;institutionalLiability:repaymentAmount:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:monthlyRepaymentBnpl%,&apos;.&apos;) + 1)))&quot;,
+    &quot;institutionalLiability:repaymentFrequency&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:paidInFull%=&apos;No&apos;,&apos;FREQUENCY_MONTHLY&apos;,null)&quot;,
+    &quot;institutionalLiability:limit:units&quot; : &quot;=SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,0,&apos;.&apos;)&quot;,
+    &quot;institutionalLiability:limit:nanos&quot; : &quot;=IF(STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) == -1,0, IF(SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) &gt;= 1 &amp;&amp; SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) &lt;= 9,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1) + &apos;0&apos;,SUBSTRING(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,STRINGINDEXOF(%editDebtsForm:detailsGroup:debtAmountsLimit:creditLimit%,&apos;.&apos;) + 1)))&quot;,
+    &quot;institutionalLiability:paidInFull&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:paidInFull%=&apos;Yes&apos;,true,false)&quot;,
+    &quot;institutionalLiability:limit:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;institutionalLiability:validatedLimit&quot; : &quot;=IF(%editDebtsForm:detailsGroup:debtAmountsLimit:UseUpdatedLimitForUMI% != null, %editDebtsForm:detailsGroup:debtAmountsLimit:UseUpdatedLimitForUMI%, false)&quot;,
+    &quot;outstandingBalance:currencyCode&quot; : &quot;AUD&quot;,
+    &quot;institutionalLiability:repaymentAmount:currencyCode&quot; : &quot;AUD&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;liabilities&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessKey>SOPEditDebts_transformToSOPEditBNPL</omniProcessKey>
@@ -273,5 +328,5 @@
     <type>SOPEditDebts</type>
     <uniqueName>SOPEditDebts_transformToSOPEditBNPL_Procedure_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>127d55b7-b797-8f7a-b8df-864e121b1941</webComponentKey>
+    <webComponentKey>cd250ca2-d5ae-23be-c12a-e0571a74317e</webComponentKey>
 </OmniIntegrationProcedure>

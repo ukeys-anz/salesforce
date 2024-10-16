@@ -2675,7 +2675,10 @@
         <childElements>
             <name>IDR_Subsequent_Issue__c</name>
             <isActive>true</isActive>
+            <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{

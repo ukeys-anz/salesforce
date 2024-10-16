@@ -33,6 +33,6 @@
     <filterScope>Mine</filterScope>
     <label>My Leads</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
     </sharedTo>
 </ListView>

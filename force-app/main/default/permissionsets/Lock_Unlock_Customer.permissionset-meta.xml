@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>LockPin</name>
+    </customPermissions>
+    <customPermissions>
+        <enabled>true</enabled>
+        <name>UnlockPin</name>
+    </customPermissions>
+    <description>Perform Lock Unlock UAF action on Person Digital Identity Record</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Lock Unlock Customer</label>
+</PermissionSet>

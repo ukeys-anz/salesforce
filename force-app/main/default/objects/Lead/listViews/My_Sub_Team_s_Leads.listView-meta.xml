@@ -31,8 +31,10 @@
         <value>Lead.CCRM_Lead</value>
     </filters>
     <filterScope>Everything</filterScope>
-    <label>My Sub Team&apos;s Leads</label>
+    <label>My Pod&apos;s Leads</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Small_Business_Banking_NBC</roleAndSubordinatesInternal>
+        <role>SME_General_Manager</role>
+        <roleAndSubordinates>AF_General_Manager</roleAndSubordinates>
+        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

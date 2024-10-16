@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Won_from_Lost_to__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Captured as part of Product Won \ Lost stage. Lists the competitors in a drop down.</description>
+    <externalId>false</externalId>
+    <label>Won from / Lost to</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>true</trackHistory>
+    <type>Picklist</type>
+    <unique>false</unique>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>AAMI</fullName>
+                <default>false</default>
+                <label>AAMI</label>
+            </value>
+            <value>
+                <fullName>ACCU - Australian Credit CU</fullName>
+                <default>false</default>
+                <label>ACCU - Australian Credit CU</label>
+            </value>
+            <value>
+                <fullName>AIG Australia</fullName>
+                <default>false</default>
+                <label>AIG Australia</label>
+            </value>
+            <value>
+                <fullName>AMP Banking</fullName>
+                <default>false</default>
+                <label>AMP Banking</label>
+            </value>
+            <value>
+                <fullName>Adelaide Bank</fullName>
+                <default>false</default>
+                <label>Adelaide Bank</label>
+            </value>
+            <value>
+                <fullName>Allianz Australia</fullName>
+                <default>false</default>
+                <label>Allianz Australia</label>
+            </value>
+            <value>
+                <fullName>American Express International</fullName>
+                <default>false</default>
+                <label>American Express International</label>
+            </value>
+            <value>
+                <fullName>Aussie Group</fullName>
+                <default>false</default>
+                <label>Aussie Group</label>
+            </value>
+            <value>
+                <fullName>Australian Unity</fullName>
+                <default>false</default>
+                <label>Australian Unity</label>
+            </value>
+            <value>
+                <fullName>BUPA</fullName>
+                <default>false</default>
+                <label>BUPA</label>
+            </value>
+            <value>
+                <fullName>Bank SA</fullName>
+                <default>false</default>
+                <label>Bank SA</label>
+            </value>
+            <value>
+                <fullName>Bank of China (Australia) Ltd</fullName>
+                <default>false</default>
+                <label>Bank of China (Australia) Ltd</label>
+            </value>
+            <value>
+                <fullName>Bank of Melbourne</fullName>
+                <default>false</default>
+                <label>Bank of Melbourne</label>
+            </value>
+            <value>
+                <fullName>Bank of Queensland</fullName>
+                <default>false</default>
+                <label>Bank of Queensland</label>
+            </value>
+            <value>
+                <fullName>Bank of Sydney Limited</fullName>
+                <default>false</default>
+                <label>Bank of Sydney Limited</label>
+            </value>
+            <value>
+                <fullName>Bank of Tokyo-Mitsubishi UFJ</fullName>
+                <default>false</default>
+                <label>Bank of Tokyo-Mitsubishi UFJ</label>
+            </value>
+            <value>
+                <fullName>Bankwest</fullName>
+                <default>false</default>
+                <label>Bankwest</label>
+            </value>
+            <value>
+                <fullName>Bendigo Bank</fullName>
+                <default>false</default>
+                <label>Bendigo Bank</label>
+            </value>
+            <value>
+                <fullName>Bluestone Finance</fullName>
+                <default>false</default>
+                <label>Bluestone Finance</label>
+            </value>
+            <value>
+                <fullName>Citibank</fullName>
+                <default>false</default>
+                <label>Citibank</label>
+            </value>
+            <value>
+                <fullName>Comminsure</fullName>
+                <default>false</default>
+                <label>Comminsure</label>
+            </value>
+            <value>
+                <fullName>Commonwealth Bank of Australia</fullName>
+                <default>false</default>
+                <label>Commonwealth Bank of Australia</label>
+            </value>
+            <value>
+                <fullName>Credit Union Australia Ltd</fullName>
+                <default>false</default>
+                <label>Credit Union Australia Ltd</label>
+            </value>
+            <value>
+                <fullName>Credit Union SA Ltd</fullName>
+                <default>false</default>
+                <label>Credit Union SA Ltd</label>
+            </value>
+            <value>
+                <fullName>Defence Bank Limited</fullName>
+                <default>false</default>
+                <label>Defence Bank Limited</label>
+            </value>
+            <value>
+                <fullName>Diners Club</fullName>
+                <default>false</default>
+                <label>Diners Club</label>
+            </value>
+            <value>
+                <fullName>Elders</fullName>
+                <default>false</default>
+                <label>Elders</label>
+            </value>
+            <value>
+                <fullName>Esanda</fullName>
+                <default>false</default>
+                <label>Esanda</label>
+            </value>
+            <value>
+                <fullName>GE</fullName>
+                <default>false</default>
+                <label>GE</label>
+            </value>
+            <value>
+                <fullName>GIO</fullName>
+                <default>false</default>
+                <label>GIO</label>
+            </value>
+            <value>
+                <fullName>Greater Building Society Ltd</fullName>
+                <default>false</default>
+                <label>Greater Building Society Ltd</label>
+            </value>
+            <value>
+                <fullName>HBF</fullName>
+                <default>false</default>
+                <label>HBF</label>
+            </value>
+            <value>
+                <fullName>HCF</fullName>
+                <default>false</default>
+                <label>HCF</label>
+            </value>
+            <value>
+                <fullName>HSBC</fullName>
+                <default>false</default>
+                <label>HSBC</label>
+            </value>
+            <value>
+                <fullName>Heritage Bank Limited</fullName>
+                <default>false</default>
+                <label>Heritage Bank Limited</label>
+            </value>
+            <value>
+                <fullName>IAG Australia</fullName>
+                <default>false</default>
+                <label>IAG Australia</label>
+            </value>
+            <value>
+                <fullName>ING Bank Australia</fullName>
+                <default>false</default>
+                <label>ING Bank Australia</label>
+            </value>
+            <value>
+                <fullName>Industrial Comm. Bank China</fullName>
+                <default>false</default>
+                <label>Industrial Comm. Bank China</label>
+            </value>
+            <value>
+                <fullName>Liberty Finance</fullName>
+                <default>false</default>
+                <label>Liberty Finance</label>
+            </value>
+            <value>
+                <fullName>Macquaire Bank</fullName>
+                <default>false</default>
+                <label>Macquaire Bank</label>
+            </value>
+            <value>
+                <fullName>Macquarie</fullName>
+                <default>false</default>
+                <label>Macquarie</label>
+            </value>
+            <value>
+                <fullName>Medibank</fullName>
+                <default>false</default>
+                <label>Medibank</label>
+            </value>
+            <value>
+                <fullName>Members Equity</fullName>
+                <default>false</default>
+                <label>Members Equity</label>
+            </value>
+            <value>
+                <fullName>NRMA</fullName>
+                <default>false</default>
+                <label>NRMA</label>
+            </value>
+            <value>
+                <fullName>National Australia Bank</fullName>
+                <default>false</default>
+                <label>National Australia Bank</label>
+            </value>
+            <value>
+                <fullName>Newcastle Permanent Build Soc</fullName>
+                <default>false</default>
+                <label>Newcastle Permanent Build Soc</label>
+            </value>
+            <value>
+                <fullName>Nib</fullName>
+                <default>false</default>
+                <label>Nib</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Peer to Peer Lending</fullName>
+                <default>false</default>
+                <label>Peer to Peer Lending</label>
+            </value>
+            <value>
+                <fullName>Police Credit Union Limited</fullName>
+                <default>false</default>
+                <label>Police Credit Union Limited</label>
+            </value>
+            <value>
+                <fullName>QBE Insurance</fullName>
+                <default>false</default>
+                <label>QBE Insurance</label>
+            </value>
+            <value>
+                <fullName>RAA</fullName>
+                <default>false</default>
+                <label>RAA</label>
+            </value>
+            <value>
+                <fullName>RAC</fullName>
+                <default>false</default>
+                <label>RAC</label>
+            </value>
+            <value>
+                <fullName>RACQ</fullName>
+                <default>false</default>
+                <label>RACQ</label>
+            </value>
+            <value>
+                <fullName>RACV</fullName>
+                <default>false</default>
+                <label>RACV</label>
+            </value>
+            <value>
+                <fullName>Rabobank Australia Limited</fullName>
+                <default>false</default>
+                <label>Rabobank Australia Limited</label>
+            </value>
+            <value>
+                <fullName>Rural Bank Limited</fullName>
+                <default>false</default>
+                <label>Rural Bank Limited</label>
+            </value>
+            <value>
+                <fullName>SGIC</fullName>
+                <default>false</default>
+                <label>SGIC</label>
+            </value>
+            <value>
+                <fullName>SGIO</fullName>
+                <default>false</default>
+                <label>SGIO</label>
+            </value>
+            <value>
+                <fullName>SUNCORP</fullName>
+                <default>false</default>
+                <label>SUNCORP</label>
+            </value>
+            <value>
+                <fullName>St George</fullName>
+                <default>false</default>
+                <label>St George</label>
+            </value>
+            <value>
+                <fullName>Teachers Credit Union</fullName>
+                <default>false</default>
+                <label>Teachers Credit Union</label>
+            </value>
+            <value>
+                <fullName>Westlawn</fullName>
+                <default>false</default>
+                <label>Westlawn</label>
+            </value>
+            <value>
+                <fullName>Westpac</fullName>
+                <default>false</default>
+                <label>Westpac</label>
+            </value>
+            <value>
+                <fullName>Zurich</fullName>
+                <default>false</default>
+                <label>Zurich</label>
+            </value>
+            <value>
+                <fullName>N/A</fullName>
+                <default>false</default>
+                <label>N/A</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

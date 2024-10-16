@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Branch Name</label>
+    <label>Branch Placed</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

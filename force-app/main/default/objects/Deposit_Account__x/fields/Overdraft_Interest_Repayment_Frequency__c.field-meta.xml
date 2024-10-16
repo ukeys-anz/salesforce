@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Interest Repayment Frequency</label>
+    <label>Debit Interest Frequency</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
