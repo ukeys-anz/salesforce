@@ -93,7 +93,7 @@ public with sharing class IDOpsQueryRepository {
 
    /**
    * @description get cobPID Record
-   * @param  CustomerOnboardingApplication CustomerOnboardingApplicationId
+   * @param  customerOnboardingApplicationId CustomerOnboardingApplicationId
    * @return COBPrimaryIDDocument__c
    **/
   public COBPrimaryIDDocument__c getCOBPIDRecordUsingCOA(String customerOnboardingApplicationId) {
