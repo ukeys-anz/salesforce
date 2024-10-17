@@ -2,7 +2,7 @@
  * @description       : Repository for PinAndSelfieWorkflow
  * @author            : Hinduja - TFM Squad
  * @group             :
- * @last modified on  : 07-31-2024
+ * @last modified on  : 10-17-2024
  * @last modified by  : ChangeMeIn@UserSettingsUnder.SFDoc
  **/
 public with sharing class IDOpsQueryRepository {
@@ -32,7 +32,8 @@ public with sharing class IDOpsQueryRepository {
         PersonaId__c,
         Status_Update_Error__c,
         IsClosed,
-        CaseNumber
+        CaseNumber,
+        CustomerOnboardingApplication__c
       FROM Case
       WHERE ID = :recordId
       WITH USER_MODE
@@ -84,6 +85,24 @@ public with sharing class IDOpsQueryRepository {
         Failed_Message__c
       FROM COBPrimaryIDDocument__c
       WHERE Id = :recordId
+      WITH USER_MODE
+      LIMIT 1
+    ];
+    return cobPIDRecord;
+  }
+
+   /**
+   * @description get cobPID Record
+   * @param  CustomerOnboardingApplication CustomerOnboardingApplicationId
+   * @return COBPrimaryIDDocument__c
+   **/
+  public COBPrimaryIDDocument__c getCOBPIDRecordUsingCOA(String customerOnboardingApplicationId) {
+    COBPrimaryIDDocument__c cobPIDRecord = [
+      SELECT
+        Id,
+        Verification_Status__c
+      FROM COBPrimaryIDDocument__c
+      WHERE CustomerOnboardingApplication__c = :customerOnboardingApplicationId
       WITH USER_MODE
       LIMIT 1
     ];

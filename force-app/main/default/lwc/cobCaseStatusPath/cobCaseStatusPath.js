@@ -10,6 +10,8 @@ import STATUS_UPDATE_ERROR from "@salesforce/schema/Case.Status_Update_Error__c"
 import RECORD_TYPE_FIELD from "@salesforce/schema/Case.RecordTypeId";
 import PARENT_ID_FIELD from "@salesforce/schema/Case.ParentId";
 import SUBJECT_FIELD from "@salesforce/schema/Case.Subject";
+import CUSTOMER_ONBOARDING_APPLICATION_FIELD from "@salesforce/schema/Case.CustomerOnboardingApplication__c";
+
 import updateStatus from "@salesforce/apex/COBCaseStatusPathController.updateStatus";
 import hasStatusEditPermission from "@salesforce/customPermission/ANZx_Edit_COB_Case_Status";
 
@@ -45,6 +47,7 @@ export default class CobCaseStatusPath extends LightningElement {
   statusUpdateError;
   parentId;
   subject;
+  customerOnboardingApplication;
 
   confirmedFraudMessage =
     "By confirming, you are marking this onboarding case as Fraud. Done to continue, Cancel to go back.";
@@ -62,7 +65,8 @@ export default class CobCaseStatusPath extends LightningElement {
       ONBOARDING_VERIFICATION_FAILED_REASON_FIELD,
       STATUS_UPDATE_ERROR,
       PARENT_ID_FIELD,
-      SUBJECT_FIELD
+      SUBJECT_FIELD,
+      CUSTOMER_ONBOARDING_APPLICATION_FIELD
     ]
   })
   wiredCaseFields({ data }) {
@@ -79,6 +83,8 @@ export default class CobCaseStatusPath extends LightningElement {
       this.statusUpdateError = data.fields.Status_Update_Error__c.value;
       this.parentId = data.fields.ParentId.value;
       this.subject = data.fields.Subject.value;
+      this.customerOnboardingApplication =
+        data.fields.CustomerOnboardingApplication__c.value;
     }
   }
 
@@ -178,7 +184,8 @@ export default class CobCaseStatusPath extends LightningElement {
             OnboardingVerificationFailedReason__c:
               this._newStatus !== FAILED_OK ? undefined : this._newFailedReason,
             ParentId: this.parentId,
-            Subject: this.subject
+            Subject: this.subject,
+            CustomerOnboardingApplication__c: this.customerOnboardingApplication
           };
           let cobCaseUpdateStatus = await updateStatus({
             currentStatus: this.currentStatus,
@@ -210,6 +217,18 @@ export default class CobCaseStatusPath extends LightningElement {
                 ""
               );
             }
+          } else if (
+            !cobCaseUpdateStatus.isCaseUpdated &&
+            cobCaseUpdateStatus.isManualCaseUpdate
+          ) {
+            showToast(
+              this,
+              "Error!",
+              cobCaseUpdateStatus.cobVerificationFailedReason,
+              "",
+              "error",
+              ""
+            );
           } else {
             showToast(
               this,
