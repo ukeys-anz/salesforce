@@ -6,7 +6,7 @@
     <description>Service Charge Code</description>
     <externalDeveloperName>ServiceChargeCode</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Service Charge Code</label>

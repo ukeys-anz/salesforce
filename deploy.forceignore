@@ -213,3 +213,24 @@ force-app/main/default/flows/Case_Update_Status_for_Profile_Update.flow-meta.xml
 
 #AR-138661 ignore Query All Files due to error with Production Objects
 force-app/main/default/permissionsets/Query_All_Files.permissionset-meta.xml
+
+#[CC-10904] ignore for manual delete
+force-app/main/default/roles/Area_Manager.role-meta.xml
+force-app/main/default/roles/Assistant_Manager.role-meta.xml
+force-app/main/default/roles/BB_State_Head.role-meta.xml
+force-app/main/default/roles/Business_Banking.role-meta.xml
+force-app/main/default/roles/Business_Banking_General_Manager.role-meta.xml
+force-app/main/default/roles/Business_Banking_Manager.role-meta.xml
+force-app/main/default/roles/Commercial_Lending_Operations.role-meta.xml
+force-app/main/default/roles/Credit_Business_Execution.role-meta.xml
+force-app/main/default/roles/Head_of_NBC.role-meta.xml
+force-app/main/default/roles/Head_of_Remote_Teams_NBC.role-meta.xml
+force-app/main/default/roles/Regional_Executive.role-meta.xml
+force-app/main/default/roles/Relationship_Manager.role-meta.xml
+force-app/main/default/roles/SBB_State_Head.role-meta.xml
+force-app/main/default/roles/Small_Business_Banking.role-meta.xml
+force-app/main/default/roles/Small_Business_Banking_General_Manager.role-meta.xml
+force-app/main/default/roles/Small_Business_Banking_NBC.role-meta.xml
+force-app/main/default/roles/Small_Business_Manager_NBC.role-meta.xml
+force-app/main/default/roles/Small_Business_Specialist.role-meta.xml
+force-app/main/default/roles/Team_Leader_NBC.role-meta.xml

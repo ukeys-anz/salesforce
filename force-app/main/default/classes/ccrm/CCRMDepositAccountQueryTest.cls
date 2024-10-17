@@ -109,7 +109,7 @@ private class CCRMDepositAccountQueryTest {
       'Name mismatch'
     );
     Assert.areEqual(
-      '3424-909811',
+      '3424909811',
       firstRecord.get('AccountNumber'),
       'Number mismatch'
     );

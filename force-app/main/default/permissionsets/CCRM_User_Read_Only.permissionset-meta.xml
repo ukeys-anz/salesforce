@@ -1772,6 +1772,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Contact.Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Contact.Active_From__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4908,6 +4913,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Lead.My_Region_Flag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Sub_Team__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8066,10 +8076,14 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Contact.FinServ__IndustriesBusiness</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Contact.FinServ__IndustriesIndividual</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Contact.Organisation</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
