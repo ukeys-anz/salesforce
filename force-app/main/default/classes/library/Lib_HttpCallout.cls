@@ -8,21 +8,21 @@
  */
 public with sharing class Lib_HttpCallout {
 
-  private Boolean logResponseBody;
+  private Lib_HttpCalloutConfig libConfig;
 
   /**
-   * @description Constructor to set the default value of the logResponseBody.
+   * @description Constructor to set the default value of the Lib_HttpCalloutConfig.
    */
   public Lib_HttpCallout(){
-    this.logResponseBody = new Lib_HttpCalloutConfig().logResponseBody;
+    this.libConfig = new Lib_HttpCalloutConfig();
   }
 
   /**
-   * @description Parametrised Constructor to set the value of the logResponseBody.
-   * @param libConfig Lib_HttpCalloutConfig instance to get the value of logResponseBody to set.
+   * @description Parametrised Constructor to use the value of the Lib_HttpCalloutConfig.
+   * @param libConfig Lib_HttpCalloutConfig instance to get the value of Lib_HttpCalloutConfig attributes set from the calling method.
    */
   public Lib_HttpCallout(Lib_HttpCalloutConfig libConfig){
-    this.logResponseBody = libConfig.logResponseBody;
+    this.libConfig = libConfig;
   }
 
   /**
@@ -108,7 +108,7 @@ public with sharing class Lib_HttpCallout {
       response = http.send(request);
       Logger.debug('HttpResponse Header')
         .setPayload(JSON.serializePretty(getHeaders(response)));
-      if(logResponseBody){
+      if(libConfig.logResponseBody){
         Logger.debug('HttpResponse Body').setPayload(response.getBody());
       }
       Logger.debug('HttpResponse Status Code: ' + response.getStatusCode());
