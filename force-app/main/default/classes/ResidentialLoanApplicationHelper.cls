@@ -110,6 +110,9 @@ public with sharing class ResidentialLoanApplicationHelper {
     if (String.isBlank(fieldInfo.get('Other_Cancellation_Reason__c'))) {
       postContent = postContent.replace('<p><b>Other Reason: </b>null</p>', '');
     }
+    if (String.isBlank(fieldInfo.get('Notes'))) {
+      postContent = postContent.replace('<p><b>Notes: </b>null</p>', '');
+    }
     return postContent;
   }
 

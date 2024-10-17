@@ -14,11 +14,11 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
-                <fullName>Going to another Institution</fullName>
+                <fullName>Applied by mistake</fullName>
                 <default>false</default>
-                <label>Going to another Institution</label>
+                <label>Applied by mistake</label>
             </value>
             <value>
                 <fullName>Credit Assessment expired</fullName>
@@ -26,29 +26,24 @@
                 <label>Credit Assessment expired</label>
             </value>
             <value>
+                <fullName>Did not intent to proceed</fullName>
+                <default>false</default>
+                <label>Did not intent to proceed</label>
+            </value>
+            <value>
+                <fullName>Going to another Institution</fullName>
+                <default>false</default>
+                <label>Going to another Institution</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
                 <fullName>Product did not meet the needs of the customer</fullName>
                 <default>false</default>
                 <label>Product did not meet the needs of the customer</label>
-            </value>
-            <value>
-                <fullName>Rate is unsuitable</fullName>
-                <default>false</default>
-                <label>Rate is unsuitable</label>
-            </value>
-            <value>
-                <fullName>Unable to make contact with the customer(s)</fullName>
-                <default>false</default>
-                <label>Unable to make contact with the customer(s)</label>
-            </value>
-            <value>
-                <fullName>Referred to ANZ</fullName>
-                <default>false</default>
-                <label>Referred to ANZ</label>
-            </value>
-            <value>
-                <fullName>Applied by mistake</fullName>
-                <default>false</default>
-                <label>Applied by mistake</label>
             </value>
             <value>
                 <fullName>Property valuation unacceptable</fullName>
@@ -56,9 +51,14 @@
                 <label>Property valuation unacceptable</label>
             </value>
             <value>
-                <fullName>Did not intent to proceed</fullName>
+                <fullName>Rate is unsuitable</fullName>
                 <default>false</default>
-                <label>Did not intent to proceed</label>
+                <label>Rate is unsuitable</label>
+            </value>
+            <value>
+                <fullName>Referred to ANZ</fullName>
+                <default>false</default>
+                <label>Referred to ANZ</label>
             </value>
             <value>
                 <fullName>Technical difficulties</fullName>
@@ -66,14 +66,14 @@
                 <label>Technical difficulties</label>
             </value>
             <value>
+                <fullName>Unable to make contact with the customer(s)</fullName>
+                <default>false</default>
+                <label>Unable to make contact with the customer(s)</label>
+            </value>
+            <value>
                 <fullName>Wanted a personal loan</fullName>
                 <default>false</default>
                 <label>Wanted a personal loan</label>
-            </value>
-            <value>
-                <fullName>Other</fullName>
-                <default>false</default>
-                <label>Other</label>
             </value>
         </valueSetDefinition>
     </valueSet>

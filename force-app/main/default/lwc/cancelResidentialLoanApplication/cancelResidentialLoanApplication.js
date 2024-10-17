@@ -113,9 +113,7 @@ export default class CancelResidentialLoanApplication extends LightningElement {
 
   checkFieldsValidity() {
     const allValid = [
-      ...this.template.querySelectorAll(
-        "lightning-input, lightning-combobox,lightning-textarea"
-      )
+      ...this.template.querySelectorAll("lightning-input, lightning-combobox")
     ].reduce((validSoFar, inputCmp) => {
       inputCmp.reportValidity();
       return validSoFar && inputCmp.checkValidity();
