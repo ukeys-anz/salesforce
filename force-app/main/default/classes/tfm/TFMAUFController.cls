@@ -163,17 +163,16 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       (String) input.get(TFMConstants.IDVALUE)
     );
     String pin = (String) input.get(TFMConstants.RESET_PIN_KEY);
+    if (pin == null) {
+      return false;
+    }
     try {
       HttpCalloutResponse response = new HttpCalloutResponse();
-      if (pin == null) {
-        return false;
-      } else {
-        response = api.resetPin(staffModel, pin);
-        output.put(
-          TFMConstants.OUTPUT,
-          TFMConstants.RESET_PIN_HISTORY_CHECK_PASSED
-        );
-      }
+      response = api.resetPin(staffModel, pin);
+      output.put(
+        TFMConstants.OUTPUT,
+        TFMConstants.RESET_PIN_HISTORY_CHECK_PASSED
+      );
       output.put(TFMConstants.ISVALID, true);
       output.put(TFMConstants.SHOWSUCCESSTOAST, true);
     } catch (TFMAUFAPIRepository.InsufficientAccessException e) {
