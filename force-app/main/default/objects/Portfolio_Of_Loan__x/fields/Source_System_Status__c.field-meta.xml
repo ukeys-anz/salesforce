@@ -1,19 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Available_Funds__c</fullName>
+    <fullName>Source_System_Status__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy_Non_Personal_Information;Source - CAPS</complianceGroup>
-    <description>Funds Available</description>
-    <externalDeveloperName>BalanceAvailable</externalDeveloperName>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
+    <description>Map to persisted financial account source system status retrieved and loaded from OCV.</description>
+    <externalDeveloperName>SourceSystemStatus</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Available Funds ($)</label>
-    <precision>18</precision>
+    <label>Source System Status</label>
+    <length>255</length>
     <required>false</required>
-    <scale>2</scale>
     <securityClassification>Confidential</securityClassification>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

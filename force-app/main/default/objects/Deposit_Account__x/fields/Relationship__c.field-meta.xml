@@ -6,7 +6,6 @@
     <description>Customer to financial account relationship</description>
     <externalDeveloperName>Relationship</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Customer account relationship</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

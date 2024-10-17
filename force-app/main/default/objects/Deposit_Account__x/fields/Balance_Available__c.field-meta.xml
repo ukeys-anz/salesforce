@@ -6,7 +6,6 @@
     <description>The funds available for the customer to use in monetary currency</description>
     <externalDeveloperName>BalanceAvailable</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>The funds available for the customer to use in monetary currency</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

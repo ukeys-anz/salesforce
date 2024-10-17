@@ -19,6 +19,10 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>ML Data Loader Support Permission</label>
     <license>Salesforce</license>
+    <recordTypeVisibilities>
+        <recordType>Task.Lead_Response</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <userPermissions>
         <enabled>true</enabled>
         <name>CreateAuditFields</name>
