@@ -8,8 +8,8 @@
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
-    <label>Fluctuating/Seasonal Limit ($)</label>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Limit 1 ($)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

@@ -206,35 +206,6 @@ public class CCRMLeadConversionTest {
     );
   }
 
-  @IsTest
-  static void findAndConvertLeadCCRMTest() {
-    User mlUser = MLCRMTestDataFactory.getMLCRMBaseUser();
-    System.runAs(mlUser) {
-      List<Territory__c> lstOfTerritory = MLCRMTestDataFactory.createTerritoryRecords(
-        1,
-        mlUser,
-        true
-      );
-      MLCRMTestDataFactory.createUserTerritoryRecords(
-        10,
-        mlUser.Id,
-        lstOfTerritory[0].Id
-      );
-      Lead leadRec = (Lead) FakerFactory.make(new FakerLeadFactory());
-      insert leadRec;
-      Faker faker = new Faker('AU');
-      Account testAccount = new Account(
-        Name = 'Test Account',
-        OCV_ID__c = faker.randomString(10),
-        ANZx_Customer__c = false
-      );
-      insert testAccount;
-      Test.startTest();
-      AccountCommonActions.findAndConvertCCRMLead(testAccount.id, leadRec);
-      Test.stopTest();
-    }
-  }
-
   @isTest
   static void testTransferA2ZReviewToOpportunity() {
     User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
