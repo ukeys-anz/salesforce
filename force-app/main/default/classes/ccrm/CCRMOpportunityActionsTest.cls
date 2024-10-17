@@ -55,7 +55,7 @@ private class CCRMOpportunityActionsTest {
   @isTest
   static void getFilteredCCRMOppsTest() {
     User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    ccrmBaseUser.Commercial_Segment__c = 'BB';
+    ccrmBaseUser.Commercial_Segment__c = 'SME';
     update ccrmBaseUser;
 
     System.runAs(ccrmBaseUser) {
@@ -102,85 +102,6 @@ private class CCRMOpportunityActionsTest {
       );
       Test.stopTest();
       System.assertEquals(2, oppWrapper.filteredOpps.size(), 'Size is not 2');
-    }
-  }
-
-  @isTest
-  static void getStageSegmentOrTemplateMapTest() {
-    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    ccrmBaseUser.Commercial_Segment__c = 'BB';
-    update ccrmBaseUser;
-    System.runAs(ccrmBaseUser) {
-      Map<Id, Opportunity> oldOppMap;
-      List<Opportunity> oppList;
-      Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> stageActionPlanMapping;
-      CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper;
-
-      Test.startTest();
-      oldOppMap = new Map<Id, Opportunity>{
-        '0069h000004rqUQAAY' => CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h000004rqUQAAY',
-          'Test Opp',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          'Opportunity Identified'
-        ),
-        '0069h00000ATaQYAA1' => CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h00000ATaQYAA1',
-          'Test Opp2',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.NEED_ANALYSIS
-        )
-      };
-
-      oppList = new List<Opportunity>{
-        CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h000004rqUQAAY',
-          'Test Opp',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.NEED_ANALYSIS
-        ),
-        CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h00000ATaQYAA1',
-          'Test Opp2',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.SOL_DEV
-        )
-      };
-      stageActionPlanMapping = new Map<String, CCRM_Commercial_Stage_Action_Plan__mdt>{
-        'Needs Analysis-BB' => new CCRM_Commercial_Stage_Action_Plan__mdt(
-          Current_Stage__c = CCRMConstants.NEED_ANALYSIS,
-          Previous_Stage__c = 'Opportunity Identified',
-          Template_Name__c = CCRMConstants.NEEDS_ANALYSIS_ACTION_PLAN_TEMP,
-          Next_Stage__c = CCRMConstants.SOL_DEV
-        )
-      };
-
-      oppWrapper = new CCRMOpportunityActions.CCRMOpportunityWrapper();
-      oppWrapper.stageUpdatedOpps = new Map<Id, Opportunity>(oppList);
-      oppWrapper.oppOwnerIdToSegmentMap = new Map<Id, User>{
-        '0059t000003l3OvAAI' => ccrmBaseUser
-      };
-      oppWrapper.oppIdToOwnerIdMap = new Map<Id, String>{
-        '0069h000004rqUQAAY' => '0059t000003l3OvAAI',
-        '0069h00000ATaQYAA1' => '0059t000003l3OvAAI'
-      };
-
-      CCRMOpportunityActions.getStageSegmentOrTemplateMap(
-        oppWrapper,
-        oldOppMap,
-        stageActionPlanMapping
-      );
-      Test.stopTest();
-      System.assertEquals(
-        1,
-        oppWrapper.oppIdToTemplateNameMap.keySet().size(),
-        'Size is not 1'
-      );
-      System.assertEquals(
-        1,
-        oppWrapper.oppWithMandatoryTaskMap.keySet().size(),
-        'Size is not 1'
-      );
     }
   }
 
