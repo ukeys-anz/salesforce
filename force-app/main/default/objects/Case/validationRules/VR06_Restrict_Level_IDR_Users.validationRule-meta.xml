@@ -11,10 +11,6 @@
 RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos; ||
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;
 ) &amp;&amp;
-(((isChanged(IDR_Real_Form_Req__c) || isChanged(IDR_Real_Form_Ref_No__c))||
-((!isChanged(IDR_Real_Form_Req__c) &amp;&amp; NOT(ISBLANK(Text(IDR_Real_Form_Req__c)))) || (!isChanged(IDR_Real_Form_Ref_No__c)&amp;&amp;(NOT(ISBLANK(IDR_Real_Form_Ref_No__c))))))
-&amp;&amp; ISPICKVAL(Status,&apos;Closed&apos;))
-&amp;&amp;
 (!isChanged(IDR_Additional_Correspondence_reviewed__c)) &amp;&amp;
 (!isChanged(IDR_Document_Count__c)) &amp;&amp;
 (
