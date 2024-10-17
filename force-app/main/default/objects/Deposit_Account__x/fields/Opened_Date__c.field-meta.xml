@@ -6,7 +6,6 @@
     <description>The date and time when the account record was created</description>
     <externalDeveloperName>OpenedDate</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Date the account was opened</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

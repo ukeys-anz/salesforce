@@ -20,6 +20,5 @@
     <label>MLCRM All Tasks</label>
     <sharedTo>
         <role>AR_C</role>
-        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
     </sharedTo>
 </ListView>
