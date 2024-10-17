@@ -6,23 +6,15 @@
  */
 public inherited sharing class Lib_HttpCalloutConfig {
 
-   private Boolean logResponseBody ;
+   public Boolean logResponseBody = true;
 
    /**
-   * @description Setter to set the value of logResponseBody to true.
-   * @return boolean value to true for logging response body
+   * @description Sets the logResponseBody to save the response body or not on successful callout
+   * @param logResponseBodyOrNot Boolean to decide whether to save the logResponseBody or not in secure logs
+   * @return The current instance of the Lib_HttpCalloutConfig class.
    */
-   public Boolean getLogResponseBody()
-    {
-        return this.logResponseBody;
-    }
-
-   /**
-   * @description Setter to set the value of logResponseBody whether to log or not.
-   * @param logResponseBodyOrNot boolean value to set for logResponseBody
-   */
-    public void setLogResponseBody(Boolean logResponseBodyOrNot)
-    {
+    public Lib_HttpCalloutConfig logResponseBody(Boolean logResponseBodyOrNot) {
         this.logResponseBody = logResponseBodyOrNot;
+        return this;
     }
 }
