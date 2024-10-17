@@ -28,6 +28,21 @@
             <value>ANZX Leads</value>
         </criteriaItems>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_LeadEditAccessToCLO</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
+        <label>CCRM_LeadEditAccessToCLO</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Commercial CRM Lead</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>MLCRM_Support_Team_Lead_Sharing</fullName>
         <accessLevel>Edit</accessLevel>

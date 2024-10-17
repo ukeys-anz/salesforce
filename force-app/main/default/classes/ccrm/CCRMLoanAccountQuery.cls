@@ -274,14 +274,18 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
           fa.piPrincipalRepaymentEndDate
         ),
         'PIInterestFrequency' => fa.piInterestFrequency,
-        'IOInterestRepaymentAccountNumber' => formatAccountNumber(fa.ioInterestRepaymentAccountNumber),
+        'IOInterestRepaymentAccountNumber' => formatAccountNumber(
+          fa.ioInterestRepaymentAccountNumber
+        ),
         'InterestOnlyTermYear' => fa.ioTermYear,
         'InterestOnlyTermMonth' => fa.ioTermMonth,
         'InterestOnlyExpiryDate' => formatDate(fa.ioExpiryDate),
         'IONextRepaymentDate' => formatDate(fa.ioNextRepaymentDate),
         'IOSubsequentInterestRate' => fa.ioSubsequentInterestRate,
         'IOSubsequentDiscount' => fa.ioSubsequentDiscount,
-        'DLPRepaymentAccountNumber' => formatAccountNumber(fa.dlpRepaymentAccountNumber),
+        'DLPRepaymentAccountNumber' => formatAccountNumber(
+          fa.dlpRepaymentAccountNumber
+        ),
         'PIElectedRepaymentAmount' => fa.piElectedRepaymentAmount,
         'InterestTypeFuture' => fa.futureInterestType,
         'IndexCodeFuture' => fa.futureReferenceIndexType,

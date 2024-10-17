@@ -11,6 +11,6 @@
     <label>ID Ops Queue</label>
     <queue>ID_Ops_Queue</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

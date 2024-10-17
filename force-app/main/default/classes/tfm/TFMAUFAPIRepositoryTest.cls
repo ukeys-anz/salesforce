@@ -36,11 +36,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-        repo.updatePinStatus(
-        staffModel,
-        pinRefId,
-        action
-      );
+      repo.updatePinStatus(staffModel, pinRefId, action);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -191,10 +187,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-        repo.deregisterDevice(
-        staffModel,
-        deviceResourceId
-      );
+      repo.deregisterDevice(staffModel, deviceResourceId);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }

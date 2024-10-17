@@ -17,6 +17,6 @@
     <label>Customer Resolution Portfolio</label>
     <queue>CRC_Team</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
