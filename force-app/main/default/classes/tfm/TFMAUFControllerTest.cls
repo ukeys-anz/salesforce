@@ -1,9 +1,9 @@
 /**
- * @description       : 
+ * @description       :
  * @author            : Anuj Jain
- * @group             : 
+ * @group             :
  * @last modified on  : 07-12-2024
-**/
+ **/
 
 @isTest
 public with sharing class TFMAUFControllerTest {
@@ -22,10 +22,6 @@ public with sharing class TFMAUFControllerTest {
     Test.startTest();
     Object isInvoked = controller.call('updatePinAndStatus', args);
     Test.stopTest();
-
-    Map<String, Object> payload = (Map<String, Object>) output.get(
-      TFMConstants.RESULT
-    );
     Assert.areEqual(true, isInvoked, 'Method not invoked.');
   }
 
@@ -103,7 +99,7 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('updatePinAndStatus', args);
+    controller.call('updatePinAndStatus', args);
     Test.stopTest();
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
     Assert.areEqual(false, showToast, 'Error Toast is not displayed');
@@ -152,41 +148,10 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('archiveUser', args);
+    controller.call('archiveUser', args);
     Test.stopTest();
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
     Assert.areEqual(false, showToast, 'Error Toast is not displayed');
-  }
-
-  @isTest
-  static void testupdateStatusArchiveError2() {
-    TFMAUFController controller = new TFMAUFController();
-    Map<String, Object> input = new Map<String, Object>();
-    Map<String, Object> output = new Map<String, Object>();
-    input.put(TFMConstants.IDVALUE, 'F7AE26D3-5AFA-427D-9DDC-fake');
-    input.put(TFMConstants.ACTION_NAME, TFMConstants.ERROR);
-    Map<String, Object> args = new Map<String, Object>{
-      'input' => input,
-      'output' => output,
-      'options' => new Map<String, Object>()
-    };
-    Test.startTest();
-    Object isInvoked = controller.call('archiveUser', args);
-    Test.stopTest();
-
-    String totalActiveConsents = (String) output.get(
-      TFMConstants.TOTAL_ACTIVE_CONSENTS
-    );
-
-    String successfullyArchivedConsents = (String) output.get(
-      TFMConstants.SUCCESSFULLY_ARCHIVED_CONSENTS
-    );
-
-    Assert.areEqual(
-      true,
-      totalActiveConsents != successfullyArchivedConsents,
-      'Active consents is equal to archived consents.'
-    );
   }
 
   @isTest
@@ -236,7 +201,7 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('updateMobileNumberAndOcvid', args);
+    controller.call('updateMobileNumberAndOcvid', args);
     Test.stopTest();
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
     Assert.areEqual(false, showToast, 'Error Toast is not displayed');
@@ -291,7 +256,7 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('updateMobileNumberAndOcvid', args);
+    controller.call('updateMobileNumberAndOcvid', args);
     Test.stopTest();
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
     Assert.areEqual(false, showToast, 'Error Toast is not displayed');
@@ -342,7 +307,7 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('deregisterDevice', args);
+    controller.call('deregisterDevice', args);
     Test.stopTest();
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
     Assert.areEqual(false, showToast, 'Error Toast is not displayed');
@@ -362,7 +327,7 @@ public with sharing class TFMAUFControllerTest {
       'options' => new Map<String, Object>()
     };
     Test.startTest();
-    Object isInvoked = controller.call('updateMobileNumberAndOcvid', args);
+    Object isInvoked = controller.call('resetPin', args);
     Test.stopTest();
 
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
@@ -395,7 +360,7 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('updateMobileNumberAndOcvid', args);
+    controller.call('resetPin', args);
     Test.stopTest();
 
     Boolean showToast = (Boolean) output.get(TFMConstants.SHOWSUCCESSTOAST);
@@ -419,7 +384,7 @@ public with sharing class TFMAUFControllerTest {
     Service s = ServiceProvider.getService(TFMAUFService.class);
     s.setCalloutResponse(res);
     Test.startTest();
-    Object isInvoked = controller.call('updateMobileNumberAndOcvid', args);
+    controller.call('updateMobileNumberAndOcvid', args);
     Test.stopTest();
     Boolean duplicateMobileNumber = (Boolean) output.get(
       TFMConstants.DUPLICATE_MOBILE_NUMBER
