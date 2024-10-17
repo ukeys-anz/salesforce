@@ -5,6 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Dependent Picklist on Lead Source. If Lead Source = Internal Referral , External Referral or Self-Sourced, then this field is mandatory.</description>
     <externalId>false</externalId>
+    <inlineHelpText>Please select an appropriate drill down value for Lead Source.</inlineHelpText>
     <label>Associated Source Detail</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
