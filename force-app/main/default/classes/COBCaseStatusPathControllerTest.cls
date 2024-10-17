@@ -152,12 +152,12 @@ public with sharing class COBCaseStatusPathControllerTest {
 
     cobCaseRepoMock.mock('queryCountOpenChildren', 0);
 
-    cobIdOpsCase.Status = GetHelpConstants.COB_FAILED_OK_STATUS;
+    cobIdOpsCase.Status = COBCaseConstants.COB_FAILED_OK_STATUS;
     cobIdOpsCase.OnboardingVerificationFailedReason__c = FAILED_REASON;
 
     Test.startTest();
     COBCaseStatusPathController.COBCaseUpdateStatus cobCaseUpdateStatus = COBCaseStatusPathController.updateStatus(
-      GetHelpConstants.COB_DAON_FAILED_STATUS,
+      COBCaseConstants.COB_DAON_FAILED_STATUS,
       cobIdOpsCase,
       true
     );
