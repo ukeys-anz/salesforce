@@ -81,13 +81,13 @@ public with sharing class COBCaseStatusPathController {
         validationError =
           'You have previous actioned ' +
           cobPIDRecord.Verification_Status__c +
-          ' in the PID, please verify the the PID.';
+          ' in the PID, please update the case status accordingly';
       }
-      COBCaseUpdateStatus COBCaseUpdateStatusObj = new COBCaseUpdateStatus();
-      COBCaseUpdateStatusObj.cobVerificationFailedReason = validationError;
-      COBCaseUpdateStatusObj.isCaseUpdated = false;
-      COBCaseUpdateStatusObj.isManualCaseUpdate = true;
-      return COBCaseUpdateStatusObj;
+      COBCaseUpdateStatus cobCaseUpdateStatusObj = new COBCaseUpdateStatus();
+      cobCaseUpdateStatusObj.cobVerificationFailedReason = validationError;
+      cobCaseUpdateStatusObj.isCaseUpdated = false;
+      cobCaseUpdateStatusObj.isManualCaseUpdate = true;
+      return cobCaseUpdateStatusObj;
     }
 
     Boolean isCalloutSucccesful = makeTemporalCallout(
