@@ -3,12 +3,12 @@
     <description>Permission Set Group having Permission Sets related to CCRM Banker.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Banker</label>
+    <permissionSets>Access_Application_Form_Related_Functionality</permissionSets>
     <permissionSets>CCRM_Opportunity_Access</permissionSets>
     <permissionSets>CCRM_User_Base</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
     <permissionSets>Financial_Summary_Calculation_Publish</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
-    <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>View_C360_Financial_Accounts</permissionSets>

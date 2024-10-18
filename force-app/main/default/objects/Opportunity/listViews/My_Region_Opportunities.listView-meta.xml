@@ -3,10 +3,11 @@
     <fullName>My_Region_Opportunities</fullName>
     <columns>OPPORTUNITY.NAME</columns>
     <columns>ACCOUNT.NAME</columns>
-    <columns>OPPORTUNITY.AMOUNT</columns>
-    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>Customer_Needs__c</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
-    <columns>CORE.USERS.FULL_NAME</columns>
+    <columns>OPPORTUNITY.CLOSE_DATE</columns>
+    <columns>OPPORTUNITY.AMOUNT</columns>
+    <columns>Opportunity_Owner__c</columns>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>

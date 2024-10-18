@@ -21,7 +21,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     CCRMOpportunityActions.populateFields(records, null);
     CCRMOpportunityActions.populateClgAccount(records, null);
 
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.setOpportunityWrapper(
       records,
       null,
       false
@@ -35,10 +35,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     );
 
     //checks for validations on opportunities
-    CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-      oppWrapper,
-      true
-    );
+    CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
     //CC-4528 validate Opportunity for MLCRM
     MLCRMOpportunityActions.validateMLCRMOpportunity(records, null);
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
@@ -75,7 +72,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     CCRMOpportunityActions.populateFieldsAfterInsert(records);
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.setOpportunityWrapper(
       records,
       null,
       false
@@ -104,7 +101,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       );
     }
 
-    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper = CCRMOpportunityActions.setOpportunityWrapper(
       records,
       (Map<Id, Opportunity>) oldMap,
       true

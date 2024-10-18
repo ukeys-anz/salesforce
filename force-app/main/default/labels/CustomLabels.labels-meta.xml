@@ -2526,6 +2526,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>20</value>
     </labels>
     <labels>
+        <fullName>BBD_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BBD Link</shortDescription>
+        <value>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=CRM&amp;opportunityId={!Opportunity.Opp_Id__c}</value>
+    </labels>
+    <labels>
+        <fullName>CLP_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CLP Link</shortDescription>
+        <value>https://clp.business.service.anz/FenergoMMO.Web/app/LandingPage</value>
+    </labels>
+    <labels>
         <fullName>MS_ADR_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
