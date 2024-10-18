@@ -9,7 +9,6 @@
     <columns>CASES.STATUS</columns>
     <columns>OWNER_NAME</columns>
     <columns>SLA_Status__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
@@ -20,8 +19,10 @@
         <operation>equals</operation>
         <value>Fraud</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>FraudX Cases</label>
     <sharedTo>
+        <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>
     </sharedTo>
 </ListView>

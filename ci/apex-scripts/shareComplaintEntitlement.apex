@@ -5,14 +5,14 @@ Entitlement complaintEntitlement = [
     SlaProcess.Name = 'complaints'
     AND Account.Name = 'Complaint Entitlement Account'
 ];
-Group anzroleAndSubordinatesInternal = [
+Group anzroleAndSubordinates = [
   SELECT Id
   FROM Group
-  WHERE DeveloperName = 'ANZ' AND Type = 'roleAndSubordinatesInternal'
+  WHERE DeveloperName = 'ANZ' AND Type = 'roleAndSubordinates'
 ];
 AccountShare share = new AccountShare();
 share.AccountId = complaintEntitlement.AccountId;
-share.UserOrGroupId = anzroleAndSubordinatesInternal.Id;
+share.UserOrGroupId = anzroleAndSubordinates.Id;
 share.AccountAccessLevel = 'Read';
 share.OpportunityAccessLevel = 'None';
 share.ContactAccessLevel = 'None';

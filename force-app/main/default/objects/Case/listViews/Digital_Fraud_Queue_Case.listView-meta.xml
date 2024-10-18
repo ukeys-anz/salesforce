@@ -8,15 +8,16 @@
     <columns>CASES.PRIORITY</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Queue</filterScope>
     <filters>
         <field>CASES.CLOSED</field>
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Queue</filterScope>
     <label>Digital Fraud Queue</label>
     <queue>Digital_Fraud_Queue</queue>
     <sharedTo>
+        <role>Card_Dispute_Agent</role>
         <role>FraudX_Agent</role>
     </sharedTo>
 </ListView>

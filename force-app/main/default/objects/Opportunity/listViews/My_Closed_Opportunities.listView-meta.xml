@@ -27,16 +27,16 @@
     <filterScope>Mine</filterScope>
     <label>My Closed Opportunities</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Banker_Line_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Capability_Quality_C_Q_Team</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Data_Analyst</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>IDR_Content_Writer</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Systemic_Issue_Team</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Tech_Support</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Engineer</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>SVP_Customer_Experience</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        <roleAndSubordinates>Data_Analyst</roleAndSubordinates>
+        <roleAndSubordinates>IDR_Content_Writer</roleAndSubordinates>
+        <roleAndSubordinates>Systemic_Issue_Team</roleAndSubordinates>
+        <roleAndSubordinates>Tech_Support</roleAndSubordinates>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
+        <roleAndSubordinates>Engineer</roleAndSubordinates>
+        <roleAndSubordinates>SVP_Customer_Experience</roleAndSubordinates>
     </sharedTo>
 </ListView>

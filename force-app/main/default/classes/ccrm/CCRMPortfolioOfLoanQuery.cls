@@ -161,7 +161,8 @@ public with sharing class CCRMPortfolioOfLoanQuery extends CCRMFinancialAccountQ
         'Limit' => fa.accountLimit,
         'DateOpened' => formatDate(fa.openDate),
         'UndrawnBalance' => fa.undrawnBalance,
-        'PurposeCode' => MAP_OF_PURPOSE_CODE.get(fa.purposeCode) ?? fa.purposeCode,
+        'PurposeCode' => MAP_OF_PURPOSE_CODE.get(fa.purposeCode) ??
+          fa.purposeCode,
         'CPID' => fa.controllingPostId,
         'TpmiSao' => String.isBlank(fa.tpmiNumber)
           ? ''
