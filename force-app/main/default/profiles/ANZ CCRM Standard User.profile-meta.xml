@@ -609,14 +609,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMRegionSharingUtil</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMRegionSharingUtilTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMRevertAccExternalIdBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -23307,6 +23299,10 @@
         <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>qualtrics__Survey_Response__c-Commercial A-Z Review Survey Response Layout</layout>
+        <recordType>qualtrics__Survey_Response__c.Commercial_A_Z_Review_Survey_Response</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
@@ -24241,10 +24237,10 @@
         <layout>TimeSlot-Time Slot Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>User-User Layout</layout>
+        <layout>User-Commercial User Page Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>UserAlt-New User Profile Layout</layout>
+        <layout>UserAlt-Commercial User Profile Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>UserAppMenuItem-Application Layout</layout>

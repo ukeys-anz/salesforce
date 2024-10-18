@@ -173,6 +173,10 @@ public class CCRMQueryContextMock {
       new List<String>{ 'Customer', 'CAP-CIS_4011643101' }
     );
     parentColumnMap.put(
+      'AccountRegistration',
+      new List<String>{ 'loanAccount', '4011643101' }
+    );
+    parentColumnMap.put(
       'TransactionHistory',
       new List<String>{ 'TermDepositId', 'CDA-999961674' }
     );
@@ -416,6 +420,16 @@ public class CCRMQueryContextMock {
     tableColumnMap.put(
       'PortfolioOfLoan',
       new List<String>{ 'AccountName', 'ProductCode' }
+    );
+    tableColumnMap.put(
+      'AccountRegistration',
+      new List<String>{
+        'customerPreferredName',
+        'crnLast4Digits',
+        'tokenizedRegistrationNo',
+        'registrationStatus',
+        'registrationType'
+      }
     );
     return tableColumnMap;
   }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StandardValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <sorted>false</sorted>
+    <standardValue>
+        <fullName>Opportunity Identified</fullName>
+        <default>true</default>
+        <label>Opportunity Identified</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Needs Analysis</fullName>
+        <default>false</default>
+        <label>Needs Analysis</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Solution Development</fullName>
+        <default>false</default>
+        <label>Solution Development</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Approved &amp; Offered</fullName>
+        <default>false</default>
+        <label>Approved &amp; Offered</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Customer Acceptance</fullName>
+        <default>false</default>
+        <label>Customer Acceptance</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Opportunity Lost</fullName>
+        <default>false</default>
+        <label>Opportunity Lost</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Opportunity Won</fullName>
+        <default>false</default>
+        <label>Opportunity Won</label>
+    </standardValue>
+</StandardValueSet>
