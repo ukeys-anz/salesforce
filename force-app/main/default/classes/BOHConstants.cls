@@ -18,50 +18,15 @@ public class BOHConstants {
   public static final String BOH_OPPORTUNITY_IDENTIFIED_SUB_STATUS = 'Opportunity identified';
   public static final String BOH_REFERRED_TO_CLASSIC_SUB_STATUS = 'Referred to Classic';
 
+  public static final String CASE_CLOSED_EXPIRED_STATUS = 'Closed - Expired';
+  public static final String CASE_CLOSED_CANCELLED_STATUS = 'Closed - Cancelled';
+  public static final String RLA_CREDIT_ASSESSMENT_EXPIRED_REASON = 'Credit Assessment Expired';
+  public static final String RLA_CANCELLED_STATUS = 'STATE_CANCELLED';
+
   public static final List<String> BOH_SUB_STATUS_FOR_CONVERSION = new List<String>{
     BOH_OPPORTUNITY_IDENTIFIED_SUB_STATUS,
     BOH_REFERRED_TO_CLASSIC_SUB_STATUS
   };
-
-  /**
-   * @description fetch ANZx case status Closed - Expired
-   * @return String case status Closed - Expired
-   */
-  public static final String caseClosedExpiredStatus {
-    get {
-      return 'Closed - Expired';
-    }
-  }
-
-  /**
-   * @description fetch ANZx case status Closed - Cancelled
-   * @return String case status Closed - Cancelled
-   */
-  public static final String caseClosedCancelledStatus {
-    get {
-      return 'Closed - Cancelled';
-    }
-  }
-
-  /**
-   * @description fetch Residential Loan Application Reason Credit Assessment Expired
-   * @return String Residential Loan Application Reason Credit Assessment Expired
-   */
-  public static final String rlaReasonCreditAssessmentExpired {
-    get {
-      return 'Credit Assessment Expired';
-    }
-  }
-
-  /**
-   * @description fetch ANZx rla status State_Cancelled
-   * @return String rla status State_Cancelled
-   */
-  public static final String rlaStateCancelledStatus {
-    get {
-      return 'STATE_CANCELLED';
-    }
-  }
 
   public enum EXPENSE_CONTROL {
     EXPENSE_CONTROL_WARNING,

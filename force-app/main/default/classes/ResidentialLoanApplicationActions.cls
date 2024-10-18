@@ -321,17 +321,19 @@ public with sharing class ResidentialLoanApplicationActions {
       if (!response.successful) {
         throw CommonUtil.logException(response);
       }
+      ResidentialLoanApplication rlaRecord = ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
+        rlaObject
+      );
 
-      DML_REPOSITORY.doUpdate(
-        ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
-          rlaObject
-        ),
-        new DmlConfig()
+      DML_REPOSITORY.doUpdate(rlaRecord);
+
+      String postContent = ResidentialLoanApplicationHelper.postNotesToChatter(
+        rlaObject
       );
 
       ChatterUtils.makeAPost(
         rlaObject.get('recordId'),
-        ResidentialLoanApplicationHelper.postNotesToChatter(rlaObject),
+        postContent,
         ChatterUtils.POST_TYPE_RICH_TEXT
       );
 
@@ -379,25 +381,16 @@ public with sharing class ResidentialLoanApplicationActions {
         oldRlaRecords
       );
 
-      if (rlaRecordIds.isEmpty()) {
-        return;
-      }
-
       List<Case> masterCaseList = RLA_REPOSITORY.queryRelatedCreditReferralCases(
         rlaRecordIds
       );
-      if (masterCaseList.isEmpty()) {
-        return;
-      }
+
       List<Case> caseRecordsToBeUpdated = prepareCaseWithFieldsUpdate(
         masterCaseList,
         newRlaRecords
       );
 
-      DML_REPOSITORY.doUpdate(
-        caseRecordsToBeUpdated,
-        new DmlConfig().systemMode()
-      );
+      DML_REPOSITORY.doUpdate(caseRecordsToBeUpdated);
     } catch (Exception objException) {
       Logger.error('Error in ResidentialLoanApplicationActions ', objException);
       Logger.saveLog();
@@ -420,11 +413,11 @@ public with sharing class ResidentialLoanApplicationActions {
       if (
         newRlaRecords.get(caseRecord.Loan_Application__c)
           .Cancellation_Reason__c ==
-        BOHConstants.rlaReasonCreditAssessmentExpired
+        BOHConstants.RLA_CREDIT_ASSESSMENT_EXPIRED_REASON
       ) {
-        caseRecord.Status = BOHConstants.caseClosedExpiredStatus;
+        caseRecord.Status = BOHConstants.CASE_CLOSED_EXPIRED_STATUS;
       } else {
-        caseRecord.Status = BOHConstants.caseClosedCancelledStatus;
+        caseRecord.Status = BOHConstants.CASE_CLOSED_CANCELLED_STATUS;
       }
       caseRecordsToBeUpdated.add(caseRecord);
     }
@@ -449,14 +442,17 @@ public with sharing class ResidentialLoanApplicationActions {
           rlaRecord,
           oldRlaRecords.get(rlaRecord.Id),
           ResidentialLoanApplication.Status
-        )) && (rlaRecord.Status == BOHConstants.rlaStateCancelledStatus)
+        )) && (rlaRecord.Status == BOHConstants.RLA_CANCELLED_STATUS)
       ) {
         rlaRecordIds.add(rlaRecord.Id);
+
+        String postContent = ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
+          oldRlaRecords.get(rlaRecord.Id).Status
+        );
+
         ChatterUtils.makeAPost(
           rlaRecord.Id,
-          ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
-            oldRlaRecords.get(rlaRecord.Id).Status
-          ),
+          postContent,
           ChatterUtils.POST_TYPE_RICH_TEXT
         );
       }

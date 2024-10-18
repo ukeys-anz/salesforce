@@ -408,7 +408,7 @@ private class ResidentialLoanAppActionsTest {
     registerMocks();
 
     List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
-      BOHConstants.rlaStateCancelledStatus
+      BOHConstants.RLA_CANCELLED_STATUS
     );
     List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
       'STATE_CAPTURE'
@@ -435,7 +435,7 @@ private class ResidentialLoanAppActionsTest {
       .getParam('records');
 
     System.assertEquals(
-      BOHConstants.caseClosedCancelledStatus,
+      BOHConstants.CASE_CLOSED_CANCELLED_STATUS,
       caseRecordAfterUpdate[0].Status,
       'The Case record status should update to Closed Cancelled'
     );
@@ -461,7 +461,7 @@ private class ResidentialLoanAppActionsTest {
     Test.stopTest();
 
     System.assertEquals(
-      BOHConstants.caseClosedCancelledStatus,
+      BOHConstants.CASE_CLOSED_CANCELLED_STATUS,
       caseRecordsToBeUpdated[0].Status,
       'The Case record status should have status as Expired'
     );
@@ -473,7 +473,7 @@ private class ResidentialLoanAppActionsTest {
       'STATE_CANCELLED'
     );
     newRlaRecordsList.get(0)
-      .Cancellation_Reason__c = BOHConstants.rlaReasonCreditAssessmentExpired;
+      .Cancellation_Reason__c = BOHConstants.RLA_CREDIT_ASSESSMENT_EXPIRED_REASON;
     Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
       newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
     };
@@ -489,7 +489,7 @@ private class ResidentialLoanAppActionsTest {
     Test.stopTest();
 
     System.assertEquals(
-      BOHConstants.caseClosedExpiredStatus,
+      BOHConstants.CASE_CLOSED_EXPIRED_STATUS,
       caseRecordsToBeUpdated[0].Status,
       'The Case record status should have status as Expired'
     );
