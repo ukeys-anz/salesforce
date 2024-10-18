@@ -603,6 +603,31 @@
                 <label>Unacceptable customer behaviour</label>
             </value>
             <value>
+                <fullName>Removal of ANZ Accounts</fullName>
+                <default>false</default>
+                <label>Removal of ANZ Accounts</label>
+            </value>
+            <value>
+                <fullName>Unable to add ANZ Accounts</fullName>
+                <default>false</default>
+                <label>Unable to add ANZ Accounts</label>
+            </value>
+            <value>
+                <fullName>Unable to add Other Accounts</fullName>
+                <default>false</default>
+                <label>Unable to add Other Accounts</label>
+            </value>
+            <value>
+                <fullName>Issues transferring from ANZ accounts</fullName>
+                <default>false</default>
+                <label>Issues transferring from ANZ accounts</label>
+            </value>
+            <value>
+                <fullName>OFI Eligibility error</fullName>
+                <default>false</default>
+                <label>OFI Eligibility error</label>
+            </value>
+            <value>
                 <fullName>Offset Maintenance</fullName>
                 <default>false</default>
                 <label>Offset Maintenance</label>
@@ -907,6 +932,26 @@
         <valueSettings>
             <controllingFieldValue>PayID Issue/Dispute</controllingFieldValue>
             <valueName>Mobile PayID already registered</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Accounts</controllingFieldValue>
+            <valueName>Removal of ANZ Accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Accounts</controllingFieldValue>
+            <valueName>Unable to add ANZ Accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Accounts</controllingFieldValue>
+            <valueName>Unable to add Other Accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Accounts</controllingFieldValue>
+            <valueName>Issues transferring from ANZ accounts</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>My Accounts</controllingFieldValue>
+            <valueName>Eligibility error</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Payments</controllingFieldValue>

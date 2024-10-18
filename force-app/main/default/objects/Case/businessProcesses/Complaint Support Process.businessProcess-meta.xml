@@ -4,15 +4,15 @@
     <description>Standard support process for complaints.</description>
     <isActive>true</isActive>
     <values>
+        <fullName>Case - On Hold</fullName>
+        <default>false</default>
+    </values>
+    <values>
         <fullName>Closed</fullName>
         <default>false</default>
     </values>
     <values>
         <fullName>Escalated</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>On Hold</fullName>
         <default>false</default>
     </values>
     <values>

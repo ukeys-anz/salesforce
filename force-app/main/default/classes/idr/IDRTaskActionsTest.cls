@@ -6,6 +6,7 @@ private with sharing class IDRTaskActionsTest {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
     taskRepoMock = Lib_MockProvider.forType(IDRTaskActionsRepository.class);
   }
+  static final Faker FAKER = new Faker('0-9');
   static Case caseRecord = (Case) TestUtil.setFields(
     new Case(Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)),
     new Map<String, List<SObject>>{
@@ -14,19 +15,45 @@ private with sharing class IDRTaskActionsTest {
           Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
           Date_Case_on_Hold_From__c = Date.TODAY(),
           Status = IDRConstants.OPEN_STATUS,
-          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          RecordTypeId = RTTask.idrTask,
           Type = IDRConstants.TASK_TYPE_PEND_CASE
         ),
         new Task(
           Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
           Date_Case_on_Hold_From__c = Date.TODAY(),
           Status = IDRConstants.TASK_STATUS_COMPLETED,
-          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
+          RecordTypeId = RTTask.idrTask,
           Type = IDRConstants.TASK_TYPE_PEND_CASE
         )
       }
     }
   );
+  static Quality_Assessment__c qaRecord = (Quality_Assessment__c) TestUtil.setFields(
+    new Quality_Assessment__c(
+      Id = Lib_FakeIdGenerator.getMockId(Quality_Assessment__c.SObjectType),
+      Status__c = QualityAssessmentActions.STATUS_PENDING,
+      RecordTypeId = IDRConstants.idrtCQQualityAssessment,
+      Corrective_actions_for_TM_CM__c = 'Update internal records'
+    ),
+    new Map<String, List<SObject>>{
+      'Tasks' => new List<Task>{
+        new Task(
+          Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+          Status = IDRConstants.OPEN_STATUS,
+          RecordTypeId = RTTask.complianceTask,
+          Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+        )
+      }
+    }
+  );
+  static Case urgentCaseRecord = (Case) TestUtil.setFields(
+    new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      RecordTypeId = RTCase.nonCustomerComplaint
+    ),
+    new Map<String, Object>{ 'CaseNumber' => FAKER.randomInteger(6) }
+  );
+
   @TestSetup
   static void testSetup() {
     Task[] newTasks = new List<Task>();
@@ -184,50 +211,48 @@ private with sharing class IDRTaskActionsTest {
       'Subject should be masked.'
     );
   }
-
   @IsTest
   static void testSITaskDueDateUpdate() {
-    User siUser = TestUtil.getUserByFirstName('siUser');
-    List<Case> newSIs = new List<Case>();
-    Task siTask = new Task();
+    registerMocks();
+    Id currentUserId = UserInfo.getUserId();
+    Case caseRecord = new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType)
+    );
+    Case caseRecord1 = new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      OwnerId = currentUserId
+    );
 
-    System.runAs(siUser) {
-      // SI records
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        newSIs.add(
-          new Case(
-            RecordTypeId = IDRConstants.SI_RT_ID,
-            Status = 'Closed',
-            SI_Workflow_Step__c = 'Monitoring'
-          )
-        );
-      }
-      insert newSIs;
+    Task taskRecord1 = generateSITask(
+      Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      caseRecord
+    );
+    Task taskRecord2 = generateSITask(taskRecord1.Id, caseRecord);
+    taskRecord2.ActivityDate = System.today().addDays(15);
+    Task taskRecord3 = generateSITask(
+      Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      caseRecord1
+    );
+    Task taskRecord4 = generateSITask(taskRecord3.Id, caseRecord1);
+    taskRecord4.ActivityDate = System.today().addDays(15);
 
-      // GIVEN a SI task created by Systemic Issue Team
-      siTask = new Task(
-        Subject = IDRTaskActions.IDR_TASK_SUBJECT,
-        RecordTypeId = IDRConstants.SI_TASK_RT_ID,
-        Priority = 'Normal',
-        ActivityDate = System.today().addDays(10),
-        WhatId = newSIs[0].Id
-      );
-
-      insert siTask;
-    }
-
-    //WHEN the task due date is updated by someone other than the case owner
-    try {
-      siTask.ActivityDate = System.today().addDays(15);
-      update siTask;
-    } catch (DmlException e) {
-      //THEN restrict the user from updating task due date
-      System.assertEquals(
-        IDRTaskActions.SI_DUE_DATE_ERROR_MESSAGE,
-        e.getDmlMessage(0),
-        'Error message should be as expected.'
-      );
-    }
+    taskRepoMock.mock('queryCases', new List<Case>{ caseRecord });
+    Test.startTest();
+    IDRTaskActions.validateSIDueDate(
+      new List<Task>{ taskRecord2 },
+      new Map<Id, Task>{ taskRecord1.Id => taskRecord1 }
+    );
+    IDRTaskActions.validateSIDueDate(
+      new List<Task>{ taskRecord4 },
+      new Map<Id, Task>{ taskRecord3.Id => taskRecord3 }
+    );
+    Test.stopTest();
+    System.assertEquals(
+      IDRTaskActions.SI_DUE_DATE_ERROR_MESSAGE,
+      taskRecord2.getErrors()[0].getMessage(),
+      'Error message should be as expected.'
+    );
+    System.assertEquals(0, taskRecord4.getErrors().size(), 'No error message');
   }
 
   @IsTest
@@ -389,7 +414,6 @@ private with sharing class IDRTaskActionsTest {
       try {
         delete newTasks;
       } catch (DmlException error) {
-        System.debug(error);
         errorThrown = true;
       }
     }
@@ -488,140 +512,96 @@ private with sharing class IDRTaskActionsTest {
 
   @IsTest
   static void urgentCaseAllocationTask() {
-    Group oGroup = [
-      SELECT Id
-      FROM Group
-      WHERE DeveloperName = 'IDR_Everyday_Banking'
-      LIMIT 1
-    ];
-
-    List<GroupMember> lstGroupMembers = new List<GroupMember>{
-      new GroupMember(GroupId = oGroup.Id, UserOrGroupId = UserInfo.getUserId())
-    };
-    insert lstGroupMembers;
-
-    Test.startTest();
-
-    // Insert User as current user, to get around MIXED_DML_OPERATION error
+    registerMocks();
     User thisUser = new User(Id = UserInfo.getUserId());
-    System.runAs(thisUser) {
-      Case[] newCases = new List<Case>();
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        newCases.add(
-          new Case(
-            RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-            IDR_Date_Received__c = System.now()
-          )
-        );
-      }
-      insert newCases;
-
-      List<Task> lstTasks = new List<Task>();
-      for (Case c : newCases) {
-        Task idrTask = new Task(
-          WhatId = c.Id,
-          Subject = IDRTaskActions2.TASK_SUBJECT_URGENT,
-          RecordTypeId = IDRConstants.IDR_TASK_RT_ID,
-          Priority = 'Standard',
-          ActivityDate = System.today(),
-          OwnerId = oGroup.Id
-        );
-        lstTasks.add(idrTask);
-      }
-
-      insert lstTasks;
-    }
+    GroupMember gmember = new GroupMember(
+      GroupId = QueryQueue.get('IDR_Everyday_Banking').Id,
+      UserOrGroupId = UserInfo.getUserId()
+    );
+    Task urgentTask = new Task(
+      Id = Lib_FakeIdGenerator.getMockId(Task.SObjectType),
+      Type = 'General Task/ Reminder',
+      Subject = IDRTaskActions2.TASK_SUBJECT_URGENT,
+      RecordTypeId = RTTask.idrTask,
+      Priority = 'Standard',
+      ActivityDate = System.today(),
+      OwnerId = QueryQueue.get('IDR_Everyday_Banking').Id,
+      WhatId = urgentCaseRecord.Id
+    );
+    taskRepoMock.mock('queryInactiveUsers', new List<User>{ thisUser });
+    taskRepoMock.mock('queryGroupMember', new List<GroupMember>{ gmember });
+    taskRepoMock.mock(
+      'queryCasesForUrgentTasks',
+      new List<Case>{ urgentCaseRecord }
+    );
+    Test.startTest();
+    IDRTaskActions2.checkForUrgentCaseAllocationTask(
+      new List<Task>{ urgentTask }
+    );
     Test.stopTest();
+    Assert.isTrue(
+      dmlRepoMock.getHistories('insertRecords').isEmpty(),
+      'Nothing to Update, as only notification is getting sent'
+    );
   }
   @IsTest
-  static void validateComplianceTask() {
-    validateQAComplianceTask(true);
+  static void validateQAComplianceTask() {
+    registerMocks();
+    Quality_Assessment__c qaRecord = qaRecord;
+    List<Task> qaTasks = qaRecord.Tasks;
+    Task oldTask = qaTasks[0];
+    oldTask.WhatId = qaRecord.Id;
+    Task newTask = new Task(
+      Id = oldTask.Id,
+      WhatId = qaRecord.Id,
+      Status = IDRConstants.TASK_STATUS_COMPLETED,
+      RecordTypeId = RTTask.complianceTask,
+      Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+    );
+    taskRepoMock.mock(
+      'queryQualityAssessments',
+      new List<Quality_Assessment__c>{ qaRecord }
+    );
+    Test.startTest();
+    IDRTaskActions2.validateQAComplianceTask(
+      new List<Task>{ newTask },
+      new Map<Id, Task>{ oldTask.Id => oldTask }
+    );
+    Test.stopTest();
+    System.AssertEquals(
+      IDRConstants.TASK_QA_CLOSE_ERROR,
+      newTask.getErrors()[0].getMessage(),
+      'Error thrown while updating task'
+    );
   }
 
-  static void validateQAComplianceTask(Boolean fFillMandatoryFields) {
-    User oQAUser = TestUtil.getUserByFirstName('QA_User');
-    User oIDRUser = TestUtil.getUserByFirstName('IDR_User');
+  @IsTest
+  static void validateQAComplianceTaskNoError() {
+    registerMocks();
+    Quality_Assessment__c qaRecord = qaRecord;
+    qaRecord.Team_Manager_Response__c = 'Accepted by TM';
+    qaRecord.Team_Manager_Comments__c = 'Test';
+    List<Task> qaTasks = qaRecord.Tasks;
+    Task oldTask = qaTasks[0];
+    oldTask.WhatId = qaRecord.Id;
+    Task newTask = new Task(
+      Id = oldTask.Id,
+      WhatId = qaRecord.Id,
+      Status = IDRConstants.TASK_STATUS_COMPLETED,
+      RecordTypeId = RTTask.complianceTask,
+      Subject = IDRConstants.TASK_QA_COMPLIANCE_SUBJECT
+    );
+    taskRepoMock.mock(
+      'queryQualityAssessments',
+      new List<Quality_Assessment__c>{ qaRecord }
+    );
     Test.startTest();
-    Case[] newCases = new List<Case>();
-    System.runAs(oQAUser) {
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        newCases.add(
-          new Case(
-            RecordTypeId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID,
-            IDR_Customer_Number__c = '1234567890',
-            Status = 'Closed'
-          )
-        );
-      }
-      insert newCases;
-
-      Quality_Assessment__c[] lstAssessments = new List<Quality_Assessment__c>();
-      Quality_Assessment__c oNewAssessment;
-      Map<String, FieldSet> mpAssessmentFieldSets = Schema.SObjectType.Quality_Assessment__c.fieldSets.getMap();
-      for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-        lstAssessments.add(
-          oNewAssessment = new Quality_Assessment__c(
-            Status__c = QualityAssessmentActions.STATUS_PENDING,
-            Related_Case__c = newCases[i].Id,
-            Case_Manager__c = oQAUser.Id,
-            TeamManager__c = oIDRUser.Id,
-            C_Q_Specialist__c = oQAUser.Id,
-            RecordTypeId = IDRConstants.idrtCQQualityAssessment,
-            Corrective_actions_for_TM_CM__c = 'Update internal records'
-          )
-        );
-        if (fFillMandatoryFields) {
-          IDRQualityAssessmentTaskActionsTest.fillMandatoryFields(
-            oNewAssessment,
-            mpAssessmentFieldSets
-          );
-        }
-      }
-      insert lstAssessments;
-
-      Set<Id> stAssessmentIds = new Set<Id>();
-      for (Quality_Assessment__c oAssessment : lstAssessments) {
-        oAssessment.Status__c = QualityAssessmentActions.STATUS_COMPLETE;
-        stAssessmentIds.add(oAssessment.Id);
-      }
-      update lstAssessments;
-
-      Boolean fExceptionThrown = false;
-      for (Quality_Assessment__c oAssessment : lstAssessments) {
-        List<Task> lstTasks = [
-          SELECT Id, Status, WhatId, RecordType.DeveloperName, Subject
-          FROM Task
-          WHERE
-            WhatId IN :stAssessmentIds
-            AND Status = 'Open'
-            AND RecordTypeId = :GetHelpConstants.TASK_COMPLIANCE_RT_ID
-        ];
-        system.debug('lstTasks' + lstTasks);
-        if (!lstTasks.IsEmpty()) {
-          for (Task otask : lstTasks) {
-            if (
-              oTask.Subject.contains(IDRConstants.TASK_QA_COMPLIANCE_SUBJECT)
-            ) {
-              otask.Status = 'Completed';
-            }
-          }
-          try {
-            update lstTasks;
-          } catch (Exception ex) {
-            System.debug(ex.getMessage());
-            if (ex.getMessage().contains(IDRConstants.TASK_QA_CLOSE_ERROR)) {
-              fExceptionThrown = true;
-            }
-          }
-          System.assertEquals(
-            true,
-            fExceptionThrown,
-            'Able to update the task'
-          );
-        }
-      }
-    }
+    IDRTaskActions2.validateQAComplianceTask(
+      new List<Task>{ newTask },
+      new Map<Id, Task>{ oldTask.Id => oldTask }
+    );
     Test.stopTest();
+    System.AssertEquals(0, newTask.getErrors().size(), 'No Error');
   }
 
   @IsTest
@@ -788,5 +768,19 @@ private with sharing class IDRTaskActionsTest {
     Test.stopTest();
 
     System.assertEquals(true, isValidTask, 'Boolean should be true');
+  }
+  /**
+   * @description Create test SI Task records
+   * @param  recordId Id Task record Id
+   * @param  caseRecord Case record
+   * @return Task
+   */
+  private static Task generateSITask(Id recordId, Case caseRecord) {
+    return new Task(
+      Id = recordId,
+      RecordTypeId = RTTask.systemicIssueTask,
+      WhatId = caseRecord.Id,
+      ActivityDate = System.today().addDays(10)
+    );
   }
 }

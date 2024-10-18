@@ -36,6 +36,12 @@ public without sharing class IDRTaskActions {
     '%' +
     IDRConstants.TASK_SUBJECT_DAY1 +
     '%';
+  private static final IDRTaskActionsRepository TASK_REPOSITORY = (IDRTaskActionsRepository) Lib_InstanceProvider.forType(
+    IDRTaskActionsRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   public static Group siQueue = QueryQueue.get(SI_QUEUE_DEVELOPER_NAME);
 
   public static Boolean siSystemDeletingAutoGenTask = false;
@@ -582,154 +588,98 @@ public without sharing class IDRTaskActions {
   ) {
     Case[] childComplaints = new List<Case>(); //records to rollup on parent systemic issue
     Task[] siTasks = new List<Task>();
-    Task[] existingTasks = new List<Task>();
     Set<Id> caseIds = new Set<Id>();
     Map<Id, Task> siCaseTasks = new Map<Id, Task>();
+    Set<String> allowedRecTypeForSI = new Set<String>{
+      RTCase.customerComplaint,
+      RTCase.nonCustomerComplaint
+    };
 
     for (Case record : records) {
+      Case oldRec = (Case) oldMap.get(record.Id);
+      if (!allowedRecTypeForSI.contains(record.RecordTypeId)) {
+        continue;
+      }
       if (
         oldMap != null &&
         oldMap.containsKey(record.Id) &&
-        IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
         record.IDR_Is_Common__c == 'Yes'
       ) {
         //is case PSI
         caseIds.add(record.Id);
       }
-    }
-    if (!caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()) {
-      existingTasks = [
-        SELECT Id, Status, Subject, WhatId
-        FROM Task
-        WHERE
-          WhatId IN :caseIds
-          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
-          AND Type = :IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE
-          AND Subject = :IDR_TASK_SUBJECT
-      ];
-
-      for (Task record : existingTasks) {
-        siCaseTasks.put(record.WhatId, record);
-      }
-    }
-
-    for (Case record : records) {
-      Case oldRec;
-      if (oldMap != null) {
-        oldRec = (Case) oldMap.get(record.Id);
-      }
-
       //should a parent systemic issue's rollup field be updated?
       if (
-        IDRCaseActions.isIDRComplaintType(record) &&
-        (oldRec == null ||
-        record.IDR_Parent_Systemic_Issue__c !=
-        oldRec.IDR_Parent_Systemic_Issue__c)
+        oldRec == null || String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
       ) {
-        //just linked or unliked?
-        if (String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)) {
-          childComplaints.add(record);
-        } else if (oldRec != null) {
-          childComplaints.add(oldRec);
-        }
+        childComplaints.add(record);
       }
-      //validate case for PSI task creation
-      if (validateCaseForPSITask(record, oldRec, siCaseTasks)) {
-        siTasks.add(populateTaskFields(record));
-      }
-    }
-    //rollup on parent systemic issue
-    if (!childComplaints.isEmpty()) {
-      SICaseActions.rollupToParentSI(childComplaints);
-    }
-    //insert SI Tasks
-    if (!siTasks.isEmpty()) {
       if (
-        Task.SObjectType.getDescribe().isCreateable() &&
-        Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-        Schema.SObjectType.Task.fields.IsReminderSet.isCreateable() &&
-        Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-        Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-        Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-        Schema.SObjectType.Task.fields.WhatId.isCreateable()
+        oldRec != null &&
+        record.IDR_Parent_Systemic_Issue__c !=
+        oldRec.IDR_Parent_Systemic_Issue__c
       ) {
-        insert siTasks;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRCaseActions',
-          'possibleSystemicIssueActions',
-          'Not enough permissions to create Task.'
-        );
+        childComplaints.add(oldRec);
+      }
+      //rollup on parent systemic issue
+      if (!childComplaints.isEmpty()) {
+        SICaseActions.rollupToParentSI(childComplaints);
       }
     }
-  }
-
-  /**
-   * @description Validates a complaint record for creating PSI task
-   * @param record from case trigger
-   * @param oldRec from case trigger
-   * @param siCaseTasks store existing SI task on a case
-   * @return Boolean returns true or false based on validation
-   */
-  private static Boolean validateCaseForPSITask(
-    Case record,
-    Case oldRec,
-    Map<Id, Task> siCaseTasks
-  ) {
-    if (
-      IDRCaseActions.isIDRComplaintType(record) && //is it complaint?
-      record.IDR_Is_Common__c == 'Yes' && //is case PSI
-      FeatureManagement.checkPermission(IDR_LEVEL_1) && //is user level 1 or higher?
-      record.IsClosed &&
-      (oldRec == null || //if case is created closed
-      (oldRec.Status != record.Status &&
-      (!(siCaseTasks.containsKey(record.Id)))) || // Status is changing from non-closed to closed status means when L1 or higher is closing this case,
-      //This could be a Reopen to closure scenario therefore make sure another task is not created.
-      oldRec.IDR_Is_Common__c != record.IDR_Is_Common__c)
-    ) {
-      // when case is already closed and L1 updates PSI flag to yes
-      return true;
-    } else {
-      return false;
+    siCaseTasks = IDRTaskActions2.getExistingSITasksOnCase(
+      caseIds,
+      IDR_TASK_SUBJECT
+    );
+    siTasks = IDRTaskActions2.getSITasksToInsert(oldMap, records, siCaseTasks);
+    if (siTasks.isEmpty()) {
+      return;
     }
+    insertSITasks(siTasks);
   }
   /**
-   * @description populate task fields for creating possible systemic issue task
-   * @param c Parent case of the tasks
-   * @return An instance of a Task
+   * @description insert SI Tasks
+   * @param siTasks List of SI Tasks to insert
    */
-  private static Task populateTaskFields(Case c) {
-    Date activityDate = Date.today().addDays(5);
-    return new Task(
-      RecordTypeId = IDRConstants.IDR_SYSTEM_TASK_RT_ID,
-      Type = IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE,
-      Priority = 'Normal',
-      OwnerId = siQueue.Id,
-      WhatId = c.Id,
-      Subject = IDR_TASK_SUBJECT,
-      ActivityDate = activityDate,
-      IsReminderSet = true,
-      ReminderDateTime = (Datetime) (activityDate - 2)
+  public static void insertSITasks(List<Task> siTasks) {
+    if (
+      !(Task.SObjectType.getDescribe().isCreateable() &&
+      Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
+      Schema.SObjectType.Task.fields.IsReminderSet.isCreateable() &&
+      Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
+      Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
+      Schema.SObjectType.Task.fields.Subject.isCreateable() &&
+      Schema.SObjectType.Task.fields.WhatId.isCreateable())
+    ) {
+      CommonUtil.logAndThrowIAE(
+        'IDRCaseActions',
+        'possibleSystemicIssueActions',
+        'Not enough permissions to create Task.'
+      );
+    }
+    DML_REPOSITORY.doInsert(
+      siTasks,
+      new DmlConfig().allowPartial().systemMode()
     );
   }
-
   /**
    * @description validate SI Task due date and throw error if the due date is updated by anyone who is not the case owner
    * @param records from the trigger
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values
    */
+  @TestVisible
   private static void validateSIDueDate(
     List<Task> records,
     Map<Id, Task> oldMap
   ) {
     Set<Id> caseIds = new Set<Id>();
     List<Task> siTasks = new List<Task>();
-    Map<Id, Id> caseOwnerMap = new Map<Id, Id>();
 
     for (Task record : records) {
+      if (record.RecordTypeId != RTTask.systemicIssueTask) {
+        continue;
+      }
       Task oldRec = (Task) oldMap.get(record.Id);
       if (
-        record.RecordTypeId == IDRConstants.SI_TASK_RT_ID &&
         record.ActivityDate != oldRec.ActivityDate &&
         oldRec.ActivityDate != null
       ) {
@@ -737,17 +687,14 @@ public without sharing class IDRTaskActions {
         siTasks.add(record);
       }
     }
-    if (Case.SObjectType.getDescribe().isQueryable()) {
-      for (Case caseRec : [SELECT Id, OwnerId FROM Case WHERE Id IN :caseIds]) {
-        caseOwnerMap.put(caseRec.Id, caseRec.OwnerId);
-      }
-    }
+    List<Case> caselist = TASK_REPOSITORY.queryCases(caseIds);
+    Map<Id, Case> caseOwnerMap = new Map<Id, Case>(caselist);
 
     for (Task siTask : siTasks) {
-      if (
-        caseOwnerMap.containsKey(siTask.WhatId) &&
-        caseOwnerMap.get(siTask.WhatId) != UserInfo.getUserId()
-      ) {
+      if (!caseOwnerMap.containsKey(siTask.WhatId)) {
+        continue;
+      }
+      if (caseOwnerMap.get(siTask.WhatId).OwnerId != UserInfo.getUserId()) {
         siTask.addError(SI_DUE_DATE_ERROR_MESSAGE);
       }
     }
