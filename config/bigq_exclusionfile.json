@@ -291,6 +291,15 @@
     "LocaleSidKey",
     "FederationIdentifier",
     "LastPasswordChangeDate",
-    "NumberOfFailedLogins"
+    "NumberOfFailedLogins",
+    "UserPreferencesActionLauncherEinsteinGptConsent",
+    "UserPermissionsInteractionUser",
+    "UserPermissionsKnowledgeUser",
+    "UserPermissionsMarketingUser",
+    "UserPermissionsOfflineUser",
+    "UserPreferencesBRELookupTableWelcomeMat",
+    "UserPermissionsSFContentUser",
+    "UserPermissionsSupportUser",
+    "UserPreferencesAssistiveActionsEnabledInActionLauncher"
   ]
 }
