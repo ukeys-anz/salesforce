@@ -70,7 +70,15 @@ public abstract class ObjectHandler {
       super(((List<SObject>) records).getSObjectType());
     }
     public override Object get(Object record, String fieldName) {
-      return ((SObject) record)?.get(fieldName);
+      if (record == null || fieldName == '*') {
+        return record;
+      }
+      SObject sobj = (SObject) record;
+      if (fieldName.contains('.') == false) {
+        return sobj.get(fieldName);
+      }
+      List<String> fields = fieldName.split('\\.', 2);
+      return this.get(sobj.getSObject(fields[0]), fields[1]);
     }
   }
 
