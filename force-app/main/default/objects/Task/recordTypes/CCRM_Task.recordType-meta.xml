@@ -1144,10 +1144,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Not required</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Open</fullName>
             <default>true</default>
         </values>

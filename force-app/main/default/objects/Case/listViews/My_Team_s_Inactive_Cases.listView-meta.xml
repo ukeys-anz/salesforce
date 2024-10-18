@@ -31,6 +31,6 @@
     <filterScope>Everything</filterScope>
     <label>My Team&apos;s Inactive Cases</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

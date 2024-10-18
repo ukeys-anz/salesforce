@@ -5,15 +5,18 @@
         <fullName>Business Banking</fullName>
         <default>false</default>
         <label>Business Banking</label>
+        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>Small Business Banking</fullName>
         <default>false</default>
         <label>Small Business Banking</label>
+        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>Small Business Banking - NBC</fullName>
         <default>false</default>
         <label>Small Business Banking - NBC</label>
+        <isActive>false</isActive>
     </standardValue>
 </StandardValueSet>

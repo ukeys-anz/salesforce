@@ -4854,12 +4854,15 @@
         "Product_Code__c",
         "Purpose_Code__c",
         "Sub_Product_Code__c",
-        "TPMI__c",
         "Undrawn_Balance__c",
         "Date_Opened__c",
-        "SAO__c",
-        "Relationship__c"
-      ]
+        "Relationship__c",
+        "Branch__c",
+        "Product_Name__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Account_Relationship__x": {
       "IA-2415720": [

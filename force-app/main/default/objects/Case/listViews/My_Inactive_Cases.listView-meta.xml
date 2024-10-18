@@ -20,6 +20,6 @@
     <filterScope>Mine</filterScope>
     <label>My Inactive Cases</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>
