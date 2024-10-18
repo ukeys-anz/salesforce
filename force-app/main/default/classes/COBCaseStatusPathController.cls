@@ -65,16 +65,15 @@ public with sharing class COBCaseStatusPathController {
     if (String.isNotEmpty(validationError)) {
       throw CommonUtil.logAuraException(validationError);
     }
-    String customerOnboardingApplicationId = cobCase.CustomerOnboardingApplication__c;
-    COBPrimaryIDDocument__c cobPIDRecord = WORKFLOW_REPOSITORY.getCOBPIDRecordUsingCOA(
-      customerOnboardingApplicationId
-    );
     if (
-      String.isEmpty(validationError) &&
       isAgentUpdateStatus &&
       RTCase.idOpsAssistance == cobCase.RecordTypeid &&
       currentStatus == 'Daon Fallout'
     ) {
+      String customerOnboardingApplicationId = cobCase.CustomerOnboardingApplication__c;
+      COBPrimaryIDDocument__c cobPIDRecord = WORKFLOW_REPOSITORY.getCOBPIDRecordUsingCOA(
+        customerOnboardingApplicationId
+      );
       if (String.isEmpty(cobPIDRecord.Verification_Status__c)) {
         validationError = 'Please review the document details in the PID screen and update the case status from there';
       } else if (cobPIDRecord.Verification_Status__c != cobCase.Status) {
