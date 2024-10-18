@@ -203,7 +203,24 @@ public with sharing class ResidentialLoanApplicationActions {
     }
 
     //Creating map of records vs event type according to trigger context type, ie. insert/update
-    List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
+
+    List<ResidentialLoanApplication> rlaFilteredRecords = ListUtil.filter(
+        records
+      )
+      .isNotNull(ResidentialLoanApplication.Sync_Status__c)
+      .notContains(
+        ResidentialLoanApplication.Sync_Status__c,
+        SYNC_STATUS_BLOCKED
+      )
+      .contains(
+        ResidentialLoanApplication.Sync_Status__c,
+        SYNC_STATUS_BROKER_ORG
+      )
+      .toList();
+
+    List<Id> filteredLoanAppList = new List<Id>(
+      ListUtil.getIds(rlaFilteredRecords, ResidentialLoanApplication.Id)
+    );
 
     //Fetch the RLA records and the related parent record details
     List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
@@ -247,28 +264,6 @@ public with sharing class ResidentialLoanApplicationActions {
       FROM Broker_Code__c
       WHERE External_Id__c IN :brokerIdentifiers
     ];
-  }
-
-  /**
-   * @description Creates a map between the loan application and the type of event ie. add/update
-   * @author Deepro De | 06-05-2024
-   * @param records
-   * @return List<Id>
-   **/
-  public static List<Id> filterLoanAppsBasedOnSyncStatus(
-    List<ResidentialLoanApplication> records
-  ) {
-    List<Id> filteredRecords = new List<Id>();
-    for (ResidentialLoanApplication record : records) {
-      if (
-        String.isNotBlank(record.Sync_Status__c) &&
-        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
-        record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
-      ) {
-        filteredRecords.add(record.Id);
-      }
-    }
-    return filteredRecords;
   }
 
   /**

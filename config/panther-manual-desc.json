@@ -605,6 +605,20 @@
       ],
       "IA-2468715": ["Name", "OwnerId"]
     },
+    "AssessmentResponse": {
+      "IA-2415840": [
+        "External_Id__c",
+        "Ineligibility_Reason_Subtype__c",
+        "Ineligibility_Reason_Subtype_Code__c",
+        "Ineligibility_Reason_Type__c",
+        "Ineligibility_Reason_Type_Code__c",
+        "Loan_Application__c",
+        "Loan_Application_Property__c"
+      ],
+      "IA-2530753": ["Created_Date__c"],
+      "IA-2415987": ["Assessment_Response__c"],
+      "IA-2594111": ["Completed_By__c"]
+    },
     "AuthenticationHistory__c": {
       "IA-2415860": [
         "UUID__c",
@@ -740,7 +754,10 @@
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
     },
     "BrokerSettings__c": {
-      "IA-253075": ["BypassApplicationSyncEvents__c"]
+      "IA-253075": [
+        "BypassApplicationSyncEvents__c",
+        "BypassCustomerSyncEvents__c"
+      ]
     },
     "Campaign": {
       "IA-2415860": [
@@ -3019,9 +3036,15 @@
         "Loan_Margin__c",
         "Loan_Repayment_Frequency__c",
         "Borrow_Additional_Funds__c",
-        "Current_Loan_Balance__c"
+        "Current_Loan_Balance__c",
+        "LoanExclFinMortInsAmt"
       ],
-      "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
+      "IA-2415840": [
+        "Property_Valuation_Id__c",
+        "E_Tag__c",
+        "FinancialExtIdentifier",
+        "LoanApplicationId"
+      ],
       "IA-2415987": ["Product_Name__c"],
       "IA-2415860": [
         "Id",
@@ -3963,7 +3986,8 @@
         "Settlement_ID__c",
         "Status",
         "Credit_Reassess_Required__c",
-        "Loan_Term__c"
+        "Loan_Term__c",
+        "InterestRate"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [

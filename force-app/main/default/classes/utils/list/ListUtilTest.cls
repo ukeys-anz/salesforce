@@ -577,6 +577,27 @@ private class ListUtilTest {
   }
 
   @IsTest
+  static void testFilterFieldNotContains() {
+    Test.startTest();
+    List<Account> results = ListUtil.filter(accounts)
+      .notContains(Account.Name, accounts[0].Name.substring(0, 3))
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      new List<Account>{ accounts[1] , accounts[2] },
+      results,
+      'Expected accounts without specified Name'
+    );
+
+    Assert.areEqual(
+      accounts[1].Name,
+      results[0].Name,
+      'Expected accounts without specified Name'
+    );
+  }
+
+  @IsTest
   static void testFilterOldFieldEquals() {
     Set<Object> values = new Set<Object>{
       accounts[1].Name,
@@ -593,6 +614,32 @@ private class ListUtilTest {
       new List<Account>{ accounts[1] },
       results,
       'Expected accounts with specified Name'
+    );
+  }
+
+  @IsTest
+  static void testFilterOldFieldNotEquals() {
+    Set<Object> values = new Set<Object>{
+      accounts[0].Name,
+      FAKER.randomString(5)
+    };
+
+    Test.startTest();
+    List<Account> results = ListUtil.filter(accounts, oldMap)
+      .oldNotEquals(Account.Name, values)
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      new List<Account>{ accounts[1], accounts[2] },
+      results,
+      'Expected accounts without specified Name'
+    );
+
+    Assert.areEqual(
+      accounts[1].Name,
+      results[0].Name,
+      'Expected accounts without specified Name'
     );
   }
 
@@ -730,6 +777,27 @@ private class ListUtilTest {
       new List<MyAccount>{ myAccounts[1] },
       results,
       'Expected first account'
+    );
+  }
+
+  @IsTest
+  static void testGenericFilterFieldNotContains() {
+    Test.startTest();
+    List<MyAccount> results = (List<MyAccount>) ListUtil.filter(myAccounts)
+      .notContains('name', myAccounts[1].Name.substring(0, 3))
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      new List<MyAccount>{ myAccounts[0],myAccounts[2] },
+      results,
+      'Expected first account'
+    );
+
+    Assert.areEqual(
+      myAccounts[0].Name,
+      results[0].Name,
+      'Expected accounts without specified Name'
     );
   }
 
