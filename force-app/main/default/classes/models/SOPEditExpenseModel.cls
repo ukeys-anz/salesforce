@@ -24,5 +24,6 @@ public class SOPEditExpenseModel {
     public String etag;
     public String hemState;
     public String justificationCode;
+    public String otherJustificationText;
   }
 }

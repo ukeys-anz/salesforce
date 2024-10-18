@@ -32,6 +32,6 @@
     <filterScope>Everything</filterScope>
     <label>Open Complaints</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

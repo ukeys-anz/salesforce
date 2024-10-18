@@ -12,6 +12,6 @@
     <label>Card Capabilities Queue</label>
     <queue>Card_Capabilities_Queue</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

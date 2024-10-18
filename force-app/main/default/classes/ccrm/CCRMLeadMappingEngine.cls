@@ -518,7 +518,6 @@ public with sharing class CCRMLeadMappingEngine {
         );
         contactField = getContact(leadRecord);
         targetObject.put('Contact__c', contactField);
-        targetObject.put('CloseDate', system.today().addDays(90));
       }
       if (targetObject != null) {
         mapOfRecordsWithTargets.put(leadRecord.id, targetObject);

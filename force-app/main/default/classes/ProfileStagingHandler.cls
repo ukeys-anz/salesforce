@@ -10,18 +10,12 @@ public virtual with sharing class ProfileStagingHandler {
   private static final ProfileStagingRepository REPOSITORY = (ProfileStagingRepository) Lib_InstanceProvider.forType(
     ProfileStagingRepository.class
   );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static User currentUser {
-    get {
-      if (currentUser == null) {
-        currentUser = REPOSITORY.getCurrentUser();
-      }
-      return currentUser;
-    }
-    set;
-  }
 
   /**
    * @description Processes the given records based on the provided configuration
@@ -66,7 +60,7 @@ public virtual with sharing class ProfileStagingHandler {
       Customer_Profile_Updates__c cpu = new Customer_Profile_Updates__c(
         Action__c = oldRecord == null ? 'Add' : 'Update',
         Status__c = 'Pending',
-        UserLanId__c = currentUser.Lan_Id__c
+        UserLanId__c = USER_INFO.getUser().Lan_Id__c
       );
       if (config.process(cpu, record, oldRecord)) {
         updates.add(cpu);
