@@ -292,9 +292,14 @@
     "FederationIdentifier",
     "LastPasswordChangeDate",
     "NumberOfFailedLogins",
+    "UserPreferencesActionLauncherEinsteinGptConsent",
+    "UserPermissionsInteractionUser",
+    "UserPermissionsKnowledgeUser",
+    "UserPermissionsMarketingUser",
+    "UserPermissionsOfflineUser",
+    "UserPreferencesBRELookupTableWelcomeMat",
     "UserPermissionsSFContentUser",
     "UserPermissionsSupportUser",
-    "UserPreferencesAssistiveActionsEnabledInActionLauncher",
-    "UserPreferencesActionLauncherEinsteinGptConsent"
+    "UserPreferencesAssistiveActionsEnabledInActionLauncher"
   ]
 }
