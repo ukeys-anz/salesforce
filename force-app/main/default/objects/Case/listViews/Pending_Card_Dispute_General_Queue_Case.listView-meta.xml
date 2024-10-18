@@ -12,6 +12,6 @@
     <label>Pending Card Dispute - General Queue</label>
     <queue>Pending_Card_Dispute_General_Queue</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

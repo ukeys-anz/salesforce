@@ -291,6 +291,7 @@
     "LocaleSidKey",
     "FederationIdentifier",
     "LastPasswordChangeDate",
-    "NumberOfFailedLogins"
+    "NumberOfFailedLogins",
+    "UserPreferencesActionLauncherEinsteinGptConsent"
   ]
 }

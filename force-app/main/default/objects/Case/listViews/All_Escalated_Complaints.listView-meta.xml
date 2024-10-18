@@ -17,6 +17,6 @@
     <filterScope>Everything</filterScope>
     <label>All Escalated Complaints</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

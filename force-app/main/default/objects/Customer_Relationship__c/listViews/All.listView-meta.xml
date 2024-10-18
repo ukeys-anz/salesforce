@@ -12,6 +12,6 @@
     <filterScope>Everything</filterScope>
     <label>All Customers</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
     </sharedTo>
 </ListView>

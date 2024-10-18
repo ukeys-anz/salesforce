@@ -119,12 +119,12 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     if (accountRoleMap.keySet().isEmpty()) {
       Logger.error(
         'Invalid financial account request: ' +
-        ' parent = ' +
-        this.parent +
-        ' parentId = ' +
-        this.parentId +
-        ' externalId = ' +
-        this.externalId
+          ' parent = ' +
+          this.parent +
+          ' parentId = ' +
+          this.parentId +
+          ' externalId = ' +
+          this.externalId
       );
       Logger.saveLog();
     }
@@ -380,9 +380,9 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     for (FinServ__FinancialAccountRole__c faRole : faRoles) {
       this.accountNumberList.add(
         faRole.FinServ__FinancialAccount__r.Product_Type__c.right(3)
-          .remove(':') +
-        '-' +
-        faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+            .remove(':') +
+          '-' +
+          faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
       );
       this.accountRoleMap.put(
         faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
@@ -467,9 +467,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     //Account detail view
     if (isQuerySingleAccount()) {
       String accountNumber = this.externalId.right(
-        this.externalId.length() -
-        this.externalId.indexOf('|') -
-        1
+        this.externalId.length() - this.externalId.indexOf('|') - 1
       );
       payload = '{"' + this.externalField + '": "' + accountNumber + '"';
       payload += String.isNotBlank(this.assetFinanceType)
@@ -487,9 +485,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
     //Child summary view
     if (isQueryCAPChildAccounts()) {
       String accountNumber = this.parentId.right(
-        this.parentId.length() -
-        this.parentId.indexOf('|') -
-        1
+        this.parentId.length() - this.parentId.indexOf('|') - 1
       );
       payload =
         '{"accountNumber": "' +
@@ -850,9 +846,7 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   private String getNextPageIdCacheKey() {
     if (String.isNotBlank(this.parentId)) {
       String key = this.parentId.right(
-          this.parentId.length() -
-          this.parentId.indexOf('|') -
-          1
+          this.parentId.length() - this.parentId.indexOf('|') - 1
         )
         .remove('-')
         .remove('_');

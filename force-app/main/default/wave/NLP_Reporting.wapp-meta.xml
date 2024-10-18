@@ -15,6 +15,6 @@
     <shares>
         <accessLevel>Manage</accessLevel>
         <sharedTo>Engineer</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </shares>
 </WaveApplication>

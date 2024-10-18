@@ -6,7 +6,7 @@
         <description>Read only for anzx roles</description>
         <label>Customer Action Read Only</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -36,7 +36,7 @@
         <description>Access for settlement officer and settlement lead</description>
         <label>Settlement Role Read/Write</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Settlement_Officer_Lead</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

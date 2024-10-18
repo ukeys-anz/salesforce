@@ -37,12 +37,12 @@
         <enabled>true</enabled>
     </classAccesses>
     <customPermissions>
-        <enabled>true</enabled>
         <name>Reactivate_ADR</name>
+        <enabled>true</enabled>
     </customPermissions>
     <customPermissions>
-        <enabled>true</enabled>
         <name>Suspend_ADR</name>
+        <enabled>true</enabled>
     </customPermissions>
     <description>This PS will assign read access to ADR US</description>
     <hasActivationRequired>false</hasActivationRequired>

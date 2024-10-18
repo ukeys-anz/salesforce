@@ -17,6 +17,6 @@
     <label>Open Card Disputes - Fraud Queue</label>
     <queue>Card_Dispute_Fraud_Queue</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

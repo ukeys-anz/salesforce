@@ -26,10 +26,10 @@
     <label>My Region Opportunities</label>
     <sharedTo>
         <role>SME_General_Manager</role>
-        <roleAndSubordinatesInternal>CBO_General_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>DSI_General_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>PB_General_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>SME_State_Head</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>TB_General_Manager</roleAndSubordinatesInternal>
+        <roleAndSubordinates>CBO_General_Manager</roleAndSubordinates>
+        <roleAndSubordinates>DSI_General_Manager</roleAndSubordinates>
+        <roleAndSubordinates>PB_General_Manager</roleAndSubordinates>
+        <roleAndSubordinates>SME_State_Head</roleAndSubordinates>
+        <roleAndSubordinates>TB_General_Manager</roleAndSubordinates>
     </sharedTo>
 </ListView>
