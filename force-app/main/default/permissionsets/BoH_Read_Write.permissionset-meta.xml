@@ -728,6 +728,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ResidentialLoanApplication.Cancellation_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>ResidentialLoanApplication.Collateral_Assessment_Expiry_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
