@@ -14,7 +14,6 @@ public with sharing class CCRMLeadActionsHelper {
   static final String CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE = 'CUSTOMER NUMBER NOT FOUND';
   @TestVisible
   static final String CLG_NOT_FOUND_ERROR_MESSAGE = 'CLG NOT FOUND';
-  private static final String LEAD_OWNERSHIP_ERROR = 'Leads can only be transferred within your segment.';
   private static final CCRMLeadRepository LEAD_REPOSITORY = (CCRMLeadRepository) Lib_InstanceProvider.forType(
     CCRMLeadRepository.class
   );
@@ -166,71 +165,6 @@ public with sharing class CCRMLeadActionsHelper {
     }
   }
 
-  /**
-   * @description Throw error if we try to transfer the lead ownership from BB to SBB/SBB-NBC and vice versa
-   * - ownerID: throw error when try to change between segment.
-   * @name transferLeadOwnership
-   * @param newleadList List of new lead records.
-   * @param oldLeadMap Map of old lead records.
-   */
-  public static void transferLeadOwnership(
-    List<Lead> newleadList,
-    Map<Id, Lead> oldLeadMap
-  ) {
-    List<Lead> leadList = new List<Lead>();
-    Map<Id, User> userMap = new Map<Id, User>();
-    Set<Id> ownerIdSet = new Set<Id>();
-    List<String> bbRolesList = new List<String>();
-    List<String> sbbRolesList = new List<String>();
-    String newCommercialSegment = '';
-    String oldCommercialSegment = '';
-    if (
-      System.UserInfo.getProfileId() ==
-      CommonUtil.getProfileByName('ANZ CCRM Standard User').Id
-    ) {
-      for (Lead newLeadRec : newLeadList) {
-        if (
-          newLeadRec.RecordTypeId == CCRMConstants.CCRM_LEAD_RT_ID &&
-          newLeadRec.OwnerId != oldLeadMap.get(newLeadRec.Id).OwnerId
-        ) {
-          leadList.add(newLeadRec);
-          ownerIdSet.add(newLeadRec.OwnerId);
-          ownerIdSet.add(oldLeadMap.get(newLeadRec.Id).OwnerId);
-        }
-      }
-
-      if (!ownerIdSet.isEmpty()) {
-        userMap = new Map<Id, User>(
-          [
-            SELECT Id, Profile.Name, UserRole.Name, Commercial_Segment__c
-            FROM User
-            WHERE Id IN :ownerIdSet
-          ]
-        );
-
-        for (Lead newLeadRec : leadList) {
-          newCommercialSegment = userMap.get(newLeadRec.OwnerId)
-            .Commercial_Segment__c;
-          oldCommercialSegment = userMap.get(
-              oldLeadMap.get(newLeadRec.Id).OwnerId
-            )
-            .Commercial_Segment__c;
-          if (
-            String.isNotBlank(oldCommercialSegment) &&
-            (CCRMConstants.BB_SEGMENT.equalsIgnoreCase(oldCommercialSegment) ||
-            CCRMConstants.SBB_SEGMENT.equalsIgnoreCase(oldCommercialSegment) ||
-            CCRMConstants.SBB_NBC_SEGMENT.equalsIgnoreCase(
-              oldCommercialSegment
-            )) &&
-            (String.isBlank(newCommercialSegment) ||
-            newCommercialSegment != oldCommercialSegment)
-          ) {
-            newLeadRec.addError(LEAD_OWNERSHIP_ERROR);
-          }
-        }
-      }
-    }
-  }
   /**
    * @description determines if login user is CCRM User
    * @name isCCRMUser

@@ -89,7 +89,9 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
         : th.transactionType);
 
       row = new Map<String, Object>{
-        'ExternalId' => th.compositeId,
+        'ExternalId' => th.compositeId +
+        '|' +
+        formatDate(th.postedDate),
         'DisplayUrl' => URL.getOrgDomainUrl().toExternalForm() +
         '/' +
         th.compositeId,
@@ -125,7 +127,8 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
     row = new Map<String, Object>{
       'ExternalId' => accountNumber,
-      'AdditionalInformation' => 'No further information available'
+      'AdditionalInformation' => 'No further information available',
+      'PostDate' => externalId.substringAfterLast('|')
     };
     result.externalRecords.add(row);
     return result;

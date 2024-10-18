@@ -102,6 +102,11 @@
         </columns>
         <columns>
             <checkedByDefault>false</checkedByDefault>
+            <field>Case.IDR_Complaint_Outcome_Offered__c</field>
+            <table>Assessment</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
             <field>Case.IDR_Complaint_Remedy__c</field>
             <table>Assessment</table>
         </columns>
@@ -128,11 +133,6 @@
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Case.IDR_Complaint_Sub_Remedy_3__c</field>
-            <table>Assessment</table>
-        </columns>
-        <columns>
-            <checkedByDefault>false</checkedByDefault>
-            <field>Case.Fraud_Customer_Resolution_Provided__c</field>
             <table>Assessment</table>
         </columns>
         <columns>

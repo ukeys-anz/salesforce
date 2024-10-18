@@ -36,4 +36,44 @@ public with sharing class InteractionRepository {
     }
     return existingInteractionsBySID;
   }
+
+  /**
+   * @description query existing Interaction Record to get TwilioDetailId associated
+   * @param interactionId Interaction Id from Twilio for updating
+   * @return Interaction record with Twilio Details
+   */
+  public Interaction fetchTwilioDetailIdFromInteraction(
+    Id interactionId
+  ) {
+    if (interactionId == null) {
+      return null;
+    }
+
+    return [
+      SELECT TwilioDetailsID__c
+      FROM Interaction
+      WHERE Id = :interactionId
+      WITH SECURITY_ENFORCED
+    ];
+  }
+
+   /**
+   * @description query User based on agentEmail
+   * @param agentEmail agentEmail from Twilio 
+   * @return List of User
+   */
+  public List<User> fetchAgentUserId(
+    String agentEmail
+  ) {
+    if (String.isBlank(agentEmail) || SObjectType.User.isQueryable() == false) {
+      return new List<User>();
+    }
+
+    return [
+      SELECT Id,FederationIdentifier
+      FROM User
+      WHERE FederationIdentifier = :agentEmail
+      AND IsActive = TRUE
+      ];
+  }
 }
