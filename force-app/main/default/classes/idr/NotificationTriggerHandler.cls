@@ -311,9 +311,10 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         c.RecordTypeId == CUSCOMPLAINTRECORDTYPEID)
         ? ''
         : c.IDR_NC_First_Name__c;
-      notification.ComplainantMobile__c = PhoneUtils.cleanupMobile(
-        c.IDR_NC_Mobile__c
-      );
+      notification.ComplainantMobile__c = (c.RecordTypeId ==
+        CUSCOMPLAINTRECORDTYPEID
+        ? ''
+        : PhoneUtils.cleanupMobile(c.IDR_NC_Mobile__c));
     }
     return notification;
   }
@@ -337,20 +338,15 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
    */
   public static void insertNotificationHandler(List<Case> records) {
     List<Notification_Handler__c> notificationHandlerList = new List<Notification_Handler__c>();
-    Id customerComplaintRecordId = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
     for (Case c : records) {
-      if (
-        c.RecordTypeId == customerComplaintRecordId ||
-        c.RecordTypeId == GetHelpConstants.COMPLAINT_RT_ID ||
-        !String.isBlank(c.IDR_NC_Mobile__c) ||
-        !String.isBlank(c.IDR_NC_Email__c)
-      ) {
-        Notification_Handler__c handler = new Notification_Handler__c();
-        handler.Case__c = c.Id;
-        handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
-
-        notificationHandlerList.add(handler);
+      if (!checkMobileEmailnotNullOnCase(c)) {
+        continue;
       }
+      Notification_Handler__c handler = new Notification_Handler__c();
+      handler.Case__c = c.Id;
+      handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
+
+      notificationHandlerList.add(handler);
     }
     if (!notificationHandlerList.isEmpty()) {
       if (
@@ -379,5 +375,28 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       return IDRConstants.CUSTOMER_EDR_NOTIFICATION_TEMPLATE;
     }
     return IDRConstants.CUSTOMER_NOTIFICATION_TEMPLATE_ID;
+  }
+  /**
+   * @description check valid record to be inserted in notification handler
+   * @param csObj instance of case
+   * @return Boolean whehter record is valid for insertion
+   */
+  @testVisible
+  private static Boolean checkMobileEmailnotNullOnCase(Case csObj) {
+    Set<String> allowedrecordTypes = new Set<String>{
+      RTCase.anzxComplaint,
+      RTCase.customerComplaint
+    };
+
+    if (
+      allowedrecordTypes.contains(csObj.recordtypeId) ||
+      !String.isBlank(csObj.IDR_NC_Mobile__c) ||
+      !String.isBlank(csObj.IDR_NC_Email__c) ||
+      !String.isBlank(csObj.IDR_3rdParty_Email__c) ||
+      !String.isBlank(csObj.IDR_3rdParty_Mobile__c)
+    ) {
+      return true;
+    }
+    return false;
   }
 }

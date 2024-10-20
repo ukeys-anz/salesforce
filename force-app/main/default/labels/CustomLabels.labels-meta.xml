@@ -429,7 +429,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Create_Party</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
     </labels>
     <labels>
         <fullName>MS_Maintain_Party</fullName>
@@ -437,7 +437,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Maintain_Party</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/individuals</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/individuals</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
@@ -517,7 +517,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
-        <value>callout:SF_MS_CH2/cfaas/read/getdownloadurl</value>
+        <value>callout:SF_MS_Fabric/cfaas/read/getdownloadurl</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>
@@ -589,7 +589,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_Address</shortDescription>
-        <value>callout:SF_MS_CH2/addresses/v3/addresses/search</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/search</value>
     </labels>
     <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
@@ -613,7 +613,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById_V3</shortDescription>
-        <value>callout:SF_MS_CH2/addresses/v3/addresses/format/</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/format/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -629,7 +629,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations/search-results?</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations/search-results?</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party_Params</fullName>
@@ -1851,7 +1851,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -1859,7 +1859,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Diary Comments Endpoint</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/diary-comments</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/diary-comments</value>
     </labels>
     <labels>
         <fullName>MLCRM_Lead_MisMatch_Warning_Message</fullName>
@@ -2137,7 +2137,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Financial Account Endpoint</shortDescription>
-        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/</value>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/</value>
     </labels>
     <labels>
         <fullName>Fraudx_Generic_Customer_OCV_Id</fullName>
@@ -2356,14 +2356,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Postcode Lookup V3</shortDescription>
-        <value>callout:SF_MS_CH2/addresses/v3/addresses/lookup?postcode=</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
     </labels>
     <labels>
         <fullName>MS_Validate_Address_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Validate Address V3</shortDescription>
-        <value>callout:SF_MS_CH2/addresses/v3/addresses/validate</value>
+        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
     </labels>
     <labels>
         <fullName>CCRM_Validate_Manual_Address</fullName>
@@ -2559,5 +2559,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Account Registration Endpoint</shortDescription>
         <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/{accountNumber}/crns</value>
+    </labels>
+    <labels>
+        <fullName>CMOS_Chatter_Group_Name</fullName>
+        <categories>CMOS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CMOS Chatter Group Name</shortDescription>
+        <value>All CMOS Users</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_Business_Streams_Mapping</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Business Streams Mapping</shortDescription>
+        <value>Commercial Lending:CMOS_CS_CL</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_DEV</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_DEV</shortDescription>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_PROD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_PROD</shortDescription>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
     </labels>
 </CustomLabels>
