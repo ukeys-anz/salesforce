@@ -15,86 +15,21 @@ public with sharing class HomeLoanController {
    * This makes the callout to mule to fetch home loan data
    * @param ocvId Ocv id
    * @param accountNumbers param to filter by account numbers
-   * @param recordId only provided for financial account, person account will pass empty string
    * @return
    */
   @AuraEnabled
   public static HomeLoanModel getHomeLoanAccount(
     String ocvId,
-    List<String> accountNumbers,
-    String recordId
+    List<String> accountNumbers
   ) {
-    HomeLoanAPIRepository hloanapi = new HomeLoanAPIRepository();
-    HomeLoanModel result = hloanapi.getHomeLoanAccounts(ocvId, accountNumbers);
-
-    //Not using permission utils as we dont want to error out if not queryable
-    //and only need to query if on financial account record page
-    if (
-      String.isNotBlank(recordId) &&
-      (Feature__c.sObjectType.getDescribe().isQueryable() &&
-      FA_Feature_Relationship__c.SObjectType.getDescribe().isQueryable())
-    ) {
-      //Fetch the linked offset feature
-      List<FA_Feature_Relationship__c> featureId = [
-        SELECT Feature__c
-        FROM FA_Feature_Relationship__c
-        WHERE
-          Financial_Account__c = :recordId
-          AND Relationship_Status__c = 'Active'
-      ];
-
-      if (featureId.size() > 0) {
-        //Retrieve the linked offset account
-        List<FA_Feature_Relationship__c> fafRelationship = [
-          SELECT
-            Id,
-            Financial_Account__c,
-            Financial_Account__r.FinServ__FinancialAccountNumber__c
-          FROM FA_Feature_Relationship__c
-          WHERE
-            Feature__c = :featureId[0].Feature__c
-            AND Financial_Account_Product__c = 'ANZ Plus'
-            AND Relationship_Status__c = 'Active'
-        ];
-        if (fafRelationship.size() > 0) {
-          //Populate the offset details for the account
-          for (HomeLoanModel.HomeLoanAccount acc : result.accounts) {
-            HomeLoanModel.OffsetDetails offsetDetails = new HomeLoanModel.OffsetDetails();
-            offsetDetails.accountNumber = fafRelationship[0]
-              .Financial_Account__r.FinServ__FinancialAccountNumber__c;
-            offsetDetails.recordId = fafRelationship[0].Financial_Account__c;
-            acc.loan_details.offsetAccount = offsetDetails;
-          }
-        }
-      }
+    try {
+      HomeLoanAPIRepository hloanapi = (HomeLoanAPIRepository) Lib_InstanceProvider.forType(
+        HomeLoanAPIRepository.class
+      );
+      return hloanapi.getHomeLoanAccounts(ocvId, accountNumbers);
+    } catch (Exception exp) {
+      throw new AuraHandledException(exp.getMessage());
     }
-    return result;
-  }
-
-  /**
-   * @description return list of linked home loan financial accounts
-   * @param customerId customer id
-   * @return  `List<FinServ__FinancialAccountRole__c>` list of linked financial accounts
-   */
-  @AuraEnabled
-  public static List<FinServ__FinancialAccountRole__c> getHomeLoanFinancialAccountId(
-    Id customerId
-  ) {
-    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
-
-    List<FinServ__FinancialAccountRole__c> financialAccountRoles = [
-      SELECT
-        Id,
-        FinServ__FinancialAccount__c,
-        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-      FROM FinServ__FinancialAccountRole__c
-      WHERE
-        FinServ__RelatedAccount__c = :customerId
-        AND FinServ__FinancialAccount__r.RecordTypeId = :GetHelpConstants.BANK_ACCOUNT_RT_ID
-        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
-        AND FinServ__Active__c = TRUE
-    ];
-    return financialAccountRoles;
   }
 
   /**
@@ -106,6 +41,79 @@ public with sharing class HomeLoanController {
   public static List<FinServ__FinancialAccountRole__c> getAccountOwnerIds(
     Id financialAccountId
   ) {
-    return FAR_REPOSITORY.getAccountOwnerDetails(financialAccountId);
+    try {
+      return FAR_REPOSITORY.getAccountOwnerDetails(financialAccountId);
+    } catch (Exception exp) {
+      throw new AuraHandledException(exp.getMessage());
+    }
+  }
+
+  /**
+   * @description To get the offset linked with account
+   * This makes the callout to mule to fetch the offset account data using lex api
+   * @param ocvId ocv id
+   * @param loanAccNumber param to get the offset linked with financial account
+   * @param recordId record ID
+   * @return OffsetAccountModel
+   */
+  @AuraEnabled
+  public static OffsetAccountModel getListOffset(
+    String ocvId,
+    String loanAccNumber,
+    String recordId
+  ) {
+    try {
+      HomeLoanAPIRepository offsetapi = (HomeLoanAPIRepository) Lib_InstanceProvider.forType(
+        HomeLoanAPIRepository.class
+      );
+      OffsetAccountModel result = offsetapi.getOffsetAccounts(
+        ocvId,
+        loanAccNumber,
+        recordId
+      );
+      if (result?.loan_offsets?.isEmpty() ?? true) {
+        return null;
+      }
+
+      List<String> finAccNumbers = OffsetAccountHelper.getFinAccNumberList(
+        result.loan_offsets
+      );
+      List<FinServ__FinancialAccount__c> finAccList = FAR_REPOSITORY.getFinAccountList(
+        finAccNumbers
+      );
+
+      Map<String, FinServ__FinancialAccount__c> accNumberToFinAccountMap = (Map<String, FinServ__FinancialAccount__c>) ListUtil.mapBy(
+        finAccList,
+        FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
+      );
+
+      result.loan_offsets = OffsetAccountHelper.transformDataForUI(
+        result.loan_offsets,
+        accNumberToFinAccountMap
+      );
+      return result;
+    } catch (Exception ex) {
+      OffsetAccountModel offsetError = new OffsetAccountModel();
+      offsetError.hasError = true;
+      Logger.error(ex.getMessage(), ex);
+      Logger.saveLog();
+      return offsetError;
+    }
+  }
+
+  /**
+   * @description return list of linked home loan financial accounts
+   * @param customerId customer id
+   * @return  `List<FinServ__FinancialAccountRole__c>` list of linked financial accounts
+   */
+  @AuraEnabled
+  public static List<FinServ__FinancialAccountRole__c> getLinkedHomeLoanFinancialAccountRole(
+    Id customerId
+  ) {
+    try {
+      return FAR_REPOSITORY.getHomeLoanAccountByCustomerId(customerId);
+    } catch (Exception e) {
+      throw new AuraHandledException(e.getMessage());
+    }
   }
 }

@@ -1,7 +1,7 @@
 /**
  * @author Emmanuel Yap
  * @since 05/2022
- * @description CCRM Opportunity Action Test is the test class for CCRM Opportunity Actions Class.
+ * @description CCRMOpportunityActionsTest is the test class for CCRMOpportunityActions class.
  */
 @isTest
 private class CCRMOpportunityActionsTest {
@@ -9,12 +9,9 @@ private class CCRMOpportunityActionsTest {
   static void makeData() {
     User ccrmBaseUser = CCRMTestDataFactory.createCCRMBaseUser();
     TestUtil.assignPermissionSets(
-      new List<String>{ 'CCRM_Opportunity_Access', 'ActionPlans' },
+      new List<String>{ 'CCRM_Opportunity_Access' },
       new List<User>{ ccrmBaseUser }
     );
-    System.runAs(ccrmBaseUser) {
-      CCRMTestDataFactory.createActionPlans();
-    }
   }
 
   @isTest
@@ -33,10 +30,10 @@ private class CCRMOpportunityActionsTest {
         .getRecordTypeId();
       opp.Name = 'sample Opp';
       opp.AccountId = accnt.id;
-      opp.StageName = 'Opportunity Identified';
+      opp.StageName = CCRMConstants.NEW_STAGE;
       opp.Customer_Needs__c = 'Purchasing a new Business';
       opp.Amount = 2000;
-      opp.CloseDate = System.today() + 10;
+      opp.CloseDate = DateTimeUtils.getNextWeekdayDate(3);
       insert opp;
       Test.stopTest();
       opp = [
@@ -44,8 +41,11 @@ private class CCRMOpportunityActionsTest {
         FROM Opportunity
         WHERE id = :opp.id
       ];
-      System.assertEquals(
-        opp.Opp_Id__c + ' ' + opp.Customer_Needs__c + ' sample Opp',
+      Assert.areEqual(
+        opp.Opp_Id__c +
+        ' ' +
+        opp.Customer_Needs__c +
+        ' sample Opp',
         opp.Name,
         'Opportunity Name is the same for Manual Opportunity.'
       );
@@ -54,77 +54,27 @@ private class CCRMOpportunityActionsTest {
 
   @isTest
   static void getFilteredCCRMOppsTest() {
-    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    ccrmBaseUser.Commercial_Segment__c = 'SME';
-    update ccrmBaseUser;
+    List<Opportunity> oppList;
+    CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper;
+    Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
 
-    System.runAs(ccrmBaseUser) {
-      Map<Id, Opportunity> oldOppMap;
-      List<Opportunity> oppList;
-      CCRMOpportunityActions.CCRMOpportunityWrapper oppWrapper;
+    oppList = new List<Opportunity>{
+      CCRMTestDataFactory.createStaticOpportunityData(
+        oppId,
+        'Test Opp',
+        RTOpportunity.commercialOpportunity,
+        CCRMConstants.IN_PROGRESS_STAGE
+      )
+    };
 
-      Test.startTest();
-
-      oldOppMap = new Map<Id, Opportunity>{
-        '0069h000004rqUQAAY' => CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h000004rqUQAAY',
-          'Test Opp',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          'Opportunity Identified'
-        ),
-        '0069h00000ATaQYAA1' => CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h00000ATaQYAA1',
-          'Test Opp2',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.CUST_ACCEPT
-        )
-      };
-
-      oppList = new List<Opportunity>{
-        CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h000004rqUQAAY',
-          'Test Opp',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.NEED_ANALYSIS
-        ),
-        CCRMTestDataFactory.createStaticOpportunityData(
-          '0069h00000ATaQYAA1',
-          'Test Opp2',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.OPP_WON
-        )
-      };
-
-      oppWrapper = CCRMOpportunityActions.getFilteredCCRMOpps(
-        oppList,
-        oldOppMap,
-        true
-      );
-      Test.stopTest();
-      System.assertEquals(2, oppWrapper.filteredOpps.size(), 'Size is not 2');
-    }
-  }
-
-  @isTest
-  static void getStageActionPlanMetadataTest() {
-    User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
-    System.runAs(ccrmBaseUser) {
-      Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> metadataRecord;
-
-      Test.startTest();
-      metadataRecord = CCRMOpportunityActions.getStageActionPlanMetadata(
-        new List<Opportunity>{
-          CCRMTestDataFactory.createStaticOpportunityData(
-            '0069h000004rqUQAAY',
-            'Test Opp',
-            CCRMConstants.CCRM_OPP_RT_ID,
-            CCRMConstants.NEED_ANALYSIS
-          )
-        }
-      );
-      Test.stopTest();
-      System.assertEquals(21, metadataRecord.keySet().size(), 'Size is not 21');
-    }
+    Test.startTest();
+    oppWrapper = CCRMOpportunityActions.setOpportunityWrapper(
+      oppList,
+      new Map<Id, Opportunity>(),
+      false
+    );
+    Test.stopTest();
+    Assert.areEqual(1, oppWrapper.filteredOpps.size(), 'Size is not 1');
   }
 
   @isTest
@@ -148,12 +98,11 @@ private class CCRMOpportunityActionsTest {
   static void updateOpportunityListOnInsertTest() {
     User ccrmBaseUser = [SELECT Id FROM User WHERE LastName = 'CCRM' LIMIT 1];
     System.runAs(ccrmBaseUser) {
-      List<Opportunity> oppsToUpdate;
       List<Database.saveResult> results;
       Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
 
       Test.startTest();
-      Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType());
+      Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
       updatedOppsNameMap.put(
         oppId,
         '0-0000097 Multiple Customer Needs TestOpp'
@@ -163,8 +112,8 @@ private class CCRMOpportunityActionsTest {
           CCRMTestDataFactory.createStaticOpportunityData(
             oppId,
             '0-0000097 Multiple Customer Needs TestOpp',
-            CCRMConstants.CCRM_OPP_RT_ID,
-            CCRMConstants.NEED_ANALYSIS
+            RTOpportunity.commercialOpportunity,
+            CCRMConstants.NEW_STAGE
           )
         },
         updatedOppsNameMap
@@ -249,13 +198,13 @@ private class CCRMOpportunityActionsTest {
       List<Opportunity> result = new List<Opportunity>();
       List<Opportunity> oppList;
       Opportunity oldOpp;
-      Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.getSObjectType());
+      Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
       oppList = new List<Opportunity>{
         CCRMTestDataFactory.createStaticOpportunityData(
           oppId,
           '0-0000097 Multiple Customer Needs TestOpp',
-          CCRMConstants.CCRM_OPP_RT_ID,
-          CCRMConstants.NEED_ANALYSIS
+          RTOpportunity.commercialOpportunity,
+          CCRMConstants.NEW_STAGE
         )
       };
       oppList[0].Customer_Needs__c = 'Purchasing Vacant Land';
@@ -318,14 +267,14 @@ private class CCRMOpportunityActionsTest {
         Id = Lib_FakeIdGenerator.getMockId(Schema.Opportunity.getSObjectType()),
         Customer_Needs__c = 'Purchasing Property',
         Secondary_Customer_Needs__c = 'Purchasing Property',
-        RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID
+        RecordTypeId = RTOpportunity.commercialOpportunity
       );
 
       oldMap = new Map<Id, Opportunity>{
         opp.Id => new Opportunity(
           Id = opp.Id,
           Customer_Needs__c = 'Purchasing Vacant Land',
-          RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID
+          RecordTypeId = RTOpportunity.commercialOpportunity
         )
       };
 
@@ -339,9 +288,8 @@ private class CCRMOpportunityActionsTest {
 
       errors = opp.getErrors();
       error = errors.get(0);
-
-      System.assertEquals(1, errors.size());
-      System.assertEquals(
+      Assert.areEqual(1, errors.size(), 'Error on update');
+      Assert.areEqual(
         CCRMConstants.CUSTOMER_NEEDS_ERROR,
         error.getMessage(),
         'Opportunity updated successfully'

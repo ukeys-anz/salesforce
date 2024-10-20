@@ -28,6 +28,6 @@
     </values>
     <values>
         <field>Target_Value__c</field>
-        <value xsi:type="xsd:string">Opportunity Identified</value>
+        <value xsi:type="xsd:string">New</value>
     </values>
 </CustomMetadata>
