@@ -1,0 +1,5 @@
+.no-data-message {
+  padding: 10px;
+  font-size: 16px;
+  color: #373737; /* Light grey for a subtle message */
+}

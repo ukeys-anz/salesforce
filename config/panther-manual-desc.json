@@ -605,6 +605,20 @@
       ],
       "IA-2468715": ["Name", "OwnerId"]
     },
+    "AssessmentResponse": {
+      "IA-2415840": [
+        "External_Id__c",
+        "Ineligibility_Reason_Subtype__c",
+        "Ineligibility_Reason_Subtype_Code__c",
+        "Ineligibility_Reason_Type__c",
+        "Ineligibility_Reason_Type_Code__c",
+        "Loan_Application__c",
+        "Loan_Application_Property__c"
+      ],
+      "IA-2530753": ["Created_Date__c"],
+      "IA-2415987": ["Assessment_Response__c"],
+      "IA-2594111": ["Completed_By__c"]
+    },
     "AuthenticationHistory__c": {
       "IA-2415860": [
         "UUID__c",
@@ -740,7 +754,10 @@
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
     },
     "BrokerSettings__c": {
-      "IA-253075": ["BypassApplicationSyncEvents__c"]
+      "IA-253075": [
+        "BypassApplicationSyncEvents__c",
+        "BypassCustomerSyncEvents__c"
+      ]
     },
     "Campaign": {
       "IA-2415860": [
@@ -1638,6 +1655,7 @@
         "Email",
         "Fax",
         "Name",
+        "Name__c",
         "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",
@@ -2247,29 +2265,6 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
-    "Feature__c": {
-      "IA-2415860": [
-        "Account_Number__c",
-        "Open_Date__c",
-        "Closed_Date__c",
-        "Account_Key__c",
-        "Product_Type__c",
-        "Marketing_Code__c",
-        "OCV_Feature_Version__c",
-        "Force_Update__c"
-      ]
-    },
-    "FA_Feature_Relationship__c": {
-      "IA-2415860": [
-        "Feature__c",
-        "Financial_Account__c",
-        "Relationship_Status__c",
-        "Start_Date__c",
-        "End_Date__c",
-        "Relationship_Key__c",
-        "Financial_Account_Product__c"
-      ]
-    },
     "Financial_Summary_Calculation__e": {
       "IA-2530753": [
         "Last_Calculated_Time__c",
@@ -2281,11 +2276,7 @@
       ]
     },
     "Financial_Summary_Setting__mdt": {
-      "IA-2453350":[
-        "Active__c",
-        "Summary_Name__c",
-        "User_Profile__c"
-      ]
+      "IA-2453350": ["Active__c", "Summary_Name__c", "User_Profile__c"]
     },
     "FinServ__AccountAccountRelation__c": {
       "IA-2415984": ["OCV_Role__c", "Role_Description__c", "Relationship__c"],
@@ -3022,9 +3013,15 @@
         "Loan_Margin__c",
         "Loan_Repayment_Frequency__c",
         "Borrow_Additional_Funds__c",
-        "Current_Loan_Balance__c"
+        "Current_Loan_Balance__c",
+        "LoanExclFinMortInsAmt"
       ],
-      "IA-2415840": ["Property_Valuation_Id__c", "E_Tag__c"],
+      "IA-2415840": [
+        "Property_Valuation_Id__c",
+        "E_Tag__c",
+        "FinancialExtIdentifier",
+        "LoanApplicationId"
+      ],
       "IA-2415987": ["Product_Name__c"],
       "IA-2415860": [
         "Id",
@@ -3966,7 +3963,8 @@
         "Settlement_ID__c",
         "Status",
         "Credit_Reassess_Required__c",
-        "Loan_Term__c"
+        "Loan_Term__c",
+        "InterestRate"
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
@@ -4833,12 +4831,15 @@
         "Product_Code__c",
         "Purpose_Code__c",
         "Sub_Product_Code__c",
-        "TPMI__c",
         "Undrawn_Balance__c",
         "Date_Opened__c",
-        "SAO__c",
-        "Relationship__c"
-      ]
+        "Relationship__c",
+        "Branch__c",
+        "Product_Name__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Account_Relationship__x": {
       "IA-2415720": [

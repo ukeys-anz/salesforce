@@ -1,0 +1,110 @@
+<template>
+  <lightning-card>
+    <div class="slds-box slds-box_x-small main-container">
+      <div
+        class="slds-page-header slds-page-header_related-list slds-p-around_small slds-m-bottom_x-small --slds-c-card-color-background"
+      >
+        <div class="slds-media">
+          <div class="slds-media__figure">
+            <lightning-icon
+              icon-name="standard:work_plan_template"
+              alternative-text="Application Forms"
+              size="small"
+            ></lightning-icon>
+          </div>
+          <div class="slds-media__body">
+            <h2
+              class="slds-page-header__title slds-truncate slds-text-heading_small"
+            >
+              Application Forms
+            </h2>
+          </div>
+        </div>
+      </div>
+      <!-- Application Forms Section -->
+      <template if:true={hasData}>
+        <template for:each={applicationForms} for:item="form">
+          <div key={form.Id} class="application-form">
+            <div class="form-header">
+              <a
+                href="javascript:void(0);"
+                class="form-link"
+                onclick={navigateToApplicationForm}
+                data-id={form.id}
+              >
+                {form.name}
+              </a>
+            </div>
+            <div class="form-body">
+              <dl class="field-list">
+                <div class="field-item">
+                  <dt>Application Amount:</dt>
+                  <dd>
+                    <lightning-formatted-number
+                      value={form.applicationAmount}
+                      format-style="currency"
+                    ></lightning-formatted-number>
+                  </dd>
+                </div>
+                <div class="field-item">
+                  <dt>Application Status:</dt>
+                  <dd>{form.applicationStatus}</dd>
+                </div>
+                <div class="field-item">
+                  <dt>Application Number:</dt>
+                  <dd>{form.applicationNumber}</dd>
+                </div>
+              </dl>
+              <!-- Child Component for Data Table -->
+              <c-application-form-product-datatable
+                key={form.Id}
+                application-form-products={form.applicationFormProducts}
+                columns={columns}
+              >
+              </c-application-form-product-datatable>
+            </div>
+          </div>
+        </template>
+      </template>
+      <!-- Error and No Data Handling -->
+      <template if:true={hasError}>
+        <p class="centered-text">Error loading data.</p>
+      </template>
+      <template if:true={noDataNoError}>
+        <div class="no-data-message slds-text-align_center">
+          <p>No Application Forms Found</p>
+        </div>
+      </template>
+
+      <!-- Pagination Controls for Application Forms -->
+      <template if:true={totalPagesGreaterThanOne}>
+        <div class="slds-m-top_small slds-text-align_right">
+          <lightning-button
+            variant="neutral"
+            label="Previous"
+            onclick={handlePreviousPage}
+            disabled={disablePrevious}
+            class="slds-p-around_xxx-small"
+          ></lightning-button>
+          <template for:each={pageNumbers} for:item="page">
+            <lightning-button
+              key={page}
+              variant="neutral"
+              label={page}
+              data-page={page}
+              onclick={handlePageClick}
+              class="slds-p-around_xxx-small"
+            ></lightning-button>
+          </template>
+          <lightning-button
+            variant="neutral"
+            label="Next"
+            onclick={handleNextPage}
+            disabled={disableNext}
+            class="slds-p-around_xxx-small"
+          ></lightning-button>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>

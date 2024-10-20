@@ -204,13 +204,6 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
     String customerId;
     Map<String, Object> row;
-    String accNumber;
-    String dlpRepaymentAccountNum;
-    String offsetAccountNum;
-    String ioInterestRepaymentAccountNum;
-    List<String> accNumLst;
-    Map<String, String> mapOfAccNumToFormattedAccountNumbers;
-
     if (this.calloutResponse == null) {
       return result;
     }
@@ -225,48 +218,13 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
         continue;
       }
 
-      if (this.sourceSystem == SourceSystemEnum.CAP) {
-        accNumber = getAccountNumberwithFormat(fa.accountNumber);
-
-        accNumLst = new List<String>{
-          fa.dlpRepaymentAccountNumber,
-          fa.offsetAccountNumber,
-          fa.ioInterestRepaymentAccountNumber
-        };
-
-        mapOfAccNumToFormattedAccountNumbers = getformattedFinancialAccountNumbers(
-          accNumLst
-        );
-
-        dlpRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.get(
-          fa.dlpRepaymentAccountNumber
-        ) ?? formatAccountNumber(fa.dlpRepaymentAccountNumber);
-
-        offsetAccountNum = mapOfAccNumToFormattedAccountNumbers.get(
-          fa.offsetAccountNumber
-        ) ?? formatAccountNumber(fa.offsetAccountNumber);
-
-        ioInterestRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.get(
-          fa.ioInterestRepaymentAccountNumber
-        ) ?? formatAccountNumber(fa.ioInterestRepaymentAccountNumber);
-      } else {
-        accNumber = formatAccountNumber(fa.accountNumber);
-        dlpRepaymentAccountNum = formatAccountNumber(
-          fa.dlpRepaymentAccountNumber
-        );
-        offsetAccountNum = formatAccountNumber(fa.offsetAccountNumber);
-        ioInterestRepaymentAccountNum = formatAccountNumber(
-          fa.ioInterestRepaymentAccountNumber
-        );
-      }
-
       row = new Map<String, Object>{
         'CustomerId' => customerId,
         'ExternalId' => getExternalId(fa),
         'DisplayUrl' => getDisplayUrl(fa),
         'Relationship' => getAccountRelationship(fa.accountNumber),
         'AccountName' => fa.accountName,
-        'AccountNumber' => accNumber,
+        'AccountNumber' => formatAccountNumber(fa.accountNumber),
         'AccountStatus' => fa.status,
         'Balance' => fa.accountBalance,
         'ProductCode' => fa.productCode,
@@ -288,7 +246,7 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
         'AmountInAdvance' => fa.amountInAdvance,
         'OriginalAmountFinanced' => fa.originalAmountFinanced,
         'InterestType' => fa.interestType,
-        'OffsetAccountNumber' => offsetAccountNum,
+        'OffsetAccountNumber' => formatAccountNumber(fa.offsetAccountNumber),
         'RedrawAmount' => fa.redrawAmount,
         'RedrawNumberofSignatories' => mapOfRedrawNoOfSignatories.get(
           fa.redrawNumberOfSignatories
@@ -316,14 +274,18 @@ public with sharing class CCRMLoanAccountQuery extends CCRMFinancialAccountQuery
           fa.piPrincipalRepaymentEndDate
         ),
         'PIInterestFrequency' => fa.piInterestFrequency,
-        'IOInterestRepaymentAccountNumber' => ioInterestRepaymentAccountNum,
+        'IOInterestRepaymentAccountNumber' => formatAccountNumber(
+          fa.ioInterestRepaymentAccountNumber
+        ),
         'InterestOnlyTermYear' => fa.ioTermYear,
         'InterestOnlyTermMonth' => fa.ioTermMonth,
         'InterestOnlyExpiryDate' => formatDate(fa.ioExpiryDate),
         'IONextRepaymentDate' => formatDate(fa.ioNextRepaymentDate),
         'IOSubsequentInterestRate' => fa.ioSubsequentInterestRate,
         'IOSubsequentDiscount' => fa.ioSubsequentDiscount,
-        'DLPRepaymentAccountNumber' => dlpRepaymentAccountNum,
+        'DLPRepaymentAccountNumber' => formatAccountNumber(
+          fa.dlpRepaymentAccountNumber
+        ),
         'PIElectedRepaymentAmount' => fa.piElectedRepaymentAmount,
         'InterestTypeFuture' => fa.futureInterestType,
         'IndexCodeFuture' => fa.futureReferenceIndexType,

@@ -345,30 +345,6 @@ private class ResidentialLoanAppActionsTest {
   }
 
   /**
-   * @description Method for testing filterLoanAppsBasedOnSyncStatus
-   * @author Deepro De | 06-03-2024
-   **/
-  @isTest
-  static void testFilterLoanAppsBasedOnSyncStatus() {
-    List<ResidentialLoanApplication> loanApps = createResidentialLoanApplications(
-      3
-    );
-    loanApps[0].Sync_Status__c = 'Broker Org';
-    loanApps[1].Sync_Status__c = 'Broker Org';
-    loanApps[2].Sync_Status__c = 'Blocked';
-    Test.startTest();
-    List<Id> loanAppList = ResidentialLoanApplicationActions.filterLoanAppsBasedOnSyncStatus(
-      loanApps
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      2,
-      loanAppList.size(),
-      'Expected size of loanAppList should be 2'
-    );
-  }
-
-  /**
    * @description Method for testing getUnblockedApplication
    * @author Deepro De | 16-07-2024
    **/

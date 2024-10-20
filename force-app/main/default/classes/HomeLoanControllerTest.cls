@@ -62,8 +62,7 @@ public inherited sharing class HomeLoanControllerTest {
       Test.startTest();
       HomeLoanModel response = HomeLoanController.getHomeLoanAccount(
         '2222',
-        null,
-        ''
+        null
       );
 
       Test.stopTest();
@@ -81,30 +80,27 @@ public inherited sharing class HomeLoanControllerTest {
   }
 
   @IsTest
-  static void testGetHomeLoanFinancialAccountIdTest() {
+  static void testGetLinkedHomeLoanFinancialAccountRole() {
     Account homeLoanCustomer = [
       SELECT Id
       FROM Account
       WHERE Name = 'Test Account'
     ];
     Test.startTest();
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      List<FinServ__FinancialAccountRole__c> finAccountRoles = HomeLoanController.getHomeLoanFinancialAccountId(
-        homeLoanCustomer.Id
-      );
-      FinServ__FinancialAccount__c result = [
-        SELECT FinServ__FinancialAccountNumber__c
-        FROM FinServ__FinancialAccount__c
-        WHERE Id = :finAccountRoles[0].FinServ__FinancialAccount__c
-        LIMIT 1
-      ];
-      Assert.areEqual(
-        '111111111',
-        result.FinServ__FinancialAccountNumber__c,
-        'One home loan marketing code fin account should be returned'
-      );
-    }
+    List<FinServ__FinancialAccountRole__c> finAccountRoles = HomeLoanController.getLinkedHomeLoanFinancialAccountRole(
+      homeLoanCustomer.Id
+    );
+    FinServ__FinancialAccount__c result = [
+      SELECT FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccount__c
+      WHERE Id = :finAccountRoles[0].FinServ__FinancialAccount__c
+      LIMIT 1
+    ];
+    Assert.areEqual(
+      '111111111',
+      result.FinServ__FinancialAccountNumber__c,
+      'One home loan marketing code fin account should be returned'
+    );
     Test.stopTest();
   }
 
@@ -120,6 +116,10 @@ public inherited sharing class HomeLoanControllerTest {
       FAKER_FINACC_ID
     );
     Test.stopTest();
+    Assert.isFalse(
+      financialAccountRoles.isEmpty(),
+      'getAccountOwnerIds should have been called and return no value'
+    );
     Assert.isFalse(
       farRepoMock.getHistories('getAccountOwnerDetails').isEmpty(),
       'getAccountOwnerDetails should have been called and return a value'
@@ -155,5 +155,66 @@ public inherited sharing class HomeLoanControllerTest {
     );
     financialAccountRoles.add(finAccountRole);
     return financialAccountRoles;
+  }
+
+  @isTest
+  static void testGetListOffset() {
+    Test.startTest();
+    OffsetAccountModel response = HomeLoanController.getListOffset(
+      '2222',
+      null,
+      '121212'
+    );
+    Test.stopTest();
+    Assert.isNotNull(response, 'Success Response');
+  }
+
+  @isTest
+  static void testGetListOffsetException() {
+    String ocvId = '11111231';
+    String loanAccNumber = 'abcd';
+
+    Test.startTest();
+    OffsetAccountModel offsetDetails = HomeLoanController.getListOffset(
+      ocvId,
+      loanAccNumber,
+      null
+    );
+    Test.stopTest();
+
+    Assert.isTrue(offsetDetails.hasError, 'recordId is missing');
+  }
+
+  @isTest
+  static void testGetListOffsetNullResponse() {
+    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    String ocvId = '11111231';
+    String loanAccNumber = '1234';
+
+    // Setting response for empty details
+    HttpCalloutResponse res = getResponseWithEmptyList();
+    Service finAccountService = ServiceProvider.getService(
+      FinancialAccountService.class
+    );
+    finAccountService.setCalloutResponse(res);
+
+    Test.startTest();
+    OffsetAccountModel response = HomeLoanController.getListOffset(
+      ocvId,
+      loanAccNumber,
+      recordId
+    );
+    Test.stopTest();
+
+    Assert.isNull(response, 'No linked offset details available');
+  }
+
+  private static HttpCalloutResponse getResponseWithEmptyList() {
+    String emptyBody = '{"loan_offsets": []}';
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.statusCode = 200;
+    response.successful = true;
+    response.body = emptyBody;
+    return response;
   }
 }

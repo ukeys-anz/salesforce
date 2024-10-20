@@ -59,21 +59,6 @@ public class AuthenticateCustomerControllerTest {
   }
 
   @isTest
-  static void testGetAccountName() {
-    Interaction interactionId = getInteractionRecord();
-    Test.startTest();
-    Interaction result = AuthenticateCustomerController.getAccountName(
-      interactionId.Id
-    );
-    Test.stopTest();
-    assert.areEqual(
-      interactionId.Id,
-      result.Id,
-      'The expected Interaction Id is not returned'
-    );
-  }
-
-  @isTest
   static void testGetUserRole() {
     User fraudxagent = getFraudXAgentTestUser();
     Test.startTest();

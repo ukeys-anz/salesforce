@@ -36,11 +36,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.updatePinStatus(
-        staffModel,
-        pinRefId,
-        action
-      );
+      repo.updatePinStatus(staffModel, pinRefId, action);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -77,7 +73,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.updateStatus(staffModel, status);
+      repo.updateStatus(staffModel, status);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -114,7 +110,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.updateMobileNumber(staffModel, value);
+      repo.updateMobileNumber(staffModel, value);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -151,7 +147,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.updateOcvid(staffModel, value);
+      repo.updateOcvid(staffModel, value);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -191,10 +187,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.deregisterDevice(
-        staffModel,
-        deviceResourceId
-      );
+      repo.deregisterDevice(staffModel, deviceResourceId);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -231,7 +224,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.resetPin(staffModel, pin);
+      repo.resetPin(staffModel, pin);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -249,12 +242,12 @@ public with sharing class TFMAUFAPIRepositoryTest {
     String status = TFMConstants.ARCHIVED;
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
-    TFMArchiveUserModel response = repo.archiveUser(staffModel, status);
+    HttpCalloutResponse response = repo.archiveUser(staffModel, status);
     Test.stopTest();
     Assert.areEqual(
-      '0',
-      response.unsuccessfullyArchivedConsents,
-      'All consents were not successfully archived.'
+      200,
+      response.statusCode,
+      'Status code is not equal to 200'
     );
   }
 
@@ -269,7 +262,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      TFMArchiveUserModel response = repo.archiveUser(staffModel, status);
+      repo.archiveUser(staffModel, status);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }
@@ -307,7 +300,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      HttpCalloutResponse response = repo.updateMobileNumber(staffModel, value);
+      repo.updateMobileNumber(staffModel, value);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }

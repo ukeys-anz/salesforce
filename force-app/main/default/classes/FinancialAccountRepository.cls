@@ -60,4 +60,49 @@ public with sharing class FinancialAccountRepository {
         )
     ];
   }
+
+  /**
+   * @param finAccountNumbers the List of offset account numbers
+   * @return `List<FinServ__FinancialAccount__c>` List of financial accounts records
+   * @description Fetch all the Financial account records for given finAccountNumbers and return the List
+   */
+  public List<FinServ__FinancialAccount__c> getFinAccountList(
+    List<String> finAccountNumbers
+  ) {
+    if (
+      finAccountNumbers.isEmpty() ||
+      PermissionUtils.canQuery('FinServ__FinancialAccount__c') == false
+    ) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
+    return [
+      SELECT Id, FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccount__c
+      WHERE FinServ__FinancialAccountNumber__c IN :finAccountNumbers
+    ];
+  }
+
+  /**
+   * @description return list of linked home loan financial accounts
+   * @param customerId customer id
+   * @return  `List<FinServ__FinancialAccountRole__c>` list of linked financial accounts
+   */
+  public List<FinServ__FinancialAccountRole__c> getHomeLoanAccountByCustomerId(
+    Id customerId
+  ) {
+    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
+
+    return [
+      SELECT
+        Id,
+        FinServ__FinancialAccount__c,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        FinServ__RelatedAccount__c = :customerId
+        AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.bankAccount
+        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
+        AND FinServ__Active__c = TRUE
+    ];
+  }
 }
