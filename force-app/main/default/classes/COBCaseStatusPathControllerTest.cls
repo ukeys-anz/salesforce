@@ -8,10 +8,15 @@ public with sharing class COBCaseStatusPathControllerTest {
   private static final Faker FAKER = new Faker('AU');
   private static final String FAILED_REASON = 'Selfie fail - selfie image is not clear enough to match';
   private static final String DAON_FALLOUT_NO_MATCH_SUBJECT = 'ID Ops Assistance - Daon Fallout: NO_MATCH';
+  private static String personaId = '0123456789';
+  private static final Map<String, String> PERSONA_ID_VERIFICATION_TYPES = new Map<String, String>{
+    '0123456789' => 'MANUAL'
+  };
 
   private static Lib_MockProvider dmlRepoMock;
   private static Lib_MockProvider stravinskyApiRepoMock;
   private static Lib_MockProvider cobCaseRepoMock;
+  private static Lib_MockProvider onboardingActionQueryMock;
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
@@ -19,7 +24,18 @@ public with sharing class COBCaseStatusPathControllerTest {
       StravinskyAPIRepository.class
     );
     cobCaseRepoMock = Lib_MockProvider.forType(COBCaseRepository.class);
+    onboardingActionQueryMock = Lib_MockProvider.forType(
+      IDOpsQueryRepository.class
+    );
   }
+
+  static List<Id> cobPIDIds = new List<Id>{
+    Lib_FakeIdGenerator.getMockId(COBPrimaryIDDocument__c.SObjectType)
+  };
+
+  static List<Id> cobAppsIds = new List<Id>{
+    Lib_FakeIdGenerator.getMockId(CustomerOnboardingApplication__c.SObjectType)
+  };
 
   static Case cobIdOpsCase = new Case(
     RecordTypeId = RTCase.idOpsAssistance,
@@ -29,6 +45,42 @@ public with sharing class COBCaseStatusPathControllerTest {
     Status_Update_Error__c = 'Previous case status update error'
   );
 
+  static List<CustomerOnboardingApplication__c> coaAppRecord {
+    get {
+      List<CustomerOnboardingApplication__c> coaAppList = new List<CustomerOnboardingApplication__c>();
+      for (Id caoAppId : cobAppsIds) {
+        CustomerOnboardingApplication__c coaAppRec = new CustomerOnboardingApplication__c(
+          Id = caoAppId,
+          PersonaId__c = personaId,
+          VerificationType__c = PERSONA_ID_VERIFICATION_TYPES.get(personaId),
+          OnboardingAttemptCount__c = 1,
+          CXOnboardingStage__c = 'Assisted Selfie'
+        );
+        coaAppList.add(coaAppRec);
+      }
+      return coaAppList;
+    }
+  }
+
+  static List<COBPrimaryIDDocument__c> cobPIDRecord {
+    get {
+      List<COBPrimaryIDDocument__c> cobPIDList = new List<COBPrimaryIDDocument__c>();
+      for (Id cobPIDId : cobPIDIds) {
+        COBPrimaryIDDocument__c cobPIDRec = new COBPrimaryIDDocument__c(
+          Id = cobPIDId,
+          //CustomerOnboardingApplication__c = cobPIDIds[0],
+          IdDocumentType__c = 'Licence',
+          PersonaId__c = personaId,
+          DaonLocationUri__c = '/rest/v1/users/testUserId/idchecks/testIdCheck/documents/testDocId',
+          idxExtractedFaceId__c = 'sampleFaceId',
+          CustomerOnboardingApplication__c = cobAppsIds[0]
+        );
+        cobPIDList.add(cobPIDRec);
+      }
+      return cobPIDList;
+    }
+  }
+
   @isTest
   private static void testIDOpsUpdateStatusSuccessful() {
     registerMocks();
@@ -37,8 +89,9 @@ public with sharing class COBCaseStatusPathControllerTest {
         '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
       )
     };
+    COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
     dmlRepoMock.mock('updateRecords', saveResults);
-
+    onboardingActionQueryMock.mock('getCOBPIDRecordUsingCOA', cobPIDRec);
     StravinskyAPIRepository.CxStageWrapper cobStage = new StravinskyAPIRepository.CxStageWrapper();
     cobStage.cxOnboardingStage = StravinskyAPIRepository.COB_UPDATED;
     stravinskyApiRepoMock.mock('triggerTemporalCaseWorkflow', cobStage);
@@ -51,7 +104,8 @@ public with sharing class COBCaseStatusPathControllerTest {
     Test.startTest();
     COBCaseStatusPathController.COBCaseUpdateStatus cobCaseUpdateStatus = COBCaseStatusPathController.updateStatus(
       COBCaseConstants.COB_DAON_FALLOUT_STATUS,
-      cobIdOpsCase
+      cobIdOpsCase,
+      false
     );
     Test.stopTest();
 
@@ -81,6 +135,43 @@ public with sharing class COBCaseStatusPathControllerTest {
     );
   }
 
+  @isTest
+  private static void testIDOpsBlockUpdateFromUI() {
+    registerMocks();
+    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
+      TestUtil.getMockSaveResult(
+        '{"id":"5008r00000EhhODAAZ","success":true,"errors":[]}'
+      )
+    };
+    COBPrimaryIDDocument__c cobPIDRec = cobPIDRecord[0];
+    dmlRepoMock.mock('updateRecords', saveResults);
+    onboardingActionQueryMock.mock('getCOBPIDRecordUsingCOA', cobPIDRec);
+    StravinskyAPIRepository.CxStageWrapper cobStage = new StravinskyAPIRepository.CxStageWrapper();
+    cobStage.cxOnboardingStage = StravinskyAPIRepository.COB_UPDATED;
+    stravinskyApiRepoMock.mock('triggerTemporalCaseWorkflow', cobStage);
+
+    cobCaseRepoMock.mock('queryCountOpenChildren', 0);
+
+    cobIdOpsCase.Status = COBCaseConstants.COB_FAILED_OK_STATUS;
+    cobIdOpsCase.OnboardingVerificationFailedReason__c = FAILED_REASON;
+
+    Test.startTest();
+    try {
+      COBCaseStatusPathController.updateStatus(
+        COBCaseConstants.COB_DAON_FALLOUT_STATUS,
+        cobIdOpsCase,
+        true
+      );
+      Assert.fail('Exception should be thrown');
+    } catch (Exception e) {
+      Assert.isInstanceOfType(
+        e,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
+    Test.stopTest();
+  }
   @isTest
   private static void testUpdateStatusNoPersonaIDException() {
     cobIdOpsCase.PersonaId__c = '';

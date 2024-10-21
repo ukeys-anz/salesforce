@@ -170,6 +170,7 @@
         <relatedList>Interactions</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>NewContact</excludeButtons>
         <fields>FULL_NAME</fields>
         <fields>CONTACT.TITLE</fields>
         <fields>CONTACT.PHONE1</fields>

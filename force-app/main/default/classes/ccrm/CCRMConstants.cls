@@ -65,9 +65,11 @@ public with sharing class CCRMConstants {
   public static final String CUST_ACCEPT = 'Customer Acceptance';
   public static final String OPP_WON = 'Opportunity Won';
   public static final String OPP_LOST = 'Opportunity Lost';
-  public static final String STAGE_CAN_BE_OPP_IDENTIFIED = 'Stage can only be set to Opportunity Identified.';
+  public static final String AFP_DEFAULT_STAGE_ERROR = 'Stage can only be set to Opportunity Identified.';
+  public static final String OPP_DEFAULT_STAGE_ERROR = 'Stage can only be set to New.';
+  public static final String STAGE_CAN_BE_NEW = 'Stage can only be set to New.';
   public static final String OTHER_SOURCE_DETAIL_MANDATORY = 'Other Source Detail is mandatory if Lead Source is Other.';
-  public static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed Opportunity.';
+  public static final String SKIP_STAGE = 'Unfortunately, you are not allowed to skip stages or re-open a closed stage.';
   public static final String LOST_REASON_DETAIL_MISSING = 'Please provide valid Lost Reason/Lost Reason Detail.';
   public static final String WON_LOST_MANDATORY = 'Won From/Lost To is mandatory to Proceed to Opportunity Won/Lost.';
   public static final String NEEDS_ANALYSIS_ACTION_PLAN_TEMP = 'Needs Analysis Action Plan Template';
@@ -81,7 +83,11 @@ public with sharing class CCRMConstants {
   public static final String OTHER = 'Other';
   public static final String NEW_LINE_CHAR = '\n';
   public static final String CUSTOMER_NEEDS_ERROR = 'Secondary Customer Needs should not be the same as Customer Needs.';
-  public static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed opportunity';
+  public static final String REOPEN_CLOSED_OPP = 'You cannot reopen a closed stage.';
+  public static final String NEW_STAGE = 'New';
+  public static final String IN_PROGRESS_STAGE = 'In Progress';
+  public static final String OPPORTUNITY = 'Opportunity';
+  public static final String APPLICATION_FORM_PRODUCT = 'ApplicationFormProduct';
 
   public static final String NO_AVAILABLE_BALANCE = 'No available balance';
   public static final String ACC_ORG = 'FinServ__CustomerType__c';

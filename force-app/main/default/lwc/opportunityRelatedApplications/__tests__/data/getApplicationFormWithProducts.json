@@ -1,0 +1,119 @@
+[
+  {
+    "applicationForm": {
+      "Id": "13X9p0000009AOLEA2",
+      "Name": "AF-00000031",
+      "Application_Amount__c": 100003,
+      "ApplicationFormProducts": [
+        {
+          "ApplicationFormId": "13X9p0000009AOLEA2",
+          "Id": "13Z9p000000Af3VEAS",
+          "Name": "AFP-00000048",
+          "Stage": "Solution Development",
+          "ProductId": "01t9p000005Z6NpAAK",
+          "Product": {
+            "Name": "ANZ Test Product",
+            "Id": "01t9p000005Z6NpAAK"
+          }
+        }
+      ]
+    },
+    "applicationFormProducts": [
+      {
+        "applicationFormProduct": {
+          "ApplicationFormId": "13X9p0000009AOLEA2",
+          "Id": "13Z9p000000Af3VEAS",
+          "Name": "AFP-00000048",
+          "Stage": "Solution Development",
+          "ProductId": "01t9p000005Z6NpAAK",
+          "Product": {
+            "Name": "ANZ Test Product",
+            "Id": "01t9p000005Z6NpAAK"
+          }
+        },
+        "product": {
+          "Name": "ANZ Test Product",
+          "Id": "01t9p000005Z6NpAAK"
+        }
+      }
+    ]
+  },
+  {
+    "applicationForm": {
+      "Id": "13X9p0000009APxEAM",
+      "Name": "AF-00000032",
+      "Application_Amount__c": 12,
+      "ApplicationFormProducts": [
+        {
+          "ApplicationFormId": "13X9p0000009APxEAM",
+          "Id": "13Z9p000000AfDBEA0",
+          "Name": "AFP-00000049",
+          "Stage": "Opportunity Identified",
+          "ProductId": "01tOa0000053TQwIAM",
+          "Product": {
+            "Name": "Monthly Interest Account",
+            "Id": "01tOa0000053TQwIAM"
+          }
+        }
+      ]
+    },
+    "applicationFormProducts": [
+      {
+        "applicationFormProduct": {
+          "ApplicationFormId": "13X9p0000009APxEAM",
+          "Id": "13Z9p000000AfDBEA0",
+          "Name": "AFP-00000049",
+          "Stage": "Opportunity Identified",
+          "ProductId": "01tOa0000053TQwIAM",
+          "Product": {
+            "Name": "Monthly Interest Account",
+            "Id": "01tOa0000053TQwIAM"
+          }
+        },
+        "product": {
+          "Name": "Monthly Interest Account",
+          "Id": "01tOa0000053TQwIAM"
+        }
+      }
+    ]
+  },
+  {
+    "applicationForm": {
+      "Id": "13X9p0000009ARZEA2",
+      "Name": "AF-00000033",
+      "Application_Amount__c": 3,
+      "ApplicationFormProducts": [
+        {
+          "ApplicationFormId": "13X9p0000009ARZEA2",
+          "Id": "13Z9p000000AfEnEAK",
+          "Name": "AFP-00000050",
+          "Stage": "Opportunity Identified",
+          "ProductId": "01tOa0000053TQxIAM",
+          "Product": {
+            "Name": "Term Deposit - Quarterly Interest",
+            "Id": "01tOa0000053TQxIAM"
+          }
+        }
+      ]
+    },
+    "applicationFormProducts": [
+      {
+        "applicationFormProduct": {
+          "ApplicationFormId": "13X9p0000009ARZEA2",
+          "Id": "13Z9p000000AfEnEAK",
+          "Name": "AFP-00000050",
+          "Stage": "Opportunity Identified",
+          "ProductId": "01tOa0000053TQxIAM",
+          "Product": {
+            "Name": "Term Deposit - Quarterly Interest",
+            "Id": "01tOa0000053TQxIAM"
+          }
+        },
+        "product": {
+          "Name": "Term Deposit - Quarterly Interest",
+          "Id": "01tOa0000053TQxIAM"
+        }
+      }
+    ]
+  }
+]

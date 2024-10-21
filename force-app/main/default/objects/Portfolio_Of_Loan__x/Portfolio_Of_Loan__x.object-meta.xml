@@ -118,7 +118,7 @@
         <actionName>View</actionName>
         <type>Default</type>
     </actionOverrides>
-    <compactLayoutAssignment>SYSTEM</compactLayoutAssignment>
+    <compactLayoutAssignment>Portfolio_of_Loans_Compact_Layout</compactLayoutAssignment>
     <deploymentStatus>Deployed</deploymentStatus>
     <description>Portfolio of Loans</description>
     <enableFeeds>false</enableFeeds>
@@ -127,7 +127,7 @@
     <enableSearch>false</enableSearch>
     <externalDataSource>Core_Banking_Data_Source</externalDataSource>
     <externalName>PortfolioOfLoan</externalName>
-    <label>Portfolio Of Loan</label>
+    <label>Portfolio Of Loans</label>
     <pluralLabel>Portfolio Of Loans</pluralLabel>
     <searchLayouts/>
 </CustomObject>

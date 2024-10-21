@@ -56,6 +56,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>Case - On Hold</fullName>
+        <default>false</default>
+        <label>Case - On Hold</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Escalated</fullName>
         <default>false</default>
         <label>Escalated</label>
@@ -294,5 +300,17 @@
         <default>false</default>
         <label>Refer to Fraud</label>
         <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Cancelled</fullName>
+        <default>false</default>
+        <label>Closed - Cancelled</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Closed - Expired</fullName>
+        <default>false</default>
+        <label>Closed - Expired</label>
+        <closed>true</closed>
     </standardValue>
 </StandardValueSet>

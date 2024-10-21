@@ -9,6 +9,7 @@ import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountControll
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 //import getLoans from "@salesforce/resourceUrl/mock_homeloanaccounts";
 import getHomeLoanAccount from "@salesforce/apex/HomeLoanController.getHomeLoanAccount";
+import getOffsetHomeLoanAccount from "@salesforce/apex/HomeLoanController.getListOffset";
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 
 /* IMPORT PERMISSIONS */
@@ -42,6 +43,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   };
   savingsJar = [];
   loanData;
+  offsetData = {};
   //Pass this to the goals lwc so we can navigate to the
   //savings financial account
   savingsId;
@@ -69,7 +71,16 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       await this.getGoals();
     }
     if (this.ocvId && hasHomeLoanPermission) {
-      await this.getHomeLoanResponse();
+      const [loanResponse, offsetResponse] = await Promise.all([
+        this.getHomeLoanResponse(),
+        this.getOffsetHomeLoanResponse()
+      ]);
+      //Need to stringify and send as the array consists of many objects and SF proxies it
+      //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
+      if (loanResponse.accounts.length > 0) {
+        this.loanData = JSON.stringify(loanResponse.accounts);
+      }
+      this.offsetData = offsetResponse;
     }
     this.loading = false;
   }
@@ -79,14 +90,9 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       //No need for record id, only used in fin account record call
       let response = await getHomeLoanAccount({
         ocvId: this.ocvId,
-        accountNumbers: [],
-        recordId: ""
+        accountNumbers: []
       });
-      //Need to stringify and send as the array consists of many objects and SF proxies it
-      //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
-      if (response.accounts.length > 0) {
-        this.loanData = JSON.stringify(response.accounts);
-      }
+      return response;
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -96,7 +102,30 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         "pester"
       );
     }
+    return null;
   }
+
+  async getOffsetHomeLoanResponse() {
+    try {
+      //Filter to only get offset account we are viewing
+      let response = await getOffsetHomeLoanAccount({
+        ocvId: this.ocvId,
+        loanAccNumber: "",
+        recordId: this.recordId
+      });
+      return response;
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve offset Details.",
+        error,
+        "Failed To Retrieve offset Details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
+    }
+    return null;
+  }
+
   get displayContent() {
     return hasAccountsGoalsPermission;
   }

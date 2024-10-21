@@ -39,7 +39,7 @@ IF(
           CASE(
                Text(Status),
                &quot;Withdrawn&quot;, 1,
-               &quot;On Hold&quot;,1,
+               &quot;Case - On Hold&quot;,1,
                &quot;Provisionally Closed&quot;,1,
                &quot;Closed&quot;,1,
           0),
@@ -58,7 +58,7 @@ IF(
                Text(Status),
                &quot;Under Investigation&quot;, 1,
                &quot;Escalated&quot;,1,
-               &quot;On Hold&quot;,1,
+               &quot;Case - On Hold&quot;,1,
                &quot;Withdrawn&quot;,1,
                &quot;Provisionally Closed&quot;,1,
                &quot;Closed&quot;,1,
@@ -75,7 +75,7 @@ IF(
                Text(Status),
                &quot;Re-opened&quot;, 1,
           0),
-          &quot;On Hold&quot;,
+          &quot;Case - On Hold&quot;,
           CASE(
                Text(Status),
                &quot;Escalated&quot;, 1,
