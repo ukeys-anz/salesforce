@@ -5,9 +5,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - develop
 permissions:
   contents: "read"
   id-token: "write"
@@ -17,7 +14,7 @@ env:
 
 jobs:
   upload_object_changes:
-    # if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
+    if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') }}
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
@@ -37,7 +34,7 @@ jobs:
           repository: anzx/salesforce-doc-gen
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
           path: plugin
-          ref: 1a1d6b3abd898fbd769f6f60a9c67627542a6e13
+          ref: a513b5ddf30ccdddaa39b1293ae930cdce6c7698
           # this is a particular commit on master. Change this when a new plugin version is required for doc:fieldsaccessdiff
 
       - name: Install npm packages
