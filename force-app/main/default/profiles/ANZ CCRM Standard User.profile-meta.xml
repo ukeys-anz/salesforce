@@ -1693,10 +1693,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>IDRMilestonesTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRNotificationEventCreator</apexClass>
         <enabled>false</enabled>
     </classAccesses>

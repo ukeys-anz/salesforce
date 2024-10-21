@@ -7556,7 +7556,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Progressed - No Offer</fullName>
+            <fullName>Progressed - Non-financial Offer</fullName>
             <default>false</default>
         </values>
     </picklistValues>
