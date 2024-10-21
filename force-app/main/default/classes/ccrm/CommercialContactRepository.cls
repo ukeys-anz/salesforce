@@ -1,0 +1,15 @@
+/**
+ * @author Naman Garg
+ * @since 09/2024
+ * @description This class provide SOQL and DML helper for class related to CCRMContactActions.
+ */
+
+public with sharing class CommercialContactRepository {
+  /**
+   * @description It will fetch the current user's Profile Id
+   * @return Id - Profile Id of current user
+   */
+  public Id getUserProfileId() {
+    return UserInfo.getProfileId();
+  }
+}

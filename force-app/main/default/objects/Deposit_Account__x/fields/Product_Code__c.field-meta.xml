@@ -6,7 +6,6 @@
     <description>The ANZ product code</description>
     <externalDeveloperName>ProductCode</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>The ANZ product code</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

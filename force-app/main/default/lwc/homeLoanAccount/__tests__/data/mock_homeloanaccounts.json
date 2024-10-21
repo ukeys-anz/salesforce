@@ -77,11 +77,7 @@
           "value": 123.34
         },
         "valid_at": "2022-12-21T18:12:20.042639Z",
-        "details_up_to_date": true,
-        "offsetAccount": {
-          "accountNumber": "1231231",
-          "recordId": "1231231231"
-        }
+        "details_up_to_date": true
       }
     }
   ]

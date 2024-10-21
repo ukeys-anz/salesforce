@@ -6,61 +6,65 @@
  */
 @isTest
 private class CCRMPortfolioOfLoanQueryTest {
-  /**
-   * @description setupMethod to create data
-   */
-  @TestSetup
-  static void createTestData() {
-    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
-      .get('Business_Account')
-      .getRecordTypeId();
-    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
-      'CAP-CIS_4011643101',
-      customerRecordTypeId,
-      '4011643101'
+  static Lib_MockProvider faRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    faRepoMock = Lib_MockProvider.forType(
+      CCRMFinancialAccountQueryBaseRepository.class
     );
-
-    Id bankingRecordTypeId = Schema.SObjectType.FinServ__FinancialAccount__c.getRecordTypeInfosByDeveloperName()
-      .get('BankingAccount')
-      .getRecordTypeId();
-    FinServ__FinancialAccount__c finAccount = TestDataFactory.createC360FinancialAccount(
-      bankingRecordTypeId,
-      'CAP-CIS:PTF',
-      acct.Id,
-      '4011643101-431214465',
-      '431214465'
-    );
-    if (finAccount.Id != null) {
-      FinServ__FinancialAccountRole__c finRole = [
-        SELECT Id, FinServ__FinancialAccount__c, Role_Type__c
-        FROM FinServ__FinancialAccountRole__c
-        WHERE FinServ__FinancialAccount__c = :finAccount.Id
-        LIMIT 1
-      ];
-      finRole.Role_Type__c = 'PRI';
-      update finRole;
-    }
   }
 
   /**
    * @description test method for CCRMPortfolioOfLoanQuery Class
    */
   @isTest
-  static void testPortfortfolioQuery() {
+  static void testPortfolioQuery() {
+    registerMocks();
     Test.startTest();
+    String accId = (String) Lib_FakeIdGenerator.getMockId(
+      Account.getSobjectType()
+    );
+
+    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
+      FinServ__Active__c = true,
+      Role_Type__c = 'UNO',
+      FinServ__FinancialAccount__r = new FinServ__FinancialAccount__c(
+        Name = 'Test',
+        FinServ__Status__c = 'Active',
+        FinServ__FinancialAccountType__c = 'Savings',
+        FinServ__PrimaryOwner__c = accId,
+        Account_Key__c = '4011643101-431214465',
+        FinServ__FinancialAccountNumber__c = '431214465',
+        Product_Type__c = 'CAP-CIS:PTF'
+      ),
+      FinServ__RelatedAccount__r = new Account(
+        External_Id__c = 'CAP-CIS_4011643101'
+      )
+    );
+
     Test.setMock(
       HttpCalloutMock.class,
       new CCRMPortfolioOfLoanQueryTest.CCRMPortfolioOfLoanQueryTestMock()
     );
+    //sync
     CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
       null
     );
     conn.sync();
+    //query
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'PortfolioOfLoan'
     );
-    conn.query(context);
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
     CCRMPortfolioOfLoanQuery accountQuery = new CCRMPortfolioOfLoanQuery();
+    faRepoMock.mock(
+      'getFinancialAccountsWithCustomerId',
+      new List<FinServ__FinancialAccountRole__c>{ mockFar }
+    );
     CCRMExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
       context
     );
@@ -70,15 +74,14 @@ private class CCRMPortfolioOfLoanQueryTest {
       result.queryResult.size(),
       'Size of accounts is not 1'
     );
-    Map<String, Object> firstRec = result.queryResult[0];
     system.assertEquals(
       'PTF',
-      (string) firstRec.get('ProductCode'),
+      result.queryResult[0].get('ProductCode'),
       'Product code mismatch'
     );
-    system.assertEquals(
+    System.assertEquals(
       'RAJESWARAN SOLUTIONS PTY LTD',
-      (string) firstRec.get('AccountName'),
+      result.queryResult[0].get('AccountName'),
       'Account Name mismatch'
     );
   }

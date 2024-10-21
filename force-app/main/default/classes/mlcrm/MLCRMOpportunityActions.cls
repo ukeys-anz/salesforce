@@ -34,7 +34,7 @@ public with sharing class MLCRMOpportunityActions {
         closingOppMap.put(opp.id, opp);
       }
     }
-    CCRMOpportunityActionsSkipStageHelper.checkOpenTaskForClosedOpportunities(
+    CommercialOpportunityHelper.checkOpenTaskForClosedOpportunities(
       closingOppMap
     );
   }

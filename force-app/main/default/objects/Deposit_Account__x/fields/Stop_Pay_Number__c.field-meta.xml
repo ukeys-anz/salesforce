@@ -6,7 +6,6 @@
     <description>Number of Stop Pay Restraint</description>
     <externalDeveloperName>StopPayNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <inlineHelpText>Number of Stop Pay Restraint</inlineHelpText>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>

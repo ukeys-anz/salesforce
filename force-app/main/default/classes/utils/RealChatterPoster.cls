@@ -24,4 +24,21 @@ public with sharing class RealChatterPoster {
 
     return newPost.Id;
   }
+  /**
+   * @param recordId record id to make a post on `ChatterUtils` class
+   * @param postContents post to be send to chatter component
+   * @return make the new chatter post using `ConnectApi.FeedElement`
+   * @description makeAPostWithRichText for making chatter post with Rich Text content
+   */
+  public static String makeAPostWithRichText(
+    String recordId,
+    String postContents
+  ) {
+    ConnectApi.FeedElement newPost = ConnectApiHelper.postFeedItemWithRichText(
+      Network.getNetworkId(),
+      recordId,
+      postContents
+    );
+    return newPost.id;
+  }
 }

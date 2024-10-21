@@ -1,0 +1,47 @@
+<template>
+  <div class="slds-p-top_medium">
+    <lightning-datatable
+      key-field="id"
+      data={paginatedData}
+      columns={columns}
+      hide-checkbox-column="true"
+    >
+    </lightning-datatable>
+
+    <template if:false={hasData}>
+      <div class="no-data-message slds-text-align_center">
+        <p>No Application Form Products Found</p>
+      </div>
+    </template>
+  </div>
+
+  <!-- Data Table Pagination Controls -->
+  <template if:true={dataTableTotalPagesGreaterThanOne}>
+    <div class="slds-m-top_medium slds-text-align_right slds-m-top_none">
+      <button
+        class="slds-button slds-button_text slds-m-right_small"
+        onclick={handlePreviousPage}
+        disabled={disableDataTablePrevious}
+      >
+        Previous
+      </button>
+      <template for:each={dataTablePageNumbers} for:item="page">
+        <button
+          key={page}
+          class="slds-button slds-button_text slds-m-right_small"
+          onclick={handlePageClick}
+          data-page={page}
+        >
+          {page}
+        </button>
+      </template>
+      <button
+        class="slds-button slds-button_text"
+        onclick={handleNextPage}
+        disabled={disableDataTableNext}
+      >
+        Next
+      </button>
+    </div>
+  </template>
+</template>

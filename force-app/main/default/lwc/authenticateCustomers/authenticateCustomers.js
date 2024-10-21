@@ -1,10 +1,17 @@
 import { LightningElement, api, wire } from "lwc";
-import getAccountName from "@salesforce/apex/AuthenticateCustomerController.getAccountName";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import getUserRole from "@salesforce/apex/AuthenticateCustomerController.getUserRole";
 import initiateAuthenticationRequest from "@salesforce/apex/AuthenticateCustomerController.initiateAuthenticationRequest";
 import authenticationPollingResponse from "@salesforce/apex/AuthenticateCustomerController.authenticationPollingResponse";
 import updateAuthenticationHistory from "@salesforce/apex/AuthenticateCustomerController.updateAuthenticationHistory";
 import { updateRecord } from "lightning/uiRecordApi";
+
+import FIELD_ACCOUNT_ID from "@salesforce/schema/Interaction.AccountId";
+import FIELD_ACCOUNT_FIRSTNAME from "@salesforce/schema/Interaction.Account.FirstName";
+import FIELD_ACCOUNT_LASTNAME from "@salesforce/schema/Interaction.Account.LastName";
+import FIELD_ACCOUNT_OCVID from "@salesforce/schema/Interaction.Account.OCV_ID__c";
+import FIELD_ACCOUNT_KYCSTATUS from "@salesforce/schema/Interaction.Account.FinServ__KYCStatus__c";
+import FIELD_ACCOUNT_KYCLEVEL from "@salesforce/schema/Interaction.Account.KYC_Verification_Level__c";
 
 const STATUSMAP = {
   LOADING: "Loading",
@@ -85,23 +92,35 @@ export default class AuthenticateCustomers extends LightningElement {
     }
   }
 
-  //This method get the Account Details based on the interaction recordnId.
-  @wire(getAccountName, { interactionId: "$recordId" })
-  wiredAccountName({ data, error }) {
-    if (data) {
-      this.accountNameMessage =
-        data.Account.FirstName !== undefined
-          ? data.Account.FirstName
-          : data.Account.LastName;
-      this.accountId = data.AccountId;
-      this.ocvId = data.Account.OCV_ID__c;
-      //Hold value for KYCed customer in kycCustomer variable
-      this.kycCustomer =
-        data.Account.FinServ__KYCStatus__c === "CO" &&
-        data.Account.KYC_Verification_Level__c === "VE";
-    } else if (error) {
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [
+      FIELD_ACCOUNT_ID,
+      FIELD_ACCOUNT_FIRSTNAME,
+      FIELD_ACCOUNT_LASTNAME,
+      FIELD_ACCOUNT_OCVID,
+      FIELD_ACCOUNT_KYCSTATUS,
+      FIELD_ACCOUNT_KYCLEVEL
+    ]
+  })
+  wiredRecord({ data, error }) {
+    if (error) {
       this._status = STATUSMAP.ERROR;
     }
+    if (!data) {
+      return;
+    }
+    this.accountId = getFieldValue(data, FIELD_ACCOUNT_ID);
+    if (!this.accountId) {
+      return;
+    }
+    this.ocvId = getFieldValue(data, FIELD_ACCOUNT_OCVID);
+    this.accountNameMessage =
+      getFieldValue(data, FIELD_ACCOUNT_FIRSTNAME) ||
+      getFieldValue(data, FIELD_ACCOUNT_LASTNAME);
+    this.kycCustomer =
+      getFieldValue(data, FIELD_ACCOUNT_KYCSTATUS) === "CO" &&
+      getFieldValue(data, FIELD_ACCOUNT_KYCLEVEL) === "VE";
   }
 
   get IconName() {

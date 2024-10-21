@@ -11659,6 +11659,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>OFI Eligibility error</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Discharge</fullName>
             <default>false</default>
         </values>
@@ -11716,6 +11720,10 @@
         </values>
         <values>
             <fullName>Interest Calculation Request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Issues transferring from ANZ accounts</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11819,6 +11827,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Removal of ANZ Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Renewal and Restructures</fullName>
             <default>false</default>
         </values>
@@ -11864,6 +11876,14 @@
         </values>
         <values>
             <fullName>Transaction Disputes</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable to add ANZ Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable to add Other Accounts</fullName>
             <default>false</default>
         </values>
         <values>
@@ -12692,6 +12712,10 @@
         </values>
         <values>
             <fullName>Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>My Accounts</fullName>
             <default>false</default>
         </values>
         <values>

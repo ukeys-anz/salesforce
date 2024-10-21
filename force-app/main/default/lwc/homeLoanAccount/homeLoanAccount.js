@@ -2,7 +2,7 @@ import { LightningElement, api, wire } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 import getStaticResource from "@salesforce/resourceUrl/h1account";
-import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.getHomeLoanFinancialAccountId";
+import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.getLinkedHomeLoanFinancialAccountRole";
 import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import hasFinancialAccountPermission from "@salesforce/customPermission/FinServ__FinancialServicesCloudStandard";
 import { handleErrorShowToast } from "c/utils";
@@ -19,9 +19,11 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api objectApiName;
   @api ownershipType;
   @api accountOwnersList;
+  @api offsetDetails;
   timestamp;
   financialAccounts = [];
   showBalanceModal = false;
+  offsetList;
   showRedrawAvailableModal = false;
   financialAccounRoleList = [];
   loanImageUrl = getStaticResource + "/images/Mortgage.png";
@@ -33,6 +35,12 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   singleFinAccount;
   multiparty = false;
 
+  // Map for rendering the HTML
+  templateMap = {
+    Account: templateCard,
+    FinServ__FinancialAccount__c: templateDetail
+  };
+
   connectedCallback() {
     if (hasHomeLoanPermission) {
       this.init();
@@ -41,7 +49,10 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   }
 
   get isAccountTab() {
-    return `${this.objectApiName}` === "Account";
+    return this.objectApiName === "Account";
+  }
+  get isFinAccountTab() {
+    return this.objectApiName === "FinServ__FinancialAccount__c";
   }
 
   async init() {
@@ -52,17 +63,14 @@ export default class HomeLoanAccountCard extends NavigationMixin(
       this.financialAccounts = JSON.parse(this.accountDetails);
       try {
         //Only need to get financial account id if we are on person account
-        if (this.objectApiName === "Account") {
+        if (this.isAccountTab) {
           this.financialAccounRoleList = await getHomeLoanFinancialAccountId({
             customerId: this.recordId
           });
         }
 
         this.financialAccounts.forEach((finAccount) => {
-          if (
-            this.financialAccounRoleList &&
-            this.objectApiName === "Account"
-          ) {
+          if (this.financialAccounRoleList && this.isAccountTab) {
             //Retrieve record id for linked fin account
             this.financialAccounRoleList.forEach((account) => {
               if (
@@ -73,8 +81,13 @@ export default class HomeLoanAccountCard extends NavigationMixin(
                 finAccount.recordId = account.FinServ__FinancialAccount__c;
               }
             });
+            finAccount.offsetDetails = this.handleOffsetDetails(
+              finAccount,
+              this.offsetDetails
+            );
+            finAccount.isOffsetListEmpty =
+              (finAccount.offsetDetails?.length ?? 0) === 0;
           }
-
           finAccount.lastModifiedTimestamp =
             this.handleLastModifiedTimestamp(finAccount);
           finAccount.accountActive = this.handleAccountActive(finAccount.state);
@@ -87,8 +100,12 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           finAccount.rateType = this.handleRateType(finAccount);
         });
 
-        if (this.objectApiName === "FinServ__FinancialAccount__c") {
+        if (this.isFinAccountTab) {
           this.singleFinAccount = this.financialAccounts[0];
+          this.offsetList = this.handleOffsetDetails(
+            this.singleFinAccount,
+            this.offsetDetails
+          );
         }
 
         const financialAccountOpenList = this.financialAccounts.filter(
@@ -110,12 +127,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   }
 
   render() {
-    if (this.objectApiName === "FinServ__FinancialAccount__c") {
-      return templateDetail;
-    } else if (this.objectApiName === "Account") {
-      return templateCard;
-    }
-    return null;
+    return this.templateMap[this.objectApiName];
   }
 
   get hasPermissionIssue() {
@@ -124,6 +136,14 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
   get showHomeLoan() {
     return this.financialAccounts.length > 0;
+  }
+
+  get showOffsetData() {
+    return this.offsetList?.length > 0;
+  }
+
+  get hasOffsetError() {
+    return this.offsetDetails?.hasError;
   }
 
   handleAccountActive(state) {
@@ -247,9 +267,28 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     }
   }
 
+  //USED IN FINANCIAL ACCOUNT AND CUSTOMER FINANCIALS PAGE
+  handleOffsetDetails(account, offsetAccountDetails) {
+    var offsetData = [];
+    if (offsetAccountDetails == null || offsetAccountDetails?.hasError) {
+      return offsetData;
+    }
+    offsetData = offsetAccountDetails.loan_offsets
+      .filter(
+        (offsetAccount) => offsetAccount.loan_account === account.account_number
+      )
+      .flatMap((item) =>
+        item.offsetDetails.map((detail) => ({
+          financialAccountNumber: detail.financialAccountNumber,
+          financialAccountId: detail.financialAccountId
+        }))
+      );
+    return offsetData;
+  }
+
   navigateToRecordViewPage(event) {
     const recordIdToOpen = event.currentTarget.dataset.id;
-    if (this.isAccountTab) {
+    if (this.isAccountTab || this.isFinAccountTab) {
       this[NavigationMixin.Navigate]({
         type: "standard__recordPage",
         attributes: {

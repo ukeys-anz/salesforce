@@ -37,6 +37,10 @@
           <template lwc:if={isAssessed}>
             Assessment was successfully finalised and case will be closed.
           </template>
+          <template lwc:elseif={isExpired}>
+            The credit referral case cannot be finalised with an approved
+            assessment outcome because the Credit Assessment is expired.
+          </template>
           <template lwc:elseif={unapprovedState}>
             This credit referral case is currently being assessed. You can't
             finalise the referral case until this has been completed.
