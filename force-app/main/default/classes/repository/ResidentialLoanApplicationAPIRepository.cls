@@ -220,4 +220,27 @@ public with sharing class ResidentialLoanApplicationAPIRepository extends Reposi
     }
     return false;
   }
+
+  /**
+   * @param loanAppNumber loan application number
+   * @param ocvId ocv id of the customer account
+   * @return `HttpCalloutResponse` response
+   * @description cancelResidentialLoanApp cancels a residential loan application
+   */
+  public HttpCalloutResponse cancelResidentialLoanApp(
+    String loanAppNumber,
+    String ocvId
+  ) {
+    Service s = ServiceProvider.getService(BOHService.class);
+    HttpCalloutResponse response = s.cancelResidentialLoanApp(
+      loanAppNumber,
+      ocvId
+    );
+    try {
+      return response;
+    } catch (Exception e) {
+      handleErrors(response, e, ResidentialLoanApplicationAPIRepository.class);
+      return null;
+    }
+  }
 }

@@ -6,6 +6,7 @@
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
+    <permissionSets>Cancel_Residential_Loan_Application</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
     <permissionSets>Case_Credit_Referral_Ownership_Transfer</permissionSets>
