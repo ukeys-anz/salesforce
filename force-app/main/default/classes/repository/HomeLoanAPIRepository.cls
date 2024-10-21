@@ -71,4 +71,39 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
       acc.product_details.marketing_code
     ));
   }
+
+  /**
+   * @param ocvId ocv id
+   * @param loanAccNumber param to get the offset linked with financial account
+   * @param recordId record ID
+   * @return `OffsetAccountModel`
+   * @description fetches linked offset account from lex, deserialized to a model
+   */
+  public OffsetAccountModel getOffsetAccounts(
+    String ocvId,
+    String loanAccNumber,
+    String recordId
+  ) {
+    OffsetAccountModel offsetDetails = (OffsetAccountModel) DataPartitionUtil.getDataFromCache(
+      recordId
+    );
+    if (offsetDetails != null) {
+      return offsetDetails;
+    }
+    FinancialAccountService s = (FinancialAccountService) ServiceProvider.getService(
+      FinancialAccountService.class
+    );
+    HttpCalloutResponse response = s.getOffsetAccounts(ocvId, loanAccNumber);
+    try {
+      if (response.successful == false) {
+        throw response.error;
+      }
+      String offsetStr = (response.body).replace('accounts/', '');
+      offsetDetails = OffsetAccountModel.parse(offsetStr);
+      DataPartitionUtil.storeDataToCache(recordId, offsetDetails);
+    } catch (Exception e) {
+      handleErrors(response, e, HomeLoanAPIRepository.class);
+    }
+    return offsetDetails;
+  }
 }

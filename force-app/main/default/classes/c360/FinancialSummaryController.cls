@@ -265,8 +265,8 @@ public with sharing class FinancialSummaryController {
         if (prodType != null) {
           accountNumberList.add(
             faRole.FinServ__FinancialAccount__r.Product_Type__c.split(':')[1] +
-              '-' +
-              faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+            '-' +
+            faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
           );
         }
       }

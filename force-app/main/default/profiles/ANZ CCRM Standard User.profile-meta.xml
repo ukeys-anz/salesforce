@@ -601,14 +601,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMOpportunityLineItemActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMOpportunityLineItemActionsTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMRevertAccExternalIdBatch</apexClass>
         <enabled>false</enabled>
     </classAccesses>
@@ -2130,10 +2122,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>NotificationTriggerHandlerAnzxTest</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>OpportunityLineItemTriggerHandler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -24006,7 +23994,7 @@
         <recordType>Opportunity.MLCRM_Opportunity</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>OpportunityLineItem-Opportunity Product Layout</layout>
+        <layout>OpportunityLineItem-Commercial Opportunity Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Order-Order Layout</layout>
@@ -24297,6 +24285,25 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkerCompCoverageClass-Worker Compensation Coverage Class Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ApplicationForm-Commercial Application Form Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ApplicationForm-Commercial Application Form Layout</layout>
+        <recordType>ApplicationForm.AMBIT</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ApplicationForm-Commercial Application Form Layout</layout>
+        <recordType>ApplicationForm.BBD</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ApplicationForm-Commercial Application Form Layout</layout>
+        <recordType>ApplicationForm.CLP</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>ApplicationForm-Commercial Application Form Layout</layout>
+        <recordType>ApplicationForm.Internal_Application</recordType>
     </layoutAssignments>
     <loginFlows>
         <flow>Remove_Concurrent_Sessions</flow>

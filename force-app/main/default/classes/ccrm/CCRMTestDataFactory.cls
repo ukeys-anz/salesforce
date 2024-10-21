@@ -1097,7 +1097,7 @@ public with sharing class CCRMTestDataFactory {
     objAccount.OCV_ID__c = faker.randomString(10);
     objAccount.FinServ__KYCStatus__c = 'Completed - Valid';
     objAccount.FinServ__Status__c = 'Active';
-    objAccount.RecordTypeId = CCRMConstants.ACCOUNT_CLG_RT_ID;
+    objAccount.RecordTypeId = RTAccount.businessAccount;
     insert objAccount;
 
     List<Opportunity> newOpps = new List<Opportunity>();
@@ -1105,10 +1105,10 @@ public with sharing class CCRMTestDataFactory {
       Opportunity objOpportunity = new Opportunity();
       objOpportunity.Name = 'Test Opp ' + i;
       objOpportunity.Accountid = objAccount.id;
-      objOpportunity.StageName = 'Opportunity Identified';
-      objOpportunity.CloseDate = system.Today() + 3;
+      objOpportunity.StageName = 'New';
+      objOpportunity.CloseDate = DateTimeUtils.getNextWeekdayDate(3);
       objOpportunity.Description = '987654321';
-      objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
+      objOpportunity.RecordTypeId = RTOpportunity.commercialOpportunity;
       if (ownerUser != null) {
         objOpportunity.OwnerId = ownerUser.Id;
       }
@@ -1120,7 +1120,6 @@ public with sharing class CCRMTestDataFactory {
 
     return newOpps;
   }
-
   /**
    * @description Create Users with employee id
    * @name createUsersWithEmployeeId
@@ -1829,6 +1828,52 @@ public with sharing class CCRMTestDataFactory {
       res.setStatusCode(200);
       return res;
     }
+  }
+  /**
+   * @description Create App Form with opportunity
+   * @name createAppForm
+   * @param count Count of app form records needed to be created
+   * @param oppId opportunity Id
+   * @return Returns List<ApplicationForm>
+   */
+  public static List<ApplicationForm> createAppForm(Integer count, Id oppId) {
+    //Default Count to 200 when in excess.
+    count = count == null || count == 0 ? 1 : count;
+    List<ApplicationForm> appFormList = new List<ApplicationForm>();
+    for (Integer i = 1; i <= count; i++) {
+      ApplicationForm rec = new ApplicationForm();
+      rec.Application_Amount__c = 23 + i;
+      rec.OpportunityId = oppId;
+      rec.Stage = 'Initiated';
+      rec.usageType = 'Other';
+      appFormList.add(rec);
+    }
+    return appFormList;
+  }
+  /**
+   * @description Create App Form product
+   * @name createAppFormProduct
+   * @param count Count of app form product records needed to be created
+   * @param appFormId app form Id
+   * @param stage stage name
+   * @return Returns List<ApplicationFormProduct>
+   */
+  public static List<ApplicationFormProduct> createAppFormProduct(
+    Integer count,
+    Id appFormId,
+    String stage
+  ) {
+    //Default Count to 200 when in excess.
+    count = count == null || count == 0 ? 1 : count;
+    List<ApplicationFormProduct> appFormProductList = new List<ApplicationFormProduct>();
+    for (Integer i = 1; i <= count; i++) {
+      ApplicationFormProduct rec = new ApplicationFormProduct();
+      rec.Stage = stage;
+      rec.ApplicationFormId = appFormId;
+      rec.Close_Date__c = DateTimeUtils.getNextWeekdayDate(4);
+      appFormProductList.add(rec);
+    }
+    return appFormProductList;
   }
 
   /**

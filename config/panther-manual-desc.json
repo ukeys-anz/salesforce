@@ -2265,29 +2265,6 @@
         "Status_Timestamp_With_Millisec_Gmt__c"
       ]
     },
-    "Feature__c": {
-      "IA-2415860": [
-        "Account_Number__c",
-        "Open_Date__c",
-        "Closed_Date__c",
-        "Account_Key__c",
-        "Product_Type__c",
-        "Marketing_Code__c",
-        "OCV_Feature_Version__c",
-        "Force_Update__c"
-      ]
-    },
-    "FA_Feature_Relationship__c": {
-      "IA-2415860": [
-        "Feature__c",
-        "Financial_Account__c",
-        "Relationship_Status__c",
-        "Start_Date__c",
-        "End_Date__c",
-        "Relationship_Key__c",
-        "Financial_Account_Product__c"
-      ]
-    },
     "Financial_Summary_Calculation__e": {
       "IA-2530753": [
         "Last_Calculated_Time__c",
