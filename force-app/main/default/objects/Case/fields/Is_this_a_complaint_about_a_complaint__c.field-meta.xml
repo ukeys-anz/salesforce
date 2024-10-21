@@ -5,6 +5,7 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Captured as part of complaint closure process to make sure if complaint is about exsiting complaint</description>
     <externalId>false</externalId>
+    <inlineHelpText>If selecting NO to indicate that this is not a complaint about a complaint or there is no parent case that can be linked, please review the Issue and Sub Issue selected to ensure that this complaint has been categorised correctly. This field is mandatory to complete when the complaint Issue and Sub Issue selected is &quot;Service Quality + Failure to properly respond to complaint</inlineHelpText>
     <label>Is this a complaint about a complaint?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
