@@ -2,7 +2,7 @@
  * @description       : LWC Controller for manageOpsWorkflowApproval & manageOpsWorkflowReject
  * @author            : Anuj Jain
  * @group             :
- * @last modified on  : 08-09-2024
+ * @last modified on  : 10-17-2024
  **/
 @SuppressWarnings('PMD.LocalVariableNamingConventions')
 public with sharing class ManageOpsWorkflowActionController {
@@ -134,6 +134,8 @@ public with sharing class ManageOpsWorkflowActionController {
     caseRecordInstance.Status_Update_Error__c = caseRecord.Status_Update_Error__c;
     caseRecordInstance.Subject = caseRecord.Subject;
     caseRecordInstance.RecordTypeId = caseRecord.RecordTypeId;
+    caseRecordInstance.CustomerOnboardingApplication__c = caseRecord.CustomerOnboardingApplication__c;
+
     return caseRecordInstance;
   }
   /**
@@ -178,7 +180,8 @@ public with sharing class ManageOpsWorkflowActionController {
     try {
       cobCaseUpdateStatusObj = COBCaseStatusPathController.updateStatus(
         currentStatus,
-        caseRecords
+        caseRecords,
+        false
       );
     } catch (Exception e) {
       return cobCaseUpdateStatusObj.isCaseUpdated;
