@@ -217,18 +217,6 @@ export default class CobCaseStatusPath extends LightningElement {
                 ""
               );
             }
-          } else if (
-            !cobCaseUpdateStatus.isCaseUpdated &&
-            cobCaseUpdateStatus.isManualCaseUpdate
-          ) {
-            showToast(
-              this,
-              "Error!",
-              cobCaseUpdateStatus.cobVerificationFailedReason,
-              "",
-              "error",
-              ""
-            );
           } else {
             showToast(
               this,

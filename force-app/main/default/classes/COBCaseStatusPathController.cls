@@ -76,17 +76,14 @@ public with sharing class COBCaseStatusPathController {
       );
       if (String.isEmpty(cobPIDRecord.Verification_Status__c)) {
         validationError = 'Please review the document details in the PID screen and update the case status from there';
+        throw CommonUtil.logAuraException(validationError);
       } else if (cobPIDRecord.Verification_Status__c != cobCase.Status) {
         validationError =
           'You have previous actioned ' +
           cobPIDRecord.Verification_Status__c +
           ' in the PID, please update the case status accordingly';
+        throw CommonUtil.logAuraException(validationError);
       }
-      COBCaseUpdateStatus cobCaseUpdateStatusObj = new COBCaseUpdateStatus();
-      cobCaseUpdateStatusObj.cobVerificationFailedReason = validationError;
-      cobCaseUpdateStatusObj.isCaseUpdated = false;
-      cobCaseUpdateStatusObj.isManualCaseUpdate = true;
-      return cobCaseUpdateStatusObj;
     }
 
     Boolean isCalloutSucccesful = makeTemporalCallout(
@@ -253,12 +250,6 @@ public with sharing class COBCaseStatusPathController {
      */
     @AuraEnabled
     public String cobVerificationFailedReason { get; set; }
-
-    /**
-     * @description isManualCaseUpdate
-     */
-    @AuraEnabled
-    public Boolean isManualCaseUpdate { get; set; }
 
     /**
      * @description Constructor with args, for server-side Apex -> client-side JavaScript

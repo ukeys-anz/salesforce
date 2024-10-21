@@ -156,16 +156,21 @@ public with sharing class COBCaseStatusPathControllerTest {
     cobIdOpsCase.OnboardingVerificationFailedReason__c = FAILED_REASON;
 
     Test.startTest();
-    COBCaseStatusPathController.COBCaseUpdateStatus cobCaseUpdateStatus = COBCaseStatusPathController.updateStatus(
-      COBCaseConstants.COB_DAON_FALLOUT_STATUS,
-      cobIdOpsCase,
-      true
-    );
+    try {
+      COBCaseStatusPathController.COBCaseUpdateStatus cobCaseUpdateStatus = COBCaseStatusPathController.updateStatus(
+        COBCaseConstants.COB_DAON_FALLOUT_STATUS,
+        cobIdOpsCase,
+        true
+      );
+      Assert.fail('Exception should be thrown');
+    } catch (Exception e) {
+      Assert.isInstanceOfType(
+        e,
+        AuraHandledException.class,
+        'Exception should be an instanceof AuraHandledException.'
+      );
+    }
     Test.stopTest();
-    Assert.isFalse(
-      cobCaseUpdateStatus.isCaseUpdated,
-      'Case should have been updated.'
-    );
   }
   @isTest
   private static void testUpdateStatusNoPersonaIDException() {
