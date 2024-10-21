@@ -6,38 +6,38 @@
  */
 @SuppressWarnings('PMD.FieldNamingConventions')
 public with sharing class OffsetAccountModel extends CalloutModel {
-  @AuraEnabled 
+  @AuraEnabled
   public List<LoanOffsets> loan_offsets;
-  @AuraEnabled 
+  @AuraEnabled
   public Boolean hasError = false;
   /**
-   * @description Offset account details 
+   * @description Offset account details
    */
   public class LoanOffsets {
     @AuraEnabled
     public String loan_account;
     public List<String> offset_accounts;
-   /**
-   * @description Offset details Wrapper
-   */
+    /**
+     * @description Offset details Wrapper
+     */
     @AuraEnabled
-    public List<OffsetWrapper> offsetDetails {get;set;}
+    public List<OffsetWrapper> offsetDetails { get; set; }
   }
   /**
    * @description Offset details Wrapper for FinAccId, FinAccNumber
    */
-   public class OffsetWrapper{
-  /**
-   * @description financial account number for Offset account
-   */
-   @AuraEnabled
-   public String financialAccountNumber {get;set;}
-  /**
-   * @description financial account Id for Offset account
-   */
-   @AuraEnabled
-   public String financialAccountId {get;set;}
-   }
+  public class OffsetWrapper {
+    /**
+     * @description financial account number for Offset account
+     */
+    @AuraEnabled
+    public String financialAccountNumber { get; set; }
+    /**
+     * @description financial account Id for Offset account
+     */
+    @AuraEnabled
+    public String financialAccountId { get; set; }
+  }
 
   /**
    * @param json input string to deserialize

@@ -105,9 +105,7 @@ public with sharing class CommercialAppFormProductActions {
       );
       for (OpportunityLineItem oppLineItem : fetchOpportunityLineItems) {
         oppLineItemsMap.put(
-          oppLineItem.OpportunityId +
-          '-' +
-          oppLineItem.Product2Id,
+          oppLineItem.OpportunityId + '-' + oppLineItem.Product2Id,
           oppLineItem
         );
       }

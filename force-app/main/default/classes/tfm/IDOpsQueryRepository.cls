@@ -91,16 +91,16 @@ public with sharing class IDOpsQueryRepository {
     return cobPIDRecord;
   }
 
-   /**
+  /**
    * @description get cobPID Record
    * @param  customerOnboardingApplicationId CustomerOnboardingApplicationId
    * @return COBPrimaryIDDocument__c
    **/
-  public COBPrimaryIDDocument__c getCOBPIDRecordUsingCOA(String customerOnboardingApplicationId) {
+  public COBPrimaryIDDocument__c getCOBPIDRecordUsingCOA(
+    String customerOnboardingApplicationId
+  ) {
     COBPrimaryIDDocument__c cobPIDRecord = [
-      SELECT
-        Id,
-        Verification_Status__c
+      SELECT Id, Verification_Status__c
       FROM COBPrimaryIDDocument__c
       WHERE CustomerOnboardingApplication__c = :customerOnboardingApplicationId
       WITH USER_MODE
@@ -144,8 +144,6 @@ public with sharing class IDOpsQueryRepository {
    * @return Boolean returns true if has permission else false
    **/
   public Boolean checkCustomPermission(String permissionName) {
-    return FeatureManagement.checkPermission(
-        permissionName
-    );
+    return FeatureManagement.checkPermission(permissionName);
   }
 }

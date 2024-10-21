@@ -430,7 +430,7 @@
         <profile>ANZ CCRM Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
-        <actionName>View</actionName
+        <actionName>View</actionName>
         <content>Commercial_Contact_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Contact</pageOrSobjectType>

@@ -66,9 +66,8 @@ describe("c-opportunity-related-applications", () => {
     getTotalApplicationFormAdapter.emit(0);
 
     return Promise.resolve().then(() => {
-      const noDataMessage = element.shadowRoot.querySelector(
-        ".no-data-message"
-      );
+      const noDataMessage =
+        element.shadowRoot.querySelector(".no-data-message");
       expect(noDataMessage).not.toBeNull();
       expect(noDataMessage.textContent).toContain("No Application Forms Found");
     });

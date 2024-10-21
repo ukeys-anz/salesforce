@@ -7,7 +7,6 @@
     <columns>CONTACT.EMAIL</columns>
     <columns>CONTACT.PHONE3</columns>
     <columns>Broker_Accreditation_Type__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>Broker_Accreditation_Type__c</field>
         <operation>includes</operation>
@@ -18,5 +17,6 @@
         <operation>equals</operation>
         <value>Contact.Broker</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Brokers</label>
 </ListView>

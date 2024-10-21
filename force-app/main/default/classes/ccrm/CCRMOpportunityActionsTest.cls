@@ -42,10 +42,7 @@ private class CCRMOpportunityActionsTest {
         WHERE id = :opp.id
       ];
       Assert.areEqual(
-        opp.Opp_Id__c +
-        ' ' +
-        opp.Customer_Needs__c +
-        ' sample Opp',
+        opp.Opp_Id__c + ' ' + opp.Customer_Needs__c + ' sample Opp',
         opp.Name,
         'Opportunity Name is the same for Manual Opportunity.'
       );

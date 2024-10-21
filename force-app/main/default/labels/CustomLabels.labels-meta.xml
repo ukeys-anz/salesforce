@@ -2603,4 +2603,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>CCRM_Auto_Task_MistMatch_Subject</shortDescription>
         <value>Update customer information</value>
     </labels>
+    <labels>
+        <fullName>DAONImagePreviewURL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DAONImagePreviewURL</shortDescription>
+        <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
+    </labels>
 </CustomLabels>

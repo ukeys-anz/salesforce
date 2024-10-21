@@ -344,9 +344,7 @@ public with sharing class CommercialAppFormProductActionsHelper {
         afpRec.ApplicationFormId
       );
       afpRec.Close_Date__c = oppLineItemsMap.containsKey(
-          oppId +
-          '-' +
-          afpRec.ProductId
+          oppId + '-' + afpRec.ProductId
         )
         ? oppLineItemsMap.get(oppId + '-' + afpRec.ProductId)
             .Expected_Settlement_Date__c

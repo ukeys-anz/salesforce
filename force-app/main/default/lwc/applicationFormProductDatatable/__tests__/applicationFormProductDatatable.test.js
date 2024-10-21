@@ -29,9 +29,8 @@ describe("c-application-form-product-datatable", () => {
       expect(datatable.data.length).toBe(3); // Based on the initial page size
 
       // Verify the presence of pagination controls
-      const paginationControls = element.shadowRoot.querySelector(
-        ".slds-m-top_medium"
-      );
+      const paginationControls =
+        element.shadowRoot.querySelector(".slds-m-top_medium");
       expect(paginationControls).not.toBeNull();
     });
   });
@@ -40,9 +39,8 @@ describe("c-application-form-product-datatable", () => {
     element.applicationFormProducts = [];
 
     return Promise.resolve().then(() => {
-      const noDataMessage = element.shadowRoot.querySelector(
-        ".no-data-message"
-      );
+      const noDataMessage =
+        element.shadowRoot.querySelector(".no-data-message");
       expect(noDataMessage).not.toBeNull();
       expect(noDataMessage.textContent).toContain(
         "No Application Form Products Found"
