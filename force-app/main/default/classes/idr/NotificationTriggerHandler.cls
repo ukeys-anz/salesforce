@@ -9,8 +9,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   private static IDR_Notification_Hours__c nHours;
   private static List<Notification_Handler__c> notificationList;
   private static List<Database.SaveResult> peSaveResults;
-  private static final String CUSCOMPLAINTRECORDTYPEID = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-
   /**
    * @description Constructor to call the trigger framework
    */
@@ -303,16 +301,16 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         ? 'CAP ID'
         : c.IDR_Customer_Identifier__c);
       notification.ComplainantEmail__c = (c.RecordTypeId ==
-        CUSCOMPLAINTRECORDTYPEID
+        RTCase.customerComplaint
         ? ''
         : c.IDR_NC_Email__c);
       notification.ComplainantFirstName__c = (c.IDR_NC_Is_Consent_Obtained__c ==
         false ||
-        c.RecordTypeId == CUSCOMPLAINTRECORDTYPEID)
+        c.RecordTypeId == RTCase.customerComplaint)
         ? ''
         : c.IDR_NC_First_Name__c;
       notification.ComplainantMobile__c = (c.RecordTypeId ==
-        CUSCOMPLAINTRECORDTYPEID
+        RTCase.customerComplaint
         ? ''
         : PhoneUtils.cleanupMobile(c.IDR_NC_Mobile__c));
     }
