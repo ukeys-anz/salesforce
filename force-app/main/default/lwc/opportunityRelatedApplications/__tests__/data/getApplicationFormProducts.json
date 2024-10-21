@@ -1,0 +1,95 @@
+[
+  {
+    "id": "13X9p0000009AOLEA2",
+    "name": "AF-00000031",
+    "applicationAmount": 5000,
+    "applicationFormProducts": [
+      {
+        "id": "13Z9p000000Af3VEAS",
+        "name": "AFP-00000048",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af3VEAS/view",
+        "productId": "01t9p000005Z6NpAAK",
+        "productName": "ANZ Test Product",
+        "productUrl": "/lightning/r/Product/01t9p000005Z6NpAAK/view",
+        "stage": "Solution Development"
+      },
+      {
+        "id": "13Z9p000000Af4VEAS",
+        "name": "AFP-00000049",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af4VEAS/view",
+        "productId": "01t9p000005Z6NpbAK",
+        "productName": "Beta Test Product",
+        "productUrl": "/lightning/r/Product/01t9p000005Z6NpbAK/view",
+        "stage": "Design Phase"
+      },
+      {
+        "id": "13Z9p000000Af5VEAS",
+        "name": "AFP-00000050",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af5VEAS/view",
+        "productId": "01t9p000005Z6NqcAK",
+        "productName": "Gamma Test Product",
+        "productUrl": "/lightning/r/Product/01t9p000005Z6NqcAK/view",
+        "stage": "Development"
+      },
+      {
+        "id": "13Z9p000000Af6VEAS",
+        "name": "AFP-00000051",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af6VEAS/view",
+        "productId": "01t9p000005Z6NrdAK",
+        "productName": "Delta Test Product",
+        "productUrl": "/lightning/r/Product/01t9p000005Z6NrdAK/view",
+        "stage": "Implementation"
+      }
+    ]
+  },
+  {
+    "id": "13X9p0000009APxEAM",
+    "name": "AF-00000032",
+    "applicationAmount": 12000,
+    "applicationFormProducts": [
+      {
+        "id": "13Z9p000000AfDBEA0",
+        "name": "AFP-00000052",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000AfDBEA0/view",
+        "productId": "01tOa0000053TQwIAM",
+        "productName": "Monthly Interest Account",
+        "productUrl": "/lightning/r/Product/01tOa0000053TQwIAM/view",
+        "stage": "Opportunity Identified"
+      },
+      {
+        "id": "13Z9p000000AfDCEA0",
+        "name": "AFP-00000053",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000AfDCEA0/view",
+        "productId": "01tOa0000053TQxIAM",
+        "productName": "Yearly Interest Account",
+        "productUrl": "/lightning/r/Product/01tOa0000053TQxIAM/view",
+        "stage": "Opportunity Identified"
+      }
+    ]
+  },
+  {
+    "id": "13X9p0000009ARZEA2",
+    "name": "AF-00000033",
+    "applicationAmount": 3000,
+    "applicationFormProducts": [
+      {
+        "id": "13Z9p000000AfEnEAK",
+        "name": "AFP-00000054",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000AfEnEAK/view",
+        "productId": "01tOa0000053TQxIAM",
+        "productName": "Term Deposit - Quarterly Interest",
+        "productUrl": "/lightning/r/Product/01tOa0000053TQxIAM/view",
+        "stage": "Opportunity Identified"
+      },
+      {
+        "id": "13Z9p000000AfEoEAK",
+        "name": "AFP-00000055",
+        "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000AfEoEAK/view",
+        "productId": "01tOa0000053TQyIAM",
+        "productName": "Term Deposit - Half Yearly Interest",
+        "productUrl": "/lightning/r/Product/01tOa0000053TQyIAM/view",
+        "stage": "Opportunity Identified"
+      }
+    ]
+  }
+]

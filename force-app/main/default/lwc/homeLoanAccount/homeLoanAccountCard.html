@@ -80,7 +80,7 @@
                 </div>
                 <div class="slds-grid slds-wrap slds-p-top_medium">
                   <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
                   >
                     <p class="card-heading-font">Interest Rate</p>
                     <p class="fontstyle" data-test-id="interestrate">
@@ -88,21 +88,7 @@
                     </p>
                   </div>
                   <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small slds-text-align_center"
-                  >
-                    <p class="card-heading-font">
-                      Term
-                      <lightning-helptext
-                        class="tooltip"
-                        content="As of the loan commencement or the date certain changes were made to the loan."
-                      ></lightning-helptext>
-                    </p>
-                    <p data-test-id="term" class="fontstyle">
-                      {finAccount.loanTerm}
-                    </p>
-                  </div>
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small slds-text-align_right"
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
                   >
                     <div>
                       <p class="card-heading-font">
@@ -123,6 +109,67 @@
                         ></lightning-formatted-number>
                       </p>
                     </div>
+                  </div>
+                </div>
+                <div
+                  class="slds-grid slds-wrap slds-p-top_medium"
+                  data-id="offsetAccountDetails"
+                >
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
+                  >
+                    <p class="card-heading-font">
+                      Linked Offset
+                      <lightning-helptext
+                        class="tooltip"
+                        content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
+                      ></lightning-helptext>
+                    </p>
+                    <p class="fontstyle">
+                      <template lwc:if={hasOffsetError}>
+                        <lightning-icon
+                          icon-name="utility:error"
+                          size="x-small"
+                          class="slds-m-right_x-small"
+                        ></lightning-icon>
+                        <span>Error. Refresh Page</span>
+                      </template>
+                      <template lwc:else>
+                        <p lwc:if={finAccount.isOffsetListEmpty}>No Offset</p>
+                        <p lwc:else data-test-id="offsetAccount">
+                          <template
+                            for:each={finAccount.offsetDetails}
+                            for:item="offsetValues"
+                          >
+                            <a
+                              onclick={navigateToRecordViewPage}
+                              data-id={offsetValues.financialAccountId}
+                              class="slds-truncate"
+                              title={offsetValues.financialAccountNumber}
+                              key={offsetValues.financialAccountId}
+                            >
+                              <span>{offsetValues.financialAccountNumber}</span
+                              ><br />
+                            </a>
+                          </template>
+                        </p>
+                      </template>
+                    </p>
+                  </div>
+
+                  <div
+                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small slds-text-align_right"
+                  >
+                    <p class="card-heading-font">
+                      Term
+                      <lightning-helptext
+                        class="tooltip"
+                        content="As of the loan commencement or the date certain changes were made to the loan."
+                      ></lightning-helptext>
+                    </p>
+                    <p data-test-id="term" class="fontstyle">
+                      {finAccount.loanTerm}
+                    </p>
                   </div>
                 </div>
               </div>

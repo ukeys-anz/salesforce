@@ -222,4 +222,25 @@ public with sharing class DateTimeUtils {
     Integer days = birthDate.daysBetween(Date.today());
     return Integer.valueOf(days / 365.25);
   }
+  /**
+   * @description Returns the date that is a certain number of days in the future,
+   * adjusted to ensure it falls on a weekday.
+   * @param daysToAdd The number of days to add to the current date.
+   * @return A weekday date.
+   */
+  public static Date getNextWeekdayDate(Integer daysToAdd) {
+    Date futureDate = system.Today().addDays(daysToAdd);
+    // Adjust the futureDate if it falls on a weekend
+    switch on getDay(futureDate) {
+      when 'Sat' {
+        return futureDate.addDays(2);
+      }
+      when 'Sun' {
+        return futureDate.addDays(1);
+      }
+      when else {
+        return futureDate;
+      }
+    }
+  }
 }
