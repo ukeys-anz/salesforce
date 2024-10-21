@@ -12,6 +12,20 @@ private class ResidentialLoanAppActionsTest {
   );
   private static final String SUNSET_STATUS = 'STATE_UNSPECIFIED';
   private static final String NON_SUNSET_STATUS = 'STATE_CAPTURE';
+  private static final Id FAKER_RLA_ID = Lib_FakeIdGenerator.getMockId(
+    ResidentialLoanApplication.getSObjectType()
+  );
+
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider rlaRepoMock;
+
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    rlaRepoMock = Lib_MockProvider.forType(
+        ResidentialLoanApplicationRepository.class
+      )
+      .mock('queryRelatedCreditReferralCases', createMockCaseRelatedToRla());
+  }
 
   @IsTest
   static void testPopulateAssistedBroker() {
@@ -364,5 +378,296 @@ private class ResidentialLoanAppActionsTest {
       loanApplications.size(),
       'Expected size of loanAppList should be 9'
     );
+  }
+  @isTest
+  private static void testProcessCancelledRLARecords() {
+    registerMocks();
+
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      BOHConstants.RLA_CANCELLED_STATUS
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE'
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+
+    List<Case> caseRecordBeforeUpdate = createMockCaseRelatedToRla();
+    Test.startTest();
+    ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
+      newRlaRecords,
+      oldRlaRecords
+    );
+    Test.stopTest();
+
+    List<Case> caseRecordAfterUpdate = (List<Case>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    System.assertEquals(
+      BOHConstants.CASE_CLOSED_CANCELLED_STATUS,
+      caseRecordAfterUpdate[0].Status,
+      'The Case record status should update to Closed Cancelled'
+    );
+  }
+
+  @isTest
+  private static void testprepareCaseWithFieldsUpdatePositive() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = createMockCaseRelatedToRla();
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+
+    Test.startTest();
+    caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      BOHConstants.CASE_CLOSED_CANCELLED_STATUS,
+      caseRecordsToBeUpdated[0].Status,
+      'The Case record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  private static void testprepareCaseWithFieldsUpdatePositiveExpired() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    newRlaRecordsList.get(0)
+      .Cancellation_Reason__c = BOHConstants.RLA_CREDIT_ASSESSMENT_EXPIRED_REASON;
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = createMockCaseRelatedToRla();
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+
+    Test.startTest();
+    caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      BOHConstants.CASE_CLOSED_EXPIRED_STATUS,
+      caseRecordsToBeUpdated[0].Status,
+      'The Case record status should have status as Expired'
+    );
+  }
+
+  @isTest
+  private static void testprepareCaseWithFieldsUpdateNegative() {
+    List<ResidentialLoanApplication> newRlaRecordsList = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    Map<Id, ResidentialLoanApplication> newRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
+    };
+    List<Case> masterCaseList = new List<Case>();
+    List<Case> caseRecordsToBeUpdated = ResidentialLoanApplicationActions.prepareCaseWithFieldsUpdate(
+      masterCaseList,
+      newRlaRecords
+    );
+    System.assertEquals(
+      true,
+      caseRecordsToBeUpdated.isEmpty(),
+      'Case records should not be returned'
+    );
+  }
+
+  private static List<ResidentialLoanApplication> createMockRlaRecord(
+    String status
+  ) {
+    List<ResidentialLoanApplication> rlaRecordsList = new List<ResidentialLoanApplication>();
+    ResidentialLoanApplication rlaRecord = new ResidentialLoanApplication();
+    rlaRecord.Id = FAKER_RLA_ID;
+    rlaRecord.Status = status;
+
+    rlaRecordsList.add(rlaRecord);
+    return rlaRecordsList;
+  }
+
+  private static List<Case> createMockCaseRelatedToRla() {
+    List<Case> strCaselist = new List<Case>();
+
+    Case creditRefCase = TestDataFactory.createCase('Credit_Referral');
+    creditRefCase.Loan_Application__c = FAKER_RLA_ID;
+    strCaselist.add(creditRefCase);
+    return strCaselist;
+  }
+
+  @isTest
+  private static void testfilterRlaAndReturnCancelledStatusRecordsPositive() {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
+      'STATE_CANCELLED'
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE'
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Test.startTest();
+    rlaRecordIds = ResidentialLoanApplicationActions.getCancelledRlaRecordsPostChatter(
+      newRlaRecords,
+      oldRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      true,
+      !rlaRecordIds.isEmpty(),
+      'Residential Loan Application records should be returned'
+    );
+  }
+
+  @isTest
+  private static void testfilterRlaAndReturnCancelledStatusRecordsNegative() {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    List<ResidentialLoanApplication> newRlaRecords = createMockRlaRecord(
+      'STATE_UNSPECIFIED'
+    );
+    List<ResidentialLoanApplication> oldRlaRecordsList = createMockRlaRecord(
+      'STATE_CAPTURE'
+    );
+    Map<Id, ResidentialLoanApplication> oldRlaRecords = new Map<Id, ResidentialLoanApplication>{
+      oldRlaRecordsList.get(0).Id => oldRlaRecordsList.get(0)
+    };
+
+    Test.startTest();
+    rlaRecordIds = ResidentialLoanApplicationActions.getCancelledRlaRecordsPostChatter(
+      newRlaRecords,
+      oldRlaRecords
+    );
+
+    Test.stopTest();
+
+    System.assertEquals(
+      true,
+      rlaRecordIds.isEmpty(),
+      'Residential Loan Application records should not be returned'
+    );
+  }
+
+  @isTest
+  static void testCancelResidentialLoanApplicationSuccess() {
+    registerMocks();
+    dmlRepoMock.mock(
+      'doUpdate',
+      TestUtil.getMockSaveResult('{"success":true}')
+    );
+
+    Test.setMock(HttpCalloutMock.class, new MockCancelLoanAppCallout());
+    Map<String, String> rlaObject = new Map<String, String>{
+      'requestId' => '1234',
+      'ocvId' => '12345',
+      'Cancellation_Reason__c' => 'Credit Assessment expired',
+      'Other_Cancellation_Reason__c' => 'test',
+      'recordId' => Lib_FakeIdGenerator.getMockId(
+        ResidentialLoanApplication.SObjectType
+      )
+    };
+
+    Test.startTest();
+    String checkResult = ResidentialLoanApplicationActions.cancelResidentialLoanApplication(
+      rlaObject
+    );
+    Test.stopTest();
+
+    ResidentialLoanApplication rla = (ResidentialLoanApplication) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('record');
+
+    Assert.areEqual(
+      'success',
+      checkResult,
+      'Residential Loan Application should be cancelled'
+    );
+    Assert.areEqual(
+      rla.Cancellation_Reason__c,
+      'Credit Assessment expired',
+      'Residential Loan Application should be updated with cancellation reason as Credit Assessment expired'
+    );
+  }
+
+  @isTest
+  static void testCancelResidentialLoanApplicationFailure() {
+    Test.setMock(HttpCalloutMock.class, new MockCancelLoanAppCalloutFailure());
+    Map<String, String> rlaObject = new Map<String, String>{
+      'requestId' => '1234',
+      'ocvId' => '12345',
+      'Cancellation_Reason__c' => 'Credit Assessment expired',
+      'Other_Cancellation_Reason__c' => 'test',
+      'recordId' => Lib_FakeIdGenerator.getMockId(
+        ResidentialLoanApplication.SObjectType
+      )
+    };
+    BOHService s = new BOHService();
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + rlaObject.get('ocvId'),
+      AuthServiceTest.IDTESTVALUE
+    );
+    Test.startTest();
+    HttpCalloutResponse response = s.cancelResidentialLoanApp(
+      rlaObject.get('requestId'),
+      rlaObject.get('ocvId')
+    );
+    Test.stopTest();
+    System.debug(response);
+    Assert.areEqual(response.statusCode, 500, 'Status Code should be 500');
+  }
+
+  /**
+   * @description Mock cancel loan success api callout
+   */
+  public class MockCancelLoanAppCallout implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(200);
+      res.setHeader('Content-Type', 'application/json');
+      return res;
+    }
+  }
+
+  /**
+   * @description Mock cancel loan failure api callout
+   */
+  public class MockCancelLoanAppCalloutFailure implements HttpCalloutMock {
+    /**
+     * @description mock response for callout
+     * @param req incoming request
+     * @return HTTPResponse invalid response
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      HTTPResponse res = new HTTPResponse();
+      res.setStatusCode(500);
+      res.setHeader('Content-Type', 'application/json');
+      return res;
+    }
   }
 }

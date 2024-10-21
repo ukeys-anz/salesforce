@@ -1351,7 +1351,9 @@
         "IAL_Status__c",
         "Context_Id__c",
         "Context_Type__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Credit_Assessment_Expiry_Date__c",
+        "Has_Credit_Assessment_Expired__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -3964,7 +3966,10 @@
         "Status",
         "Credit_Reassess_Required__c",
         "Loan_Term__c",
+        "Other_Cancellation_Reason__c",
+        "Cancellation_Reason__c",
         "InterestRate"
+
       ],
       "IA-2415997": ["SOP_Id__c"],
       "IA-2530753": [
