@@ -157,7 +157,7 @@ public with sharing class COBCaseStatusPathControllerTest {
 
     Test.startTest();
     try {
-      COBCaseStatusPathController.COBCaseUpdateStatus cobCaseUpdateStatus = COBCaseStatusPathController.updateStatus(
+        COBCaseStatusPathController.updateStatus(
         COBCaseConstants.COB_DAON_FALLOUT_STATUS,
         cobIdOpsCase,
         true
