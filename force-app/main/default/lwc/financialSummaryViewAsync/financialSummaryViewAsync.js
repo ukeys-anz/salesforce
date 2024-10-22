@@ -133,7 +133,7 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.countTotalBalance++;
         this.showDebitBalValue = true;
         this.showDebitBalOtherValue = false;
-        this.showDebitBalValue = this.financialSummaryData.totalDebitBalance;
+        this.totalDebitBalance = this.financialSummaryData.totalDebitBalance;
         this.showCreditBalValue = true;
         this.showCreditBalOtherValue = false;
         this.totalCreditBalance = this.financialSummaryData.totalCreditBalance;
@@ -150,7 +150,7 @@ export default class financialSummaryViewAsync extends LightningElement {
         this.countTotalBalance++;
         this.showDebitBalValue = false;
         this.showDebitBalOtherValue = true;
-        this.showDebitBalValue = this.financialSummaryData.totalDebitBalanceAck;
+        this.totalDebitOtherBalance = this.financialSummaryData.totalDebitBalanceAck;
         this.showCreditBalValue = false;
         this.showCreditBalOtherValue = true;
         this.totalCreditBalance =
