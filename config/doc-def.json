@@ -612,6 +612,7 @@
     },
     {
       "name": "Odaseva User",
+      "role": "ANZ",
       "profile": "Minimum Access - External Apps",
       "permissionsetgroups": ["Muted_Backup_and_Restore"],
       "permissionsets": [
@@ -619,7 +620,11 @@
         "Password_Never_Expires",
         "Disable_MFA",
         "Query_All_Files",
-        "Manage_Users"
+        "Manage_Users",
+        "FinancialServicesCloudExtension",
+        "FinancialServicesCloudStandard",
+        "Data_Disposal",
+        "Data_Disposal_CMOS"
       ],
       "type": "system"
     },
