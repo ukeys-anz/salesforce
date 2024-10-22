@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniDataTransform xmlns="http://soap.sforce.com/2006/04/metadata">
+    <active>false</active>
+    <assignmentRulesUsed>false</assignmentRulesUsed>
+    <deletedOnSuccess>false</deletedOnSuccess>
+    <errorIgnored>false</errorIgnored>
+    <fieldLevelSecurityEnabled>false</fieldLevelSecurityEnabled>
+    <inputType>JSON</inputType>
+    <name>ResolutionPathwayDataMapper</name>
+    <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
+    <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>ResolutionPathwayDataMapperCustom9664</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ResolutionPathwayDataMapperCustom2569</globalKey>
+        <inputFieldName>UserId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>OwnerId</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ResolutionPathwayDataMapperCustom7604</globalKey>
+        <inputFieldName>Status</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>AssessmentStatus</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ResolutionPathwayDataMapperCustom8583</globalKey>
+        <inputFieldName>dateToday</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>EffectiveDateTime</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ResolutionPathwayDataMapperCustom9505</globalKey>
+        <inputFieldName>CaseId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>CaseId</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>$Vlocity.UserId</formulaConverted>
+        <formulaExpression>$Vlocity.UserId</formulaExpression>
+        <formulaResultPath>UserId</formulaResultPath>
+        <formulaSequence>1.0</formulaSequence>
+        <globalKey>ResolutionPathwayDataMapperCustom9035</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>&apos;In/\/\/Progress&apos;</formulaConverted>
+        <formulaExpression>&apos;In Progress&apos;</formulaExpression>
+        <formulaResultPath>Status</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>ResolutionPathwayDataMapperCustom370</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ResolutionPathwayDataMapperCustom6364</globalKey>
+        <inputFieldName>Name</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Name</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| TODAY</formulaConverted>
+        <formulaExpression>TODAY()</formulaExpression>
+        <formulaResultPath>dateToday</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>ResolutionPathwayDataMapperCustom9092</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <outputType>SObject</outputType>
+    <previewJsonData>{
+  &quot;Name&quot; : &quot;Test1234&quot;,
+  &quot;customButtonsList&quot; : {
+    &quot;beginPhoneCallButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Call Answered&quot;,
+      &quot;icon&quot; : &quot;utility:call&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Unable to continue call&quot;,
+      &quot;icon&quot; : &quot;utility:end_call&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Voicemail&quot;,
+      &quot;icon&quot; : &quot;utility:voicemail_drop&quot;,
+      &quot;order&quot; : 3
+    }, {
+      &quot;name&quot; : &quot;Email&quot;,
+      &quot;icon&quot; : &quot;utility:email_open&quot;,
+      &quot;order&quot; : 4
+    }, {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 5
+    } ],
+    &quot;choosePathwayButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 1
+    } ],
+    &quot;additionalIssuesButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Simple additional issues&quot;,
+      &quot;icon&quot; : &quot;utility:rows&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Complex additional issues&quot;,
+      &quot;icon&quot; : &quot;utility:standard_objects&quot;,
+      &quot;order&quot; : 2
+    } ],
+    &quot;financialRemedyButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Offer financial remedy&quot;,
+      &quot;icon&quot; : &quot;utility:moneybag&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Next steps for financial remedy&quot;,
+      &quot;icon&quot; : &quot;utility:program_cohort&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Decline financial remedy&quot;,
+      &quot;icon&quot; : &quot;utility:close&quot;,
+      &quot;order&quot; : 3
+    } ],
+    &quot;endPhoneCallButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Resolved: outcome accepted&quot;,
+      &quot;icon&quot; : &quot;utility:like&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Resolved: outcome dissatisfactory&quot;,
+      &quot;icon&quot; : &quot;utility:dislike&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Unresolved: call back/email&quot;,
+      &quot;icon&quot; : &quot;utility:close&quot;,
+      &quot;order&quot; : 3
+    } ],
+    &quot;sendWrittenResponseButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Unsuccessful customer contact&quot;,
+      &quot;icon&quot; : &quot;utility:missed_call&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Resolved: customer dissatisfied&quot;,
+      &quot;icon&quot; : &quot;utility:dislike&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Written response requested/required&quot;,
+      &quot;icon&quot; : &quot;utility:email&quot;,
+      &quot;order&quot; : 3
+    }, {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 4
+    } ],
+    &quot;closeCaseButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Simple additional issues&quot;,
+      &quot;icon&quot; : &quot;utility:picklist_type&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 2
+    } ]
+  },
+  &quot;BeginPhonecall&quot; : {
+    &quot;TalkTrackButtons&quot; : {
+      &quot;selectedButtonName&quot; : &quot;Unable to continue call&quot;
+    },
+    &quot;CallAnsweredBlock&quot; : {
+      &quot;Email&quot; : &quot;xyz@abc.com&quot;
+    }
+  },
+  &quot;rpCaseComments&quot; : null,
+  &quot;ChoosePathway&quot; : {
+    &quot;TalkTrackChoosePathway&quot; : {
+      &quot;selectedButtonName&quot; : &quot;Case comment templates&quot;
+    },
+    &quot;IssueTypeButtons&quot; : {
+      &quot;selectedButtonName&quot; : &quot;Call queues / wait time&quot;
+    }
+  },
+  &quot;confirmButtonList&quot; : null,
+  &quot;Confirm&quot; : null,
+  &quot;Apologise&quot; : null,
+  &quot;apologiseButtonList&quot; : null,
+  &quot;ProvideInformation&quot; : null,
+  &quot;provideInfoButtonList&quot; : null,
+  &quot;ConfirmCallQueue&quot; : { },
+  &quot;ApologiseCQ&quot; : { },
+  &quot;ProvideInformationCQ&quot; : { },
+  &quot;ConsiderAdditionalIssues&quot; : {
+    &quot;TalkTrackAddtionalIssue&quot; : {
+      &quot;selectedButtonName&quot; : null
+    }
+  },
+  &quot;Considerfinancialremedy&quot; : {
+    &quot;CustomLWC3&quot; : {
+      &quot;selectedButtonName&quot; : null
+    }
+  },
+  &quot;EndPhoneCall&quot; : {
+    &quot;EndPhoneCallButtons&quot; : {
+      &quot;selectedButtonName&quot; : null
+    }
+  },
+  &quot;Sendwrittenresponse&quot; : {
+    &quot;CustomLWC5&quot; : {
+      &quot;selectedButtonName&quot; : null
+    }
+  },
+  &quot;CloseCase&quot; : {
+    &quot;CustomLWC7&quot; : {
+      &quot;selectedButtonName&quot; : null
+    }
+  },
+  &quot;ContextId&quot; : &quot;5009p00000K6l7CAAR&quot;,
+  &quot;omniscriptId&quot; : &quot;0jN9p000000P6DVEA0&quot;,
+  &quot;language&quot; : &quot;English&quot;,
+  &quot;type&quot; : &quot;Case&quot;,
+  &quot;runMode&quot; : &quot;preview&quot;,
+  &quot;sId&quot; : &quot;0jN9p000000P6DVEA0&quot;,
+  &quot;theme&quot; : &quot;lightning&quot;,
+  &quot;subType&quot; : &quot;ResolutionPathways&quot;,
+  &quot;timeStamp&quot; : &quot;2024-09-12T06:49:19.426Z&quot;,
+  &quot;userProfile&quot; : &quot;System Administrator&quot;,
+  &quot;userTimeZoneName&quot; : &quot;Australia/Sydney&quot;,
+  &quot;userTimeZone&quot; : &quot;600&quot;,
+  &quot;userCurrencyCode&quot; : &quot;AUD&quot;,
+  &quot;userName&quot; : &quot;divyanshi.tyagi@anzx.com.cmosadev&quot;,
+  &quot;userId&quot; : &quot;005Oa0000004lQ9IAI&quot;,
+  &quot;omniProcessId&quot; : &quot;0jN9p000000P6DVEA0&quot;,
+  &quot;localTimeZoneName&quot; : &quot;Asia/Calcutta&quot;,
+  &quot;CustomerType&quot; : &quot;2&quot;,
+  &quot;LastName&quot; : &quot;Cena&quot;,
+  &quot;CaseId&quot; : &quot;5009p00000K6l7CAAR&quot;,
+  &quot;CaseNumber&quot; : &quot;03297932&quot;,
+  &quot;UserId&quot; : &quot;005Oa0000004lQ9IAI&quot;,
+  &quot;Phone&quot; : &quot;9876543210&quot;,
+  &quot;FirstName&quot; : &quot;John&quot;,
+  &quot;CustomerNumber&quot; : &quot;1234634567&quot;,
+  &quot;UserName&quot; : &quot;Divyanshi Tyagi&quot;,
+  &quot;PathwayExists&quot; : true
+}</previewJsonData>
+    <processSuperBulk>false</processSuperBulk>
+    <responseCacheTtlMinutes>0.0</responseCacheTtlMinutes>
+    <rollbackOnError>false</rollbackOnError>
+    <sourceObject>json</sourceObject>
+    <sourceObjectDefault>false</sourceObjectDefault>
+    <synchronousProcessThreshold>0.0</synchronousProcessThreshold>
+    <type>Load</type>
+    <uniqueName>ResolutionPathwayDataMapper_1</uniqueName>
+    <versionNumber>1.0</versionNumber>
+    <xmlDeclarationRemoved>false</xmlDeclarationRemoved>
+</OmniDataTransform>

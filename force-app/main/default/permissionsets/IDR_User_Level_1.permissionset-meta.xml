@@ -4,6 +4,10 @@
         <apexClass>IDRCaseActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <enabled>true</enabled>
+        <name>Resolution_pathway_enablement__mdt</name>
+    </customMetadataTypeAccesses>
     <customPermissions>
         <name>IDR_Level_1</name>
         <enabled>true</enabled>

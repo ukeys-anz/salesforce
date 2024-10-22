@@ -3900,6 +3900,9 @@
         "LastModifiedDate"
       ]
     },
+    "Resolution_pathway_enablement__mdt": {
+      "IA-2453595": ["Is_Active__c"]
+    },
     "RecordType": {
       "IA-2468715": [
         "CreatedById",
