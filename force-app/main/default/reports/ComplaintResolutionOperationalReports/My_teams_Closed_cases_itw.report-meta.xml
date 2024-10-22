@@ -79,7 +79,7 @@
         <value>1</value>
     </params>
     <reportType>CaseList</reportType>
-    <scope>organization</scope>
+    <scope>genericteam</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
