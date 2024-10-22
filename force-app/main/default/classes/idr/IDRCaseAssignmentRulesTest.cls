@@ -113,7 +113,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
       new Map<Id, Case>{ oldcase.Id => oldcase }
     );
     Test.stopTest();
-    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('updateRecords')
+    List<Case> cases = (List<Case>) dmlRepoMock.getHistory('doUpdate')
       .getParam('records');
     System.assertEquals(1, cases.size(), '1 Case should be updated');
     System.assertEquals(
@@ -247,6 +247,33 @@ private with sharing class IDRCaseAssignmentRulesTest {
       'Owner should be IDR_Hardship'
     );
     System.assertNotEquals(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @isTest
+  private static void testOwnerisIDRCollections() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Type = '17';
+    newCase.OwnerId = testUserId;
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_Collections').Id,
+      'Owner should be IDR_Collections'
+    );
+    Assert.areNotEqual(
       workbasketId,
       newCase.OwnerId,
       'Owner should be updated and should not be the case owner'
