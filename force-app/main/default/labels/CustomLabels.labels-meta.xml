@@ -63,8 +63,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Reactive logging keywords</shortDescription>
-        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S
-            LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER,AUS</value>
+        <value>TAX,TIN,TFN,FILE,ATO,SUPER,SUPERANNUATION,EMPLOYMENT,PASSPORT,PP,DL,DRIVER&apos;S LICENCE,LICENCE,DRIVER&apos;S LICENSE,LICENSE,MEDICARE,CENTRELINK CRN,DVA NUMBER,AUS</value>
     </labels>
     <labels>
         <fullName>AccountAPIUpliftedToV1</fullName>
@@ -213,8 +212,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Chatter Post Message Body</shortDescription>
-        <value>New lead #{LeadId}# available to action.Please check your leads list view.
-            #{LeadListViewId}#</value>
+        <value>New lead #{LeadId}# available to action.Please check your leads list view. #{LeadListViewId}#</value>
     </labels>
     <labels>
         <fullName>CCRM_CreatePartyWorkStation</fullName>
@@ -283,8 +281,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Expiry Reminder Message.</shortDescription>
-        <value>You have a lead #{LeadId}# approaching expiry. Please check your leads list view
-            #{LeadListViewId}#.</value>
+        <value>You have a lead #{LeadId}# approaching expiry. Please check your leads list view #{LeadListViewId}#.</value>
     </labels>
     <labels>
         <fullName>CCRM_ListViewName</fullName>
@@ -308,8 +305,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_NonEditableLeadOutcome</shortDescription>
-        <value>&apos;No Opportunity&apos;, &apos;Referred&apos;, &apos;Expired&apos;,
-            &apos;Opportunity Identified&apos;</value>
+        <value>&apos;No Opportunity&apos;, &apos;Referred&apos;, &apos;Expired&apos;, &apos;Opportunity Identified&apos;</value>
     </labels>
     <labels>
         <fullName>CCRM_ExtendLeadExpiryDateWhenResponseLogCreated</fullName>
@@ -363,8 +359,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CdmLimitReachedErrorMessage</shortDescription>
-        <value>Temporary block or Permanent block flag is active on customer. Please contact your
-            admin.</value>
+        <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
     </labels>
     <labels>
         <fullName>DowngradeUpgradeEnabled</fullName>
@@ -386,8 +381,7 @@
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Xpression will use this address to send letters to Xpression recipient
-            address</shortDescription>
+        <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
         <value>Yourfeedback@anz.com</value>
     </labels>
     <labels>
@@ -419,8 +413,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Error message if a customer is associated with more than 1 Joint Account.</shortDescription>
-        <value>Failed to perform account closure because there are more than one Joint Account
-            associated with the customer</value>
+        <value>Failed to perform account closure because there are more than one Joint Account associated with the customer</value>
     </labels>
     <labels>
         <fullName>MS_Account_Table</fullName>
@@ -540,8 +533,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Customer</shortDescription>
-        <value>
-            callout:Mulesoft/sfdc/customers/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
+        <value>callout:Mulesoft/sfdc/customers/v2/public/customers/search?relationship_manager_required=true&amp;all_accounts_required=true</value>
     </labels>
     <labels>
         <fullName>MS_Get_CustomerChatChannels</fullName>
@@ -774,8 +766,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Trailhead Assignment List Trail Icon</shortDescription>
-        <value>
-            https://trailhead-web.s3.amazonaws.com/uploads/users/5396019/photos/thumb_030804d3576dab0cdc2a558055816208e421312a9d1495117d57928ef380d7f2.png?updatedAt=20180906113753</value>
+        <value>https://trailhead-web.s3.amazonaws.com/uploads/users/5396019/photos/thumb_030804d3576dab0cdc2a558055816208e421312a9d1495117d57928ef380d7f2.png?updatedAt=20180906113753</value>
     </labels>
     <labels>
         <fullName>IDR_Excluded_OCV_ProductTypes</fullName>
@@ -813,32 +804,28 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Interaction_User_Created_Error_Message</shortDescription>
-        <value>You already have an appointment at this date and time. Please select another date and
-            time:</value>
+        <value>You already have an appointment at this date and time. Please select another date and time:</value>
     </labels>
     <labels>
         <fullName>Interaction_Coach_Created_Error_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Interaction_Coach_Created_Error_Message</shortDescription>
-        <value>The customer already has an appointment at this date and time. Please select another
-            date and time.</value>
+        <value>The customer already has an appointment at this date and time. Please select another date and time.</value>
     </labels>
     <labels>
         <fullName>Coach_Existing_Interaction_Error_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Coach_Existing_Interaction_Error_Message</shortDescription>
-        <value>You already have an appointment at this date and time. Please select another date and
-            time.</value>
+        <value>You already have an appointment at this date and time. Please select another date and time.</value>
     </labels>
     <labels>
         <fullName>Other_Coach_Existing_Interaction_Error_Message</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Other_Coach_Existing_Interaction_Error_Message</shortDescription>
-        <value>already have an appointment at this date and time. Please select another date and
-            time.</value>
+        <value>already have an appointment at this date and time. Please select another date and time.</value>
     </labels>
     <labels>
         <fullName>Appointment_Call_Channel_Message</fullName>
@@ -852,8 +839,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Appointment Commitment Full</shortDescription>
-        <value>This appointment slot is no longer available, please choose a different date and
-            time.</value>
+        <value>This appointment slot is no longer available, please choose a different date and time.</value>
     </labels>
     <labels>
         <fullName>Appointment_Video_Channel_Message</fullName>
@@ -912,255 +898,208 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status New</shortDescription>
-        <value>Nothing to do for now... we’ve got your dispute. If we need more information, we’ll
-            get in touch with you.</value>
+        <value>Nothing to do for now... we’ve got your dispute. If we need more information, we’ll get in touch with you.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_CheckBlockedCard</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-CheckBlockedCard</shortDescription>
-        <value>It looks like your card is still in use. Please lock, or cancel and replace, your
-            card so we can continue our investigation.</value>
+        <value>It looks like your card is still in use. Please lock, or cancel and replace, your card so we can continue our investigation.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_CustomerResponse</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-CustomerResponse</shortDescription>
-        <value>We’re waiting to hear from you. Please check your email and get in touch within 7
-            days or your dispute may be closed.</value>
+        <value>We’re waiting to hear from you. Please check your email and get in touch within 7 days or your dispute may be closed.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_DisputeQuestionnaire</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-DisputeQuestionnaire</shortDescription>
-        <value>Our investigation is still underway. We’re hoping to get to the bottom of this within
-            30 days, but it may take up to 60 days if things get complicated.</value>
+        <value>Our investigation is still underway. We’re hoping to get to the bottom of this within 30 days, but it may take up to 60 days if things get complicated.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_DisputeResponse</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-DisputeResponse</shortDescription>
-        <value>While our investigation is underway, we’ve added a provisional credit to your
-            account. It should be available in 3-5 business days. We may reverse this credit if the
-            outcome isn’t in your favour.</value>
+        <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_PreArbInbound</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-PreArbInbound</shortDescription>
-        <value>While our investigation is underway, we’ve added a provisional credit to your
-            account. It should be available in 3-5 business days. We may reverse this credit if the
-            outcome isn’t in your favour.</value>
+        <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_PreArbitrationInbound</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-PreArbitrationInbound</shortDescription>
-        <value>While our investigation is underway, we’ve added a provisional credit to your
-            account. It should be available in 3-5 business days. We may reverse this credit if the
-            outcome isn’t in your favour.</value>
+        <value>While our investigation is underway, we’ve added a provisional credit to your account. It should be available in 3-5 business days. We may reverse this credit if the outcome isn’t in your favour.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Pending_QualifyDispute</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Pending-QualifyDispute</shortDescription>
-        <value>Our investigation is still underway. We’re hoping to get to the bottom of this within
-            30 days, but it may take up to 60 days if things get complicated.</value>
+        <value>Our investigation is still underway. We’re hoping to get to the bottom of this within 30 days, but it may take up to 60 days if things get complicated.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_AcquirerLiable</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-AcquirerLiable</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and
-            should be in your account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_ArbIssuerLiable</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-ArbIssuerLiable</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and
-            should be in your account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_CardholderLiable</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-CardholderLiable</shortDescription>
-        <value>We’ve finished our investigation and will send you an email with more information and
-            our contact details.</value>
+        <value>We’ve finished our investigation and will send you an email with more information and our contact details.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Completed</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Completed</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and
-            should be in your account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_CreditTransaction</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-CreditTransaction</shortDescription>
-        <value>Unfortunately, the dispute hasn’t been found in your favour as it was raised on the
-            credit or refund. If you would still like to dispute the transaction, please lodge a new
-            dispute on the initial charge.
-            Feel free to send us a message from the Support tab if you have any questions, or would
-            like to raise any issues or escalate any concerns.</value>
+        <value>Unfortunately, the dispute hasn’t been found in your favour as it was raised on the credit or refund. If you would still like to dispute the transaction, please lodge a new dispute on the initial charge.
+Feel free to send us a message from the Support tab if you have any questions, or would like to raise any issues or escalate any concerns.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_CustomerFavour</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-CustomerFavour</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and
-            should be in your account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Declined</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Declined</shortDescription>
-        <value>Unfortunately, the dispute hasn’t been found in your favour. We&apos;ll send you an
-            email with more information and ways to raise any issues or escalate any concerns.</value>
+        <value>Unfortunately, the dispute hasn’t been found in your favour. We&apos;ll send you an email with more information and ways to raise any issues or escalate any concerns.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Exception</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Exception</shortDescription>
-        <value>It looks like a refund has already been issued. We&apos;ll send you an email with the
-            refund information and our contact details.
-            Feel free to reach out to us if you have any questions.</value>
+        <value>It looks like a refund has already been issued. We&apos;ll send you an email with the refund information and our contact details.
+Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_MatchingCredit</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MatchingCredit</shortDescription>
-        <value>It looks like the merchant has already issued a refund. If you have any questions,
-            feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050
-            7895 (9am–5pm AEST/AEDT on business days).</value>
+        <value>It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_MerchantCredit</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MerchantCredit</shortDescription>
-        <value>It looks like the merchant has already issued a refund. You can find the credit
-            information and our contact details in the last email we sent you.
+        <value>It looks like the merchant has already issued a refund. You can find the credit information and our contact details in the last email we sent you.
 
-            Feel free to reach out to us if you have any questions.</value>
+Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_MerchantCredited</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-MerchantCredited</shortDescription>
-        <value>It looks like the merchant has already issued a refund. If you have any questions,
-            feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050
-            7895 (9am–5pm AEST/AEDT on business days).</value>
+        <value>It looks like the merchant has already issued a refund. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_OrderDetailsReviewed</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-OrderDetailsReviewed</shortDescription>
-        <value>It looks like a refund has already been issued. We&apos;ll send you an email with the
-            refund information and our contact details.
-            Feel free to reach out to us if you have any questions.</value>
+        <value>It looks like a refund has already been issued. We&apos;ll send you an email with the refund information and our contact details.
+Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_PreArbAccepted</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-PreArbAccepted</shortDescription>
-        <value>We&apos;ve finished our investigation and will send you an email with more
-            information and our contact details.</value>
+        <value>We&apos;ve finished our investigation and will send you an email with more information and our contact details.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_PreArbGrantedPartial</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-PreArbGrantedPartial</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and
-            should be in your account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_PreArbRejected</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-PreArbRejected</shortDescription>
-        <value>We’ve finished our investigation. A refund is on the way and should be in your
-            account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_PreCompAccepted</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-PreCompAccepted</shortDescription>
-        <value>Great news, the dispute has been found in your favour. A refund is on the way and
-            should be in your account within 3 business days.
-            We&apos;ll send you an email with more information and our contact details. Feel free to
-            reach out to us if you have any questions.</value>
+        <value>Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_TalkOff</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-TalkOff</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any
-            questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61
-            3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_TransactionRecognized</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-TransactionRecognized</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any
-            questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61
-            3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Withdrawn</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Withdrawn</shortDescription>
-        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any
-            questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61
-            3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
+        <value>Your dispute has been withdrawn, so we’ve stopped our investigation. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>PEGA_Dispute_Status_Resolved_Writeoff</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>PEGA Dispute Status Resolved-Writeoff</shortDescription>
-        <value>We’ve finished our investigation. A refund is on the way and should be in your
-            account within 3 business days. If you have any questions, feel free to email us at
-            ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on
-            business days).</value>
+        <value>We’ve finished our investigation. A refund is on the way and should be in your account within 3 business days. If you have any questions, feel free to email us at ANZPlusCardDisputes@anz.com or give us a call on +61 3 4050 7895 (9am–5pm AEST/AEDT on business days).</value>
     </labels>
     <labels>
         <fullName>Regex_Email</fullName>
@@ -1270,8 +1209,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_ConversationGuideBody</shortDescription>
-        <value>Check the guidance provided for this Campaign/Lead on Campaign Leads. For additional
-            help check Customer Conversation Guides.</value>
+        <value>Check the guidance provided for this Campaign/Lead on Campaign Leads. For additional help check Customer Conversation Guides.</value>
     </labels>
     <labels>
         <fullName>CCRM_WhatHappensNextHeading</fullName>
@@ -1287,8 +1225,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_SelectResponsePrompt</shortDescription>
-        <value>Select a Response Status and Outcome Reason to document your activity and progress
-            the Lead.</value>
+        <value>Select a Response Status and Outcome Reason to document your activity and progress the Lead.</value>
     </labels>
     <labels>
         <fullName>CardsAccountTypeForSorting</fullName>
@@ -1335,8 +1272,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>New Lead from Source Message.</shortDescription>
-        <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}. Please check
-            it.</value>
+        <value>New Lead #{LeadId}# is now available from #{Lead.Lead_Originator__c}. Please check it.</value>
     </labels>
     <labels>
         <fullName>NotfiyInprogressLead2DaysPriorExpiry</fullName>
@@ -1360,8 +1296,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Expiry Reminder Message.</shortDescription>
-        <value>Your Lead - #{LeadId}# is ready to be converted into Opportunity, please convert your
-            Lead prior expiry.</value>
+        <value>Your Lead - #{LeadId}# is ready to be converted into Opportunity, please convert your Lead prior expiry.</value>
     </labels>
     <labels>
         <fullName>NotfiyOutcomeLead1DayPriorExpiry</fullName>
@@ -1369,8 +1304,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Expiry Reminder Message.</shortDescription>
-        <value>A Lead - #{LeadId}# within your team is ready to be converted into Opportunity,
-            please arrange for Lead to be converted prior expiry.</value>
+        <value>A Lead - #{LeadId}# within your team is ready to be converted into Opportunity, please arrange for Lead to be converted prior expiry.</value>
     </labels>
     <labels>
         <fullName>CCRM_LeadConversionValidationHeading</fullName>
@@ -1394,8 +1328,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_LeadDetailsSubText</shortDescription>
-        <value>Before this lead can be converted, a customer must be added as a Related Party. A
-            search must be conducted based on the information provided in the Lead.</value>
+        <value>Before this lead can be converted, a customer must be added as a Related Party. A search must be conducted based on the information provided in the Lead.</value>
     </labels>
     <labels>
         <fullName>CCRM_LeadConversionSearchPartySubText</fullName>
@@ -1403,10 +1336,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_LeadConversionSearchPartySubText</shortDescription>
-        <value>Before this lead can be converted, a customer must be added as a Related Party.
-            Review and select from possible matches below if correct or select &apos;No match
-            available&apos;, Where no match is found, a new Customer will be created based on the
-            information provided in the Lead.</value>
+        <value>Before this lead can be converted, a customer must be added as a Related Party. Review and select from possible matches below if correct or select &apos;No match available&apos;, Where no match is found, a new Customer will be created based on the information provided in the Lead.</value>
     </labels>
     <labels>
         <fullName>ML_DefaultLeadExpiryDate</fullName>
@@ -1486,9 +1416,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Lead_Conversion_Default_Fields</shortDescription>
-        <value>Id, FinServ__RelatedAccount__r.Name, FirstName, LastName, Title__c, Work_Phone__c,
-            Email, MobilePhone, Home_Phone__c, RecordTypeId, (SELECT CampaignId FROM
-            CampaignMembers)</value>
+        <value>Id, FinServ__RelatedAccount__r.Name, FirstName, LastName, Title__c, Work_Phone__c, Email, MobilePhone, Home_Phone__c, RecordTypeId, (SELECT CampaignId FROM CampaignMembers)</value>
     </labels>
     <labels>
         <fullName>LightHouse_Get_List_Consent_History</fullName>
@@ -1504,9 +1432,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MLCRM_LeadDetailsSubText</shortDescription>
-        <value>Before this lead can be converted, a customer must be assigned. A search will be
-            conducted based on the information provided in the Lead. If no existing Customer is
-            found, a new Customer will be created.</value>
+        <value>Before this lead can be converted, a customer must be assigned. A search will be conducted based on the information provided in the Lead. If no existing Customer is found, a new Customer will be created.</value>
     </labels>
     <labels>
         <fullName>MLCRM_AmountValidationError</fullName>
@@ -1554,8 +1480,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_LeadQualityRequiredValues</shortDescription>
-        <value>[&quot;Accepted&quot;,&quot;Customer Declined&quot;,&quot;Customer Not
-            Contacted&quot;,&quot;Referral Made&quot;]</value>
+        <value>[&quot;Accepted&quot;,&quot;Customer Declined&quot;,&quot;Customer Not Contacted&quot;,&quot;Referral Made&quot;]</value>
     </labels>
     <labels>
         <fullName>ML_LeadQualityRequiredValues</fullName>
@@ -1563,9 +1488,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ML LeadQualityRequiredValues</shortDescription>
-        <value>[&quot;Accepted&quot;,&quot;Customer Declined&quot;,&quot;Customer Not
-            Contacted&quot;,&quot;Referral Made&quot;,&quot;Lead Not
-            Presented&quot;,&quot;Appointment Booked&quot;]</value>
+        <value>[&quot;Accepted&quot;,&quot;Customer Declined&quot;,&quot;Customer Not Contacted&quot;,&quot;Referral Made&quot;,&quot;Lead Not Presented&quot;,&quot;Appointment Booked&quot;]</value>
     </labels>
     <labels>
         <fullName>ML_ValidateOwnerAssigment</fullName>
@@ -1621,9 +1544,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MLCRM_LeadConversionMaintainPartySubText</shortDescription>
-        <value>Based on information provided in the Lead, an existing customer has been identified.
-            Continuing will assign this customer to the Lead and new Opportunity. Cancel to exit the
-            process and return to the Lead.</value>
+        <value>Based on information provided in the Lead, an existing customer has been identified. Continuing will assign this customer to the Lead and new Opportunity. Cancel to exit the process and return to the Lead.</value>
     </labels>
     <labels>
         <fullName>CCRM_ExistingCustomerError</fullName>
@@ -1631,8 +1552,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_ExistingCustomerError</shortDescription>
-        <value>Related Party - Please select a valid Party for Conversion. This includes
-            Organisation, Individual, CLG, Prospect Customers.</value>
+        <value>Related Party - Please select a valid Party for Conversion. This includes Organisation, Individual, CLG, Prospect Customers.</value>
     </labels>
     <labels>
         <fullName>CCRM_AddressError</fullName>
@@ -1680,8 +1600,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_OpenTasksOnOpportunityCloseError</shortDescription>
-        <value>All tasks will need to be closed with the right status in-order to close the
-            opportunity</value>
+        <value>All tasks will need to be closed with the right status in-order to close the opportunity</value>
     </labels>
     <labels>
         <fullName>CCRM_OpenTasksOnOpportunityError</fullName>
@@ -1689,8 +1608,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_OpenTasksOnOpportunityError</shortDescription>
-        <value>All tasks will need to be closed with the right status in-order to change opportunity
-            stage</value>
+        <value>All tasks will need to be closed with the right status in-order to change opportunity stage</value>
     </labels>
     <labels>
         <fullName>CCRM_ExistingCustomerCollectionError</fullName>
@@ -1698,8 +1616,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM_ExistingCustomerCollectionError</shortDescription>
-        <value>One or more of this customer&apos;s accounts is currently being managed by the
-            collections team</value>
+        <value>One or more of this customer&apos;s accounts is currently being managed by the collections team</value>
     </labels>
     <labels>
         <fullName>CCRM_ExistingCustomerHardshipError</fullName>
@@ -1731,8 +1648,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_MaintainParty_API_Mock_URL</shortDescription>
-        <value>
-            https://anypoint.mulesoft.com/mocking/api/v1/links/2e64b877-0eb8-4a90-8a80-0b4717a5f0e4/customers/individuals</value>
+        <value>https://anypoint.mulesoft.com/mocking/api/v1/links/2e64b877-0eb8-4a90-8a80-0b4717a5f0e4/customers/individuals</value>
     </labels>
     <labels>
         <fullName>MS_MaintainParty_API_Version</fullName>
@@ -1748,9 +1664,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MLCRM_Auto_Task_MistMatch_Message</shortDescription>
-        <value>The following contact information shared by the customer differs with the information
-            in the customer profile. Review and advise the customer to update their contact
-            information through the relevant channels.</value>
+        <value>The following contact information shared by the customer differs with the information in the customer profile. Review and advise the customer to update their contact information through the relevant channels.</value>
     </labels>
     <labels>
         <fullName>MLCRM_Auto_Task_MistMatch_Subject</fullName>
@@ -1842,8 +1756,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MLCRM_ExistingContactPointPhoneError</shortDescription>
-        <value>A Phone Number record is already available for this customer. Please edit the Phone
-            Number below.</value>
+        <value>A Phone Number record is already available for this customer. Please edit the Phone Number below.</value>
     </labels>
     <labels>
         <fullName>Customer_Auth_Workstation</fullName>
@@ -1937,8 +1850,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MLCRM Mobile Help Text</shortDescription>
-        <value>Mobile Phone number needs to be in the format of +614 or +615 followed by 8 digits.
-            Eg. +61412345678 or +61512345678</value>
+        <value>Mobile Phone number needs to be in the format of +614 or +615 followed by 8 digits. Eg. +61412345678 or +61512345678</value>
     </labels>
     <labels>
         <fullName>MLCRM_MobileOrEmailRequiredMessage</fullName>
@@ -1954,8 +1866,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
-        <value>
-            callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -1971,8 +1882,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MLCRM Lead MisMatch Warning MessageMessage</shortDescription>
-        <value>There are mismatches in the contact information between this lead and the linked
-            customer profile. Check the customer profile to see if needs to be updated.</value>
+        <value>There are mismatches in the contact information between this lead and the linked customer profile. Check the customer profile to see if needs to be updated.</value>
     </labels>
     <labels>
         <fullName>MLCRM_Maximum_Primary_Notes_Error</fullName>
@@ -2162,8 +2072,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Customer_Comm_Url</shortDescription>
-        <value>
-            https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords?:iid=5&amp;ocv_id=</value>
     </labels>
     <labels>
         <fullName>CCRM_CityLengthCheck</fullName>
@@ -2294,8 +2203,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>For Raise Dispute Card Transactions</shortDescription>
-        <value>This transaction is linked to the other account holder&apos;s card. Let the customer
-            know that the person who made the transaction must raise dispute in the app.</value>
+        <value>This transaction is linked to the other account holder&apos;s card. Let the customer know that the person who made the transaction must raise dispute in the app.</value>
     </labels>
     <labels>
         <fullName>CIBA_AccessTokenRequestEndpoint</fullName>
@@ -2344,16 +2252,14 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_GetDeviceWithBiometric</shortDescription>
-        <value>
-            callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators?status=ACTIVE&amp;sortField=created&amp;appCorrelationId={appCorrelationId}&amp;sortAscending=false</value>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators?status=ACTIVE&amp;sortField=created&amp;appCorrelationId={appCorrelationId}&amp;sortAscending=false</value>
     </labels>
     <labels>
         <fullName>MS_GetDeviceWithoutBiometric</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_GetDeviceWithoutBiometric</shortDescription>
-        <value>
-            callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/users/{userInternalId}/authenticators/{deviceReferenceId}</value>
     </labels>
     <labels>
         <fullName>MS_SearchCustomer_API</fullName>
@@ -2422,42 +2328,36 @@
         <fullName>FinAccountProductToMap</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>Products to Map for Classic Fin Acc Recs. Format-
-            &apos;Code1&apos;,&apos;Code2&apos;,&apos;Code3&apos;</shortDescription>
-        <value>
-            &apos;CAP-CIS:CDA&apos;,&apos;CAP-CIS:DDA&apos;,&apos;CAP-CIS:FM&apos;,&apos;CAP-CIS:ILS&apos;,&apos;CAP-CIS:OLL&apos;,&apos;CAP-CIS:PCA&apos;,&apos;CAP-CIS:PTF&apos;,&apos;CAP-CIS:RSV&apos;,&apos;CAP-CIS:SSI&apos;</value>
+        <shortDescription>Products to Map for Classic Fin Acc Recs. Format- &apos;Code1&apos;,&apos;Code2&apos;,&apos;Code3&apos;</shortDescription>
+        <value>&apos;CAP-CIS:CDA&apos;,&apos;CAP-CIS:DDA&apos;,&apos;CAP-CIS:FM&apos;,&apos;CAP-CIS:ILS&apos;,&apos;CAP-CIS:OLL&apos;,&apos;CAP-CIS:PCA&apos;,&apos;CAP-CIS:PTF&apos;,&apos;CAP-CIS:RSV&apos;,&apos;CAP-CIS:SSI&apos;</value>
     </labels>
     <labels>
         <fullName>MissingCodeMsgForClassicRecords</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Missing Code message while Mapping Classic FinAcc Records to Product</shortDescription>
-        <value>Missing Product Code Sub Code Found and the number of Financial Account Using the
-            subcode.</value>
+        <value>Missing Product Code Sub Code Found and the number of Financial Account Using the subcode.</value>
     </labels>
     <labels>
         <fullName>ANZX_Marketing_Consent_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
-        <value>
-            https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
     </labels>
     <labels>
         <fullName>ANZX_Customer_Comm_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Customer_Comm_Tableau_Url</shortDescription>
-        <value>
-            https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
     </labels>
     <labels>
         <fullName>ANZX_Interest_Rates_FA_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Interest_Rates_FA_Tableau_Url</shortDescription>
-        <value>
-            https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
     </labels>
     <labels>
         <fullName>ANZX_Tableau_Site_Id</fullName>
@@ -2485,8 +2385,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM Validate Manual Address</shortDescription>
-        <value>The Suburb, State and Postcode information provided is invalid. Please check the
-            address entered and try again.</value>
+        <value>The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.</value>
     </labels>
     <labels>
         <fullName>ML_LeadResponseToShowFollowUpDate</fullName>
@@ -2581,8 +2480,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_OnboardingUpload_API</shortDescription>
-        <value>
-            callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/upload-document</value>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/upload-document</value>
     </labels>
     <labels>
         <fullName>DAONMaxPollingCount</fullName>
@@ -2617,8 +2515,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_OnboardingUpdateStatus_API</shortDescription>
-        <value>
-            callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/action-fallout</value>
+        <value>callout:SF_MS_CH2/aegis-portal/v1/assisted/persons/digital-onboarding-services/action-fallout</value>
     </labels>
     <labels>
         <fullName>S2AccountEnabled</fullName>
@@ -2662,16 +2559,14 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM_URL_DEV</shortDescription>
-        <value>
-            https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_PROD</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM_URL_PROD</shortDescription>
-        <value>
-            https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
     </labels>
     <labels>
         <fullName>Account_Registration_Endpoint</fullName>
