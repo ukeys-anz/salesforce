@@ -28,17 +28,11 @@
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>RECORDTYPE</field>
-    </columns>
-    <columns>
-        <field>ORIGIN</field>
+        <field>Case.Date_Closed__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
         <field>Case.Case_Age_in_Days__c</field>
-    </columns>
-    <columns>
-        <field>Case.Date_Closed__c</field>
     </columns>
     <columns>
         <field>PC_FIRST_NAME</field>
@@ -47,19 +41,32 @@
         <field>PC_LAST_NAME</field>
     </columns>
     <columns>
+        <field>DESCRIPTION</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Complainant_Desired_Outcome__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Complaint_Outcome__c</field>
+    </columns>
+    <columns>
+        <field>Case.IDR_Description_of_Outcome__c</field>
+    </columns>
+    <columns>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>Case.IDR_Total_Financial_Amount__c</field>
+    </columns>
+    <columns>
+        <field>ORIGIN</field>
+    </columns>
+    <columns>
         <field>Case.AFCA_Stage__c</field>
     </columns>
     <columns>
         <field>Case.IDR_AFCA_EDR_impact__c</field>
     </columns>
     <columns>
-        <field>Case.IDR_AFCA_Due_Date__c</field>
-    </columns>
-    <columns>
-        <field>Case.IDR_Preliminary_View_PV__c</field>
-    </columns>
-    <columns>
-        <field>Case.IDR_Determination_Due__c</field>
+        <field>RECORDTYPE</field>
     </columns>
     <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over both IDR &amp; EDR cases that have been provsionally closed week to date by case managers</description>
     <filter>
