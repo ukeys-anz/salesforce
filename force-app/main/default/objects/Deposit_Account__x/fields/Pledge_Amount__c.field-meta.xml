@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Pledge Amount($)</label>
+    <label>Pledge Amount ($)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

@@ -6,7 +6,7 @@
     <description>Items In Excess</description>
     <externalDeveloperName>ItemsInExcess</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>Items In Excess</label>
