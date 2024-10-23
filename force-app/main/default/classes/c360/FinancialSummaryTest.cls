@@ -859,4 +859,25 @@ private class FinancialSummaryTest {
     );
     Test.stopTest();
   }
+
+  @isTest
+  static void testRemoveEncryptedPca() {
+    Set<String> setOfAccountNumbers = new Set<String>{
+      'DDA-12345',
+      'ILS-6789',
+      'PCA-abcd123',
+      'PCA-4567'
+    };
+    Set<String> filteredAccountNumbers = FinancialSummaryController.removeEncryptedPca(
+      setOfAccountNumbers
+    );
+    Assert.isTrue(
+      filteredAccountNumbers.size() == setOfAccountNumbers.size() - 1,
+      'removeEncryptedPca is not removing encrypted pca'
+    );
+    Assert.isFalse(
+      filteredAccountNumbers.contains('PCA-abcd123'),
+      'removeEncryptedPca is removing wrong number'
+    );
+  }
 }
