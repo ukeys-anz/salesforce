@@ -16,32 +16,17 @@ public with sharing virtual class FinancialAccountService extends Service {
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
-    headers.put('Content-type', 'application/json');
+
+    headers.put('Content-Type', 'application/json');
     String urlParam = String.isBlank(loanAccNumber) ? '-' : loanAccNumber;
-    ViewOffsetRequest requestBody = new ViewOffsetRequest(urlParam);
 
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
       Label.MS_Get_Linked_Offset.replace('{loanAccount}', urlParam),
       HTTP_METHOD.HTTP_GET,
       headers,
-      Json.serialize(requestBody, true)
+      null
     );
     return response;
-  }
-
-  /**
-   * @description  Wrapper class to build the request body
-   *
-   */
-  public class ViewOffsetRequest {
-    public String parent;
-    /**
-     * @description constructor with 1 parameter
-     * @param urlParam to set request body
-     */
-    public ViewOffsetRequest(String urlParam) {
-      this.parent = 'accounts/' + urlParam;
-    }
   }
 }
