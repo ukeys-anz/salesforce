@@ -246,7 +246,7 @@ public without sharing class AutoTaskOnLeadConversionHelper {
       WhatId = opportunityID,
       WhoId = lead.FinServ__RelatedAccount__r.PersonContactId,
       OwnerId = lead.OwnerId,
-      ActivityDate = System.Today() + 7,
+      ActivityDate = null,
       Description = Label.MLCRM_Auto_Task_MistMatch_Message + SPACE + fields
     );
     return task;
