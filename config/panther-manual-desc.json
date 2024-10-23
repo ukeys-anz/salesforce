@@ -1133,6 +1133,7 @@
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
         "Show_Resolution_Launcher__c",
+        "Is_new_RP_Enabled__c",
         "SlaStartDate",
         "StopStartDate",
         "SLA_Status__c",

@@ -1,38 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Show_Resolution_Launcher__c</fullName>
-    <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Formula to display resolution pathways</description>
-    <externalId>false</externalId>
-    <formula>IF($Label.IDR_Toggle_Old_New_Resolution_Pathway =
-        &apos;New&apos;,IF((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) ||
-        ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c,
-        &apos;3&apos;)) ||
-        (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
-        &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;)),
-        &apos;New&apos;,&apos;None&apos;),
-        IF((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;2&apos;) ||
-        ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c,
-        &apos;2&apos;)) ||
-        (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
-        &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) ||
-        (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
-        &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;4&apos;)) ||
-        (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
-        &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;59&apos;)) ||
-        (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
-        &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;)) ||
-        (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;No direct phone line&apos;) ||
-        ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;No direct phone line&apos;) ||
-        ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;No direct phone
-        line&apos;)),&apos;Old&apos;,&apos;None&apos;))</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
-    <label>Show Resolution Launcher</label>
-    <required>false</required>
-    <securityClassification>Internal</securityClassification>
-    <trackHistory>false</trackHistory>
-    <trackTrending>false</trackTrending>
-    <type>Text</type>
-    <unique>false</unique>
+  <fullName>Show_resolution_launcher__c</fullName>
+  <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+  <description>Formula to display resolution pathways</description>
+  <formula>IF($Label.IDR_Toggle_Old_New_Resolution_Pathway = &apos;New&apos; &amp;&amp;
+    ((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;))),True,
+    IF((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;2&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;4&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;59&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;No direct phone line&apos;) ||
+    ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;No direct phone line&apos;) ||
+    ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;No direct phone line&apos;)),True,False))</formula>
+  <label>Show Resolution Launcher</label>
+  <securityClassification>Internal</securityClassification>
+  <trackHistory>false</trackHistory>
+  <trackTrending>false</trackTrending>
+  <type>Checkbox</type>
 </CustomField>

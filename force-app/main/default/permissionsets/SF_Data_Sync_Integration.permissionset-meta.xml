@@ -2453,6 +2453,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Is_new_RP_Enabled__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Is_PayTo_Dispute__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9437,4 +9442,5 @@
         <modifyAllRecords>false</modifyAllRecords>
         <object>ProductRelatedServiceProcess</object>
         <viewAllRecords>true</viewAllRecords>
-    </objectPermissions> only for merge to cmosa!--></PermissionSet>
+    </objectPermissions> only for merge to cmosa!-->
+</PermissionSet>
