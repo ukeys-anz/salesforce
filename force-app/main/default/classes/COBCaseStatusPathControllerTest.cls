@@ -162,7 +162,7 @@ public with sharing class COBCaseStatusPathControllerTest {
         cobIdOpsCase,
         true
       );
-      if(System.Label.BlockManualStatusUpdateIdOpsCase == 'true') {
+      if (System.Label.BlockManualStatusUpdateIdOpsCase == 'true') {
         Assert.fail('Exception should be thrown');
       }
      
