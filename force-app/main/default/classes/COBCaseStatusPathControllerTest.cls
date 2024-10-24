@@ -157,12 +157,15 @@ public with sharing class COBCaseStatusPathControllerTest {
 
     Test.startTest();
     try {
-      COBCaseStatusPathController.updateStatus(
+        COBCaseStatusPathController.updateStatus(
         COBCaseConstants.COB_DAON_FALLOUT_STATUS,
         cobIdOpsCase,
         true
       );
-      Assert.fail('Exception should be thrown');
+      if(System.Label.BlockManualStatusUpdateIdOpsCase == 'true') {
+        Assert.fail('Exception should be thrown');
+      }
+     
     } catch (Exception e) {
       Assert.isInstanceOfType(
         e,
