@@ -4,6 +4,7 @@
     <active>true</active>
     <description>Block user from manually updating the status to closed from path and layout for PIN &amp; Selfie Recovery Cases</description>
     <errorConditionFormula>AND(
+ $Label.BlockManualStatusUpdateIdOpsCase == &apos;true&apos;,
 OR(ISNULL( Verified_By__c ),
    ISBLANK(Verified_By__c)
 ),
@@ -13,5 +14,5 @@ OR(
   RecordType.DeveloperName == &apos;Selfie_Recovery&apos;
 )
 )</errorConditionFormula>
-    <errorMessage>You are not allowed to change the status to closed.</errorMessage>
+    <errorMessage>Please update the case using Approve/Reject button below.</errorMessage>
 </ValidationRule>

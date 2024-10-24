@@ -68,7 +68,8 @@ public with sharing class COBCaseStatusPathController {
     if (
       isAgentUpdateStatus &&
       RTCase.idOpsAssistance == cobCase.RecordTypeid &&
-      currentStatus == 'Daon Fallout'
+      currentStatus == 'Daon Fallout',
+      System.Label.BlockManualStatusUpdateIdOpsCase == 'true'
     ) {
       String customerOnboardingApplicationId = cobCase.CustomerOnboardingApplication__c;
       COBPrimaryIDDocument__c cobPIDRecord = WORKFLOW_REPOSITORY.getCOBPIDRecordUsingCOA(
