@@ -785,6 +785,13 @@
         <value>7</value>
     </labels>
     <labels>
+        <fullName>IDR_Toggle_Old_New_Resolution_Pathway</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Conditionally show Old OR New Resolution pathway</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
         <fullName>IDR_Window_For_Task_Reminders</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
