@@ -54,7 +54,7 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
 
     Assert.areEqual(
       loanAccNumber,
-      responseModel.loan_offsets[0].loan_account,
+      responseModel.loanOffsets[0].loanAccount,
       'Should get the Offset for the loan account'
     );
     // Check if the data is stored in cache
@@ -63,7 +63,7 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
     );
     Assert.areEqual(
       loanAccNumber,
-      cachedData.loan_offsets[0].loan_account,
+      cachedData.loanOffsets[0].loanAccount,
       'Should get the Offset for the loan account'
     );
   }
@@ -96,7 +96,7 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
 
     Assert.areEqual(
       loanAccNumber,
-      response.loan_offsets[0].loan_account,
+      response.loanOffsets[0].loanAccount,
       'Should get the Offset for the loan account from Cache'
     );
   }

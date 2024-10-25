@@ -7,7 +7,7 @@
 @SuppressWarnings('PMD.FieldNamingConventions')
 public with sharing class OffsetAccountModel extends CalloutModel {
   @AuraEnabled
-  public List<LoanOffsets> loan_offsets;
+  public List<LoanOffsets> loanOffsets;
   @AuraEnabled
   public Boolean hasError = false;
   /**
@@ -15,8 +15,8 @@ public with sharing class OffsetAccountModel extends CalloutModel {
    */
   public class LoanOffsets {
     @AuraEnabled
-    public String loan_account;
-    public List<String> offset_accounts;
+    public String loanAccount;
+    public List<String> offsetAccounts;
     /**
      * @description Offset details Wrapper
      */
