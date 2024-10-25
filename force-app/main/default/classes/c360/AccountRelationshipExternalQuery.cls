@@ -112,6 +112,7 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
   public override ExternalObjectQueryBase.ExternalQueryResult execute(
     DataSource.QueryContext queryContext
   ) {
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     ExternalObjectQueryBase.QueryModeEnum queryMode = prepareCallout(
       queryContext
     );
@@ -127,7 +128,7 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
       String accountKey = String.isNotBlank(this.parentId)
         ? this.parentId.substringBefore('|')
         : this.externalId.substringBefore('|');
-      relatedCustomers = getRelatedCustomersOfAccount(
+      relatedCustomers = externalQueryHelper.getRelatedCustomersOfAccount(
         accountKey,
         this.roleTypes.keySet()
       );
@@ -173,9 +174,6 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecords(
     ExternalObjectCalloutResponse calloutResponse
   ) {
-    String customerId;
-    String displayUrl;
-    Map<String, Object> row;
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
     Integer index = 0;
     if (calloutResponse == null) {
@@ -187,19 +185,17 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
         .accountRelationships
     ) {
       index++;
-      customerId = 'CAP-CIS_' + relationship.relatedPartyCustomerId;
-      displayUrl =
-        URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        relationship.compositeAccountRelationshipId;
-      row = new Map<String, Object>{
+      String displayUrl = getDisplayUrl(
+        relationship.compositeAccountRelationshipId
+      );
+      Map<String, Object> row = new Map<String, Object>{
         'Sequence' => getSequence(index),
+        this.parentField => this.parentId,
         'ExternalId' => relationship.compositeAccountRelationshipId,
         'DisplayUrl' => displayUrl,
-        'Customer' => customerId,
+        'Customer' => 'CAP-CIS_' + relationship.relatedPartyCustomerId,
         'Relationship' => relationship.relationshipType
       };
-      row.put(this.parentField, this.parentId);
       result.externalRecords.add(row);
     }
     return result;
@@ -211,24 +207,21 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
    */
   @testVisible
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecordsBySOQLQuery() {
-    String externalId;
-    String displayUrl;
-    Map<String, Object> row;
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
     Integer index = 0;
-
     for (FinServ__FinancialAccountRole__c faRole : relatedCustomers) {
-      externalId =
+      String externalId =
         faRole.FinServ__FinancialAccount__r.Account_Key__c +
         '|' +
         faRole.FinServ__FinancialAccount__r.Product_Type__c +
         '|' +
         faRole.FinServ__RelatedAccount__r.External_Id__c;
-      displayUrl = URL.getOrgDomainUrl().toExternalForm() + '/' + externalId;
+      String displayUrl = getDisplayUrl(externalId);
       index++;
 
-      row = new Map<String, Object>{
+      Map<String, Object> row = new Map<String, Object>{
         'Sequence' => getSequence(index),
+        this.parentField => this.parentId,
         'ExternalId' => externalId,
         'DisplayUrl' => displayUrl,
         'Customer' => faRole.FinServ__RelatedAccount__r.External_Id__c,

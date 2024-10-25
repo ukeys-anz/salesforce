@@ -4665,14 +4665,36 @@
         "Product_Category__c",
         "Product_Status__c",
         "Cash_Advance_Rate__c",
-        "Interest_Free_Days__c"
-      ]
+        "Interest_Free_Days__c",
+        "Available_Funds__c",
+        "Block_Code_1__c",
+        "Block_Code_2__c",
+        "Branch__c",
+        "Date_Closed__c",
+        "Days_Delinquent__c",
+        "Delinquent_Amount__c",
+        "Minimum_Monthly_Payment__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Relationship__c",
+        "Rewards_Number__c",
+        "Source_System_Status__c",
+        "Sub_Product_Code__c",
+        "CPID__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
     },
     "CardHolder__x": {
-      "IA-2415720": ["Credit_Card__c", "Card_Number__c", "Cardholder_Name__c"]
+      "IA-2415720": [
+        "Credit_Card__c",
+        "Card_Number__c",
+        "Cardholder_Name__c",
+        "Relationship__c",
+        "Status__c"
+      ]
     },
     "Loan_Account__x": {
       "IA-2415720": [
@@ -4692,7 +4714,6 @@
         "Fully_Drawn__c",
         "Interest_Charge_Method__c",
         "Interest_Only_Expiry_Date__c",
-        "Interest_Only_Repayment_Amount__c",
         "Interest_Rate__c",
         "Interest_Rate_Margin__c",
         "Index_Rate_Current__c",
@@ -4789,7 +4810,14 @@
         "CPID__c",
         "Customer__c",
         "Limit__c",
-        "Date_Opened__c"
+        "Date_Opened__c",
+        "Account_Name__c",
+        "Relationship__c",
+        "Industry__c",
+        "Date_Closed__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Source_System_Status__c"
       ]
     },
     "Facility__x": {
@@ -4798,10 +4826,14 @@
         "Expiry_Date__c",
         "Other_Limits_and_Liabilities__c",
         "Sequence__c",
-        "TPMI_No__c",
-        "TPMI_Sub_No__c",
-        "Type__c"
-      ]
+        "Type__c",
+        "Account_Name__c",
+        "Account_Number__c",
+        "Product_Name__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c"
+      ],
+      "IA-2415860": ["Facility__c"]
     },
     "Merchant_Facility__x": {
       "IA-2415720": [
@@ -4851,6 +4883,7 @@
         "Sub_Product_Code__c",
         "Undrawn_Balance__c",
         "Date_Opened__c",
+        "SAO__c",
         "Relationship__c",
         "Branch__c",
         "Product_Name__c",
@@ -4866,7 +4899,8 @@
         "Relationship__c",
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
-        "Asset_Finance_AMBIT__c"
+        "Asset_Finance_AMBIT__c",
+        "Credit_Card__c"
       ],
       "IA-2530753": ["Customer__c", "Sequence__c"]
     },
@@ -4979,7 +5013,8 @@
         "Deposit_Account__c",
         "Term_Deposit__c",
         "Loan_Account__c",
-        "Additional_Information__c"
+        "Additional_Information__c",
+        "Credit_Card__c"
       ]
     },
     "Account_Registration__x": {

@@ -17,7 +17,7 @@ private class CoreBankingDataSourceConnectionTest {
     Test.startTest();
     List<DataSource.Table> result = conn.sync();
     Test.stopTest();
-    System.assertEquals(result, null, 'Result is not null');
+    Assert.areEqual(result, null, 'Result is not null');
   }
 
   @isTest
@@ -34,8 +34,8 @@ private class CoreBankingDataSourceConnectionTest {
     );
     DataSource.TableResult result = conn.query(context);
     Test.stopTest();
-    System.assertEquals(result.success, true, 'Error');
-    System.assertEquals(result.tableName, 'DepositAccount', 'Error');
+    Assert.areEqual(result.success, true, 'Error');
+    Assert.areEqual(result.tableName, 'DepositAccount', 'Error');
   }
 
   @isTest
@@ -57,7 +57,7 @@ private class CoreBankingDataSourceConnectionTest {
       exceptionMessage = e.getMessage();
     }
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       exceptionMessage,
       'Unsupported External Object : Deposit',
       'Error'

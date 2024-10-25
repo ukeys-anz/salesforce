@@ -83,6 +83,7 @@ private class TermDepositExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     Test.startTest();
     query.execute(context);
 
@@ -119,6 +120,7 @@ private class TermDepositExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     ExternalObjectQueryBase.ExternalQueryResult result = query.execute(context);
     Test.stopTest();
     Assert.areEqual(
@@ -149,6 +151,7 @@ private class TermDepositExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     query.execute(context);
     Test.startTest();
     string prodCode = query.getProductCode('403456789');
@@ -167,6 +170,7 @@ private class TermDepositExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     query.execute(context);
     Test.startTest();
     string productName = query.getProductName(
@@ -191,6 +195,7 @@ private class TermDepositExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     query.execute(context);
     Test.startTest();
     String sourcestatus = query.getSourceSystemStatus(
@@ -211,6 +216,7 @@ private class TermDepositExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     query.execute(context);
     Test.startTest();
     String accountStatus = query.getFinStatus(
