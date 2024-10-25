@@ -610,7 +610,7 @@ public without sharing class IDRTaskActions {
       }
       //should a parent systemic issue's rollup field be updated?
       if (
-        oldRec == null && String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
+        oldRec == null || String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
       ) {
         childComplaints.add(record);
       }
@@ -642,13 +642,10 @@ public without sharing class IDRTaskActions {
    */
   public static void insertSITasks(List<Task> siTasks) {
     if (
-      !(Task.SObjectType.getDescribe().isCreateable() &&
-      Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-      Schema.SObjectType.Task.fields.IsReminderSet.isCreateable() &&
-      Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-      Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-      Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-      Schema.SObjectType.Task.fields.WhatId.isCreateable())
+      !Task.SObjectType.getDescribe().isCreateable() ||
+      Security.stripInaccessible(AccessType.CREATABLE, siTasks)
+        .getRemovedFields()
+        .isEmpty() == false
     ) {
       CommonUtil.logAndThrowIAE(
         'IDRCaseActions',
@@ -656,11 +653,7 @@ public without sharing class IDRTaskActions {
         'Not enough permissions to create Task.'
       );
     }
-    DML_REPOSITORY.insertRecords(
-      siTasks,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+    DML_REPOSITORY.doInsert(siTasks, new DmlConfig().systemMode());
   }
   /**
    * @description validate SI Task due date and throw error if the due date is updated by anyone who is not the case owner

@@ -568,7 +568,7 @@ private with sharing class IDRTaskActionsTest {
       new Map<Id, Task>{ oldTask.Id => oldTask }
     );
     Test.stopTest();
-    System.AssertEquals(
+    Assert.areEqual(
       IDRConstants.TASK_QA_CLOSE_ERROR,
       newTask.getErrors()[0].getMessage(),
       'Error thrown while updating task'

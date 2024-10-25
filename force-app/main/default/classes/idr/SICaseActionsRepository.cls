@@ -17,7 +17,7 @@ public with sharing class SICaseActionsRepository {
       SELECT id, SI_Complaint_Count__c, (SELECT id FROM Complaints__r)
       FROM Case
       WHERE Id IN :systemicIssueIds
-      WITH SECURITY_ENFORCED
+      WITH USER_MODE
     ];
   }
   /**
@@ -36,6 +36,7 @@ public with sharing class SICaseActionsRepository {
         Id IN :closedCases
         AND Status = :IDRConstants.CLOSED_STATUS
         AND SI_Workflow_step__c = :IDRConstants.SI_WF_STEP_ASSESSING
+      WITH USER_MODE
     ];
   }
 
@@ -55,6 +56,7 @@ public with sharing class SICaseActionsRepository {
         Type = :IDRConstants.SI_WF_STEP_MONITORING
         AND IsClosed = FALSE
         AND WhatId IN :caseIds
+      WITH USER_MODE
     ];
   }
 }

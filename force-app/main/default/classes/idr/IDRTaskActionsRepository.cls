@@ -17,6 +17,7 @@ public with sharing class IDRTaskActionsRepository {
       SELECT Id, OwnerId
       FROM Case
       WHERE Id IN :caseIds
+      WITH USER_MODE
     ];
   }
   /**
@@ -40,7 +41,7 @@ public with sharing class IDRTaskActionsRepository {
         Related_Case__r.CaseNumber__c
       FROM Quality_Assessment__c
       WHERE Id IN :assessmentIds
-      WITH SECURITY_ENFORCED
+      WITH USER_MODE
     ];
   }
   /**
@@ -56,6 +57,7 @@ public with sharing class IDRTaskActionsRepository {
       SELECT Id, CaseNumber
       FROM Case
       WHERE Id IN :stCaseIds
+      WITH USER_MODE
     ];
   }
   /**
@@ -73,6 +75,7 @@ public with sharing class IDRTaskActionsRepository {
       SELECT GroupId, UserOrGroupId
       FROM GroupMember
       WHERE GroupId IN :mpGroup2Recipients.keySet()
+      WITH USER_MODE
     ];
   }
   /**
@@ -88,6 +91,7 @@ public with sharing class IDRTaskActionsRepository {
       SELECT Id
       FROM User
       WHERE IsActive = FALSE AND Id IN :mpUserId2Groups.keySet()
+      WITH USER_MODE
     ];
   }
   /**
@@ -108,7 +112,7 @@ public with sharing class IDRTaskActionsRepository {
         AND RecordTypeId = :RTTask.idrSystemTask
         AND Type = :IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE
         AND Subject = :subject
-      WITH SECURITY_ENFORCED
+      WITH USER_MODE
     ];
   }
 }

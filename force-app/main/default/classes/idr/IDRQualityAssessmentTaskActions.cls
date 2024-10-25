@@ -12,6 +12,14 @@ public with sharing class IDRQualityAssessmentTaskActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static Set<String> allowedStatus = new Set<String>{
+    QualityAssessmentActions.STATUS_PENDING,
+    QualityAssessmentActions.STATUS_WITHDRAWN
+  };
+  private static Set<String> allowedRecTypes = new Set<String>{
+    IDRConstants.idrtCQQualityAssessment,
+    IDRConstants.idrtCallLetterReviewQualityAssessment
+  };
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
    * @param lstAssessments new Trigger Values
@@ -62,17 +70,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         lstQAShare.add(oQAShare);
       }
     }
-    if (
-      lstQAShare.isEmpty() ||
-      !Quality_Assessment__Share.SObjectType.getDescribe().isDeletable()
-    ) {
-      return;
-    }
-    DML_REPOSITORY.deleteRecords(
-      lstQAShare,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
-    );
+    DML_REPOSITORY.doDelete(lstQAShare);
   }
   /**
    * @description method to create Compliance Task if Quality Assessment record's status is changed to Completed
@@ -229,24 +227,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         // It is therefore handled by Quality_Assessment_CMOS.flow and not here.
       }
     }
-
-    if (lstQAShare.size() > 0) {
-      (new WithoutSharing()).insertQAShare(lstQAShare);
-    }
-  }
-  private without sharing class WithoutSharing {
-    /**
-     * @description Insert Quality_Assessment__Share records
-     * @param lstQAShare list of Quality_Assessment__Share records to insert
-     */
-
-    public void insertQAShare(List<Quality_Assessment__Share> lstQAShare) {
-      DMLUtil.insertRecords(
-        lstQAShare,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
-    }
+    DML_REPOSITORY.doInsert(lstQAShare, new DmlConfig().withoutSharing());
   }
   /**
    * @description Get List Of Updated Tasks
@@ -294,14 +275,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Quality_Assessment__c oAssessment,
     Quality_Assessment__c oOldAssessment
   ) {
-    Set<String> allowedStatus = new Set<String>{
-      QualityAssessmentActions.STATUS_PENDING,
-      QualityAssessmentActions.STATUS_WITHDRAWN
-    };
-    Set<String> allowedRecTypes = new Set<String>{
-      IDRConstants.idrtCQQualityAssessment,
-      IDRConstants.idrtCallLetterReviewQualityAssessment
-    };
     if (
       !allowedRecTypes.contains(oAssessment.RecordTypeId) ||
       !allowedStatus.contains(oAssessment.Status__c)
@@ -330,17 +303,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
       }
       lstUpdateTasks = getUpdatedTasks(mpId2PendingAssessments.keySet());
     }
-    if (
-      lstUpdateTasks.isEmpty() ||
-      !Task.SObjectType.getDescribe().isUpdateable() ||
-      !Schema.SObjectType.Task.fields.Status.isUpdateable()
-    ) {
-      return;
-    }
-    DML_REPOSITORY.updateRecords(
-      lstUpdateTasks,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
-    );
+    DML_REPOSITORY.doUpdate(lstUpdateTasks);
   }
 }

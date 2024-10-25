@@ -52,34 +52,24 @@ public with sharing class SICaseActions {
    * @param records Records to process
    * @param oldMap Map of the old values of the records to process
    */
-  public static void processMonitoringTasks(List<Case> records, Map<Id, Case> oldMap) {
+  public static void processMonitoringTasks(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
     Task[] monitoringTasks = new List<Task>();
     if (!oldMap.isEmpty()) {
       removePendingMonitoringTasks(records, oldMap);
     }
     List<Case> filteredSICases = ListUtil.filter(records, oldMap)
       .equals(Case.RecordTypeId, RTCase.systemicIssue)
-      .changedTo(Case.SI_Workflow_Step__c, IDRConstants.SI_WF_STEP_MONITORING)
+      .changed(Case.SI_Workflow_Step__c)
+      .equals(Case.SI_Workflow_Step__c, IDRConstants.SI_WF_STEP_MONITORING)
       .toList();
     for (Case record : filteredSICases) {
       monitoringTasks.add(createMonitoringTask(record, 3));
       monitoringTasks.add(createMonitoringTask(record, 6));
     }
-    if (monitoringTasks.isEmpty()) {
-      return;
-    }
-    if (!hasTaskCreatePermission()) {
-      CommonUtil.logAndThrowIAE(
-        'SICaseActions',
-        'afterUpdate',
-        'Not enough permissions to create Task.'
-      );
-    }
-    DML_REPOSITORY.insertRecords(
-      monitoringTasks,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.USER_MODE
-    );
+    DML_REPOSITORY.doInsert(monitoringTasks);
   }
 
   /**
@@ -116,6 +106,12 @@ public with sharing class SICaseActions {
     List<Case> cases,
     Map<Id, Case> oldMap
   ) {
+    if (
+      !Task.sObjectType.getDescribe().isQueryable() ||
+      !Task.sObjectType.getDescribe().isDeletable()
+    ) {
+      return;
+    }
     Task[] tasksToDelete = new List<Task>();
     Case[] casesToProcessWhenReopened = new List<Case>();
 
@@ -131,27 +127,16 @@ public with sharing class SICaseActions {
         casesToProcessWhenReopened.add(c);
       }
     }
-    if (
-      Task.sObjectType.getDescribe().isQueryable() &&
-      !casesToProcessWhenReopened.isEmpty()
-    ) {
-      Set<Id> caseIds = (new Map<Id, Case>(casesToProcessWhenReopened))
-        .keySet();
-      tasksToDelete.addAll(
-        SICASE_REPOSITORY.queryMonitoringTasksToDelete(caseIds)
-      );
-      if (
-        Task.sObjectType.getDescribe().isDeletable() && !tasksToDelete.isEmpty()
-      ) {
-        IDRTaskActions.siSystemDeletingAutoGenTask = true;
-        //delete tasksToReplace;
-        DML_REPOSITORY.deleteRecords(
-          tasksToDelete,
-          DmlRepository.ALLOW_PARTIAL,
-          DmlRepository.USER_MODE
-        );
-      }
+    if (casesToProcessWhenReopened.isEmpty()) {
+      return;
     }
+    Set<Id> caseIds = (new Map<Id, Case>(casesToProcessWhenReopened)).keySet();
+    tasksToDelete.addAll(
+      SICASE_REPOSITORY.queryMonitoringTasksToDelete(caseIds)
+    );
+    IDRTaskActions.siSystemDeletingAutoGenTask = true;
+    //delete tasksToReplace;
+    DML_REPOSITORY.doDelete(tasksToDelete);
   }
 
   /**
@@ -163,6 +148,9 @@ public with sharing class SICaseActions {
     Set<id> systemicIssueIds = new Set<id>();
     //get the ids of the SIs to update
     for (Case complaint : complaints) {
+      if (String.isBlank(complaint.IDR_Parent_Systemic_Issue__c)) {
+        continue;
+      }
       systemicIssueIds.add(complaint.IDR_Parent_Systemic_Issue__c);
     }
     //query the SIs and the related complaints and add the size of the complaints to the SI's SI_Complaint_Count__c
@@ -175,39 +163,6 @@ public with sharing class SICaseActions {
         new Case(id = si.Id, SI_Complaint_Count__c = si.Complaints__r.size())
       );
     }
-    if (Case.sObjectType.getDescribe().isUpdateable()) {
-      //update systemicIssuesToUpdate;
-      DML_REPOSITORY.updateRecords(
-        systemicIssuesToUpdate,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.USER_MODE
-      );
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'SICaseActions',
-        'rollupToParentSI',
-        'Not enough permissions to update Case.'
-      );
-    }
-  }
-  /**
-   * @description check if current User has permission to create Task
-   * @return Boolean true or false based on permissions
-   */
-  public static Boolean hasTaskCreatePermission() {
-    if (
-      Task.sObjectType.getDescribe().isCreateable() &&
-      Schema.sObjectType.Task.fields.ActivityDate.isCreateable() &&
-      Schema.sObjectType.Task.fields.IsReminderSet.isCreateable() &&
-      Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
-      Schema.sObjectType.Task.fields.RecordTypeId.isCreateable() &&
-      Schema.sObjectType.Task.fields.ReminderDateTime.isCreateable() &&
-      Schema.sObjectType.Task.fields.Subject.isCreateable() &&
-      Schema.sObjectType.Task.fields.Type.isCreateable() &&
-      Schema.sObjectType.Task.fields.WhatId.isCreateable()
-    ) {
-      return true;
-    }
-    return false;
+    DML_REPOSITORY.doUpdate(systemicIssuesToUpdate);
   }
 }
