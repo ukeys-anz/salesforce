@@ -28,6 +28,14 @@ jobs:
     runs-on: [anzx-default]
     if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master') || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
     steps:
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v2
+        if: github.ref == 'refs/heads/develop'
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          path: salesforce
+
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
