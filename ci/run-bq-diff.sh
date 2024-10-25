@@ -14,15 +14,16 @@ BUCKET_NAME=""
 # Parse the command-line arguments
 while [[ "$#" -gt 0 ]]; do
     case $1 in
-        --diff-only) DIFF_ONLY=true ;;
-        *)
-            if [[ -z "$BRANCH_NAME" ]]; then
-                BRANCH_NAME=$1
-            elif [[ -z "$BUCKET_NAME" ]]; then
-                BUCKET_NAME=$1
-            else
-                echo "Unknown parameter passed: $1"; exit 1  # Handle unknown flags or extra variables
-            fi
+    --diff-only) DIFF_ONLY=true ;;
+    *)
+        if [[ -z "$BRANCH_NAME" ]]; then
+            BRANCH_NAME=$1
+        elif [[ -z "$BUCKET_NAME" ]]; then
+            BUCKET_NAME=$1
+        else
+            echo "Unknown parameter passed: $1"
+            exit 1 # Handle unknown flags or extra variables
+        fi
         ;;
     esac
     shift

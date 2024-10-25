@@ -24,6 +24,7 @@ jobs:
 
   # upload object changes on develop and master
   upload_object_changes:
+    needs: [generate_object_changes]
     runs-on: [anzx-default]
     if: ${{ (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/develop') || (github.event_name == 'push' && github.ref == 'refs/heads/develop') || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/master') || (github.event_name == 'push' && github.ref == 'refs/heads/master') }}
     steps:
