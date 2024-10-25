@@ -2625,4 +2625,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>DAONImagePreviewURL</shortDescription>
         <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
     </labels>
+    <labels>
+        <fullName>BlockManualStatusUpdateIdOpsCase</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
+        <value>false</value>
+    </labels>
 </CustomLabels>
