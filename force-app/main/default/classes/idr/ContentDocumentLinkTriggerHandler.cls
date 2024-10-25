@@ -10,6 +10,12 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
   public static Schema.SObjectType caseObjectType = Schema.getGlobalDescribe()
     .get('Case');
 
+  public static Set<String> allowedCaseRecTypes = new Set<String>{
+    RTCase.customerComplaint,
+    RTCase.nonCustomerComplaint,
+    RTCase.generalInquiryCmos,
+    RTCase.systemicIssue
+  };
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications
    */
@@ -36,15 +42,16 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     if (!caseMap.isEmpty()) {
       Case oCase;
       for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
+        oCase = caseMap.get(record.LinkedEntityId);
         if (
-          record.LinkedEntityId.getSobjectType() == caseObjectType &&
-          (oCase = caseMap.get(record.LinkedEntityId)) != null &&
-          (oCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
-          IDRCaseActions.isIDRComplaintType(oCase))
+          record.LinkedEntityId.getSobjectType() != caseObjectType ||
+          oCase == null ||
+          !allowedCaseRecTypes.contains(oCase.RecordTypeId)
         ) {
-          linkedEntityIdList.add(oCase.Id);
-          linkIdList.add(record.Id);
+          continue;
         }
+        linkedEntityIdList.add(oCase.Id);
+        linkIdList.add(record.Id);
       }
       if (ContentDocumentLink.SObjectType.getDescribe().isQueryable()) {
         docList = [
