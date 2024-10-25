@@ -273,9 +273,9 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     if (offsetAccountDetails == null || offsetAccountDetails?.hasError) {
       return offsetData;
     }
-    offsetData = offsetAccountDetails.loan_offsets
+    offsetData = offsetAccountDetails.loanOffsets
       .filter(
-        (offsetAccount) => offsetAccount.loan_account === account.account_number
+        (offsetAccount) => offsetAccount.loanAccount === account.account_number
       )
       .flatMap((item) =>
         item.offsetDetails.map((detail) => ({

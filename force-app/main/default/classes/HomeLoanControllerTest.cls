@@ -210,7 +210,7 @@ public inherited sharing class HomeLoanControllerTest {
   }
 
   private static HttpCalloutResponse getResponseWithEmptyList() {
-    String emptyBody = '{"loan_offsets": []}';
+    String emptyBody = '{"loanOffsets": []}';
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.statusCode = 200;
     response.successful = true;

@@ -24,13 +24,13 @@ public class OffsetAccountHelperTest {
     Test.startTest();
     OffsetAccountModel mockOffsetDetails = getOffsetData();
     List<String> finAccNumberList = OffsetAccountHelper.getFinAccNumberList(
-      mockOffsetDetails.loan_offsets
+      mockOffsetDetails.loanOffsets
     );
     Test.stopTest();
 
     Assert.areEqual(
       finAccNumberList[0],
-      mockOffsetDetails.loan_offsets[0].offset_accounts[0],
+      mockOffsetDetails.loanOffsets[0].offsetAccounts[0],
       'Offset account is available in response'
     );
   }
@@ -50,13 +50,13 @@ public class OffsetAccountHelperTest {
     offsetFinAccountMap.put(offsetId, finAccount);
     Test.startTest();
     List<OffsetAccountModel.LoanOffsets> linkedOffsetResponse = OffsetAccountHelper.transformDataForUI(
-      mockOffsetDetails.loan_offsets,
+      mockOffsetDetails.loanOffsets,
       offsetFinAccountMap
     );
 
     Test.stopTest();
     Assert.areEqual(
-      mockOffsetDetails.loan_offsets[0].offset_accounts[0],
+      mockOffsetDetails.loanOffsets[0].offsetAccounts[0],
       linkedOffsetResponse[0].offsetDetails[0].financialAccountNumber,
       'Offset account is available in response'
     );
