@@ -1,0 +1,857 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniIntegrationProcedure xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customJavaScript>{
+    &quot;ContextId&quot;: &quot;5009p00000K6l7CAAR&quot;,
+    &quot;triggeredfrom&quot;: &quot;Mainflow&quot;,
+    &quot;customButtonsList&quot;: {
+        &quot;beginPhoneCallButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Call Answered&quot;,
+                &quot;icon&quot;: &quot;utility:call&quot;,
+                &quot;order&quot;: 1
+            },
+            {
+                &quot;name&quot;: &quot;Unable to continue call&quot;,
+                &quot;icon&quot;: &quot;utility:end_call&quot;,
+                &quot;order&quot;: 2
+            },
+            {
+                &quot;name&quot;: &quot;Voicemail&quot;,
+                &quot;icon&quot;: &quot;utility:voicemail_drop&quot;,
+                &quot;order&quot;: 3
+            },
+            {
+                &quot;name&quot;: &quot;Email&quot;,
+                &quot;icon&quot;: &quot;utility:email_open&quot;,
+                &quot;order&quot;: 4
+            },
+            {
+                &quot;name&quot;: &quot;Case comment templates&quot;,
+                &quot;icon&quot;: &quot;utility:note&quot;,
+                &quot;order&quot;: 5
+            }
+        ],
+        &quot;choosePathwayButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Case comment templates&quot;,
+                &quot;icon&quot;: &quot;utility:note&quot;,
+                &quot;order&quot;: 1
+            }
+        ],
+        &quot;additionalIssuesButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Simple additional issues&quot;,
+                &quot;icon&quot;: &quot;utility:rows&quot;,
+                &quot;order&quot;: 1
+            },
+            {
+                &quot;name&quot;: &quot;Complex additional issues&quot;,
+                &quot;icon&quot;: &quot;utility:standard_objects&quot;,
+                &quot;order&quot;: 2
+            }
+        ],
+        &quot;financialRemedyButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Offer financial remedy&quot;,
+                &quot;icon&quot;: &quot;utility:moneybag&quot;,
+                &quot;order&quot;: 1
+            },
+            {
+                &quot;name&quot;: &quot;Next steps for financial remedy&quot;,
+                &quot;icon&quot;: &quot;utility:program_cohort&quot;,
+                &quot;order&quot;: 2
+            },
+            {
+                &quot;name&quot;: &quot;Decline financial remedy&quot;,
+                &quot;icon&quot;: &quot;utility:close&quot;,
+                &quot;order&quot;: 3
+            }
+        ],
+        &quot;endPhoneCallButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Resolved: outcome accepted&quot;,
+                &quot;icon&quot;: &quot;utility:like&quot;,
+                &quot;order&quot;: 1
+            },
+            {
+                &quot;name&quot;: &quot;Resolved: outcome dissatisfactory&quot;,
+                &quot;icon&quot;: &quot;utility:dislike&quot;,
+                &quot;order&quot;: 2
+            },
+            {
+                &quot;name&quot;: &quot;Unresolved: call back/email&quot;,
+                &quot;icon&quot;: &quot;utility:close&quot;,
+                &quot;order&quot;: 3
+            }
+        ],
+        &quot;sendWrittenResponseButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Unsuccessful customer contact&quot;,
+                &quot;icon&quot;: &quot;utility:missed_call&quot;,
+                &quot;order&quot;: 1
+            },
+            {
+                &quot;name&quot;: &quot;Resolved: customer dissatisfied&quot;,
+                &quot;icon&quot;: &quot;utility:dislike&quot;,
+                &quot;order&quot;: 2
+            },
+            {
+                &quot;name&quot;: &quot;Written response requested/required&quot;,
+                &quot;icon&quot;: &quot;utility:email&quot;,
+                &quot;order&quot;: 3
+            },
+            {
+                &quot;name&quot;: &quot;Case comment templates&quot;,
+                &quot;icon&quot;: &quot;utility:note&quot;,
+                &quot;order&quot;: 4
+            }
+        ],
+        &quot;closeCaseButtonList&quot;: [
+            {
+                &quot;name&quot;: &quot;Closure checklist&quot;,
+                &quot;icon&quot;: &quot;utility:picklist_type&quot;,
+                &quot;order&quot;: 1
+            },
+            {
+                &quot;name&quot;: &quot;Case comment templates&quot;,
+                &quot;icon&quot;: &quot;utility:note&quot;,
+                &quot;order&quot;: 2
+            }
+        ]
+    },
+    &quot;BeginPhonecall&quot;: {
+        &quot;TalkTrackButtons&quot;: {
+            &quot;selectedButtonName&quot;: &quot;Call Answered&quot;
+        },
+        &quot;CallAnsweredBlock&quot;: {
+            &quot;Email&quot;: &quot;123456789xyz@abc.com&quot;
+        }
+    },
+    &quot;rpCaseComments&quot;: null,
+    &quot;ChoosePathway&quot;: {
+        &quot;TalkTrackChoosePathway&quot;: {
+            &quot;selectedButtonName&quot;: &quot;Case comment templates&quot;
+        },
+        &quot;Messaging1&quot;: false,
+        &quot;IssueTypeButtons&quot;: {
+            &quot;selectedButtonName&quot;: &quot;Tone or manner of response&quot;
+        }
+    },
+    &quot;confirmButtonList&quot;: [
+        {
+            &quot;order&quot;: 1,
+            &quot;name&quot;: &quot;Staff interaction complaint&quot;,
+            &quot;icon&quot;: &quot;utility:questions_and_answers&quot;
+        },
+        {
+            &quot;order&quot;: 2,
+            &quot;name&quot;: &quot;Complaint about correspondence&quot;,
+            &quot;icon&quot;: &quot;utility:note&quot;
+        }
+    ],
+    &quot;Confirm&quot;: {
+        &quot;CustomLWC3&quot;: {
+            &quot;selectedButtonName&quot;: &quot;Staff interaction complaint&quot;
+        }
+    },
+    &quot;Apologise&quot;: {
+        &quot;CustomLWC6&quot;: {
+            &quot;selectedButtonName&quot;: &quot;Staff interaction complaint&quot;
+        }
+    },
+    &quot;apologiseButtonList&quot;: [
+        {
+            &quot;order&quot;: 1,
+            &quot;name&quot;: &quot;Staff interaction complaint&quot;,
+            &quot;icon&quot;: &quot;utility:questions_and_answers&quot;
+        },
+        {
+            &quot;order&quot;: 2,
+            &quot;name&quot;: &quot;Complaint about correspondence&quot;,
+            &quot;icon&quot;: &quot;utility:note&quot;
+        }
+    ],
+    &quot;ProvideInformation&quot;: {
+        &quot;ClosureLWC&quot;: {
+            &quot;selectedButtonName&quot;: &quot;Staff interaction complaint&quot;
+        }
+    },
+    &quot;provideInfoButtonList&quot;: [
+        {
+            &quot;order&quot;: 1,
+            &quot;name&quot;: &quot;Staff interaction complaint&quot;,
+            &quot;icon&quot;: &quot;utility:questions_and_answers&quot;
+        },
+        {
+            &quot;order&quot;: 2,
+            &quot;name&quot;: &quot;Complaint about correspondence&quot;,
+            &quot;icon&quot;: &quot;utility:note&quot;
+        },
+        {
+            &quot;order&quot;: 3,
+            &quot;name&quot;: &quot;Unable to continue call&quot;,
+            &quot;icon&quot;: &quot;utility:end_call&quot;
+        }
+    ],
+    &quot;ConfirmCallQueue&quot;: null,
+    &quot;ApologiseCQ&quot;: null,
+    &quot;ProvideInformationCQ&quot;: null,
+    &quot;ConsiderAdditionalIssues&quot;: {
+        &quot;TalkTrackAddtionalIssue&quot;: {
+            &quot;selectedButtonName&quot;: null
+        }
+    },
+    &quot;Considerfinancialremedy&quot;: {
+        &quot;CustomLWC3&quot;: {
+            &quot;selectedButtonName&quot;: null
+        }
+    },
+    &quot;EndPhoneCall&quot;: {
+        &quot;EndPhoneCallButtons&quot;: {
+            &quot;selectedButtonName&quot;: null
+        }
+    },
+    &quot;Sendwrittenresponse&quot;: {
+        &quot;CustomLWC5&quot;: {
+            &quot;selectedButtonName&quot;: null
+        }
+    },
+    &quot;CloseCase&quot;: {
+        &quot;CustomLWC7&quot;: {
+            &quot;selectedButtonName&quot;: null
+        }
+    },
+    &quot;omniscriptId&quot;: &quot;0jN9p000000P6DVEA0&quot;,
+    &quot;language&quot;: &quot;English&quot;,
+    &quot;type&quot;: &quot;Case&quot;,
+    &quot;runMode&quot;: &quot;preview&quot;,
+    &quot;sId&quot;: &quot;0jN9p000000P6DVEA0&quot;,
+    &quot;theme&quot;: &quot;lightning&quot;,
+    &quot;subType&quot;: &quot;ResolutionPathways&quot;,
+    &quot;timeStamp&quot;: &quot;2024-09-16T05:52:41.217Z&quot;,
+    &quot;userProfile&quot;: &quot;System Administrator&quot;,
+    &quot;userTimeZoneName&quot;: &quot;Australia/Sydney&quot;,
+    &quot;userTimeZone&quot;: &quot;600&quot;,
+    &quot;userCurrencyCode&quot;: &quot;AUD&quot;,
+    &quot;userName&quot;: &quot;divyanshi.tyagi@anzx.com.cmosadev&quot;,
+    &quot;userId&quot;: &quot;005Oa0000004lQ9IAI&quot;,
+    &quot;omniProcessId&quot;: &quot;0jN9p000000P6DVEA0&quot;,
+    &quot;localTimeZoneName&quot;: &quot;Asia/Calcutta&quot;,
+    &quot;CustomerType&quot;: &quot;2&quot;,
+    &quot;LastName&quot;: &quot;Cena&quot;,
+    &quot;CaseId&quot;: &quot;5009p00000K6l7CAAR&quot;,
+    &quot;CaseNumber&quot;: &quot;03297932&quot;,
+    &quot;UserId&quot;: &quot;005Oa0000004lQ9IAI&quot;,
+    &quot;Phone&quot;: &quot;9876543210&quot;,
+    &quot;FirstName&quot;: &quot;John&quot;,
+    &quot;CustomerNumber&quot;: &quot;1234634567&quot;,
+    &quot;UserName&quot;: &quot;Divyanshi Tyagi&quot;,
+    &quot;PathwayExists&quot;: true,
+    &quot;issueType&quot;: &quot;Tone or manner of response&quot;,
+    &quot;DRId_Assessment&quot;: &quot;0U39p0000008AevCAE&quot;
+}</customJavaScript>
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
+    <isActive>true</isActive>
+    <isIntegrationProcedure>true</isIntegrationProcedure>
+    <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
+    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+    <isTestProcedure>false</isTestProcedure>
+    <isWebCompEnabled>false</isWebCompEnabled>
+    <language>Procedure</language>
+    <name>IP_Resolution_Pathways_Main</name>
+    <omniProcessElements>
+        <name>ConditionalBlock-CallQueueTalkTrack</name>
+        <childElements>
+            <name>CallQueueSetValues</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;confirmButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Call queue / wait time complaint&quot;,
+      &quot;icon&quot; : &quot;utility:queue&quot;,
+      &quot;order&quot; : 1
+    } ],
+    &quot;apologiseButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Call queue / wait time complaint&quot;,
+      &quot;icon&quot; : &quot;utility:queue&quot;,
+      &quot;order&quot; : 1
+    } ],
+    &quot;provideInfoButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Call queue / wait time complaint&quot;,
+      &quot;icon&quot; : &quot;utility:queue&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Call quality issues&quot;,
+      &quot;icon&quot; : &quot;utility:leave_conference&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Customer wanting a direct number&quot;,
+      &quot;icon&quot; : &quot;utility:dialing&quot;,
+      &quot;order&quot; : 3
+    }, {
+      &quot;name&quot; : &quot;Unable to continue call&quot;,
+      &quot;icon&quot; : &quot;utility:end_call&quot;,
+      &quot;order&quot; : 4
+    } ]
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Set Values</type>
+        </childElements>
+        <childElements>
+            <name>ResponseAction-CallQueue</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%talkTrack%==&apos;Call queues / wait time&apos;&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;confirmButtonList&quot; : &quot;=%CallQueueSetValues:confirmButtonList%&quot;,
+    &quot;apologiseButtonList&quot; : &quot;=%CallQueueSetValues:apologiseButtonList%&quot;,
+    &quot;provideInfoButtonList&quot; : &quot;=%CallQueueSetValues:provideInfoButtonList%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Response Action</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%talkTrack% == &apos;Call queues / wait time&apos;&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock5&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Conditional Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ConditionalBlock-RPCreation</name>
+        <childElements>
+            <name>DataMapperPost-RPCreation</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%triggeredfrom% == &apos;mainflow_RPCreation&apos;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;CaseId&quot; : &quot;%ContextId%&quot;,
+    &quot;Name&quot; : &quot;%ChoosePathway:IssueTypeButtons:selectedButtonName%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;bundle&quot; : &quot;ResolutionPathwayDataMapper&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataMapperPostAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>DataRaptor Post Action</type>
+        </childElements>
+        <childElements>
+            <name>ResponseAction-RPCreation</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;DRId_Assessment&quot; : &quot;%DataMapperPost-RPCreation:Assessment_1:Id%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction5&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Response Action</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%triggeredfrom% == &apos;mainflow_RPCreation&apos;&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>6.0</sequenceNumber>
+        <type>Conditional Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ConditionalBlock-RPUpdate</name>
+        <childElements>
+            <name>DataMapperPostAction-RPUpdate</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;DRId_Assessment&quot; : &quot;%DRId_Assessment%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;bundle&quot; : &quot;ResolutionPathwayUpdatedToComplete&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataMapperPostAction3&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>DataRaptor Post Action</type>
+        </childElements>
+        <childElements>
+            <name>ResponseAction-RPUpdate</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;message&quot; : &quot;&apos;Assessment record successfully updated&apos;&quot;,
+    &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot; : 0
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction6&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Response Action</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%triggeredfrom% == &apos;DataMapperPost-RPUpdate&apos;&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock4&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Conditional Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>ConditionalBlock-ToneOrMannerTalkTrack</name>
+        <childElements>
+            <name>ResponseAction-ToneOrManner</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;confirmButtonList&quot; : &quot;=%ToneorMannerSetValues:confirmButtonList%&quot;,
+    &quot;apologiseButtonList&quot; : &quot;=%ToneorMannerSetValues:apologiseButtonList%&quot;,
+    &quot;provideInfoButtonList&quot; : &quot;=%ToneorMannerSetValues:provideInfoButtonList%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Response Action</type>
+        </childElements>
+        <childElements>
+            <name>ToneorMannerSetValues</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;confirmButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Staff interaction complaint&quot;,
+      &quot;icon&quot; : &quot;utility:questions_and_answers&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Complaint about correspondence&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 2
+    } ],
+    &quot;apologiseButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Staff interaction complaint&quot;,
+      &quot;icon&quot; : &quot;utility:questions_and_answers&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Complaint about correspondence&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 2
+    } ],
+    &quot;provideInfoButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Staff interaction complaint&quot;,
+      &quot;icon&quot; : &quot;utility:questions_and_answers&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Complaint about correspondence&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Unable to continue call&quot;,
+      &quot;icon&quot; : &quot;utility:end_call&quot;,
+      &quot;order&quot; : 3
+    } ]
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Set Values</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%talkTrack% == &apos;Tone or Manner of response&apos;&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock4&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Conditional Block</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <name>MainFlow_Elements</name>
+        <childElements>
+            <name>DataMapperExtract-Caserecord</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;caseRecordId&quot; : &quot;%ContextId%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;bundle&quot; : &quot;RPCaseRecordDataMapper&quot;,
+  &quot;dataRaptor Input Parameters&quot; : [ ],
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;ignoreCache&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;DataMapperExtractAction1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>DataRaptor Extract Action</type>
+        </childElements>
+        <childElements>
+            <name>MainFlowButtons_SetValues</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%triggeredfrom% == &apos;mainFlow&apos;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : false,
+  &quot;elementValueMap&quot; : {
+    &quot;beginPhoneCallButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Call Answered&quot;,
+      &quot;icon&quot; : &quot;utility:call&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Unable to continue call&quot;,
+      &quot;icon&quot; : &quot;utility:end_call&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Voicemail&quot;,
+      &quot;icon&quot; : &quot;utility:voicemail_drop&quot;,
+      &quot;order&quot; : 3
+    }, {
+      &quot;name&quot; : &quot;Email&quot;,
+      &quot;icon&quot; : &quot;utility:email_open&quot;,
+      &quot;order&quot; : 4
+    }, {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 5
+    } ],
+    &quot;additionalIssuesButtonList&quot; : [ {
+      &quot;name&quot; : &quot;No additional issues&quot;,
+      &quot;icon&quot; : &quot;utility:arrow_right&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Simple additional issues&quot;,
+      &quot;icon&quot; : &quot;utility:rows&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Complex additional issues&quot;,
+      &quot;icon&quot; : &quot;utility:standard_objects&quot;,
+      &quot;order&quot; : 3
+    } ],
+    &quot;financialRemedyButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Financial remedy not applicable&quot;,
+      &quot;icon&quot; : &quot;utility:arrow_right&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Offer financial remedy&quot;,
+      &quot;icon&quot; : &quot;utility:moneybag&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Next steps for financial remedy&quot;,
+      &quot;icon&quot; : &quot;utility:program_cohort&quot;,
+      &quot;order&quot; : 3
+    }, {
+      &quot;name&quot; : &quot;Decline financial remedy request&quot;,
+      &quot;icon&quot; : &quot;utility:close&quot;,
+      &quot;order&quot; : 4
+    } ],
+    &quot;endPhoneCallButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Outcome accepted&quot;,
+      &quot;icon&quot; : &quot;utility:like&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Outcome rejected&quot;,
+      &quot;icon&quot; : &quot;utility:dislike&quot;,
+      &quot;order&quot; : 2
+    } ],
+    &quot;sendWrittenResponseButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Unsuccessful customer contact&quot;,
+      &quot;icon&quot; : &quot;utility:missed_call&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Written response requested/required&quot;,
+      &quot;icon&quot; : &quot;utility:email&quot;,
+      &quot;order&quot; : 2
+    }, {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 3
+    } ],
+    &quot;closeCaseButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Closure checklist&quot;,
+      &quot;icon&quot; : &quot;utility:picklist_type&quot;,
+      &quot;order&quot; : 1
+    }, {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 2
+    } ],
+    &quot;choosePathwayButtonList&quot; : [ {
+      &quot;name&quot; : &quot;Case comment templates&quot;,
+      &quot;icon&quot; : &quot;utility:note&quot;,
+      &quot;order&quot; : 1
+    } ]
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues3&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Set Values</type>
+        </childElements>
+        <childElements>
+            <name>ResponseAction-Mainflow</name>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%triggeredfrom% == &apos;mainFlow&apos;&quot;,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalOutput&quot; : {
+    &quot;customButtonsList&quot; : &quot;%MainFlowButtons_SetValues%&quot;,
+    &quot;UserName&quot; : &quot;%DataMapperExtract-Caserecord:UserName%&quot;,
+    &quot;UserId&quot; : &quot;%DataMapperExtract-Caserecord:UserId%&quot;,
+    &quot;PathwayExists&quot; : &quot;%DataMapperExtract-Caserecord:PathwayExists%&quot;,
+    &quot;CustomerType&quot; : &quot;%DataMapperExtract-Caserecord:CustomerType%&quot;,
+    &quot;CaseNumber&quot; : &quot;%DataMapperExtract-Caserecord:CaseNumber%&quot;,
+    &quot;Email&quot; : &quot;%DataMapperExtract-Caserecord:Email%&quot;,
+    &quot;Phone&quot; : &quot;%DataMapperExtract-Caserecord:Phone%&quot;,
+    &quot;CaseId&quot; : &quot;%DataMapperExtract-Caserecord:CaseId%&quot;,
+    &quot;FirstName&quot; : &quot;%DataMapperExtract-Caserecord:FirstName%&quot;,
+    &quot;LastName&quot; : &quot;%DataMapperExtract-Caserecord:LastName%&quot;,
+    &quot;CustomerNumber&quot; : &quot;%DataMapperExtract-Caserecord:CustomerNumber%&quot;,
+    &quot;Type&quot; : &quot;%DataMapperExtract-Caserecord:Type%&quot;,
+    &quot;IssueType2&quot; : &quot;%DataMapperExtract-Caserecord:IssueType2%&quot;,
+    &quot;IssueType3&quot; : &quot;%DataMapperExtract-Caserecord:IssueType3%&quot;,
+    &quot;SecondIssue&quot; : &quot;%DataMapperExtract-Caserecord:SecondIssue%&quot;,
+    &quot;ThirdIssue&quot; : &quot;%DataMapperExtract-Caserecord:ThirdIssue%&quot;,
+    &quot;SubIssue&quot; : &quot;%DataMapperExtract-Caserecord:SubsequentIssue%&quot;,
+    &quot;SubIssue2&quot; : &quot;%DataMapperExtract-Caserecord:SubsequentIssue2%&quot;,
+    &quot;SubIssue3&quot; : &quot;%DataMapperExtract-Caserecord:SubsequentIssue3%&quot;,
+    &quot;RecordTypeId&quot; : &quot;%DataMapperExtract-Caserecord:RecordTypeId%&quot;,
+    &quot;ResolutionPathwaysMdt&quot; : &quot;%DataMapperExtract-Caserecord:ResolutionPathwayMdt%&quot;
+  },
+  &quot;returnOnlyAdditionalOutput&quot; : true,
+  &quot;returnFullDataJSON&quot; : false,
+  &quot;responseFormat&quot; : &quot;JSON&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseDefaultData&quot; : { },
+  &quot;vlcResponseHeaders&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ResponseAction4&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Response Action</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;%triggeredfrom% == &apos;mainFlow&apos;&quot;,
+  &quot;isIfElseBlock&quot; : false,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;ConditionalBlock1&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Conditional Block</type>
+    </omniProcessElements>
+    <omniProcessKey>ResolutionPathway_MainIP</omniProcessKey>
+    <omniProcessType>Integration Procedure</omniProcessType>
+    <propertySetConfig>{
+  &quot;linkToExternalObject&quot; : &quot;&quot;,
+  &quot;trackingCustomData&quot; : { },
+  &quot;includeAllActionsInResponse&quot; : false,
+  &quot;columnsPropertyMap&quot; : [ ],
+  &quot;relationshipFieldsMap&quot; : [ ],
+  &quot;labelSingular&quot; : &quot;&quot;,
+  &quot;labelPlural&quot; : &quot;&quot;,
+  &quot;description&quot; : &quot;&quot;,
+  &quot;nameColumn&quot; : &quot;&quot;,
+  &quot;rollbackOnError&quot; : false,
+  &quot;chainableQueriesLimit&quot; : 50,
+  &quot;chainableDMLStatementsLimit&quot; : null,
+  &quot;chainableCpuLimit&quot; : 2000,
+  &quot;chainableHeapSizeLimit&quot; : null,
+  &quot;chainableDMLRowsLimit&quot; : null,
+  &quot;chainableQueryRowsLimit&quot; : null,
+  &quot;chainableSoslQueriesLimit&quot; : null,
+  &quot;chainableActualTimeLimit&quot; : null,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;queueableChainableQueriesLimit&quot; : 120,
+  &quot;queueableChainableCpuLimit&quot; : 40000,
+  &quot;queueableChainableHeapSizeLimit&quot; : 6,
+  &quot;ttlMinutes&quot; : 5,
+  &quot;mockResponseMap&quot; : { }
+}</propertySetConfig>
+    <subType>MainIP</subType>
+    <type>ResolutionPathway</type>
+    <uniqueName>ResolutionPathway_MainIP_Procedure_2</uniqueName>
+    <versionNumber>2.0</versionNumber>
+    <webComponentKey>c424c128-ab36-5b22-5a72-b69aa25cf50f</webComponentKey>
+</OmniIntegrationProcedure>

@@ -206,4 +206,24 @@ public with sharing class SICaseActions {
     }
     return false;
   }
+  /**
+   * @description check if current User has permission to create Task
+   * @return Boolean true or false based on permissions
+   */
+  public static Boolean hasTaskCreatePermission() {
+    if (
+      Task.sObjectType.getDescribe().isCreateable() &&
+      Schema.sObjectType.Task.fields.ActivityDate.isCreateable() &&
+      Schema.sObjectType.Task.fields.IsReminderSet.isCreateable() &&
+      Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
+      Schema.sObjectType.Task.fields.RecordTypeId.isCreateable() &&
+      Schema.sObjectType.Task.fields.ReminderDateTime.isCreateable() &&
+      Schema.sObjectType.Task.fields.Subject.isCreateable() &&
+      Schema.sObjectType.Task.fields.Type.isCreateable() &&
+      Schema.sObjectType.Task.fields.WhatId.isCreateable()
+    ) {
+      return true;
+    }
+    return false;
+  }
 }

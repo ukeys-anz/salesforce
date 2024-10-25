@@ -369,6 +369,14 @@
         <value>False</value>
     </labels>
     <labels>
+        <fullName>CMOS_Chatter_Group_Name</fullName>
+        <categories>CMOS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CMOS Chatter Group Name</shortDescription>
+        <value>All CMOS Users</value>
+    </labels>
+    <labels>
         <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -775,6 +783,13 @@
         <protected>false</protected>
         <shortDescription>IDR_Max_Window_For_Task_Reminders</shortDescription>
         <value>7</value>
+    </labels>
+    <labels>
+        <fullName>IDR_Toggle_Old_New_Resolution_Pathway</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Conditionally show Old OR New Resolution pathway</shortDescription>
+        <value>New</value>
     </labels>
     <labels>
         <fullName>IDR_Window_For_Task_Reminders</fullName>
@@ -2537,7 +2552,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL</value>
+        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>
