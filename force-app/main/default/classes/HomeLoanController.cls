@@ -71,12 +71,12 @@ public with sharing class HomeLoanController {
         loanAccNumber,
         recordId
       );
-      if (result?.loan_offsets?.isEmpty() ?? true) {
+      if (result?.loanOffsets?.isEmpty() ?? true) {
         return null;
       }
 
       List<String> finAccNumbers = OffsetAccountHelper.getFinAccNumberList(
-        result.loan_offsets
+        result.loanOffsets
       );
       List<FinServ__FinancialAccount__c> finAccList = FAR_REPOSITORY.getFinAccountList(
         finAccNumbers
@@ -87,8 +87,8 @@ public with sharing class HomeLoanController {
         FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
       );
 
-      result.loan_offsets = OffsetAccountHelper.transformDataForUI(
-        result.loan_offsets,
+      result.loanOffsets = OffsetAccountHelper.transformDataForUI(
+        result.loanOffsets,
         accNumberToFinAccountMap
       );
       return result;

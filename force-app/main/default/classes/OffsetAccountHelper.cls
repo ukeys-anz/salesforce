@@ -14,7 +14,7 @@ public with sharing class OffsetAccountHelper {
   ) {
     List<String> finAccNumber = new List<String>();
     for (OffsetAccountModel.LoanOffsets record : offsetAccounts) {
-      finAccNumber.addAll(record.offset_accounts);
+      finAccNumber.addAll(record.offsetAccounts);
     }
     return finAccNumber;
   }
@@ -36,7 +36,7 @@ public with sharing class OffsetAccountHelper {
       loanAccount.offsetDetails = new List<OffsetAccountModel.OffsetWrapper>();
 
       // Loop through all the offsets linked to each loan account
-      for (String offsetAccountNumber : loanAccount.offset_accounts) {
+      for (String offsetAccountNumber : loanAccount.offsetAccounts) {
         OffsetAccountModel.OffsetWrapper offsetDetails = new OffsetAccountModel.OffsetWrapper();
         offsetDetails.financialAccountNumber = offsetAccountNumber;
         offsetDetails.financialAccountId = accNumberToFinAccountMap.get(

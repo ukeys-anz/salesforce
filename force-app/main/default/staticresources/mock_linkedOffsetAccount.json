@@ -1,14 +1,14 @@
 {
-  "loan_offsets": [
+  "loanOffsets": [
     {
       "name": "accounts/8321158/loanoffset",
-      "loan_account": "accounts/8321158",
-      "offset_accounts": ["accounts/111111111"]
+      "loanAccount": "accounts/8321158",
+      "offsetAccounts": ["accounts/111111111"]
     },
     {
       "name": "accounts/222222222/loanoffset",
-      "loan_account": "accounts/222222222",
-      "offset_accounts": ["accounts/111111112"]
+      "loanAccount": "accounts/222222222",
+      "offsetAccounts": ["accounts/111111112"]
     }
   ]
 }

@@ -896,6 +896,43 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   }
 
   /**
+   * @description Format Account Number for Account Numbers of Linked Accounts for PTF
+   * @param accountNumber Account Number
+   * @param productCode Product Code
+   * @return String formatted Account Number
+   */
+  public String formatAccountNumber(String accountNumber, String productCode) {
+    if (String.isBlank(accountNumber)) {
+      return '';
+    }
+    Map<Integer, List<Integer>> lengthFormat = new Map<Integer, List<Integer>>{
+      7 => new List<Integer>{ 0, 2, 5, 7 },
+      9 => new List<Integer>{ 0, 3, 6, 9 }
+    };
+    Set<String> accountNumberBasedOnProductCodeSet = new Set<String>{
+      'APP',
+      'MOS',
+      'SVC'
+    };
+    if (!accountNumberBasedOnProductCodeSet.contains(productCode)) {
+      return formatAccountNumber(accountNumber);
+    }
+    if (
+      (productCode == 'APP' || productCode == 'MOS') &&
+      accountNumber.length() < 9
+    ) {
+      accountNumber = accountNumber.leftPad(9, '0');
+    }
+    if (productCode == 'SVC' && accountNumber.length() < 7) {
+      accountNumber = accountNumber.leftPad(7, '0');
+    }
+    return joinAccountNumberParts(
+      accountNumber,
+      lengthFormat.get(accountNumber.length())
+    );
+  }
+
+  /**
    * @description Format Account Number
    * @param accountNumber Account Number
    * @return String formatted Account Number

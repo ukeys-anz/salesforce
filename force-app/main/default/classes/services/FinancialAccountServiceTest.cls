@@ -33,8 +33,8 @@ public with sharing class FinancialAccountServiceTest {
     );
     Assert.isTrue(response.successful, 'Response should be successful');
     Assert.isTrue(
-      response.body.contains('loan_offsets'),
-      'Response should have loan_offsets'
+      response.body.contains('loanOffsets'),
+      'Response should have loanOffsets'
     );
   }
 

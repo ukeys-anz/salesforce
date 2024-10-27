@@ -12,7 +12,8 @@
     </values>
     <values>
         <field>Customer_Message__c</field>
-        <value xsi:type="xsd:string">Great news, the dispute has been found in your favour. A refund is on the way and should be in your account within 3 business days.
+        <value xsi:type="xsd:string">Great news, the dispute has been found in your favour. You may have received a credit in your account already. If you haven’t received a refund yet, it should be on its way and in your account within 3 business days.
+
 We&apos;ll send you an email with more information and our contact details. Feel free to reach out to us if you have any questions.</value>
     </values>
     <values>
