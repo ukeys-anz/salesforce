@@ -275,7 +275,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Quality_Assessment__c oAssessment,
     Quality_Assessment__c oOldAssessment
   ) {
-    if (
       !allowedRecTypes.contains(oAssessment.RecordTypeId) ||
       !allowedStatus.contains(oAssessment.Status__c)
     ) {
