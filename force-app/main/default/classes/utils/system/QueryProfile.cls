@@ -17,6 +17,11 @@ public with sharing class QueryProfile {
   public static Profile minimumAccessExternalApps = get(
     'Minimum Access - External Apps'
   );
+  public static Profile anzCCRMStandardUser = get('ANZ CCRM Standard User');
+  public static Profile integrationUser = get('Integration User');
+  public static Profile minimumAccessSalesforce = get(
+    'Minimum Access - Salesforce'
+  );
 
   /**
    * @description Get Profile by Profile Name

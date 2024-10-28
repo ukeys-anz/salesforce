@@ -1,0 +1,28 @@
+.customModalHeader {
+  --slds-c-modal-header-color-background: #014486;
+  --slds-c-modal-header-text-color: #ffffff;
+}
+
+.spinner-height {
+  height: 10rem;
+}
+
+.customPaddingForFields {
+  padding-left: 10rem;
+}
+
+.customPaddingForMessage {
+  padding-left: 10rem;
+  padding-bottom: 2rem;
+  padding-top: 1rem;
+}
+
+.copied-text {
+  margin-left: 1.25rem;
+}
+
+.realignButton {
+  margin-top: 0.5rem;
+  position: absolute;
+  right: 2.5rem;
+}

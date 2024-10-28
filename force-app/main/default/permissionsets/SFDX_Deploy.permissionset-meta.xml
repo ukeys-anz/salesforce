@@ -841,7 +841,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Case.SI_Complaint_Count__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1433,6 +1433,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Last_Assigned_Owner__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

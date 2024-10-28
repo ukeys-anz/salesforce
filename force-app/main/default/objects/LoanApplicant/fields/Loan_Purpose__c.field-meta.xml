@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Loan_Purpose__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Loan_Domain</complianceGroup>
+    <description>Loan purpose of loan application</description>
+    <externalId>false</externalId>
+    <formula>CASE(LoanApplication.Loan_Purpose__c,
+    &quot;LENDING_PURPOSE_UNSPECIFIED&quot;, &quot;Unspecified&quot;,
+    &quot;REFINANCING_REASON_PAY_LESS&quot;, &quot;Pay Less&quot;,
+    &quot;REFINANCING_REASON_PAY_OFF_SOONER&quot;, &quot;Pay Off Sooner&quot;,
+    &quot;REFINANCING_REASON_CONSOLIDATE_LOANS&quot;, &quot;Consolidate Loans&quot;,
+    &quot;REFINANCING_REASON_TOPUP_EXISTING_LOAN&quot;, &quot;Top Up&quot;,
+    &quot;LENDING_PURPOSE_REFINANCE&quot;, &quot;Refinance&quot;,
+    &quot;LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING&quot;, &quot;Non-structural alterations or additions&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_NEW&quot;, &quot;New car&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_USED&quot;, &quot;Used car&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_MOTOR_VEHICLE_OTHER&quot;, &quot;Other vehicle type&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_MOTOR_CYCLE&quot;, &quot;Motorcycle and scooters&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_BOAT_CARAVAN_TRAILER&quot;, &quot;Boats, caravans and trailers&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS&quot;, &quot;Household and personal goods&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL&quot;, &quot;Travel and holidays&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT&quot;, &quot;Personal investments, shares, bonds&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION&quot;, &quot;Education expenses&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_WEDDING&quot;, &quot;Wedding&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_LEGAL&quot;, &quot;Legal expenses&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL&quot;, &quot;Medical expenses&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES&quot;, &quot;Motor vehicle expenses&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE&quot;, &quot;Maintenance, repairs and pools&quot;,
+    &quot;LENDING_PURPOSE_PERSONAL_OTHER&quot;, &quot;Other&quot;,
+    TEXT(LoanApplication.Loan_Purpose__c)
+)</formula>
+    <label>Loan Purpose</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

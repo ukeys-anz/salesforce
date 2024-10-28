@@ -132,10 +132,10 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
   /**
    * @param staffModel model to call staffJWT api
    * @param action action
-   * @return TFMArchiveUserModel response
+   * @return HttpCalloutResponse response
    * @description make API callout to archive user and handle response
    */
-  public TFMArchiveUserModel archiveUser(
+  public HttpCalloutResponse archiveUser(
     StaffTokenRequestModel staffModel,
     String action
   ) {
@@ -143,11 +143,10 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
       TFMAUFService.class
     );
     HttpCalloutResponse response = s.updateStatus(staffModel, action);
-    HttpCalloutResponse handledResponse = handleResponse(response);
-    TFMArchiveUserModel archiveUserModel = TFMArchiveUserModel.parse(
-      handledResponse.body
-    );
-    return archiveUserModel;
+    if (response.statusCode == 500) {
+      throw new ArchiveFailException(response.error.getMessage());
+    }
+    return handleResponse(response);
   }
 
   /**
@@ -156,7 +155,7 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
    * @description handle received response and either return the response or throw exception
    */
   public HttpCalloutResponse handleResponse(HttpCalloutResponse response) {
-    List<Integer> insufficientAccessCodes = new List<Integer> {401, 403, 405};
+    List<Integer> insufficientAccessCodes = new List<Integer>{ 401, 403, 405 };
     if (response.successful) {
       return response;
     } else if (insufficientAccessCodes.contains(response.statusCode)) {
@@ -166,6 +165,11 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
     }
   }
 
+  /**
+   * @description custom exception
+   */
+  public class ArchiveFailException extends Exception {
+  }
   /**
    * @description custom exception
    */

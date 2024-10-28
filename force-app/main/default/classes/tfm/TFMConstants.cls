@@ -189,7 +189,6 @@ public with sharing class TFMConstants {
   public static final String API_CREDENTIALS = '/credentials/';
   public static final String REPLACE = 'replace';
   public static final String SECURITYMOBILE = 'securityMobile';
-  public static final String AUF_DATE_FORMAT = 'yyyy-MM-dd\'T\'HH:mm:ssXXX';
   public static final String AUF_DATE_VARIABLE = 'mobileVerifiedDate';
   public static final String ARCHIVE = 'Archive';
   public static final String ARCHIVED = 'archived';

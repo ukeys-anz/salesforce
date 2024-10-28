@@ -883,4 +883,17 @@ public with sharing virtual class Service {
   ) {
     return null;
   }
+
+  /**
+   * @param loanAppNumber Loan application Number
+   * @param ocvId required to make the callout to Mulesoft
+   * @return `HttpCalloutResponse` the api response
+   * @description cancel home loan application through mule
+   */
+  public virtual HttpCalloutResponse cancelResidentialLoanApp(
+    String loanAppNumber,
+    String ocvId
+  ) {
+    return null;
+  }
 }

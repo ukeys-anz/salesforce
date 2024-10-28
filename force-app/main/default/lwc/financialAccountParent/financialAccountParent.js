@@ -20,6 +20,8 @@ import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
 
 import getHomeLoanAccount from "@salesforce/apex/HomeLoanController.getHomeLoanAccount";
+import getOffsetHomeLoanAccount from "@salesforce/apex/HomeLoanController.getListOffset";
+
 /* IMPORT PERMISSIONS */
 import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
@@ -71,6 +73,7 @@ export default class FinancialAccountParent extends LightningElement {
   isSavings;
   isHomeLoan;
   loanData;
+  offsetData = {};
   loading;
   ocvId;
   transactionData;
@@ -147,7 +150,15 @@ export default class FinancialAccountParent extends LightningElement {
       ) {
         this.isHomeLoan = true;
         this.showRaiseDispute = false;
-        await this.getHomeLoanResponse();
+
+        const [loanResponse, offsetResponse] = await Promise.all([
+          this.getHomeLoanResponse(),
+          this.getOffsetHomeLoanResponse()
+        ]);
+        //Need to stringify and send as the array consists of many objects and SF proxies it
+        //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
+        this.loanData = JSON.stringify(loanResponse.accounts);
+        this.offsetData = offsetResponse;
       } else {
         this.showRaiseDispute = true;
         if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
@@ -413,12 +424,9 @@ export default class FinancialAccountParent extends LightningElement {
       //Filter to only get H1 account we are viewing
       let response = await getHomeLoanAccount({
         ocvId: this.ocvId,
-        accountNumbers: [this.accountNumber],
-        recordId: this.recordId
+        accountNumbers: [this.accountNumber]
       });
-      //Need to stringify and send as the array consists of many objects and SF proxies it
-      //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
-      this.loanData = JSON.stringify(response.accounts);
+      return response;
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -428,6 +436,28 @@ export default class FinancialAccountParent extends LightningElement {
         "pester"
       );
     }
+    return null;
+  }
+
+  async getOffsetHomeLoanResponse() {
+    try {
+      //Filter to only get offset account we are viewing
+      let response = await getOffsetHomeLoanAccount({
+        ocvId: this.ocvId,
+        loanAccNumber: this.accountNumber,
+        recordId: this.recordId
+      });
+      return response;
+    } catch (error) {
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve offset Details.",
+        error,
+        "Failed To Retrieve offset Details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "pester"
+      );
+    }
+    return null;
   }
 
   handleAccountInformation(finAccounts) {
