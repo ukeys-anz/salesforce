@@ -2632,4 +2632,19 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
         <value>false</value>
     </labels>
+    <labels>
+        <fullName>HideCardDetailsAfterMiliseconds</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HideCardDetailsAfterMiliseconds</shortDescription>
+        <value>120000</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Full_Card_Number</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Full_Card_Number</shortDescription>
+        <value>callout:SF_MS_CH2/detokenize/v1/detokenize/cards</value>
+    </labels>
 </CustomLabels>
