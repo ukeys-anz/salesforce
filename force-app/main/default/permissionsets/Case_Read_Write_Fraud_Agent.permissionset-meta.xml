@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>AutoKYCQACaseController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CaseDurationObject</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -20,6 +24,10 @@
         <apexClass>SubmitDisputeController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <name>ANZx_Complete_KYC_QA_Checks</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>Should only have required/minimum permissions to Read/Write Case related information for FraudX Agents.</description>
     <fieldPermissions>
         <editable>false</editable>

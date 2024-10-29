@@ -56,6 +56,16 @@ function fraudCardsAction(inputInfo) {
   };
 }
 
+function viewCardNumberAction(inputInfo) {
+  return {
+    buttonClicked: inputInfo.label,
+    tokenizedCardNumber: inputInfo.card.tokenized_card_number,
+    cardHolder: inputInfo.card.name,
+    accountType: inputInfo.card.accountType,
+    showViewCardNumber: true
+  };
+}
+
 function fraudButtonVisible(card, userPermission) {
   let allowedStatus = [
     STATUS.Issued,
@@ -81,6 +91,10 @@ function lockCardVisible(card, userPermission) {
 
 function replaceCardVisible(card, userPermission) {
   return userPermission.hasReplacePermission;
+}
+
+function viewCardNumberVisible(card, userPermission) {
+  return userPermission.hasViewCardNumberPermission;
 }
 
 function cancelCardVisible(card, userPermission) {
@@ -125,6 +139,11 @@ function replaceDisabled(card) {
 
 // function according to the label of the button
 const buttonConfigObject = {
+  "Get Card Number": {
+    buttonVisible: viewCardNumberVisible,
+    action: viewCardNumberAction,
+    buttonDisable: defaultButtonDisabled
+  },
   "Fraud Lock": {
     buttonVisible: fraudButtonVisible,
     action: fraudCardsAction,

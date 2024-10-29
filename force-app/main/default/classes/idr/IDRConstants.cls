@@ -15,10 +15,19 @@ public with sharing class IDRConstants {
   public static final String CLOSED_STATUS = 'Closed';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String RESOLVED_STATUS = 'Resolved';
-  public static final String ON_HOLD_STATUS = 'On Hold';
+  public static final String ON_HOLD_STATUS = 'Case - On Hold';
+  public static final String SYSTEMIC_ISSUE_YES = 'yes';
+
+  //Product Family
+  public static final String ASSET_FINANCE_PRODUCT_FAMILY = 'Asset Finance';
 
   //Case Priority
   public static final String CASE_PRIORITY_STANDARD = 'Standard';
+
+  //Case SI_Worflow_Step
+  public static final String SI_WF_STEP_ASSESSING = 'Assessing';
+  public static final String SI_WF_STEP_MONITORING = 'Monitoring';
+  public static final String SI_WF_STEP_INVESTIGATING = 'Investigating';
 
   //Customer Notification Template
   public static final String CUSTOMER_NOTIFICATION_TEMPLATE_ID = 'AgCaseRegister';
@@ -207,6 +216,7 @@ public with sharing class IDRConstants {
   public static final String INVALID_ACC_NO_MESSAGE = 'Account numbers can not include any symbols or special characters. Only use a Semicolon to separate account numbers if more than 1 account';
 
   //Task fields Constants
+  public static final String TASK_PRIORITY_NORMAL = 'Normal';
   public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public static final String SUBJECT_PEND_CASE_TASK = 'Case Pended - provide update in case comment';
   public static final String TASK_TYPE_SYSTEMIC_ISSUE = 'Systemic Issue';
@@ -339,43 +349,6 @@ public with sharing class IDRConstants {
     'Credit reporting',
     'Credit assessment'
   };
-
-  /**
-   * @description Static variable to list CMOS workbaskets' API names
-   */
-  @TestVisible
-  public static final List<String> workBasketNames {
-    get {
-      if (workBasketNames == null) {
-        workBasketNames = new List<String>{
-          'Specialised_Early_Resolution_Hardship',
-          'Specialised_EarlyRes_Responsible_Lending',
-          'EDR_Early_Resolution',
-          'IDR_Hardship',
-          'IDR_Responsible_Lending',
-          'IDR_CEO',
-          'IDR_Business_Owners',
-          'IDR_Everyday_Banking',
-          'IDR_Home_Owners',
-          'IDR_Wealth',
-          'IDR_Early_Resolution',
-          'IDR_Early_Resolution_Unassisted_Channel',
-          'CCR_Complaints',
-          'Hardship_IDR_Letter',
-          'IDR_ANZ_Plus',
-          'EDR_Hardship',
-          'EDR_Wealth',
-          'IDR_Satellite',
-          'IDR_Spare', //IDR Disputes
-          'EDR_CM_Everyday_Banking_Wealth', // EDR Scams
-          'IDR_Scams', // IDR Scams
-          'IDR_Deceased_Estates'
-        };
-      }
-      return workBasketNames;
-    }
-    set;
-  }
 
   //CAP ID value on the customer identifier (IDR_Customer_Identifier__c) case field
   public static final String CUSTOMER_IDENTIFIER_CAP_ID = 'Customer/Business CAP ID';
@@ -525,4 +498,15 @@ public with sharing class IDRConstants {
     }
     private set;
   }
+
+  // Collections Fields
+
+  public static final Set<SObjectField> COLLECTIONS_FIELDS = new Set<SObjectField>{
+    Case.Type,
+    Case.IDR_Subsequent_Issue__c,
+    Case.IDR_Issue_Type_2__c,
+    Case.IDR_Subsequent_Issue_2__c,
+    Case.IDR_Issue_Type_3__c,
+    Case.IDR_Subsequent_Issue_3__c
+  };
 }

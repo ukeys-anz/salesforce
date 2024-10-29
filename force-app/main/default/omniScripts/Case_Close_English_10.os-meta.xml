@@ -53,15 +53,24 @@
   },
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Restricted Case&quot;,
+        &quot;data&quot; : &quot;Escalated&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;
+        &quot;field&quot; : &quot;Case:ComplaintStatus_OLD&quot;
       }, {
-        &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;No Restriction&quot;
+        &quot;group&quot; : {
+          &quot;operator&quot; : &quot;OR&quot;,
+          &quot;rules&quot; : [ {
+            &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;Restricted Case&quot;
+          }, {
+            &quot;field&quot; : &quot;Case:IDR_Restriction_Level__c&quot;,
+            &quot;condition&quot; : &quot;=&quot;,
+            &quot;data&quot; : &quot;No Restriction&quot;
+          } ]
+        }
       } ]
     }
   },
@@ -2666,10 +2675,7 @@
         <childElements>
             <name>IDR_Subsequent_Issue__c</name>
             <isActive>true</isActive>
-            <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{

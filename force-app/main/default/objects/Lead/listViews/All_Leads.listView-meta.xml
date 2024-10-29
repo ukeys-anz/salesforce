@@ -11,12 +11,24 @@
     <filterScope>Everything</filterScope>
     <label>All Leads</label>
     <sharedTo>
+        <role>AF_General_Manager</role>
         <role>BOH_Coach</role>
         <role>Business_Admin</role>
+        <role>CBO_General_Manager</role>
+        <role>Channel_Segment_Manager</role>
         <role>Coach</role>
         <role>Coach_Lead</role>
+        <role>Commercial_Admin</role>
+        <role>Commercial_Business_Execution_Team</role>
+        <role>Commercial_Group_Executive</role>
+        <role>Commercial_Operations_Team</role>
+        <role>Credit_Overview_Team</role>
+        <role>DSI_General_Manager</role>
+        <role>PB_General_Manager</role>
         <role>Quality_Analyst</role>
         <role>Quality_Capability_Lead</role>
+        <role>SME_General_Manager</role>
         <role>Support_Coach</role>
+        <role>TB_General_Manager</role>
     </sharedTo>
 </ListView>

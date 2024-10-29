@@ -6,7 +6,7 @@
     <description>OD Service Charge Code</description>
     <externalDeveloperName>ODServiceChargeCode</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>OD Service Charge Code</label>

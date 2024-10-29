@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>All_Brokers</fullName>
+    <booleanFilter>1 AND 2</booleanFilter>
     <columns>OCV_ID__c</columns>
     <columns>FULL_NAME</columns>
     <columns>CONTACT.EMAIL</columns>
@@ -10,6 +11,11 @@
         <field>Broker_Accreditation_Type__c</field>
         <operation>includes</operation>
         <value>Asset Finance,Retail,Commercial</value>
+    </filters>
+    <filters>
+        <field>CONTACT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Contact.Broker</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>All Brokers</label>

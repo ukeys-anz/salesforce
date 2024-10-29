@@ -1238,11 +1238,25 @@
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>DRTransformCaseDetailsCustom1888</globalKey>
-        <inputFieldName>Case:ComplaintDetails:thirdPartyStreet</inputFieldName>
+        <inputFieldName>Case:CustomerDetails:thirdPartyStreet</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Case:ComplaintDetails:thirdPartyStreet</outputFieldName>
+        <outputFieldName>Case:CustomerDetails:thirdPartyStreet</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRTransformCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRTransformCaseDetailsCustom6606</globalKey>
+        <inputFieldName>Case:CustomerDetails:thirdPartyState</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Case:CustomerDetails:thirdPartyState</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

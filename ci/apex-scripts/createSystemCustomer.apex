@@ -4,6 +4,7 @@ if (String.isBlank(faSettings.System_Customer_Id__c)) {
   Account acc = new Account(
     Name = 'System Customer',
     OCV_ID__c = 'system-customer-' + faker.randomString(10),
+    ANZx_Customer__c = true,
     RecordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID
   );
   insert acc;

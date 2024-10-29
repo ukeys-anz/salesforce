@@ -1937,8 +1937,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Couldn&apos;t Retrieve Customer Data&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
-  &quot;show&quot; : {
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Customer data not found please enter valid customer number.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,  &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
