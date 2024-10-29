@@ -4,11 +4,8 @@
  * @description Response Model to store Detokenized Full Card Number response received from Vault via GCP
  */
 public with sharing class DetokenizationResponseModel extends CalloutModel {
-  @AuraEnabled
   public String value;
-  @AuraEnabled
   public String initializationVector;
-  @AuraEnabled
   public String publicKeyId;
 
   /**

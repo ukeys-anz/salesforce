@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CommercialCloseDateCheck</fullName>
+    <active>true</active>
+    <description>Close date cannot be past dates.</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ApplicationForm.Opportunity.RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
+$User.Profile_Name__c = &apos;ANZ CCRM Standard User&apos;,
+Close_Date__c &lt;  TODAY()
+)</errorConditionFormula>
+    <errorMessage>Close date cannot be past dates.</errorMessage>
+</ValidationRule>

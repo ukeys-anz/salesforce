@@ -55,8 +55,7 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Sequence__c</fields>
+        <fields>Facility__c</fields>
         <fields>Amount__c</fields>
         <fields>Type__c</fields>
         <fields>Expiry_Date__c</fields>

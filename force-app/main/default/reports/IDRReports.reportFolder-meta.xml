@@ -4,6 +4,6 @@
     <folderShares>
         <accessLevel>View</accessLevel>
         <sharedTo>ANZ</sharedTo>
-        <sharedToType>roleAndSubordinatesInternal</sharedToType>
+        <sharedToType>roleAndSubordinates</sharedToType>
     </folderShares>
 </ReportFolder>

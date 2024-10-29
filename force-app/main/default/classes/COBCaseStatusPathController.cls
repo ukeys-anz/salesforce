@@ -11,6 +11,10 @@ public with sharing class COBCaseStatusPathController {
     DmlRepository.class
   );
 
+  private static final IDOpsQueryRepository WORKFLOW_REPOSITORY = (IDOpsQueryRepository) Lib_InstanceProvider.forType(
+    IDOpsQueryRepository.class
+  );
+
   @TestVisible
   private static final String CALLOUT_ERROR = 'Error occured during Temporal callout. Please contact your administrator';
   @TestVisible
@@ -35,6 +39,21 @@ public with sharing class COBCaseStatusPathController {
     String currentStatus,
     Case cobCase
   ) {
+    return updateStatus(currentStatus, cobCase, true);
+  }
+
+  /**
+   * @description Trigger Temporal workflow based on case status
+   * @param currentStatus Current status to revert to if update fails
+   * @param cobCase Case with new fields data to be updated
+   * @param isAgentUpdateStatus flag to identify if method called from UI or not
+   * @return COBCaseUpdateStatus: isUpdated -  True - If case is successfully updated, False - if successfuly updated with a callout or DML error; cobVerificationFailedReason to compare on client side
+   */
+  public static COBCaseUpdateStatus updateStatus(
+    String currentStatus,
+    Case cobCase,
+    Boolean isAgentUpdateStatus
+  ) {
     if (String.isEmpty(cobCase.PersonaId__c)) {
       throw CommonUtil.logAuraException(PERSONA_ID_ERROR);
     }
@@ -45,6 +64,27 @@ public with sharing class COBCaseStatusPathController {
     );
     if (String.isNotEmpty(validationError)) {
       throw CommonUtil.logAuraException(validationError);
+    }
+    if (
+      isAgentUpdateStatus &&
+      RTCase.idOpsAssistance == cobCase.RecordTypeid &&
+      currentStatus == 'Daon Fallout' &&
+      System.Label.BlockManualStatusUpdateIdOpsCase == 'true'
+    ) {
+      String customerOnboardingApplicationId = cobCase.CustomerOnboardingApplication__c;
+      COBPrimaryIDDocument__c cobPIDRecord = WORKFLOW_REPOSITORY.getCOBPIDRecordUsingCOA(
+        customerOnboardingApplicationId
+      );
+      if (String.isEmpty(cobPIDRecord.Verification_Status__c)) {
+        validationError = 'Please review the document details in the PID screen and update the case status from there';
+        throw CommonUtil.logAuraException(validationError);
+      } else if (cobPIDRecord.Verification_Status__c != cobCase.Status) {
+        validationError =
+          'You have previous actioned ' +
+          cobPIDRecord.Verification_Status__c +
+          ' in the PID, please update the case status accordingly';
+        throw CommonUtil.logAuraException(validationError);
+      }
     }
 
     Boolean isCalloutSucccesful = makeTemporalCallout(

@@ -12,6 +12,6 @@
     <label>Pending Card Dispute - Fraud Queue</label>
     <queue>Pending_Card_Dispute_Fraud_Queue</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZx</roleAndSubordinates>
     </sharedTo>
 </ListView>

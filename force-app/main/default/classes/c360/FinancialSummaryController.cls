@@ -27,8 +27,7 @@ public with sharing class FinancialSummaryController {
     'CAP-CIS:RSV',
     'CAP-CIS:ILS',
     'CAP-CIS:PCA',
-    'CAP-CIS:CDA',
-    'CAP-CIS:OLL'
+    'CAP-CIS:CDA'
   };
 
   private static final FinancialAccountQueryBaseRepository FA_REPOSITORY = (FinancialAccountQueryBaseRepository) Lib_InstanceProvider.forType(
@@ -119,7 +118,7 @@ public with sharing class FinancialSummaryController {
     accountNumberList = retrieveFinancialAccountsByCustomerId(
       custIdWrapper.capIdsList
     );
-
+    accountNumberList = removeEncryptedPca(accountNumberList);
     //Making a callout to get the Total Balance
     //and if accountNumberList is Empty then it will return 'No Available Balance' as an acknowledgement
     finSumRespFromCallout.totalBalanceAck = getTotalBalance(
@@ -759,5 +758,23 @@ public with sharing class FinancialSummaryController {
       Logger.saveLog();
       return CCRMConstants.ERROR_RESPONSE;
     }
+  }
+
+  /**
+   * @description This method removed PCAs having encrypted account number
+   * @param accountNumberList - set of accountNumbers
+   * @return wrapFinancialSummary wrapper of summary setting and user profile records
+   */
+  @TestVisible
+  private static Set<String> removeEncryptedPca(Set<String> accountNumberList) {
+    Set<String> filteredAccNumbers = new Set<String>();
+    for (String accNo : accountNumberList) {
+      if (
+        !accNo.contains('PCA-') || (accNo.substringAfter('PCA-').isNumeric())
+      ) {
+        filteredAccNumbers.add(accNo);
+      }
+    }
+    return filteredAccNumbers;
   }
 }

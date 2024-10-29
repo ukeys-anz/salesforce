@@ -9,7 +9,7 @@
     <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
-    <label>Linked Loan (Offsets)</label>
+    <label>Linked Loan (Offset)</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

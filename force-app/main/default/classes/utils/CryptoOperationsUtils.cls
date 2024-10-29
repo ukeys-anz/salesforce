@@ -32,10 +32,10 @@ public with sharing class CryptoOperationsUtils {
         )
       );
     }
-    Blob privateKeyBlob = Blob.valueOf(
-      privateKeyList[0].Private_Key__c
+    Blob privateKeyBlob = Blob.valueOf(privateKeyList[0].Private_Key__c);
+    Blob initialisationVectorBlob = EncodingUtil.convertFromHex(
+      initializationVector
     );
-    Blob initialisationVectorBlob = EncodingUtil.convertFromHex(initializationVector);
     Blob encryptedDataBlob = EncodingUtil.convertFromHex(encryptedData);
 
     Blob decryptedDataBlob = Crypto.decrypt(

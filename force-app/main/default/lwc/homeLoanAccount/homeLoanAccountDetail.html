@@ -212,28 +212,47 @@
               </div>
             </div>
             <div class="slds-col slds-grid slds-size_1-of-3 rowgap">
-              <!-- Offset is dormant, will be uncommented once ready -->
-              <!-- <div class="header-column">
-                <p class="slds-text-color_weak slds-align_absolute-center">
-                  Linked Offset Account
+              <div class="header-column" data-id="offsetAccounts">
+                <p class="slds-text-color_weak">
+                  Linked Offset
+                  <lightning-helptext
+                    class="tooltip"
+                    content="Offset uses the money in an eligible account to offset the loan balance - reducing the interest paid."
+                  ></lightning-helptext>
                 </p>
-                <p
-                  lwc:if={singleFinAccount.loan_details.offsetAccount}
-                  class="slds-text-heading_small"
-                  data-test-id="offsetAccount"
-                >
-                  <a
-                    onclick={navigateToRecordViewPage}
-                    data-id={singleFinAccount.loan_details.offsetAccount.recordId}
-                    class="slds-truncate"
-                    title={singleFinAccount.loan_details.offsetAccount.accountNumber}
-                  >
-                    <span
-                      >{singleFinAccount.loan_details.offsetAccount.accountNumber}</span
+                <p class="slds-text-heading_small slds-align_absolute-center">
+                  <template lwc:if={hasOffsetError}>
+                    <lightning-icon
+                      icon-name="utility:error"
+                      size="x-small"
+                      class="slds-m-right_x-small"
+                    ></lightning-icon>
+                    <span>Error. Refresh Page</span>
+                  </template>
+                  <template lwc:else>
+                    <p lwc:if={showOffsetData} data-test-id="offsetAccount">
+                      <template for:each={offsetList} for:item="offsetValues">
+                        <a
+                          onclick={navigateToRecordViewPage}
+                          data-id={offsetValues.financialAccountId}
+                          class="slds-truncate"
+                          title={offsetValues.financialAccountNumber}
+                          key={offsetValues.financialAccountId}
+                        >
+                          <span>{offsetValues.financialAccountNumber}</span
+                          ><br />
+                        </a>
+                      </template>
+                    </p>
+                    <p
+                      lwc:else
+                      class="slds-text-color_weak slds-align_absolute-center"
                     >
-                  </a>
+                      No Offset
+                    </p>
+                  </template>
                 </p>
-              </div> -->
+              </div>
             </div>
           </div>
         </lightning-accordion-section>

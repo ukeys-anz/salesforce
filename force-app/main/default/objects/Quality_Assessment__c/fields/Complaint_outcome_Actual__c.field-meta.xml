@@ -36,6 +36,26 @@
                 <default>false</default>
                 <label>N/A - open case</label>
             </value>
+            <value>
+                <fullName>No Response From Customer</fullName>
+                <default>false</default>
+                <label>No Response From Customer</label>
+            </value>
+            <value>
+                <fullName>Outside of Rules</fullName>
+                <default>false</default>
+                <label>Outside of Rules</label>
+            </value>
+            <value>
+                <fullName>Merits Assessment</fullName>
+                <default>false</default>
+                <label>Merits Assessment</label>
+            </value>
+            <value>
+                <fullName>Merged</fullName>
+                <default>false</default>
+                <label>Merged</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

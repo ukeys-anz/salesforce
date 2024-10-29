@@ -134,7 +134,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
         'tokenizedRegistrationNo' => crnDetails.tokenizedRegistrationNo,
         'registrationType' => crnDetails.registrationType,
         'registrationStatus' => mapOfStatus?.get(statusValue)
-        ?? statusValue, 
+        ?? statusValue,
         'customerPreferredName' => crnDetails.customerPreferredName,
         'crnLast4Digits' => getMaskedRegistrationNumber(
           crnDetails.registrationType,
@@ -149,9 +149,9 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
           crnDetails.registrationType,
           crnDetails.crnLast4Digits
         ),
-        'DisplayUrl' => URL.getOrgDomainUrl().toExternalForm() +
-        'AR-' +
-        crnDetails.tokenizedRegistrationNo
+        'DisplayUrl' => getDisplayUrl(
+          'AR-' + crnDetails.tokenizedRegistrationNo
+        )
       };
       result.externalRecords.add(row);
     }

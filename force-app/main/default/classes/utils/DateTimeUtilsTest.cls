@@ -195,4 +195,11 @@ public with sharing class DateTimeUtilsTest {
       'Next expiry date from Sunday should be Monday'
     );
   }
+  @IsTest
+  static void testGetNextWeekdayDate() {
+    Date currentDate = DateTimeUtils.getNextWeekdayDate(5);
+    Datetime dateWithTime = (Datetime) currentDate;
+    String weekday = dateWithTime.format('E');
+    Assert.areNotEqual(weekday, 'Sat', 'day is not weekend');
+  }
 }

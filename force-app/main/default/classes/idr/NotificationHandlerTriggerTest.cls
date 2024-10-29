@@ -6,6 +6,7 @@
 
 @IsTest
 public class NotificationHandlerTriggerTest {
+  static final Faker FAKER = new Faker('en-AU');
   /**
    * @description createTestCase to create cases with different record types
    * @param recordTypeId Record Type Id
@@ -42,6 +43,25 @@ public class NotificationHandlerTriggerTest {
 
     return testCase;
   }
+
+  static Case caseRecord = (Case) TestUtil.setFields(
+    new Case(
+      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+      IDR_Account_Card_Policy_Number__c = '000001234',
+      Description = 'Test decription',
+      IDR_Customer_Number__c = '1234567890',
+      Status = IDRConstants.OPEN_STATUS,
+      IDR_SwicthOff_3rd_Party_Notification__c = false,
+      IDR_SwitchOff_Customer_Notification__c = false,
+      IDR_3rdParty_Email__c = 'testEmail@email.com',
+      IDR_3rdParty_Name__c = 'testName',
+      IDR_3rdParty_Mobile__c = '044838276',
+      ANZx_Customer__c = false,
+      Origin = 'Phone',
+      IDR_NC_Mobile__c = '+6149999999'
+    ),
+    new Map<String, Object>{ 'CaseNumber' => FAKER.randomInteger(6) }
+  );
 
   /**
    * @description testPublishedNotificationForDifferentCaseRecordType to test if notification created with different record types
@@ -299,40 +319,13 @@ public class NotificationHandlerTriggerTest {
   @IsTest
   static void testMobileNumberFormatting() {
     //Retrieve the case inserted
-    Case oCase = [
-      SELECT
-        Id,
-        Origin,
-        IDR_3rdParty_Email__c,
-        IDR_3rdParty_Name__c,
-        IDR_3rdParty_Mobile__c,
-        IDR_Customer_Number__c,
-        IDR_NC_Email__c,
-        IDR_NC_Is_Consent_Obtained__c,
-        CaseNumber__c,
-        Customer_Notification_Consent__c,
-        Account.Source_System_ID__c,
-        Account.PersonMobilePhone,
-        Account.PersonContact.FirstName,
-        IDR_Customer_Identifier__c,
-        CaseNumber,
-        IDR_NC_First_Name__c,
-        IDR_NC_Mobile__c,
-        RecordTypeId,
-        IDR_SwicthOff_3rd_Party_Notification__c,
-        IDR_SwitchOff_Customer_Notification__c,
-        IDR_3rdParty_Relationship_To_Complainant__c,
-        ANZx_Customer__c
-      FROM Case
-      LIMIT 1
-    ];
+    Case oCase = caseRecord;
 
     Test.startTest();
     //create the notification handler record Manually
     Notification_Handler__c handlerRecord = new Notification_Handler__c();
     handlerRecord.Case__c = oCase.Id;
     handlerRecord.Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
-    insert handlerRecord;
 
     IDR_Notification_Event__e evt = NotificationTriggerHandler.getNotifcationEvent(
       oCase,
@@ -341,21 +334,55 @@ public class NotificationHandlerTriggerTest {
 
     Test.stopTest();
 
-    System.assert(String.isNotBlank(evt.AuthorisedMobile__c));
-    System.assert(evt.AuthorisedMobile__c.startsWith('614'));
-    System.assert(evt.AuthorisedMobile__c.isNumeric());
+    System.assert(
+      String.isNotBlank(evt.AuthorisedMobile__c),
+      'Authorised Mobile cannot be blank'
+    );
+    System.assert(
+      evt.AuthorisedMobile__c.startsWith('614'),
+      'Authorised Mobile should be formatted'
+    );
+    System.assert(
+      evt.AuthorisedMobile__c.isNumeric(),
+      'Authorised Mobile should be a number'
+    );
     System.assertEquals(
       evt.AuthorisedMobile__c,
       PhoneUtils.cleanupMobile(oCase.IDR_3rdParty_Mobile__c),
       '3rd party mobile isn\'t cleaned'
     );
-    System.assert(String.isNotBlank(evt.ComplainantMobile__c));
-    System.assert(evt.ComplainantMobile__c.startsWith('614'));
-    System.assert(evt.ComplainantMobile__c.isNumeric());
+    System.assert(
+      String.isNotBlank(evt.ComplainantMobile__c),
+      'Complaint Mobile Number cannot be blank'
+    );
+    System.assert(
+      evt.ComplainantMobile__c.startsWith('614'),
+      'Complaint Mobile should be formatted'
+    );
+    System.assert(
+      evt.ComplainantMobile__c.isNumeric(),
+      'Complaint Mobile should be a number'
+    );
     System.assertEquals(
       evt.ComplainantMobile__c,
       PhoneUtils.cleanupMobile(oCase.IDR_NC_Mobile__c),
       'NC Mobile isn\'t cleaned'
     );
+  }
+  @IsTest
+  static void testcheckMobileEmailnotNullOnCase() {
+    Case csObj = caseRecord;
+    Case csObj2 = new Case();
+    csObj2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Test.startTest();
+    Boolean isValid = NotificationTriggerHandler.checkMobileEmailnotNullOnCase(
+      csObj
+    );
+    Boolean isInvalid = NotificationTriggerHandler.checkMobileEmailnotNullOnCase(
+      csObj2
+    );
+    Test.stopTest();
+    System.assertEquals(true, isValid, 'mobile or email is populated');
+    System.assertEquals(false, isInvalid, 'mobile or email is not populated');
   }
 }

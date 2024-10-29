@@ -171,13 +171,13 @@ private class AccountRelationshipExternalQueryTest {
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
 
     createAccountRelationshipContextForSOQL();
-    AccountRelationshipExternalQuery accRelQry = new AccountRelationshipExternalQuery();
     faRepoMock.mock(
       'getRelatedCustomers',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     Test.startTest();
-    List<FinServ__FinancialAccountRole__c> roles = accRelQry.getRelatedCustomersOfAccount(
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
+    List<FinServ__FinancialAccountRole__c> roles = externalQueryHelper.getRelatedCustomersOfAccount(
       'CAP-CIS_4011643101-234500817',
       new Set<String>{ 'UNO' }
     );

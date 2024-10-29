@@ -17,9 +17,9 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Progressed - No Offer</fullName>
+                <fullName>Progressed - Non-financial Offer</fullName>
                 <default>false</default>
-                <label>Progressed - No Offer</label>
+                <label>Progressed - Non-financial Offer</label>
             </value>
             <value>
                 <fullName>Progressed - Customer Declined</fullName>

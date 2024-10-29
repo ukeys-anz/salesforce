@@ -7,6 +7,22 @@
 
 @isTest
 private with sharing class IDRCaseActionsTest {
+  static Case caseRecord = new Case(
+    Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+    RecordTypeId = RTCase.customerComplaint
+  );
+  static Case caseRecord1 = new Case(
+    Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+    RecordTypeId = RTCase.customerComplaint,
+    IDR_Second_Issue__c = true,
+    IDR_Third_Issue__c = true,
+    IDR_Issue_Type_2__c = '9',
+    IDR_Issue_Type_3__c = '2',
+    IDR_Subsequent_Issue_2__c = '57',
+    IDR_Subsequent_Issue_3__c = '14'
+  );
+
+  //data setup
   @isTest
   static void testFormatedCaseNumber() {
     Case c = new Case(RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID);
@@ -260,100 +276,140 @@ private with sharing class IDRCaseActionsTest {
       'Date/Time flag should have been cleared'
     );
   }
-
   @isTest
-  static void testUpdateKnowledgeKeyWordCaseFields() {
-    //data setup
-    Product2 p = new Product2(
-      Name = 'Test',
-      IsActive = true,
-      IDR_Product_or_Service_Line__c = '1',
-      IDR_Product_or_Service_Category__c = '1',
-      IDR_Product_or_Service_Type__c = '1'
-    );
-    insert p;
-    Case[] newCases = new List<Case>();
-    //Using 10 instead of Integer.valueOf(Label.Test_Bulk_Size) as it was breaking deployments
-    for (Integer i = 0; i < 10; i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          Status = 'Open',
-          isEscalated = false,
-          IDR_Second_Issue__c = true,
-          IDR_Third_Issue__c = true,
-          IDR_Issue_Type_2__c = '9',
-          IDR_Issue_Type_3__c = '2',
-          IDR_Subsequent_Issue_2__c = '57',
-          IDR_Subsequent_Issue_3__c = '14',
-          IDR_Product_2__c = p.Id,
-          IDR_Product_3__c = p.Id
-        )
-      );
-    }
-    insert newCases;
-    Case c = [
-      SELECT
-        Id,
-        toLabel(IDR_Issue_Type_2__c),
-        toLabel(IDR_Subsequent_Issue_2__c),
-        toLabel(IDR_Issue_Type_3__c),
-        toLabel(IDR_Subsequent_Issue_3__c),
-        IDR_Knowledge_Keyword_1__c,
-        IDR_Knowledge_Keyword_2__c
-      FROM Case
-      LIMIT 1
-    ];
-    System.assertEquals(
-      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
-      c.IDR_Knowledge_Keyword_1__c,
-      'Expected Knowledge Keyword 1 to complete on case create, however it did not'
-    );
-    System.assertEquals(
-      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
-      c.IDR_Knowledge_Keyword_2__c,
-      'Expected Knowledge Keyword 2 to complete on case create, however it did not'
-    );
+  static void testUpdateKnowledgeKeyWordCaseFieldsonInsert() {
+    Case testCase1 = caseRecord1;
 
-    for (Case cs : newCases) {
-      cs.IDR_Issue_Type_2__c = '18';
-      cs.IDR_Issue_Type_3__c = '16';
-      cs.IDR_Subsequent_Issue_2__c = '63';
-      cs.IDR_Subsequent_Issue_3__c = '78';
-    }
-    update newCases;
-    c = [
-      SELECT
-        Id,
-        toLabel(IDR_Issue_Type_2__c),
-        toLabel(IDR_Subsequent_Issue_2__c),
-        toLabel(IDR_Issue_Type_3__c),
-        toLabel(IDR_Subsequent_Issue_3__c),
-        IDR_Knowledge_Keyword_1__c,
-        IDR_Knowledge_Keyword_2__c
-      FROM Case
-      LIMIT 1
-    ];
-
+    String issueType2 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Issue_Type_2__c,
+      '9'
+    );
+    String issueType3 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Issue_Type_3__c,
+      '2'
+    );
+    String subIssueType2 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Subsequent_Issue_2__c,
+      '57'
+    );
+    String subIssueType3 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Subsequent_Issue_3__c,
+      '14'
+    );
+    Test.startTest();
+    IDRCaseActions.updateKnowledgeKeyWordCaseFields(
+      new List<Case>{ testCase1 },
+      new Map<Id, Case>{}
+    );
+    Test.stopTest();
     System.assertEquals(
-      c.IDR_Issue_Type_2__c + ' ' + c.IDR_Subsequent_Issue_2__c,
-      c.IDR_Knowledge_Keyword_1__c,
-      'Expected Knowledge Keyword 1 on update, however it did not'
+      issueType2 + ' ' + subIssueType2,
+      testCase1.IDR_Knowledge_Keyword_1__c,
+      'Knowledge Keyword 1 will be updated based on Issue and SubIssue Types'
     );
     System.assertEquals(
-      c.IDR_Issue_Type_3__c + ' ' + c.IDR_Subsequent_Issue_3__c,
-      c.IDR_Knowledge_Keyword_2__c,
-      'Expected Knowledge Keyword 2 on update, however it did not'
+      issueType3 + ' ' + subIssueType3,
+      testCase1.IDR_Knowledge_Keyword_2__c,
+      'Knowledge Keyword 2 will be updated based on Issue and SubIssue Types'
     );
   }
+
+  @isTest
+  static void testUpdateKnowledgeKeyWordCaseFieldsonUpdate() {
+    Case testCase1 = caseRecord1;
+
+    Case testCase2 = caseRecord;
+    testCase2.Id = testCase1.Id;
+    testCase2.IDR_Issue_Type_2__c = '18';
+    testCase2.IDR_Issue_Type_3__c = '16';
+    testCase2.IDR_Subsequent_Issue_2__c = '63';
+    testCase2.IDR_Subsequent_Issue_3__c = '78';
+    String issueType2 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Issue_Type_2__c,
+      '18'
+    );
+    String issueType3 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Issue_Type_3__c,
+      '16'
+    );
+    String subIssueType2 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Subsequent_Issue_2__c,
+      '63'
+    );
+    String subIssueType3 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Subsequent_Issue_3__c,
+      '78'
+    );
+
+    Test.startTest();
+    IDRCaseActions.updateKnowledgeKeyWordCaseFields(
+      new List<Case>{ testCase2 },
+      new Map<Id, Case>{ testCase1.Id => testCase1 }
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      issueType2 + ' ' + subIssueType2,
+      testCase2.IDR_Knowledge_Keyword_1__c,
+      'Knowledge Keyword 1 will be updated based on Issue and SubIssue Types'
+    );
+    System.assertEquals(
+      issueType3 + ' ' + subIssueType3,
+      testCase2.IDR_Knowledge_Keyword_2__c,
+      'Knowledge Keyword 2 will be updated based on Issue and SubIssue Types'
+    );
+  }
+
+  @isTest
+  static void testNotUpdateKnowledgeKeyWordCaseFields() {
+    Case testCase1 = caseRecord1;
+
+    Case testCase2 = caseRecord1;
+    testCase2.Id = testCase1.Id;
+    testCase2.Priority = IDRConstants.CASE_PRIORITY_STANDARD;
+
+    String issueType2 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Issue_Type_2__c,
+      '9'
+    );
+    String issueType3 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Issue_Type_3__c,
+      '2'
+    );
+    String subIssueType2 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Subsequent_Issue_2__c,
+      '57'
+    );
+    String subIssueType3 = CommonUtil.getSinglePicklistLabel(
+      Case.IDR_Subsequent_Issue_3__c,
+      '14'
+    );
+
+    Test.startTest();
+    IDRCaseActions.updateKnowledgeKeyWordCaseFields(
+      new List<Case>{ testCase2 },
+      new Map<Id, Case>{ testCase1.Id => testCase1 }
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      issueType2 + ' ' + subIssueType2,
+      testCase1.IDR_Knowledge_Keyword_1__c,
+      'Knowledge KeyWord 1 will not be updated as there is no change in IssueType'
+    );
+    System.assertEquals(
+      issueType3 + ' ' + subIssueType3,
+      testCase1.IDR_Knowledge_Keyword_2__c,
+      'Knowledge KeyWord 2 will not be updated as there is no change in IssueType'
+    );
+  }
+
   @isTest
   static void testProductAssetfinance() {
     String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
 
     Product_Family__c testProductFamily = new Product_Family__c();
     testProductFamily.Name = 'Asset finance';
-    testProductFamily.IDR_ANZ_com_Product_Category__c = 'Asset finance';
-    testProductFamily.IDR_Workbasket__c = 'IDR_Business_Owners';
     testProductFamily.Id = Lib_FakeIdGenerator.getMockId(
       Product_Family__c.SObjectType
     );
@@ -361,7 +417,7 @@ private with sharing class IDRCaseActionsTest {
     Product2 testProduct = new Product2();
     testProduct.Name = 'Asset Finance';
     testProduct.IsActive = true;
-    testProduct.IDR_Product_Family__c = testProductFamily.Id;
+    testProduct.IDR_Product_Family__r = testProductFamily;
     testProduct.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
 
     Product2 testProduct1 = new Product2();
@@ -369,34 +425,95 @@ private with sharing class IDRCaseActionsTest {
     testProduct1.IsActive = true;
     testProduct1.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
 
-    Product2 testProduct2 = new Product2();
-    testProduct2.Name = 'Test Product';
-    testProduct2.IsActive = true;
-    testProduct2.Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-
-    Map<Id, Product2> productMap = new Map<Id, Product2>{
-      testProduct.Id => testProduct,
-      testProduct1.Id => testProduct1,
-      testProduct2.Id => testProduct2
+    QueryProducts.productsById = new Map<Id, Product2>{
+      testProduct.Id => testProduct
     };
 
-    Case[] cases = new List<Case>();
-    Case caseRecord = IDRTestDataFactory.createComplaint();
-    caseRecord.Product__c = testProduct.Id;
-    caseRecord.IDR_Product_2__c = testProduct1.Id;
-    caseRecord.IDR_Product_3__c = testProduct2.Id;
-    caseRecord.Id = caseRecordId;
+    Case oldCase = IDRTestDataFactory.createComplaint();
+    oldCase.Type = '17';
+    oldCase.IDR_Subsequent_Issue__c = '24';
+    oldCase.Product__c = QueryProducts.productsById.get(testProduct.Id).Id;
+    oldCase.IDR_Product_Family__r = QueryProducts.productsById.get(
+        testProduct.Id
+      )
+      .IDR_Product_Family__r;
+    oldCase.Id = caseRecordId;
 
-    Case caseRecord1 = IDRTestDataFactory.createComplaint();
-    caseRecord1.Product__c = testProduct1.Id;
-    caseRecord1.Id = caseRecordId;
+    Case newCase = IDRTestDataFactory.createComplaint();
+    newCase.Product__c = testProduct1.Id;
+    newCase.Id = oldCase.Id;
+
+    Case newCase1 = IDRTestDataFactory.createComplaint();
+    newCase1.Product__c = testProduct1.Id;
+    newCase1.Id = newCase.Id;
+
+    Test.startTest();
 
     Boolean isProductAssetfinance = IDRCaseActions.isProductAssetfinance(
-      caseRecord,
-      caseRecord1,
-      productMap
+      newCase,
+      oldCase
     );
 
-    System.assertEquals(isProductAssetfinance, true);
+    Boolean isNotProductAssetfinance = IDRCaseActions.isProductAssetfinance(
+      newCase1,
+      newCase
+    );
+
+    Test.stopTest();
+    System.assertEquals(
+      isProductAssetfinance,
+      true,
+      'When Product Family is Asset Finance and Issue Type is collections boolean should return true'
+    );
+
+    System.assertEquals(
+      isNotProductAssetfinance,
+      false,
+      'When Product Family is not Asset Finance and Issue Type is collections boolean should return false'
+    );
+  }
+  @isTest
+  static void testIsCollectionsIssueChanged() {
+    String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+
+    Case testCase = IDRTestDataFactory.createComplaint();
+    testCase.Id = caseRecordId;
+    testCase.Type = '17';
+    testCase.IDR_Subsequent_Issue__c = '24';
+    testCase.IDR_Issue_Type_2__c = '17';
+    testCase.IDR_Subsequent_Issue_2__c = '25';
+    testCase.IDR_Issue_Type_3__c = '17';
+    testCase.IDR_Subsequent_Issue_3__c = '26';
+
+    Case testCase2 = IDRTestDataFactory.createComplaint();
+    testCase2.Id = caseRecordId;
+    testCase2.Type = '9';
+    testCase2.IDR_Subsequent_Issue__c = '57';
+    testCase2.IDR_Issue_Type_2__c = '13';
+    testCase2.IDR_Subsequent_Issue_2__c = '2';
+    testCase2.IDR_Issue_Type_3__c = '5';
+    testCase2.IDR_Subsequent_Issue_3__c = '38';
+    Test.startTest();
+    Boolean isCollectionsIssueTypeChanged = IDRCaseActions.isCollectionIssueTypeChanged(
+      testCase2,
+      testCase
+    );
+    Boolean isIssueChangedtoCollections = IDRCaseActions.isCollectionIssueTypeChanged(
+      testCase,
+      testCase2
+    );
+    Test.stopTest();
+
+    System.assertEquals(
+      isCollectionsIssueTypeChanged,
+      true,
+      'Collections Issue Type cannot be updated on a Case'
+    );
+
+    System.assertEquals(
+      isIssueChangedtoCollections,
+      false,
+      'Any other Issue Type can be changed to collections'
+    );
   }
 }

@@ -15,6 +15,6 @@
     <filterScope>Everything</filterScope>
     <label>IDR Disputes</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ</roleAndSubordinates>
     </sharedTo>
 </ListView>

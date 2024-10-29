@@ -12,7 +12,7 @@
         <twoFactorAuthentication>false</twoFactorAuthentication>
     </action>
     <active>true</active>
-    <apexClass>BlockPrivateKeyStorageEventHandler</apexClass>
+    <apexClass>BlockPrivateKeyQueryEventHandler</apexClass>
     <description>This TSP is to block rest api query on PrivateKeyStore object</description>
     <developerName>BlockQueryOnPrivateKeySto</developerName>
     <eventName>ApiEvent</eventName>

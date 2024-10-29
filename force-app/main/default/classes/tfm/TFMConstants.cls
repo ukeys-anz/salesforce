@@ -189,7 +189,6 @@ public with sharing class TFMConstants {
   public static final String API_CREDENTIALS = '/credentials/';
   public static final String REPLACE = 'replace';
   public static final String SECURITYMOBILE = 'securityMobile';
-  public static final String AUF_DATE_FORMAT = 'yyyy-MM-dd\'T\'HH:mm:ssXXX';
   public static final String AUF_DATE_VARIABLE = 'mobileVerifiedDate';
   public static final String ARCHIVE = 'Archive';
   public static final String ARCHIVED = 'archived';
@@ -209,7 +208,6 @@ public with sharing class TFMConstants {
   public static final STRING KEY_USERS = 'users';
   public static final STRING KEY_IDCHECKS = 'idchecks';
   public static final STRING KEY_DOCUMENTS = 'documents';
-  public static final STRING IMAGE_URL = '/sfc/servlet.shepherd/version/renditionDownload?rendition=THUMB720BY480&versionId=';
   public static final STRING NO_ACCESS_AEGIS_FEATURES = 'NoAccessAegisFeatures';
   public static final STRING ERROR_OCCURRED = 'ErrorOccurred';
   public static final STRING ASSISTED_SELFIE = 'Assisted Selfie';
