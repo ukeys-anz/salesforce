@@ -7,13 +7,12 @@
  * @group Library
  */
 public with sharing class Lib_HttpCallout {
-
   private Lib_HttpCalloutConfig libConfig;
 
   /**
    * @description Constructor to set the default value of the Lib_HttpCalloutConfig.
    */
-  public Lib_HttpCallout(){
+  public Lib_HttpCallout() {
     this.libConfig = new Lib_HttpCalloutConfig();
   }
 
@@ -21,7 +20,7 @@ public with sharing class Lib_HttpCallout {
    * @description Parametrised Constructor to use the value of the Lib_HttpCalloutConfig.
    * @param libConfig Lib_HttpCalloutConfig instance to get the value of Lib_HttpCalloutConfig attributes set from the calling method.
    */
-  public Lib_HttpCallout(Lib_HttpCalloutConfig libConfig){
+  public Lib_HttpCallout(Lib_HttpCalloutConfig libConfig) {
     this.libConfig = libConfig;
   }
 
@@ -108,7 +107,7 @@ public with sharing class Lib_HttpCallout {
       response = http.send(request);
       Logger.debug('HttpResponse Header')
         .setPayload(JSON.serializePretty(getHeaders(response)));
-      if(libConfig.logResponseBody){
+      if (libConfig.logResponseBody) {
         Logger.debug('HttpResponse Body').setPayload(response.getBody());
       }
       Logger.debug('HttpResponse Status Code: ' + response.getStatusCode());
