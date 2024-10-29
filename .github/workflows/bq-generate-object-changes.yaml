@@ -2,9 +2,7 @@ name: Generate Object Changes
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - develop
+  workflow_call:
 
 permissions:
   contents: "read"

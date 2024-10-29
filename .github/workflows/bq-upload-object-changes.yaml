@@ -30,7 +30,6 @@ jobs:
     steps:
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
-        if: github.ref == 'refs/heads/develop'
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
@@ -55,14 +54,14 @@ jobs:
           ARTIFACT_REF=""
           BUCKET_NAME=""
           if [[ "${{github.ref}}" == "refs/heads/master" ]]; then
-            BUCKET_NAME=${{ env.NONPROD_BUCKET_NAME }}
+            BUCKET_NAME="${{ env.NONPROD_BUCKET_NAME }}"
             ARTIFACT_REF=$(git merge-base origin/master origin/develop)
           else
-          BUCKET_NAME=${{ env.SIT_BUCKET_NAME }}
-          ARTIFACT_REF=$(git rev-parse --verify HEAD)
+            BUCKET_NAME="${{ env.SIT_BUCKET_NAME }}"
+            ARTIFACT_REF=$(git rev-parse --verify HEAD)
           fi
-          echo "BUCKET_NAME=$BUCKET_NAME" && "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
-          echo "ARTIFACT_REF=$ARTIFACT_REF" && "ARTIFACT_REF=$ARTIFACT_REF" >> $GITHUB_OUTPUT
+          echo "BUCKET_NAME=$BUCKET_NAME" && echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          echo "ARTIFACT_REF=$ARTIFACT_REF" && echo "ARTIFACT_REF=$ARTIFACT_REF" >> $GITHUB_OUTPUT
 
       - name: Upload Object Changes
         working-directory: salesforce

@@ -42,7 +42,7 @@ if ! response=$(wget --server-response -P artifactory_success_output/ "$ARTIFACT
 fi
 
 # Evaluate response from artifactory and unzip artifact
-status_code=$(echo "$response" | awk '/HTTP\// {print $BUCKET_NAME}' | tail -n 1)
+status_code=$(echo "$response" | awk '/HTTP\// {print $2}' | tail -n 1)
 if [ -n "$status_code" ]; then
     if [ "$status_code" -eq 200 ]; then
         echo "Unzipping artifact..."
@@ -90,7 +90,8 @@ if [ $status -eq 2 ]; then
     echo "An error occurred while comparing directories."
     exit 2
 elif [ -n "$diff_output" ]; then
-    if [ "$DIFF_ONLY" = false ]; then
+    echo "DIFF_ONLY set to: $DIFF_ONLY"
+    if [[ "$DIFF_ONLY" == "false" ]]; then
         echo "Changes found between $SFDATASYNC_SHA_OBJECT_FIELDS and $SFDATASYNC_GCS_OBJECT_FIELDS..."
         object_array=($(find "$SFDATASYNC_SHA_OBJECT_FIELDS/" -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
         echo "Cleaning up objects in GCS and uploading artifact..."
