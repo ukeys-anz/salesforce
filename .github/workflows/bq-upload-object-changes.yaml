@@ -33,7 +33,6 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          path: salesforce
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -48,7 +47,6 @@ jobs:
 
       - name: Determine artifact
         id: "determine-artifact"
-        working-directory: salesforce
         shell: bash
         run: |
           ARTIFACT_REF=""
@@ -64,7 +62,6 @@ jobs:
           echo "ARTIFACT_REF=$ARTIFACT_REF" && echo "ARTIFACT_REF=$ARTIFACT_REF" >> $GITHUB_OUTPUT
 
       - name: Upload Object Changes
-        working-directory: salesforce
         id: run-diff
         shell: bash
         run: |

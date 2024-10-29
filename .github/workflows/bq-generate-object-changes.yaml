@@ -29,7 +29,6 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          path: salesforce
 
       - name: Checkout doc gen plugin
         uses: actions/checkout@v2
@@ -42,7 +41,6 @@ jobs:
           # this is a particular commit on master. Change this when a new plugin version is required for doc:fieldsaccessdiff
 
       - name: Install npm packages
-        working-directory: salesforce
         if: github.ref == 'refs/heads/develop'
         run: |
           mv ci.npmrc .npmrc
@@ -83,11 +81,9 @@ jobs:
 
       - name: Authenticate all orgs in SFDX CLI
         if: github.ref == 'refs/heads/develop'
-        working-directory: salesforce
         run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}" --sfdx-url-file=/dev/stdin
 
       - name: Get objects changes with fieldsaccessdiff
-        working-directory: salesforce
         if: github.ref == 'refs/heads/develop'
         id: get-changed-objects
         shell: bash
@@ -95,7 +91,7 @@ jobs:
           sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
           for object in $sfdatasync_object_list; do
             echo "running fieldsaccessdiff on sfdatasync user for $object..."
-            if  ! ../plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
+            if  ! ./plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
                   -f sfdatasync_user_output -u tech.gcb@anzx.com.test24; then
                 errors+=("$object for user sfdatasync.user@anzx.com.test24")
             fi
@@ -112,7 +108,6 @@ jobs:
       # Upload failure to artifactory
       - name: Push failure changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() && github.ref == 'refs/heads/develop' }}
-        working-directory: salesforce
         id: push-failure-to-artifactory
         shell: bash
         run: |
@@ -132,7 +127,6 @@ jobs:
 
       - name: Pull current changes from GCS SIT
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
-        working-directory: salesforce
         id: pull-from-gcs
         shell: bash
         run: |
@@ -156,7 +150,6 @@ jobs:
 
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
-        working-directory: salesforce
         id: run-diff
         shell: bash
         run: |
@@ -182,7 +175,6 @@ jobs:
       # Upload success to artifactory
       - name: Push success changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
-        working-directory: salesforce
         id: push-success-to-artifactory
         shell: bash
         run: |

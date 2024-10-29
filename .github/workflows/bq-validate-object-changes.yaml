@@ -25,7 +25,6 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          path: salesforce
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -39,7 +38,6 @@ jobs:
           install_components: "core"
 
       - name: Run diff
-        working-directory: salesforce
         id: run-diff
         shell: bash
         run: |
