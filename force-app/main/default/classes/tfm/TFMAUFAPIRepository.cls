@@ -132,10 +132,10 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
   /**
    * @param staffModel model to call staffJWT api
    * @param action action
-   * @return HttpCalloutResponse response
+   * @return TFMArchiveUserModel response
    * @description make API callout to archive user and handle response
    */
-  public HttpCalloutResponse archiveUser(
+  public TFMArchiveUserModel archiveUser(
     StaffTokenRequestModel staffModel,
     String action
   ) {
@@ -143,10 +143,11 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
       TFMAUFService.class
     );
     HttpCalloutResponse response = s.updateStatus(staffModel, action);
-    if (response.statusCode == 500) {
-      throw new ArchiveFailException(response.error.getMessage());
-    }
-    return handleResponse(response);
+    HttpCalloutResponse handledResponse = handleResponse(response);
+    TFMArchiveUserModel archiveUserModel = TFMArchiveUserModel.parse(
+      handledResponse.body
+    );
+    return archiveUserModel;
   }
 
   /**
