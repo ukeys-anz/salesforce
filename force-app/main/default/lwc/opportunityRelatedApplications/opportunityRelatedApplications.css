@@ -1,0 +1,42 @@
+.main-container {
+  padding: 5px;
+}
+.application-form {
+  border: 1px solid #d8dde6;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+.form-header {
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+.form-link {
+  color: #0070d2;
+  text-decoration: none;
+}
+.form-link:hover {
+  text-decoration: underline;
+}
+.field-list {
+  margin: 10px 0;
+}
+.field-item {
+  display: flex;
+  margin-bottom: 5px;
+}
+.field-item dt {
+  flex: 0 0 30%;
+  font-weight: normal;
+  margin-right: 10px;
+}
+.field-item dd {
+  flex: 1 1 auto;
+  margin: 0;
+}
+
+.no-data-message {
+  padding: 10px;
+  font-size: 16px;
+  color: #373737; /* Light grey for a subtle message */
+}

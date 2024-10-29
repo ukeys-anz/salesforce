@@ -46,6 +46,7 @@ export default class PinAndSelfieWorkflow extends LightningElement {
         this.workflowDetails = JSON.parse(JSON.stringify(result));
         if (this.workflowDetails.responseMsg === "NoAccessAegisFeatures") {
           this.noAccess = true;
+          this.componentSpinner = false;
           return;
         }
         if (this.workflowDetails.responseMsg === "ErrorOccurred") {
@@ -55,6 +56,7 @@ export default class PinAndSelfieWorkflow extends LightningElement {
             "Error occurred while fetching onboarding details.",
             "error"
           );
+          this.componentSpinner = false;
           return;
         }
 

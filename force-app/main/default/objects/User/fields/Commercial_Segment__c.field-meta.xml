@@ -20,19 +20,9 @@
                 <label>Asset Finance</label>
             </value>
             <value>
-                <fullName>BB</fullName>
-                <default>false</default>
-                <label>Business Banking</label>
-            </value>
-            <value>
                 <fullName>CBO</fullName>
                 <default>false</default>
                 <label>Commercial Broker</label>
-            </value>
-            <value>
-                <fullName>SBB</fullName>
-                <default>false</default>
-                <label>Small Business Banking</label>
             </value>
             <value>
                 <fullName>SD</fullName>
@@ -48,21 +38,33 @@
                 <fullName>SME</fullName>
                 <default>false</default>
                 <label>Small to Medium Enterprises</label>
-            </value> 
+            </value>
             <value>
                 <fullName>SME NBC</fullName>
                 <default>false</default>
                 <label>Small to Medium Enterprises - NBC</label>
-            </value> 
+            </value>
             <value>
                 <fullName>DSI</fullName>
                 <default>false</default>
                 <label>Diversified and Specialist Industries</label>
-            </value> 
+            </value>
             <value>
                 <fullName>PB</fullName>
                 <default>false</default>
                 <label>Private Bank and Advise</label>
+            </value>
+            <value>
+                <fullName>BB</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Business Banking</label>
+            </value>
+            <value>
+                <fullName>SBB</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Small Business Banking</label>
             </value>
         </valueSetDefinition>
     </valueSet>

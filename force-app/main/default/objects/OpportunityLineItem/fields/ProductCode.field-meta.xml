@@ -4,5 +4,5 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>It references the value in the ProductCode field of the related Product2 record.</description>
-    <securityClassification>Public</securityClassification>
+    <securityClassification>Internal</securityClassification>
 </CustomField>

@@ -2,6 +2,7 @@ import { LightningElement, wire, api } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { subscribe, MessageContext } from "lightning/messageService";
+import { CurrentPageReference } from "lightning/navigation";
 import { mapCardDetailsHandler } from "./helper/helper-cards";
 import { errorHandler } from "./helper/helper-errors";
 import { cardImageHandler } from "./helper/helper-cardImages";
@@ -12,6 +13,7 @@ import {
 import CloseModal from "@salesforce/messageChannel/CloseModal__c";
 import Id from "@salesforce/user/Id";
 import UserNameField from "@salesforce/schema/User.Name";
+import ViewCardNumber from "c/viewFullCardNumber";
 //Added as part of ANZX-128123
 import CardsAccountTypeForSorting from "@salesforce/label/c.CardsAccountTypeForSorting";
 
@@ -26,8 +28,10 @@ export default class ViewCards extends LightningElement {
   set isActiveCardSection(value) {
     this._isActiveCardSection = value;
   }
+
   cards;
   _isActiveCardSection;
+  _showViewCardNumber = false;
   cardsLeftToView;
   currentUserName;
   cardFraudLockStatus = "";
@@ -35,6 +39,8 @@ export default class ViewCards extends LightningElement {
   last4Digits = "";
   buttonClicked = "";
   tokenizedCardNumber = "";
+  cardHolder = "";
+  accountType = "";
   subscription = null;
   onLoadCardDisplayCount = 6;
   replaceLockUnavailable = true;
@@ -52,6 +58,16 @@ export default class ViewCards extends LightningElement {
   cardDetails = [];
   defaultImage = cardImageHandler(cardImages);
 
+  get showViewCardNumber() {
+    return this._showViewCardNumber;
+  }
+  set showViewCardNumber(value) {
+    this._showViewCardNumber = value;
+    if (value) {
+      this.openViewCardNumberModal();
+    }
+  }
+
   //Get the current logged-in user details
   @wire(getRecord, { recordId: Id, fields: [UserNameField] })
   currentUserInfo({ data, error }) {
@@ -64,6 +80,9 @@ export default class ViewCards extends LightningElement {
 
   @wire(MessageContext)
   messageContext;
+
+  @wire(CurrentPageReference)
+  pageRef;
 
   connectedCallback() {
     //The data is being received proxied, so we stringify it
@@ -147,12 +166,12 @@ export default class ViewCards extends LightningElement {
     const card = this.initialCardsDetails.find(
       (theCard) => theCard.tokenized_card_number === cardNumber
     );
-
     const inputObject = {
       card,
       label,
       showLock: this.showLock,
       showFraudLock: this.showFraudLock,
+      showViewCardNumber: this.showViewCardNumber,
       showReplace: this.showReplace,
       replaceDamagedUnavailable: this.replaceDamagedUnavailable,
       replaceLockUnavailable: this.replaceLockUnavailable,
@@ -195,5 +214,15 @@ export default class ViewCards extends LightningElement {
         detail: true
       })
     );
+  }
+
+  async openViewCardNumberModal() {
+    await ViewCardNumber.open({
+      size: "small",
+      cardNumber: this.tokenizedCardNumber,
+      cardHolder: this.cardHolder,
+      accountType: this.accountType,
+      ocvId: this.pageRef.state.c__ocvId
+    });
   }
 }

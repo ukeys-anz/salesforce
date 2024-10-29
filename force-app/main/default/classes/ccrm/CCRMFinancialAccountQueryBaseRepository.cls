@@ -145,26 +145,4 @@ public class CCRMFinancialAccountQueryBaseRepository {
       LIMIT 1
     ];
   }
-
-  /**
-   * @description get formatted financial account numbers
-   * @param  accountNumbers List of account numbers
-   * @return List<FinServ__FinancialAccount__c>
-   */
-  public List<FinServ__FinancialAccount__c> getformattedFinancialAccounts(
-    List<String> accountNumbers
-  ) {
-    if (!Schema.sObjectType.FinServ__FinancialAccount__c.isQueryable()) {
-      return new List<FinServ__FinancialAccount__c>();
-    }
-    if (accountNumbers.isEmpty()) {
-      return new List<FinServ__FinancialAccount__c>();
-    }
-    return [
-      SELECT Account_Number__c, FinServ__FinancialAccountNumber__c
-      FROM FinServ__FinancialAccount__c
-      WHERE FinServ__FinancialAccountNumber__c IN :accountNumbers
-      WITH SECURITY_ENFORCED
-    ];
-  }
 }

@@ -36,6 +36,14 @@
         <apexClass>TFMConstants</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <name>Reactivate_ADR</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <customPermissions>
+        <name>Suspend_ADR</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>This PS will assign read access to ADR US</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>ADRPermissionSet</label>

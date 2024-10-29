@@ -94,7 +94,7 @@ describe("c-view-cards", () => {
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
     );
-    expect(buttons.length).toBe(9);
+    expect(buttons.length).toBe(12);
   });
 
   it("5. tests if card buttons are not made for closed Section", async () => {
@@ -472,9 +472,8 @@ describe("c-view-cards", () => {
 
     replaceButton.click();
     await flushPromises();
-    let replaceCardComponent = element.shadowRoot.querySelector(
-      "c-replace-card"
-    );
+    let replaceCardComponent =
+      element.shadowRoot.querySelector("c-replace-card");
 
     replaceCardComponent.replaceLostUnavailable = false;
     let lostButton = replaceCardComponent.shadowRoot.querySelector(
@@ -487,9 +486,8 @@ describe("c-view-cards", () => {
     );
     lockButtonPath.click();
     await flushPromises();
-    let lockCardComponent = element.shadowRoot.querySelector(
-      "c-card-temp-lock"
-    );
+    let lockCardComponent =
+      element.shadowRoot.querySelector("c-card-temp-lock");
     expect(lockCardComponent).toBeTruthy();
   });
 

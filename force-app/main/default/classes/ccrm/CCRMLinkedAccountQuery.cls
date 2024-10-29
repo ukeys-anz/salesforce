@@ -48,15 +48,13 @@ public with sharing class CCRMLinkedAccountQuery extends CCRMFinancialAccountQue
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
-    String customerId;
-    Map<String, Object> row;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
 
     for (
       LinkedAccountModel acct : ((LinkedAccountResponse) this.calloutResponse)
         .relatedAccounts
     ) {
-      row = new Map<String, Object>();
+      Map<String, Object> row = new Map<String, Object>();
       row.put('ExternalId', acct.compositeLinkedAccountId);
       row.put(
         'DisplayUrl',
@@ -65,7 +63,10 @@ public with sharing class CCRMLinkedAccountQuery extends CCRMFinancialAccountQue
           acct.compositeLinkedAccountId
       );
       row.put(this.parent, this.parentId);
-      row.put('AccountNumber', formatAccountNumber(acct.accountNumber));
+      row.put(
+        'AccountNumber',
+        formatAccountNumber(acct.accountNumber, acct.productCode)
+      );
       row.put('Code', acct.relateCode);
       row.put('ProductCode', acct.productCode);
       result.queryResult.add(row);
