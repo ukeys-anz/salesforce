@@ -115,44 +115,6 @@ public with sharing class IDRTaskActionsRepository {
       WITH USER_MODE
     ];
   }
- 
-  /**
-   * @description Method to query Inactive Users in Groups for Urgent Tasks
-   * @param mpUserId2Groups Map of User Ids and Set of Groups
-   * @return list of Users
-   */
-  public List<User> queryInactiveUsers(Map<Id, Set<Id>> mpUserId2Groups) {
-    if (mpUserId2Groups.isEmpty()) {
-      return new List<User>();
-    }
-    return [
-      SELECT Id
-      FROM User
-      WHERE IsActive = FALSE AND Id IN :mpUserId2Groups.keySet()
-      WITH USER_MODE
-    ];
-  }
-  /**
-   * @description Method to get existing SI tasks on cases
-   * @param caseIds Set of Case Ids
-   * @param subject Subject of the Task
-   * @return list of Tasks
-   */
-  public List<Task> getExistingSITasksOnCase(Set<Id> caseIds, String subject) {
-    if (caseIds.isEmpty()) {
-      return new List<Task>();
-    }
-    return [
-      SELECT Id, Status, Subject, WhatId
-      FROM Task
-      WHERE
-        WhatId IN :caseIds
-        AND RecordTypeId = :RTTask.idrSystemTask
-        AND Type = :IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE
-        AND Subject = :subject
-      WITH USER_MODE
-    ];
-  }
   /**
    * @description Method to get unclosed milestones releated to complaint
    * @param caseIDSet Set of Case Ids

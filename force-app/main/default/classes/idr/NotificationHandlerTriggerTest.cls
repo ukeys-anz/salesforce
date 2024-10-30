@@ -43,25 +43,6 @@ public class NotificationHandlerTriggerTest {
 
     return testCase;
   }
-  
-   static Case caseRecord = (Case) TestUtil.setFields(
-      new Case(
-      Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
-      IDR_Account_Card_Policy_Number__c = '000001234',
-      Description = 'Test decription',
-      IDR_Customer_Number__c = '1234567890',
-      Status = IDRConstants.OPEN_STATUS,
-      IDR_SwicthOff_3rd_Party_Notification__c = false,
-      IDR_SwitchOff_Customer_Notification__c = false,
-      IDR_3rdParty_Email__c = 'testEmail@email.com',
-      IDR_3rdParty_Name__c = 'testName',
-      IDR_3rdParty_Mobile__c = '044838276',
-      ANZx_Customer__c = false,
-      Origin = 'Phone',
-      IDR_NC_Mobile__c = '+6149999999'
-    ),
-    new Map<String, Object>{ 'CaseNumber' => FAKER.randomInteger(6) }
-  );
 
   static Case caseRecord = (Case) TestUtil.setFields(
     new Case(
@@ -387,7 +368,6 @@ public class NotificationHandlerTriggerTest {
       PhoneUtils.cleanupMobile(oCase.IDR_NC_Mobile__c),
       'NC Mobile isn\'t cleaned'
     );
-  
   }
   @IsTest
   static void testcheckMobileEmailnotNullOnCase() {
