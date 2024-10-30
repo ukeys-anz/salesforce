@@ -186,4 +186,4 @@ force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
 
 #added for merge to cmos-a, please do not merge to other envs
-force-app/main/default/aura/QuickActionAuraContainer/QuickActionAuraContainer.cmp
+force-app/main/default/aura/QuickActionAuraContainer
