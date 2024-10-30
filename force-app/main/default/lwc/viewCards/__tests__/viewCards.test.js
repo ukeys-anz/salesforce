@@ -97,7 +97,7 @@ describe("c-view-cards", () => {
     expect(buttons.length).toBe(12);
   });
 
-  it("5. tests if card buttons are not made for closed Section", async () => {
+  it("5. tests if one button per card is made for closed Section", async () => {
     const element = createElement("c-view-cards", {
       is: ViewCards
     });
@@ -107,7 +107,7 @@ describe("c-view-cards", () => {
     let buttons = element.shadowRoot.querySelectorAll(
       "lightning-button[data-button='card-button']"
     );
-    expect(buttons.length).toBe(0);
+    expect(buttons.length).toBe(3);
   });
 
   it("6. tests if lock card is enabled", async () => {
