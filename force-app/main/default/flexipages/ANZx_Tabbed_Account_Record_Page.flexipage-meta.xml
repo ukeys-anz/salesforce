@@ -452,7 +452,7 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>Name</value>
+                            <value>LoanApplication</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Application_Status__c</value>
@@ -1271,7 +1271,7 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>Name</value>
+                            <value>LoanApplication</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Application_Status__c</value>

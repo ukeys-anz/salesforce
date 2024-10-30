@@ -8,6 +8,7 @@ private class ProfileStagingHandlerTest {
   static final Faker FAKER = new Faker('en-AU');
 
   static Lib_MockProvider repoMock;
+  static Lib_MockProvider userMock;
   static Lib_MockProvider dmlRepoMock;
 
   static User currentUser = new User(Lan_Id__c = FAKER.randomString(6));
@@ -24,8 +25,9 @@ private class ProfileStagingHandlerTest {
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    repoMock = Lib_MockProvider.forType(ProfileStagingRepository.class)
-      .mock('getCurrentUser', currentUser);
+    repoMock = Lib_MockProvider.forType(ProfileStagingRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('getUser', currentUser);
   }
 
   @IsTest

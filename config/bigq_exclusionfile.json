@@ -158,7 +158,20 @@
     "TFN_Verification__c",
     "Type",
     "Website",
-    "IsPriorityRecord"
+    "IsPriorityRecord",
+    "FinServ__CreatedFromLead__pc",
+    "FinServ__EmailVerified__pc",
+    "FinServ__FaxVerified__pc",
+    "FinServ__HomePhoneVerified__pc",
+    "FinServ__MarketingOptOut__pc",
+    "FinServ__MobileVerified__pc",
+    "FinServ__PrimaryAddressIsBilling__pc",
+    "FinServ__PrimaryAddressIsMailing__pc",
+    "FinServ__PrimaryAddressIsOther__pc",
+    "FinServ__PrimaryAddressIsShipping__pc",
+    "dupcheck__dc3DisableDuplicateCheck__pc",
+    "Is_Preferred_Contact__pc",
+    "qualtrics__Informed_Consent__pc"
   ],
   "User": [
     "AboutMe",

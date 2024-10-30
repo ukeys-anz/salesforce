@@ -133,9 +133,9 @@ private with sharing class SICaseActionsTest {
       new Map<Id, Case>{ testCase.Id => testCase }
     );
     Test.stopTest();
-
     Assert.isTrue(
-      dmlRepoMock.getHistories('doInsert').isEmpty(),
+      ((List<Task>) dmlRepoMock.getHistory('doInsert').getParam('records'))
+        .isEmpty(),
       'No Monitoring Task should be created'
     );
   }

@@ -68,7 +68,10 @@ runtime_omnistudio_omniscript-omniscript-step[data-omni-key="PinAndMobile"]
   .vlc-separator {
   border: hidden;
 }
-
+runtime_omnistudio_omniscript-omniscript-step[data-omni-key="ResetPinConsole"]
+  .vlc-separator {
+  border: hidden;
+}
 runtime_omnistudio_omniscript-omniscript-step[data-omni-key="InsufficientAccessBlock"]
   .vlc-separator {
   border: hidden;
@@ -99,6 +102,19 @@ runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="numberConfirm"]
 }
 
 runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="numberConfirm"]
+  .slds-radio_faux {
+  color: #ffffff;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="resetConfirm"]
+  .slds-radio_button__label {
+  background-color: #0176d3;
+  width: 90px;
+  height: 30px;
+  text-align: center;
+}
+
+runtime_omnistudio_omniscript-omniscript-radio[data-omni-key="resetConfirm"]
   .slds-radio_faux {
   color: #ffffff;
 }

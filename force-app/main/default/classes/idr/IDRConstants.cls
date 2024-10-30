@@ -501,25 +501,12 @@ public with sharing class IDRConstants {
 
   // Collections Fields
 
-  public static final SObjectField CASE_TYPE = Case.Type.getDescribe()
-    .getSObjectField();
-  public static final SObjectField SUB_ISSUE_TYPE = Case.IDR_Subsequent_Issue__c.getDescribe()
-    .getSObjectField();
-  public static final SObjectField ISSUE_TYPE_2 = Case.IDR_Issue_Type_2__c.getDescribe()
-    .getSObjectField();
-  public static final SObjectField SUB_ISSUE_TYPE_2 = Case.IDR_Subsequent_Issue_2__c.getDescribe()
-    .getSObjectField();
-
-  public static final SObjectField ISSUE_TYPE_3 = Case.IDR_Issue_Type_3__c.getDescribe()
-    .getSObjectField();
-  public static final SObjectField SUB_ISSUE_TYPE_3 = Case.IDR_Subsequent_Issue_3__c.getDescribe()
-    .getSObjectField();
   public static final Set<SObjectField> COLLECTIONS_FIELDS = new Set<SObjectField>{
-    CASE_TYPE,
-    SUB_ISSUE_TYPE,
-    ISSUE_TYPE_2,
-    SUB_ISSUE_TYPE_2,
-    ISSUE_TYPE_3,
-    SUB_ISSUE_TYPE_3
+    Case.Type,
+    Case.IDR_Subsequent_Issue__c,
+    Case.IDR_Issue_Type_2__c,
+    Case.IDR_Subsequent_Issue_2__c,
+    Case.IDR_Issue_Type_3__c,
+    Case.IDR_Subsequent_Issue_3__c
   };
 }

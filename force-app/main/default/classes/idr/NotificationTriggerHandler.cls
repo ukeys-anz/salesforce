@@ -386,15 +386,10 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
       RTCase.customerComplaint
     };
 
-    if (
-      allowedrecordTypes.contains(csObj.recordtypeId) ||
-      !String.isBlank(csObj.IDR_NC_Mobile__c) ||
-      !String.isBlank(csObj.IDR_NC_Email__c) ||
-      !String.isBlank(csObj.IDR_3rdParty_Email__c) ||
-      !String.isBlank(csObj.IDR_3rdParty_Mobile__c)
-    ) {
-      return true;
-    }
-    return false;
+    return (allowedrecordTypes.contains(csObj.recordtypeId) ||
+    !String.isBlank(csObj.IDR_NC_Mobile__c) ||
+    !String.isBlank(csObj.IDR_NC_Email__c) ||
+    !String.isBlank(csObj.IDR_3rdParty_Email__c) ||
+    !String.isBlank(csObj.IDR_3rdParty_Mobile__c));
   }
 }

@@ -434,7 +434,7 @@ public with sharing class IDRCaseActions {
       restoreTaskOwner.add(t);
     }
 
-    DML_REPOSITORY.doUpdate(restoreTaskOwner, new DmlConfig().allowPartial());
+    DML_REPOSITORY.doUpdate(restoreTaskOwner);
   }
 
   /**

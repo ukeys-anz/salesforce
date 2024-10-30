@@ -75,10 +75,7 @@ public with sharing class TaskTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     IDRTaskActions.afterUpdateActions(records);
     GetHelpTaskActions.checkAndPublishTaskCloudEvent(records, oldMap);
-    CCRMActionplanActions.updateActionPlanStatus(
-      records,
-      (Map<Id, Task>) oldMap
-    );
+
     // Make sure this line always execute as the last command of AfterUpdate
     CustomFieldHistoryAction.createFieldHistory(records, oldMap);
   }

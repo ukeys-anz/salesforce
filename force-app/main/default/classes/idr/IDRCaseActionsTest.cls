@@ -280,19 +280,19 @@ private with sharing class IDRCaseActionsTest {
   static void testUpdateKnowledgeKeyWordCaseFieldsonInsert() {
     Case testCase1 = caseRecord1;
 
-    String issueType2 = getPicklistValuebyAPIName(
+    String issueType2 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Issue_Type_2__c,
       '9'
     );
-    String issueType3 = getPicklistValuebyAPIName(
+    String issueType3 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Issue_Type_3__c,
       '2'
     );
-    String subIssueType2 = getPicklistValuebyAPIName(
+    String subIssueType2 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Subsequent_Issue_2__c,
       '57'
     );
-    String subIssueType3 = getPicklistValuebyAPIName(
+    String subIssueType3 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Subsequent_Issue_3__c,
       '14'
     );
@@ -324,19 +324,19 @@ private with sharing class IDRCaseActionsTest {
     testCase2.IDR_Issue_Type_3__c = '16';
     testCase2.IDR_Subsequent_Issue_2__c = '63';
     testCase2.IDR_Subsequent_Issue_3__c = '78';
-    String issueType2 = getPicklistValuebyAPIName(
+    String issueType2 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Issue_Type_2__c,
       '18'
     );
-    String issueType3 = getPicklistValuebyAPIName(
+    String issueType3 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Issue_Type_3__c,
       '16'
     );
-    String subIssueType2 = getPicklistValuebyAPIName(
+    String subIssueType2 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Subsequent_Issue_2__c,
       '63'
     );
-    String subIssueType3 = getPicklistValuebyAPIName(
+    String subIssueType3 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Subsequent_Issue_3__c,
       '78'
     );
@@ -368,19 +368,19 @@ private with sharing class IDRCaseActionsTest {
     testCase2.Id = testCase1.Id;
     testCase2.Priority = IDRConstants.CASE_PRIORITY_STANDARD;
 
-    String issueType2 = getPicklistValuebyAPIName(
+    String issueType2 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Issue_Type_2__c,
       '9'
     );
-    String issueType3 = getPicklistValuebyAPIName(
+    String issueType3 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Issue_Type_3__c,
       '2'
     );
-    String subIssueType2 = getPicklistValuebyAPIName(
+    String subIssueType2 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Subsequent_Issue_2__c,
       '57'
     );
-    String subIssueType3 = getPicklistValuebyAPIName(
+    String subIssueType3 = CommonUtil.getSinglePicklistLabel(
       Case.IDR_Subsequent_Issue_3__c,
       '14'
     );
@@ -404,19 +404,6 @@ private with sharing class IDRCaseActionsTest {
     );
   }
 
-  static String getPicklistValuebyAPIName(
-    Schema.SObjectField fieldreference,
-    String apiname
-  ) {
-    Schema.DescribeFieldResult field = fieldreference.getDescribe();
-
-    for (Schema.PicklistEntry f : field.getPicklistValues()) {
-      if (f.getValue() == apiName) {
-        return f.getLabel();
-      }
-    }
-    return null;
-  }
   @isTest
   static void testProductAssetfinance() {
     String caseRecordId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);

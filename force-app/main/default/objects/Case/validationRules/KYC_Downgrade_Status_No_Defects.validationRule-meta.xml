@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Downgrade_Status_No_Defects</fullName>
+    <active>true</active>
+    <description>When KYC QA Case status is updated to 1 of the downgrade statuses, ensure that all checks must be completed AND 1 of them must be NO. ie. show error if 1 of the checks is blank OR all of them are &apos;Yes&apos;</description>
+    <errorConditionFormula>AND(
+	$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+	RecordType.DeveloperName = &apos;KYC_QA&apos;,
+	OR(
+		ISPICKVAL(Status, &apos;Rectify Defect&apos;),
+		ISPICKVAL(Status, &apos;Pending Documents&apos;),
+		ISPICKVAL(Status, &apos;Refer to Fraud&apos;)
+	),
+	OR(
+		OR(
+			ISPICKVAL(Fraud_PO_Box__c, &apos;&apos;),
+			ISPICKVAL(Fraud_ID_Legible__c, &apos;&apos;),
+			ISPICKVAL(Fraud_Address_Valid__c, &apos;&apos;),
+			ISPICKVAL(Fraud_ID_Not_Picture__c, &apos;&apos;),
+			ISPICKVAL(Fraud_MiddleNameCheck__c, &apos;&apos;),
+			ISPICKVAL(Fraud_Customer_Details__c, &apos;&apos;),
+			ISPICKVAL(Fraud_Security_Features__c, &apos;&apos;),
+			ISPICKVAL(Fraud_Customer_Photo_Modified__c, &apos;&apos;),
+			ISPICKVAL(Fraud_Selfie_Comparison_Match__c, &apos;&apos;)
+		),
+		AND(
+			ISPICKVAL(Fraud_PO_Box__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_ID_Legible__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_Address_Valid__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_ID_Not_Picture__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_MiddleNameCheck__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_Customer_Details__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_Security_Features__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_Customer_Photo_Modified__c, &apos;Yes&apos;),
+			ISPICKVAL(Fraud_Selfie_Comparison_Match__c, &apos;Yes&apos;)
+		)
+	)
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>All the checks should be completed with at least one check marked as No before changing the Status to Rectify Defect/Pending Documents/Refer to Fraud</errorMessage>
+</ValidationRule>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Fraud Agent , Card Dispute Agent and Joint Leads have access to view the full Card Number</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx View Card Number</label>
+</CustomPermission>

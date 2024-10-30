@@ -77,5 +77,9 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
       records,
       ApplicationEventActions.APPLICATION_EVENT_UPDATE
     );
+    ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
+      (Map<Id, ResidentialLoanApplication>) Trigger.newMap,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
   }
 }

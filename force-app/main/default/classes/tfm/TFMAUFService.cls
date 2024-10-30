@@ -174,7 +174,7 @@ public with sharing virtual class TFMAUFService extends Service {
       TFMAUFPayloadModel.TFMAUFPayload modelextr = new TFMAUFPayloadModel.TFMAUFPayload(
         TFMConstants.AUF_DATE_VARIABLE,
         TFMConstants.REPLACE,
-        dt.format(TFMConstants.AUF_DATE_FORMAT)
+        dt.formatGMT(TFMConstants.REQUESTTIMEDATEFORMAT)
       );
       payloadListWrapper.add(modelextr);
     }
