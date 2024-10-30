@@ -168,7 +168,10 @@
     "FinServ__PrimaryAddressIsBilling__pc",
     "FinServ__PrimaryAddressIsMailing__pc",
     "FinServ__PrimaryAddressIsOther__pc",
-    "FinServ__PrimaryAddressIsShipping__pc"
+    "FinServ__PrimaryAddressIsShipping__pc",
+    "dupcheck__dc3DisableDuplicateCheck__pc",
+    "Is_Preferred_Contact__pc",
+    "qualtrics__Informed_Consent__pc"
   ],
   "User": [
     "AboutMe",
