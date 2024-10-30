@@ -120,3 +120,41 @@ jobs:
           if [ -d "${{ github.workspace }}/release" ]; then
             rm -rf "${{ github.workspace }}/release"
           fi
+
+  upload_bq_prod_schema_changes:
+    runs-on: [anzx-default]
+    needs: [Release]
+    name: "Upload Prod Schema Changes"
+    env:
+      PROD_BUCKET_NAME: sfdatasync-v3-bucket-prod
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "18"
+
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+          path: salesforce
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
+
+      - name: "Set up Cloud SDK"
+        uses: "anzx/github-reusable-actions/setup-gcloud@main"
+        with:
+          install_components: "core"
+
+      - name: Run diff and upload to bucket
+        working-directory: salesforce
+        id: run-diff
+        shell: bash
+        run: |
+          chmod +x ./ci/run-bq-diff.sh
+          ARTIFACT_REF=$(git merge-base origin/master origin/develop)
+          ./ci/run-bq-diff.sh $ARTIFACT_REF ${{ env.PROD_BUCKET_NAME }}
