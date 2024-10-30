@@ -262,3 +262,6 @@ force-app/main/default/roles/Small_Business_Banking_NBC.role-meta.xml
 force-app/main/default/roles/Small_Business_Manager_NBC.role-meta.xml
 force-app/main/default/roles/Small_Business_Specialist.role-meta.xml
 force-app/main/default/roles/Team_Leader_NBC.role-meta.xml
+
+#added for merge to cmos-a, please do not merge to other envs
+force-app/main/default/aura/QuickActionAuraContainer
