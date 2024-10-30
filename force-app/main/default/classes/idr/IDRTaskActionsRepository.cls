@@ -115,4 +115,96 @@ public with sharing class IDRTaskActionsRepository {
       WITH USER_MODE
     ];
   }
+  /**
+   * @description Method to query Cases related to urgent Tasks
+   * @param stCaseIds case Ids in current context
+   * @return list of Cases
+   */
+  public List<Case> queryCasesForUrgentTasks(Set<Id> stCaseIds) {
+    if (stCaseIds.isEmpty()) {
+      return new List<Case>();
+    }
+    return [
+      SELECT Id, CaseNumber
+      FROM Case
+      WHERE Id IN :stCaseIds
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @description Method to query Group Member for Queue for Urgent Tasks
+   * @param mpGroup2Recipients Map of Group Ids and Set of Recipients
+   * @return list of GroupMember
+   */
+  public List<GroupMember> queryGroupMember(
+    Map<Id, Set<String>> mpGroup2Recipients
+  ) {
+    if (mpGroup2Recipients.isEmpty()) {
+      return new List<GroupMember>();
+    }
+    return [
+      SELECT GroupId, UserOrGroupId
+      FROM GroupMember
+      WHERE GroupId IN :mpGroup2Recipients.keySet()
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @description Method to query Inactive Users in Groups for Urgent Tasks
+   * @param mpUserId2Groups Map of User Ids and Set of Groups
+   * @return list of Users
+   */
+  public List<User> queryInactiveUsers(Map<Id, Set<Id>> mpUserId2Groups) {
+    if (mpUserId2Groups.isEmpty()) {
+      return new List<User>();
+    }
+    return [
+      SELECT Id
+      FROM User
+      WHERE IsActive = FALSE AND Id IN :mpUserId2Groups.keySet()
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @description Method to get existing SI tasks on cases
+   * @param caseIds Set of Case Ids
+   * @param subject Subject of the Task
+   * @return list of Tasks
+   */
+  public List<Task> getExistingSITasksOnCase(Set<Id> caseIds, String subject) {
+    if (caseIds.isEmpty()) {
+      return new List<Task>();
+    }
+    return [
+      SELECT Id, Status, Subject, WhatId
+      FROM Task
+      WHERE
+        WhatId IN :caseIds
+        AND RecordTypeId = :RTTask.idrSystemTask
+        AND Type = :IDRConstants.TASK_TYPE_SYSTEMIC_ISSUE
+        AND Subject = :subject
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @description Method to get unclosed milestones releated to complaint
+   * @param caseIDSet Set of Case Ids
+   * @return list of CaseMilestone
+   */
+  public List<CaseMilestone> getMilestonesTobeCompleted(Set<Id> caseIDSet) {
+    if (caseIDSet.isEmpty()) {
+      return new List<CaseMilestone>();
+    }
+    return [
+      SELECT Id, CompletionDate
+      FROM CaseMilestone cm
+      WHERE
+        CaseId IN :caseIDSet
+        AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
+        OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
+        AND CompletionDate = NULL
+      WITH USER_MODE
+      LIMIT 1
+    ];
+  }
 }

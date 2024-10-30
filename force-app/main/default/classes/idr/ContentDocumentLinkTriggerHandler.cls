@@ -9,7 +9,18 @@
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
   public static Schema.SObjectType caseObjectType = Schema.getGlobalDescribe()
     .get('Case');
-
+  private static final ContentDocumentLinkRepository REPOSITORY = (ContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+    ContentDocumentLinkRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  public static Set<String> allowedCaseRecTypes = new Set<String>{
+    RTCase.customerComplaint,
+    RTCase.nonCustomerComplaint,
+    RTCase.generalInquiryCmos,
+    RTCase.systemicIssue
+  };
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications
    */
@@ -32,43 +43,35 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
 
     Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, Case> mpUpdateCases = new Map<Id, Case>();
+    Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
+          UserInfo.getUserId()
+        )
+        .DisableDocumentDeletionTrigger__c;
+    if (fDisableDocumentDeletionTrigger) 
+    {
+      return;
+    }
+    if (caseMap.isEmpty()) {
+      return;
+    }
+    Case oCase;
+    for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
+      oCase = caseMap.get(record.LinkedEntityId);
+      if (
+        record.LinkedEntityId.getSobjectType() != caseObjectType ||
+        oCase == null ||
+        !allowedCaseRecTypes.contains(oCase.RecordTypeId)
+      ) {
+        continue;
+      }
+      linkedEntityIdList.add(oCase.Id);
+      linkIdList.add(record.Id);
+    }
 
-    if (!caseMap.isEmpty()) {
-      Case oCase;
-      for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-        if (
-          record.LinkedEntityId.getSobjectType() == caseObjectType &&
-          (oCase = caseMap.get(record.LinkedEntityId)) != null &&
-          (oCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
-          IDRCaseActions.isIDRComplaintType(oCase))
-        ) {
-          linkedEntityIdList.add(oCase.Id);
-          linkIdList.add(record.Id);
-        }
-      }
-      if (ContentDocumentLink.SObjectType.getDescribe().isQueryable()) {
-        docList = [
-          SELECT
-            Id,
-            ContentDocument.LatestPublishedVersion.Document_Flag__c,
-            ContentDocument.Title,
-            LinkedEntityId,
-            ContentDocument.CreatedDate,
-            ContentDocument.Owner.Name,
-            ContentDocument.FileExtension,
-            ContentDocument.LatestPublishedVersion.FileType,
-            ContentDocument.LatestPublishedVersion.Date_of_Document__c,
-            ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c,
-            ContentDocument.LatestPublishedVersion.Document_Category__c,
-            ContentDocumentId
-          FROM ContentDocumentLink
-          WHERE LinkedEntityId IN :linkedEntityIdList AND Id IN :linkIdList
-          ORDER BY
-            ContentDocument.CreatedDate DESC,
-            ContentDocument.Title ASC,
-            ContentDocument.FileExtension ASC
-        ];
-      }
+      docList = REPOSITORY.queryContentDocumentLink(
+        linkedEntityIdList,
+        linkIdList
+      );
 
       for (ContentDocumentLink record : docList) {
         String strDate = String.valueOf(Date.today());
@@ -77,7 +80,7 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           ? ''
           : record.ContentDocument.Title;
 
-        String errorDescription =
+        String infoDescription =
           'Doc Deleted: ' +
           (oCase = caseMap.get(record.LinkedEntityId))?.CaseNumber +
           ', ' +
@@ -91,25 +94,14 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
           ', ' +
           record.ContentDocument.LatestPublishedVersion.FileType;
 
-        Logger.error(errorDescription, record.ContentDocumentId);
+        Logger.info(infoDescription, record.ContentDocumentId);
         if (oCase != null) {
           // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
           mpUpdateCases.put(oCase.Id, oCase);
         }
       }
       Logger.saveLog();
-      Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
-          UserInfo.getUserId()
-        )
-        .DisableDocumentDeletionTrigger__c;
-      if (
-        mpUpdateCases.size() > 0 &&
-        !fDisableDocumentDeletionTrigger &&
-        Case.SObjectType.getDescribe().isUpdateable()
-      ) {
-        update mpUpdateCases.values();
-      }
-    }
+      DML_REPOSITORY.doUpdate(mpUpdateCases.values());
   }
 
   /**

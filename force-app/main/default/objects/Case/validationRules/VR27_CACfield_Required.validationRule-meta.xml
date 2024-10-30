@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VR27_CACfield_Required</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    NOT(ISNEW()),
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    OR(
+        RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+        RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+    ),
+    ISPICKVAL(Status,&apos;Closed&apos;),
+    OR(
+        AND(           
+            OR(
+                AND(ISPICKVAL(Type,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue__c,&apos;61&apos;)),
+                AND(ISPICKVAL(IDR_Issue_Type_2__c,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue_2__c,&apos;61&apos;)),
+                AND(ISPICKVAL(IDR_Issue_Type_3__c,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue_3__c,&apos;61&apos;))
+            ),
+            ISBLANK(TEXT(Is_this_a_complaint_about_a_complaint__c))
+        ),
+
+        AND(
+            OR(
+                AND(ISPICKVAL(Type,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue__c,&apos;61&apos;)),
+                AND(ISPICKVAL(IDR_Issue_Type_2__c,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue_2__c,&apos;61&apos;)),
+                AND(ISPICKVAL(IDR_Issue_Type_3__c,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue_3__c,&apos;61&apos;))
+            ),
+            OR(
+                AND(
+                    ISPICKVAL(Is_this_a_complaint_about_a_complaint__c,&apos;Yes&apos;),
+                    OR(
+                    ISBLANK(TEXT(CAC_Sub_Category__c)),
+                    ISBLANK(TEXT(Review_Outcome__c)),
+                    ISBLANK(ParentId))
+                ),
+                AND(
+                    ISPICKVAL(Is_this_a_complaint_about_a_complaint__c,&apos;No&apos;),
+                    OR(
+                    NOT(ISBLANK(TEXT(CAC_Sub_Category__c))),
+                    NOT(ISBLANK(TEXT(Review_Outcome__c))))  
+                )
+            )
+        ),
+
+        AND(
+            NOT(
+                OR(
+                    AND(ISPICKVAL(Type,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue__c,&apos;61&apos;)),
+                    AND(ISPICKVAL(IDR_Issue_Type_2__c,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue_2__c,&apos;61&apos;)),
+                    AND(ISPICKVAL(IDR_Issue_Type_3__c,&apos;9&apos;),ISPICKVAL(IDR_Subsequent_Issue_3__c,&apos;61&apos;))
+                    )
+                ),           
+            OR(NOT(ISBLANK(TEXT(CAC_Sub_Category__c))),
+            NOT(ISBLANK(TEXT(Review_Outcome__c))),
+            NOT(ISBLANK(TEXT(Is_this_a_complaint_about_a_complaint__c))))      
+        )
+    )
+)</errorConditionFormula>
+    <errorMessage>Review the following field: Is this a complaint about a complaint? If &apos;Yes&apos;, complete CAC Sub Category, Review Outcome of Original Complaint and Parent Case fields. If &apos;No&apos;, CAC Sub Category, Review Outcome of Original Complaint fields must be blank.</errorMessage>
+</ValidationRule>
