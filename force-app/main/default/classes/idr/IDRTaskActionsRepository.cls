@@ -115,22 +115,7 @@ public with sharing class IDRTaskActionsRepository {
       WITH USER_MODE
     ];
   }
-  /**
-   * @description Method to query Cases related to urgent Tasks
-   * @param stCaseIds case Ids in current context
-   * @return list of Cases
-   */
-  public List<Case> queryCasesForUrgentTasks(Set<Id> stCaseIds) {
-    if (stCaseIds.isEmpty()) {
-      return new List<Case>();
-    }
-    return [
-      SELECT Id, CaseNumber
-      FROM Case
-      WHERE Id IN :stCaseIds
-      WITH USER_MODE
-    ];
-  }
+  
   /**
    * @description Method to query Group Member for Queue for Urgent Tasks
    * @param mpGroup2Recipients Map of Group Ids and Set of Recipients
