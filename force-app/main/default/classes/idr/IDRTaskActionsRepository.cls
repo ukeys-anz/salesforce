@@ -115,25 +115,7 @@ public with sharing class IDRTaskActionsRepository {
       WITH USER_MODE
     ];
   }
-  
-  /**
-   * @description Method to query Group Member for Queue for Urgent Tasks
-   * @param mpGroup2Recipients Map of Group Ids and Set of Recipients
-   * @return list of GroupMember
-   */
-  public List<GroupMember> queryGroupMember(
-    Map<Id, Set<String>> mpGroup2Recipients
-  ) {
-    if (mpGroup2Recipients.isEmpty()) {
-      return new List<GroupMember>();
-    }
-    return [
-      SELECT GroupId, UserOrGroupId
-      FROM GroupMember
-      WHERE GroupId IN :mpGroup2Recipients.keySet()
-      WITH USER_MODE
-    ];
-  }
+ 
   /**
    * @description Method to query Inactive Users in Groups for Urgent Tasks
    * @param mpUserId2Groups Map of User Ids and Set of Groups
