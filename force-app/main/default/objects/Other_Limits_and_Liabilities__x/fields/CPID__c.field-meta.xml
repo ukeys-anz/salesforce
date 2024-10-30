@@ -11,8 +11,10 @@
     <isSortingDisabled>true</isSortingDisabled>
     <label>CPID</label>
     <length>255</length>
-    <required>false</required>
+    <referenceTargetField>Controlling_Post__c.CPID__c</referenceTargetField>
+    <referenceTo>Controlling_Post__c</referenceTo>
+    <relationshipLabel>Other Limits and Liabilities</relationshipLabel>
+    <relationshipName>Other_Limits_and_Liabilities</relationshipName>
     <securityClassification>Confidential</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>IndirectLookup</type>
 </CustomField>
