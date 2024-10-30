@@ -13,9 +13,9 @@
   <aura:attribute name="recordIdToBePassed" type="String" default="" />
   <aura:attribute name="loadComplete" type="Boolean" default="false" />
   <aura:if isTrue="{!v.loadComplete}">
-  <!--  <c:tFMAssistedUserFunctionsParentOSEnglish
+    <c:tFMAssistedUserFunctionsParentOSEnglish
       prefill="{!v.recordIdToBePassed}"
       recordId="{!v.recordIdToBePassed}"
-    /> added for merge to CMOSA DO NOT MERGE TO OTHER ENVS !-->  
+    />
   </aura:if>
 </aura:component>
