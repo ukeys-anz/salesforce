@@ -25,7 +25,6 @@ jobs:
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-          path: salesforce
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -38,10 +37,11 @@ jobs:
         with:
           install_components: "core"
 
-      - name: Run diff and upload to bucket
-        working-directory: salesforce
+      - name: Run diff
         id: run-diff
         shell: bash
         run: |
+          ARTIFACT_REF=$(git merge-base HEAD origin/develop)
+          echo "ARTIFACT_REF=$ARTIFACT_REF"
           chmod +x ./ci/run-bq-diff.sh
-          ./ci/run-bq-diff.sh ${{ github.event.pull_request.head.sha }} ${{ env.BUCKET_NAME }}
+          ./ci/run-bq-diff.sh $ARTIFACT_REF ${{ env.BUCKET_NAME }} --diff-only
