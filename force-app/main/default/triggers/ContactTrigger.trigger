@@ -11,4 +11,5 @@ trigger ContactTrigger on Contact(
 ) {
   ContactTriggerHandler handler = new ContactTriggerHandler();
   RetailBrokerContactTriggerHandler retailBrokerHandler = new RetailBrokerContactTriggerHandler();
+  CommercialContactTriggerHandler commercialContactHandler = new CommercialContactTriggerHandler();
 }

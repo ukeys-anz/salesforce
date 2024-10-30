@@ -1,0 +1,69 @@
+name: Upload Object Changes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - develop
+      - master
+
+permissions:
+  contents: "read"
+  id-token: "write"
+
+env:
+  SIT_BUCKET_NAME: sfdatasync-v3-bucket-sit
+  NONPROD_BUCKET_NAME: sfdatasync-v3-bucket-nonprod
+
+jobs:
+  # This job only runs on a push/ manual trigger to develop branch.
+  # This is configured within the workflows to accomodate multiple probabilities against develop and master merges
+  generate_object_changes:
+    uses: ./.github/workflows/bq-generate-object-changes.yaml
+    secrets: inherit
+
+  # upload object changes on develop and master
+  upload_object_changes:
+    needs: [generate_object_changes]
+    runs-on: [anzx-default]
+    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'push' ) && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' ) }}
+    steps:
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: "Set up Cloud SDK"
+        uses: "anzx/github-reusable-actions/setup-gcloud@main"
+        with:
+          install_components: "core"
+
+      - name: Determine artifact
+        id: "determine-artifact"
+        shell: bash
+        run: |
+          ARTIFACT_REF=""
+          BUCKET_NAME=""
+          if [[ "${{github.ref}}" == "refs/heads/master" ]]; then
+            BUCKET_NAME="${{ env.NONPROD_BUCKET_NAME }}"
+            ARTIFACT_REF=$(git merge-base origin/master origin/develop)
+          else
+            BUCKET_NAME="${{ env.SIT_BUCKET_NAME }}"
+            ARTIFACT_REF=$(git rev-parse --verify HEAD)
+          fi
+          echo "BUCKET_NAME=$BUCKET_NAME" && echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
+          echo "ARTIFACT_REF=$ARTIFACT_REF" && echo "ARTIFACT_REF=$ARTIFACT_REF" >> $GITHUB_OUTPUT
+
+      - name: Upload Object Changes
+        id: run-diff
+        shell: bash
+        run: |
+          chmod +x ./ci/run-bq-diff.sh
+          ./ci/run-bq-diff.sh ${{ steps.determine-artifact.outputs.ARTIFACT_REF }} ${{ steps.determine-artifact.outputs.BUCKET_NAME }}

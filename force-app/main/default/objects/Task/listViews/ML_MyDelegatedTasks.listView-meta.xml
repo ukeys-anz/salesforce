@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>ML_MyDelegatedTasks</fullName>
+    <booleanFilter>1 AND (2 OR 3) AND 4</booleanFilter>
     <columns>SUBJECT</columns>
     <columns>STATUS</columns>
     <columns>WHO_NAME</columns>
@@ -11,9 +12,27 @@
     <columns>CREATED_DATE</columns>
     <columns>LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
+    <filters>
+        <field>IS_CLOSED</field>
+        <operation>equals</operation>
+        <value>0</value>
+    </filters>
+    <filters>
+        <field>WHAT_NAME</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>WHO.WHO_ID</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Task.MLCRM_Task</value>
+    </filters>
     <filterScope>Delegated</filterScope>
     <label>My Delegated Tasks</label>
     <sharedTo>
-        <roleAndSubordinatesInternal>ANZ_Mobile_Lending</roleAndSubordinatesInternal>
+        <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
     </sharedTo>
 </ListView>

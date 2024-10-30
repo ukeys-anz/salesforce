@@ -424,6 +424,13 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Cancel_Loan_Application</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Cancel Loan Application</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/cancel/{loanAppNum}</value>
+    </labels>
+    <labels>
         <fullName>MS_Income</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -2036,6 +2043,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>MD21</value>
     </labels>
     <labels>
+        <fullName>RLA_Cancellation_Confirmation_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RLA_Cancellation_Confirmation_Message</shortDescription>
+        <value>Are you sure you want to withdraw this application? Once saved this cannot be changed. If there is an open credit referral case linked to this application, then the credit referral case will be closed.  Please click OK to confirm or cancel to review.</value>
+    </labels>
+    <labels>
         <fullName>CCRM_JWT_Siging_Certificate_NP</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -2541,6 +2555,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>20</value>
     </labels>
     <labels>
+        <fullName>BBD_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BBD Link</shortDescription>
+        <value>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=CRM&amp;opportunityId={!Opportunity.Opp_Id__c}</value>
+    </labels>
+    <labels>
+        <fullName>CLP_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CLP Link</shortDescription>
+        <value>https://clp.business.service.anz/FenergoMMO.Web/app/LandingPage</value>
+    </labels>
+    <labels>
         <fullName>MS_ADR_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2576,10 +2604,54 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagement</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Linked_Offset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Get Linked Offset</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loanoffsets/{loanAccount}</value>
+    </labels>
+    <labels>
         <fullName>Account_Registration_Endpoint</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Account Registration Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/{accountNumber}/crns</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/{accountNumber}/crns</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Auto_Task_MisMatch_Subject</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_Auto_Task_MistMatch_Subject</shortDescription>
+        <value>Update customer information</value>
+    </labels>
+    <labels>
+        <fullName>HideCardDetailsAfterMiliseconds</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>HideCardDetailsAfterMiliseconds</shortDescription>
+        <value>120000</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_Full_Card_Number</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Get_Full_Card_Number</shortDescription>
+        <value>callout:SF_MS_CH2/detokenize/v1/detokenize/cards</value>
+    </labels>
+    <labels>
+        <fullName>DAONImagePreviewURL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>DAONImagePreviewURL</shortDescription>
+        <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
+    </labels>
+    <labels>
+        <fullName>BlockManualStatusUpdateIdOpsCase</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
+        <value>false</value>
     </labels>
 </CustomLabels>

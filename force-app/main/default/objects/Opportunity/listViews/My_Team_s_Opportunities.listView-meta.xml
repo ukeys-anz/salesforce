@@ -5,7 +5,6 @@
     <columns>ACCOUNT.NAME</columns>
     <columns>My_Sub_Team__c</columns>
     <columns>OPPORTUNITY.AMOUNT</columns>
-    <columns>Multiple_Products__c</columns>
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>Progress_Indicator__c</columns>
@@ -29,6 +28,6 @@
     <label>My Team&apos;s Opportunities</label>
     <sharedTo>
         <role>SME_General_Manager</role>
-        <roleAndSubordinatesInternal>SME_Head_of_NBC</roleAndSubordinatesInternal>
+        <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

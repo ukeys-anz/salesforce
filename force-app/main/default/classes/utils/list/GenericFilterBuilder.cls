@@ -47,6 +47,23 @@ public class GenericFilterBuilder {
     this.records = output;
     return this;
   }
+  /**
+   * @description Filter records with specified field value not contains a given string as sub-string.
+   * @param field The field to filter on.
+   * @param subString The value to filter for.
+   * @return The updated GenericFilterBuilder instance.
+   */
+  public GenericFilterBuilder notContains(String field, String subString) {
+    List<Object> output = this.handler.emptyList;
+    for (Object record : this.records) {
+      String fieldValue = String.valueOf(this.handler.get(record, field));
+      if (fieldValue == null || fieldValue.contains(subString) == false) {
+        output.add(record);
+      }
+    }
+    this.records = output;
+    return this;
+  }
 
   /**
    * @description Filter records with specified field value equals to a given value or list/set of values

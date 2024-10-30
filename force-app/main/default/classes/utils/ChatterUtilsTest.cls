@@ -1,14 +1,17 @@
 @isTest
 public class ChatterUtilsTest {
   /*
-   * @description to check if the MockChatterPoster has been triggered
+   * @description to check if the chatter post has been made
    */
   @isTest
   static void testChatterUtilsSuccess() {
-    String info;
-    info = ChatterUtils.makeAPost('MockParentRecordId', 'MockingPost');
+    String info = ChatterUtils.makeAPost(
+      'MockParentRecordId',
+      'MockingPost',
+      ChatterUtils.POST_TYPE_TEXT
+    );
 
-    System.assertEquals(
+    Assert.areEqual(
       info,
       'MockingPostId',
       'Check if mocking chatter return the mocking feedItemId'
@@ -16,32 +19,36 @@ public class ChatterUtilsTest {
   }
 
   /*
-   * @description to check if the MockChatterPoster has been triggered
-   * and if the recordId and feedItemId are not the ones in MockChatterPoster
+   * @description to check if the rich text chatter post has been made
    */
   @isTest
   static void testChatterUtilsUnSuccess() {
-    String info;
-
-    info = ChatterUtils.makeAPost('WrongId', 'WrongPost');
-    System.assertNotEquals(
+    String info = ChatterUtils.makeAPost(
+      'WrongId',
+      'WrongPost',
+      ChatterUtils.POST_TYPE_TEXT
+    );
+    Assert.areNotEqual(
       info,
       'WrongPostId',
       'Check if mocking chatter will give us a false'
     );
+    Assert.isTrue(info != null, 'Chatter post id should not be null');
   }
 
   /*
-   * @description to check if the MockChatterPoster throw an error for
-   * the specific `23572357` recordId
+   * @description to check if error scenario if chatter post fails
    */
   @isTest
   static void testChatterUtilsError() {
     try {
-      String info;
-      info = ChatterUtils.makeAPost('23572357', 'NoChatterPostTest');
+      String info = ChatterUtils.makeAPost(
+        '23572357',
+        'NoChatterPostTest',
+        ChatterUtils.POST_TYPE_TEXT
+      );
     } catch (AuraHandledException e) {
-      System.assertEquals(
+      Assert.areEqual(
         'No Chatter post has been made',
         e.getMessage(),
         'Check for specific card number(23572357), it will throw an error'

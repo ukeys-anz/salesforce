@@ -9,8 +9,6 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   private static IDR_Notification_Hours__c nHours;
   private static List<Notification_Handler__c> notificationList;
   private static List<Database.SaveResult> peSaveResults;
-  private static final String CUSCOMPLAINTRECORDTYPEID = IDRConstants.CUSTOMER_COMPLAINT_RT_ID;
-
   /**
    * @description Constructor to call the trigger framework
    */
@@ -303,17 +301,18 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
         ? 'CAP ID'
         : c.IDR_Customer_Identifier__c);
       notification.ComplainantEmail__c = (c.RecordTypeId ==
-        CUSCOMPLAINTRECORDTYPEID
+        RTCase.customerComplaint
         ? ''
         : c.IDR_NC_Email__c);
       notification.ComplainantFirstName__c = (c.IDR_NC_Is_Consent_Obtained__c ==
         false ||
-        c.RecordTypeId == CUSCOMPLAINTRECORDTYPEID)
+        c.RecordTypeId == RTCase.customerComplaint)
         ? ''
         : c.IDR_NC_First_Name__c;
-      notification.ComplainantMobile__c = PhoneUtils.cleanupMobile(
-        c.IDR_NC_Mobile__c
-      );
+      notification.ComplainantMobile__c = (c.RecordTypeId ==
+        RTCase.customerComplaint
+        ? ''
+        : PhoneUtils.cleanupMobile(c.IDR_NC_Mobile__c));
     }
     return notification;
   }
@@ -338,17 +337,14 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
   public static void insertNotificationHandler(List<Case> records) {
     List<Notification_Handler__c> notificationHandlerList = new List<Notification_Handler__c>();
     for (Case c : records) {
-      if (
-        !checkMobileEmailnotNullOnCase(c)
-      ) {
+      if (!checkMobileEmailnotNullOnCase(c)) {
         continue;
       }
-        Notification_Handler__c handler = new Notification_Handler__c();
-        handler.Case__c = c.Id;
-        handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
+      Notification_Handler__c handler = new Notification_Handler__c();
+      handler.Case__c = c.Id;
+      handler.Status__c = IDRConstants.NOTIFICATION_PENDING_PUBLISH_STATUS;
 
-        notificationHandlerList.add(handler);
-      
+      notificationHandlerList.add(handler);
     }
     if (!notificationHandlerList.isEmpty()) {
       if (
@@ -384,20 +380,16 @@ public without sharing class NotificationTriggerHandler extends Lib_TriggerHandl
    * @return Boolean whehter record is valid for insertion
    */
   @testVisible
-  private static Boolean checkMobileEmailnotNullOnCase(Case csObj){
-   Set<String> allowedrecordTypes = new Set<String>{
+  private static Boolean checkMobileEmailnotNullOnCase(Case csObj) {
+    Set<String> allowedrecordTypes = new Set<String>{
       RTCase.anzxComplaint,
       RTCase.customerComplaint
     };
 
-    if(allowedrecordTypes.contains(csObj.recordtypeId)||
+    return (allowedrecordTypes.contains(csObj.recordtypeId) ||
     !String.isBlank(csObj.IDR_NC_Mobile__c) ||
     !String.isBlank(csObj.IDR_NC_Email__c) ||
     !String.isBlank(csObj.IDR_3rdParty_Email__c) ||
-    !String.isBlank(csObj.IDR_3rdParty_Mobile__c)  
-    ){
-      return true;
-    }
-    return false;
+    !String.isBlank(csObj.IDR_3rdParty_Mobile__c));
   }
 }

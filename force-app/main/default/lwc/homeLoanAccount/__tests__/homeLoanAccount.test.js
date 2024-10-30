@@ -1,15 +1,16 @@
 import { createElement } from "lwc";
 import HomeLoanAccount from "c/homeLoanAccount";
-import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.getHomeLoanFinancialAccountId";
+import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.getLinkedHomeLoanFinancialAccountRole";
 import getAccountOwnerIds from "@salesforce/apex/HomeLoanController.getAccountOwnerIds";
 import { setImmediate } from "timers";
 
 const Loan_Data = require("./data/mock_homeloanaccounts.json").accounts;
 const FIN_ACCOUNT_ROLE = require("./data/finAccountRole.json");
+const Offset_Data = require("./data/mock_viewOffset.json");
 const ACCOUNT_OWNERS = require("./data/accountOwners.json");
 
 jest.mock(
-  "@salesforce/apex/HomeLoanController.getHomeLoanFinancialAccountId",
+  "@salesforce/apex/HomeLoanController.getLinkedHomeLoanFinancialAccountRole",
   () => {
     return {
       default: jest.fn()
@@ -81,6 +82,46 @@ describe("c-home-loan-account", () => {
         "div[data-id='fin-details']"
       );
       expect(loanDetails).toBeTruthy();
+    });
+  });
+
+  it("test showing offset loan account details", () => {
+    getHomeLoanFinancialAccountId.mockResolvedValue(FIN_ACCOUNT_ROLE);
+    getAccountOwnerIds.mockResolvedValue(ACCOUNT_OWNERS);
+    const element = createElement("c-home-loan-account", {
+      is: HomeLoanAccount
+    });
+
+    element.objectApiName = "Account";
+    element.accountDetails = JSON.stringify(Loan_Data);
+    element.offsetDetails = Offset_Data;
+    document.body.appendChild(element);
+
+    return flushPromises().then(() => {
+      let offsetCard = element.shadowRoot.querySelector(
+        "div[data-id='offsetAccountDetails']"
+      );
+      expect(offsetCard).toBeTruthy();
+    });
+  });
+
+  it("test showing offset financial account details", () => {
+    getHomeLoanFinancialAccountId.mockResolvedValue(FIN_ACCOUNT_ROLE);
+    getAccountOwnerIds.mockResolvedValue(ACCOUNT_OWNERS);
+    const element = createElement("c-home-loan-account", {
+      is: HomeLoanAccount
+    });
+
+    element.objectApiName = "FinServ__FinancialAccount__c";
+    element.accountDetails = JSON.stringify(Loan_Data);
+    element.offsetDetails = Offset_Data;
+    document.body.appendChild(element);
+
+    return flushPromises().then(() => {
+      let offsetCard = element.shadowRoot.querySelector(
+        "div[data-id='offsetAccounts']"
+      );
+      expect(offsetCard).toBeTruthy();
     });
   });
 });

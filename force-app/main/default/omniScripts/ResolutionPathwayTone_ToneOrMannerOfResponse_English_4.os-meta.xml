@@ -10,11 +10,12 @@
     <language>English</language>
     <name>ToneOrMannerPathway</name>
     <omniProcessElements>
+        <name>Apologise</name>
         <childElements>
+            <name>ApologiseTalktrack</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ApologiseTalktrack</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -36,10 +37,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>ApologiseTextBlock1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ApologiseTextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -64,10 +65,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>ApologiseTextBlock2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ApologiseTextBlock2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -92,10 +93,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>CustomerDetailsApologise</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomerDetailsApologise</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -114,10 +115,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>LineBreak2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -129,10 +130,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>LineBreak5</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak5</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -144,10 +145,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>NavigationButtonsApologise</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>NavigationButtonsApologise</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;customAttributes&quot; : [ {
@@ -169,10 +170,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>TextBlock7</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock7</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -190,7 +191,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Apologise</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;businessEvent&quot; : &quot;&quot;,
@@ -240,11 +240,12 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>Confirm</name>
         <childElements>
+            <name>ConfirmCorrespondenceComplaint</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ConfirmCorrespondenceComplaint</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -269,10 +270,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>ConfirmStaffInteraction</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ConfirmStaffInteraction</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -297,10 +298,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>ConfirmTalkTrack</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ConfirmTalkTrack</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -322,10 +323,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>CustomerDetailConfirm</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomerDetailConfirm</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -344,10 +345,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>LineBreak1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -359,10 +360,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>LineBreak3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -374,10 +375,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>NavigationButtonsConfirm</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>NavigationButtonsConfirm</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -399,10 +400,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>TextBlock6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -420,7 +421,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>Confirm</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Resolution Pathways - Tone and Manner of response&quot;,
@@ -470,10 +470,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>IntegrationProcedureActionTM1</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>IntegrationProcedureActionTM1</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -532,10 +532,10 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>IntegrationProcedureActionTM2</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>IntegrationProcedureActionTM2</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -595,11 +595,12 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ProvideInformation</name>
         <childElements>
+            <name>CustomerDetailsProvideInfo</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomerDetailsProvideInfo</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -618,10 +619,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>IssueTypeTMLWC</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>IssueTypeTMLWC</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -637,10 +638,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>LineBreak4</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak4</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak4&quot;,
@@ -652,10 +653,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>LineBreak6</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak6</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -667,10 +668,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>NavigationButtonsProvideInfo</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>NavigationButtonsProvideInfo</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -692,10 +693,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>ProvideInfoTalktrack</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ProvideInfoTalktrack</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -720,10 +721,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>ProvideInfoTextBlock1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ProvideInfoTextBlock1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -749,10 +750,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>ProvideInfoTextBlock2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ProvideInfoTextBlock2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -777,10 +778,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>ProvideInfoTextBlock3</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>ProvideInfoTextBlock3</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;sanitize&quot; : false,
@@ -805,10 +806,10 @@
             <type>Text Block</type>
         </childElements>
         <childElements>
+            <name>TextBlock8</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>TextBlock8</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -826,7 +827,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ProvideInformation</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Resolution Pathways - Tone and Manner of response&quot;,

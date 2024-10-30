@@ -43,9 +43,9 @@ public class NotificationHandlerTriggerTest {
 
     return testCase;
   }
-  
-   static Case caseRecord = (Case) TestUtil.setFields(
-      new Case(
+
+  static Case caseRecord = (Case) TestUtil.setFields(
+    new Case(
       Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
       IDR_Account_Card_Policy_Number__c = '000001234',
       Description = 'Test decription',
@@ -319,14 +319,13 @@ public class NotificationHandlerTriggerTest {
   @IsTest
   static void testMobileNumberFormatting() {
     //Retrieve the case inserted
-      Case oCase = caseRecord;
-  
+    Case oCase = caseRecord;
+
     Test.startTest();
     //create the notification handler record Manually
     Notification_Handler__c handlerRecord = new Notification_Handler__c();
     handlerRecord.Case__c = oCase.Id;
     handlerRecord.Status__c = IDRConstants.NOTIFICATION_PUBLISH_STATUS;
-
 
     IDR_Notification_Event__e evt = NotificationTriggerHandler.getNotifcationEvent(
       oCase,
@@ -335,35 +334,55 @@ public class NotificationHandlerTriggerTest {
 
     Test.stopTest();
 
-    System.assert(String.isNotBlank(evt.AuthorisedMobile__c),'Authorised Mobile cannot be blank');
-    System.assert(evt.AuthorisedMobile__c.startsWith('614'),'Authorised Mobile should be formatted');
-    System.assert(evt.AuthorisedMobile__c.isNumeric() , 'Authorised Mobile should be a number');
+    System.assert(
+      String.isNotBlank(evt.AuthorisedMobile__c),
+      'Authorised Mobile cannot be blank'
+    );
+    System.assert(
+      evt.AuthorisedMobile__c.startsWith('614'),
+      'Authorised Mobile should be formatted'
+    );
+    System.assert(
+      evt.AuthorisedMobile__c.isNumeric(),
+      'Authorised Mobile should be a number'
+    );
     System.assertEquals(
       evt.AuthorisedMobile__c,
       PhoneUtils.cleanupMobile(oCase.IDR_3rdParty_Mobile__c),
       '3rd party mobile isn\'t cleaned'
     );
-    System.assert(String.isNotBlank(evt.ComplainantMobile__c), 'Complaint Mobile Number cannot be blank');
-    System.assert(evt.ComplainantMobile__c.startsWith('614') , 'Complaint Mobile should be formatted');
-    System.assert(evt.ComplainantMobile__c.isNumeric(),'Complaint Mobile should be a number');
+    System.assert(
+      String.isNotBlank(evt.ComplainantMobile__c),
+      'Complaint Mobile Number cannot be blank'
+    );
+    System.assert(
+      evt.ComplainantMobile__c.startsWith('614'),
+      'Complaint Mobile should be formatted'
+    );
+    System.assert(
+      evt.ComplainantMobile__c.isNumeric(),
+      'Complaint Mobile should be a number'
+    );
     System.assertEquals(
       evt.ComplainantMobile__c,
       PhoneUtils.cleanupMobile(oCase.IDR_NC_Mobile__c),
       'NC Mobile isn\'t cleaned'
     );
-  
   }
   @IsTest
-  static void testcheckMobileEmailnotNullOnCase(){
+  static void testcheckMobileEmailnotNullOnCase() {
     Case csObj = caseRecord;
     Case csObj2 = new Case();
     csObj2.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
     Test.startTest();
-   Boolean isValid=  NotificationTriggerHandler.checkMobileEmailnotNullOnCase(csObj);
-   Boolean isInvalid = NotificationTriggerHandler.checkMobileEmailnotNullOnCase(csObj2);
-   Test.stopTest();
-   System.assertEquals(true, isValid, 'mobile or email is populated');
-   System.assertEquals(false, isInvalid, 'mobile or email is not populated');
-
+    Boolean isValid = NotificationTriggerHandler.checkMobileEmailnotNullOnCase(
+      csObj
+    );
+    Boolean isInvalid = NotificationTriggerHandler.checkMobileEmailnotNullOnCase(
+      csObj2
+    );
+    Test.stopTest();
+    System.assertEquals(true, isValid, 'mobile or email is populated');
+    System.assertEquals(false, isInvalid, 'mobile or email is not populated');
   }
 }

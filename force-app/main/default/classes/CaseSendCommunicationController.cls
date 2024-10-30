@@ -28,7 +28,11 @@ public with sharing class CaseSendCommunicationController {
         'Email notification request could not be sent.'
       );
     }
-    ChatterUtils.makeAPost(recordId, KYC_QA_EMAIL_COMMUNICATION_CHATTER_MSG);
+    ChatterUtils.makeAPost(
+      recordId,
+      KYC_QA_EMAIL_COMMUNICATION_CHATTER_MSG,
+      ChatterUtils.POST_TYPE_TEXT
+    );
   }
 
   /**

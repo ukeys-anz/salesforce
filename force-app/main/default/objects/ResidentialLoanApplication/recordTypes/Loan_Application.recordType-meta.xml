@@ -30,6 +30,57 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Cancellation_Reason__c</picklist>
+        <values>
+            <fullName>Applied by mistake</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Assessment expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Did not intent to proceed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Going to another Institution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Product did not meet the needs of the customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Property valuation unacceptable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rate is unsuitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Referred to ANZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical difficulties</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unable to make contact with the customer%28s%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wanted a personal loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Collateral_Assessment_Outcome__c</picklist>
         <values>
             <fullName>ASSESSMENT_OUTCOME_APPROVED</fullName>

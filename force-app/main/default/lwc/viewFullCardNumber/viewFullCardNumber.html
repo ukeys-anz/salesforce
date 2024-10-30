@@ -1,0 +1,106 @@
+<template>
+  <lightning-modal-header label="Get Card Number" class="customModalHeader">
+  </lightning-modal-header>
+  <template lwc:if={loading}>
+    <article class="slds-card slds-m-bottom_small">
+      <div class="slds-align_absolute-center spinner-height">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </article>
+  </template>
+  <template lwc:else>
+    <template lwc:if={cardHasError}>
+      <c-error message={errorMsg} data-id="error"></c-error>
+    </template>
+    <template lwc:else>
+      <lightning-modal-body>
+        <template lwc:if={showFullCardDetails}>
+          <div class="slds-grid">
+            <div class="slds-col slds-size_9-of-12">
+              <div class="slds-form-element__label customPaddingForMessage">
+                This is the full card number and this information will timeout
+                after 2 minutes.
+              </div>
+            </div>
+          </div>
+          <div class="slds-grid">
+            <div class="slds-col slds-size_9-of-12">
+              <lightning-input
+                type="text"
+                name="cardHolder"
+                label="Cardholder"
+                disabled="true"
+                value={cardHolder}
+                variant="label-inline"
+                data-id="cardHolder"
+                class="customPaddingForFields"
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-grid">
+            <div class="slds-col slds-size_9-of-12">
+              <lightning-input
+                type="text"
+                name="accountType"
+                label="Account Type"
+                disabled="true"
+                value={accountType}
+                variant="label-inline"
+                data-id="accountType"
+                class="customPaddingForFields"
+              ></lightning-input>
+            </div>
+          </div>
+          <div class="slds-grid slds-grid_align-spread">
+            <div class="slds-col slds-size_9-of-12">
+              <lightning-input
+                type="text"
+                name="fullCardNumber"
+                label="Full Card Number"
+                disabled="true"
+                value={fullCardNumber}
+                variant="label-inline"
+                data-id="fullCardNumber"
+                class="customPaddingForFields"
+              ></lightning-input>
+            </div>
+            <div class="slds-col slds-size_3-of-12 realignButton">
+              <lightning-button-icon
+                icon-name="utility:copy"
+                variant="bare"
+                alternative-text="Copy to clipboard"
+                title="Copy to clipboard"
+                onclick={handleCopyModal}
+                class="slds-m-left_xx-small"
+              ></lightning-button-icon>
+              <span lwc:if={showCopyMessage} class="copied-text">Copied!</span>
+            </div>
+          </div>
+        </template>
+        <template lwc:else>
+          <div class="slds-align_absolute-center slds-p-around_large">
+            <lightning-icon
+              icon-name="utility:clock"
+              size="large"
+            ></lightning-icon>
+            <br />
+          </div>
+          <div class="slds-align_absolute-center slds-p-bottom_x-large">
+            <div class="slds-form-element__label">
+              Your request for full card information has timed out. Please close
+              pop up window and start again if you need it.
+            </div>
+          </div>
+        </template>
+      </lightning-modal-body>
+    </template>
+    <lightning-modal-footer>
+      <lightning-button label="Close" onclick={handleClose}></lightning-button>
+    </lightning-modal-footer>
+  </template>
+</template>

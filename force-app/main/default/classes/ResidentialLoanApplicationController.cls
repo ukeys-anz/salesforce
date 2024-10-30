@@ -462,6 +462,7 @@ global with sharing class ResidentialLoanApplicationController implements omnist
         Map<String, Object> expenseItem = (Map<String, Object>) expense;
         if (expenseItem.get('justificationCode') == null) {
           expenseItem.remove('justificationCode');
+          expenseItem.remove('otherJustificationText');
         }
       }
 
@@ -738,6 +739,9 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       monthlyExpense.hemState = (String) inputMap.get('hemState' + i);
       monthlyExpense.justificationCode = (String) inputMap.get(
         'justificationCode' + i
+      );
+      monthlyExpense.otherJustificationText = (String) inputMap.get(
+        'otherJustificationText' + i
       );
 
       monthlyExpenses.add(monthlyExpense);

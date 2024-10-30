@@ -404,6 +404,35 @@
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>adminFilters</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|New</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Pening</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Unspecified</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Declined</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Completed</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Cancelled</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Expired</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Ineligible</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
                     <value>6</value>
                 </componentInstanceProperties>
@@ -413,7 +442,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>ResidentialLoanApplicationAccount</value>
+                    <value>Loan_Applicants__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>
@@ -423,10 +452,10 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>Name</value>
+                            <value>LoanApplication</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Status</value>
+                            <value>Application_Status__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Loan_Purpose__c</value>
@@ -459,15 +488,8 @@
                     <value>Descending</value>
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
-                <identifier>lst_dynamicRelatedList5</identifier>
-                <!--  <componentInstanceProperties>
-                    <name>adminFilters</name>
-                  <valueList>
-                        <valueListItems>
-                            <value>Status|EQUALS|[&quot;STATE_CAPTURE&quot;,&quot;STATE_REFERRED&quot;,&quot;STATE_CONFIRMED&quot;,&quot;STATE_APPROVED&quot;,&quot;STATE_SUBMITTED&quot;,&quot;STATE_SETTLEMENT_INITATED&quot;]</value>
-                        </valueListItems>
-                    </valueList
-                </componentInstanceProperties>>--></componentInstance>
+                <identifier>lst_dynamicRelatedList13</identifier>
+            </componentInstance>
         </itemInstances>
         <itemInstances>
             <componentInstance>
@@ -1194,9 +1216,40 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>adminFilters</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|New</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Pending</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Unspecified</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Declined</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Completed</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Cancelled</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Expired</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Application_Status__c|NOT_EQUAL|Ineligible</value>
+                        </valueListItems>
+                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
@@ -1208,7 +1261,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>ResidentialLoanApplicationAccount</value>
+                    <value>Loan_Applicants__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>
@@ -1218,10 +1271,10 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>Name</value>
+                            <value>LoanApplication</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Status</value>
+                            <value>Application_Status__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Loan_Purpose__c</value>
@@ -1233,7 +1286,7 @@
                             <value>CreatedDate</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Owner_Name__c</value>
+                            <value>Owner</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -1254,7 +1307,7 @@
                     <value>Descending</value>
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
-                <identifier>lst_dynamicRelatedList10</identifier>
+                <identifier>lst_dynamicRelatedList5</identifier>
             </componentInstance>
         </itemInstances>
         <name>column12</name>

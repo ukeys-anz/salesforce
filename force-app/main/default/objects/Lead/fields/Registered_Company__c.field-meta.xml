@@ -6,7 +6,7 @@
     <description>Select if company has not yet been registered</description>
     <externalId>false</externalId>
     <inlineHelpText>Entity not yet registered for ABN/ACN</inlineHelpText>
-    <label>Registered Company</label>
+    <label>Is this business registered?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

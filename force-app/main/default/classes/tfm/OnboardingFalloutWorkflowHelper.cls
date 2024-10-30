@@ -142,7 +142,7 @@ public with sharing class OnboardingFalloutWorkflowHelper {
     fileData.imageURL = (cvRecord != null &&
       cvRecord.Document_Flag__c == '4')
       ? URL.getOrgDomainURL().toExternalForm() +
-        TFMConstants.IMAGE_URL +
+        System.Label.DAONImagePreviewURL +
         cvRecord.Id
       : '';
     fileData.isValid = false;

@@ -1,0 +1,47 @@
+name: Validate Object Changes
+
+on:
+  pull_request:
+    branches:
+      - master
+
+permissions:
+  contents: "read"
+  id-token: "write"
+
+env:
+  BUCKET_NAME: sfdatasync-v3-bucket-nonprod
+
+jobs:
+  validate_object_changes:
+    runs-on: [anzx-default]
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        with:
+          node-version: "18"
+
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: "Set up Cloud SDK"
+        uses: "anzx/github-reusable-actions/setup-gcloud@main"
+        with:
+          install_components: "core"
+
+      - name: Run diff
+        id: run-diff
+        shell: bash
+        run: |
+          ARTIFACT_REF=$(git merge-base HEAD origin/develop)
+          echo "ARTIFACT_REF=$ARTIFACT_REF"
+          chmod +x ./ci/run-bq-diff.sh
+          ./ci/run-bq-diff.sh $ARTIFACT_REF ${{ env.BUCKET_NAME }} --diff-only

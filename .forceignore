@@ -30,7 +30,7 @@ force-app/main/default/permissionsetgroups/Muted_Backup_and_Restore.permissionse
 # The sharing rule calculations makes scratch org creation to timeout with error sharing operation already in progress
 force-app/main/default/sharingRules/Access_Request__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/Account.sharingRules-meta.xml
-force-app/main/default/sharingRules/Case.sharingRules-meta.xml
+#force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 force-app/main/default/sharingRules/Customer_Profile_Updates__c.sharingRules-meta.xml
 force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/sharingRules/Known_Issues__c.sharingRules-meta.xml
@@ -173,9 +173,6 @@ force-app/main/default/omniIntegrationProcedures
 force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
 
-#CC-11040 - Ignore Action launcher deployment
-force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti7woscmbp1i57jhu21mgn4.actionLauncherItemDef-meta.xml
-
 #AR-90796 - Uninstall mvision
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
 
@@ -187,3 +184,6 @@ force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
 
 #PR-8811 Skip field destruction in merge
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
+
+#added for merge to cmos-a, please do not merge to other envs
+force-app/main/default/aura/QuickActionAuraContainer

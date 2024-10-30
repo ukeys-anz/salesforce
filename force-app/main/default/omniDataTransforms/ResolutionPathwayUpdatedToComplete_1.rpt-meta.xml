@@ -9,6 +9,7 @@
     <name>ResolutionPathwayUpdatedToComplete</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
+        <name>ResolutionPathwayUpdatedToComplete</name>
         <disabled>true</disabled>
         <filterGroup>0.0</filterGroup>
         <filterOperator>=</filterOperator>
@@ -16,7 +17,6 @@
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <migrationValue>FAKEMAPPING</migrationValue>
-        <name>ResolutionPathwayUpdatedToComplete</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -24,13 +24,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>ResolutionPathwayUpdatedToComplete</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>ResolutionPathwayUpdatedToCompleteCustom5238</globalKey>
         <inputFieldName>DRId_Assessment</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>ResolutionPathwayUpdatedToComplete</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Id</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -38,13 +38,13 @@
         <upsertKey>true</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>ResolutionPathwayUpdatedToComplete</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>ResolutionPathwayUpdatedToCompleteCustom7113</globalKey>
         <inputFieldName>Status</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>ResolutionPathwayUpdatedToComplete</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>AssessmentStatus</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -52,6 +52,7 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <name>ResolutionPathwayUpdatedToComplete</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>&apos;Completed&apos;</formulaConverted>
@@ -61,7 +62,6 @@
         <globalKey>ResolutionPathwayUpdatedToCompleteCustom3571</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>ResolutionPathwayUpdatedToComplete</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>

@@ -5,6 +5,7 @@
     <label>Credit Assessment Officer</label>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>
+    <permissionSets>Cancel_Residential_Loan_Application</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>CFaaS_File_Read_Only</permissionSets>

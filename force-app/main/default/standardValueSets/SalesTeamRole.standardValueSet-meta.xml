@@ -5,15 +5,53 @@
         <fullName>Business Banking</fullName>
         <default>false</default>
         <label>Business Banking</label>
+        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>Small Business Banking</fullName>
         <default>false</default>
         <label>Small Business Banking</label>
+        <isActive>false</isActive>
     </standardValue>
     <standardValue>
         <fullName>Small Business Banking - NBC</fullName>
         <default>false</default>
         <label>Small Business Banking - NBC</label>
+        <isActive>false</isActive>
+    </standardValue>
+    <standardValue>
+        <fullName>SME</fullName>
+        <default>false</default>
+        <label>SME</label>
+    </standardValue>
+    <standardValue>
+        <fullName>SME - NBC</fullName>
+        <default>false</default>
+        <label>SME - NBC</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Asset Finance</fullName>
+        <default>false</default>
+        <label>Asset Finance</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Commercial Broker &amp; Origination</fullName>
+        <default>false</default>
+        <label>Commercial Broker &amp; Origination</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Diversified and Specialist Industries</fullName>
+        <default>false</default>
+        <label>Diversified and Specialist Industries</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Transactional Banking</fullName>
+        <default>false</default>
+        <label>Transactional Banking</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Private Bank</fullName>
+        <default>false</default>
+        <label>Private Bank</label>
     </standardValue>
 </StandardValueSet>

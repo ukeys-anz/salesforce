@@ -5,7 +5,7 @@
         <accessLevel>Edit</accessLevel>
         <label>CCRM Opportunity CLO Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Commercial_Lending_Operations</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>

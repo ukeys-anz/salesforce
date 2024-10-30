@@ -5,10 +5,10 @@
     <label>IDR Cards</label>
     <queue>IDR_Satellite</queue>
     <sharedTo>
-        <roleAndSubordinatesInternal>Banker_Line_Manager</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Customer_Resolution_Leadership</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Data_Analyst</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Systemic_Issue_Team</roleAndSubordinatesInternal>
-        <roleAndSubordinatesInternal>Tech_Support</roleAndSubordinatesInternal>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        <roleAndSubordinates>Data_Analyst</roleAndSubordinates>
+        <roleAndSubordinates>Systemic_Issue_Team</roleAndSubordinates>
+        <roleAndSubordinates>Tech_Support</roleAndSubordinates>
     </sharedTo>
 </ListView>
