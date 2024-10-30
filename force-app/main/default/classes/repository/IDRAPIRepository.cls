@@ -5,6 +5,7 @@
  * @group Repository
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
+  private static final String OCV_ERROR = 'Customer Data not found';
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
@@ -66,13 +67,15 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
         );
         Logger.saveLog();
       }
-      handleErrors(null, response.error, IDRAPIRepository.class);
+      handleErrors(response, response.error, IDRAPIRepository.class);
       throw response.error;
     } catch (Exception e) {
-      handleErrors(null, e, IDRAPIRepository.class);
+      Logger.info(OCV_ERROR);
+      Logger.saveLog();
       throw e;
     }
   }
+
   /**
    * @param riskEventId customer id to be searched
    * @return SNOWIntegrationModel
