@@ -113,5 +113,14 @@
         </lightning-layout-item>
       </template>
     </lightning-layout>
+    <div
+      lwc:if={showCCCalculationMsg}
+      class="slds-col slds-size_5-of-12 slds-align_absolute-center slds-p-top_x-small slds-text-body_small"
+    >
+      <b>
+        The calculated values above currently do not include some Credit Card
+        products
+      </b>
+    </div>
   </div>
 </template>
