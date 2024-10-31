@@ -1,8 +1,20 @@
-name: Generate Object Changes
+name: BQ Generate Object Changes
 
 on:
   workflow_dispatch:
+    inputs:
+      diff-only:
+        description: "Whether to run just a diff"
+        required: false
+        default: false
+        type: boolean
   workflow_call:
+    inputs:
+      diff-only:
+        description: "Whether to run just a diff"
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: "read"
@@ -13,26 +25,25 @@ env:
 
 jobs:
   generate_object_changes:
-    if: ${{ github.event_name == 'workflow_dispatch'|| github.event_name == 'push' }}
     outputs:
       CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
     runs-on: [anzx-default]
     steps:
       - uses: actions/setup-node@v2.1.5
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         with:
           node-version: "18"
 
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
       - name: Checkout doc gen plugin
         uses: actions/checkout@v2
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         with:
           repository: anzx/salesforce-doc-gen
           token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
@@ -41,14 +52,14 @@ jobs:
           # this is a particular commit on master. Change this when a new plugin version is required for doc:fieldsaccessdiff
 
       - name: Install npm packages
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         run: |
           mv ci.npmrc .npmrc
           npm ci -f
 
       - name: Install yarn
         working-directory: plugin
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         shell: bash
         run: |
           npm install --global yarn --registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
@@ -57,7 +68,7 @@ jobs:
 
       - name: Install plugin
         working-directory: plugin
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         shell: bash
         run: |
           mv ci.yarnrc .yarnrc
@@ -65,14 +76,14 @@ jobs:
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
 
       - name: SFDXURL
         id: secrets
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         uses: google-github-actions/get-secretmanager-secrets@main
         with:
           secrets: |-
@@ -80,11 +91,11 @@ jobs:
             artifactory_token:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
 
       - name: Authenticate all orgs in SFDX CLI
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}" --sfdx-url-file=/dev/stdin
 
       - name: Get objects changes with fieldsaccessdiff
-        if: github.ref == 'refs/heads/develop'
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         id: get-changed-objects
         shell: bash
         run: |
@@ -107,7 +118,7 @@ jobs:
 
       # Upload failure to artifactory
       - name: Push failure changes to artifactory
-        if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() && (github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop') }}
         id: push-failure-to-artifactory
         shell: bash
         run: |
@@ -120,13 +131,13 @@ jobs:
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
 
       - name: "Set up Cloud SDK"
-        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop'  && inputs.diff-only == false }}
         uses: "anzx/github-reusable-actions/setup-gcloud@main"
         with:
           install_components: "core"
 
       - name: Pull current changes from GCS SIT
-        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop'  && inputs.diff-only == false }}
         id: pull-from-gcs
         shell: bash
         run: |
@@ -149,7 +160,7 @@ jobs:
           ls -la gcs_bucket
 
       - name: Run diff
-        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' && inputs.diff-only == false }}
         id: run-diff
         shell: bash
         run: |
@@ -174,7 +185,7 @@ jobs:
 
       # Upload success to artifactory
       - name: Push success changes to artifactory
-        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' && inputs.diff-only == false }}
         id: push-success-to-artifactory
         shell: bash
         run: |
