@@ -126,9 +126,7 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
     HttpCalloutResponse response;
     if (String.isNotEmpty(this.externalId)) {
       String accountNumber = this.externalId.right(
-        this.externalId.length() -
-        this.externalId.indexOf('|') -
-        1
+        this.externalId.length() - this.externalId.indexOf('|') - 1
       );
       String payload = '{"' + this.externalField + '": "' + accountNumber + '"';
       payload += String.isNotBlank(this.assetFinanceType)
@@ -185,8 +183,8 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        relationship.compositeAccountRelationshipId
+         '/' +
+         relationship.compositeAccountRelationshipId
       );
       row.put(this.parent, this.parentId);
       row.put('Customer', 'CAP-CIS_' + relationship.relatedPartyCustomerId);
@@ -212,20 +210,20 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
       row.put(
         'ExternalId',
         faRole.FinServ__FinancialAccount__r.Account_Key__c +
-        '|' +
-        faRole.FinServ__FinancialAccount__r.Product_Type__c +
-        '|' +
-        faRole.FinServ__RelatedAccount__r.External_Id__c
+         '|' +
+         faRole.FinServ__FinancialAccount__r.Product_Type__c +
+         '|' +
+         faRole.FinServ__RelatedAccount__r.External_Id__c
       );
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        faRole.FinServ__FinancialAccount__r.Account_Key__c +
-        '|' +
-        faRole.FinServ__FinancialAccount__r.Product_Type__c +
-        '|' +
-        faRole.FinServ__RelatedAccount__r.External_Id__c
+         '/' +
+         faRole.FinServ__FinancialAccount__r.Account_Key__c +
+         '|' +
+         faRole.FinServ__FinancialAccount__r.Product_Type__c +
+         '|' +
+         faRole.FinServ__RelatedAccount__r.External_Id__c
       );
       row.put(this.parent, this.parentId);
       row.put('Customer', faRole.FinServ__RelatedAccount__r.External_Id__c);
