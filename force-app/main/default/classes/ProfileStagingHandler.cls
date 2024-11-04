@@ -18,6 +18,21 @@ public virtual with sharing class ProfileStagingHandler {
   );
 
   /**
+   * @description Represents the base Customer_Profile_Updates__c record.
+   */
+  @TestVisible
+  public Customer_Profile_Updates__c templateCpu {
+    get {
+      return templateCpu ??
+        new Customer_Profile_Updates__c(
+          UserLanId__c = USER_INFO.getUser().Lan_Id__c,
+          Status__c = 'Pending'
+        );
+    }
+    private set;
+  }
+
+  /**
    * @description Processes the given records based on the provided configuration
    * 	* Capture changes to records.
    * 	* Insert Customer_Profile_Updates__c records.
@@ -36,9 +51,18 @@ public virtual with sharing class ProfileStagingHandler {
       records,
       oldMap
     );
+    this.process(updates);
+  }
+
+  /**
+   * @description Processes the list of customer profile updates.
+   * @param updates The list of customer profile updates to process.
+   */
+  public virtual void process(List<Customer_Profile_Updates__c> updates) {
     DML.doInsert(updates);
-    List<Customer_Profile_Update_Event__e> events = generateEvents(updates);
-    DML.doPublish(events);
+
+    Set<Id> recordIds = new Map<Id, SObject>(updates).keySet();
+    publishEvents(recordIds);
   }
 
   /**
@@ -57,11 +81,8 @@ public virtual with sharing class ProfileStagingHandler {
     List<Customer_Profile_Updates__c> updates = new List<Customer_Profile_Updates__c>();
     for (SObject record : records) {
       SObject oldRecord = oldMap?.get(record.Id);
-      Customer_Profile_Updates__c cpu = new Customer_Profile_Updates__c(
-        Action__c = oldRecord == null ? 'Add' : 'Update',
-        Status__c = 'Pending',
-        UserLanId__c = USER_INFO.getUser().Lan_Id__c
-      );
+      Customer_Profile_Updates__c cpu = this.templateCpu;
+      cpu.Action__c = oldRecord == null ? 'Add' : 'Update';
       if (config.process(cpu, record, oldRecord)) {
         updates.add(cpu);
       }
@@ -70,15 +91,26 @@ public virtual with sharing class ProfileStagingHandler {
   }
 
   /**
+   * @description Retrieves the list of Customer_Profile_Updates__c records and publish events accordingly.
+   * @param recordIds The set of Customer_Profile_Updates__c record Ids
+   */
+  public virtual void publishEvents(Set<Id> recordIds) {
+    List<Customer_Profile_Updates__c> records = REPOSITORY.queryCustomerProfileUpdates(
+      recordIds
+    );
+    List<Customer_Profile_Update_Event__e> events = generateEvents(records);
+    DML.doPublish(events);
+  }
+
+  /**
    * @description Builds a list of Customer_Profile_Update_Event__e objects based on the given list of Customer_Profile_Updates__c records.
    * @param records The list of Customer_Profile_Updates__c records to process.
    * @return A list of Customer_Profile_Update_Event__e objects.
    */
   @TestVisible
-  protected virtual List<Customer_Profile_Update_Event__e> generateEvents(
+  private virtual List<Customer_Profile_Update_Event__e> generateEvents(
     List<Customer_Profile_Updates__c> records
   ) {
-    records = REPOSITORY.queryCustomerProfileUpdates(records);
     List<Customer_Profile_Update_Event__e> events = new List<Customer_Profile_Update_Event__e>();
     for (Customer_Profile_Updates__c record : records) {
       Customer_Profile_Update_Event__e event = new Customer_Profile_Update_Event__e(
