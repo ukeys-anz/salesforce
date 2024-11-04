@@ -16,7 +16,6 @@ public with sharing class CCRMAssetDetailELSQuery extends CCRMFinancialAccountQu
     public String serialNumber;
     public Decimal purchasePrice;
     public String compositeAssetId;
-    public string assetFinancedValueInfoType;
   }
 
   /**
@@ -65,7 +64,9 @@ public with sharing class CCRMAssetDetailELSQuery extends CCRMFinancialAccountQu
       row.put('ExternalId', asset.compositeAssetId);
       row.put(
         'DisplayUrl',
-        URL.getOrgDomainUrl().toExternalForm() + '/' + asset.compositeAssetId
+        URL.getOrgDomainUrl().toExternalForm() +
+        '/' +
+        asset.compositeAssetId
       );
       List<String> values = asset.compositeAssetId != null
         ? asset.compositeAssetId.split('-')
@@ -78,7 +79,6 @@ public with sharing class CCRMAssetDetailELSQuery extends CCRMFinancialAccountQu
       row.put('PurchasePrice', asset.purchasePrice);
       row.put('SerialNo', asset.serialNumber);
       row.put('AssetNo', asset.id);
-      row.put('ValueType', asset.assetFinancedValueInfoType);
       result.queryResult.add(row);
     }
     return result;
