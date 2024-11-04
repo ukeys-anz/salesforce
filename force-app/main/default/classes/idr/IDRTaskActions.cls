@@ -414,52 +414,25 @@ public without sharing class IDRTaskActions {
     Set<Id> caseIDSet = new Set<Id>();
     for (Task t : taskRecs) {
       if (
-        t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
-        t.Status == 'Completed' &&
-        t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
+        t.RecordTypeId != RTTask.idrSystemTask ||
+        t.Status != IDRConstants.TASK_STATUS_COMPLETED ||
+        !t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
       ) {
-        caseIDSet.add(t.WhatId);
+        continue;
       }
+      caseIDSet.add(t.WhatId);
     }
-    List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
-    if (caseIDSet.size() > 0) {
-      if (CaseMilestone.SObjectType.getDescribe().isUpdateable()) {
-        cmsToUpdate = [
-          SELECT Id, CompletionDate
-          FROM CaseMilestone cm
-          WHERE
-            CaseId IN :caseIDSet
-            AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
-            OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
-            AND CompletionDate = NULL
-          LIMIT 1
-        ];
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'closeMilestonesOfClosedTask',
-          'Not enough permissions to update CaseMilestone.'
-        );
-      }
+    if (caseIDSet.isEmpty()) {
+      return;
     }
+    List<CaseMilestone> cmsToUpdate = TASK_REPOSITORY.getMilestonesTobeCompleted(
+      caseIDSet
+    );
+
     for (CaseMilestone cm : cmsToUpdate) {
       cm.CompletionDate = System.now();
     }
-
-    if (cmsToUpdate.size() > 0) {
-      if (
-        CaseMilestone.SObjectType.getDescribe().isUpdateable() &&
-        Schema.SObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
-      ) {
-        update cmsToUpdate;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'closeMilestonesOfClosedTask',
-          'Not enough permissions to update CaseMilestone.'
-        );
-      }
-    }
+    DML_REPOSITORY.doUpdate(cmsToUpdate);
   }
 
   /**

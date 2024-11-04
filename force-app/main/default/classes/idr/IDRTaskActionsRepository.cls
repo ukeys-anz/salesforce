@@ -115,4 +115,25 @@ public with sharing class IDRTaskActionsRepository {
       WITH SECURITY_ENFORCED
     ];
   }
+  /**
+   * @description Method to get unclosed milestones releated to complaint
+   * @param caseIDSet Set of Case Ids
+   * @return list of CaseMilestone
+   */
+  public List<CaseMilestone> getMilestonesTobeCompleted(Set<Id> caseIDSet) {
+    if (caseIDSet.isEmpty()) {
+      return new List<CaseMilestone>();
+    }
+    return [
+      SELECT Id, CompletionDate
+      FROM CaseMilestone cm
+      WHERE
+        CaseId IN :caseIDSet
+        AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
+        OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
+        AND CompletionDate = NULL
+      WITH USER_MODE
+      LIMIT 1
+    ];
+  }
 }
