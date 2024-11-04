@@ -305,4 +305,17 @@
         </columns>
         <masterLabel>Assessment Question Responses</masterLabel>
     </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Created_Date_Time__c</field>
+            <table>Assessment</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Last_Modified_Date_Time__c</field>
+            <table>Assessment</table>
+        </columns>
+        <masterLabel>Pathways</masterLabel>
+    </sections>
 </ReportType>
