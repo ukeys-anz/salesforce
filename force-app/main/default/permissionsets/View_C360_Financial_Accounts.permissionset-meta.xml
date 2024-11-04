@@ -1847,17 +1847,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Portfolio_Of_Loan__x.SAO__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Portfolio_Of_Loan__x.Sub_Product_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Portfolio_Of_Loan__x.TPMI__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
