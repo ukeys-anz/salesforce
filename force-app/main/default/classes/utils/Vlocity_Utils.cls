@@ -4,6 +4,10 @@
  * @description  To get the customer information  and account numbers on OCV search
  */
 global with sharing class Vlocity_Utils implements Callable {
+  private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
+    ComplaintsRepository.class
+  );
+
   /**
    * @param methodName The method passed from Integration procedure
    * @param input The input from the Integration procedure
@@ -29,6 +33,8 @@ global with sharing class Vlocity_Utils implements Callable {
       createComplaintResolution(input, output, options);
     } else if ('getLastModifiedDateOfField'.equals(methodName)) {
       getLastModifiedDateOfField(input, output, options);
+    } else if ('getCurrentAppName'.equals(methodName)) {
+      getCurrentAppName(input, output, options);
     }
     return true;
   }
@@ -84,6 +90,26 @@ global with sharing class Vlocity_Utils implements Callable {
   ) {
     List<Known_Issues__c> knownIssuesList = IDRExpressComplaintController.getAllKnownIssues();
     output.put('KnownIssue', knownIssuesList);
+  }
+
+  /**
+   * @description To get Known Issues field values
+   * @param input The input from the Integration procedure
+   * @param output The output to be passed to Integration procedure
+   * @param options The additional parameters required
+   */
+  public void getCurrentAppName(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    UserAppInfo userAppInfo = COMPLAINTS_REPOSITORY.getUserAppInfoForUser(
+      UserInfo.getUserId()
+    );
+    AppDefinition appDefinition = COMPLAINTS_REPOSITORY.getAppDefinationById(
+      userAppInfo.AppDefinitionId
+    );
+    output.put('currentAppName', appDefinition.Label);
   }
 
   /**
@@ -186,7 +212,6 @@ global with sharing class Vlocity_Utils implements Callable {
     public void createResolutionrecords(
       List<Complaint_Resolution__c> crtocreate
     ) {
-      List<Database.UpsertResult> results = new List<Database.UpsertResult>();
       DMLUtil.upsertRecords(
         crtocreate,
         DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,

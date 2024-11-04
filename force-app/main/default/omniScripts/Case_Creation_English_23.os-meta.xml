@@ -29,7 +29,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;true&quot;
       } ]
@@ -1385,7 +1385,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1419,7 +1419,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1451,7 +1451,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1502,7 +1502,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Customer/Business CAP ID&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1543,7 +1543,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;CACHE ID&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1614,7 +1614,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1687,7 +1687,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -1937,7 +1937,8 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Customer data not found please enter valid customer number.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,  &quot;show&quot; : {
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Customer data not found please enter valid customer number.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
@@ -1949,7 +1950,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Yes&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -2217,7 +2218,7 @@
         &quot;condition&quot; : &quot;&lt;&gt;&quot;,
         &quot;data&quot; : &quot;&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -2444,7 +2445,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -2476,7 +2477,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -2510,7 +2511,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;false&quot;
       } ]
@@ -2530,39 +2531,39 @@
                 <level>2.0</level>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-&quot;disOnTplt&quot; : false,
-&quot;hide&quot; : false,
-&quot;HTMLTemplateId&quot; : &quot;&quot;,
-&quot;debounceValue&quot; : 0,
-&quot;accessibleInFutureSteps&quot; : false,
-&quot;conditionType&quot; : &quot;Hide if False&quot;,
-&quot;show&quot; : {
-  &quot;group&quot; : {
-    &quot;rules&quot; : [ {
-      &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;,
-      &quot;condition&quot; : &quot;=&quot;,
-      &quot;data&quot; : &quot;Yes&quot;
-    } ],
-    &quot;operator&quot; : &quot;AND&quot;
-  }
-},
-&quot;placeholder&quot; : &quot;&quot;,
-&quot;maxLength&quot; : 255,
-&quot;minLength&quot; : 0,
-&quot;ptrnErrText&quot; : &quot;&quot;,
-&quot;pattern&quot; : &quot;&quot;,
-&quot;mask&quot; : &quot;&quot;,
-&quot;helpTextPos&quot; : &quot;&quot;,
-&quot;helpText&quot; : &quot;&quot;,
-&quot;help&quot; : false,
-&quot;readOnly&quot; : false,
-&quot;repeatClone&quot; : false,
-&quot;repeat&quot; : false,
-&quot;required&quot; : false,
-&quot;inputWidth&quot; : 12,
-&quot;showInputWidth&quot; : false,
-&quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
-&quot;controlWidth&quot; : 3
+  &quot;disOnTplt&quot; : false,
+  &quot;hide&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;debounceValue&quot; : 0.0,
+  &quot;accessibleInFutureSteps&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;thirdPartyRepCheckbox&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      } ],
+      &quot;operator&quot; : &quot;AND&quot;
+    }
+  },
+  &quot;placeholder&quot; : &quot;&quot;,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
+  &quot;ptrnErrText&quot; : &quot;&quot;,
+  &quot;pattern&quot; : &quot;&quot;,
+  &quot;mask&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : false,
+  &quot;readOnly&quot; : false,
+  &quot;repeatClone&quot; : false,
+  &quot;repeat&quot; : false,
+  &quot;required&quot; : false,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;showInputWidth&quot; : false,
+  &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
+  &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
                 <sequenceNumber>35.0</sequenceNumber>
                 <type>Text</type>
@@ -6422,7 +6423,7 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 8,
+  &quot;controlWidth&quot; : 8.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&quot;,
   &quot;show&quot; : {
@@ -6433,7 +6434,7 @@
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;
       }, {
-        &quot;field&quot; : &quot;isEligibleProfileForLookUp&quot;,
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;true&quot;
       } ]
@@ -6531,7 +6532,7 @@
   &quot;businessCategory&quot; : &quot;&quot;,
   &quot;businessEvent&quot; : &quot;&quot;
 }</propertySetConfig>
-        <sequenceNumber>2.0</sequenceNumber>
+        <sequenceNumber>3.0</sequenceNumber>
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
@@ -6592,6 +6593,62 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getCurrentAppName</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;useContinuation&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ]
+  },
+  &quot;svgIcon&quot; : &quot;&quot;,
+  &quot;svgSprite&quot; : &quot;&quot;,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;extraPayload&quot; : { },
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;postTransformBundle&quot; : &quot;&quot;,
+  &quot;preTransformBundle&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : {
+    &quot;postTransformBundle&quot; : &quot;&quot;,
+    &quot;preTransformBundle&quot; : &quot;&quot;
+  },
+  &quot;remoteMethod&quot; : &quot;getCurrentAppName&quot;,
+  &quot;remoteClass&quot; : &quot;Vlocity_Utils&quot;,
+  &quot;label&quot; : &quot;Get Current App Name&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Remote Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>SetValues</name>
         <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
         <isActive>true</isActive>
@@ -6599,7 +6656,7 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;&quot;,
   &quot;elementValueMap&quot; : {
     &quot;custMap&quot; : [ {
@@ -6706,7 +6763,7 @@
     &quot;thirdPartyCountry&quot; : &quot;Australia&quot;,
     &quot;RestrictionLevel&quot; : &quot;No Restriction&quot;,
     &quot;Country&quot; : &quot;Australia&quot;,
-    &quot;isEligibleProfileForLookUp&quot; : &quot;=CONTAINS(&apos;ANZx Standard User&apos;, %userProfile%)&quot;
+    &quot;isEligibleAppForLookUp&quot; : &quot;=CONTAINS(%currentAppName%, &apos;Workbench&apos;)&quot;
   },
   &quot;showPersistentComponent&quot; : [ true, false ],
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -6715,7 +6772,7 @@
   &quot;message&quot; : { },
   &quot;pubsub&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>1.0</sequenceNumber>
+        <sequenceNumber>2.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessType>OmniScript</omniProcessType>
@@ -6724,5 +6781,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_23</uniqueName>
     <versionNumber>23.0</versionNumber>
-    <webComponentKey>1eb66c5b-26a8-a78d-b9a6-6e062b169643</webComponentKey>
+    <webComponentKey>d7488350-f001-bd5e-f5d8-fc53f2261422</webComponentKey>
 </OmniScript>

@@ -35,7 +35,7 @@ export async function getCustomerNumberValidationMsg(
     omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
     !omniJsonData.Case.CustomerDetails.Customer &&
     omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID" &&
-    !omniJsonData.isEligibleProfileForLookUp
+    !omniJsonData.isEligibleAppForLookUp
   ) {
     modalMsg +=
       "<br><br>Customer number must be numbers and atleast 10 digits long.";
@@ -66,7 +66,7 @@ async function validateCustomerComplaint(omniJsonData) {
 }
 //  Validate Customer Number Identifier
 function checkCustomerIdentifier(customerDetails) {
-  if (omniData.isEligibleProfileForLookUp) {
+  if (omniData.isEligibleAppForLookUp) {
     return;
   }
   if (
@@ -87,7 +87,7 @@ function checkAccountLookup(omniJsonData) {
   debugger;
   console.log("TESTING-->" + caseDetails.AccountId);
   debugger;
-  if (omniJsonData.isEligibleProfileForLookUp && !caseDetails.AccountId) {
+  if (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) {
     missingFields.push("Customer Name");
   }
 }
