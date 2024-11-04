@@ -44,64 +44,65 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     Map<Id, Case> caseMap = getCaseRecords(records);
     Map<Id, Case> mpUpdateCases = new Map<Id, Case>();
     Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
-          UserInfo.getUserId()
-        )
-        .DisableDocumentDeletionTrigger__c;
-    if (fDisableDocumentDeletionTrigger) 
-    {
+        UserInfo.getUserId()
+      )
+      .DisableDocumentDeletionTrigger__c;
+    if (fDisableDocumentDeletionTrigger) {
       return;
     }
     if (caseMap.isEmpty()) {
       return;
     }
-    Case oCase;
     for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      oCase = caseMap.get(record.LinkedEntityId);
+      Case caseRecord = caseMap.get(record.LinkedEntityId);
       if (
         record.LinkedEntityId.getSobjectType() != caseObjectType ||
-        oCase == null ||
-        !allowedCaseRecTypes.contains(oCase.RecordTypeId)
+        caseRecord == null ||
+        !allowedCaseRecTypes.contains(caseRecord.RecordTypeId)
       ) {
         continue;
       }
-      linkedEntityIdList.add(oCase.Id);
+      linkedEntityIdList.add(caseRecord.Id);
       linkIdList.add(record.Id);
     }
 
-      docList = REPOSITORY.queryContentDocumentLink(
-        linkedEntityIdList,
-        linkIdList
-      );
+    docList = REPOSITORY.queryContentDocumentLink(
+      linkedEntityIdList,
+      linkIdList
+    );
 
-      for (ContentDocumentLink record : docList) {
-        String strDate = String.valueOf(Date.today());
-        String strUserName = UserInfo.getName();
-        String strDocTitle = (record.ContentDocument.Title == null)
-          ? ''
-          : record.ContentDocument.Title;
+    for (ContentDocumentLink record : docList) {
+      String strDate = String.valueOf(Date.today());
+      String strUserName = UserInfo.getName();
+      String strDocTitle = (record.ContentDocument.Title == null)
+        ? ''
+        : record.ContentDocument.Title;
+      Case oldCase = caseMap.get(record.LinkedEntityId);
+      String infoDescription =
+        'Doc Deleted: ' +
+        oldCase?.CaseNumber +
+        ', ' +
+        strUserName +
+        ', ' +
+        strDocTitle.abbreviate(50) +
+        ', ' +
+        record.ContentDocumentId +
+        ', ' +
+        strDate +
+        ', ' +
+        record.ContentDocument.LatestPublishedVersion.FileType;
 
-        String infoDescription =
-          'Doc Deleted: ' +
-          (oCase = caseMap.get(record.LinkedEntityId))?.CaseNumber +
-          ', ' +
-          strUserName +
-          ', ' +
-          strDocTitle.abbreviate(50) +
-          ', ' +
-          record.ContentDocumentId +
-          ', ' +
-          strDate +
-          ', ' +
-          record.ContentDocument.LatestPublishedVersion.FileType;
-
-        Logger.info(infoDescription, record.ContentDocumentId);
-        if (oCase != null) {
-          // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
-          mpUpdateCases.put(oCase.Id, oCase);
-        }
+      Logger.info(infoDescription, record.ContentDocumentId);
+      if (oldCase != null) {
+        // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
+        mpUpdateCases.put(oldCase.Id, oldCase);
       }
-      Logger.saveLog();
-      DML_REPOSITORY.doUpdate(mpUpdateCases.values());
+    }
+    Logger.saveLog();
+    DML_REPOSITORY.doUpdate(
+      mpUpdateCases.values(),
+      new DMLConfig().systemMode()
+    );
   }
 
   /**
