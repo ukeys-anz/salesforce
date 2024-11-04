@@ -3,19 +3,11 @@
     <fullName>CCRM Opportunity Process</fullName>
     <isActive>true</isActive>
     <values>
-        <fullName>Approved %26 Offered</fullName>
+        <fullName>In Progress</fullName>
         <default>false</default>
     </values>
     <values>
-        <fullName>Customer Acceptance</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Needs Analysis</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Opportunity Identified</fullName>
+        <fullName>New</fullName>
         <default>false</default>
     </values>
     <values>
@@ -24,10 +16,6 @@
     </values>
     <values>
         <fullName>Opportunity Won</fullName>
-        <default>false</default>
-    </values>
-    <values>
-        <fullName>Solution Development</fullName>
         <default>false</default>
     </values>
 </BusinessProcess>

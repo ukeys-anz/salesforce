@@ -22,17 +22,4 @@ public with sharing class ProfileStagingRepository {
       WITH USER_MODE
     ];
   }
-
-  /**
-   * @description Returns the current user's information.
-   * @return The current user's information, including the Lan_Id__c field.
-   */
-  public User getCurrentUser() {
-    return [
-      SELECT Lan_Id__c
-      FROM User
-      WHERE Id = :UserInfo.getUserId()
-      WITH USER_MODE
-    ];
-  }
 }

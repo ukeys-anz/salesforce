@@ -38,33 +38,6 @@ public with sharing class AuthenticateCustomerController {
   private static final string PUBLICKEYEND = '-----END PUBLIC KEY-----';
 
   /**
-   * @description This method queries interaction to get the customer details associated with the interaction
-   * @param interactionId Variable for storing the interaction Id
-   * @return Interaction Record
-   */
-  @AuraEnabled(cacheable=true)
-  public static Interaction getAccountName(String interactionId) {
-    Interaction interactionRecord = [
-      SELECT
-        Id,
-        Account.FirstName,
-        Account.LastName,
-        AccountId,
-        Account.OCV_ID__c,
-        Account.FinServ__KYCStatus__c,
-        Account.KYC_Verification_Level__c
-      FROM Interaction
-      WHERE Id = :interactionId
-    ];
-
-    if (interactionRecord.AccountId != null) {
-      return interactionRecord;
-    }
-
-    return null;
-  }
-
-  /**
    * @description This method queries User role of the logged in User
    * @return Returns role of the logged in user
    */

@@ -5,29 +5,14 @@
     <fieldName>StageName</fieldName>
     <masterLabel>Commercial Opportunity Path</masterLabel>
     <pathAssistantSteps>
-        <info>&lt;ul&gt;&lt;li&gt;Check to see if the LoO has been sent along with security documents.&lt;/li&gt;&lt;/ul&gt;</info>
-        <picklistValueName>Approved &amp; Offered</picklistValueName>
-    </pathAssistantSteps>
-    <pathAssistantSteps>
-        <info>&lt;p&gt;Get ready to close the Opportunity:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;Ensure all pre conditions are met pre-drawdown&lt;/li&gt;&lt;li&gt;Update the Product record with the Reference number before closing the Opportunity&lt;/li&gt;&lt;li&gt;Do you need to send Instructions to the Settlements Team and to file/register security docs and also instructions to CST for Drawdown?&lt;/li&gt;&lt;li&gt;Check that facilities have been correctly drawn&lt;/li&gt;&lt;li&gt;If you have won the opportunity from a competitor, have you recorded from who?&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Your Task List:&lt;/p&gt;&lt;p&gt;In the Activities section below, you’ll see a set of tasks to guide you through all the required and optional steps in this stage - tick them off as you go.&lt;/p&gt;</info>
-        <picklistValueName>Customer Acceptance</picklistValueName>
-    </pathAssistantSteps>
-    <pathAssistantSteps>
-        <info>&lt;ul&gt;&lt;li&gt;Get to know your customer’s needs and context in detail to determine whether we can and should engage.&lt;/li&gt;&lt;li&gt;Create/edit corporate tree as applicable (Business Banking)&lt;/li&gt;&lt;li&gt;Have you requested documents from customer via &lt;a href=&quot;https://portal.docs.anz.com/&quot; target=&quot;_blank&quot;&gt;&lt;u&gt;DocX&lt;/u&gt;&lt;/a&gt;&lt;u&gt;?&lt;/u&gt;&lt;/li&gt;&lt;li&gt;Conduct credit checks &lt;a href=&quot;https://www.vedacheck.com/&quot; target=&quot;_blank&quot;&gt;Equifax&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Complete &lt;a href=&quot;https://vx.valex.com.au/&quot; target=&quot;_blank&quot;&gt;Valuation Request&lt;/a&gt; - Quote (if applicable)&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Your Task List:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;In the Activities section below, you’ll see a set of tasks to guide you through all the required and optional steps in this stage - tick them off as you go.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Need help? Click &lt;a href=&quot;https://portal.knowhow.service.anz/C/W6M1vRZ2EeqQ-QBQVpXnoA?fromMenu=rrZVQSGDEeqQ-wBQVpXnoA&quot; target=&quot;_blank&quot;&gt;here&lt;/a&gt;&lt;/p&gt;</info>
-        <picklistValueName>Needs Analysis</picklistValueName>
-    </pathAssistantSteps>
-    <pathAssistantSteps>
-        <fieldNames>Broker_Involved__c</fieldNames>
-        <fieldNames>New_to_Bank__c</fieldNames>
+        <fieldNames>CloseDate</fieldNames>
         <fieldNames>Customer_Needs__c</fieldNames>
-        <info>&lt;ul&gt;&lt;li&gt;Broker Referral? Check the broker’s accreditation.&lt;/li&gt;&lt;li&gt;Get to know your customer via Customer 360 - their Business structure and their existing facilities, securities, financials and account conduct.&lt;/li&gt;&lt;li&gt;Are all the related entities created and linked? If not, do this now.&lt;/li&gt;&lt;li&gt;Time to meet with your Customer!&lt;ul&gt;&lt;li&gt;Schedule a Meeting.&lt;/li&gt;&lt;li&gt;Let them know what documents to bring.&lt;/li&gt;&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;</info>
-        <picklistValueName>Opportunity Identified</picklistValueName>
+        <picklistValueName>In Progress</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>CLP_Credit_Case_Number__c</fieldNames>
-        <fieldNames>BBD_Application_Number__c</fieldNames>
-        <info>&lt;p&gt;Identify suitable products for your Customer:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://portal.knowhow.service.anz/C/GV9kBxxqEeqQ-wBQVpXnoA?fromMenu=Fkny_iQnEempOQAd2Lcd9A&quot; target=&quot;_blank&quot;&gt;Review Max for Product information guide&lt;/a&gt;&lt;/li&gt;&lt;li&gt;Collaborate with a Product Specialist by adding them to the Opportunity Team below - they will then have access to this Opportunity.&lt;/li&gt;&lt;/ul&gt;&lt;p&gt;Your Task List:&lt;/p&gt;&lt;ul&gt;&lt;li&gt;In the Activities section below, you’ll see a set of tasks to guide you through all the required and optional steps in this stage - tick them off as you go.&lt;/li&gt;&lt;/ul&gt;</info>
-        <picklistValueName>Solution Development</picklistValueName>
+        <fieldNames>CloseDate</fieldNames>
+        <fieldNames>Customer_Needs__c</fieldNames>
+        <picklistValueName>New</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>Commercial_Opportunity</recordTypeName>
 </PathAssistant>

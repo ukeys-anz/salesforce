@@ -354,8 +354,7 @@ public with sharing class AutoKYCQACaseActions {
    * @param oCase Case
    * @return True if all Test fields are not empty, false otherwise
    */
-  @TestVisible
-  private static boolean hasKycCheckCompleted(Case oCase) {
+  public static boolean hasKycCheckCompleted(Case oCase) {
     for (SObjectField field : TEST_FIELDS) {
       String value = String.valueOf(oCase?.get(field));
       if (String.isBlank(value)) {
@@ -576,6 +575,18 @@ public with sharing class AutoKYCQACaseActions {
       }
       if (cob.Cases__r[0].OwnerId == record.OwnerId) {
         record.addError(ERROR_SAME_OWNER_IDOPS);
+      }
+    }
+  }
+
+  /**
+   * @description Updates the KYC QA case record's check fields.
+   * @param cases The KYC QA Case records to update.
+   */
+  public static void setCheckFields(List<Case> cases) {
+    for (Case kycQA : cases) {
+      for (SObjectField field : TEST_FIELDS) {
+        kycQA.put(field, kycQA.get(field) ?? YES);
       }
     }
   }

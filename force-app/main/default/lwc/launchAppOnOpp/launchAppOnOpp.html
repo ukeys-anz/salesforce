@@ -1,0 +1,76 @@
+<template>
+  <lightning-quick-action-panel header="Launch Application">
+    <template lwc:if={showRadio}>
+      <div
+        class="slds-m-top_medium slds-m-bottom_x-large slds-text-align_center"
+      >
+        <h2 class="slds-text-heading_medium slds-m-bottom_medium">
+          {CONSTANT.HEADER_TEXT}
+        </h2>
+
+        <!-- Button group: simple buttons -->
+        <lightning-button-group class="slds-text-align_center btnGrp">
+          <lightning-button
+            label={CONSTANT.AMBIT}
+            onclick={handleClick}
+            class="ambitBtn"
+          ></lightning-button>
+          <lightning-button
+            label={CONSTANT.BBD}
+            onclick={handleClick}
+          ></lightning-button>
+          <lightning-button
+            label={CONSTANT.CLP}
+            onclick={handleClick}
+          ></lightning-button>
+          <lightning-button
+            label={CONSTANT.INTERNAL_APPLICATION}
+            onclick={handleClick}
+          ></lightning-button>
+        </lightning-button-group>
+      </div>
+    </template>
+    <template lwc:else>
+      <template lwc:if={isLoading}>
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+          size="small"
+        ></lightning-spinner>
+      </template>
+      <template lwc:else>
+        <template lwc:if={showTable}>
+          <lightning-datatable
+            key-field="id"
+            data={data}
+            columns={columns}
+            onrowselection={getSelectedRow}
+          >
+          </lightning-datatable>
+        </template>
+        <template lwc:else> <b>{noOppItemsMessage}</b> </template>
+      </template>
+      <div slot="footer" class="slds-text-align_right">
+        <lightning-button
+          label={CONSTANT.CANCEL}
+          onclick={handleCancel}
+          class="btnCancel"
+        >
+        </lightning-button
+        >&nbsp;&nbsp;
+        <lightning-button label={CONSTANT.BACK} onclick={handleBack}>
+        </lightning-button
+        >&nbsp;&nbsp;
+        <lightning-button
+          variant="brand"
+          label={CONSTANT.SAVE}
+          name="save"
+          disabled={disableSave}
+          onclick={handleSave}
+          class="saveBtn"
+        >
+        </lightning-button>
+      </div>
+    </template>
+  </lightning-quick-action-panel>
+</template>

@@ -424,6 +424,13 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_Cancel_Loan_Application</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Cancel Loan Application</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/cancel/{loanAppNum}</value>
+    </labels>
+    <labels>
         <fullName>MS_Income</fullName>
         <categories>MS</categories>
         <language>en_US</language>
@@ -437,7 +444,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Create_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations</value>
     </labels>
     <labels>
         <fullName>MS_Maintain_Party</fullName>
@@ -445,7 +452,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Maintain_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/individuals</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/individuals</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
@@ -525,7 +532,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_CFaaS_Download_Url</shortDescription>
-        <value>callout:SF_MS_Fabric/cfaas/read/getdownloadurl</value>
+        <value>callout:SF_MS_CH2/cfaas/read/getdownloadurl</value>
     </labels>
     <labels>
         <fullName>MS_Get_Customer</fullName>
@@ -597,7 +604,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_Address</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/search</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/search</value>
     </labels>
     <labels>
         <fullName>MS_Get_Qas_AddressById</fullName>
@@ -621,7 +628,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Qas_AddressById_V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/format/</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/format/</value>
     </labels>
     <labels>
         <fullName>MS_Replace_Card</fullName>
@@ -637,7 +644,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Search_Party</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations/search-results?</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations/search-results?</value>
     </labels>
     <labels>
         <fullName>MS_Search_Party_Params</fullName>
@@ -1866,7 +1873,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Security Code Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/{capcisid}/security-code?id-type=CAPCISID</value>
     </labels>
     <labels>
         <fullName>Diary_Comments_Endpoint</fullName>
@@ -1874,7 +1881,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Diary Comments Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/diary-comments</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/diary-comments</value>
     </labels>
     <labels>
         <fullName>MLCRM_Lead_MisMatch_Warning_Message</fullName>
@@ -2036,6 +2043,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>MD21</value>
     </labels>
     <labels>
+        <fullName>RLA_Cancellation_Confirmation_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>RLA_Cancellation_Confirmation_Message</shortDescription>
+        <value>Are you sure you want to withdraw this application? Once saved this cannot be changed. If there is an open credit referral case linked to this application, then the credit referral case will be closed.  Please click OK to confirm or cancel to review.</value>
+    </labels>
+    <labels>
         <fullName>CCRM_JWT_Siging_Certificate_NP</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
@@ -2152,7 +2166,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Financial Account Endpoint</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/accounts/</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/</value>
     </labels>
     <labels>
         <fullName>Fraudx_Generic_Customer_OCV_Id</fullName>
@@ -2371,14 +2385,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Postcode Lookup V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/lookup?postcode=</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/lookup?postcode=</value>
     </labels>
     <labels>
         <fullName>MS_Validate_Address_V3</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS Validate Address V3</shortDescription>
-        <value>callout:SF_MS_CCRM/sfdc/addresses/v3/addresses/validate</value>
+        <value>callout:SF_MS_CH2/addresses/v3/addresses/validate</value>
     </labels>
     <labels>
         <fullName>CCRM_Validate_Manual_Address</fullName>
@@ -2541,6 +2555,20 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>20</value>
     </labels>
     <labels>
+        <fullName>BBD_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BBD Link</shortDescription>
+        <value>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=CRM&amp;opportunityId={!Opportunity.Opp_Id__c}</value>
+    </labels>
+    <labels>
+        <fullName>CLP_Link</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CLP Link</shortDescription>
+        <value>https://clp.business.service.anz/FenergoMMO.Web/app/LandingPage</value>
+    </labels>
+    <labels>
         <fullName>MS_ADR_API</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2569,6 +2597,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
     </labels>
     <labels>
+        <fullName>MS_Get_Linked_Offset</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Get Linked Offset</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loanoffsets/{loanAccount}</value>
+    </labels>
+    <labels>
         <fullName>Account_Registration_Endpoint</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2576,32 +2611,40 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/dcrm/customers/v1/accounts/{accountNumber}/crns</value>
     </labels>
     <labels>
-        <fullName>CMOS_Chatter_Group_Name</fullName>
-        <categories>CMOS</categories>
+        <fullName>CCRM_Auto_Task_MisMatch_Subject</fullName>
+        <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>CMOS Chatter Group Name</shortDescription>
-        <value>All CMOS Users</value>
+        <shortDescription>CCRM_Auto_Task_MistMatch_Subject</shortDescription>
+        <value>Update customer information</value>
     </labels>
     <labels>
-        <fullName>EDRM_Business_Streams_Mapping</fullName>
+        <fullName>HideCardDetailsAfterMiliseconds</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL</value>
+        <shortDescription>HideCardDetailsAfterMiliseconds</shortDescription>
+        <value>120000</value>
     </labels>
     <labels>
-        <fullName>EDRM_URL_DEV</fullName>
+        <fullName>MS_Get_Full_Card_Number</fullName>
+        <categories>MS</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>EDRM_URL_DEV</shortDescription>
-        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+        <shortDescription>MS_Get_Full_Card_Number</shortDescription>
+        <value>callout:SF_MS_CH2/detokenize/v1/detokenize/cards</value>
     </labels>
     <labels>
-        <fullName>EDRM_URL_PROD</fullName>
+        <fullName>DAONImagePreviewURL</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>EDRM_URL_PROD</shortDescription>
-        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+        <shortDescription>DAONImagePreviewURL</shortDescription>
+        <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
+    </labels>
+    <labels>
+        <fullName>BlockManualStatusUpdateIdOpsCase</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
+        <value>false</value>
     </labels>
 </CustomLabels>

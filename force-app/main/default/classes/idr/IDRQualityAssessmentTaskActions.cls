@@ -12,6 +12,14 @@ public with sharing class IDRQualityAssessmentTaskActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static Set<String> allowedStatus = new Set<String>{
+    QualityAssessmentActions.STATUS_PENDING,
+    QualityAssessmentActions.STATUS_WITHDRAWN
+  };
+  private static Set<String> allowedRecTypes = new Set<String>{
+    IDRConstants.idrtCQQualityAssessment,
+    IDRConstants.idrtCallLetterReviewQualityAssessment
+  };
   /**
    * @description For all Assessments going from Completed to Pending set their Compliance Tasks to Expired.
    * @param lstAssessments new Trigger Values
@@ -62,16 +70,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         lstQAShare.add(oQAShare);
       }
     }
-    if (
-      lstQAShare.isEmpty() ||
-      !Quality_Assessment__Share.SObjectType.getDescribe().isDeletable()
-    ) {
-      return;
-    }
-    DML_REPOSITORY.doDelete(
-      lstQAShare,
-      new DmlConfig().allowPartial().systemMode()
-    );
+    DML_REPOSITORY.doDelete(lstQAShare);
   }
   /**
    * @description method to create Compliance Task if Quality Assessment record's status is changed to Completed
@@ -228,10 +227,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
         // It is therefore handled by Quality_Assessment_CMOS.flow and not here.
       }
     }
-
-    if (lstQAShare.isEmpty()) {
-      return;
-    }
     DML_REPOSITORY.doInsert(lstQAShare, new DmlConfig().withoutSharing());
   }
   /**
@@ -280,14 +275,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
     Quality_Assessment__c oAssessment,
     Quality_Assessment__c oOldAssessment
   ) {
-    Set<String> allowedStatus = new Set<String>{
-      QualityAssessmentActions.STATUS_PENDING,
-      QualityAssessmentActions.STATUS_WITHDRAWN
-    };
-    Set<String> allowedRecTypes = new Set<String>{
-      IDRConstants.idrtCQQualityAssessment,
-      IDRConstants.idrtCallLetterReviewQualityAssessment
-    };
     if (
       !allowedRecTypes.contains(oAssessment.RecordTypeId) ||
       !allowedStatus.contains(oAssessment.Status__c)
@@ -316,16 +303,6 @@ public with sharing class IDRQualityAssessmentTaskActions {
       }
       lstUpdateTasks = getUpdatedTasks(mpId2PendingAssessments.keySet());
     }
-    if (
-      lstUpdateTasks.isEmpty() ||
-      !Task.SObjectType.getDescribe().isUpdateable() ||
-      !Schema.SObjectType.Task.fields.Status.isUpdateable()
-    ) {
-      return;
-    }
-    DML_REPOSITORY.doUpdate(
-      lstUpdateTasks,
-      new DmlConfig().allowPartial().systemMode()
-    );
+    DML_REPOSITORY.doUpdate(lstUpdateTasks);
   }
 }

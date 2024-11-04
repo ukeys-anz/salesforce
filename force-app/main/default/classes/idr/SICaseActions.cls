@@ -69,17 +69,7 @@ public with sharing class SICaseActions {
       monitoringTasks.add(createMonitoringTask(record, 3));
       monitoringTasks.add(createMonitoringTask(record, 6));
     }
-    if (monitoringTasks.isEmpty()) {
-      return;
-    }
-    if (!hasTaskCreatePermission()) {
-      CommonUtil.logAndThrowIAE(
-        'SICaseActions',
-        'afterUpdate',
-        'Not enough permissions to create Task.'
-      );
-    }
-    DML_REPOSITORY.doInsert(monitoringTasks, new DmlConfig().allowPartial());
+    DML_REPOSITORY.doInsert(monitoringTasks);
   }
 
   /**
@@ -116,6 +106,12 @@ public with sharing class SICaseActions {
     List<Case> cases,
     Map<Id, Case> oldMap
   ) {
+    if (
+      !Task.sObjectType.getDescribe().isQueryable() ||
+      !Task.sObjectType.getDescribe().isDeletable()
+    ) {
+      return;
+    }
     Task[] tasksToDelete = new List<Task>();
     Case[] casesToProcessWhenReopened = new List<Case>();
 
@@ -131,23 +127,16 @@ public with sharing class SICaseActions {
         casesToProcessWhenReopened.add(c);
       }
     }
-    if (
-      Task.sObjectType.getDescribe().isQueryable() &&
-      !casesToProcessWhenReopened.isEmpty()
-    ) {
-      Set<Id> caseIds = (new Map<Id, Case>(casesToProcessWhenReopened))
-        .keySet();
-      tasksToDelete.addAll(
-        SICASE_REPOSITORY.queryMonitoringTasksToDelete(caseIds)
-      );
-      if (
-        Task.sObjectType.getDescribe().isDeletable() && !tasksToDelete.isEmpty()
-      ) {
-        IDRTaskActions.siSystemDeletingAutoGenTask = true;
-        //delete tasksToReplace;
-        DML_REPOSITORY.doDelete(tasksToDelete, new DmlConfig().allowPartial());
-      }
+    if (casesToProcessWhenReopened.isEmpty()) {
+      return;
     }
+    Set<Id> caseIds = (new Map<Id, Case>(casesToProcessWhenReopened)).keySet();
+    tasksToDelete.addAll(
+      SICASE_REPOSITORY.queryMonitoringTasksToDelete(caseIds)
+    );
+    IDRTaskActions.siSystemDeletingAutoGenTask = true;
+    //delete tasksToReplace;
+    DML_REPOSITORY.doDelete(tasksToDelete);
   }
 
   /**
@@ -174,36 +163,6 @@ public with sharing class SICaseActions {
         new Case(id = si.Id, SI_Complaint_Count__c = si.Complaints__r.size())
       );
     }
-    if (!Case.sObjectType.getDescribe().isUpdateable()) {
-      CommonUtil.logAndThrowIAE(
-        'SICaseActions',
-        'rollupToParentSI',
-        'Not enough permissions to update Case.'
-      );
-    }
-    DML_REPOSITORY.doUpdate(
-      systemicIssuesToUpdate,
-      new DmlConfig().allowPartial().systemMode()
-    );
-  }
-  /**
-   * @description check if current User has permission to create Task
-   * @return Boolean true or false based on permissions
-   */
-  public static Boolean hasTaskCreatePermission() {
-    if (
-      Task.sObjectType.getDescribe().isCreateable() &&
-      Schema.sObjectType.Task.fields.ActivityDate.isCreateable() &&
-      Schema.sObjectType.Task.fields.IsReminderSet.isCreateable() &&
-      Schema.sObjectType.Task.fields.OwnerId.isCreateable() &&
-      Schema.sObjectType.Task.fields.RecordTypeId.isCreateable() &&
-      Schema.sObjectType.Task.fields.ReminderDateTime.isCreateable() &&
-      Schema.sObjectType.Task.fields.Subject.isCreateable() &&
-      Schema.sObjectType.Task.fields.Type.isCreateable() &&
-      Schema.sObjectType.Task.fields.WhatId.isCreateable()
-    ) {
-      return true;
-    }
-    return false;
+    DML_REPOSITORY.doUpdate(systemicIssuesToUpdate);
   }
 }

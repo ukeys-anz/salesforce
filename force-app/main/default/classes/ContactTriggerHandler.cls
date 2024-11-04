@@ -103,7 +103,6 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
         false
       );
     }
-
     CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }
 }

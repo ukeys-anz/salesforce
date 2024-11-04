@@ -5,6 +5,6 @@
     <complianceGroup>Integrity_Trusted;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Role that the team member has on the opportunity.</description>
     <securityClassification>Confidential</securityClassification>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
 </CustomField>

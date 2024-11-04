@@ -7,6 +7,9 @@ public with sharing class ResidentialLoanApplicationHelper {
   private static final ResidentialLoanApplicationRepository LOAN_APPLICATION_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   /**
    * @description overwrite property address and value from sop with SF property record values
@@ -66,5 +69,66 @@ public with sharing class ResidentialLoanApplicationHelper {
       }
     }
     return assets;
+  }
+
+  /**
+   * @description update fields on residential loan application cancellation
+   * @param fieldInfo map of fields to update
+   * @return `loanApplication` Residential Loan Application
+   */
+  public static ResidentialLoanApplication updateFieldsOnLoanCancellation(
+    Map<String, String> fieldInfo
+  ) {
+    ResidentialLoanApplication loanApplication = new ResidentialLoanApplication();
+    loanApplication.Id = fieldInfo.get('recordId');
+    loanApplication.Cancellation_Reason__c = fieldInfo.get(
+      'Cancellation_Reason__c'
+    );
+    loanApplication.Other_Cancellation_Reason__c = fieldInfo.get(
+      'Other_Cancellation_Reason__c'
+    );
+    return loanApplication;
+  }
+
+  /**
+   * @description postNotesToChatter post notes to chatter
+   * @param fieldInfo map of fields to update
+   * @return `postContent` Chatter post content
+   */
+  public static String postNotesToChatter(Map<String, String> fieldInfo) {
+    String postContent =
+      '<p><b>Subject: </b> Application Withdrawn</p>' +
+      '<p><b>Reason: </b>' +
+      fieldInfo.get('Cancellation_Reason__c') +
+      '</p>' +
+      '<p><b>Other Reason: </b>' +
+      fieldInfo.get('Other_Cancellation_Reason__c') +
+      '</p>' +
+      '<p><b>Notes: </b>' +
+      fieldInfo.get('Notes') +
+      '</p>';
+    if (String.isBlank(fieldInfo.get('Other_Cancellation_Reason__c'))) {
+      postContent = postContent.replace('<p><b>Other Reason: </b>null</p>', '');
+    }
+    if (String.isBlank(fieldInfo.get('Notes'))) {
+      postContent = postContent.replace('<p><b>Notes: </b>null</p>', '');
+    }
+    return postContent;
+  }
+
+  /**
+   * @description postNotesToChatterWhenCancelled post notes to chatter when RLA status changed to Cancelled
+   * @param oldStatus oldStatus previous status of RLA
+   * @return Chatter post content
+   */
+  public static String postNotesToChatterWhenCancelled(String oldStatus) {
+    String status = CommonUtil.getSinglePicklistLabel(
+      ResidentialLoanApplication.Status,
+      oldStatus
+    );
+    return 'Application Status updated' +
+      '<p><b>Status: </b>' +
+      status +
+      ' to Cancelled</p>';
   }
 }

@@ -12,6 +12,9 @@ public with sharing class CCRMLeadConversionActions {
   }
   public static Boolean manualLeadConversionInitiated = false;
   public static Boolean leadConverionFlow = false;
+  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
+    LeadConversionActionsRepository.class
+  );
   /**
    * @description Clear Task, OpportunityContactRole, and Contact of the newly converted Opportunity.
    * @name deleteContact
@@ -382,21 +385,27 @@ public with sharing class CCRMLeadConversionActions {
    */
   @AuraEnabled(cacheable=false)
   public static String isLeadMisMatchCustomer(Id recordId) {
-    List<Lead> leads = new List<Lead>();
-    Map<Id, String> mismtachLeadsWithFieldsMap = new Map<Id, String>();
-    if (recordId != null) {
-      leads = MLCRMAutoTaskOnLeadConversionHelper.getLeads(
-        new Set<ID>{ recordId }
+    try {
+      if (recordId == null) {
+        return null;
+      }
+      Lead leadRecord = LEADCONV_REPOSITORY.getLeadsWithCustomerDetails(
+        recordId
       );
-    }
-    if (!leads.isEmpty()) {
-      mismtachLeadsWithFieldsMap = MLCRMAutoTaskOnLeadConversionHelper.checkLeadMisMatchCustomer(
-        leads
+      if (leadRecord == null) {
+        return null;
+      }
+      Map<Id, String> mismtachLeadsWithFieldsMap = AutoTaskOnLeadConversionHelper.checkLeadMisMatchCustomer(
+        leadRecord
       );
+      if (mismtachLeadsWithFieldsMap.containsKey(recordId)) {
+        return mismtachLeadsWithFieldsMap.get(recordId);
+      }
+      return null;
+    } catch (Exception e) {
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+      return null;
     }
-    if (mismtachLeadsWithFieldsMap.containsKey(recordId)) {
-      return mismtachLeadsWithFieldsMap.get(recordId);
-    }
-    return null;
   }
 }

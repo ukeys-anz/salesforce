@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ANZx_View_Card_Number</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Fraud Agent ,Card Dispute Agent and Joint Leads have access to view the full Card Number</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View Card Number</label>
+</PermissionSet>

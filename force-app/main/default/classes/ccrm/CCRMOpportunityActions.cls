@@ -20,7 +20,9 @@ public with sharing class CCRMOpportunityActions {
   private static final Boolean IS_CCRM_USER = (CURRENT_USER_PROFILE?.Name ==
   Label.CCRM_Profile_Name);
 
-  private static Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> stageActionPlanMapping = new Map<String, CCRM_Commercial_Stage_Action_Plan__mdt>();
+  private static final CommercialOpportunityRepository COMMERCIALOPP_REPOSITORY = (CommercialOpportunityRepository) Lib_InstanceProvider.forType(
+    CommercialOpportunityRepository.class
+  );
 
   /**
    * @description Define custom exceptions
@@ -317,38 +319,20 @@ public with sharing class CCRMOpportunityActions {
     Boolean isInsert
   ) {
     try {
-      //retrieve filtered CCRM Opps
-      stageActionPlanMapping = getStageActionPlanMetadata(
-        oppWrapper.filteredOpps
-      );
-
-      oppWrapper = getStageSegmentOrTemplateMap(
-        oppWrapper,
-        oldOppMap,
-        stageActionPlanMapping
-      );
+      oppWrapper = getStageSegmentMap(oppWrapper, oldOppMap);
 
       //checks for validations on opportunities
-      CCRMOpportunityActionsSkipStageHelper.validateCCRMOpportunity(
-        oppWrapper,
-        isInsert
-      );
+      CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, isInsert);
 
       //adds error for skipped stages
-      CCRMOpportunityActionsSkipStageHelper.addErrorForSkippedStage(
+      CommercialOpportunityHelper.addErrorForSkippedStage(
         oppWrapper.stageUpdatedOpps.values(),
         oldOppMap,
-        stageActionPlanMapping,
         oppWrapper.oppsStageSegmentMap
-      );
-      //Adds error for mandatory tasks
-      CCRMOpportunityActionsSkipStageHelper.displayErrorForMandatoryTask(
-        oppWrapper.oppsWithMandatoryTaskToTemplateMap,
-        oppWrapper.oppWithMandatoryTaskMap
       );
 
       //checks if opp has any open tasks on closed stage
-      CCRMOpportunityActionsSkipStageHelper.checkOpenTaskForClosedOpportunities(
+      CommercialOpportunityHelper.checkOpenTaskForClosedOpportunities(
         oppWrapper.closingOppoIdMap
       );
     } catch (Exception e) {
@@ -358,98 +342,70 @@ public with sharing class CCRMOpportunityActions {
   }
 
   /**
-   * @description gets filtered CCRM Opportunities
-   * @name getFilteredCCRMOpps
+   * @description sets opportunity wrapper
+   * @name setOpportunityWrapper
    * @param newOppList list of new records
    * @param oldOppMap map of old recordsList
    * @param isUpdate when record is update
    * @return CCRMOpportunityWrapper wrapper object
    */
-  public static CCRMOpportunityWrapper getFilteredCCRMOpps(
+  public static CCRMOpportunityWrapper setOpportunityWrapper(
     List<Opportunity> newOppList,
     Map<Id, Opportunity> oldOppMap,
     Boolean isUpdate
   ) {
     CCRMOpportunityWrapper oppWrapper = new CCRMOpportunityWrapper();
 
-    if (!IS_CCRM_USER) {
-      return oppWrapper;
+    oppWrapper.filteredOpps = ListUtil.filter(newOppList)
+      .equals(Opportunity.RecordTypeId, RTOpportunity.commercialOpportunity)
+      .toList();
+
+    if (isUpdate) {
+      List<Opportunity> stageUpdatedOppsList = ListUtil.filter(
+          newOppList,
+          oldOppMap
+        )
+        .equals(Opportunity.RecordTypeId, RTOpportunity.commercialOpportunity)
+        .changed(Opportunity.StageName)
+        .toList();
+
+      oppWrapper.stageUpdatedOpps = (Map<Id, Opportunity>) ListUtil.mapBy(
+        stageUpdatedOppsList,
+        Opportunity.Id
+      );
+
+      List<Opportunity> oppsWonList = ListUtil.filter(stageUpdatedOppsList)
+        .changedTo(Opportunity.StageName, CCRMConstants.OPP_WON)
+        .toList();
+
+      oppWrapper.closingOppoIdMap = (Map<Id, Opportunity>) ListUtil.mapBy(
+        oppsWonList,
+        Opportunity.Id
+      );
     }
 
     for (Opportunity oppIterator : newOppList) {
-      if (oppIterator.RecordTypeId != CCRMConstants.CCRM_OPP_RT_ID) {
-        continue;
-      }
-      oppWrapper.filteredOpps.add(oppIterator);
-
-      if (
-        isUpdate &&
-        oppIterator.StageName != oldOppMap.get(oppIterator.Id).StageName &&
-        oppIterator.StageName.equalsIgnoreCase(CCRMConstants.OPP_WON)
-      ) {
-        oppWrapper.closingOppoIdMap.put(oppIterator.Id, oppIterator);
-      }
-      if (
-        isUpdate &&
-        oppIterator.StageName != oldOppMap.get(oppIterator.Id).StageName
-      ) {
-        oppWrapper.stageUpdatedOpps.put(oppIterator.Id, oppIterator);
-      }
-
       oppWrapper.oppIdToOwnerIdMap.put(oppIterator.Id, oppIterator.OwnerId);
     }
 
-    Map<Id, User> userMap = new Map<Id, User>(
-      [
-        SELECT Id, Commercial_Segment__c
-        FROM User
-        WHERE Id IN :oppWrapper.oppIdToOwnerIdMap.values()
-      ]
+    oppWrapper.oppOwnerIdToSegmentMap = (Map<Id, User>) ListUtil.mapBy(
+      COMMERCIALOPP_REPOSITORY.getUsers(oppWrapper.oppIdToOwnerIdMap.values()),
+      User.Id
     );
-
-    oppWrapper.oppOwnerIdToSegmentMap = userMap;
 
     return oppWrapper;
   }
 
   /**
-   * @description get custom metadata records
-   * @name getStageActionPlanMetadata
-   * @param filteredOpps list of new CCRM Opportunity records
-   * @return Map<Id, CCRM_Commercial_Stage_Action_Plan__mdt> map of string and metadata
-   */
-  public static Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> getStageActionPlanMetadata(
-    List<Opportunity> filteredOpps
-  ) {
-    if (filteredOpps.isEmpty()) {
-      return null;
-    }
-
-    for (
-      CCRM_Commercial_Stage_Action_Plan__mdt metadata : CCRM_Commercial_Stage_Action_Plan__mdt.getAll()
-        .values()
-    ) {
-      String key =
-        metadata.Current_Stage__c +
-        '-' +
-        metadata.Commercial_Segment__c;
-      stageActionPlanMapping.put(key, metadata);
-    }
-    return stageActionPlanMapping;
-  }
-
-  /**
    * @description get stage segment map
-   * @name getStageSegmentOrTemplateMap
+   * @name getStageSegmentMap
    * @param oppWrapper wrapper having map of id and new opportunity having stage changes
    * @param oldOppMap map of id and old opportunity
-   * @param stageActionPlanMapping custom metadata records containing stage and template
    * @return CCRMOpportunityWrapper opportunity wrapper
    */
-  public static CCRMOpportunityWrapper getStageSegmentOrTemplateMap(
+  public static CCRMOpportunityWrapper getStageSegmentMap(
     CCRMOpportunityWrapper oppWrapper,
-    Map<Id, Opportunity> oldOppMap,
-    Map<String, CCRM_Commercial_Stage_Action_Plan__mdt> stageActionPlanMapping
+    Map<Id, Opportunity> oldOppMap
   ) {
     for (Opportunity oppIterator : oppWrapper.stageUpdatedOpps.values()) {
       String ownerSegment = oppWrapper.oppOwnerIdToSegmentMap.get(
@@ -462,40 +418,7 @@ public with sharing class CCRMOpportunityActions {
         '-' +
         ownerSegment;
 
-      String newValueKey = oppIterator.StageName + '-' + ownerSegment;
-
       oppWrapper.oppsStageSegmentMap.put(oppIterator.Id, oldValueKey);
-
-      if (
-        stageActionPlanMapping.containsKey(newValueKey) &&
-        stageActionPlanMapping.get(newValueKey).Template_Name__c != null &&
-        stageActionPlanMapping.get(newValueKey).Previous_Stage__c ==
-        oldOppMap.get(oppIterator.Id).StageName
-      ) {
-        oppWrapper.oppIdToTemplateNameMap.put(
-          oppIterator.Id,
-          stageActionPlanMapping.get(newValueKey).Template_Name__c
-        );
-      }
-
-      CCRM_Commercial_Stage_Action_Plan__mdt oldStageMetadata = stageActionPlanMapping.get(
-        oldValueKey
-      );
-
-      if (
-        oldStageMetadata != null &&
-        (oldOppMap.get(oppIterator.Id).StageName ==
-        oldStageMetadata.Current_Stage__c &&
-        oppIterator.StageName == oldStageMetadata.Next_Stage__c &&
-        !oppIterator.IsClosed &&
-        oldStageMetadata.Template_Name__c != null)
-      ) {
-        oppWrapper.oppWithMandatoryTaskMap.put(oppIterator.Id, oppIterator);
-        oppWrapper.oppsWithMandatoryTaskToTemplateMap.put(
-          oppIterator.Id,
-          oldStageMetadata.Template_Name__c
-        );
-      }
     }
     return oppWrapper;
   }
@@ -585,7 +508,6 @@ public with sharing class CCRMOpportunityActions {
     String oppName
   ) {
     String opportunityName;
-    Map<Id, String> oppIdToNameMap = new Map<Id, String>();
 
     opportunityName = oppId + ' ';
     if (String.isNotBlank(customerNeeds)) {
@@ -768,11 +690,8 @@ public with sharing class CCRMOpportunityActions {
     public Map<Id, Opportunity> stageUpdatedOpps;
     public List<Opportunity> filteredOpps;
     public Map<Id, String> oppsStageSegmentMap;
-    public Map<Id, String> oppIdToTemplateNameMap;
     public Map<Id, Id> oppIdToOwnerIdMap;
     public Map<Id, User> oppOwnerIdToSegmentMap;
-    public Map<Id, Opportunity> oppWithMandatoryTaskMap;
-    public Map<Id, String> oppsWithMandatoryTaskToTemplateMap;
 
     /**
      * @description constructor for wrapper class for CCRM Opportunity
@@ -782,11 +701,8 @@ public with sharing class CCRMOpportunityActions {
       stageUpdatedOpps = new Map<Id, Opportunity>();
       filteredOpps = new List<Opportunity>();
       oppsStageSegmentMap = new Map<Id, String>();
-      oppIdToTemplateNameMap = new Map<Id, String>();
       oppIdToOwnerIdMap = new Map<Id, Id>();
       oppOwnerIdToSegmentMap = new Map<Id, User>();
-      oppWithMandatoryTaskMap = new Map<Id, Opportunity>();
-      oppsWithMandatoryTaskToTemplateMap = new Map<Id, String>();
     }
   }
 }
