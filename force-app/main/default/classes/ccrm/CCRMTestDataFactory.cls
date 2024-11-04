@@ -1640,7 +1640,6 @@ public with sharing class CCRMTestDataFactory {
     }
     return finAccountRole;
   }
-
   /**
    * @description creates and/or returns list of CCRMA2ZReview records for testing purpose
    * note that the lookup on these records are not populated
