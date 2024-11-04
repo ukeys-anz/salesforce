@@ -156,7 +156,7 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
    * @description handle received response and either return the response or throw exception
    */
   public HttpCalloutResponse handleResponse(HttpCalloutResponse response) {
-    List<Integer> insufficientAccessCodes = new List<Integer> {401, 403, 405};
+    List<Integer> insufficientAccessCodes = new List<Integer>{ 401, 403, 405 };
     if (response.successful) {
       return response;
     } else if (insufficientAccessCodes.contains(response.statusCode)) {
@@ -166,6 +166,11 @@ public with sharing class TFMAUFAPIRepository extends RepositoryBase {
     }
   }
 
+  /**
+   * @description custom exception
+   */
+  public class ArchiveFailException extends Exception {
+  }
   /**
    * @description custom exception
    */

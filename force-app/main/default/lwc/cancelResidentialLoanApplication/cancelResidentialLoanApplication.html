@@ -1,0 +1,75 @@
+<template>
+  <lightning-quick-action-panel header="Withdraw This Application">
+    <div>
+      <div lwc:if={mainWindow}>
+        <lightning-combobox
+          name="Cancellation_Reason__c"
+          label="Reason"
+          value={value}
+          data-id="Cancellation_Reason__c"
+          placeholder="Select cancellation reason"
+          options={options}
+          required
+          onchange={handleChange}
+          onblur={checkFieldsValidity}
+        >
+        </lightning-combobox>
+        <div lwc:if={otherReasonVisible}>
+          <lightning-input
+            type="text"
+            name="Other_Cancellation_Reason__c"
+            label="Enter Details"
+            data-id="Other_Cancellation_Reason__c"
+            max-length="255"
+            required
+            onblur={checkFieldsValidity}
+          ></lightning-input>
+        </div>
+        <lightning-textarea
+          name="Notes"
+          label="Notes"
+          placeholder="type here..."
+          data-id="Notes"
+          onblur={checkFieldsValidity}
+        ></lightning-textarea>
+      </div>
+      <div lwc:else>
+        <div lwc:if={spinnerDisabled}>{confirmationMessage}</div>
+        <div lwc:else class="spinnerClass">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="medium"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </div>
+    <div slot="footer">
+      <div slot="footer" lwc:if={mainWindow}>
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCloseModel}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          label="Save"
+          onclick={handleSave}
+          class="slds-m-left_x-small"
+        ></lightning-button>
+      </div>
+      <div lwc:else slot="footer">
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCloseModel}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          label="OK"
+          onclick={handleSubmit}
+          class="slds-m-left_x-small"
+        ></lightning-button>
+      </div>
+    </div>
+  </lightning-quick-action-panel>
+</template>

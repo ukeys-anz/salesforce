@@ -1,11 +1,19 @@
 @isTest
 public with sharing class CardDetailsControllerTest {
+  static Lib_MockProvider keyServiceRepoMock;
+
+  static void registerMocks() {
+    keyServiceRepoMock = Lib_MockProvider.forType(KeyServiceRepository.class);
+  }
+
   /**
    * @description Add required PermissionSet
    */
   @testSetup
   public static void setup() {
-    TestUtil.addPermissionSets(new List<String>{ 'View_Card_Details' });
+    TestUtil.addPermissionSets(
+      new List<String>{ 'View_Card_Details', 'View_Card_Number' }
+    );
   }
   /**
    * @description test method for getCardList when successful
@@ -62,5 +70,54 @@ public with sharing class CardDetailsControllerTest {
         'Card control mock response should be received'
       );
     }
+  }
+
+  /**
+   * @description test method for getFullCardNumberDetails when successful
+   */
+  @isTest
+  public static void testGetFullCardNumberDetailsValid() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      registerMocks();
+      keyServiceRepoMock.mock(
+        'retrievePrivateKey',
+        CryptoOperationsUtilsTest.createMockPrivateKeyStorageList()
+      );
+      Test.startTest();
+      String detokenizedCardNumber = CardDetailsController.getFullCardNumberDetails(
+        '1111',
+        CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER
+      );
+      Test.stopTest();
+
+      Assert.areEqual(
+        CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER,
+        detokenizedCardNumber,
+        'Full Card Number mock response should be received'
+      );
+    }
+  }
+  /**
+   * @description test method for getFullCardNumberDetails when successful
+   */
+  @isTest
+  public static void testGetFullCardNumberDetailsInValid() {
+    Exception resultException;
+    Test.startTest();
+    try {
+      CardDetailsController.getFullCardNumberDetails(
+        '1111',
+        CryptoOperationsUtilsTest.MOCK_TOKENIZED_CARD_NUMBER
+      );
+    } catch (Exception objException) {
+      resultException = objException;
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      resultException.getMessage(),
+      'User does not have permission to view full card number',
+      'Exception was expected'
+    );
   }
 }

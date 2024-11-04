@@ -428,7 +428,6 @@ public with sharing class MLCRMTestDataFactory {
     Id accId,
     Boolean doInsert
   ) {
-    Faker faker = new Faker('AU');
     //Default Count to 200 when in excess.
     count = count == null || count == 0 ? 1 : count;
     List<Opportunity> newOpps = new List<Opportunity>();
@@ -481,7 +480,7 @@ public with sharing class MLCRMTestDataFactory {
         WhatId = whatId,
         WhoId = whoId,
         OwnerId = ownerUser.Id,
-        ActivityDate = null,
+        ActivityDate = System.today() + 2,
         Description = 'Test Description'
       );
       newTaskList.add(task);

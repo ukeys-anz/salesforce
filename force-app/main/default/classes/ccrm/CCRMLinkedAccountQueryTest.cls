@@ -53,7 +53,7 @@ private class CCRMLinkedAccountQueryTest {
     );
     Map<String, Object> firstRecord = result.queryResult[0];
     System.assertEquals(
-      '7087-49911',
+      '708-749-911',
       firstRecord.get('AccountNumber'),
       'AccountNumber mismatch'
     );

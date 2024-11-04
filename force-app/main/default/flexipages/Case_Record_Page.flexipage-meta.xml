@@ -7,6 +7,62 @@
                     <name>actionNames</name>
                     <valueList>
                         <valueListItems>
+                            <value>Case.Complete_Checks_as_Yes</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>KYC_QA</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_Customer_Details__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_MiddleNameCheck__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_Selfie_Comparison_Match__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_PO_Box__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_Address_Valid__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_ID_Legible__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_ID_Not_Picture__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_Customer_Photo_Modified__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Fraud_Security_Features__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>No</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Case.AssignToQueue</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND 2 AND 3</booleanFilter>
@@ -631,13 +687,13 @@
                             <value>Object_Name__c|EQUALS|Case</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>TriggeredFrom__c|EQUALS|Case.KYC_QA</value>
+                            <value>TriggeredFrom__c|STARTS_WITH|Case.KYC_QA</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
-                    <value>3</value>
+                    <value>4</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
@@ -670,7 +726,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListLabel</name>
-                    <value>Restrain Updates to Customer Details</value>
+                    <value>Restraints and KYC Status Updates to Customer</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>showActionBar</name>
@@ -678,11 +734,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sortFieldAlias</name>
-                    <value>__DEFAULT__</value>
+                    <value>CREATED_DATE</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sortFieldOrder</name>
-                    <value>Default</value>
+                    <value>Descending</value>
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList</identifier>

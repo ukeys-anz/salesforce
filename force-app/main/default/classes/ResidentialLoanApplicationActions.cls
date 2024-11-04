@@ -39,6 +39,12 @@ public with sharing class ResidentialLoanApplicationActions {
     }
     return BrokerSettings__c.getOrgDefaults();
   }
+  private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
+    ResidentialLoanApplicationRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   /**
    * @description get Home Loan Applications Queue
@@ -203,7 +209,24 @@ public with sharing class ResidentialLoanApplicationActions {
     }
 
     //Creating map of records vs event type according to trigger context type, ie. insert/update
-    List<Id> filteredLoanAppList = filterLoanAppsBasedOnSyncStatus(records);
+
+    List<ResidentialLoanApplication> rlaFilteredRecords = ListUtil.filter(
+        records
+      )
+      .isNotNull(ResidentialLoanApplication.Sync_Status__c)
+      .notContains(
+        ResidentialLoanApplication.Sync_Status__c,
+        SYNC_STATUS_BLOCKED
+      )
+      .contains(
+        ResidentialLoanApplication.Sync_Status__c,
+        SYNC_STATUS_BROKER_ORG
+      )
+      .toList();
+
+    List<Id> filteredLoanAppList = new List<Id>(
+      ListUtil.getIds(rlaFilteredRecords, ResidentialLoanApplication.Id)
+    );
 
     //Fetch the RLA records and the related parent record details
     List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
@@ -250,28 +273,6 @@ public with sharing class ResidentialLoanApplicationActions {
   }
 
   /**
-   * @description Creates a map between the loan application and the type of event ie. add/update
-   * @author Deepro De | 06-05-2024
-   * @param records
-   * @return List<Id>
-   **/
-  public static List<Id> filterLoanAppsBasedOnSyncStatus(
-    List<ResidentialLoanApplication> records
-  ) {
-    List<Id> filteredRecords = new List<Id>();
-    for (ResidentialLoanApplication record : records) {
-      if (
-        String.isNotBlank(record.Sync_Status__c) &&
-        !record.Sync_Status__c.contains(SYNC_STATUS_BLOCKED) &&
-        record.Sync_Status__c.contains(SYNC_STATUS_BROKER_ORG)
-      ) {
-        filteredRecords.add(record.Id);
-      }
-    }
-    return filteredRecords;
-  }
-
-  /**
    * @description Evaluates if Broker Code is present or not, and populates Sync Status
    * @author  Deepro De | Salesforce | 05-30-2024
    * @param records
@@ -298,6 +299,45 @@ public with sharing class ResidentialLoanApplicationActions {
     }
   }
 
+  /** @description cancelResidentialLoanApplication cancels residential loan application
+   * @param rlaObject map of residential loan application fields
+   * @return response from mule
+   */
+  @AuraEnabled
+  public static String cancelResidentialLoanApplication(
+    Map<String, String> rlaObject
+  ) {
+    try {
+      ResidentialLoanApplicationAPIRepository rlaRepo = new ResidentialLoanApplicationAPIRepository();
+      HttpCalloutResponse response = rlaRepo.cancelResidentialLoanApp(
+        rlaObject.get('requestId'),
+        rlaObject.get('ocvId')
+      );
+      if (!response.successful) {
+        throw CommonUtil.logException(response);
+      }
+      ResidentialLoanApplication rlaRecord = ResidentialLoanApplicationHelper.updateFieldsOnLoanCancellation(
+        rlaObject
+      );
+
+      DML_REPOSITORY.doUpdate(rlaRecord);
+
+      String postContent = ResidentialLoanApplicationHelper.postNotesToChatter(
+        rlaObject
+      );
+
+      ChatterUtils.makeAPost(
+        rlaObject.get('recordId'),
+        postContent,
+        ChatterUtils.POST_TYPE_RICH_TEXT
+      );
+
+      return 'success';
+    } catch (Exception objException) {
+      throw CommonUtil.logException(objException);
+    }
+  }
+
   /**
    * @description Evaluates and filters out the applications which have Blocked Sync Status
    * @author  Deepro De | Salesforce | 05-30-2024
@@ -320,5 +360,98 @@ public with sharing class ResidentialLoanApplicationActions {
       filteredList.add(eachRecord);
     }
     return filteredList;
+  }
+
+  /** @description update Status field on Case to cancel if related RLA has cancelled status
+   * @param newRlaRecords  Residential Loan application records from trigger on insert/update
+   * @param  oldRlaRecords  Holds records information before update
+   */
+  public static void cancelRelatedCreditReferralCases(
+    Map<Id, ResidentialLoanApplication> newRlaRecords,
+    Map<Id, ResidentialLoanApplication> oldRlaRecords
+  ) {
+    try {
+      Set<Id> rlaRecordIds = getCancelledRlaRecordsPostChatter(
+        newRlaRecords.values(),
+        oldRlaRecords
+      );
+
+      List<Case> masterCaseList = RLA_REPOSITORY.queryRelatedCreditReferralCases(
+        rlaRecordIds
+      );
+
+      List<Case> caseRecordsToBeUpdated = prepareCaseWithFieldsUpdate(
+        masterCaseList,
+        newRlaRecords
+      );
+
+      DML_REPOSITORY.doUpdate(caseRecordsToBeUpdated);
+    } catch (Exception objException) {
+      Logger.error('Error in ResidentialLoanApplicationActions ', objException);
+      Logger.saveLog();
+    }
+  }
+
+  /**
+   * @description prepareCaseWithFieldsUpdate prepare Case record's field value which needs to be updated
+   * @param masterCaseList master list of Case with all the related detail
+   * @param newRlaRecords Map of RLAs with updated fields
+   * @return List<Case>  Case records with status value as expired and sub status field value as Customer Cancelled.
+   */
+  @TestVisible
+  private static List<Case> prepareCaseWithFieldsUpdate(
+    List<Case> masterCaseList,
+    Map<Id, ResidentialLoanApplication> newRlaRecords
+  ) {
+    List<Case> caseRecordsToBeUpdated = new List<Case>();
+    for (Case caseRecord : masterCaseList) {
+      if (
+        newRlaRecords.get(caseRecord.Loan_Application__c)
+          .Cancellation_Reason__c ==
+        BOHConstants.RLA_CREDIT_ASSESSMENT_EXPIRED_REASON
+      ) {
+        caseRecord.Status = BOHConstants.CASE_CLOSED_EXPIRED_STATUS;
+      } else {
+        caseRecord.Status = BOHConstants.CASE_CLOSED_CANCELLED_STATUS;
+      }
+      caseRecordsToBeUpdated.add(caseRecord);
+    }
+    return caseRecordsToBeUpdated;
+  }
+
+  /**
+   * @description To filter out the RLA records with Cancelled status
+   * @param newRlaRecords Residential Loan application records from trigger on update
+   * @param oldRlaRecords Holds records information before update
+   * @return Residential Loan Application records with Cancelled status to process
+   */
+  @TestVisible
+  public static Set<Id> getCancelledRlaRecordsPostChatter(
+    List<ResidentialLoanApplication> newRlaRecords,
+    Map<Id, ResidentialLoanApplication> oldRlaRecords
+  ) {
+    Set<Id> rlaRecordIds = new Set<Id>();
+    for (ResidentialLoanApplication rlaRecord : newRlaRecords) {
+      if (
+        (RecordComparisonUtil.fieldWasChanged(
+          rlaRecord,
+          oldRlaRecords.get(rlaRecord.Id),
+          ResidentialLoanApplication.Status
+        )) && (rlaRecord.Status == BOHConstants.RLA_CANCELLED_STATUS)
+      ) {
+        rlaRecordIds.add(rlaRecord.Id);
+
+        String postContent = ResidentialLoanApplicationHelper.postNotesToChatterWhenCancelled(
+          oldRlaRecords.get(rlaRecord.Id).Status
+        );
+
+        ChatterUtils.makeAPost(
+          rlaRecord.Id,
+          postContent,
+          ChatterUtils.POST_TYPE_RICH_TEXT
+        );
+      }
+    }
+    return rlaRecordIds;
   }
 }

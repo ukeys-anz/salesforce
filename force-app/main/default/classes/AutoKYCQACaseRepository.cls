@@ -165,6 +165,33 @@ public with sharing class AutoKYCQACaseRepository {
   }
 
   /**
+   * @description Retrieves KYC QA Check Fields.
+   * @param caseIds A list of KYC QA Case IDs.
+   * @return A list of KYC QA case records with all the check fields.
+   */
+  public List<Case> queryKYCQAChecksByIds(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
+    }
+    return [
+      SELECT
+        Id,
+        Fraud_Customer_Details__c,
+        Fraud_MiddleNameCheck__c,
+        Fraud_Selfie_Comparison_Match__c,
+        Fraud_PO_Box__c,
+        Fraud_Address_Valid__c,
+        Fraud_ID_Legible__c,
+        Fraud_ID_Not_Picture__c,
+        Fraud_Customer_Photo_Modified__c,
+        Fraud_Security_Features__c
+      FROM Case
+      WHERE Id IN :caseIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description This class take care of Database operation that requires without sharing operation
    */
   private without sharing class SystemAction {

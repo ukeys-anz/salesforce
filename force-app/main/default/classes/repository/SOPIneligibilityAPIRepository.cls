@@ -14,7 +14,7 @@ public with sharing class SOPIneligibilityAPIRepository extends RepositoryBase {
   public SOPIneligibleModel getSOP(String ocvId, String sopId) {
     Service s = ServiceProvider.getService(BOHService.class);
     SOPIneligibleModel sopCache = (SOPIneligibleModel) DataPartitionUtil.getDataFromCache(
-      sopId
+      BOHConstants.CACHE_DATA_KEY_PREFIX_SOPINELIGIBLE + sopId
     );
     if (sopCache != null) {
       return sopCache;
@@ -31,7 +31,10 @@ public with sharing class SOPIneligibilityAPIRepository extends RepositoryBase {
         SOPIneligibleModel.class
       );
 
-      DataPartitionUtil.storeDataToCache(sopId, modelResponse);
+      DataPartitionUtil.storeDataToCache(
+        BOHConstants.CACHE_DATA_KEY_PREFIX_SOPINELIGIBLE + sopId,
+        modelResponse
+      );
 
       return modelResponse;
     } catch (Exception e) {

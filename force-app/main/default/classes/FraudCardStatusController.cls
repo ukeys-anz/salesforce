@@ -34,7 +34,11 @@ public with sharing class FraudCardStatusController {
     CardManagementAPIRepository cardManagementApi = new CardManagementAPIRepository();
     Boolean result = cardManagementApi.setFraudCardStatus(fraudLockInformation);
 
-    ChatterUtils.makeAPost(recordId, chatterMessage);
+    ChatterUtils.makeAPost(
+      recordId,
+      chatterMessage,
+      ChatterUtils.POST_TYPE_TEXT
+    );
 
     return result;
   }

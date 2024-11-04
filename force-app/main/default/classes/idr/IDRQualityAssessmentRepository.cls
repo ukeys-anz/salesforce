@@ -23,7 +23,8 @@ public with sharing class IDRQualityAssessmentRepository {
       WHERE
         ParentId IN :mpId2PendingAssessments.keySet()
         AND UserOrGroupId IN :stUserIds
-      WITH SECURITY_ENFORCED
+        AND RowCause = 'Manual'
+      WITH USER_MODE
     ];
   }
 }

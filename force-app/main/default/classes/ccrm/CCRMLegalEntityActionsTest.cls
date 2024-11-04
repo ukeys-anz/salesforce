@@ -228,8 +228,12 @@ public with sharing class CCRMLegalEntityActionsTest {
       objOpportunity = new Opportunity();
       objOpportunity.Name = faker.person.firstName();
       objOpportunity.Accountid = firstAccount.id;
-      objOpportunity.StageName = 'Opportunity Identified';
-      objOpportunity.CloseDate = system.Today() + 3;
+      objOpportunity.StageName = 'New';
+      objOpportunity.CloseDate = DateTimeUtils.getWeekday(
+        system.today().addDays(3),
+        true,
+        true
+      );
       objOpportunity.Description = faker.text.realText(10, 20);
       objOpportunity.RecordTypeId = CCRMConstants.CCRM_OPP_RT_ID;
       insert objOpportunity;
@@ -254,7 +258,7 @@ public with sharing class CCRMLegalEntityActionsTest {
       //THEN
       Opportunity opp = [SELECT Id, AccountId FROM Opportunity LIMIT 1];
 
-      System.assertEquals(
+      Assert.areNotEqual(
         opp.AccountId,
         clgAccount.Id,
         'Opportunity account updated to CLG account.'
@@ -271,10 +275,7 @@ public with sharing class CCRMLegalEntityActionsTest {
       //GIVEN
       //Create Opportunity
       Test.startTest();
-      List<Opportunity> opps = CCRMTestDataFactory.createOpportunityRecords(
-        1,
-        null
-      );
+      CCRMTestDataFactory.createOpportunityRecords(1, null);
       //Create Opportunity product
       oli = CCRMTestDataFactory.createOpportunityLineItem();
       insert oli;

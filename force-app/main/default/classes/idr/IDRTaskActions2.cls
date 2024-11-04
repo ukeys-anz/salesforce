@@ -34,7 +34,6 @@ public with sharing class IDRTaskActions2 {
     Map<Id, Set<String>> mpGroup2Recipients = new Map<Id, Set<String>>();
     List<Task> listUrgentTasks = ListUtil.filter(lstTasks)
       .equals(Task.Type, TASK_TYPE_GENERAL)
-      .isNotNull(Task.Subject)
       .contains(Task.Subject, TASK_SUBJECT_URGENT)
       .isNotNull(Task.WhatId)
       .toList();
@@ -92,7 +91,6 @@ public with sharing class IDRTaskActions2 {
     }
     List<Task> finalTasksToUpdate = ListUtil.filter(lstTasks)
       .equals(Task.Type, TASK_TYPE_GENERAL)
-      .isNotNull(Task.Subject)
       .contains(Task.Subject, TASK_SUBJECT_URGENT)
       .toList();
     for (Task oTask : finalTasksToUpdate) {

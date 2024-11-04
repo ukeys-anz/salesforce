@@ -282,54 +282,6 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   }
 
   /**
-   * @description get Account Number with Format
-   * @param accountNumber Account Number
-   * @return Account Number with Format
-   */
-  @testVisible
-  protected String getAccountNumberwithFormat(String accountNumber) {
-    String result = '';
-    if (
-      accountRoleMap.containsKey(accountNumber) &&
-      String.isNotEmpty(
-        accountRoleMap.get(accountNumber)
-          .FinServ__FinancialAccount__r.Account_Number__c
-      )
-    ) {
-      result = accountRoleMap.get(accountNumber)
-        .FinServ__FinancialAccount__r.Account_Number__c;
-    }
-    return result;
-  }
-
-  /**
-   * @description Retrieves formatted financial account numbers related to a customer for Financial Account Numbers
-   * @param accountNumbers List of account numbers
-   * @return Map of account numbers to formatted Financial Account Numbers
-   */
-  @testVisible
-  protected Map<String, String> getformattedFinancialAccountNumbers(
-    List<String> accountNumbers
-  ) {
-    Map<String, String> formattedAccountNumbers = new Map<String, String>();
-    List<FinServ__FinancialAccount__c> faAccnts = FA_Repository.getformattedFinancialAccounts(
-      accountNumbers
-    );
-
-    if (faAccnts == null) {
-      return formattedAccountNumbers;
-    }
-
-    for (FinServ__FinancialAccount__c fa : faAccnts) {
-      formattedAccountNumbers.put(
-        fa.FinServ__FinancialAccountNumber__c,
-        fa.Account_Number__c
-      );
-    }
-    return formattedAccountNumbers;
-  }
-
-  /**
    * @description get sub product code
    * @param accountNumber Account Number
    * @return sub product code
@@ -944,59 +896,86 @@ public abstract with sharing class CCRMFinancialAccountQueryBase extends CCRMExt
   }
 
   /**
+   * @description Format Account Number for Account Numbers of Linked Accounts for PTF
+   * @param accountNumber Account Number
+   * @param productCode Product Code
+   * @return String formatted Account Number
+   */
+  public String formatAccountNumber(String accountNumber, String productCode) {
+    if (String.isBlank(accountNumber)) {
+      return '';
+    }
+    Map<Integer, List<Integer>> lengthFormat = new Map<Integer, List<Integer>>{
+      7 => new List<Integer>{ 0, 2, 5, 7 },
+      9 => new List<Integer>{ 0, 3, 6, 9 }
+    };
+    Set<String> accountNumberBasedOnProductCodeSet = new Set<String>{
+      'APP',
+      'MOS',
+      'SVC'
+    };
+    if (!accountNumberBasedOnProductCodeSet.contains(productCode)) {
+      return formatAccountNumber(accountNumber);
+    }
+    if (
+      (productCode == 'APP' || productCode == 'MOS') &&
+      accountNumber.length() < 9
+    ) {
+      accountNumber = accountNumber.leftPad(9, '0');
+    }
+    if (productCode == 'SVC' && accountNumber.length() < 7) {
+      accountNumber = accountNumber.leftPad(7, '0');
+    }
+    return joinAccountNumberParts(
+      accountNumber,
+      lengthFormat.get(accountNumber.length())
+    );
+  }
+
+  /**
    * @description Format Account Number
    * @param accountNumber Account Number
    * @return String formatted Account Number
    */
-  @testvisible
-  protected String formatAccountNumber(String accountNumber) {
+  public String formatAccountNumber(String accountNumber) {
     if (String.isBlank(accountNumber)) {
       return '';
     }
-    switch on accountNumber.length() {
-      when 8 {
-        accountNumber = '0' + accountNumber;
-        return String.format(
-          '{0}-{1}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 9)
-          }
-        );
-      }
-      when 9 {
-        return String.format(
-          '{0}-{1}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 9)
-          }
-        );
-      }
-      when 11 {
-        return String.format(
-          '{0}-{1}-{2}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 7),
-            accountNumber.subString(7, 11)
-          }
-        );
-      }
-      when 16 {
-        return String.format(
-          '{0}-{1}-{2}-{3}',
-          new List<String>{
-            accountNumber.subString(0, 4),
-            accountNumber.subString(4, 8),
-            accountNumber.subString(8, 12),
-            accountNumber.subString(12, 16)
-          }
-        );
-      }
-      when else {
-        return accountNumber;
-      }
+
+    Map<Integer, List<Integer>> lengthFormat = new Map<Integer, List<Integer>>{
+      9 => new List<Integer>{ 0, 4, 9 },
+      11 => new List<Integer>{ 0, 4, 7, 11 },
+      16 => new List<Integer>{ 0, 4, 8, 12, 16 }
+    };
+
+    if (accountNumber.length() < 9) {
+      accountNumber = accountNumber.leftPad(9, '0');
     }
+
+    if (!lengthFormat.containsKey(accountNumber.length())) {
+      return accountNumber;
+    }
+
+    return joinAccountNumberParts(
+      accountNumber,
+      lengthFormat.get(accountNumber.length())
+    );
+  }
+
+  /**
+   * @description join subparts of the account number
+   * @param accountNumber Account Number
+   * @param formatter formatter
+   * @return String account number
+   */
+  public String joinAccountNumberParts(
+    String accountNumber,
+    List<Integer> formatter
+  ) {
+    List<String> parts = new List<String>();
+    for (Integer i = 0; i < (formatter.size() - 1); i++) {
+      parts.add(accountNumber.subString(formatter[i], formatter[i + 1]));
+    }
+    return String.join(parts, '-');
   }
 }
