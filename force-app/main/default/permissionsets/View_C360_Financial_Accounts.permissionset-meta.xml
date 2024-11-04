@@ -1437,16 +1437,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Loan_Account__x.IO_Initial_Interest_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.IO_Interest_Frequency__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Loan_Account__x.IO_Interest_Repayment_Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1472,62 +1462,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Loan_Account__x.Interest_Only_Expiry_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Only_Repayment_Amount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Only_Start_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Only_Term_Month__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Only_Term_Year__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Rate_Fixed_Rate_Expiry_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Rate_Fixed_Rate_Start_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Rate_Fixed_Rate_Term_Month__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Rate_Fixed_Rate_Term_Year__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Loan_Account__x.Interest_Rate_Margin__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Rate_Reference_Index_Rate__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.Interest_Rate_Reference_Index_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1563,11 +1498,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Loan_Account__x.PI_Elected_Repayment_Amount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.PI_Initial_Repayment_Cycle_Day__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1647,17 +1577,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Loan_Account__x.SAO__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Loan_Account__x.Sub_Product_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Loan_Account__x.TPMI__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
