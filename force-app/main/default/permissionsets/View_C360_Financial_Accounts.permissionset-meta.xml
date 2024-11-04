@@ -1437,11 +1437,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Loan_Account__x.IO_Initial_Discount__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Loan_Account__x.IO_Initial_Interest_Rate__c</field>
         <readable>true</readable>
     </fieldPermissions>
