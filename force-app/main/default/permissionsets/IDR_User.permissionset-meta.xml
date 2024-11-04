@@ -40,6 +40,16 @@
         Levels</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Assessment.Created_Date_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Assessment.Last_Modified_Date_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CFMS_Migrated_Document__c.Description__c</field>
         <readable>true</readable>
     </fieldPermissions>
