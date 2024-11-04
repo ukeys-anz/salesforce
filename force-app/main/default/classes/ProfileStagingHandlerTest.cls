@@ -22,6 +22,12 @@ private class ProfileStagingHandlerTest {
   static Account record = new Account(
     Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType)
   );
+  static Customer_Profile_Updates__c cpuUpdate = new Customer_Profile_Updates__c(
+    Id = cpu.Id,
+    Action__c = 'Update',
+    Status__c = 'Pending',
+    UserLanId__c = currentUser.Lan_Id__c
+  );
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
@@ -39,8 +45,11 @@ private class ProfileStagingHandlerTest {
       new List<Customer_Profile_Updates__c>{ cpu }
     );
 
+    ProfileStagingHandler handler = new ProfileStagingHandler();
+    handler.templateCpu = cpuUpdate;
+
     Test.startTest();
-    new ProfileStagingHandler()
+    handler
       .process(
         config,
         new List<SObject>{ record },
@@ -48,29 +57,16 @@ private class ProfileStagingHandlerTest {
       );
     Test.stopTest();
 
-    Assert.isNotNull(
-      dmlRepoMock.getHistory('doInsert'),
-      'doInsert should have been invoked'
-    );
-    Assert.isNotNull(
-      dmlRepoMock.getHistory('doPublish'),
-      'doPublish should have been invoked'
-    );
-    List<Customer_Profile_Updates__c> updates = (List<Customer_Profile_Updates__c>) dmlRepoMock.getHistory(
-        'doInsert'
-      )
+    List<Customer_Profile_Updates__c> updates = (List<Customer_Profile_Updates__c>) dmlRepoMock
+      .getHistory('doInsert')
       .getParam('records');
-    List<Customer_Profile_Update_Event__e> events = (List<Customer_Profile_Update_Event__e>) dmlRepoMock.getHistory(
-        'doPublish'
-      )
+
+    List<Customer_Profile_Update_Event__e> events = (List<Customer_Profile_Update_Event__e>) dmlRepoMock
+      .getHistory('doPublish')
       .getParam('events');
 
     Assert.areEqual(
-      new Customer_Profile_Updates__c(
-        Action__c = 'Update',
-        Status__c = 'Pending',
-        UserLanId__c = currentUser.Lan_Id__c
-      ),
+      cpuUpdate,
       updates[0],
       'Customer_Profile_Updates__c should be generated'
     );
@@ -129,12 +125,6 @@ private class ProfileStagingHandlerTest {
 
   @IsTest
   static void testGenerateEvents() {
-    registerMocks();
-    repoMock.mock(
-      'queryCustomerProfileUpdates',
-      new List<Customer_Profile_Updates__c>{ cpu }
-    );
-
     Test.startTest();
     List<Customer_Profile_Update_Event__e> events = new ProfileStagingHandler()
       .generateEvents(new List<Customer_Profile_Updates__c>{ cpu });
@@ -154,7 +144,26 @@ private class ProfileStagingHandlerTest {
   }
 
   @IsTest
-  static void testGenerateEventNoResults() {
+  static void testPublishEvents() {
+    registerMocks();
+    repoMock.mock(
+      'queryCustomerProfileUpdates',
+      new List<Customer_Profile_Updates__c>{ cpu }
+    );
+
+    Test.startTest();
+    new ProfileStagingHandler().publishEvents(new Set<Id>{ cpu.Id });
+    Test.stopTest();
+
+    List<Customer_Profile_Update_Event__e> events = (List<Customer_Profile_Update_Event__e>) dmlRepoMock
+      .getHistory('doPublish')
+      .getParam('events');
+
+    Assert.isFalse(events.isEmpty(), 'Should not be empty');
+  }
+
+  @IsTest
+  static void testPublishEventNoResults() {
     registerMocks();
     repoMock.mock(
       'queryCustomerProfileUpdates',
@@ -162,9 +171,12 @@ private class ProfileStagingHandlerTest {
     );
 
     Test.startTest();
-    List<Customer_Profile_Update_Event__e> events = new ProfileStagingHandler()
-      .generateEvents(new List<Customer_Profile_Updates__c>{ cpu });
+    new ProfileStagingHandler().publishEvents(new Set<Id>{ cpu.Id });
     Test.stopTest();
+
+    List<Customer_Profile_Update_Event__e> events = (List<Customer_Profile_Update_Event__e>) dmlRepoMock
+      .getHistory('doPublish')
+      .getParam('events');
 
     Assert.isTrue(
       events.isEmpty(),

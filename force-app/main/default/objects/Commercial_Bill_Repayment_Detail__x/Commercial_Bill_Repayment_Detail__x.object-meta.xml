@@ -125,7 +125,7 @@
     <enableReports>false</enableReports>
     <enableSearch>false</enableSearch>
     <externalDataSource>Core_Banking_Data_Source</externalDataSource>
-    <externalName>CommercialBillRepaymentDetail</externalName>
+    <externalName>CommercialBillRepayment</externalName>
     <label>Commercial Bill Repayment Detail</label>
     <pluralLabel>Commercial Bill Repayment Details</pluralLabel>
     <searchLayouts/>

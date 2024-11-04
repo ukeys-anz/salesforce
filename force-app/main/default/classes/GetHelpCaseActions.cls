@@ -1028,7 +1028,7 @@ public with sharing class GetHelpCaseActions {
    * @param metadetaRecord External_Case_Status_Mapping__mdt record
    * @return External_Case_Status__c record
    */
-  private static External_Case_Status__c populateExternalCaseStatuses(
+  public static External_Case_Status__c populateExternalCaseStatuses(
     Case caseRecord,
     External_Case_Status_Mapping__mdt metadetaRecord
   ) {
