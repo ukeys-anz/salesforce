@@ -947,11 +947,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Deposit_Account__x.Fluctuating_Seasonal_Expiry_Date__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Deposit_Account__x.Fluctuating_Seasonal_Limit__c</field>
         <readable>true</readable>
     </fieldPermissions>
