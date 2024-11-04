@@ -28,6 +28,7 @@ public with sharing class AssetFinanceELSExternalQuery extends FinancialAccountQ
     public String loanTermYear;
     public String loanTermMonth;
   }
+
   /**
    * @description CreditCard API callout response
    */
