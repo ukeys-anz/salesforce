@@ -39,7 +39,6 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
    * @description Deserialize API callout response
    * @param responseBody API response payload
    */
-  @testVisible
   protected override void parseResponse(String responseBody) {
     this.calloutResponse = (FacilityFeeCalloutResponse) CalloutModel.deserialize(
       responseBody,
@@ -51,25 +50,22 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
    * @description Transform API response to Asset records
    * @return External object rows CCRMExternalObjectQueryBase.ExternalQueryResult
    */
-  @testVisible
   protected override CCRMExternalObjectQueryBase.ExternalQueryResult createFinancialAccounts() {
     String customerId;
     Map<String, Object> row;
-    Integer index = 0;
     CCRMExternalObjectQueryBase.ExternalQueryResult result = new CCRMExternalObjectQueryBase.ExternalQueryResult();
 
     for (
       FacilityFeeModel fee : ((FacilityFeeCalloutResponse) this.calloutResponse)
         .facilityFees
     ) {
-      index++;
       row = new Map<String, Object>();
       row.put('ExternalId', fee.compositeFacilityFeeId);
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-          '/' +
-          fee.compositeFacilityFeeId
+        '/' +
+        fee.compositeFacilityFeeId
       );
       List<String> values = fee.compositeFacilityFeeId != null
         ? fee.compositeFacilityFeeId.split('-')
@@ -82,7 +78,6 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
       row.put('FacilityLimitFee', fee.feePercentage);
       row.put('FacilityLimitFeeAmount', fee.feeAmount);
       row.put('NextDueDate', formatDate(fee.nextDueDate));
-      row.put('Seq', index);
       result.queryResult.add(row);
     }
     return result;

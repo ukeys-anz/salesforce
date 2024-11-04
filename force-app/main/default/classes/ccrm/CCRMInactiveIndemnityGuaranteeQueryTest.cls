@@ -6,57 +6,71 @@
  */
 @isTest
 private class CCRMInactiveIndemnityGuaranteeQueryTest {
-  static Lib_MockProvider faRepoMock;
-  static Lib_MockProvider dmlRepoMock;
-  static void registerMocks() {
-    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
-    faRepoMock = Lib_MockProvider.forType(
-      CCRMFinancialAccountQueryBaseRepository.class
+  @TestSetup
+  static void createTestData() {
+    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('Business_Account')
+      .getRecordTypeId();
+    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
+      'CAP-CIS_4011643101',
+      customerRecordTypeId,
+      '4011643101'
     );
   }
 
   @isTest
-  static void createInactiveIndemnityAccountsTest() {
-    registerMocks();
-    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
-    FinServ__FinancialAccountRole__c mockFar = createMockData();
-    DataSource.QueryContext context = CCRMTestDataFactory.createInactiveIndemnityGuaranteeContext();
-    CCRMInactiveIndemnityGuaranteeQuery accountQuery = new CCRMInactiveIndemnityGuaranteeQuery();
-    faRepoMock.mock(
-      'getFinancialAccountsWithCustomerId',
-      new List<FinServ__FinancialAccountRole__c>{ mockFar }
-    );
+  static void createInactiveIGTest() {
     Test.startTest();
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMInactiveIndemnityGuaranteeQueryTest.CCRMInactiveIndemnityGuaranteeQueryTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'InactiveIndemnityGuarantee'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    CCRMInactiveIndemnityGuaranteeQuery accountQuery = new CCRMInactiveIndemnityGuaranteeQuery();
     CCRMExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
       context
     );
     Test.stopTest();
-    assert.areEqual(1, result.queryResult.size(), 'Size of accounts is 1');
-    assert.areEqual(
+    System.assertEquals(
+      1,
+      result.queryResult.size(),
+      'Size of accounts is not 1'
+    );
+    Map<String, Object> firstRecord = result.queryResult[0];
+    System.assertEquals(
       'FIN',
-      result.queryResult[0].get('PurposeCode'),
-      'PurposeCode matched'
+      firstRecord.get('PurposeCode'),
+      'PurposeCode mismatch'
     );
   }
 
-  private static FinServ__FinancialAccountRole__c createMockData() {
-    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
-    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
-      FinServ__Active__c = true,
-      Role_Type__c = 'UNO',
-      FinServ__FinancialAccount__r = new FinServ__FinancialAccount__c(
-        Name = 'Test',
-        FinServ__Status__c = 'Active',
-        FinServ__FinancialAccountType__c = 'Savings',
-        FinServ__PrimaryOwner__c = accId,
-        Account_Key__c = '4011643101-391102388',
-        FinServ__FinancialAccountNumber__c = '391102388',
-        Product_Type__c = 'CAP-CIS:ILS'
-      ),
-      FinServ__RelatedAccount__r = new Account(
-        External_Id__c = 'CAP-CIS_4011643101'
-      )
-    );
-    return mockFar;
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMInactiveIndemnityGuaranteeQueryTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_inactiveIGResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }

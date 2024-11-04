@@ -6,79 +6,67 @@
  */
 @isTest
 private class CCRMFavoureeQueryTest {
-  static Lib_MockProvider faRepoMock;
-  static Lib_MockProvider dmlRepoMock;
-  static void registerMocks() {
-    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
-    faRepoMock = Lib_MockProvider.forType(
-      CCRMFinancialAccountQueryBaseRepository.class
-    );
-  }
-
-  private static FinServ__FinancialAccountRole__c getMockedData() {
-    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
-
-    FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
-      FinServ__Active__c = true,
-      Role_Type__c = 'UNO',
-      FinServ__FinancialAccount__r = (FinServ__FinancialAccount__c) TestUtil.setFields(
-        new FinServ__FinancialAccount__c(
-          Name = 'Test',
-          FinServ__Status__c = 'Active',
-          FinServ__FinancialAccountType__c = 'Savings',
-          FinServ__PrimaryOwner__c = accId,
-          Account_Key__c = '4011643101-3424909811',
-          FinServ__FinancialAccountNumber__c = '3424909811',
-          Product_Type__c = 'CAP-CIS:DDA'
-        ),
-        new Map<String, Object>{ 'Account_Number__c' => '3424-909811' }
-      ),
-      FinServ__RelatedAccount__r = new Account(
-        External_Id__c = 'CAP-CIS_4011643101'
-      )
-    );
-    return mockFar;
-  }
-
-  @isTest
-  static void testParseResponse() {
-    String responseBody =
-      ' {' +
-      '   "guaranteesFavourees": [' +
-      '     {' +
-      '       "compositeGuaranteesFavoureesId": "4020018249-72466661701-29618-0",' +
-      '       "name": "test",' +
-      '       "abn": "DDA"' +
-      '     }' +
-      '   ]' +
-      ' }';
-
-    CCRMFavoureeQuery favoureeAcct = new CCRMFavoureeQuery();
-    Test.startTest();
-    favoureeAcct.parseResponse(responseBody);
-    Test.stopTest();
-    Assert.isFalse(
-      favoureeAcct.calloutResponse == null,
-      'Response is not null'
+  @TestSetup
+  static void createTestData() {
+    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('Business_Account')
+      .getRecordTypeId();
+    Account acct = TestDataFactory.createBusinessRecordTypeAccount(
+      'CAP-CIS_4011643101',
+      customerRecordTypeId,
+      '4011643101'
     );
   }
 
   @isTest
   static void createFavoureeTest() {
-    registerMocks();
-    Id accId = Lib_FakeIdGenerator.getMockId(Account.SobjectType);
-    FinServ__FinancialAccountRole__c mockFar = getMockedData();
-    DataSource.QueryContext context = CCRMTestDataFactory.createFavoureeQueryContext();
-    CCRMFavoureeQuery favoureeQuery = new CCRMFavoureeQuery();
-    faRepoMock.mock(
-      'getFinancialAccountsWithCustomerId',
-      new List<FinServ__FinancialAccountRole__c>{ mockFar }
-    );
     Test.startTest();
-    CCRMExternalObjectQueryBase.ExternalQueryResult result = favoureeQuery.execute(
+    Test.setMock(
+      HttpCalloutMock.class,
+      new CCRMFavoureeQueryTest.CCRMFavoureeTestMock()
+    );
+    //sync
+    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    conn.sync();
+    //query
+    DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
+      'Favouree'
+    );
+    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+      null
+    );
+    aConn.query(context);
+    CCRMFavoureeQuery accountQuery = new CCRMFavoureeQuery();
+    CCRMExternalObjectQueryBase.ExternalQueryResult result = accountQuery.execute(
       context
     );
     Test.stopTest();
-    assert.areEqual(1, result.queryResult.size(), 'Size of accounts is 1');
+    System.assertEquals(
+      1,
+      result.queryResult.size(),
+      'Size of accounts is not 1'
+    );
+    Map<String, Object> firstRecord = result.queryResult[0];
+    System.assertEquals('test', firstRecord.get('Name'), 'Name mismatch');
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CCRMFavoureeTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_favoureeResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
+      res.setStatusCode(200);
+      return res;
+    }
   }
 }
