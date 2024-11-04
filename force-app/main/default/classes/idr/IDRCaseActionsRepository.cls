@@ -1,4 +1,3 @@
-
 /**
  * @since 07/2024
  * @description This class provides SOQL and DML helpers for classes related IDRCaseActions.
@@ -10,6 +9,8 @@ public with sharing class IDRCaseActionsRepository {
    * @param caseIds case Ids in current context
    * @return list of Pend tasks
    */
+  public static final String TASK_STATUS_COMPLETED = 'Completed';
+  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public List<Task> queryPendTasks(Set<Id> caseIds) {
     if (caseIds.isEmpty()) {
       return new List<Task>();
@@ -19,9 +20,9 @@ public with sharing class IDRCaseActionsRepository {
       FROM Task
       WHERE
         WhatId IN :caseIds
-        AND Status != :IDRConstants.TASK_STATUS_COMPLETED
-        AND Type = :IDRConstants.TASK_TYPE_PEND_CASE
-        AND RecordType.Id = :IDRConstants.IDR_TASK_RT_ID
+        AND Status != :TASK_STATUS_COMPLETED
+        AND Type = :TASK_TYPE_PEND_CASE
+        AND RecordType.Id = :RTTask.idrTask
       WITH USER_MODE
     ];
   }
