@@ -4,6 +4,9 @@
  * @runTests IDRTaskActionsTest
  */
 public with sharing class IDRTaskActionsRepository {
+  public static final String TASK_TYPE_NOTIFICATION = 'Notification';
+  public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
+  public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
   /**
    * @description Query cases to get the ownerId
    * @param caseIds case Ids in current context
@@ -129,11 +132,31 @@ public with sharing class IDRTaskActionsRepository {
       FROM CaseMilestone cm
       WHERE
         CaseId IN :caseIDSet
-        AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
-        OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
+        AND (cm.MilestoneType.Name = :MILESTONE_STANDARD
+        OR cm.MilestoneType.Name = :MILESTONE_PRIORITY)
         AND CompletionDate = NULL
       WITH USER_MODE
       LIMIT 1
+    ];
+  }
+  /**
+   * @description Method to get Tasks to be completed
+   * @param  cases of Case Ids
+   * @return list of Task to be competed
+   */
+  public List<Task> getTasksTobeCompleted(Set<Id> cases) {
+    if (cases.isEmpty()) {
+      return new List<Task>();
+    }
+    return [
+      SELECT Id, Status
+      FROM Task
+      WHERE
+        WhatId IN :cases
+        AND RecordTypeId = :RTTask.idrSystemTask
+        AND IsClosed = FALSE
+        AND Type = :TASK_TYPE_NOTIFICATION
+        WITH USER_MODE
     ];
   }
 }
