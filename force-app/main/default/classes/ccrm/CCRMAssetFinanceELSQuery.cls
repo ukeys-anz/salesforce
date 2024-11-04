@@ -20,11 +20,9 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
     public DateTime expiryDate;
     public Decimal balloonAmount;
     public Decimal repaymentAmount;
+    public String loanTerm;
     public String loanRepaymentFrequency;
     public String interestType;
-    public string description;
-    public String loanTermYear;
-    public String loanTermMonth;
   }
 
   /**
@@ -100,11 +98,9 @@ public with sharing class CCRMAssetFinanceELSQuery extends CCRMFinancialAccountQ
       row.put('Expires', formatDate(fa.expiryDate));
       row.put('BalloonAmount', fa.balloonAmount);
       row.put('Amount', fa.repaymentAmount);
-      row.put('LoanTermMonth', fa.loanTermMonth);
-      row.put('LoanTermYear', fa.loanTermYear);
-      row.put('Limit', fa.accountLimit);
-      row.put('ProductName', fa.description);
+      row.put('LoanTerm', fa.loanTerm);
       row.put('TotalNumberOfRepayments', fa.loanRepaymentFrequency);
+      row.put('Limit', fa.accountLimit);
       result.queryResult.add(row);
     }
     return result;
