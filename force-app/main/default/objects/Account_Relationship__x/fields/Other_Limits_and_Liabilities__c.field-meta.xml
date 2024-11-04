@@ -5,9 +5,9 @@
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
     <description>External lookup with OLL</description>
     <externalDeveloperName>OLLId</externalDeveloperName>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Other Limits and Liabilities</label>
     <length>255</length>
     <referenceTo>Other_Limits_and_Liabilities__x</referenceTo>
