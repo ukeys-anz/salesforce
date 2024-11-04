@@ -64,8 +64,8 @@ public with sharing class CCRMFacilityFeeQuery extends CCRMFinancialAccountQuery
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-         '/' +
-         fee.compositeFacilityFeeId
+          '/' +
+          fee.compositeFacilityFeeId
       );
       List<String> values = fee.compositeFacilityFeeId != null
         ? fee.compositeFacilityFeeId.split('-')
