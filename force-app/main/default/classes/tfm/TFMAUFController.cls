@@ -243,29 +243,15 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
     String action = (String) input.get(TFMConstants.ACTION_NAME);
     TFMAUFAPIRepository api = new TFMAUFAPIRepository();
     try {
-      TFMArchiveUserModel archiveUserModel = api.archiveUser(
-        staffModel,
-        action
-      );
-      if (
-        archiveUserModel.totalActiveConsents !=
-        archiveUserModel.successfullyArchivedConsents
-      ) {
-        output.put(TFMConstants.SHOWSUCCESSTOAST, false);
-        output.put(
-          TFMConstants.TOTAL_ACTIVE_CONSENTS,
-          archiveUserModel.totalActiveConsents
-        );
-        output.put(
-          TFMConstants.SUCCESSFULLY_ARCHIVED_CONSENTS,
-          archiveUserModel.successfullyArchivedConsents
-        );
-      } else {
-        output.put(TFMConstants.ISVALID, true);
-        output.put(TFMConstants.SHOWSUCCESSTOAST, true);
-      }
+      api.archiveUser(staffModel, action);
+      output.put(TFMConstants.ISVALID, true);
+      output.put(TFMConstants.SHOWSUCCESSTOAST, true);
     } catch (TFMAUFAPIRepository.InsufficientAccessException e) {
       output.put(TFMConstants.ISVALID, false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    } catch (TFMAUFAPIRepository.ArchiveFailException e) {
+      output.put(TFMConstants.ARCHIVED, false);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
     } catch (Exception e) {

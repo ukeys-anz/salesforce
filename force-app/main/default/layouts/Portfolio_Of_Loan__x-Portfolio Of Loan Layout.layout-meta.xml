@@ -102,6 +102,7 @@
         <fields>ExternalId</fields>
         <fields>Account_Number__c</fields>
         <fields>Product_Code__c</fields>
+        <fields>Code__c</fields>
         <relatedList>Linked_Account__x.Portfolio_Of_Loan__c</relatedList>
     </relatedLists>
     <relatedLists>
