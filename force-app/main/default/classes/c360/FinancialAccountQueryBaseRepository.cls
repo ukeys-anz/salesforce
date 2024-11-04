@@ -149,26 +149,6 @@ public with sharing class FinancialAccountQueryBaseRepository {
   /**
    * @description get Customer record
    * @param  externalIdValue
-   * @return List<Account>
-   */
-  public List<Account> getCustomerUsingExternalId(String externalIdValue) {
-    if (
-      !PermissionUtils.canQuery('Account') || String.isBlank(externalIdValue)
-    ) {
-      return new List<Account>();
-    }
-    List<Account> result;
-    result = [
-      SELECT Id, Name, External_Id__c
-      FROM Account
-      WHERE External_Id__c = :externalIdValue
-    ];
-    return result;
-  }
-
-  /**
-   * @description get Customer record
-   * @param  externalIdValue
    * @param recordTypeName
    * @return List<Account>
    */
