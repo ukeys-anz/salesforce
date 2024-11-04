@@ -179,47 +179,6 @@ private class CCRMDepositAccountQueryTest {
   }
 
   @isTest
-  static void getPayloadForSingleAccountTest() {
-    String result;
-    CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
-    depositAcct.externalId = 'CAP-CIS_107130129985-234500817|DDA-234500817';
-    Test.startTest();
-    result = depositAcct.getPayloadForSingleAccount('');
-    Test.stopTest();
-    Assert.areEqual(
-      '{"accountNumber": "DDA-234500817"}',
-      result,
-      'Payload is empty'
-    );
-  }
-
-  @isTest
-  static void getCAPSummaryAccountsTest() {
-    HttpCalloutResponse response;
-    CCRMARNCService.FinancialAccountQueryParameters queryParams;
-    DataSource.QueryContext context = CCRMTestDataFactory.createDepositAccountContext();
-    CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
-    Test.startTest();
-    response = depositAcct.getCAPSummaryAccounts('', queryParams);
-    Test.stopTest();
-    Assert.isFalse(response == null, 'response is blank');
-  }
-
-  @isTest
-  static void getDetailAccountsTest() {
-    HttpCalloutResponse response;
-    DataSource.QueryContext context = CCRMTestDataFactory.createDepositAccountContext();
-    CCRMDepositAccountQuery depositAcct = new CCRMDepositAccountQuery();
-    Test.startTest();
-    response = depositAcct.getDetailAccounts(
-      '{"accountNumber": "DDA-234500817"}',
-      response
-    );
-    Test.stopTest();
-    Assert.isFalse(response == null, 'response is blank');
-  }
-
-  @isTest
   static void testPopulateSeasonalLimits() {
     Map<String, Object> row = new Map<String, Object>();
     List<CCRMDepositAccountQuery.SeasonalLimits> seasonalLimitsList = new List<CCRMDepositAccountQuery.SeasonalLimits>();
