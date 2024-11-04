@@ -29,6 +29,9 @@
         <aggregateTypes>Sum</aggregateTypes>
         <field>CDF1</field>
     </columns>
+    <columns>
+        <field>PRIORITY</field>
+    </columns>
     <customDetailFormulas>
         <calculatedFormula>IF(OWNER=Case.Queue__c, 1, 0)</calculatedFormula>
         <dataType>Double</dataType>

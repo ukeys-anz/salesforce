@@ -32,7 +32,8 @@
         <name>IDR_Notification_Hours__c</name>
         <enabled>true</enabled>
     </customSettingAccesses>
-    <description>The IDR user permission which is the base for all the IDR Users across all the Levels</description>
+    <description>The IDR user permission which is the base for all the IDR Users across all the
+        Levels</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>CFMS_Migrated_Document__c.Description__c</field>
@@ -846,6 +847,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Is_Owner_s_Line_Manager_Me__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Is_new_RP_Enabled__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
