@@ -63,8 +63,8 @@ public with sharing class CCRMInactiveIndemnityGuaranteeQuery extends CCRMFinanc
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        guarantee.compositeGuaranteesId
+          '/' +
+          guarantee.compositeGuaranteesId
       );
       List<String> values = guarantee.compositeGuaranteesId != null
         ? guarantee.compositeGuaranteesId.split('-')
