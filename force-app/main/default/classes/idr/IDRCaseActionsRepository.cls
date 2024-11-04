@@ -4,13 +4,13 @@
  * @runTests IDRCaseActionsHelperTest
  */
 public with sharing class IDRCaseActionsRepository {
+  public static final String TASK_STATUS_COMPLETED = 'Completed';
+  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   /**
    * @description Query PEND Tasks whose Status is not completed
    * @param caseIds case Ids in current context
    * @return list of Pend tasks
    */
-  public static final String TASK_STATUS_COMPLETED = 'Completed';
-  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   public List<Task> queryPendTasks(Set<Id> caseIds) {
     if (caseIds.isEmpty()) {
       return new List<Task>();
