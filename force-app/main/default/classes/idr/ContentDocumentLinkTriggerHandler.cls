@@ -99,7 +99,10 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
       }
     }
     Logger.saveLog();
-    DML_REPOSITORY.doUpdate(mpUpdateCases.values());
+    DML_REPOSITORY.doUpdate(
+      mpUpdateCases.values(),
+      new DMLConfig().systemMode()
+    );
   }
 
   /**
