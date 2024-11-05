@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>My team&apos;s &apos;Provisionally Closed&apos; cases</name>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -29,7 +28,7 @@
         <field>CASE_NUMBER</field>
     </columns>
     <columns>
-        <field>Case.Date_Closed__c</field>
+        <field>Case.Date_Time_Provisionally_Closed__c</field>
     </columns>
     <columns>
         <aggregateTypes>Sum</aggregateTypes>
@@ -86,7 +85,7 @@
             <value>Provisionally Closed</value>
         </criteriaItems>
         <criteriaItems>
-            <column>CLOSED_DATEONLY</column>
+            <column>Case.Date_Time_Provisionally_Closed__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
@@ -107,6 +106,7 @@
         <field>OWNER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
+    <name>My team&apos;s &apos;Provisionally Closed&apos; cases</name>
     <params>
         <name>units</name>
         <value>h</value>
