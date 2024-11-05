@@ -102,7 +102,18 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Digital and Customer Experience</fullName>
+    <picklistValues>
+        <picklist>SI_Assigned_to_Portfolios__c</picklist>
+        <values>
+            <fullName>ANZ Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banking Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial Broker and Origination</fullName>
             <default>false</default>
         </values>
         <values>
@@ -138,6 +149,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Diversified and Specialist Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Everyday Banking Portfolio</fullName>
             <default>false</default>
         </values>
@@ -158,19 +173,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>SME Banking</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Small Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Specialist Industries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Strategic Deliver</fullName>
+            <fullName>Strategy %26 Transformation</fullName>
             <default>false</default>
         </values>
         <values>
@@ -842,6 +853,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Australia Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Australian Branch Network</fullName>
             <default>false</default>
         </values>
@@ -866,11 +881,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Broker</fullName>
+            <fullName>Commercial Broker and Origination</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Digital and Customer Experience</fullName>
+            <fullName>Commercial Operations</fullName>
             <default>false</default>
         </values>
         <values>
@@ -922,6 +937,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Digital Asset Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diversified and Specialist Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Financial Crime Transformation</fullName>
             <default>false</default>
         </values>
@@ -938,11 +961,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Group Compliance</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Group Payments</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Loans</fullName>
+            <fullName>Group Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Group Wholesale Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home Loans Product</fullName>
             <default>false</default>
         </values>
         <values>
@@ -955,6 +990,10 @@
         </values>
         <values>
             <fullName>Lending Services</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Markets Risk</fullName>
             <default>false</default>
         </values>
         <values>
@@ -971,6 +1010,14 @@
         </values>
         <values>
             <fullName>Operational Performance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payments Industry</fullName>
             <default>false</default>
         </values>
         <values>
@@ -998,6 +1045,14 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Risk Metrics and Measurement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Risk Strategy and Transformation</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>SME Banking</fullName>
             <default>false</default>
         </values>
@@ -1007,18 +1062,6 @@
         </values>
         <values>
             <fullName>Servicing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Small Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Small Business Lighthouse</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Specialist Industries</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1035,6 +1078,10 @@
         </values>
         <values>
             <fullName>Wealth - ANZLMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wholesale Digital</fullName>
             <default>false</default>
         </values>
     </picklistValues>
