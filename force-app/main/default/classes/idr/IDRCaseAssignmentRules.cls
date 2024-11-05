@@ -28,8 +28,6 @@ public with sharing class IDRCaseAssignmentRules {
     '9'
   };
 
-  private static Set<String> hardshipTypes = new Set<String>{ '4', '17' };
-
   /**
    * @description method to call the Case assignment rules
    * @param cases Records in the current context
@@ -70,6 +68,7 @@ public with sharing class IDRCaseAssignmentRules {
       }
       if (
         oldCase == null ||
+        oldCase.Product__c != c.Product__c ||
         IDRCaseActions.isANZPlusComplaintConvertedToIDR(oldCase, c)
       ) {
         c.IDR_Product_Family__c = QueryProducts.getById(c.Product__c)
@@ -154,11 +153,15 @@ public with sharing class IDRCaseAssignmentRules {
     }
 
     // Hardship
-    if (hardshipTypes.contains(rec.Type)) {
+    if (rec.Type == '4') {
       if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
         return QueryQueue.get('EDR_Hardship').Id;
       }
       return QueryQueue.get('IDR_Hardship').Id;
+    }
+    //Collections
+    if (rec.Type == '17') {
+      return QueryQueue.get('IDR_Collections').Id;
     }
     //Inappropriate lending/maladministration
     if (
