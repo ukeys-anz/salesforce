@@ -76,8 +76,6 @@
     </layoutSections>
     <relatedLists>
         <fields>Facility__c</fields>
-        <fields>ExternalId</fields>
-        <fields>Sequence__c</fields>
         <fields>Product_Name__c</fields>
         <fields>Amount__c</fields>
         <fields>Expiry_Date__c</fields>
