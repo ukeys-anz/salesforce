@@ -432,7 +432,7 @@ public without sharing class IDRTaskActions {
     for (CaseMilestone cm : cmsToUpdate) {
       cm.CompletionDate = System.now();
     }
-    DML_REPOSITORY.doUpdate(cmsToUpdate);
+    DML_REPOSITORY.doUpdate(cmsToUpdate,new DmlConfig().systemMode());
   }
 
   /**
