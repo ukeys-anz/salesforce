@@ -297,7 +297,11 @@ public with sharing class IDRTaskActions2 {
       caseIds,
       subject
     );
-    return new Map<Id, Task>(existingTasksOnCase);
+    Map<Id,Task> existingTaskMap = new Map<Id,Task>();
+    for(Task record : existingTasksOnCase){
+      existingTaskMap.put(record.WhatId, record);
+    }
+    return existingTaskMap;
   }
   /**
    * @description method to get existing SI Tasks on a case record
@@ -334,13 +338,13 @@ public with sharing class IDRTaskActions2 {
     Map<Id, Task> siCaseTasks
   ) {
     if (
-      record.IDR_Is_Common__c == 'No' ||
-      !FeatureManagement.checkPermission(IDR_LEVEL_1) ||
-      !record.IsClosed
+      !FeatureManagement.checkPermission(IDR_LEVEL_1)
     ) {
       return false;
     }
     if (
+      record.IsClosed &&
+      record.IDR_Is_Common__c == 'Yes' &&
       (oldRec == null ||
       (oldRec.Status != record.Status &&
       (!(siCaseTasks.containsKey(record.Id)))) ||
