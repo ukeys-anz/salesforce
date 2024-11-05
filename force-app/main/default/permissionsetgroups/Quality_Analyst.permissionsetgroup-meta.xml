@@ -37,6 +37,7 @@
     <permissionSets>OCV_Flags_Read_Only</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>
+    <permissionSets>PersonDigitalEntityReadOnly</permissionSets>
     <permissionSets>Product_Read_Only</permissionSets>
     <permissionSets>Quality_Assessment_Read_Write</permissionSets>
     <permissionSets>Quality_Workbench</permissionSets>
