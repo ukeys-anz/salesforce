@@ -25,10 +25,7 @@ private class PortfolioOfLoanExternalQueryTest {
     String accId = (String) Lib_FakeIdGenerator.getMockId(
       Account.getSobjectType()
     );
-    faRepoMock.mock(
-      'getCustomerUsingExternalIdAndRtName',
-      new List<Account>()
-    );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
 
     FinServ__FinancialAccountRole__c mockFar = new FinServ__FinancialAccountRole__c(
       FinServ__Active__c = true,
