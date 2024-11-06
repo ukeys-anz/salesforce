@@ -90,8 +90,6 @@ public with sharing class CCRMConstants {
   public static final String APPLICATION_FORM_PRODUCT = 'ApplicationFormProduct';
 
   public static final String NO_AVAILABLE_BALANCE = 'No available balance';
-  public static final String ACC_ORG = 'FinServ__CustomerType__c';
-  public static final String ACC_ORG_LABEL = 'Organisation Type';
   public static final String ERROR_RESPONSE = 'Unexpected error';
   public static final String SUCCESS_RESPONSE = 'Success';
   public static final string CUSTOMER_REGISTRATION_NUMBER = 'Customer Registration Number';

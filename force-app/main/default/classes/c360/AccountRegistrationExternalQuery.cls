@@ -133,8 +133,7 @@ public with sharing class AccountRegistrationExternalQuery extends ExternalObjec
       Map<String, Object> row = new Map<String, Object>{
         'tokenizedRegistrationNo' => crnDetails.tokenizedRegistrationNo,
         'registrationType' => crnDetails.registrationType,
-        'registrationStatus' => mapOfStatus?.get(statusValue)
-        ?? statusValue,
+        'registrationStatus' => mapOfStatus?.get(statusValue) ?? statusValue,
         'customerPreferredName' => crnDetails.customerPreferredName,
         'crnLast4Digits' => getMaskedRegistrationNumber(
           crnDetails.registrationType,

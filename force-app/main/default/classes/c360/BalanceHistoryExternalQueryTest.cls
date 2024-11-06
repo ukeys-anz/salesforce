@@ -73,10 +73,7 @@ public class BalanceHistoryExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
-    faRepoMock.mock(
-      'getCustomerUsingExternalIdAndRtName',
-      new List<Account>()
-    );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     BalanceHistoryExternalQuery balHistoryQry = new BalanceHistoryExternalQuery();
     ExternalObjectQueryBase.ExternalQueryResult result = balHistoryQry.execute(
       context

@@ -78,7 +78,7 @@ public with sharing class IndemnityGuaranteeExternalQuery extends FinancialAccou
     //Pass pagination token
     result.queryMoreToken = ((IndemnityGuaranteeCalloutResponse) this.calloutResponse)
       .nextPageId;
-      
+
     FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     for (IndemnityGuaranteeModel fa : accounts) {
       Map<String, Object> row = new Map<String, Object>{
