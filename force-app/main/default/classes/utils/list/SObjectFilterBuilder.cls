@@ -69,11 +69,14 @@ public class SObjectFilterBuilder {
    * @param field The field to filter on.
    * @param subString The value to filter for.
    * @return The updated SObjectFilterBuilder instance.
- */
-public SObjectFilterBuilder notContains(SObjectField field, String subString) {
-  base.notContains(field.toString(), subString);
-  return this;
-}
+   */
+  public SObjectFilterBuilder notContains(
+    SObjectField field,
+    String subString
+  ) {
+    base.notContains(field.toString(), subString);
+    return this;
+  }
 
   /**
    * @description Filter records with specified field changed.

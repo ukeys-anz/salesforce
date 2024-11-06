@@ -58,7 +58,8 @@ const salesforceSecretNames = {
   "epic/complaint": "sf-platform-np-complaint",
   "epic/go4bmain": "sf-platform-np-go4bmain",
   "epic/transcript": "sf-platform-np-transcript",
-  "epic/sopineligible": "sf-platform-np-ineligible"
+  "epic/sopineligible": "sf-platform-np-ineligible",
+  "epic/viewoffset": "sf-platform-np-viewoffset"
 };
 
 const brokerSecretNames = {

@@ -268,6 +268,7 @@
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
+    "PrivateKeyStorage__c": "To store the private key from GCP in a secure way, so that even a system admin should not be able to access this information.",
     "Privileged_Access_Request__c": "Holds vital information related to user Access Requests which will be used to automatically grant/revoke privileged access from users",
     "Product_Preference__c": "High level generalised information relating to a group of applicants",
     "Product2": "ANZ or ANZx product",
@@ -1351,7 +1352,9 @@
         "IAL_Status__c",
         "Context_Id__c",
         "Context_Type__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Credit_Assessment_Expiry_Date__c",
+        "Has_Credit_Assessment_Expired__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1655,6 +1658,7 @@
         "Email",
         "Fax",
         "Name",
+        "Name__c",
         "FinServ__MaritalStatus__c",
         "Gender__c",
         "Is_Preferred_Contact__c",
@@ -2262,29 +2266,6 @@
         "Status_Event_ID__c",
         "Status_Timestamp__c",
         "Status_Timestamp_With_Millisec_Gmt__c"
-      ]
-    },
-    "Feature__c": {
-      "IA-2415860": [
-        "Account_Number__c",
-        "Open_Date__c",
-        "Closed_Date__c",
-        "Account_Key__c",
-        "Product_Type__c",
-        "Marketing_Code__c",
-        "OCV_Feature_Version__c",
-        "Force_Update__c"
-      ]
-    },
-    "FA_Feature_Relationship__c": {
-      "IA-2415860": [
-        "Feature__c",
-        "Financial_Account__c",
-        "Relationship_Status__c",
-        "Start_Date__c",
-        "End_Date__c",
-        "Relationship_Key__c",
-        "Financial_Account_Product__c"
       ]
     },
     "Financial_Summary_Calculation__e": {
@@ -2965,7 +2946,9 @@
         "Eligibility_Accepted__c",
         "Applicant_Type__c",
         "Privacy_Version_Accepted__c",
-        "Application_Status__c"
+        "Application_Status__c",
+        "Loan_Purpose__c",
+        "Expiry_Date__c"
       ],
       "IA-2530753": [
         "CreatedDate",
@@ -3481,6 +3464,17 @@
         "LastModifiedDate"
       ]
     },
+    "PrivateKeyStorage__c": {
+      "IA-2530753": ["Name"],
+      "IA-2468704": ["Private_Key__c", "Public_Key_Id__c"],
+      "IA-2415860": [
+        "Id",
+        "CreatedById",
+        "CreatedDate",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ]
+    },
     "Product_Preference__c": {
       "IA-2415983": [
         "Final_Amount__c",
@@ -3986,6 +3980,8 @@
         "Status",
         "Credit_Reassess_Required__c",
         "Loan_Term__c",
+        "Other_Cancellation_Reason__c",
+        "Cancellation_Reason__c",
         "InterestRate"
       ],
       "IA-2415997": ["SOP_Id__c"],
@@ -4853,12 +4849,15 @@
         "Product_Code__c",
         "Purpose_Code__c",
         "Sub_Product_Code__c",
-        "TPMI__c",
         "Undrawn_Balance__c",
         "Date_Opened__c",
-        "SAO__c",
-        "Relationship__c"
-      ]
+        "Relationship__c",
+        "Branch__c",
+        "Product_Name__c",
+        "Source_System_Status__c",
+        "TPMI_SAO__c"
+      ],
+      "IA-2415984": ["Statement_Mailing_Address__c"]
     },
     "Account_Relationship__x": {
       "IA-2415720": [

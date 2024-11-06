@@ -6,7 +6,7 @@
     <description>CCR</description>
     <externalDeveloperName>CCR</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>false</isSortingDisabled>
     <label>CCR</label>

@@ -1,0 +1,186 @@
+name: Generate Object Changes
+
+on:
+  workflow_dispatch:
+  workflow_call:
+
+permissions:
+  contents: "read"
+  id-token: "write"
+
+env:
+  BUCKET_NAME: sfdatasync-v3-bucket-sit
+
+jobs:
+  generate_object_changes:
+    if: ${{ github.event_name == 'workflow_dispatch'|| github.event_name == 'push' }}
+    outputs:
+      CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
+    runs-on: [anzx-default]
+    steps:
+      - uses: actions/setup-node@v2.1.5
+        if: github.ref == 'refs/heads/develop'
+        with:
+          node-version: "18"
+
+      - name: Checkout salesforce repo
+        uses: actions/checkout@v2
+        if: github.ref == 'refs/heads/develop'
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Checkout doc gen plugin
+        uses: actions/checkout@v2
+        if: github.ref == 'refs/heads/develop'
+        with:
+          repository: anzx/salesforce-doc-gen
+          token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
+          path: plugin
+          ref: a513b5ddf30ccdddaa39b1293ae930cdce6c7698
+          # this is a particular commit on master. Change this when a new plugin version is required for doc:fieldsaccessdiff
+
+      - name: Install npm packages
+        if: github.ref == 'refs/heads/develop'
+        run: |
+          mv ci.npmrc .npmrc
+          npm ci -f
+
+      - name: Install yarn
+        working-directory: plugin
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: |
+          npm install --global yarn --registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
+          yarn config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
+          yarn --version
+
+      - name: Install plugin
+        working-directory: plugin
+        if: github.ref == 'refs/heads/develop'
+        shell: bash
+        run: |
+          mv ci.yarnrc .yarnrc
+          rm -rf node_modules && yarn install --frozen-lockfile
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        if: github.ref == 'refs/heads/develop'
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: SFDXURL
+        id: secrets
+        if: github.ref == 'refs/heads/develop'
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            sfdxurl:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-test/versions/latest
+            artifactory_token:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Authenticate all orgs in SFDX CLI
+        if: github.ref == 'refs/heads/develop'
+        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}" --sfdx-url-file=/dev/stdin
+
+      - name: Get objects changes with fieldsaccessdiff
+        if: github.ref == 'refs/heads/develop'
+        id: get-changed-objects
+        shell: bash
+        run: |
+          sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
+          for object in $sfdatasync_object_list; do
+            echo "running fieldsaccessdiff on sfdatasync user for $object..."
+            if  ! ./plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
+                  -f sfdatasync_user_output -u tech.gcb@anzx.com.test24; then
+                errors+=("$object for user sfdatasync.user@anzx.com.test24")
+            fi
+          done
+
+          if [ ${#errors[@]} -ne 0 ]; then
+            echo "Errors occurred with the following objects:"
+            for err in "${errors[@]}"; do
+                echo "$err"
+            done
+            exit 1 # Exit with a non-zero status
+          fi
+
+      # Upload failure to artifactory
+      - name: Push failure changes to artifactory
+        if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        id: push-failure-to-artifactory
+        shell: bash
+        run: |
+          # zip the files
+          mkdir output && mv sfdatasync_user_output/fieldsaccessdiff/* output/
+          ARTIFACT_NAME="sf_objects_failure_diff_develop_$(git rev-parse --verify HEAD)"
+          echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
+
+          zip -r $ARTIFACT_NAME output && ls -la
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
+
+      - name: "Set up Cloud SDK"
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        uses: "anzx/github-reusable-actions/setup-gcloud@main"
+        with:
+          install_components: "core"
+
+      - name: Pull current changes from GCS SIT
+        if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        id: pull-from-gcs
+        shell: bash
+        run: |
+          mkdir gcs_bucket
+          object_array=($(find sfdatasync_user_output/fieldsaccessdiff/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+          for object in "${object_array[@]}"; do
+            if ! output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1); then
+              if echo "$output" | grep -q "No URLs matched"; then
+                echo "$output"
+                echo "No files or folders matched, but continuing without error."
+              else
+                echo "An error occurred during gsutil copy."
+                echo "$output"
+                exit 1
+              fi
+            else
+              echo "$output"
+            fi
+          done
+          ls -la gcs_bucket
+
+      - name: Run diff
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        id: run-diff
+        shell: bash
+        run: |
+          sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_gcs_object_fields="gcs_bucket"
+
+          CHANGES_DETECTED=FALSE
+          diff_output=$(diff -qr "$sfdatasync_sha_object_fields" "$sfdatasync_gcs_object_fields" || true)
+          status=$?
+          echo $diff_output
+          if [ $status -eq 2 ]; then
+            echo "An error occurred while comparing directories."
+            exit 2
+          elif [ -n "$diff_output" ]; then
+              echo "Changes found between $sfdatasync_sha_object_fields and $sfdatasync_gcs_object_fields..."
+              CHANGES_DETECTED=TRUE
+          else
+              echo "No changes found for sfdatasync user. Moving on..."
+          fi
+          echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
+          cat $GITHUB_OUTPUT
+
+      # Upload success to artifactory
+      - name: Push success changes to artifactory
+        if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' }}
+        id: push-success-to-artifactory
+        shell: bash
+        run: |
+          # zip the files
+          mkdir output && mv sfdatasync_user_output/fieldsaccessdiff/* output/
+          ARTIFACT_NAME="sf_objects_success_diff_develop_$(git rev-parse --verify HEAD)"
+
+          zip -r $ARTIFACT_NAME output && ls -la
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"

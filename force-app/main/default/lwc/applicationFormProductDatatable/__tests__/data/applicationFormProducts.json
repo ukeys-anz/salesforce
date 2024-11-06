@@ -1,0 +1,38 @@
+[
+  {
+    "id": "13Z9p000000Af3VEAS",
+    "name": "AFP-00000048",
+    "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af3VEAS/view",
+    "productId": "01t9p000005Z6NpAAK",
+    "productName": "ANZ Test Product",
+    "productUrl": "/lightning/r/Product/01t9p000005Z6NpAAK/view",
+    "stage": "Solution Development"
+  },
+  {
+    "id": "13Z9p000000Af4VEAS",
+    "name": "AFP-00000049",
+    "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af4VEAS/view",
+    "productId": "01t9p000005Z6NpbAK",
+    "productName": "Beta Test Product",
+    "productUrl": "/lightning/r/Product/01t9p000005Z6NpbAK/view",
+    "stage": "Design Phase"
+  },
+  {
+    "id": "13Z9p000000Af5VEAS",
+    "name": "AFP-00000050",
+    "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af5VEAS/view",
+    "productId": "01t9p000005Z6NqcAK",
+    "productName": "Gamma Test Product",
+    "productUrl": "/lightning/r/Product/01t9p000005Z6NqcAK/view",
+    "stage": "Development"
+  },
+  {
+    "id": "13Z9p000000Af6VEAS",
+    "name": "AFP-00000051",
+    "nameUrl": "/lightning/r/ApplicationFormProduct/13Z9p000000Af6VEAS/view",
+    "productId": "01t9p000005Z6NrdAK",
+    "productName": "Delta Test Product",
+    "productUrl": "/lightning/r/Product/01t9p000005Z6NrdAK/view",
+    "stage": "Implementation"
+  }
+]

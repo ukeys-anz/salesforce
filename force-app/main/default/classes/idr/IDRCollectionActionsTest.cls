@@ -309,4 +309,57 @@ private with sharing class IDRCollectionActionsTest {
       'Collection tasks size should be as expected.'
     );
   }
+  @IsTest
+  static void testIsInValidAccount() {
+    Case csObj = new Case();
+    csObj.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    csObj.IDR_Account_Card_Policy_Number__c = '*****1111;******2222';
+    Case csObj2 = new Case();
+    csObj2.Id = csObj.Id;
+    csObj2.IDR_Account_Card_Policy_Number__c = '*****3333;******4444';
+    Case csObj3 = new Case();
+    csObj3.Id = csObj.Id;
+    csObj3.IDR_Account_Card_Policy_Number__c = '555555555;9999999999';
+    Test.startTest();
+    Boolean isValid = IDRCollectionActions.isInValidAccount(
+      csObj2,
+      csObj,
+      Case.IDR_Account_Card_Policy_Number__c
+    );
+    Boolean isInValid = IDRCollectionActions.isInValidAccount(
+      csObj3,
+      csObj,
+      Case.IDR_Account_Card_Policy_Number__c
+    );
+    Test.stopTest();
+    System.assertEquals(true, isValid, 'Account Policy number is InValid');
+    System.assertEquals(false, isInValid, 'Account Policy number is Valid');
+  }
+  @IsTest
+  static void testcheckForIssueTypesChanged() {
+    Case csObj = new Case();
+    csObj.Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    csObj.Type = 'Fraud';
+    csObj.IDR_Subsequent_Issue__c = '109';
+    Case csObj2 = new Case();
+    csObj2.Id = csObj.Id;
+    csObj2.Type = '17';
+    csObj2.IDR_Subsequent_Issue__c = '24';
+    Case csObj3 = new Case();
+    csObj3.Id = csObj.Id;
+    csObj3.Type = 'Fraud';
+    csObj3.IDR_Subsequent_Issue__c = '109';
+    Test.startTest();
+    Boolean isTypesChanged = IDRCollectionActions.checkForIssueTypesChanged(
+      csObj2,
+      csObj
+    );
+    Boolean isTypesNotChanged = IDRCollectionActions.checkForIssueTypesChanged(
+      csObj3,
+      csObj
+    );
+    Test.stopTest();
+    System.assertEquals(true, isTypesChanged, 'Issue Types Changed');
+    System.assertEquals(false, isTypesNotChanged, 'Issue Types not changed');
+  }
 }

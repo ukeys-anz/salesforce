@@ -9,7 +9,6 @@
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>CFaaS_View_Files</permissionSets>
     <permissionSets>Customer_Read_Only</permissionSets>
-    <permissionSets>FA_Feature_Read_Only</permissionSets>
     <permissionSets>Financial_Account_Read_Only</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>

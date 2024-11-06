@@ -55,11 +55,12 @@ const findAllFiles = (dir, files = []) => {
   return files;
 };
 
-const changeMetadata = (line, newCertificate) => {
+const changeMetadata = (line, newMetadata) => {
+  if (!line) return;
   const changeMetadataMapping = {};
   changeMetadataMapping[
     line.includes("<certificate>")
-  ] = `<certificate>${newCertificate}</certificate>`;
+  ] = `<certificate>${newMetadata}</certificate>`;
   changeMetadataMapping[
     line.includes("username") && !line.includes("consumerId")
   ] = `<username>consumerId</username>`;
@@ -73,20 +74,35 @@ const changeMetadata = (line, newCertificate) => {
   changeMetadataMapping[
     line.includes("jwtSigningCertificate") &&
       !line.includes("DummyCertificate_ToBechanged")
-  ] = `<jwtSigningCertificate>${newCertificate}</jwtSigningCertificate>`;
+  ] = `<jwtSigningCertificate>${newMetadata}</jwtSigningCertificate>`;
   changeMetadataMapping[
     (!line.includes(">") && !line.includes("</")) ||
       (line.includes("</callbackUrl>") && !line.includes("<callbackUrl>"))
   ] = "";
+  changeMetadataMapping[
+    line.includes("<url>https://anz--") &&
+      line.includes("omnistudio") &&
+      line.includes(".visual.force.com</url>") &&
+      !line.includes(
+        `<url>https://anz--${newMetadata}--omnistudio.sandbox.vf.force.com</url>`
+      )
+  ] = `<url>https://anz--${newMetadata}--omnistudio.sandbox.vf.force.com</url>`;
+  changeMetadataMapping[
+    line.includes("<url>https://anz") &&
+      line.includes(".lightning.force.com</url>") &&
+      !line.includes(
+        `<url>https://anz--${newMetadata}.sandbox.lightning.force.com</url>`
+      )
+  ] = `<url>https://anz--${newMetadata}.sandbox.lightning.force.com</url>`;
   return changeMetadataMapping["true"];
 };
 
-const updateMetadataOnComponent = (filePath, newCertificate) => {
+const updateMetadataOnComponent = (filePath, newMetadata) => {
   const lines = readFileLines(filePath);
   let flag = false;
   writeFileSync(filePath, "");
   for (let line of lines) {
-    const changedMetadata = changeMetadata(line, newCertificate);
+    const changedMetadata = changeMetadata(line, newMetadata);
     if (changedMetadata || changedMetadata === "") {
       line = changedMetadata;
       flag = true;
@@ -100,6 +116,10 @@ const deployFile = (path, username) => {
   runCommand(`
     sf project deploy start -o ${username} --source-dir "${path}" --ignore-conflicts
   `);
+};
+
+const deployFiles = (files, username) => {
+  files.forEach((f) => deployFile(f, username));
 };
 
 const removeCert = (files, username) => {
@@ -205,9 +225,15 @@ const licenceTypeValidation = (licenceType) => {
   }
 };
 
+const setAlias = (username, alias) =>
+  runCommand(`
+  sf alias set "${alias}" "${username}"
+`);
+
 export {
   findAllFiles,
   deployFile,
+  deployFiles,
   changeForceIgnoreFile,
   retrieveComponent,
   changeCertsOnFiles,
@@ -216,5 +242,7 @@ export {
   runCommand,
   nonProdChangeValidation,
   prodChangeValidation,
-  licenceTypeValidation
+  licenceTypeValidation,
+  updateMetadataOnComponent,
+  setAlias
 };

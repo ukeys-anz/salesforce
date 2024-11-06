@@ -1046,6 +1046,71 @@ public with sharing class AutoKYCQACaseActionsTest {
     Assert.isFalse(result, 'Should be false if case was downgraded');
   }
 
+  @IsTest
+  static void testSetCheckFields() {
+    Case record = new Case(
+      Id = caseId,
+      Fraud_MiddleNameCheck__c = AutoKYCQACaseActions.NO
+    );
+
+    Test.startTest();
+    AutoKYCQACaseActions.setCheckFields(new List<Case>{ record });
+    Test.stopTest();
+
+    //The check field initially set to NO should not be updated
+    Assert.areEqual(
+      AutoKYCQACaseActions.NO,
+      record.Fraud_MiddleNameCheck__c,
+      'The Fraud_MiddleNameCheck__c should remained ' + AutoKYCQACaseActions.NO
+    );
+
+    //All other empty check fields should be updated with YES
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_Customer_Details__c,
+      'The Fraud_Customer_Details__c should be set to ' +
+      AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_Selfie_Comparison_Match__c,
+      'The Fraud_Selfie_Comparison_Match__c should be set to ' +
+      AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_PO_Box__c,
+      'The Fraud_PO_Box__c should be set to ' + AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_Address_Valid__c,
+      'The Fraud_Address_Valid__c should be set to ' + AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_ID_Legible__c,
+      'The Fraud_ID_Legible__c should be set to ' + AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_Customer_Photo_Modified__c,
+      'The Fraud_Customer_Photo_Modified__c should be set to ' +
+      AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_ID_Not_Picture__c,
+      'The Fraud_ID_Not_Picture__c should be set to ' + AutoKYCQACaseActions.YES
+    );
+    Assert.areEqual(
+      AutoKYCQACaseActions.YES,
+      record.Fraud_Security_Features__c,
+      'The Fraud_Security_Features__c should be set to ' +
+      AutoKYCQACaseActions.YES
+    );
+  }
+
   //#region validateOwnerChange
   @IsTest
   static void testValidateOwnerChange() {

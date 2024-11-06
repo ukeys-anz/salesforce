@@ -479,7 +479,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,PayTo,Customer Feedback,BPAY,Profile Update</value>
+            <value>ATM,Card,Direct Debit,Direct Debit,Direct Entry,ID Ops Assistance,Fraud Check,General Enquiry,KYC QA,NPP,PayTo,Customer Feedback,BPAY,Profile Update,Fraud,Scam,Recipient/Mule,Identity,False Customer Profile</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
