@@ -8,4 +8,5 @@ trigger CaseTrigger on Case(
   CaseTriggerHandler handler = new CaseTriggerHandler();
   COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
+  DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
 }
