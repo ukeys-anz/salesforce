@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<FieldSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>DCRMMailingFields</fullName>
+    <description>Used in apex class &quot;CCRMCustomerProfileUpdateConfig&quot;</description>
+    <displayedFields>
+        <field>Mailing_Title_1__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
+        <field>Mailing_Title_2__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <label>DCRMMailingFields</label>
+</FieldSet>
