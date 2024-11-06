@@ -419,7 +419,6 @@
             <value>
                 <fullName>Other</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
                 <label>Other</label>
             </value>
             <value>
