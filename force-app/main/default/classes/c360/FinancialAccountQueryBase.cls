@@ -349,9 +349,9 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     for (FinServ__FinancialAccountRole__c faRole : faRoles) {
       this.accountNumberList.add(
         faRole.FinServ__FinancialAccount__r.Product_Type__c.right(3)
-          .remove(':') +
-        '-' +
-        faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+            .remove(':') +
+          '-' +
+          faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
       );
       result.put(
         faRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,

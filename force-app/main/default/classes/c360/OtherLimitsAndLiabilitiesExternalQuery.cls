@@ -109,7 +109,8 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
         'CPID' => fa.controllingPostId,
         'Limit' => fa.accountLimit,
         'Account_Name' => fa.accountName,
-        'Industry' => industryCodeAndNameMap.get(fa.anzsicCode) ?? fa.anzsicCode,
+        'Industry' => industryCodeAndNameMap.get(fa.anzsicCode) ??
+          fa.anzsicCode,
         'CCR' => fa.customerCreditRating,
         'Date_Closed' => formatDate(fa.inactiveDate),
         'Product_Code' => fa.productCode,
