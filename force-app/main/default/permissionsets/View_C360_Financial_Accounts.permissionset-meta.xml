@@ -612,6 +612,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Asset_Finance_ELS__x.Product_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Asset_Finance_ELS__x.Loan_Term_Months__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Asset_Finance_ELS__x.Total_Number_Of_Repayments__c</field>
         <readable>true</readable>
     </fieldPermissions>
