@@ -237,9 +237,8 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'OverdraftMargin' => fa.tempODMargin,
         'OverdraftInterestRate' => fa.tempODInterestRate,
         'OverdraftLimitInterestRepaymentFrequency' => mapOfCycleCode.get(
-            fa.tempODInterestRepaymentFrequency
-          )
-          ?? fa.tempODInterestRepaymentFrequency,
+          fa.tempODInterestRepaymentFrequency
+        ) ?? fa.tempODInterestRepaymentFrequency,
         'OverdraftExpiryDate' => formatDate(fa.expiryDate),
         'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures),
         'StopPayNumber' => fa.restrainsStopPayNumber,
@@ -262,9 +261,8 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'StatementMailingAddress' => fa.address,
         'CCR' => fa.creditRiskGrade,
         'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
-            fa.sourceSystemStatus
-          )
-          ?? fa.sourceSystemStatus,
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'Date_Closed' => formatDate(fa.closeDate),
         'ExpiryDate' => formatDate(fa.limitExpiryDate)
       };

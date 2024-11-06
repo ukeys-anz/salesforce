@@ -32,7 +32,7 @@ private class MerchantFacilityExternalQueryTest {
       'Number mismatch'
     );
   }
-    
+
   @isTest
   static void testParseResponse() {
     Test.startTest();
@@ -51,9 +51,12 @@ private class MerchantFacilityExternalQueryTest {
     MerchantFacilityExternalQuery accounytExternalQuery = new MerchantFacilityExternalQuery();
     accounytExternalQuery.parseResponse(responseBody);
     Test.stopTest();
-    Assert.isFalse(accounytExternalQuery.calloutResponse == null, 'Response is null');
-  }  
-    
+    Assert.isFalse(
+      accounytExternalQuery.calloutResponse == null,
+      'Response is null'
+    );
+  }
+
   /**
    * @description create Deposit Account Query Context and set mock response
    * @return queryContext
@@ -64,7 +67,7 @@ private class MerchantFacilityExternalQueryTest {
       'MerchantFacility'
     );
     return context;
-  }  
+  }
 
   /**
    * @description create HTTP mock response for testing
