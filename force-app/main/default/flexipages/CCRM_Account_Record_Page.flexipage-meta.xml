@@ -247,8 +247,18 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Mailing_Name__c</fieldItem>
-                <identifier>RecordMailing_Name_cField</identifier>
+                <fieldItem>Record.Mailing_Title_1__c</fieldItem>
+                <identifier>RecordMailing_Title_1_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Mailing_Title_2__c</fieldItem>
+                <identifier>RecordMailing_Title_2_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
