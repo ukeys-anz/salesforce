@@ -36,7 +36,7 @@ private class LaunchAppOnOppControllerTest {
       oppId
     );
     Test.stopTest();
-    Assert.isFalse(oliList == null, 'No records are created');
+    Assert.isNotNull(oliList, 'No records are created');
   }
 
   @isTest
@@ -45,6 +45,17 @@ private class LaunchAppOnOppControllerTest {
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
     Id recordTypeId = QueryRT.of(ApplicationForm.SObjectType).getId('AMBIT');
+    OpportunityLineItem oli = new OpportunityLineItem(
+      Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
+      Product2Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType),
+      UnitPrice = 20,
+      Funding_purpose__c = 'Property Purchase or Construction',
+      Product2 = new Product2(Name = 'Test')
+    );
+    launchAppRepoMock.mock(
+      'getOpportunityLineItemsRelatedToOppAndProduct',
+      new List<OpportunityLineItem>{ oli }
+    );
     dmlRepoMock.mock(
       'doInsert',
       new List<Database.SaveResult>{

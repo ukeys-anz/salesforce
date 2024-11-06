@@ -44,13 +44,21 @@ public with sharing class LaunchAppOnOppController {
     Id recordTypeId
   ) {
     try {
+      Set<Id> productIdsSet = new Set<Id>(productIds);
       Id applicationFormId = LaunchAppOnOppHelper.createApplicationForm(
         oppId,
         recordTypeId
       );
+      List<OpportunityLineItem> items = APP_REPOSITORY.getOpportunityLineItemsRelatedToOppAndProduct(
+        oppId,
+        productIdsSet
+      );
+      Map<Id, Decimal> productAmountMap = LaunchAppOnOppHelper.createProductAmountMap(
+        items
+      );
       List<Id> appFormProductIds = LaunchAppOnOppHelper.createApplicationFormProduct(
         applicationFormId,
-        productIds
+        productAmountMap
       );
       return appFormProductIds;
     } catch (Exception e) {

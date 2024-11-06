@@ -30,6 +30,22 @@ public with sharing class LaunchAppOnOppHelper {
   }
 
   /**
+   * @description create productId  amount map
+   * @name createProductAmountMap
+   * @param items opp line items
+   * @return Map<Id, Decimal> productIdToAmountMap
+   */
+  public static Map<Id, Decimal> createProductAmountMap(
+    List<OpportunityLineItem> items
+  ) {
+    Map<Id, Decimal> productIdToAmountMap = new Map<Id, Decimal>();
+    for (OpportunityLineItem item : items) {
+      productIdToAmountMap.put(item.Product2Id, item.UnitPrice);
+    }
+    return productIdToAmountMap;
+  }
+
+  /**
    * @description create application form
    * @name createApplicationForm
    * @param oppId opportunityId
@@ -43,35 +59,29 @@ public with sharing class LaunchAppOnOppHelper {
       RecordTypeId = recordTypeId
     );
 
-    List<Database.SaveResult> results = DML_REPOSITORY.doInsert(
-      new List<ApplicationForm>{ appForm }
-    );
-    for (Database.SaveResult sr : results) {
-      if (sr.isSuccess()) {
-        return sr.getId();
-      }
-    }
-    return null;
+    DML_REPOSITORY.doInsert(new List<ApplicationForm>{ appForm });
+    return appForm.Id;
   }
 
   /**
    * @description create application form products
    * @name createApplicationFormProduct
    * @param appFormId appFormId
-   * @param productIds list of product Ids
+   * @param productAmountMap productIdAmountMap
    * @return Id app form product Id
    */
   public static List<Id> createApplicationFormProduct(
     Id appFormId,
-    List<Id> productIds
+    Map<Id, Decimal> productAmountMap
   ) {
     List<Id> appFormProductIds = new List<Id>();
     List<ApplicationFormProduct> appFormProducts = new List<ApplicationFormProduct>();
-    for (Id productId : productIds) {
+    for (Id productId : productAmountMap.keySet()) {
       ApplicationFormProduct appFormProduct = new ApplicationFormProduct(
         ApplicationFormId = appFormId,
         ProductId = productId,
-        Stage = CCRMConstants.OPP_IDENTIFIED
+        Stage = CCRMConstants.OPP_IDENTIFIED,
+        Amount__c = productAmountMap.get(productId)
       );
       appFormProducts.add(appFormProduct);
     }
