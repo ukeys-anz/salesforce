@@ -111,7 +111,7 @@
         <relatedList>Asset__x.Asset_Finance_AMBIT__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Sequence__c</fields>
         <fields>Customer__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>Account_Relationship__x.Asset_Finance_AMBIT__c</relatedList>
