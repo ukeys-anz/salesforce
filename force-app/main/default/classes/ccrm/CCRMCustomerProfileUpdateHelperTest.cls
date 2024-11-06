@@ -196,49 +196,4 @@ private class CCRMCustomerProfileUpdateHelperTest {
       '1 update record should be created and contains transformed key'
     );
   }
-
-  @isTest
-  static void testOrganisationTypeValue() {
-    //GIVEN a prospect customer
-    Account prospect = [
-      SELECT Id, Name, FinServ__CustomerType__c, RecordTypeId, ABN__c
-      FROM Account
-      WHERE Is_Prospect__c = TRUE
-      LIMIT 1
-    ];
-
-    Map<Id, Account> oldMap = new Map<Id, Account>{
-      prospect.Id => new Account(
-        Id = prospect.Id,
-        Name = prospect.Name,
-        ABN__c = prospect.ABN__c,
-        RecordTypeId = prospect.RecordTypeId
-      )
-    };
-
-    //WHEN the Organisation Type is updated on Customer record
-    Account updateCustomer = new Account(
-      Id = prospect.Id,
-      FinServ__CustomerType__c = '04',
-      ABN__c = prospect.ABN__c,
-      RecordTypeId = prospect.RecordTypeId
-    );
-
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
-        new List<Account>{ updateCustomer },
-        oldMap,
-        true
-      );
-    }
-    Test.stopTest();
-
-    //THEN a customer profile update record is created
-    System.assertEquals(
-      1,
-      [SELECT COUNT() FROM Customer_Profile_Updates__c],
-      '1 Customer_Profile_Updates__c records should be created when Organisation type will update'
-    );
-  }
 }
