@@ -239,6 +239,11 @@
                 <label>Deposits Tribe</label>
             </value>
             <value>
+                <fullName>Digital Asset Services</fullName>
+                <default>false</default>
+                <label>Digital Asset Services</label>
+            </value>
+            <value>
                 <fullName>Digital Origination and Innovation</fullName>
                 <default>false</default>
                 <label>Digital Origination and Innovation</label>
@@ -257,6 +262,11 @@
                 <fullName>Digital Sales Experience Tribe</fullName>
                 <default>false</default>
                 <label>Digital Sales Experience Tribe</label>
+            </value>
+            <value>
+                <fullName>Diversified and Specialist Industries</fullName>
+                <default>false</default>
+                <label>Diversified and Specialist Industries</label>
             </value>
             <value>
                 <fullName>Financial Crime Transformation</fullName>
@@ -279,6 +289,11 @@
                 <label>Financial Wellbeing Research and Design</label>
             </value>
             <value>
+                <fullName>Group Compliance</fullName>
+                <default>false</default>
+                <label>Group Compliance</label>
+            </value>
+            <value>
                 <fullName>Group Payments</fullName>
                 <default>false</default>
                 <label>Group Payments</label>
@@ -287,6 +302,16 @@
                 <fullName>Group Payments Tribe</fullName>
                 <default>false</default>
                 <label>Group Payments Tribe</label>
+            </value>
+            <value>
+                <fullName>Group Services</fullName>
+                <default>false</default>
+                <label>Group Services</label>
+            </value>
+            <value>
+                <fullName>Group Wholesale Credit</fullName>
+                <default>false</default>
+                <label>Group Wholesale Credit</label>
             </value>
             <value>
                 <fullName>Hardship and Vulnerable Customers</fullName>
@@ -329,6 +354,11 @@
                 <label>Lending Services</label>
             </value>
             <value>
+                <fullName>Markets Risk</fullName>
+                <default>false</default>
+                <label>Markets Risk</label>
+            </value>
+            <value>
                 <fullName>Migration</fullName>
                 <default>false</default>
                 <label>Migration</label>
@@ -367,6 +397,11 @@
                 <fullName>Payments &amp; Merchant Tribe</fullName>
                 <default>false</default>
                 <label>Payments &amp; Merchant Tribe</label>
+            </value>
+            <value>
+                <fullName>Payments Industry</fullName>
+                <default>false</default>
+                <label>Payments Industry</label>
             </value>
             <value>
                 <fullName>Personalisation &amp; Digital Sales</fullName>
@@ -452,6 +487,16 @@
                 <fullName>Risk, Portfolio &amp; Governance</fullName>
                 <default>false</default>
                 <label>Risk, Portfolio &amp; Governance</label>
+            </value>
+            <value>
+                <fullName>Risk Metrics and Measurement</fullName>
+                <default>false</default>
+                <label>Risk Metrics and Measurement</label>
+            </value>
+            <value>
+                <fullName>Risk Strategy and Transformation</fullName>
+                <default>false</default>
+                <label>Risk Strategy and Transformation</label>
             </value>
             <value>
                 <fullName>Self Service Adoption (SSA)</fullName>
@@ -547,6 +592,11 @@
                 <fullName>Wealth Tribe</fullName>
                 <default>false</default>
                 <label>Wealth Tribe</label>
+            </value>
+            <value>
+                <fullName>Wholesale Digital</fullName>
+                <default>false</default>
+                <label>Wholesale Digital</label>
             </value>
         </valueSetDefinition>
     </valueSet>
