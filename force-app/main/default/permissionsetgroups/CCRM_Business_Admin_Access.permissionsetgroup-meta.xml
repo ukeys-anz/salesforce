@@ -4,5 +4,6 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Business Admin Access</label>
     <permissionSets>CCRM_Business_Admin</permissionSets>
+    <permissionSets>force__OmniStudioExecution</permissionSets>
     <status>Updated</status>
 </PermissionSetGroup>

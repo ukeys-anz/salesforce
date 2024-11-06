@@ -155,7 +155,9 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
         'CreditLimit' => fa.accountLimit,
         'CashAdvanceRate' => fa.cashAdvanceRate,
         'InterestFreeDays' => fa.interestFreeDays,
-        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(fa.sourceSystemStatus) ?? fa.sourceSystemStatus,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'SubProductCode' => getSubProductCode(fa.accountNumber),
         'ProductName' => getProductName(fa.accountNumber),
         'BlockCode1' => blockCode1,

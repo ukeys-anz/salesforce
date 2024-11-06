@@ -27,7 +27,6 @@
     <filterScope>Everything</filterScope>
     <label>My Team&apos;s Opportunities</label>
     <sharedTo>
-        <role>SME_General_Manager</role>
         <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>
