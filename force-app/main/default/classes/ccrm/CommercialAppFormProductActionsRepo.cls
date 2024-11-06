@@ -10,7 +10,7 @@ public class CommercialAppFormProductActionsRepo {
    * @return List<ApplicationForm> app forms list
    */
   public List<ApplicationForm> getApplicationForms(Set<Id> appFormIds) {
-    if (appFormIds.isEmpty() || !PermissionUtils.canQuery('ApplicationForm')) {
+    if (appFormIds.isEmpty()) {
       return new List<ApplicationForm>();
     }
     return [
@@ -24,37 +24,8 @@ public class CommercialAppFormProductActionsRepo {
       WHERE
         Id IN :appFormIds
         AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
+      WITH USER_MODE
     ];
-  }
-
-  /**
-   * @description getCommercialAppFormsWithAggregatedAmount to get app forms records with total app amount
-   * @param oppIds opp Ids
-   * @return  List<Map<String, Object>> app forms list
-   */
-  public List<Map<String, Object>> getCommercialAppFormsWithAggregatedAmount(
-    Set<Id> oppIds
-  ) {
-    List<Map<String, Object>> result = new List<Map<String, Object>>();
-    if (oppIds.isEmpty() || !PermissionUtils.canQuery('ApplicationForm')) {
-      return result;
-    }
-
-    for (AggregateResult ar : [
-      SELECT
-        OpportunityId,
-        SUM(Application_Amount__c) Amount,
-        Opportunity.RecordTypeId
-      FROM ApplicationForm
-      WHERE
-        OpportunityId IN :oppIds
-        AND Opportunity.RecordTypeId = :RTOpportunity.commercialOpportunity
-        AND Application_Amount__c != NULL
-      GROUP BY OpportunityId, Opportunity.RecordTypeId
-    ]) {
-      result.add(ar.getPopulatedFieldsAsMap());
-    }
-    return result;
   }
 
   /**
@@ -67,11 +38,7 @@ public class CommercialAppFormProductActionsRepo {
     Set<Id> productIds,
     Set<Id> oppIds
   ) {
-    if (
-      productIds.isEmpty() ||
-      oppIds.isEmpty() ||
-      !PermissionUtils.canQuery('OpportunityLineItem')
-    ) {
+    if (productIds.isEmpty() || oppIds.isEmpty()) {
       return new List<OpportunityLineItem>();
     }
     return new List<OpportunityLineItem>(
@@ -79,6 +46,7 @@ public class CommercialAppFormProductActionsRepo {
         SELECT Id, Product2Id, OpportunityId, Expected_Settlement_Date__c
         FROM OpportunityLineItem
         WHERE Product2Id IN :productIds AND OpportunityId IN :oppIds
+        WITH USER_MODE
       ]
     );
   }
