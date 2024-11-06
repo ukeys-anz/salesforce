@@ -234,7 +234,7 @@
   &quot;previousWidth&quot; : &quot;0&quot;,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;validationRequired&quot; : true,
-  &quot;label&quot; : &quot;Resolution Pathways - Tone and Manner of response&quot;
+  &quot;label&quot; : &quot;Resolution Pathways - Tone or Manner of response&quot;
 }</propertySetConfig>
         <sequenceNumber>2.0</sequenceNumber>
         <type>Step</type>
@@ -423,7 +423,7 @@
         <name>Confirm</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;Resolution Pathways - Tone and Manner of response&quot;,
+  &quot;label&quot; : &quot;Resolution Pathways - Tone or Manner of response&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;previousWidth&quot; : &quot;0&quot;,
@@ -829,7 +829,7 @@
         <name>ProvideInformation</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;Resolution Pathways - Tone and Manner of response&quot;,
+  &quot;label&quot; : &quot;Resolution Pathways - Tone or Manner of response&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;previousWidth&quot; : &quot;0&quot;,
@@ -881,5 +881,5 @@
     <type>ResolutionPathwayTone</type>
     <uniqueName>ResolutionPathwayTone_ToneOrMannerOfResponse_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>ab94b68e-6cfe-0f2c-1c23-92429fc6f2b3</webComponentKey>
+    <webComponentKey>873ed09f-168d-0b85-70ef-9ad2fe002c6d</webComponentKey>
 </OmniScript>
