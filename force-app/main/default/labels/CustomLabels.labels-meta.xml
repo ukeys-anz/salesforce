@@ -362,11 +362,20 @@
         <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
     </labels>
     <labels>
-        <fullName>DowngradeUpgradeEnabled</fullName>
+        <fullName>CustomerRestraintEnabled</fullName>
+        <categories>Join</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DowngradeUpgradeEnabled</shortDescription>
+        <shortDescription>CustomerRestraintEnabled</shortDescription>
         <value>False</value>
+    </labels>
+    <labels>
+        <fullName>CustomerRestraintComment</fullName>
+        <categories>Join</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CustomerRestraintComment</shortDescription>
+        <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
@@ -2616,7 +2625,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Full_Card_Number</shortDescription>
-        <value>callout:SF_MS_CH2/detokenize/v1/detokenize/cards</value>
+        <value>callout:SF_MS_CH2/v1/detokenize/cards</value>
     </labels>
     <labels>
         <fullName>DAONImagePreviewURL</fullName>

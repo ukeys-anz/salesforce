@@ -57,6 +57,18 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
       (Map<Id, Case>) oldMap
     );
     AutoKYCQACaseActions.updateTestedDate(validCases);
+
+    if (Label.CustomerRestraintEnabled.equalsIgnoreCase('true')) {
+      AutoKYCQACaseActions.setRetraintStatus(
+        validCases,
+        (Map<Id, Case>) oldMap
+      );
+      AutoKYCQACaseActions.setUnrestraintStatus(
+        validCases,
+        (Map<Id, Case>) oldMap
+      );
+    }
+
     Logger.debug('On_Before_Update finished: ' + System.now());
     Logger.saveLog();
   }
@@ -67,10 +79,8 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     Logger.debug('On_After_Update started: ' + System.now());
-    if (System.Label.DowngradeUpgradeEnabled == 'True') {
-      AutoKYCQACaseActions.downgrade(records, (Map<Id, Case>) oldMap);
-      AutoKYCQACaseActions.upgrade(records, (Map<Id, Case>) oldMap);
-    }
+    AutoKYCQACaseActions.downgrade(records, (Map<Id, Case>) oldMap);
+    AutoKYCQACaseActions.upgrade(records, (Map<Id, Case>) oldMap);
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();
   }

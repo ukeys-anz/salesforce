@@ -188,7 +188,11 @@ export default class ViewCards extends LightningElement {
   };
 
   mapCardDetails = (cards) => {
-    let mappedCards = mapCardDetailsHandler(cards, userPermission);
+    let mappedCards = mapCardDetailsHandler(
+      cards,
+      userPermission,
+      this.isActiveCardSection
+    );
     mappedCards.forEach((c) => (c.image = cardImageHandler(cardImages, c)));
     return mappedCards;
   };

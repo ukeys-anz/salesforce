@@ -1224,32 +1224,6 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>adminFilters</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|New</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Pending</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Unspecified</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Declined</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Completed</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Cancelled</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Expired</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Application_Status__c|NOT_EQUAL|Ineligible</value>
-                        </valueListItems>
-                    </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>

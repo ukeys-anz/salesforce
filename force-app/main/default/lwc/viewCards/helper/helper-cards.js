@@ -23,14 +23,22 @@ const FRAUD_STATUSES = [
 ];
 
 // function to handle mapping controls, tempLock flag, Status & buttons on the cards & sort
-export function mapCardDetailsHandler(cards, userPermission) {
+export function mapCardDetailsHandler(
+  cards,
+  userPermission,
+  isActiveCardSection
+) {
   for (let i = 0; i < cards.length; i++) {
     cards[i] = mapTempLockOnACard(cards[i]);
     cards[i] = mapCardControls(cards[i]);
     cards[i] = mappingStatusOnACard(cards[i]);
   }
 
-  let mappedCards = createButtonsFromArray(cards, userPermission);
+  let mappedCards = createButtonsFromArray(
+    cards,
+    userPermission,
+    isActiveCardSection
+  );
 
   let sortedCards = sortCardsHandler(mappedCards);
 
