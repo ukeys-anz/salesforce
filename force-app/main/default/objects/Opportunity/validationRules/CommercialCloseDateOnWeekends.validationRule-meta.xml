@@ -7,6 +7,7 @@
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;Commercial_Opportunity&apos;,
 $User.Profile_Name__c = &apos;ANZ CCRM Standard User&apos;,
+NOT(ISNULL(CloseDate)),
 CASE(MOD(  CloseDate - DATE(1900, 1, 7), 7),
 0, 0,
 6, 0,
