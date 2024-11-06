@@ -4902,7 +4902,11 @@
         "Asset_Finance_AMBIT__c",
         "Credit_Card__c"
       ],
-      "IA-2530753": ["Customer__c", "Sequence__c"]
+      "IA-2530753": [
+        "Customer__c",
+        "Sequence__c",
+        "Other_Limits_and_Liabilities__c"
+      ]
     },
     "Balance_History__x": {
       "IA-2415720": [
@@ -5014,6 +5018,7 @@
         "Term_Deposit__c",
         "Loan_Account__c",
         "Additional_Information__c",
+        "Other_Limits_and_Liabilities__c",
         "Credit_Card__c"
       ]
     },
