@@ -234,8 +234,10 @@
     </relatedLists>
     <relatedLists>
         <fields>Account_Number__c</fields>
-        <fields>Account_Status__c</fields>
-        <fields>Limit__c</fields>
+        <fields>Product_Code__c</fields>
+        <fields>Account_Name__c</fields>
+        <fields>Limit__c</fields>
+        <fields>Account_Status__c</fields>
         <relatedList>Indemnity_Guarantee__x.Customer__c</relatedList>
         <sortField>Account_Number__c</sortField>
         <sortOrder>Asc</sortOrder>

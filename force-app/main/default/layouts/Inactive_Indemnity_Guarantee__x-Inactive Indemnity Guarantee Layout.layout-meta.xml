@@ -8,11 +8,11 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Amount__c</field>
+                <field>Serial_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Serial_Number__c</field>
+                <field>Amount__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -59,19 +59,20 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Per_Bank_G_tee_Fee_Amount__c</fields>
-        <fields>Per_Bank_G_tee_Fee_Frequency__c</fields>
-        <fields>Per_Bank_G_tee_Fee__c</fields>
-        <fields>Fee_Type__c</fields>
-        <fields>Next_Due_Date__c</fields>
-        <relatedList>Guarantee_Fee_Detail__x.Inactive_Indemnity_Guarantee__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Seq__c</fields>
         <fields>Name__c</fields>
         <fields>ABN__c</fields>
         <relatedList>Favourees__x.Inactive_Indemnity_Guarantee__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Seq__c</fields>
+        <fields>Fee_Type__c</fields>
+        <fields>Per_Bank_G_tee_Fee_Frequency__c</fields>
+        <fields>Per_Bank_G_tee_Fee__c</fields>
+        <fields>Per_Bank_G_tee_Fee_Amount__c</fields>
+        <fields>Next_Due_Date__c</fields>
+        <fields>Fee_Charge_Account__c</fields>
+        <relatedList>Guarantee_Fee_Detail__x.Inactive_Indemnity_Guarantee__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -79,7 +80,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9h000002Vg0D</masterLabel>
+        <masterLabel>00h9h000002cjSp</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -1342,6 +1342,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Indemnity_Guarantee__x.Expiry_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Linked_Account__x.Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
