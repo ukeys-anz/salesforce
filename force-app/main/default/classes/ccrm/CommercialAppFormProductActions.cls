@@ -7,6 +7,9 @@ public with sharing class CommercialAppFormProductActions {
   private static final CommercialAppFormProductActionsRepo AFP_REPOSITORY = (CommercialAppFormProductActionsRepo) Lib_InstanceProvider.forType(
     CommercialAppFormProductActionsRepo.class
   );
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
 
   /**
    * @description checkd stage of AFP on insert
@@ -63,18 +66,23 @@ public with sharing class CommercialAppFormProductActions {
     List<ApplicationFormProduct> records,
     Map<Id, ApplicationFormProduct> oldAppFormMap
   ) {
-    Set<Id> validAppFormRecordId = CommercialAppFormProductActionsHelper.fetchvalidRecordId(
-      records,
-      oldAppFormMap
-    );
-    List<ApplicationForm> filteredAppForms = AFP_REPOSITORY.getApplicationForms(
-      validAppFormRecordId
-    );
-    List<Opportunity> oppToUpdate = CommercialAppFormProductActionsHelper.setOpportunityCloseDateField(
-      filteredAppForms,
-      records
-    );
-    CommercialOpportunityHelper.processUpdate(oppToUpdate);
+    try {
+      Set<Id> validAppFormRecordId = CommercialAppFormProductActionsHelper.fetchvalidRecordId(
+        records,
+        oldAppFormMap
+      );
+      List<ApplicationForm> filteredAppForms = AFP_REPOSITORY.getApplicationForms(
+        validAppFormRecordId
+      );
+      List<Opportunity> oppToUpdate = CommercialAppFormProductActionsHelper.setOpportunityCloseDateField(
+        filteredAppForms,
+        records
+      );
+      DML.doUpdate(oppToUpdate);
+    } catch (Exception e) {
+      Logger.error('Error while setting fields on related opportunity', e)
+        .save();
+    }
   }
 
   /**
@@ -105,7 +113,9 @@ public with sharing class CommercialAppFormProductActions {
       );
       for (OpportunityLineItem oppLineItem : fetchOpportunityLineItems) {
         oppLineItemsMap.put(
-          oppLineItem.OpportunityId + '-' + oppLineItem.Product2Id,
+          oppLineItem.OpportunityId +
+          '-' +
+          oppLineItem.Product2Id,
           oppLineItem
         );
       }
