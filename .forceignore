@@ -173,6 +173,10 @@ force-app/main/default/omniIntegrationProcedures
 force-app/main/default/omniScripts
 force-app/main/default/omniUiCard
 
+#CC-11040 - Ignore Action launcher deployment
+force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti7woscmbp1i57jhu21mgn4.actionLauncherItemDef-meta.xml
+force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.deployment-meta.xml
+
 #AR-90796 - Uninstall mvision
 mdapi-source/packages/installedPackages/SkyhighNetworks.installedPackage-meta.xml
 
