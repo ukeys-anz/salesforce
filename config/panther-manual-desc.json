@@ -4682,8 +4682,10 @@
         "Sub_Product_Code__c",
         "CPID__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415999": ["Frequent_Flyer_Number__c"]
     },
+
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
     },
