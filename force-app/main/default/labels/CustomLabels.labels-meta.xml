@@ -2635,6 +2635,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
     </labels>
     <labels>
+        <fullName>CCRM_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/Insights/CustomerInsight</value>
+    </labels>
+    <labels>
         <fullName>BlockManualStatusUpdateIdOpsCase</fullName>
         <language>en_US</language>
         <protected>false</protected>

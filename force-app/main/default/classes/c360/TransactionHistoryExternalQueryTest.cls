@@ -6,6 +6,18 @@
  */
 @isTest
 private class TransactionHistoryExternalQueryTest {
+  @TestSetup
+  static void createTestData() {
+    Id customerRecordTypeId = Schema.SObjectType.Account.getRecordTypeInfosByDeveloperName()
+      .get('Business_Account')
+      .getRecordTypeId();
+    TestDataFactory.createBusinessRecordTypeAccount(
+      'CAP-CIS_4011643101',
+      customerRecordTypeId,
+      '4011643101'
+    );
+  }
+
   @isTest
   static void createTransactionHistoryTest() {
     Test.startTest();
@@ -28,13 +40,13 @@ private class TransactionHistoryExternalQueryTest {
       context
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       1,
       result.externalRecords.size(),
       'Size of accounts is not 1'
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
-    System.assertEquals(
+    Assert.areEqual(
       8867.81,
       firstRecord.get('RunningBalance'),
       'Running Balance mismatch'
@@ -43,7 +55,7 @@ private class TransactionHistoryExternalQueryTest {
 
   @isTest
   static void displayDummayFinancialAccountTest() {
-    system.assertEquals(
+    Assert.areEqual(
       true,
       TransactionHistoryExternalQuery.displayDummayFinancialAccount(
         'dummyVal',
@@ -51,7 +63,7 @@ private class TransactionHistoryExternalQueryTest {
       ),
       'displayDummayFinancialAccount is not returning correct result when parentId is empty'
     );
-    system.assertEquals(
+    Assert.areEqual(
       false,
       TransactionHistoryExternalQuery.displayDummayFinancialAccount(
         '',
@@ -63,17 +75,17 @@ private class TransactionHistoryExternalQueryTest {
 
   @isTest
   static void formatSourceTest() {
-    system.assertEquals(
+    Assert.areEqual(
       'Hello World New',
       TransactionHistoryExternalQuery.formatSource('hElLO_WoRlD_nEW'),
       'formatSource is not returning correct result with given string'
     );
-    system.assertEquals(
+    Assert.areEqual(
       '',
       TransactionHistoryExternalQuery.formatSource(null),
       'formatSource is not returning correct result when null string'
     );
-    system.assertEquals(
+    Assert.areEqual(
       '',
       TransactionHistoryExternalQuery.formatSource(''),
       'formatSource is not returning correct result when empty string'
@@ -83,7 +95,7 @@ private class TransactionHistoryExternalQueryTest {
   @isTest
   static void createDummyFinancialAccountsTest() {
     TransactionHistoryExternalQuery accQuery = new TransactionHistoryExternalQuery();
-    system.assertEquals(
+    Assert.areEqual(
       'DDA-929490053',
       accQuery.createDummyExternalRecord(
           'DDA-929490053-0-11-0001',

@@ -5,5 +5,5 @@
     <label>Core Banking Data Source</label>
     <principalType>Anonymous</principalType>
     <protocol>NoAuthentication</protocol>
-    <type>CCRMCoreBankingDataSourceProvider</type>
+    <type>CoreBankingDataSourceProvider</type>
 </ExternalDataSource>
