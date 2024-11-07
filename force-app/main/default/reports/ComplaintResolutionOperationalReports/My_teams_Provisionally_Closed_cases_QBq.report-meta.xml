@@ -35,10 +35,10 @@
         <field>Case.Case_Age_in_Days__c</field>
     </columns>
     <columns>
-        <field>PC_FIRST_NAME</field>
+        <field>Case.IDR_NC_First_Name__c</field>
     </columns>
     <columns>
-        <field>PC_LAST_NAME</field>
+        <field>Case.IDR_NC_Last_Name__c</field>
     </columns>
     <columns>
         <field>DESCRIPTION</field>
