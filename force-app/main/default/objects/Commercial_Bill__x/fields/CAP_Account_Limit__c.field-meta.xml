@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>CAP Account Limit($)</label>
+    <label>CAP Account Limit ($)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

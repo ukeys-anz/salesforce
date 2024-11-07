@@ -86,7 +86,9 @@ public with sharing class CommercialBillFeeExternalQuery extends FinancialAccoun
         this.parentField => this.parentId,
         'FeeName' => fee.name,
         'FeeAmount' => fee.amount,
-        'FeeFrequency' => feeFreqMap.get(fee.frequency) ?? fee.frequency,
+        'FeeFrequency' => feeFreqMap.containsKey(fee.frequency)
+          ? feeFreqMap.get(fee.frequency)
+          : fee.frequency,
         'FeeRate' => fee.rate,
         'Seq' => index
       };

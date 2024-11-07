@@ -20,7 +20,7 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
     public Integer loanTermMonths;
     public Decimal facilityAccountLimit;
     public Decimal capAccountLimit;
-    public String description;
+    public String productName;
     public string productCode;
     public string subProductCode;
     public string purpose;
@@ -72,15 +72,19 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
+    String customerId;
+
     if (calloutResponse == null) {
       return result;
     }
     List<CommercialBillModel> accounts = ((CommercialBillCalloutResponse) calloutResponse)
       .accounts;
     for (CommercialBillModel fa : accounts) {
+      customerId = getCustomerId(this.parentId, fa.compositeAccountNumber);
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => fa.compositeAccountNumber,
+        'AccountName' => getCustomerName(customerId),
         'DisplayUrl' => getDisplayUrl(fa.compositeAccountNumber),
         'AccountNumber' => fa.accountNumber,
         'AccountStatus' => fa.status,
@@ -92,7 +96,7 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
         'LoanTermMonths' => fa.loanTermMonths,
         'FacilityLimit' => fa.facilityAccountLimit,
         'CAPAccountLimit' => fa.capAccountLimit,
-        'ProductName' => fa.description,
+        'ProductName' => fa.productName,
         'ProductCode' => fa.productCode,
         'SubProductCode' => fa.subProductCode,
         'Purpose' => fa.purpose
@@ -100,5 +104,18 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
       result.externalRecords.add(row);
     }
     return result;
+  }
+
+  /**
+   * @description get the customer Id
+   * @param parentId of the customer
+   * @param compositeAccountNumber External id of account
+   * @return String Customer Id
+   */
+  @testVisible
+  private String getCustomerId(String parentId, String compositeAccountNumber) {
+    return String.isBlank(parentId)
+      ? compositeAccountNumber.substringBefore('-')
+      : parentId;
   }
 }

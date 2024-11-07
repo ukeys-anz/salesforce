@@ -92,6 +92,31 @@ private class CommercialBillExternalQueryTest {
       'Number mismatch'
     );
   }
+
+  @isTest
+  static void testGetCustomerIdAsExternalId() {
+    String parentId;
+    String compositeAccountNumber = '4017192605-OL72362139602';
+    String customerId;
+    CommercialBillExternalQuery query = new CommercialBillExternalQuery();
+    Test.startTest();
+    customerId = query.getCustomerId(parentId, compositeAccountNumber);
+    Test.stopTest();
+    Assert.areEqual('4017192605', customerId, 'Not able to fetch customerId');
+  }
+
+  @isTest
+  static void testGetCustomerIdAsParentId() {
+    String parentId = '72362139602';
+    String compositeAccountNumber = '4017192605-OL72362139602';
+    String customerId;
+    CommercialBillExternalQuery query = new CommercialBillExternalQuery();
+    Test.startTest();
+    customerId = query.getCustomerId(parentId, compositeAccountNumber);
+    Test.stopTest();
+    Assert.areEqual(parentId, customerId, 'Not able to fetch customerId');
+  }
+
   /**
    * @description Create commercial bill Repayment context for API
    * @name createCBRepaymentDetailContext

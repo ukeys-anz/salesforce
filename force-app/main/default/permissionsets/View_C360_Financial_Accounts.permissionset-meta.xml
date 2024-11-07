@@ -772,6 +772,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Commercial_Bill_Fee__x.Seq__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Commercial_Bill_Repayment_Detail__x.Commercial_Bill__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -792,7 +797,17 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Commercial_Bill_Repayment_Detail__x.Seq__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Commercial_Bill__x.Account_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Commercial_Bill__x.Account_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -843,6 +858,26 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Commercial_Bill__x.Sequence_No__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Commercial_Bill__x.Product_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Commercial_Bill__x.Product_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Commercial_Bill__x.Purpose__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Commercial_Bill__x.Sub_Product_Code__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
