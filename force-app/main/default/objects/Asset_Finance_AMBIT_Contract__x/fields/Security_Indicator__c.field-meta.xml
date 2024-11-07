@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Repayment_Account_Number__c</fullName>
+    <fullName>Security_Indicator__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
-    <description>Repayment Account Number</description>
-    <externalDeveloperName>RepaymentAccountNumber</externalDeveloperName>
+    <description>Security Indicator</description>
+    <externalDeveloperName>SI</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>true</isNameField>
+    <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Repayment Account Number</label>
+    <label>Security Indicator</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

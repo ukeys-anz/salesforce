@@ -8,22 +8,16 @@ public with sharing class AssetFinanceAMBITExternalQuery extends FinancialAccoun
   /**
    * @description wrapper class for response
    */
-  public class AssetFinanceAMBITModel extends FinancialAccountModelBase {
-    public String contractNumber;
+  @testVisible
+  private class AssetFinanceAMBITModel extends FinancialAccountModelBase {
     public String compositeAccountNumber;
-    public String productCode;
-    public Decimal originalAmountFinanced;
-    public DateTime openedDate;
-    public Decimal balloonAmount;
-    public Decimal interestRate;
-    public String interestType;
-    public String loanTermYears;
-    public String loanTermMonths;
+    public DateTime dateOpened;
     public DateTime expiryDate;
-    public String govtGuarantee;
-    public Decimal amountInArrears;
-    public String securityIndicator;
+    public String cpid;
     public Decimal undrawnBalance;
+    public String productName;
+    public Decimal liabilityLimit;
+    public String facilityExpiryType;
   }
 
   /**
@@ -92,22 +86,14 @@ public with sharing class AssetFinanceAMBITExternalQuery extends FinancialAccoun
         'DisplayUrl' => displayUrl,
         'AccountStatus' => af.status,
         'AccountName' => af.accountName,
-        'ProductCode' => af.productCode,
-        'AccountNumber' => af.contractNumber,
-        'Balance' => af.accountBalance,
-        'Limit' => af.accountLimit,
-        'OriginalAmountFinanced' => af.originalAmountFinanced,
-        'OpenedDate' => formatDate(af.openedDate),
-        'BalloonPayments' => af.balloonAmount,
-        'IntRate' => af.interestRate,
-        'IntType' => af.interestType,
-        'LoanTermMonths' => af.loanTermMonths,
-        'LoanTermYears' => af.loanTermYears,
+        'AccountNumber' => af.accountNumber,
+        'Limit' => af.liabilityLimit,
+        'OpenedDate' => formatDate(af.dateOpened),
         'Expires' => formatDate(af.expiryDate),
-        'GovernmentGuarantee' => af.govtGuarantee == 'YES' ? true : false,
-        'AmountInArrears' => af.amountInArrears,
-        'SI' => af.securityIndicator,
-        'UndrawnBalance' => af.undrawnBalance
+        'SI' => af.cpid,
+        'UndrawnBalance' => af.undrawnBalance,
+        'FacilityExpiryType' => af.facilityExpiryType,
+        'ProductName' => af.productName
       };
       result.externalRecords.add(row);
     }

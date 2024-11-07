@@ -352,7 +352,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //child EBD accounts summary view having EBD as parent
     if (isQueryEBDChildAccountsWithAssetFinanceType(infoWrapper)) {
-      payload = '{"compositeAssetId": "' + infoWrapper.parentId + '"';
+      payload = '{"compositeCreditLineId": "' + infoWrapper.parentId + '"';
       payload += String.isNotBlank(infoWrapper.fieldSet) &&
         String.isNotBlank(infoWrapper.assetFinanceType)
         ? ',"fieldSet": "' +

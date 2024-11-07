@@ -4943,63 +4943,64 @@
         "Expiry_Date__c"
       ]
     },
-    "Asset__x": {
+    "Asset_Finance_AMBIT_Asset__x": {
       "IA-2415720": [
-        "Asset_Finance_AMBIT__c",
-        "Amount_Financed__c",
-        "ID__c",
-        "Purchase_Price__c",
-        "Status__c"
-      ]
-    },
-    "Asset_Detail__x": {
-      "IA-2415720": [
-        "Asset_No__c",
         "Make__c",
         "Model__c",
         "Purchase_Price__c",
         "Serial_No__c",
         "Year__c",
-        "Asset__c",
         "ECV__c",
         "ECV_Date__c",
-        "ECV_Valuer__c"
+        "ECV_Valuer__c",
+        "Contract__c",
+        "Asset_Number__c"
       ]
     },
     "Asset_Repayment_Detail__x": {
       "IA-2415720": [
         "Amount__c",
-        "Asset__c",
-        "Frequency__c",
+        "Contract__c",
         "Repayment_Account_Number__c",
-        "Repayment_Type__c",
-        "Start_Date__c",
         "Total_Number_Of_Repayments__c"
       ]
     },
     "Asset_Finance_AMBIT__x": {
-      "IA-2415720": [
+      "IA-2415860": [
         "Account_Status__c",
         "Account_Name__c",
-        "Account_Number__c",
         "Expires__c",
-        "Int_Rate__c",
         "Opened_Date__c",
-        "Original_Amount_Financed__c",
-        "Product_Code__c",
-        "Loan_Term_Months__c",
-        "Loan_Term_Years__c",
-        "Balance__c",
-        "Balloon_Payments__c",
-        "Frequency__c",
-        "Int_Type__c",
-        "Limit__c",
         "Customer__c",
-        "Government_Guarantee__c",
-        "SI__c",
+        "CPID__c",
+        "Product_Name__c",
         "Undrawn_Balance__c",
-        "Amount_in_Arrears__c"
-      ]
+        "Facility_Expiry_Type__c"
+      ],
+      "IA-2415999": ["Account_Number__c"],
+      "IA-2415720": ["Limit__c"]
+    },
+    "Asset_Finance_AMBIT_Contract__x": {
+      "IA-2415860": [
+        "Amount_Financed__c",
+        "Amount_in_Arrears__c",
+        "Asset_Finance_AMBIT__c",
+        "Contract_Number__c",
+        "Date_Opened__c",
+        "Expiry_Date__c",
+        "Government_Guarantee__c",
+        "Interest_Rate__c",
+        "Interest_Type__c",
+        "Net_Outstanding_Amount__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Residual_Value__c",
+        "Security_Indicator__c",
+        "Status__c",
+        "Term_Months__c",
+        "Term_Years__c"
+      ],
+      "IA-2415999": ["Account_Number__c"]
     },
     "Linked_Account__x": {
       "IA-2415720": [

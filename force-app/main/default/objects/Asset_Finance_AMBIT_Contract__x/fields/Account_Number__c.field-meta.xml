@@ -3,11 +3,11 @@
     <fullName>Account_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
-    <description>Financial Account Number</description>
+    <description>Account Number</description>
     <externalDeveloperName>AccountNumber</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>true</isNameField>
+    <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Account Number</label>
     <length>255</length>
