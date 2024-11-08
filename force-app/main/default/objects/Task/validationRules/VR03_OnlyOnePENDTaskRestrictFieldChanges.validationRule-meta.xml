@@ -5,16 +5,17 @@
     <errorConditionFormula>AND(
   ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
   (RecordType.DeveloperName = &quot;IDR_Task&quot;),
-   ISPICKVAL(Type, &quot;Pend Case&quot;),
   OR(
     AND(
       ISNEW(),
+      ISPICKVAL(Type, &quot;Pend Case&quot;),
       ISPICKVAL(Case__r.Status, &quot;Case - On Hold&quot;),
       NOT(ISPICKVAL(Status, &quot;Completed&quot;)),
       NOT(ISBLANK(Case__r.IDR_Date_Case_on_Hold_From__c))
     ),
       AND(
         NOT(ISNEW()),
+        ISPICKVAL(Type, &quot;Pend Case&quot;),
         OR(
           ISPICKVAL(PRIORVALUE(Status), &quot;Completed&quot;),
           ISPICKVAL(Case__r.Status, &quot;Case - On Hold&quot;)
