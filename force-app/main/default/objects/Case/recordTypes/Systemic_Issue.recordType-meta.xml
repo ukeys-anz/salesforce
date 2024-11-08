@@ -854,10 +854,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Business Platform Services</fullName>
             <default>false</default>
         </values>
