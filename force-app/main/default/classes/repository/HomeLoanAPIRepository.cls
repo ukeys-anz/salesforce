@@ -95,6 +95,13 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     );
     HttpCalloutResponse response = s.getOffsetAccounts(ocvId, loanAccNumber);
     try {
+      if (
+        response.statusCode == 404 && response.body.contains('HTTP:NOT_FOUND')
+      ) {
+        throw new HomeLoanController.NotFoundException(
+          'No Offset Found Exception'
+        );
+      }
       if (response.successful == false) {
         throw response.error;
       }
