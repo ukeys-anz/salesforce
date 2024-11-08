@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Repayment_Account_Number__c</fullName>
+    <fullName>Residual_Value__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
-    <description>Repayment Account Number</description>
-    <externalDeveloperName>RepaymentAccountNumber</externalDeveloperName>
+    <description>Residual Value</description>
+    <externalDeveloperName>ResidualValue</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>true</isNameField>
+    <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Repayment Account Number</label>
-    <length>255</length>
+    <label>Residual Value ($)</label>
+    <precision>18</precision>
     <required>false</required>
+    <scale>2</scale>
     <securityClassification>Internal</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Currency</type>
 </CustomField>
