@@ -36,14 +36,14 @@
         <label>Assurance</label>
     </customValue>
     <customValue>
-        <fullName>Australian Branch Network</fullName>
-        <default>false</default>
-        <label>Australian Branch Network</label>
-    </customValue>
-    <customValue>
         <fullName>Australia Risk</fullName>
         <default>false</default>
         <label>Australia Risk</label>
+    </customValue>
+    <customValue>
+        <fullName>Australian Branch Network</fullName>
+        <default>false</default>
+        <label>Australian Branch Network</label>
     </customValue>
     <customValue>
         <fullName>Banker Digital Experience (BDX)</fullName>
@@ -951,5 +951,5 @@
     </customValue>
     <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
     <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>
-    <sorted>true</sorted>
+    <sorted>false</sorted>
 </GlobalValueSet>

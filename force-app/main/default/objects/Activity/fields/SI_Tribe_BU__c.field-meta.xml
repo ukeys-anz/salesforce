@@ -12,7 +12,7 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>true</sorted>
+            <sorted>false</sorted>
             <value>
                 <fullName>AMU &amp; Collections</fullName>
                 <default>false</default>
@@ -40,6 +40,11 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>APRA Remediation Tribe (ART)</label>
+            </value>
+            <value>
+                <fullName>Australia Risk</fullName>
+                <default>false</default>
+                <label>Australia Risk</label>
             </value>
             <value>
                 <fullName>Australian Branch Network</fullName>
@@ -137,6 +142,11 @@
                 <label>Commercial Broker</label>
             </value>
             <value>
+                <fullName>Commercial Broker and Origination</fullName>
+                <default>false</default>
+                <label>Commercial Broker and Origination</label>
+            </value>
+            <value>
                 <fullName>Commercial Credit Cards</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -146,6 +156,11 @@
                 <fullName>Commercial Digital and Customer Experience</fullName>
                 <default>false</default>
                 <label>Commercial Digital and Customer Experience</label>
+            </value>
+            <value>
+                <fullName>Commercial Operations</fullName>
+                <default>false</default>
+                <label>Commercial Operations</label>
             </value>
             <value>
                 <fullName>Commercial Strategic Delivery</fullName>
@@ -351,6 +366,11 @@
                 <fullName>Home Loans</fullName>
                 <default>false</default>
                 <label>Home Loans</label>
+            </value>
+            <value>
+                <fullName>Home Loans Product</fullName>
+                <default>false</default>
+                <label>Home Loans Product</label>
             </value>
             <value>
                 <fullName>Home Loans Tribe</fullName>
