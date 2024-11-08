@@ -161,6 +161,9 @@ public with sharing class IDRCaseAssignmentRules {
     }
     //Collections
     if (rec.Type == '17') {
+      if (rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED) {
+        return QueryQueue.get('EDR_Hardship').Id;
+      }
       return QueryQueue.get('IDR_Collections').Id;
     }
     //Inappropriate lending/maladministration
