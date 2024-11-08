@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Seq__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - CAPS</complianceGroup>
+    <description>Sequence number</description>
+    <externalDeveloperName>Seq</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>true</isFilteringDisabled>
+    <isNameField>true</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Seq</label>
+    <length>18</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

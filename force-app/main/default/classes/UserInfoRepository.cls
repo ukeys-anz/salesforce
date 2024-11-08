@@ -53,12 +53,30 @@ public with sharing class UserInfoRepository {
   }
 
   /**
+   * @description Checks if the user has any of the specified profiles.
+   * @param profileNames A set of profile names to check.
+   * @return True if the user has any of the specified profiles, false otherwise.
+   */
+  public Boolean checkAnyProfiles(Set<String> profileNames) {
+    return profileNames.contains(this.currentUser.Profile.Name);
+  }
+
+  /**
    * @description Checks if the current user has a specific role.
    * @param roleName The name of the role to check.
    * @return True if the current user has the specified role, false otherwise.
    */
   public Boolean checkRole(String roleName) {
     return this.currentUser.UserRole.DeveloperName == roleName;
+  }
+
+  /**
+   * @description Checks if the user has any of the specified roles.
+   * @param roleNames A set of role names to check.
+   * @return True if the user has any of the specified roles, false otherwise.
+   */
+  public Boolean checkAnyRoles(Set<String> roleNames) {
+    return roleNames.contains(this.currentUser.UserRole.DeveloperName);
   }
 
   /**

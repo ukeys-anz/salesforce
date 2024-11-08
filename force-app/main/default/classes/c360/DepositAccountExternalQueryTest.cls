@@ -51,6 +51,7 @@ private class DepositAccountExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     ExternalObjectQueryBase.ExternalQueryResult result = depositAcct.execute(
       context
     );
@@ -67,7 +68,7 @@ private class DepositAccountExternalQueryTest {
       'Name mismatch'
     );
     Assert.areEqual(
-      '3424-909811',
+      '3424909811',
       firstRecord.get('AccountNumber'),
       'Number mismatch'
     );
@@ -237,9 +238,13 @@ private class DepositAccountExternalQueryTest {
   static void getPayloadForSingleAccountTest() {
     String result;
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     depositAcct.externalId = 'CAP-CIS_107130129985-234500817|DDA-234500817';
     Test.startTest();
-    result = depositAcct.getPayloadForSingleAccount('');
+    result = externalQueryHelper.getPayloadForSingleAccount(
+      '',
+      depositAcct.prepareInfoWrapper()
+    );
     Test.stopTest();
     Assert.areEqual(
       '{"accountNumber": "DDA-234500817"}',
@@ -356,7 +361,7 @@ private class DepositAccountExternalQueryTest {
   static void displayDummyFinancialAccountTest() {
     createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
-    depositAcct.accountNumber = 'SSI-3535555';
+    depositAcct.externalId = 'SSI-3535555';
     Test.startTest();
     Boolean result = depositAcct.displayDummyRecord();
     Test.stopTest();

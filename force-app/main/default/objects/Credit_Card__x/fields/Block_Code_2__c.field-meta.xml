@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Block_Code_2__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
+    <description>Block Code 2</description>
+    <externalDeveloperName>BlockCode2</externalDeveloperName>
+    <externalId>false</externalId>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Block Code 2</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

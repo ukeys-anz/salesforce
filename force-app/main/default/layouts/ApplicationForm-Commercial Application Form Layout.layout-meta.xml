@@ -33,8 +33,8 @@
                 <field>Application_Number__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Application_Amount__c</field>
+                <behavior>Readonly</behavior>
+                <field>App_Amount__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
