@@ -5318,11 +5318,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Opportunity.SourceId</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Opportunity.Source_Lead_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5449,16 +5444,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Product2.ANZ_Product_Code__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product2.AvailabilityDate</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Product2.BasedOnId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
