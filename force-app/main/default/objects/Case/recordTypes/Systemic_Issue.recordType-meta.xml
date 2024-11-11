@@ -98,10 +98,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Broker</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Commercial Broker and Origination</fullName>
             <default>false</default>
         </values>

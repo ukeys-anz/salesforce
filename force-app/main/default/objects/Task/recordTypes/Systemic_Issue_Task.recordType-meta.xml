@@ -46,6 +46,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Australia Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Australian Branch Network</fullName>
             <default>false</default>
         </values>
@@ -62,19 +66,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Business Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Business Platform Services</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Broker</fullName>
+            <fullName>Commercial Broker and Origination</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Digital and Customer Experience</fullName>
+            <fullName>Commercial Operations</fullName>
             <default>false</default>
         </values>
         <values>
@@ -166,7 +166,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Loans</fullName>
+            <fullName>Home Loans Product</fullName>
             <default>false</default>
         </values>
         <values>
