@@ -98,7 +98,12 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Commercial Broker</fullName>
+        <values>
+            <fullName>ANZ Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Banking Services</fullName>
             <default>false</default>
         </values>
         <values>

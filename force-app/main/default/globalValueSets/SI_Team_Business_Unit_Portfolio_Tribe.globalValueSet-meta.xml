@@ -36,14 +36,14 @@
         <label>Assurance</label>
     </customValue>
     <customValue>
-        <fullName>Australian Branch Network</fullName>
-        <default>false</default>
-        <label>Australian Branch Network</label>
-    </customValue>
-    <customValue>
         <fullName>Australia Risk</fullName>
         <default>false</default>
         <label>Australia Risk</label>
+    </customValue>
+    <customValue>
+        <fullName>Australian Branch Network</fullName>
+        <default>false</default>
+        <label>Australian Branch Network</label>
     </customValue>
     <customValue>
         <fullName>Banker Digital Experience (BDX)</fullName>
@@ -926,6 +926,12 @@
         <label>Wholesale Digital</label>
     </customValue>
     <customValue>
+        <fullName>AMU &amp; Collections</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>AMU &amp; Collections</label>
+    </customValue>
+    <customValue>
         <fullName>APRA Home Loans</fullName>
         <default>false</default>
         <isActive>false</isActive>
@@ -943,13 +949,7 @@
         <isActive>false</isActive>
         <label>Digital Sales Experience Tribe</label>
     </customValue>
-    <customValue>
-        <fullName>AMU &amp; Collections</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>AMU &amp; Collections</label>
-    </customValue>
     <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
     <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>
-    <sorted>true</sorted>
+    <sorted>false</sorted>
 </GlobalValueSet>
