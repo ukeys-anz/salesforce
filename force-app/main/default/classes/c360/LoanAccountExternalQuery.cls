@@ -209,81 +209,24 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    String customerId;
-    Map<String, Object> row;
-    String accNumber;
-    String dlpRepaymentAccountNum;
-    String offsetAccountNum;
-    String ioInterestRepaymentAccountNum;
-    List<String> accNumLst;
-    Map<String, String> mapOfAccNumToFormattedAccountNumbers;
 
     if (calloutResponse == null) {
       return result;
     }
-
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     for (
       LoanAccountModel fa : ((LoanAccountCalloutResponse) calloutResponse)
         .accounts
     ) {
-      customerId = getCustomerId(fa.accountNumber);
-
-      if (String.isBlank(customerId)) {
-        continue;
-      }
-
-      if (this.sourceSystem == SourceSystemEnum.CAP) {
-        accNumber = getAccountNumberwithFormat(fa.accountNumber);
-
-        accNumLst = new List<String>{
-          fa.dlpRepaymentAccountNumber,
-          fa.offsetAccountNumber,
-          fa.ioInterestRepaymentAccountNumber
-        };
-
-        mapOfAccNumToFormattedAccountNumbers = getformattedFinancialAccountNumbers(
-          accNumLst
-        );
-
-        dlpRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
-            fa.dlpRepaymentAccountNumber
-          )
-          ? mapOfAccNumToFormattedAccountNumbers.get(
-              fa.dlpRepaymentAccountNumber
-            )
-          : formatAccountNumber(fa.dlpRepaymentAccountNumber);
-
-        offsetAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
-            fa.offsetAccountNumber
-          )
-          ? mapOfAccNumToFormattedAccountNumbers.get(fa.offsetAccountNumber)
-          : formatAccountNumber(fa.offsetAccountNumber);
-
-        ioInterestRepaymentAccountNum = mapOfAccNumToFormattedAccountNumbers.containsKey(
-            fa.ioInterestRepaymentAccountNumber
-          )
-          ? mapOfAccNumToFormattedAccountNumbers.get(
-              fa.ioInterestRepaymentAccountNumber
-            )
-          : formatAccountNumber(fa.ioInterestRepaymentAccountNumber);
-      } else {
-        accNumber = formatAccountNumber(fa.accountNumber);
-        dlpRepaymentAccountNum = formatAccountNumber(
-          fa.dlpRepaymentAccountNumber
-        );
-        offsetAccountNum = formatAccountNumber(fa.offsetAccountNumber);
-        ioInterestRepaymentAccountNum = formatAccountNumber(
-          fa.ioInterestRepaymentAccountNumber
-        );
-      }
-
-      row = new Map<String, Object>{
-        'CustomerId' => customerId,
+      Map<String, Object> row = new Map<String, Object>{
+        this.parentField => this.parentId,
         'ExternalId' => getExternalId(fa, this.accountRoleMap),
-        'DisplayUrl' => getDisplayUrl(fa),
+        'DisplayUrl' => getDisplayUrl(fa.productCode + '-' + fa.accountNumber),
         'Relationship' => getAccountRelationship(fa.accountNumber),
         'AccountName' => fa.accountName,
-        'AccountNumber' => accNumber,
+        'AccountNumber' => externalQueryHelper.formatAccountNumber(
+          fa.accountNumber
+        ),
         'AccountStatus' => fa.status,
         'Balance' => fa.accountBalance,
         'ProductCode' => fa.productCode,
@@ -296,7 +239,9 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
           : fa.purposeCode,
         'FullyDrawn' => fa.fullyDrawn,
         'ProgressDrawExpiryDate' => formatDate(fa.progressDrawExpiryDate),
-        'ANZSICCode' => retrieveIndustryCodeAndDescription(fa.anzsicCode),
+        'ANZSICCode' => externalQueryHelper.retrieveIndustryCodeAndDescription(
+          fa.anzsicCode
+        ),
         'CPID' => fa.controllingPostID,
         'Expires' => formatDate(fa.loanMaturityDate),
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
@@ -307,7 +252,9 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
         'AmountInAdvance' => fa.amountInAdvance,
         'OriginalAmountFinanced' => fa.originalAmountFinanced,
         'InterestType' => fa.interestType,
-        'OffsetAccountNumber' => offsetAccountNum,
+        'OffsetAccountNumber' => externalQueryHelper.formatAccountNumber(
+          fa.offsetAccountNumber
+        ),
         'RedrawAmount' => fa.redrawAmount,
         'RedrawNumberofSignatories' => mapOfRedrawNoOfSignatories.containsKey(
             fa.redrawNumberOfSignatories
@@ -337,14 +284,18 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
           fa.piPrincipalRepaymentEndDate
         ),
         'PIInterestFrequency' => fa.piInterestFrequency,
-        'IOInterestRepaymentAccountNumber' => ioInterestRepaymentAccountNum,
+        'IOInterestRepaymentAccountNumber' => externalQueryHelper.formatAccountNumber(
+          fa.ioInterestRepaymentAccountNumber
+        ),
         'InterestOnlyTermYear' => fa.ioTermYear,
         'InterestOnlyTermMonth' => fa.ioTermMonth,
         'InterestOnlyExpiryDate' => formatDate(fa.ioExpiryDate),
         'IONextRepaymentDate' => formatDate(fa.ioNextRepaymentDate),
         'IOSubsequentInterestRate' => fa.ioSubsequentInterestRate,
         'IOSubsequentDiscount' => fa.ioSubsequentDiscount,
-        'DLPRepaymentAccountNumber' => dlpRepaymentAccountNum,
+        'DLPRepaymentAccountNumber' => externalQueryHelper.formatAccountNumber(
+          fa.dlpRepaymentAccountNumber
+        ),
         'PIElectedRepaymentAmount' => fa.piElectedRepaymentAmount,
         'InterestTypeFuture' => fa.futureInterestType,
         'IndexCodeFuture' => fa.futureReferenceIndexType,

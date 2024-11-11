@@ -4,7 +4,9 @@
  * @group CCRM, ML
  * @description Diary Comment external query base class
  */
-@SuppressWarnings('PMD.CognitiveComplexity')
+@SuppressWarnings(
+  'PMD.AvoidDeeplyNestedIfStmts, PMD.CognitiveComplexity,PMD.StdCyclomaticComplexity,PMD.ExcessivePublicCount'
+)
 public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryBase {
   /**
    * @description constructor
@@ -67,7 +69,7 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
     externalQueryResult = createExternalRecords(this.calloutResponse);
     //Pass pagination token
     externalQueryResult.queryMoreToken = ((DiaryCommentCalloutResponse) this.calloutResponse)
-      .conversationControl;
+      ?.conversationControl;
     return externalQueryResult;
   }
 
@@ -99,7 +101,6 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    Map<String, Object> row;
 
     DiaryCommentCalloutResponse diaryCommentCalloutResponse = (DiaryCommentCalloutResponse) calloutResponse;
     if (diaryCommentCalloutResponse == null) {
@@ -109,10 +110,8 @@ public with sharing class DiaryCommentExternalQuery extends ExternalObjectQueryB
       return result;
     }
     for (CommentDetails cd : diaryCommentCalloutResponse.commentDetails) {
-      row = new Map<String, Object>{
-        'DisplayUrl' => URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        cd.compositeId,
+      Map<String, Object> row = new Map<String, Object>{
+        'DisplayUrl' => getDisplayUrl(cd.compositeId),
         'Sequence' => cd.sequenceNumber,
         'Permanent' => cd.itemSubKey.contains('PERMA') ? true : false,
         'Description' => cd.comment,

@@ -16,13 +16,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
     Integer pageSize,
     Integer offSet
   ) {
-    if (
-      opportunityId == null ||
-      pageSize == null ||
-      offSet == null ||
-      !PermissionUtils.canQuery('ApplicationForm') ||
-      !PermissionUtils.canQuery('ApplicationFormProduct')
-    ) {
+    if (opportunityId == null || pageSize == null || offSet == null) {
       return new List<ApplicationForm>();
     }
 
@@ -30,7 +24,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
       SELECT
         Id,
         Name,
-        Application_Amount__c,
+        App_Amount__c,
         Stage,
         SubmissionDate,
         Application_Number__c,
@@ -41,6 +35,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
         )
       FROM ApplicationForm
       WHERE OpportunityId = :opportunityId
+      WITH USER_MODE
       LIMIT :pageSize
       OFFSET :offSet
     ];
@@ -53,7 +48,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
    **/
   @AuraEnabled(cacheable=true)
   public static Integer getTotalRecords(Id opportunityId) {
-    if (opportunityId == null || !PermissionUtils.canQuery('ApplicationForm')) {
+    if (opportunityId == null) {
       return 0;
     }
 
@@ -61,6 +56,7 @@ public with sharing class RelatedAppOnOppControllerRepository {
       SELECT COUNT()
       FROM ApplicationForm
       WHERE OpportunityId = :opportunityId
+      WITH USER_MODE
     ];
   }
 }

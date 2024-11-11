@@ -1163,6 +1163,63 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>customQueryParameters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>debugMode</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>filterOnRecordId</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>forceRefresh</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>height</name>
+                    <value>1650</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sfAdvancedFilter</name>
+                    <value>Account.Source_System_ID__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showTabs</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showToolbar</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>siteId</name>
+                    <value>4a6a7286-f90d-4bd5-af0c-34911fc8ba8d</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>tabAdvancedFilter</name>
+                    <value>Customer No</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>useJwt</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>vizUrl</name>
+                    <value>{!$Label.CCRM_Tableau_View_URL}</value>
+                </componentInstanceProperties>
+                <componentName>tableau:tableauViz</componentName>
+                <identifier>tableau_tableauViz</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-f91a9f35-78cc-44ab-a46d-a20302f2f098</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>active</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -1250,6 +1307,20 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-f91a9f35-78cc-44ab-a46d-a20302f2f098</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Customer Insights</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab10</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-c4ed4dbf-b07e-45e5-b9b3-68b34968fede</name>

@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Facility Limit Fee Amount ($)</label>
+    <label>Fee Amount ($)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

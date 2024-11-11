@@ -28,13 +28,13 @@ private class DiaryCommentExternalQueryTest {
       context
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       1,
       result.externalRecords.size(),
       'Size of comments is not 1'
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
-    System.assertEquals(
+    Assert.areEqual(
       'TEST COMMENT CHECK',
       firstRecord.get('Description'),
       'Comment mismatch'
@@ -50,7 +50,7 @@ private class DiaryCommentExternalQueryTest {
     DiaryCommentExternalQuery instance = new DiaryCommentExternalQuery();
     String fsResult = instance.formatSequence(1);
     Test.stopTest();
-    System.assertEquals('0001', fsResult, 'Incorrect sequence formatting');
+    Assert.areEqual('0001', fsResult, 'Incorrect sequence formatting');
   }
 
   /**

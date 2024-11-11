@@ -55,7 +55,10 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
     );
     return this.calloutResponse;
   }
-
+  private static final Map<String, String> MPA_OF_TYPE_TRANSLATION = new Map<String, String>{
+    'D' => 'D - Debit',
+    'C' => 'C - Credit'
+  };
   /**
    * @description Transform API response to Transaction History records
    * @param calloutResponse
@@ -64,39 +67,29 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecords(
     ExternalObjectCalloutResponse calloutResponse
   ) {
-    Map<String, Object> row;
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    List<TransactionHistoryModel> transactions = new List<TransactionHistoryModel>();
-    final Map<String, String> mapOfTypeTranslation = new Map<String, String>{
-      'D' => 'D - Debit',
-      'C' => 'C - Credit'
-    };
-
     if (calloutResponse == null) {
       return result;
     }
-
-    transactions = ((TransactionHistoryCalloutResponse) calloutResponse)
+    List<TransactionHistoryModel> transactions = ((TransactionHistoryCalloutResponse) calloutResponse)
         .transactions != null
       ? ((TransactionHistoryCalloutResponse) calloutResponse).transactions
       : new List<TransactionHistoryModel>();
 
     for (TransactionHistoryModel th : transactions) {
-      String transactionType = (mapOfTypeTranslation.containsKey(
+      String transactionType = (MPA_OF_TYPE_TRANSLATION.containsKey(
           th.transactionType
         )
-        ? mapOfTypeTranslation.get(th.transactionType)
+        ? MPA_OF_TYPE_TRANSLATION.get(th.transactionType)
         : th.transactionType);
 
-      row = new Map<String, Object>{
+      Map<String, Object> row = new Map<String, Object>{
         'ExternalId' => th.compositeId +
         '|' +
         formatDate(th.postedDate),
-        'DisplayUrl' => URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        th.compositeId,
+        'DisplayUrl' => getDisplayUrl(th.compositeId),
         'Amount' => th.amount,
-        this.parentField => parentId,
+        this.parentField => this.parentId,
         'Description' => th.description,
         'EffectiveDate' => formatDate(th.transactionDate),
         'PostDate' => formatDate(th.postedDate),

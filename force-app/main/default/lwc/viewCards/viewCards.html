@@ -10,24 +10,22 @@
           >
             <lightning-card>
               <div class="buttonsContainer">
-                <template lwc:if={isActiveCardSection}>
-                  <template
-                    lwc:if={card.buttons}
-                    for:each={card.buttons}
-                    for:item="btn"
+                <template
+                  lwc:if={card.buttons}
+                  for:each={card.buttons}
+                  for:item="btn"
+                >
+                  <lightning-button
+                    key={btn.label}
+                    label={btn.label}
+                    slot="actions"
+                    data-button="card-button"
+                    data-card-number={card.tokenized_card_number}
+                    disabled={btn.disable}
+                    onclick={handleActionAccordingClickedButton}
+                    variant={btn.variant}
                   >
-                    <lightning-button
-                      key={btn.label}
-                      label={btn.label}
-                      slot="actions"
-                      data-button="card-button"
-                      data-card-number={card.tokenized_card_number}
-                      disabled={btn.disable}
-                      onclick={handleActionAccordingClickedButton}
-                      variant={btn.variant}
-                    >
-                    </lightning-button>
-                  </template>
+                  </lightning-button>
                 </template>
               </div>
 

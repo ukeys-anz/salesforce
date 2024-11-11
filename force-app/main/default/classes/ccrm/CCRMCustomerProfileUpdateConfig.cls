@@ -69,6 +69,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
           Schema.SObjectType.Account.fieldSets.CCRMProspectTrackedOtherFields
         )
         .copyFields(Schema.SObjectType.Account.fieldSets.DCRMProspectCopyFields)
+        .groupFields(Schema.SObjectType.Account.fieldSets.DCRMMailingFields)
     },
     Schema.SObjectType.Contact.Name => new List<TrackingConfig>{
       new TrackingConfig(Schema.SObjectType.Contact.Label + NAME_SUFFIX)
@@ -157,7 +158,6 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
 
   public static Map<Id, SObject> controllingPostMap = new Map<Id, SObject>();
   public static Map<Id, SObject> industryMap = new Map<Id, SObject>();
-  public static Map<String, String> orgTypeValueLabelMap = new Map<String, String>();
 
   /**
    * @description Wrapper class for prospect field mapping configuration
@@ -463,20 +463,14 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
         fieldName == CCRMConstants.ACC_CPID
       ) {
         return controllingPostMap.get((Id) record.get(field))?.get('CPID__c');
-      }
-      if (
+      } else if (
         fieldName == CCRMConstants.ACC_IND_LABEL ||
         fieldName == CCRMConstants.ACC_IND
       ) {
         return industryMap.get((Id) record.get(field))?.get('Code__c');
+      } else {
+        return record.get(field);
       }
-      if (
-        fieldName == CCRMConstants.ACC_ORG ||
-        fieldName == CCRMConstants.ACC_ORG_LABEL
-      ) {
-        return (Object) orgTypeValueLabelMap.get((String) record.get(field));
-      }
-      return record.get(field);
     }
 
     /**
@@ -568,6 +562,7 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
                   Schema.SObjectType.Account.Name + '-' + this.recordTypeName
                 )
             )
+            .groupFields(Schema.SObjectType.Account.fieldSets.DCRMMailingFields)
         },
         Schema.SObjectType.Contact.Name => new List<TrackingConfig>{
           new TrackingConfig(Schema.SObjectType.Contact.Label + NAME_SUFFIX)

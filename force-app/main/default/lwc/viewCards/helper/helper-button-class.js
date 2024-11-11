@@ -7,8 +7,14 @@ class ButtonFactory {
     this.userPermisson = userPermisson;
   }
 
-  createButtonSchema(label, buttonConfig) {
-    if (buttonConfig.buttonVisible(this.card, this.userPermisson)) {
+  createButtonSchema(label, buttonConfig, isActiveCardSection) {
+    if (
+      buttonConfig.buttonVisible(
+        this.card,
+        this.userPermisson,
+        isActiveCardSection
+      )
+    ) {
       return {
         label: label,
         actionFunction: buttonConfig.action,
@@ -66,7 +72,7 @@ function viewCardNumberAction(inputInfo) {
   };
 }
 
-function fraudButtonVisible(card, userPermission) {
+function fraudButtonVisible(card, userPermission, isActiveCardSection) {
   let allowedStatus = [
     STATUS.Issued,
     STATUS.Block_CNP,
@@ -74,30 +80,38 @@ function fraudButtonVisible(card, userPermission) {
     STATUS.Block_ATM_POS_CNP_BCH
   ];
   return (
-    userPermission.hasFraudPermission && allowedStatus.includes(card.status)
+    userPermission.hasFraudPermission &&
+    allowedStatus.includes(card.status) &&
+    isActiveCardSection
   );
 }
 
-function removeTemporaryLockVisible(card, userPermission) {
+function removeTemporaryLockVisible(card, userPermission, isActiveCardSection) {
   let allowedStatus = [STATUS.Temporary_Lock, STATUS.Temporary_Block];
   return (
-    userPermission.hasFraudPermission && allowedStatus.includes(card.status)
+    userPermission.hasFraudPermission &&
+    allowedStatus.includes(card.status) &&
+    isActiveCardSection
   );
 }
 
-function lockCardVisible(card, userPermission) {
-  return userPermission.hasLockPermission && card.status == STATUS.Issued;
+function lockCardVisible(card, userPermission, isActiveCardSection) {
+  return (
+    userPermission.hasLockPermission &&
+    card.status == STATUS.Issued &&
+    isActiveCardSection
+  );
 }
 
-function replaceCardVisible(card, userPermission) {
-  return userPermission.hasReplacePermission;
+function replaceCardVisible(card, userPermission, isActiveCardSection) {
+  return userPermission.hasReplacePermission && isActiveCardSection;
 }
 
 function viewCardNumberVisible(card, userPermission) {
   return userPermission.hasViewCardNumberPermission;
 }
 
-function cancelCardVisible(card, userPermission) {
+function cancelCardVisible(card, userPermission, isActiveCardSection) {
   let allowedStatus = [
     STATUS.Issued,
     STATUS.Block_CNP,
@@ -108,7 +122,8 @@ function cancelCardVisible(card, userPermission) {
   ];
   return (
     userPermission.hasCancelCardPermission &&
-    allowedStatus.includes(card.status)
+    allowedStatus.includes(card.status) &&
+    isActiveCardSection
   );
 }
 
@@ -186,14 +201,19 @@ const cardButtonContainerClassName = (card) => {
 
 // for each card: will make a buttons array according to button schema and make the cards to have new schema with cards.buttons
 // and set statusToShow and cardIsTempLocked on each card then sort the list of cards
-export function createButtonsFromArray(cards, userPermission) {
+export function createButtonsFromArray(
+  cards,
+  userPermission,
+  isActiveCardSection
+) {
   for (let i = 0; i < cards.length; i++) {
     let buttonArray = [];
     let buttonFactory = new ButtonFactory(cards[i], userPermission);
     for (let key in buttonConfigObject) {
       let btnToPushToArray = buttonFactory.createButtonSchema(
         key,
-        buttonConfigObject[key]
+        buttonConfigObject[key],
+        isActiveCardSection
       );
       if (btnToPushToArray) {
         buttonArray = [...buttonArray, btnToPushToArray];
