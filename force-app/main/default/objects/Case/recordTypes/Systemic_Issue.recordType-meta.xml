@@ -98,14 +98,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>ANZ Private</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Banking Services</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Commercial Broker and Origination</fullName>
             <default>false</default>
         </values>
