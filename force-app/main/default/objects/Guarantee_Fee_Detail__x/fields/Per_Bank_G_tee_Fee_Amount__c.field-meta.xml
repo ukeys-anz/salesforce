@@ -3,13 +3,13 @@
     <fullName>Per_Bank_G_tee_Fee_Amount__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
-    <description>Per Bank G&apos;tee Fee Amount</description>
+    <description>Fee Amount</description>
     <externalDeveloperName>Amount</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
-    <label>Per Bank G&apos;tee Fee Amount($)</label>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Fee Amount($)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>2</scale>

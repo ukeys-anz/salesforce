@@ -73,19 +73,20 @@ public class BalanceHistoryExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     BalanceHistoryExternalQuery balHistoryQry = new BalanceHistoryExternalQuery();
     ExternalObjectQueryBase.ExternalQueryResult result = balHistoryQry.execute(
       context
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       result.externalRecords.size(),
       2,
       'Size of accounts is not 2'
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
-    System.assertEquals(firstRecord.get('Month'), 'August', 'Month mismatch');
-    System.assertEquals(firstRecord.get('Year'), '2023', 'Year mismatch');
+    Assert.areEqual(firstRecord.get('Month'), 'August', 'Month mismatch');
+    Assert.areEqual(firstRecord.get('Year'), '2023', 'Year mismatch');
   }
 
   @isTest
@@ -93,17 +94,17 @@ public class BalanceHistoryExternalQueryTest {
     String payloadFM = '{"accountNumber": "FM-111269467"}';
     String payloadDDA = '{"accountNumber": "DDA-111269467"}';
     String payloadRSV = '{"accountNumber": "RSV-111269467"}';
-    system.assertEquals(
+    Assert.areEqual(
       true,
       BalanceHistoryExternalQuery.isFMOrSsiOrRsvProduct(payloadFM),
       'BalanceHistoryQuery is not returning correct result for FM'
     );
-    system.assertEquals(
+    Assert.areEqual(
       false,
       BalanceHistoryExternalQuery.isFMOrSsiOrRsvProduct(payloadDDA),
       'BalanceHistoryQuery is not returning correct result for DDA'
     );
-    system.assertEquals(
+    Assert.areEqual(
       true,
       BalanceHistoryExternalQuery.isFMOrSsiOrRsvProduct(payloadRSV),
       'BalanceHistoryQuery is not returning correct result for RSV'
@@ -112,12 +113,12 @@ public class BalanceHistoryExternalQueryTest {
 
   @isTest
   static void displayDummyAccountDetailsTest() {
-    system.assertEquals(
+    Assert.areEqual(
       true,
       BalanceHistoryExternalQuery.displayDummyAccountDetails('dummyVal', ''),
       'displayDummayFinancialAccount is not returning correct result when parentId is empty'
     );
-    system.assertEquals(
+    Assert.areEqual(
       false,
       BalanceHistoryExternalQuery.displayDummyAccountDetails('', 'dummyVal'),
       'isDepositProductCategory is not returning correct result when externalId is empty'
@@ -131,12 +132,12 @@ public class BalanceHistoryExternalQueryTest {
       'DDA-210568745-2'
     );
 
-    system.assertEquals(
+    Assert.areEqual(
       'No further information available',
       dummyAcc.ExternalRecords.get(0).get('AdditionalInformation'),
       'createDummyFinancialAccounts is not returning correct result'
     );
-    system.assertEquals(
+    Assert.areEqual(
       'DDA-210568745-2',
       dummyAcc.ExternalRecords.get(0).get('ExternalId'),
       'createDummyFinancialAccounts is not returning correct result'

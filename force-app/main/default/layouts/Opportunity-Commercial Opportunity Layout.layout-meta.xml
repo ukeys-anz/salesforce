@@ -168,10 +168,9 @@
     <relatedLists>
         <excludeButtons>ChoosePricebook</excludeButtons>
         <fields>Product2</fields>
-        <fields>Quantity</fields>
         <fields>UnitPrice</fields>
-        <fields>ServiceDate</fields>
-        <fields>Purpose__c</fields>
+        <fields>Expected_Settlement_Date__c</fields>
+        <fields>Funding_purpose__c</fields>
         <relatedList>RelatedLineItemList</relatedList>
     </relatedLists>
     <relatedLists>

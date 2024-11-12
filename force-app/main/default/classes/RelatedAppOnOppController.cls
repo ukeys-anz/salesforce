@@ -61,7 +61,7 @@ public with sharing class RelatedAppOnOppController {
     public ApplicationFormWrapper(ApplicationForm form) {
       this.id = form.Id;
       this.name = form.Name;
-      this.applicationAmount = form.Application_Amount__c;
+      this.applicationAmount = form.App_Amount__c;
       this.applicationNumber = form.Application_Number__c;
       this.applicationStatus = form.Application_Status__c;
       this.applicationFormProducts = new List<ApplicationFormProductWrapper>();

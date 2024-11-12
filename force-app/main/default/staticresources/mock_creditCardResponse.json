@@ -6,7 +6,8 @@
       "productCode": "PCA",
       "accountBalance": "500.04",
       "accountLimit": "2000",
-      "status": "Active"
+      "status": "Active",
+      "blockCodes": ["A", "B"]
     }
   ]
 }
