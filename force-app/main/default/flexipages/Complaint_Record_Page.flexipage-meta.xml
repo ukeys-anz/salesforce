@@ -681,11 +681,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>deploymentId</name>
-                    <value>Respathwayold</value>
+                    <value>ResolutionPathway_Launcher</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
-                    <value>Resolution Pathway Launcher</value>
+                    <value>Resolution Pathway</value>
                 </componentInstanceProperties>
                 <componentName>industries_service_excellence:actionLauncher</componentName>
                 <identifier>industries_service_excellence_actionLauncher2</identifier>
