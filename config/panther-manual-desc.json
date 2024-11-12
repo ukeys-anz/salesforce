@@ -607,6 +607,12 @@
       ],
       "IA-2468715": ["Name", "OwnerId"]
     },
+    "Assessment": {
+      "IA-2453595": [
+        "Created_Date_Time__c",
+        "Last_Modified_Date_Time__c"
+      ]
+    },
     "AssessmentResponse": {
       "IA-2415840": [
         "External_Id__c",
@@ -888,6 +894,7 @@
         "Date_Closed__c",
         "Previous_Case_Owner__c",
         "Date_Case_allocated_to_CM__c",
+        "IDR_Date_Case_on_Hold_From__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
@@ -1151,6 +1158,7 @@
         "Regular_Payment_Cancellation_Date__c",
         "Relationship_Managed_Complaint__c",
         "Show_Resolution_Launcher__c",
+        "Is_new_RP_Enabled__c",
         "SlaStartDate",
         "StopStartDate",
         "SLA_Status__c",
@@ -3911,6 +3919,9 @@
         "LastModifiedById",
         "LastModifiedDate"
       ]
+    },
+    "Resolution_pathway_enablement__mdt": {
+      "IA-2453595": ["Is_Active__c"]
     },
     "RecordType": {
       "IA-2468715": [

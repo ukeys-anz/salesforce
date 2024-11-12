@@ -22,6 +22,32 @@ public with sharing class IDRAPIRepositoryTest {
   }
 
   @isTest
+  static void testGetCustomerInfoLWCFailure() {
+    HttpCalloutResponse res = getAPIFailureResponse();
+    Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
+    serv.setCalloutResponse(res);
+    IDRAPIRepository repo = new IDRAPIRepository();
+    Exception calloutException;
+    Test.startTest();
+    try {
+      repo.getCustomerInfo('12345', 'CAP ID');
+    } catch (Exception e) {
+      calloutException = e;
+    }
+    Test.stopTest();
+    System.assertEquals(
+      calloutException,
+      res.error,
+      'Exception should be same as actual response error'
+    );
+    System.assertEquals(
+      500,
+      res.statusCode,
+      'Status Code matches for Internal Server Error'
+    );
+  }
+
+  @isTest
   static void testGetSNOWEventInfoLWCforValidId() {
     Test.startTest();
     SNOWIntegrationModel info = IDRAPIRepository.getSNOWEventInfoLWC(
@@ -45,7 +71,7 @@ public with sharing class IDRAPIRepositoryTest {
     Exception calloutException;
     Test.startTest();
     try {
-      SNOWIntegrationModel result = repo.getSNOWEventInfo('IRE0073261');
+      repo.getSNOWEventInfo('IRE0073261');
     } catch (Exception e) {
       calloutException = e;
     }

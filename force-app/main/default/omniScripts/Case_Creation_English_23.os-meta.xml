@@ -3441,8 +3441,8 @@
   &quot;repeatClone&quot; : false,
   &quot;readOnly&quot; : false,
   &quot;horizontalMode&quot; : &quot;displayWide&quot;,
-  &quot;help&quot; : false,
-  &quot;helpText&quot; : &quot;&quot;,
+  &quot;help&quot; : true,
+  &quot;helpText&quot; : &quot;If selecting NO to indicate that this is not a complaint about a complaint or there is no parent case that can be linked, please review the Issue and Sub Issue selected to ensure that this complaint has been categorised correctly. This field is mandatory to complete when the complaint Issue and Sub Issue selected is \&quot;Service Quality + Failure to properly respond to complaint&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Yes&quot;,

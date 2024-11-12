@@ -5,6 +5,7 @@
  * @group Repository
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
+  private static final String OCV_ERROR = 'Customer Data not found';
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
@@ -40,31 +41,41 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
       customerId,
       customerIdentifier
     );
-    if (response.successful) {
-      try {
+    try {
+      if (response.successful) {
         result = IDRCustomerInformationModel.parse(response.body);
-        if (Label.IDR_Excluded_OCV_ProductTypes != null) {
-          List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
-            ','
-          );
-          List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
-          for (
-            IDRCustomerInformationModel.Accounts oAccount : result.accounts
-          ) {
-            if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
-              accounts.add(oAccount);
-            }
-          }
-          result.accounts = accounts;
+        if (Label.IDR_Excluded_OCV_ProductTypes == null) {
+          return null;
         }
-      } catch (Exception e) {
-        handleErrors(null, e, IDRAPIRepository.class);
+        List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
+          ','
+        );
+        List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
+        for (IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
+          if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
+            accounts.add(oAccount);
+          }
+        }
+        result.accounts = accounts;
+        return result;
       }
-    } else {
-      handleErrors(response, null, IDRAPIRepository.class);
+      if (response.statusCode >= 500) {
+        Logger.error(
+          'OCV Error - Status Code - ' + response.statusCode,
+          response.error,
+          Logger.Severity.HIGH
+        );
+        Logger.saveLog();
+      }
+      handleErrors(response, response.error, IDRAPIRepository.class);
+      throw response.error;
+    } catch (Exception e) {
+      Logger.info(OCV_ERROR);
+      Logger.saveLog();
+      throw e;
     }
-    return result;
   }
+
   /**
    * @param riskEventId customer id to be searched
    * @return SNOWIntegrationModel

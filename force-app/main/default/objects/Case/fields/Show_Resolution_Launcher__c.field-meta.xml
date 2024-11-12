@@ -4,14 +4,24 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Formula to display resolution pathways</description>
-    <externalId>false</externalId>
-    <formula>(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;2&apos;)) || 
-(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) || 
-(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;4&apos;)) || 
-(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;59&apos;)) ||
-(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;)) || 
-(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;No direct phone line&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;No direct phone line&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;No direct phone line&apos;))</formula>
-    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <formula>IF($Label.IDR_Toggle_Old_New_Resolution_Pathway = &apos;New&apos; &amp;&amp;
+    ((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;))),True,
+    IF((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;2&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;2&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;3&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;4&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;4&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;59&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;59&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_2__c,
+    &apos;57&apos;) || ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;)) ||
+    (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;No direct phone line&apos;) ||
+    ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;No direct phone line&apos;) ||
+    ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;No direct phone line&apos;)),True,False))</formula>
     <label>Show Resolution Launcher</label>
     <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>

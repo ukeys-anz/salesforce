@@ -793,6 +793,13 @@
         <value>7</value>
     </labels>
     <labels>
+        <fullName>IDR_Toggle_Old_New_Resolution_Pathway</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Conditionally show Old OR New Resolution pathway</shortDescription>
+        <value>New</value>
+    </labels>
+    <labels>
         <fullName>IDR_Window_For_Task_Reminders</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
@@ -2574,21 +2581,28 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL</value>
+        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM_URL_DEV</shortDescription>
-        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_PROD</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM_URL_PROD</shortDescription>
-        <value>https://fnedrmicn-ui.service.anz/navigator/?desktop=ComplaintManagement&amp;feature=GenericPaginatedSearch&amp;appId=</value>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_Desktop_Params</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Desktop Params</shortDescription>
+        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagement</value>
     </labels>
     <labels>
         <fullName>MS_Get_Linked_Offset</fullName>
