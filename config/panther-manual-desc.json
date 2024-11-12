@@ -1295,7 +1295,8 @@
         "IDR_Nominated_3rd_Party_Notification__c",
         "IDR_Non_Financial_Remedy__c",
         "SuppliedEmail",
-        "Tactical_Fix__c"
+        "Tactical_Fix__c",
+        "Broker_Call_Back_Number__c"
       ],
       "IA-2415855": [
         "SI_PSI_Ranking__c",
@@ -1363,7 +1364,8 @@
         "PersonID__c",
         "Fraud_PersonID__c"
       ],
-      "IA-2468710": ["SLATesting__c", "CardScamType__c"]
+      "IA-2468710": ["SLATesting__c", "CardScamType__c"],
+      "IA-2594109": ["Sync_Status__c"]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [

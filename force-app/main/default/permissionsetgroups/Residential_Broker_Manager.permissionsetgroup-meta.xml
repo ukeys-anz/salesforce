@@ -5,6 +5,7 @@
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>BoH_Read_Only</permissionSets>
     <permissionSets>Broker_Read_Only</permissionSets>
+    <permissionSets>Case_RBM_Broker_Enquiry</permissionSets>
     <permissionSets>Case_Read_Only_Credit_Referral</permissionSets>
     <permissionSets>CFaaS_File_Read_Only</permissionSets>
     <permissionSets>CFaaS_View_Files</permissionSets>

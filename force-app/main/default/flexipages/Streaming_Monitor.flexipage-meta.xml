@@ -6,7 +6,6 @@
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>region2</name>
         <itemInstances>
             <componentInstance>
                 <componentName>streamingAction</componentName>
@@ -19,16 +18,17 @@
                 <identifier>c_streamingSubscriptionList</identifier>
             </componentInstance>
         </itemInstances>
+        <name>region2</name>
         <type>Region</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <name>region3</name>
         <itemInstances>
             <componentInstance>
                 <componentName>streamingEventList</componentName>
                 <identifier>c_streamingEventList</identifier>
             </componentInstance>
         </itemInstances>
+        <name>region3</name>
         <type>Region</type>
     </flexiPageRegions>
     <masterLabel>Streaming Monitor</masterLabel>

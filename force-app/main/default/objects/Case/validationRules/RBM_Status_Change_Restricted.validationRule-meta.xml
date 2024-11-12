@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>RBM_Status_Change_Restricted</fullName>
+    <active>true</active>
+    <description>This validation will restrict the RBM user to changed the status without accepting the case</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,  OR($UserRole.DeveloperName = &apos;Residential_Broker_Manager&apos;,
+   $UserRole.DeveloperName = &apos;Coach&apos;),
+ RecordType.DeveloperName = &apos;Broker_Enquiry&apos;,
+ ISCHANGED( Status ) , OwnerId !=  $User.Id , $Profile.Name = &apos;ANZx Standard User&apos;
+)</errorConditionFormula>
+    <errorDisplayField>Status</errorDisplayField>
+    <errorMessage>Status can be changed only after accepting the case.</errorMessage>
+</ValidationRule>
