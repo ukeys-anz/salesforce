@@ -5458,11 +5458,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product2.DiscontinuedDate</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Product2.DisplayUrl</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9920,7 +9915,11 @@
         <enabled>true</enabled>
         <name>ViewSetup</name>
     </userPermissions>
-    <!-- <objectPermissions>
+    <!-- <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.DiscontinuedDate</field>
+        <readable>true</readable>
+    </fieldPermissions> added for merge to cmosa since this is not available, DO NOT MERGE COMMENTED CODE TO OTHER ENVS --><!-- <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
         <allowEdit>false</allowEdit>
