@@ -1,0 +1,2171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Resolution Pathways 2.0 Main Workflow</description>
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
+    <isActive>true</isActive>
+    <isIntegrationProcedure>false</isIntegrationProcedure>
+    <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
+    <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+    <isTestProcedure>false</isTestProcedure>
+    <isWebCompEnabled>true</isWebCompEnabled>
+    <language>English</language>
+    <name>Resolution Pathways Launcher</name>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>BeginphoneCallTextBlock-ANZ</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;height: 250px; border-radius: 10px; padding: 10px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8; font-size: 15px;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Begin phone call:&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;Hello, this is &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%UserName%&lt;/span&gt; from ANZ Customer Resolution.&lt;br /&gt;Have I called you at a good time to talk?&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Read Call Disclaimer:&lt;br /&gt;&lt;/strong&gt;For ANZ customers:&lt;br /&gt;&amp;bull;&amp;nbsp; &amp;ldquo;Just before I go on, I have to let you know that your call may be monitored and recorded for quality assurance purposes.&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Authenticate Customer:&lt;br /&gt;&lt;/strong&gt;(As per &lt;a href=\&quot;https://portal.knowhow.service.anz/C/FlLCjU21Ee2RFABQVpUToA?fromMenu=VooCPU3fEe2RFABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Inbound &lt;/a&gt;or &lt;a href=\&quot;https://portal.knowhow.service.anz/C/6nuFM03fEe2RFABQVpUToA?fromMenu=sA7H6k5vEe2RFABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Outbound &lt;/a&gt;Procedure as applicable).&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Purpose of Call:&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;I&amp;rsquo;m calling you today about your complaint.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;strong&gt;Confirm complaint type:&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;Can I confirm, is your complaint about &amp;lt;insert your understanding of the complaint so far&amp;gt;?&amp;rdquo;.&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Customer_Complaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CaseType&quot;
+      }, {
+        &quot;field&quot; : &quot;BeginPhonecall:TalkTrackButtons:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Call Answered&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>BeginphoneCallTextBlock-NonANZ</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Call Answered&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;BeginPhonecall:TalkTrackButtons:selectedButtonName&quot;
+      }, {
+        &quot;field&quot; : &quot;CaseType&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Non_Customer_Complaint&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;height: 250px; border-radius: 10px; padding: 10px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8; font-size: 15px;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Begin phone call:&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;Hello, this is &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%UserName%&lt;/span&gt; from ANZ Customer Resolution.&lt;br /&gt;Have I called you at a good time to talk?&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Read Call Disclaimer:&lt;br /&gt;&lt;/strong&gt;For non-ANZ customers:&lt;br /&gt;&amp;bull;&amp;nbsp; &amp;ldquo;Just before I go on, I have to let you know that your call may be monitored and recorded for quality assurance purposes. At ANZ, all personal information is handled in accordance with our privacy policy which is available at anz.com.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Authenticate Customer:&lt;br /&gt;&lt;/strong&gt;(As per &lt;a href=\&quot;https://portal.knowhow.service.anz/C/FlLCjU21Ee2RFABQVpUToA?fromMenu=VooCPU3fEe2RFABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Inbound &lt;/a&gt;or &lt;a href=\&quot;https://portal.knowhow.service.anz/C/6nuFM03fEe2RFABQVpUToA?fromMenu=sA7H6k5vEe2RFABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Outbound &lt;/a&gt;Procedure as applicable).&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Purpose of Call:&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;I&amp;rsquo;m calling you today about your complaint.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Confirm complaint type:&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;Can I confirm, is your complaint about &amp;lt;insert your understanding of the complaint so far&amp;gt;?&amp;rdquo;.&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CaseCommentTemplateBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;height&quot; : &quot;30em&quot;,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;border-radius: 10px; padding: 10px; height: 250px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8; font-size: 15px;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Contact strategy&lt;br /&gt;&lt;/strong&gt;REVIEWED CUSTOMER CONTACT PREFERENCE&lt;br /&gt;-Contact preference is &amp;lt;phone/email&amp;gt;&lt;br /&gt;-Introduction &amp;lt;email/SMS via &lt;a href=\&quot;https://portal.knowhow.service.anz/C/Link/A2TDGuYPEeyRDABQVpUToA\&quot; title=\&quot;Whispir\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Whispir&lt;/a&gt;&amp;gt; template sent to customer&lt;br /&gt;-(Copy &amp;amp; Paste email/SMS text)&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Unsuccessful call attempt&lt;br /&gt;&lt;/strong&gt;CALLED CUSTOMER &amp;ndash; DID NOT ANSWER OR DECLINED TO CONTINUE&lt;br /&gt;&amp;lt;Voice message left OR Unable to leave voice message&amp;gt;&lt;br /&gt;NEXT STEP&lt;br /&gt;&amp;lt;Call customer again/send an email/other&amp;gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Customer answered phone&lt;br /&gt;&lt;/strong&gt;CALL WITH CUSTOMER &amp;ndash; ANSWERED PHONE&lt;br /&gt;-Identified customer &amp;amp; read call disclaimer.&lt;br /&gt;-Confirmed what the complaint was about.&lt;/p&gt;\n&lt;p&gt;SITUATION:&lt;br /&gt;-Customer explained that &amp;lt;insert customer&amp;rsquo;s explanation of complaint&amp;gt;&lt;br /&gt;-Customer believes that ANZ &amp;lt;insert what customer feels ANZ did wrong&amp;gt;&lt;br /&gt;-Customer dissatisfied with their customer experience.&lt;/p&gt;\n&lt;p&gt;TASK:&lt;br /&gt;-Customer wanted ANZ to &amp;lt;insert what customer wants as an outcome&amp;gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;ACTION:&lt;br /&gt;-I listened to the customer with empathy.&lt;br /&gt;-I told customer we appreciate their feedback.&lt;br /&gt;-(if applicable) I also &amp;lt;describe any actions taken or information provided&amp;gt;&lt;/p&gt;\n&lt;p&gt;RESULT:&lt;br /&gt;-ANZ &amp;lt;has made/has not made&amp;gt; an error&lt;br /&gt;-&amp;lt;insert any other important observations&amp;gt;&lt;br /&gt;-Customer accepting/not accepting of complaint outcome.&lt;/p&gt;\n&lt;p&gt;NEXT STEP&lt;br /&gt;-To (If applicable) &amp;lt;escalate case/send written response&amp;gt;&lt;br /&gt;-To &amp;lt;close case/action webvoucher&amp;gt;&amp;nbsp;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Case comment templates&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;BeginPhonecall:TalkTrackButtons:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>9.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetails</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Email</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Email&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;BeginPhonecall:TalkTrackButtons:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;border-radius: 10px; padding: 10px; height: 250px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8; font-size: 15px;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If email contact preferred (or required) &amp;ndash; send first introduction template email, &lt;/strong&gt;&lt;strong&gt;then (if required) send second introduction email:&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;&amp;bull; EMAIL: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/mor8ugyWEe2RDgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;1st Introduction email&lt;/a&gt;&lt;br /&gt;&amp;bull; EMAIL: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/0t5y4vF5Ee6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;2nd Introduction email&lt;/a&gt;&lt;br /&gt;Upload email to CMOS files tab.&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>IssueTypeBeginLWC</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IssueTypeBeginLWC&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;dynamicIssueTypeRadioButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;page-name&quot;,
+    &quot;source&quot; : &quot;BeginPhoneCall&quot;
+  }, {
+    &quot;name&quot; : &quot;rec-type-id&quot;,
+    &quot;source&quot; : &quot;%RecordTypeId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>12.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak13</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak13&quot;,
+  &quot;padding&quot; : 10,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>10.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak14</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak14&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsM1</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigationButtonsM1&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;is-first-screen&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  }, {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case comments&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>13.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TalkTrackButtons</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%customButtonsList:beginPhoneCallButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%BeginPhonecall:TalkTrackButtons:selectedButtonName%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock10</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock20</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Issues raised by customer&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>11.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Unabletocontinuecall</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;border-radius: 10px; padding: 10px; height: 250px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8; font-size: 15px;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If customer wants to continue phone conversation at another time:&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;I&amp;rsquo;m happy to continue this discussion at a more convenient time. When might be best for you?&amp;rdquo;&lt;br /&gt;(agree on a date/time with customer for you to call them back)&lt;br /&gt;&amp;ldquo;I will speak to you again &amp;lt;repeat time and date agreed&amp;gt;.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;doesn&amp;rsquo;t want to continue phone conversation at another time, AND/OR &lt;/strong&gt;&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;prefers a written response.&lt;br /&gt;&lt;/strong&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;\&quot;I&apos;ll send you my written response to your complaint.\&quot;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;div&gt;\n&lt;p&gt;&lt;strong&gt;If customer&lt;/strong&gt;&lt;/p&gt;\n&lt;ul&gt;\n&lt;li&gt;&lt;strong&gt;refuses to speak to you to discuss the complaint at all, AND&lt;/strong&gt;&lt;/li&gt;\n&lt;li&gt;&lt;strong&gt;says they don&amp;rsquo;t want a written response either:&lt;/strong&gt;&lt;/li&gt;\n&lt;/ul&gt;\n&lt;p&gt;&amp;ldquo;ANZ has an obligation to give you a written response. However, if you don&amp;rsquo;t want this, we can withdraw your complaint. Would you like me to do that on your behalf?&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;(If customer says yes &amp;ndash; withdraw complaint)&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;(If customer says no &amp;ndash; explain to customer):&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;Unfortunately, as you don&amp;rsquo;t want to withdraw the complaint, we are required to send you a written response which will include AFCA&amp;rsquo;s details so you can escalate further if you wish.&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;(END CALL)&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Unable to continue call&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;BeginPhonecall:TalkTrackButtons:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false,
+  &quot;lwcComponentOverride&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>VoicemailBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;border-radius: 10px; padding: 10px; height: 250px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8; font-size: 15px;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If customer identified themselves in their voicemail (mentioned their name), leave a&amp;nbsp;&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;voice message:&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;Hi &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%FirstName%&lt;/span&gt;, this is &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%UserName%&lt;/span&gt; calling from ANZ&amp;rsquo;s Customer Resolution Team regarding reference number &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%CaseNumber%&lt;/span&gt;. Please call me at your earliest convenience on&lt;span style=\&quot;color: #e67e23;\&quot;&gt; +61 (3) 93112267&lt;/span&gt; to discuss further.&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;If customer did NOT identify themselves in their voicemail (did not mention their name) &lt;/strong&gt;&lt;strong&gt;leave a voice message:&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;Hi &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%FirstName%&lt;/span&gt;, this is &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%UserName%&lt;/span&gt; calling from ANZ. Please call me at your earliest convenience on &lt;span style=\&quot;color: #e67e23;\&quot;&gt;+61 (3) 93112267&lt;/span&gt; and quote reference &lt;span style=\&quot;color: #e67e23;\&quot;&gt;%CaseNumber%&lt;/span&gt;.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Voicemail&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;BeginPhonecall:TalkTrackButtons:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>BeginPhonecall</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Begin Phone Call&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : null,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>ResolutionPathway|CallQueueorWaitTime|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>CallQueueWaitTime</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;ResolutionPathway&quot;,
+  &quot;Sub Type&quot; : &quot;CallQueueorWaitTime&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Call queues / wait time&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>6.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsPathway</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CustomerDetailsPathway&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>IssueTypeButtons</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;dynamicIssueTypeRadioButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;rec-type-id&quot;,
+    &quot;source&quot; : &quot;%RecordTypeId%&quot;
+  }, {
+    &quot;name&quot; : &quot;page-name&quot;,
+    &quot;source&quot; : &quot;ChoosePathway&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%ChoosePathway:IssueTypeButtons:selectedButtonName%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak15</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 20,
+  &quot;label&quot; : &quot;LineBreak3&quot;
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak2&quot;,
+  &quot;padding&quot; : 0,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Messaging1</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;Messaging1&quot;,
+  &quot;validateExpression&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;None&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;issueType&quot;
+      } ]
+    }
+  },
+  &quot;messages&quot; : [ {
+    &quot;value&quot; : true,
+    &quot;type&quot; : &quot;Warning&quot;,
+    &quot;text&quot; : &quot;Please select an issue type to proceed&quot;,
+    &quot;active&quot; : true
+  }, {
+    &quot;value&quot; : false,
+    &quot;type&quot; : &quot;Success&quot;,
+    &quot;text&quot; : &quot;Issue type selected&quot;,
+    &quot;active&quot; : false
+  } ],
+  &quot;hideLabel&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;None&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;issueType&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Validation</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigateButtonsM2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigateButtonsM2&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  }, {
+    &quot;name&quot; : &quot;check-issue-type-selection&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock14</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select an Issue Type or continue to Additional issues&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ChoosePathway</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Choose Pathway&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : &quot;Choose Pathway&quot;,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>ActionRemedyTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;lwcComponentOverride&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;&lt;strong&gt;☐ Action financial remedy (if applicable)&lt;/strong&gt;&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Provisionally close case in CMOS&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Load payment request into &lt;a href=\&quot;https://webvoucher.apps.anz/Pages/MainPage.aspx\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Webvoucher&lt;/a&gt;&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Write case comment to show how you processed the Webvoucher.&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;☐ Attach all relevant documents to CMOS (if applicable)&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;☐ Write case comment to show the case is now closed:&amp;nbsp;&lt;/strong&gt;&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Describe all actions you took, such as feedback to staff&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Include information from other business units (if applicable)&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;☐ Complete fields in CMOS &amp;amp; close case:&lt;/strong&gt;&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Ensure required letters have been sent (eg. for cases not closed within 5 days) and filed (go to Send Written Response if needed)&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Ensure required fields in CMOS are completed as per &amp;ldquo;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/Xz3c9XvfEeakaQBQVpxDEQ?fromMenu=lNfUvYn5EeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Closing an IDR Complaint&lt;/a&gt;&amp;rdquo; process, including REAL, PSI, and Vulnerability checks as applicable.&lt;br /&gt;&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;&amp;bull; Mark complaint status as &amp;lsquo;Closed&amp;rsquo;&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Closure checklist&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CloseCase:CloseCaseTalktrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CloseCaseTalktrack</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CloseCaseTalktrack&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%customButtonsList:closeCaseButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%CloseCase:CloseCaseTalktrack:selectedButtonName%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CutsomerDetailsCloseCase</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak12</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak6&quot;,
+  &quot;padding&quot; : 5,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak7</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 5,
+  &quot;label&quot; : &quot;LineBreak6&quot;
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsM7</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  }, {
+    &quot;name&quot; : &quot;is-last-screen&quot;,
+    &quot;source&quot; : &quot;true&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;NavigationButtonsM7&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock19</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : null,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>WebvoucherTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Case comment templates&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;CloseCase:CloseCaseTalktrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;&lt;strong&gt;Financial remedy actioned in Webvoucher&lt;br /&gt;&lt;/strong&gt; &lt;br /&gt;GOODWILL PAYMENT SUBMITTED &lt;br /&gt;-Processed web voucher into account ending &amp;lt;XXXX&amp;gt;&lt;br /&gt;-Amount: $XXXX &lt;br /&gt;-Transaction ID - &amp;lt;insert copied and pasted transaction ID&amp;gt;&lt;br /&gt;&amp;lt;insert copied and pasted onscreen payment details from Webvoucher&amp;gt;&lt;br /&gt;NEXT STEP -&lt;br /&gt;To close case&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Case closure&lt;br /&gt;&lt;/strong&gt; &lt;br /&gt;CASE IS NOW CLOSED &lt;br /&gt;&amp;lt;If applicable: Include any other actions taken or relevant information&amp;gt;&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>CloseCase</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;default&quot; : null,
+    &quot;custom&quot; : [ ]
+  },
+  &quot;allowSaveForLater&quot; : false,
+  &quot;chartLabel&quot; : null,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;knowledgeOptions&quot; : {
+    &quot;typeFilter&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;language&quot; : &quot;English&quot;
+  },
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;label&quot; : &quot;Close Case&quot;
+}</propertySetConfig>
+        <sequenceNumber>12.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>ComplexIssues</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Complex additional issues&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConsiderAdditionalIssues:TalkTrackAddtionalIssue:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge complex &lt;a href=\&quot;https://portal.knowhow.service.anz/C/98KjePeyEe6RKwBQVpUToA\&quot; target=\&quot;_blank\&quot; title=\&quot;&apos;Simple complaints&amp;rsquo; Process flow\&quot; rel=\&quot;noopener\&quot;&gt;additional issue&lt;/a&gt; (for reallocation):&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;That sounds like something which should be investigated further.&lt;br /&gt;&lt;br /&gt;What I can do for you today is to arrange to escalate your complaint to a specialised team member to investigate. I will leave notes of our discussion today so that our specialised team member is aware of the concerns you have shared with me today.&lt;br /&gt;&lt;br /&gt;They will contact you to discuss the matter in detail. You can expect to hear from them within the next week or so.&amp;nbsp;&lt;br /&gt;Thanks again for taking my call and enjoy the rest of your day.&amp;rdquo;&lt;br /&gt;(END CALL)&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; Inform your team leader that the case should be reallocated to a specialised case &lt;/strong&gt;&lt;strong&gt;management team for further investigation.&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; (If applicable) Reassign case to relevant Workbasket.&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; Exit pathway.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsIssuePage</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak1</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak1&quot;,
+  &quot;padding&quot; : 5,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak8</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 5,
+  &quot;label&quot; : &quot;LineBreak1&quot;
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsM3</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;,
+    &quot;name&quot; : &quot;default-value&quot;
+  }, {
+    &quot;source&quot; : &quot;Case Comments&quot;,
+    &quot;name&quot; : &quot;label&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;NavigationButtonsM3&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NoAdditionalIssuesTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;ConsiderAdditionalIssues:TalkTrackAddtionalIssue:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;No additional issues&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px;border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If there are no additional issues, proceed to next step.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>SimpleIssues</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge simple &lt;a href=\&quot;https://portal.knowhow.service.anz/C/98KjePeyEe6RKwBQVpUToA\&quot; target=\&quot;_blank\&quot; title=\&quot;&apos;Simple complaints&amp;rsquo; Process flow\&quot; rel=\&quot;noopener\&quot;&gt;additional issue&lt;/a&gt;:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;Thank you for letting us know about this additional issue.&lt;br /&gt;AND/OR&lt;br /&gt;I understand you are also unhappy about &amp;lt;insert your understanding of additional issue&amp;gt; is that correct?&lt;br /&gt;AND&lt;br /&gt;I&amp;rsquo;ll note this on your complaint file.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Resolve simple additional issue with an apology, another complaint resolution pathway, or other appropriate remedy.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Simple additional issues&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConsiderAdditionalIssues:TalkTrackAddtionalIssue:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TalkTrackAddtionalIssue</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%customButtonsList:additionalIssuesButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%ConsiderAdditionalIssues:TalkTrackAddtionalIssue:selectedButtonName%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;TalkTrackAddtionalIssue&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock15</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : null,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ConsiderAdditionalIssues</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Consider Additional Issues&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : null,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>8.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>FinancialRemedyDetails</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>FinancialRemedyTalkTrack</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%Considerfinancialremedy:FinancialRemedyTalkTrack:selectedButtonName%&quot;
+  }, {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%customButtonsList:financialRemedyButtonList%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;FinancialRemedyTalkTrack&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak4</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak4&quot;,
+  &quot;padding&quot; : 5,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak9</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 5,
+  &quot;label&quot; : &quot;LineBreak4&quot;
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsM4</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigationButtonsM4&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>9.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NoRemedyDicsussionTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If &lt;a href=\&quot;https://portal.knowhow.service.anz/C/yhHoxYkXEeakaQBQVpxDEQ?fromMenu=U3RzFB9jEeyRAQBQVpUToA\&quot; title=\&quot;Customer Resolution Discretions Framework for Customer Complaints\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;financial remedy&lt;/a&gt; is not appropriate AND/OR the customer hasn&amp;rsquo;t requested it, proceed to next step.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;field&quot; : &quot;Considerfinancialremedy:FinancialRemedyTalkTrack:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Financial remedy not applicable&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>OfferRemedyTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Offer financial remedy&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Considerfinancialremedy:FinancialRemedyTalkTrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If offering &lt;a href=\&quot;https://portal.knowhow.service.anz/C/yhHoxYkXEeakaQBQVpxDEQ?fromMen%20u=U3RzFB9jEeyRAQBQVpUToA\&quot; target=\&quot;_blank\&quot; title=\&quot;Customer Resolution Discretions Framework for Customer Complaints\&quot; rel=\&quot;noopener\&quot;&gt;financial remedy&lt;/a&gt;:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;In recognition of the issue that occurred, I&amp;rsquo;d like to offer you &amp;lt;$XXXX&amp;gt; to resolve and close this matter. Does this resolve your complaint today?&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>RemedyAcceptedTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; height: 200px; border-radius: 10px; padding: 10px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If customer accepts offer:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Great, I will action that for you now and make a note of how we have agreed to resolve this complaint.&lt;/p&gt;\n&lt;p&gt;It will be paid into your ANZ bank account ending &amp;lt;insert ending account number for customer&apos;s DDA&amp;gt; and will be available in your account within five business days.&lt;/p&gt;\n&lt;p&gt;I will also close your complaint.&amp;rdquo;&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer declines offer, or indicates they don&amp;rsquo;t want this outcome:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Ok, I understand your position. I won&amp;rsquo;t action that payment then.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Next steps for financial remedy&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Considerfinancialremedy:FinancialRemedyTalkTrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>RemedyDeclinedTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Decline financial remedy request&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Considerfinancialremedy:FinancialRemedyTalkTrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If not appropriate, respectfully decline request for &lt;a href=\&quot;https://portal.knowhow.service.anz/C/yhHoxYkXEeakaQBQVpxDEQ?fromMen%20u=U3RzFB9jEeyRAQBQVpUToA\&quot; target=\&quot;_blank\&quot; title=\&quot;Customer Resolution Discretions Framework for Customer Complaints\&quot; rel=\&quot;noopener\&quot;&gt;financial remedy&lt;/a&gt; :&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Whilst we don&amp;rsquo;t provide compensation to customers for this, we appreciate your feedback and I have recorded it.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock16</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>Considerfinancialremedy</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Consider financial remedy&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : null,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>9.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>AccpetsOutcomeTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If the customer appears satisfied with complaint outcome, check &lt;a href=\&quot;https://portal.knowhow.service.anz/C/Z0PTP9s_EeiqeAAd2Lcd9A?fromMenu=WwPBcts_EeiqeAAd2Lcd9A\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;if a written response is required&lt;/a&gt; as per Knowhow.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If the customer appears to have accepted your complaint outcome:&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;Thank you for your time today. I hope I&amp;rsquo;ve addressed your concern. I&amp;rsquo;ll close out your complaint.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;AND (&lt;a href=\&quot;https://portal.knowhow.service.anz/C/Z0PTP9s_EeiqeAAd2Lcd9A?fromMenu=WwPBcts_EeiqeAAd2Lcd9A\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;if a written response is required&lt;/a&gt;):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;ll also send you a written response to your complaint.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Outcome accepted&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;EndPhoneCall:EndPhoneCallButtons:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsEndPhoneCall</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>DissatisfiedOutcomeTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Outcome rejected&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;EndPhoneCall:EndPhoneCallButtons:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If the customer appears dissatisfied with complaint outcome, check &lt;a href=\&quot;https://portal.knowhow.service.anz/C/Z0PTP9s_EeiqeAAd2Lcd9A?fromMenu=WwPBcts_EeiqeAAd2Lcd9A\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;if a written response is required&lt;/a&gt; as per Knowhow.&lt;/strong&gt;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;If a written response is NOT required:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand you&amp;rsquo;re not happy with &amp;lt;my apology/my response to your complaint&amp;gt; . If you would like, you can escalate the matter to AFCA.&lt;/p&gt;\n&lt;p&gt;You can contact them by calling 1800 931 678, emailing info@afca.org.au, or submitting a form on their website, afca.org.au. Thank you for your time today&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p&gt;*Written responses are required for hardship and insurance complaints &amp;ndash; discuss with your People Leader&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/Z0PTP9s_EeiqeAAd2Lcd9A?fromMenu=WwPBcts_EeiqeAAd2Lcd9A\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;If a written response IS required&lt;/a&gt;:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand you&amp;rsquo;re not happy with &amp;lt;my apology/my response to your complaint&amp;gt;. If you would like, you can escalate the matter to AFCA.&lt;/p&gt;\n&lt;p&gt;I&amp;rsquo;ll send you their details in our written response to your complaint. Thank you for your time today.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer is refusing a required written response (NO domestic violence concerns):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand you don&amp;rsquo;t want a written response, however unfortunately ANZ has an obligation to send you a written response in this situation. It will include AFCA&amp;rsquo;s details so you can escalate further if you wish. Thank you for your time today.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;If customer is refusing a required written response (domestic violence concerns and no alternative address available):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;\&quot;We will not send you a written response however, the response will still be prepared and attached to your complaint, should you wish to receive it in the future. Thank you for your time today.\&quot;&lt;/p&gt;\n&lt;p&gt;(END CALL)&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If you need to end your call due to continuing inappropriate behaviour, see &lt;a href=\&quot;https://portal.knowhow.service.anz/C/bK_EDXkyEe6RIgBQVpUToA?fromMenu=chs8I4dkEe6RIwBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Customer Behaviour Escalations&lt;/a&gt; process in Knowhow.&lt;/strong&gt;&amp;nbsp;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;If your line manager is available to receive the call:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;\&quot;I&apos;m sorry I am not going to continue this conversation. I am going to transfer you to my line manager.\&quot;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;If your line manager is NOT available to receive the call:&lt;/strong&gt;&lt;br /&gt;\&quot;As you&apos;ve continued to speak inappropriately, I&apos;m now going to terminate this phone call.\&quot;&lt;br /&gt;(END CALL)&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>EndPhoneCallButtons</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%customButtonsList:endPhoneCallButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%EndPhoneCall:EndPhoneCallButtons:selectedButtonName%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak10</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 5,
+  &quot;label&quot; : &quot;LineBreak5&quot;
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak5</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak5&quot;,
+  &quot;padding&quot; : 5,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsM5</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;,
+    &quot;name&quot; : &quot;default-value&quot;
+  }, {
+    &quot;source&quot; : &quot;Case Comments&quot;,
+    &quot;name&quot; : &quot;label&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;NavigationButtonsM5&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock17</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : null,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>EndPhoneCall</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;default&quot; : null,
+    &quot;custom&quot; : [ ]
+  },
+  &quot;allowSaveForLater&quot; : false,
+  &quot;chartLabel&quot; : null,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;knowledgeOptions&quot; : {
+    &quot;typeFilter&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;language&quot; : &quot;English&quot;
+  },
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;label&quot; : &quot;End Phone Call&quot;
+}</propertySetConfig>
+        <sequenceNumber>10.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>IntegrationProcedure-RP</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IntegrationProcedureAction-RP&quot;,
+  &quot;integrationProcedureKey&quot; : &quot;ResolutionPathway_MainIP&quot;,
+  &quot;useContinuation&quot; : false,
+  &quot;remoteOptions&quot; : {
+    &quot;useFuture&quot; : false,
+    &quot;chainable&quot; : false,
+    &quot;preTransformBundle&quot; : &quot;&quot;,
+    &quot;postTransformBundle&quot; : &quot;&quot;
+  },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;preTransformBundle&quot; : &quot;&quot;,
+  &quot;postTransformBundle&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;extraPayload&quot; : {
+    &quot;triggeredfrom&quot; : &quot;mainFlow&quot;,
+    &quot;ContextId&quot; : &quot;%ContextId%&quot;
+  },
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;svgSprite&quot; : &quot;&quot;,
+  &quot;svgIcon&quot; : &quot;&quot;,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;sendOnlyExtraPayload&quot; : true
+}</propertySetConfig>
+        <sequenceNumber>0.0</sequenceNumber>
+        <type>Integration Procedure Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>IntegrationProcedureToCallRPCreation</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IntegrationProcedureToCallRPCreation&quot;,
+  &quot;integrationProcedureKey&quot; : &quot;ResolutionPathway_MainIP&quot;,
+  &quot;useContinuation&quot; : false,
+  &quot;remoteOptions&quot; : {
+    &quot;preTransformBundle&quot; : &quot;&quot;,
+    &quot;postTransformBundle&quot; : &quot;&quot;,
+    &quot;useFuture&quot; : false,
+    &quot;chainable&quot; : false
+  },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;preTransformBundle&quot; : &quot;&quot;,
+  &quot;postTransformBundle&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;extraPayload&quot; : {
+    &quot;triggeredfrom&quot; : &quot;mainflow_RPCreation&quot;
+  },
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Tone or manner of response&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;
+      }, {
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Call queues / wait time&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;svgSprite&quot; : &quot;&quot;,
+  &quot;svgIcon&quot; : &quot;&quot;,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>Integration Procedure Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>IssueType_NULL</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IssueType_NULL&quot;,
+  &quot;elementValueMap&quot; : {
+    &quot;issueType&quot; : &quot;=null&quot;
+  },
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>NavigatCurrentPathway-ChoosePathway</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigatCurrentPathway-ChoosePathway&quot;,
+  &quot;validationRequired&quot; : &quot;Submit&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;OR&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Tone or manner of response&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;
+      }, {
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Call queues / wait time&quot;
+      } ]
+    }
+  },
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;targetType&quot; : &quot;Current Page&quot;,
+  &quot;objectAction&quot; : &quot;home&quot;,
+  &quot;recordAction&quot; : &quot;view&quot;,
+  &quot;loginAction&quot; : &quot;login&quot;,
+  &quot;targetFilter&quot; : &quot;Recent&quot;,
+  &quot;targetId&quot; : &quot;%ContextId%&quot;,
+  &quot;variant&quot; : &quot;brand&quot;,
+  &quot;iconName&quot; : &quot;&quot;,
+  &quot;iconVariant&quot; : &quot;&quot;,
+  &quot;iconPosition&quot; : &quot;left&quot;,
+  &quot;replace&quot; : false,
+  &quot;targetLWCLayout&quot; : &quot;lightning&quot;,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;targetParams&quot; : &quot;c__step=ChoosePathway&quot;
+}</propertySetConfig>
+        <sequenceNumber>7.0</sequenceNumber>
+        <type>Navigate Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsWrittenResponse</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak11</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;padding&quot; : 5,
+  &quot;label&quot; : &quot;LineBreak6&quot;
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>LineBreak6</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;label&quot; : &quot;LineBreak6&quot;,
+  &quot;padding&quot; : 5,
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Line Break</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsM6</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigationButtonsM6&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>ResponseRequiredTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Written response requested/required&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Sendwrittenresponse:WrittenResponseTalktrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/O6rwq_FzEe6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;/a&gt;&lt;strong&gt;Check if a &lt;a href=\&quot;https://portal.knowhow.service.anz/C/Z0PTP9s_EeiqeAAd2Lcd9A?fromMenu=WwPBcts_EeiqeAAd2Lcd9A\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;written IDR response&lt;/a&gt; is required as per Knowhow.&lt;/strong&gt;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;Customer dissatisfied with resolution&lt;br /&gt;&lt;/strong&gt;&amp;bull; EMAIL: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/ysiuYPF8Ee6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Customer dissatisfied with resolution&lt;/a&gt;&lt;br /&gt;&amp;bull; LETTER: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/KRZauPFzEe6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Customer dissatisfied with resolution&lt;/a&gt;&lt;/p&gt;\n&lt;br /&gt;\n&lt;p&gt;&lt;strong&gt;Written response requested OR otherwise required&lt;/strong&gt;&lt;br /&gt;&amp;bull; EMAIL: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/6ah5UPF8Ee6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Written response requested OR required&lt;/a&gt;&lt;br /&gt;&amp;bull; LETTER: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/O6rwq_FzEe6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Written response requested OR required&lt;/a&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>ResponseSentTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Written response sent&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;SENT RESPONSE TO CUSTOMER VIA EMAIL&lt;/p&gt;\n&lt;p&gt;-not encrypted as does not contain sensitive information&lt;/p&gt;\n&lt;p&gt;NEXT STEP&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;-&amp;lt;To close case/action Webvoucher&amp;gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Case comment templates&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Sendwrittenresponse:WrittenResponseTalktrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : true,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock18</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock10&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>UnsuccessfulContactTextBlock</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : true,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Unsuccessful customer contact&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Sendwrittenresponse:WrittenResponseTalktrack:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Unsuccessful customer contact&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;&amp;bull; EMAIL: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/pg0wQfF8Ee6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Unsuccessful customer contact&lt;/a&gt;&lt;br /&gt;&amp;bull; LETTER: &lt;a href=\&quot;https://portal.knowhow.service.anz/C/File/EMUSGvFzEe6RKgBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Unsuccessful customer contact&lt;/a&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12,
+  &quot;lwcComponentOverride&quot; : &quot;&quot;
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>WrittenResponseTalktrack</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%Sendwrittenresponse:WrittenResponseTalktrack:selectedButtonName%&quot;
+  }, {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%customButtonsList:sendWrittenResponseButtonList%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;WrittenResponseTalktrack&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>Sendwrittenresponse</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Send written response&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : null,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>11.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <embeddedOmniScriptKey>ResolutionPathwayTone|ToneOrMannerOfResponse|English</embeddedOmniScriptKey>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ToneOrMannerPathway</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;Type&quot; : &quot;ResolutionPathwayTone&quot;,
+  &quot;Sub Type&quot; : &quot;ToneOrMannerOfResponse&quot;,
+  &quot;Language&quot; : &quot;English&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Tone or manner of response&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;
+      } ]
+    }
+  }
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>OmniScript</type>
+    </omniProcessElements>
+    <omniProcessType>OmniScript</omniProcessType>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:true,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;right&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;,&quot;isSeoEnabled&quot;:false}</propertySetConfig>
+    <subType>ResolutionPathways</subType>
+    <type>Case</type>
+    <uniqueName>Case_ResolutionPathways_English_6</uniqueName>
+    <versionNumber>6.0</versionNumber>
+    <webComponentKey>bef4f4b2-b9ca-6e29-0f02-e983b529bd8a</webComponentKey>
+</OmniScript>

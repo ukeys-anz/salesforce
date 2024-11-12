@@ -65,7 +65,6 @@ public with sharing class CFaaSController {
   ) {
     CFaaSAPIRepository cfaasAPI = new CFaaSAPIRepository();
     CFaaSDocumentModel.CFaaSDownloadUrl downloadUrlModel;
-    Blob documentBody;
 
     try {
       downloadUrlModel = cfaasAPI.getDownloadURL(
@@ -184,12 +183,11 @@ public with sharing class CFaaSController {
     CFaaS_File__c cfaasFile,
     String ocvId
   ) {
+    String uid = cfaasFile.Document_Id__c + '-' + CURRENT_USER_ID;
     List<ContentVersion> cvList = [
       SELECT Id, ContentDocumentId, CreatedDate, Document_Flag__c
       FROM ContentVersion
-      WHERE
-        FirstPublishLocationId = :cfaasFile.Id
-        AND CreatedById = :CURRENT_USER_ID
+      WHERE UUID__c = :uid AND RecordTypeId = :IDRConstants.CFAAS_FILE_RT_ID
       WITH SECURITY_ENFORCED
       LIMIT 1
     ];

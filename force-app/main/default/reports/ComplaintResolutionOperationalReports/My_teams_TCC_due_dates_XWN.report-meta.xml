@@ -94,7 +94,7 @@
     </columns>
     <description>Complaint Resolution Operational Report for Team Managers and Senior Managers to maintain oversight over EDR cases with a TCC due date</description>
     <filter>
-        <booleanFilter>1 AND 2 AND (3 OR 4)</booleanFilter>
+        <booleanFilter>1 AND 2 AND (3 OR 4) AND 5</booleanFilter>
         <criteriaItems>
             <column>Case.IDR_Teleconference_Call_TCC__c</column>
             <columnToColumn>false</columnToColumn>
@@ -122,6 +122,13 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>STATUS</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>notEqual</operator>
+            <value>Withdrawn,Closed</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

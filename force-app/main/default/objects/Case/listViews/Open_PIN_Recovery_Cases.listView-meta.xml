@@ -7,7 +7,6 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.PRIORITY</columns>
     <columns>CORE.USERS.ALIAS</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
@@ -18,6 +17,7 @@
         <operation>equals</operation>
         <value>0</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>Open PIN Recovery Cases</label>
     <sharedTo>
         <role>Join_Operations_Reader</role>
