@@ -334,6 +334,7 @@ public with sharing class IDRTaskActions2 {
     Case oldRec,
     Map<Id, Task> siCaseTasks
   ) {
+    if (!FeatureManagement.checkPermission(IDR_LEVEL_1)) {
       return false;
     }
     if (
