@@ -265,3 +265,4 @@ force-app/main/default/roles/Team_Leader_NBC.role-meta.xml
 
 #added for merge to cmos-a, please do not merge to other envs
 force-app/main/default/aura/QuickActionAuraContainer
+force-app/main/default/permissionsets/SF_Data_Sync_Integration.permissionset-meta.xml
