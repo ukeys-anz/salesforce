@@ -681,7 +681,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>deploymentId</name>
-                    <value>Respathwayold</value>
+                    <value>ResolutionPathway_Launcher</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>
