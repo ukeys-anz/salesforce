@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Total Number Of Repayments</label>
+    <label>Number Of Repayments</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>

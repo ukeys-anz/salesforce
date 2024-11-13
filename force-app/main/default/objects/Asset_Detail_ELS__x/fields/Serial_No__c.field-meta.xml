@@ -7,7 +7,7 @@
     <externalDeveloperName>SerialNo</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
-    <isNameField>false</isNameField>
+    <isNameField>true</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Serial Number</label>
     <length>255</length>

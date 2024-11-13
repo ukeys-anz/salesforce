@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>OLL Type</label>
+    <label>Sub-Product Code</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

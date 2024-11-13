@@ -14,7 +14,7 @@ public with sharing class ARNCService extends Service {
    */
   public class FinancialAccountQueryParameters {
     public Set<String> accounts = new Set<String>();
-    public String nextPageId;
+    public String offSet;
     public List<String> capCustomerIds = new List<String>();
     public String type;
     public String pageSize;

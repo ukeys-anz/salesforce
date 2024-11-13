@@ -297,11 +297,8 @@ public with sharing class IDRTaskActions2 {
       caseIds,
       subject
     );
-    Map<Id,Task> existingTaskMap = new Map<Id,Task>();
-    for(Task record : existingTasksOnCase){
-      existingTaskMap.put(record.WhatId, record);
-    }
-    return existingTaskMap;
+  
+    return (Map<Id, Task>) ListUtil.mapBy(existingTasksOnCase, Task.WhatId);
   }
   /**
    * @description method to get existing SI Tasks on a case record
@@ -337,9 +334,7 @@ public with sharing class IDRTaskActions2 {
     Case oldRec,
     Map<Id, Task> siCaseTasks
   ) {
-    if (
-      !FeatureManagement.checkPermission(IDR_LEVEL_1)
-    ) {
+    if (!FeatureManagement.checkPermission(IDR_LEVEL_1)) {
       return false;
     }
     if (

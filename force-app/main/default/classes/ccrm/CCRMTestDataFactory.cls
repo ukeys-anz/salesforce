@@ -27,11 +27,11 @@ public with sharing class CCRMTestDataFactory {
     'Commercial_Banking'
   );
   public static UserRole relationshipManager = CommonUtil.getUserRoleByDevName(
-    'Relationship_Manager'
+    'SME_Relationship_Manager'
   );
 
   public static UserRole smallBBRole = CommonUtil.getUserRoleByDevName(
-    'Small_Business_Banking'
+    'SME_Regional_Executive'
   );
 
   public static UserRole arcRole = CommonUtil.getUserRoleByDevName('AR_C');
@@ -1842,7 +1842,6 @@ public with sharing class CCRMTestDataFactory {
     List<ApplicationForm> appFormList = new List<ApplicationForm>();
     for (Integer i = 1; i <= count; i++) {
       ApplicationForm rec = new ApplicationForm();
-      rec.Application_Amount__c = 23 + i;
       rec.OpportunityId = oppId;
       rec.Stage = 'Initiated';
       rec.usageType = 'Other';

@@ -8,21 +8,29 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Account_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Account_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Account_Status__c</field>
+                <field>Product_Code__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Limit__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CCR__c</field>
+            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Date_Opened__c</field>
+                <field>Source_System_Status__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -30,7 +38,19 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Date_Opened__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Date_Closed__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>CPID__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Industry__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -55,10 +75,9 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Sequence__c</fields>
+        <fields>Facility__c</fields>
+        <fields>Product_Name__c</fields>
         <fields>Amount__c</fields>
-        <fields>Type__c</fields>
         <fields>Expiry_Date__c</fields>
         <relatedList>Facility__x.Other_Limits_and_Liabilities__c</relatedList>
     </relatedLists>
@@ -70,6 +89,24 @@
         <fields>Expiry_Date__c</fields>
         <fields>Permanent__c</fields>
         <relatedList>Diary_Comment__x.Other_Limits_and_Liabilities__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>ExternalId</fields>
+        <fields>Effective_Date__c</fields>
+        <fields>Post_Date__c</fields>
+        <fields>Type__c</fields>
+        <fields>Description__c</fields>
+        <fields>Amount__c</fields>
+        <fields>Source__c</fields>
+        <fields>Running_Balance__c</fields>
+        <fields>Time__c</fields>
+        <relatedList>Transaction_History__x.Other_Limits_and_Liabilities__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Sequence__c</fields>
+        <fields>Customer__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Account_Relationship__x.Other_Limits_and_Liabilities__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

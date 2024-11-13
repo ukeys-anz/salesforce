@@ -4,6 +4,10 @@
  * @description  AutoKYCQACaseRepository is the repository class for KYC QA Case Actions.
  */
 public with sharing class AutoKYCQACaseRepository {
+  static final Set<String> FA_CODES = new Set<String>{
+    'TRANSACT01',
+    'SAVING01'
+  };
   /**
    * @description Get list of COBs By persona Ids
    * @param personaIds set of persona Ids
@@ -105,7 +109,15 @@ public with sharing class AutoKYCQACaseRepository {
       return new List<Account>();
     }
     return [
-      SELECT Id, FinServ__KYCStatus__c, KYC_Verification_Level__c
+      SELECT
+        Id,
+        FinServ__KYCStatus__c,
+        KYC_Verification_Level__c,
+        (
+          SELECT Id, FinServ__FinancialAccountNumber__c, Product_Type__c
+          FROM FinServ__ClientFinancialAccounts__r
+          WHERE Marketing_Code__c IN :FA_CODES AND FinServ__Status__c = 'Active'
+        )
       FROM Account
       WHERE Id IN :accountIds
     ];
@@ -121,7 +133,26 @@ public with sharing class AutoKYCQACaseRepository {
       return new List<Account>();
     }
     return [
-      SELECT Id, OCV_ID__c, FinServ__KYCStatus__c, KYC_Verification_Level__c
+      SELECT
+        Id,
+        OCV_ID__c,
+        FinServ__KYCStatus__c,
+        KYC_Verification_Level__c,
+        (
+          SELECT
+            Customer_Name__c,
+            LastModifiedDate,
+            Name,
+            NewValue__c,
+            Occurrence_Number__c,
+            ToBeValue__c,
+            TriggeredFrom__c
+          FROM Customer_Profile_Updates__r
+          WHERE
+            TriggeredFrom__c = 'Case.KYC_QA.AddRestraints'
+            AND Status__c = 'Completed'
+          ORDER BY CreatedDate DESC
+        )
       FROM Account
       WHERE Id IN :accountIds AND CustomerExitFlag__c = FALSE
     ];
@@ -192,6 +223,23 @@ public with sharing class AutoKYCQACaseRepository {
   }
 
   /**
+   * @description Queries the Account records with the Customer Profile Updates and KYC QA Cases.
+   * @param accountIds A set of Account IDs to query the records for.
+   * @return A list of Account records with the Customer Profile Updates and KYC QA Cases.
+   */
+  public List<Account> queryAccountsWithCpuAndKYCQaCases(Set<Id> accountIds) {
+    return new SystemAction().queryAccountsWithCpuAndKYCQaCases(accountIds);
+  }
+
+  /**
+   * @description Checks if the restraint feature is enabled.
+   * @return Boolean value indicating if the restraint is enabled.
+   */
+  public Boolean isRestraintEnabled() {
+    return Label.CustomerRestraintEnabled.equalsIgnoreCase('true');
+  }
+
+  /**
    * @description This class take care of Database operation that requires without sharing operation
    */
   private without sharing class SystemAction {
@@ -208,6 +256,35 @@ public with sharing class AutoKYCQACaseRepository {
         SELECT Id, OCV_ID__c
         FROM Account
         WHERE OCV_ID__c IN :ocvIds AND CustomerExitFlag__c = TRUE
+        WITH SYSTEM_MODE
+      ];
+    }
+
+    /**
+     * @description Queries the Account records with the Customer Profile Updates and KYC QA Cases.
+     * @param accountIds A set of Account IDs to query the records for.
+     * @return A list of Account records with the Customer Profile Updates and KYC QA Cases.
+     */
+    public List<Account> queryAccountsWithCpuAndKYCQaCases(Set<Id> accountIds) {
+      if (accountIds.isEmpty()) {
+        return new List<Account>();
+      }
+      return [
+        SELECT
+          Id,
+          (
+            SELECT Id, Status__c, TriggeredFrom__c
+            FROM Customer_Profile_Updates__r
+          ),
+          (
+            SELECT Id, Fraud_Restraint_Status__c, LastModifiedDate
+            FROM Cases
+            WHERE RecordTypeId = :RTCase.kycQa
+            ORDER BY LastModifiedDate DESC
+            LIMIT 1
+          )
+        FROM Account
+        WHERE Id IN :accountIds
         WITH SYSTEM_MODE
       ];
     }
