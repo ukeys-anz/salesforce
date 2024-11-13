@@ -99,6 +99,8 @@ export default class CustomOmniFooterButtons extends OmniscriptBaseMixin(
 
   async handleCreate(data) {
     if (!data.rpCaseComments) return;
+    
+    if (data.rpCaseComments.length > 4000) return;
 
     const fields = {};
     // Map the user input to the fields
