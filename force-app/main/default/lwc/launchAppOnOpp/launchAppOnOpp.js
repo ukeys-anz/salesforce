@@ -101,22 +101,24 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   handleClick(event) {
     this.buttonLabel = event.target.label;
     this.showRadio = this.buttonLabel ? false : true;
-    if (!this.showRadio) {
-      getOpportunityLineItems({
-        oppId: this.recordId
-      })
-        .then((result) => {
-          this.showTable = result && result.length > 0;
-          if (result) {
-            this.isLoading = false;
-            this.data = result;
-          }
-        })
-        .catch((error) => {
-          this.isLoading = false;
-          this.showToast("Error", "Error", error.body.message, "Dismissable");
-        });
+    if (this.showRadio) {
+      return;
     }
+    getOpportunityLineItems({
+      oppId: this.recordId
+    })
+      .then((result) => {
+        this.showTable = result && result.length > 0;
+        if (result) {
+          this.data = result;
+        }
+      })
+      .catch((error) => {
+        this.showToast("Error", "Error", error.body.message, "Dismissable");
+      })
+      .finally(() => {
+        this.isLoading = false;
+      });
   }
   handleBack() {
     this.showRadio = true;
@@ -138,6 +140,7 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   }
 
   handleSave() {
+    this.isLoading = true;
     let recordTypeRec = this.appFormRecordTypes.filter(
       (recType) => recType.label === this.buttonLabel
     );
@@ -172,6 +175,9 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
       })
       .catch((error) => {
         this.showToast("Error", "Error", error.body.message, "Dismissable");
+      })
+      .finally(() => {
+        this.isLoading = false;
       });
   }
 
@@ -204,18 +210,19 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   navigateToUrl(url, systemName) {
     let sourceSystemId = this.sourceSystemId;
     let oppId = this.oppId;
-    if (url) {
-      if (systemName === "BBD") {
-        url = url
-          .replace("{!Account.Source_System_ID__c}", sourceSystemId)
-          .replace("{!Opportunity.Opp_Id__c}", oppId);
-      }
-      this[NavigationMixin.Navigate]({
-        type: "standard__webPage",
-        attributes: {
-          url: url
-        }
-      });
+    if (!url) {
+      return;
     }
+    if (systemName === "BBD") {
+      url = url
+        .replace("{!Account.Source_System_ID__c}", sourceSystemId)
+        .replace("{!Opportunity.Opp_Id__c}", oppId);
+    }
+    this[NavigationMixin.Navigate]({
+      type: "standard__webPage",
+      attributes: {
+        url: url
+      }
+    });
   }
 }

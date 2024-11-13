@@ -9,13 +9,17 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
    * @description BalanceHistory Model class
    */
   public class BalanceHistoryModel extends FinancialAccountModelBase {
-    public String compositeBalanceHistoryId;
-    public String balancePeriod;
-    public String month;
-    public String year;
-    public Decimal avgBalance;
-    public Decimal maxBalance;
-    public Decimal minBalance;
+    private String compositeBalanceHistoryId;
+    private String balancePeriod;
+    private String month;
+    private String year;
+    private Decimal avgBalance;
+    private Decimal maxBalance;
+    private Decimal minBalance;
+    private Integer excessDays;
+    private String returnedItems;
+    private Integer excessItems;
+    private Integer excessTimes;
   }
 
   /**
@@ -98,18 +102,14 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecords(
     ExternalObjectCalloutResponse calloutResponse
   ) {
-    Map<String, Object> row;
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-
     for (
       BalanceHistoryModel bal : ((BalanceHistoryCalloutResponse) this.calloutResponse)
         .balanceHistory
     ) {
-      row = new Map<String, Object>{
+      Map<String, Object> row = new Map<String, Object>{
         'ExternalId' => bal.compositeBalanceHistoryId,
-        'DisplayUrl' => URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        bal.compositeBalanceHistoryId,
+        'DisplayUrl' => getDisplayUrl(bal.compositeBalanceHistoryId),
         this.parentField => this.parentId,
         'BalancePeriod' => bal.year +
         '-' +
@@ -118,7 +118,11 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
         'Month' => bal.month,
         'AverageBalance' => bal.avgBalance,
         'MaximumBalance' => bal.maxBalance,
-        'MinimumBalance' => bal.minBalance
+        'MinimumBalance' => bal.minBalance,
+        'DaysInExcess' => bal.excessDays,
+        'ReturnedItems' => bal.returnedItems,
+        'ItemsInExcess' => bal.excessItems,
+        'Times In Excess' => bal.excessTimes
       };
       result.externalRecords.add(row);
     }

@@ -7,8 +7,8 @@
     <formula>LastModifiedDate</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Last Modified Date/Time</label>
-    <securityClassification>Internal</securityClassification>
     <required>false</required>
+    <securityClassification>Internal</securityClassification>
     <trackHistory>false</trackHistory>
     <type>DateTime</type>
 </CustomField>

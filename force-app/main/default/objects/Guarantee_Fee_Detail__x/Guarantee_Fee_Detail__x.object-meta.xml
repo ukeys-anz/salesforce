@@ -126,7 +126,7 @@
     <enableSearch>false</enableSearch>
     <externalDataSource>Core_Banking_Data_Source</externalDataSource>
     <externalName>GuaranteeFeeDetail</externalName>
-    <label>Guarantee Fee Detail</label>
-    <pluralLabel>Guarantee Fee Details</pluralLabel>
+    <label>Fee</label>
+    <pluralLabel>Fees</pluralLabel>
     <searchLayouts/>
 </CustomObject>

@@ -109,6 +109,36 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
+                    <value>Transaction_History__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-09af7fca-77ac-43af-a3e9-c817adc6691c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Credit_Card__x.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
                     <value>Diary_Comments__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -127,7 +157,7 @@
                 <identifier>force_relatedListSingleContainer</identifier>
             </componentInstance>
         </itemInstances>
-        <name>Facet-043dd74f-298f-4304-bb61-ecc0bbfbc203</name>
+        <name>Facet-33b8bd67-f43e-40f2-bf0b-5e7450418ba7</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -211,7 +241,21 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>body</name>
-                    <value>Facet-043dd74f-298f-4304-bb61-ecc0bbfbc203</value>
+                    <value>Facet-09af7fca-77ac-43af-a3e9-c817adc6691c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Transaction History</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-33b8bd67-f43e-40f2-bf0b-5e7450418ba7</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>title</name>

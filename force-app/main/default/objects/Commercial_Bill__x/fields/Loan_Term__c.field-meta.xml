@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Loan Term(Years)</label>
+    <label>Loan Term (Years)</label>
     <precision>18</precision>
     <required>false</required>
     <scale>0</scale>

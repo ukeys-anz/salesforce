@@ -3,6 +3,7 @@
  * @since  07/2023
  * @group Platform
  * @description External object external query base class
+ * @runTests DepositAccountExternalQueryTest
  */
 public abstract with sharing class ExternalObjectQueryBase {
   /**
@@ -274,6 +275,15 @@ public abstract with sharing class ExternalObjectQueryBase {
       return null;
     }
     return String.valueOf(indexParam).leftPad(4, '0');
+  }
+
+  /**
+   * @description get external record DisplayUrl
+   * @param  appendUrl Financial account record
+   * @return String DisplayUrl
+   */
+  protected String getDisplayUrl(String appendUrl) {
+    return URL.getOrgDomainUrl().toExternalForm() + '/' + appendUrl;
   }
 
   /**

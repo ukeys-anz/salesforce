@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Layout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <excludeButtons>OpenSlackRecordChannel</excludeButtons>
     <layoutSections>
         <customLabel>false</customLabel>
         <detailHeading>false</detailHeading>
@@ -12,11 +13,11 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Product_Code__c</field>
+                <field>Account_Number__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Balance__c</field>
+                <field>Product_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -25,18 +26,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Limit__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>SI__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Int_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Int_Rate__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -50,35 +39,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Account_Number__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Original_Amount_Financed__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Amount_in_Arrears__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Balloon_Payments__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Loan_Term_Years__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Loan_Term_Months__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Expires__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Government_Guarantee__c</field>
+                <field>Facility_Expiry_Type__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>CPID__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -103,18 +72,15 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Id</fields>
-        <fields>Status__c</fields>
-        <fields>Purchase_Price__c</fields>
-        <fields>Amount_Financed__c</fields>
-        <relatedList>Asset__x.Asset_Finance_AMBIT__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Sequence__c</fields>
         <fields>Customer__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>Account_Relationship__x.Asset_Finance_AMBIT__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Contract_Number__c</fields>
+        <fields>Amount_Financed__c</fields>
+        <relatedList>Asset_Finance_AMBIT_Contract__x.Asset_Finance_AMBIT__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>
@@ -122,7 +88,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9h000002MbcX</masterLabel>
+        <masterLabel>00h9h000002RUdZ</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
