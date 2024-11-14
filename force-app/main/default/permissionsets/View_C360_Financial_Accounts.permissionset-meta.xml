@@ -350,13 +350,13 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-       <field>Account_Relationship__x.Credit_Card__c</field>
-       <readable>true</readable>
+        <field>Account_Relationship__x.Credit_Card__c</field>
+        <readable>true</readable>
     </fieldPermissions>
-   <fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Account_Relationship__x.Other_Limits_and_Liabilities__c</field>
-       <readable>true</readable>
+        <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
@@ -761,6 +761,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Balance_History__x.Year__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CardHolder__x.Additional_Information__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
