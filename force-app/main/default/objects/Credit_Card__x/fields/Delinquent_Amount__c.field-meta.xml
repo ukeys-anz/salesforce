@@ -6,9 +6,9 @@
     <description>Delinquent Amount ($)</description>
     <externalDeveloperName>DelinquentAmount</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
+    <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
+    <isSortingDisabled>false</isSortingDisabled>
     <label>Delinquent Amount ($)</label>
     <precision>18</precision>
     <required>false</required>

@@ -6,9 +6,9 @@
     <description>Product Name</description>
     <externalDeveloperName>ProductName</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
+    <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
+    <isSortingDisabled>false</isSortingDisabled>
     <label>Product Name</label>
     <length>255</length>
     <required>false</required>

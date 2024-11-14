@@ -6,9 +6,9 @@
     <description>Source System Status</description>
     <externalDeveloperName>SourceSystemStatus</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
+    <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
+    <isSortingDisabled>false</isSortingDisabled>
     <label>Source System Status</label>
     <length>255</length>
     <required>false</required>

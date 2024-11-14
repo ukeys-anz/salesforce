@@ -70,10 +70,7 @@ public with sharing class CardHolderExternalQuery extends FinancialAccountQueryB
         .cardHolders
     ) {
       Map<String, Object> row = new Map<String, Object>{
-        'ExternalId' => cardHolder.compositeCardHolderId +
-        '|' +
-        '************' +
-        cardHolder.cardNumberLast4Digits,
+        'ExternalId' => cardHolder.compositeCardHolderId,
         'DisplayUrl' => getDisplayUrl(cardHolder.compositeCardHolderId),
         this.parentField => this.parentId,
         'CardholderName' => cardHolder.cardHolderName,
@@ -84,29 +81,5 @@ public with sharing class CardHolderExternalQuery extends FinancialAccountQueryB
       result.externalRecords.add(row);
     }
     return result;
-  }
-
-  /**
-   * @description Return true when clicked on detail view
-   * @return true / false
-   **/
-  @TestVisible
-  protected override Boolean displayDummyRecord() {
-    return String.isNotBlank(this.externalId) && String.isBlank(this.parentId);
-  }
-
-  /**
-   * @description Transform API response to DepositAccount records
-   * @param externalId externalId
-   * @param row externalRecord row
-   * @return External object rows ExternalObjectQueryBase.ExternalQueryResult
-   */
-  @testVisible
-  protected override ExternalObjectQueryBase.ExternalQueryResult createDummyExternalRecord(
-    String externalId,
-    Map<String, Object> row
-  ) {
-    row.put('CardNumber', externalId.substringAfterLast('|'));
-    return super.createDummyExternalRecord(externalId, row);
   }
 }
