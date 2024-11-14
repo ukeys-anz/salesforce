@@ -108,19 +108,18 @@ private class DepositAccountExternalQueryTest {
   @isTest
   static void testCreateExternalRecords() {
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
-    DataSource.QueryContext context = createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
     depositAcct.populateData(
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     Test.startTest();
-    depositAcct.execute(context);
     depositAcct.calloutResponse = new DepositAccountExternalQuery.DepositAccountCalloutResponse();
     ((DepositAccountExternalQuery.DepositAccountCalloutResponse) depositAcct.calloutResponse)
       .accounts = new List<DepositAccountExternalQuery.DepositAccountModel>();
     DepositAccountExternalQuery.DepositAccountModel depositModel = new DepositAccountExternalQuery.DepositAccountModel();
     depositModel.accountName = 'Denis Lai';
     depositModel.accountNumber = '3424909811';
+    depositModel.productCode = 'DDA';
     ((DepositAccountExternalQuery.DepositAccountCalloutResponse) depositAcct.calloutResponse)
       .accounts.add(depositModel);
     ((FinancialAccountQueryBase.FinancialAccountCalloutResponse) depositAcct.calloutResponse)
@@ -169,14 +168,11 @@ private class DepositAccountExternalQueryTest {
   static void getProductCodeTest() {
     //setting up mocked data
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
-    DataSource.QueryContext context = createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
     depositAcct.populateData(
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     Test.startTest();
-    depositAcct.execute(context);
-
     DepositAccountExternalQuery.DepositAccountModel accountModel = new DepositAccountExternalQuery.DepositAccountModel();
     accountModel.accountNumber = '3424909811';
     accountModel.accountName = 'Denis Lai';
@@ -190,13 +186,11 @@ private class DepositAccountExternalQueryTest {
   static void getExternalIdTest() {
     //setting up mocked data
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
-    DataSource.QueryContext context = createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
     Map<String, FinServ__FinancialAccountRole__c> accountRoleMap = depositAcct.populateData(
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     Test.startTest();
-    depositAcct.execute(context);
     DepositAccountExternalQuery.DepositAccountModel accountModel = new DepositAccountExternalQuery.DepositAccountModel();
     accountModel.accountNumber = '3424909811';
     accountModel.accountName = 'Denis Lai';
@@ -214,13 +208,11 @@ private class DepositAccountExternalQueryTest {
   static void getAccountKeyTest() {
     //setting up mocked data
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
-    DataSource.QueryContext context = createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
     Map<String, FinServ__FinancialAccountRole__c> accountRoleMap = depositAcct.populateData(
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     Test.startTest();
-    depositAcct.execute(context);
     String accountKey = depositAcct.getAccountKey(
       '3424909811',
       'DDA',
@@ -257,7 +249,6 @@ private class DepositAccountExternalQueryTest {
   static void getCAPSummaryAccountsTest() {
     HttpCalloutResponse response;
     ARNCService.FinancialAccountQueryParameters queryParams;
-    createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
     Test.startTest();
     response = depositAcct.getCAPSummaryAccounts(
@@ -272,7 +263,6 @@ private class DepositAccountExternalQueryTest {
   @isTest
   static void getDetailAccountsTest() {
     HttpCalloutResponse response;
-    createDepositAccountQueryContext();
     DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
     Test.startTest();
     response = depositAcct.getDetailAccounts(
@@ -298,21 +288,6 @@ private class DepositAccountExternalQueryTest {
     Assert.isFalse(result == null, 'Failed to create DummyExternalRecord');
   }
 
-  @isTest
-  static void isFMOrSsiOrRsvProductTest() {
-    String payloadFM = '{"accountNumber": "FM-111269467"}';
-    String payloadDDA = '{"accountNumber": "DDA-111269467"}';
-    Assert.areEqual(
-      true,
-      DepositAccountExternalQuery.isFMOrSsiOrRsvProduct(payloadFM),
-      'isFMOrSsiOrRsvProduct is not returning correct result for FM'
-    );
-    Assert.areEqual(
-      false,
-      DepositAccountExternalQuery.isFMOrSsiOrRsvProduct(payloadDDA),
-      'isFMOrSsiOrRsvProduct is not returning correct result for DDA'
-    );
-  }
   @isTest
   static void testParseFiltersWithParentId() {
     DataSource.QueryContext context = createDepositAccountQueryContext();
@@ -357,16 +332,6 @@ private class DepositAccountExternalQueryTest {
     Test.stopTest();
     Assert.areEqual('CustomerId', parentName, 'Parent is not customer');
   }
-  @isTest
-  static void displayDummyFinancialAccountTest() {
-    createDepositAccountQueryContext();
-    DepositAccountExternalQuery depositAcct = new DepositAccountExternalQuery();
-    depositAcct.externalId = 'SSI-3535555';
-    Test.startTest();
-    Boolean result = depositAcct.displayDummyRecord();
-    Test.stopTest();
-    Assert.areEqual(true, result, 'Product Code is not FM or SSI');
-  }
 
   /**
    * @description create Deposit Account Query Context and set mock response
@@ -404,16 +369,15 @@ private class DepositAccountExternalQueryTest {
     System.runAs(mlUser) {
       Test.startTest();
       FinServ__FinancialAccountRole__c mockFar = getMockedData();
-      DataSource.QueryContext context = createDepositAccountQueryContext();
       DepositAccountExternalQuery query = new DepositAccountExternalQuery();
       query.populateData(new List<FinServ__FinancialAccountRole__c>{ mockFar });
-      query.execute(context);
       query.calloutResponse = new DepositAccountExternalQuery.DepositAccountCalloutResponse();
       ((DepositAccountExternalQuery.DepositAccountCalloutResponse) query.calloutResponse)
         .accounts = new List<DepositAccountExternalQuery.DepositAccountModel>();
       DepositAccountExternalQuery.DepositAccountModel depositModel = new DepositAccountExternalQuery.DepositAccountModel();
       depositModel.accountName = 'Denis Lai';
       depositModel.accountNumber = '3424909811';
+      depositModel.productCode = 'RSV';
 
       ((DepositAccountExternalQuery.DepositAccountCalloutResponse) query.calloutResponse)
         .accounts.add(depositModel);
@@ -429,5 +393,66 @@ private class DepositAccountExternalQueryTest {
         'Size of accounts is not 1'
       );
     }
+  }
+
+  @isTest
+  static void testpopulateProductCodeWiseFieldsforRSV() {
+    Map<String, Object> row = new Map<String, Object>();
+    DepositAccountExternalQuery.DepositAccountModel faObj = new DepositAccountExternalQuery.DepositAccountModel();
+    faObj.productCode = 'RSV';
+    faObj.availableBalance = 11.00;
+    faObj.pledge = true;
+
+    Test.startTest();
+    DepositAccountExternalQuery depositQuery = new DepositAccountExternalQuery();
+    row = depositQuery.populateProductCodeWiseFields(row, faObj);
+    Test.stopTest();
+    Assert.areEqual(
+      11.00,
+      row.get('BalanceAvailable'),
+      'Available balance should be 11.00'
+    );
+    Assert.areEqual(true, row.get('Pledge'), 'Pledge should be true');
+  }
+
+  @isTest
+  static void testpopulateProductCodeWiseFieldsforDDA() {
+    Map<String, Object> row = new Map<String, Object>();
+    DepositAccountExternalQuery.DepositAccountModel faObj = new DepositAccountExternalQuery.DepositAccountModel();
+    faObj.productCode = 'DDA';
+    faObj.availableBalance = 11.00;
+    faObj.pledge = true;
+
+    Test.startTest();
+    DepositAccountExternalQuery depositQuery = new DepositAccountExternalQuery();
+    row = depositQuery.populateProductCodeWiseFields(row, faObj);
+    Test.stopTest();
+    Assert.areEqual(
+      11.00,
+      row.get('BalanceAvailable'),
+      'Available balance should be 11.00'
+    );
+    Assert.areEqual(true, row.get('Pledge'), 'Pledge should be true');
+  }
+
+  @isTest
+  static void testpopulateProductCodeWiseFieldsforFM() {
+    Map<String, Object> row = new Map<String, Object>();
+    Id controllingpostId = Lib_FakeIdGenerator.getMockId(
+      Controlling_Post__c.SobjectType
+    );
+    DepositAccountExternalQuery.DepositAccountModel faObj = new DepositAccountExternalQuery.DepositAccountModel();
+    faObj.productCode = 'FM';
+    faObj.controllingPostId = controllingpostId;
+
+    Test.startTest();
+    DepositAccountExternalQuery depositQuery = new DepositAccountExternalQuery();
+    row = depositQuery.populateProductCodeWiseFields(row, faObj);
+    Test.stopTest();
+    Assert.areEqual(
+      controllingpostId,
+      row.get('CPID'),
+      'CPID should be associated Controlling Post Id'
+    );
   }
 }
