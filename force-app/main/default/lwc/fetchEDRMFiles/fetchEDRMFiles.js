@@ -7,10 +7,8 @@ import CustomerNumber from "@salesforce/schema/Case.IDR_Customer_Number__c";
 import EdrmLabel from "@salesforce/label/c.EDRM_Business_Streams_Mapping";
 import EdrmDevURL from "@salesforce/label/c.EDRM_URL_DEV";
 import EdrmProdURl from "@salesforce/label/c.EDRM_URL_PROD";
-import EdrmDesktopParam from "@salesforce/label/c.EDRM_Desktop_Params";
 
 const fields = [RecordType, CustomerNumber];
-const EDRMURLString = "&feature=GenericPaginatedSearch&appId=";
 export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
   @api recordId;
   showCustomerComplaint = false;
@@ -121,26 +119,16 @@ export default class FetchEDRMFiles extends NavigationMixin(LightningElement) {
     return EdrmProdURl;
   }
   setEdrmURLSuffix() {
-    let edrmURLSuffix = this.getDesktopUrl(this.businessStream) + EDRMURLString;
+    let edrmURLSuffix = "";
     if (this.applicationNumber) {
-      edrmURLSuffix +=
+      edrmURLSuffix =
         this.businessStream + "&OriginatingSourceID=" + this.applicationNumber;
     } else if (this.showCustomerComplaint && this.customerNumber) {
-      edrmURLSuffix += this.businessStream + "&capId=" + this.customerNumber;
+      edrmURLSuffix = this.businessStream + "&capId=" + this.customerNumber;
     } else if (!this.showCustomerComplaint && this.accountNumber) {
-      edrmURLSuffix += this.businessStream + "&AccountID=" + this.accountNumber;
+      edrmURLSuffix = this.businessStream + "&AccountID=" + this.accountNumber;
     }
     return edrmURLSuffix;
-  }
-  getDesktopUrl(businessStream) {
-    let tempEDRMMap = new Map();
-    let str_array = EdrmDesktopParam.split(",");
-    for (let i = 0; i < str_array.length; i++) {
-      let tempArr = [];
-      tempArr = str_array[i].split(":");
-      tempEDRMMap.set(tempArr[0], tempArr[1]);
-    }
-    return tempEDRMMap.get(businessStream);
   }
   handleNavigate() {
     if (!this.validateInputFields()) {
