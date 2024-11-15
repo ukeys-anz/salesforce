@@ -1209,6 +1209,13 @@
       "permissionsetgroups": [],
       "permissionsets": ["DAONFileCleanup", "Query_All_Files", "API_Only"],
       "type": "system"
+    },
+    {
+      "name": "CFaaS Files Cleanup Batch User",
+      "profile": "Minimum Access - Salesforce",
+      "permissionsetgroups": [],
+      "permissionsets": ["CFaaSFileCleanup", "Query_All_Files", "API_Only"],
+      "type": "system"
     }
   ]
 }
