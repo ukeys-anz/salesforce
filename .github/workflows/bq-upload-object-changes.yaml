@@ -46,6 +46,7 @@ jobs:
     needs: [generate_object_changes]
     runs-on: [anzx-default]
     if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
+    environment: ${{ inputs.prod_deployment == true && 'prod' || '' }}
     steps:
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
