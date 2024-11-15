@@ -19,6 +19,8 @@ const TOTAL_CUSTOMER_LIMIT = "TOTAL_CUSTOMER_LIMIT";
 const CLG_CREDIT_RISK = "CLG_CREDIT_RISK";
 const TOTAL_MORTAGE_LIMIT = "TOTAL_MORTAGE_LIMIT";
 const CCRM_PROFILE = "ANZ CCRM Standard User";
+const ML_USER_PROFILE = "ANZ ML Standard User";
+const ADMIN_PROFILE = "System Administrator";
 
 export default class financialSummaryViewAsync extends LightningElement {
   @api recordId;
@@ -228,6 +230,13 @@ export default class financialSummaryViewAsync extends LightningElement {
     } else {
       this.handleNoAvailableBalance(this.financialSummaryData);
     }
+  }
+
+  get showCCCalculationMsg() {
+    return (
+      this.currentUserProfile === ML_USER_PROFILE ||
+      this.currentUserProfile === ADMIN_PROFILE
+    );
   }
 
   handleSubscribe() {

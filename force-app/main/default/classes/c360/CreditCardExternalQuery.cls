@@ -21,6 +21,7 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
     private Decimal currentDueAmount;
     private Decimal availableBalance;
     private String rewardsNumber;
+    private String frequentFlyerNumber;
     private Decimal delinquentAmount;
     public Integer totalDelinquentDays;
     private String address;
@@ -155,7 +156,9 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
         'CreditLimit' => fa.accountLimit,
         'CashAdvanceRate' => fa.cashAdvanceRate,
         'InterestFreeDays' => fa.interestFreeDays,
-        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(fa.sourceSystemStatus) ?? fa.sourceSystemStatus,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'SubProductCode' => getSubProductCode(fa.accountNumber),
         'ProductName' => getProductName(fa.accountNumber),
         'BlockCode1' => blockCode1,
@@ -165,6 +168,7 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
         'MinimumMonthlyPayment' => fa.currentDueAmount,
         'AvailableFunds' => fa.availableBalance,
         'RewardsNumber' => fa.rewardsNumber,
+        'FrequentFlyerNumber' => fa.frequentFlyerNumber,
         'DelinquentAmount' => fa.delinquentAmount,
         'DaysDelinquent' => fa.totalDelinquentDays,
         'StatementMailingAddress' => fa.address

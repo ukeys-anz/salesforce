@@ -61,7 +61,6 @@ public with sharing class DisputeExternalCaseStatusRepository {
         )
       FROM Case
       WHERE Id IN :caseIds
-      WITH USER_MODE
     ];
   }
 }

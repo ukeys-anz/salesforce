@@ -362,11 +362,20 @@
         <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
     </labels>
     <labels>
-        <fullName>DowngradeUpgradeEnabled</fullName>
+        <fullName>CustomerRestraintEnabled</fullName>
+        <categories>Join</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DowngradeUpgradeEnabled</shortDescription>
+        <shortDescription>CustomerRestraintEnabled</shortDescription>
         <value>False</value>
+    </labels>
+    <labels>
+        <fullName>CustomerRestraintComment</fullName>
+        <categories>Join</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CustomerRestraintComment</shortDescription>
+        <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
@@ -2624,6 +2633,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>DAONImagePreviewURL</shortDescription>
         <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/Insights/CustomerInsight</value>
     </labels>
     <labels>
         <fullName>BlockManualStatusUpdateIdOpsCase</fullName>

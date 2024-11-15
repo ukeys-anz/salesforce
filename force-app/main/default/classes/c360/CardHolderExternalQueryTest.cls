@@ -6,7 +6,6 @@
  */
 @isTest
 private class CardHolderExternalQueryTest {
-
   @isTest
   static void testCreateExternalRecords() {
     Test.startTest();

@@ -564,7 +564,7 @@
     "ApplicationForm": {
       "IA-2423227": ["OpportunityId"],
       "IA-2434298": [
-        "Application_Amount__c",
+        "App_Amount__c",
         "Application_Number__c",
         "Application_Status__c",
         "Name"
@@ -578,7 +578,8 @@
         "ApplicationFormId",
         "Stage",
         "Close_Date__c",
-        "Reference_Number__c"
+        "Reference_Number__c",
+        "Amount__c"
       ],
       "IA-2423227": [
         "Won_from_Lost_to__c",
@@ -3344,8 +3345,7 @@
         "FinServ__ReferredByUser__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
-      "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
-      "IA-2434298": ["Total_Application_Amount__c"]
+      "IA-2428130": ["Specialisation__c", "New_to_Bank__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [
@@ -4682,8 +4682,10 @@
         "Sub_Product_Code__c",
         "CPID__c"
       ],
-      "IA-2415984": ["Statement_Mailing_Address__c"]
+      "IA-2415984": ["Statement_Mailing_Address__c"],
+      "IA-2415999": ["Frequent_Flyer_Number__c"]
     },
+
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
     },
@@ -4694,7 +4696,8 @@
         "Cardholder_Name__c",
         "Relationship__c",
         "Status__c"
-      ]
+      ],
+      "IA-2415860": ["Additional_Information__c"]
     },
     "Loan_Account__x": {
       "IA-2415720": [
@@ -4864,7 +4867,9 @@
         "Balloon_Amount__c",
         "Limit__c",
         "Customer__c",
-        "Total_Number_Of_Repayments__c"
+        "Total_Number_Of_Repayments__c",
+        "Product_Name__c",
+        "Loan_Term_Months__c"
       ]
     },
     "Portfolio_Of_Loan__x": {
@@ -4902,7 +4907,11 @@
         "Asset_Finance_AMBIT__c",
         "Credit_Card__c"
       ],
-      "IA-2530753": ["Customer__c", "Sequence__c"]
+      "IA-2530753": [
+        "Customer__c",
+        "Sequence__c",
+        "Other_Limits_and_Liabilities__c"
+      ]
     },
     "Balance_History__x": {
       "IA-2415720": [
@@ -4931,66 +4940,68 @@
         "Opened_Date__c",
         "Product_Code__c",
         "Security_Type__c",
-        "Undrawn_Balance__c"
+        "Undrawn_Balance__c",
+        "Expiry_Date__c"
       ]
     },
-    "Asset__x": {
+    "Asset_Finance_AMBIT_Asset__x": {
       "IA-2415720": [
-        "Asset_Finance_AMBIT__c",
-        "Amount_Financed__c",
-        "ID__c",
-        "Purchase_Price__c",
-        "Status__c"
-      ]
-    },
-    "Asset_Detail__x": {
-      "IA-2415720": [
-        "Asset_No__c",
         "Make__c",
         "Model__c",
         "Purchase_Price__c",
         "Serial_No__c",
         "Year__c",
-        "Asset__c",
         "ECV__c",
         "ECV_Date__c",
-        "ECV_Valuer__c"
+        "ECV_Valuer__c",
+        "Contract__c",
+        "Asset_Number__c"
       ]
     },
     "Asset_Repayment_Detail__x": {
       "IA-2415720": [
         "Amount__c",
-        "Asset__c",
-        "Frequency__c",
+        "Contract__c",
         "Repayment_Account_Number__c",
-        "Repayment_Type__c",
-        "Start_Date__c",
         "Total_Number_Of_Repayments__c"
       ]
     },
     "Asset_Finance_AMBIT__x": {
-      "IA-2415720": [
+      "IA-2415860": [
         "Account_Status__c",
         "Account_Name__c",
-        "Account_Number__c",
         "Expires__c",
-        "Int_Rate__c",
         "Opened_Date__c",
-        "Original_Amount_Financed__c",
-        "Product_Code__c",
-        "Loan_Term_Months__c",
-        "Loan_Term_Years__c",
-        "Balance__c",
-        "Balloon_Payments__c",
-        "Frequency__c",
-        "Int_Type__c",
-        "Limit__c",
         "Customer__c",
-        "Government_Guarantee__c",
-        "SI__c",
+        "CPID__c",
+        "Product_Name__c",
         "Undrawn_Balance__c",
-        "Amount_in_Arrears__c"
-      ]
+        "Facility_Expiry_Type__c"
+      ],
+      "IA-2415999": ["Account_Number__c"],
+      "IA-2415720": ["Limit__c"]
+    },
+    "Asset_Finance_AMBIT_Contract__x": {
+      "IA-2415860": [
+        "Amount_Financed__c",
+        "Amount_in_Arrears__c",
+        "Asset_Finance_AMBIT__c",
+        "Contract_Number__c",
+        "Date_Opened__c",
+        "Expiry_Date__c",
+        "Government_Guarantee__c",
+        "Interest_Rate__c",
+        "Interest_Type__c",
+        "Net_Outstanding_Amount__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Residual_Value__c",
+        "Security_Indicator__c",
+        "Status__c",
+        "Term_Months__c",
+        "Term_Years__c"
+      ],
+      "IA-2415999": ["Account_Number__c"]
     },
     "Linked_Account__x": {
       "IA-2415720": [
@@ -5014,6 +5025,7 @@
         "Term_Deposit__c",
         "Loan_Account__c",
         "Additional_Information__c",
+        "Other_Limits_and_Liabilities__c",
         "Credit_Card__c"
       ]
     },
@@ -5034,6 +5046,7 @@
     },
     "Commercial_Bill__x": {
       "IA-2415720": [
+        "Account_Name__c",
         "Account_Number__c",
         "Account_Status__c",
         "CAP_Account_Limit__c",
@@ -5044,7 +5057,11 @@
         "Opening_Date__c",
         "Purpose_Code__c",
         "Sequence_No__c",
-        "Customer__c"
+        "Customer__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Purpose__c",
+        "Sub_Product_Code__c"
       ]
     },
     "Linked_Bill__x": {
@@ -5066,7 +5083,8 @@
         "Fee_Amount__c",
         "Fee_Frequency__c",
         "Fee_Name__c",
-        "Fee_Rate__c"
+        "Fee_Rate__c",
+        "Seq__c"
       ]
     },
     "Commercial_Bill_Repayment_Detail__x": {
@@ -5074,7 +5092,8 @@
         "Commercial_Bill__c",
         "Scheduled_Bill_Reduction_Amount__c",
         "Scheduled_End_Date__c",
-        "Scheduled_Start_Date__c"
+        "Scheduled_Start_Date__c",
+        "Seq__c"
       ]
     },
     "Facility_Fee__x": {
@@ -5085,7 +5104,8 @@
         "Fee_Charge_Account__c",
         "Fee_Type__c",
         "Indemnity_Guarantee__c",
-        "Next_Due_Date__c"
+        "Next_Due_Date__c",
+        "Seq__c"
       ]
     },
     "Asset_Detail_ELS__x": {
@@ -5096,7 +5116,9 @@
         "Model__c",
         "Purchase_Price__c",
         "Serial_No__c",
-        "Year__c"
+        "Year__c",
+        "Value__c",
+        "Value_Type__c"
       ]
     },
     "Active_Indemnity_Guarantee__x": {
@@ -5132,7 +5154,8 @@
         "Next_Due_Date__c",
         "Per_Bank_G_tee_Fee__c",
         "Per_Bank_G_tee_Fee_Amount__c",
-        "Per_Bank_G_tee_Fee_Frequency__c"
+        "Per_Bank_G_tee_Fee_Frequency__c",
+        "Seq__c"
       ]
     },
     "Favourees__x": {
@@ -5140,7 +5163,8 @@
         "ABN__c",
         "Active_Indemnity_Guarantee__c",
         "Inactive_Indemnity_Guarantee__c",
-        "Name__c"
+        "Name__c",
+        "Seq__c"
       ]
     }
   },

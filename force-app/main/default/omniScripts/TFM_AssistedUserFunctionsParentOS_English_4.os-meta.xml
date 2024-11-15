@@ -640,7 +640,7 @@
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;dataJSON&quot; : false,
   &quot;show&quot; : null,
-  &quot;text&quot; : &quot;&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Unexpected error encountered - Open Banking data sharing arrangements could not be successfully archived. Please retry.&amp;nbsp;&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;If the issue persists, try revoking all active Data In and Data Out sharing arrangements (via the Digital Identity Profile &amp;gt; Data Sharing) before archiving this customer. If customer has joint accounts, ensure all Joint Account Permissions and Joint Account Email Notifications are disabled.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p style=\&quot;text-align: center;\&quot;&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Unexpected error encountered - Open Banking data sharing arrangements could not be successfully archived. Please retry.&amp;nbsp;&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock3&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
@@ -2810,5 +2810,5 @@
     <type>TFM</type>
     <uniqueName>TFM_AssistedUserFunctionsParentOS_English_4</uniqueName>
     <versionNumber>4.0</versionNumber>
-    <webComponentKey>25d136de-3c00-c898-71ec-4cb28237182d</webComponentKey>
+    <webComponentKey>e1236e1d-64b9-47de-8edd-590c0e4914d6</webComponentKey>
 </OmniScript>

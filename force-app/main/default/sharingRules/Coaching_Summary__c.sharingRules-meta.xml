@@ -49,6 +49,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Coaching_Summary_Read_Write_To_Support_Coach</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>To provide read write access to Support Coaches</description>
+        <label>Coaching_Summary_Read_Write_To_Support_Coach</label>
+        <sharedTo>
+            <role>Support_Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>QA_RW_ANZX</fullName>
         <accessLevel>Read</accessLevel>
         <description>This sharing rule provides Read access to Coaching summary record for QA Role.</description>

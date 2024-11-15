@@ -161,6 +161,44 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
     );
   }
 
+  @isTest
+  static void getOffsetAccountsNotFoundResponse() {
+    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    String ocvId = '11111231';
+    String loanAccNumber = '1234';
+
+    // Setting response for NotFound error
+    HttpCalloutResponse res = getResponseNotFound();
+    Service finAccountService = ServiceProvider.getService(
+      FinancialAccountService.class
+    );
+    finAccountService.setCalloutResponse(res);
+    Exception resultException;
+    Test.startTest();
+    try {
+      HomeLoanAPIRepository offsetApi = new HomeLoanAPIRepository();
+      offsetApi.getOffsetAccounts(ocvId, loanAccNumber, recordId);
+    } catch (Exception exp) {
+      resultException = exp;
+    }
+    Test.stopTest();
+
+    Assert.areEqual(
+      'No Offset Found Exception',
+      resultException.getMessage(),
+      'Should throw No Offset Found Exception'
+    );
+  }
+
+  private static HttpCalloutResponse getResponseNotFound() {
+    String errorBody = '{"code": "ERROR","additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}';
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.statusCode = 404;
+    response.successful = false;
+    response.body = errorBody;
+    return response;
+  }
+
   private static HttpCalloutResponse getResponseWithNoBody() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.statusCode = 200;

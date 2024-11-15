@@ -352,7 +352,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //child EBD accounts summary view having EBD as parent
     if (isQueryEBDChildAccountsWithAssetFinanceType(infoWrapper)) {
-      payload = '{"compositeAssetId": "' + infoWrapper.parentId + '"';
+      payload = '{"compositeCreditLineId": "' + infoWrapper.parentId + '"';
       payload += String.isNotBlank(infoWrapper.fieldSet) &&
         String.isNotBlank(infoWrapper.assetFinanceType)
         ? ',"fieldSet": "' +
@@ -417,9 +417,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     //Child summary view
     if (isQueryCAPChildAccounts(infoWrapper)) {
       String accountNumber = infoWrapper.parentId.right(
-        infoWrapper.parentId.length() -
-        infoWrapper.parentId.indexOf('|') -
-        1
+        infoWrapper.parentId.length() - infoWrapper.parentId.indexOf('|') - 1
       );
       payload =
         '{"accountNumber": "' +
@@ -453,9 +451,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //Account detail view
     String accountNumber = infoWrapper.externalId.right(
-      infoWrapper.externalId.length() -
-      infoWrapper.externalId.indexOf('|') -
-      1
+      infoWrapper.externalId.length() - infoWrapper.externalId.indexOf('|') - 1
     );
     payload = '{"' + infoWrapper.externalField + '": "' + accountNumber + '"';
     payload += String.isNotBlank(infoWrapper.assetFinanceType)

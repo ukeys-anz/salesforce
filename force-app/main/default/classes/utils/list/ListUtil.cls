@@ -259,4 +259,110 @@ public inherited sharing class ListUtil {
     return new SObjectFilterBuilder(new GenericFilterBuilder(records), oldMap);
   }
   //#endregion
+
+  /**
+   * @description Sets the value of a field for a list of SObjects.
+   * @param records The list of SObjects.
+   * @param field The field to set.
+   * @param value The value to set the field to.
+   * @return The updated list of SObjects.
+   */
+  public static List<SObject> setField(
+    List<SObject> records,
+    SObjectField field,
+    Object value
+  ) {
+    for (SObject record : records) {
+      record.put(field, value);
+    }
+    return records;
+  }
+
+  /**
+   * @description Sets the value of multiple fields for a list of SObjects.
+   * @param records The list of SObjects.
+   * @param fields The set of fields to set.
+   * @param value The value to set the fields to.
+   * @return The updated list of SObjects.
+   */
+  public static List<SObject> setField(
+    List<SObject> records,
+    Set<SObjectField> fields,
+    Object value
+  ) {
+    for (SObjectField field : fields) {
+      setField(records, field, value);
+    }
+    return records;
+  }
+
+  /**
+   * @description Sets the value of fields based on a map of field-value pairs for a list of SObjects.
+   * @param records The list of SObjects.
+   * @param mapValues The map of field-value pairs.
+   * @return The updated list of SObjects.
+   */
+  public static List<SObject> setField(
+    List<SObject> records,
+    Map<SObjectField, Object> mapValues
+  ) {
+    for (SObjectField field : mapValues.keySet()) {
+      setField(records, field, mapValues.get(field));
+    }
+    return records;
+  }
+
+  /**
+   * @description Sets the value of a field for a list of SObjects if the field is null.
+   * @param records The list of SObjects.
+   * @param field The field to set.
+   * @param value The value to set the field to.
+   * @return The updated list of SObjects.
+   */
+  public static List<SObject> setFieldIfNull(
+    List<SObject> records,
+    SObjectField field,
+    Object value
+  ) {
+    for (SObject record : records) {
+      if (record.get(field) == null) {
+        record.put(field, value);
+      }
+    }
+    return records;
+  }
+
+  /**
+   * @description Sets the value of multiple fields for a list of SObjects if the fields are null.
+   * @param records The list of SObjects.
+   * @param fields The set of fields to set.
+   * @param value The value to set the fields to.
+   * @return The updated list of SObjects.
+   */
+  public static List<SObject> setFieldIfNull(
+    List<SObject> records,
+    Set<SObjectField> fields,
+    Object value
+  ) {
+    for (SObjectField field : fields) {
+      setFieldIfNull(records, field, value);
+    }
+    return records;
+  }
+
+  /**
+   * @description Sets the value of fields based on a map of field-value pairs for a list of SObjects if the fields are null.
+   * @param records The list of SObjects.
+   * @param mapValues The map of field-value pairs.
+   * @return The updated list of SObjects.
+   */
+  public static List<SObject> setFieldIfNull(
+    List<SObject> records,
+    Map<SObjectField, Object> mapValues
+  ) {
+    for (SObjectField field : mapValues.keySet()) {
+      setFieldIfNull(records, field, mapValues.get(field));
+    }
+    return records;
+  }
 }

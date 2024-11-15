@@ -9,7 +9,7 @@
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
-    <label>Facility Limit Fee Frequency</label>
+    <label>Fee Frequency</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
