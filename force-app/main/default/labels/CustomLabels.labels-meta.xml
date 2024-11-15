@@ -2351,21 +2351,21 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/SalesforceMarketingConsent-SITK/Marketingconsent</value>
     </labels>
     <labels>
         <fullName>ANZX_Customer_Comm_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Customer_Comm_Tableau_Url</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/CustomerCommRecords-sitk/CustomerCommRecords</value>
     </labels>
     <labels>
         <fullName>ANZX_Interest_Rates_FA_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Interest_Rates_FA_Tableau_Url</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/AccountInterestRates-SITK_17163583119710/AccountInterestRates</value>
     </labels>
     <labels>
         <fullName>ANZX_Tableau_Site_Id</fullName>
