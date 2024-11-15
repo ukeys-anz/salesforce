@@ -108,6 +108,9 @@ public class SObjectFilterBuilder {
     SObjectField field,
     Object valueOrCollection
   ) {
+    if (this.oldMap.isEmpty()) {
+      return this;
+    }
     Set<Object> newValues = ListUtil.toSet(valueOrCollection);
     List<Object> output = base.handler.emptyList;
     for (SObject record : this.toList()) {
