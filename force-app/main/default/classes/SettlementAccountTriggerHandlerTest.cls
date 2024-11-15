@@ -8,9 +8,14 @@
 public with sharing class SettlementAccountTriggerHandlerTest {
   private static final String OCVID = '11223344';
   private static final String CUSTOMER = 'Test Customer';
-
+  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
+    CustomSettingsRepository.class
+  );
   @TestSetup
   static void setup() {
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassSettlementAccountEvent__c = false;
+    brokerSettingsMock.mock('brokerSettings', mockSettings);
     //Not using faker as we need to assert the names
     Account acc = TestDataFactory.createAccount(CUSTOMER, false);
     acc.OCV_ID__c = OCVID;
@@ -61,6 +66,62 @@ public with sharing class SettlementAccountTriggerHandlerTest {
     Assert.isNotNull(
       settleAcc.Nominated_By__c,
       'Nominated By should contain a value equal to loan applicant id'
+    );
+  }
+  @isTest
+  static void testOnAfterInsert() {
+    List<Settlement_Account__c> mockRecords = new List<Settlement_Account__c>();
+    mockRecords.add(
+      new Settlement_Account__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          Settlement_Account__c.getSObjectType()
+        )
+      )
+    );
+
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassSettlementAccountEvent__c = false;
+    brokerSettingsMock.mock('brokerSettings', mockSettings);
+
+    SettlementAccountTriggerHandler handler = new SettlementAccountTriggerHandler();
+    handler.records = mockRecords;
+    Test.startTest();
+    handler.onAfterInsert();
+    Test.stopTest();
+
+    Assert.isFalse(
+      mockSettings.BypassSettlementAccountEvent__c,
+      'BypassSettlementAccountEvent__c should be false'
+    );
+  }
+  @isTest
+  static void testOnAfterUpdateWithBypassFalse() {
+    List<Settlement_Account__c> mockRecords = new List<Settlement_Account__c>();
+    mockRecords.add(
+      new Settlement_Account__c(
+        Id = Lib_FakeIdGenerator.getMockId(
+          Settlement_Account__c.getSObjectType()
+        )
+      )
+    );
+
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassSettlementAccountEvent__c = true;
+    brokerSettingsMock.mock('brokerSettings', mockSettings);
+
+    SettlementAccountTriggerHandler handler = new SettlementAccountTriggerHandler();
+    Map<Id, Settlement_Account__c> mockRecordsMap = new Map<Id, Settlement_Account__c>(
+      mockRecords
+    );
+    handler.records = mockRecords;
+    Test.startTest();
+    handler.onAfterUpdate(mockRecordsMap);
+
+    Test.stopTest();
+
+    Assert.isTrue(
+      mockSettings.BypassSettlementAccountEvent__c,
+      'BypassSettlementAccountEvent__c should be false'
     );
   }
 }

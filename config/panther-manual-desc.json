@@ -757,7 +757,9 @@
     },
     "BrokerSettings__c": {
       "IA-253075": [
-        "BypassApplicationSyncEvents__c",
+        "BypassApplicationEvent__c",
+        "BypassSettlementAccountEvent__c",
+        "BypassBrokerEvent__c",
         "BypassCustomerSyncEvents__c"
       ]
     },
