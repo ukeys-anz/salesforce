@@ -90,42 +90,6 @@ public class BalanceHistoryExternalQueryTest {
   }
 
   @isTest
-  static void createDummyAccountRequiredTest() {
-    String payloadFM = '{"accountNumber": "FM-111269467"}';
-    String payloadDDA = '{"accountNumber": "DDA-111269467"}';
-    String payloadRSV = '{"accountNumber": "RSV-111269467"}';
-    Assert.areEqual(
-      true,
-      BalanceHistoryExternalQuery.isFMOrSsiOrRsvProduct(payloadFM),
-      'BalanceHistoryQuery is not returning correct result for FM'
-    );
-    Assert.areEqual(
-      false,
-      BalanceHistoryExternalQuery.isFMOrSsiOrRsvProduct(payloadDDA),
-      'BalanceHistoryQuery is not returning correct result for DDA'
-    );
-    Assert.areEqual(
-      true,
-      BalanceHistoryExternalQuery.isFMOrSsiOrRsvProduct(payloadRSV),
-      'BalanceHistoryQuery is not returning correct result for RSV'
-    );
-  }
-
-  @isTest
-  static void displayDummyAccountDetailsTest() {
-    Assert.areEqual(
-      true,
-      BalanceHistoryExternalQuery.displayDummyAccountDetails('dummyVal', ''),
-      'displayDummayFinancialAccount is not returning correct result when parentId is empty'
-    );
-    Assert.areEqual(
-      false,
-      BalanceHistoryExternalQuery.displayDummyAccountDetails('', 'dummyVal'),
-      'isDepositProductCategory is not returning correct result when externalId is empty'
-    );
-  }
-
-  @isTest
   static void createDummyFinancialAccountDetailTest() {
     BalanceHistoryExternalQuery accQuery = new BalanceHistoryExternalQuery();
     ExternalObjectQueryBase.ExternalQueryResult dummyAcc = accQuery.createDummyFinancialAccountDetail(

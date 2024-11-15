@@ -757,7 +757,9 @@
     },
     "BrokerSettings__c": {
       "IA-253075": [
-        "BypassApplicationSyncEvents__c",
+        "BypassApplicationEvent__c",
+        "BypassSettlementAccountEvent__c",
+        "BypassBrokerEvent__c",
         "BypassCustomerSyncEvents__c"
       ]
     },
@@ -4696,8 +4698,7 @@
         "Cardholder_Name__c",
         "Relationship__c",
         "Status__c"
-      ],
-      "IA-2415860": ["Additional_Information__c"]
+      ]
     },
     "Loan_Account__x": {
       "IA-2415720": [

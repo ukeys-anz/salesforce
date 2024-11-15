@@ -6,9 +6,9 @@
     <description>Block Code 1</description>
     <externalDeveloperName>BlockCode1</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>true</isFilteringDisabled>
+    <isFilteringDisabled>false</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
+    <isSortingDisabled>false</isSortingDisabled>
     <label>Block Code 1</label>
     <length>255</length>
     <required>false</required>

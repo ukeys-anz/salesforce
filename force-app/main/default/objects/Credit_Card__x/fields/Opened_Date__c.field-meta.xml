@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>true</isSortingDisabled>
+    <isSortingDisabled>false</isSortingDisabled>
     <label>Date Opened</label>
     <length>50</length>
     <required>false</required>
