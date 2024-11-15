@@ -245,7 +245,8 @@
   &quot;additionalOutput&quot; : {
     &quot;sortedActiveConsents&quot; : &quot;=%TransformedActiveConsentsList%&quot;,
     &quot;sortedArchivedConsents&quot; : &quot;=%TransformedArchivedConsentsList%&quot;,
-    &quot;isValid&quot; : &quot;%getJointAccountConsentList:isValid%&quot;
+    &quot;isValid&quot; : &quot;%getJointAccountConsentList:isValid%&quot;,
+    &quot;showToast&quot; : &quot;%getJointAccountConsentList:showToast%&quot;
   },
   &quot;returnOnlyAdditionalOutput&quot; : true,
   &quot;returnFullDataJSON&quot; : false,
@@ -575,7 +576,7 @@
 }</propertySetConfig>
     <subType>ProcessConsentListResponse</subType>
     <type>TFM</type>
-    <uniqueName>TFM_ProcessConsentListResponse_Procedure_14</uniqueName>
-    <versionNumber>14.0</versionNumber>
-    <webComponentKey>8749ccfe-5b27-c056-d57d-38ae726e40d8</webComponentKey>
+    <uniqueName>TFM_ProcessConsentListResponse_Procedure_15</uniqueName>
+    <versionNumber>15.0</versionNumber>
+    <webComponentKey>7d6f4c3a-61c9-17cf-2cec-327596cc6fc8</webComponentKey>
 </OmniIntegrationProcedure>

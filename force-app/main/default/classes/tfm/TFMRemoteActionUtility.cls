@@ -2,7 +2,7 @@
  * @description       : class contains method that is used in IP/OS to invoke OB-Data out functionality
  * @author            : Anuj jain
  * @group             : TFM
- * @last modified on  : 03-05-2024
+ * @last modified on  : 11-14-2024
  **/
 global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOpenInterface, Callable {
   // Remote methods
@@ -316,8 +316,10 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         );
         output.put('consentsList', responseMap);
         output.put('isValid', true);
+        output.put(TFMConstants.SHOWTOAST, true);
       }
     } catch (Exception e) {
+      output.put(TFMConstants.SHOWTOAST, false);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
       return false;
