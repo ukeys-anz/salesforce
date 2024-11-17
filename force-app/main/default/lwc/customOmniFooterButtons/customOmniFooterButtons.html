@@ -1,0 +1,38 @@
+<template>
+  <div class="slds-p-vertical_x-small">
+    <label style="font-weight: bold; font-size: 15px">{label}</label>
+    <lightning-textarea
+      name="inputText"
+      value={_defaultValue}
+      onchange={handleChange}
+      max-length="4000"
+    ></lightning-textarea>
+  </div>
+  <div class="slds-float_right slds-p-vertical_small">
+    <template lwc:if={showSaveAndExit}>
+      <lightning-button
+        variant="brand-outline"
+        label="Save Comments & Exit"
+        title="Save Comments"
+        onclick={handleSaveAndExit}
+        class="slds-m-horizontal_x-small"
+      ></lightning-button>
+    </template>
+    <template lwc:if={showPrevious}>
+      <lightning-button
+        variant="brand-outline"
+        label="Previous"
+        title="Previous"
+        onclick={handlePrevious}
+        class="slds-m-horizontal_x-small"
+      ></lightning-button>
+    </template>
+    <lightning-button
+      variant="brand"
+      label={nextStepLabel}
+      title="Next"
+      onclick={handleNext}
+      class="slds-m-horizontal_x-small"
+    ></lightning-button>
+  </div>
+</template>

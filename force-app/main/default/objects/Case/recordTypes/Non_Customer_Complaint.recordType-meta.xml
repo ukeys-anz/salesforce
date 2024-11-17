@@ -4024,11 +4024,19 @@
     <picklistValues>
         <picklist>IDR_AFCA_Sub_issue_Type__c</picklist>
         <values>
+            <fullName>A fee or charge- eg premiums%2C excesses</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Account Closure</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Account administration error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Applicant rejects FSP decision</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4052,6 +4060,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Cancellation of refund</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Chargebacks- declined %28consumer%29</fullName>
             <default>false</default>
         </values>
@@ -4065,6 +4077,10 @@
         </values>
         <values>
             <fullName>Claim amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial credit reporting</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4144,7 +4160,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Denial of variation request</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Dishonoured transactions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Error in debt collection</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4180,7 +4204,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Financial advice provided by my trustee</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Financial firm failure to respond to request for assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>I cannot afford my repayments</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4196,7 +4228,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Inappropriate portfolio liquidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Incorrect Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect advice</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4248,7 +4288,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Incorrectly processed instructions</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Insufficient product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interpretation of Policy Terms and Conditions</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4280,11 +4328,19 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>My complaint involves a scam</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>No claim bonus</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non ToR</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4300,6 +4356,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other type of scam</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Repayment History Information</fullName>
             <default>false</default>
         </values>
@@ -4312,7 +4372,23 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Scam- MasterCard prepaid</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam- phishing %2F spoofing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam- remote access</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Security and Destruction%2FDe-identification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service issue</fullName>
             <default>false</default>
         </values>
         <values>
