@@ -230,7 +230,10 @@ public class SObjectFilterBuilder {
     Set<Object> oldValues = ListUtil.toSet(valueOrCollection);
     for (SObject record : this.toList()) {
       SObject oldRecord = this.oldMap.get(record.Id);
-      if (oldRecord != null && oldValues.contains(oldRecord.get(field))) {
+      if (
+        oldRecord != null &&
+        oldValues.contains(oldRecord.get(field)) == true
+      ) {
         output.add(record);
       }
     }

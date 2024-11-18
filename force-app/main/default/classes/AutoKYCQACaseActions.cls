@@ -5,6 +5,7 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class AutoKYCQACaseActions {
+  //#region Dependencies
   private static final AutoKYCQACaseRepository REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
     AutoKYCQACaseRepository.class
   );
@@ -20,7 +21,9 @@ public with sharing class AutoKYCQACaseActions {
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  //#endregion
 
+  //#region constants
   private static final String ERROR_SAME_OWNER_IDOPS = 'Cannot have the same owner as the ID Ops Case';
   @TestVisible
   private static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
@@ -90,11 +93,14 @@ public with sharing class AutoKYCQACaseActions {
 
   public static final String ADD_RESTRAINTS = 'Case.KYC_QA.AddRestraints';
   public static final String REMOVE_RESTRAINTS = 'Case.KYC_QA.RemoveRestraints';
-
-  @TestVisible
   private static final String ERROR = 'Error';
-  @TestVisible
+  private static final String PENDING = 'Pending';
   private static final String COMPLETED = 'Completed';
+  private static final Set<String> STAGING_STATUSES = new Set<String>{
+    ERROR,
+    PENDING,
+    COMPLETED
+  };
   @TestVisible
   private static final Map<String, String> RESTRAINT_SUCCESS_STATUSES = new Map<String, String>{
     ADD_RESTRAINTS => 'Applied',
@@ -105,7 +111,14 @@ public with sharing class AutoKYCQACaseActions {
     ADD_RESTRAINTS => 'Error Applying Restraints in CAP',
     REMOVE_RESTRAINTS => 'Error Removing Restraints in CAP'
   };
+  @TestVisible
+  private static final Map<String, String> RESTRAINT_PENDING_STATUSES = new Map<String, String>{
+    ADD_RESTRAINTS => 'Applying Restraints in CAP',
+    REMOVE_RESTRAINTS => 'Removing Restraints in CAP'
+  };
+  //#endregion
 
+  //#region populate KYC QA Case fields from COB
   /**
    * @description Update KYC QA Case fields
    * @param cases List of Cases
@@ -313,7 +326,9 @@ public with sharing class AutoKYCQACaseActions {
       pid.IdDocumentType__c == PASSPORT && pid.PassportNumberOCRMatch__c;
     return doesLicenceMatch || doesPassportMatch;
   }
+  //#endregion
 
+  //#region validations
   /**
    * @description Prevent Duplicate KYC QA Against a Customer (Account)
    * @param cases List of Cases
@@ -361,6 +376,50 @@ public with sharing class AutoKYCQACaseActions {
   }
 
   /**
+   * @description Validates the owner change for a list of Case records.
+   * @param cases The list of Case records to validate.
+   * @param oldMap The map of old Case records, with record Ids as keys.
+   */
+  public static void validateOwnerChange(
+    List<Case> cases,
+    Map<Id, Case> oldMap
+  ) {
+    cases = ListUtil.filter(cases, oldMap).changed(Case.OwnerId).toList();
+    Set<Id> cobIds = ListUtil.getIds(
+      cases,
+      Case.CustomerOnboardingApplication__c
+    );
+    Map<Id, CustomerOnboardingApplication__c> cobMap = new Map<Id, CustomerOnboardingApplication__c>(
+      REPOSITORY.queryCobsWithLatestIdOpsCase(cobIds)
+    );
+    preventSameOwnerAsIdOpsCases(cases, cobMap);
+  }
+
+  /**
+   * @description Prevents Case records from having the same owner as the ID Ops Case.
+   * @param cases The list of Case records to validate.
+   * @param cobMap The map of CustomerOnboardingApplication__c records, with record Ids as keys.
+   */
+  @TestVisible
+  private static void preventSameOwnerAsIdOpsCases(
+    List<Case> cases,
+    Map<Id, CustomerOnboardingApplication__c> cobMap
+  ) {
+    for (Case record : cases) {
+      CustomerOnboardingApplication__c cob = cobMap.get(
+        record.CustomerOnboardingApplication__c
+      );
+      if (cob == null || cob.Cases__r.isEmpty()) {
+        continue;
+      }
+      if (cob.Cases__r[0].OwnerId == record.OwnerId) {
+        record.addError(ERROR_SAME_OWNER_IDOPS);
+      }
+    }
+  }
+  //#endregion
+
+  /**
    * @description Update Tested Date
    * @param cases List of Cases
    */
@@ -384,7 +443,7 @@ public with sharing class AutoKYCQACaseActions {
     ListUtil.setField(
       validCases,
       Case.Fraud_Restraint_Status__c,
-      'Applying Restraints in CAP'
+      RESTRAINT_PENDING_STATUSES.get(ADD_RESTRAINTS)
     );
   }
 
@@ -444,7 +503,7 @@ public with sharing class AutoKYCQACaseActions {
     ListUtil.setField(
       validCases,
       Case.Fraud_Restraint_Status__c,
-      'Removing Restraints in CAP'
+      RESTRAINT_PENDING_STATUSES.get(REMOVE_RESTRAINTS)
     );
   }
 
@@ -500,6 +559,7 @@ public with sharing class AutoKYCQACaseActions {
   }
   //#endregion
 
+  //#region populate closed no defect defaults
   /**
    * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
    * @param records The list of Case records to populate with default values.
@@ -572,50 +632,9 @@ public with sharing class AutoKYCQACaseActions {
     }
     return true;
   }
+  //#endregion
 
-  /**
-   * @description Validates the owner change for a list of Case records.
-   * @param cases The list of Case records to validate.
-   * @param oldMap The map of old Case records, with record Ids as keys.
-   */
-  public static void validateOwnerChange(
-    List<Case> cases,
-    Map<Id, Case> oldMap
-  ) {
-    cases = ListUtil.filter(cases, oldMap).changed(Case.OwnerId).toList();
-    Set<Id> cobIds = ListUtil.getIds(
-      cases,
-      Case.CustomerOnboardingApplication__c
-    );
-    Map<Id, CustomerOnboardingApplication__c> cobMap = new Map<Id, CustomerOnboardingApplication__c>(
-      REPOSITORY.queryCobsWithLatestIdOpsCase(cobIds)
-    );
-    preventSameOwnerAsIdOpsCases(cases, cobMap);
-  }
-
-  /**
-   * @description Prevents Case records from having the same owner as the ID Ops Case.
-   * @param cases The list of Case records to validate.
-   * @param cobMap The map of CustomerOnboardingApplication__c records, with record Ids as keys.
-   */
-  @TestVisible
-  private static void preventSameOwnerAsIdOpsCases(
-    List<Case> cases,
-    Map<Id, CustomerOnboardingApplication__c> cobMap
-  ) {
-    for (Case record : cases) {
-      CustomerOnboardingApplication__c cob = cobMap.get(
-        record.CustomerOnboardingApplication__c
-      );
-      if (cob == null || cob.Cases__r.isEmpty()) {
-        continue;
-      }
-      if (cob.Cases__r[0].OwnerId == record.OwnerId) {
-        record.addError(ERROR_SAME_OWNER_IDOPS);
-      }
-    }
-  }
-
+  //#region Restraints Results
   /**
    * @description Set Restraint Status from Customer Update Profiles
    * @param cpus List of Customer Update Profiles
@@ -631,29 +650,19 @@ public with sharing class AutoKYCQACaseActions {
         cpus,
         oldMap
       )
-      .changedTo(
-        Customer_Profile_Updates__c.Status__c,
-        new Set<String>{ COMPLETED, ERROR }
-      )
       .equals(Customer_Profile_Updates__c.TriggeredFrom__c, restraintsAction)
+      .changedTo(Customer_Profile_Updates__c.Status__c, STAGING_STATUSES)
       .toList();
-
-    Set<Id> accountIds = ListUtil.getIds(
+    Set<Id> accIds = ListUtil.getIds(
       completedCpus,
       Customer_Profile_Updates__c.Customer_Name__c
     );
-    List<Account> accs = REPOSITORY.queryAccountsWithCpuAndKYCQaCases(
-      accountIds
-    );
-
-    List<Case> casesToUpdate = getCasesWithUpdatedRestraintStatus(
+    List<Account> accs = REPOSITORY.queryAccountsWithCpuAndKYCQaCases(accIds);
+    List<Case> cases = getCasesWithUpdatedRestraintStatus(
       accs,
       restraintsAction
     );
-    DML.doUpdate(
-      casesToUpdate,
-      new DmlConfig().allowPartial().withoutSharing()
-    );
+    DML.doUpdate(cases, new DmlConfig().allowPartial().withoutSharing());
   }
 
   /**
@@ -667,28 +676,18 @@ public with sharing class AutoKYCQACaseActions {
     List<Account> accs,
     String restraintsAction
   ) {
-    List<Case> casesToUpdate = new List<Case>();
-
+    List<Case> cases = new List<Case>();
     for (Account acc : accs) {
-      String statusValue = getRestraintStatusFromCpus(
+      String status = getRestraintStatusFromCpus(
         acc.Customer_Profile_Updates__r,
         restraintsAction
       );
-
-      if (
-        statusValue != null &&
-        acc.Cases[0].Fraud_Restraint_Status__c != statusValue
-      ) {
-        casesToUpdate.add(
-          new Case(
-            Id = acc.Cases[0].Id,
-            Fraud_Restraint_Status__c = statusValue
-          )
-        );
+      Case kyc = acc.Cases[0];
+      if (status != null && kyc.Fraud_Restraint_Status__c != status) {
+        cases.add(new Case(Id = kyc.Id, Fraud_Restraint_Status__c = status));
       }
     }
-
-    return casesToUpdate;
+    return cases;
   }
 
   /**
@@ -705,20 +704,20 @@ public with sharing class AutoKYCQACaseActions {
     List<Customer_Profile_Updates__c> filteredCpus = ListUtil.filter(cpus)
       .equals(Customer_Profile_Updates__c.TriggeredFrom__c, restraintsAction)
       .toList();
-
     Set<String> statuses = ListUtil.getStrings(
       filteredCpus,
       Customer_Profile_Updates__c.Status__c
     );
-
     if (statuses.contains(ERROR)) {
       return RESTRAINT_ERROR_STATUSES.get(restraintsAction);
     }
-
+    if (statuses.contains(PENDING)) {
+      return RESTRAINT_PENDING_STATUSES.get(restraintsAction);
+    }
     if (statuses.size() == 1 && statuses.contains(COMPLETED)) {
       return RESTRAINT_SUCCESS_STATUSES.get(restraintsAction);
     }
-
     return null;
   }
+  //#endregion
 }

@@ -113,4 +113,17 @@ public with sharing class ComplaintsRepository {
     ];
     return accounts;
   }
+
+  /**
+   * @description Get user's last Lightning app logged in app
+   * @param userId userId
+   * @return UserAppInfo
+   */
+  public UserAppInfo getUserAppInfoForUser(Id userId) {
+    return [
+      SELECT Id, AppDefinitionId
+      FROM UserAppInfo
+      WHERE UserId = :userId
+    ];
+  }
 }

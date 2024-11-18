@@ -141,344 +141,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails3039918377962103</globalKey>
-        <inputFieldName>IDValue</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails4682144411280009</globalKey>
+        <inputFieldName>ownerPersonaId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:IDValue</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails9375005247070536</globalKey>
-        <inputFieldName>consentAccDetails:displayName</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentAccDetails:accountName</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>&quot;no&quot;</formulaConverted>
-        <formulaExpression>&quot;no&quot;</formulaExpression>
-        <formulaResultPath>showToast</formulaResultPath>
-        <formulaSequence>5.0</formulaSequence>
-        <globalKey>TFMDRTransformConsentDetailsCustom5451</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails37328070213937825</globalKey>
-        <inputFieldName>expires</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:expires</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails6144022215059859</globalKey>
-        <inputFieldName>dataScopeMapping:commoncustomerdetailread</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:commoncustomerdetailread</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails15154067307068986</globalKey>
-        <inputFieldName>canRevokeApproval</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:canRevokeApproval</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails1138905017605496</globalKey>
-        <inputFieldName>state</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:state</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails5143729295466162</globalKey>
-        <inputFieldName>consentAccDetails:jointAccount</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentAccDetails:accountType</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails8980972089889458</globalKey>
-        <inputFieldName>arrangementId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:arrangementId</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails7589865306398018</globalKey>
-        <inputFieldName>updateTime</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:updateTime</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetailsCustom1216</globalKey>
-        <inputFieldName>createTime</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:originalCreateTime</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails7752565530343303</globalKey>
-        <inputFieldName>consentName</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentName</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:consentAccDetails:closed &quot;Closed&quot; == true false IF</formulaConverted>
-        <formulaExpression>IF(%consentAccDetails:closed% == &quot;Closed&quot;,true,false)</formulaExpression>
-        <formulaResultPath>isAllClosed</formulaResultPath>
-        <formulaSequence>3.0</formulaSequence>
-        <globalKey>TFMDRTransformConsentDetails5447208527399132</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails2227139361419761</globalKey>
-        <inputFieldName>consentAccDetails:allAccStatus</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:allAccStatus</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails7803504394495644</globalKey>
-        <inputFieldName>dataScopeMapping:commoncustomerbasicread</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:commoncustomerbasicread</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:consentAccDetails:state &quot;STATE_UNAVAILABLE&quot; == &quot;UNAVAILABLE&quot; | var:consentAccDetails:state &quot;STATE_PAUSED&quot; == &quot;PAUSED&quot; | var:consentAccDetails:state &quot;STATE_UNSPECIFIED&quot; == &quot;UNSPECIFIED&quot; | var:consentAccDetails:state &quot;STATE_STOPPED&quot; == &quot;STOPPED&quot; | var:consentAccDetails:state &quot;STATE_ELIGIBLE&quot; == &quot;ELIGIBLE&quot; &apos;&apos; IF IF IF IF IF</formulaConverted>
-        <formulaExpression>IF(consentAccDetails:state == &quot;STATE_UNAVAILABLE&quot;,&quot;UNAVAILABLE&quot;,IF(consentAccDetails:state == &quot;STATE_PAUSED&quot;, &quot;PAUSED&quot;,IF(consentAccDetails:state == &quot;STATE_UNSPECIFIED&quot;, &quot;UNSPECIFIED&quot;,IF(consentAccDetails:state == &quot;STATE_STOPPED&quot;, &quot;STOPPED&quot;,IF(consentAccDetails:state == &quot;STATE_ELIGIBLE&quot;,&quot;ELIGIBLE&quot;,&apos;&apos;)))))</formulaExpression>
-        <formulaResultPath>consentAccDetails:sharingStatus</formulaResultPath>
-        <formulaSequence>2.0</formulaSequence>
-        <globalKey>TFMDRTransformConsentDetails12354727127454734</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>0.0</outputCreationSequence>
-        <outputFieldName>Formula</outputFieldName>
-        <outputObjectName>Formula</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails24988660732250656</globalKey>
-        <inputFieldName>dataScopeMapping:bankpayeesread</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:bankpayeesread</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails4407466703665379</globalKey>
-        <inputFieldName>dataScopeMapping:profile</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:profile</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails9875851480776832</globalKey>
-        <inputFieldName>consentAccDetails:closed</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentAccDetails:accountStatus</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetailsCustom73</globalKey>
-        <inputFieldName>showToast</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:showToast</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails5869192813257151</globalKey>
-        <inputFieldName>registeredSoftwareProduct</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:registeredSoftwareProduct</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails9773965027931018</globalKey>
-        <inputFieldName>isAllClosed</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:isAllClosed</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails05809672497869034</globalKey>
-        <inputFieldName>recordId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:recordId</outputFieldName>
-        <outputObjectName>json</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails19768661242839536</globalKey>
-        <inputFieldName>dataScopeMapping:bankaccountsdetailread</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <name>TFMDRTransformConsentDetails</name>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:bankaccountsdetailread</outputFieldName>
+        <outputFieldName>response:ownerPersonaId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -517,13 +186,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails8988078518670279</globalKey>
-        <inputFieldName>dataScopeMapping:openid</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails22446608930645384</globalKey>
+        <inputFieldName>dataScopeMapping:banktransactionsread</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:openid</outputFieldName>
+        <outputFieldName>response:dataScope:banktransactionsread</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -531,13 +200,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails4682144411280009</globalKey>
-        <inputFieldName>ownerPersonaId</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails4407466703665379</globalKey>
+        <inputFieldName>dataScopeMapping:profile</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:ownerPersonaId</outputFieldName>
+        <outputFieldName>response:dataScope:profile</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -545,13 +214,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails13811508368345748</globalKey>
-        <inputFieldName>dataScopeMapping:bankaccountsbasicread</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails3039918377962103</globalKey>
+        <inputFieldName>IDValue</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:bankaccountsbasicread</outputFieldName>
+        <outputFieldName>response:IDValue</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -559,13 +228,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails32284071196431174</globalKey>
-        <inputFieldName>consentAccDetails:sharingStatus</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails7583011715339705</globalKey>
+        <inputFieldName>allAccStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentAccDetails:sharingStatus</outputFieldName>
+        <outputFieldName>response:dataScope:allAccStatus</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -573,13 +242,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails9568045275365651</globalKey>
-        <inputFieldName>consentId</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails37328070213937825</globalKey>
+        <inputFieldName>expires</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentId</outputFieldName>
+        <outputFieldName>response:expires</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -587,13 +256,173 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetailsCustom5230</globalKey>
-        <inputFieldName>expireTime</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails9375005247070536</globalKey>
+        <inputFieldName>consentAccDetails:displayName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:originalExpireTime</outputFieldName>
+        <outputFieldName>response:consentAccDetails:accountName</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:consentAccDetails:state &quot;STATE_UNAVAILABLE&quot; == &quot;UNAVAILABLE&quot; | var:consentAccDetails:state &quot;STATE_PAUSED&quot; == &quot;PAUSED&quot; | var:consentAccDetails:state &quot;STATE_UNSPECIFIED&quot; == &quot;UNSPECIFIED&quot; | var:consentAccDetails:state &quot;STATE_STOPPED&quot; == &quot;STOPPED&quot; | var:consentAccDetails:state &quot;STATE_ELIGIBLE&quot; == &quot;ELIGIBLE&quot; &apos;&apos; IF IF IF IF IF</formulaConverted>
+        <formulaExpression>IF(consentAccDetails:state == &quot;STATE_UNAVAILABLE&quot;,&quot;UNAVAILABLE&quot;,IF(consentAccDetails:state == &quot;STATE_PAUSED&quot;, &quot;PAUSED&quot;,IF(consentAccDetails:state == &quot;STATE_UNSPECIFIED&quot;, &quot;UNSPECIFIED&quot;,IF(consentAccDetails:state == &quot;STATE_STOPPED&quot;, &quot;STOPPED&quot;,IF(consentAccDetails:state == &quot;STATE_ELIGIBLE&quot;,&quot;ELIGIBLE&quot;,&apos;&apos;)))))</formulaExpression>
+        <formulaResultPath>consentAccDetails:sharingStatus</formulaResultPath>
+        <formulaSequence>2.0</formulaSequence>
+        <globalKey>TFMDRTransformConsentDetails12354727127454734</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails626272455105058</globalKey>
+        <inputFieldName>consentAccDetails:accountNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:consentAccDetails:accountNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails9875851480776832</globalKey>
+        <inputFieldName>consentAccDetails:closed</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:consentAccDetails:accountStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>&quot;no&quot;</formulaConverted>
+        <formulaExpression>&quot;no&quot;</formulaExpression>
+        <formulaResultPath>showToast</formulaResultPath>
+        <formulaSequence>5.0</formulaSequence>
+        <globalKey>TFMDRTransformConsentDetailsCustom5451</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetailsCustom73</globalKey>
+        <inputFieldName>showToast</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:showToast</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails498147084425572</globalKey>
+        <inputFieldName>dataScopeNode</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScopeNode</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails24988660732250656</globalKey>
+        <inputFieldName>dataScopeMapping:bankpayeesread</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScope:bankpayeesread</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails6144022215059859</globalKey>
+        <inputFieldName>dataScopeMapping:commoncustomerdetailread</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScope:commoncustomerdetailread</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails15687701814773614</globalKey>
+        <inputFieldName>isAllOpen</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:isAllOpen</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails6725112787505931</globalKey>
+        <inputFieldName>isCreator</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:isCreator</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails05808973486632718</globalKey>
+        <inputFieldName>dataScopeMapping:bankregular_paymentsread</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScope:bankregular_paymentsread</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -633,13 +462,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails6725112787505931</globalKey>
-        <inputFieldName>isCreator</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails9568045275365651</globalKey>
+        <inputFieldName>consentId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:isCreator</outputFieldName>
+        <outputFieldName>response:consentId</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -647,13 +476,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails05808973486632718</globalKey>
-        <inputFieldName>dataScopeMapping:bankregular_paymentsread</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetailsCustom5230</globalKey>
+        <inputFieldName>expireTime</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:bankregular_paymentsread</outputFieldName>
+        <outputFieldName>response:originalExpireTime</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -661,13 +490,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails22446608930645384</globalKey>
-        <inputFieldName>dataScopeMapping:banktransactionsread</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails13811508368345748</globalKey>
+        <inputFieldName>dataScopeMapping:bankaccountsbasicread</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:banktransactionsread</outputFieldName>
+        <outputFieldName>response:dataScope:bankaccountsbasicread</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -675,13 +504,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails7583011715339705</globalKey>
-        <inputFieldName>allAccStatus</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails32284071196431174</globalKey>
+        <inputFieldName>consentAccDetails:sharingStatus</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:allAccStatus</outputFieldName>
+        <outputFieldName>response:consentAccDetails:sharingStatus</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -689,13 +518,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails626272455105058</globalKey>
-        <inputFieldName>consentAccDetails:accountNumber</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails7752565530343303</globalKey>
+        <inputFieldName>consentName</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:consentAccDetails:accountNumber</outputFieldName>
+        <outputFieldName>response:consentName</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -703,13 +532,30 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails498147084425572</globalKey>
-        <inputFieldName>dataScopeNode</inputFieldName>
+        <formulaConverted>| var:consentAccDetails:closed &quot;Closed&quot; == true false IF</formulaConverted>
+        <formulaExpression>IF(%consentAccDetails:closed% == &quot;Closed&quot;,true,false)</formulaExpression>
+        <formulaResultPath>isAllClosed</formulaResultPath>
+        <formulaSequence>3.0</formulaSequence>
+        <globalKey>TFMDRTransformConsentDetails5447208527399132</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails15154067307068986</globalKey>
+        <inputFieldName>canRevokeApproval</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:dataScopeNode</outputFieldName>
+        <outputFieldName>response:canRevokeApproval</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -717,13 +563,13 @@
     <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <globalKey>TFMDRTransformConsentDetails15687701814773614</globalKey>
-        <inputFieldName>isAllOpen</inputFieldName>
+        <globalKey>TFMDRTransformConsentDetails1138905017605496</globalKey>
+        <inputFieldName>state</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>response:isAllOpen</outputFieldName>
+        <outputFieldName>response:state</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -752,6 +598,191 @@
         <name>TFMDRTransformConsentDetails</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>response:personaId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails2227139361419761</globalKey>
+        <inputFieldName>consentAccDetails:allAccStatus</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:allAccStatus</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails7803504394495644</globalKey>
+        <inputFieldName>dataScopeMapping:commoncustomerbasicread</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScope:commoncustomerbasicread</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails05809672497869034</globalKey>
+        <inputFieldName>recordId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:recordId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails19768661242839536</globalKey>
+        <inputFieldName>dataScopeMapping:bankaccountsdetailread</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScope:bankaccountsdetailread</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails5869192813257151</globalKey>
+        <inputFieldName>registeredSoftwareProduct</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:registeredSoftwareProduct</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails9773965027931018</globalKey>
+        <inputFieldName>isAllClosed</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:isAllClosed</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails7589865306398018</globalKey>
+        <inputFieldName>updateTime</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:updateTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetailsCustom1216</globalKey>
+        <inputFieldName>createTime</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:originalCreateTime</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails5143729295466162</globalKey>
+        <inputFieldName>consentAccDetails:jointAccount</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:consentAccDetails:accountType</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails8980972089889458</globalKey>
+        <inputFieldName>arrangementId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:arrangementId</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <formulaConverted>| var:baseAccListDetails:bsb &apos;/\/\/&apos; var:baseAccListDetails:accountNumber CONCAT</formulaConverted>
+        <formulaExpression>CONCAT(baseAccListDetails:bsb,&apos; &apos;,baseAccListDetails:accountNumber )</formulaExpression>
+        <formulaResultPath>baseAccListDetails:accountNumber</formulaResultPath>
+        <formulaSequence>6.0</formulaSequence>
+        <globalKey>TFMDRTransformConsentDetailsCustom627</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetailsCustom1654</globalKey>
+        <inputFieldName>baseAccListDetails:accountNumber</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:baseAccListDetails:accountNumber</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>TFMDRTransformConsentDetails8988078518670279</globalKey>
+        <inputFieldName>dataScopeMapping:openid</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>TFMDRTransformConsentDetails</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>response:dataScope:openid</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>
@@ -812,7 +843,7 @@
   &quot;consentId&quot; : &quot;60fa8a9b-33b4-4db5-a723-b87cfbd65cc7&quot;,
   &quot;IDValue&quot; : &quot;51364b2f-b1a7-4cfd-9095-861a640b6980&quot;,
   &quot;recordId&quot; : &quot;x00Bm00000AP4VhIAL&quot;,
-  &quot;personaId&quot; : &quot;&quot;,
+  &quot;allAccStatus&quot; : &quot;yes&quot;,
   &quot;expireTime&quot; : &quot;2024-02-16T00:42:02Z&quot;
 }</previewJsonData>
     <processSuperBulk>false</processSuperBulk>

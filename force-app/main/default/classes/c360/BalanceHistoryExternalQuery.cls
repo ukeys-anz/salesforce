@@ -59,16 +59,6 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
       externalQueryResult = createDummyFinancialAccountDetail(this.externalId);
       return externalQueryResult;
     }
-    // Display Dummy/Empty FA List on related section of FM/RSV/SSI
-    if (
-      isDepositProductCategory(this.productCategory) && displayDummyRecord()
-    ) {
-      externalQueryResult = createDummyExternalRecord(
-        this.parentId,
-        new Map<String, Object>()
-      );
-      return externalQueryResult;
-    }
     HttpCalloutResponse response = makeCallout(queryMode, queryContext);
     calloutResponse = parseResponse(response.body);
     externalQueryResult = createExternalRecords(calloutResponse);
@@ -103,6 +93,7 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
+
     for (
       BalanceHistoryModel bal : ((BalanceHistoryCalloutResponse) this.calloutResponse)
         .balanceHistory
@@ -127,42 +118,6 @@ public with sharing class BalanceHistoryExternalQuery extends FinancialAccountQu
       result.externalRecords.add(row);
     }
     return result;
-  }
-
-  /**
-   * @description Transform API response to DepositAccount records
-   * @param externalId externalId
-   * @param row externalRecord row
-   * @return External object rows ExternalObjectQueryBase.ExternalQueryResult
-   */
-  @testVisible
-  protected override ExternalObjectQueryBase.ExternalQueryResult createDummyExternalRecord(
-    String externalId,
-    Map<String, Object> row
-  ) {
-    return new ExternalObjectQueryBase.ExternalQueryResult();
-  }
-
-  /**
-   * @description Need to display Dummy FA record? return false by default
-   * @return true / false
-   **/
-  @TestVisible
-  protected override Boolean displayDummyRecord() {
-    return isFMOrSsiOrRsvProduct(this.accountNumber);
-  }
-
-  /**
-   * @description checks if Account is FM or SSI or RSV.
-   * @param payload payload created for Callout. Ex - {"accountNumber": "FM-111269467"},  {"compositeBalanceHistoryId": "DDA-234500817-0"}
-   * @return boolean true/false
-   */
-  @TestVisible
-  private static Boolean isFMOrSsiOrRsvProduct(String payload) {
-    return (payload != null &&
-    (payload.contains('FM-') ||
-    payload.contains('SSI-') ||
-    payload.contains('RSV-')));
   }
 
   /**

@@ -1,0 +1,28 @@
+<template>
+  <div
+    class="slds-grid slds-grid_vertical-align-center slds-p-vertical_x-small"
+  >
+    <template for:each={_buttonList} for:item="button">
+      <div
+        class="slds-p-right_small slds-col slds-size_1-of-5 buttonblock"
+        key={button.order}
+      >
+        <input
+          type="radio"
+          id={button.order}
+          name="customRadio"
+          value={button.name}
+          onchange={handleChange}
+          hidden
+        />
+        <label for={button.order} class="slds-box slds-box_x-small">
+          <lightning-icon
+            class="slds-m-right_x-small"
+            icon-name={button.icon}
+          ></lightning-icon>
+          <span>{button.name}</span>
+        </label>
+      </div>
+    </template>
+  </div>
+</template>

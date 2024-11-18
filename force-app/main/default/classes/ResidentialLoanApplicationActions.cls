@@ -7,7 +7,7 @@
 public with sharing class ResidentialLoanApplicationActions {
   private static final String HOME_LOAN_APP_DEV_NAME = 'Home_Loan_Applications_Queue';
   @TestVisible
-  private static final Set<String> SUNSET_STATUSES = new Set<String>{
+  private static final List<String> SUNSET_STATUSES = new List<String>{
     'STATE_UNSPECIFIED',
     'STATE_INELIGIBLE',
     'STATE_COMPLETED',
@@ -22,25 +22,11 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final String SYNC_STATUS_BROKER_ORG = 'Broker Org';
   @TestVisible
   private static final String SYNC_STATUS_BLOCKED = 'Blocked';
-  private static final ResidentialLoanApplicationRepository RESIDENTIAL_LOAN_APP_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
-    ResidentialLoanApplicationRepository.class
-  );
-  @TestVisible
-  private static BrokerSettings__c mockBrokerSettings;
-
-  /**
-   * @description To set the mock broker settings
-   * @return The BrokerSettings__c custom setting
-   */
-  @TestVisible
-  private static BrokerSettings__c brokerSettings() {
-    if (mockBrokerSettings != null) {
-      return mockBrokerSettings;
-    }
-    return BrokerSettings__c.getOrgDefaults();
-  }
   private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
+  );
+  private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
+    CustomSettingsRepository.class
   );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
@@ -96,6 +82,25 @@ public with sharing class ResidentialLoanApplicationActions {
   }
 
   /**
+   * @description Set the sunset timestamp date time value (usually for insert context)
+   * @param records records to update
+   * @return List<ResidentialLoanApplication> updated records
+   */
+  public static List<ResidentialLoanApplication> setSunsetTimestamp(
+    List<ResidentialLoanApplication> records
+  ) {
+    List<ResidentialLoanApplication> recordsEnteringSunset = ListUtil.filter(
+        records
+      )
+      .equals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
+      .toList();
+    for (ResidentialLoanApplication loanApp : recordsEnteringSunset) {
+      loanApp.SunsetTimestamp__c = System.now();
+    }
+    return records;
+  }
+
+  /**
    * @description Set the sunset timestamp date time value
    * @param records records to update
    * @param oldMap old records map
@@ -105,21 +110,29 @@ public with sharing class ResidentialLoanApplicationActions {
     List<ResidentialLoanApplication> records,
     Map<Id, ResidentialLoanApplication> oldMap
   ) {
-    for (ResidentialLoanApplication loanApp : records) {
-      ResidentialLoanApplication oldRecord = oldMap?.get(loanApp.Id);
-      Boolean isOldStatusSunset = SUNSET_STATUSES.contains(oldRecord?.Status);
-      Boolean isNewStatusSunset = SUNSET_STATUSES.contains(loanApp.Status);
-      if (isNewStatusSunset == true && isOldStatusSunset == false) {
-        loanApp.SunsetTimestamp__c = System.now();
-        continue;
-      }
-      if (
-        isNewStatusSunset == false &&
-        isOldStatusSunset == true &&
-        loanApp.SunsetTimestamp__c != null
-      ) {
-        loanApp.SunsetTimestamp__c = null;
-      }
+    // Process the records
+    List<ResidentialLoanApplication> recordsEnteringSunset = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .equals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
+      .oldNotEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
+      .toList();
+
+    List<ResidentialLoanApplication> recordsExitingSunset = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .notEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
+      .oldEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
+      .toList();
+
+    // Set sunset timestamp
+    for (ResidentialLoanApplication loanApp : recordsEnteringSunset) {
+      loanApp.SunsetTimestamp__c = System.now();
+    }
+    for (ResidentialLoanApplication loanApp : recordsExitingSunset) {
+      loanApp.SunsetTimestamp__c = null;
     }
     return records;
   }
@@ -204,7 +217,10 @@ public with sharing class ResidentialLoanApplicationActions {
     String triggerContext
   ) {
     //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
-    if (brokerSettings().BypassApplicationSyncEvents__c == true) {
+    if (
+      BROKER_SETTINGS_REPOSITORY.brokerSettings().BypassApplicationEvent__c ==
+      true
+    ) {
       return null;
     }
 
@@ -229,7 +245,7 @@ public with sharing class ResidentialLoanApplicationActions {
     );
 
     //Fetch the RLA records and the related parent record details
-    List<ResidentialLoanApplication> rlaRecordList = RESIDENTIAL_LOAN_APP_REPOSITORY.queryLoanApplications(
+    List<ResidentialLoanApplication> rlaRecordList = RLA_REPOSITORY.queryLoanApplications(
       filteredLoanAppList
     );
 

@@ -1825,7 +1825,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref131"
       },
-      "Name": "ANZ Fixed Investment Property Loan",
+      "Name": "ANZ Fixed Residential Investment Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "133",
       "IDR_Product_or_Service_Line__c": "1",
@@ -1839,7 +1839,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref132"
       },
-      "Name": "ANZ Simplicity Plus Investment Property Loan",
+      "Name": "ANZ Simplicity Plus Residential Investment Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "134",
       "IDR_Product_or_Service_Line__c": "1",
@@ -1853,7 +1853,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref133"
       },
-      "Name": "ANZ Standard Variable Investment Property Loan",
+      "Name": "ANZ Standard Variable Residential Investment Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "135",
       "IDR_Product_or_Service_Line__c": "1",

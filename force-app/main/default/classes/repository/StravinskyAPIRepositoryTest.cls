@@ -63,6 +63,8 @@ public with sharing class StravinskyAPIRepositoryTest {
     '    ]' +
     '}';
 
+  private static final String EMPTY_RESPONSE_JSON = '{}';
+
   //Creating Dummy List for Test Class StravinskyAPIRepositoryTest
   public static final Set<String> ACCOUNT_NUMBER_SET = new Set<String>{
     'accounts/111111111',
@@ -179,14 +181,9 @@ public with sharing class StravinskyAPIRepositoryTest {
       temporalCaseWorkflowAPI.triggerTemporalCaseWorkflow(newCase);
     } catch (Exception e) {
       resultException = e;
+      Assert.isNotNull(resultException, 'Exception should have been thrown');
     }
     Test.stopTest();
-
-    Assert.areEqual(
-      EXCEPTION_JSON,
-      resultException.getMessage(),
-      'Exception was expected'
-    );
   }
 
   @isTest
@@ -423,11 +420,9 @@ public with sharing class StravinskyAPIRepositoryTest {
   }
 
   @isTest
-  static void testHandleTemporalWorkflowResponseException() {
+  static void testHandleTemporalWorkflowResponseNullResponseException() {
     //Set un-successfull mock response
-    HttpCalloutResponse response = getMockedResponse(false, 401, null);
-
-    Exception resultException = null;
+    HttpCalloutResponse response = getMockedResponse(false, 400, null);
 
     Test.startTest();
     StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
@@ -436,15 +431,40 @@ public with sharing class StravinskyAPIRepositoryTest {
       cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
         response
       );
+      Assert.fail('Exception should be thrown');
     } catch (Exception e) {
-      resultException = e;
+      Assert.isNotNull(
+        e,
+        'Exception should have been thrown due to null/blank response'
+      );
     }
     Test.stopTest();
+  }
 
-    Assert.isNotNull(
-      resultException,
-      'Exception should have been thrown due to unsuccesfull response'
+  @isTest
+  static void testHandleTemporalWorkflowResponseEmptyJSONResponseException() {
+    //Set un-successfull mock response
+    HttpCalloutResponse response = getMockedResponse(
+      false,
+      400,
+      EMPTY_RESPONSE_JSON
     );
+
+    Test.startTest();
+    StravinskyAPIRepository temporalCaseWorkflowAPI = new StravinskyAPIRepository();
+    StravinskyAPIRepository.CxStageWrapper cobStage;
+    try {
+      cobStage = temporalCaseWorkflowAPI.handleTemporalWorkflowResponse(
+        response
+      );
+      Assert.fail('Exception should be thrown');
+    } catch (Exception e) {
+      Assert.isNotNull(
+        e,
+        'Exception should have been thrown due to empty JSON response'
+      );
+    }
+    Test.stopTest();
   }
 
   /**

@@ -474,6 +474,22 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
     public String name;
     public List<Component> components;
 
+    public String expenseConfigVersion;
+
+    /**
+     * @description checks hardcoded old versions of the legacy expense config
+     */
+    public Boolean isOldExpenseVersion {
+      get {
+        return new Set<String>{
+            '1695597985652695',
+            '1701819944151648',
+            '1714356391121987'
+          }
+          .contains(this.expenseConfigVersion);
+      }
+    }
+
     /**
      * @description sop id of the whole payload
      */

@@ -69,7 +69,7 @@
             <role>Join_Operations_Reader</role>
         </sharedTo>
         <sharedFrom>
-            <allInternalUsers></allInternalUsers>
+            <allInternalUsers/>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
