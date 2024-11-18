@@ -970,6 +970,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <field>Customer_Relationship__c.DOB__c</field>
         <readable>true</readable>
     </fieldPermissions>
+   <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Relationship__c.Territory__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Deposit_Account__x.ANZSIC_Code__c</field>
