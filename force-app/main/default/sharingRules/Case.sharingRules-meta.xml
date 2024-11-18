@@ -1103,4 +1103,15 @@
             <role>FraudX_Agent</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>RBM_Coach_Broker_Enquiry</fullName>
+        <accessLevel>Read</accessLevel>
+        <label>RBM Coach Broker Enquiry</label>
+        <sharedTo>
+            <group>RBM_Coaches_Broker_Enquiry_Group</group>
+        </sharedTo>
+        <sharedFrom>
+            <queue>RBM_Coaches_Broker_Enquiry</queue>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>
