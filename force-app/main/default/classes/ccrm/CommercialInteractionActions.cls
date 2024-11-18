@@ -2,9 +2,9 @@
  * @author Ayushi G
  * @since  05/2024
  * @group CCRM (Commercial CRM)
- * @description CCRMInteractionActions is class to handle all the CCRM (Commercial CRM) Actions
+ * @description CommercialInteractionActions is class to handle all the CCRM (Commercial CRM) Actions
  */
-public with sharing class CCRMInteractionActions {
+public with sharing class CommercialInteractionActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
@@ -191,6 +191,28 @@ public with sharing class CCRMInteractionActions {
           record.Name.subString(index + oldChannelName.length());
       }
       record.Name = record.Name + ' ' + record.InteractionType;
+    }
+  }
+
+  /**
+   * @description : It will restrict the user to upload images in rich text fields
+   * @name : restrictImagesInRichTextFields
+   * @param records List of Interaction records
+   * @param oldMap Map of old Interaction records
+   */
+  public static void restrictImagesInRichTextFields(
+    List<Interaction> records,
+    Map<Id, Interaction> oldMap
+  ) {
+    try {
+      List<SObjectField> fieldList = Schema.SObjectType.Interaction.fields.getMap()
+        .values();
+      Set<SObjectField> richTextFieldSet = CommercialCommonUtil.getRichTextFields(
+        fieldList
+      );
+      CommercialCommonUtil.restrictImages(records, oldMap, richTextFieldSet);
+    } catch (Exception e) {
+      Logger.error('Error while restrict images on Interaction', e).save();
     }
   }
 }

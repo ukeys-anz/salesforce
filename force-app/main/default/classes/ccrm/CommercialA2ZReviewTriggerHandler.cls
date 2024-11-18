@@ -3,7 +3,7 @@
  * @since        : 05/2024
  * @description  : A2ZReviewTriggerHandler is the handler class for A2ZReview Trigger which extends Lib_TriggerHandler from the trigger framework used.
  **/
-public with sharing class CCRMA2ZReviewTriggerHandler extends Lib_TriggerHandler {
+public with sharing class CommercialA2ZReviewTriggerHandler extends Lib_TriggerHandler {
   private static final Id AZ_REVIEW_RT_ID = Schema.SObjectType.A_Z_Review__c.getRecordTypeInfosByDeveloperName()
     .get('Commercial_A_Z_Review')
     .getRecordTypeId();
@@ -13,7 +13,7 @@ public with sharing class CCRMA2ZReviewTriggerHandler extends Lib_TriggerHandler
    * which will call the appropriate methods such as onBeforeInsert etc.
    * @name A2ZReviewTriggerHandler
    */
-  public CCRMA2ZReviewTriggerHandler() {
+  public CommercialA2ZReviewTriggerHandler() {
     super();
   }
 
@@ -32,9 +32,10 @@ public with sharing class CCRMA2ZReviewTriggerHandler extends Lib_TriggerHandler
    * @name onBeforeInsert
    */
   public override void onBeforeInsert() {
-    CCRMA2ZReviewActions.updateCompletedDate(records, null);
-    CCRMA2ZReviewActions.setCustomerOnA2ZReview(records);
-    CCRMA2ZReviewActions.performRedaction(records);
+    CommercialA2ZReviewActions.updateCompletedDate(records, null);
+    CommercialA2ZReviewActions.setCustomerOnA2ZReview(records);
+    CommercialA2ZReviewActions.performRedaction(records);
+    CommercialA2ZReviewActions.restrictImagesInRichTextFields(records, null);
   }
 
   /**
@@ -43,10 +44,14 @@ public with sharing class CCRMA2ZReviewTriggerHandler extends Lib_TriggerHandler
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMA2ZReviewActions.updateCompletedDate(
+    CommercialA2ZReviewActions.updateCompletedDate(
       (List<A_Z_Review__c>) records,
       (Map<Id, A_Z_Review__c>) oldMap
     );
-    CCRMA2ZReviewActions.performRedaction(records);
+    CommercialA2ZReviewActions.performRedaction(records);
+    CommercialA2ZReviewActions.restrictImagesInRichTextFields(
+      (List<A_Z_Review__c>) records,
+      (Map<Id, A_Z_Review__c>) oldMap
+    );
   }
 }
