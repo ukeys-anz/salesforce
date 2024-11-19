@@ -25,6 +25,9 @@ import ML_MaxExpiryDateErrorMessage from "@salesforce/label/c.ML_MaxExpiryDateEr
 import ML_LeadQualityRequiredValues from "@salesforce/label/c.ML_LeadQualityRequiredValues";
 import ML_LeadResponsesToShowFollowUpDate from "@salesforce/label/c.ML_LeadResponseToShowFollowUpDate";
 import CCRM_LeadQualityRequiredValues from "@salesforce/label/c.CCRM_LeadQualityRequiredValues";
+import MLCRM_NoOpportunityModalMessage from "@salesforce/label/c.MLCRM_NoOpportunityModalMessage";
+import MLCRM_NoOpportunityModalHeader from "@salesforce/label/c.MLCRM_NoOpportunityModalHeader";
+import Proceed_Confirmation_Message from "@salesforce/label/c.Proceed_Confirmation_Message";
 
 const MOBILE_LENDING_RECORDTYPE = "MLCRM_Lead";
 const CCRM_RECORDTYPE = "CCRM_Lead";
@@ -45,6 +48,7 @@ export default class LeadLogAResponse extends LightningElement {
   @track followUpDateDisable = true;
   @track followUpDateState;
   @track commentValue;
+  @track noOpportunitySelected = false;
   recordTypeName;
   showLeadQuality = true;
   ML_LeadResponseToShowFollowUpDate = ML_LeadResponsesToShowFollowUpDate; //["Contact Attempted", "Call Back"];
@@ -69,8 +73,21 @@ export default class LeadLogAResponse extends LightningElement {
     ML_ConversationGuideBody,
     ML_MaxExpiryDateErrorMessage,
     ML_LeadQualityRequiredValues,
-    CCRM_LeadQualityRequiredValues
+    CCRM_LeadQualityRequiredValues,
+    MLCRM_NoOpportunityModalMessage,
+    MLCRM_NoOpportunityModalHeader,
+    Proceed_Confirmation_Message
   };
+  noOpportunityValue = false;
+  fields;
+
+  get showCreateNoOpportunityOption() {
+    return (
+      (this.selectedResponseStatusValue === "Accepted" ||
+        this.selectedResponseStatusValue === "Appointment Booked") &&
+      this.isMLRecordType
+    );
+  }
 
   setConversationGuidanceUrl() {
     getLeadResponseGuidanceMapping({
@@ -126,6 +143,7 @@ export default class LeadLogAResponse extends LightningElement {
         this.isMLRecordType = true;
         this.showLeadQuality = false; // if Lead RT is ML then do not show Lead Quality by default
       }
+      this.fields = { Id: this.recordId };
       this.leadRecord = data;
       this.selectedLeadQualityValue = data.fields.Lead_Quality__c.value;
       this.leadStatus = data.fields.Status.value;
@@ -361,6 +379,15 @@ export default class LeadLogAResponse extends LightningElement {
     }
   }
 
+  handleNoOpportunity(event) {
+    this.noOpportunityValue = event.detail.checked;
+  }
+
+  handleBack() {
+    this.noOpportunitySelected = false;
+    this.noOpportunityValue = true;
+  }
+
   handleFollowUpDateChange(event) {
     this.selectedFollowUpDateValue = event.detail.value;
     this.validateRecord();
@@ -392,7 +419,17 @@ export default class LeadLogAResponse extends LightningElement {
   }
 
   submitResponse() {
-    if (this.validateRecord()) {
+    if (this.noOpportunityValue && this.noOpportunitySelected === false) {
+      this.noOpportunitySelected = true;
+      this.yesOpportunity = false;
+      this.fields = {
+        Id: this.recordId,
+        Status: "No Opportunity",
+        Skip_Validations__c: "noOpptyCreation"
+      };
+      return;
+    }
+    if (this.noOpportunitySelected || this.validateRecord()) {
       const leadResponseWrapperValue = {
         responseStatus: this.selectedResponseStatusValue,
         leadQuality: this.selectedLeadQualityValue,
@@ -429,7 +466,11 @@ export default class LeadLogAResponse extends LightningElement {
               "Response Logged Successfully.",
               "dismissable"
             );
-            updateRecord({ fields: { Id: this.recordId } });
+            if (this.noOpportunitySelected) {
+              updateRecord({
+                fields: this.fields
+              });
+            }
           }
           getRecordNotifyChange([{ recordId: this.recordId }]);
           this.dispatchEvent(new CustomEvent("handleSaveRecord"));
