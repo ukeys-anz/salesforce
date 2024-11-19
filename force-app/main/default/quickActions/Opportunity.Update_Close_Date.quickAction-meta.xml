@@ -5,7 +5,7 @@
         <field>Has_Close_Date_Changed__c</field>
         <formula>True</formula>
     </fieldOverrides>
-    <label>Update Close Date</label>
+    <label>Log Close date</label>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <quickActionLayout>
         <layoutSectionStyle>TwoColumnsLeftToRight</layoutSectionStyle>
