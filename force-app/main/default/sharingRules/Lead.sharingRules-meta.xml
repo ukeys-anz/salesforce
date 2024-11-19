@@ -141,7 +141,7 @@
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>Commercial_Lead_Read_Write_Access_TB</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <description>This is used to provide Read and Write access to TB.</description>
         <label>Commercial Lead Read Write Access TB</label>
         <sharedTo>
