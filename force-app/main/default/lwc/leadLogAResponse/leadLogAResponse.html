@@ -184,6 +184,8 @@
                       message-when-value-missing="Follow-Up date is mandatory for the selected Outcome Reason."
                       min={minFollowUpDate}
                       message-when-range-underflow="Follow-Up Date value should be in future."
+                      max={maxFollowUpDate}
+                      message-when-range-overflow="You cannot set a Follow-Up date greater than 30 days from today"
                     >
                     </lightning-input>
                   </lightning-layout-item>

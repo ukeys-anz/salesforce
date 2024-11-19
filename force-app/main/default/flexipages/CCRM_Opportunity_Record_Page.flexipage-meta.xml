@@ -91,6 +91,9 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
+                            <value>Opportunity.Update_Close_Date</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Opportunity.Launch_Application</value>
                         </valueListItems>
                     </valueList>
@@ -413,16 +416,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Opp_Id__c</fieldItem>
                 <identifier>RecordOpp_Id_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.CloseDate</fieldItem>
-                <identifier>RecordCloseDateField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

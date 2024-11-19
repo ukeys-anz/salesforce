@@ -61,6 +61,10 @@ export default class LeadLogAResponse extends LightningElement {
   resetValidationError = false;
   isLoading = false;
   minFollowUpDate = new Date().toISOString();
+  maxFollowUpDate = new Date(
+    new Date().setDate(new Date().getDate() + 31)
+  ).toISOString();
+  todayPlus30 = new Date(new Date().setDate(new Date().getDate() + 31));
   displayDueDate = false;
   autoCreateActivities = false;
   leadResponseGuidanceMapping;
@@ -196,7 +200,8 @@ export default class LeadLogAResponse extends LightningElement {
       (!this.isLeadQualityRequired || this.selectedLeadQualityValue) &&
       (!this.isFollowUpDateRequired ||
         (this.selectedFollowUpDateValue &&
-          new Date(this.selectedFollowUpDateValue) > new Date()))
+          new Date(this.selectedFollowUpDateValue) > new Date() &&
+          new Date(this.selectedFollowUpDateValue) < this.todayPlus30))
     );
   }
 
