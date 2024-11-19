@@ -179,7 +179,6 @@ public with sharing class TFMRemoteActionUtilityTest {
     Test.startTest();
 
     Map<String, Object> input = new Map<String, Object>();
-    Map<String, Object> args = new Map<String, Object>{ 'input' => input };
     Map<String, Object> payload = TFMRemoteActionUtility.getConsentDataSharingHistory(
       input
     );
@@ -189,5 +188,25 @@ public with sharing class TFMRemoteActionUtilityTest {
       ((List<Object>) payload.get('aggregatedEvents')).size(),
       'Should return 1 record'
     );
+  }
+
+  @isTest
+  public static void testgetTransformedDataScopes() {
+    Test.startTest();
+    Map<String, Object> input = new Map<String, Object>();
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('dataScope', '["bank:accounts.basic:read"]');
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    TFMRemoteActionUtility util = new TFMRemoteActionUtility();
+    Object isInvoked = util.call('getTransformedDataScopes', args);
+    Test.stopTest();
+
+    Map<String, Object> payload = (Map<String, Object>) output.get('dataScope');
+    Assert.areEqual(true, isInvoked, 'Method not invoked.');
+    Assert.areNotEqual(0, payload.size(), 'Datascope value is null');
   }
 }
