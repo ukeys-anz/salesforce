@@ -2646,7 +2646,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM Tableau View URL</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/Insights/CustomerInsight</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/Insightsdevtest/CustomerInsights</value>
     </labels>
     <labels>
         <fullName>BlockManualStatusUpdateIdOpsCase</fullName>
