@@ -305,7 +305,11 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>AssetFinanceAMBITExternalQuery</apexClass>
+        <apexClass>AssetDetailELSExternalQuery</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>AFAMBITCreditLineExternalQuery</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
