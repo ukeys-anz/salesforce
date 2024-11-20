@@ -1,10 +1,10 @@
 /**
  * @author       : Advait Yermalkar
  * @since        : 05/2024
- * @description  : unit testing class for CommercialA2ZReviewActions
+ * @description  : unit testing class for CCRMA2ZReviewActions
  **/
 @isTest
-private class CommercialA2ZReviewActionsTest {
+private class CCRMA2ZReviewActionsTest {
   @isTest
   static void testPerformRedactionTest() {
     User ccrmBaseUser = CCRMTestDataFactory.getCCRMBaseUser();
@@ -18,7 +18,7 @@ private class CommercialA2ZReviewActionsTest {
       String expectedResult = 'Test ************1234';
 
       Test.startTest();
-      CommercialA2ZReviewActions.performRedaction(lstReviews);
+      CCRMA2ZReviewActions.performRedaction(lstReviews);
       Test.stopTest();
 
       A_Z_Review__c actualResultReviewInstance = lstReviews[0];
@@ -80,10 +80,7 @@ private class CommercialA2ZReviewActionsTest {
       };
 
       Test.startTest();
-      CommercialA2ZReviewActions.updateCompletedDate(
-        azReviewList,
-        oldRecordMap
-      );
+      CCRMA2ZReviewActions.updateCompletedDate(azReviewList, oldRecordMap);
       Test.stopTest();
 
       System.assertEquals(
@@ -144,30 +141,5 @@ private class CommercialA2ZReviewActionsTest {
         'Completed date not updated when status changes on Insert.'
       );
     }
-  }
-
-  @isTest
-  static void testRestrictImagesInRichTextFields() {
-    //GIVEN List of A-Z Review Record
-    List<A_Z_Review__c> azReviewList = new List<A_Z_Review__c>{
-      new A_Z_Review__c(
-        Id = Lib_FakeIdGenerator.getMockId(A_Z_Review__c.SObjectType),
-        Status__c = 'In Progress'
-      )
-    };
-
-    //WHEN calling a restrictImagesInRichTextFields method
-    Test.startTest();
-    CommercialA2ZReviewActions.restrictImagesInRichTextFields(
-      azReviewList,
-      null
-    );
-    Test.stopTest();
-
-    //THEN it shouldn't throw any error
-    Assert.isFalse(
-      azReviewList[0].hasErrors(),
-      'Error while inserting A-Z Review record with Image.'
-    );
   }
 }

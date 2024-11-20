@@ -1,10 +1,10 @@
 /**
  * @author Ayushi Gupta
  * @since  23/05/2024
- * @description Test class for CommercialInteractionActions
+ * @description Test class for CCRMInteractionActions
  */
 @isTest
-private class CommercialInteractionActionsTest {
+private class CCRMInteractionActionsTest {
   static Lib_MockProvider interactionActionRepoMock;
   static Lib_MockProvider dmlRepoMock;
 
@@ -106,7 +106,7 @@ private class CommercialInteractionActionsTest {
 
     // Test
     Test.startTest();
-    CommercialInteractionActions.publishCloudEvents(
+    CCRMInteractionActions.publishCloudEvents(
       intListAll,
       CCRMConstants.ACTION_CODE_CREATE
     );
@@ -231,7 +231,7 @@ private class CommercialInteractionActionsTest {
     interactionActionRepoMock.mock('getUsers', new List<User>{ ccrmUser });
 
     Test.startTest();
-    CommercialInteractionActions.publishCloudEvents(
+    CCRMInteractionActions.publishCloudEvents(
       intListAll,
       CCRMConstants.ACTION_CODE_UPDATE
     );
@@ -269,7 +269,7 @@ private class CommercialInteractionActionsTest {
     );
 
     Test.startTest();
-    oppsIds = CommercialInteractionActions.getOppsIdsAssociatedWithInteractions(
+    oppsIds = CCRMInteractionActions.getOppsIdsAssociatedWithInteractions(
       intRec,
       null
     );
@@ -304,7 +304,7 @@ private class CommercialInteractionActionsTest {
     };
 
     Test.startTest();
-    oppsIds = CommercialInteractionActions.getOppsIdsAssociatedWithInteractions(
+    oppsIds = CCRMInteractionActions.getOppsIdsAssociatedWithInteractions(
       intRec,
       oldMap
     );
@@ -335,7 +335,7 @@ private class CommercialInteractionActionsTest {
     oppIdToCustomerIdMap = new Map<Id, Id>{ oppId => accId };
 
     Test.startTest();
-    CommercialInteractionActions.updateCustomerOnInteraction(
+    CCRMInteractionActions.updateCustomerOnInteraction(
       intRec,
       oppIdToCustomerIdMap
     );
@@ -347,6 +347,7 @@ private class CommercialInteractionActionsTest {
   @isTest
   static void getUpdatedNameOrChannelInteractionsTest() {
     User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
+    Map<Id, Id> oppIdToCustomerIdMap;
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
     List<Interaction> updatedInteractions;
 
@@ -365,7 +366,7 @@ private class CommercialInteractionActionsTest {
     );
 
     Test.startTest();
-    updatedInteractions = CommercialInteractionActions.getUpdatedNameOrChannelInteractions(
+    updatedInteractions = CCRMInteractionActions.getUpdatedNameOrChannelInteractions(
       new List<Interaction>{ updatedInt },
       new Map<Id, Interaction>{ intRec[0].Id => intRec[0] }
     );
@@ -378,6 +379,7 @@ private class CommercialInteractionActionsTest {
   static void updateInteractionNameTest() {
     User ccrmUser = CCRMTestDataFactory.getCCRMBaseUser();
     Id oppId = Lib_FakeIdGenerator.getMockId(Opportunity.SObjectType);
+    List<Interaction> updatedInteractions;
 
     List<Interaction> intRec = CCRMTestDataFactory.createInteractionDataWithOpportunity(
       1,
@@ -393,7 +395,7 @@ private class CommercialInteractionActionsTest {
     );
 
     Test.startTest();
-    CommercialInteractionActions.updateInteractionName(
+    CCRMInteractionActions.updateInteractionName(
       new List<Interaction>{ updatedInt },
       new Map<Id, Interaction>{ intRec[0].Id => intRec[0] }
     );
@@ -420,7 +422,7 @@ private class CommercialInteractionActionsTest {
       new List<Opportunity>{ opp }
     );
     Test.startTest();
-    CommercialInteractionActions.setCustomerOnInteraction(intList, null);
+    CCRMInteractionActions.setCustomerOnInteraction(intList, null);
     Test.stopTest();
 
     System.assertEquals(
@@ -441,7 +443,7 @@ private class CommercialInteractionActionsTest {
     );
 
     Test.startTest();
-    CommercialInteractionActions.setInteractionName(
+    CCRMInteractionActions.setInteractionName(
       intList,
       new Map<Id, Interaction>()
     );
@@ -473,34 +475,9 @@ private class CommercialInteractionActionsTest {
     };
 
     Test.startTest();
-    CommercialInteractionActions.setInteractionName(intList, oldMap);
+    CCRMInteractionActions.setInteractionName(intList, oldMap);
     Test.stopTest();
 
     System.assertEquals('Test  Call', intList[0].Name, 'Name is not updated');
-  }
-
-  @isTest
-  static void testRestrictImagesInRichTextFields() {
-    //GIVEN List of Interaction Record
-    List<Interaction> interactionList = new List<Interaction>{
-      new Interaction(
-        Id = Lib_FakeIdGenerator.getMockId(Interaction.SObjectType),
-        Name = 'Sample Interaction'
-      )
-    };
-
-    //WHEN calling a restrictImagesInRichTextFields method
-    Test.startTest();
-    CommercialInteractionActions.restrictImagesInRichTextFields(
-      interactionList,
-      null
-    );
-    Test.stopTest();
-
-    //THEN it shouldn't throw any error
-    Assert.isFalse(
-      interactionList[0].hasErrors(),
-      'Error while inserting Interaction record with Image.'
-    );
   }
 }

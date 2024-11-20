@@ -5,5 +5,4 @@ trigger OpportunityTrigger on Opportunity(
   after update
 ) {
   OpportunityTriggerHandler handler = new OpportunityTriggerHandler();
-  CommercialOpportunityTriggerHandler commercialHandler = new CommercialOpportunityTriggerHandler();
 }

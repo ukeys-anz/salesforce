@@ -459,17 +459,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           body: "New to Bank field cannot be blank."
         });
       }
-      //Block lead conversion if Company is not registered
-      if (
-        this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
-        this.leadConvertData.leadRecord.Registered_Company__c === "No"
-      ) {
-        this.setInvalidLead();
-        this.validationMessage.push({
-          id: this.validationMessage.length + 1,
-          body: "Lead cannot be converted until business name is registered."
-        });
-      }
       //# Criteria #8
       if (
         this.leadConvertData.leadRecord.Registered_Company__c === "Yes" &&

@@ -3,11 +3,11 @@
  * @since  23/04/2024
  * @description Interaction trigger handler for CCRM
  */
-public with sharing class CommercialInteractionTriggerHandler extends Lib_TriggerHandler {
+public with sharing class CCRMInteractionTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to initialise Trigger Handler library
    */
-  public CommercialInteractionTriggerHandler() {
+  public CCRMInteractionTriggerHandler() {
     super();
   }
 
@@ -25,12 +25,11 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @name onBeforeInsert
    */
   protected override void onBeforeInsert() {
-    CommercialInteractionActions.setInteractionName(
+    CCRMInteractionActions.setInteractionName(
       records,
       new Map<Id, Interaction>()
     );
-    CommercialInteractionActions.setCustomerOnInteraction(records, null);
-    CommercialInteractionActions.restrictImagesInRichTextFields(records, null);
+    CCRMInteractionActions.setCustomerOnInteraction(records, null);
   }
 
   /**
@@ -39,15 +38,11 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @param oldMap
    */
   protected override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CommercialInteractionActions.setInteractionName(
+    CCRMInteractionActions.setInteractionName(
       records,
       (Map<Id, Interaction>) oldMap
     );
-    CommercialInteractionActions.setCustomerOnInteraction(
-      records,
-      (Map<Id, Interaction>) oldMap
-    );
-    CommercialInteractionActions.restrictImagesInRichTextFields(
+    CCRMInteractionActions.setCustomerOnInteraction(
       records,
       (Map<Id, Interaction>) oldMap
     );
@@ -57,7 +52,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @description onAfterInsert to handle after insert trigger actions.
    **/
   protected override void onAfterInsert() {
-    CommercialInteractionActions.publishCloudEvents(
+    CCRMInteractionActions.publishCloudEvents(
       records,
       CCRMConstants.ACTION_CODE_CREATE
     );
@@ -68,7 +63,7 @@ public with sharing class CommercialInteractionTriggerHandler extends Lib_Trigge
    * @param oldMap Trigger's oldMap
    **/
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    CommercialInteractionActions.publishCloudEvents(
+    CCRMInteractionActions.publishCloudEvents(
       records,
       CCRMConstants.ACTION_CODE_UPDATE
     );
