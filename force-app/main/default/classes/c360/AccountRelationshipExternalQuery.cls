@@ -24,14 +24,14 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
    * @description AccountRelationship callout response
    */
   public class AccountRelationshipCalloutResponse extends FinancialAccountCalloutResponse {
-    public List<AccountRelationshipModel> accountRelationships;
+    public List<AccountRelationshipModel> relationships;
   }
 
   /**
    * @description constructor
    */
   public AccountRelationshipExternalQuery() {
-    this.sourceSystem = SourceSystemEnum.CAP;
+    this.sourceSystem = SourceSystemEnum.EBD;
     this.fieldSet = 'ACCOUNT_RELATIONSHIPS';
     this.externalField = 'compositeAccountRelationshipId';
   }
@@ -182,17 +182,17 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
 
     for (
       AccountRelationshipModel relationship : ((AccountRelationshipCalloutResponse) calloutResponse)
-        .accountRelationships
+        .relationships
     ) {
       index++;
-      String displayUrl = getDisplayUrl(
-        relationship.compositeAccountRelationshipId
-      );
+
       Map<String, Object> row = new Map<String, Object>{
         'Sequence' => getSequence(index),
         this.parentField => this.parentId,
         'ExternalId' => relationship.compositeAccountRelationshipId,
-        'DisplayUrl' => displayUrl,
+        'DisplayUrl' => getDisplayUrl(
+          relationship.compositeAccountRelationshipId
+        ),
         'Customer' => 'CAP-CIS_' + relationship.relatedPartyCustomerId,
         'Relationship' => relationship.relationshipType
       };
@@ -231,23 +231,5 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
       result.externalRecords.add(row);
     }
     return result;
-  }
-
-  @testVisible
-  private String getSequence(Integer index) {
-    switch on String.valueOf(index).length() {
-      when 1 {
-        return '000' + index;
-      }
-      when 2 {
-        return '00' + index;
-      }
-      when 3 {
-        return '0' + index;
-      }
-      when else {
-        return String.valueOf(index);
-      }
-    }
   }
 }

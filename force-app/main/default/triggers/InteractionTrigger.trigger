@@ -5,5 +5,5 @@ trigger InteractionTrigger on Interaction(
   after update
 ) {
   InteractionTriggerHandler handler = new InteractionTriggerHandler();
-  CommercialInteractionTriggerHandler commercialHandler = new CommercialInteractionTriggerHandler();
+  CCRMInteractionTriggerHandler ccrmHandler = new CCRMInteractionTriggerHandler();
 }

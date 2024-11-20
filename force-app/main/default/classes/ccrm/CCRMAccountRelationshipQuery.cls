@@ -19,7 +19,7 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
    * @description AccountRelationship callout response
    */
   public class AccountRelationshipCalloutResponse extends FinancialAccountCalloutResponse {
-    public List<AccountRelationshipModel> accountRelationships;
+    public List<AccountRelationshipModel> relationships;
   }
 
   /**
@@ -174,7 +174,7 @@ public with sharing class CCRMAccountRelationshipQuery extends CCRMFinancialAcco
 
     for (
       AccountRelationshipModel relationship : ((AccountRelationshipCalloutResponse) this.calloutResponse)
-        .accountRelationships
+        .relationships
     ) {
       row = new Map<String, Object>();
       index++;

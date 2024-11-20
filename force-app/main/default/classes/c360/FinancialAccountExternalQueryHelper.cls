@@ -95,7 +95,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
 
   /**
    * @description Format Account Number for Account Numbers of Linked Accounts for PTF
-   * @param accountNumber Account Number 
+   * @param accountNumber Account Number
    * @param productCode Product Code
    * @return String formatted Account Number
    */
@@ -105,30 +105,36 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
 
     Map<Integer, List<Integer>> lengthFormat = new Map<Integer, List<Integer>>{
-    7 => new List<Integer>{ 0, 2, 5, 7 },
-    9 => new List<Integer>{ 0, 3, 6, 9 }
+      7 => new List<Integer>{ 0, 2, 5, 7 },
+      9 => new List<Integer>{ 0, 3, 6, 9 }
     };
-    
-    Set<String> accountNumberBasedOnProductCodeSet = new Set<String> {'APP','MOS','SVC'};
-            
+
+    Set<String> accountNumberBasedOnProductCodeSet = new Set<String>{
+      'APP',
+      'MOS',
+      'SVC'
+    };
+
     if (!accountNumberBasedOnProductCodeSet.contains(productCode)) {
       return formatAccountNumber(accountNumber);
     }
-      
-    if ((productCode == 'APP' || productCode == 'MOS') && accountNumber.length() < 9) {
+
+    if (
+      (productCode == 'APP' || productCode == 'MOS') &&
+      accountNumber.length() < 9
+    ) {
       accountNumber = accountNumber.leftPad(9, '0');
     }
-        
+
     if (productCode == 'SVC' && accountNumber.length() < 7) {
       accountNumber = accountNumber.leftPad(7, '0');
     }
-        
+
     return joinAccountNumberParts(
       accountNumber,
       lengthFormat.get(accountNumber.length())
-    );  
+    );
   }
-
 
   /**
    * @description Format Account Number
@@ -293,18 +299,17 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //EBD accounts child summary view
     if (isQueryEBDChildAccounts(infoWrapper)) {
-      payload = '{"compositeAccountNumber": "' + infoWrapper.parentId + '"';
-      payload += String.isNotBlank(infoWrapper.fieldSet) &&
-        String.isNotBlank(infoWrapper.assetFinanceType)
-        ? ',"fieldSet": "' +
-          infoWrapper.fieldSet +
-          '"' +
-          ',"type":"' +
+      payload = String.isNotBlank(infoWrapper.assetFinanceType)
+        ? '{"compositeContractNumber": "' +
+          infoWrapper.parentId +
+          '" ,"type":"' +
           infoWrapper.assetFinanceType +
-          '"}'
-        : String.isNotBlank(infoWrapper.fieldSet)
-            ? ',"fieldSet": "' + infoWrapper.fieldSet + '"}'
-            : null;
+          '"'
+        : '{"compositeAccountNumber": "' + infoWrapper.parentId + '"';
+
+      payload += String.isNotBlank(infoWrapper.fieldSet)
+        ? ',"fieldSet": "' + infoWrapper.fieldSet + '"}'
+        : '"}';
     }
     return payload;
   }
@@ -347,7 +352,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //child EBD accounts summary view having EBD as parent
     if (isQueryEBDChildAccountsWithAssetFinanceType(infoWrapper)) {
-      payload = '{"compositeCreditLineId": "' + infoWrapper.parentId + '"';
+      payload = '{"compositeContractNumber": "' + infoWrapper.parentId + '"';
       payload += String.isNotBlank(infoWrapper.fieldSet) &&
         String.isNotBlank(infoWrapper.assetFinanceType)
         ? ',"fieldSet": "' +
@@ -412,9 +417,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     //Child summary view
     if (isQueryCAPChildAccounts(infoWrapper)) {
       String accountNumber = infoWrapper.parentId.right(
-        infoWrapper.parentId.length() -
-        infoWrapper.parentId.indexOf('|') -
-        1
+        infoWrapper.parentId.length() - infoWrapper.parentId.indexOf('|') - 1
       );
       payload =
         '{"accountNumber": "' +
@@ -448,9 +451,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //Account detail view
     String accountNumber = infoWrapper.externalId.right(
-      infoWrapper.externalId.length() -
-      infoWrapper.externalId.indexOf('|') -
-      1
+      infoWrapper.externalId.length() - infoWrapper.externalId.indexOf('|') - 1
     );
     payload = '{"' + infoWrapper.externalField + '": "' + accountNumber + '"';
     payload += String.isNotBlank(infoWrapper.assetFinanceType)
