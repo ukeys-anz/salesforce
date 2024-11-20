@@ -408,7 +408,6 @@ public with sharing class CCRMLeadMappingEngine {
     List<SObject> targetObjectList = new List<SObject>();
     Map<Id, SObject> mapOfRecordsWithTargets = new Map<Id, SObject>();
     String contactField = '';
-    String dayOfWeek = DateTimeUtils.getDay(system.today().addDays(90));
     Map<String, Schema.SObjectField> mapSchema = ((SObject) Type.forName(
           strTargetObject
         )
@@ -519,14 +518,7 @@ public with sharing class CCRMLeadMappingEngine {
         );
         contactField = getContact(leadRecord);
         targetObject.put('Contact__c', contactField);
-        switch on dayOfWeek {
-          when 'Sat', 'Sun' {
-            targetObject.put('CloseDate', system.today().addDays(92));
-          }
-          when else {
-            targetObject.put('CloseDate', system.today().addDays(90));
-          }
-        }
+        targetObject.put('CloseDate', DateTimeUtils.getNextWeekdayDate(90));
       }
       if (targetObject != null) {
         mapOfRecordsWithTargets.put(leadRecord.id, targetObject);
