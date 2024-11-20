@@ -61,6 +61,10 @@ export default class LeadLogAResponse extends LightningElement {
   resetValidationError = false;
   isLoading = false;
   minFollowUpDate = new Date().toISOString();
+  maxFollowUpDate = new Date(
+    new Date().setDate(new Date().getDate() + 30)
+  ).toISOString();
+  todayPlus30 = new Date(new Date().setDate(new Date().getDate() + 30));
   displayDueDate = false;
   autoCreateActivities = false;
   leadResponseGuidanceMapping;
@@ -196,7 +200,8 @@ export default class LeadLogAResponse extends LightningElement {
       (!this.isLeadQualityRequired || this.selectedLeadQualityValue) &&
       (!this.isFollowUpDateRequired ||
         (this.selectedFollowUpDateValue &&
-          new Date(this.selectedFollowUpDateValue) > new Date()))
+          new Date(this.selectedFollowUpDateValue) > new Date() &&
+          new Date(this.selectedFollowUpDateValue) <= this.todayPlus30))
     );
   }
 
@@ -405,17 +410,17 @@ export default class LeadLogAResponse extends LightningElement {
   validateRecord() {
     return this.template.querySelector(".responseStatus").reportValidity() &&
       // validate leadQuality only when it is displayed
-      this.showLeadQuality
-      ? this.template.querySelector(".leadQuality").reportValidity()
-      : true &&
-          this.template.querySelector(".outcomeReason").reportValidity() &&
-          this.template.querySelector(".comment").reportValidity() &&
-          this.autoCreateActivities &&
-          this.selectedResponseStatusValue === "Accepted"
-        ? this.template.querySelector(".dueDate").reportValidity()
-        : this.template.querySelector(".followUpDate") != null
-          ? this.template.querySelector(".followUpDate").reportValidity()
-          : true;
+      (this.showLeadQuality
+        ? this.template.querySelector(".leadQuality").reportValidity()
+        : true) &&
+      this.template.querySelector(".outcomeReason").reportValidity() &&
+      this.template.querySelector(".comment").reportValidity() &&
+      this.autoCreateActivities &&
+      this.selectedResponseStatusValue === "Accepted"
+      ? this.template.querySelector(".dueDate").reportValidity()
+      : this.template.querySelector(".followUpDate") != null
+        ? this.template.querySelector(".followUpDate").reportValidity()
+        : true;
   }
 
   submitResponse() {
