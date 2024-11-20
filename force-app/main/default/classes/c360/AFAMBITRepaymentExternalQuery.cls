@@ -11,7 +11,7 @@ public with sharing class AFAMBITRepaymentExternalQuery extends FinancialAccount
   public class AFAMBITRepaymentModel extends FinancialAccountModelBase {
     public String amount;
     public Integer numberOfRepayments;
-    public String compositeAssetRepaymentId;
+    public String compositeRepaymentId;
   }
 
   /**
@@ -28,7 +28,7 @@ public with sharing class AFAMBITRepaymentExternalQuery extends FinancialAccount
     this.productCategory = 'asset-finance';
     this.sourceSystem = SourceSystemEnum.EBD;
     this.fieldSet = 'REPAYMENTS';
-    this.externalField = 'compositeAssetRepaymentId';
+    this.externalField = 'compositeRepaymentId';
     this.assetFinanceType = 'AMBIT';
   }
 
@@ -60,14 +60,17 @@ public with sharing class AFAMBITRepaymentExternalQuery extends FinancialAccount
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecords(
     ExternalObjectCalloutResponse calloutResponse
   ) {
+    Integer index = 0;
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
     for (
       AFAMBITRepaymentModel repay : ((AFAMBITRepaymentCalloutResponse) this.calloutResponse)
         .repayments
     ) {
+      index++;
       Map<String, Object> row = new Map<String, Object>{
-        'ExternalId' => repay.compositeAssetRepaymentId,
-        'DisplayUrl' => getDisplayUrl(repay.compositeAssetRepaymentId),
+        'ExternalId' => repay.compositeRepaymentId,
+        'DisplayUrl' => getDisplayUrl(repay.compositeRepaymentId),
+        'Sequence' => getSequence(index),
         this.parentField => this.parentId,
         'RepaymentAccountNumber' => repay.accountNumber,
         'Amount' => repay.amount,

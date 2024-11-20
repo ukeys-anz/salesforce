@@ -306,14 +306,18 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   }
   /**
    * @description get customer related to the account
-   * @param customerId Customer External Id
-   * @return String Customer Name
+   * @param customerIdSet Customer External Id Set
+   * @return Map<String, String>  Customer External Id and Customer Name Map
    */
-  protected String getCustomerName(String customerId) {
+  protected Map<String, String> getCustomerName(Set<String> customerIdSet) {
+    Map<String, String> customerNameMap = new Map<String, String>();
     List<Account> customers = FA_Repository.getCustomerUsingExternalId(
-      customerId
+      customerIdSet
     );
-    return customers.size() > 0 ? customers[0].Name : null;
+    for (Account acc : customers) {
+      customerNameMap.put(acc.External_Id__c, acc.Name);
+    }
+    return customerNameMap;
   }
 
   /**

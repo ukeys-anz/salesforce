@@ -83,7 +83,7 @@ public with sharing class ActiveIndemnityGuaranteeExternalQuery extends Financia
         'PurposeCode' => guarantee.purpose,
         'StartDate' => formatDate(guarantee.startDate),
         'ExpiryDate' => formatDate(guarantee.expiryDate),
-        'Type' => guarantee.bankGuaranteeType
+        'Type' => guarantee.bankGuaranteeType?.capitalize()
       };
       result.externalRecords.add(row);
     }

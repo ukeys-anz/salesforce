@@ -25,7 +25,7 @@ public with sharing class CCRMAssetDetailQuery extends CCRMFinancialAccountQuery
    * @description Asset Detail callout response
    */
   public class AssetDetailCalloutResponse extends FinancialAccountCalloutResponse {
-    public List<AssetDetailModel> assetDetails;
+    public List<AssetDetailModel> physicalAssets;
   }
 
   /**
@@ -61,15 +61,15 @@ public with sharing class CCRMAssetDetailQuery extends CCRMFinancialAccountQuery
 
     for (
       AssetDetailModel asset : ((AssetDetailCalloutResponse) this.calloutResponse)
-        .assetDetails
+        .physicalAssets
     ) {
       row = new Map<String, Object>();
       row.put('ExternalId', asset.compositePhysicalAssetId);
       row.put(
         'DisplayUrl',
         URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        asset.compositePhysicalAssetId
+          '/' +
+          asset.compositePhysicalAssetId
       );
       List<String> values = asset.compositePhysicalAssetId != null
         ? asset.compositePhysicalAssetId.split('-')

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Customer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - EBD</complianceGroup>
+    <description>Customer lookup</description>
+    <externalDeveloperName>CustomerId</externalDeveloperName>
+    <isFilteringDisabled>false</isFilteringDisabled>
+    <isNameField>false</isNameField>
+    <isSortingDisabled>false</isSortingDisabled>
+    <label>Customer</label>
+    <length>150</length>
+    <referenceTargetField>Account.External_Id__c</referenceTargetField>
+    <referenceTo>Account</referenceTo>
+    <relationshipLabel>Foreign Currency Accounts</relationshipLabel>
+    <relationshipName>Foreign_Currency_Accounts</relationshipName>
+    <securityClassification>Confidential</securityClassification>
+    <type>IndirectLookup</type>
+</CustomField>

@@ -198,7 +198,7 @@ public class CCRMQueryContextMock {
     );
     parentColumnMap.put(
       'AccountRelationship',
-      new List<String>{ 'AMBITId', '4019028722-13521-0' }
+      new List<String>{ 'AFAMBITContractNumber', '4019028722-13521-0' }
     );
     return parentColumnMap;
   }

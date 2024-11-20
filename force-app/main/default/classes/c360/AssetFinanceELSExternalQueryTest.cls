@@ -45,6 +45,15 @@ private class AssetFinanceELSExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock(
+      'getCustomerUsingExternalId',
+      new List<Account>{
+        new Account(
+          External_Id__c = 'CAP-CIS_4011643101',
+          Name = 'Asset Finance ELS Account'
+        )
+      }
+    );
     ExternalObjectQueryBase.ExternalQueryResult result = cardAccount.execute(
       context
     );
@@ -59,6 +68,34 @@ private class AssetFinanceELSExternalQueryTest {
       result.externalRecords[0].get('AccountNumber'),
       'Name mismatch'
     );
+  }
+
+  @isTest
+  static void testGetCustomerIdAsExternalId() {
+    String parentId;
+    String compositeAccountNumber = '44011643101-7234567890121234';
+    String customerId;
+    AssetFinanceELSExternalQuery query = new AssetFinanceELSExternalQuery();
+    Test.startTest();
+    customerId = query.getCustomerId(parentId, compositeAccountNumber);
+    Test.stopTest();
+    Assert.areEqual(
+      'CAP-CIS_44011643101',
+      customerId,
+      'Not able to fetch customerId'
+    );
+  }
+
+  @isTest
+  static void testGetCustomerIdAsParentId() {
+    String parentId = '7234567890121234';
+    String compositeAccountNumber = '4011643101-7234567890121234';
+    String customerId;
+    AssetFinanceELSExternalQuery query = new AssetFinanceELSExternalQuery();
+    Test.startTest();
+    customerId = query.getCustomerId(parentId, compositeAccountNumber);
+    Test.stopTest();
+    Assert.areEqual(parentId, customerId, 'Not able to fetch customerId');
   }
 
   /**
