@@ -37,11 +37,6 @@
                 <default>false</default>
                 <label>CM had no access to an ANZ system and the case ought to have been referred to a specialist business unit for assistance (e.g. ANZ Shield).</label>
             </value>
-            <value>
-                <fullName>In circumstances where a sustainable solution was not feasible, we did not use any available information we had about the customer’s financial position before making our decision.</fullName>
-                <default>false</default>
-                <label>In circumstances where a sustainable solution was not feasible, we did not use any available information we had about the customer’s financial position before making our decision.</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
@@ -50,10 +45,6 @@
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
             <valueName>We did not critically analyse and obtain some or any relevant information from ANZ business units.</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Not met</controllingFieldValue>
-            <valueName>In circumstances where a sustainable solution was not feasible, we did not use any available information we had about the customer’s financial position before making our decision.</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
