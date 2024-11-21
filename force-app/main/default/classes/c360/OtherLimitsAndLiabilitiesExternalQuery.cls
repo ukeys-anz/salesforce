@@ -22,13 +22,21 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
     private String anzsicCode;
     private String customerCreditRating;
     private DateTime inactiveDate;
+    @testVisible
     private String status;
+    private String sourceSystemStatus;
   }
 
   private static final Map<String, String> MAP_ACCOUNT_STATUS = new Map<String, String>{
     'ACT' => 'Active',
     'DEL' => 'Deleted',
     'INA' => 'Inactive'
+  };
+
+  private static final Map<String, String> MAP_SOURCE_SYSTEM_STATUS = new Map<String, String>{
+    'ACT' => 'ACT - Active',
+    'DEL' => 'DEL - Deleted',
+    'INA' => 'INA - Inactive'
   };
 
   /**
@@ -91,6 +99,9 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
       OtherLimitsAndLiabilitiesModel fa : ((OLLCalloutResponse) this.calloutResponse)
         .accounts
     ) {
+       if (String.isBlank(fa.status) || fa.status == 'DEL') {
+        continue;
+      }
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => getExternalId(fa, this.accountRoleMap),
@@ -115,7 +126,7 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
         'Date_Closed' => formatDate(fa.inactiveDate),
         'Product_Code' => fa.productCode,
         'Product_Name' => getProductName(fa.accountNumber),
-        'Source_System_Status' => getSourceSystemStatus(fa.accountNumber)
+        'Source_System_Status' => MAP_SOURCE_SYSTEM_STATUS.get(fa.sourceSystemStatus) ?? fa.sourceSystemStatus
       };
       result.externalRecords.add(row);
     }
