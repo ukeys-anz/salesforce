@@ -1473,6 +1473,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Facility__x.Facility__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Facility__x.Other_Limits_and_Liabilities__c</field>
         <readable>true</readable>
     </fieldPermissions>
