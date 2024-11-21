@@ -47,11 +47,6 @@
                 <default>false</default>
                 <label>Option exploration was not required. what the customer wanted was not possible and there were no other options available.</label>
             </value>
-            <value>
-                <fullName>In circumstances where a sustainable solution was not feasible, we did not consider all reasonable options available to us.</fullName>
-                <default>false</default>
-                <label>In circumstances where a sustainable solution was not feasible, we did not consider all reasonable options available to us.</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
@@ -64,10 +59,6 @@
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
             <valueName>Specialist assistance from an SME was not obtained to assist with an outcome for the customer.</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Not met</controllingFieldValue>
-            <valueName>In circumstances where a sustainable solution was not feasible, we did not consider all reasonable options available to us.</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
