@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AF_AMBIT_Contract_Compact_Layout</fullName>
+    <fields>Contract_Number__c</fields>
+    <fields>Date_Opened__c</fields>
+    <fields>Product_Name__c</fields>
+    <fields>Net_Outstanding_Amount__c</fields>
+    <fields>Residual_Value__c</fields>
+    <fields>Status__c</fields>
+    <label>AF AMBIT Contract Compact Layout</label>
+</CompactLayout>

@@ -27,7 +27,7 @@ public with sharing class IDRCaseChangeEventActionsTest {
           Name = 'Banker'
           OR Name = 'Customer Resolution'
           OR Name = :Label.ML_ANZ_Role
-          OR Name = 'Assistant Manager'
+          OR Name = 'SME Assistant Manager'
       ];
 
       Map<String, UserRole> mapNameToRole = new Map<String, UserRole>();
@@ -56,7 +56,7 @@ public with sharing class IDRCaseChangeEventActionsTest {
       idrUserCCRM.Business_Role__c = 'Customer Resolution';
       idrUserCCRM.FirstName = 'IDRL3CCRM';
       idrUserCCRM.IsActive = true;
-      idrUserCCRM.UserRoleId = mapNameToRole.get('Assistant Manager').Id;
+      idrUserCCRM.UserRoleId = mapNameToRole.get('SME Assistant Manager').Id;
       userToInsert.add(idrUserCCRM);
 
       //CC-5574

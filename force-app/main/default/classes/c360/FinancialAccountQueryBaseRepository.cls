@@ -151,17 +151,15 @@ public with sharing class FinancialAccountQueryBaseRepository {
    * @param  externalIdValue
    * @return List<Account>
    */
-  public List<Account> getCustomerUsingExternalId(String externalIdValue) {
-    if (
-      !PermissionUtils.canQuery('Account') || String.isBlank(externalIdValue)
-    ) {
+  public List<Account> getCustomerUsingExternalId(Set<String> externalIdValue) {
+    if (!PermissionUtils.canQuery('Account') || externalIdValue.isEmpty()) {
       return new List<Account>();
     }
     List<Account> result;
     result = [
       SELECT Id, Name, External_Id__c
       FROM Account
-      WHERE External_Id__c = :externalIdValue
+      WHERE External_Id__c IN :externalIdValue
     ];
     return result;
   }

@@ -1,21 +1,23 @@
 {
-  "accounts": [
+  "creditLines": [
     {
-      "productCode": "AMB050",
-      "status": "Quote Expired",
-      "accountLimit": "440000.0000",
-      "originalAmountFinanced": "440000.0000",
-      "accountName": "*D E QUARRY SOLUTIONS",
-      "accountNumber": "4020632171",
-      "openedDate": "2018-03-21T00:00:00",
-      "balloonAmount": "0.0000",
-      "interestRate": "6.110000000000",
-      "interestType": "Fixed",
-      "loanTermYears": "5 Years",
-      "loanTermMonths": "60 Months",
-      "expiryDate": "2023-03-21T00:00:00",
-      "govtGuarantee": "YES",
-      "compositeAccountNumber": "4020632171-122185"
+      "status": "Active",
+      "accountNumber": "4092",
+      "accountName": "*DAVID ELDRIDGE P/L",
+      "dateOpened": "2018-12-18",
+      "expiryDate": "2023-12-18",
+      "cpid": "R2030",
+      "undrawnBalance": 9,
+      "liabilityLimit": 380780,
+      "productName": "Asset Finance Facility",
+      "facilityExpiryType": "Terminating",
+      "linkedContract": [
+        {
+          "contractNumber": "146515",
+          "amount": 380771
+        }
+      ],
+      "compositeCreditLineId": "1011137670-146515-4092"
     }
   ]
 }

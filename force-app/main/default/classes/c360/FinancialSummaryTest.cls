@@ -636,7 +636,7 @@ private class FinancialSummaryTest {
     expectedData.totalDebitBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.totalCreditBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.totalMerchantTerminals = null;
-    expectedData.terminalAck = FinancialSummaryController.MULE_RESPONSE;
+    expectedData.terminalAck = null;
     expectedData.totalAssetFinanceBalance = null;
     expectedData.assetBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.cacheAck = null;

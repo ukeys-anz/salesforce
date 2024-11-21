@@ -15,8 +15,8 @@ private class AFAMBITContractExternalQueryTest {
       '       "contractNumber": "190",' +
       '       "accountNumber": "24",' +
       '       "status": "End - Terminated",' +
-      '       "dateOpened": "2014-10-22T00:00:00",' +
-      '       "expiryDate": "2018-10-22T00:00:00",' +
+      '       "dateOpened": "2014-10-22",' +
+      '       "expiryDate": "2018-10-22",' +
       '       "termsInMonth": "4 Months",' +
       '       "termsInYear": "0 Years",' +
       '       "amountFinanced": 468012.18,' +
@@ -25,7 +25,7 @@ private class AFAMBITContractExternalQueryTest {
       '       "facilityDesc": "Chattel Mortgage Fixed Rate",' +
       '       "interestType": "Fixed",' +
       '       "interestRate": 6.53127482,' +
-      '       "compositeCreditLineId": "1011137670-24-190"' +
+      '       "compositeContractNumber": "1011137670-24-190"' +
       '     }' +
       '   ]' +
       ' }';

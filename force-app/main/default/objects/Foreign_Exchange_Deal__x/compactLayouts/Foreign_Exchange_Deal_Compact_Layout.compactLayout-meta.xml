@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CompactLayout xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Foreign_Exchange_Deal_Compact_Layout</fullName>
+    <fields>Deal_Number__c</fields>
+    <fields>Deal_Date__c</fields>
+    <fields>Value_Date__c</fields>
+    <fields>Ask_Currency__c</fields>
+    <fields>Ask_Amount__c</fields>
+    <fields>Bid_Currency__c</fields>
+    <fields>Bid_Amount__c</fields>
+    <label>Foreign Exchange Deal Compact Layout</label>
+</CompactLayout>
