@@ -82,7 +82,7 @@
         <relatedList>Facility__x.Other_Limits_and_Liabilities__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>Sequence__c</fields>
+        <fields>ExternalId</fields>
         <fields>Description__c</fields>
         <fields>Date_Placed__c</fields>
         <fields>Operator__c</fields>

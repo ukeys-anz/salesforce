@@ -99,7 +99,6 @@ private class OLLExternalQueryTest {
     ollModel.accountLimit = 2000;
     ollModel.accountName = 'Stephan Pedersen';
     ollModel.accountNumber = '523456789';
-    ollModel.status = 'Active';
     ((OtherLimitsAndLiabilitiesExternalQuery.OLLCalloutResponse) limitLiabQry.calloutResponse)
       .accounts.add(ollModel);
     ((FinancialAccountQueryBase.FinancialAccountCalloutResponse) limitLiabQry.calloutResponse)
@@ -131,7 +130,6 @@ private class OLLExternalQueryTest {
     ollModel.accountLimit = 2000;
     ollModel.accountName = 'Stephan Pedersen';
     ollModel.anzsicCode = '111';
-    ollModel.status = 'Active';
     ((OtherLimitsAndLiabilitiesExternalQuery.OLLCalloutResponse) limitLiabQry.calloutResponse)
       .accounts.add(ollModel);
     industryCodeNameMap = limitLiabQry.formIndustryCodeAndNameMap(
