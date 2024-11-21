@@ -61,4 +61,8 @@
         <object>A_Z_Review__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>ViewAllUsers</name>
+    </userPermissions>
 </PermissionSet>
