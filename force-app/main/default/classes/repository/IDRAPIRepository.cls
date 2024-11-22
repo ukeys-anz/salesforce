@@ -59,13 +59,21 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
         result.accounts = accounts;
         return result;
       }
+      result = new IDRCustomerInformationModel();
+       if (response.statusCode == 422) {
+        result.isCustomerNotFound = true;
+        return result;
+       }
+
       if (response.statusCode >= 500) {
+        result.isOCVDown = true;
         Logger.error(
           'OCV Error - Status Code - ' + response.statusCode,
           response.error,
           Logger.Severity.HIGH
         );
         Logger.saveLog();
+        return result;
       }
       handleErrors(response, response.error, IDRAPIRepository.class);
       throw response.error;
