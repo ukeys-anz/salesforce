@@ -27,23 +27,26 @@ public with sharing class IDRAPIRepositoryTest {
     Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
     serv.setCalloutResponse(res);
     IDRAPIRepository repo = new IDRAPIRepository();
-    Exception calloutException;
     Test.startTest();
-    try {
-      repo.getCustomerInfo('12345', 'CAP ID');
-    } catch (Exception e) {
-      calloutException = e;
-    }
+    IDRCustomerInformationModel result = repo.getCustomerInfo(
+        '12345',
+        'CAP ID'
+      );
     Test.stopTest();
     System.assertEquals(
-      calloutException,
-      res.error,
-      'Exception should be same as actual response error'
+      true,
+      result.isOCVDown,
+      'isOCVDown is true when OCV is down'
     );
     System.assertEquals(
       500,
       res.statusCode,
       'Status Code matches for Internal Server Error'
+    );
+    System.assertEquals(
+      false,
+      result.isCustomerNotFound,
+      'isCustomerNotFound is false becuase OCV is down'
     );
   }
 
@@ -94,10 +97,8 @@ public with sharing class IDRAPIRepositoryTest {
     Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
     serv.setCalloutResponse(res);
     IDRAPIRepository repo = new IDRAPIRepository();
-    IDRCustomerInformationModel result = new IDRCustomerInformationModel();
     Test.startTest();
-  
-      result = repo.getCustomerInfo(
+    IDRCustomerInformationModel result = repo.getCustomerInfo(
         '1231231234',
         'Customer/Business CAP ID'
       );
@@ -112,8 +113,13 @@ public with sharing class IDRAPIRepositoryTest {
       result.isCustomerNotFound,
       'isCustomerNotFound is true for Could not retrieve Customer Data'
     );
+    System.assertEquals(
+      false,
+      result.isOCVDown,
+      'isOCVDown is false for Could not retrieve Customer Data'
+    );
   }
-
+  
   private static HttpCalloutResponse getAPIFailureResponse() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.error = new CalloutException(
