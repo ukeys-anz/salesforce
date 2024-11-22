@@ -1,5 +1,5 @@
 {
-  "assetDetails": [
+  "physicalAssets": [
     {
       "assetNumber": 364931,
       "year": 2018,
@@ -8,7 +8,7 @@
       "serialNumber": "M8W10249",
       "purchasePrice": "366400.0000",
       "ecvAmount": "220000",
-      "ecvDate": "2022-03-30T00:00:00",
+      "ecvDate": "2022-03-30",
       "ecvValuer": "P.McLoughlin",
       "compositePhysicalAssetId": "4020632171-162381-364930-364931"
     }

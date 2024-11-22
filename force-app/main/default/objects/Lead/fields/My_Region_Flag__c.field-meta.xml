@@ -7,7 +7,14 @@
     <externalId>false</externalId>
     <formula>
     AND(
-        $User.Area_Code__c ==  Owner:User.Area_Code__c,
+        OR(
+            $User.Area_Code__c ==  Owner:User.Area_Code__c,
+            AND(
+                CONTAINS($UserRole.Name, &apos;Head&apos;),
+                $User.State_Code__c == Owner:User.State_Code__c
+            ),
+            CONTAINS($UserRole.Name, &apos;General Manager&apos;)
+        ),
         TEXT($User.Commercial_Segment__c) ==  TEXT(Owner:User.Commercial_Segment__c)
     )
     </formula>

@@ -49,7 +49,7 @@ private class AccountRelationshipExternalQueryTest {
   static void testParseResponse() {
     String responseBody =
       '{' +
-      '    "accountRelationships": [' +
+      '    "relationships": [' +
       '      {' +
       '        "compositeAccountRelationshipId": "DDA-901221265-0",' +
       '        "relatedPartyCustomerId": "4017120146",' +
@@ -123,12 +123,12 @@ private class AccountRelationshipExternalQueryTest {
     accRelQry.execute(context);
     accRelQry.calloutResponse = new AccountRelationshipExternalQuery.AccountRelationshipCalloutResponse();
     ((AccountRelationshipExternalQuery.AccountRelationshipCalloutResponse) accRelQry.calloutResponse)
-      .accountRelationships = new List<AccountRelationshipExternalQuery.AccountRelationshipModel>();
+      .relationships = new List<AccountRelationshipExternalQuery.AccountRelationshipModel>();
     AccountRelationshipExternalQuery.AccountRelationshipModel accountRelationshipModel = new AccountRelationshipExternalQuery.AccountRelationshipModel();
     accountRelationshipModel.relatedPartyCustomerId = '4017120146';
     accountRelationshipModel.relationshipType = 'PRI';
     ((AccountRelationshipExternalQuery.AccountRelationshipCalloutResponse) accRelQry.calloutResponse)
-      .accountRelationships.add(accountRelationshipModel);
+      .relationships.add(accountRelationshipModel);
     ExternalObjectQueryBase.ExternalQueryResult result = accRelQry.createExternalRecords(
       accRelQry.calloutResponse
     );

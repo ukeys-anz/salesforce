@@ -2,29 +2,25 @@
  * @author Naman Garg
  * @since  Sept 2024
  * @group CCRM (Commercial CRM)
- * @description Test class of AssetFinanceAMBITExternalQuery
+ * @description Test class of AFAMBITCreditLineExternalQuery
  */
 @isTest
-private class AssetFinanceAMBITExternalQueryTest {
+private class AFAMBITCreditLineExternalQueryTest {
   @isTest
   static void testParseResponse() {
     String responseBody =
       ' {' +
-      '   "accounts": [' +
+      '   "creditLines": [' +
       '     {' +
-      '       "productCode": "AMB050",' +
+      '       "productName": "AMB050",' +
       '       "status": "Quote Expired",' +
-      '       "originalAmountFinanced": "440000.0000",' +
       '       "accountName": "D E QUARRY SOLUTIONS",' +
-      '       "contractNumber": "4020632171",' +
-      '       "compositeAccountNumber": "4020632171-122185",' +
-      '       "govtGuarantee": "YES",' +
-      '       "interestRate": "6.110000000000"' +
+      '       "compositeCreditLineId": "1011137670-146515-4092"' +
       '     }' +
       '   ]' +
       ' }';
 
-    AssetFinanceAMBITExternalQuery assetFin = new AssetFinanceAMBITExternalQuery();
+    AFAMBITCreditLineExternalQuery assetFin = new AFAMBITCreditLineExternalQuery();
     Test.startTest();
     assetFin.parseResponse(responseBody);
     Test.stopTest();
@@ -33,7 +29,7 @@ private class AssetFinanceAMBITExternalQueryTest {
 
   @isTest
   static void testParseResponseEmptyResponse() {
-    AssetFinanceAMBITExternalQuery assetFin = new AssetFinanceAMBITExternalQuery();
+    AFAMBITCreditLineExternalQuery assetFin = new AFAMBITCreditLineExternalQuery();
     Test.startTest();
     assetFin.parseResponse('');
     Test.stopTest();
@@ -44,7 +40,7 @@ private class AssetFinanceAMBITExternalQueryTest {
   static void testCreateExternalRecords() {
     Test.startTest();
     DataSource.QueryContext context = createQueryContext();
-    AssetFinanceAMBITExternalQuery assetFin = new AssetFinanceAMBITExternalQuery();
+    AFAMBITCreditLineExternalQuery assetFin = new AFAMBITCreditLineExternalQuery();
     ExternalObjectQueryBase.ExternalQueryResult result = assetFin.execute(
       context
     );
@@ -56,12 +52,12 @@ private class AssetFinanceAMBITExternalQueryTest {
     );
     Map<String, Object> firstRecord = result.externalRecords[0];
     Assert.areEqual(
-      '4020632171-122185',
+      '1011137670-146515-4092',
       firstRecord.get('ExternalId'),
       'External Id mismatch'
     );
     Assert.areEqual(
-      '4020632171',
+      '4092',
       firstRecord.get('AccountNumber'),
       'Account Number mismatch'
     );
@@ -72,9 +68,9 @@ private class AssetFinanceAMBITExternalQueryTest {
    * @return queryContext
    */
   public static DataSource.QueryContext createQueryContext() {
-    Test.setMock(HttpCalloutMock.class, new AssetFinanceAMBITQueryTestMock());
+    Test.setMock(HttpCalloutMock.class, new AFAMBITCreditLineQueryTestMock());
     DataSource.QueryContext context = ExternalQueryContextMock.createQueryContext(
-      'AssetFinanceAMBIT'
+      'AFAMBITCreditLine'
     );
     return context;
   }
@@ -82,7 +78,7 @@ private class AssetFinanceAMBITExternalQueryTest {
   /**
    * @description create HTTP mock response for testing
    */
-  public class AssetFinanceAMBITQueryTestMock implements HttpCalloutMock {
+  public class AFAMBITCreditLineQueryTestMock implements HttpCalloutMock {
     /**
      * @description HTTP mock response
      * @param req HTTP request

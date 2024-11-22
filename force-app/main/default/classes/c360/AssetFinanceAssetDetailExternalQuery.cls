@@ -18,7 +18,7 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
     private Decimal purchasePrice;
     private String compositePhysicalAssetId;
     private Decimal ecvAmount;
-    private DateTime ecvDate;
+    private Date ecvDate;
     private String ecvValuer;
   }
 
@@ -26,7 +26,7 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
    * @description Asset Detail callout response
    */
   public class AssetFinanceAssetDetailCalloutResponse extends FinancialAccountCalloutResponse {
-    public List<AssetFinanceAssetDetailModel> assetDetails;
+    public List<AssetFinanceAssetDetailModel> physicalAssets;
   }
 
   /**
@@ -73,7 +73,7 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
     }
     for (
       AssetFinanceAssetDetailModel asset : ((AssetFinanceAssetDetailCalloutResponse) this.calloutResponse)
-        .assetDetails
+        .physicalAssets
     ) {
       Map<String, Object> row = new Map<String, Object>{
         'ExternalId' => asset.compositePhysicalAssetId,
@@ -85,7 +85,7 @@ public with sharing class AssetFinanceAssetDetailExternalQuery extends Financial
         'PurchasePrice' => asset.purchasePrice,
         'SerialNo' => asset.serialNumber,
         'ECV' => asset.ecvAmount,
-        'ECVDate' => formatDate(asset.ecvDate),
+        'ECVDate' => asset.ecvDate,
         'ECVValuer' => asset.ecvValuer,
         'AssetNo' => asset.assetNumber
       };

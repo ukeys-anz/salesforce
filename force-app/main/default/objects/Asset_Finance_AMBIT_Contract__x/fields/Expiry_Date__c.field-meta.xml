@@ -5,14 +5,11 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
     <description>Expiry Date </description>
     <externalDeveloperName>Expires</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>Expiry Date</label>
-    <length>50</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Date</type>
 </CustomField>

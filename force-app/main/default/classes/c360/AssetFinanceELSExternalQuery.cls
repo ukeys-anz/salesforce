@@ -75,18 +75,29 @@ public with sharing class AssetFinanceELSExternalQuery extends FinancialAccountQ
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
+    List<AssetFinanceELSModel> accounts = new List<AssetFinanceELSModel>();
+    String customerId;
+    Set<String> customerIdSet = new Set<String>();
+    Map<String, String> customerNameMap = new Map<String, String>();
+
     if (calloutResponse == null) {
       return result;
     }
-    List<AssetFinanceELSModel> accounts = ((AssetFinanceELSCalloutResponse) this.calloutResponse)
-      .accounts;
+    accounts = ((AssetFinanceELSCalloutResponse) this.calloutResponse).accounts;
     for (AssetFinanceELSModel fa : accounts) {
+      customerIdSet.add(
+        getCustomerId(this.parentId, fa.compositeAccountNumber)
+      );
+    }
+    customerNameMap = getCustomerName(customerIdSet);
+    for (AssetFinanceELSModel fa : accounts) {
+      customerId = getCustomerId(this.parentId, fa.compositeAccountNumber);
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => fa.compositeAccountNumber,
         'DisplayUrl' => getDisplayUrl(fa.compositeAccountNumber),
         'AccountStatus' => fa.status,
-        'AccountName' => fa.accountName,
+        'AccountName' => customerNameMap.get(customerId) ?? null,
         'ProductCode' => fa.productCode,
         'AccountNumber' => fa.accountNumber,
         'Balance' => fa.accountBalance,
@@ -94,8 +105,8 @@ public with sharing class AssetFinanceELSExternalQuery extends FinancialAccountQ
         'Expires' => formatDate(fa.expiryDate),
         'BalloonAmount' => fa.balloonAmount,
         'Amount' => fa.repaymentAmount,
-        'LoanTermMonths' => fa.loanTermMonth,
-        'LoanTermYears' => fa.loanTermYear,
+        'LoanTermMonth' => fa.loanTermMonth,
+        'LoanTerm' => fa.loanTermYear,
         'IntRate' => fa.interestRate,
         'Limit' => fa.accountLimit,
         'ProductName' => fa.description,
@@ -104,5 +115,18 @@ public with sharing class AssetFinanceELSExternalQuery extends FinancialAccountQ
       result.externalRecords.add(row);
     }
     return result;
+  }
+
+  /**
+   * @description get the customer Id
+   * @param parentId of the customer
+   * @param compositeAccountNumber External id of account
+   * @return String Customer Id
+   */
+  @testVisible
+  private String getCustomerId(String parentId, String compositeAccountNumber) {
+    return String.isBlank(parentId)
+      ? 'CAP-CIS_' + compositeAccountNumber.substringBefore('-')
+      : parentId;
   }
 }
