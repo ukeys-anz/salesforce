@@ -40,7 +40,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       !this.missingFields.length &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       this.omniScriptHeaderDef.hasInvalidElements &&
-      !this.omniJsonData.isEligibleProfileForLookUp
+      !this.omniJsonData.isEligibleAppForLookUp
     ) {
       this.modalMsg = "Please complete all required fields";
     } else if (
@@ -48,7 +48,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       (this.omniJsonData.Response === false ||
         !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response")) &&
-      !this.omniJsonData.isEligibleProfileForLookUp
+      !this.omniJsonData.isEligibleAppForLookUp
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";

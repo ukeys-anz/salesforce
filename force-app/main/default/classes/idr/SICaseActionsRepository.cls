@@ -17,7 +17,6 @@ public with sharing class SICaseActionsRepository {
       SELECT id, SI_Complaint_Count__c, (SELECT id FROM Complaints__r)
       FROM Case
       WHERE Id IN :systemicIssueIds
-      WITH USER_MODE
     ];
   }
   /**

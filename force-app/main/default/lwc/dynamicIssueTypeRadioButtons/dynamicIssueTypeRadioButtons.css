@@ -1,0 +1,35 @@
+.slds-grid {
+  display: flex;
+}
+
+.buttonblock {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  min-height: 72px;
+}
+
+.buttonblock:hover {
+  background-color: lightgray;
+}
+
+.buttonblockStatic {
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  min-height: 72px;
+}
+
+.radio-label {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.radio-label .label {
+  font-weight: bold;
+}
+
+.radio-label .sublabel {
+  font-size: small;
+}

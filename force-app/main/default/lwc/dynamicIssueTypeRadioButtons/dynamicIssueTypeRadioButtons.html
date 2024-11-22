@@ -1,0 +1,58 @@
+<template>
+  <div class="slds-grid slds-grid_vertical-align-center slds-p-top_x-small">
+    <template lwc:if={isChoosePathway}>
+      <template for:each={issueTypeButtons} for:item="button">
+        <div
+          class="slds-p-right_small slds-col slds-size_1-of-4"
+          key={button.order}
+        >
+          <div
+            class="slds-box slds-box_x-small buttonblock"
+            style="cursor: pointer"
+          >
+            <input
+              type="radio"
+              id={button.order}
+              name="customRadioGroup"
+              value={button.label}
+              onchange={handleChange}
+            />
+            <label
+              for={button.order}
+              class="radio-label slds-m-horizontal_medium slds-m-left_small"
+              style="cursor: pointer"
+            >
+              <span class="label">{button.label}</span>
+              <span class="sublabel">{button.sublabel}</span>
+            </label>
+          </div>
+        </div>
+      </template>
+    </template>
+    <template lwc:else>
+      <template for:each={issueTypeButtons} for:item="button">
+        <div
+          class="slds-p-right_small slds-col slds-size_1-of-4"
+          key={button.order}
+        >
+          <div class="slds-box slds-box_x-small buttonblockStatic">
+            <input
+              type="radio"
+              id={button.order}
+              name="customRadioGroup"
+              value={button.label}
+              hidden
+            />
+            <label
+              for={button.order}
+              class="radio-label slds-m-horizontal_medium slds-m-left_medium"
+            >
+              <span class="label">{button.label}</span>
+              <span class="sublabel">{button.sublabel}</span>
+            </label>
+          </div>
+        </div>
+      </template>
+    </template>
+  </div>
+</template>

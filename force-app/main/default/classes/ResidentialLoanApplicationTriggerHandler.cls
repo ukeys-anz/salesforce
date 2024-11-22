@@ -25,10 +25,7 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
       new Map<Id, ResidentialLoanApplication>()
     );
     ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
-    ResidentialLoanApplicationActions.setSunsetTimestamp(
-      records,
-      new Map<Id, ResidentialLoanApplication>()
-    );
+    ResidentialLoanApplicationActions.setSunsetTimestamp(records);
   }
 
   /**

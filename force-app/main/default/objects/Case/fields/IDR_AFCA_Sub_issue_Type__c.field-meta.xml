@@ -28,6 +28,16 @@
                 <label>Account Closure</label>
             </value>
             <value>
+                <fullName>A fee or charge- eg premiums, excesses</fullName>
+                <default>false</default>
+                <label>A fee or charge- eg premiums, excesses</label>
+            </value>
+            <value>
+                <fullName>Applicant rejects FSP decision</fullName>
+                <default>false</default>
+                <label>Applicant rejects FSP decision</label>
+            </value>
+            <value>
                 <fullName>Application for early super release declined</fullName>
                 <default>false</default>
                 <label>Application for early super release declined</label>
@@ -53,6 +63,11 @@
                 <label>Cancellation of policy</label>
             </value>
             <value>
+                <fullName>Cancellation of refund</fullName>
+                <default>false</default>
+                <label>Cancellation of refund</label>
+            </value>
+            <value>
                 <fullName>Chargebacks- declined (consumer)</fullName>
                 <default>false</default>
                 <label>Chargebacks- declined (consumer)</label>
@@ -73,9 +88,19 @@
                 <label>Claim amount</label>
             </value>
             <value>
+                <fullName>Commercial credit reporting</fullName>
+                <default>false</default>
+                <label>Commercial credit reporting</label>
+            </value>
+            <value>
                 <fullName>Credit Enquiry</fullName>
                 <default>false</default>
                 <label>Credit Enquiry</label>
+            </value>
+            <value>
+                <fullName>Credit reporting</fullName>
+                <default>false</default>
+                <label>Credit reporting</label>
             </value>
             <value>
                 <fullName>Credit Score</fullName>
@@ -168,9 +193,19 @@
                 <label>Denial of claim- no proof of loss</label>
             </value>
             <value>
+                <fullName>Denial of variation request</fullName>
+                <default>false</default>
+                <label>Denial of variation request</label>
+            </value>
+            <value>
                 <fullName>Dishonoured transactions</fullName>
                 <default>false</default>
                 <label>Dishonoured transactions</label>
+            </value>
+            <value>
+                <fullName>Error in debt collection</fullName>
+                <default>false</default>
+                <label>Error in debt collection</label>
             </value>
             <value>
                 <fullName>Failure/refusal to provide access</fullName>
@@ -219,9 +254,19 @@
                 <label>Fee disclosure</label>
             </value>
             <value>
+                <fullName>Financial advice provided by my trustee</fullName>
+                <default>false</default>
+                <label>Financial advice provided by my trustee</label>
+            </value>
+            <value>
                 <fullName>Financial firm failure to respond to request for assistance</fullName>
                 <default>false</default>
                 <label>Financial firm failure to respond to request for assistance</label>
+            </value>
+            <value>
+                <fullName>I cannot afford my repayments</fullName>
+                <default>false</default>
+                <label>I cannot afford my repayments</label>
             </value>
             <value>
                 <fullName>Inappropriate advice</fullName>
@@ -237,6 +282,11 @@
                 <fullName>Inappropriate margin call notice and/or investment liquidation</fullName>
                 <default>false</default>
                 <label>Inappropriate margin call notice and/or investment liquidation</label>
+            </value>
+            <value>
+                <fullName>Inappropriate portfolio liquidation</fullName>
+                <default>false</default>
+                <label>Inappropriate portfolio liquidation</label>
             </value>
             <value>
                 <fullName>Incorrect/inappropriate advice</fullName>
@@ -264,6 +314,11 @@
                 <label>Incorrect/inappropriate data use or disclosure</label>
             </value>
             <value>
+                <fullName>Incorrect advice</fullName>
+                <default>false</default>
+                <label>Incorrect advice</label>
+            </value>
+            <value>
                 <fullName>Incorrect commissions</fullName>
                 <default>false</default>
                 <label>Incorrect commissions</label>
@@ -282,6 +337,11 @@
                 <fullName>Incorrect interest added</fullName>
                 <default>false</default>
                 <label>Incorrect interest added</label>
+            </value>
+            <value>
+                <fullName>Incorrectly processed instructions</fullName>
+                <default>false</default>
+                <label>Incorrectly processed instructions</label>
             </value>
             <value>
                 <fullName>Incorrect Payment</fullName>
@@ -307,6 +367,11 @@
                 <fullName>Insufficient product/service information</fullName>
                 <default>false</default>
                 <label>Insufficient product/service information</label>
+            </value>
+            <value>
+                <fullName>Interpretation of Policy Terms and Conditions</fullName>
+                <default>false</default>
+                <label>Interpretation of Policy Terms and Conditions</label>
             </value>
             <value>
                 <fullName>Interpretation of product terms and conditions</fullName>
@@ -344,6 +409,11 @@
                 <label>Mortgagee sale</label>
             </value>
             <value>
+                <fullName>My complaint involves a scam</fullName>
+                <default>false</default>
+                <label>My complaint involves a scam</label>
+            </value>
+            <value>
                 <fullName>No claim bonus</fullName>
                 <default>false</default>
                 <label>No claim bonus</label>
@@ -352,6 +422,11 @@
                 <fullName>Non Rules</fullName>
                 <default>false</default>
                 <label>Non Rules</label>
+            </value>
+            <value>
+                <fullName>Non ToR</fullName>
+                <default>false</default>
+                <label>Non ToR</label>
             </value>
             <value>
                 <fullName>Other</fullName>
@@ -369,6 +444,11 @@
                 <label>Other privacy breaches</label>
             </value>
             <value>
+                <fullName>Other type of scam</fullName>
+                <default>false</default>
+                <label>Other type of scam</label>
+            </value>
+            <value>
                 <fullName>Repayment History Information</fullName>
                 <default>false</default>
                 <label>Repayment History Information</label>
@@ -384,9 +464,29 @@
                 <label>Responsible lending</label>
             </value>
             <value>
+                <fullName>Scam- MasterCard prepaid</fullName>
+                <default>false</default>
+                <label>Scam- MasterCard prepaid</label>
+            </value>
+            <value>
+                <fullName>Scam- phishing / spoofing</fullName>
+                <default>false</default>
+                <label>Scam- phishing / spoofing</label>
+            </value>
+            <value>
+                <fullName>Scam- remote access</fullName>
+                <default>false</default>
+                <label>Scam- remote access</label>
+            </value>
+            <value>
                 <fullName>Security and Destruction/De-identification</fullName>
                 <default>false</default>
                 <label>Security and Destruction/De-identification</label>
+            </value>
+            <value>
+                <fullName>Service issue</fullName>
+                <default>false</default>
+                <label>Service issue</label>
             </value>
             <value>
                 <fullName>Service quality</fullName>
@@ -437,6 +537,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Inappropriate portfolio liquidation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
             <valueName>Incorrect financial information provided</valueName>
         </valueSettings>
         <valueSettings>
@@ -446,6 +550,10 @@
         <valueSettings>
             <controllingFieldValue>Service</controllingFieldValue>
             <valueName>Management of complainant details</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Service</controllingFieldValue>
+            <valueName>Service issue</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Service</controllingFieldValue>
@@ -469,7 +577,19 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Financial advice provided by my trustee</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
             <valueName>Inappropriate advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Incorrect advice</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Advice</controllingFieldValue>
+            <valueName>Non ToR</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transactions</controllingFieldValue>
@@ -497,7 +617,31 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>My complaint involves a scam</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Other type of scam</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Scam- MasterCard prepaid</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Scam- phishing / spoofing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
+            <valueName>Scam- remote access</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Transactions</controllingFieldValue>
             <valueName>Unauthorised transaction (scam)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Charges</controllingFieldValue>
+            <valueName>A fee or charge- eg premiums, excesses</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Charges</controllingFieldValue>
@@ -601,6 +745,10 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>Applicant rejects FSP decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
             <valueName>Decline of financial difficulty request</valueName>
         </valueSettings>
         <valueSettings>
@@ -614,6 +762,10 @@
         <valueSettings>
             <controllingFieldValue>Financial Difficulty</controllingFieldValue>
             <valueName>Financial firm failure to respond to request for assistance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Difficulty</controllingFieldValue>
+            <valueName>I cannot afford my repayments</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Difficulty</controllingFieldValue>
@@ -637,7 +789,15 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Cancellation of refund</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
             <valueName>Claim amount</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Commercial credit reporting</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
@@ -677,6 +837,14 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Denial of variation request</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Error in debt collection</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
             <valueName>Family law division of super benefit</valueName>
         </valueSettings>
         <valueSettings>
@@ -686,6 +854,10 @@
         <valueSettings>
             <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
             <valueName>Inappropriate margin call notice and/or investment liquidation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
+            <valueName>Interpretation of Policy Terms and Conditions</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Financial Firm Decision</controllingFieldValue>
@@ -720,8 +892,16 @@
             <valueName>Failure to follow instructions/agreement</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Instructions</controllingFieldValue>
+            <valueName>Incorrectly processed instructions</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Non Rules</controllingFieldValue>
             <valueName>Non Rules</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Privacy &amp; Confidentiality</controllingFieldValue>
+            <valueName>Credit reporting</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Privacy &amp; Confidentiality</controllingFieldValue>

@@ -21,10 +21,6 @@
     <picklistValues>
         <picklist>AssessmentStatus</picklist>
         <values>
-            <fullName>Canceled</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Completed</fullName>
             <default>false</default>
         </values>

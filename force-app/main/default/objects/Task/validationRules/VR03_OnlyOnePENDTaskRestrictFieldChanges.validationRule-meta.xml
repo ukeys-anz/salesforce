@@ -8,13 +8,14 @@
   OR(
     AND(
       ISNEW(),
+      ISPICKVAL(Type, &quot;Pend Case&quot;),
       ISPICKVAL(Case__r.Status, &quot;Case - On Hold&quot;),
       NOT(ISPICKVAL(Status, &quot;Completed&quot;)),
-      ISPICKVAL(Type, &quot;Pend Case&quot;),
       NOT(ISBLANK(Case__r.IDR_Date_Case_on_Hold_From__c))
     ),
       AND(
         NOT(ISNEW()),
+        ISPICKVAL(Type, &quot;Pend Case&quot;),
         OR(
           ISPICKVAL(PRIORVALUE(Status), &quot;Completed&quot;),
           ISPICKVAL(Case__r.Status, &quot;Case - On Hold&quot;)
@@ -27,10 +28,10 @@
           ISCHANGED(Priority),
           ISCHANGED(Status),
           ISCHANGED(IDR_Review_Outcome__c),
-          ISCHANGED(TaskSubtype),
-          AND(ISCHANGED(Type), ISPICKVAL(PRIORVALUE(Type), &quot;Pend Case&quot;))
+          ISCHANGED(TaskSubtype)
         )
-      )
+      ),
+      AND(ISCHANGED(Type), ISPICKVAL(PRIORVALUE(Type), &quot;Pend Case&quot;))
     )
   )</errorConditionFormula>
     <errorMessage>You are unable to edit this task. If you have made an error, please re-enter the correct details in the &apos;Case - On Hold&apos; tab and place the case On Hold again.</errorMessage>
