@@ -46,20 +46,20 @@ public with sharing class COBPIDViewAndEditController {
 
   @TestVisible
   private static final Map<String, String> PID_ERRORS_USER_MSG = new Map<String, String>{
-    'FirstName must match pattern' => 'First Name failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'MiddleName must match pattern' => 'Middle Name failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'LastName must match pattern' => 'Last Name failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'expiration date exceeded' => 'Expiry Date failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'state cannot be nil' => 'State failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'failed to match IdentificationNumber to regex' => 'Identification Number failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'card number cant be nil' => 'Licence Card Number failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'failed to match card number to regex' => 'Licence Card Number failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'country is blank' => 'Country failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'identification number has wrong length:' => 'Identification Number failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'expiration date has passed' => 'Expiry Date has failed the Data Validation. Please re-check the value and try the Equifax Call.',
-    'IdentificationNumber did not match regex' => 'Identification Number failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'dob invalid - must be atleast 15 years old' => 'Date of Birth has failed the Data Validation. Please re-check the value before making the Equifax Call.',
-    'must be born after 1900' => 'Date of Birth has failed the Data Validation. Please re-check the value before making the Equifax Call.',
+    'FirstName must match pattern' => 'First Name failed the Data Validation.',
+    'MiddleName must match pattern' => 'Middle Name failed the Data Validation.',
+    'LastName must match pattern' => 'Last Name failed the Data Validation.',
+    'expiration date exceeded' => 'Expiry Date failed the Data Validation.',
+    'state cannot be nil' => 'State failed the Data Validation.',
+    'failed to match IdentificationNumber to regex' => 'Identification Number failed the Data Validation.',
+    'card number cant be nil' => 'Licence Card Number failed the Data Validation.',
+    'failed to match card number to regex' => 'Licence Card Number failed the Data Validation.',
+    'country is blank' => 'Country failed the Data Validation.',
+    'identification number has wrong length:' => 'Identification Number failed the Data Validation.',
+    'expiration date has passed' => 'Expiry Date has failed the Data Validation.',
+    'IdentificationNumber did not match regex' => 'Identification Number failed the Data Validation.',
+    'dob invalid - must be atleast 15 years old' => 'Date of Birth has failed the Data Validation.',
+    'must be born after 1900' => 'Date of Birth has failed the Data Validation.',
     'can only retry EV once per onboarding attempt' => 'You can no longer edit this record as it has reached the limit of editing.'
   };
 
