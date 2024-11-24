@@ -481,11 +481,7 @@ public with sharing class ResidentialLoanApplicationModel extends CalloutModel {
      */
     public Boolean isOldExpenseVersion {
       get {
-        return new Set<String>{
-            '1695597985652695',
-            '1701819944151648',
-            '1714356391121987'
-          }
+        return new Set<String>(System.Label.SOP_Expense_Config.split(','))
           .contains(this.expenseConfigVersion);
       }
     }
