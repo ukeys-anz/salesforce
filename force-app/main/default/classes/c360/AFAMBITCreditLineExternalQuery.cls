@@ -2,17 +2,17 @@
  * @author Naman Garg
  * @since  Sept 2024
  * @group CCRM (Commercial CRM)
- * @description Asset Finance AMBIT external query class
+ * @description Asset Finance AMBIT Credit Line external query class
  */
-public with sharing class AssetFinanceAMBITExternalQuery extends FinancialAccountQueryBase {
+public with sharing class AFAMBITCreditLineExternalQuery extends FinancialAccountQueryBase {
   /**
    * @description wrapper class for response
    */
   @testVisible
-  private class AssetFinanceAMBITModel extends FinancialAccountModelBase {
-    public String compositeAccountNumber;
-    public DateTime dateOpened;
-    public DateTime expiryDate;
+  private class AFAMBITCreditLineModel extends FinancialAccountModelBase {
+    public String compositeCreditLineId;
+    public Date dateOpened;
+    public Date expiryDate;
     public String cpid;
     public Decimal undrawnBalance;
     public String productName;
@@ -23,21 +23,21 @@ public with sharing class AssetFinanceAMBITExternalQuery extends FinancialAccoun
   /**
    * @description Asset Finance AMBIT API callout response
    */
-  public class AssetFinanceAMBITCalloutResponse extends FinancialAccountCalloutResponse {
+  public class AFAMBITCreditLineCalloutResponse extends FinancialAccountCalloutResponse {
     public String customerId;
-    public List<AssetFinanceAMBITModel> accounts;
+    public List<AFAMBITCreditLineModel> creditLines;
   }
 
   /**
    * @description Class constructor
    */
-  public AssetFinanceAMBITExternalQuery() {
+  public AFAMBITCreditLineExternalQuery() {
     this.productCategory = 'asset-finance';
     this.productTypes = new Set<String>();
     this.sourceSystem = SourceSystemEnum.EBD;
     this.assetFinanceType = 'AMBIT';
-    this.externalField = 'compositeAccountNumber';
-    this.enableServerPagination = true;
+    this.externalField = 'compositeCreditLineId';
+    this.fieldSet = 'CREDIT_LINES';
   }
 
   /**
@@ -52,9 +52,9 @@ public with sharing class AssetFinanceAMBITExternalQuery extends FinancialAccoun
     if (String.isBlank(responseBody)) {
       return this.calloutResponse;
     }
-    this.calloutResponse = (AssetFinanceAMBITCalloutResponse) CalloutModel.deserialize(
+    this.calloutResponse = (AFAMBITCreditLineCalloutResponse) CalloutModel.deserialize(
       responseBody,
-      AssetFinanceAMBITCalloutResponse.class
+      AFAMBITCreditLineCalloutResponse.class
     );
     return this.calloutResponse;
   }
@@ -69,27 +69,29 @@ public with sharing class AssetFinanceAMBITExternalQuery extends FinancialAccoun
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
+    List<AFAMBITCreditLineModel> accounts = new List<AFAMBITCreditLineModel>();
+
     if (calloutResponse == null) {
       return result;
     }
-    List<AssetFinanceAMBITModel> accounts = ((AssetFinanceAMBITCalloutResponse) this.calloutResponse)
-      .accounts;
+    accounts = ((AFAMBITCreditLineCalloutResponse) this.calloutResponse)
+      .creditLines;
+
     //Pass pagination token
-    result.queryMoreToken = ((AssetFinanceAMBITCalloutResponse) this.calloutResponse)
+    result.queryMoreToken = ((AFAMBITCreditLineCalloutResponse) this.calloutResponse)
       .nextPageId;
 
-    for (AssetFinanceAMBITModel af : accounts) {
-      String displayUrl = getDisplayUrl(af.compositeAccountNumber);
+    for (AFAMBITCreditLineModel af : accounts) {
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
-        'ExternalId' => af.compositeAccountNumber,
-        'DisplayUrl' => displayUrl,
+        'ExternalId' => af.compositeCreditLineId,
+        'DisplayUrl' => getDisplayUrl(af.compositeCreditLineId),
         'AccountStatus' => af.status,
         'AccountName' => af.accountName,
         'AccountNumber' => af.accountNumber,
         'Limit' => af.liabilityLimit,
-        'OpenedDate' => formatDate(af.dateOpened),
-        'Expires' => formatDate(af.expiryDate),
+        'OpenedDate' => af.dateOpened,
+        'Expires' => af.expiryDate,
         'SI' => af.cpid,
         'UndrawnBalance' => af.undrawnBalance,
         'FacilityExpiryType' => af.facilityExpiryType,

@@ -61,10 +61,10 @@
     <language>Procedure</language>
     <name>TFMConsentAccDetails</name>
     <omniProcessElements>
+        <name>checkIfAccOpenORClosed</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>checkIfAccOpenORClosed</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -82,14 +82,38 @@
   &quot;label&quot; : &quot;SetValues3&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>6.0</sequenceNumber>
+        <sequenceNumber>8.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>checkIfAccountListIsBlank</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;elementValueMap&quot; : {
+    &quot;isAccountListIsBlank&quot; : &quot;=ISBLANK(%updateConsentAccList%)&quot;
+  },
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;SetValues7&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>5.0</sequenceNumber>
+        <type>Set Values</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>getConsentAccDetails</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -99,8 +123,7 @@
   &quot;additionalInput&quot; : {
     &quot;accounts&quot; : &quot;%setValuesToSerialize:accounts%&quot;,
     &quot;consentId&quot; : &quot;%consentId%&quot;,
-    &quot;IDValue&quot; : &quot;%IDValue%&quot;,
-    &quot;dataScope&quot; : &quot;%setValuesToSerialize:dataScopes%&quot;
+    &quot;IDValue&quot; : &quot;%IDValue%&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -125,10 +148,46 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getTransformedDataScopes</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;executionConditionalFormula&quot; : &quot;&quot;,
+  &quot;failureConditionalFormula&quot; : &quot;&quot;,
+  &quot;failOnStepError&quot; : true,
+  &quot;useFormulas&quot; : true,
+  &quot;additionalInput&quot; : {
+    &quot;dataScope&quot; : &quot;%setValuesToSerialize:dataScopes%&quot;
+  },
+  &quot;additionalOutput&quot; : { },
+  &quot;failureResponse&quot; : { },
+  &quot;sendOnlyAdditionalInput&quot; : true,
+  &quot;returnOnlyAdditionalOutput&quot; : false,
+  &quot;returnOnlyFailureResponse&quot; : false,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;TFMRemoteActionUtility&quot;,
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteMethod&quot; : &quot;getTransformedDataScopes&quot;,
+  &quot;chainOnStep&quot; : false,
+  &quot;actionMessage&quot; : &quot;&quot;,
+  &quot;additionalChainableResponse&quot; : { },
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;RemoteAction2&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Remote Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
         <name>ResponseAction</name>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -147,14 +206,14 @@
   &quot;label&quot; : &quot;ResponseAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
+        <sequenceNumber>11.0</sequenceNumber>
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetAllAccStatusValue</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetAllAccStatusValue</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -171,14 +230,14 @@
   &quot;label&quot; : &quot;SetValues4&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>7.0</sequenceNumber>
+        <sequenceNumber>9.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>setValuesToSerialize</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>setValuesToSerialize</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -200,10 +259,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SortingConsent</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SortingConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -222,14 +281,14 @@
   &quot;label&quot; : &quot;SetValues7&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>5.0</sequenceNumber>
+        <sequenceNumber>7.0</sequenceNumber>
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>TFMTransformDataForSorting</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>TFMTransformDataForSorting</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -254,14 +313,14 @@
   &quot;label&quot; : &quot;DataRaptorTransformAction2&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
+        <sequenceNumber>6.0</sequenceNumber>
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>transformConsentAccountList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>transformConsentAccountList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -269,8 +328,8 @@
   &quot;failOnStepError&quot; : true,
   &quot;useFormulas&quot; : true,
   &quot;additionalInput&quot; : {
-    &quot;dataScopeMapping&quot; : &quot;%getConsentAccDetails:dataScope%&quot;,
-    &quot;consentAccDetails&quot; : &quot;%SortingConsent:SortedProductList%&quot;,
+    &quot;dataScopeMapping&quot; : &quot;%getTransformedDataScopes:dataScope%&quot;,
+    &quot;consentAccDetails&quot; : &quot;= IF(%checkIfAccountListIsBlank:isAccountListIsBlank%,NULL,LIST(%SortingConsent:SortedProductList%))&quot;,
     &quot;consentName&quot; : &quot;%consentName%&quot;,
     &quot;state&quot; : &quot;%state%&quot;,
     &quot;isCreator&quot; : &quot;%isCreator%&quot;,
@@ -290,7 +349,8 @@
     &quot;createTime&quot; : &quot;%createTime%&quot;,
     &quot;expireTime&quot; : &quot;%expireTime%&quot;,
     &quot;openAccList&quot; : &quot;%SortingConsent:openAccList%&quot;,
-    &quot;closeAccList&quot; : &quot;%SortingConsent:closeAccList%&quot;
+    &quot;closeAccList&quot; : &quot;%SortingConsent:closeAccList%&quot;,
+    &quot;baseAccListDetails&quot; : &quot;%accounts%&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -309,14 +369,14 @@
   &quot;label&quot; : &quot;DataRaptorTransformAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>8.0</sequenceNumber>
+        <sequenceNumber>10.0</sequenceNumber>
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>updateConsentAccList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>updateConsentAccList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -335,6 +395,7 @@
   &quot;sendJSONNode&quot; : &quot;&quot;,
   &quot;advancedMerge&quot; : false,
   &quot;advancedMergeMap&quot; : [ ],
+  &quot;preventIntraListMerge&quot; : false,
   &quot;mergeFields&quot; : [ ],
   &quot;allowMergeNulls&quot; : true,
   &quot;hasPrimary&quot; : false,
@@ -355,7 +416,7 @@
   &quot;label&quot; : &quot;ListAction1&quot;,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-        <sequenceNumber>3.0</sequenceNumber>
+        <sequenceNumber>4.0</sequenceNumber>
         <type>List Merge Action</type>
     </omniProcessElements>
     <omniProcessKey>TFM_ConsentAccountDetails</omniProcessKey>
@@ -388,7 +449,7 @@
 }</propertySetConfig>
     <subType>ConsentAccountDetails</subType>
     <type>TFM</type>
-    <uniqueName>TFM_ConsentAccountDetails_Procedure_21</uniqueName>
-    <versionNumber>21.0</versionNumber>
-    <webComponentKey>d1dc2d6f-e049-4058-58a4-7151fd582cea</webComponentKey>
+    <uniqueName>TFM_ConsentAccountDetails_Procedure_24</uniqueName>
+    <versionNumber>24.0</versionNumber>
+    <webComponentKey>f1c32b35-f246-7295-faba-cd8009ff7d8e</webComponentKey>
 </OmniIntegrationProcedure>

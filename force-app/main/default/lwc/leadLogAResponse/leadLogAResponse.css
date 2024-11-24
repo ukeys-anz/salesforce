@@ -19,3 +19,13 @@
   max-width: 100% !important;
   width: 80% !important;
 }
+.noOpportunitylogAresponseContainer {
+  margin: -16px auto;
+  min-width: 40rem;
+}
+.noOpportunitymodalContent {
+  margin-top: 6px;
+}
+.noOpportunitymodalFooter {
+  margin-top: 10px;
+}
