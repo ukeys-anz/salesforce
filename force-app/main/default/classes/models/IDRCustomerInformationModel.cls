@@ -23,7 +23,10 @@ public with sharing class IDRCustomerInformationModel extends CalloutModel {
   public RelationshipManager relationshipManager;
   @AuraEnabled
   public List<Accounts> accounts;
-
+  @AuraEnabled
+  public Boolean isCustomerNotFound = false;
+  @AuraEnabled
+  public Boolean isOCVDown = false;
   /**
    * @description address wrapper
    */
