@@ -196,7 +196,7 @@ public class ExternalQueryContextMock {
     );
     parentColumnMap.put(
       'AccountRelationship',
-      new List<String>{ 'AMBITId', '4019028722-13521-0' }
+      new List<String>{ 'AFAMBITContractNumber', '4019028722-13521-0' }
     );
     return parentColumnMap;
   }
@@ -255,7 +255,7 @@ public class ExternalQueryContextMock {
     tableColumnMap.put('BalanceHistory', columnNames);
     tableColumnMap.put('AccountRelationship', columnNames);
     tableColumnMap.put('AssetFinanceELS', columnNames);
-    tableColumnMap.put('AssetFinanceAMBIT', columnNames);
+    tableColumnMap.put('AFAMBITCreditLine', columnNames);
     tableColumnMap.put('QueryComment', columnNames);
     tableColumnMap.put('AFAMBITContract', columnNames);
 

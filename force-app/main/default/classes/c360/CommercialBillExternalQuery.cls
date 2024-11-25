@@ -73,6 +73,8 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
     String customerId;
+    Set<String> customerIdSet = new Set<String>();
+    Map<String, String> customerNameMap = new Map<String, String>();
 
     if (calloutResponse == null) {
       return result;
@@ -80,11 +82,17 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
     List<CommercialBillModel> accounts = ((CommercialBillCalloutResponse) calloutResponse)
       .accounts;
     for (CommercialBillModel fa : accounts) {
+      customerIdSet.add(
+        getCustomerId(this.parentId, fa.compositeAccountNumber)
+      );
+    }
+    customerNameMap = getCustomerName(customerIdSet);
+    for (CommercialBillModel fa : accounts) {
       customerId = getCustomerId(this.parentId, fa.compositeAccountNumber);
       Map<String, Object> row = new Map<String, Object>{
         this.parentField => this.parentId,
         'ExternalId' => fa.compositeAccountNumber,
-        'AccountName' => getCustomerName(customerId),
+        'AccountName' => customerNameMap.get(customerId) ?? null,
         'DisplayUrl' => getDisplayUrl(fa.compositeAccountNumber),
         'AccountNumber' => fa.accountNumber,
         'AccountStatus' => fa.status,

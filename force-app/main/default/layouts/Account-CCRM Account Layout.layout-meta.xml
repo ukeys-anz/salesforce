@@ -232,23 +232,6 @@
         <relatedList>Other_Limits_and_Liabilities__x.Customer__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>Trading_Name__c</fields>
-        <fields>Merchant_ID__c</fields>
-        <fields>Legal_Name__c</fields>
-        <fields>No_of_Terminals__c</fields>
-        <fields>Account_Status__c</fields>
-        <relatedList>Merchant_Facility__x.Customer__c</relatedList>
-        <sortField>Trading_Name__c</sortField>
-        <sortOrder>Asc</sortOrder>
-    </relatedLists>
-    <relatedLists>
-        <fields>Account_Number__c</fields>
-        <fields>Account_Name__c</fields>
-        <fields>Account_Status__c</fields>
-        <fields>Limit__c</fields>
-        <relatedList>Asset_Finance_AMBIT__x.Customer__c</relatedList>
-    </relatedLists>
-    <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Product_Code__c</fields>
         <fields>Account_Name__c</fields>
@@ -257,10 +240,7 @@
         <relatedList>Commercial_Bill__x.Customer__c</relatedList>
     </relatedLists>
     <relatedLists>
-        
-        
-        
-        <fields>Account_Number__c</fields>
+        <fields>Account_Number__c</fields>
         <fields>Product_Code__c</fields>
         <fields>Account_Name__c</fields>
         <fields>Limit__c</fields>
@@ -294,10 +274,27 @@
     </relatedLists>
     <relatedLists>
         <fields>Account_Number__c</fields>
+        <fields>Account_Name__c</fields>
         <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>
         <fields>Account_Status__c</fields>
         <relatedList>Asset_Finance_ELS__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Product_Code__c</fields>
+        <fields>Currency__c</fields>
+        <fields>Balance__c</fields>
+        <relatedList>Foreign_Exchange__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Value_Date__c</fields>
+        <fields>Deal_Date__c</fields>
+        <fields>Ask_Currency__c</fields>
+        <fields>Ask_Amount__c</fields>
+        <fields>Bid_Currency__c</fields>
+        <fields>Bid_Amount__c</fields>
+        <relatedList>Foreign_Exchange_Deal__x.Customer__c</relatedList>
     </relatedLists>
     <relatedLists>
         <excludeButtons>MassChangeOwner</excludeButtons>
@@ -323,6 +320,14 @@
     </relatedLists>
     <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Contract_Number__c</fields>
+        <fields>Date_Opened__c</fields>
+        <fields>Net_Outstanding_Amount__c</fields>
+        <fields>Residual_Value__c</fields>
+        <fields>Status__c</fields>
+        <relatedList>Asset_Finance_AMBIT_Contract__x.Customer__c</relatedList>
     </relatedLists>
     <relatedObjects>ParentId</relatedObjects>
     <showEmailCheckbox>false</showEmailCheckbox>

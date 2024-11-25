@@ -254,9 +254,6 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'ProductName' => getProductName(fa.accountNumber),
         'StatementMailingAddress' => fa.address,
         'CCR' => fa.creditRiskGrade,
-        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
-          fa.sourceSystemStatus
-        ) ?? fa.sourceSystemStatus,
         'Date_Closed' => formatDate(fa.closeDate),
         'ExpiryDate' => formatDate(fa.limitExpiryDate)
       };
@@ -306,7 +303,10 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'OverdraftMargin' => null,
         'FluctuatingSeasonalLimit' => null,
         'Fluctuating_Seasonal_Limit_2' => null,
-        'Fluctuating_Seasonal_Limit_3' => null
+        'Fluctuating_Seasonal_Limit_3' => null,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus
       },
       'DDA' => new Map<String, Object>{
         'ANZSICCode' => externalQueryHelper.retrieveIndustryCodeAndDescription(
@@ -318,13 +318,20 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'Pledge' => fa.pledge,
         'HardHold' => fa.restrainsHardHold,
         'BalanceAvailable' => fa.availableBalance,
-        'CPID' => fa.controllingPostId
+        'CPID' => fa.controllingPostId,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus
       },
       'FM' => new Map<String, Object>{
         'CPID' => fa.controllingPostId,
-        'Limit' => null
+        'Limit' => null,
+        'SourceSystemStatus' => fa.sourceSystemStatus
       },
-      'SSI' => new Map<String, Object>{ 'Limit' => null }
+      'SSI' => new Map<String, Object>{
+        'Limit' => null,
+        'SourceSystemStatus' => fa.sourceSystemStatus
+      }
     };
 
     if(String.isBlank(fa.productcode) || !mapOProductCodeWithDataMappings.containsKey(fa.productcode)){

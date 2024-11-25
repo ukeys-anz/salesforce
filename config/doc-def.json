@@ -966,13 +966,18 @@
     {
       "name": "SFDataSync User",
       "profile": "Integration User",
-      "permissionsetgroups": [],
+      "permissionsetgroups": ["CCRM_Banker", "IDR_EDW_User"],
       "permissionsets": [
         "API_Only",
-        "SF_Data_Sync_Integration",
+        "Bypass_TSP",
+        "CCRM_Controlling_Post",
         "Disable_MFA",
+        "Enforce_mTLS",
+        "FinancialServicesCloudExtension",
+        "FinancialServicesCloudStandard",
+        "MLCRM_Base",
         "Mortgage",
-        "Bypass_TSP"
+        "SF_Data_Sync_Integration"
       ],
       "type": "system"
     },

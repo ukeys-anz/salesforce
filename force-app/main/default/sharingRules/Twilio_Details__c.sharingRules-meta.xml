@@ -163,4 +163,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Twilio_Extra_Care_Hub_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing settings is used to provide read access to Extra Care Hub users.</description>
+        <label>Twilio Extra Care Hub Read Only</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

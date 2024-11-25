@@ -31,7 +31,7 @@ public with sharing class CCRMAssetFinanceAMBITQuery extends CCRMFinancialAccoun
    */
   public class AssetFinanceAMBITCalloutResponse extends FinancialAccountCalloutResponse {
     public String customerId;
-    public List<CCRMAssetFinanceAMBITModel> accounts;
+    public List<CCRMAssetFinanceAMBITModel> creditLines;
   }
 
   /**
@@ -75,7 +75,7 @@ public with sharing class CCRMAssetFinanceAMBITQuery extends CCRMFinancialAccoun
     }
 
     accounts = ((AssetFinanceAMBITCalloutResponse) this.calloutResponse)
-      .accounts;
+      .creditLines;
     //Pass pagination token
     result.queryMoreToken = this.calloutResponse.nextPageId;
 
@@ -88,9 +88,7 @@ public with sharing class CCRMAssetFinanceAMBITQuery extends CCRMFinancialAccoun
       row.put('ExternalId', fa.compositeAccountNumber);
       row.put(
         'DisplayUrl',
-        URL.getOrgDomainUrl().toExternalForm() +
-        '/' +
-        fa.compositeAccountNumber
+        URL.getOrgDomainUrl().toExternalForm() + '/' + fa.compositeAccountNumber
       );
       row.put('AccountStatus', fa.status);
       row.put('AccountName', fa.accountName);

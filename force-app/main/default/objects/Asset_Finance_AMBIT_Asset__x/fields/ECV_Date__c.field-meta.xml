@@ -5,14 +5,11 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
     <description>Asset identifier from manufacturer</description>
     <externalDeveloperName>ECVDate</externalDeveloperName>
-    <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
     <isSortingDisabled>true</isSortingDisabled>
     <label>ECV Date</label>
-    <length>50</length>
     <required>false</required>
     <securityClassification>ECV Date</securityClassification>
-    <type>Text</type>
-    <unique>false</unique>
+    <type>Date</type>
 </CustomField>
