@@ -1960,6 +1960,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>In circumstances where a sustainable solution was not feasible%2C we did not consider all reasonable options available to us%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Option exploration was not required as we offered the customer what they wanted%2E</fullName>
             <default>false</default>
         </values>
@@ -2021,6 +2025,10 @@
             <fullName>We did not reach a decision on the material questions of fact raised in the complaint because a Confirming Resolution letter %28CR003%29 was appropriately used%2E</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>When responding to a customer’s request for assistance, we correctly weighted their circumstances, hardship reasons, vulnerabilities, financial position, proposed path to return to a serviceable position to ensure a sustainable long or short term solution</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Reason_C_Q_SM1_Q5__c</picklist>
@@ -2042,6 +2050,10 @@
         </values>
         <values>
             <fullName>If CM relied on relevant information%2Fdocuments to reach a decision%2C they did not provide some or all of these%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In circumstances where a sustainable option was not feasible%2C we did not provide a clear and understandable explanation of why assistance cannot be offered%2E</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2079,6 +2091,10 @@
         </values>
         <values>
             <fullName>There was no information to suggest customer was experiencing vulnerability%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Where necessary%2C we did not provide the customer with referrals to financial counsellors%2C or external support agencies for independent advice%2E</fullName>
             <default>false</default>
         </values>
         <values>
@@ -2390,6 +2406,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>In circumstances where a sustainable solution was not feasible%2C we did not use any available information we had about the customer%E2%80%99s financial position before making our decision%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>We did not critically analyse and obtain some or any relevant information from ANZ business units%2E</fullName>
             <default>false</default>
         </values>
@@ -2406,6 +2426,10 @@
         </values>
         <values>
             <fullName>No additional information was required to address key issues%2E</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>We did not ask for%2C or did not give the customer sufficient opportunity to provide additional information required to clarify their current financial position%2C or their expected position post assistance%2E</fullName>
             <default>false</default>
         </values>
         <values>

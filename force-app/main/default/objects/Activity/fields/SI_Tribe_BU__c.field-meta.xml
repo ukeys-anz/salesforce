@@ -29,6 +29,11 @@
                 <label>Australia Risk</label>
             </value>
             <value>
+                <fullName>Australia Risk</fullName>
+                <default>false</default>
+                <label>Australia Risk</label>
+            </value>
+            <value>
                 <fullName>Australian Branch Network</fullName>
                 <default>false</default>
                 <label>Australian Branch Network</label>
@@ -149,6 +154,11 @@
                 <label>Diversified and Specialist Industries</label>
             </value>
             <value>
+                <fullName>Diversified and Specialist Industries</fullName>
+                <default>false</default>
+                <label>Diversified and Specialist Industries</label>
+            </value>
+            <value>
                 <fullName>Financial Crime Transformation</fullName>
                 <default>false</default>
                 <label>Financial Crime Transformation</label>
@@ -242,6 +252,11 @@
                 <fullName>Other</fullName>
                 <default>false</default>
                 <label>Other</label>
+            </value>
+            <value>
+                <fullName>Payments Industry</fullName>
+                <default>false</default>
+                <label>Payments Industry</label>
             </value>
             <value>
                 <fullName>Payments Industry</fullName>
@@ -672,6 +687,11 @@
                 <default>false</default>
                 <isActive>false</isActive>
                 <label>Wealth Tribe</label>
+            </value>
+            <value>
+                <fullName>Wholesale Digital</fullName>
+                <default>false</default>
+                <label>Wholesale Digital</label>
             </value>
         </valueSetDefinition>
     </valueSet>

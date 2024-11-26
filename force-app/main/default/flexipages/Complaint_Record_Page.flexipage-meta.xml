@@ -722,6 +722,57 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>configuration</name>
+                    <value>DEPLOYMENT</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>deploymentId</name>
+                    <value>ResolutionPathway_Launcher_V2</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Resolution Pathway Launcher</value>
+                </componentInstanceProperties>
+                <componentName>industries_service_excellence:actionLauncher</componentName>
+                <identifier>industries_service_excellence_actionLauncher</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND (2 OR 3) AND 4 AND 5</booleanFilter>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.IDR_Level_1}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Non_Customer_Complaint</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Show_resolution_launcher__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Is_new_RP_Enabled__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Is_new_RP_Enabled__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>context</name>
                     <value>RECORD</value>
                 </componentInstanceProperties>
