@@ -883,6 +883,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.BOH_Fraud_Case__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.BusinessHoursId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -904,6 +909,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.CR_Duplicate_TBD__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1273,6 +1283,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.FinServ__Household__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Fraud_Address_Valid__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1618,6 +1633,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Has_Credit_Assessment_Expired__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.How_has_delay_criteria_been_met_not_met__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1634,6 +1654,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_3rdParty_Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.IDR_Masked_CFMS__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3109,6 +3134,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Survey_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.System_Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

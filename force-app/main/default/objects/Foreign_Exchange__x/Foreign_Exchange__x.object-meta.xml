@@ -123,5 +123,5 @@
     <externalName>ForeignExchange</externalName>
     <label>Foreign Currency</label>
     <pluralLabel>Foreign Currencies</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts/>
 </CustomObject>

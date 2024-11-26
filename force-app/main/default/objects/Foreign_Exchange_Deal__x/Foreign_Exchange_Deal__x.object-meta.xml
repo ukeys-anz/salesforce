@@ -123,5 +123,5 @@
     <externalName>ForeignExchangeDeal</externalName>
     <label>Foreign Exchange Deal</label>
     <pluralLabel>Foreign Exchange Deals</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts/>
 </CustomObject>
