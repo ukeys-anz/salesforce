@@ -99,6 +99,8 @@ jobs:
       - name: PMD Report Comment
         if: failure()
         run: |
+          check=$(gh pr view ${{ github.event.pull_request.number }} -c )
+
           replace=$( sed "s+<title>PMD</title>++g" ./pmdReport.html )
           echo $replace > ./pmdReport.html
           replace=$( sed "s+PMD report++g" ./pmdReport.html )
@@ -107,7 +109,12 @@ jobs:
           echo $replace > ./pmdReport.html
           replace=$( sed "s+No adapter exists for type com.google.summit.ast.declaration.VariableDeclarationGroup++g" ./pmdReport.html )
           echo $replace > ./pmdReport.html
-          gh pr comment ${{ github.event.pull_request.number }} --body-file "./pmdReport.html"
+
+          if [[ $check = *'PMD'* ]];then
+            gh pr comment ${{ github.event.pull_request.number }} --body-file "./pmdReport.html" --edit-last
+          else
+            gh pr comment ${{ github.event.pull_request.number }} --body-file "./pmdReport.html"
+          fi
 
       - name: "Cleaning"
         if: always()
