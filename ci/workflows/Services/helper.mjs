@@ -107,7 +107,10 @@ const salesforceIgnoredFileChanges = (artifactPath) => {
   return allIgnoredChanges;
 };
 
-const canSkipTest = (artifactPath) => {
+const canSkipTest = (artifactPath, baseRef) => {
+  if (baseRef == "master") {
+    return false;
+  }
   const packagePath = "/package/package.xml";
   let allChanges = findNamesAndMembersXML(artifactPath + packagePath);
   let canSkipTest = Object.keys(allChanges).every((x) =>

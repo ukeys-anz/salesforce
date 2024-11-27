@@ -70,7 +70,7 @@ const ARTIFACTORY_SECRET_VALUE = args[1];
 const validationFunction = () => {
   const draftPr = booleanMap(DRAFT_PR);
   const specifiedTestsPR = booleanMap(SPECIFIED_TEST_PR);
-  const skipTestInNP = canSkipTest(WORKING_DIR + "/" + SOURCE_DIR);
+  const skipTestInNP = canSkipTest(WORKING_DIR + "/" + SOURCE_DIR, BASE_REF);
   const testMapping = {
     NoTest: draftPr || skipTestInNP,
     SpecifiedTests: specifiedTestsPR,
