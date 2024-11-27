@@ -48,7 +48,7 @@ jobs:
           repository: anzx/salesforce-plugin
           token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
           path: salesforce-plugin
-          ref: cc3eeffbb0a7dd70714e76aebc9a050508542f8e
+          ref: 071d1c7707f472210c9f698f2c8d5a12e287e7c6
           # this is a particular commit on master. Change this when a new plugin version is required for sf xschema generate
 
       - name: Install npm packages
