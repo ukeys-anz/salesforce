@@ -4,10 +4,6 @@
  * @description  To get the customer information  and account numbers on OCV search
  */
 global with sharing class Vlocity_Utils implements Callable {
-  private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
-    ComplaintsRepository.class
-  );
-
   /**
    * @param methodName The method passed from Integration procedure
    * @param input The input from the Integration procedure
@@ -30,11 +26,7 @@ global with sharing class Vlocity_Utils implements Callable {
       (new ComplaintResolutionActions())
         .deleteComplaintResolution(input, output, options);
     } else if ('createComplaintResolution'.equals(methodName)) {
-      createComplaintResolution(input, output, options);
-    } else if ('getLastModifiedDateOfField'.equals(methodName)) {
-      getLastModifiedDateOfField(input, output, options);
-    } else if ('getCurrentAppName'.equals(methodName)) {
-      getCurrentAppName(input, output, options);
+         createComplaintResolution(input, output, options);
     }
         else if ('getLastModifiedDateOfField'.equals(methodName)){
             getLastModifiedDateOfField(input, output, options);
@@ -93,30 +85,6 @@ global with sharing class Vlocity_Utils implements Callable {
   ) {
     List<Known_Issues__c> knownIssuesList = IDRExpressComplaintController.getAllKnownIssues();
     output.put('KnownIssue', knownIssuesList);
-  }
-
-  /**
-   * @description To get Known Issues field values
-   * @param input The input from the Integration procedure
-   * @param output The output to be passed to Integration procedure
-   * @param options The additional parameters required
-   */
-  public void getCurrentAppName(
-    Map<String, Object> input,
-    Map<String, Object> output,
-    Map<String, Object> options
-  ) {
-    UserAppInfo userAppInfo = COMPLAINTS_REPOSITORY.getUserAppInfoForUser(
-      UserInfo.getUserId()
-    );
-    if (userAppInfo == null) {
-      return;
-    }
-    AppDefinition appDefinition = QueryAppDefinition.getByDurableId(
-      userAppInfo.AppDefinitionId
-    );
-
-    output.put('currentAppName', appDefinition.Label);
   }
 
   /**
@@ -239,11 +207,29 @@ global with sharing class Vlocity_Utils implements Callable {
         Map<String, Object> output,
         Map<String, Object> options
     ) {
-      DMLUtil.upsertRecords(
-        crtocreate,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
+        String fieldName = String.ValueOf(input.get('FieldName'));
+        String caseId = String.ValueOf(input.get('recordId'));
+        output.put('lastModifiedDate' + fieldName, 0);
+        List<CaseHistory> historyList = [
+            SELECT CreatedDate
+            FROM CaseHistory
+            WHERE Field = :fieldName AND CaseId = :caseId
+            ORDER BY CreatedDate DESC
+            LIMIT 1
+        ];
+        List<Case> cseList = [SELECT CreatedDate FROM Case WHERE ID =: caseId];
+        DateTime lastModifiedDate;
+        DateTime now = DateTime.now();
+        if (!historyList.isEmpty()){
+          lastModifiedDate = historyList[0].CreatedDate;
+        }
+        else if (!cseList.isEmpty()){
+          lastModifiedDate = cseList[0].CreatedDate;
+        }
+        if(lastModifiedDate != null){
+          Integer daysSinceLastUpdate = now.date().daysBetween(lastModifiedDate.date());
+          output.put('lastModifiedDate' + fieldName, Math.abs(daysSinceLastUpdate) + ' Days'); 
+        }
     }
   /**
    * @description To deserialize the input from IP.

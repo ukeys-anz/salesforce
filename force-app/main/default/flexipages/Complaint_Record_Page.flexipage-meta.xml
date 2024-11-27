@@ -760,12 +760,7 @@
                     <criteria>
                         <leftValue>{!Record.Is_new_RP_Enabled__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Is_new_RP_Enabled__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
