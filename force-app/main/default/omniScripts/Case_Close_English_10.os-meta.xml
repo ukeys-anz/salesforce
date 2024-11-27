@@ -6159,7 +6159,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock5&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;Please&amp;nbsp; &lt;span style=\&quot;font-family: -apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Oxygen, Ubuntu, Cantarell, &apos;Open Sans&apos;, &apos;Helvetica Neue&apos;, sans-serif;\&quot;&gt;update &lt;/span&gt; update EDR impact on IDR outcome before closing a case&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;Please&amp;nbsp; &lt;span style=\&quot;font-family: -apple-system, BlinkMacSystemFont, &apos;Segoe UI&apos;, Roboto, Oxygen, Ubuntu, Cantarell, &apos;Open Sans&apos;, &apos;Helvetica Neue&apos;, sans-serif;\&quot;&gt;update &lt;/span&gt; EDR impact on IDR outcome before closing a case&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
