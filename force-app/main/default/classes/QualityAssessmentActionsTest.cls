@@ -251,7 +251,6 @@ private class QualityAssessmentActionsTest {
         FROM Quality_Assessment__c
         WHERE Id = :qaRecord.Id
       ];
-      System.Debug('Result++ ' + qaRecord);
       System.assertEquals(
         100,
         qaRecord.Case_Manager_Score__c,
