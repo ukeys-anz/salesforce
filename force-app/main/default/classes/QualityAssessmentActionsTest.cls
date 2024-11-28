@@ -41,21 +41,21 @@ private class QualityAssessmentActionsTest {
     );
   }
 
-  //method to test pass null param when calling assignRelatedCaseFieldsToQA mehtod
+  //method to test pass empty list param when calling assignRelatedCaseFieldsToQA mehtod
   @IsTest
-  private static void testAssignRelatedCaseFieldsToQAWithNullParam() {
+  private static void testAssignRelatedCaseFieldsToQAWithEmptyListParam() {
     Test.startTest();
 
     List<Quality_Assessment__c> qaRecords = QualityAssessmentActions.assignRelatedCaseFieldsToQA(
-      null
+      new List<Quality_Assessment__c>()
     );
 
     Test.stopTest();
 
     System.assertEquals(
-      null,
+      new List<Quality_Assessment__c>(),
       qaRecords,
-      'Passing null into assignRelatedCaseFieldsToQA method should return null.'
+      'Passing empty list into assignRelatedCaseFieldsToQA method should return empty list.'
     );
   }
 
