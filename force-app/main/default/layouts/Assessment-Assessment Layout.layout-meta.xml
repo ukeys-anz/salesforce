@@ -77,7 +77,7 @@
         <relatedList>RelatedHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
-		<excludeButtons>New</excludeButtons>
+        <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
         <fields>ResponseText</fields>
         <fields>ResponseValue</fields>

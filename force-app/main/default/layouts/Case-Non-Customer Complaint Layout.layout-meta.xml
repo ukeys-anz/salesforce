@@ -527,7 +527,7 @@
                 <field>IDR_Possible_Systemic_Issues__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Real_Form_Req__c</field>
             </layoutItems>
             <layoutItems>
@@ -553,7 +553,7 @@
                 <field>IDR_Datetime_PSI_Ticked__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Readonly</behavior>
                 <field>IDR_Real_Form_Ref_No__c</field>
             </layoutItems>
             <layoutItems>

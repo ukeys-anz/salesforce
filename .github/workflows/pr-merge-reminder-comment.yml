@@ -6,11 +6,6 @@ jobs:
   run:
     runs-on: anzx-default
     steps:
-      - name: "Checkout Repo"
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-
       - name: "Add Comment Reminder"
         uses: wow-actions/auto-comment@v1
         with:

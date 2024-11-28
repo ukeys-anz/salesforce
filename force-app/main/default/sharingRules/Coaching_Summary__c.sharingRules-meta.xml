@@ -13,6 +13,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Coaching_Summary_Extra_Care_Hub_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing settings is used to provide read access to Extra Care Hub users.</description>
+        <label>Coaching Summary Extra Care Hub Read Only</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Business_Admin_RW_ANZX</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule provides read/write access to coaching summary for business admin role</description>
@@ -43,6 +55,18 @@
         <label>Coach RW ANZX</label>
         <sharedTo>
             <role>Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Coaching_Summary_Read_Write_To_Support_Coach</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>To provide read write access to Support Coaches</description>
+        <label>Coaching_Summary_Read_Write_To_Support_Coach</label>
+        <sharedTo>
+            <role>Support_Coach</role>
         </sharedTo>
         <sharedFrom>
             <roleAndSubordinates>ANZx</roleAndSubordinates>

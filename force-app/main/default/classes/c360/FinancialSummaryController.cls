@@ -134,11 +134,12 @@ public with sharing class FinancialSummaryController {
 
     //Making a callout to get the Total Merchant Terminal
     //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
+    //removing finSumCallout.callTerminalApi and using false as we don't want to call API as part of CC-11717
     finSumRespFromCallout.terminalAck = getTotalMerchantTerminals(
       finSumRespFromCallout.responseId,
       custIdWrapper.capIdsModifiedList,
       TERMINALS_FIELDSET,
-      finSumCallout.callTerminalApi
+      false
     );
 
     //Making a callout to get the Total Asset Finance Balance

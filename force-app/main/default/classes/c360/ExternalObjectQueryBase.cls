@@ -333,4 +333,14 @@ public abstract with sharing class ExternalObjectQueryBase {
       tableSelection.filter.subfilters != null &&
       tableSelection.filter.subfilters[0].columnName != null;
   }
+
+  /**
+   * @description get unique sequence
+   * @param  index index
+   * @return String sequence
+   */
+  @testVisible
+  protected String getSequence(Integer index) {
+    return index.toString().leftPad(4, '0');
+  }
 }

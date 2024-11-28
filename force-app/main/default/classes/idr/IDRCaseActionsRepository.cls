@@ -4,6 +4,8 @@
  * @runTests IDRCaseActionsHelperTest
  */
 public with sharing class IDRCaseActionsRepository {
+  public static final String TASK_STATUS_COMPLETED = 'Completed';
+  public static final String TASK_TYPE_PEND_CASE = 'Pend Case';
   /**
    * @description Query PEND Tasks whose Status is not completed
    * @param caseIds case Ids in current context
@@ -18,9 +20,9 @@ public with sharing class IDRCaseActionsRepository {
       FROM Task
       WHERE
         WhatId IN :caseIds
-        AND Status != :IDRConstants.TASK_STATUS_COMPLETED
-        AND Type = :IDRConstants.TASK_TYPE_PEND_CASE
-        AND RecordType.Id = :IDRConstants.IDR_TASK_RT_ID
+        AND Status != :TASK_STATUS_COMPLETED
+        AND Type = :TASK_TYPE_PEND_CASE
+        AND RecordType.Id = :RTTask.idrTask
       WITH USER_MODE
     ];
   }

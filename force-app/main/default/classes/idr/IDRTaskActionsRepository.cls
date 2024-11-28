@@ -156,6 +156,7 @@ public with sharing class IDRTaskActionsRepository {
         AND RecordTypeId = :RTTask.idrSystemTask
         AND IsClosed = FALSE
         AND Type = :TASK_TYPE_NOTIFICATION
+        WITH USER_MODE
     ];
   }
 }

@@ -18,13 +18,14 @@ public with sharing class SICaseActions {
    */
   public static void applyDefaults(List<Case> records) {
     for (Case record : (List<Case>) records) {
-      if (record.RecordTypeId == IDRConstants.SI_RT_ID) {
-        CommonUtil.handleMasking(
-          record,
-          null,
-          SObjectType.Case.FieldSets.SI_Masked_Fields.getFields()
-        );
+      if (record.RecordTypeId != RTCase.systemicIssue) {
+        continue;
       }
+      CommonUtil.handleMasking(
+        record,
+        null,
+        SObjectType.Case.FieldSets.SI_Masked_Fields.getFields()
+      );
     }
   }
 

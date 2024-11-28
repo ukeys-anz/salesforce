@@ -11,6 +11,9 @@ private class RetailBrokerContactTriggerHandlerTest {
   private static final Id RECORD_TYPE_ID_STAFF = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
     .get('Staff')
     .recordTypeId;
+  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
+    CustomSettingsRepository.class
+  );
 
   static List<Contact> createTestContactList(Id recordTypeId) {
     List<Contact> contacts = new List<Contact>();
@@ -87,9 +90,9 @@ private class RetailBrokerContactTriggerHandlerTest {
     Map<Id, Contact> testContactMap = new Map<Id, Contact>(testContacts);
     Set<Id> testContactIds = testContactMap.keySet();
     Test.startTest();
-    RetailBrokerContactTriggerHandler.mockBrokerSettings = new BrokerSettings__c(
-      BypassBrokerSyncEvents__c = true
-    );
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassBrokerEvent__c = true;
+    brokerSettingsMock.mock('brokerSettings', mockSettings);
     updateContactList(testContacts, 1);
     update testContacts;
     List<Contact> resultContacts = [
@@ -119,9 +122,9 @@ private class RetailBrokerContactTriggerHandlerTest {
     Map<Id, Contact> testContactMap = new Map<Id, Contact>(testContacts);
     Set<Id> testContactIds = testContactMap.keySet();
     Test.startTest();
-    RetailBrokerContactTriggerHandler.mockBrokerSettings = new BrokerSettings__c(
-      BypassBrokerSyncEvents__c = false
-    );
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassBrokerEvent__c = false;
+    brokerSettingsMock.mock('brokerSettings', mockSettings);
     updateContactList(testContacts, 1);
     update testContacts;
     updateContactList(testContacts, 2);
@@ -137,13 +140,5 @@ private class RetailBrokerContactTriggerHandlerTest {
       resultContacts[0].Sync_Status__c,
       'Sync status should remain as Broker Org'
     );
-  }
-
-  @IsTest
-  static void testRetrieveBrokerSettings() {
-    Test.startTest();
-    BrokerSettings__c brokerSettings = RetailBrokerContactTriggerHandler.brokerSettings();
-    Test.stopTest();
-    Assert.isNotNull(brokerSettings, 'Broker settings should not be null');
   }
 }

@@ -110,6 +110,12 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
+        <fullName>Pend Recovery</fullName>
+        <default>false</default>
+        <label>Pend Recovery</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
         <fullName>Return Funds</fullName>
         <default>false</default>
         <label>Return Funds</label>

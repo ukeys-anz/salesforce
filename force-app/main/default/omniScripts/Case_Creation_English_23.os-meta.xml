@@ -1937,7 +1937,8 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Customer data not found please enter valid customer number.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,  &quot;show&quot; : {
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Customer data not found please enter valid customer number.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
@@ -2111,10 +2112,10 @@
                 <type>Telephone</type>
             </childElements>
             <childElements>
+                <name>ocvDownMsg</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
-                <name>ocvDownMsg</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -2568,7 +2569,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;show&quot; : {
@@ -2582,8 +2583,8 @@
     }
   },
   &quot;placeholder&quot; : &quot;&quot;,
-  &quot;maxLength&quot; : 255,
-  &quot;minLength&quot; : 0,
+  &quot;maxLength&quot; : 255.0,
+  &quot;minLength&quot; : 0.0,
   &quot;ptrnErrText&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
@@ -2594,10 +2595,10 @@
   &quot;repeatClone&quot; : false,
   &quot;repeat&quot; : false,
   &quot;required&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;showInputWidth&quot; : false,
   &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
-  &quot;controlWidth&quot; : 3
+  &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
                 <sequenceNumber>35.0</sequenceNumber>
                 <type>Text</type>
@@ -6457,7 +6458,7 @@
             <level>1.0</level>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 8,
+  &quot;controlWidth&quot; : 8.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;text&quot; : &quot;&quot;,
   &quot;show&quot; : {
@@ -6690,7 +6691,7 @@
         <level>0.0</level>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;&quot;,
   &quot;elementValueMap&quot; : {
     &quot;custMap&quot; : [ {
@@ -6815,5 +6816,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_23</uniqueName>
     <versionNumber>23.0</versionNumber>
-    <webComponentKey>1eb66c5b-26a8-a78d-b9a6-6e062b169643</webComponentKey>
+    <webComponentKey>d7488350-f001-bd5e-f5d8-fc53f2261422</webComponentKey>
 </OmniScript>

@@ -127,6 +127,12 @@ public with sharing class RelatedAppOnOppController {
     public Date closeDate { get; set; }
 
     /**
+     * @description referenceNumber Field
+     **/
+    @AuraEnabled
+    public String referenceNumber { get; set; }
+
+    /**
      * @description Constructor for ApplicationFormProductWrapper
      * @param product ApplicationFormProduct
      **/
@@ -138,6 +144,7 @@ public with sharing class RelatedAppOnOppController {
       this.productName = product.Product.Name;
       this.productUrl = '/lightning/r/Product/' + product.ProductId + '/view';
       this.closeDate = product.Close_Date__c;
+      this.referenceNumber = product.Reference_Number__c;
       this.nameUrl =
         '/lightning/r/ApplicationFormProduct/' +
         product.Id +

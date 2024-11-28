@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>My team&apos;s &apos;Provisionally Closed&apos; cases</name>
     <chart>
         <backgroundColor1>#FFFFFF</backgroundColor1>
         <backgroundColor2>#FFFFFF</backgroundColor2>
@@ -107,6 +106,7 @@
         <field>OWNER</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
+    <name>My team&apos;s &apos;Provisionally Closed&apos; cases</name>
     <params>
         <name>units</name>
         <value>h</value>

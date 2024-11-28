@@ -9,18 +9,12 @@
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
   public static Schema.SObjectType caseObjectType = Schema.getGlobalDescribe()
     .get('Case');
-  private static final ContentDocumentLinkRepository REPOSITORY = (ContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+  private static final ContentDocumentLinkRepository CDL_REPOSITORY = (ContentDocumentLinkRepository) Lib_InstanceProvider.forType(
     ContentDocumentLinkRepository.class
   );
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  public static Set<String> allowedCaseRecTypes = new Set<String>{
-    RTCase.customerComplaint,
-    RTCase.nonCustomerComplaint,
-    RTCase.generalInquiryCmos,
-    RTCase.systemicIssue
-  };
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications
    */
@@ -29,20 +23,6 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
   }
 
   public override void onBeforeDelete() {
-    logFileDelete((List<ContentDocumentLink>) records);
-  }
-
-  /**
-   * @description Assesses whether or not to generate a log (generate only for CMOS complaint and enquiry) and creates a log entry.
-   * @param records ContentDocumentLink records in current trigger context
-   */
-  public void logFileDelete(List<ContentDocumentLink> records) {
-    List<ContentDocumentLink> docList = new List<ContentDocumentLink>();
-    Set<Id> linkedEntityIdList = new Set<Id>();
-    Set<Id> linkIdList = new Set<Id>();
-
-    Map<Id, Case> caseMap = getCaseRecords(records);
-    Map<Id, Case> mpUpdateCases = new Map<Id, Case>();
     Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
         UserInfo.getUserId()
       )
@@ -50,37 +30,33 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     if (fDisableDocumentDeletionTrigger) {
       return;
     }
-    if (caseMap.isEmpty()) {
-      return;
-    }
-    for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-      Case caseRecord = caseMap.get(record.LinkedEntityId);
-      if (
-        record.LinkedEntityId.getSobjectType() != caseObjectType ||
-        caseRecord == null ||
-        !allowedCaseRecTypes.contains(caseRecord.RecordTypeId)
-      ) {
-        continue;
-      }
-      linkedEntityIdList.add(caseRecord.Id);
-      linkIdList.add(record.Id);
-    }
-
-    docList = REPOSITORY.queryContentDocumentLink(
-      linkedEntityIdList,
-      linkIdList
-    );
-
+    onlogFileDelete((List<ContentDocumentLink>) records);
+  }
+  /**
+   * @description Assesses whether or not to generate a log (generate only for CMOS complaint and enquiry) and creates a log entry.
+   * @param records ContentDocumentLink records in current trigger context
+   */
+   public void onlogFileDelete(List<ContentDocumentLink> records) {
+    Map<Id, ContentDocumentLink> cdlMap = new Map<Id, ContentDocumentLink>(records);
+    Set<Id> linkedEntityIds = ListUtil.getIds(records, ContentDocumentLink.LinkedEntityId);
+ 
+    List<ContentDocumentLink> docList = CDL_REPOSITORY.queryContentDocumentLink(linkedEntityIds, cdlMap.keySet());
+    logFileDelete(docList);
+    updateCases(docList);
+  }
+    /**
+   * @description Build Log message to return and add in Log entry for file deletion
+   * @param docList ContentDocumentLink Records from query
+   */
+    private static void logFileDelete(List<ContentDocumentLink> docList) {
     for (ContentDocumentLink record : docList) {
       String strDate = String.valueOf(Date.today());
       String strUserName = UserInfo.getName();
-      String strDocTitle = (record.ContentDocument.Title == null)
-        ? ''
-        : record.ContentDocument.Title;
-      Case oldCase = caseMap.get(record.LinkedEntityId);
+      String strDocTitle = record.ContentDocument.Title ?? '';
+      Case caseRecord = (Case) record.LinkedEntity;
       String infoDescription =
         'Doc Deleted: ' +
-        oldCase?.CaseNumber +
+        caseRecord.CaseNumber +
         ', ' +
         strUserName +
         ', ' +
@@ -91,18 +67,20 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
         strDate +
         ', ' +
         record.ContentDocument.LatestPublishedVersion.FileType;
-
       Logger.info(infoDescription, record.ContentDocumentId);
-      if (oldCase != null) {
-        // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
-        mpUpdateCases.put(oldCase.Id, oldCase);
-      }
     }
     Logger.saveLog();
-    DML_REPOSITORY.doUpdate(
-      mpUpdateCases.values(),
-      new DMLConfig().systemMode()
-    );
+  }
+    /**
+   * @description Update Cases to update LastModifiedDate on Cases
+   * @param docList ContentDocumentLink records in current trigger context
+   */
+    private static void updateCases(List<ContentDocumentLink> docList) {
+    List<Case> cases = new List<Case>();
+    for (ContentDocumentLink record : docList) {
+      cases.add(new Case(Id=record.LinkedEntityId));
+    }
+    DML.doUpdate(cases, new DMLConfig().systemMode());
   }
 
   /**

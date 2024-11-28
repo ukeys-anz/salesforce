@@ -18,8 +18,10 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     private String bsb;
     private Decimal odLimit;
     private Decimal pledgeAmount;
+    @testVisible
     private Boolean pledge;
     private Decimal accountBalance;
+    @testVisible
     private Decimal availableBalance;
     private DateTime openDate;
     private String subProductCode;
@@ -27,6 +29,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     private Boolean restrainsHardHold;
     private Boolean restrainsStopPay;
     private String restrainsStopPayNumber;
+    @testVisible
     private String controllingPostId;
     private String debitInterestCode;
     private Decimal debitInterestIndexRate;
@@ -214,22 +217,14 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
           fa.accountNumber
         ),
         'AccountStatus' => fa.status,
-        'ANZSICCode' => externalQueryHelper.retrieveIndustryCodeAndDescription(
-          fa.anzsicCode
-        ),
         'accountRestrictions' => fa.accountRestrictions,
         'ANZPlusIdentifier' => fa.anzPlusIdentifier,
         'BSB' => fa.bsbCode,
         'Balance' => fa.accountBalance,
-        'BalanceAvailable' => fa.availableBalance,
-        'CPID' => fa.controllingPostId,
         'ProductCode' => fa.productCode,
         'SubProductCode' => fa.subProductCode,
         'OpenedDate' => formatDate(fa.openDate),
         'OverdraftLimit' => fa.odLimit,
-        'PledgeAmount' => fa.pledgeAmount,
-        'Pledge' => fa.pledge,
-        'HardHold' => fa.restrainsHardHold,
         'ReferenceIndexRate' => fa.debitInterestIndexRate,
         'Margin' => fa.debitInterestMargin,
         'InterestRate' => fa.debitInterestRate,
@@ -240,7 +235,6 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
           fa.tempODInterestRepaymentFrequency
         ) ?? fa.tempODInterestRepaymentFrequency,
         'OverdraftExpiryDate' => formatDate(fa.expiryDate),
-        'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures),
         'StopPayNumber' => fa.restrainsStopPayNumber,
         'ReferenceIndexType' => fa.debitInterestCode,
         'OverdraftReferenceIndexRate' => fa.debitInterestIndexRate,
@@ -260,25 +254,96 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'ProductName' => getProductName(fa.accountNumber),
         'StatementMailingAddress' => fa.address,
         'CCR' => fa.creditRiskGrade,
-        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
-          fa.sourceSystemStatus
-        ) ?? fa.sourceSystemStatus,
         'Date_Closed' => formatDate(fa.closeDate),
         'ExpiryDate' => formatDate(fa.limitExpiryDate)
       };
       row = populateSeasonalLimits(row, fa.seasonalLimits);
+      row = populateProductCodeWiseFields(row, fa);
       result.externalRecords.add(row);
     }
     return result;
   }
 
   /**
-   * @description Need to display Dummy FA record? return false by default
-   * @return true / false
+   * @description This is used to populate the values based on Product Codes - DDA, FM, RSV, SSI
+   * @param row Map<String, Object>
+   * @param faObj Object
+   * @return Map<String, Object>
    **/
   @TestVisible
-  protected override Boolean displayDummyRecord() {
-    return isFMOrSsiOrRsvProduct(this.externalId);
+  private Map<String, Object> populateProductCodeWiseFields(
+    Map<String, Object> row,
+    Object faObj
+  ) {
+    DepositAccountModel fa = (DepositAccountModel) faObj;
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
+
+    Map<String, Map<String, Object>> mapOProductCodeWithDataMappings = new Map<String, Map<String, Object>>{
+      'RSV' => new Map<String, Object>{
+        'ANZSICCode' => externalQueryHelper.retrieveIndustryCodeAndDescription(
+          fa.anzsicCode
+        ),
+        'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures) ??
+          null,
+        'PledgeAmount' => fa.pledgeAmount,
+        'Pledge' => fa.pledge,
+        'HardHold' => fa.restrainsHardHold,
+        'BalanceAvailable' => fa.availableBalance,
+        'CPID' => fa.controllingPostId,
+        'ServiceChargeCode' => '',
+        'Limit' => null,
+        'StopPayNumber' => null,
+        'ReferenceIndexRate' => null,
+        'InterestRate' => null,
+        'Margin' => null,
+        'ServiceChargeWaiveCode' => null,
+        'OverdraftLimit' => null,
+        'OverdraftReferenceIndexRate' => null,
+        'OverdraftInterestRate' => null,
+        'OverdraftMargin' => null,
+        'FluctuatingSeasonalLimit' => null,
+        'Fluctuating_Seasonal_Limit_2' => null,
+        'Fluctuating_Seasonal_Limit_3' => null,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus
+      },
+      'DDA' => new Map<String, Object>{
+        'ANZSICCode' => externalQueryHelper.retrieveIndustryCodeAndDescription(
+          fa.anzsicCode
+        ),
+        'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures) ??
+          null,
+        'PledgeAmount' => fa.pledgeAmount,
+        'Pledge' => fa.pledge,
+        'HardHold' => fa.restrainsHardHold,
+        'BalanceAvailable' => fa.availableBalance,
+        'CPID' => fa.controllingPostId,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus
+      },
+      'FM' => new Map<String, Object>{
+        'CPID' => fa.controllingPostId,
+        'Limit' => null,
+        'SourceSystemStatus' => fa.sourceSystemStatus
+      },
+      'SSI' => new Map<String, Object>{
+        'Limit' => null,
+        'SourceSystemStatus' => fa.sourceSystemStatus
+      }
+    };
+
+    if(String.isBlank(fa.productcode) || !mapOProductCodeWithDataMappings.containsKey(fa.productcode)){
+      return row;
+    }
+    Map<String, Object> mapOfFieldWithValues = mapOProductCodeWithDataMappings.get(
+      fa.productCode
+    );
+    for (String fieldMapping : mapOfFieldWithValues.keySet()) {
+      row.put(fieldMapping, mapOfFieldWithValues.get(fieldMapping));
+    }
+    return row;
   }
 
   /**
@@ -323,39 +388,48 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
   }
 
   /**
-   * @description checks if Account is FM or SSI or RSV.
-   * @param payload payload created for Callout. Ex - {"accountNumber": "FM-111269467"},  {"compositeBalanceHistoryId": "DDA-234500817-0"}
-   * @return boolean true/false
-   */
+   * @description Get Product Category based on ProductCode
+   * @param queryMode QueryModeEnum
+   * @param formattedAccountNumber AccountNumber
+   * @return String
+   **/
   @TestVisible
-  private static Boolean isFMOrSsiOrRsvProduct(String payload) {
-    return (payload != null &&
-    (payload.contains('FM-') ||
-    payload.contains('SSI-') ||
-    payload.contains('RSV-')));
+  private String getProductCategoryBasedOnProductCode(
+    QueryModeEnum queryMode,
+    String formattedAccountNumber
+  ) {
+    if (
+      queryMode == QueryModeEnum.RELATED_LIST ||
+      String.isBlank(formattedAccountNumber)
+    ) {
+      return this.productCategory;
+    }
+    String accountNumber = formattedAccountNumber.substringAfter('-');
+    String productCode = getProductCode(accountNumber);
+    Map<String, String> mapOfProductCodeWithProdCategory = new Map<String, String>{
+      'FM' => 'savings',
+      'SSI' => 'savings',
+      'DDA' => 'deposit',
+      'RSV' => 'deposit'
+    };
+    return mapOfProductCodeWithProdCategory.get(productCode) ?? null;
   }
 
   /**
-   * @description Create a Dummy Financial account record
-   * @param externalId External Id. Sample - CAP-CIS_107130129985-234500817|DDA-234500817
-   * @param row Additional dummy values from derived class
-   * @return dummy financial account record
+   * @description Parse query filters and prepare for API callout
+   * @param queryContext DataSource QueryContext
+   * @return QueryMode Enum
    **/
-  @TestVisible
-  protected virtual override ExternalObjectQueryBase.ExternalQueryResult createDummyExternalRecord(
-    String externalId,
-    Map<String, Object> row
+  protected override ExternalObjectQueryBase.QueryModeEnum prepareCallout(
+    DataSource.QueryContext queryContext
   ) {
-    String accountNumber = externalId.substringAfter('|').substringAfter('-');
-    ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
-    row.put('ExternalId', externalId);
-    row.put('AccountName', 'No further information available');
-    row.put(
-      'AccountNumber',
-      externalQueryHelper.formatAccountNumber(accountNumber)
+    QueryModeEnum queryMode = super.prepareCallout(queryContext);
+
+    //set productCategory based on Product Code for FM/SSI in deposit account
+    this.productCategory = getProductCategoryBasedOnProductCode(
+      queryMode,
+      this.externalId
     );
-    result.ExternalRecords.add(row);
-    return result;
+    return queryMode;
   }
 }
