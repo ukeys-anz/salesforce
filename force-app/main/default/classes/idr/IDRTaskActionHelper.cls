@@ -6,50 +6,62 @@
  * @group IDR(Internal Dispute Resolution)
  */
 public without sharing class IDRTaskActionHelper {
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final IDRTaskActionsRepository TASK_REPOSITORY = (IDRTaskActionsRepository) Lib_InstanceProvider.forType(
+    IDRTaskActionsRepository.class
+  );
   /**
    * @description create task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.
    * @param taskRecordList task record for insert
    */
   public static Void insertAssignmentTask(List<Task> taskRecordList) {
-    if (!taskRecordList.isEmpty()) {
-      //insert Assignment Tasks on New Correspondence received on Closed Complaint
-      if (
-        Task.SObjectType.getDescribe().isCreateable() &&
-        Schema.SObjectType.Task.fields.ActivityDate.isCreateable() &&
-        Schema.SObjectType.Task.fields.IsReminderSet.isCreateable() &&
-        Schema.SObjectType.Task.fields.OwnerId.isCreateable() &&
-        Schema.SObjectType.Task.fields.RecordTypeId.isCreateable() &&
-        Schema.SObjectType.Task.fields.Subject.isCreateable() &&
-        Schema.SObjectType.Task.fields.WhatId.isCreateable()
-      ) {
-        List<Task> taskToInsert = verifyAssignmentTask(taskRecordList);
-        List<Database.SaveResult> results = Database.insert(
-          taskToInsert,
-          false
-        );
-        for (Integer i = 0; i < taskToInsert.size(); i++) {
-          Database.SaveResult sr = results[i];
-          if (!sr.isSuccess()) {
-            String errorMessage =
-              'Unable to create assignment tasks ' +
-              +' associated case: ' +
-              taskToInsert[i].WhatId +
-              ' associated case owner/queue: ' +
-              taskToInsert[i].OwnerId +
-              ' ';
-            for (Database.Error err : sr.getErrors()) {
-              errorMessage += err;
-              Logger.error(errorMessage);
-              Logger.saveLog();
-            }
-          }
-        }
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActionHelper',
-          'insertAssignmentTask',
-          'Not enough permissions to create Task.'
-        );
+    //insert Assignment Tasks on New Correspondence received on Closed Complaint
+    if (
+      !Task.SObjectType.getDescribe().isCreateable() ||
+      Security.stripInaccessible(AccessType.CREATABLE, taskRecordList)
+        .getRemovedFields()
+        .isEmpty() == false
+    ) {
+      CommonUtil.logAndThrowIAE(
+        'IDRTaskActionHelper',
+        'insertAssignmentTask',
+        'Not enough permissions to create Task.'
+      );
+    }
+    List<Task> taskToInsert = verifyAssignmentTask(taskRecordList);
+    List<Database.SaveResult> results = DML.doInsert(
+      taskToInsert,
+      new DmlConfig().allowPartial().withoutSharing()
+    );
+    logError(taskToInsert, results);
+  }
+  /**
+   * @description Build Log message to return and add in Log entry for file deletion
+   * @param taskToInsert List of Tasks
+   * @param results Database results
+   */
+  private static void logError(
+    List<Task> taskToInsert,
+    List<Database.SaveResult> results
+  ) {
+    for (Integer i = 0; i < taskToInsert.size(); i++) {
+      Database.SaveResult sr = results[i];
+      if (sr.isSuccess()) {
+        continue;
+      }
+      String errorMessage =
+        'Unable to create assignment tasks ' +
+        +' associated case: ' +
+        taskToInsert[i].WhatId +
+        ' associated case owner/queue: ' +
+        taskToInsert[i].OwnerId +
+        ' ';
+      for (Database.Error err : sr.getErrors()) {
+        errorMessage += err;
+        Logger.error(errorMessage);
+        Logger.saveLog();
       }
     }
   }
@@ -60,36 +72,52 @@ public without sharing class IDRTaskActionHelper {
    */
   public static List<Task> verifyAssignmentTask(List<Task> taskRecordList) {
     Map<String, Task> recordsToInsert = new Map<String, Task>();
-    Map<String, Task> existingTasksMap = new Map<String, Task>();
-    Task[] existingTasks = new List<Task>();
-    Set<Id> caseIds = new Set<Id>();
+
+    Set<Id> caseIds = ListUtil.getIds(taskRecordList, Task.WhatId);
+
+    //This logic works for only CMOS rec type (IDR Task) and wont impact other streams
+    if (caseIds.isEmpty() || !Task.SObjectType.getDescribe().isQueryable()) {
+      return new List<Task>();
+    }
+    List<Task> existingTasks = TASK_REPOSITORY.getexistingTasks(caseIds);
+
+    Map<String, Task> existingTasksMap = (Map<String, Task>) ListUtil.mapBy(
+      existingTasks,
+      TASK.Subject
+    );
 
     for (Task recTask : taskRecordList) {
-      caseIds.add(recTask.WhatId);
-    }
-    //This logic works for only CMOS rec type (IDR Task) and wont impact other streams
-    if (!caseIds.isEmpty() && Task.SObjectType.getDescribe().isQueryable()) {
-      existingTasks = [
-        SELECT Id, Status, Subject, WhatId
-        FROM Task
-        WHERE
-          WhatId IN :caseIds
-          AND RecordTypeId = :IDRConstants.IDR_TASK_RT_ID
-          AND Status != :IDRConstants.TASK_STATUS_COMPLETED
-      ];
-      for (Task taskRec : existingTasks) {
-        existingTasksMap.put(taskRec.Subject, taskRec);
-      }
-      for (Task recTask : taskRecordList) {
-        if (
-          !recordsToInsert.containsKey(recTask.Subject.trim()) &&
-          !existingTasksMap.containsKey(recTask.Subject.trim())
-        ) {
-          recordsToInsert.put(recTask.Subject, recTask);
-        }
+      if (
+        !recordsToInsert.containsKey(recTask.Subject.trim()) &&
+        !existingTasksMap.containsKey(recTask.Subject.trim())
+      ) {
+        recordsToInsert.put(recTask.Subject, recTask);
       }
     }
     return recordsToInsert.values();
+  }
+  /**
+   * @description getCasestoUpdate will get Cases to Update Additional Correspondence Reviewed field on Case.
+   * when Task status is completed.
+   * @param newTasks The Task record list.
+   * @return Set of caseIds
+   */
+  public static Set<Id> getCasestoUpdate(List<Task> newTasks) {
+    String strCasePrefix = Case.getSObjectType().getDescribe().getKeyPrefix();
+    Set<Id> caseIds = new Set<Id>();
+    List<Task> lsttasks = ListUtil.filter(newTasks)
+      .equals(Task.Status, IDRConstants.TASK_STATUS_COMPLETED)
+      .isNotNull(Task.Subject)
+      .contains(Task.Subject, IDRConstants.TASK_CORRESPONDENCE_SUBJECT)
+      .isNotNull(Task.WhatId)
+      .toList();
+    for (Task taskObj : lsttasks) {
+      if (((String) taskObj.WhatId).left(3) != strCasePrefix) {
+        continue;
+      }
+      caseIds.add(taskObj.WhatId);
+    }
+    return caseIds;
   }
 
   /**
@@ -98,34 +126,17 @@ public without sharing class IDRTaskActionHelper {
    * @param newTasks The Task record list.
    */
   public static void updateCases(List<Task> newTasks) {
-    List<Case> casesToUpdate = new List<Case>();
-    for (Task taskObj : newTasks) {
-      if (
-        taskObj.Status == IDRConstants.TASK_STATUS_COMPLETED &&
-        String.isNotEmpty(taskObj.Subject) &&
-        taskObj.Subject.startsWith(IDRConstants.TASK_CORRESPONDENCE_SUBJECT) &&
-        taskObj.WhatId != null &&
-        (taskObj.WhatId + '').startsWith('500')
-      ) {
-        casesToUpdate.add(
-          new Case(
-            Id = taskObj.WhatId,
-            IDR_Additional_Correspondence_reviewed__c = true
-          )
-        );
+    Set<Id> caseIds = getCasestoUpdate(newTasks);
+    if (
+      Case.SObjectType.getDescribe().isUpdateable() &&
+      Schema.SObjectType.Case.fields.IDR_Additional_Correspondence_reviewed__c.isUpdateable()
+    ) {
+      List<Case> casesToUpdate = TASK_REPOSITORY.getCasestobeUpdated(caseIds);
+
+      for (Case c : casesToUpdate) {
+        c.IDR_Additional_Correspondence_reviewed__c = true;
       }
-    }
-    if (!casesToUpdate.isEmpty()) {
-      if (
-        Case.SObjectType.getDescribe().isUpdateable() &&
-        Schema.SObjectType.Case.fields.IDR_Additional_Correspondence_reviewed__c.isUpdateable()
-      ) {
-        DMLUtil.updateRecords(
-          casesToUpdate,
-          DMLUtil.ALL_OR_NOTHING,
-          DMLUtil.USER_MODE
-        );
-      }
+      DML.doUpdate(casesToUpdate);
     }
   }
 }
