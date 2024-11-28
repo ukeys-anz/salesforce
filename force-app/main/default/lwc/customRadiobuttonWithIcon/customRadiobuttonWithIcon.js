@@ -8,15 +8,25 @@ export default class CustomRadiobuttonWithIcon extends OmniscriptBaseMixin(
   @api arrayValue;
   @api userSelection;
   @track _buttonList = [];
-
+  gridSize;
   isFirstRun = true;
 
   @api set buttonList(arr) {
     // if a single JSON object is passed instead of array, convert it to an array
     this._buttonList = Array.isArray(arr) ? arr : new Array(arr);
+    this.gridSize =
+      this._buttonList.length > 5
+        ? "slds-size_1-of-" + this._buttonList.length
+        : "slds-size_1-of-5";
   }
   get buttonList() {
     return this._buttonList;
+  }
+
+  get colSizeCss() {
+    if (this.gridSize) {
+      return "slds-p-right_small slds-col " + this.gridSize + " buttonblock";
+    }
   }
 
   // renderedCallback is used to show user's selected button or default selection for a screen
@@ -28,10 +38,12 @@ export default class CustomRadiobuttonWithIcon extends OmniscriptBaseMixin(
     let showSelectedButton = this.userSelection
       ? this.userSelection
       : this._buttonList[0].name;
+    console.log("showSelectedButton" + JSON.stringify(showSelectedButton));
 
-    let defaultButton = this.template.querySelector(
+    var defaultButton = this.template.querySelector(
       `input[name="customRadio"][value="${showSelectedButton}"]`
     );
+    console.log("defaultButton" + JSON.stringify(defaultButton));
 
     if (!defaultButton) return;
 
