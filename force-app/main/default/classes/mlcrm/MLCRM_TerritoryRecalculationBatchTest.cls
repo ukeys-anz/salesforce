@@ -71,21 +71,21 @@ public class MLCRM_TerritoryRecalculationBatchTest {
   }
 
   //Method to check if records created by excluded user get the access after batch job runs.
-  // @isTest
-  // static void validateRecalculation() {
-  //   user objUser = [
-  //     SELECT Id
-  //     FROM User
-  //     WHERE username LIKE :Label.AdobeIntegrationUserName
-  //     LIMIT 1
-  //   ];
-  //   user objMlUser = [SELECT Id FROM User WHERE LastName = 'test mluser3'];
-  //   System.runAs(objUser) {
-  //     Test.startTest();
-  //     MLCRM_TerritorySharingScheduler objScheduler = new MLCRM_TerritorySharingScheduler();
-  //     objScheduler.execute(null);
-  //     Test.stopTest();
-  //   }
+  @isTest
+  static void validateRecalculation() {
+    user objUser = [
+      SELECT Id
+      FROM User
+      WHERE username LIKE :Label.AdobeIntegrationUserName
+      LIMIT 1
+    ];
+    user objMlUser = [SELECT Id FROM User WHERE LastName = 'test mluser3'];
+    System.runAs(objUser) {
+      Test.startTest();
+      MLCRM_TerritorySharingScheduler objScheduler = new MLCRM_TerritorySharingScheduler();
+      objScheduler.execute(null);
+      Test.stopTest();
+    }
 
     System.runAs(objMlUser) {
       List<Lead> lstOfLead = [SELECT Id FROM Lead];
