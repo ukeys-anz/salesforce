@@ -51,8 +51,8 @@ public with sharing class QualityAssessmentActions {
   };
 
   static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
-      DmlRepository.class
-      );
+    DmlRepository.class
+  );
 
   /**
    * @description method to determine if a Case is a Dispute case, not CMOS case, if Dispute case, add this case to qaQualifiedCases List
@@ -118,7 +118,10 @@ public with sharing class QualityAssessmentActions {
       return;
     }
 
-    DML.doUpdate(recordsToUpdate, new DmlConfig().allowPartial().withoutSharing());
+    DML.doUpdate(
+      recordsToUpdate,
+      new DmlConfig().allowPartial().withoutSharing()
+    );
   }
 
   /**
@@ -131,9 +134,7 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> qaRecordsWithRelatedCase
   ) {
     List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
-    if (
-      qaRecordsWithRelatedCase.isEmpty()
-    ) {
+    if (qaRecordsWithRelatedCase.isEmpty()) {
       return recordsToUpdate;
     }
 
