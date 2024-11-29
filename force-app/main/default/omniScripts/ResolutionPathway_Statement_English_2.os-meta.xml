@@ -1,0 +1,996 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
+    <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
+    <isActive>true</isActive>
+    <isIntegrationProcedure>false</isIntegrationProcedure>
+    <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
+    <isOmniScriptEmbeddable>true</isOmniScriptEmbeddable>
+    <isTestProcedure>false</isTestProcedure>
+    <isWebCompEnabled>true</isWebCompEnabled>
+    <language>English</language>
+    <name>Statement</name>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Address_personaldetailsIncorrectApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Apologise to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry you had to make a complaint to have this issue resolved.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;OR&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry to hear this isn&amp;rsquo;t right.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge concern:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Thank you for raising this with us. I&amp;rsquo;ve recorded your concerns and this will be considered as part of our internal review.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Address / personal details incorrect&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ApologiseStatement:TalkTrackApologise:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;source&quot; : &quot;%ContextId%&quot;,
+    &quot;name&quot; : &quot;record-id&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;CustomerDetailsApologise&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>DisplayTextApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : null,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;NavigationButtonsApologise&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>OnlinestatementApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Online statement access issues&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ApologiseStatement:TalkTrackApologise:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Apologise to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand your frustration, I&amp;rsquo;m sorry about that.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;OR&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry for the inconvenience.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge concern:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Thank you for raising this with us. I&amp;rsquo;ve recorded your concerns and this will be considered as part of our internal review.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementcontentApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement content/design unhelpful&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ApologiseStatement:TalkTrackApologise:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Apologise to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry this has frustrated you.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;OR&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry about that. It&amp;rsquo;s important our customers tell us if something isn&amp;rsquo;t working or needs improvement.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge concern:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Thank you for raising this with us. I&amp;rsquo;ve recorded your concerns and this will be considered as part of our internal review.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementdeliveryApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Apologise to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand your frustration, I&amp;rsquo;m sorry about that.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;OR&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry to hear you&amp;rsquo;ve had trouble with this.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge concern:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Thank you for raising this with us. I&amp;rsquo;ve recorded your concerns and this will be considered as part of our internal review.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement delivery preferences&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ApologiseStatement:TalkTrackApologise:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementrequestApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement request wait time&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ApologiseStatement:TalkTrackApologise:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Apologise to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry for the inconvenience.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;OR&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I apologise for delay. I appreciate your patience with us.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge concern:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Thank you for raising this with us. I&amp;rsquo;ve recorded your concerns and this will be considered as part of our internal review.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TalkTrackApologise</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TalkTrackApologise&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%statementButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%ApologiseStatement:TalkTrackApologise:selectedButtonName%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ApologiseStatement</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;pubsub&quot; : false,
+  &quot;message&quot; : { },
+  &quot;ssm&quot; : false,
+  &quot;wpm&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;default&quot; : null,
+    &quot;custom&quot; : [ ]
+  },
+  &quot;allowSaveForLater&quot; : false,
+  &quot;chartLabel&quot; : &quot;Apologise to the customer&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;knowledgeOptions&quot; : {
+    &quot;typeFilter&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;language&quot; : &quot;English&quot;
+  },
+  &quot;remoteOptions&quot; : { },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;label&quot; : &quot;Resolution Pathways - Statement&quot;
+}</propertySetConfig>
+        <sequenceNumber>2.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Address_personaldetailsIncorrectConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Address / personal details incorrect&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConfirmStatement:TalkTrackConfirm:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Ask further questions (if relevant) to confirm complaint details, such as:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you tell me more about your concerns?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand that some statements may have &amp;lt;been sent to the wrong address/the wrong name on them&amp;gt;. Is that right?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Was there anything else you&amp;rsquo;d like to add about what&amp;rsquo;s happened?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Do you prefer to use the ANZ App or Internet Banking?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #236fa1;\&quot;&gt;&lt;strong&gt;If complainant is a third party receiving an ANZ customer&amp;rsquo;s mail:&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you confirm the exact name and address that appears on the envelope you&amp;rsquo;ve received?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;NOTE:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer is experiencing vulnerability or accessibility issues that may affect their ability to receive or read statements, refer to the Knowhow page&lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt; &lt;/a&gt;&lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;Supporting Customers Experiencing Vulnerability&lt;/em&gt;&lt;/a&gt; &lt;em&gt;and &lt;/em&gt;&lt;em&gt;speak to your line manager.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer may be eligible for a &lt;a href=\&quot;https://portal.knowhow.service.anz/C/xY1-yBGbEe-RLABQVpUToA?fromMenu=0E4sPBQNEe-RLABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;basic or low fee account&lt;/a&gt; but does not have one, refer to the Knowhow page &lt;/em&gt;&lt;em&gt;Basic and Low Fee Accounts&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CustomerDetailsConfirm&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>DisplayTextBlockConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigationButtonsConfirm&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>OnlinestatementConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Ask further questions (if relevant) to confirm complaint details, such as:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you tell me more about your concerns?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand that you&amp;rsquo;ve had trouble &amp;lt;accessing/opening&amp;gt; your statements online?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you see the account on your online banking?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Was there anything else you&amp;rsquo;d like to add about your experience?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Do you prefer to use the ANZ App or Internet Banking?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;NOTE:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer is experiencing vulnerability or accessibility issues that may affect their ability to receive or read statements, refer to the Knowhow page &lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;Supporting Customers Experiencing Vulnerability&lt;/em&gt;&lt;/a&gt; &lt;em&gt;and &lt;/em&gt;&lt;em&gt;speak to your line manager.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer may be eligible for a &lt;a href=\&quot;https://portal.knowhow.service.anz/C/xY1-yBGbEe-RLABQVpUToA?fromMenu=0E4sPBQNEe-RLABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;basic or low fee account&lt;/a&gt; but does not have one, refer to the Knowhow page &lt;/em&gt;&lt;em&gt;Basic and Low Fee Accounts&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Online statement access issues&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConfirmStatement:TalkTrackConfirm:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementcontentConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Ask further questions (if relevant) to confirm complaint details, such as:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you tell me more about your concerns?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand that you&amp;rsquo;re unhappy with &amp;lt;the design of/how information appears on&amp;gt; the statement. Is that right?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;What is the account and statement dates you have been looking at?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Would you like me to talk you though information on your statement or account?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;NOTE:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer is experiencing vulnerability or accessibility issues that may affect their ability to receive or read statements, refer to the Knowhow page &lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;Supporting Customers Experiencing Vulnerability&lt;/em&gt;&lt;/a&gt; &lt;em&gt;and &lt;/em&gt;&lt;em&gt;speak to your line manager.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer may be eligible for a &lt;a href=\&quot;https://portal.knowhow.service.anz/C/xY1-yBGbEe-RLABQVpUToA?fromMenu=0E4sPBQNEe-RLABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;basic or low fee account&lt;/a&gt; but does not have one, refer to the Knowhow page Basic and Low Fee Accounts.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement content/design unhelpful&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConfirmStatement:TalkTrackConfirm:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementdeliveryConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement delivery preferences&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConfirmStatement:TalkTrackConfirm:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Ask further questions (if relevant) to confirm complaint details, such as:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you tell me more about your concerns?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand that you&amp;rsquo;ve had trouble trying to change your statement delivery preferences. Is that right?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Was there anything else you&amp;rsquo;d like to add about your experience?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Do you prefer to use the ANZ App or Internet Banking?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;NOTE:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer is experiencing vulnerability or accessibility issues that may affect their ability to receive or read statements, refer to the Knowhow page &lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;Supporting Customers Experiencing Vulnerability&lt;/em&gt;&lt;/a&gt; &lt;em&gt;and &lt;/em&gt;&lt;em&gt;speak to your line manager.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer may be eligible for a &lt;a href=\&quot;https://portal.knowhow.service.anz/C/xY1-yBGbEe-RLABQVpUToA?fromMenu=0E4sPBQNEe-RLABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;basic or low fee account&lt;/a&gt; but does not have one, refer to the Knowhow page &lt;/em&gt;&lt;em&gt;Basic and Low Fee Accounts&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementrequestConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Ask further questions (if relevant) to confirm complaint details, such as:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Can you tell me more about what has happened?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I understand that after you contacted ANZ, you had to wait to get copies of your statements. Is that right?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Have you received any statements from ANZ since then?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #236fa1;\&quot;&gt;&lt;strong&gt;If customer still hasn&amp;rsquo;t received their statements:&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;How did you want these statements sent you, via email or post?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;What was the account and dates (start and end) you need the statements for?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Do you normally prefer to use the ANZ App or Internet Banking?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;NOTE:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer is experiencing vulnerability or accessibility issues that may affect their ability to receive or read statements, refer to the Knowhow page &lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;Supporting Customers Experiencing Vulnerability&lt;/em&gt;&lt;/a&gt; &lt;em&gt;and &lt;/em&gt;&lt;em&gt;speak to your line manager.&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; If the customer may be eligible for a&lt;a href=\&quot;https://portal.knowhow.service.anz/C/xY1-yBGbEe-RLABQVpUToA?fromMenu=0E4sPBQNEe-RLABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt; basic or low fee account&lt;/a&gt; but does not have one, refer to the Knowhow page &lt;/em&gt;&lt;em&gt;Basic and Low Fee Accounts&lt;/em&gt;&lt;em&gt;.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement request wait time&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ConfirmStatement:TalkTrackConfirm:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TalkTrackConfirm</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%statementButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%ConfirmStatement:TalkTrackConfirm:selectedButtonName%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;TalkTrackConfirm&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ConfirmStatement</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Resolution Pathways - Statement&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : &quot;Confirm complaint details&quot;,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>1.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>IntegrationProcedureStatement1</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IntegrationProcedureStatement1&quot;,
+  &quot;integrationProcedureKey&quot; : &quot;ResolutionPathway_MainIP&quot;,
+  &quot;useContinuation&quot; : false,
+  &quot;remoteOptions&quot; : {
+    &quot;preTransformBundle&quot; : &quot;&quot;,
+    &quot;postTransformBundle&quot; : &quot;&quot;,
+    &quot;useFuture&quot; : false,
+    &quot;chainable&quot; : false
+  },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;preTransformBundle&quot; : &quot;&quot;,
+  &quot;postTransformBundle&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;extraPayload&quot; : {
+    &quot;talkTrack&quot; : &quot;Statement&quot;
+  },
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;svgSprite&quot; : &quot;&quot;,
+  &quot;svgIcon&quot; : &quot;&quot;,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;sendOnlyExtraPayload&quot; : true
+}</propertySetConfig>
+        <sequenceNumber>0.0</sequenceNumber>
+        <type>Integration Procedure Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>IntegrationProcedureStatement2</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;IntegrationProcedureStatement2&quot;,
+  &quot;integrationProcedureKey&quot; : &quot;ResolutionPathway_MainIP&quot;,
+  &quot;useContinuation&quot; : false,
+  &quot;remoteOptions&quot; : {
+    &quot;preTransformBundle&quot; : &quot;&quot;,
+    &quot;postTransformBundle&quot; : &quot;&quot;,
+    &quot;useFuture&quot; : false,
+    &quot;chainable&quot; : false
+  },
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;preTransformBundle&quot; : &quot;&quot;,
+  &quot;postTransformBundle&quot; : &quot;&quot;,
+  &quot;sendJSONPath&quot; : &quot;&quot;,
+  &quot;sendJSONNode&quot; : &quot;&quot;,
+  &quot;responseJSONPath&quot; : &quot;&quot;,
+  &quot;responseJSONNode&quot; : &quot;&quot;,
+  &quot;extraPayload&quot; : {
+    &quot;triggeredfrom&quot; : &quot;DataMapperPost-RPUpdate&quot;,
+    &quot;DRId_Assessment&quot; : &quot;%DRId_Assessment%&quot;
+  },
+  &quot;inProgressMessage&quot; : &quot;In Progress&quot;,
+  &quot;postMessage&quot; : &quot;Done&quot;,
+  &quot;failureNextLabel&quot; : &quot;Continue&quot;,
+  &quot;failureAbortLabel&quot; : &quot;Abort&quot;,
+  &quot;failureGoBackLabel&quot; : &quot;Go Back&quot;,
+  &quot;failureAbortMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;validationRequired&quot; : &quot;Step&quot;,
+  &quot;redirectPageName&quot; : &quot;&quot;,
+  &quot;redirectTemplateUrl&quot; : &quot;vlcAcknowledge.html&quot;,
+  &quot;redirectNextLabel&quot; : &quot;Next&quot;,
+  &quot;redirectNextWidth&quot; : 3,
+  &quot;redirectPreviousLabel&quot; : &quot;Previous&quot;,
+  &quot;redirectPreviousWidth&quot; : 3,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;show&quot; : null,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;svgSprite&quot; : &quot;&quot;,
+  &quot;svgIcon&quot; : &quot;&quot;,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;enableDefaultAbort&quot; : false,
+  &quot;enableActionMessage&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;,
+  &quot;sendOnlyExtraPayload&quot; : true
+}</propertySetConfig>
+        <sequenceNumber>4.0</sequenceNumber>
+        <type>Integration Procedure Action</type>
+    </omniProcessElements>
+    <omniProcessElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>Address_personaldetailsIncorrectProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Address / personal details incorrect&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ProvideInformationStatement:TalkTrackProvideInfo:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Provide information to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If the customer needs help updating their mailing address or other details online:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;ll take you through the steps to update your addresses or details using your online banking.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(Guide the customer through the steps on the anz.com page &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/support/update-details/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Update your details&lt;/a&gt;&amp;rdquo;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If the customer needs further assistance updating their mailing address or other details: &amp;nbsp;(eg. is unable to do it themselves)&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;We can help you with that.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(Either:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; Follow the steps in the Knowhow procedure &amp;ldquo;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/NtSJecpoEeuQ_QBQVpUToA?fromMenu=TKElDsp7EeuQ_QBQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Address Change Requests&lt;/a&gt; (Customer Resolution)&amp;rdquo;, OR&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; Refer to your support matrix or seek assistance from your manager for help with account maintenance tasks, OR&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; Transfer customer/provide them the number to the Internet Banking team via the &lt;a href=\&quot;https://www.anz.com.au/support/contact-us/phone-directory/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Phone Directory&lt;/a&gt;, OR&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://www.anz.com.au/book-appointment/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Book an appointment &lt;/a&gt;at their local branch for situations like joint accounts*)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If the complainant is a third party receiving an ANZ customer&amp;rsquo;s mail &lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;We will look into this and try to contact them to update their details. In the meantime, don&amp;rsquo;t open the envelopes, write \&quot;return to sender - unknown at this address\&quot; on them, and place the item in a red street posting box or hand it to Post Office staff for return.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(After the call, follow the steps on the Knowhow page &lt;a href=\&quot;https://portal.knowhow.service.anz/C/QmcLQkIGEe6RIABQVpUToA?fromMenu=TtEN6kIJEe6RIABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Third Party Receiving ANZ Customer&apos;s Mail&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Check for additional issues:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Were there any other issues you wanted to raise?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&lt;em&gt;*Note: &lt;/em&gt;&lt;/strong&gt;&lt;em&gt;if the customer is vulnerable and/or refers to a risk of family violence, let your people leader know and refer to the &lt;a href=\&quot;https://portal.knowhow.service.anz/C/l3zw9XlBEeakaQBQVpxDEQ?fromMenu=vpZBYpXuEeyRCABQVpUToA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Extra Care&lt;/a&gt; Hub Address Change Quality Check Request.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>6.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>CustomerDetailsProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CustomerDetailsProvideInfo&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;cfResolutionPathway_CustomerDetails&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;record-id&quot;,
+    &quot;source&quot; : &quot;%ContextId%&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>0.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>NavigationButtonsProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;NavigationButtonsProvideInfo&quot;,
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;hide&quot; : false,
+  &quot;lwcName&quot; : &quot;customOmniFooterButtons&quot;,
+  &quot;bStandalone&quot; : false,
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;default-value&quot;,
+    &quot;source&quot; : &quot;%rpCaseComments%&quot;
+  }, {
+    &quot;name&quot; : &quot;label&quot;,
+    &quot;source&quot; : &quot;Case Comments&quot;
+  } ]
+}</propertySetConfig>
+            <sequenceNumber>8.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>OnlinestatementProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Provide information to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If account isn&amp;rsquo;t eligible for online statements:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;The account you&amp;rsquo;re enquiring about isn&amp;rsquo;t &lt;a href=\&quot;https://www.anz.com.au/content/anzcomau/en/personal/ways-to-bank/more/online-statements.html\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;eligible &lt;/a&gt;for online statements so we send these out periodically.&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Would you like me to send you your latest statement?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(To organise replacement statements, refer to the following Knowhow pages:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/onrPY-iREemQ-ABQVpXnoA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Statements &amp;ndash; 4565&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/CWuG9ohaEeePMwBQVpxDEQ?fromMenu=GtDhhwc7EeqQ-QBQVpXnoA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;How to follow up on a CARbe request&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/A23YMXSaEeakaQBQVpxDEQ?fromMenu=jh3DmoRnEeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Retail Statement Request Complaints&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/3WvSNmqEEeakaQBQVpxDEQ?fromMenu=5LNMvYRMEeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Credit Card Statement Request Complaints&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/XB4d9YSYEeakaQBQVpxDEQ?fromMenu=TUyCs4VDEeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Loan Account Statements&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/msEPYJQFEeakaQBQVpxDEQ?fromMenu=LUZeVKehEeamSQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Issuing Correspondence to a Customer&lt;/a&gt;&lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/msEPYJQFEeakaQBQVpxDEQ?fromMenu=LUZeVKehEeamSQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;)&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer isn&amp;rsquo;t a signatory:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;You&amp;rsquo;re not able to view statements for this account because the account is not in your name and you are not an authorised signatory.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If statements aren&amp;rsquo;t visible because their account isn&amp;rsquo;t linked to their online banking:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I can help you to link your account to your online banking so you can view statements.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;ol&gt;\n&lt;li&gt;&lt;em&gt;&amp;nbsp;Guide the customer through the steps of &lt;a href=\&quot;https://www.anz.com.au/support/personalise-your-accounts/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;linking &lt;/a&gt;their account through their Internet Banking, OR &lt;/em&gt;&lt;/li&gt;\n&lt;li&gt;&lt;em&gt; Transfer customer to Internet Banking via the &lt;a href=\&quot;https://www.anz.com.au/support/contact-us/phone-directory/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Phone directory&lt;/a&gt; for assistance, OR&lt;/em&gt;&lt;/li&gt;\n&lt;li&gt;&lt;em&gt; Refer to your support matrix / seek assistance from your manager for help with account maintenance tasks&lt;/em&gt;&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If the customer can&amp;rsquo;t open password-protected statements:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I will find the password you need to use and you can try it while you&amp;rsquo;re on the phone with me.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(Refer to the Knowhow page &lt;a href=\&quot;https://portal.knowhow.service.anz/C/onrPY-iREemQ-ABQVpXnoA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Statements &amp;ndash; 4565&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;OR&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Would you like me to email it to you with a different password or would you prefer I post the statements to your mailing address?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If statements won&amp;rsquo;t download in their online banking:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;There are a couple of things we can try. I&amp;rsquo;ll go through them over the phone with you and we&amp;rsquo;ll see if that resolves it.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(Action: Ensure statements open on your end through Finacle, then go through &amp;ldquo;Troubleshooting&amp;rdquo; section of &lt;/em&gt;&lt;a href=\&quot;https://www.anz.com.au/support/statements/\&quot;&gt;&lt;em&gt;the anz.com page &lt;/em&gt;&lt;/a&gt;&lt;em&gt;with the customer.)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If issue is still unresolved or you need technical assistance:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;We might need assistance from a specialised team for this.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(1. Transfer customer to Internet Banking via the &lt;a href=\&quot;https://www.anz.com.au/support/contact-us/phone-directory/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Phone directory&lt;/a&gt; for assistance, OR&lt;/em&gt;&lt;/p&gt;\n&lt;ol start=\&quot;2\&quot;&gt;\n&lt;li&gt;&lt;em&gt; Refer to your support matrix or seek assistance from your manager for help with account maintenance tasks)&lt;/em&gt;&lt;/li&gt;\n&lt;/ol&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Check for additional issues:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Were there any other issues you wanted to raise?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;NOTE: If the customer is still unable to access statements for their account online, offer to send any requested current or previous statements in this instance via customer&amp;rsquo;s preferred method (either via encrypted email or post &amp;ndash; confirm with customer and check email /postal address is current before sending).&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Online statement access issues&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ProvideInformationStatement:TalkTrackProvideInfo:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>5.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementcontentProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Provide information to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer believes design is unhelpful&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m sorry to hear that we haven&amp;rsquo;t met your expectations. It&amp;rsquo;s important we hear what could be improved or changed.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;OR&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Our statements are designed with our customers in mind, I&amp;rsquo;m sorry we haven&amp;rsquo;t met your expectations.&amp;nbsp; .&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer wants to find interest* information on the statement&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Opening interest rates are shown at the start of the transaction list on the statement. When the rate changes, the new rate appears in on the transaction list in date order.&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;You can also access interest and tax information through ANZ Internet Banking under the &amp;ldquo;Account Actions&amp;rdquo; section.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(If the customer needs further explanation about interest rates, refer them to the following anz.com resources:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/personal/financial-wellbeing/hub/articles/the-interest-ing-bits-about-interest-rates/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;How interest rates work&lt;/a&gt;&amp;rdquo;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/personal/bank-accounts/tips-and-guides/more-money-matters/earning-interest/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Earning interest on your bank account&lt;/a&gt;&amp;rdquo;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer needs further assistance reading their statement&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;We can go through your statement together over the phone. Do you have it in front of you?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(Guide the customer through their statement over the phone using anz.com resources:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/personal/bank-accounts/manage-my-accounts/faqs/your-statement/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Reading your ANZ statements&lt;/a&gt;&amp;rdquo;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/personal/credit-cards/credit-card-education/read-your-statement/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Reading your credit card statement&lt;/a&gt;&amp;rdquo;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/business/accounts/transaction-accounts/your-statement/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Reading your ANZ business statements&amp;rdquo;&lt;/a&gt;&lt;/em&gt;&lt;em&gt;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Check for additional issues:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Were there any other issues you wanted to raise?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues.&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;*note: complaints relating to interest on lending accounts may present a hardship trigger - discuss with your People Leader and consider if it should be transferred to a Specialist Hardship Complaints team.&lt;/em&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement content/design unhelpful&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ProvideInformationStatement:TalkTrackProvideInfo:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>7.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementdeliveryProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement delivery preferences&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ProvideInformationStatement:TalkTrackProvideInfo:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Provide information to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Turning paper statements OFF (customer can self-service):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;There may be &lt;a href=\&quot;https://www.anz.com.au/support/statements/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;some situations&lt;/a&gt; where we must send account statements via post, but generally, if your account is &lt;a href=\&quot;https://www.anz.com.au/content/anzcomau/en/personal/ways-to-bank/more/online-statements.html\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;eligible &lt;/a&gt;for online statements you can change your delivery preferences online.&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;Would you like me to help you do this in your online banking? It will only take a few minutes.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(If customer says yes, take the customer through the self-service steps on the ANZ page &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/support/go-paperless/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Go paperless&lt;/a&gt;&amp;rdquo;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Turning paper statements OFF (customer wants you to action for them):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Unfortunately, I can&amp;rsquo;t turn off paper statements for you. I am happy to help you with the steps to do it through your online banking though. It won&amp;rsquo;t take long.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(If customer says yes, take the customer through the self-service steps on the ANZ page &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/support/go-paperless/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Go paperless&lt;/a&gt;&amp;rdquo;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Turning paper statements ON (customer can self-service):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;You can change your statement delivery preferences online. Would you like me to help you do this through your online banking? It will only take a few minutes.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(If customer says yes, take the customer through the self-service steps on the ANZ page &amp;ldquo;&lt;a href=\&quot;https://www.anz.com.au/support/go-paperless/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Go paperless&lt;/a&gt;&amp;rdquo;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Turning paper statements ON (customer wants you to action for them):&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;ll submit a request to change your statement delivery preference to paper.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(Refer to your Support Matrix or seek assistance from your manager for help with account maintenance tasks)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Check for additional issues:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Were there any other issues you wanted to raise?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>4.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>StatementrequestProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Provide information to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer has already received their requested statements:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m glad to hear you&amp;rsquo;ve received your statements. Let me know if you need any help with viewing &lt;a href=\&quot;https://www.anz.com.au/support/statements/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;statements online&lt;/a&gt;.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(if customer needs help, go through the ANZ page &amp;ldquo;Get your &lt;a href=\&quot;https://www.anz.com.au/support/statements/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;statements online&lt;/a&gt;&amp;rdquo; with them)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If requested statements are in their online banking:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;The statements you want are available through your online banking. Would you like me to step you through how to access them?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(if customer says yes, go through the ANZ page &amp;ldquo;Get your &lt;a href=\&quot;https://www.anz.com.au/support/statements/\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;statements online&lt;/a&gt;&amp;rdquo; with them)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If requested statements need to be sent to the customer:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;I&amp;rsquo;m going to arrange for these statements to be sent to you.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(To organise replacement statements, refer to the following Knowhow pages:&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/onrPY-iREemQ-ABQVpXnoA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Statements &amp;ndash; 4565&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/CWuG9ohaEeePMwBQVpxDEQ?fromMenu=GtDhhwc7EeqQ-QBQVpXnoA\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;How to follow up on a CARbe request&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/A23YMXSaEeakaQBQVpxDEQ?fromMenu=jh3DmoRnEeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Retail Statement Request Complaints&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/3WvSNmqEEeakaQBQVpxDEQ?fromMenu=5LNMvYRMEeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Credit Card Statement Request Complaints&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/XB4d9YSYEeakaQBQVpxDEQ?fromMenu=TUyCs4VDEeakaQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Loan Account Statements&lt;/a&gt;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&lt;/em&gt;&lt;em&gt; &lt;a href=\&quot;https://portal.knowhow.service.anz/C/msEPYJQFEeakaQBQVpxDEQ?fromMenu=LUZeVKehEeamSQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Issuing Correspondence to a Customer&lt;/a&gt;&lt;/em&gt;&lt;a href=\&quot;https://portal.knowhow.service.anz/C/msEPYJQFEeakaQBQVpxDEQ?fromMenu=LUZeVKehEeamSQBQVpxDEQ\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;&lt;em&gt;)&lt;/em&gt;&lt;/a&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;&amp;nbsp;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If requested statements are not available due to being &amp;gt;7 seven years old:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Unfortunately, the statements you requested are no longer available as ANZ isn&amp;rsquo;t required to keep statement information after seven years.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;(if the customer asks why the time limit is 7 years, it is as per the &lt;a href=\&quot;https://www5.austlii.edu.au/au/legis/cth/consol_act/ca2001172/s286.html\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;Corporation Act 2001&lt;/a&gt;)&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;Check for additional issues:&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;nbsp;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Were there any other issues you wanted to raise?&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;em&gt;&amp;nbsp;&lt;/em&gt;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;Statement request wait time&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;ProvideInformationStatement:TalkTrackProvideInfo:selectedButtonName&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>3.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TalkTrackProvideInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;customAttributes&quot; : [ {
+    &quot;name&quot; : &quot;button-list&quot;,
+    &quot;source&quot; : &quot;%statementButtonList%&quot;
+  }, {
+    &quot;name&quot; : &quot;user-selection&quot;,
+    &quot;source&quot; : &quot;%ProvideInformationStatement:TalkTrackProvideInfo:selectedButtonName%&quot;
+  } ],
+  &quot;bStandalone&quot; : false,
+  &quot;lwcName&quot; : &quot;customRadiobuttonWithIcon&quot;,
+  &quot;hide&quot; : false,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;show&quot; : null,
+  &quot;label&quot; : &quot;TalkTrackProvideInfo&quot;,
+  &quot;controlWidth&quot; : 12
+}</propertySetConfig>
+            <sequenceNumber>2.0</sequenceNumber>
+            <type>Custom Lightning Web Component</type>
+        </childElements>
+        <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>TextBlock2</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock1&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;Select suggested scripting&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : null,
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>1.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <isActive>true</isActive>
+        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+        <level>0.0</level>
+        <name>ProvideInformationStatement</name>
+        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+        <propertySetConfig>{
+  &quot;label&quot; : &quot;Resolution Pathways - Statement&quot;,
+  &quot;validationRequired&quot; : true,
+  &quot;previousLabel&quot; : &quot;Previous&quot;,
+  &quot;previousWidth&quot; : &quot;0&quot;,
+  &quot;nextLabel&quot; : &quot;Next&quot;,
+  &quot;nextWidth&quot; : &quot;0&quot;,
+  &quot;cancelLabel&quot; : &quot;Cancel&quot;,
+  &quot;cancelMessage&quot; : &quot;Are you sure?&quot;,
+  &quot;saveLabel&quot; : &quot;Save for later&quot;,
+  &quot;saveMessage&quot; : &quot;Are you sure you want to save it for later?&quot;,
+  &quot;completeLabel&quot; : &quot;Complete&quot;,
+  &quot;completeMessage&quot; : &quot;Are you sure you want to complete the script?&quot;,
+  &quot;instruction&quot; : &quot;&quot;,
+  &quot;showPersistentComponent&quot; : [ true, false ],
+  &quot;remoteClass&quot; : &quot;&quot;,
+  &quot;remoteMethod&quot; : &quot;&quot;,
+  &quot;remoteTimeout&quot; : 30000,
+  &quot;remoteOptions&quot; : { },
+  &quot;knowledgeOptions&quot; : {
+    &quot;language&quot; : &quot;English&quot;,
+    &quot;publishStatus&quot; : &quot;Online&quot;,
+    &quot;keyword&quot; : &quot;&quot;,
+    &quot;dataCategoryCriteria&quot; : &quot;&quot;,
+    &quot;remoteTimeout&quot; : 30000,
+    &quot;typeFilter&quot; : &quot;&quot;
+  },
+  &quot;show&quot; : null,
+  &quot;conditionType&quot; : &quot;Hide if False&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;instructionKey&quot; : &quot;&quot;,
+  &quot;chartLabel&quot; : &quot;Provide information to the customer&quot;,
+  &quot;allowSaveForLater&quot; : false,
+  &quot;errorMessage&quot; : {
+    &quot;custom&quot; : [ ],
+    &quot;default&quot; : null
+  },
+  &quot;wpm&quot; : false,
+  &quot;ssm&quot; : false,
+  &quot;message&quot; : { },
+  &quot;pubsub&quot; : false,
+  &quot;businessCategory&quot; : &quot;&quot;,
+  &quot;businessEvent&quot; : &quot;&quot;
+}</propertySetConfig>
+        <sequenceNumber>3.0</sequenceNumber>
+        <type>Step</type>
+    </omniProcessElements>
+    <omniProcessType>OmniScript</omniProcessType>
+    <propertySetConfig>{&quot;persistentComponent&quot;:[{&quot;render&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;sendJSONPath&quot;:&quot;&quot;,&quot;sendJSONNode&quot;:&quot;&quot;,&quot;responseJSONPath&quot;:&quot;&quot;,&quot;responseJSONNode&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcCart&quot;,&quot;itemsKey&quot;:&quot;cartItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;vlcProductConfig.html&quot;,&quot;modalController&quot;:&quot;ModalProductCtrl&quot;,&quot;modalSize&quot;:&quot;lg&quot;}},{&quot;render&quot;:false,&quot;dispOutsideOmni&quot;:false,&quot;label&quot;:&quot;&quot;,&quot;remoteClass&quot;:&quot;&quot;,&quot;remoteMethod&quot;:&quot;&quot;,&quot;remoteTimeout&quot;:30000,&quot;remoteOptions&quot;:{&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;},&quot;preTransformBundle&quot;:&quot;&quot;,&quot;postTransformBundle&quot;:&quot;&quot;,&quot;id&quot;:&quot;vlcKnowledge&quot;,&quot;itemsKey&quot;:&quot;knowledgeItems&quot;,&quot;modalConfigurationSetting&quot;:{&quot;modalHTMLTemplateId&quot;:&quot;&quot;,&quot;modalController&quot;:&quot;&quot;,&quot;modalSize&quot;:&quot;lg&quot;}}],&quot;allowSaveForLater&quot;:true,&quot;saveNameTemplate&quot;:null,&quot;saveExpireInDays&quot;:null,&quot;saveForLaterRedirectPageName&quot;:&quot;sflRedirect&quot;,&quot;saveForLaterRedirectTemplateUrl&quot;:&quot;vlcSaveForLaterAcknowledge.html&quot;,&quot;saveContentEncoded&quot;:false,&quot;saveObjectId&quot;:&quot;%ContextId%&quot;,&quot;saveURLPatterns&quot;:{},&quot;autoSaveOnStepNext&quot;:false,&quot;elementTypeToHTMLTemplateMapping&quot;:{},&quot;seedDataJSON&quot;:{},&quot;trackingCustomData&quot;:{},&quot;enableKnowledge&quot;:false,&quot;bLK&quot;:false,&quot;lkObjName&quot;:null,&quot;knowledgeArticleTypeQueryFieldsMap&quot;:{},&quot;timeTracking&quot;:false,&quot;hideStepChart&quot;:false,&quot;mergeSavedData&quot;:false,&quot;visualforcePagesAvailableInPreview&quot;:{},&quot;cancelType&quot;:&quot;SObject&quot;,&quot;allowCancel&quot;:true,&quot;cancelSource&quot;:&quot;%ContextId%&quot;,&quot;cancelRedirectPageName&quot;:&quot;OmniScriptCancelled&quot;,&quot;cancelRedirectTemplateUrl&quot;:&quot;vlcCancelled.html&quot;,&quot;consoleTabLabel&quot;:&quot;New&quot;,&quot;wpm&quot;:false,&quot;ssm&quot;:false,&quot;message&quot;:{},&quot;pubsub&quot;:false,&quot;autoFocus&quot;:false,&quot;currencyCode&quot;:&quot;&quot;,&quot;showInputWidth&quot;:false,&quot;rtpSeed&quot;:false,&quot;consoleTabTitle&quot;:null,&quot;consoleTabIcon&quot;:&quot;custom:custom18&quot;,&quot;errorMessage&quot;:{&quot;custom&quot;:[]},&quot;stylesheet&quot;:{&quot;newport&quot;:&quot;&quot;,&quot;lightning&quot;:&quot;&quot;,&quot;newportRtl&quot;:&quot;&quot;,&quot;lightningRtl&quot;:&quot;&quot;},&quot;stepChartPlacement&quot;:&quot;right&quot;,&quot;disableUnloadWarn&quot;:true,&quot;scrollBehavior&quot;:&quot;auto&quot;,&quot;currentLanguage&quot;:&quot;en_US&quot;}</propertySetConfig>
+    <subType>Statement</subType>
+    <type>ResolutionPathway</type>
+    <uniqueName>ResolutionPathway_Statement_English_2</uniqueName>
+    <versionNumber>2.0</versionNumber>
+    <webComponentKey>40e3631e-bf7d-6e98-516a-6533e359dde9</webComponentKey>
+</OmniScript>
