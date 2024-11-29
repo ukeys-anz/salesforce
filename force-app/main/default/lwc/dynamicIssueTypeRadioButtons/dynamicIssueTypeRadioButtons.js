@@ -6,6 +6,10 @@ import SUBISSUE_FIELD from "@salesforce/schema/Case.IDR_Subsequent_Issue__c";
 
 const CHOOSEPATHWAY = "ChoosePathway";
 const BEGINCALL = "BeginPhoneCall";
+const SIMILAR_PATHWAYS = {
+  "Branch queues / wait time": "Trading hours/location/closures",
+  "Statement Issue": "Statement features/accessibility"
+};
 export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -58,6 +62,7 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
   // We have numeric values in picklist value api names so we need to find the label for these selected api names.
   // createButtonList() runs after both wire issueTypePicklistValues and subIssuePicklistValues have resolved, this creates the buttons dynamically on UI
   createButtonList() {
+    let tempButtonList = [];
     if (
       !this.issueTypePicklistArr.length ||
       !this.subIssueTypePicklistArr.length
@@ -78,9 +83,9 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
       order: order++
     };
     if (this._pageName === CHOOSEPATHWAY && this.checkType(subIssue1)) {
-      this.issueTypeButtons.push(button1);
+      tempButtonList.push(button1);
     } else if (this._pageName === BEGINCALL) {
-      this.issueTypeButtons.push(button1);
+      tempButtonList.push(button1);
     }
 
     let subIssue2 = this.omniJsonData?.SubIssue2
@@ -101,9 +106,9 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
       };
 
       if (this._pageName === CHOOSEPATHWAY && this.checkType(subIssue2)) {
-        this.issueTypeButtons.push(button2);
+        tempButtonList.push(button2);
       } else if (this._pageName === BEGINCALL) {
-        this.issueTypeButtons.push(button2);
+        tempButtonList.push(button2);
       }
     }
 
@@ -124,19 +129,37 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
       };
 
       if (this._pageName === CHOOSEPATHWAY && this.checkType(subIssue3)) {
-        this.issueTypeButtons.push(button3);
+        tempButtonList.push(button3);
       } else if (this._pageName === BEGINCALL) {
-        this.issueTypeButtons.push(button3);
+        tempButtonList.push(button3);
       }
     }
+
     if (this._pageName === CHOOSEPATHWAY) {
       let button4 = {
         label: "Consider additional issues",
         sublabel: "",
         order: order
       };
-      this.issueTypeButtons.push(button4);
+      tempButtonList.push(button4);
     }
+
+    this.issueTypeButtons =
+      this._pageName === CHOOSEPATHWAY
+        ? this.filterFinalIssueTypes(tempButtonList)
+        : tempButtonList;
+  }
+
+  filterFinalIssueTypes(tempButtonList) {
+    let toRemove = new Set();
+    tempButtonList.forEach((button) => {
+      if (
+        button.label === "Branch queues / wait time" ||
+        button.label === "Statement Issue"
+      )
+        toRemove.add(SIMILAR_PATHWAYS[button.label]);
+    });
+    return tempButtonList.filter((button) => !toRemove.has(button.label));
   }
 
   renderedCallback() {
