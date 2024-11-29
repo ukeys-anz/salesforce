@@ -25,9 +25,7 @@ export default class CustomRadiobuttonWithIcon extends OmniscriptBaseMixin(
   }
 
   get colSizeCss() {
-    if (this.gridSize) {
-      return "slds-p-right_small slds-col " + this.gridSize + " buttonblock";
-    }
+    return "slds-p-right_small slds-col " + this.gridSize + " buttonblock";
   }
 
   // renderedCallback is used to show user's selected button or default selection for a screen
