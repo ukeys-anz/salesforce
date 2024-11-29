@@ -8,6 +8,7 @@ export default class CustomRadiobuttonWithIcon extends OmniscriptBaseMixin(
   @api arrayValue;
   @api userSelection;
   @track _buttonList = [];
+
   gridSize;
   isFirstRun = true;
 
@@ -38,12 +39,10 @@ export default class CustomRadiobuttonWithIcon extends OmniscriptBaseMixin(
     let showSelectedButton = this.userSelection
       ? this.userSelection
       : this._buttonList[0].name;
-    console.log("showSelectedButton" + JSON.stringify(showSelectedButton));
 
-    var defaultButton = this.template.querySelector(
+    let defaultButton = this.template.querySelector(
       `input[name="customRadio"][value="${showSelectedButton}"]`
     );
-    console.log("defaultButton" + JSON.stringify(defaultButton));
 
     if (!defaultButton) return;
 
