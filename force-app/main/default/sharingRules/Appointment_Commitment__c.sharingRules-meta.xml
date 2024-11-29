@@ -75,4 +75,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Appointment_Commitment_Support_Coach_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>To share appointment commitment with Support Coaches</description>
+        <label>Appointment Commitment Support Coach Read/Write</label>
+        <sharedTo>
+            <role>Support_Coach</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

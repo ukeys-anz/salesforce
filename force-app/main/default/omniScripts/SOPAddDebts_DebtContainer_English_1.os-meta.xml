@@ -89,11 +89,6 @@
   &quot;helpText&quot; : &quot;&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;LIABILITY_TYPE_HOME_LOAN&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Home Loan&quot;,
-    &quot;autoAdv&quot; : null
-  }, {
     &quot;name&quot; : &quot;LIABILITY_TYPE_CREDIT_CARD&quot;,
     &quot;developerName&quot; : null,
     &quot;value&quot; : &quot;Credit Card&quot;,
@@ -122,11 +117,6 @@
     &quot;name&quot; : &quot;LIABILITY_TYPE_STUDENT_LOAN&quot;,
     &quot;developerName&quot; : null,
     &quot;value&quot; : &quot;HECS-HELP&quot;,
-    &quot;autoAdv&quot; : null
-  }, {
-    &quot;name&quot; : &quot;LIABILITY_TYPE_LINE_OF_CREDIT&quot;,
-    &quot;developerName&quot; : null,
-    &quot;value&quot; : &quot;Line of Credit&quot;,
     &quot;autoAdv&quot; : null
   }, {
     &quot;name&quot; : &quot;LIABILITY_TYPE_OVERDRAFT&quot;,
@@ -479,5 +469,5 @@
     <type>SOPAddDebts</type>
     <uniqueName>SOPAddDebts_DebtContainer_English_1</uniqueName>
     <versionNumber>1.0</versionNumber>
-    <webComponentKey>16e83cf0-4f8c-d217-ffbd-45447aeff95e</webComponentKey>
+    <webComponentKey>92bd326f-6947-bc5e-42ef-e8abe744bffa</webComponentKey>
 </OmniScript>

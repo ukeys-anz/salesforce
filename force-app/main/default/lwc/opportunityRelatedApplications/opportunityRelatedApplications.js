@@ -45,6 +45,12 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
       fieldName: "closeDate",
       type: "date",
       sortable: true
+    },
+    {
+      label: "Reference Number",
+      fieldName: "referenceNumber",
+      type: "text",
+      sortable: true
     }
   ];
 

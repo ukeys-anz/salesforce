@@ -15,19 +15,37 @@ public with sharing class ContentDocumentLinkRepository {
     Set<Id> linkedEntityId,
     Set<Id> linkId
   ) {
-    if (linkedEntityId.isEmpty() && linkId.isEmpty()) {
+    Set<String> allowedCaseRecTypes = new Set<String>{
+      RTCase.customerComplaint,
+      RTCase.nonCustomerComplaint,
+      RTCase.generalInquiryCmos,
+      RTCase.systemicIssue
+    };
+    if (linkedEntityId.isEmpty() || linkId.isEmpty()) {
       return new List<ContentDocumentLink>();
     }
     return [
       SELECT
         Id,
         ContentDocument.Title,
-        LinkedEntityId,
         ContentDocument.LatestPublishedVersion.FileType,
-        ContentDocumentId
+        ContentDocumentId,
+        LinkedEntityId,
+        TYPEOF LinkedEntity
+          WHEN Case THEN CaseNumber, Subject
+          ELSE Id
+        END
       FROM ContentDocumentLink
-      WHERE LinkedEntityId IN :linkedEntityId AND Id IN :linkId
-      WITH USER_MODE
+      WHERE
+        LinkedEntityId IN (
+          SELECT Id
+          FROM Case
+          WHERE
+            Id IN :linkedEntityId
+            AND RecordTypeId IN :allowedCaseRecTypes
+            AND Owner.IsActive = TRUE
+        )
+        AND Id IN :linkId
     ];
   }
 }

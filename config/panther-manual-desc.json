@@ -243,6 +243,8 @@
     "FinServ_ChargesAndFees_c": "Represents bank fees and charges for servicing a client's financial account",
     "FinServ__FinancialAccount__c": "A client's financial account, such as an investment account, bank account, or insurance policy.",
     "FinServ__FinancialAccountRole__c": "Represents the role occupied by a person or organizational entity that is involved with a financial account, such as a beneficiary or trustee.",
+    "Foreign_Exchange__x": "External Foreign Currency accounts",
+    "Foreign_Exchange_Deal__x": "External Foreign Exchange Deals",
     "Group": "A set of User records.",
     "IDR_Omni_Settings__c": "Contains settings to enable or disable Omni forms for CMOS complaints",
     "Interaction": "Represents the interaction details between the coach and the customer",
@@ -763,7 +765,9 @@
     },
     "BrokerSettings__c": {
       "IA-253075": [
-        "BypassApplicationSyncEvents__c",
+        "BypassApplicationEvent__c",
+        "BypassSettlementAccountEvent__c",
+        "BypassBrokerEvent__c",
         "BypassCustomerSyncEvents__c"
       ]
     },
@@ -4808,7 +4812,6 @@
         "Product_Code__c",
         "Product_Name__c",
         "Source_System_Status__c",
-        "TPMI_SAO__c",
         "Relationship__c"
       ],
       "IA-2415984": ["Statement_Mailing_Address__c"]
@@ -4864,6 +4867,7 @@
     },
     "Asset_Finance_ELS__x": {
       "IA-2415720": [
+        "Account_Name__c",
         "Account_Status__c",
         "Account_Number__c",
         "Amount_In_Arrears__c",
@@ -4913,7 +4917,7 @@
         "Relationship__c",
         "Term_Deposit__c",
         "Portfolio_Of_Loan__c",
-        "Asset_Finance_AMBIT__c",
+        "Asset_Finance_AMBIT_Contract__c",
         "Credit_Card__c"
       ],
       "IA-2530753": [
@@ -4953,20 +4957,6 @@
         "Expiry_Date__c"
       ]
     },
-    "Asset_Finance_AMBIT_Asset__x": {
-      "IA-2415720": [
-        "Make__c",
-        "Model__c",
-        "Purchase_Price__c",
-        "Serial_No__c",
-        "Year__c",
-        "ECV__c",
-        "ECV_Date__c",
-        "ECV_Valuer__c",
-        "Contract__c",
-        "Asset_Number__c"
-      ]
-    },
     "Asset_Repayment_Detail__x": {
       "IA-2415720": [
         "Amount__c",
@@ -4990,11 +4980,49 @@
       "IA-2415999": ["Account_Number__c"],
       "IA-2415720": ["Limit__c"]
     },
+    "Asset_Finance_AMBIT_Asset__x": {
+      "IA-2415720": [
+        "Make__c",
+        "Model__c",
+        "Purchase_Price__c",
+        "Serial_No__c",
+        "Year__c",
+        "ECV__c",
+        "ECV_Date__c",
+        "ECV_Valuer__c",
+        "Asset_Finance_AMBIT_Contract__c",
+        "Asset_Number__c"
+      ]
+    },
+    "Asset_Finance_AMBIT_Repayment__x": {
+      "IA-2415720": [
+        "Amount__c",
+        "Asset_Finance_AMBIT_Contract__c",
+        "Repayment_Account_Number__c",
+        "Total_Number_Of_Repayments__c",
+        "Sequence__c"
+      ]
+    },
+    "Asset_Finance_AMBIT_Credit_Line__x": {
+      "IA-2415860": [
+        "Account_Status__c",
+        "Account_Name__c",
+        "Expires__c",
+        "Opened_Date__c",
+        "Asset_Finance_AMBIT_Contract__c",
+        "CPID__c",
+        "Product_Name__c",
+        "Undrawn_Balance__c",
+        "Facility_Expiry_Type__c"
+      ],
+      "IA-2415999": ["Account_Number__c"],
+      "IA-2415720": ["Limit__c"]
+    },
     "Asset_Finance_AMBIT_Contract__x": {
       "IA-2415860": [
         "Amount_Financed__c",
         "Amount_in_Arrears__c",
-        "Asset_Finance_AMBIT__c",
+        "Customer__c",
         "Contract_Number__c",
         "Date_Opened__c",
         "Expiry_Date__c",
@@ -5175,6 +5203,29 @@
         "Name__c",
         "Seq__c"
       ]
+    },
+    "Foreign_Exchange__x": {
+      "IA-2415720": [
+        "Balance__c",
+        "Currency__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Interest_Rate__c",
+        "Source_System_Status__c"
+      ],
+      "IA-2468715": ["Account_Number__c", "Customer__c", "Mid_ANZ_Customer__c"]
+    },
+    "Foreign_Exchange_Deal__x": {
+      "IA-2415720": [
+        "Ask_Amount__c",
+        "Ask_Currency__c",
+        "Bid_Amount__c",
+        "Bid_Currency__c",
+        "Deal_Date__c",
+        "Deal_Number__c",
+        "Value_Date__c"
+      ],
+      "IA-2468715": ["Customer__c"]
     }
   },
   "lineageInformation": {

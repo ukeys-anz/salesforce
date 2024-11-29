@@ -32,7 +32,6 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
     private Decimal availableBalance;
     private string address;
     private string tpmiNumber;
-    private string tpmiSAO;
     private String sourceSystemStatus;
   }
 
@@ -138,7 +137,6 @@ public with sharing class CCRMTermDepositQuery extends CCRMFinancialAccountQuery
         ) ?? fa.sourceSystemStatus,
         'AccountStatus' => fa.status,
         'StatementMailingAddress' => fa.address,
-        'TPMISAO' => '',
         'Relationship' => getAccountRelationship(fa.accountNumber)
       };
       populateInterestRate(row, fa);

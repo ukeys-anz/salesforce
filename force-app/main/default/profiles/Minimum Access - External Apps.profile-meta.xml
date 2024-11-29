@@ -444,6 +444,16 @@
         <startAddress>162.247.216.0</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>Qualtrics - 3</description>
+        <endAddress>64.69.212.255</endAddress>
+        <startAddress>64.69.212.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>Qualtrics - 4</description>
+        <endAddress>98.97.255.255</endAddress>
+        <startAddress>98.97.248.0</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>Saas Splunk - Search Heads</description>
         <endAddress>34.87.223.167</endAddress>
         <startAddress>34.87.223.167</startAddress>

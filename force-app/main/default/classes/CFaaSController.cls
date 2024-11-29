@@ -74,13 +74,9 @@ public with sharing class CFaaSController {
         cvId
       );
 
-      List<ContentVersion> cvList = [
-        SELECT ContentDocumentId, CreatedDate, Document_Flag__c
-        FROM ContentVersion
-        WHERE Id = :downloadUrlModel.contentVersionId
-        WITH SECURITY_ENFORCED
-        LIMIT 1
-      ];
+      List<ContentVersion> cvList = CFaaSRepository.queryContentVersionWithId(
+        downloadUrlModel.contentVersionId
+      );
 
       insertDocViewedLog(cfaasFile);
 
@@ -184,13 +180,9 @@ public with sharing class CFaaSController {
     String ocvId
   ) {
     String uid = cfaasFile.Document_Id__c + '-' + CURRENT_USER_ID;
-    List<ContentVersion> cvList = [
-      SELECT Id, ContentDocumentId, CreatedDate, Document_Flag__c
-      FROM ContentVersion
-      WHERE UUID__c = :uid AND RecordTypeId = :IDRConstants.CFAAS_FILE_RT_ID
-      WITH SECURITY_ENFORCED
-      LIMIT 1
-    ];
+    List<ContentVersion> cvList = CFaaSRepository.queryContentVersionWithUid(
+      uid
+    );
 
     if (cvList.isEmpty()) {
       return null;

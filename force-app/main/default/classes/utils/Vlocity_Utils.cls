@@ -106,9 +106,13 @@ global with sharing class Vlocity_Utils implements Callable {
     UserAppInfo userAppInfo = COMPLAINTS_REPOSITORY.getUserAppInfoForUser(
       UserInfo.getUserId()
     );
-    AppDefinition appDefinition = COMPLAINTS_REPOSITORY.getAppDefinationById(
+    if (userAppInfo == null) {
+      return;
+    }
+    AppDefinition appDefinition = QueryAppDefinition.getByDurableId(
       userAppInfo.AppDefinitionId
     );
+
     output.put('currentAppName', appDefinition.Label);
   }
 

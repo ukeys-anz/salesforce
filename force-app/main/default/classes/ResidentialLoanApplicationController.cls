@@ -4,7 +4,9 @@
  * @since April 2023
  */
 
-@SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssMethodCount')
+@SuppressWarnings(
+  'PMD.CyclomaticComplexity, PMD.NcssMethodCount, PMD.ExcessiveClassLength'
+)
 global with sharing class ResidentialLoanApplicationController implements omnistudio.VlocityOpenInterface, Callable {
   private Boolean hasValidationError = false;
   private String validationError = '';
@@ -179,7 +181,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     }
 
     for (SOPDebt debt : sopAssets?.liabilitiesSummary?.liabilities) {
-      if (debt.type != ResidentialLoanApplicationModel.HOME_LOAN) {
+      if (
+        debt.type != ResidentialLoanApplicationModel.HOME_LOAN &&
+        debt.type != ResidentialLoanApplicationModel.LINE_OF_CREDIT_LIABILITY
+      ) {
         continue;
       }
       if (refinanceSet.contains(debt.name)) {

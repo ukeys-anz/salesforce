@@ -10,12 +10,12 @@ public with sharing class AFAMBITContractExternalQuery extends FinancialAccountQ
    */
   @testVisible
   private class AFAMBITContractModel extends FinancialAccountModelBase {
-    public String compositeCreditLineId;
+    public String compositeContractNumber;
     public String contractNumber;
     public String accountNumber;
     public String status;
-    public DateTime dateOpened;
-    public DateTime expiryDate;
+    public Date dateOpened;
+    public Date expiryDate;
     public String termsInMonth;
     public String termsInYear;
     public Decimal amountFinanced;
@@ -43,9 +43,8 @@ public with sharing class AFAMBITContractExternalQuery extends FinancialAccountQ
    */
   public AFAMBITContractExternalQuery() {
     this.productCategory = 'asset-finance';
-    this.sourceSystem = SourceSystemEnum.CAP;
-    this.fieldSet = 'CONTRACT';
-    this.externalField = 'compositeCreditLineId';
+    this.sourceSystem = SourceSystemEnum.EBD;
+    this.externalField = 'compositeContractNumber';
     this.assetFinanceType = 'AMBIT';
   }
   /**
@@ -82,19 +81,22 @@ public with sharing class AFAMBITContractExternalQuery extends FinancialAccountQ
     if (calloutResponse == null) {
       return result;
     }
+    //Pass pagination token
+    result.queryMoreToken = ((AFAMBITContractCalloutResponse) this.calloutResponse)
+      .nextPageId;
     for (
       AFAMBITContractModel contract : ((AFAMBITContractCalloutResponse) calloutResponse)
         .contracts
     ) {
       row = new Map<String, Object>{
-        'ExternalId' => contract.compositeCreditLineId,
-        'DisplayUrl' => getDisplayUrl(contract.compositeCreditLineId),
+        'ExternalId' => contract.compositeContractNumber,
+        'DisplayUrl' => getDisplayUrl(contract.compositeContractNumber),
         this.parentField => this.parentId,
         'ContractNumber' => contract.contractNumber,
         'AccountNumber' => contract.accountNumber,
         'Status' => contract.status,
-        'OpenedDate' => formatDate(contract.dateOpened),
-        'Expires' => formatDate(contract.expiryDate),
+        'OpenedDate' => contract.dateOpened,
+        'Expires' => contract.expiryDate,
         'LoanTermMonths' => contract.termsInMonth,
         'LoanTermYears' => contract.termsInYear,
         'GovernmentGuarantee' => contract.govtGuarantee == 'YES' ? true : false,

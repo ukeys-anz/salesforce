@@ -22,7 +22,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
    * @return String industryCode plus discription
    */
   public String retrieveIndustryCodeAndDescription(String industryCode) {
-    if (industryCode == '0000' || String.isBlank(industryCode)) {
+    if (String.isBlank(industryCode) || industryCode == '0000') {
       return '';
     }
     Industry__c industry = FA_Repository.getIndustryCodeAndDescription(
@@ -145,6 +145,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     if (String.isBlank(accountNumber)) {
       return '';
     }
+
     Map<Integer, List<Integer>> lengthFormat = new Map<Integer, List<Integer>>{
       9 => new List<Integer>{ 0, 4, 9 },
       11 => new List<Integer>{ 0, 4, 7, 11 },
@@ -298,18 +299,17 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //EBD accounts child summary view
     if (isQueryEBDChildAccounts(infoWrapper)) {
-      payload = '{"compositeAccountNumber": "' + infoWrapper.parentId + '"';
-      payload += String.isNotBlank(infoWrapper.fieldSet) &&
-        String.isNotBlank(infoWrapper.assetFinanceType)
-        ? ',"fieldSet": "' +
-          infoWrapper.fieldSet +
-          '"' +
-          ',"type":"' +
+      payload = String.isNotBlank(infoWrapper.assetFinanceType)
+        ? '{"compositeContractNumber": "' +
+          infoWrapper.parentId +
+          '" ,"type":"' +
           infoWrapper.assetFinanceType +
-          '"}'
-        : String.isNotBlank(infoWrapper.fieldSet)
-            ? ',"fieldSet": "' + infoWrapper.fieldSet + '"}'
-            : null;
+          '"'
+        : '{"compositeAccountNumber": "' + infoWrapper.parentId + '"';
+
+      payload += String.isNotBlank(infoWrapper.fieldSet)
+        ? ',"fieldSet": "' + infoWrapper.fieldSet + '"}'
+        : '"}';
     }
     return payload;
   }
@@ -352,7 +352,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //child EBD accounts summary view having EBD as parent
     if (isQueryEBDChildAccountsWithAssetFinanceType(infoWrapper)) {
-      payload = '{"compositeCreditLineId": "' + infoWrapper.parentId + '"';
+      payload = '{"compositeContractNumber": "' + infoWrapper.parentId + '"';
       payload += String.isNotBlank(infoWrapper.fieldSet) &&
         String.isNotBlank(infoWrapper.assetFinanceType)
         ? ',"fieldSet": "' +

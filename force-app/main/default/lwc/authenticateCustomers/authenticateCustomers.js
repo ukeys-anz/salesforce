@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import getUserRole from "@salesforce/apex/AuthenticateCustomerController.getUserRole";
+import anzxViewCibaAuthorisationAal4 from "@salesforce/customPermission/ANZx_View_CIBA_Authorisation_AAL4";
 import initiateAuthenticationRequest from "@salesforce/apex/AuthenticateCustomerController.initiateAuthenticationRequest";
 import authenticationPollingResponse from "@salesforce/apex/AuthenticateCustomerController.authenticationPollingResponse";
 import updateAuthenticationHistory from "@salesforce/apex/AuthenticateCustomerController.updateAuthenticationHistory";
@@ -71,7 +71,7 @@ export default class AuthenticateCustomers extends LightningElement {
   authHistoryId;
   buttonName;
   expirationMessage;
-  fraudAgentRole = true;
+  enableAal4 = anzxViewCibaAuthorisationAal4;
   kycCustomer;
   ocvId;
   receivedPollingResponse = false;
@@ -80,17 +80,6 @@ export default class AuthenticateCustomers extends LightningElement {
   _status = STATUSMAP.LOADING;
 
   @api recordId;
-
-  //This method get the role of the logged in user
-  @wire(getUserRole)
-  wiredUserRole({ data, error }) {
-    if (data) {
-      this._status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
-      this.fraudAgentRole = data === "FraudX_Agent" || data === "Join Lead";
-    } else if (error) {
-      this._status = STATUSMAP.ERROR;
-    }
-  }
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -110,6 +99,7 @@ export default class AuthenticateCustomers extends LightningElement {
     if (!data) {
       return;
     }
+    this._status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
     this.accountId = getFieldValue(data, FIELD_ACCOUNT_ID);
     if (!this.accountId) {
       return;

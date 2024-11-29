@@ -10,6 +10,9 @@ private class ResidentialLoanAppActionsTest {
   static Lib_MockProvider rlarRepoMock = Lib_MockProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
+  static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
+    CustomSettingsRepository.class
+  );
   private static final String SUNSET_STATUS = 'STATE_UNSPECIFIED';
   private static final String NON_SUNSET_STATUS = 'STATE_CAPTURE';
   private static final Id FAKER_RLA_ID = Lib_FakeIdGenerator.getMockId(
@@ -147,17 +150,13 @@ private class ResidentialLoanAppActionsTest {
     List<ResidentialLoanApplication> testLoanAppsToInsert = createResidentialLoanApplications(
       2
     );
-    Map<Id, ResidentialLoanApplication> oldLoanAppMap = new Map<Id, ResidentialLoanApplication>();
     // Set new apps attributes
     testLoanAppsToInsert[0].Status = SUNSET_STATUS;
     testLoanAppsToInsert[1].Status = NON_SUNSET_STATUS;
 
     // Test insert scenarios
     Test.startTest();
-    ResidentialLoanApplicationActions.setSunsetTimestamp(
-      testLoanAppsToInsert,
-      oldLoanAppMap
-    );
+    ResidentialLoanApplicationActions.setSunsetTimestamp(testLoanAppsToInsert);
     Test.stopTest();
 
     // Assert
@@ -192,18 +191,20 @@ private class ResidentialLoanAppActionsTest {
       oldLoanApps
     );
 
+    Datetime now = System.now();
     // Set new apps attributes
     testLoanAppsToUpdate[0].Status = NON_SUNSET_STATUS;
     testLoanAppsToUpdate[1].Status = SUNSET_STATUS;
     testLoanAppsToUpdate[2].Status = SUNSET_STATUS;
     testLoanAppsToUpdate[3].Status = NON_SUNSET_STATUS;
-    testLoanAppsToUpdate[3].SunsetTimestamp__c = System.now();
+    testLoanAppsToUpdate[3].SunsetTimestamp__c = now;
 
     // Set old apps attributes
     oldLoanApps[0].Status = NON_SUNSET_STATUS;
     oldLoanApps[1].Status = SUNSET_STATUS;
     oldLoanApps[2].Status = NON_SUNSET_STATUS;
     oldLoanApps[3].Status = SUNSET_STATUS;
+    oldLoanApps[3].SunsetTimestamp__c = now;
 
     Test.startTest();
     // Test update scenarios
@@ -214,18 +215,17 @@ private class ResidentialLoanAppActionsTest {
     Test.stopTest();
 
     // Assert
-    Assert.areEqual(
+    Assert.isNull(
       testLoanAppsToUpdate[0].SunsetTimestamp__c,
-      oldLoanApps[0].SunsetTimestamp__c,
       'Application Sunset Timestamp should not be set'
     );
     Assert.areEqual(
-      testLoanAppsToUpdate[1].SunsetTimestamp__c,
       oldLoanApps[1].SunsetTimestamp__c,
+      testLoanAppsToUpdate[1].SunsetTimestamp__c,
       'Application Sunset Timestamp should remain the same'
     );
     Assert.isTrue(
-      testLoanAppsToUpdate[2].SunsetTimestamp__c.isSameDay(Date.today()),
+      testLoanAppsToUpdate[2].SunsetTimestamp__c.isSameDay(now),
       'Application Sunset Timestamp should be set as current date time'
     );
     Assert.isNull(
@@ -331,9 +331,9 @@ private class ResidentialLoanAppActionsTest {
     }
     rlarRepoMock.mock('queryLoanApplications', loanApps);
     Test.startTest();
-    ResidentialLoanApplicationActions.mockBrokerSettings = new BrokerSettings__c(
-      BypassApplicationSyncEvents__c = false
-    );
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassApplicationEvent__c = false;
+    brokerSettingsMock.mock('brokerSettings', mockSettings);
     List<SObject> cloudEvents = ResidentialLoanApplicationActions.publishSyncEvents(
       loanApps,
       ApplicationEventActions.APPLICATION_EVENT_ADD
@@ -397,7 +397,6 @@ private class ResidentialLoanAppActionsTest {
       newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
     };
 
-    List<Case> caseRecordBeforeUpdate = createMockCaseRelatedToRla();
     Test.startTest();
     ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
       newRlaRecords,
@@ -633,7 +632,6 @@ private class ResidentialLoanAppActionsTest {
       rlaObject.get('ocvId')
     );
     Test.stopTest();
-    System.debug(response);
     Assert.areEqual(response.statusCode, 500, 'Status Code should be 500');
   }
 

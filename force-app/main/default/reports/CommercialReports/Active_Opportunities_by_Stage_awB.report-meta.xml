@@ -35,6 +35,13 @@
             <operator>equals</operator>
             <value>Opportunity.Commercial_Opportunity</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>Opportunity.My_Region_Flag__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
@@ -56,7 +63,7 @@
         <value>1</value>
     </params>
     <reportType>Opportunity</reportType>
-    <scope>user</scope>
+    <scope>organization</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>

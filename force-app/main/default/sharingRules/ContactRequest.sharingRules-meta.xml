@@ -48,4 +48,16 @@
             <role>ANZx</role>
         </sharedFrom>
     </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Contact_Request_Support_Coach_Read_Only</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to Support Coach role for contact request object</description>
+        <label>Contact Request Support Coach Read Only</label>
+        <sharedTo>
+            <role>Support_Coach</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZx</role>
+        </sharedFrom>
+    </sharingOwnerRules>
 </SharingRules>

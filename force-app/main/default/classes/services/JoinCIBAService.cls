@@ -91,8 +91,9 @@ public with sharing virtual class JoinCIBAService extends Service {
     StaffTokenRequestModel staffModel = getStaffRequestModelByOcvId(ocvId);
     Map<String, String> headers = setCalloutCommonHeaders(staffModel);
     headers.put('Content-type', 'application/json');
+    String encodedKid = EncodingUtil.urlEncode(kid, 'UTF-8');
     return calloutService.makeRestCallout(
-      System.Label.CIBA_getForgePublicKeyEndpoint + kid,
+      System.Label.CIBA_getForgePublicKeyEndpoint + encodedKid,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

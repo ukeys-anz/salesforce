@@ -70,10 +70,15 @@ public with sharing class IndemnityGuaranteeExternalQuery extends FinancialAccou
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
+    List<IndemnityGuaranteeModel> accounts = new List<IndemnityGuaranteeModel>();
+    String customerId;
+    Set<String> customerIdSet = new Set<String>();
+    Map<String, String> customerNameMap = new Map<String, String>();
+
     if (this.calloutResponse == null) {
       return result;
     }
-    List<IndemnityGuaranteeModel> accounts = ((IndemnityGuaranteeCalloutResponse) this.calloutResponse)
+    accounts = ((IndemnityGuaranteeCalloutResponse) this.calloutResponse)
       .accounts;
     //Pass pagination token
     result.queryMoreToken = ((IndemnityGuaranteeCalloutResponse) this.calloutResponse)
@@ -81,14 +86,21 @@ public with sharing class IndemnityGuaranteeExternalQuery extends FinancialAccou
 
     FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     for (IndemnityGuaranteeModel fa : accounts) {
+      customerIdSet.add(
+        getCustomerId(this.parentId, fa.compositeAccountNumber)
+      );
+    }
+    customerNameMap = getCustomerName(customerIdSet);
+    for (IndemnityGuaranteeModel fa : accounts) {
+      customerId = getCustomerId(this.parentId, fa.compositeAccountNumber);
       Map<String, Object> row = new Map<String, Object>{
-        this.parentField => this.parentId,
+        this.parentField => customerId,
         'ExternalId' => fa.compositeAccountNumber,
-        'DisplayUrl' => getDisplayUrl(fa.compositeAccountNumber),
         'AccountNumber' => externalQueryHelper.formatAccountNumber(
           fa.accountNumber
         ),
-        'AccountName' => getCustomerName(this.parentId),
+        'AccountName' => customerNameMap.get(customerId) ?? null,
+        'DisplayUrl' => getDisplayUrl(fa.compositeAccountNumber),
         'AccountStatus' => fa.status,
         'Limit' => fa.accountLimit,
         'ProductCode' => fa.productCode,
@@ -103,5 +115,18 @@ public with sharing class IndemnityGuaranteeExternalQuery extends FinancialAccou
       result.externalRecords.add(row);
     }
     return result;
+  }
+
+  /**
+   * @description get the customer Id
+   * @param parentId of the customer
+   * @param compositeAccountNumber External id of account
+   * @return String Customer Id
+   */
+  @testVisible
+  private String getCustomerId(String parentId, String compositeAccountNumber) {
+    return String.isBlank(parentId)
+      ? 'CAP-CIS_' + compositeAccountNumber.substringBefore('-')
+      : parentId;
   }
 }
