@@ -583,7 +583,10 @@ public without sharing class IDRTaskActions {
       }
       //should a parent systemic issue's rollup field be updated?
       if (
-        oldRec == null || String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
+        oldRec == null ||
+        String.isNotBlank(record.IDR_Parent_Systemic_Issue__c) &&
+        record.IDR_Parent_Systemic_Issue__c !=
+        oldRec.IDR_Parent_Systemic_Issue__c
       ) {
         childComplaints.add(record);
       }
