@@ -128,15 +128,19 @@ public without sharing class IDRTaskActionHelper {
   public static void updateCases(List<Task> newTasks) {
     Set<Id> caseIds = getCasestoUpdate(newTasks);
     if (
-      Case.SObjectType.getDescribe().isUpdateable() &&
-      Schema.SObjectType.Case.fields.IDR_Additional_Correspondence_reviewed__c.isUpdateable()
+      !Case.SObjectType.getDescribe().isQueryable() ||
+      !Schema.SObjectType.Case.fields.IDR_Additional_Correspondence_reviewed__c.isUpdateable()
     ) {
-      List<Case> casesToUpdate = TASK_REPOSITORY.getCasestobeUpdated(caseIds);
-
-      for (Case c : casesToUpdate) {
-        c.IDR_Additional_Correspondence_reviewed__c = true;
-      }
-      DML.doUpdate(casesToUpdate);
+      return;
     }
+    List<Case> casesToUpdate = TASK_REPOSITORY.getCasestobeUpdated(caseIds);
+
+    ListUtil.setField(
+      casesToUpdate,
+      Case.IDR_Additional_Correspondence_reviewed__c,
+      true
+    );
+
+    DML.doUpdate(casesToUpdate);
   }
 }
