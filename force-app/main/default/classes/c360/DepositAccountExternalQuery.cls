@@ -40,6 +40,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     private Decimal tempODInterestRate;
     private String tpmiNumber;
     private String tpmiSAO;
+    private String tpmiType;
     private String tempODInterestRepaymentFrequency;
     private String bsbCode;
     private Integer noOfSignatures;
@@ -240,7 +241,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'OverdraftReferenceIndexRate' => fa.debitInterestIndexRate,
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.tpmiSAO,
+          : fa.tpmiNumber + '-' + fa.tpmiSAO +' '+fa.tpmiType,
         'LinkedLoanOffsets' => externalQueryHelper.formatAccountNumber(
           fa.productSetOff
         ),
