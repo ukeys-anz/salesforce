@@ -63,6 +63,8 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
   // createButtonList() runs after both wire issueTypePicklistValues and subIssuePicklistValues have resolved, this creates the buttons dynamically on UI
   createButtonList() {
     let tempButtonList = [];
+    let uniqueLabels = new Set();
+
     if (
       !this.issueTypePicklistArr.length ||
       !this.subIssueTypePicklistArr.length
@@ -84,6 +86,7 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
     };
     if (this._pageName === CHOOSEPATHWAY && this.checkType(subIssue1)) {
       tempButtonList.push(button1);
+      uniqueLabels.add(button1.label);
     } else if (this._pageName === BEGINCALL) {
       tempButtonList.push(button1);
     }
@@ -105,8 +108,13 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
         order: order++
       };
 
-      if (this._pageName === CHOOSEPATHWAY && this.checkType(subIssue2)) {
+      if (
+        this._pageName === CHOOSEPATHWAY &&
+        this.checkType(subIssue2) &&
+        !uniqueLabels.has(button2.label)
+      ) {
         tempButtonList.push(button2);
+        uniqueLabels.add(button2.label);
       } else if (this._pageName === BEGINCALL) {
         tempButtonList.push(button2);
       }
@@ -128,8 +136,13 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
         order: order++
       };
 
-      if (this._pageName === CHOOSEPATHWAY && this.checkType(subIssue3)) {
+      if (
+        this._pageName === CHOOSEPATHWAY &&
+        this.checkType(subIssue3) &&
+        !uniqueLabels.has(button3.label)
+      ) {
         tempButtonList.push(button3);
+        uniqueLabels.add(button3.label);
       } else if (this._pageName === BEGINCALL) {
         tempButtonList.push(button3);
       }
