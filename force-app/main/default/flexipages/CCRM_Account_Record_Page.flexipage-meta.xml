@@ -1157,7 +1157,7 @@
                             <value>Customer_Type__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>FinServ__SourceSystemId__c</value>
+                            <value>Customer_SourceSystemId__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Relationship__c</value>

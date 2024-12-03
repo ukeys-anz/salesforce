@@ -2317,7 +2317,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2468715": ["Customer_SourceSystemId__c"]
     },
     "FinServ__ChargesAndFees__c": {
       "IA-2415840": ["Fee_Id__c", "Source__c", "Fee_Type__c"],
