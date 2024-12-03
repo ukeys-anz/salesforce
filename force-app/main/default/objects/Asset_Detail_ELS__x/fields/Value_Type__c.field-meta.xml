@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Caps</complianceGroup>
     <description>value type of asset </description>
-    <externalDeveloperName>PurchasePrice</externalDeveloperName>
+    <externalDeveloperName>ValueType</externalDeveloperName>
     <externalId>false</externalId>
     <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>

@@ -266,7 +266,6 @@
     "Log__c": "The parent log object, which stores logging information on a transaction level.",
     "LogEntry__c": "The child log record, stores logging information on a record/callout level.",
     "Logging_Settings__c": "Custom settings for more control on logging.",
-    "Merchant_Facility__x": "External Merchant Facility financial accounts",
     "Mortgage_Contract__c": "Contains details relating to the mortgage contract",
     "Opportunity": "Is a record of a sale or a pending deal",
     "OpportunityLineItem": "Representing the product of a sale or a pending deal",
@@ -4865,21 +4864,6 @@
         "TPMI_SAO__c"
       ],
       "IA-2415860": ["Facility__c"]
-    },
-    "Merchant_Facility__x": {
-      "IA-2415720": [
-        "Account_Status__c",
-        "Customer__c",
-        "Legal_Name__c",
-        "Merchant_ID__c",
-        "No_of_Terminals__c",
-        "Trading_Name__c",
-        "Turnover_Amount_Last_12_Months__c",
-        "Turnover_Amount_Last_3_Months__c",
-        "Turnover_Amount_Last_6_Months__c",
-        "Account_Number__c",
-        "CAP_Customer_ID__c"
-      ]
     },
     "Asset_Finance_ELS__x": {
       "IA-2415720": [
