@@ -362,11 +362,20 @@
         <value>Temporary block or Permanent block flag is active on customer. Please contact your admin.</value>
     </labels>
     <labels>
-        <fullName>DowngradeUpgradeEnabled</fullName>
+        <fullName>CustomerRestraintEnabled</fullName>
+        <categories>Join</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DowngradeUpgradeEnabled</shortDescription>
+        <shortDescription>CustomerRestraintEnabled</shortDescription>
         <value>False</value>
+    </labels>
+    <labels>
+        <fullName>CustomerRestraintComment</fullName>
+        <categories>Join</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CustomerRestraintComment</shortDescription>
+        <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
@@ -782,6 +791,13 @@
         <protected>false</protected>
         <shortDescription>IDR_Max_Window_For_Task_Reminders</shortDescription>
         <value>7</value>
+    </labels>
+    <labels>
+        <fullName>IDR_Toggle_Old_New_Resolution_Pathway</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Conditionally show Old OR New Resolution pathway</shortDescription>
+        <value>New</value>
     </labels>
     <labels>
         <fullName>IDR_Window_For_Task_Reminders</fullName>
@@ -2342,21 +2358,21 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Marketing_Consent_Tableau_Url</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/SalesforceMarketingConsent/Marketingconsent</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/SalesforceMarketingConsent-SITK/Marketingconsent</value>
     </labels>
     <labels>
         <fullName>ANZX_Customer_Comm_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Customer_Comm_Tableau_Url</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/CustomerCommRecords/CustomerCommRecords</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/CustomerCommRecords-sitk/CustomerCommRecords</value>
     </labels>
     <labels>
         <fullName>ANZX_Interest_Rates_FA_Tableau_Url</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX_Interest_Rates_FA_Tableau_Url</shortDescription>
-        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauonline/views/AccountInterestRates/AccountInterestRates</value>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/AccountInterestRates-SITK_17163583119710/AccountInterestRates</value>
     </labels>
     <labels>
         <fullName>ANZX_Tableau_Site_Id</fullName>
@@ -2616,7 +2632,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Get_Full_Card_Number</shortDescription>
-        <value>callout:SF_MS_CH2/detokenize/v1/detokenize/cards</value>
+        <value>callout:SF_MS_CH2/detokenization/v1/detokenize/cards</value>
     </labels>
     <labels>
         <fullName>DAONImagePreviewURL</fullName>
@@ -2626,10 +2642,47 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>/sfc/servlet.shepherd/version/renditionDownload?rendition=ORIGINAL_Jpg&amp;versionId=</value>
     </labels>
     <labels>
+        <fullName>CCRM_Tableau_View_URL</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM Tableau View URL</shortDescription>
+        <value>https://prod-apsoutheast-a.online.tableau.com/t/anztableauqa2/views/Insightsdevtest/CustomerInsights</value>
+    </labels>
+    <labels>
         <fullName>BlockManualStatusUpdateIdOpsCase</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
         <value>false</value>
+    </labels>
+    <labels>
+        <fullName>SOP_Expense_Config</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SOP_Expense_Config</shortDescription>
+        <value>1695597985652695,1701819944151648,1714356391121987</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_NoOpportunityModalHeader</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM No Opportunity Modal Header</shortDescription>
+        <value>Log a Response to Progress Lead</value>
+    </labels>
+    <labels>
+        <fullName>MLCRM_NoOpportunityModalMessage</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MLCRM No Opportunity Modal Message</shortDescription>
+        <value>This lead will be closed and set to &quot;No Opportunity&quot;.</value>
+    </labels>
+    <labels>
+        <fullName>Proceed_Confirmation_Message</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Proceed Confirmation Message</shortDescription>
+        <value>Do you wish to proceed?</value>
     </labels>
 </CustomLabels>
