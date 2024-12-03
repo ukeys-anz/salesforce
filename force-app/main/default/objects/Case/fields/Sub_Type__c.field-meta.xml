@@ -1223,6 +1223,30 @@
             <valueName>Hoax Email/SMS</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Credit policy enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Pricing enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Process enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Workshop this deal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>KYC &amp; Onboarding</valueName>
+        </valueSettings>
+         <valueSettings>
+            <controllingFieldValue>Assessment</controllingFieldValue>
+            <valueName>Documentation preparation query</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Assessment</controllingFieldValue>
             <valueName>Challenge decision</valueName>
         </valueSettings>
@@ -1233,10 +1257,6 @@
         <valueSettings>
             <controllingFieldValue>Settlement</controllingFieldValue>
             <valueName>Disbursement</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Settlement</controllingFieldValue>
-            <valueName>Funds</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Settlement</controllingFieldValue>
