@@ -334,7 +334,10 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
       }
     };
 
-    if(String.isBlank(fa.productcode) || !mapOProductCodeWithDataMappings.containsKey(fa.productcode)){
+    if (
+      String.isBlank(fa.productcode) ||
+      !mapOProductCodeWithDataMappings.containsKey(fa.productcode)
+    ) {
       return row;
     }
     Map<String, Object> mapOfFieldWithValues = mapOProductCodeWithDataMappings.get(

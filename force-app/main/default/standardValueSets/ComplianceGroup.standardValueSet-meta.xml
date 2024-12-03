@@ -122,6 +122,11 @@
         <label>Source - Settlement Domain</label>
     </standardValue>
     <standardValue>
+        <fullName>Source - Simpology</fullName>
+        <default>false</default>
+        <label>Source - Simpology</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_Tableau</fullName>
         <default>false</default>
         <label>Source - Tableau</label>

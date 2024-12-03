@@ -1253,6 +1253,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ResidentialLoanApplication.SOP_ID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ResidentialLoanApplication.Status</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -100,14 +100,6 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
       queryContext,
       this.accountNumberList
     );
-    if (this.accountRoleMap.keySet().isEmpty()) {
-      String errorMessge = String.format(
-        'Invalid financial account request: parent={0} parentId={1} externalId={2}',
-        new List<Object>{ this.parentField, this.parentId, this.externalId }
-      );
-      Logger.error(errorMessge);
-      Logger.saveLog();
-    }
     return queryMode;
   }
 

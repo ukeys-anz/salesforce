@@ -29,7 +29,17 @@ public class CaseDurationTest {
   @isTest
   public static void testCaseDurationObject() {
     // GIVEN A case exists
-    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    Case newCase = [
+      SELECT
+        Id,
+        CaseNumber,
+        CreatedDate,
+        LastModifiedDate,
+        BusinessHoursId,
+        Status
+      FROM Case
+      LIMIT 1
+    ];
 
     CaseHistory history = new CaseHistory();
     history.Field = 'Status';
@@ -38,6 +48,16 @@ public class CaseDurationTest {
 
     // WHEN the case duration is calculated
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    CaseDurationObject caseDurationMap = new CaseDurationObject(
+      new List<Case>{ newCase },
+      new Map<Id, Case>{ newCase.Id => newCase }
+    );
+
+    system.assert(
+      caseDurationMap.caseIdToDurationMap.get(newCase.Id) != null,
+      'The hours have not been calculated'
+    );
 
     // THEN the duration values should not be null
     // These values can't be asserted as they require at least 60 seconds to pass for the minutes variable to hold a value greater than 0
@@ -56,13 +76,29 @@ public class CaseDurationTest {
    */
   @isTest
   public static void testCaseDurationWithOneTime() {
-    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    Map<Id, List<CaseHistoryObject>> caseIdToHistoryMap = new Map<Id, List<CaseHistoryObject>>();
+    Case newCase = [
+      SELECT
+        Id,
+        CaseNumber,
+        CreatedDate,
+        LastModifiedDate,
+        BusinessHoursId,
+        Status
+      FROM Case
+      LIMIT 1
+    ];
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
       WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    CaseDurationObject caseDurationMap = new CaseDurationObject(
+      new List<Case>{ newCase },
+      new Map<Id, Case>{ newCase.Id => newCase }
+    );
 
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
@@ -72,10 +108,25 @@ public class CaseDurationTest {
       bhs[0].Id
     );
     historyList.add(history1);
+
+    caseIdToHistoryMap.put(newCase.Id, new List<CaseHistoryObject>{ history1 });
+    caseDurationMap.caseIdToHistory = caseIdToHistoryMap;
+    caseDurationMap.calculateCaseDurationForEachCase();
+
     caseDurationObj.history = historyList;
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    CaseDurationObject.DurationTime durationTime1 = caseDurationMap.caseIdToDurationMap.get(
+      newCase.Id
+    );
+
+    System.assertEquals(
+      24,
+      durationTime1.hours,
+      'Case duration time should be as expected.'
+    );
+
     System.assertEquals(
       24,
       durationTime.hours,
@@ -88,13 +139,29 @@ public class CaseDurationTest {
    */
   @isTest
   public static void testCaseDurationWithTwoTimes() {
-    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    Map<Id, List<CaseHistoryObject>> caseIdToHistoryMap = new Map<Id, List<CaseHistoryObject>>();
+    Case newCase = [
+      SELECT
+        Id,
+        CaseNumber,
+        CreatedDate,
+        LastModifiedDate,
+        BusinessHoursId,
+        Status
+      FROM Case
+      LIMIT 1
+    ];
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
       WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    CaseDurationObject caseDurationMap = new CaseDurationObject(
+      new List<Case>{ newCase },
+      new Map<Id, Case>{ newCase.Id => newCase }
+    );
 
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
@@ -112,12 +179,26 @@ public class CaseDurationTest {
     historyList.add(history1);
     historyList.add(history2);
     caseDurationObj.history = historyList;
-    caseDurationObj.calculateCaseDuration();
 
+    caseIdToHistoryMap.put(newCase.Id, new List<CaseHistoryObject>{ history1 });
+    caseIdToHistoryMap.get(newCase.Id).add(history2);
+    caseDurationMap.caseIdToHistory = caseIdToHistoryMap;
+    caseDurationMap.calculateCaseDurationForEachCase();
+
+    caseDurationObj.calculateCaseDuration();
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    CaseDurationObject.DurationTime durationTime1 = caseDurationMap.caseIdToDurationMap.get(
+      newCase.Id
+    );
+
     System.assertEquals(
       48,
       durationTime.hours,
+      'Case duration time should be as expected.'
+    );
+    System.assertEquals(
+      48,
+      durationTime1.hours,
       'Case duration time should be as expected.'
     );
   }
@@ -127,13 +208,29 @@ public class CaseDurationTest {
    */
   @isTest
   public static void testCaseDurationWithDetailedMinutes() {
-    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    Map<Id, List<CaseHistoryObject>> caseIdToHistoryMap = new Map<Id, List<CaseHistoryObject>>();
+    Case newCase = [
+      SELECT
+        Id,
+        CaseNumber,
+        CreatedDate,
+        LastModifiedDate,
+        BusinessHoursId,
+        Status
+      FROM Case
+      LIMIT 1
+    ];
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
       WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+
+    CaseDurationObject caseDurationMap = new CaseDurationObject(
+      new List<Case>{ newCase },
+      new Map<Id, Case>{ newCase.Id => newCase }
+    );
 
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
@@ -164,10 +261,27 @@ public class CaseDurationTest {
     historyList.add(history2);
     historyList.add(history3);
     historyList.add(history4);
+
+    caseIdToHistoryMap.put(newCase.Id, new List<CaseHistoryObject>{ history1 });
+    caseIdToHistoryMap.get(newCase.Id).add(history2);
+    caseIdToHistoryMap.get(newCase.Id).add(history3);
+    caseIdToHistoryMap.get(newCase.Id).add(history4);
+    caseDurationMap.caseIdToHistory = caseIdToHistoryMap;
+    caseDurationMap.calculateCaseDurationForEachCase();
+
     caseDurationObj.history = historyList;
     caseDurationObj.calculateCaseDuration();
 
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+    CaseDurationObject.DurationTime durationTime1 = caseDurationMap.caseIdToDurationMap.get(
+      newCase.Id
+    );
+    System.assertEquals(
+      1,
+      durationTime1.minutes,
+      'Case duration time should be as expected.'
+    );
+
     System.assertEquals(
       1,
       durationTime.minutes,
@@ -180,13 +294,28 @@ public class CaseDurationTest {
    */
   @isTest
   public static void testCaseDurationWithClosedTime() {
-    Case newCase = [SELECT ID FROM Case LIMIT 1];
+    Map<Id, List<CaseHistoryObject>> caseIdToHistoryMap = new Map<Id, List<CaseHistoryObject>>();
+    Case newCase = [
+      SELECT
+        Id,
+        CaseNumber,
+        CreatedDate,
+        LastModifiedDate,
+        BusinessHoursId,
+        Status
+      FROM Case
+      LIMIT 1
+    ];
     List<BusinessHours> bhs = [
       SELECT id
       FROM BusinessHours
       WHERE Name = 'ANZx Case Business Hours'
     ];
     CaseDurationObject caseDurationObj = new CaseDurationObject(newCase.Id);
+    CaseDurationObject caseDurationMap = new CaseDurationObject(
+      new List<Case>{ newCase },
+      new Map<Id, Case>{ newCase.Id => newCase }
+    );
 
     List<CaseHistoryObject> historyList = new List<CaseHistoryObject>();
     CaseHistoryObject history1 = new CaseHistoryObject(
@@ -206,7 +335,22 @@ public class CaseDurationTest {
     caseDurationObj.history = historyList;
     caseDurationObj.calculateCaseDuration();
 
+    caseIdToHistoryMap.put(newCase.Id, new List<CaseHistoryObject>{ history1 });
+    caseIdToHistoryMap.get(newCase.Id).add(history2);
+    caseDurationMap.caseIdToHistory = caseIdToHistoryMap;
+    caseDurationMap.calculateCaseDurationForEachCase();
+
     CaseDurationObject.DurationTime durationTime = caseDurationObj.caseDuration;
+
+    CaseDurationObject.DurationTime durationTime1 = caseDurationMap.caseIdToDurationMap.get(
+      newCase.Id
+    );
+    System.assertEquals(
+      24,
+      durationTime1.hours,
+      'Case duration time should be as expected.'
+    );
+
     System.assertEquals(
       24,
       durationTime.hours,
