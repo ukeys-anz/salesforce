@@ -8,12 +8,10 @@
     <formula>Territory__r.TPMI__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>TPMI</label>
-    <precision>18</precision>
     <required>false</required>
-    <scale>0</scale>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
+    <type>Text</type>
     <unique>false</unique>
 </CustomField>

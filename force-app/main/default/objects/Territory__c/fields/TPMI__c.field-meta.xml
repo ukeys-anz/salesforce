@@ -2,16 +2,17 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>TPMI__c</fullName>
     <businessStatus>Active</businessStatus>
+    <caseSensitive>false</caseSensitive>
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Third Party Mortgage Introducer reference number</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>TPMI</label>
-    <precision>18</precision>
+    <length>7</length>
     <required>false</required>
-    <scale>0</scale>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>Number</type>
+    <type>Text</type>
     <unique>true</unique>
 </CustomField>

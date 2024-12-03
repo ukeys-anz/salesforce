@@ -44,7 +44,6 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
     private Decimal interestRate;
     private String tpmiNumber;
     private String subApprovedOrignation;
-    private String tpmiType;
 
     private String repaymentFrequency;
     private String interestRepayments;
@@ -247,7 +246,7 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
         'Expires' => formatDate(fa.loanMaturityDate),
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.subApprovedOrignation+' '+fa.tpmiType,
+          : fa.tpmiNumber + '-' + fa.subApprovedOrignation,
         'ANZPlusIdentifier' => fa.anzPlusIdentifier,
         'BranchName' => fa.branchName,
         'AmountInAdvance' => fa.amountInAdvance,

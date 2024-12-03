@@ -40,7 +40,6 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     private Decimal tempODInterestRate;
     private String tpmiNumber;
     private String tpmiSAO;
-    private String tpmiType;
     private String tempODInterestRepaymentFrequency;
     private String bsbCode;
     private Integer noOfSignatures;
@@ -241,7 +240,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'OverdraftReferenceIndexRate' => fa.debitInterestIndexRate,
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.tpmiSAO +' '+fa.tpmiType,
+          : fa.tpmiNumber + '-' + fa.tpmiSAO,
         'LinkedLoanOffsets' => externalQueryHelper.formatAccountNumber(
           fa.productSetOff
         ),
@@ -335,7 +334,10 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
       }
     };
 
-    if(String.isBlank(fa.productcode) || !mapOProductCodeWithDataMappings.containsKey(fa.productcode)){
+    if (
+      String.isBlank(fa.productcode) ||
+      !mapOProductCodeWithDataMappings.containsKey(fa.productcode)
+    ) {
       return row;
     }
     Map<String, Object> mapOfFieldWithValues = mapOProductCodeWithDataMappings.get(
