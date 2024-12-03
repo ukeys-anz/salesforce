@@ -2304,7 +2304,8 @@
         "FinServ__EndDate__c",
         "FinServ__StartDate__c",
         "System_Individual_Relationship__c",
-        "CPID__c"
+        "CPID__c",
+        "Customer_Type__c"
       ],
       "IA-2594111": ["FinServ__Account__c", "FinServ__RelatedAccount__c"],
       "IA-2415860": [
