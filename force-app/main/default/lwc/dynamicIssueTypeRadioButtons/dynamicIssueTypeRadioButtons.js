@@ -166,11 +166,16 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
   filterFinalIssueTypes(tempButtonList) {
     let toRemove = new Set();
     tempButtonList.forEach((button) => {
-      if (
-        button.label === "Branch queues / wait time" ||
-        button.label === "Statement Issue"
-      )
+      if (button.label==='Branch queues / wait time') {
         toRemove.add(SIMILAR_PATHWAYS[button.label]);
+        button.label = 'Branch Availability';
+        button.sublabel = '';
+      }
+      else if (button.label==='Statement Issue') {
+        toRemove.add(SIMILAR_PATHWAYS[button.label]);
+        button.label = 'Statements';
+        button.sublabel = '';
+      }
     });
     return tempButtonList.filter((button) => !toRemove.has(button.label));
   }

@@ -8,6 +8,18 @@
 ((ISPICKVAL(IDR_Subsequent_Issue__c, &apos;3&apos;) || 
 ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;3&apos;) || 
 ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;3&apos;)) ||
+(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;2&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;2&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;2&apos;)) ||
+(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;4&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_2__c, &apos;4&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;4&apos;)) ||
+(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;63&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_2__c,&apos;63&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;63&apos;))||
+(ISPICKVAL(IDR_Subsequent_Issue__c, &apos;68&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_2__c,&apos;68&apos;) || 
+ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;68&apos;))||
 (ISPICKVAL(IDR_Subsequent_Issue__c, &apos;57&apos;) || 
 ISPICKVAL(IDR_Subsequent_Issue_2__c,&apos;57&apos;) || 
 ISPICKVAL(IDR_Subsequent_Issue_3__c, &apos;57&apos;))),True,
