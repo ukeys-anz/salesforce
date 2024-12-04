@@ -10,6 +10,11 @@ const SIMILAR_PATHWAYS = {
   "Branch queues / wait time": "Trading hours/location/closures",
   "Statement Issue": "Statement features/accessibility"
 };
+const BRANCHQUEUE = "Branch queues / wait time";
+const STATEMENTISSUE = "Statement Issue";
+const BRANCHAVAILABILITY = "Branch Availability";
+const STATEMENTS = "Statements";
+const CONSIDERADDITIONALISSUES = "Consider additional issues";
 export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -150,7 +155,7 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
 
     if (this._pageName === CHOOSEPATHWAY) {
       let button4 = {
-        label: "Consider additional issues",
+        label: CONSIDERADDITIONALISSUES,
         sublabel: "",
         order: order
       };
@@ -166,15 +171,14 @@ export default class DynamicIssueTypeRadioButtons extends OmniscriptBaseMixin(
   filterFinalIssueTypes(tempButtonList) {
     let toRemove = new Set();
     tempButtonList.forEach((button) => {
-      if (button.label==='Branch queues / wait time') {
+      if (button.label === BRANCHQUEUE) {
         toRemove.add(SIMILAR_PATHWAYS[button.label]);
-        button.label = 'Branch Availability';
-        button.sublabel = '';
-      }
-      else if (button.label==='Statement Issue') {
+        button.label = BRANCHAVAILABILITY;
+        button.sublabel = "";
+      } else if (button.label === STATEMENTISSUE) {
         toRemove.add(SIMILAR_PATHWAYS[button.label]);
-        button.label = 'Statements';
-        button.sublabel = '';
+        button.label = STATEMENTS;
+        button.sublabel = "";
       }
     });
     return tempButtonList.filter((button) => !toRemove.has(button.label));
