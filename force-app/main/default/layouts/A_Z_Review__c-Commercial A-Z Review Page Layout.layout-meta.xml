@@ -122,6 +122,19 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
+        <fields>NAME</fields>
+        <fields>LAST_UPDATE</fields>
+        <fields>qualtrics__Overal_Satisfaction__c</fields>
+        <fields>qualtrics__Overall_Satisfaction__c</fields>
+        <fields>qualtrics__Team_Knowledgeable__c</fields>
+        <fields>qualtrics__Team_Pleasant_to_work_with__c</fields>
+        <fields>qualtrics__Team_Professional__c</fields>
+        <fields>qualtrics__Team_Understood_your_Needs__c</fields>
+        <relatedList>qualtrics__Survey_Response__c.A_Z_Review__c</relatedList>
+        <sortField>LAST_UPDATE</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
@@ -130,7 +143,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9p000002w6Ld</masterLabel>
+        <masterLabel>00h9h0000062bhb</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>
