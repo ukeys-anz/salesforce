@@ -32,6 +32,7 @@ const readFileLines = (file) => {
 };
 
 const retrieveComponent = (filepath, username) => {
+  console.log(`retrieve ${filepath} ...`);
   runCommand(
     `sf project retrieve start -o ${username} --manifest "${filepath}" --ignore-conflicts`
   );
@@ -97,6 +98,7 @@ const changeMetadata = (line, newMetadata) => {
 };
 
 const updateMetadataOnComponent = (filePath, newMetadata) => {
+  console.log(`update ${filePath} metadata ...`);
   const lines = readFileLines(filePath);
   let flag = false;
   writeFileSync(filePath, "");
@@ -112,6 +114,7 @@ const updateMetadataOnComponent = (filePath, newMetadata) => {
 };
 
 const deployFile = (path, username) => {
+  console.log(`deploying ${path} ...`);
   runCommand(`
     sf project deploy start -o ${username} --source-dir "${path}" --ignore-conflicts
   `);

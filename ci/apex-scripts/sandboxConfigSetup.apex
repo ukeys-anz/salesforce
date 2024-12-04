@@ -36,6 +36,7 @@ List<Aegis_Env_Setting__c> aegisSetting = [
 // If there is one, update the Aegis_URL__c
 if (aegisSetting.size() > 0) {
   aegisSetting[0].Aegis_URL__c = nonProdAegisURL;
+  aegisSetting[0].Env_Name__c = 'SIT';
   update aegisSetting[0];
   // Otherwise create a new one.
 } else {
