@@ -39,9 +39,6 @@ public with sharing class ResidentialLoanApplicationActions {
     }
     return BrokerSettings__c.getOrgDefaults();
   }
-  private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
-    ResidentialLoanApplicationRepository.class
-  );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
