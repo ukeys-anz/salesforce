@@ -127,6 +127,6 @@
     <externalDataSource>Core_Banking_Data_Source</externalDataSource>
     <externalName>AFAMBITCreditLine</externalName>
     <label>Asset Finance AMBIT Credit Line</label>
-    <pluralLabel>Asset Finance AMBIT Credit Lines</pluralLabel>
+    <pluralLabel>Asset Finance AMBIT Credit Line</pluralLabel>
     <searchLayouts/>
 </CustomObject>
