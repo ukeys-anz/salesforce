@@ -268,32 +268,4 @@ public class SObjectFilterBuilder {
     base.records = output;
     return this;
   }
-
-  /**
-   * @description Filter records with old field value not equals to a given value or list/set of values
-   * @param field The field to filter on.
-   * @param valueOrCollection The set of values to filter for. Can be any `primitive` type, `List`, or `Set`.
-   * @return The updated SObjectFilterBuilder instance.
-   */
-  public SObjectFilterBuilder oldNotEquals(
-    SObjectField field,
-    Object valueOrCollection
-  ) {
-    if (this.oldMap.isEmpty()) {
-      return this;
-    }
-    List<Object> output = base.handler.emptyList;
-    Set<Object> oldValues = ListUtil.toSet(valueOrCollection);
-    for (SObject record : this.toList()) {
-      SObject oldRecord = this.oldMap.get(record.Id);
-      if (
-        oldRecord == null ||
-        oldValues.contains(oldRecord.get(field)) == false
-      ) {
-        output.add(record);
-      }
-    }
-    base.records = output;
-    return this;
-  }
 }
