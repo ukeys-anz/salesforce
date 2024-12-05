@@ -103,7 +103,8 @@ const deployRequiredFiles = (orgAlias) => {
   deployFiles(
     [
       "ci/sandbox-service/Config/TEST_ONLY_Refresh_Token.permissionset-meta.xml",
-      "force-app/main/default/labels/CustomLabels.labels-meta.xml"
+      "force-app/main/default/labels/CustomLabels.labels-meta.xml",
+      "force-app/main/default/AssessmentQuestions"
     ],
     orgAlias
   );
