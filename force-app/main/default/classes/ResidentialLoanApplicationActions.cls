@@ -229,7 +229,7 @@ public with sharing class ResidentialLoanApplicationActions {
   ) {
     //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
     if (
-      BROKER_SETTINGS_REPOSITORY.brokerSettings().BypassApplicationEvent__c ==
+      brokerSettings().BypassApplicationEvent__c ==
       true
     ) {
       return null;
