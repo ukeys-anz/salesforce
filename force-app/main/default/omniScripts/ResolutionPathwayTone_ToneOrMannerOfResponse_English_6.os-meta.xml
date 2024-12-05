@@ -740,7 +740,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;&lt;strong&gt;Provide information to the customer:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&amp;lt;if applicable, provide any additional information or support requested by the customer. Eg. Consider referring to the &lt;a href=\&quot;https://www.anz.com.au/support/\&quot; title=\&quot;ANZ Support Center page on anz.com\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;ANZ Support Center page on anz.com&lt;/a&gt;&amp;gt;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Check for additional issues:&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;\&quot;Were there any other issues you wanted to raise?\&quot;&lt;br /&gt;&lt;br /&gt;&lt;em&gt;Note: if the customer raises serious allegations about the staff interaction- discuss with your People Leader and consider if it should be transferred to a Specialist Complaints team.&lt;/em&gt;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues&lt;/strong&gt;&amp;nbsp;&lt;br /&gt;&lt;br /&gt;&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;&lt;strong&gt;Provide information to the customer:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&amp;lt;if applicable, provide any additional information or support requested by the customer. Eg. Consider referring to the &lt;a href=\&quot;https://www.anz.com.au/support/\&quot; title=\&quot;ANZ Support Center page on anz.com\&quot; target=\&quot;_blank\&quot; rel=\&quot;noopener\&quot;&gt;ANZ Support Center page on anz.com&lt;/a&gt;&amp;gt;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;Check for additional issues:&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;\&quot;Were there any other issues you wanted to raise?\&quot;&lt;br /&gt;&lt;br /&gt;&lt;em&gt;*note: if the customer raises serious allegations about the staff interaction- discuss with your People Leader and consider if it should be transferred to a Specialist Complaints team.&lt;/em&gt;&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;By clicking Next, you will be directed back to the Choose Pathway page to Consider Additional Issues&lt;/strong&gt;&amp;nbsp;&lt;br /&gt;&lt;br /&gt;&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12,
   &quot;lwcComponentOverride&quot; : &quot;&quot;
@@ -881,5 +881,5 @@
     <type>ResolutionPathwayTone</type>
     <uniqueName>ResolutionPathwayTone_ToneOrMannerOfResponse_English_6</uniqueName>
     <versionNumber>6.0</versionNumber>
-    <webComponentKey>7761e394-eeca-0e3f-e474-1c859bfc0e22</webComponentKey>
+    <webComponentKey>9bf945c0-5b6f-eeac-9e9a-4f96684a1890</webComponentKey>
 </OmniScript>

@@ -825,7 +825,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-            <sequenceNumber>2.0</sequenceNumber>
+            <sequenceNumber>1.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>
@@ -875,7 +875,7 @@
     &quot;source&quot; : &quot;%ProvideinformationBranchQueue:TalkTrackProvideInfo:selectedButtonName%&quot;
   } ]
 }</propertySetConfig>
-            <sequenceNumber>1.0</sequenceNumber>
+            <sequenceNumber>2.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
@@ -964,5 +964,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_BranchQueueorWaitTime_English_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>bc33023a-ed32-1404-ddaa-13b4fadcc15d</webComponentKey>
+    <webComponentKey>a1c7e442-a0e7-1ffa-e95c-36e4b0f909c3</webComponentKey>
 </OmniScript>

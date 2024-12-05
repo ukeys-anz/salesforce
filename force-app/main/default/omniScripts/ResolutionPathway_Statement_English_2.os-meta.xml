@@ -288,7 +288,7 @@
   &quot;previousWidth&quot; : &quot;0&quot;,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;validationRequired&quot; : true,
-  &quot;label&quot; : &quot;Resolution Pathways - Statement&quot;
+  &quot;label&quot; : &quot;Resolution Pathways - Statements&quot;
 }</propertySetConfig>
         <sequenceNumber>2.0</sequenceNumber>
         <type>Step</type>
@@ -531,7 +531,7 @@
         <name>ConfirmStatement</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;Resolution Pathways - Statement&quot;,
+  &quot;label&quot; : &quot;Resolution Pathways - Statements&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;previousWidth&quot; : &quot;0&quot;,
@@ -940,7 +940,7 @@
         <name>ProvideInformationStatement</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;label&quot; : &quot;Resolution Pathways - Statement&quot;,
+  &quot;label&quot; : &quot;Resolution Pathways - Statements&quot;,
   &quot;validationRequired&quot; : true,
   &quot;previousLabel&quot; : &quot;Previous&quot;,
   &quot;previousWidth&quot; : &quot;0&quot;,
@@ -992,5 +992,5 @@
     <type>ResolutionPathway</type>
     <uniqueName>ResolutionPathway_Statement_English_2</uniqueName>
     <versionNumber>2.0</versionNumber>
-    <webComponentKey>40e3631e-bf7d-6e98-516a-6533e359dde9</webComponentKey>
+    <webComponentKey>b5105d96-1bc6-3972-ca9e-7b6b66cfeddb</webComponentKey>
 </OmniScript>
