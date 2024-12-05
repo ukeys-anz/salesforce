@@ -184,6 +184,24 @@
         <name>DRFetchCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
+        <formulaConverted>| | var:Case:IDR_AFCA_EDR_impact__c ISBLANK var:Case:IDR_AFCA_Status__c &quot;11&quot; == &amp;&amp; &quot;Yes&quot; &quot;No&quot; IF</formulaConverted>
+        <formulaExpression>IF(((ISBLANK(Case:IDR_AFCA_EDR_impact__c)&amp;&amp;(Case:IDR_AFCA_Status__c == &quot;11&quot;))
+),&quot;Yes&quot;,&quot;No&quot;)</formulaExpression>
+        <formulaResultPath>showAFCAError</formulaResultPath>
+        <formulaSequence>11.0</formulaSequence>
+        <globalKey>DRFetchCaseDetailsCustom6438</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>0.0</outputCreationSequence>
+        <outputFieldName>Formula</outputFieldName>
+        <outputObjectName>Formula</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
         <formulaConverted>| var:prodError var:prod2Error var:prod3Error CONCAT</formulaConverted>
         <formulaExpression>CONCAT(prodError,prod2Error,prod3Error)</formulaExpression>
         <formulaResultPath>prodErrorMsg</formulaResultPath>
@@ -1270,6 +1288,20 @@
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldFormat>String</outputFieldFormat>
         <outputFieldName>Case:RewardPoints2Offered</outputFieldName>
+        <outputObjectName>json</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <name>DRFetchCaseDetails</name>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>DRFetchCaseDetailsCustom2295</globalKey>
+        <inputFieldName>showAFCAError</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>showAFCAError</outputFieldName>
         <outputObjectName>json</outputObjectName>
         <requiredForUpsert>false</requiredForUpsert>
         <upsertKey>false</upsertKey>

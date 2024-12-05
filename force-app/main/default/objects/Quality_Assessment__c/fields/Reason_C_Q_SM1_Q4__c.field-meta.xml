@@ -32,10 +32,19 @@
                 <default>false</default>
                 <label>We did not reach a decision on the material questions of fact raised in the complaint because a Confirming Resolution letter (CR003) was appropriately used.</label>
             </value>
+            <value>
+                <fullName>When responding to a customer’s request for assistance, we correctly weighted their circumstances, hardship reasons, vulnerabilities, financial position, proposed path to return to a serviceable position to ensure a sustainable long or short term solution</fullName>
+                <default>false</default>
+                <label>When responding to a customer’s request for assistance, we correctly weighted their circumstances, hardship reasons, vulnerabilities, financial position, proposed path to return to a serviceable position to ensure a sustainable long or short term solution</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
             <valueName>We did not give correct weight (or gave no weight) to relevant information or documents in making our decision.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>When responding to a customer’s request for assistance, we correctly weighted their circumstances, hardship reasons, vulnerabilities, financial position, proposed path to return to a serviceable position to ensure a sustainable long or short term solution</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>
