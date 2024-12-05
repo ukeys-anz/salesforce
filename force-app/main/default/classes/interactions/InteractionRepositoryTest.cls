@@ -85,9 +85,7 @@ public with sharing class InteractionRepositoryTest {
     Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
     Interaction testInteraction = new Interaction(
       Chat_or_Call_SID__c = 'CH1234567',
-      Id = Lib_FakeIdGenerator.getMockId(
-        Interaction.getSObjectType()
-      )
+      Id = Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType())
     );
     existingInteractionsBySID.put(
       testInteraction.Chat_or_Call_SID__c,
@@ -105,6 +103,16 @@ public with sharing class InteractionRepositoryTest {
       TwilioDetailsID__c = Lib_FakeIdGenerator.getMockId(
         Twilio_Details__c.getSObjectType()
       )     
+    );
+  }
+
+  private static Interaction mockInteraction() {
+    return new Interaction(
+      Chat_or_Call_SID__c = 'CH1234567',
+      Id = Lib_FakeIdGenerator.getMockId(Interaction.getSObjectType()),
+      TwilioDetailsID__c = Lib_FakeIdGenerator.getMockId(
+        Twilio_Details__c.getSObjectType()
+      )
     );
   }
 

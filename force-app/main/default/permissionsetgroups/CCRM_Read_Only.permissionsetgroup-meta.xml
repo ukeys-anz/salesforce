@@ -3,8 +3,10 @@
     <description>Permission Set Group having Permission Sets that provide read only access.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Read Only</label>
+    <permissionSets>Access_Application_Form_Related_Functionality</permissionSets>
     <permissionSets>CCRM_User_Read_Only</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>Financial_Summary_Calculation_Publish</permissionSets>
     <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
     <permissionSets>force__ActionPlans</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>

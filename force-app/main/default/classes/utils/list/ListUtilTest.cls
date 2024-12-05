@@ -198,6 +198,46 @@ private class ListUtilTest {
       'Should return 1 group with 2 records'
     );
   }
+
+  @IsTest
+  static void testSetField() {
+    List<Case> cases = new List<Case>{ new Case(), new Case() };
+
+    Test.startTest();
+    ListUtil.setField(cases, Case.Subject, 'New Subject');
+    Test.stopTest();
+
+    for (Case updatedCase : cases) {
+      Assert.areEqual(
+        'New Subject',
+        updatedCase.Subject,
+        'Should set the field value'
+      );
+    }
+  }
+
+  @IsTest
+  static void testSetFieldIfNull() {
+    List<Case> cases = new List<Case>{
+      new Case(Subject = 'Old Subject'),
+      new Case()
+    };
+
+    Test.startTest();
+    ListUtil.setFieldIfNull(cases, Case.Subject, 'New Subject');
+    Test.stopTest();
+
+    Assert.areEqual(
+      'Old Subject',
+      cases[0].Subject,
+      'Should not override field value'
+    );
+    Assert.areEqual(
+      'New Subject',
+      cases[1].Subject,
+      'Should set the field value'
+    );
+  }
   //#endregion
 
   //#region Generic Utilities Tests

@@ -58,9 +58,8 @@ const findAllFiles = (dir, files = []) => {
 const changeMetadata = (line, newMetadata) => {
   if (!line) return;
   const changeMetadataMapping = {};
-  changeMetadataMapping[
-    line.includes("<certificate>")
-  ] = `<certificate>${newMetadata}</certificate>`;
+  changeMetadataMapping[line.includes("<certificate>")] =
+    `<certificate>${newMetadata}</certificate>`;
   changeMetadataMapping[
     line.includes("username") && !line.includes("consumerId")
   ] = `<username>consumerId</username>`;

@@ -187,7 +187,6 @@
         <name>EmailPreferenceDisclaimerSectionDisabled</name>
         <childElements>
             <name>errorToastOnCalloutFailure1</name>
-            <name>errorToastOnCalloutFailure1</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
@@ -458,7 +457,6 @@
     <omniProcessElements>
         <name>EmailPreferenceDisclaimerSectionEnabled</name>
         <childElements>
-            <name>errorToastOnCalloutFailure</name>
             <name>errorToastOnCalloutFailure</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -763,41 +761,6 @@
     </omniProcessElements>
     <omniProcessElements>
         <name>modifyJointAccountNotification</name>
-        <name>InsufficientAccess</name>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
-  &quot;label&quot; : &quot;InsufficientAccess&quot;,
-  &quot;validationRequired&quot; : &quot;Step&quot;,
-  &quot;elementErrorMap&quot; : {
-    &quot;InsufficientAccess1&quot; : true,
-    &quot;InsufficientAccess2&quot; : true
-  },
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;show&quot; : {
-    &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
-      &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;isValid&quot;
-      } ]
-    }
-  },
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;wpm&quot; : false,
-  &quot;ssm&quot; : false,
-  &quot;message&quot; : { },
-  &quot;pubsub&quot; : false
-}</propertySetConfig>
-        <sequenceNumber>9.0</sequenceNumber>
-        <type>Set Errors</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <name>modifyJointAccountNotification</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
@@ -973,32 +936,6 @@
         <type>Integration Procedure Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResetInitialValues</name>
-        <isActive>true</isActive>
-        <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-        <level>0.0</level>
-        <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-        <propertySetConfig>{
-  &quot;pubsub&quot; : false,
-  &quot;message&quot; : { },
-  &quot;ssm&quot; : false,
-  &quot;wpm&quot; : false,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;show&quot; : null,
-  &quot;showPersistentComponent&quot; : [ true, false ],
-  &quot;elementValueMap&quot; : {
-    &quot;isValid&quot; : true,
-    &quot;showSuccessToast&quot; : true,
-    &quot;showSuccessToastMessage&quot; : &quot;=IF(%emailNotificationStatus% ==&apos;Enabled&apos;,&apos;jointAccountNotificationDisabled&apos;,&apos;jointAccountNotificationEnabled&apos;)&quot;
-  },
-  &quot;label&quot; : &quot;ResetInitialValues&quot;,
-  &quot;controlWidth&quot; : 12
-}</propertySetConfig>
-        <sequenceNumber>4.0</sequenceNumber>
-        <type>Set Values</type>
-    </omniProcessElements>
-    <omniProcessElements>
-        <name>SetErrors1</name>
         <name>ResetInitialValues</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>

@@ -75,6 +75,14 @@
             <fullName>ANZ - Institution</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Other Circle of Influence %28COI%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other Professionals</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Broker_Involved__c</picklist>

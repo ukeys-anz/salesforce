@@ -3,6 +3,7 @@
  * @since  07/2023
  * @group Platform
  * @description External object external query base class
+ * @runTests DepositAccountExternalQueryTest
  */
 public abstract with sharing class ExternalObjectQueryBase {
   /**
@@ -277,6 +278,15 @@ public abstract with sharing class ExternalObjectQueryBase {
   }
 
   /**
+   * @description get external record DisplayUrl
+   * @param  appendUrl Financial account record
+   * @return String DisplayUrl
+   */
+  protected String getDisplayUrl(String appendUrl) {
+    return URL.getOrgDomainUrl().toExternalForm() + '/' + appendUrl;
+  }
+
+  /**
    * @description construct pagination key using user Id-table name-parent Id
    * @param tableName Name of object
    * @param parentId Parent identifier value
@@ -322,5 +332,15 @@ public abstract with sharing class ExternalObjectQueryBase {
     return tableSelection.filter != null &&
       tableSelection.filter.subfilters != null &&
       tableSelection.filter.subfilters[0].columnName != null;
+  }
+
+  /**
+   * @description get unique sequence
+   * @param  index index
+   * @return String sequence
+   */
+  @testVisible
+  protected String getSequence(Integer index) {
+    return index.toString().leftPad(4, '0');
   }
 }

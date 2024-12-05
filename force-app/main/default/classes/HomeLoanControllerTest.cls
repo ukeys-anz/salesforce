@@ -209,6 +209,40 @@ public inherited sharing class HomeLoanControllerTest {
     Assert.isNull(response, 'No linked offset details available');
   }
 
+  @isTest
+  static void getListOffsetNotFoundException() {
+    Id recordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    String ocvId = '11111231';
+    String loanAccNumber = '1234';
+
+    // Setting response for NotFound error
+    HttpCalloutResponse res = getNotFoundException();
+    Service finAccountService = ServiceProvider.getService(
+      FinancialAccountService.class
+    );
+    finAccountService.setCalloutResponse(res);
+    Test.startTest();
+    OffsetAccountModel offsetDetails = HomeLoanController.getListOffset(
+      ocvId,
+      loanAccNumber,
+      recordId
+    );
+    Test.stopTest();
+
+    Assert.isNull(offsetDetails, 'Should handle No Offset Found Exception');
+  }
+
+  private static HttpCalloutResponse getNotFoundException() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.statusCode = 404;
+    response.successful = false;
+    response.body = null;
+    response.error = new CalloutException(
+      '{"code": "ERROR","additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}'
+    );
+    return response;
+  }
+
   private static HttpCalloutResponse getResponseWithEmptyList() {
     String emptyBody = '{"loanOffsets": []}';
     HttpCalloutResponse response = new HttpCalloutResponse();

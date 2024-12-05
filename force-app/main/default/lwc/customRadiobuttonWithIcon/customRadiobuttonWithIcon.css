@@ -1,0 +1,20 @@
+.slds-grid {
+  display: flex;
+}
+
+.buttonblock label {
+  display: flex;
+  cursor: pointer !important;
+  align-items: center;
+  border-radius: 5px;
+  min-height: 60px;
+}
+
+.buttonblock label:hover {
+  background-color: lightgray !important;
+}
+
+.buttonblock input[type="radio"]:checked ~ label {
+  border: 2px solid #0176d3 !important;
+  background-color: whitesmoke;
+}

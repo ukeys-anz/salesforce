@@ -1,11 +1,26 @@
-name: Upload Object Changes
+name: BQ Upload Object Changes
 
 on:
   workflow_dispatch:
+    inputs:
+      prod_deployment:
+        description: "Whether this is a prod deployment"
+        required: false
+        type: boolean
+        default: false
+  workflow_call:
+    inputs:
+      prod_deployment:
+        description: "Whether this is a prod deployment"
+        required: false
+        type: boolean
   push:
     branches:
       - develop
       - master
+  pull_request:
+    branches:
+      - develop
 
 permissions:
   contents: "read"
@@ -14,19 +29,24 @@ permissions:
 env:
   SIT_BUCKET_NAME: sfdatasync-v3-bucket-sit
   NONPROD_BUCKET_NAME: sfdatasync-v3-bucket-nonprod
+  PROD_BUCKET_NAME: sfdatasync-v3-bucket-prod
 
 jobs:
   # This job only runs on a push/ manual trigger to develop branch.
   # This is configured within the workflows to accomodate multiple probabilities against develop and master merges
+  # This job will also run on a pull_request trigger but can only do a diff
   generate_object_changes:
     uses: ./.github/workflows/bq-generate-object-changes.yaml
     secrets: inherit
+    with:
+      diff-only: ${{ github.event_name == 'pull_request' && true || false }}
 
   # upload object changes on develop and master
   upload_object_changes:
     needs: [generate_object_changes]
     runs-on: [anzx-default]
-    if: ${{ (github.event_name == 'workflow_dispatch' || github.event_name == 'push' ) && (github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master' ) }}
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
+    environment: ${{ inputs.prod_deployment == true && 'prod' || '' }}
     steps:
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
@@ -34,11 +54,21 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
+      - name: "Set Configuration"
+        id: "set-config"
+        run: |
+          # set the service_account
+          if [ "${{inputs.prod_deployment}}" == "true" ]; then
+            echo "service_account=h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com" >> $GITHUB_OUTPUT
+          else 
+            echo "service_account=h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com" >> $GITHUB_OUTPUT
+          fi
+
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
-          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+          service_account: ${{ steps.set-config.outputs.service_account }}
 
       - name: "Set up Cloud SDK"
         uses: "anzx/github-reusable-actions/setup-gcloud@main"
@@ -58,6 +88,11 @@ jobs:
             BUCKET_NAME="${{ env.SIT_BUCKET_NAME }}"
             ARTIFACT_REF=$(git rev-parse --verify HEAD)
           fi
+
+          if [[ "${{inputs.prod_deployment}}" == "true" ]]; then
+            BUCKET_NAME="${{ env.PROD_BUCKET_NAME }}"
+          fi
+
           echo "BUCKET_NAME=$BUCKET_NAME" && echo "BUCKET_NAME=$BUCKET_NAME" >> $GITHUB_OUTPUT
           echo "ARTIFACT_REF=$ARTIFACT_REF" && echo "ARTIFACT_REF=$ARTIFACT_REF" >> $GITHUB_OUTPUT
 

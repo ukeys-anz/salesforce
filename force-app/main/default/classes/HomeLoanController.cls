@@ -92,6 +92,8 @@ public with sharing class HomeLoanController {
         accNumberToFinAccountMap
       );
       return result;
+    } catch (NotFoundException exp) {
+      return null;
     } catch (Exception ex) {
       OffsetAccountModel offsetError = new OffsetAccountModel();
       offsetError.hasError = true;
@@ -115,5 +117,10 @@ public with sharing class HomeLoanController {
     } catch (Exception e) {
       throw new AuraHandledException(e.getMessage());
     }
+  }
+  /**
+   * @description custom exception
+   */
+  public class NotFoundException extends Exception {
   }
 }

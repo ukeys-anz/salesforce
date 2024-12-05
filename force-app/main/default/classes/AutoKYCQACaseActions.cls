@@ -5,14 +5,25 @@
  */
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class AutoKYCQACaseActions {
+  //#region Dependencies
   private static final AutoKYCQACaseRepository REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
     AutoKYCQACaseRepository.class
   );
-
-  private static final ProfileStagingHandler PROFILE_STAGING_HANDLER = (ProfileStagingHandler) Lib_InstanceProvider.forType(
+  private static final ProfileStagingHandler PROFILE_STAGING = (ProfileStagingHandler) Lib_InstanceProvider.forType(
     ProfileStagingHandler.class
   );
+  private static final AutoKYCQARestraintHandler RESTRAINT = (AutoKYCQARestraintHandler) Lib_InstanceProvider.forType(
+    AutoKYCQARestraintHandler.class
+  );
+  private static final AutoKYCQAUnrestraintHandler UNRESTRAINT = (AutoKYCQAUnrestraintHandler) Lib_InstanceProvider.forType(
+    AutoKYCQAUnrestraintHandler.class
+  );
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  //#endregion
 
+  //#region constants
   private static final String ERROR_SAME_OWNER_IDOPS = 'Cannot have the same owner as the ID Ops Case';
   @TestVisible
   private static final String DUPLICATE_KYCQA_ERROR = 'Error occurred while creating KYC QA Case. A KYC QA Case already exists for this customer. Case number: ';
@@ -42,7 +53,7 @@ public with sharing class AutoKYCQACaseActions {
     'Refer to Fraud'
   };
 
-  private static final Set<SObjectField> TEST_FIELDS = new Set<SObjectField>{
+  public static final Set<SObjectField> TEST_FIELDS = new Set<SObjectField>{
     Case.Fraud_Customer_Details__c,
     Case.Fraud_MiddleNameCheck__c,
     Case.Fraud_Selfie_Comparison_Match__c,
@@ -71,6 +82,43 @@ public with sharing class AutoKYCQACaseActions {
   @TestVisible
   private static final String UPGRADE_KYC_VERIFICATION_LEVEL = 'VE';
 
+  private static final Map<SObjectField, String> DOWNGRADE_FIELDMAP = new Map<SObjectField, String>{
+    Account.FinServ__KYCStatus__c => DOWNGRADE_KYC_STATUS,
+    Account.KYC_Verification_Level__c => DOWNGRADE_KYC_VERIFICATION_LEVEL
+  };
+  private static final Map<SObjectField, String> UPGRADE_FIELDMAP = new Map<SObjectField, String>{
+    Account.FinServ__KYCStatus__c => UPGRADE_KYC_STATUS,
+    Account.KYC_Verification_Level__c => UPGRADE_KYC_VERIFICATION_LEVEL
+  };
+
+  public static final String ADD_RESTRAINTS = 'Case.KYC_QA.AddRestraints';
+  public static final String REMOVE_RESTRAINTS = 'Case.KYC_QA.RemoveRestraints';
+  private static final String ERROR = 'Error';
+  private static final String PENDING = 'Pending';
+  private static final String COMPLETED = 'Completed';
+  private static final Set<String> STAGING_STATUSES = new Set<String>{
+    ERROR,
+    PENDING,
+    COMPLETED
+  };
+  @TestVisible
+  private static final Map<String, String> RESTRAINT_SUCCESS_STATUSES = new Map<String, String>{
+    ADD_RESTRAINTS => 'Applied',
+    REMOVE_RESTRAINTS => 'Removed'
+  };
+  @TestVisible
+  private static final Map<String, String> RESTRAINT_ERROR_STATUSES = new Map<String, String>{
+    ADD_RESTRAINTS => 'Error Applying Restraints in CAP',
+    REMOVE_RESTRAINTS => 'Error Removing Restraints in CAP'
+  };
+  @TestVisible
+  private static final Map<String, String> RESTRAINT_PENDING_STATUSES = new Map<String, String>{
+    ADD_RESTRAINTS => 'Applying Restraints in CAP',
+    REMOVE_RESTRAINTS => 'Removing Restraints in CAP'
+  };
+  //#endregion
+
+  //#region populate KYC QA Case fields from COB
   /**
    * @description Update KYC QA Case fields
    * @param cases List of Cases
@@ -278,7 +326,9 @@ public with sharing class AutoKYCQACaseActions {
       pid.IdDocumentType__c == PASSPORT && pid.PassportNumberOCRMatch__c;
     return doesLicenceMatch || doesPassportMatch;
   }
+  //#endregion
 
+  //#region validations
   /**
    * @description Prevent Duplicate KYC QA Against a Customer (Account)
    * @param cases List of Cases
@@ -326,217 +376,6 @@ public with sharing class AutoKYCQACaseActions {
   }
 
   /**
-   * @description Update Tested Date
-   * @param cases List of Cases
-   */
-  public static void updateTestedDate(List<Case> cases) {
-    for (Case oCase : cases) {
-      if (canPopulateTestedDate(oCase)) {
-        oCase.TestedDate__c = System.now();
-      }
-    }
-  }
-
-  /**
-   * @description If all Test fields are not empty then capture the current date
-   * @param oCase Case
-   * @return True if all Test fields are not empty, false otherwise
-   */
-  @TestVisible
-  private static Boolean canPopulateTestedDate(Case oCase) {
-    return oCase?.TestedDate__c == null &&
-      hasKycCheckCompleted(oCase) &&
-      String.isNotEmpty(oCase?.Fraud_Restraint_Status__c);
-  }
-
-  /**
-   * @description Check if all Test fields are not empty
-   * @param oCase Case
-   * @return True if all Test fields are not empty, false otherwise
-   */
-  public static boolean hasKycCheckCompleted(Case oCase) {
-    for (SObjectField field : TEST_FIELDS) {
-      String value = String.valueOf(oCase?.get(field));
-      if (String.isBlank(value)) {
-        return false;
-      }
-    }
-    return true;
-  }
-
-  /**
-   * @description Downgrade the KYC Case
-   * @param cases List of Cases
-   * @param oldMap Old Map of Cases
-   */
-  public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
-    List<Case> casesToDowngrade = ListUtil.filter(cases, oldMap)
-      .allNotNull(TEST_FIELDS)
-      .anyEqual(TEST_FIELDS, NO)
-      .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
-      .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
-      .toList();
-    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      casesToDowngrade,
-      Case.AccountId
-    );
-    List<Account> oldAccounts = REPOSITORY.queryAccounts(
-      accIdToCaseMap.keySet()
-    );
-    List<Account> newAccounts = buildDowngradedAccounts(oldAccounts);
-    AutoKYCQAProfileStagingConfig config = new AutoKYCQAProfileStagingConfig(
-      accIdToCaseMap
-    );
-    PROFILE_STAGING_HANDLER
-      .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
-  }
-
-  /**
-   * @description Check if the KYC QA Case has a defect
-   * @param oCase KYC QA Case
-   * @return True if the KYC QA Case has a defect, false otherwise
-   */
-  @TestVisible
-  private static Boolean hasKycCheckCompletedWithDefect(Case oCase) {
-    if (!hasKycCheckCompleted(oCase)) {
-      return false;
-    }
-    for (SObjectField field : TEST_FIELDS) {
-      if (oCase.get(field) == NO) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * @description Set Downgrade Account Value
-   * @param accounts List of Accounts
-   * @return `List<Account>` new instance of accounts with KYC downgrade values
-   */
-  @TestVisible
-  private static List<Account> buildDowngradedAccounts(List<Account> accounts) {
-    List<Account> newAccounts = accounts.deepClone(true, true, true);
-    for (Account acc : newAccounts) {
-      acc.FinServ__KYCStatus__c = DOWNGRADE_KYC_STATUS;
-      acc.KYC_Verification_Level__c = DOWNGRADE_KYC_VERIFICATION_LEVEL;
-    }
-    return newAccounts;
-  }
-
-  /**
-   * @description Upgrade the KYC Case
-   * @param cases List of Cases
-   * @param oldMap Old Map of Cases
-   */
-  public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
-    List<Case> casesToUpgrade = ListUtil.filter(cases, oldMap)
-      .equals(Case.Fraud_Defects_Rectified__c, YES)
-      .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
-      .toList();
-    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      casesToUpgrade,
-      Case.AccountId
-    );
-    List<Account> accounts = REPOSITORY.queryAccountsNotExited(
-      accIdToCaseMap.keySet()
-    );
-    Set<String> ocvIds = ListUtil.getStrings(accounts, Account.OCV_ID__c);
-    List<Account> exitedAccounts = REPOSITORY.queryExitedAccountsByOcvIds(
-      ocvIds
-    );
-    List<Account> oldAccounts = filterAccountsNotExited(
-      accounts,
-      exitedAccounts
-    );
-    List<Account> newAccounts = buildUpgradedAccounts(oldAccounts);
-    AutoKYCQAProfileStagingConfig config = new AutoKYCQAProfileStagingConfig(
-      accIdToCaseMap
-    );
-    PROFILE_STAGING_HANDLER
-      .process(config, newAccounts, new Map<Id, Account>(oldAccounts));
-  }
-
-  /**
-   * @description Filter list of accounts against exited accounts
-   * @param accounts List of Old Accounts
-   * @param exitedAccounts Exited accounts
-   * @return List of Accounts that are not exited
-   */
-  @TestVisible
-  private static List<Account> filterAccountsNotExited(
-    List<Account> accounts,
-    List<Account> exitedAccounts
-  ) {
-    Set<String> exitedOcvIds = ListUtil.getStrings(
-      exitedAccounts,
-      Account.OCV_ID__c
-    );
-    List<Account> accountsNotExited = new List<Account>();
-    for (Account acc : accounts) {
-      if (exitedOcvIds.contains(acc.OCV_ID__c) == false) {
-        accountsNotExited.add(acc);
-      }
-    }
-    return accountsNotExited;
-  }
-
-  /**
-   * @description Set Upgrade Account Value
-   * @param accounts List of Accounts
-   * @return `List<Account>` new instance of accounts with KYC upgrade values
-   */
-  @TestVisible
-  private static List<Account> buildUpgradedAccounts(List<Account> accounts) {
-    List<Account> newAccounts = accounts.deepClone(true, true, true);
-    for (Account acc : newAccounts) {
-      acc.FinServ__KYCStatus__c = UPGRADE_KYC_STATUS;
-      acc.KYC_Verification_Level__c = UPGRADE_KYC_VERIFICATION_LEVEL;
-    }
-    return newAccounts;
-  }
-
-  /**
-   * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
-   * @param records The list of Case records to populate with default values.
-   * @param oldMap The map of old Case records, used to compare with the new records.
-   */
-  public static void populateClosedNoDefectDefaults(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    for (Case record : records) {
-      if (!checkClosedAsNoDefect(record, oldMap.get(record.Id))) {
-        continue;
-      }
-      for (SObjectField field : TEST_FIELDS) {
-        record.put(field, YES);
-      }
-      record.Fraud_Middle_Name__c = YES;
-      record.Fraud_Middle_Initial__c = YES;
-      record.Fraud_Restraint_Status__c = 'N/A';
-      record.Fraud_Defects_Rectified__c = 'Not Applicable';
-    }
-  }
-
-  /**
-   * @description Checks if the case is closed as "No Defect" and not downgraded.
-   * @param record The new Case record.
-   * @param oldRecord The old Case record.
-   * @return `Boolean` Returns true if the case is closed as "No Defect" and not downgraded, false otherwise.
-   */
-  @TestVisible
-  private static Boolean checkClosedAsNoDefect(Case record, Case oldRecord) {
-    Boolean closedAsNoDefect =
-      record.Sub_Status__c != oldRecord?.Sub_Status__c &&
-      record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
-    Boolean wasDowngraded =
-      hasKycCheckCompletedWithDefect(record) &&
-      record.Fraud_Defects_Rectified__c == YES;
-    return closedAsNoDefect && !wasDowngraded;
-  }
-
-  /**
    * @description Validates the owner change for a list of Case records.
    * @param cases The list of Case records to validate.
    * @param oldMap The map of old Case records, with record Ids as keys.
@@ -578,16 +417,307 @@ public with sharing class AutoKYCQACaseActions {
       }
     }
   }
+  //#endregion
 
   /**
-   * @description Updates the KYC QA case record's check fields.
-   * @param cases The KYC QA Case records to update.
+   * @description Update Tested Date
+   * @param cases List of Cases
    */
-  public static void setCheckFields(List<Case> cases) {
-    for (Case kycQA : cases) {
-      for (SObjectField field : TEST_FIELDS) {
-        kycQA.put(field, kycQA.get(field) ?? YES);
+  public static void updateTestedDate(List<Case> cases) {
+    List<Case> validCases = ListUtil.filter(cases)
+      .isNull(Case.TestedDate__c)
+      .isNotNull(Case.Fraud_Restraint_Status__c)
+      .allNotNull(TEST_FIELDS)
+      .toList();
+    ListUtil.setField(validCases, Case.TestedDate__c, System.now());
+  }
+
+  //#region downgrade/upgrade and restraints
+  /**
+   * @description Check and set the Apply Restraint Status for a list of Cases
+   * @param cases List of Cases
+   * @param oldMap Old Map of Cases
+   */
+  public static void setRetraintStatus(List<Case> cases, Map<Id, Case> oldMap) {
+    List<Case> validCases = filterDowngradedCases(cases, oldMap);
+    ListUtil.setField(
+      validCases,
+      Case.Fraud_Restraint_Status__c,
+      RESTRAINT_PENDING_STATUSES.get(ADD_RESTRAINTS)
+    );
+  }
+
+  private static List<Case> filterDowngradedCases(
+    List<Case> cases,
+    Map<Id, Case> oldMap
+  ) {
+    return ListUtil.filter(cases, oldMap)
+      .allNotNull(TEST_FIELDS)
+      .anyEqual(TEST_FIELDS, NO)
+      .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
+      .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
+      .toList();
+  }
+
+  /**
+   * @description Downgrade the KYC Case
+   * @param cases List of Cases
+   * @param oldMap Old Map of Cases
+   */
+  public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
+    List<Case> casesToDowngrade = filterDowngradedCases(cases, oldMap);
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
+      casesToDowngrade,
+      Case.AccountId
+    );
+    List<Account> oldAccounts = REPOSITORY.queryAccounts(
+      accIdToCaseMap.keySet()
+    );
+    List<Account> newAccounts = ListUtil.setField(
+      oldAccounts.deepClone(true, true, true),
+      DOWNGRADE_FIELDMAP
+    );
+    PROFILE_STAGING.process(
+      new AutoKYCQAProfileStagingConfig(accIdToCaseMap),
+      newAccounts,
+      new Map<Id, Account>(oldAccounts)
+    );
+    RESTRAINT.process(newAccounts, accIdToCaseMap);
+  }
+
+  /**
+   * @description Check and set the remove restraint status.
+   * @param cases List of cases
+   * @param oldMap Map of old cases
+   */
+  public static void setUnrestraintStatus(
+    List<Case> cases,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> updatedCases = filterUpgradedCases(cases, oldMap);
+    Set<Id> accIds = ListUtil.getIds(updatedCases, Case.AccountId);
+    List<Account> accounts = retrieveAccountsNotExited(accIds);
+    List<Case> validCases = ListUtil.filter(updatedCases)
+      .equals(Case.AccountId, new Map<Id, Account>(accounts).keySet())
+      .toList();
+    ListUtil.setField(
+      validCases,
+      Case.Fraud_Restraint_Status__c,
+      RESTRAINT_PENDING_STATUSES.get(REMOVE_RESTRAINTS)
+    );
+  }
+
+  private static List<Case> filterUpgradedCases(
+    List<Case> cases,
+    Map<Id, Case> oldMap
+  ) {
+    return ListUtil.filter(cases, oldMap)
+      .changedTo(Case.Fraud_Defects_Rectified__c, YES)
+      .toList();
+  }
+
+  /**
+   * @description Upgrade the KYC Case
+   * @param cases List of Cases
+   * @param oldMap Old Map of Cases
+   */
+  public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
+    List<Case> casesToUpgrade = filterUpgradedCases(cases, oldMap);
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
+      casesToUpgrade,
+      Case.AccountId
+    );
+    List<Account> oldAccounts = retrieveAccountsNotExited(
+      accIdToCaseMap.keySet()
+    );
+    List<Account> newAccounts = ListUtil.setField(
+      oldAccounts.deepClone(true, true, true),
+      UPGRADE_FIELDMAP
+    );
+
+    PROFILE_STAGING.process(
+      new AutoKYCQAProfileStagingConfig(accIdToCaseMap),
+      newAccounts,
+      new Map<Id, Account>(oldAccounts)
+    );
+    UNRESTRAINT.process(newAccounts);
+  }
+
+  private static List<Account> retrieveAccountsNotExited(Set<Id> accountIds) {
+    List<Account> accounts = REPOSITORY.queryAccountsNotExited(accountIds);
+    Set<String> ocvIds = ListUtil.getStrings(accounts, Account.OCV_ID__c);
+    List<Account> exitedAccounts = REPOSITORY.queryExitedAccountsByOcvIds(
+      ocvIds
+    );
+    Set<String> exitedOcvIds = ListUtil.getStrings(
+      exitedAccounts,
+      Account.OCV_ID__c
+    );
+    return ListUtil.filter(accounts)
+      .notEquals(Account.OCV_ID__c, exitedOcvIds)
+      .toList();
+  }
+  //#endregion
+
+  //#region populate closed no defect defaults
+  /**
+   * @description populate default fields on KYC QA cases if the status is Closed and Sub Status is No Defect
+   * @param records The list of Case records to populate with default values.
+   * @param oldMap The map of old Case records, used to compare with the new records.
+   */
+  public static void populateClosedNoDefectDefaults(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    for (Case record : records) {
+      if (!checkClosedAsNoDefect(record, oldMap.get(record.Id))) {
+        continue;
       }
+      for (SObjectField field : TEST_FIELDS) {
+        record.put(field, YES);
+      }
+      record.Fraud_Middle_Name__c = YES;
+      record.Fraud_Middle_Initial__c = YES;
+      record.Fraud_Restraint_Status__c = 'N/A';
+      record.Fraud_Defects_Rectified__c = 'Not Applicable';
     }
   }
+
+  /**
+   * @description Checks if the case is closed as "No Defect" and not downgraded.
+   * @param record The new Case record.
+   * @param oldRecord The old Case record.
+   * @return `Boolean` Returns true if the case is closed as "No Defect" and not downgraded, false otherwise.
+   */
+  @TestVisible
+  private static Boolean checkClosedAsNoDefect(Case record, Case oldRecord) {
+    Boolean closedAsNoDefect =
+      record.Sub_Status__c != oldRecord?.Sub_Status__c &&
+      record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
+    Boolean wasDowngraded =
+      hasKycCheckCompletedWithDefect(record) &&
+      record.Fraud_Defects_Rectified__c == YES;
+    return closedAsNoDefect && !wasDowngraded;
+  }
+
+  /**
+   * @description Check if the KYC QA Case has a defect
+   * @param oCase KYC QA Case
+   * @return True if the KYC QA Case has a defect, false otherwise
+   */
+  @TestVisible
+  private static Boolean hasKycCheckCompletedWithDefect(Case oCase) {
+    if (!hasKycCheckCompleted(oCase)) {
+      return false;
+    }
+    for (SObjectField field : TEST_FIELDS) {
+      if (oCase.get(field) == NO) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * @description Check if all Test fields are not empty
+   * @param oCase Case
+   * @return True if all Test fields are not empty, false otherwise
+   */
+  public static boolean hasKycCheckCompleted(Case oCase) {
+    for (SObjectField field : TEST_FIELDS) {
+      String value = String.valueOf(oCase?.get(field));
+      if (String.isBlank(value)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  //#endregion
+
+  //#region Restraints Results
+  /**
+   * @description Set Restraint Status from Customer Update Profiles
+   * @param cpus List of Customer Update Profiles
+   * @param oldMap Old Map of Customer Update Profiles
+   * @param restraintsAction Restraints Action: AddRestraints or RemoveRestraints
+   */
+  public static void updateRestraintResults(
+    List<Customer_Profile_Updates__c> cpus,
+    Map<Id, Customer_Profile_Updates__c> oldMap,
+    String restraintsAction
+  ) {
+    List<Customer_Profile_Updates__c> completedCpus = ListUtil.filter(
+        cpus,
+        oldMap
+      )
+      .equals(Customer_Profile_Updates__c.TriggeredFrom__c, restraintsAction)
+      .changedTo(Customer_Profile_Updates__c.Status__c, STAGING_STATUSES)
+      .toList();
+    Set<Id> accIds = ListUtil.getIds(
+      completedCpus,
+      Customer_Profile_Updates__c.Customer_Name__c
+    );
+    List<Account> accs = REPOSITORY.queryAccountsWithCpuAndKYCQaCases(accIds);
+    List<Case> cases = getCasesWithUpdatedRestraintStatus(
+      accs,
+      restraintsAction
+    );
+    DML.doUpdate(cases, new DmlConfig().allowPartial().withoutSharing());
+  }
+
+  /**
+   * @description Get Cases with Updated Restraint Status
+   * @param accs List of Accounts
+   * @param restraintsAction Restraints Action: AddRestraints or RemoveRestraints
+   * @return List of Cases with Updated Restraint Status
+   */
+  @TestVisible
+  private static List<Case> getCasesWithUpdatedRestraintStatus(
+    List<Account> accs,
+    String restraintsAction
+  ) {
+    List<Case> cases = new List<Case>();
+    for (Account acc : accs) {
+      String status = getRestraintStatusFromCpus(
+        acc.Customer_Profile_Updates__r,
+        restraintsAction
+      );
+      Case kyc = acc.Cases[0];
+      if (status != null && kyc.Fraud_Restraint_Status__c != status) {
+        cases.add(new Case(Id = kyc.Id, Fraud_Restraint_Status__c = status));
+      }
+    }
+    return cases;
+  }
+
+  /**
+   * @description Deternime the Status from the List of Customer Update Profiles
+   * @param cpus List of Customer Update Profiles
+   *  @param restraintsAction Restraints Action: AddRestraints or RemoveRestraints
+   * @return `String` Status value
+   */
+  @TestVisible
+  private static String getRestraintStatusFromCpus(
+    List<Customer_Profile_Updates__c> cpus,
+    String restraintsAction
+  ) {
+    List<Customer_Profile_Updates__c> filteredCpus = ListUtil.filter(cpus)
+      .equals(Customer_Profile_Updates__c.TriggeredFrom__c, restraintsAction)
+      .toList();
+    Set<String> statuses = ListUtil.getStrings(
+      filteredCpus,
+      Customer_Profile_Updates__c.Status__c
+    );
+    if (statuses.contains(ERROR)) {
+      return RESTRAINT_ERROR_STATUSES.get(restraintsAction);
+    }
+    if (statuses.contains(PENDING)) {
+      return RESTRAINT_PENDING_STATUSES.get(restraintsAction);
+    }
+    if (statuses.size() == 1 && statuses.contains(COMPLETED)) {
+      return RESTRAINT_SUCCESS_STATUSES.get(restraintsAction);
+    }
+    return null;
+  }
+  //#endregion
 }

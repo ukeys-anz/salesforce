@@ -12,19 +12,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
+                <field>Account_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
                 <field>Product_Code__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>OLL_Type__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Undrawn_Balance__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Limit__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -42,7 +38,15 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Account_Number__c</field>
+                <field>Expiry_Date__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Undrawn_Balance__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Limit__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -67,32 +71,29 @@
         <style>CustomLinks</style>
     </layoutSections>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Facility_Limit_Fee_Amount__c</fields>
+        <fields>Seq__c</fields>
+        <fields>Fee_Type__c</fields>
         <fields>Facility_Limit_Fee_Frequency__c</fields>
         <fields>Facility_Limit_Fee__c</fields>
-        <fields>Fee_Type__c</fields>
+        <fields>Facility_Limit_Fee_Amount__c</fields>
         <fields>Next_Due_Date__c</fields>
+        <fields>Fee_Charge_Account__c</fields>
         <relatedList>Facility_Fee__x.Indemnity_Guarantee__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
         <fields>Serial_Number__c</fields>
+        <fields>Status__c</fields>
         <fields>Amount__c</fields>
         <fields>Start_Date__c</fields>
         <fields>Expiry_Date__c</fields>
-        <fields>Type__c</fields>
-        <fields>Status__c</fields>
         <relatedList>Active_Indemnity_Guarantee__x.Indemnity_Guarantee__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
         <fields>Serial_Number__c</fields>
+        <fields>Status__c</fields>
         <fields>Amount__c</fields>
         <fields>Start_Date__c</fields>
         <fields>Expiry_Date__c</fields>
-        <fields>Type__c</fields>
-        <fields>Status__c</fields>
         <relatedList>Inactive_Indemnity_Guarantee__x.Indemnity_Guarantee__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
@@ -101,7 +102,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9t00000599nZ</masterLabel>
+        <masterLabel>00h9h000002RUP3</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

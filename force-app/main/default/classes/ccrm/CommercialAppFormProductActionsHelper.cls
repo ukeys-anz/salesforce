@@ -236,19 +236,15 @@ public with sharing class CommercialAppFormProductActionsHelper {
     AppFormProductWrapper appFormProductWrapper,
     Boolean isInsert
   ) {
-    if (appFormProductWrapper.filteredAppFormProducts.isEmpty()) {
-      return;
-    }
-
     for (
       ApplicationFormProduct appFormProduct : appFormProductWrapper.filteredAppFormProducts
     ) {
-      String errorMessage = '';
+      List<String> errors = new List<String>();
+      String errorMessage;
 
       //check if stage is not equal to "Opportunity Identified" on creation
       if (isInsert && appFormProduct.Stage != CCRMConstants.OPP_IDENTIFIED) {
-        errorMessage +=
-          CCRMConstants.AFP_DEFAULT_STAGE_ERROR + CCRMConstants.NEW_LINE_CHAR;
+        errors.add(CCRMConstants.AFP_DEFAULT_STAGE_ERROR);
       }
 
       //check if Lost reason and Lost reason details are provided if Opportunity is lost
@@ -259,9 +255,7 @@ public with sharing class CommercialAppFormProductActionsHelper {
         (String.isBlank(appFormProduct.Lost_Reason__c) ||
         String.isBlank(appFormProduct.Lost_Reason_Detail__c))
       ) {
-        errorMessage +=
-          CCRMConstants.LOST_REASON_DETAIL_MISSING +
-          CCRMConstants.NEW_LINE_CHAR;
+        errors.add(CCRMConstants.LOST_REASON_DETAIL_MISSING);
       }
       //check if Won from lost is provided for Won/Lost opportunity
       if (
@@ -271,15 +265,14 @@ public with sharing class CommercialAppFormProductActionsHelper {
         appFormProduct.Stage == CCRMConstants.OPP_WON) &&
         String.isBlank(appFormProduct.Won_from_Lost_to__c))
       ) {
-        errorMessage +=
-          CCRMConstants.WON_LOST_MANDATORY + CCRMConstants.NEW_LINE_CHAR;
+        errors.add(CCRMConstants.WON_LOST_MANDATORY);
       }
+
+      errorMessage = String.join(errors, CCRMConstants.NEW_LINE_CHAR);
 
       //add error message
       if (String.isNotBlank(errorMessage)) {
-        appFormProduct.addError(
-          errorMessage.removeEnd(CCRMConstants.NEW_LINE_CHAR)
-        );
+        appFormProduct.addError(errorMessage);
       }
     }
   }
@@ -343,12 +336,8 @@ public with sharing class CommercialAppFormProductActionsHelper {
       Id oppId = appFormProductWrapper.apFormToOppIdMap.get(
         afpRec.ApplicationFormId
       );
-      afpRec.Close_Date__c = oppLineItemsMap.containsKey(
-          oppId + '-' + afpRec.ProductId
-        )
-        ? oppLineItemsMap.get(oppId + '-' + afpRec.ProductId)
-            .Expected_Settlement_Date__c
-        : null;
+      afpRec.Close_Date__c = oppLineItemsMap.get(oppId + '-' + afpRec.ProductId)
+        ?.Expected_Settlement_Date__c;
     }
   }
 
@@ -356,23 +345,11 @@ public with sharing class CommercialAppFormProductActionsHelper {
    * @description wrapper class for commercial afp
    */
   public class AppFormProductWrapper {
-    public Map<Id, ApplicationFormProduct> stageUpdatedAppFormProducts;
-    public List<ApplicationFormProduct> filteredAppFormProducts;
-    public Map<Id, String> afpStageSegmentMap;
-    public Map<Id, Id> afpIdToOwnerIdMap;
-    public Map<Id, User> afpOwnerIdToSegmentMap;
-    public Map<Id, Id> apFormToOppIdMap;
-
-    /**
-     * @description constructor for wrapper class for commercial afp
-     */
-    public AppFormProductWrapper() {
-      stageUpdatedAppFormProducts = new Map<Id, ApplicationFormProduct>();
-      filteredAppFormProducts = new List<ApplicationFormProduct>();
-      afpStageSegmentMap = new Map<Id, String>();
-      afpIdToOwnerIdMap = new Map<Id, Id>();
-      afpOwnerIdToSegmentMap = new Map<Id, User>();
-      apFormToOppIdMap = new Map<Id, Id>();
-    }
+    public Map<Id, ApplicationFormProduct> stageUpdatedAppFormProducts = new Map<Id, ApplicationFormProduct>();
+    public List<ApplicationFormProduct> filteredAppFormProducts = new List<ApplicationFormProduct>();
+    public Map<Id, String> afpStageSegmentMap = new Map<Id, String>();
+    public Map<Id, Id> afpIdToOwnerIdMap = new Map<Id, Id>();
+    public Map<Id, User> afpOwnerIdToSegmentMap = new Map<Id, User>();
+    public Map<Id, Id> apFormToOppIdMap = new Map<Id, Id>();
   }
 }

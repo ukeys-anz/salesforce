@@ -414,52 +414,25 @@ public without sharing class IDRTaskActions {
     Set<Id> caseIDSet = new Set<Id>();
     for (Task t : taskRecs) {
       if (
-        t.RecordTypeId == IDRConstants.IDR_SYSTEM_TASK_RT_ID &&
-        t.Status == 'Completed' &&
-        t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
+        t.RecordTypeId != RTTask.idrSystemTask ||
+        t.Status != IDRConstants.TASK_STATUS_COMPLETED ||
+        !t.Subject.contains(IDRConstants.TASK_SUBJECT_DAY1)
       ) {
-        caseIDSet.add(t.WhatId);
+        continue;
       }
+      caseIDSet.add(t.WhatId);
     }
-    List<CaseMilestone> cmsToUpdate = new List<CaseMilestone>();
-    if (caseIDSet.size() > 0) {
-      if (CaseMilestone.SObjectType.getDescribe().isUpdateable()) {
-        cmsToUpdate = [
-          SELECT Id, CompletionDate
-          FROM CaseMilestone cm
-          WHERE
-            CaseId IN :caseIDSet
-            AND (cm.MilestoneType.Name = :IDRConstants.MILESTONE_STANDARD
-            OR cm.MilestoneType.Name = :IDRConstants.MILESTONE_PRIORITY)
-            AND CompletionDate = NULL
-          LIMIT 1
-        ];
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'closeMilestonesOfClosedTask',
-          'Not enough permissions to update CaseMilestone.'
-        );
-      }
+    if (caseIDSet.isEmpty()) {
+      return;
     }
+    List<CaseMilestone> cmsToUpdate = TASK_REPOSITORY.getMilestonesTobeCompleted(
+      caseIDSet
+    );
+
     for (CaseMilestone cm : cmsToUpdate) {
       cm.CompletionDate = System.now();
     }
-
-    if (cmsToUpdate.size() > 0) {
-      if (
-        CaseMilestone.SObjectType.getDescribe().isUpdateable() &&
-        Schema.SObjectType.CaseMilestone.fields.CompletionDate.isUpdateable()
-      ) {
-        update cmsToUpdate;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'closeMilestonesOfClosedTask',
-          'Not enough permissions to update CaseMilestone.'
-        );
-      }
-    }
+    DML_REPOSITORY.doUpdate(cmsToUpdate,new DmlConfig().systemMode());
   }
 
   /**
@@ -610,7 +583,10 @@ public without sharing class IDRTaskActions {
       }
       //should a parent systemic issue's rollup field be updated?
       if (
-        oldRec == null || String.isNotBlank(record.IDR_Parent_Systemic_Issue__c)
+        oldRec == null ||
+        String.isNotBlank(record.IDR_Parent_Systemic_Issue__c) &&
+        record.IDR_Parent_Systemic_Issue__c !=
+        oldRec.IDR_Parent_Systemic_Issue__c
       ) {
         childComplaints.add(record);
       }
@@ -699,40 +675,15 @@ public without sharing class IDRTaskActions {
    * @param cases Set of case Ids
    */
   public static void closeMaxTimeFrameTasks(Set<Id> cases) {
-    if (Task.SObjectType.getDescribe().isQueryable()) {
-      List<Task> tasksToClose = [
-        SELECT Id, Status
-        FROM Task
-        WHERE
-          WhatId IN :cases
-          AND RecordTypeId = :IDRConstants.IDR_SYSTEM_TASK_RT_ID
-          AND IsClosed = FALSE
-          AND Type = 'Notification'
-      ];
+      List<Task> tasksToClose = TASK_REPOSITORY.getTasksTobeCompleted(
+        cases
+      );
       for (Task task : tasksToClose) {
         task.Status = IDRConstants.TASK_STATUS_COMPLETED;
       }
-      if (
-        Task.SObjectType.getDescribe().isUpdateable() &&
-        Schema.SObjectType.Task.fields.Status.isUpdateable()
-      ) {
-        update tasksToClose;
-      } else {
-        CommonUtil.logAndThrowIAE(
-          'IDRTaskActions',
-          'closeMaxTimeFrameTasks',
-          'Not enough permissions to update Task.'
-        );
+        DML_REPOSITORY.doUpdate(tasksToClose);
       }
-    } else {
-      CommonUtil.logAndThrowIAE(
-        'IDRTaskActions',
-        'closeMaxTimeFrameTasks',
-        'Not enough permissions to query Task.'
-      );
-    }
-  }
-
+  
   /**
    * @description method to insert collection tasks and handle errors
    * @param collectionTaskList List of collection tasks

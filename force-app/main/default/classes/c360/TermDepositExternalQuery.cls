@@ -5,11 +5,11 @@
  * @description Term Deposit external query class
  * @runTests TermDepositExternalQueryTest
  */
+@SuppressWarnings('PMD.TooManyFields')
 public with sharing class TermDepositExternalQuery extends FinancialAccountQueryBase {
   /**
    * @description TermDeposit Model class
    */
-  @SuppressWarnings('PMD.TooManyFields')
   @testVisible
   private class TermDepositModel extends FinancialAccountModelBase {
     private String subProductCode;
@@ -31,7 +31,6 @@ public with sharing class TermDepositExternalQuery extends FinancialAccountQuery
     private Decimal availableBalance;
     private string address;
     private string tpmiNumber;
-    private string tpmiSAO;
     private String sourceSystemStatus;
   }
 
@@ -102,31 +101,22 @@ public with sharing class TermDepositExternalQuery extends FinancialAccountQuery
     ExternalObjectCalloutResponse calloutResponse
   ) {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
-    String customerId;
-    String accNumber;
-    Map<String, Object> row;
-    List<TermDepositModel> accounts = new List<TermDepositModel>();
     if (this.calloutResponse == null) {
       return result;
     }
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     for (
       TermDepositModel fa : ((TermAccountCalloutResponse) this.calloutResponse)
         .accounts
     ) {
-      customerId = getCustomerId(fa.accountNumber);
-      if (String.isBlank(customerId)) {
-        continue;
-      }
-      accNumber = this.sourceSystem == SourceSystemEnum.CAP
-        ? getAccountNumberwithFormat(fa.accountNumber)
-        : formatAccountNumber(fa.accountNumber);
-
-      row = new Map<String, Object>{
-        'CustomerId' => customerId,
+      Map<String, Object> row = new Map<String, Object>{
+        this.parentField => this.parentId,
         'ExternalId' => getExternalId(fa, this.accountRoleMap),
-        'DisplayUrl' => getDisplayUrl(fa),
+        'DisplayUrl' => getDisplayUrl(fa.productCode + '-' + fa.accountNumber),
         'AccountName' => fa.accountName,
-        'AccountNumber' => accNumber,
+        'AccountNumber' => externalQueryHelper.formatAccountNumber(
+          fa.accountNumber
+        ),
         'Balance' => fa.accountBalance,
         'SubProductCode' => fa.subProductCode,
         'RestraintsHold' => fa.restrainsHardHold,
@@ -135,7 +125,9 @@ public with sharing class TermDepositExternalQuery extends FinancialAccountQuery
         'DateOpened' => formatDate(fa.openDate),
         'DateClosed' => formatDate(fa.closeDate),
         'BSB' => fa.bsbCode,
-        'ANZSICCode' => retrieveIndustryCodeAndDescription(fa.anzsicCode),
+        'ANZSICCode' => externalQueryHelper.retrieveIndustryCodeAndDescription(
+          fa.anzsicCode
+        ),
         'CPID' => fa.controllingPostId,
         'NumberOfSignatures' => MAP_NO_OF_SIGNATURES.get(fa.noOfSignatures),
         'IssueDate' => formatDate(fa.cdaIssueDate),
@@ -145,14 +137,11 @@ public with sharing class TermDepositExternalQuery extends FinancialAccountQuery
         'BalanceAvailable' => fa.availableBalance,
         'ProductCode' => getProductCode(fa.accountNumber),
         'ProductName' => getProductName(fa.accountNumber),
-        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.containsKey(
-            fa.sourceSystemStatus
-          )
-          ? MAP_SOURCE_SYSTEM_STATUS.get(fa.sourceSystemStatus)
-          : fa.sourceSystemStatus,
+        'SourceSystemStatus' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus,
         'AccountStatus' => fa.status,
         'StatementMailingAddress' => fa.address,
-        'TPMISAO' => '',
         'Relationship' => getAccountRelationship(fa.accountNumber)
       };
       populateInterestRate(row, fa);

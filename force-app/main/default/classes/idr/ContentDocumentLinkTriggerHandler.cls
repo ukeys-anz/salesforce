@@ -9,7 +9,12 @@
 public without sharing class ContentDocumentLinkTriggerHandler extends Lib_TriggerHandler {
   public static Schema.SObjectType caseObjectType = Schema.getGlobalDescribe()
     .get('Case');
-
+  private static final ContentDocumentLinkRepository CDL_REPOSITORY = (ContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+    ContentDocumentLinkRepository.class
+  );
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   /**
    * @description onAfterInsert to manage after insert actions to handle notifications
    */
@@ -18,98 +23,64 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
   }
 
   public override void onBeforeDelete() {
-    logFileDelete((List<ContentDocumentLink>) records);
+    Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
+        UserInfo.getUserId()
+      )
+      .DisableDocumentDeletionTrigger__c;
+    if (fDisableDocumentDeletionTrigger) {
+      return;
+    }
+    onlogFileDelete((List<ContentDocumentLink>) records);
   }
-
   /**
    * @description Assesses whether or not to generate a log (generate only for CMOS complaint and enquiry) and creates a log entry.
    * @param records ContentDocumentLink records in current trigger context
    */
-  public void logFileDelete(List<ContentDocumentLink> records) {
-    List<ContentDocumentLink> docList = new List<ContentDocumentLink>();
-    Set<Id> linkedEntityIdList = new Set<Id>();
-    Set<Id> linkIdList = new Set<Id>();
-
-    Map<Id, Case> caseMap = getCaseRecords(records);
-    Map<Id, Case> mpUpdateCases = new Map<Id, Case>();
-
-    if (!caseMap.isEmpty()) {
-      Case oCase;
-      for (ContentDocumentLink record : (List<ContentDocumentLink>) records) {
-        if (
-          record.LinkedEntityId.getSobjectType() == caseObjectType &&
-          (oCase = caseMap.get(record.LinkedEntityId)) != null &&
-          (oCase.RecordTypeId == IDRConstants.GENERAL_INQUIRY_CMOS_RT_ID ||
-          IDRCaseActions.isIDRComplaintType(oCase))
-        ) {
-          linkedEntityIdList.add(oCase.Id);
-          linkIdList.add(record.Id);
-        }
-      }
-      if (ContentDocumentLink.SObjectType.getDescribe().isQueryable()) {
-        docList = [
-          SELECT
-            Id,
-            ContentDocument.LatestPublishedVersion.Document_Flag__c,
-            ContentDocument.Title,
-            LinkedEntityId,
-            ContentDocument.CreatedDate,
-            ContentDocument.Owner.Name,
-            ContentDocument.FileExtension,
-            ContentDocument.LatestPublishedVersion.FileType,
-            ContentDocument.LatestPublishedVersion.Date_of_Document__c,
-            ContentDocument.LatestPublishedVersion.Party_who_sent_created_file__c,
-            ContentDocument.LatestPublishedVersion.Document_Category__c,
-            ContentDocumentId
-          FROM ContentDocumentLink
-          WHERE LinkedEntityId IN :linkedEntityIdList AND Id IN :linkIdList
-          ORDER BY
-            ContentDocument.CreatedDate DESC,
-            ContentDocument.Title ASC,
-            ContentDocument.FileExtension ASC
-        ];
-      }
-
-      for (ContentDocumentLink record : docList) {
-        String strDate = String.valueOf(Date.today());
-        String strUserName = UserInfo.getName();
-        String strDocTitle = (record.ContentDocument.Title == null)
-          ? ''
-          : record.ContentDocument.Title;
-
-        String errorDescription =
-          'Doc Deleted: ' +
-          (oCase = caseMap.get(record.LinkedEntityId))?.CaseNumber +
-          ', ' +
-          strUserName +
-          ', ' +
-          strDocTitle.abbreviate(50) +
-          ', ' +
-          record.ContentDocumentId +
-          ', ' +
-          strDate +
-          ', ' +
-          record.ContentDocument.LatestPublishedVersion.FileType;
-
-        Logger.error(errorDescription, record.ContentDocumentId);
-        if (oCase != null) {
-          // CC-1999 Update Case causes LastModifiedDate to be updated even if no fields are changed.
-          mpUpdateCases.put(oCase.Id, oCase);
-        }
-      }
-      Logger.saveLog();
-      Boolean fDisableDocumentDeletionTrigger = Salesforce_Library_Settings__c.getInstance(
-          UserInfo.getUserId()
-        )
-        .DisableDocumentDeletionTrigger__c;
-      if (
-        mpUpdateCases.size() > 0 &&
-        !fDisableDocumentDeletionTrigger &&
-        Case.SObjectType.getDescribe().isUpdateable()
-      ) {
-        update mpUpdateCases.values();
-      }
+   public void onlogFileDelete(List<ContentDocumentLink> records) {
+    Map<Id, ContentDocumentLink> cdlMap = new Map<Id, ContentDocumentLink>(records);
+    Set<Id> linkedEntityIds = ListUtil.getIds(records, ContentDocumentLink.LinkedEntityId);
+ 
+    List<ContentDocumentLink> docList = CDL_REPOSITORY.queryContentDocumentLink(linkedEntityIds, cdlMap.keySet());
+    logFileDelete(docList);
+    updateCases(docList);
+  }
+    /**
+   * @description Build Log message to return and add in Log entry for file deletion
+   * @param docList ContentDocumentLink Records from query
+   */
+    private static void logFileDelete(List<ContentDocumentLink> docList) {
+    for (ContentDocumentLink record : docList) {
+      String strDate = String.valueOf(Date.today());
+      String strUserName = UserInfo.getName();
+      String strDocTitle = record.ContentDocument.Title ?? '';
+      Case caseRecord = (Case) record.LinkedEntity;
+      String infoDescription =
+        'Doc Deleted: ' +
+        caseRecord.CaseNumber +
+        ', ' +
+        strUserName +
+        ', ' +
+        strDocTitle.abbreviate(50) +
+        ', ' +
+        record.ContentDocumentId +
+        ', ' +
+        strDate +
+        ', ' +
+        record.ContentDocument.LatestPublishedVersion.FileType;
+      Logger.info(infoDescription, record.ContentDocumentId);
     }
+    Logger.saveLog();
+  }
+    /**
+   * @description Update Cases to update LastModifiedDate on Cases
+   * @param docList ContentDocumentLink records in current trigger context
+   */
+    private static void updateCases(List<ContentDocumentLink> docList) {
+    List<Case> cases = new List<Case>();
+    for (ContentDocumentLink record : docList) {
+      cases.add(new Case(Id=record.LinkedEntityId));
+    }
+    DML.doUpdate(cases, new DMLConfig().systemMode());
   }
 
   /**

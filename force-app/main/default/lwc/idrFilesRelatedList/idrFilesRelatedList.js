@@ -6,6 +6,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { getRecord } from "lightning/uiRecordApi";
 import STATUS_FIELD from "@salesforce/schema/Case.Status";
 import IDR_LEVEL_1_CHECK from "@salesforce/customPermission/IDR_Level_1";
+import IDR_SI_CHECK from "@salesforce/customPermission/IDR_SI";
 import { handleErrorShowToast } from "c/utils";
 
 const FIELDS = [STATUS_FIELD];
@@ -88,26 +89,29 @@ export default class IDRFilesRelatedList extends LightningElement {
   activeSections = ["search", "filelist"];
   displayRemovalConfirmation = false;
   fileId;
+  caseRecordType;
+  caseRecordTypesL1 = [
+    "Customer Complaint",
+    "Unauthenticated Enquiry",
+    "Non-Customer Complaint"
+  ];
 
   @wire(getRecord, { recordId: "$recordId", fields: FIELDS })
   wiredProject({ data }) {
-    if (data) {
-      if (
-        data.apiName === "Case" &&
-        IDR_LEVEL_1_CHECK &&
-        (data.recordTypeInfo.name === "Customer Complaint" ||
-          data.recordTypeInfo.name === "Unauthenticated Enquiry" ||
-          data.recordTypeInfo.name === "Non-Customer Complaint")
-      ) {
-        this.columns = columns;
-        this.columns.push({
-          type: "action",
-          typeAttributes: {
-            rowActions: [{ label: "Remove from Case", name: "remove" }]
-          }
-        });
-      }
+    if (!data) {
+      return;
     }
+    this.caseRecordType = data.recordTypeInfo.name;
+    if (data.apiName !== "Case" || !this.checkFileRemovalPermission()) {
+      return;
+    }
+    this.columns = columns;
+    this.columns.push({
+      type: "action",
+      typeAttributes: {
+        rowActions: [{ label: "Remove from Case", name: "remove" }]
+      }
+    });
   }
 
   columns = columns;
@@ -337,5 +341,17 @@ export default class IDRFilesRelatedList extends LightningElement {
         this.filesToDisplay.push(this.files[i]);
       }
     }
+  }
+  checkFileRemovalPermission() {
+    if (
+      IDR_LEVEL_1_CHECK &&
+      this.caseRecordTypesL1.includes(this.caseRecordType)
+    ) {
+      return true;
+    }
+    if (IDR_SI_CHECK && this.caseRecordType === "Systemic Issue") {
+      return true;
+    }
+    return false;
   }
 }

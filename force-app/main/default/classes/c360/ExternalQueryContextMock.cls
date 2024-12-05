@@ -183,8 +183,8 @@ public class ExternalQueryContextMock {
       new List<String>{ 'ELSId', '4011643101' }
     );
     parentColumnMap.put(
-      'AssetDetail',
-      new List<String>{ 'AssetId', '4020632171' }
+      'AssetFinanceAssetDetail',
+      new List<String>{ 'ContractId', '4020632171' }
     );
     parentColumnMap.put(
       'GuaranteeFeeDetail',
@@ -196,7 +196,7 @@ public class ExternalQueryContextMock {
     );
     parentColumnMap.put(
       'AccountRelationship',
-      new List<String>{ 'AMBITId', '4019028722-13521-0' }
+      new List<String>{ 'AFAMBITContractNumber', '4019028722-13521-0' }
     );
     return parentColumnMap;
   }
@@ -255,8 +255,9 @@ public class ExternalQueryContextMock {
     tableColumnMap.put('BalanceHistory', columnNames);
     tableColumnMap.put('AccountRelationship', columnNames);
     tableColumnMap.put('AssetFinanceELS', columnNames);
-    tableColumnMap.put('AssetFinanceAMBIT', columnNames);
+    tableColumnMap.put('AFAMBITCreditLine', columnNames);
     tableColumnMap.put('QueryComment', columnNames);
+    tableColumnMap.put('AFAMBITContract', columnNames);
 
     tableColumnMap.put(
       'MerchantFacility',
@@ -325,13 +326,14 @@ public class ExternalQueryContextMock {
       }
     );
     tableColumnMap.put(
-      'AssetRepaymentDetail',
+      'AFAMBITRepayment',
       new List<String>{
-        'AssetId',
+        'ContractId',
         'Amount',
         'Frequency',
         'RepaymentAccountNumber',
-        'RepaymentType'
+        'RepaymentType',
+        'TotalNumberOfRepayments'
       }
     );
     tableColumnMap.put(

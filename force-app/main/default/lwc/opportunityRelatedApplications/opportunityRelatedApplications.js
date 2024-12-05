@@ -11,13 +11,10 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
 ) {
   @api recordId;
   @track applicationForms = [];
-  @track totalPages;
-  @track currentPage = 1;
-  @track pageSize = 3;
-  @track hasData = false;
-  @track hasError = false;
-  @track noDataNoError = false;
-  @track totalApplicationFormsCount = 0;
+  currentPage = 1;
+  pageSize = 3;
+  hasError = false;
+  totalApplicationFormsCount = 0;
   subscription = null;
   wiredApplicationFormsResult;
   wiredTotalCountResult;
@@ -48,8 +45,21 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
       fieldName: "closeDate",
       type: "date",
       sortable: true
+    },
+    {
+      label: "Reference Number",
+      fieldName: "referenceNumber",
+      type: "text",
+      sortable: true
     }
   ];
+
+  get hasData() {
+    return this.applicationForms.length > 0;
+  }
+  get noDataNoError() {
+    return !this.hasError && !this.hasData;
+  }
 
   @wire(MessageContext)
   messageContext;
@@ -64,11 +74,6 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
     const { data, error } = result;
     if (data) {
       this.applicationForms = data;
-      this.totalPages = Math.ceil(
-        this.totalApplicationFormsCount / this.pageSize
-      );
-      this.hasData = this.applicationForms.length > 0;
-      this.noDataNoError = this.applicationForms.length === 0;
       this.hasError = false;
     } else if (error) {
       this.hasError = true;
@@ -82,9 +87,6 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
     const { data, error } = result;
     if (data) {
       this.totalApplicationFormsCount = data;
-      this.totalPages = Math.ceil(
-        this.totalApplicationFormsCount / this.pageSize
-      );
     } else if (error) {
       this.hasError = true;
       console.error("Error fetching total count:", error);
@@ -108,6 +110,13 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
     }
   }
 
+  get totalPages() {
+    if (this.totalApplicationFormsCount && this.pageSize) {
+      return Math.ceil(this.totalApplicationFormsCount / this.pageSize);
+    }
+    return null;
+  }
+
   get disablePrevious() {
     return this.currentPage <= 1;
   }
@@ -118,13 +127,13 @@ export default class OpportunityRelatedApplications extends NavigationMixin(
 
   handlePreviousPage() {
     if (this.currentPage > 1) {
-      this.currentPage -= 1;
+      this.currentPage--;
     }
   }
 
   handleNextPage() {
     if (this.currentPage < this.totalPages) {
-      this.currentPage += 1;
+      this.currentPage++;
     }
   }
 

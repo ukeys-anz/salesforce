@@ -72,6 +72,11 @@
         <label>Source - DAON</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_EBD</fullName>
+        <default>false</default>
+        <label>Source - EBD</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_EDRM</fullName>
         <default>false</default>
         <label>Source - EDRM</label>
@@ -115,6 +120,11 @@
         <fullName>Source_Settlement_Domain</fullName>
         <default>false</default>
         <label>Source - Settlement Domain</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source - Simpology</fullName>
+        <default>false</default>
+        <label>Source - Simpology</label>
     </standardValue>
     <standardValue>
         <fullName>Source_Tableau</fullName>

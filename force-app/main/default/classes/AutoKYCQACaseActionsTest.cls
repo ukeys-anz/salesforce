@@ -1,6 +1,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 @IsTest
 public with sharing class AutoKYCQACaseActionsTest {
+  //#region Test Data
   private static final Faker FAKER = new Faker('AU');
 
   private static final String RECTIFY_DEFECT_STATUS = 'Rectify Defect';
@@ -21,14 +22,23 @@ public with sharing class AutoKYCQACaseActionsTest {
 
   static Lib_MockProvider autoKYCQACaseRepoMock;
   static Lib_MockProvider profileStagingHandlerMock;
+  static Lib_MockProvider restraintMock;
+  static Lib_MockProvider unrestraintMock;
+  static Lib_MockProvider dmlRepoMock;
 
   static void registerMocks() {
     autoKYCQACaseRepoMock = Lib_MockProvider.forType(
-      AutoKYCQACaseRepository.class
-    );
+        AutoKYCQACaseRepository.class
+      )
+      .mock('isRestraintEnabled', true);
     profileStagingHandlerMock = Lib_MockProvider.forType(
       ProfileStagingHandler.class
     );
+    restraintMock = Lib_MockProvider.forType(AutoKYCQARestraintHandler.class);
+    unrestraintMock = Lib_MockProvider.forType(
+      AutoKYCQAUnrestraintHandler.class
+    );
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
   private static void constructCOBPidFullName(
@@ -178,6 +188,45 @@ public with sharing class AutoKYCQACaseActionsTest {
     );
   }
 
+  private static List<Customer_Profile_Updates__c> constructCPUs(
+    List<String> statuses,
+    String triggeredFrom
+  ) {
+    List<Customer_Profile_Updates__c> cpus = new List<Customer_Profile_Updates__c>();
+    for (String status : statuses) {
+      cpus.add(
+        new Customer_Profile_Updates__c(
+          Id = Lib_FakeIdGenerator.getMockId(
+            Customer_Profile_Updates__c.SObjectType
+          ),
+          TriggeredFrom__c = triggeredFrom,
+          Status__c = status
+        )
+      );
+    }
+    return cpus;
+  }
+
+  private static Account addCustomerProfileUpdateAndCaseToAccount(
+    Account acc,
+    List<Customer_Profile_Updates__c> cpus
+  ) {
+    return (Account) TestUtil.setFields(
+      acc,
+      new Map<String, Object>{
+        'Customer_Profile_Updates__r' => cpus,
+        'Cases' => new List<Case>{
+          new Case(
+            Id = Lib_FakeIdGenerator.getMockId(Case.SObjectType),
+            Fraud_Restraint_Status__c = 'Applying Restraints in CAP'
+          )
+        }
+      }
+    );
+  }
+  //#endregion
+
+  //#region tests for populating case field from COBs
   @isTest
   private static void testValidateCob() {
     Test.startTest();
@@ -529,7 +578,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The First Name OCR Server is blank, Middle Names are empty and Full Names are matching, Licence Number is not matching - Middle Name Check should be false'
     );
   }
+  //#endregion
 
+  //#region validate duplicate KYCQA cases
   @isTest
   private static void testValidateDuplicateKYCQACasePerAccount() {
     registerMocks();
@@ -629,7 +680,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       .getParam('cobAppIds');
     Assert.isTrue(cobAppIds.isEmpty(), 'Query param should be empty');
   }
+  //#endregion
 
+  //#region tested date
   @isTest
   private static void testHasKycCheckCompleted() {
     Case theCase = null;
@@ -648,24 +701,6 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @isTest
-  private static void testCanPopulateTestedDate() {
-    Case theCase = null;
-    Boolean canPopulateTestedDate = AutoKYCQACaseActions.canPopulateTestedDate(
-      theCase
-    );
-    Assert.isFalse(canPopulateTestedDate, 'The Case is null');
-
-    theCase = constuctCaseWithTestFields(null);
-    canPopulateTestedDate = AutoKYCQACaseActions.canPopulateTestedDate(theCase);
-    Assert.isFalse(canPopulateTestedDate, 'Some fields are empty');
-
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    theCase.Fraud_Restraint_Status__c = 'N/A';
-    canPopulateTestedDate = AutoKYCQACaseActions.canPopulateTestedDate(theCase);
-    Assert.isTrue(canPopulateTestedDate, 'All fields are not empty');
-  }
-
-  @isTest
   private static void testUpdateTestedDate() {
     Case theCase = constuctCaseWithTestFields(null);
     AutoKYCQACaseActions.updateTestedDate(new List<Case>{ theCase });
@@ -679,7 +714,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The Tasted Date should not be null'
     );
   }
+  //#endregion
 
+  //#region downgrade/upgrade
   @isTest
   private static void testDowngradeWithNoRecords() {
     registerMocks();
@@ -701,87 +738,30 @@ public with sharing class AutoKYCQACaseActionsTest {
     registerMocks();
     autoKYCQACaseRepoMock.mock('queryAccounts', new List<Account>{ acc });
 
-    Case oldCase = new Case();
-    oldCase.Id = caseId;
-
-    oldCase.Status = GetHelpConstants.OPEN_STATUS;
+    Case oldCase = new Case(Id = caseId, Status = GetHelpConstants.OPEN_STATUS);
     Case theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
     theCase.Status = RECTIFY_DEFECT_STATUS;
 
+    Test.startTest();
     AutoKYCQACaseActions.downgrade(
       new List<Case>{ theCase },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
+    Test.stopTest();
 
-    Assert.isFalse(
-      autoKYCQACaseRepoMock.getHistories('queryAccounts').isEmpty(),
-      'queryAccounts should have been called.'
-    );
-
-    Assert.isFalse(
-      profileStagingHandlerMock.getHistories('process').isEmpty(),
-      'processCases should have been called.'
-    );
-
-    List<Account> newAccList = (List<Account>) profileStagingHandlerMock.getHistory(
-        'process'
-      )
+    List<Account> newAccList = (List<Account>) profileStagingHandlerMock
+      .getHistory('process')
       .getParam('records');
 
     Assert.areEqual(
       AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS,
       newAccList[0].FinServ__KYCStatus__c,
-      'KYC Statius should be set to: ' +
+      'KYC Status should be set to: ' +
       AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS
     );
     Assert.areEqual(
       AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL,
       newAccList[0].KYC_Verification_Level__c,
-      'KYC Verification Level should be set to: ' +
-      AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL
-    );
-  }
-
-  @isTest
-  private static void testHasKycCheckCompletedWithDefect() {
-    Case theCase = constuctCaseWithTestFields(null);
-    Boolean hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(
-      theCase
-    );
-    Assert.isFalse(hasDefect, 'One of the test fields is empty');
-
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
-    Assert.isTrue(
-      hasDefect,
-      'All test fields are not empty and one of them is NO'
-    );
-
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
-    Assert.isFalse(
-      hasDefect,
-      'All test fields are not empty and all of them are YES'
-    );
-  }
-
-  @isTest
-  private static void testBuildDowngradedAccounts() {
-    Test.startTest();
-    List<Account> accounts = AutoKYCQACaseActions.buildDowngradedAccounts(
-      new List<Account>{ acc }
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS,
-      accounts[0].FinServ__KYCStatus__c,
-      'KYC Statius should be set to: ' +
-      AutoKYCQACaseActions.DOWNGRADE_KYC_STATUS
-    );
-    Assert.areEqual(
-      AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL,
-      accounts[0].KYC_Verification_Level__c,
       'KYC Verification Level should be set to: ' +
       AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL
     );
@@ -818,10 +798,6 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     Case oldCase = new Case();
     oldCase.Id = caseId;
-
-    oldCase.Status = GetHelpConstants.CLOSED_STATUS;
-    caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
-    caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
 
     Test.startTest();
     AutoKYCQACaseActions.upgrade(
@@ -888,23 +864,15 @@ public with sharing class AutoKYCQACaseActionsTest {
     caseWithAccount.Fraud_Defects_Rectified__c = AutoKYCQACaseActions.YES;
     caseWithAccount.Status = GetHelpConstants.CLOSED_STATUS;
 
+    Test.startTest();
     AutoKYCQACaseActions.upgrade(
       new List<Case>{ caseWithAccount },
       new Map<Id, Case>{ oldCase.Id => oldCase }
     );
-    Assert.isFalse(
-      autoKYCQACaseRepoMock.getHistories('queryAccountsNotExited').isEmpty(),
-      'queryAccountsNotExited should have been called.'
-    );
+    Test.stopTest();
 
-    Assert.isFalse(
-      profileStagingHandlerMock.getHistories('process').isEmpty(),
-      'processCases should have been called.'
-    );
-
-    List<Account> newAccList = (List<Account>) profileStagingHandlerMock.getHistory(
-        'process'
-      )
+    List<Account> newAccList = (List<Account>) profileStagingHandlerMock
+      .getHistory('process')
       .getParam('records');
 
     Assert.areEqual(
@@ -919,54 +887,29 @@ public with sharing class AutoKYCQACaseActionsTest {
       AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL
     );
   }
+  //#endregion
 
+  //#region populate closed no defect defaults
   @isTest
-  private static void testFilterAccountsNotExitedAllValid() {
-    Test.startTest();
-    List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
-      new List<Account>{ acc },
-      new List<Account>{ new Account(OCV_ID__c = FAKER.randomString(5)) }
+  private static void testHasKycCheckCompletedWithDefect() {
+    Case theCase = constuctCaseWithTestFields(null);
+    Boolean hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(
+      theCase
     );
-    Test.stopTest();
-    Assert.areEqual(
-      1,
-      oldAccounts.size(),
-      'Should return 1 account, no other exited account of the same OCV ID'
-    );
-  }
+    Assert.isFalse(hasDefect, 'One of the test fields is empty');
 
-  @isTest
-  private static void testFilterAccountsNotExitedNotValid() {
-    Test.startTest();
-    List<Account> oldAccounts = AutoKYCQACaseActions.filterAccountsNotExited(
-      new List<Account>{ acc },
-      new List<Account>{ new Account(OCV_ID__c = acc.OCV_ID__c) }
-    );
-    Test.stopTest();
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
     Assert.isTrue(
-      oldAccounts.isEmpty(),
-      'Should return no account, there is an exited account of the same OCV ID'
+      hasDefect,
+      'All test fields are not empty and one of them is NO'
     );
-  }
 
-  @isTest
-  private static void testBuildUpgradedAccounts() {
-    Test.startTest();
-    List<Account> accounts = AutoKYCQACaseActions.buildUpgradedAccounts(
-      new List<Account>{ acc }
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      AutoKYCQACaseActions.UPGRADE_KYC_STATUS,
-      accounts[0].FinServ__KYCStatus__c,
-      'KYC Statius should be set to: ' + AutoKYCQACaseActions.UPGRADE_KYC_STATUS
-    );
-    Assert.areEqual(
-      AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL,
-      accounts[0].KYC_Verification_Level__c,
-      'KYC Verification Level should be set to: ' +
-      AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
+    Assert.isFalse(
+      hasDefect,
+      'All test fields are not empty and all of them are YES'
     );
   }
 
@@ -1045,6 +988,148 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     Assert.isFalse(result, 'Should be false if case was downgraded');
   }
+  //#endregion
+
+  //#region restraints
+  @IsTest
+  static void testUpdateRestraintResultsError() {
+    registerMocks();
+
+    String restraintsAction = AutoKYCQACaseActions.ADD_RESTRAINTS;
+
+    List<Customer_Profile_Updates__c> cpusError = constructCPUs(
+      new List<String>{ 'Error', 'Pending', 'Completed' },
+      restraintsAction
+    );
+
+    Account accWithCpusAndCase = addCustomerProfileUpdateAndCaseToAccount(
+      acc,
+      cpusError
+    );
+
+    autoKYCQACaseRepoMock.mock(
+      'queryAccountsWithCpuAndKYCQaCases',
+      new List<Account>{ accWithCpusAndCase }
+    );
+
+    Test.startTest();
+    AutoKYCQACaseActions.updateRestraintResults(
+      // new List<Customer_Profile_Updates__c>{ cpuError, cpuPending },
+      cpusError,
+      new Map<Id, Customer_Profile_Updates__c>(),
+      restraintsAction
+    );
+    Test.stopTest();
+
+    List<Case> caseRecords = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.RESTRAINT_ERROR_STATUSES.get(restraintsAction),
+      caseRecords[0].Fraud_Restraint_Status__c,
+      'The case restraint status should be updated to ' +
+      AutoKYCQACaseActions.RESTRAINT_ERROR_STATUSES.get(restraintsAction)
+    );
+  }
+
+  @IsTest
+  static void testGetCasesWithUpdatedRestraintStatus() {
+    String restraintsAction = AutoKYCQACaseActions.ADD_RESTRAINTS;
+
+    List<Customer_Profile_Updates__c> cpusApplied = constructCPUs(
+      new List<String>{ 'Completed', 'Completed', 'Completed' },
+      restraintsAction
+    );
+
+    Account accWithCpusAndCase = addCustomerProfileUpdateAndCaseToAccount(
+      acc,
+      cpusApplied
+    );
+
+    Test.startTest();
+    List<Case> updatedCases = AutoKYCQACaseActions.getCasesWithUpdatedRestraintStatus(
+      new List<Account>{ accWithCpusAndCase },
+      restraintsAction
+    );
+    Test.stopTest();
+
+    Assert.isFalse(updatedCases.isEmpty(), 'List of Cases should not be empty');
+    Assert.areEqual(
+      AutoKYCQACaseActions.RESTRAINT_SUCCESS_STATUSES.get(restraintsAction),
+      updatedCases[0].Fraud_Restraint_Status__c,
+      'The case restraint status should be updated to ' +
+      AutoKYCQACaseActions.RESTRAINT_SUCCESS_STATUSES.get(restraintsAction)
+    );
+  }
+
+  @IsTest
+  static void testGetRestraintStatusFromCpusError() {
+    String restraintsAction = AutoKYCQACaseActions.ADD_RESTRAINTS;
+    List<Customer_Profile_Updates__c> cpusError = constructCPUs(
+      new List<String>{ 'Error', 'Pending', 'Completed' },
+      restraintsAction
+    );
+
+    Test.startTest();
+    String status = AutoKYCQACaseActions.getRestraintStatusFromCpus(
+      cpusError,
+      restraintsAction
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.RESTRAINT_ERROR_STATUSES.get(restraintsAction),
+      status,
+      'The status should be ' +
+      AutoKYCQACaseActions.RESTRAINT_ERROR_STATUSES.get(restraintsAction)
+    );
+  }
+
+  @IsTest
+  static void testGetRestraintStatusFromCpusApplied() {
+    String restraintsAction = AutoKYCQACaseActions.REMOVE_RESTRAINTS;
+    List<Customer_Profile_Updates__c> cpusApplied = constructCPUs(
+      new List<String>{ 'Completed', 'Completed', 'Completed' },
+      restraintsAction
+    );
+
+    Test.startTest();
+    String status = AutoKYCQACaseActions.getRestraintStatusFromCpus(
+      cpusApplied,
+      restraintsAction
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.RESTRAINT_SUCCESS_STATUSES.get(restraintsAction),
+      status,
+      'The status should be ' +
+      AutoKYCQACaseActions.RESTRAINT_SUCCESS_STATUSES.get(restraintsAction)
+    );
+  }
+
+  @IsTest
+  static void testGetRestraintStatusFromCpusPending() {
+    String restraintsAction = AutoKYCQACaseActions.REMOVE_RESTRAINTS;
+    List<Customer_Profile_Updates__c> cpusPending = constructCPUs(
+      new List<String>{ 'Pending', 'Completed', 'Completed' },
+      restraintsAction
+    );
+
+    Test.startTest();
+    String status = AutoKYCQACaseActions.getRestraintStatusFromCpus(
+      cpusPending,
+      restraintsAction
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      AutoKYCQACaseActions.RESTRAINT_PENDING_STATUSES.get(restraintsAction),
+      status,
+      'Incorrect restraint status'
+    );
+  }
+  //#endregion
 
   @IsTest
   static void testSetCheckFields() {

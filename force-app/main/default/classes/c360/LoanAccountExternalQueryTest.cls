@@ -90,6 +90,7 @@ private class LoanAccountExternalQueryTest {
       'getFinancialAccountsWithCustomerId',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     loanAcct.execute(context);
     loanAcct.calloutResponse = new LoanAccountExternalQuery.LoanAccountCalloutResponse();
     ((LoanAccountExternalQuery.LoanAccountCalloutResponse) loanAcct.calloutResponse)
@@ -114,7 +115,7 @@ private class LoanAccountExternalQueryTest {
   static void createLoanAccountsSummaryTest() {
     registerMocks();
     Test.startTest();
-
+    faRepoMock.mock('getCustomerUsingExternalIdAndRtName', new List<Account>());
     //Setting up mocked data
     FinServ__FinancialAccountRole__c mockFar = createMockData(
       '4011643101-503456793',
@@ -200,8 +201,8 @@ private class LoanAccountExternalQueryTest {
       Name = 'PLANT NURSERIES'
     );
     faRepoMock.mock('getIndustryCodeAndDescription', industry);
-    LoanAccountExternalQuery financiaBase = new LoanAccountExternalQuery();
-    String industryValue = financiaBase.retrieveIndustryCodeAndDescription(
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
+    String industryValue = externalQueryHelper.retrieveIndustryCodeAndDescription(
       '0111'
     );
     Test.stopTest();

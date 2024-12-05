@@ -9,6 +9,9 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
   private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
     .get('Broker')
     .recordTypeId;
+  private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
+    CustomSettingsRepository.class
+  );
 
   /**
    * @description Constructor to initialise Trigger Handler library
@@ -16,9 +19,6 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
   public RetailBrokerContactTriggerHandler() {
     super();
   }
-
-  @TestVisible
-  private static BrokerSettings__c mockBrokerSettings;
 
   /**
    * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of Broker contact records
@@ -29,17 +29,7 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
     Contact contact = (Contact) record;
     return contact.RecordTypeId == RECORD_TYPE_ID_BROKER;
   }
-  /**
-   * @description To set the mock broker settings
-   * @return The BrokerSettings__c custom setting
-   */
-  @TestVisible
-  private static BrokerSettings__c brokerSettings() {
-    if (mockBrokerSettings != null) {
-      return mockBrokerSettings;
-    }
-    return BrokerSettings__c.getOrgDefaults();
-  }
+
   /**
    * @description To perform business logic on before insert trigger context
    * @param oldMap The old id-record map before the update execution
@@ -58,7 +48,9 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   @TestVisible
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    if (brokerSettings().BypassBrokerSyncEvents__c == true) {
+    Boolean bypassSyncEvents = BROKER_SETTINGS_REPOSITORY.brokerSettings()
+      .BypassBrokerEvent__c;
+    if (bypassSyncEvents) {
       return;
     }
     RetailBrokerContactActions.publishBrokerEvents(
