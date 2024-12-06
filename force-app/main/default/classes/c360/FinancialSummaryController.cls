@@ -496,6 +496,7 @@ public with sharing class FinancialSummaryController {
       cacheWrapper.totalCreditBalanceAck = CCRMConstants.ERROR_RESPONSE;
       cacheWrapper.totalDebitBalanceAck = CCRMConstants.ERROR_RESPONSE;
     }
+
     if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
       cacheWrapper.assetBalanceAck = CCRMConstants.ERROR_RESPONSE;
     }

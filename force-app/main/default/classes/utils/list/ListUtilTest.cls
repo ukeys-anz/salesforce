@@ -1,4 +1,3 @@
-
 @IsTest
 private class ListUtilTest {
   static final Faker FAKER = new Faker('AU');

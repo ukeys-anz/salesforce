@@ -397,7 +397,6 @@ private class ResidentialLoanAppActionsTest {
       newRlaRecordsList.get(0).Id => newRlaRecordsList.get(0)
     };
 
-    List<Case> caseRecordBeforeUpdate = createMockCaseRelatedToRla();
     Test.startTest();
     ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
       newRlaRecords,

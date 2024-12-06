@@ -25,20 +25,9 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final ResidentialLoanApplicationRepository RLA_REPOSITORY = (ResidentialLoanApplicationRepository) Lib_InstanceProvider.forType(
     ResidentialLoanApplicationRepository.class
   );
-  @TestVisible
-  private static BrokerSettings__c mockBrokerSettings;
-
-  /**
-   * @description To set the mock broker settings
-   * @return The BrokerSettings__c custom setting
-   */
-  @TestVisible
-  private static BrokerSettings__c brokerSettings() {
-    if (mockBrokerSettings != null) {
-      return mockBrokerSettings;
-    }
-    return BrokerSettings__c.getOrgDefaults();
-  }
+  private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
+    CustomSettingsRepository.class
+  );
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
@@ -229,7 +218,7 @@ public with sharing class ResidentialLoanApplicationActions {
   ) {
     //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
     if (
-      brokerSettings().BypassApplicationEvent__c ==
+      BROKER_SETTINGS_REPOSITORY.brokerSettings().BypassApplicationEvent__c ==
       true
     ) {
       return null;

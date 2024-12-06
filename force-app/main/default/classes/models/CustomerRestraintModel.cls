@@ -17,6 +17,8 @@ public with sharing class CustomerRestraintModel {
     public String datePlaced;
     public String dateExpires;
     public String specialComment1;
+    public String specialComment2;
+    public String specialComment3;
     public Integer sequence;
   }
 }

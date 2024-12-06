@@ -1,11 +1,3 @@
-/**
- * @description       : 
- * @author            : 
- * @group             : 
- * @last modified on  : 12-05-2024
- * @last modified by  : Smruti Khobragade |  Salesforce
-**/
-
 @SuppressWarnings('PMD.CyclomaticComplexity')
 @IsTest
 public with sharing class AutoKYCQACaseActionsTest {

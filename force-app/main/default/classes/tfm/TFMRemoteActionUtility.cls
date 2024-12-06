@@ -2,7 +2,7 @@
  * @description       : class contains method that is used in IP/OS to invoke OB-Data out functionality
  * @author            : Anuj jain
  * @group             : TFM
- * @last modified on  : 12-05-2024
+ * @last modified on  : 11-15-2024
  **/
 global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOpenInterface, Callable {
   // Remote methods
@@ -402,6 +402,9 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
   }
 
   /**
+   * @param statusCode value of statusCode
+   * @return `Boolean`
+   * @description return Map<String, Object> that sets isvalid to true or false
    */
   public static Boolean handleStatusCode(Integer statusCode) {
     if (statusCode == 401 || statusCode == 403) {
