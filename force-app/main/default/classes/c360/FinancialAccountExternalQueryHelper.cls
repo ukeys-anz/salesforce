@@ -17,6 +17,35 @@ public with sharing class FinancialAccountExternalQueryHelper {
   private final static String ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME = 'BankingAccount';
 
   /**
+   * @description Returns the Financial account role types picklist values
+   */
+  static Map<String, String> roleTypes {
+    get {
+      if (roleTypes != null) {
+        return roleTypes;
+      }
+      roleTypes = new Map<String, String>();
+      for (
+        Schema.PicklistEntry roleType : FinServ__FinancialAccountRole__c.Role_Type__c.getDescribe()
+          .getPicklistValues()
+      ) {
+        roleTypes.put(roleType.getValue(), roleType.getLabel());
+      }
+      return roleTypes;
+    }
+    set;
+  }
+
+  /**
+   * @description get role type name
+   * @param roleTypeCode role code
+   * @return String role type name
+   */
+  public String getRoleTypeNameByCode(String roleTypeCode) {
+    return roleTypes.get(roleTypeCode) ?? roleTypeCode;
+  }
+
+  /**
    * @description get industry code and discription
    * @param  industryCode
    * @return String industryCode plus discription
