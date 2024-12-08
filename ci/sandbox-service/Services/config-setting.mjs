@@ -119,6 +119,14 @@ const runLoggingRecordsPurgeScheduler = (orgAlias) => {
   `);
 };
 
+const updatePamApproversCustomSetting = (orgAlias) => {
+  console.log("--- running updatePamApproversCustomSetting ---");
+  nonProdChangeValidation(orgAlias);
+  return runCommand(`
+    sf apex run -f ci/apex-scripts/pamApproversSetting.apex -o "${orgAlias}"
+  `);
+};
+
 export {
   runSandboxConfigSetupApex,
   updateOmniStudioRemoteSetting,
@@ -127,5 +135,6 @@ export {
   createSystemCustomer,
   updateUserFedId,
   deployRequiredFiles,
-  runLoggingRecordsPurgeScheduler
+  runLoggingRecordsPurgeScheduler,
+  updatePamApproversCustomSetting
 };

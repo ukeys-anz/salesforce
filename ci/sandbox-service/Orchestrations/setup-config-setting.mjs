@@ -26,6 +26,7 @@ const runSetupConfigAndSettings = (orgAlias) => {
   deployContentAssets(orgAlias);
   updateOmniStudioRemoteSetting(orgAlias);
   runSandboxConfigSetupApex(orgAlias);
+  updatePamApproversCustomSetting(orgAlias);
   deployRequiredFiles(orgAlias);
   updateUserFedId(orgAlias);
   runLoggingRecordsPurgeScheduler(orgAlias);
