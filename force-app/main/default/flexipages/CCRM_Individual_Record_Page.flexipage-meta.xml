@@ -1070,7 +1070,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>FinServ__RelatedToContacts__pr</value>
+                    <value>FinServ__RelatedFromContacts__pr</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>
@@ -1080,7 +1080,7 @@
                     <name>relatedListFieldAliases</name>
                     <valueList>
                         <valueListItems>
-                            <value>NAME</value>
+                            <value>FinServ__RelatedContact__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>FinServ__SourceSystemId__c</value>
@@ -1131,7 +1131,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
-                    <value>FinServ__FinancialAccountRoles__pr</value>
+                    <value>FinServ__FinancialAccountRoles__r</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListDisplayType</name>
