@@ -7,4 +7,5 @@ public class RTAccount {
   static QueryRT base = QueryRT.of(Account.SObjectType);
 
   public static Id businessAccount = base.getId('Business_Account');
+  public static Id personAccount = base.getId('PersonAccount');
 }

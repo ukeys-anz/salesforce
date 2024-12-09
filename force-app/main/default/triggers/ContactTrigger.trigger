@@ -9,7 +9,6 @@ trigger ContactTrigger on Contact(
   before update,
   after update
 ) {
-  ContactTriggerHandler handler = new ContactTriggerHandler();
   RetailBrokerContactTriggerHandler retailBrokerHandler = new RetailBrokerContactTriggerHandler();
   CommercialContactTriggerHandler commercialContactHandler = new CommercialContactTriggerHandler();
 }
