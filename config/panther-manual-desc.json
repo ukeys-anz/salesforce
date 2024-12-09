@@ -5227,6 +5227,33 @@
         "Value_Date__c"
       ],
       "IA-2468715": ["Customer__c"]
+    },
+    "Circle_Of_Influence__c": {
+      "IA-2415828": [
+        "COI_Type__c",
+        "First_Name__c",
+        "Last_Name__c",
+        "Name__c",
+        "Email__c",
+        "Mobile__c"
+      ],
+      "IA-2415790": [
+        "Residence_Number__c",
+        "Residence_Type__c",
+        "Building_Name__c",
+        "Street_Name__c",
+        "Street_Type__c",
+        "City__c",
+        "State__c",
+        "Country__c",
+        "Postal_Code__c"
+      ],
+      "IA-2423227": [
+        "Notes__c",
+        "Preferred_Contact_Method__c",
+        "Preferred_Contact_Time__c",
+        "COI_Company__c"
+      ]
     }
   },
   "lineageInformation": {
