@@ -9,14 +9,21 @@ public with sharing class CCRMLeadMappingEngine {
   /**
    * @global declarations.
    */
+  @testVisible
   private Map<Id, Account> mapAccountsRecordTypeId = null;
+  @testVisible
   private Map<Id, Account> accountList = new Map<Id, Account>();
   private Map<String, Industry__c> mapIndustries = new Map<String, Industry__c>();
+  @testVisible
   private List<Lead> leadList = new List<Lead>();
   private Map<string, string> mappedField = new Map<string, string>();
   //CC-1056
   private Map<Id, Schema.RecordTypeInfo> mapOfLeadRecordTypes;
   private List<DCRM_Lead_Conversion_Mapping__mdt> leadToSObjectMappingCustomMetadata;
+  @testVisible
+  private static final String NO_CONTACT_FOUND = 'No Contact Found';
+  @testVisible
+  private static final String COMMERCIAL_CONTACT_INFO = 'Check for Commercial Contacts on profile';
 
   /**
    * @description This method prefill data from Account to Leads for Manual Leads
@@ -713,26 +720,21 @@ public with sharing class CCRMLeadMappingEngine {
   /**
    * @description This methods returns Preferred Contact. If no preferred contact exist return recent created contact otherwise return null
    * @name getContactForMapping
-   * @param lead Lead record
-   * @return Contact Returns Contact object
+   * @param leadList List of lead records
+   * @return Map<Id, Contact> Returns Map of Account Id to Contact map
    */
-  private Contact getContactForMapping(Lead lead) {
-    Contact contactForMapping = new Contact();
-    List<Contact> contacts = accountList.get(lead.FinServ__RelatedAccount__c)
-      .contacts;
-    if (contacts.size() == 0) {
-      return null;
-    }
-    for (Contact contact : contacts) {
-      if (contact.Is_Preferred_Contact__c) {
-        contactForMapping = contact;
-        break;
-      } else {
-        contactForMapping = contacts[0];
+  private Map<Id, Contact> getContactForMapping(List<Lead> leadList) {
+    Map<Id, Contact> accIdToContactMap = new Map<Id, Contact>();
+    List<Contact> contactList = new List<Contact>();
+    for (Lead lead : leadList) {
+      contactList = accountList.get(lead.FinServ__RelatedAccount__c).contacts;
+      if (contactList.size() == 0) {
+        accIdToContactMap.put(lead.FinServ__RelatedAccount__c, null);
+        continue;
       }
+      accIdToContactMap.put(lead.FinServ__RelatedAccount__c, contactList[0]);
     }
-
-    return contactForMapping;
+    return accIdToContactMap;
   }
 
   /**
@@ -740,34 +742,52 @@ public with sharing class CCRMLeadMappingEngine {
    * @name mapContactFieldsToLead
    * @param contactToLeadMappingWithContact Fields for mapping
    */
+  @testVisible
   private void mapContactFieldsToLead(
     Map<string, Map<string, string>> contactToLeadMappingWithContact
   ) {
+    String accountType;
+    Map<String, String> contactToLeadMapping = new Map<String, String>();
+    String leadField;
+    Contact contactRec = new Contact();
+
+    Map<Id, Contact> accIdToContactMap = getContactForMapping(leadList);
+
     for (Lead lead : leadList) {
-      Contact contact = getContactForMapping(lead);
-      //If no contact exist then assign default first and last name
-      if (contact == null) {
-        lead.put('FirstName', CCRMConstants.NO_CONTACT_FOUND);
-        lead.put('LastName', CCRMConstants.NO_CONTACT_FOUND);
-      } else {
-        String accountType = getAccountType(
-          mapAccountsRecordTypeId.get(lead.FinServ__RelatedAccount__c)
-            .RecordTypeId
-        );
-
-        Map<String, String> contactToLeadMapping = contactToLeadMappingWithContact.get(
-          accountType
-        );
-
-        for (String fieldName : contactToLeadMapping.keySet()) {
-          String leadField = contactToLeadMapping.get(fieldName);
-          if (
-            leadField != 'Is_Preferred_Contact__c' &&
-            lead.get(leadField) == null
-          ) {
-            lead.put(leadField, contact.get(fieldName));
-          }
+      accountType = getAccountType(
+        mapAccountsRecordTypeId.get(lead.FinServ__RelatedAccount__c)
+          .RecordTypeId
+      );
+      contactToLeadMapping = contactToLeadMappingWithContact.get(accountType);
+      contactRec = accIdToContactMap.get(lead.FinServ__RelatedAccount__c);
+      if (
+        contactRec == null &&
+        lead.FirstName == null &&
+        lead.LastName == null
+      ) {
+        lead.put('FirstName', NO_CONTACT_FOUND);
+        lead.put('LastName', NO_CONTACT_FOUND);
+        continue;
+      }
+      if (
+        contactRec != null &&
+        contactToLeadMapping.isEmpty() &&
+        lead.FirstName == null &&
+        lead.LastName == null
+      ) {
+        lead.put('FirstName', COMMERCIAL_CONTACT_INFO);
+        lead.put('LastName', COMMERCIAL_CONTACT_INFO);
+        continue;
+      }
+      for (String fieldName : contactToLeadMapping.keySet()) {
+        leadField = contactToLeadMapping.get(fieldName);
+        if (
+          leadField == 'Is_Preferred_Contact__c' ||
+          lead.get(leadField) != null
+        ) {
+          continue;
         }
+        lead.put(leadField, contactRec.get(fieldName));
       }
     }
   }

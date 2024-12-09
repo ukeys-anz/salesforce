@@ -1363,4 +1363,133 @@ private class CCRMLeadActionsTest {
       'Lead record should have an error to prevent deletion.'
     );
   }
+
+  @isTest
+  static void testMapContactFieldsToLeadNoContacts() {
+    //GIVEN Lead and Account Records
+    CCRMLeadMappingEngine mapEng = new CCRMLeadMappingEngine();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    mapEng.leadList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSobjectType()),
+        RecordTypeId = RTLead.commercialLead,
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+    Account accRecord = new Account(
+      Id = accId,
+      RecordTypeId = RTAccount.businessAccount,
+      Name = 'Sample Account'
+    );
+    mapEng.accountList = new Map<Id, Account>{ accId => accRecord };
+    mapEng.mapAccountsRecordTypeId = new Map<Id, Account>{ accId => accRecord };
+    Map<string, Map<string, string>> contactToLeadMappingWithContact = new Map<String, Map<String, String>>{
+      'Business' => new Map<String, String>{ 'LastName' => 'LastName' }
+    };
+
+    //WHEN Calling a method
+    Test.startTest();
+    mapEng.mapContactFieldsToLead(contactToLeadMappingWithContact);
+    Test.stopTest();
+
+    //THEN it should populate Last Name with 'No Contact Found'
+    Assert.areEqual(
+      CCRMLeadMappingEngine.NO_CONTACT_FOUND,
+      mapEng.leadList[0].LastName,
+      'Contacts Found'
+    );
+  }
+
+  @isTest
+  static void testMapContactFieldsToLeadWhenContacts() {
+    //GIVEN Lead, Contact and Account Records
+    CCRMLeadMappingEngine mapEng = new CCRMLeadMappingEngine();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    Id conId = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType());
+    mapEng.leadList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSobjectType()),
+        RecordTypeId = RTLead.commercialLead,
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+    Account accRecord = (Account) TestUtil.setFields(
+      new Account(
+        Id = accId,
+        RecordTypeId = RTAccount.businessAccount,
+        Name = 'Sample Account'
+      ),
+      new Map<String, List<Contact>>{
+        'Contacts' => new List<Contact>{
+          new Contact(Id = conId, RecordTypeId = RTContact.organisation)
+        }
+      }
+    );
+    mapEng.accountList = new Map<Id, Account>{ accId => accRecord };
+    mapEng.mapAccountsRecordTypeId = new Map<Id, Account>{ accId => accRecord };
+    Map<string, Map<string, string>> contactToLeadMappingWithContact = new Map<String, Map<String, String>>{
+      'Business' => new Map<String, String>()
+    };
+
+    //WHEN Calling a method
+    Test.startTest();
+    mapEng.mapContactFieldsToLead(contactToLeadMappingWithContact);
+    Test.stopTest();
+
+    //THEN It should populate the Last Name on Lead
+    Assert.areEqual(
+      CCRMLeadMappingEngine.COMMERCIAL_CONTACT_INFO,
+      mapEng.leadList[0].LastName,
+      'No Contact Found'
+    );
+  }
+
+  @isTest
+  static void testMapContactFieldsToLeadWithContacts() {
+    //GIVEN Lead and Account Records
+    CCRMLeadMappingEngine mapEng = new CCRMLeadMappingEngine();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    Id conId = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType());
+    mapEng.leadList = new List<Lead>{
+      new Lead(
+        Id = Lib_FakeIdGenerator.getMockId(Lead.getSobjectType()),
+        RecordTypeId = RTLead.commercialLead,
+        FinServ__RelatedAccount__c = accId
+      )
+    };
+    Account accRecord = (Account) TestUtil.setFields(
+      new Account(
+        Id = accId,
+        RecordTypeId = RTAccount.businessAccount,
+        Name = 'Sample Account'
+      ),
+      new Map<String, List<Contact>>{
+        'Contacts' => new List<Contact>{
+          new Contact(
+            Id = conId,
+            Is_Preferred_Contact__c = true,
+            LastName = 'Pointing',
+            RecordTypeId = RTContact.organisation
+          )
+        }
+      }
+    );
+    mapEng.accountList = new Map<Id, Account>{ accId => accRecord };
+    mapEng.mapAccountsRecordTypeId = new Map<Id, Account>{ accId => accRecord };
+    Map<string, Map<string, string>> contactToLeadMappingWithContact = new Map<String, Map<String, String>>{
+      'Business' => new Map<String, String>{ 'LastName' => 'LastName' }
+    };
+
+    //WHEN Calling a method
+    Test.startTest();
+    mapEng.mapContactFieldsToLead(contactToLeadMappingWithContact);
+    Test.stopTest();
+
+    //THEN it should populate Last Name with 'No Contact Found'
+    Assert.areEqual(
+      'Pointing',
+      mapEng.leadList[0].LastName,
+      'No Contacts mapping found'
+    );
+  }
 }
