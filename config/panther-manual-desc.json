@@ -854,6 +854,7 @@
         "External_System_Create_Datetime__c",
         "External_System__c",
         "FinServ__FinancialAccount__c",
+        "Financial_Account_Number__c",
         "Fraud_COR_Event_ID__c",
         "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
@@ -1187,6 +1188,7 @@
         "Amount_Of_Credit_Due__c",
         "Biller_Code__c",
         "Biller_Name__c",
+        "Circumstance__c",
         "Claimed_Amount__c",
         "Company__c",
         "Correct_Customer_Reference_Number__c",
@@ -1220,6 +1222,7 @@
         "Intended_Pay_Id_Value__c",
         "Posted_Amount__c",
         "Posted_Currency__c",
+        "Process_Id__c",
         "Received_Amount__c",
         "Received_Currency__c",
         "Refund_Request_Date__c",
@@ -1368,11 +1371,13 @@
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
+        "API_Sub_Status__c",
         "Case__c",
         "Case_Last_Opened__c",
         "Case_Last_Opened_RG271__c",
         "IDR_Response_Time_RG271__c",
         "IDR_Response_Time_RG271_MS__c",
+        "Process_Status__c",
         "Total_Open_Time__c",
         "Total_Open_Time_MS__c"
       ]
