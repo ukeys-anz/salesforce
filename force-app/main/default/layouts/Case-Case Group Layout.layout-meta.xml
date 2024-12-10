@@ -116,9 +116,6 @@
     </platformActionList>
     <quickActionList>
         <quickActionListItems>
-            <quickActionName>Case.Testing</quickActionName>
-        </quickActionListItems>
-        <quickActionListItems>
             <quickActionName>FeedItem.TextPost</quickActionName>
         </quickActionListItems>
     </quickActionList>
