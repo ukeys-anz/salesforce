@@ -35,7 +35,7 @@ public with sharing class AutoKYCQACaseController {
       if (AutoKYCQACaseActions.hasKycCheckCompleted(cases[0])) {
         throw new CompletionChecksException(MSG_ERROR_CHECKS_ALREADY_COMPLETED);
       }
-      AutoKYCQACaseActions.setCheckFields(cases);
+      ListUtil.setFieldIfNull(cases, AutoKYCQACaseActions.TEST_FIELDS, 'Yes');
       DML.doUpdate(cases);
 
       Logger.debug(MSG_SUCCESS_CHECKS_COMPLETION);

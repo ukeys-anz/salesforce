@@ -30,6 +30,10 @@
                 <behavior>Edit</behavior>
                 <field>Access_Scope__c</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>TPMI__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
     </layoutSections>

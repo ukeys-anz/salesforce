@@ -167,11 +167,7 @@ public without sharing class LeadConversionActionsRepository {
         FinServ__RelatedAccount__r.PersonContact.OtherPostalCode,
         FinServ__RelatedAccount__r.Advertising_Indicator__c
       FROM Lead
-      WHERE
-        Id = :leadId
-        AND RecordType.DeveloperName IN ('MLCRM_Lead', 'CCRM_Lead')
-        AND FinServ__RelatedAccount__c != NULL
-        AND FinServ__RelatedAccount__r.OCV_Event_Version__c != 0
+      WHERE Id = :leadId
     ];
   }
 }

@@ -452,20 +452,23 @@ public with sharing class CCRMOpportunityActions {
    * @name updateOpportunityNameOnUpdate
    * @param filteredOpps filtered CCRM opps
    * @param oldMap  old map of id and opportunity
+   * @return  List<Opportunity>
    */
-  public static void updateOpportunityNameOnUpdate(
+  public static List<Opportunity> updateOpportunityNameOnUpdate(
     List<Opportunity> filteredOpps,
     Map<Id, Opportunity> oldMap
   ) {
     try {
-      List<Opportunity> oppList = new List<Opportunity>();
-      Map<Id, String> updatedOppsNameMap = new Map<Id, String>();
+      List<Opportunity> oppList;
+      Map<Id, String> updatedOppsNameMap;
 
       oppList = getFilteredOpportunities(filteredOpps, oldMap);
 
       updatedOppsNameMap = getMapWithUpdatedOpportunitiesName(oppList, oldMap);
 
-      updateOpportunityListOnUpdate(oppList, updatedOppsNameMap);
+      oppList = updateOpportunityListOnUpdate(oppList, updatedOppsNameMap);
+
+      return oppList;
     } catch (Exception ex) {
       Logger.error(ex.getMessage(), ex);
       Logger.saveLog();
@@ -558,7 +561,7 @@ public with sharing class CCRMOpportunityActions {
     return updatedOpps;
   }
 
-  private static void updateOpportunityListOnUpdate(
+  private static List<Opportunity> updateOpportunityListOnUpdate(
     List<Opportunity> filteredOpps,
     Map<Id, String> updatedOppsNameMap
   ) {
@@ -567,6 +570,7 @@ public with sharing class CCRMOpportunityActions {
         ? updatedOppsNameMap.get(opp.Id)
         : '';
     }
+    return filteredOpps;
   }
 
   @testVisible
@@ -619,6 +623,32 @@ public with sharing class CCRMOpportunityActions {
     CCRMOpportunityActions.insertOpportunityContext = true;
     List<Database.saveResult> results = Database.update(updatedOpps, false);
     return results;
+  }
+
+  /**
+   * @description update the OwnerId with the  Opportunity_Owner__c field
+   * @name transferOpportunityOwnership
+   * @param newOppList List of new lead records.
+   * @param oldOppMap Map of old lead records.
+   */
+  public static void transferOpportunityOwnership(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    if (
+      COMMERCIALOPP_REPOSITORY.getUserProfileId() !=
+      QueryProfile.anzCCRMStandardUser.id
+    ) {
+      return;
+    }
+
+    List<Opportunity> filterOppList = ListUtil.filter(newOppList, oldOppMap)
+      .changed(Opportunity.Opportunity_Owner__c)
+      .toList();
+
+    for (Opportunity opportunityRec : filterOppList) {
+      opportunityRec.OwnerId = opportunityRec.Opportunity_Owner__c;
+    }
   }
 
   /**

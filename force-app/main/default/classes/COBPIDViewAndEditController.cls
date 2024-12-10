@@ -41,6 +41,28 @@ public with sharing class COBPIDViewAndEditController {
     COBPrimaryIDDocument__c.PassportNumberOCRServer__c
   };
 
+  @TestVisible
+  private static final String FAILED_TO_UPDATE_DETAILS = 'Failed to update details. Please contact your System Administrator.';
+
+  @TestVisible
+  private static final Map<String, String> PID_ERRORS_USER_MSG = new Map<String, String>{
+    'FirstName must match pattern' => 'First Name failed the Data Validation.',
+    'MiddleName must match pattern' => 'Middle Name failed the Data Validation.',
+    'LastName must match pattern' => 'Last Name failed the Data Validation.',
+    'expiration date exceeded' => 'Expiry Date failed the Data Validation.',
+    'state cannot be nil' => 'State failed the Data Validation.',
+    'failed to match IdentificationNumber to regex' => 'Identification Number failed the Data Validation.',
+    'card number cant be nil' => 'Licence Card Number failed the Data Validation.',
+    'failed to match card number to regex' => 'Licence Card Number failed the Data Validation.',
+    'country is blank' => 'Country failed the Data Validation.',
+    'identification number has wrong length:' => 'Identification Number failed the Data Validation.',
+    'expiration date has passed' => 'Expiry Date has failed the Data Validation.',
+    'IdentificationNumber did not match regex' => 'Identification Number failed the Data Validation.',
+    'dob invalid - must be atleast 15 years old' => 'Date of Birth has failed the Data Validation.',
+    'must be born after 1900' => 'Date of Birth has failed the Data Validation.',
+    'can only retry EV once per onboarding attempt' => 'You can no longer edit this record as it has reached the limit of editing.'
+  };
+
   /**
    * @description method to retrieve detokenized Customer Onboarding Application data and return to lwc component
    * @param recordId Salesforce ID of the COBPrimaryIDDocument__c record from the lwc component
@@ -291,10 +313,27 @@ public with sharing class COBPIDViewAndEditController {
         idOpsCase.Id
       );
     } catch (Exception e) {
-      Logger.error(ERROR_TOKENIZING_DATA, record.Id, e);
-      Logger.saveLog();
-      throw new AuraHandledException(FAILED_TOKENIZATION);
+      Logger.error(ERROR_TOKENIZING_DATA, record.Id, e).save();
+
+      String exceptionMsg = getErrorMessage(e.getMessage());
+      throw new AuraHandledException(exceptionMsg);
     }
+  }
+
+  /**
+   * @description method to retrieve error message from the exception message
+   * @param message exception message
+   * @return `String` error message
+   */
+  @TestVisible
+  private static String getErrorMessage(String message) {
+    for (String key : PID_ERRORS_USER_MSG.keySet()) {
+      if (message.containsIgnoreCase(key)) {
+        return PID_ERRORS_USER_MSG.get(key);
+      }
+    }
+
+    return FAILED_TO_UPDATE_DETAILS;
   }
 
   /**

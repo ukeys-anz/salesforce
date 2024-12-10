@@ -6,6 +6,7 @@
     <errorConditionFormula>AND(
 NOT(ISNEW()),
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT(ISCHANGED(OwnerId)),
 OR(
 RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
 AND(RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;,IDR_NC_Is_Consent_Obtained__c = true

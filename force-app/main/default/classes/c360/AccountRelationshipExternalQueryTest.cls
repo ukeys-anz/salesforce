@@ -49,7 +49,7 @@ private class AccountRelationshipExternalQueryTest {
   static void testParseResponse() {
     String responseBody =
       '{' +
-      '    "accountRelationships": [' +
+      '    "relationships": [' +
       '      {' +
       '        "compositeAccountRelationshipId": "DDA-901221265-0",' +
       '        "relatedPartyCustomerId": "4017120146",' +
@@ -123,12 +123,12 @@ private class AccountRelationshipExternalQueryTest {
     accRelQry.execute(context);
     accRelQry.calloutResponse = new AccountRelationshipExternalQuery.AccountRelationshipCalloutResponse();
     ((AccountRelationshipExternalQuery.AccountRelationshipCalloutResponse) accRelQry.calloutResponse)
-      .accountRelationships = new List<AccountRelationshipExternalQuery.AccountRelationshipModel>();
+      .relationships = new List<AccountRelationshipExternalQuery.AccountRelationshipModel>();
     AccountRelationshipExternalQuery.AccountRelationshipModel accountRelationshipModel = new AccountRelationshipExternalQuery.AccountRelationshipModel();
     accountRelationshipModel.relatedPartyCustomerId = '4017120146';
     accountRelationshipModel.relationshipType = 'PRI';
     ((AccountRelationshipExternalQuery.AccountRelationshipCalloutResponse) accRelQry.calloutResponse)
-      .accountRelationships.add(accountRelationshipModel);
+      .relationships.add(accountRelationshipModel);
     ExternalObjectQueryBase.ExternalQueryResult result = accRelQry.createExternalRecords(
       accRelQry.calloutResponse
     );
@@ -171,13 +171,13 @@ private class AccountRelationshipExternalQueryTest {
     FinServ__FinancialAccountRole__c mockFar = getMockedData();
 
     createAccountRelationshipContextForSOQL();
-    AccountRelationshipExternalQuery accRelQry = new AccountRelationshipExternalQuery();
     faRepoMock.mock(
       'getRelatedCustomers',
       new List<FinServ__FinancialAccountRole__c>{ mockFar }
     );
     Test.startTest();
-    List<FinServ__FinancialAccountRole__c> roles = accRelQry.getRelatedCustomersOfAccount(
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
+    List<FinServ__FinancialAccountRole__c> roles = externalQueryHelper.getRelatedCustomersOfAccount(
       'CAP-CIS_4011643101-234500817',
       new Set<String>{ 'UNO' }
     );

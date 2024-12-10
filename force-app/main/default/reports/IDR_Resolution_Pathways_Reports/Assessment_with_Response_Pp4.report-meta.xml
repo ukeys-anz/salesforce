@@ -11,10 +11,10 @@
         <field>Assessment$AssessmentStatus</field>
     </columns>
     <columns>
-        <field>Assessment$CreatedDate</field>
+        <field>Assessment$Created_Date_Time__c</field>
     </columns>
     <columns>
-        <field>Assessment$LastModifiedDate</field>
+        <field>Assessment$Last_Modified_Date_Time__c</field>
     </columns>
     <columns>
         <field>Assessment$LastModifiedBy</field>

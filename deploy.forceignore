@@ -241,6 +241,7 @@ force-app/main/default/roles/Small_Business_Manager_NBC.role-meta.xml
 force-app/main/default/roles/Small_Business_Specialist.role-meta.xml
 force-app/main/default/roles/Team_Leader_NBC.role-meta.xml
 
+<<<<<<< HEAD
 ##PLASE REMOVE BELOW LINES - ADDED FOR BACK MERGE
 ## SharingRules
 force-app/main/default/sharingRules/A_Z_Review__c.sharingRules-meta.xml
@@ -265,3 +266,8 @@ force-app/main/default/sharingRules/User.sharingRules-meta.xml
 force-app/main/default/objects/Opportunity/listViews/My_Closed_Opportunities.listView-meta.xml
 force-app/main/default/objects/Task/listViews/ML_MyDelegatedTasks.listView-meta.xml
 force-app/main/default/objects/Opportunity/listViews/My_Opportunities.listView-meta.xml
+=======
+#CC-11040 - Ignore Action launcher deployment
+force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti7woscmbp1i57jhu21mgn4.actionLauncherItemDef-meta.xml
+force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.deployment-meta.xml
+>>>>>>> develop

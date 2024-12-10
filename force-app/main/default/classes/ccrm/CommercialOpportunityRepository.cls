@@ -43,4 +43,12 @@ public with sharing class CommercialOpportunityRepository {
     }
     return result;
   }
+
+  /**
+   * @description It will fetch the user Profile Id
+   * @return Id Profile Id of the current user
+   */
+  public Id getUserProfileId() {
+    return UserInfo.getProfileId();
+  }
 }

@@ -8,7 +8,27 @@
         <layoutColumns>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Purpose_Code__c</field>
+                <field>Account_Name__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Account_Number__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Product_Code__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sub_Product_Code__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Sequence_No__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Product_Name__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
@@ -17,10 +37,6 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>CAP_Account_Limit__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Expires__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -34,19 +50,23 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Account_Number__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Sequence_No__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>Loan_Term__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>Loan_Term_Months__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Expires__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Purpose_Code__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Purpose__c</field>
             </layoutItems>
         </layoutColumns>
         <style>TwoColumnsTopToBottom</style>
@@ -73,20 +93,20 @@
     <relatedLists>
         <fields>Reference_No__c</fields>
         <fields>Bill_Type__c</fields>
+        <fields>Amount__c</fields>
         <fields>Rollover_Date__c</fields>
         <fields>Expires__c</fields>
-        <fields>Amount__c</fields>
         <relatedList>Linked_Bill__x.Commercial_Bill__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
-        <fields>Scheduled_Bill_Reduction_Amount__c</fields>
+        <fields>Seq__c</fields>
         <fields>Scheduled_Start_Date__c</fields>
         <fields>Scheduled_End_Date__c</fields>
+        <fields>Scheduled_Bill_Reduction_Amount__c</fields>
         <relatedList>Commercial_Bill_Repayment_Detail__x.Commercial_Bill__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Seq__c</fields>
         <fields>Fee_Name__c</fields>
         <fields>Fee_Amount__c</fields>
         <fields>Fee_Rate__c</fields>
@@ -99,7 +119,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h9t0000058Ean</masterLabel>
+        <masterLabel>00h9h000002Xcwb</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

@@ -29,6 +29,21 @@
         </criteriaItems>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>ANZx_Customer_Read_Only_For_ECH_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>View access to all the ANZx records for Extra Care Hub users</description>
+        <label>ANZx Customer Read Only For ECH Users</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>ANZX Leads</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>CCRM_LeadEditAccessToCLO</fullName>
         <accessLevel>Edit</accessLevel>
         <description>All CCRM Leads will be accessible to CLO in Edit Mode</description>
@@ -141,7 +156,7 @@
     </sharingOwnerRules>
     <sharingOwnerRules>
         <fullName>Commercial_Lead_Read_Write_Access_TB</fullName>
-        <accessLevel>Read</accessLevel>
+        <accessLevel>Edit</accessLevel>
         <description>This is used to provide Read and Write access to TB.</description>
         <label>Commercial Lead Read Write Access TB</label>
         <sharedTo>

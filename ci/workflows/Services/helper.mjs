@@ -10,6 +10,8 @@ import {
   writeFileSync
 } from "fs";
 
+import { checkIfTestWhiteListed } from "../Config/validateConfig.mjs";
+
 const renameFile = (oldFilepath, newFilepath) => {
   renameSync(oldFilepath, newFilepath);
   console.log(`${oldFilepath} renamed to ${newFilepath}.`);
@@ -103,6 +105,24 @@ const salesforceIgnoredFileChanges = (artifactPath) => {
   );
   allIgnoredChanges = printXMLNamesAndMembers(allIgnoredChanges);
   return allIgnoredChanges;
+};
+
+const canSkipTest = (artifactPath, baseRef) => {
+  if (baseRef == "master") {
+    return false;
+  }
+  const packagePath = "/package/package.xml";
+  let allChanges = findNamesAndMembersXML(artifactPath + packagePath);
+  let canSkipTest = Object.keys(allChanges).every((x) =>
+    checkIfTestWhiteListed(x, allChanges[x])
+  );
+
+  if (canSkipTest) {
+    loggerInStep(
+      "All the metadata that is being changed does not require test, hence skipping..."
+    );
+  }
+  return canSkipTest;
 };
 
 const salesforceForceAppChangesExist = (artifactPath) =>
@@ -459,5 +479,6 @@ export {
   salesforceFileChanges,
   salesforceIgnoredFileChanges,
   findAllArgvs,
-  readFileLines
+  readFileLines,
+  canSkipTest
 };

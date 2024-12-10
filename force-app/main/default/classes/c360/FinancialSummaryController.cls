@@ -132,15 +132,6 @@ public with sharing class FinancialSummaryController {
     finSumRespFromCallout.totalDebitBalanceAck = finSumRespFromCallout.totalBalanceAck;
     finSumRespFromCallout.totalCreditBalanceAck = finSumRespFromCallout.totalBalanceAck;
 
-    //Making a callout to get the Total Merchant Terminal
-    //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
-    finSumRespFromCallout.terminalAck = getTotalMerchantTerminals(
-      finSumRespFromCallout.responseId,
-      custIdWrapper.capIdsModifiedList,
-      TERMINALS_FIELDSET,
-      finSumCallout.callTerminalApi
-    );
-
     //Making a callout to get the Total Asset Finance Balance
     //and if capCustomerIdList is Empty then it will return 'No Available Balance' as an acknowledgement
     finSumRespFromCallout.assetBalanceAck = getTotalAssetFinanceBalance(
@@ -333,44 +324,6 @@ public with sharing class FinancialSummaryController {
   }
 
   /**
-   * @description This method is used to make a callout to get the Total Merchant Terminals
-   * @param responseId - Id of the record
-   * @param capCustomerIds - List of capCustomerIds
-   * @param fieldSet - Constant keyword to unique Identify the callout
-   * @param callTerminalApi - true if we need to call this API
-   * @return String - callout response
-   */
-  @TestVisible
-  private static String getTotalMerchantTerminals(
-    String responseId,
-    List<String> capCustomerIds,
-    String fieldSet,
-    Boolean callTerminalApi
-  ) {
-    if (capCustomerIds.isEmpty()) {
-      return CCRMConstants.NO_AVAILABLE_BALANCE;
-    }
-    if (!callTerminalApi) {
-      return null;
-    }
-    Map<String, String> headers = generateHeader();
-    String endPoint = BASE_CALLOUT_URL + 'merchant-facility-accounts';
-
-    FinancialSummaryWrapper.TerminalAndTotalAsset terminalWrapper = new FinancialSummaryWrapper.TerminalAndTotalAsset(
-      capCustomerIds,
-      fieldSet,
-      responseId
-    );
-
-    return makeApiCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      JSON.serialize(terminalWrapper)
-    );
-  }
-
-  /**
    * @description This method is used to make a callout to get the Total Asset Finance Balance
    * @param responseId - Id of the record
    * @param capCustomerIds - List of capCustomerIds
@@ -488,9 +441,7 @@ public with sharing class FinancialSummaryController {
     if (finSumResponse.totalBalanceAck != null) {
       cacheWrapper.totalBalanceAck = finSumResponse.totalBalanceAck;
     }
-    if (finSumResponse.terminalAck != null) {
-      cacheWrapper.terminalAck = finSumResponse.terminalAck;
-    }
+
     if (finSumResponse.assetBalanceAck != null) {
       cacheWrapper.assetBalanceAck = finSumResponse.assetBalanceAck;
     }
@@ -545,9 +496,7 @@ public with sharing class FinancialSummaryController {
       cacheWrapper.totalCreditBalanceAck = CCRMConstants.ERROR_RESPONSE;
       cacheWrapper.totalDebitBalanceAck = CCRMConstants.ERROR_RESPONSE;
     }
-    if (resMap.containsKey('TERMINALS')) {
-      cacheWrapper.terminalAck = CCRMConstants.ERROR_RESPONSE;
-    }
+
     if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
       cacheWrapper.assetBalanceAck = CCRMConstants.ERROR_RESPONSE;
     }
@@ -609,12 +558,6 @@ public with sharing class FinancialSummaryController {
         (string) resMap.get('TOTAL_CREDIT_BALANCE')
       );
       cacheWrapper.totalCreditBalanceAck = CCRMConstants.SUCCESS_RESPONSE;
-    }
-    if (resMap.containsKey('TERMINALS')) {
-      cacheWrapper.totalMerchantTerminals = Decimal.valueOf(
-        (string) resMap.get('TERMINALS')
-      );
-      cacheWrapper.terminalAck = CCRMConstants.SUCCESS_RESPONSE;
     }
     if (resMap.containsKey('TOTAL_ASSET_FINANCE_BALANCE')) {
       cacheWrapper.totalAssetFinanceBalance = Decimal.valueOf(

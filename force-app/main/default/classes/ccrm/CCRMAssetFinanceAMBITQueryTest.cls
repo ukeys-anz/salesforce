@@ -51,14 +51,14 @@ private class CCRMAssetFinanceAMBITQueryTest {
     );
     Map<String, Object> firstRec = result.queryResult[0];
     system.assertEquals(
-      '*D E QUARRY SOLUTIONS',
+      '*DAVID ELDRIDGE P/L',
       (string) firstRec.get('AccountName'),
       'Name mismatch'
     );
     system.assertEquals(
-      'AMB050',
-      (string) firstRec.get('ProductCode'),
-      'Product code mismatch'
+      'Active',
+      (string) firstRec.get('AccountStatus'),
+      'Account status mismatch'
     );
   }
 

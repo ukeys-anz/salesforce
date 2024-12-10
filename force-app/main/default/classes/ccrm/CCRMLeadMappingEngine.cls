@@ -518,6 +518,7 @@ public with sharing class CCRMLeadMappingEngine {
         );
         contactField = getContact(leadRecord);
         targetObject.put('Contact__c', contactField);
+        targetObject.put('CloseDate', DateTimeUtils.getNextWeekdayDate(90));
       }
       if (targetObject != null) {
         mapOfRecordsWithTargets.put(leadRecord.id, targetObject);
@@ -655,6 +656,13 @@ public with sharing class CCRMLeadMappingEngine {
       !mapOfAccountToAccountRelations.isEmpty()
     ) {
       for (Lead lead : leadList) {
+        if (
+          !mapOfAccountToAccountRelations.containsKey(
+            lead.FinServ__RelatedAccount__c
+          )
+        ) {
+          continue;
+        }
         FinServ__AccountAccountRelation__c accRelations = mapOfAccountToAccountRelations.get(
           lead.FinServ__RelatedAccount__c
         );

@@ -242,12 +242,12 @@ public with sharing class TFMAUFAPIRepositoryTest {
     String status = TFMConstants.ARCHIVED;
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
-    TFMArchiveUserModel response = repo.archiveUser(staffModel, status);
+    HttpCalloutResponse response = repo.archiveUser(staffModel, status);
     Test.stopTest();
     Assert.areEqual(
-      '0',
-      response.unsuccessfullyArchivedConsents,
-      'All consents were not successfully archived.'
+      200,
+      response.statusCode,
+      'Status code is not equal to 200'
     );
   }
 
@@ -262,7 +262,7 @@ public with sharing class TFMAUFAPIRepositoryTest {
     TFMAUFAPIRepository repo = new TFMAUFAPIRepository();
     Test.startTest();
     try {
-      TFMArchiveUserModel response = repo.archiveUser(staffModel, status);
+      repo.archiveUser(staffModel, status);
     } catch (Exception e) {
       exceptionMsg = e.getMessage();
     }

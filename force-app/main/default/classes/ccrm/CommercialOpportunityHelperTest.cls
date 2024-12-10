@@ -36,6 +36,7 @@ private class CommercialOpportunityHelperTest {
     Test.stopTest();
 
     errors = opp.getErrors();
+    Assert.isFalse(errors.isEmpty(), 'Error not found');
     error = errors.get(0);
     Assert.areEqual(expMsg, error.getMessage(), 'No error occured');
   }
@@ -64,8 +65,9 @@ private class CommercialOpportunityHelperTest {
     Test.stopTest();
 
     leadSourceOppErrors = leadSourceOpp.getErrors();
-    leadSourceError = leadSourceOppErrors.get(0);
+    Assert.isFalse(leadSourceOppErrors.isEmpty(), 'Error not found');
 
+    leadSourceError = leadSourceOppErrors.get(0);
     Assert.areEqual(
       expMsgForLeadSource,
       leadSourceError.getMessage(),
@@ -106,9 +108,8 @@ private class CommercialOpportunityHelperTest {
     Test.stopTest();
 
     errors = opp.getErrors();
+    Assert.isFalse(errors.isEmpty(), 'Error not found');
     error = errors.get(0);
-
-    Assert.isFalse(errors.size() == 0, 'Error found');
     Assert.areEqual(
       CCRMConstants.SKIP_STAGE,
       error.getMessage(),
@@ -141,26 +142,6 @@ private class CommercialOpportunityHelperTest {
     );
     Test.stopTest();
     errors = closedLostOpp.getErrors();
-    Assert.isFalse(errors.size() == 0, 'no errors found');
-  }
-
-  @IsTest
-  static void testProcessUpdate() {
-    registerMocks();
-    Test.startTest();
-    CommercialOpportunityHelper.processUpdate(new List<Opportunity>{ record });
-    Test.stopTest();
-
-    Assert.isNotNull(
-      dmlRepoMock.getHistory('doUpdate'),
-      'updateRecords should have been invoked'
-    );
-
-    List<Opportunity> updates = (List<Opportunity>) dmlRepoMock.getHistory(
-        'doUpdate'
-      )
-      .getParam('records');
-
-    Assert.areNotEqual(updates.size(), 0, 'Record update list not null');
+    Assert.isFalse(errors.isEmpty(), 'no errors found');
   }
 }

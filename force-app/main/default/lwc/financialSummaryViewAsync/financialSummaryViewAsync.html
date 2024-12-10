@@ -1,3 +1,10 @@
+<!--
+  @description       : 
+  @author            : Smruti Khobragade |  Salesforce
+  @group             : 
+  @last modified on  : 12-05-2024
+  @last modified by  : Smruti Khobragade |  Salesforce
+-->
 <template>
   <div
     class="slds-is-relative slds-border_top slds-border_bottom slds-border_left slds-border_right slds-p-top_x-small slds-p-bottom_x-small slds-p-left_x-small slds-p-right_x-small"
@@ -43,14 +50,14 @@
         </lightning-layout-item>
       </template>
       <template if:true={showTerminalInfo}>
-        <lightning-layout-item size="4" padding="around-small">
+        <!--lightning-layout-item size="4" padding="around-small">
           <c-financial-summary-view-card
             header-name="No. Merchant Terminals"
             header-value={totalTerminal}
             show-other-value={showTerminalOtherValue}
             header-other-value={terminalOtherValue}
           ></c-financial-summary-view-card>
-        </lightning-layout-item>
+        </lightning-layout-item-->
       </template>
       <template if:true={showAssetFinanceInfo}>
         <lightning-layout-item size="4" padding="around-small">
@@ -113,5 +120,14 @@
         </lightning-layout-item>
       </template>
     </lightning-layout>
+    <div
+      lwc:if={showCCCalculationMsg}
+      class="slds-col slds-size_5-of-12 slds-align_absolute-center slds-p-top_x-small slds-text-body_small"
+    >
+      <b>
+        The calculated values above currently do not include some Credit Card
+        products
+      </b>
+    </div>
   </div>
 </template>

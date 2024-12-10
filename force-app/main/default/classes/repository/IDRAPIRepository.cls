@@ -5,6 +5,7 @@
  * @group Repository
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
+  private static final String OCV_ERROR = 'Customer Data not found';
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
@@ -34,37 +35,39 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     String customerId,
     String customerIdentifier
   ) {
-    IDRCustomerInformationModel result;
     Service s = ServiceProvider.getService(IDRCustomerProfileService.class);
     HttpCalloutResponse response = s.getCustomerInformation(
       customerId,
       customerIdentifier
     );
-    if (response.successful) {
-      try {
-        result = IDRCustomerInformationModel.parse(response.body);
-        if (Label.IDR_Excluded_OCV_ProductTypes != null) {
-          List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
-            ','
-          );
-          List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
-          for (
-            IDRCustomerInformationModel.Accounts oAccount : result.accounts
-          ) {
-            if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
-              accounts.add(oAccount);
-            }
-          }
-          result.accounts = accounts;
-        }
-      } catch (Exception e) {
-        handleErrors(null, e, IDRAPIRepository.class);
-      }
-    } else {
-      handleErrors(response, null, IDRAPIRepository.class);
+
+    if (response.statusCode >= 500) {
+      throw CommonUtil.logException(response.error);
     }
+    if (response.successful == false) {
+      Logger.info(OCV_ERROR).save();
+      throw response.error;
+    }
+
+    IDRCustomerInformationModel result = IDRCustomerInformationModel.parse(
+      response.body
+    );
+    if (Label.IDR_Excluded_OCV_ProductTypes == null) {
+      return null;
+    }
+    List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
+      ','
+    );
+    List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
+    for (IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
+      if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
+        accounts.add(oAccount);
+      }
+    }
+    result.accounts = accounts;
     return result;
   }
+
   /**
    * @param riskEventId customer id to be searched
    * @return SNOWIntegrationModel

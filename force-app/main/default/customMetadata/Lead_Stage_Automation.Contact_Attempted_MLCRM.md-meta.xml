@@ -28,7 +28,7 @@
     </values>
     <values>
         <field>What_happens_next__c</field>
-        <value xsi:type="xsd:string">Your response will be recorded and the Lead will progress to the next stage.</value>
+        <value xsi:type="xsd:string">Your response will be recorded and the Lead will progress to the next stage.&lt;br/&gt;&lt;b&gt;Logged Responses and Outcomes cannot be changed once saved.&lt;/b&gt;</value>
     </values>
     <values>
         <field>isActive__c</field>

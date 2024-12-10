@@ -1,0 +1,20 @@
+{
+  "contracts": [
+    {
+      "contractNumber": "190",
+      "accountNumber": "24",
+      "status": "End - Terminated",
+      "dateOpened": "2014-10-22",
+      "expiryDate": "2018-10-22",
+      "termsInMonth": "4 Months",
+      "termsInYear": "0 Years",
+      "amountFinanced": 468012.18,
+      "govtGuarantee": "YES",
+      "productCode": "AMB050",
+      "facilityDesc": "Chattel Mortgage Fixed Rate",
+      "interestType": "Fixed",
+      "interestRate": 6.53127482,
+      "compositeContractNumber": "1011137670-24-190"
+    }
+  ]
+}

@@ -51,28 +51,26 @@ public with sharing class CommercialOpportunityHelper {
     Boolean isInsert
   ) {
     for (Opportunity oppIterator : oppWrapper.filteredOpps) {
-      String errorMessage = '';
+      List<String> errors = new List<String>();
+      String errorMessage;
 
       //check if stage is not equal to "New" on creation of lead
       if (isInsert && oppIterator.StageName != CCRMConstants.NEW_STAGE) {
-        errorMessage +=
-          CCRMConstants.OPP_DEFAULT_STAGE_ERROR + CCRMConstants.NEW_LINE_CHAR;
+        errors.add(CCRMConstants.OPP_DEFAULT_STAGE_ERROR);
       }
       //check if other source detail is provided if leadsource is other
       if (
         oppIterator.LeadSource == CCRMConstants.OTHER &&
         String.isBlank(oppIterator.Other_Source_Detail__c)
       ) {
-        errorMessage +=
-          CCRMConstants.OTHER_SOURCE_DETAIL_MANDATORY +
-          CCRMConstants.NEW_LINE_CHAR;
+        errors.add(CCRMConstants.OTHER_SOURCE_DETAIL_MANDATORY);
       }
+
+      errorMessage = String.join(errors, CCRMConstants.NEW_LINE_CHAR);
 
       //add error message
       if (String.isNotBlank(errorMessage)) {
-        oppIterator.addError(
-          errorMessage.removeEnd(CCRMConstants.NEW_LINE_CHAR)
-        );
+        oppIterator.addError(errorMessage);
       }
     }
   }
@@ -91,6 +89,7 @@ public with sharing class CommercialOpportunityHelper {
   ) {
     for (Opportunity oppIterator : stageUpdatedOpps) {
       List<String> nextStage = new List<String>();
+      String oldStage = oldOppMap.get(oppIterator.Id).StageName;
 
       Commercial_Stage__mdt metadata = opportunityStagesBySegment.get(
         oppsStageSegmentMap.get(oppIterator.Id)
@@ -101,7 +100,7 @@ public with sharing class CommercialOpportunityHelper {
       }
 
       if (
-        oldOppMap.get(oppIterator.Id).StageName == metadata.Current_Stage__c &&
+        oldStage == metadata.Current_Stage__c &&
         oppIterator.StageName != metadata.Previous_Stage__c &&
         !nextStage.contains(oppIterator.StageName)
       ) {
@@ -109,8 +108,8 @@ public with sharing class CommercialOpportunityHelper {
       }
 
       if (
-        oldOppMap.get(oppIterator.Id).StageName == CCRMConstants.OPP_LOST ||
-        oldOppMap.get(oppIterator.Id).StageName == CCRMConstants.OPP_WON
+        oldStage == CCRMConstants.OPP_LOST ||
+        oldStage == CCRMConstants.OPP_WON
       ) {
         oppIterator.addError(CCRMConstants.REOPEN_CLOSED_OPP);
       }
@@ -125,10 +124,6 @@ public with sharing class CommercialOpportunityHelper {
   public static void checkOpenTaskForClosedOpportunities(
     Map<Id, Opportunity> closingOppoIdMap
   ) {
-    if (closingOppoIdMap.isEmpty()) {
-      return;
-    }
-
     //get open tasks on opportunity being closed
     List<Map<String, Object>> openTasks = COMMERCIALOPP_REPOSITORY.getOpenTasksOnClosedOpportunity(
       closingOppoIdMap.keySet()
@@ -137,13 +132,5 @@ public with sharing class CommercialOpportunityHelper {
       closingOppoIdMap.get(String.valueOf(iterator.get('WhatId')))
         .addError(System.Label.CCRM_OpenTasksOnOpportunityCloseError);
     }
-  }
-
-  /**
-   * @description processUpdate the given records based on the provided configuration
-   * @param records The list of records to be processed.
-   **/
-  public static void processUpdate(List<Opportunity> records) {
-    DML.doUpdate(records);
   }
 }

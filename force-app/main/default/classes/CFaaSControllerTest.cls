@@ -58,6 +58,7 @@ public with sharing class CFaaSControllerTest {
     ContentVersion cv = new ContentVersion();
     cv.Document_Flag__c = '4';
     cv.FirstPublishLocationId = file.Id;
+    cv.UUID__c = file.Document_Id__c + '-' + UserInfo.getUserId();
     cv.title = 'test';
     cv.PathOnClient = 'test';
     cv.VersionData = Blob.valueOf('Test Content');

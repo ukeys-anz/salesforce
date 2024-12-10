@@ -1,4 +1,4 @@
-name: Validate Object Changes
+name: BQ Validate Object Changes
 
 on:
   pull_request:

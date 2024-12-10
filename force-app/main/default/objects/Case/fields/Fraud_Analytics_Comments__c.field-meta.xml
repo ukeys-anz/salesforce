@@ -4,12 +4,13 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Comment on analytical description for Fraud Analytics Investigation</description>
-    <externalId>false</externalId>
+    <encryptionScheme>None</encryptionScheme>
     <label>Analytics Comments</label>
-    <required>false</required>
+    <length>32000</length>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>false</trackHistory>
     <trackTrending>false</trackTrending>
-    <type>TextArea</type>
+    <type>LongTextArea</type>
+    <visibleLines>3</visibleLines>
 </CustomField>

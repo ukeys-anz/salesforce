@@ -35,13 +35,13 @@ private class RelatedAppOnOppControllerTest {
       Close_date__c = Date.Today(),
       ProductId = productId,
       Product = product,
-      ApplicationFormId = applicationFormId
+      ApplicationFormId = applicationFormId,
+      Amount__c = 10
     );
 
     // Create mock data for ApplicationForm
     ApplicationForm form = new ApplicationForm(
       Id = applicationFormId, // Generate a mock Application Form ID
-      Application_Amount__c = 1000,
       Stage = 'Submitted',
       SubmissionDate = Date.today(),
       Application_Number__c = '123456',

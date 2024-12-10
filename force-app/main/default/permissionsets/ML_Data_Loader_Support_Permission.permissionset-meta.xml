@@ -3,7 +3,22 @@
     <description>PS to provide modification of Audit Fields (Ex- Created Date) for Data Migration into SF</description>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Activity.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Customer_Relationship__c.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>EmailMessage.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
