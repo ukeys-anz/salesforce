@@ -3,6 +3,7 @@
     <fullName>Financial_Account_Number__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>This field will show financial account number and link it to financial account</description>
     <externalId>false</externalId>
     <formula>HYPERLINK (&apos;/&apos; &amp;  FinServ__FinancialAccount__c ,  FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c, &apos;&apos; )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
