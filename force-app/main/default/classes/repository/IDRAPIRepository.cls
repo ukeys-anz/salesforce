@@ -35,37 +35,53 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     String customerId,
     String customerIdentifier
   ) {
+    IDRCustomerInformationModel result;
     Service s = ServiceProvider.getService(IDRCustomerProfileService.class);
     HttpCalloutResponse response = s.getCustomerInformation(
       customerId,
       customerIdentifier
     );
-
-    if (response.statusCode >= 500) {
-      throw CommonUtil.logException(response.error);
-    }
-    if (response.successful == false) {
-      Logger.info(OCV_ERROR).save();
-      throw response.error;
-    }
-
-    IDRCustomerInformationModel result = IDRCustomerInformationModel.parse(
-      response.body
-    );
-    if (Label.IDR_Excluded_OCV_ProductTypes == null) {
-      return null;
-    }
-    List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
-      ','
-    );
-    List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
-    for (IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
-      if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
-        accounts.add(oAccount);
+    try {
+      if (response.successful) {
+        result = IDRCustomerInformationModel.parse(response.body);
+        if (Label.IDR_Excluded_OCV_ProductTypes == null) {
+          return null;
+        }
+        List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
+          ','
+        );
+        List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
+        for (IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
+          if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
+            accounts.add(oAccount);
+          }
+        }
+        result.accounts = accounts;
+        return result;
       }
+      result = new IDRCustomerInformationModel();
+       if (response.statusCode == 422) {
+        result.isCustomerNotFound = true;
+        return result;
+       }
+
+      if (response.statusCode >= 500) {
+        result.isOCVDown = true;
+        Logger.error(
+          'OCV Error - Status Code - ' + response.statusCode,
+          response.error,
+          Logger.Severity.HIGH
+        );
+        Logger.saveLog();
+        return result;
+      }
+      handleErrors(response, response.error, IDRAPIRepository.class);
+      throw response.error;
+    } catch (Exception e) {
+      Logger.info(OCV_ERROR);
+      Logger.saveLog();
+      throw e;
     }
-    result.accounts = accounts;
-    return result;
   }
 
   /**

@@ -10,13 +10,8 @@ import {
   discardGitChanges,
   deployFile,
   nonProdChangeValidation
-} from "../Services/helper.mjs";
+} from "./helper.mjs";
 ///////////
-
-/// Hardcoded username input
-
-const USER_NAME = "PLATFORM";
-////////
 
 /// functions
 
@@ -71,9 +66,10 @@ const uploadDummyCert = (username) => {
     username
   );
 };
-/// Run Orchestration
 
-const removeSensitiveInformation = (username) => {
+/// Run Orchestration
+const removeSensitiveProdInformation = (username) => {
+  console.log("--- running removeSensitiveProdInformation ---");
   nonProdChangeValidation(username);
   uploadDummyCert(username);
   retrieveComponents(username);
@@ -83,4 +79,4 @@ const removeSensitiveInformation = (username) => {
 };
 /////
 
-removeSensitiveInformation(USER_NAME);
+export { removeSensitiveProdInformation };

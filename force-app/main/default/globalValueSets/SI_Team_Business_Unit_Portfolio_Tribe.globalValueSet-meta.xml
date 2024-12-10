@@ -926,12 +926,6 @@
         <label>Wholesale Digital</label>
     </customValue>
     <customValue>
-        <fullName>AMU &amp; Collections</fullName>
-        <default>false</default>
-        <isActive>false</isActive>
-        <label>AMU &amp; Collections</label>
-    </customValue>
-    <customValue>
         <fullName>APRA Home Loans</fullName>
         <default>false</default>
         <isActive>false</isActive>
@@ -948,6 +942,12 @@
         <default>false</default>
         <isActive>false</isActive>
         <label>Digital Sales Experience Tribe</label>
+    </customValue>
+    <customValue>
+        <fullName>AMU &amp; Collections</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>AMU &amp; Collections</label>
     </customValue>
     <description>List of Teams/Business Units/Portfolios/Tribes potentially relevant to, or impacted by a systemic issue.</description>
     <masterLabel>Teams/Business Units/Portfolios/Tribes</masterLabel>

@@ -47,6 +47,11 @@
                 <default>false</default>
                 <label>There was no information to suggest customer was experiencing vulnerability.</label>
             </value>
+            <value>
+                <fullName>Where necessary, we did not provide the customer with referrals to financial counsellors, or external support agencies for independent advice.</fullName>
+                <default>false</default>
+                <label>Where necessary, we did not provide the customer with referrals to financial counsellors, or external support agencies for independent advice.</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
@@ -59,6 +64,10 @@
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
             <valueName>where our customer was experiencing vulnerability including severe/acute factors we did not or were slow to prioritise the complaint and offer/provide appropriate extra care.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>Where necessary, we did not provide the customer with referrals to financial counsellors, or external support agencies for independent advice.</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>

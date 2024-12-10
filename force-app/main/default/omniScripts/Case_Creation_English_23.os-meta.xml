@@ -1942,9 +1942,9 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;false&quot;,
+        &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Response&quot;
+        &quot;field&quot; : &quot;Response:isCustomerNotFound&quot;
       }, {
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -2112,11 +2112,47 @@
                 <type>Telephone</type>
             </childElements>
             <childElements>
-                <name>Phone</name>
+                <name>ocvDownMsg</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;strong&gt;Couldn&apos;t retrieve customer data.&lt;/strong&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Response:isOCVDown&quot;
+      }, {
+        &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Yes&quot;
+      }, {
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>6.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
+                <name>Phone</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,

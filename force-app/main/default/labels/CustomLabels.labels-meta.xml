@@ -378,12 +378,33 @@
         <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
     </labels>
     <labels>
-        <fullName>XpressionSenderAddress</fullName>
+    <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
         <value>Yourfeedback@anz.com</value>
+    </labels>
+     <labels>
+        <fullName>EDRM_Desktop_Params</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Desktop Params</shortDescription>
+        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagement</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_DEV</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_DEV</shortDescription>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_PROD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_PROD</shortDescription>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?</value>
     </labels>
     <labels>
         <fullName>XpressionRecepientInboxAddress</fullName>
@@ -2581,7 +2602,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL</value>
+        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>

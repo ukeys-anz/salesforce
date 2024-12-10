@@ -43,4 +43,19 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>ANZx_Auth_History_Read_Only_For_ECH_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>View access to all the ANZx records for Extra Care Hub users</description>
+        <label>ANZx Auth History Read Only For ECH Users</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>AuthorisationRequestID__c</field>
+            <operation>notEqual</operation>
+            <value></value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

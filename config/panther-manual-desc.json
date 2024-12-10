@@ -610,7 +610,10 @@
       "IA-2468715": ["Name", "OwnerId"]
     },
     "Assessment": {
-      "IA-2453595": ["Created_Date_Time__c", "Last_Modified_Date_Time__c"]
+      "IA-2453595": [
+        "Created_Date_Time__c",
+        "Last_Modified_Date_Time__c"
+      ]
     },
     "AssessmentResponse": {
       "IA-2415840": [

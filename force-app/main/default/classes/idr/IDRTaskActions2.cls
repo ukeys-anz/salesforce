@@ -335,6 +335,7 @@ public with sharing class IDRTaskActions2 {
     Map<Id, Task> siCaseTasks
   ) {
     if (!FeatureManagement.checkPermission(IDR_LEVEL_1)) {
+
       return false;
     }
     if (
