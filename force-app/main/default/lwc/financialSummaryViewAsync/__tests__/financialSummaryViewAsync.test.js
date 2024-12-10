@@ -90,37 +90,27 @@ describe("c-financial-summary-view-async", () => {
     const pElement = element.shadowRoot.querySelectorAll(
       "c-financial-summary-view-card"
     );
-    let totalBalance, totalMerchantTerminals, totalAssetFinanceBalance;
+    let totalBalance, totalAssetFinanceBalance;
     let totalBalanceVisible = false;
-    let terminalsVisible = false; 
+    let terminalsVisible = false;
     let assetBalanceVisible = false;
-    pElement.forEach(card => {
-     if(card.headerName === 'Total Customer Balance'){
-      totalBalance = card.headerValue;
-      totalBalanceVisible = true;
-      return;
-     }
-    if(card.headerName === 'No. Merchant Terminals'){
-      totalMerchantTerminals = card.headerValue;
-      terminalsVisible = true;
-      return;
-     }
-    if(card.headerName === 'Total Asset Financial Balance'){
-      totalAssetFinanceBalance = card.headerValue;
-      assetBalanceVisible = true;
-     }
+    pElement.forEach((card) => {
+      if (card.headerName === "Total Customer Balance") {
+        totalBalance = card.headerValue;
+        totalBalanceVisible = true;
+        return;
+      }
+      if (card.headerName === "Total Asset Financial Balance") {
+        totalAssetFinanceBalance = card.headerValue;
+        assetBalanceVisible = true;
+      }
     });
-    if(totalBalanceVisible){
+    if (totalBalanceVisible) {
       expect(totalBalance).toBe(
         FULL_FINANCIAL_SUMMARIES_FROM_CACHE.totalBalance
       );
     }
-    if(terminalsVisible){
-      expect(totalMerchantTerminals).toBe(
-        FULL_FINANCIAL_SUMMARIES_FROM_CACHE.totalMerchantTerminals
-      );
-    }
-    if(assetBalanceVisible){
+    if (assetBalanceVisible) {
       expect(totalAssetFinanceBalance).toBe(
         FULL_FINANCIAL_SUMMARIES_FROM_CACHE.totalAssetFinanceBalance
       );
@@ -139,7 +129,9 @@ describe("c-financial-summary-view-async", () => {
     const pElement = element.shadowRoot.querySelectorAll(
       "c-financial-summary-view-card"
     );
-    expect(pElement[0].headerOtherValue).toBe(ERROR_RESPOSNE_FROM_CACHE.totalBalanceAck);
+    expect(pElement[0].headerOtherValue).toBe(
+      ERROR_RESPOSNE_FROM_CACHE.totalBalanceAck
+    );
   });
 
   it("Verify calling specific Financial Summaries API", async () => {
@@ -184,15 +176,15 @@ describe("c-financial-summary-view-async", () => {
     let countValue = 0;
     let countOtherValue = 0;
 
-    pElement.forEach(card => {
-      if(card.headerValue){
-       countValue+=1;
-       return;
+    pElement.forEach((card) => {
+      if (card.headerValue) {
+        countValue += 1;
+        return;
       }
-      if(card.headerOtherValue){
-        countOtherValue+=1;
-       }
-     });
+      if (card.headerOtherValue) {
+        countOtherValue += 1;
+      }
+    });
     expect(countValue).toBe(0);
     expect(countOtherValue).toBe(5);
   });

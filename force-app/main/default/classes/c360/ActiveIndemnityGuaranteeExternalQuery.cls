@@ -5,6 +5,10 @@
  * @description Active Indemnity Guarantee external query class
  */
 public with sharing class ActiveIndemnityGuaranteeExternalQuery extends FinancialAccountQueryBase {
+  public static Map<String, String> typeMap = new Map<String, String>{
+    'STD' => 'Std',
+    'NON_STD' => 'Non-Std'
+  };
   /**
    * @description  IG Model class
    */
@@ -83,7 +87,8 @@ public with sharing class ActiveIndemnityGuaranteeExternalQuery extends Financia
         'PurposeCode' => guarantee.purpose,
         'StartDate' => formatDate(guarantee.startDate),
         'ExpiryDate' => formatDate(guarantee.expiryDate),
-        'Type' => guarantee.bankGuaranteeType?.capitalize()
+        'Type' => typeMap.get(guarantee.bankGuaranteeType) ??
+          guarantee.bankGuaranteeType
       };
       result.externalRecords.add(row);
     }

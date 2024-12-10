@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM Support Admin Access</label>
     <permissionSets>Access_Application_Form_Related_Functionality</permissionSets>
+    <permissionSets>CCRM_Opportunity_Access</permissionSets>
     <permissionSets>CCRM_Support_Admin</permissionSets>
     <permissionSets>Customer_Authentication_PS</permissionSets>
     <permissionSets>Financial_Summary_Calculation_Publish</permissionSets>

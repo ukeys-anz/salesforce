@@ -517,6 +517,12 @@
                 <identifier>forceChatter_recordFeedContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentName>recordAccessLogMonitor</componentName>
+                <identifier>c_recordAccessLogMonitor</identifier>
+            </componentInstance>
+        </itemInstances>
         <name>column3</name>
         <type>Region</type>
     </flexiPageRegions>

@@ -84,21 +84,4 @@ private class AutoKYCQAUnrestraintTest {
       'Incorrect TriggeredFrom__c'
     );
   }
-
-  @IsTest
-  static void testCreateUnrestraintPayload() {
-    Customer_Profile_Updates__c cpu = acc.Customer_Profile_Updates__r[0];
-    Test.startTest();
-    String record = handler.createUnrestraintPayload(
-      cpu.ToBeValue__c,
-      (Integer) cpu.Occurrence_Number__c,
-      cpu.LastModifiedDate
-    );
-    Test.stopTest();
-
-    Assert.isTrue(
-      record.contains('"productCode":"DDA"'),
-      'Incorrect productCode'
-    );
-  }
 }

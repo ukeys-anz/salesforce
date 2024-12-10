@@ -12,6 +12,6 @@
     </values>
     <values>
         <field>User_Profile__c</field>
-        <value xsi:type="xsd:string">ANZ ML Standard User;ANZ CCRM Standard User;System Administrator</value>
+        <value xsi:type="xsd:string">ANZ ML Standard User;System Administrator</value>
     </values>
 </CustomMetadata>

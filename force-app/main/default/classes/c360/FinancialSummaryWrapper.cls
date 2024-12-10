@@ -115,10 +115,8 @@ public class FinancialSummaryWrapper {
    */
   public class CacheData {
     public Decimal totalBalance;
-    public Decimal totalMerchantTerminals;
     public Decimal totalAssetFinanceBalance;
     public String totalBalanceAck;
-    public String terminalAck;
     public String assetBalanceAck;
     public String lastSummaryUpdateDate;
     public Decimal totalCreditBalance;
@@ -146,11 +144,6 @@ public class FinancialSummaryWrapper {
      */
     @AuraEnabled
     public Boolean callTotalCustBalanceApi { get; set; }
-    /**
-     * @description True if we want to call Terminal API
-     */
-    @AuraEnabled
-    public Boolean callTerminalApi { get; set; }
     /**
      * @description True if we want to call Asset Finance Balance API
      */

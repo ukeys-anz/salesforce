@@ -29,22 +29,20 @@ public with sharing class LaunchAppOnOppControllerRepository {
   }
   /**
    * @description get opp line items related to product and Opportunity
-   * @name getOpportunityLineItemsRelatedToProduct
-   * @param oppId opportunity Id
-   * @param productIds product Ids Set
+   * @name getSelectedOppLineItems
+   * @param oppLineItemsIds opp line items Ids Set
    * @return List<OpportunityLineItem> opp line items list
    */
-  public List<OpportunityLineItem> getOpportunityLineItemsRelatedToOppAndProduct(
-    Id oppId,
-    Set<Id> productIds
+  public List<OpportunityLineItem> getSelectedOppLineItems(
+    Set<Id> oppLineItemsIds
   ) {
-    if (oppId == null || productIds.isEmpty()) {
+    if (oppLineItemsIds.isEmpty()) {
       return new List<OpportunityLineItem>();
     }
     return [
-      SELECT Id, Product2Id, UnitPrice, OpportunityId
+      SELECT Id, Product2Id, UnitPrice
       FROM OpportunityLineItem
-      WHERE OpportunityId = :oppId AND Product2Id IN :productIds
+      WHERE Id IN :oppLineItemsIds
       WITH USER_MODE
     ];
   }

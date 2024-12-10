@@ -1968,6 +1968,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Activity.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Activity.Task_Sub_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3499,6 +3504,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_NC_First_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>EmailMessage.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -7423,6 +7433,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Interaction.Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Interaction.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -50,32 +50,7 @@ public with sharing class AutoKYCQAUnrestraintHandler {
     cpu.TriggeredFrom__c = oldCpu.TriggeredFrom__c.replace('Add', 'Remove');
     cpu.NewValue__c = oldCpu.NewValue__c.replace('Apply', 'Remove');
     cpu.Name = oldCpu.Name.replace('Add', 'Remove');
-    cpu.ToBeValue__c = createUnrestraintPayload(
-      oldCpu.ToBeValue__c,
-      (Integer) oldCpu.Occurrence_Number__c,
-      oldCpu.LastModifiedDate
-    );
+    cpu.ToBeValue__c = oldCpu.ToBeValue__c;
     return cpu;
-  }
-
-  @TestVisible
-  private String createUnrestraintPayload(
-    String oldPayloadString,
-    Integer occurrenceNumber,
-    DateTime datePlaced
-  ) {
-    CustomerRestraintModel oldPayload = (CustomerRestraintModel) JSON.deserialize(
-      oldPayloadString,
-      CustomerRestraintModel.class
-    );
-    CustomerRestraintModel model = new CustomerRestraintModel();
-    model.accountNumber = oldPayload.accountNumber;
-    model.productCode = oldPayload.productCode;
-    model.restraints.restraintClass = 1;
-    model.restraints.restraintType = oldPayload.restraints.restraintType;
-    model.restraints.datePlaced = datePlaced.format('YYYY-MM-dd');
-    model.restraints.dateExpires = '';
-    model.restraints.sequence = occurrenceNumber;
-    return JSON.serialize(model);
   }
 }
