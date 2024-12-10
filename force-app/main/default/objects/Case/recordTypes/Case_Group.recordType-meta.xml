@@ -7764,10 +7764,6 @@
             <fullName>Progressed - No Customer Response</fullName>
             <default>false</default>
         </values>
-        <values>
-            <fullName>Progressed - No Offer</fullName>
-            <default>false</default>
-        </values>
     </picklistValues>
     <picklistValues>
         <picklist>IDR_Real_Form_Req__c</picklist>
