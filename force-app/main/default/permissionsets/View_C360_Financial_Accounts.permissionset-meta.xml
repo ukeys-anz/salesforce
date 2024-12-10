@@ -2334,7 +2334,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Transaction_History__x.Credit_Card__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
