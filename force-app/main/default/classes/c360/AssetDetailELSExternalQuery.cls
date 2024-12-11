@@ -16,7 +16,8 @@ public with sharing class AssetDetailELSExternalQuery extends FinancialAccountQu
     public String serialNumber;
     public Decimal purchasePrice;
     public String compositeAssetId;
-    public string assetFinancedValueInfoType;
+    public String assetFinancedValueInfoType;
+    public Decimal assetFinancedValueInfoValue;
   }
 
   /**
@@ -80,6 +81,7 @@ public with sharing class AssetDetailELSExternalQuery extends FinancialAccountQu
         'PurchasePrice' => asset.purchasePrice,
         'SerialNo' => asset.serialNumber,
         'ValueType' => asset.assetFinancedValueInfoType,
+        'Value' => asset.assetFinancedValueInfoValue,
         'AssetNo' => asset.id
       };
       result.externalRecords.add(row);

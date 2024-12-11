@@ -32,22 +32,4 @@ private class LaunchAppOnOppHelperTest {
       'Product Name is not set correctly'
     );
   }
-
-  @isTest
-  static void createProductAmountMapTest() {
-    //Mock data creation
-    OpportunityLineItem oli = new OpportunityLineItem(
-      Id = Lib_FakeIdGenerator.getMockId(OpportunityLineItem.SObjectType),
-      Product2Id = Lib_FakeIdGenerator.getMockId(Product2.SObjectType),
-      UnitPrice = 20,
-      Funding_purpose__c = 'Property Purchase or Construction',
-      Product2 = new Product2(Name = 'Test')
-    );
-    Test.startTest();
-    Map<Id, Decimal> result = LaunchAppOnOppHelper.createProductAmountMap(
-      new List<OpportunityLineItem>{ oli }
-    );
-    Test.stopTest();
-    Assert.areEqual(1, result.keySet().size(), 'Map is empty');
-  }
 }

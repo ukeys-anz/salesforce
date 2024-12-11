@@ -16,11 +16,6 @@ public class FinancialSummaryResponseWrapper {
   @AuraEnabled
   public Decimal totalBalance { get; set; }
   /**
-   * @description Hold the value of Terminal response published by mule
-   */
-  @AuraEnabled
-  public Decimal totalMerchantTerminals { get; set; }
-  /**
    * @description Hold the value of Asset Finance Balance response published by mule
    */
   @AuraEnabled
@@ -40,11 +35,6 @@ public class FinancialSummaryResponseWrapper {
    */
   @AuraEnabled
   public String totalBalanceAck { get; set; }
-  /**
-   * @description Tells if the Terminal value exist in cache
-   */
-  @AuraEnabled
-  public String terminalAck { get; set; }
   /**
    * @description Tells if the Asset Finance Balance value exist in cache
    */

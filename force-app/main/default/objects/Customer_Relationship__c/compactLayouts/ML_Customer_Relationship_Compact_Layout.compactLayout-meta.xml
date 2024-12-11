@@ -7,6 +7,5 @@
     <fields>Mobile__c</fields>
     <fields>Email__c</fields>
     <fields>Suburb__c</fields>
-    <fields>Relationship_To_Franchise__c</fields>
     <label>ML Customer Relationship Compact Layout</label>
 </CompactLayout>

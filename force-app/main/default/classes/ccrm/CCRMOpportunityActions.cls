@@ -626,6 +626,32 @@ public with sharing class CCRMOpportunityActions {
   }
 
   /**
+   * @description update the OwnerId with the  Opportunity_Owner__c field
+   * @name transferOpportunityOwnership
+   * @param newOppList List of new lead records.
+   * @param oldOppMap Map of old lead records.
+   */
+  public static void transferOpportunityOwnership(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    if (
+      COMMERCIALOPP_REPOSITORY.getUserProfileId() !=
+      QueryProfile.anzCCRMStandardUser.id
+    ) {
+      return;
+    }
+
+    List<Opportunity> filterOppList = ListUtil.filter(newOppList, oldOppMap)
+      .changed(Opportunity.Opportunity_Owner__c)
+      .toList();
+
+    for (Opportunity opportunityRec : filterOppList) {
+      opportunityRec.OwnerId = opportunityRec.Opportunity_Owner__c;
+    }
+  }
+
+  /**
    * @description check if secondary customer needs contains customer needs
    * @name checkIfSecondaryCustomerNeedsContainsCustomerNeeds
    * @param ccrmOpps ccrm opps

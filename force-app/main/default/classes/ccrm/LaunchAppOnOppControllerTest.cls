@@ -53,7 +53,7 @@ private class LaunchAppOnOppControllerTest {
       Product2 = new Product2(Name = 'Test')
     );
     launchAppRepoMock.mock(
-      'getOpportunityLineItemsRelatedToOppAndProduct',
+      'getSelectedOppLineItems',
       new List<OpportunityLineItem>{ oli }
     );
     dmlRepoMock.mock(
