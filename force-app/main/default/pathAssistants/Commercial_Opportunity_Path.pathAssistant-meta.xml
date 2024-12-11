@@ -5,10 +5,12 @@
     <fieldName>StageName</fieldName>
     <masterLabel>Commercial Opportunity Path</masterLabel>
     <pathAssistantSteps>
+        <fieldNames>Broker_Name__c</fieldNames>
         <fieldNames>Customer_Needs__c</fieldNames>
         <picklistValueName>In Progress</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
+        <fieldNames>Broker_Name__c</fieldNames>
         <fieldNames>Customer_Needs__c</fieldNames>
         <picklistValueName>New</picklistValueName>
     </pathAssistantSteps>
