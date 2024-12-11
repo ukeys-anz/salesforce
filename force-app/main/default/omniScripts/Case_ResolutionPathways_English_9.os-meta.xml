@@ -431,6 +431,10 @@
         &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Trading hours/location/closures&quot;
+      }, {
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Branch Availability&quot;
       } ]
     }
   }
@@ -2247,6 +2251,10 @@
         &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;data&quot; : &quot;Statement features/accessibility&quot;
+      }, {
+        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Statements&quot;
       } ]
     }
   }
@@ -2285,5 +2293,5 @@
     <type>Case</type>
     <uniqueName>Case_ResolutionPathways_English_9</uniqueName>
     <versionNumber>9.0</versionNumber>
-    <webComponentKey>ad8eca1e-2cf4-19b5-1aab-3f0365cebdb3</webComponentKey>
+    <webComponentKey>4beceb4b-fb70-982c-2439-215fe3a61980</webComponentKey>
 </OmniScript>
