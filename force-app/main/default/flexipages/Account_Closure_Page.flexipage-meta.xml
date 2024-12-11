@@ -194,6 +194,12 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
+                <fieldItem>Record.FinServ__FinancialAccount__r.Product_Name__c</fieldItem>
+                <identifier>RecordFinServ_FinancialAccount_rProduct_Name_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>none</value>
