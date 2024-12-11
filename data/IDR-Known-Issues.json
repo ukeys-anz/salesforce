@@ -95,7 +95,7 @@
       },
       "Name": "Service Quality Tone or manner of response",
       "IDR_Issue_Type__c": "9",
-      "IDR_Sub_Issue_Type__c": "9",
+      "IDR_Sub_Issue_Type__c": "57",
       "IDR_Description_of_Issue__c": "test",
       "IDR_Customer_Desired_Outcome__c": "test",
       "IDR_Is_there_another_issue__c": false,
