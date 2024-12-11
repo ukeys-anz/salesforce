@@ -1248,7 +1248,9 @@
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",
         "Sub_Status__c",
-        "Transaction_Made_By__c"
+        "Transaction_Made_By__c",
+        "API_Sub_Status__c",
+        "Process_Status__c"
       ],
       "IA-2415998": [
         "Correct_Customer_Reference_Number__c",
@@ -1371,13 +1373,11 @@
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [
-        "API_Sub_Status__c",
         "Case__c",
         "Case_Last_Opened__c",
         "Case_Last_Opened_RG271__c",
         "IDR_Response_Time_RG271__c",
         "IDR_Response_Time_RG271_MS__c",
-        "Process_Status__c",
         "Total_Open_Time__c",
         "Total_Open_Time_MS__c"
       ]
