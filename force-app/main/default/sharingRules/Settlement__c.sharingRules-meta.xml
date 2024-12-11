@@ -30,21 +30,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>Settlement_Extra_Care_Hub_Read_Only</fullName>
-        <accessLevel>Read</accessLevel>
-        <description>This sharing settings is used to provide read access to Extra Care Hub users.</description>
-        <label>Settlement Extra Care Hub Read Only</label>
-        <sharedTo>
-            <group>ANZx_Read_Only_Group</group>
-        </sharedTo>
-        <criteriaItems>
-            <field>Settlement_ID__c</field>
-            <operation>notEqual</operation>
-            <value>null</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>Settlement_Read_Write_To_Group</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Settlement Read Write To Group</label>
