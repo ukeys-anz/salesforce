@@ -114,6 +114,16 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.COI_Member__c</fieldItem>
+                <identifier>RecordCOI_Member_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-be7c276b-8c76-4aaa-8294-b8ec56f87ca6</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -126,6 +136,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Status__c</fieldItem>
                 <identifier>RecordStatus_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Broker_Name__c</fieldItem>
+                <identifier>RecordBroker_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

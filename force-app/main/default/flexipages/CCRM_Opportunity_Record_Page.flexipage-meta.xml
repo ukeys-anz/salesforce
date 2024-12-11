@@ -222,8 +222,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Broker_Involved__c</fieldItem>
-                <identifier>RecordBroker_Involved_cField</identifier>
+                <fieldItem>Record.Broker_Name__c</fieldItem>
+                <identifier>RecordBroker_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -456,6 +456,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.My_Notes__c</fieldItem>
                 <identifier>RecordMy_Notes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Broker_Name__c</fieldItem>
+                <identifier>RecordBroker_Name_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
