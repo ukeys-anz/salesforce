@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commercial_Restrict_Dairy_Comment_on_COI</fullName>
+    <active>true</active>
+    <description>Restricts creation/updation of CAP Diary Comment Type Interaction from COI</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+				$Profile.Name = &apos;ANZ CCRM Standard User&apos;,
+    RecordType.DeveloperName = &quot;CCRM_Interaction&quot;,
+    NOT(ISBLANK(COI_Member__c)),  
+    ISPICKVAL(Category__c ,&apos;CAP Diary Comments&apos;)
+)</errorConditionFormula>
+    <errorMessage>You cannot create CAP Diary Comments from Circle of Influences or update Interaction Type to CAP Diary Comments.</errorMessage>
+</ValidationRule>
