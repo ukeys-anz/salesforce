@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_COI_Contacts</fullName>
+    <columns>NAME</columns>
+    <columns>COI_Type__c</columns>
+    <columns>First_Name__c</columns>
+    <columns>Last_Name__c</columns>
+    <columns>Mobile__c</columns>
+    <columns>Email__c</columns>
+    <columns>OWNER.ALIAS</columns>
+    <filterScope>Everything</filterScope>
+    <label>My COI Contacts</label>
+    <sharedTo>
+        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+    </sharedTo>
+</ListView>
