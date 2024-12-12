@@ -1,0 +1,276 @@
+<template>
+  <!-- Modal Header -->
+  <div class="slds-modal__header">
+    <h2 class="slds-text-heading_medium">Add Accounts to Close</h2>
+  </div>
+
+  <!-- Modal Body -->
+  <template if:false={isCasesCreated}>
+    <!-- Mandatory Information Notice -->
+    <template if:true={selectedRows.length}>
+      <div class="slds-grid slds-grid_align-end slds-p-horizontal_large">
+        <div class="slds-text-color_weak slds-p-around_xx-small">
+          <abbr class="slds-required">*</abbr> Required Information
+        </div>
+      </div>
+    </template>
+    <div class="slds-var-m-around_large slds-box">
+      <div class="slds-modal__content slds-var-p-horizontal_large">
+        <h1 class="slds-text-heading_medium slds-var-p-top_medium">
+          Available Accounts
+        </h1>
+        <div
+          class="slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
+        >
+          Tick the accounts to close and a child case will be created for each
+          account.
+        </div>
+        <div class="slds-var-p-top_large datatable-container">
+          <lightning-datatable
+            key-field="id"
+            data={data}
+            columns={columns}
+            onrowselection={handleRowSelection}
+          >
+          </lightning-datatable>
+        </div>
+        <template if:true={selectedRows.length}>
+          <div class="slds-var-m-top_large">
+            <h2 class="slds-text-heading_small">Forwarding Account Details</h2>
+
+            <template if:true={showCheckbox}>
+              <!-- Checkbox -->
+              <div
+                class="slds-var-m-bottom_large slds-grid slds-grid_align-end slds-var-p-horizontal_small"
+              >
+                <lightning-input
+                  type="checkbox"
+                  label="Tick to use the same details for all accounts"
+                  onchange={handleUseSameDetailsCheckbox}
+                >
+                </lightning-input>
+              </div>
+            </template>
+
+            <template for:each={selectedRows} for:item="row">
+              <div
+                key={row.id}
+                class="slds-var-m-top_medium slds-box slds-box_x-small"
+              >
+                <h3>Account: {row.productName}</h3>
+
+                <!-- Dynamic Form Layout -->
+                <div class="slds-grid slds-gutters">
+                  <div class="slds-col slds-size_1-of-2">
+                    <template if:true={row.isClosureReasonInvalid}>
+                      <div class="slds-form-element slds-has-error">
+                        <!--  <lightning-input type="text" label="Closure Reason"
+                                                        value={row.closureReason} data-id={row.id} name="closureReason"
+                                                        onchange={handleInputChange} required></lightning-input>  -->
+
+                        <lightning-combobox
+                          label="Closure Reason"
+                          value={row.closureReason}
+                          data-id={row.id}
+                          name="closureReason"
+                          options={closureResonValues}
+                          onchange={handleInputChange}
+                          required
+                        >
+                        </lightning-combobox>
+
+                        <div class="slds-form-element__help">
+                          This field is required.
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={row.isClosureReasonInvalid}>
+                      <div class="slds-form-element">
+                        <!-- <lightning-input type="text" label="Closure Reason"
+                                                        value={row.closureReason} data-id={row.id} name="closureReason"
+                                                        onchange={handleInputChange} required></lightning-input> -->
+
+                        <lightning-combobox
+                          label="Closure Reason"
+                          value={row.closureReason}
+                          data-id={row.id}
+                          name="closureReason"
+                          options={closureResonValues}
+                          onchange={handleInputChange}
+                          required
+                        >
+                        </lightning-combobox>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                    <template if:true={row.isAccountNameInvalid}>
+                      <div class="slds-form-element slds-has-error">
+                        <lightning-input
+                          type="text"
+                          label="Intended Account Name"
+                          value={row.intendedAccountName}
+                          data-id={row.id}
+                          name="intendedAccountName"
+                          onchange={handleInputChange}
+                          required
+                        ></lightning-input>
+                        <div class="slds-form-element__help">
+                          This field is required.
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={row.isAccountNameInvalid}>
+                      <div class="slds-form-element">
+                        <lightning-input
+                          type="text"
+                          label="Intended Account Name"
+                          value={row.intendedAccountName}
+                          data-id={row.id}
+                          name="intendedAccountName"
+                          onchange={handleInputChange}
+                          required
+                        ></lightning-input>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+
+                <div class="slds-grid slds-gutters slds-var-m-top_small">
+                  <div class="slds-col slds-size_1-of-2">
+                    <template if:true={row.isaccountBsbInvalid}>
+                      <div class="slds-form-element slds-has-error">
+                        <lightning-input
+                          type="text"
+                          label="Intended Account BSB"
+                          value={row.intendedAccountBsb}
+                          data-id={row.id}
+                          name="intendedAccountBsb"
+                          onchange={handleInputChange}
+                          required
+                        ></lightning-input>
+                        <div class="slds-form-element__help">
+                          This field is required.
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={row.isaccountBsbInvalid}>
+                      <div class="slds-form-element">
+                        <lightning-input
+                          type="text"
+                          label="Intended Account BSB"
+                          value={row.intendedAccountBsb}
+                          data-id={row.id}
+                          name="intendedAccountBsb"
+                          onchange={handleInputChange}
+                          required
+                        ></lightning-input>
+                      </div>
+                    </template>
+                  </div>
+                  <div class="slds-col slds-size_1-of-2">
+                    <template if:true={row.isAccountNumberInvalid}>
+                      <div class="slds-form-element slds-has-error">
+                        <lightning-input
+                          type="text"
+                          label="Intended Account Number"
+                          value={row.intendedAccountNumber}
+                          data-id={row.id}
+                          name="intendedAccountNumber"
+                          onchange={handleInputChange}
+                          required
+                        ></lightning-input>
+                        <div class="slds-form-element__help">
+                          This field is required.
+                        </div>
+                      </div>
+                    </template>
+                    <template if:false={row.isAccountNumberInvalid}>
+                      <div class="slds-form-element">
+                        <lightning-input
+                          type="text"
+                          label="Intended Account Number"
+                          value={row.intendedAccountNumber}
+                          data-id={row.id}
+                          name="intendedAccountNumber"
+                          onchange={handleInputChange}
+                          required
+                        ></lightning-input>
+                      </div>
+                    </template>
+                  </div>
+                </div>
+              </div>
+            </template>
+          </div>
+        </template>
+      </div>
+    </div>
+    <!-- Modal Footer -->
+    <lightning-modal-footer>
+      <template if:false={selectedRows.length}>
+        <lightning-button
+          class="slds-button"
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCancel}
+        ></lightning-button>
+      </template>
+      <template if:true={selectedRows.length}>
+        <div class="slds-align_absolute-center">
+          <lightning-button
+            class="slds-button"
+            variant="neutral"
+            label="Cancel"
+            onclick={handleCancel}
+          ></lightning-button>
+          <lightning-button
+            class="slds-button slds-m-left_x-small"
+            variant="brand"
+            onclick={handleCreateChildCases}
+            label="Create Child Cases"
+          ></lightning-button>
+        </div>
+      </template>
+    </lightning-modal-footer>
+  </template>
+
+  <!-- Case creation success screen -->
+  <template if:true={isCasesCreated}>
+    <div class="slds-modal__content slds-var-p-horizontal_large">
+      <lightning-icon
+        class="slds-icon-utility-success slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+        icon-name="utility:success"
+        alternative-text="success"
+        variant="success"
+        size="large"
+        title="success"
+      ></lightning-icon>
+
+      <div
+        class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
+      >
+        Child Cases have been successfully created to close the following
+        accounts.
+      </div>
+      <lightning-datatable
+        key-field="id"
+        data={casesData}
+        columns={caseColumns}
+        hide-checkbox-column="true"
+      >
+      </lightning-datatable>
+    </div>
+
+    <lightning-modal-footer>
+      <template if:true={isCasesCreated}>
+        <lightning-button
+          class="slds-button"
+          variant="neutral"
+          label="Close"
+          onclick={handleCancel}
+        ></lightning-button>
+      </template>
+    </lightning-modal-footer>
+  </template>
+</template>
