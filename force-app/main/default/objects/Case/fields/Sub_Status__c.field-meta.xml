@@ -61,14 +61,17 @@
             <valueName>Customer Not Responding</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
             <valueName>Processing</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
             <valueName>Success</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
             <valueName>Failed</valueName>
         </valueSettings>

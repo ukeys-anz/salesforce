@@ -3,6 +3,7 @@
     <fullName>Account_Closure</fullName>
     <active>true</active>
     <businessProcess>ANZx Account Closure</businessProcess>
+    <compactLayoutAssignment>Account_Closure_Compact_Layout</compactLayoutAssignment>
     <description>Record type for handling account closures</description>
     <label>Account Closure</label>
     <picklistValues>
