@@ -5240,7 +5240,9 @@
         "Last_Name__c",
         "Name__c",
         "Email__c",
-        "Mobile__c"
+        "Mobile__c",
+        "Work_Phone__c",
+        "Job_Title__c"
       ],
       "IA-2415790": [
         "Residence_Number__c",

@@ -19,9 +19,9 @@
                 <label>Mobile</label>
             </value>
             <value>
-                <fullName>Email</fullName>
+                <fullName>Work Phone</fullName>
                 <default>false</default>
-                <label>Email</label>
+                <label>Work Phone</label>
             </value>
         </valueSetDefinition>
     </valueSet>

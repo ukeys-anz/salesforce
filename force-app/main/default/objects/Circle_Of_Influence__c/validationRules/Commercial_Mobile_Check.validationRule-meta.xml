@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Commercial_Mobile_Check</fullName>
+    <active>true</active>
+    <description>This is used to check if the Mobile is entered in correct format or not.</description>
+    <errorConditionFormula>AND( 
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;Company_Member&apos;,
+				$Profile.Name = &apos;ANZ CCRM Standard User&apos;,
+    NOT(ISBLANK(Mobile__c)),
+    AND(
+			    	NOT REGEX( Mobile__c , &quot;^\\+614[0-9]{8}+$&quot;),
+        NOT REGEX( Mobile__c , &quot;^\\+615[0-9]{8}+$&quot;)
+    )
+)</errorConditionFormula>
+    <errorDisplayField>Mobile__c</errorDisplayField>
+    <errorMessage>The Mobile entered is not in the correct format.</errorMessage>
+</ValidationRule>

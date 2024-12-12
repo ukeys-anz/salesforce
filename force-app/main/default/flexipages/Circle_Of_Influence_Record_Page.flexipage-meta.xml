@@ -59,20 +59,24 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.First_Name__c</fieldItem>
-                <identifier>RecordFirst_Name_cField</identifier>
+                <fieldItem>Record.COI_Company__c</fieldItem>
+                <identifier>RecordCOI_Company_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Last_Name__c</fieldItem>
-                <identifier>RecordLast_Name_cField</identifier>
+                <fieldItem>Record.Job_Title__c</fieldItem>
+                <identifier>RecordJob_Title__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-d4b88e02-d797-4eef-a598-604b1af4f30e</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -89,20 +93,48 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.COI_Company__c</fieldItem>
-                <identifier>RecordCOI_Company_cField</identifier>
+                <fieldItem>Record.First_Name__c</fieldItem>
+                <identifier>RecordFirst_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Notes__c</fieldItem>
-                <identifier>RecordNotes_cField</identifier>
+                <fieldItem>Record.Last_Name__c</fieldItem>
+                <identifier>RecordLast_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <name>Facet-ea878235-4326-4ad9-a460-f2e8f30ca0c0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-d4b88e02-d797-4eef-a598-604b1af4f30e</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-ea878235-4326-4ad9-a460-f2e8f30ca0c0</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column6</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-5e828777-2437-4dc0-8666-c474ecb70343</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -111,44 +143,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Email__c</fieldItem>
                 <identifier>RecordEmail_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Preferred_Contact_Method__c</fieldItem>
-                <identifier>RecordPreferred_Contact_Method_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>required</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Mobile__c</fieldItem>
-                <identifier>RecordMobile_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Preferred_Contact_Method__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Mobile</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Company_Member</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Company</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -167,6 +161,20 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Notes__c</fieldItem>
+                <identifier>RecordNotes_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-1a55153e-25be-407f-8604-cf61f4eef4fe</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Work_Phone__c</fieldItem>
                 <identifier>RecordWork_Phone__cField</identifier>
                 <visibilityRule>
@@ -178,10 +186,33 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
-        <name>Facet-1a55153e-25be-407f-8604-cf61f4eef4fe</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Mobile__c</fieldItem>
+                <identifier>RecordMobile_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Preferred_Contact_Method__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Mobile</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Email__c</fieldItem>
+                <identifier>RecordEmail_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
@@ -268,16 +299,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Postal_Code__c</fieldItem>
                 <identifier>RecordPostal_Code_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Street_Name__c</fieldItem>
-                <identifier>RecordStreet_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-e36659e0-69ce-48dd-bc04-9a0845c27348</name>
@@ -408,6 +429,24 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-5e828777-2437-4dc0-8666-c474ecb70343</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>COI Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-882dd0b5-66a2-4a3d-b2eb-5110cd9cb6ee</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -416,7 +455,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>@@@SFDCInformationSFDC@@@</value>
+                    <value>Contact Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection</identifier>

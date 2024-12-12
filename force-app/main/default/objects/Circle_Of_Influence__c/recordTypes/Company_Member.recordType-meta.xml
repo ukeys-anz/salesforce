@@ -38,7 +38,7 @@
     <picklistValues>
         <picklist>Preferred_Contact_Method__c</picklist>
         <values>
-            <fullName>Email</fullName>
+            <fullName>Work Phone</fullName>
             <default>false</default>
         </values>
         <values>
