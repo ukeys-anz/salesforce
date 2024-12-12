@@ -1,11 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Account_Closure</fullName>
+    <fullName>Case_Group</fullName>
     <active>true</active>
-    <businessProcess>ANZx Account Closure</businessProcess>
-    <compactLayoutAssignment>Account_Closure_Compact_Layout</compactLayoutAssignment>
-    <description>Record type for handling account closures</description>
-    <label>Account Closure</label>
+    <businessProcess>ANZx Case Group Support Process</businessProcess>
+    <compactLayoutAssignment>Case_Group_Compact_Layout</compactLayoutAssignment>
+    <description>Record Type To Create A Group Of Cases</description>
+    <label>Case Group</label>
+    <picklistValues>
+        <picklist>AFCA_Stage__c</picklist>
+        <values>
+            <fullName>Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Case Management Level 2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirm Resolution With Complainant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Case Management Level 1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fast Track - Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Preliminary View</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Registration</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Rules Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Workflow</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
     <picklistValues>
         <picklist>ANZx_Product__c</picklist>
         <values>
@@ -18,6 +65,17 @@
         </values>
         <values>
             <fullName>Not Product Related</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Account_Product__c</picklist>
+        <values>
+            <fullName>ANZ Plus %26 ANZ Save</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus Flex Saver</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -80,6 +138,87 @@
         </values>
         <values>
             <fullName>Transaction %26 Savings enquiry</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CAC_Sub_Category__c</picklist>
+        <values>
+            <fullName>Credit file delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No resolution on original complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution considered unsuitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Solution not implemented</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CAD_Outcome__c</picklist>
+        <values>
+            <fullName>Commercial Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision Enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision Overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decision Upheld</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>CardScamType__c</picklist>
+        <values>
+            <fullName>Bank Impersonation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dating %26 Romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fake Charity</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jobs %26 Employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Remote Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Threats %26 Extortion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unexpected Money%2Fwinnings</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -248,6 +387,21 @@
         </values>
         <values>
             <fullName>Debit</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Dispute_Reason_PayTo__c</picklist>
+        <values>
+            <fullName>Duplicate Transaction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not as per agreement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wrong Amount</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -428,7 +582,102 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_ANZX_Fraud_Confirm__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ARC_Profile_Exist__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %28Multiple%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes %28Single%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ARC_Profile_Status__c</picklist>
+        <values>
+            <fullName>Both</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Genuine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Address_Valid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Analytics_Change_Type__c</picklist>
+        <values>
+            <fullName>Existing Falcon Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Lookup List Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VCAS 3DS Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing VRM Rule Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Falcon Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Lookup List</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VCAS 3DS Rule</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New VRM Rule</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Analytics_Outcome__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
         <values>
             <fullName>No</fullName>
             <default>false</default>
@@ -2392,6 +2641,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_ID_Compromise_Type__c</picklist>
+        <values>
+            <fullName>Falsified%2FModified ID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer %28Complicit%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer %28Scam Victim%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stolen ID</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_ID_Legible__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -2468,6 +2736,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Fraud_MiddleNameCheck__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Fraud_Middle_Initial__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -2486,6 +2765,21 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Onboarding_Selfie_Of__c</picklist>
+        <values>
+            <fullName>Potential Offender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer %28Real%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Customer %28Replay%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -2519,6 +2813,21 @@
         </values>
         <values>
             <fullName>New Number</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Prevented__c</picklist>
+        <values>
+            <fullName>N%2FA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3738,6 +4047,219 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_AFCA_Issue_Type__c</picklist>
+        <values>
+            <fullName>Advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Charges</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Data Rights</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Reporting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Difficulty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Firm Decision</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instructions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Privacy %26 Confidentiality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transactions</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_AFCA_Product_Line__c</picklist>
+        <values>
+            <fullName>Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deposit Taking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>General Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Investments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Payment Systems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Traditional Trustee Services</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_AFCA_Product_Type__c</picklist>
+        <values>
+            <fullName>Annuity Policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Approved Deposit Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business Finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Consumer Credit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Current Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Derivatives%2FHedging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Direct Transfer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Domestic Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estate Management</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Estate Planning</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Extended Warranty</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Guarantees</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Income Stream Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Life policy Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Managed Investments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Margin Loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Cash</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non-Income Stream Risk</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional Indemnity Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Real Property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Retirement Savings Account</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Safe Custody</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Savings Accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Securities</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small APRA Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small Business%2FFarm Insurance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation Fund</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Superannuation-Non-Trustee Related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Trusts</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_AFCA_Status__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -3797,6 +4319,317 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_AFCA_Sub_issue_Type__c</picklist>
+        <values>
+            <fullName>Account administration error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Application for early super release declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appropriate Lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Break Costs</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Break costs disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cancellation of policy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chargebacks- declined %28consumer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chargebacks- delayed %28consumer%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chargebacks- merchant</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Claim amount</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Score</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Death benefit distribution</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Decline of financial difficulty request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deductible or excess</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default judgement obtained</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default listing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Default notice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay in claim handling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay in complaint handling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of application or variation request</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- Complainant non-disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- Driving under influence</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- Exclusion%2Fcondition</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- No policy or contract</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim- no proof of loss</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Denial of claim-Fraudulent claim</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Dishonoured transactions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to follow instructions%2Fagreement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to prioritise clients interests</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to provide advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure to provide special needs assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Failure%2Frefusal to provide access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family law division of super benefit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fee disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial firm failure to respond to request for assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inappropriate advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inappropriate debt collection action</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Inappropriate margin call notice and%2For investment liquidation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect Payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect commissions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect fees%2Fcosts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect financial information provided</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect interest added</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect premiums</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect tax</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate advice</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data collection</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data correction</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data maintenance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect%2Finappropriate data use or disclosure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insufficient product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Interpretation of product terms and conditions</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Liability disputed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Loss of documents %2F personal property</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Management of complainant details</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Misleading product%2Fservice information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mistaken internet payment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Mortgagee sale</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No claim bonus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Non Rules</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other CDR issue</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other privacy breaches</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repayment History Information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Request to suspend enforcement proceedings</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Responsible lending</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Security and Destruction%2FDe-identification</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service quality</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Technical problems</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unauthorised information disclosed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unauthorised transaction %28scam%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unconscionable conduct</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unfair Contract terms</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_AuthRep_Licence_or_registration_type__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -3816,6 +4649,1056 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Avoidable_Escalation_Reason__c</picklist>
+        <values>
+            <fullName>Complaint not closed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discretion not used</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Escalated incorrectly</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incomplete investigation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not transferred to internal business unit</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Simple Complaint</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_CC_Country__c</picklist>
+        <values>
+            <fullName>ABW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AFG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AGO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AIA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ALA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ALB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AND</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ARM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ASM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ATG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AUT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>AZE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BDI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BEL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BES</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BFA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BGD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BGR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BHR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BHS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BIH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BLM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BLR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BLZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BMU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BOL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BRA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BRB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BRN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BTN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BVT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>BWA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CCK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CHN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CIV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CPV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CRI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CUB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CUW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CXR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CYM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CYP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CZE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DEU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DJI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DMA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DNK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DOM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DZA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ECU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EGY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ERI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ESP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EST</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ETH</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FJI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FLK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FRA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FRO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FSM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GAB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GBR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GEO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GGY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GHA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GIB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GIN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GLP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GMB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GNB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GNQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GRC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GRD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GRL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GTM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GUF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GUM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GUY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HKG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HMD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HND</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HRV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HTI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>HUN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IDN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IMN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IND</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IRL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IRN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IRQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ISL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ISR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ITA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JAM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JEY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>JPN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KAZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KGZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KHM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KIR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KNA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KOS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KWT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LAO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LBY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LIE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LKA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LSO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LTU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LUX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LVA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MAR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MCO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MDA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MDG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MDV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MEX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MHL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MKD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MLT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MMR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MNE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MNG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MNP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MOZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MRT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MSR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MTQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MWI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MYS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>MYT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NAM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NCL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NFK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NGA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NIC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NIU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NLD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NPL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NRU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>NZL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OMN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PAK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PAN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PCN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PER</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PHL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PLW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PNG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>POL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PRY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PSE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>PYF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>REU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ROU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RUS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>RWA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SAU</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SDN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SGP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SGS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SHN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SJM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SLB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SLV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SMR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SOM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SPM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SRB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SSD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>STP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SVK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SVN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SWE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SWZ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SXM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>SYR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TCA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TCD</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TGO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>THA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TJK</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TKL</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TKM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TLS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TON</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TTO</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TUN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TUR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TUV</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TWN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TZA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UGA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UKR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UMI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>URY</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>USA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>UZB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VAT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VCT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VGB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VIR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VNM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>VUT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WLF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WSM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>XXX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YEM</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>YUG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZAF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZMB</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ZWE</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Complainant_Type__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -3827,6 +5710,37 @@
         </values>
         <values>
             <fullName>9</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Outcome_Offered__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merged</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merits Assessments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No response from Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Outside of Rules</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3846,6 +5760,44 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Complaint_Remedy_2__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Remedy_3__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Complaint_Remedy__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -3857,6 +5809,375 @@
         </values>
         <values>
             <fullName>3</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Sub_Remedy_2__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reward Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Sub_Remedy_3__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reward Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Complaint_Sub_Remedy__c</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>13</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>2</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>7</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>99</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Allianz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CMC Markets</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>IOOF</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Netwealth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>QBE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Repayment arrangement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Reward Points</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Worldline</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Zurich</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3952,11 +6273,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3976,6 +6297,53 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Final_Letter_Outcome__c</picklist>
+        <values>
+            <fullName>Arrangement considered not suitable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer Resolution - Quality Compliance team intervention</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer not satisfied with outcome</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer requested no further communication</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Declined financial assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Delay to assess request for financial assistance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Feedback only requested%2Fcustomer not expecting response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Missed Hardship Triggers</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not Financial Difficulty or Hardship Complaint</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Terms and Conditions of hardship assistance</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Is_Common__c</picklist>
         <values>
             <fullName>No</fullName>
@@ -3983,6 +6351,25 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Is_Hardship_Resolution_Letter_Sent__c</picklist>
+        <values>
+            <fullName>Complaint Re-Opened</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship Written Response Letter Sent</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hardship Written Response not required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Related Complaint In-Flight %28no action taken%29</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -5294,6 +7681,57 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Product_Category__c</picklist>
+        <values>
+            <fullName>Asset finance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Business loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Cheque%2FSavings accounts</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial cards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit card</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Foreign exchange</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Home loans</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Insurance%2Fwealth products</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Merchants</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not product related</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Personal loan</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Product_Manufacturer__c</picklist>
         <values>
             <fullName>Allianz</fullName>
@@ -5321,6 +7759,28 @@
         </values>
         <values>
             <fullName>Zurich</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Progressed_Status__c</picklist>
+        <values>
+            <fullName>Progressed - Customer Declined</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Progressed - No Customer Response</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>IDR_Real_Form_Req__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6662,6 +9122,17 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IsAScam__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Is_The_Card_Lost_Stolen__c</picklist>
         <values>
             <fullName>Lost</fullName>
@@ -6688,6 +9159,56 @@
         </values>
         <values>
             <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Is_this_a_complaint_about_a_complaint__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OnboardingVerificationFailedReason__c</picklist>
+        <values>
+            <fullName>Doc fail - document is a picture of a picture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is ineligible type</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - suspected fraud%2C based on document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EV Fail - DVS Data error</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>EV Fail - DVS has given fail response</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - document image is not clear enough to match</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - selfie image is clear%2C but not the same person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -6814,6 +9335,88 @@
         </values>
         <values>
             <fullName>USD</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>RecipientFundsType__c</picklist>
+        <values>
+            <fullName>Fraud - BEC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - IdTakeOver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Malware</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Phishing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud - Porting</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Attempts to gain your personal information</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Buying or selling</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Dating %26 romance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Investment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Jobs %26 employment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Remote access</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Threats %26 extortion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Unexpected Money</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Scam - Unexpected winnings</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Review_Outcome__c</picklist>
+        <values>
+            <fullName>Resolution Enhanced</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Overturned</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Resolution Upheld</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -9021,15 +11624,7 @@
     <picklistValues>
         <picklist>Sub_Status__c</picklist>
         <values>
-            <fullName>Failed</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Processing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Success</fullName>
+            <fullName>No Defect</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -9280,283 +11875,7 @@
     <picklistValues>
         <picklist>Type</picklist>
         <values>
-            <fullName>1</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>10</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>11</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>12</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>13</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>14</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>15</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>16</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>17</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>18</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>19</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>2</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>20</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>21</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>3</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>6</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>About Us</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Account Takeover</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>App Support</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Assisted PIN Recovery</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Assisted Tax Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Assisted Verification</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Awaiting Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Bug Report %26 Feature</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Business Email Compromise</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Cards</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Civil</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Claimed no Knowledge</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Coaching</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Feedback %28NPS%29</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Customer Update %26 Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dating %26 Romance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Deceased Estate</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Digital Wallet Provisioning</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fake Charity</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Financial Wellbeing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>ID Takeover Mule</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Investment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Jobs %26 Employment</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Join %2F KYC</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>KYC QA Sample</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Legal Name Update</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Malware</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Mobile Number Dispute</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Money</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>My Security</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not Fraud</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not a Recipient</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Not a Scam</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Open Banking</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Other Enquiries</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Payments</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Phishing</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Phone Porting</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Potential Recipient</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Product Information</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Profile</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Remote Access</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Threats %26 Extortion</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Transaction %26 Savings enquiry</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unable to Contact</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Unexpected Money%2FWinnings</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Verified by Visa</fullName>
+            <fullName>Account Closure</fullName>
             <default>false</default>
         </values>
     </picklistValues>

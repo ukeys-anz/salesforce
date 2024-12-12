@@ -446,4 +446,9 @@
         <default>false</default>
         <label>Simplification/Decommissioning</label>
     </standardValue>
+    <standardValue>
+        <fullName>Account Closure</fullName>
+        <default>false</default>
+        <label>Account Closure</label>
+    </standardValue>
 </StandardValueSet>
