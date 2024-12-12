@@ -11,7 +11,7 @@ const deployIndustryCodeCCRM = (orgAlias) => {
   nonProdChangeValidation(orgAlias);
 
   let output = runCommand(`
-      sf apex run -f ci/apex-scripts/pamApproversSetting.apex -o "${orgAlias}"
+      sf apex run -f ci/apex-scripts/assignPset.apex -o "${orgAlias}"
     `);
   continueCheck(output, "Error assigning Permission Set");
 
