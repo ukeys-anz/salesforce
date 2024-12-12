@@ -9025,10 +9025,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>No Defect</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Processing</fullName>
             <default>false</default>
         </values>
