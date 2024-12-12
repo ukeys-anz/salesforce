@@ -16,6 +16,16 @@
         <valueSetDefinition>
             <sorted>true</sorted>
             <value>
+                <fullName>All To Sign</fullName>
+                <default>false</default>
+                <label>All To Sign</label>
+            </value>
+            <value>
+                <fullName>Bankruptcy</fullName>
+                <default>false</default>
+                <label>Bankruptcy</label>
+            </value>
+            <value>
                 <fullName>Deceased Estate</fullName>
                 <default>false</default>
                 <label>Deceased Estate</label>
