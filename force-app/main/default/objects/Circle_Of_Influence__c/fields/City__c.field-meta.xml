@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <description>City</description>
-    <encryptionScheme>None</encryptionScheme>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>City</label>
     <length>255</length>

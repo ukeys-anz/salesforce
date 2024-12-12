@@ -6303,6 +6303,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Circle_Of_Influence__c.Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Circle_Of_Influence__c.Email__c</field>
         <readable>true</readable>
     </fieldPermissions>

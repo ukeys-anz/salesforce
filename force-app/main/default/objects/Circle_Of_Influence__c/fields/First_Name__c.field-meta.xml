@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <description>First Name</description>
-    <encryptionScheme>None</encryptionScheme>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>First Name</label>
     <length>80</length>

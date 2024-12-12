@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <description>Building Name</description>
-    <encryptionScheme>None</encryptionScheme>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>Building Name</label>
     <length>255</length>

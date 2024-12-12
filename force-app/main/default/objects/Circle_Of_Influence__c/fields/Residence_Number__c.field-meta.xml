@@ -4,7 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Salesforce</complianceGroup>
     <description>Residence Number</description>
-    <encryptionScheme>None</encryptionScheme>
+    <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
     <label>Residence Number</label>
     <length>255</length>

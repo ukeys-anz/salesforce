@@ -109,8 +109,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Preferred_Contact_Method__c</fieldItem>
-                <identifier>RecordPreferred_Contact_Method_cField</identifier>
+                <fieldItem>Record.Email__c</fieldItem>
+                <identifier>RecordEmail_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -119,26 +119,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Email__c</fieldItem>
-                <identifier>RecordEmail_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Preferred_Contact_Method__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Email</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Company_Member</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Company</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.Preferred_Contact_Method__c</fieldItem>
+                <identifier>RecordPreferred_Contact_Method_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -177,6 +159,23 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Preferred_Contact_Time__c</fieldItem>
                 <identifier>RecordPreferred_Contact_Time_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Work_Phone__c</fieldItem>
+                <identifier>RecordWork_Phone__cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Preferred_Contact_Method__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Work Phone</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-1a55153e-25be-407f-8604-cf61f4eef4fe</name>
