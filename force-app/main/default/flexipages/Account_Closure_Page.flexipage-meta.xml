@@ -180,8 +180,12 @@
     <flexiPageRegions>
         <itemInstances>
             <fieldInstance>
-                <fieldItem>Record.FinServ__FinancialAccount__r.Product_Name__c</fieldItem>
-                <identifier>RecordFinServ_FinancialAccount_rProduct_Name_cField</identifier>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.ProductId</fieldItem>
+                <identifier>RecordProductIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
