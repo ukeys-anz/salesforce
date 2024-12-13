@@ -141,8 +141,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Email__c</fieldItem>
-                <identifier>RecordEmail_cField</identifier>
+                <fieldItem>Record.Preferred_Contact_Method__c</fieldItem>
+                <identifier>RecordPreferred_Contact_Method_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
