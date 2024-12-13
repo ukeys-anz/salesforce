@@ -11,6 +11,7 @@ public class RTCase {
   public static Id anzxComplaint = base.getId('ANZx_Complaint');
   public static Id atmDispute = base.getId('ATM_Dispute');
   public static Id bpayDispute = base.getId('BPAY_Dispute');
+  public static Id brokerEnquiry = base.getId('Broker_Enquiry');
   public static Id cardDispute = base.getId('Card_Dispute');
   public static Id cfmsMigratedCase = base.getId('CFMS_Migrated_Case');
   public static Id creditReferral = base.getId('Credit_Referral');

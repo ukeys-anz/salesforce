@@ -765,7 +765,8 @@
         "BypassApplicationEvent__c",
         "BypassSettlementAccountEvent__c",
         "BypassBrokerEvent__c",
-        "BypassCustomerSyncEvents__c"
+        "BypassCustomerSyncEvents__c",
+        "BypassCaseSyncEvents__c"
       ]
     },
     "Campaign": {
