@@ -42,5 +42,9 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );
+    CCRMOpportunityActions.transferOpportunityOwnership(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
   }
 }
