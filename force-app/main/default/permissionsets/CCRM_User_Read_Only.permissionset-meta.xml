@@ -303,6 +303,16 @@
     <description>Baseline pset for using the AR&amp;C Commercial CRM app.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.Broker_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.COI_Member__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>A_Z_Review__c.Banker_LAN_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4748,6 +4758,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.COI_Member__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4829,6 +4844,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>InteractionAttendee.EmailAddress</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Broker_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Circle_Of_Influence__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6004,6 +6029,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Won_from_Lost_to__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Broker_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
