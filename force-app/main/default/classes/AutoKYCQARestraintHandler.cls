@@ -11,6 +11,10 @@ public with sharing class AutoKYCQARestraintHandler {
     ProfileStagingHandler.class
   );
 
+  private static final String SPECIAL_COMMENT_1 = 'KYC QA defects found -';
+  private static final String SPECIAL_COMMENT_2 = 'do not remove until clarified -';
+  private static final String SPECIAL_COMMENT_3 = 'call ID OPS 030-4050-7838';
+
   /**
    * @description Processes the records for AutoKYCQA restraint.
    * @param records The list of Account records.
@@ -79,9 +83,13 @@ public with sharing class AutoKYCQARestraintHandler {
     model.productCode = fa.Product_Type__c.split(':')[1];
     model.restraints.restraintClass = 1;
     model.restraints.restraintType = restraintType;
-    model.restraints.datePlaced = System.now().format('YYYY-MM-dd');
-    model.restraints.dateExpires = '';
-    model.restraints.specialComment1 = Label.CustomerRestraintComment;
-    return JSON.serialize(model);
+    // API is not accepting 9999-12-31 atm to be updated later
+    model.restraints.dateExpires = System.now()
+      .addDays(475)
+      .format('YYYY-MM-dd');
+    model.restraints.specialComment1 = SPECIAL_COMMENT_1;
+    model.restraints.specialComment2 = SPECIAL_COMMENT_2;
+    model.restraints.specialComment3 = SPECIAL_COMMENT_3;
+    return JSON.serialize(model, true);
   }
 }
