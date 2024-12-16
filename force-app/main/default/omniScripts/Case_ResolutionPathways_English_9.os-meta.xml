@@ -950,7 +950,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge complex &lt;a href=\&quot;https://portal.knowhow.service.anz/C/98KjePeyEe6RKwBQVpUToA\&quot; target=\&quot;_blank\&quot; title=\&quot;&apos;Simple complaints&amp;rsquo; Process flow\&quot; rel=\&quot;noopener\&quot;&gt;additional issue&lt;/a&gt; (for reallocation):&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;That sounds like something which should be investigated further.&lt;br /&gt;&lt;br /&gt;What I can do for you today is to arrange to escalate your complaint to a specialised team member to investigate. I will leave notes of our discussion today so that our specialised team member is aware of the concerns you have shared with me today.&lt;br /&gt;&lt;br /&gt;They will contact you to discuss the matter in detail. You can expect to hear from them within the next week.&amp;nbsp;&lt;br /&gt;Thanks again for taking my call.&amp;rdquo;&lt;br /&gt;&lt;br /&gt;(END CALL)&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; Inform your team leader that the case should be reallocated to a specialised case &lt;/strong&gt;&lt;strong&gt;management team for further investigation.&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; (If applicable) Reassign case to relevant Workbasket.&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; Exit pathway.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; border-radius: 10px; padding: 10px; height: 200px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;Acknowledge complex &lt;a href=\&quot;https://portal.knowhow.service.anz/C/98KjePeyEe6RKwBQVpUToA\&quot; target=\&quot;_blank\&quot; title=\&quot;&apos;Simple complaints&amp;rsquo; Process flow\&quot; rel=\&quot;noopener\&quot;&gt;additional issue&lt;/a&gt; (for reallocation):&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;That sounds like something which should be investigated further.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;\n&lt;p&gt;What I can do for you today is to arrange to escalate your complaint to a specialised team member to investigate.&lt;br /&gt;&lt;br /&gt;They will contact you to discuss the matter in detail. You can expect to hear from them within the next week.&amp;nbsp;&lt;br /&gt;Thanks again for taking my call.&amp;rdquo;&lt;br /&gt;&lt;br /&gt;(END CALL)&lt;br /&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; Inform your team leader that the case should be reallocated to a specialised case &lt;/strong&gt;&lt;strong&gt;management team for further investigation.&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; (If applicable) Reassign case to relevant Workbasket.&lt;/strong&gt;&lt;br /&gt;&lt;strong&gt;&amp;bull; Exit pathway.&lt;/strong&gt;&lt;/p&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12
 }</propertySetConfig>
@@ -1354,7 +1354,7 @@
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; height: 200px; border-radius: 10px; padding: 10px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If customer accepts offer:&lt;br /&gt;&lt;/strong&gt;&lt;br /&gt;&amp;ldquo;Great, I will action that now and make a note of our agreement to resolve this complaint.&lt;/p&gt;\n&lt;p&gt;It will be paid into your ANZ bank account ending &amp;lt;insert ending account number for customer&apos;s DDA&amp;gt; and will be available in your account within five business days.&lt;/p&gt;\n&lt;p&gt;I will also close your complaint.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer declines offer, or indicates they don&amp;rsquo;t want this outcome:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;Ok, I understand your position. I won&amp;rsquo;t action that payment then.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div style=\&quot;font-size: 15px; height: 200px; border-radius: 10px; padding: 10px; overflow-x: hidden; overflow-y: auto; background-color: #e8e8e8;\&quot;&gt;\n&lt;p&gt;&lt;strong&gt;If customer accepts offer:&lt;br /&gt;&lt;/strong&gt;&lt;/p&gt;\n&lt;p&gt;&amp;ldquo;Great, I will action that now and make a note of our agreement to resolve this complaint.&lt;br /&gt;&lt;br /&gt;&lt;/p&gt;\n&lt;p&gt;The funds will be paid into your ANZ bank account ending &amp;lt;insert ending account number for customer&apos;s DDA&amp;gt; and will be available in your account within five business days.&lt;/p&gt;\n&lt;p&gt;I will also close your complaint.&amp;rdquo;&lt;/p&gt;\n&lt;p&gt;&lt;strong&gt;If customer declines offer, or indicates they don&amp;rsquo;t want this outcome:&lt;br /&gt;&lt;br /&gt;&lt;/strong&gt;&amp;ldquo;Ok, I understand your position. I won&amp;rsquo;t action that payment then.&amp;rdquo;&lt;/p&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -1848,19 +1848,11 @@
       }, {
         &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Branch queues / wait time&quot;
+        &quot;data&quot; : &quot;Branch Availability&quot;
       }, {
         &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Statement Issue&quot;
-      }, {
-        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Statement features/accessibility&quot;
-      }, {
-        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Trading hours/location/closures&quot;
+        &quot;data&quot; : &quot;Statements&quot;
       } ]
     }
   },
@@ -1930,19 +1922,11 @@
       }, {
         &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Branch queues / wait time&quot;
+        &quot;data&quot; : &quot;Branch Availability&quot;
       }, {
         &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Statement Issue&quot;
-      }, {
-        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Statement features/accessibility&quot;
-      }, {
-        &quot;field&quot; : &quot;ChoosePathway:IssueTypeButtons:selectedButtonName&quot;,
-        &quot;condition&quot; : &quot;=&quot;,
-        &quot;data&quot; : &quot;Trading hours/location/closures&quot;
+        &quot;data&quot; : &quot;Statements&quot;
       } ]
     }
   },
@@ -2293,5 +2277,5 @@
     <type>Case</type>
     <uniqueName>Case_ResolutionPathways_English_9</uniqueName>
     <versionNumber>9.0</versionNumber>
-    <webComponentKey>4beceb4b-fb70-982c-2439-215fe3a61980</webComponentKey>
+    <webComponentKey>48ba0f1b-bcc6-e791-b66b-a4b23ac547e7</webComponentKey>
 </OmniScript>
