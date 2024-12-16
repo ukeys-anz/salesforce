@@ -2,7 +2,7 @@
 
 String currentUsername = Userinfo.getUserName();
 List<String> psetToBeAssigned = new List<String>{
-  'FinancialServicesCloudStandard',
+  'FinServ__FinancialServicesCloudStandard',
   'Customer_Relationships_Read_Write'
 };
 String result = '';
