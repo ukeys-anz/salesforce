@@ -840,6 +840,16 @@
                 <identifier>RecordBroker_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Circle_Of_Influence__c</fieldItem>
+                <identifier>RecordCircle_Of_Influence_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-787c9b0a-b5b5-4b4a-8826-864139d42ba7</name>
         <type>Facet</type>
     </flexiPageRegions>
