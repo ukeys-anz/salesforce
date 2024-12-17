@@ -828,12 +828,11 @@
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
-        <fields>AssessmentRating</fields>
         <fields>AssessmentStatus</fields>
-        <fields>EffectiveDateTime</fields>
-        <fields>ExpirationDateTime</fields>
+        <fields>CreatedDate</fields>
+        <fields>Owner</fields>
         <relatedList>Assessments</relatedList>
-        <sortField>EffectiveDateTime</sortField>
+        <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
