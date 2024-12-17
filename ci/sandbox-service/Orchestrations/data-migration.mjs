@@ -1,6 +1,11 @@
 /// How to run this : node ci/sandbox-service/Orchestrations/data-migration.mjs <orgAlias | org username>
 
-import { deployIndustryCodeCCRM } from "../Services/data-service.mjs";
+import {
+  assignRequiredPsets,
+  deployIndustryCodeCCRM,
+  upsertCCRMIndustries,
+  createCMOSKnownIssues
+} from "../Services/data-service.mjs";
 
 /// Hardcoded username input
 let argvs = process.argv;
@@ -9,7 +14,10 @@ const USER_NAME = argvs[0];
 ////////
 
 const dataMigration = (orgAlias) => {
+  assignRequiredPsets(orgAlias);
+  upsertCCRMIndustries(orgAlias);
   deployIndustryCodeCCRM(orgAlias);
+  createCMOSKnownIssues(orgAlias);
 };
 
 // Run
