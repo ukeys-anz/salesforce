@@ -87,12 +87,12 @@
                 <visibilityRule>
                     <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.FinServ__FinancialAccount__r.FinServ__ProductName__r.ProductCode}</leftValue>
+                        <leftValue>{!Record.FinServ__FinancialAccount__r.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>TRANSACT01</rightValue>
                     </criteria>
                     <criteria>
-                        <leftValue>{!Record.FinServ__FinancialAccount__r.FinServ__ProductName__r.ProductCode}</leftValue>
+                        <leftValue>{!Record.FinServ__FinancialAccount__r.FinServ__ProductName__r.ANZ_Product_Code__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>SAVING01</rightValue>
                     </criteria>
@@ -111,6 +111,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.OwnerId</fieldItem>
                 <identifier>RecordOwnerIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Status</fieldItem>
+                <identifier>RecordStatusField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
