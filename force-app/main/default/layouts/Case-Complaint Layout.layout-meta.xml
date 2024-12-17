@@ -796,6 +796,16 @@
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
+        <fields>AssessmentStatus</fields>
+        <fields>CreatedDate</fields>
+        <fields>Owner</fields>
+        <relatedList>Assessments</relatedList>
+        <sortField>CreatedDate</sortField>
+        <sortOrder>Desc</sortOrder>
+    </relatedLists>
+    <relatedLists>
+        <excludeButtons>New</excludeButtons>
+        <fields>Name</fields>
         <fields>AssessmentRating</fields>
         <fields>AssessmentStatus</fields>
         <fields>EffectiveDateTime</fields>
