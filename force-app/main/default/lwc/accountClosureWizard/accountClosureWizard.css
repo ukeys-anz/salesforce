@@ -1,27 +1,12 @@
-.custom-modal-body {
-  max-height: calc(100vh - 200px);
-  /*  Adjusts the height dynamically to leave space for the header and footer */
-  overflow-y: auto;
-  /*   Allows the body content to scroll if it's too large */
+.bold-heading {
+  font-weight: bold;
 }
-
-/* Sticky footer inside the modal   */
-.custom-modal-footer {
-  display: flex;
-  justify-content: center;
-  /* Center the buttons horizontally */
-  gap: 15px;
-  /* Add spacing between the buttons */
-  position: sticky;
-  /* Keeps the footer inside the modal, at the bottom */
-  bottom: 0;
-  /* Sticks to the bottom of the modal */
-  background-color: white;
-  /* Matches modal background */
-  padding: 10px 20px;
-  /* Adds padding around the buttons */
-  border-top: 1px solid #d8dde6;
-  /* Adds a subtle border for visual separation */
-  z-index: 10;
-  /* Ensures the footer stays on top of scrolling content */
+.field-width {
+  width: 50%;
+}
+.tooltip {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  position: relative;
+  bottom: 0.25rem;
 }

@@ -4,8 +4,9 @@ const fields = ["Case.Account.OCV_ID__c", "Case.AccountId"];
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import CLOSURE_REASON from "@salesforce/schema/Case.Closure_Reason__c";
 import { getRecord } from "lightning/uiRecordApi";
+import { NavigationMixin } from "lightning/navigation";
 /* IMPORT APEX METHODS */
-import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
+import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
 import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
@@ -27,7 +28,18 @@ const caseColumns = [
   { label: "Product", fieldName: "product" },
   { label: "Account Number", fieldName: "accountNumber" },
   { label: "Account Type", fieldName: "accountType" },
-  { label: "Child Case Number", fieldName: "childCaseNumber" }
+  { label: "Case Record Id", fieldName: "caseRecordId" },
+  {
+    label: "Child Case Number",
+    fieldName: "childCaseNumber",
+    type: "button",
+    typeAttributes: {
+      label: { fieldName: "childCaseNumber" },
+      variant: "base", // Styling for the button
+      name: "view_case", // Action name to handle clicks
+      disabled: false
+    }
+  }
 ];
 
 export default class AccountClosureWizard extends LightningElement {
@@ -49,6 +61,7 @@ export default class AccountClosureWizard extends LightningElement {
   };
   accountDetails = [];
   closureReasonOptions = []; // To store picklist options
+  accountDetailsFromDb = false;
 
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data, error }) {
@@ -116,6 +129,34 @@ export default class AccountClosureWizard extends LightningElement {
     });
   }
 
+  // Handle the button click event (case record navigation)   TO DO: THIS NEEDS TO BE FIX
+  handleCaseRowAction(event) {
+    // this.dispatchEvent(new CloseActionScreenEvent());
+    const actionName = event.detail.action.name;
+    const row = event.detail.row;
+    console.log("actionName " + actionName);
+    // Check if the clicked action is 'view_case'
+    if (actionName === "view_case") {
+      // Use the NavigationMixin to open the case record
+      console.log("Case Record Id " + row.caseRecordId);
+      this.navigateToCaseRecord(row.caseRecordId);
+    }
+  }
+
+  // Method to navigate to a specific case record
+  navigateToCaseRecord(caseRecordId) {
+    // Navigation to the case record page in Salesforce
+
+    this[NavigationMixin.Navigate]({
+      type: "standard__recordPage",
+      attributes: {
+        recordId: caseRecordId,
+        objectApiName: "Case",
+        actionName: "view"
+      }
+    });
+  }
+
   handleInputChange(event) {
     const { name, value } = event.target;
     const rowId = event.target.dataset.id;
@@ -164,12 +205,19 @@ export default class AccountClosureWizard extends LightningElement {
   async getFinancialAccount() {
     try {
       //Attempt to get the latest account details from fabric
-      this.accountDetails = await getFinancialAccountFabric({
+      this.accountDetails = await getFilteredFinancialAccounts({
         ocvId: this.customerOcvId,
         accountNumbers: []
       });
       this.handleAccountInformation(this.accountDetails);
-      this.data = this.generateData(this.accountDetails);
+      this.data = this.accountDetails.map((record) => ({
+        id: record.id,
+        productName: record.productName,
+        accountNumber: record.accountNumber,
+        accountType: record.ownership,
+        balance: record.balance,
+        productId: record.productId
+      }));
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -178,9 +226,9 @@ export default class AccountClosureWizard extends LightningElement {
         "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator",
         "pester"
       );
-
       //If the API callout fails to fetch latest data, use this as a fallback to fetch
       //the records stored in Salesforce
+      this.accountDetailsFromDb = true;
       this.accountDetails = await getFinancialAccountDB({
         ownerId: this.customerOcvId,
         recordTypeDeveloperNames: [
@@ -189,29 +237,38 @@ export default class AccountClosureWizard extends LightningElement {
         ]
       });
       this.handleAccountInformation(this.accountDetails);
+      this.data = this.accountDetails.map((record) => {
+        return {
+          id: record.Id,
+          productName: record.FinServ__ProductName__r.Name,
+          accountNumber: record.FinServ__FinancialAccountNumber__c,
+          accountType: record.Ownership__c,
+          balance: record.FinServ__Balance__c,
+          finiancialAccountId: record.Id,
+          productId: record.FinServ__ProductName__c
+        };
+      });
+      console.log("financial account data " + JSON.stringify(this.data));
     }
   }
 
+  // TO DO: DISCUSS THIS WITH VK and KOPAL WHETHER THIS IS NEEDED OR NOT
   handleAccountInformation(finAccounts) {
     if (finAccounts) {
       finAccounts.forEach((account) => {
         //Determine the type of financial account
-        if (account.FinServ__Status__c !== "Closed") {
-          if (
-            account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
-          ) {
+        if (account.status !== "Closed") {
+          if (account.recodTypeName === CHECKING_ACCOUNT_RT_APINAME) {
             this.accountData.checking.push(account);
-          } else if (
-            account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
-          ) {
-            if (isS2Enabled() && isS2Account(account.Marketing_Code__c)) {
+          } else if (account.recodTypeName === SAVINGS_ACCOUNT_RT_APINAME) {
+            if (isS2Enabled() && isS2Account(account.marketingCode)) {
               this.accountData.savingss2.push(account);
               this.isS2AccountExist = true;
-            } else if (!isS2Account(account.Marketing_Code__c)) {
+            } else if (!isS2Account(account.marketingCode)) {
               this.accountData.savings.push(account);
             }
           }
-        } else if (isS2Account(account.Marketing_Code__c) && isS2Enabled()) {
+        } else if (isS2Account(account.marketingCode) && isS2Enabled()) {
           this.isS2AccountExist = true;
         }
       });
@@ -222,6 +279,7 @@ export default class AccountClosureWizard extends LightningElement {
     return finAccounts;
   }
 
+  // TO DO: DISCUSS THIS WITH VK and KOPAL WHETHER THIS IS NEEDED OR NOT
   //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
   sortFinancialAccounts(arrOfAccounts) {
     return arrOfAccounts.sort((firstAccount, otherAccount) => {
@@ -229,74 +287,32 @@ export default class AccountClosureWizard extends LightningElement {
       const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
 
       // Sort by status first
-      if (firstAccount.FinServ__Status__c !== otherAccount.FinServ__Status__c) {
+      if (firstAccount.status !== otherAccount.status) {
         return (
-          statusOrder.indexOf(firstAccount.FinServ__Status__c) -
-          statusOrder.indexOf(otherAccount.FinServ__Status__c)
+          statusOrder.indexOf(firstAccount.status) -
+          statusOrder.indexOf(otherAccount.status)
         );
       }
 
       //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
       if (
-        firstAccount.FinServ__Status__c === otherAccount.FinServ__Status__c &&
-        firstAccount.FinServ__Ownership__c !==
-          otherAccount.FinServ__Ownership__c
+        firstAccount.status === otherAccount.status &&
+        firstAccount.ownership !== otherAccount.ownership
       ) {
         return (
-          ownershipOrder.indexOf(firstAccount.FinServ__Ownership__c) -
-          ownershipOrder.indexOf(otherAccount.FinServ__Ownership__c)
+          ownershipOrder.indexOf(firstAccount.ownership) -
+          ownershipOrder.indexOf(otherAccount.ownership)
         );
       }
-
-      // Handle null openDate values
-      if (
-        firstAccount.FinServ__OpenDate__c === null &&
-        otherAccount.FinServ__OpenDate__c !== null
-      )
-        return 1;
-      if (
-        otherAccount.FinServ__OpenDate__c === null &&
-        firstAccount.FinServ__OpenDate__c !== null
-      )
-        return -1;
-
-      // Sort by date next if status is same
-      return (
-        new Date(otherAccount.FinServ__OpenDate__c) -
-        new Date(firstAccount.FinServ__OpenDate__c)
-      );
-    });
-  }
-
-  generateData(records) {
-    return records.map((record) => {
-      return {
-        id: record.Id,
-        productName:
-          record.Marketing_Code__c === "SAVING01"
-            ? "ANZ Save"
-            : record.Marketing_Code__c === "TRANSACT01"
-              ? "ANZ Plus"
-              : "ANZ Flex Saver", // Will be using Product by querying FA
-        accountNumber: record.FinServ__FinancialAccountNumber__c,
-        accountType:
-          record.FinServ__Ownership__c === "Single" ? "Sole" : "Joint", // Keeping the account type as 'Sole'
-        balance: record.FinServ__Balance__c,
-        finiancialAccountId: record.Id
-      };
     });
   }
 
   handleCreateChildCases() {
-    // Validate selected rows and mark invalid fields
     const { validRows, hasError } = this.validateRows(this.selectedRows);
-
-    // If any validation error exists, stop the process
     if (hasError) {
       this.selectedRows = validRows;
       return;
     }
-    // Call Apex method to create cases for valid rows
     this.createCasesInApex(validRows);
   }
 
@@ -326,22 +342,19 @@ export default class AccountClosureWizard extends LightningElement {
 
   // Method to call Apex and create cases
   createCasesInApex(validRows) {
-    console.log("validRows: " + JSON.stringify(validRows));
-    const soleToIndividualMap = new Map();
-    soleToIndividualMap.set("Sole", "Individual"); // Note to discuss with VK:  Added this becuase the default value is 'Sole' and it is causing an issue as accountType is restricted picklist
     // Map the valid rows to the format expected by the Apex method (CaseData format)
     const caseDataList = validRows.map((row) => ({
-      status: "Open",
       intendedAccountName: row.intendedAccountName,
       intendedAccountBsb: row.intendedAccountBsb,
       intendedAccountNumber: row.intendedAccountNumber,
       closureReason: row.closureReason,
-      accountType: soleToIndividualMap.get(row.accountType),
-      productName: row.productName,
+      accountNumber: row.accountNumber,
       accountId: this.accountId,
-      finiancialAccountId: row.finiancialAccountId
+      accountType: row.accountType,
+      productName: row.productName,
+      finiancialAccountId: row.id,
+      productId: row.productId
     }));
-
     // Call the Apex method to create cases
     createCasesForAccounts({
       parentCaseId: this.recordId,
@@ -350,8 +363,9 @@ export default class AccountClosureWizard extends LightningElement {
       .then((result) => {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
+          caseRecordId: row.Id,
           childCaseNumber: row.CaseNumber,
-          product: row.Account_Product__c,
+          // product: row.Product__r.Name,
           accountNumber:
             row.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
           accountType: row.Account_Type__c
