@@ -37,7 +37,7 @@ public with sharing class AccountClosureRepository {
     return [
       SELECT Id, ParentId
       FROM Case
-      WHERE ParentId IN :parentIds
+      WHERE ParentId IN :parentIds AND RecordTypeId = :RTCase.accountClosure
     ];
   }
 
@@ -112,7 +112,6 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
-        AND Status = 'Escalated'
         AND Sub_Status__c = 'Success'
     ];
   }
@@ -152,27 +151,6 @@ public with sharing class AccountClosureRepository {
       WHERE Id = :recordId
     ];
   }
-  // /**
-  //  * @description this method will query the sibling case record details
-  //  * @param parentCaseId Parent case record id
-  //  * @param packageId package id associated with the child case
-  //  * @param complementaryRecordType if the current case is with recordtype checking then check the case details with complementary record type saving
-  //  * @return Sibling Case record with the details
-  //  */
-  // private static Case querySiblingCaseDetails(Id parentCaseId,String packageId,String complementaryRecordType) {
-  //   return [
-  //     SELECT
-  //       Id,
-  //       Status
-  //     FROM Case
-  //     WHERE
-  //     ParentId = :parentCaseId
-  //       AND Package_Id__c = :packageId
-  //       AND Status = 'Closed'
-  //       AND FinServ__FinancialAccount__r.RecordType.DeveloperName =: complementaryRecordType
-
-  //   ];
-  // }
 
   /**
    * @description Dummy cases are those which are created in Org for that parent Id
@@ -221,5 +199,46 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE Id IN :setOfCaseIdsToQuery
     ];
+  }
+
+  /**
+   * @description Extracts listOfCases based on accountIds
+   * @param accountIds set of account Ids to query
+   * @return List<Case> list of case records
+   */
+  public List<Case> fetchChildCases(Set<Id> accountIds) {
+    return [
+      SELECT Id, FinServ__FinancialAccount__c
+      FROM Case
+      WHERE
+        FinServ__FinancialAccount__c IN :accountIds
+        AND RecordTypeId = :RTCase.accountClosure
+    ];
+  }
+
+  /**
+   * @description Extracts map of account Ids and financial account records
+   * @param accountIds set of account Ids to query
+   * @return Map<Id, FinServ__FinancialAccount__c> map of account Ids and financial account records
+   */
+  public Map<Id, FinServ__FinancialAccount__c> fetchFinancialAccounts(
+    Set<Id> accountIds
+  ) {
+    return new Map<Id, FinServ__FinancialAccount__c>(
+      [
+        SELECT
+          Id,
+          FinServ__FinancialAccountNumber__c,
+          FinServ__ProductName__r.Name,
+          FinServ__ProductName__c,
+          FinServ__Balance__c,
+          FinServ__Ownership__c,
+          Marketing_Code__c,
+          FinServ__Status__c,
+          RecordType.DeveloperName
+        FROM FinServ__FinancialAccount__c
+        WHERE Id IN :accountIds
+      ]
+    );
   }
 }
