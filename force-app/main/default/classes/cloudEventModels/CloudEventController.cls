@@ -38,4 +38,16 @@ public without sharing class CloudEventController {
       cloudEvents.add(cloudEvent);
     }
   }
+
+  /**
+   * @description Log publish success events
+   * @param successEvents List of success events
+   */
+  public static void logSuccessEvents(List<SObject> successEvents) {
+    if (successEvents.isEmpty()) {
+      return;
+    }
+    Logger.info('Published' + successEvents.size());
+    Logger.saveLog();
+  }
 }
