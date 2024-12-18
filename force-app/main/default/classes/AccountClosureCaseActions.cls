@@ -44,7 +44,7 @@ public with sharing class AccountClosureCaseActions {
       Case.AccountId
     );
 
-    if (newCaseGroups != null || newCaseGroups.isEmpty()) {
+    if (newCaseGroups != null && !newCaseGroups.isEmpty()) {
       DML_REPOSITORY.doInsert(newCaseGroups);
     }
 
@@ -100,6 +100,10 @@ public with sharing class AccountClosureCaseActions {
       fieldsToMonitor
     );
 
+    if (recordsToBeUpdated == null || recordsToBeUpdated.isEmpty()) {
+      return;
+    }
+
     DML_REPOSITORY.doUpdate(recordsToBeUpdated);
   }
 
@@ -114,6 +118,10 @@ public with sharing class AccountClosureCaseActions {
   ) {
     List<Case> cases = getCaseGroupRecordTypeForAccountClosure(records);
 
+    if (cases == null || cases.isEmpty()) {
+      return;
+    }
+
     List<Case> escalatedCases = ListUtil.filter(cases, oldMap)
       .changedTo(Case.Status, GetHelpConstants.ESCALATED_STATUS)
       .toList();
@@ -121,6 +129,7 @@ public with sharing class AccountClosureCaseActions {
     if (escalatedCases == null || escalatedCases.isEmpty()) {
       return;
     }
+
     AccountClosureCaseActionsHelper.assignOwnerAsQueue(escalatedCases);
   }
 
