@@ -60,11 +60,17 @@ public with sharing class AccountClosureCaseActionsHelper {
 
       if (parentCaseRecord != null) {
         caseRecord.ParentId = parentCaseRecord.Id;
+        caseRecord.Status = parentCaseRecord.Status != null
+          ? parentCaseRecord.Status
+          : null;
+        caseRecord.Circumstance__c = parentCaseRecord.Circumstance__c != null
+          ? parentCaseRecord.Circumstance__c
+          : null;
+        caseRecord.OwnerId = parentCaseRecord.OwnerId != null
+          ? parentCaseRecord.OwnerId
+          : UserInfo.getUserId();
       }
 
-      if (parentCaseRecord.OwnerId != null) {
-        caseRecord.OwnerId = parentCaseRecord.OwnerId;
-      }
       assignedCasesList.add(caseRecord);
     }
     return assignedCasesList;

@@ -15,7 +15,7 @@ public with sharing class AccountClosureRepository {
     }
 
     return [
-      SELECT Id, AccountId, OwnerId, CaseNumber
+      SELECT Id, AccountId, OwnerId, CaseNumber, Status, Circumstance__c
       FROM Case
       WHERE
         RecordTypeId = :RTCase.caseGroup
