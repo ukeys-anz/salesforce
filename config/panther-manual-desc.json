@@ -895,6 +895,8 @@
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
+        "Show_Account_Closure__c",
+        "Show_Initiate_Account_Closure__c",
         "SI_Rec_Rem_Action_Status__c",
         "SI_Rec_Rem_Actions__c",
         "SI_Subject_of_Breach_Report__c",

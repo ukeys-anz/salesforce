@@ -15,7 +15,7 @@ public with sharing class AccountClosureRepository {
     }
 
     return [
-      SELECT Id, AccountId, OwnerId, CaseNumber
+      SELECT Id, AccountId, OwnerId, CaseNumber, Status, Circumstance__c
       FROM Case
       WHERE
         RecordTypeId = :RTCase.caseGroup
@@ -152,6 +152,7 @@ public with sharing class AccountClosureRepository {
     ];
   }
 
+
   /**
    * @description Dummy cases are those which are created in Org for that parent Id
    * Find such cases for update with latest data rather creating new one
@@ -241,4 +242,5 @@ public with sharing class AccountClosureRepository {
       ]
     );
   }
+
 }

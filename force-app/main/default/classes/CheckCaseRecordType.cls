@@ -212,6 +212,24 @@ public with sharing class CheckCaseRecordType {
   }
 
   /**
+   * @description Check if a case is Case Group case
+   * @param record The case record to check
+   * @param oldCase old case
+   * @return if the case is a Case Group case
+   */
+  public static Boolean isCaseGroup(Case record, Case oldCase) {
+    if (
+      record.RecordTypeId == RTCase.caseGroup &&
+      (oldCase == null ||
+      record.Type != oldCase.Type)
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
    * @description Check if a case is Credit Referral case
    * @param record The case record to check
    * @param oldCase old case
