@@ -8,8 +8,6 @@ import { NavigationMixin } from "lightning/navigation";
 /* IMPORT APEX METHODS */
 import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
-import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
-import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
 import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createCasesForAccounts";
 import { handleErrorShowToast, isS2Account, isS2Enabled } from "c/utils";
 import {
