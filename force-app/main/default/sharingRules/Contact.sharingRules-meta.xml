@@ -17,6 +17,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Commercial_Broker_Contacts_Read_Only_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>Share Contact records with Broker record type to Commercial Banking</description>
+        <label>Commercial Broker Contacts Read Only Access</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Display_Contacts</fullName>
         <accessLevel>Edit</accessLevel>
         <label>Display Contacts</label>
