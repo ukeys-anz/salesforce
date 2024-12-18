@@ -1,8 +1,8 @@
 /**
  * @description       : Wrapper class for creating the cloud event publish structure
  * @author            : Deepro De
- * @last modified on  : 05-30-2024
- * @last modified by  :  Harshit Goyal | Salesforce
+ * @last modified on  : 12-18-2024
+ * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 @SuppressWarnings('PMD.ExcessivePublicCount')
 public virtual with sharing class BrokerCloudEventModel extends CloudEventModel {
@@ -63,6 +63,10 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
      **/
     public String extObjectName { get; set; }
     /**
+     * @description to capture case 'Status' value
+     **/
+    public String status { get; set; }
+    /**
      * @description to capture parent object name
      **/
     public List<ParentNode> parent { get; set; }
@@ -112,6 +116,7 @@ public virtual with sharing class BrokerCloudEventModel extends CloudEventModel 
     brokerTargetNode.extObjectName = brokerDataMap.get(
       'targetObjects_extObjectName'
     );
+    brokerTargetNode.status = brokerDataMap.get('targetObjects_status');
     brokerTargetNode.parent = new List<ParentNode>{ brokerParentNode };
 
     MasterNode brokerMasterNode = new MasterNode();

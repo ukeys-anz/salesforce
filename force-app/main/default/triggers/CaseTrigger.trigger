@@ -2,7 +2,7 @@
  * @description       :
  * @author            :
  * @group             :
- * @last modified on  : 12-13-2024
+ * @last modified on  : 12-18-2024
  * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 trigger CaseTrigger on Case(
@@ -16,5 +16,5 @@ trigger CaseTrigger on Case(
   COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
-  BrokerRequestHelpCaseTriggerHandler requestHelpHandler = new BrokerRequestHelpCaseTriggerHandler();
+  BrokerEnquiryCaseTriggerHandler brokerEnquiryHandler = new BrokerEnquiryCaseTriggerHandler();
 }

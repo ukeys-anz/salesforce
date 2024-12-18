@@ -1,15 +1,15 @@
 /**
  * @description       : Service layer for GCP event related actions for Case event
  * @author            : Smruti Khobragade | Salesforce
- * @last modified on  : 12-13-2024
+ * @last modified on  : 12-11-2024
  * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 
-public class BrokerRequestHelpCaseEventActions {
+public class BrokerEnquiryCaseEventActions {
   private static final BrokerSettingRepository BROKER_SETTING_REPOSITORY = (BrokerSettingRepository) Lib_InstanceProvider.forType(
     BrokerSettingRepository.class
   );
-  public static final Set<SObjectField> REQUEST_HELP_FIELDS = new Set<SObjectField>{
+  public static final Set<SObjectField> BROKER_ENQUIRY_FIELDS = new Set<SObjectField>{
     Case.Status,
     Case.Type,
     Case.Sub_Type__c,
@@ -28,7 +28,7 @@ public class BrokerRequestHelpCaseEventActions {
    * @return List<Cloud_Event__e> Cloud Event List
    */
   @TestVisible
-  public static List<Cloud_Event__e> publishEventForCase(
+  public static List<Cloud_Event__e> publishCaseEvent(
     List<Case> caseList,
     Map<Id, Case> oldMap,
     String triggerContext
@@ -47,14 +47,14 @@ public class BrokerRequestHelpCaseEventActions {
         .notContains(Case.Sync_Status__c, BrokerConstants.SYNC_STATUS_BLOCKED)
         .contains(Case.Sync_Status__c, BrokerConstants.SYNC_STATUS_BROKER_ORG)
         .equals(Case.RecordTypeId, RTCase.brokerEnquiry)
-        .anyChanged(REQUEST_HELP_FIELDS)
+        .anyChanged(BROKER_ENQUIRY_FIELDS)
         .toList();
 
-      Map<Id, List<BrokerRequestHelpCaseCloudEventModel.MasterNode>> masterNodesByCaseIdMap = generateCaseCEModel(
+      Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodesByCaseIdMap = generateCaseCEModel(
         filteredCases
       );
 
-      List<BrokerRequestHelpCaseCloudEventModel> cloudEventModels = generateCloudEventModel(
+      List<BrokerCloudEventModel> cloudEventModels = generateCloudEventModel(
         filteredCases,
         masterNodesByCaseIdMap,
         triggerContext
@@ -63,7 +63,8 @@ public class BrokerRequestHelpCaseEventActions {
       List<Cloud_Event__e> successPublishedEvents = CloudEventController.publishCloudEvents(
         cloudEventModels
       );
-      logSuccessEvents(successPublishedEvents);
+
+      CloudEventController.logSuccessEvents(successPublishedEvents);
       return successPublishedEvents;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
@@ -73,40 +74,26 @@ public class BrokerRequestHelpCaseEventActions {
   }
 
   /**
-   * @description Log publish success events
-   * @param successEvents List of success events
-   */
-  @TestVisible
-  private static void logSuccessEvents(List<SObject> successEvents) {
-    if (successEvents.isEmpty()) {
-      return;
-    }
-    Logger.info('Case Published' + successEvents.size());
-    Logger.saveLog();
-  }
-
-  /**
    * @description This function creates a map of Case Id vs related master nodes.
    * @param caseList The case records
-   * @return Map<Id, List<BrokerRequestHelpCaseCloudEventModel.MasterNode>> Map of case and list of related master nodes
+   * @return Map<Id, List<BrokerCloudEventModel.MasterNode>> Map of case and list of related master nodes
    */
   @TestVisible
-  private static Map<Id, List<BrokerRequestHelpCaseCloudEventModel.MasterNode>> generateCaseCEModel(
+  private static Map<Id, List<BrokerCloudEventModel.MasterNode>> generateCaseCEModel(
     List<Case> caseList
   ) {
-    Map<Id, List<BrokerRequestHelpCaseCloudEventModel.MasterNode>> masterNodesByCaseIdMap = new Map<Id, List<BrokerRequestHelpCaseCloudEventModel.MasterNode>>();
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodesByCaseIdMap = new Map<Id, List<BrokerCloudEventModel.MasterNode>>();
     for (Case record : caseList) {
-      BrokerRequestHelpCaseCloudEventModel.MasterNode masterNodeObj = BrokerRequestHelpCaseDataCEBuilder.buildCaseNode(
+      if (masterNodesByCaseIdMap.containsKey(record.Id) == true) {
+        continue;
+      }
+      BrokerCloudEventModel.MasterNode masterNodeObj = BrokerEnquiryCaseDataCEBuilder.buildCaseNode(
         record
       );
-
-      if (!masterNodesByCaseIdMap.containsKey(record.Id)) {
-        masterNodesByCaseIdMap.put(
-          record.Id,
-          new List<BrokerRequestHelpCaseCloudEventModel.MasterNode>{}
-        );
-      }
-      masterNodesByCaseIdMap.get(record.Id).add(masterNodeObj);
+      masterNodesByCaseIdMap.put(
+        record.Id,
+        new List<BrokerCloudEventModel.MasterNode>{ masterNodeObj }
+      );
     }
     return masterNodesByCaseIdMap;
   }
@@ -119,17 +106,17 @@ public class BrokerRequestHelpCaseEventActions {
    * @return List<BrokerCaseCloudEventModel> List of BrokerCaseCloudEventModel
    */
   @TestVisible
-  private static List<BrokerRequestHelpCaseCloudEventModel> generateCloudEventModel(
+  private static List<BrokerCloudEventModel> generateCloudEventModel(
     List<Case> caseList,
-    Map<Id, List<BrokerRequestHelpCaseCloudEventModel.MasterNode>> masterNodesByCaseIdMap,
+    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodesByCaseIdMap,
     String triggerContext
   ) {
-    List<BrokerRequestHelpCaseCloudEventModel> cloudEventModels = new List<BrokerRequestHelpCaseCloudEventModel>();
+    List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
     for (Case record : caseList) {
-      List<BrokerRequestHelpCaseCloudEventModel.MasterNode> masterNodes = masterNodesByCaseIdMap.get(
+      List<BrokerCloudEventModel.MasterNode> masterNodes = masterNodesByCaseIdMap.get(
         record.Id
       );
-      BrokerRequestHelpCaseCloudEventModel cloudEventModel = new BrokerRequestHelpCaseDataCloudEventModel(
+      BrokerCloudEventModel cloudEventModel = new BrokerEnquiryCaseDataCloudEventModel(
         record,
         masterNodes,
         triggerContext

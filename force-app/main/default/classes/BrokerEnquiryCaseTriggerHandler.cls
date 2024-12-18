@@ -6,12 +6,12 @@
  * @last modified by  :  Smruti Khobragade | Salesforce
  **/
 
-public with sharing class BrokerRequestHelpCaseTriggerHandler extends Lib_TriggerHandler {
+public with sharing class BrokerEnquiryCaseTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
    */
-  public BrokerRequestHelpCaseTriggerHandler() {
+  public BrokerEnquiryCaseTriggerHandler() {
     super();
   }
   /**
@@ -28,7 +28,7 @@ public with sharing class BrokerRequestHelpCaseTriggerHandler extends Lib_Trigge
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    BrokerRequestHelpCaseEventActions.publishEventForCase(
+    BrokerEnquiryCaseEventActions.publishCaseEvent(
       records,
       (Map<Id, Case>) oldMap,
       'update'

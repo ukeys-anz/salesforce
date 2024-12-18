@@ -5,7 +5,7 @@
  * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 
-public virtual with sharing class BrokerRequestHelpCaseDataCloudEventModel extends BrokerRequestHelpCaseCloudEventModel {
+public virtual with sharing class BrokerEnquiryCaseDataCloudEventModel extends BrokerCloudEventModel {
   /**
    * @description parameterized constructor for creating the header for Case cloud event
    * @author Smruti Khobragade | 11-2024
@@ -13,9 +13,9 @@ public virtual with sharing class BrokerRequestHelpCaseDataCloudEventModel exten
    * @param payload
    * @param action
    **/
-  public BrokerRequestHelpCaseDataCloudEventModel(
+  public BrokerEnquiryCaseDataCloudEventModel(
     Case record,
-    List<BrokerRequestHelpCaseDataCloudEventModel.MasterNode> payload,
+    List<BrokerDataCloudEventModel.MasterNode> payload,
     String action
   ) {
     super();
@@ -26,6 +26,6 @@ public virtual with sharing class BrokerRequestHelpCaseDataCloudEventModel exten
     this.ce_dataschema = System.Label.ANZX_Broker_Event_Proto_Data_Schema;
     this.ce_xtargets = 'Broker/' + record.External_Case_ID__c;
     this.ce_traceparent = '';
-    this.ce_data = new BrokerRequestHelpCaseCloudEventDataModel(payload);
+    this.ce_data = new BrokerCloudEventDataModel(payload);
   }
 }
