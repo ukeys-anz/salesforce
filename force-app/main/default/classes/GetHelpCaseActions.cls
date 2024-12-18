@@ -32,9 +32,6 @@ public with sharing class GetHelpCaseActions {
     DmlRepository.class
   );
 
-  public static Group accountClosureQueue = QueryQueue.get(
-    'Account_Closure_Queue'
-  );
   public static Group cobFraudCheckQueue = QueryQueue.get(
     'COB_Fraud_Check_Queue'
   );
@@ -86,13 +83,6 @@ public with sharing class GetHelpCaseActions {
 
         //Checks if card token number needs to be deleted
         GetHelpCaseActionsHelper.handleCardTokenNumber(record);
-      } else if (
-        CheckCaseRecordType.isAccountClosure(record, null) &&
-        record.Status == GetHelpConstants.ESCALATED_STATUS &&
-        oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
-      ) {
-        //Set owner of case to account closure queue if its set to escalated
-        record.OwnerId = accountClosureQueue.Id;
       } else if (CheckCaseRecordType.isANZPlusComplaint(record)) {
         GetHelpCaseActionsHelper.handleEntitlementForUpdate(record, oldRecord);
       } else if (
@@ -158,8 +148,6 @@ public with sharing class GetHelpCaseActions {
     List<Case> caseList,
     Map<Id, Case> oldCaseMap
   ) {
-    List<Case> accountClosureCases = new List<Case>();
-    Set<Id> accountIds = new Set<Id>();
     for (Case record : caseList) {
       Case oldRecord = oldCaseMap != null ? oldCaseMap.get(record.Id) : null;
       // Check for General Inquiry Cases
@@ -196,21 +184,6 @@ public with sharing class GetHelpCaseActions {
       // Check for False Customer Profile Cases
       if (CheckCaseRecordType.isFalseCustomerProfile(record)) {
         populateFalseCustomerProfileCaseSubject(record);
-      }
-
-      // Check for Account Closure Cases
-      if (CheckCaseRecordType.isAccountClosure(record, oldRecord)) {
-        accountClosureCases.add(record);
-        accountIds.add(record.AccountId);
-      }
-    }
-
-    if (!accountClosureCases.isEmpty()) {
-      if (PermissionUtils.canQuery('Account')) {
-        Map<Id, Account> accountList = new Map<Id, Account>(
-          [SELECT Id, Name FROM Account WHERE Id IN :accountIds]
-        );
-        populateAccountClosureCaseSubject(accountClosureCases, accountList);
       }
     }
   }
@@ -766,20 +739,6 @@ public with sharing class GetHelpCaseActions {
     CheckRecursive.run();
     NotificationTriggerHandler.insertNotificationHandler(notificationCaseList);
     notificationCaseList.clear();
-  }
-
-  /**
-   * @description  This method populates Account Closure Case subject based on Case record type
-   * @param caseList Case records from trigger
-   * @param accountList List of accounts for cases
-   */
-  public static void populateAccountClosureCaseSubject(
-    List<Case> caseList,
-    Map<Id, Account> accountList
-  ) {
-    for (Case c : caseList) {
-      c.Subject = 'Account Closure - ' + accountList.get(c.AccountId).Name;
-    }
   }
 
   /**

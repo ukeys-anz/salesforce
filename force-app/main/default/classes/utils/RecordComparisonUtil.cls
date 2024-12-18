@@ -184,4 +184,34 @@ public class RecordComparisonUtil {
     }
     return changedFields;
   }
+
+  /**
+   * @description This method returns the list of SObject records for which any of the mentioned field is modified.
+   *
+   * @param newRecords The updated record.
+   * @param oldRecords The original record before updates.
+   * @param fieldsToMonitor Set of fields which we need to check for a change and not null value.
+   * @return returns the list of sobject records for which fields are changes
+   */
+  public static List<SObject> getRecordsWithChangedFields(
+    List<SObject> newRecords,
+    Map<Id, SObject> oldRecords,
+    Set<Schema.SObjectField> fieldsToMonitor
+  ) {
+    List<SObject> changedRecords = new List<SObject>();
+
+    for (SObject record : newRecords) {
+      SObject oldRecord = oldRecords.get(record.Id);
+
+      if (oldRecord != null) {
+        for (Schema.SObjectField field : fieldsToMonitor) {
+          if (record.get(field) != oldRecord.get(field)) {
+            changedRecords.add(record);
+            break;
+          }
+        }
+      }
+    }
+    return changedRecords;
+  }
 }
