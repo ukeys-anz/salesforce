@@ -57,7 +57,11 @@ public with sharing class AccountClosureCaseActionsHelper {
         ) != null
         ? accountIdToExistingParentCaseMap.get(caseRecord.AccountId)
         : accountIdToNewParentCaseMap.get(caseRecord.AccountId);
-      caseRecord.ParentId = parentCaseRecord.Id;
+
+      if (parentCaseRecord != null) {
+        caseRecord.ParentId = parentCaseRecord.Id;
+      }
+
       if (parentCaseRecord.OwnerId != null) {
         caseRecord.OwnerId = parentCaseRecord.OwnerId;
       }
