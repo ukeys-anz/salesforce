@@ -272,40 +272,41 @@ export default class AccountClosureWizard extends LightningElement {
           this.isS2AccountExist = true;
         }
       });
-      this.sortFinancialAccounts(this.accountData.checking);
-      this.sortFinancialAccounts(this.accountData.savings);
-      this.sortFinancialAccounts(this.accountData.savingss2);
+      // this.sortFinancialAccounts(this.accountData.checking);
+      // this.sortFinancialAccounts(this.accountData.savings);
+      // this.sortFinancialAccounts(this.accountData.savingss2);
     }
     return finAccounts;
   }
 
-  // TO DO: DISCUSS THIS WITH VK and KOPAL WHETHER THIS IS NEEDED OR NOT
-  //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
-  sortFinancialAccounts(arrOfAccounts) {
-    return arrOfAccounts.sort((firstAccount, otherAccount) => {
-      const statusOrder = FinancialAccountStatusForSorting.split(",");
-      const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
+  // // TO DO: DISCUSS THIS WITH VK and KOPAL WHETHER THIS IS NEEDED OR NOT
 
-      // Sort by status first
-      if (firstAccount.status !== otherAccount.status) {
-        return (
-          statusOrder.indexOf(firstAccount.status) -
-          statusOrder.indexOf(otherAccount.status)
-        );
-      }
+  // //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
+  // sortFinancialAccounts(arrOfAccounts) {
+  //   return arrOfAccounts.sort((firstAccount, otherAccount) => {
+  //     const statusOrder = FinancialAccountStatusForSorting.split(",");
+  //     const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
 
-      //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
-      if (
-        firstAccount.status === otherAccount.status &&
-        firstAccount.ownership !== otherAccount.ownership
-      ) {
-        return (
-          ownershipOrder.indexOf(firstAccount.ownership) -
-          ownershipOrder.indexOf(otherAccount.ownership)
-        );
-      }
-    });
-  }
+  //     // Sort by status first
+  //     if (firstAccount.status !== otherAccount.status) {
+  //       return (
+  //         statusOrder.indexOf(firstAccount.status) -
+  //         statusOrder.indexOf(otherAccount.status)
+  //       );
+  //     }
+
+  //     //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
+  //     if (
+  //       firstAccount.status === otherAccount.status &&
+  //       firstAccount.ownership !== otherAccount.ownership
+  //     ) {
+  //       return (
+  //         ownershipOrder.indexOf(firstAccount.ownership) -
+  //         ownershipOrder.indexOf(otherAccount.ownership)
+  //       );
+  //     }
+  //   });
+  // }
 
   handleCreateChildCases() {
     const { validRows, hasError } = this.validateRows(this.selectedRows);
