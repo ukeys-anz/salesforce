@@ -357,7 +357,7 @@ export default class AccountClosureWizard extends LightningElement {
     // Call the Apex method to create cases
     createCasesForAccounts({
       parentCaseId: this.recordId,
-      caseDataFromLwc: caseDataList
+      caseInputs: caseDataList
     })
       .then((result) => {
         this.isCasesCreated = true;
