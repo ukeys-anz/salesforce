@@ -151,6 +151,27 @@ public with sharing class AccountClosureRepository {
       WHERE Id = :recordId
     ];
   }
+  // /**
+  //  * @description this method will query the sibling case record details
+  //  * @param parentCaseId Parent case record id
+  //  * @param packageId package id associated with the child case
+  //  * @param complementaryRecordType if the current case is with recordtype checking then check the case details with complementary record type saving
+  //  * @return Sibling Case record with the details
+  //  */
+  // private static Case querySiblingCaseDetails(Id parentCaseId,String packageId,String complementaryRecordType) {
+  //   return [
+  //     SELECT
+  //       Id,
+  //       Status
+  //     FROM Case
+  //     WHERE
+  //     ParentId = :parentCaseId
+  //       AND Package_Id__c = :packageId
+  //       AND Status = 'Closed'
+  //       AND FinServ__FinancialAccount__r.RecordType.DeveloperName =: complementaryRecordType
+
+  //   ];
+  // }
 
 
   /**

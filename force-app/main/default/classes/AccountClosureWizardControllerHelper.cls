@@ -16,16 +16,18 @@ public with sharing class AccountClosureWizardControllerHelper {
    * @description Process dummy cases if found and map user input from lwc to case records
    * @param inputs List of CaseInput
    * @param listOfExistingDummyCases List of Cases
-   * @return Map<String, List<Case>>
+   * @return Set<Id>
    */
 
-  public static Map<String, List<Case>> processCases(
+  public static Set<Id> processCases(
     List<CaseInput> inputs,
     List<Case> listOfExistingDummyCases
   ) {
     List<Case> casesToUpdate = new List<Case>();
     List<Case> casesToInsert = new List<Case>();
+    List<Case> masterList = new List<Case>();
     Map<String, List<Case>> mapToIdentifyInsertedOrUpdatedCases = new Map<String, List<Case>>();
+    Set<Id> setOfCaseIds = new Set<Id>();
     Integer index = 0;
     for (CaseInput input : inputs) {
       if (index < listOfExistingDummyCases.size()) {
@@ -39,16 +41,17 @@ public with sharing class AccountClosureWizardControllerHelper {
         mapCaseFields(newCase, input);
         casesToInsert.add(newCase);
       }
-      if (!casesToUpdate.isEmpty()) {
-        DML_REPOSITORY.doUpdate(casesToUpdate);
-        mapToIdentifyInsertedOrUpdatedCases.put('toUpdate', casesToUpdate);
-      }
-      if (!casesToInsert.isEmpty()) {
-        DML_REPOSITORY.doInsert(casesToInsert);
-        mapToIdentifyInsertedOrUpdatedCases.put('toInsert', casesToInsert);
-      }
     }
-    return mapToIdentifyInsertedOrUpdatedCases;
+    if (!casesToUpdate.isEmpty()) {
+      DML_REPOSITORY.doUpdate(casesToUpdate);
+    }
+    if (!casesToInsert.isEmpty()) {
+      DML_REPOSITORY.doInsert(casesToInsert);
+    }
+    masterList.addAll(casesToUpdate);
+    masterList.addAll(casesToInsert);
+    setOfCaseIds = ListUtil.getIds(masterList, Case.Id);
+    return setOfCaseIds;
   }
 
   /**
@@ -67,54 +70,6 @@ public with sharing class AccountClosureWizardControllerHelper {
     caseObj.FinServ__FinancialAccount__c = caseInput.finiancialAccountId;
     caseObj.ProductId = caseInput.productId; // lookup to product table
     caseObj.RecordTypeId = RTCase.accountClosure;
-  }
-
-  /**
-   * @description Inserted or Updated Case data which is requried to show on LWC
-   * @param setOfCaseIdsToQuery set of case Ids to query
-   * @return List<Case> list of case records
-   */
-  public List<Case> queryListOfInsertedOrUpdatedCases(
-    Set<Id> setOfCaseIdsToQuery
-  ) {
-    return [
-      SELECT
-        Id,
-        CaseNumber,
-        Product__r.Name,
-        FinServ_Product_Name__c,
-        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
-        Account_Type__c
-      FROM Case
-      WHERE Id IN :setOfCaseIdsToQuery
-    ];
-  }
-
-  /**
-   * @description Inserted or Updated Case data which is requried to show on LWC
-   * @param processedCases set of case Ids to query
-   * @return Set<Id> list of case records
-   */
-  public static Set<Id> extractCaseIds(Map<String, List<Case>> processedCases) {
-    Set<Id> caseIds = new Set<Id>();
-    List<Case> allCases = new List<Case>(); // Collect all Case records into one List (flatten the map)
-    if (
-      processedCases.containsKey('toUpdate') &&
-      processedCases.get('toUpdate') != null
-    ) {
-      allCases.addAll(processedCases.get('toUpdate'));
-    }
-    if (
-      processedCases.containsKey('toInsert') &&
-      processedCases.get('toInsert') != null
-    ) {
-      allCases.addAll(processedCases.get('toInsert'));
-    }
-    // Add all Case IDs to the Set
-    for (Case eachCase : allCases) {
-      caseIds.add(eachCase.Id);
-    }
-    return caseIds;
   }
 
   /**

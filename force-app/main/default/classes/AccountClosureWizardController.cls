@@ -29,16 +29,12 @@ public with sharing class AccountClosureWizardController {
     );
 
     //Step 2: Process cases (udpate existing, create new)
-    Map<String, List<Case>> processedCases = AccountClosureWizardControllerHelper.processCases(
+    Set<Id> caseIds = AccountClosureWizardControllerHelper.processCases(
       caseInputs,
       listOfExistingDummyCases
     );
 
-    //Step 3: Fetch and return updated/inserted cases
-    Set<Id> caseIds = AccountClosureWizardControllerHelper.extractCaseIds(
-      processedCases
-    );
-
+    //Step 3: Fetch the inserted /updated with required fields cases and return result
     List<Case> listOfCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
       caseIds
     );
