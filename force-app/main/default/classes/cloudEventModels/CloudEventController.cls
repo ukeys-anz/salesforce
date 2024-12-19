@@ -43,7 +43,11 @@ public without sharing class CloudEventController {
    * @description Log publish success events
    * @param successEvents List of success events
    */
-  public static void logSuccessEvents(List<SObject> successEvents) {
+  @TestVisible
+  public static void logSuccessEvents(
+    List<SObject> successEvents,
+    String eventName
+  ) {
     if (successEvents.isEmpty()) {
       return;
     }

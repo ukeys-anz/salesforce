@@ -1,7 +1,7 @@
 /**
  * @description       : Service layer for GCP event related actions for Case event
  * @author            : Smruti Khobragade | Salesforce
- * @last modified on  : 12-11-2024
+ * @last modified on  : 12-19-2024
  * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 
@@ -64,7 +64,10 @@ public class BrokerEnquiryCaseEventActions {
         cloudEventModels
       );
 
-      CloudEventController.logSuccessEvents(successPublishedEvents);
+      CloudEventController.logSuccessEvents(
+        successPublishedEvents,
+        'Broker Enquiry Case'
+      );
       return successPublishedEvents;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
