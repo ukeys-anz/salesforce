@@ -35,11 +35,10 @@ public with sharing class AccountClosureWizardController {
     );
 
     //Step 3: Fetch the inserted /updated with required fields cases and return result
-    List<Case> listOfCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
+
+    return ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
       caseIds
     );
-
-    return listOfCases;
   }
 
   /**

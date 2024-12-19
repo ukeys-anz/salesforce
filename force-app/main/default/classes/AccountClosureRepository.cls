@@ -193,7 +193,6 @@ public with sharing class AccountClosureRepository {
         Id,
         CaseNumber,
         Product__r.Name,
-        FinServ_Product_Name__c,
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
         Account_Type__c
       FROM Case
