@@ -47,7 +47,12 @@ public without sharing class CloudEventController {
     if (successEvents.isEmpty()) {
       return;
     }
-    Logger.info('Published' + successEvents.size());
+    Logger.info(
+      'Event Published: ' +
+        successEvents.size() +
+        ' Cloud Events successfully processed for ' +
+        eventName
+    );
     Logger.saveLog();
   }
 }
