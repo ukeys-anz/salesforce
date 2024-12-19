@@ -42,6 +42,7 @@ public without sharing class CloudEventController {
   /**
    * @description Log publish success events
    * @param successEvents List of success events
+   * @param eventName Name of the event
    */
   @TestVisible
   public static void logSuccessEvents(
