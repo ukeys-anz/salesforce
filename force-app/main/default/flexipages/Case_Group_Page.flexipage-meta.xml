@@ -10,6 +10,19 @@
                             <value>FeedItem.TextPost</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Case.Select_Accounts_To_Close</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Case.Close_Accounts</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Show_Account_Closure__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Delete</value>
                         </valueListItems>
                         <valueListItems>

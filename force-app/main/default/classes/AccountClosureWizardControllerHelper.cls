@@ -26,7 +26,6 @@ public with sharing class AccountClosureWizardControllerHelper {
     List<Case> casesToUpdate = new List<Case>();
     List<Case> casesToInsert = new List<Case>();
     List<Case> masterList = new List<Case>();
-    Map<String, List<Case>> mapToIdentifyInsertedOrUpdatedCases = new Map<String, List<Case>>();
     Set<Id> setOfCaseIds = new Set<Id>();
     Integer index = 0;
     for (CaseInput input : inputs) {
@@ -103,19 +102,22 @@ public with sharing class AccountClosureWizardControllerHelper {
     for (FinServ__FinancialAccount__c eachAccount : fabricAccounts) {
       if (dbAccounts.containsKey(eachAccount.Id)) {
         FinServ__FinancialAccount__c dbAcc = dbAccounts.get(eachAccount.Id);
-        listOfFinancialAccountResponse.add(
-          new FinancialAccountsResponse(
-            dbAcc.Id,
-            dbAcc.FinServ__FinancialAccountNumber__c,
-            dbAcc.FinServ__ProductName__r.Name,
-            dbAcc.FinServ__ProductName__c, //this is lookup to product table, hence product Id
-            dbAcc.FinServ__Balance__c,
-            dbAcc.FinServ__Ownership__c,
-            dbAcc.Marketing_Code__c,
-            dbAcc.FinServ__Status__c,
-            dbAcc.RecordType.DeveloperName
-          )
-        );
+
+        // Use the Builder pattern to create the FinancialAccountsResponse object
+        FinancialAccountsResponse response = new FinancialAccountsResponse.Builder()
+          .setId(dbAcc.Id)
+          .setAccountNumber(dbAcc.FinServ__FinancialAccountNumber__c)
+          .setProductName(dbAcc.FinServ__ProductName__r.Name)
+          .setProductId(dbAcc.FinServ__ProductName__c) // Product Id (lookup field)
+          .setBalance(dbAcc.FinServ__Balance__c)
+          .setOwnership(dbAcc.FinServ__Ownership__c)
+          .setMarketingCode(dbAcc.Marketing_Code__c)
+          .setStatus(dbAcc.FinServ__Status__c)
+          .setRecodTypeName(dbAcc.RecordType.DeveloperName)
+          .build();
+
+        // Add the response to the list
+        listOfFinancialAccountResponse.add(response);
       }
     }
     return listOfFinancialAccountResponse;

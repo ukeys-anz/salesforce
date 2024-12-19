@@ -4,7 +4,6 @@ const fields = ["Case.Account.OCV_ID__c", "Case.AccountId"];
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import CLOSURE_REASON from "@salesforce/schema/Case.Closure_Reason__c";
 import { getRecord } from "lightning/uiRecordApi";
-import { NavigationMixin } from "lightning/navigation";
 /* IMPORT APEX METHODS */
 import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
@@ -28,14 +27,9 @@ const caseColumns = [
   { label: "Account Type", fieldName: "accountType" },
   {
     label: "Child Case Number",
-    fieldName: "childCaseNumber",
-    type: "button",
-    typeAttributes: {
-      label: { fieldName: "childCaseNumber" },
-      variant: "base", // Styling for the button
-      name: "view_case", // Action name to handle clicks
-      disabled: false
-    }
+    fieldName: "childCaseNumberUrl",
+    type: "url",
+    typeAttributes: { label: { fieldName: "childCaseNumber" } }
   }
 ];
 
@@ -185,32 +179,6 @@ export default class AccountClosureWizard extends LightningElement {
         row[field] = value;
       }
       return row;
-    });
-  }
-
-  // Handle the button click event (case record navigation)   TO DO: THIS NEEDS TO BE FIX
-  handleCaseRowAction(event) {
-    // this.dispatchEvent(new CloseActionScreenEvent());
-    const actionName = event.detail.action.name;
-    const row = event.detail.row;
-    // Check if the clicked action is 'view_case'
-    if (actionName === "view_case") {
-      // Use the NavigationMixin to open the case record
-      this.navigateToCaseRecord(row.caseRecordId);
-    }
-  }
-
-  // Method to navigate to a specific case record
-  navigateToCaseRecord(caseRecordId) {
-    // Navigation to the case record page in Salesforce
-
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordPage",
-      attributes: {
-        recordId: caseRecordId,
-        objectApiName: "Case",
-        actionName: "view"
-      }
     });
   }
 
@@ -377,7 +345,7 @@ export default class AccountClosureWizard extends LightningElement {
       if (result) {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
-          //caseRecordId: row.Id,
+          childCaseNumberUrl: "/" + row.Id,
           childCaseNumber: row.CaseNumber,
           // product: row.Product__r.Name,
           accountNumber:
