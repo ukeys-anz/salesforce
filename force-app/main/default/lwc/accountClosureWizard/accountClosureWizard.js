@@ -18,7 +18,7 @@ import {
 const columns = [
   { label: "Product Name", fieldName: "productName" },
   { label: "Account Number", fieldName: "accountNumber" },
-  { label: "Account Type", fieldName: "accountType" },
+  { label: "Account Type", fieldName: "finAccountType" },
   { label: "Balance", fieldName: "balance", type: "currency" }
 ];
 
@@ -26,7 +26,6 @@ const caseColumns = [
   { label: "Product", fieldName: "product" },
   { label: "Account Number", fieldName: "accountNumber" },
   { label: "Account Type", fieldName: "accountType" },
-  { label: "Case Record Id", fieldName: "caseRecordId" },
   {
     label: "Child Case Number",
     fieldName: "childCaseNumber",
@@ -44,14 +43,14 @@ export default class AccountClosureWizard extends LightningElement {
   @api recordId;
   customerOcvId;
   accountId;
-  data = [];
   columns = columns;
   caseColumns = caseColumns;
   showCheckbox = false;
+  copyToAll = false;
+  loading = false;
+  isCasesCreated = false;
   @track selectedRows = [];
   @track casesData = [];
-  @track isCasesCreated = false;
-  @track copyToAll = false;
   accountData = {
     checking: [],
     savings: [],
@@ -59,35 +58,27 @@ export default class AccountClosureWizard extends LightningElement {
   };
   accountDetails = [];
   closureReasonOptions = []; // To store picklist options
-  accountDetailsFromDb = false;
 
   @wire(getRecord, { recordId: "$recordId", fields })
-  wiredData({ data, error }) {
+  wiredData({ data }) {
     if (data) {
       this.customerOcvId =
         data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
       this.accountId = data.fields?.AccountId?.value;
-    } else if (error) {
-      console.error("Error in Fetching OCVId -> " + JSON.stringify(error));
     }
   }
 
   // Get Closure Reason Options
-  // The following recordTypeId is a "Master Record Picklist ID" and can be hardcoded for all orgs
   @wire(getPicklistValues, {
     recordTypeId: "0122P0000004SC2QAM",
     fieldApiName: CLOSURE_REASON
   })
-  wiredPicklist({ data, error }) {
+  wiredPicklist({ data }) {
     if (data) {
       const picklistValues = data.values.map((object) => {
         return { label: object.label, value: object.value };
       });
       this.closureReasonOptions = picklistValues;
-    } else if (error) {
-      console.log(
-        "Error in Fetching Picklist Values -> " + JSON.stringify(error)
-      );
     }
   }
   get closureResonValues() {
@@ -103,56 +94,35 @@ export default class AccountClosureWizard extends LightningElement {
 
   handleRowSelection(event) {
     const selectedAccounts = event.detail.selectedRows;
-
-    // Update the checkbox visibility based on selected row count.
+    // Update the checkbox visibility based on selected row count
     this.showCheckbox = selectedAccounts.length > 1;
-
-    // Update the selectedRows array with merged data, preserving user-entered values.
+    // Create a map for fast lookups of previously selected rows
+    const selectedRowsMap = new Map(
+      this.selectedRows.map((row) => [row.id, row])
+    );
+    // Merge the selected rows with existing rows based on id
     this.selectedRows = selectedAccounts.map((row) => {
-      const existingRow = this.selectedRows.find((r) => r.id === row.id);
-      // Merge and preserve any previous user-entered data (closureReason, intendedAccountName, etc.).
+      const existingRow = selectedRowsMap.get(row.id);
+      // Merge selected row with existing data, preserving known fields
       return {
         ...row,
-        ...(existingRow && {
-          closureReason: existingRow.closureReason,
-          intendedAccountName: existingRow.intendedAccountName,
-          intendedAccountBsb: existingRow.intendedAccountBsb,
-          intendedAccountNumber: existingRow.intendedAccountNumber,
-          isClosureReasonInvalid: existingRow.isClosureReasonInvalid,
-          isAccountNameInvalid: existingRow.isAccountNameInvalid,
-          isaccountBsbInvalid: existingRow.isaccountBsbInvalid,
-          isAccountNumberInvalid: existingRow.isAccountNumberInvalid
-        })
+        ...(existingRow && this.mergeRowData(existingRow))
       };
     });
   }
 
-  // Handle the button click event (case record navigation)   TO DO: THIS NEEDS TO BE FIX
-  handleCaseRowAction(event) {
-    // this.dispatchEvent(new CloseActionScreenEvent());
-    const actionName = event.detail.action.name;
-    const row = event.detail.row;
-    console.log("actionName " + actionName);
-    // Check if the clicked action is 'view_case'
-    if (actionName === "view_case") {
-      // Use the NavigationMixin to open the case record
-      console.log("Case Record Id " + row.caseRecordId);
-      this.navigateToCaseRecord(row.caseRecordId);
-    }
-  }
-
-  // Method to navigate to a specific case record
-  navigateToCaseRecord(caseRecordId) {
-    // Navigation to the case record page in Salesforce
-
-    this[NavigationMixin.Navigate]({
-      type: "standard__recordPage",
-      attributes: {
-        recordId: caseRecordId,
-        objectApiName: "Case",
-        actionName: "view"
-      }
-    });
+  // Helper function to merge specific fields from an existing row
+  mergeRowData(existingRow) {
+    return {
+      closureReason: existingRow.closureReason,
+      intendedAccountName: existingRow.intendedAccountName,
+      intendedAccountBsb: existingRow.intendedAccountBsb,
+      intendedAccountNumber: existingRow.intendedAccountNumber,
+      isClosureReasonInvalid: existingRow.isClosureReasonInvalid,
+      isAccountNameInvalid: existingRow.isAccountNameInvalid,
+      isaccountBsbInvalid: existingRow.isaccountBsbInvalid,
+      isAccountNumberInvalid: existingRow.isAccountNumberInvalid
+    };
   }
 
   handleInputChange(event) {
@@ -172,6 +142,24 @@ export default class AccountClosureWizard extends LightningElement {
       }
       return row;
     });
+  }
+
+  handleFieldChange(event) {
+    const { rowId, name, value } = event.detail;
+
+    // Update the row data based on the field change
+    this.selectedRows = this.selectedRows.map((row) => {
+      if (row.id === rowId) {
+        row[name] = value; // Update the field value
+        row[`is${this.capitalize(name)}Invalid`] = false; // Reset validation flag
+      }
+      return row;
+    });
+  }
+
+  // Capitalizes the field name for validation (e.g., "closureReason" -> "ClosureReason")
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   handleUseSameDetailsCheckbox(event) {
@@ -200,22 +188,51 @@ export default class AccountClosureWizard extends LightningElement {
     });
   }
 
+  // Handle the button click event (case record navigation)   TO DO: THIS NEEDS TO BE FIX
+  handleCaseRowAction(event) {
+    // this.dispatchEvent(new CloseActionScreenEvent());
+    const actionName = event.detail.action.name;
+    const row = event.detail.row;
+    // Check if the clicked action is 'view_case'
+    if (actionName === "view_case") {
+      // Use the NavigationMixin to open the case record
+      this.navigateToCaseRecord(row.caseRecordId);
+    }
+  }
+
+  // Method to navigate to a specific case record
+  navigateToCaseRecord(caseRecordId) {
+    // Navigation to the case record page in Salesforce
+
+    this[NavigationMixin.Navigate]({
+      type: "standard__recordPage",
+      attributes: {
+        recordId: caseRecordId,
+        objectApiName: "Case",
+        actionName: "view"
+      }
+    });
+  }
+
   async getFinancialAccount() {
     try {
       //Attempt to get the latest account details from fabric
+      // this.loading = true;
       this.accountDetails = await getFilteredFinancialAccounts({
         ocvId: this.customerOcvId,
         accountNumbers: []
       });
-      this.handleAccountInformation(this.accountDetails);
-      this.data = this.accountDetails.map((record) => ({
-        id: record.id,
-        productName: record.productName,
-        accountNumber: record.accountNumber,
-        accountType: record.ownership,
-        balance: record.balance,
-        productId: record.productId
-      }));
+      if (this.accountDetails) {
+        //this.handleAccountInformation(this.accountDetails);
+        this.accountDetails.map((record) => ({
+          id: record.id,
+          productName: record.productName,
+          accountNumber: record.accountNumber,
+          finAccountType: record.ownership,
+          balance: record.balance,
+          productId: record.productId
+        }));
+      }
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -226,7 +243,6 @@ export default class AccountClosureWizard extends LightningElement {
       );
       //If the API callout fails to fetch latest data, use this as a fallback to fetch
       //the records stored in Salesforce
-      this.accountDetailsFromDb = true;
       this.accountDetails = await getFinancialAccountDB({
         ownerId: this.customerOcvId,
         recordTypeDeveloperNames: [
@@ -235,19 +251,17 @@ export default class AccountClosureWizard extends LightningElement {
         ]
       });
       this.handleAccountInformation(this.accountDetails);
-      this.data = this.accountDetails.map((record) => {
-        return {
-          id: record.Id,
-          productName: record.FinServ__ProductName__r.Name,
-          accountNumber: record.FinServ__FinancialAccountNumber__c,
-          accountType: record.Ownership__c,
-          balance: record.FinServ__Balance__c,
-          finiancialAccountId: record.Id,
-          productId: record.FinServ__ProductName__c
-        };
-      });
-      console.log("financial account data " + JSON.stringify(this.data));
+      this.accountDetails.map((record) => ({
+        id: record.Id,
+        productName: record.FinServ__ProductName__r.Name,
+        accountNumber: record.FinServ__FinancialAccountNumber__c,
+        finAccountType: record.FinServ__Ownership__c,
+        balance: record.FinServ__Balance__c,
+        finiancialAccountId: record.Id,
+        productId: record.FinServ__ProductName__c
+      }));
     }
+    //this.loading = false;
   }
 
   // TO DO: DISCUSS THIS WITH VK and KOPAL WHETHER THIS IS NEEDED OR NOT
@@ -340,8 +354,9 @@ export default class AccountClosureWizard extends LightningElement {
   }
 
   // Method to call Apex and create cases
-  createCasesInApex(validRows) {
+  async createCasesInApex(validRows) {
     // Map the valid rows to the format expected by the Apex method (CaseData format)
+    this.loading = true;
     const caseDataList = validRows.map((row) => ({
       intendedAccountName: row.intendedAccountName,
       intendedAccountBsb: row.intendedAccountBsb,
@@ -354,32 +369,29 @@ export default class AccountClosureWizard extends LightningElement {
       finiancialAccountId: row.id,
       productId: row.productId
     }));
-    // Call the Apex method to create cases
-    createCasesForAccounts({
-      parentCaseId: this.recordId,
-      caseInputs: caseDataList
-    })
-      .then((result) => {
+    try {
+      let result = await createCasesForAccounts({
+        parentCaseId: this.recordId,
+        caseInputs: caseDataList
+      });
+      if (result) {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
-          caseRecordId: row.Id,
+          //caseRecordId: row.Id,
           childCaseNumber: row.CaseNumber,
           // product: row.Product__r.Name,
           accountNumber:
             row.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
           accountType: row.Account_Type__c
         }));
-      })
-      .catch((error) => {
-        console.error("Error creating cases:", JSON.stringify(error));
-      });
+      }
+    } catch (error) {
+      console.error("Error creating cases:", JSON.stringify(error));
+    }
+    this.loading = false;
   }
 
   handleCancel() {
     this.dispatchEvent(new CloseActionScreenEvent());
-  }
-
-  capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
   }
 }

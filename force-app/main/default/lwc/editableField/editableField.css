@@ -1,0 +1,8 @@
+.field-width {
+  width: 70%;
+}
+.tooltip {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  position: relative;
+}
