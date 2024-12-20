@@ -1,5 +1,5 @@
 import { createElement } from "lwc";
-import AccountClosureWizard from "c/AccountClosureWizard";
+import AccountClosureWizard from "c/accountClosureWizard";
 
 describe("c-account-closure-wizard", () => {
   afterEach(() => {
