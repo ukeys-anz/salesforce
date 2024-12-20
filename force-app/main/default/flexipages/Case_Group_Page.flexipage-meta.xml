@@ -10,6 +10,9 @@
                             <value>FeedItem.TextPost</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Case.Select_Accounts_To_Close</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Delete</value>
                         </valueListItems>
                         <valueListItems>

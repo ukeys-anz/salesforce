@@ -1,0 +1,12 @@
+.bold-heading {
+  font-weight: bold;
+}
+.field-width {
+  width: 50%;
+}
+.tooltip {
+  cursor: pointer;
+  margin-left: 0.5rem;
+  position: relative;
+  bottom: 0.25rem;
+}

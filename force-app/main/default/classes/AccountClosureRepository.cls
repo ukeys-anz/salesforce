@@ -151,4 +151,93 @@ public with sharing class AccountClosureRepository {
       WHERE Id = :recordId
     ];
   }
+
+  /**
+   * @description Dummy cases are those which are created in Org for that parent Id
+   * Find such cases for update with latest data rather creating new one
+   * @param parentCaseId Id of the parent case
+   * @return List<Case> list of child cases
+   */
+  public List<Case> queryListOfExistingDummyCases(Id parentCaseId) {
+    return [
+      SELECT
+        Id,
+        Status,
+        Intended_Account_Name__c,
+        Intended_Account_BSB__c,
+        Intended_Account_Number__c,
+        Closure_Reason__c,
+        Account_Type__c,
+        AccountId,
+        FinServ__FinancialAccount__c,
+        ProductId
+      FROM Case
+      WHERE
+        ParentId = :parentCaseId
+        AND Status != 'Closed'
+        AND FinServ__FinancialAccount__c = NULL
+        AND RecordTypeId = :RTCase.accountClosure
+    ];
+  }
+
+  /**
+   * @description Inserted or Updated Case data which is requried to show on LWC
+   * @param setOfCaseIdsToQuery set of case Ids to query
+   * @return List<Case> list of case records
+   */
+  public List<Case> queryListOfInsertedOrUpdatedCases(
+    Set<Id> setOfCaseIdsToQuery
+  ) {
+    return [
+      SELECT
+        Id,
+        CaseNumber,
+        Product__r.Name,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+        Account_Type__c
+      FROM Case
+      WHERE Id IN :setOfCaseIdsToQuery
+    ];
+  }
+
+  /**
+   * @description Extracts listOfCases based on accountIds
+   * @param accountIds set of account Ids to query
+   * @return List<Case> list of case records
+   */
+  public List<Case> fetchChildCases(Set<Id> accountIds) {
+    return [
+      SELECT Id, FinServ__FinancialAccount__c
+      FROM Case
+      WHERE
+        FinServ__FinancialAccount__c IN :accountIds
+        AND RecordTypeId = :RTCase.accountClosure
+    ];
+  }
+
+  /**
+   * @description Extracts map of account Ids and financial account records
+   * @param accountIds set of account Ids to query
+   * @return Map<Id, FinServ__FinancialAccount__c> map of account Ids and financial account records
+   */
+  public Map<Id, FinServ__FinancialAccount__c> fetchFinancialAccounts(
+    Set<Id> accountIds
+  ) {
+    return new Map<Id, FinServ__FinancialAccount__c>(
+      [
+        SELECT
+          Id,
+          FinServ__FinancialAccountNumber__c,
+          FinServ__ProductName__r.Name,
+          FinServ__ProductName__c,
+          FinServ__Balance__c,
+          FinServ__Ownership__c,
+          Marketing_Code__c,
+          FinServ__Status__c,
+          RecordType.DeveloperName
+        FROM FinServ__FinancialAccount__c
+        WHERE Id IN :accountIds
+      ]
+    );
+  }
 }
