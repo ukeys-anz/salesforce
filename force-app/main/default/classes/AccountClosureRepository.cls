@@ -105,6 +105,7 @@ public with sharing class AccountClosureRepository {
         Id,
         CaseNumber,
         ParentId,
+        Product.Name,
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
         Account_Type__c,
         Account_Product__c
@@ -113,6 +114,8 @@ public with sharing class AccountClosureRepository {
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
         AND Sub_Status__c = 'Success'
+        AND FinServ__FinancialAccount__c != NULL
+        AND ProductId != NULL
     ];
   }
 
@@ -141,14 +144,14 @@ public with sharing class AccountClosureRepository {
 
   /**
    * @description this method will query the case record details
-   * @param recordId Child Case Record raised for closure
-   * @return Case record with the details
+   * @param recordIds Child Case Records raised for closure
+   * @return Case records with the details
    */
-  public Case queryCase(Id recordId) {
+  public List<Case> queryCaseToUpdateStatusAsClosed(Set<Id> recordIds) {
     return [
       SELECT Id, Status
       FROM Case
-      WHERE Id = :recordId
+      WHERE Id IN :recordIds
     ];
   }
 
