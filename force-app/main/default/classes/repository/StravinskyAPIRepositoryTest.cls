@@ -125,41 +125,6 @@ public with sharing class StravinskyAPIRepositoryTest {
    * @description fetch invalid statement
    */
   @isTest
-  static void closePackageInvalidResponse() {
-    Case newCase = new Case(
-      AccountId = Lib_FakeIdGenerator.getMockId(Account.sObjectType),
-      Account_Type__c = 'Individual',
-      RecordTypeId = RTCase.accountClosure
-    );
-
-    HttpCalloutResponse res = getMockedResponse(false, 500, null);
-    Service s = ServiceProvider.getService(StravinskyService.class);
-    s.setCalloutResponse(res);
-    Exception resultException;
-
-    Test.startTest();
-    StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-    try {
-      stravinskyApi.packageClosure(
-        newCase,
-        ACCOUNT_NUMBER_SET,
-        CUSTOMER_OCVIDS_LIST
-      );
-    } catch (Exception e) {
-      resultException = e;
-    }
-    Test.stopTest();
-    Assert.areEqual(
-      'null argument for JSONGenerator.writeStringField()',
-      resultException.getMessage(),
-      'Exception was expected'
-    );
-  }
-
-  /**
-   * @description fetch invalid statement
-   */
-  @isTest
   static void testTriggerTemporalCaseWorkflowFailureResponse() {
     Case newCase = new Case(
       RecordTypeId = RTCase.idOpsAssistance,

@@ -247,7 +247,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       body.writeStringField('account_resource', accNum);
       body.writeEndObject();
     }
-    if (caseRecord.Package_Id__c != null) {
+    if (!isS2ProductOnCase(caseRecord) && caseRecord.Package_Id__c != null) {
       body.writeStartObject();
       body.writeStringField('package_resource', caseRecord.Package_Id__c);
       body.writeEndObject();
