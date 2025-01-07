@@ -11,6 +11,19 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Case.Select_Accounts_To_Close</value>
+                            <visibilityRule>
+                                <booleanFilter>1 AND 2</booleanFilter>
+                                <criteria>
+                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Case_Group</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Type}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Account Closure</rightValue>
+                                </criteria>
+                            </visibilityRule>
                         </valueListItems>
                         <valueListItems>
                             <value>Delete</value>
@@ -324,6 +337,9 @@
                     <valueList>
                         <valueListItems>
                             <value>CASES.CASE_NUMBER</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>PRODUCT.NAME</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Account_Type__c</value>
