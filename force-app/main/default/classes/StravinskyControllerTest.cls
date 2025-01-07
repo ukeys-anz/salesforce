@@ -5,7 +5,7 @@
  */
 @isTest
 public with sharing class StravinskyControllerTest {
-  /* @testSetup
+  @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
     Account acc = new Account(
@@ -292,5 +292,5 @@ public with sharing class StravinskyControllerTest {
       );
       Test.stopTest();
     }
-  }*/
+  }
 }
