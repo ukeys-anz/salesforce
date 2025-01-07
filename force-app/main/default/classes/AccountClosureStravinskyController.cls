@@ -59,7 +59,7 @@ public with sharing class AccountClosureStravinskyController {
   public static void updateCaseStatus(List<Id> records) {
     try {
       Set<Id> caseIds = new Set<Id>(records);
-      if (caseIds == null) {
+      if (caseIds == null || caseIds.isEmpty()) {
         return;
       }
       List<Case> caseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryCaseToUpdateStatusAsClosed(
@@ -72,6 +72,7 @@ public with sharing class AccountClosureStravinskyController {
     }
   }
 
+  @TestVisible
   private static List<Case> setStatusToClosed(List<Case> caseRecords) {
     List<Case> caseRecordsToBeUpdated = new List<Case>();
     for (Case caseRecord : caseRecords) {
