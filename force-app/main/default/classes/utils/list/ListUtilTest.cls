@@ -1,3 +1,10 @@
+/**
+ * @description       :
+ * @author            : Smruti Khobragade |  Salesforce
+ * @group             :
+ * @last modified on  : 12-13-2024
+ * @last modified by  : Smruti Khobragade |  Salesforce
+ **/
 @IsTest
 private class ListUtilTest {
   static final Faker FAKER = new Faker('AU');
@@ -466,6 +473,11 @@ private class ListUtilTest {
     Account.Name,
     Account.NumberOfEmployees
   };
+
+  static Set<SObjectField> changeAccountFields = new Set<SObjectField>{
+    Account.Name
+  };
+
   static List<Account> accounts = new List<Account>{
     new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
@@ -517,6 +529,24 @@ private class ListUtilTest {
       new List<Account>{ accounts[0], accounts[2] },
       results,
       'Expected accounts that is either have updated Name & NumberOfEmployees, or no prior record'
+    );
+  }
+  @IsTest
+  static void testFilterAnyChanged() {
+    accounts[0].Name = FAKER.randomString(6);
+    accounts[1].NumberOfEmployees = FAKER.randomInteger(1);
+    accounts[2].Name = FAKER.randomString(6);
+
+    Test.startTest();
+    List<Account> results = ListUtil.filter(accounts, oldMap)
+      .anyChanged(changeAccountFields)
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      new List<Account>{ accounts[0], accounts[2] },
+      results,
+      'Expected accounts that are updated Name field only'
     );
   }
 

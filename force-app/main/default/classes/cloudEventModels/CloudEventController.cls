@@ -38,4 +38,26 @@ public without sharing class CloudEventController {
       cloudEvents.add(cloudEvent);
     }
   }
+
+  /**
+   * @description Log publish success events
+   * @param successEvents List of success events
+   * @param eventName Name of the event
+   */
+  @TestVisible
+  public static void logSuccessEvents(
+    List<SObject> successEvents,
+    String eventName
+  ) {
+    if (successEvents.isEmpty()) {
+      return;
+    }
+    Logger.info(
+      'Event Published: ' +
+        successEvents.size() +
+        ' Cloud Events successfully processed for ' +
+        eventName
+    );
+    Logger.saveLog();
+  }
 }
