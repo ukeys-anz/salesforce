@@ -4,6 +4,8 @@
  * @description AccountClosureStravinskyController is used to handle calls to Stravinsky for closing accounts and package
  */
 public with sharing class AccountClosureStravinskyController {
+  public static final String FAILED_CLOSURE = 'Failed to perform account closure. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
+
   private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
