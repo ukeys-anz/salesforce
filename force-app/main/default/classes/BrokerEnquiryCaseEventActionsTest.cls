@@ -1,7 +1,7 @@
 /**
  * @description       : Test Class for CaseEventActionsTest
  * @author            : Smruti Khobragade | Salesforce
- * @last modified on  : 12-01-2024
+ * @last modified on  : 01-07-2025
  * @last modified by  : Smruti Khobragade |  Salesforce
  **/
 @isTest
@@ -88,6 +88,41 @@ public with sharing class BrokerEnquiryCaseEventActionsTest {
       'Case/' + updatedCaseList[0].CaseNumber,
       result[0].ce_subject,
       'The Subject should be the same as the case Subject'
+    );
+    Assert.areEqual(
+      System.Label.ANZX_Case_event_ce_type + 'update',
+      result[0].ce_type,
+      'The Type should be ' + System.Label.ANZX_Case_event_ce_type
+    );
+    Assert.areEqual(
+      'broker.salesforce.anzx',
+      result[0].ce_source,
+      'The Source should be "broker.salesforce.anzx" '
+    );
+    Assert.areEqual(
+      System.Label.ANZX_Broker_Event_Proto_Data_Schema,
+      result[0].ce_dataschema,
+      'The Source should be ' + System.Label.ANZX_Broker_Event_Proto_Data_Schema
+    );
+    BrokerCloudEventModel eventModel = result[0];
+    CloudEventModel.CloudEventDataModel ceData = eventModel.ce_data;
+    BrokerCloudEventModel.BrokerCloudEventDataModel brokerCeData = (BrokerCloudEventModel.BrokerCloudEventDataModel) ceData;
+    BrokerCloudEventModel.MasterNode masterNode = brokerCeData.data[0];
+
+    System.assertNotEquals(
+      null,
+      masterNode.targetObjects,
+      'TargetNode should not be null.'
+    );
+
+    BrokerCloudEventModel.TargetNode targetNode = masterNode.targetObjects;
+    System.assertNotEquals(null, targetNode, 'TargetNode should not be null.');
+
+    String status = targetNode.status;
+    System.assertEquals(
+      updatedCaseList[0].Status,
+      status,
+      'The Status should be the same as the case Status'
     );
   }
 
