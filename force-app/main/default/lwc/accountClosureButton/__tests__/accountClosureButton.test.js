@@ -1,5 +1,5 @@
 import { createElement } from "lwc";
-import AccountClosureButton from "c/AccountClosureButton";
+import AccountClosureButton from "c/accountClosureButton";
 import fetchChildCasesForClosure from "@salesforce/apex/AccountClosureController.fetchChildCasesForClosure";
 import getPackageClosureAura from "@salesforce/apex/AccountClosureStravinskyController.getPackageClosureAura";
 
