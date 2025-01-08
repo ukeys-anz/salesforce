@@ -213,29 +213,28 @@ public with sharing class AccountClosureCaseActions {
     List<Case> records,
     Map<Id, SObject> oldMap
   ) {
-    List<Case> cases = getAccountClosureRecords(records);
+    List<Case> cases = (records != null && !records.isEmpty())
+      ? getAccountClosureRecords(records)
+      : new List<Case>();
+
+    List<Case> filteredCases = new List<Case>();
+
     if (oldMap != null) {
-      Set<Schema.SObjectField> fieldsToMonitor = new Set<Schema.SObjectField>{
-        Case.Status,
-        Case.Sub_Status__c
-      };
-      cases = RecordComparisonUtil.getRecordsWithChangedFields(
-        cases,
-        oldMap,
-        fieldsToMonitor
+      filteredCases.addAll(getChangedRecords(cases, oldMap, case.Status));
+      filteredCases.addAll(
+        getChangedRecords(cases, oldMap, case.Sub_Status__c)
       );
     }
+
+    Set<Id> parentCaseIds = ListUtil.getIds(
+      oldMap != null ? filteredCases : cases,
+      Case.ParentId
+    );
 
     if (cases == null || cases.isEmpty()) {
       return;
     }
 
-    Set<Id> parentCaseIds = new Set<Id>();
-    for (Case record : cases) {
-      parentCaseIds.add(record.parentId);
-    }
-
-    // Set<Id> parentCaseIds = ListUtil.getIds(cases, Case.ParentId);
     List<Case> eligibleChildCasesForInitiatingClosure = ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCaseRecords(
       parentCaseIds
     );

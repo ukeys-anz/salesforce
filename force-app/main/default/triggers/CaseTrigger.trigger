@@ -3,7 +3,8 @@ trigger CaseTrigger on Case(
   before update,
   after insert,
   after update,
-  before delete
+  before delete,
+  after delete
 ) {
   CaseTriggerHandler handler = new CaseTriggerHandler();
   COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
