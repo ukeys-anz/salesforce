@@ -32,6 +32,21 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
     AccountClosureCaseActions.populateCaseSubject(records, null);
   }
 
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    AccountClosureCaseActions.setQueueOwnerToEscalatedCases(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    AccountClosureCaseActions.populateCaseSubject(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    AccountClosureCaseActions.validateDuplicateCaseGroupPerAccount(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+  }
+
   public override void onAfterInsert() {
     AccountClosureCaseActions.handleButtonVisibiltyFlag(records, null);
   }
@@ -47,18 +62,7 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
     );
   }
 
-  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    AccountClosureCaseActions.setQueueOwnerToEscalatedCases(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-    AccountClosureCaseActions.populateCaseSubject(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-    AccountClosureCaseActions.validateDuplicateCaseGroupPerAccount(
-      records,
-      (Map<Id, Case>) oldMap
-    );
+  public override void onAfterDelete() {
+    AccountClosureCaseActions.handleButtonVisibiltyFlag(records, null);
   }
 }
