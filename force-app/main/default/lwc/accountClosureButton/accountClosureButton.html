@@ -78,28 +78,20 @@
 
   <lightning-modal-footer class="slds-var-m-top_large">
     <div>
+      <lightning-button
+        class="slds-button"
+        variant="neutral"
+        label="Cancel"
+        onclick={handleCancel}
+        data-id="cancel"
+      ></lightning-button>
       <template if:false={isAccountClosed}>
-        <lightning-button
-          class="slds-button"
-          variant="neutral"
-          label="Cancel"
-          onclick={handleCancel}
-          data-id="cancel"
-        ></lightning-button>
         <lightning-button
           class="slds-button"
           variant="destructive"
           label="Close Accounts"
           onclick={handleCloseAccounts}
           data-id="closeaccounts"
-        ></lightning-button>
-      </template>
-      <template if:true={isAccountClosed}>
-        <lightning-button
-          class="slds-button"
-          variant="neutral"
-          label="Cancel"
-          onclick={handleCancel}
         ></lightning-button>
       </template>
     </div>
