@@ -24,12 +24,11 @@ export default class AccountClosureButton extends LightningElement {
   responseDataFailed = [];
   successfulCases = [];
   failedCases = [];
-  isAccountClosed = false;
-  isAccountClosedSuccess = false;
-  isAccountClosedFailure = false;
+  isAccountClosedSuccess = "pending";
+  isAccountClosedFailure = "pending";
   hasError = false;
+  loading = false;
   errorMsg;
-  error;
 
   @api recordId;
 
@@ -41,22 +40,35 @@ export default class AccountClosureButton extends LightningElement {
         this.casesData = this.generateData(data);
       }
     } catch (error) {
-      if (error.body && error.body.message) {
-        this.error = error.body.message;
-      }
-      this.handleError();
+      this.handleError(error);
     }
   }
 
   get showSuccessIcon() {
     return (
-      this.isAccountClosedSuccess === true &&
-      this.isAccountClosedFailure === false
+      this.isAccountClosedSuccess === "success" &&
+      this.isAccountClosedFailure !== "failure"
+    );
+  }
+
+  get showSuccessSection() {
+    return this.isAccountClosedSuccess === "success";
+  }
+
+  get showFailureSection() {
+    return this.isAccountClosedFailure === "failure";
+  }
+
+  get isAccountClosureComplete() {
+    return (
+      this.isAccountClosedSuccess === "pending" &&
+      this.isAccountClosedFailure === "pending"
     );
   }
 
   async handleCloseAccounts() {
     try {
+      this.loading = true;
       const results = await Promise.allSettled(
         this.childCases.map((caseRecord) =>
           getPackageClosureAura({ recordId: caseRecord.Id })
@@ -83,13 +95,7 @@ export default class AccountClosureButton extends LightningElement {
       this.updateResponseData();
       await this.updateCaseStatusToClosed(this.successfulCases);
     } catch (error) {
-      this.isAccountClosedSuccess = false;
-      this.isAccountClosed = false;
-      this.isAccountClosedFailure = false;
-      if (error.body && error.body.message) {
-        this.error = error.body.message;
-      }
-      this.handleError();
+      this.handleError(error);
     }
   }
 
@@ -109,17 +115,16 @@ export default class AccountClosureButton extends LightningElement {
   }
 
   updateResponseData() {
+    this.loading = false;
     if (this.successfulCases.length > 0) {
-      this.isAccountClosedSuccess = true;
-      this.isAccountClosed = true;
+      this.isAccountClosedSuccess = "success";
       this.responseDataSuccess = this.generateResponseData(
         this.successfulCases,
         true
       );
     }
     if (this.failedCases.length > 0) {
-      this.isAccountClosedFailure = true;
-      this.isAccountClosed = true;
+      this.isAccountClosedFailure = "failure";
       this.responseDataFailed = this.generateResponseData(
         this.failedCases,
         false
@@ -164,10 +169,10 @@ export default class AccountClosureButton extends LightningElement {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
 
-  handleError() {
+  handleError(error) {
     this.hasError = true;
-    this.errorMsg = this.error
-      ? this.error
+    this.errorMsg = error
+      ? error
       : "Please try again. Raise a fault through TechAssist if the problem persists.";
   }
 
@@ -178,10 +183,7 @@ export default class AccountClosureButton extends LightningElement {
         records: caseIds
       });
     } catch (error) {
-      if (error.body && error.body.message) {
-        this.error = error.body.message;
-      }
-      this.handleError();
+      this.handleError(error);
     }
   }
 }

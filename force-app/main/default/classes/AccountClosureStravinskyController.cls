@@ -21,10 +21,14 @@ public with sharing class AccountClosureStravinskyController {
    */
   @AuraEnabled(cacheable=true)
   public static GenesisPackageClosureModel getPackageClosureAura(Id recordId) {
+    GenesisPackageClosureModel response;
+    if (recordId == null) {
+      return response;
+    }
+
     Set<String> setOfAccountNumberToBeClosed = new Set<String>();
     List<String> customerOcvIdsList = new List<String>();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-    GenesisPackageClosureModel response;
 
     PermissionUtils.canQuery('Case');
     try {
@@ -65,8 +69,7 @@ public with sharing class AccountClosureStravinskyController {
       List<Case> caseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryCaseToUpdateStatusAsClosed(
         caseIds
       );
-      List<Case> caseRecordsToBeUpdated = setStatusToClosed(caseRecords);
-      DML_REPOSITORY.doUpdate(caseRecordsToBeUpdated);
+      DML_REPOSITORY.doUpdate(setStatusToClosed(caseRecords));
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
@@ -74,12 +77,10 @@ public with sharing class AccountClosureStravinskyController {
 
   @TestVisible
   private static List<Case> setStatusToClosed(List<Case> caseRecords) {
-    List<Case> caseRecordsToBeUpdated = new List<Case>();
     for (Case caseRecord : caseRecords) {
       caseRecord.Status = 'Closed';
-      caseRecordsToBeUpdated.add(caseRecord);
     }
 
-    return caseRecordsToBeUpdated;
+    return caseRecords;
   }
 }
