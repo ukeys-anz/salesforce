@@ -20,10 +20,8 @@ public with sharing class AccountClosureController {
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchChildCasesForClosure(Id parentCaseId) {
     try {
-      Set<Id> parentCaseIds = new Set<Id>();
-      parentCaseIds.add(parentCaseId);
       return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesForClosure(
-        parentCaseIds
+        new Set<Id>{ parentCaseId }
       );
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
