@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Balance on customers account</label>
+    <protected>false</protected>
+    <values>
+        <field>Actions__c</field>
+        <value xsi:type="xsd:string">Place case on hold
+Check available balances on customer accounts
+Determine if funds are accrued interest or balance
+If amount is a balance and is &lt;$0 assign case to coach to request customer zero balances before closure can proceed
+If there is accrued interest or bonus interest, transfer the interest to ANZ Plus or ANZ Classic account provided or use Web Voucher process
+Once balances are $0 re-initiate Account Closure</value>
+    </values>
+    <values>
+        <field>Failure_Reason__c</field>
+        <value xsi:type="xsd:string">nonzeroAvailableBalance</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Failure Reason / Action</value>
+    </values>
+</CustomMetadata>

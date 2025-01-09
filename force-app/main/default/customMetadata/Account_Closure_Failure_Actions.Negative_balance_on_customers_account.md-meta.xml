@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Negative balance on customers account</label>
+    <protected>false</protected>
+    <values>
+        <field>Actions__c</field>
+        <value xsi:type="xsd:string">Place case on hold
+Check available balances on customer accounts
+If balances are &gt;$0 assign case to coach to request customer zero balances before closure can proceed
+Once balance is zero re-initiate Account Closure</value>
+    </values>
+    <values>
+        <field>Failure_Reason__c</field>
+        <value xsi:type="xsd:string">nonzeroClosureBalance</value>
+    </values>
+    <values>
+        <field>Type__c</field>
+        <value xsi:type="xsd:string">Failure Reason / Action</value>
+    </values>
+</CustomMetadata>
