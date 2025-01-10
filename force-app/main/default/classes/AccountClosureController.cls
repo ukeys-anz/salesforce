@@ -1,17 +1,16 @@
 /**
  * @author Shivam Swaraj
  * @since December 2024
- * @description Account Closure Controller for Account Closure Prechecks (Fabric Seal Callout)
+ * @description Account Closure Controller for Account Closure Prechecks
  */
 public with sharing class AccountClosureController {
-
     private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
-        AccountClosureRepository.class
-        );
-    
+      AccountClosureRepository.class
+    );
+  
     private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-        DmlRepository.class
-        );
+      DmlRepository.class
+    );
     private static final String ESCALATED = 'Escalated';
     
     /**
@@ -176,21 +175,19 @@ public with sharing class AccountClosureController {
         }
         return casesToUpdate;
     }
-
     /**
-    * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus as Success
-    * @param parentCaseId set of Case Group (Parent Case) Id
-    * @return List<Case> List of child cases associated to the parent case.
-    */
+     * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus as Success
+     * @param parentCaseId set of Case Group (Parent Case) Id
+     * @return List<Case> List of child cases associated to the parent case.
+     */
     @AuraEnabled(cacheable=true)
-    public static List<Case> fetchChildCasesForClosure(Id parentCaseId){
-        try {
-            Set<Id> parentCaseIds = new Set<Id>();
-            parentCaseIds.add(parentCaseId);
-            return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesForClosure(parentCaseIds);
-        }
-        catch (Exception objException) {
-            throw CommonUtil.logException(objException);
-        }   
+    public static List<Case> fetchChildCasesForClosure(Id parentCaseId) {
+      try {
+        return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesForClosure(
+          new Set<Id>{ parentCaseId }
+        );
+      } catch (Exception objException) {
+        throw CommonUtil.logException(objException);
+      }
     }
-}
+  }
