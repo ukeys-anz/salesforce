@@ -63,7 +63,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEligibleChildCaseRecords(Set<Id> parentCaseIds) {
-    if (parentCaseIds.isEmpty()  || !SObjectType.Case.isQueryable()) {
+    if (parentCaseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
 
@@ -86,8 +86,8 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId IN :parentCaseIds
         AND RecordTypeId = :RTCase.accountClosure
-        AND FinServ__FinancialAccount__c != NUll
-        AND ProductId != NULL 
+        AND FinServ__FinancialAccount__c != NULL
+        AND ProductId != NULL
         AND (Sub_Status__c = 'Failed'
         OR Sub_Status__c = NULL)
     ];
@@ -122,16 +122,16 @@ public with sharing class AccountClosureRepository {
     ];
   }
 
-   /**
+  /**
    * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus Success or Failed post precheck
    * @param caseIds set of Case Group (Parent Case) Id
    * @return List<Case> List of child cases associated to the parent case.
    */
-  public List<Case> queryChildCasesDetailsPostPrecheck(Map<Id,Case> caseIds) {
-    if (caseIds.isEmpty()  || !SObjectType.Case.isQueryable()) {
+  public List<Case> queryChildCasesDetailsPostPrecheck(Map<Id, Case> caseIds) {
+    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
-    
+
     return [
       SELECT
         Id,
@@ -143,8 +143,7 @@ public with sharing class AccountClosureRepository {
         Status,
         Sub_Status__c
       FROM Case
-      WHERE
-        Id IN :caseIds.keySet()
+      WHERE Id IN :caseIds.keySet()
     ];
   }
 
@@ -273,31 +272,29 @@ public with sharing class AccountClosureRepository {
     );
   }
 
- /**
+  /**
    * @description Extracts list of failure actions based on failure reason.
    * @param failureReasons set of failure reasons to query
    * @return List<AccountClosureErrorMetadata__mdt> list of failure reasons actions details
    */
-  public List<AccountClosureErrorMetadata__mdt> getFailureMetadata (Set<String> failureReasons)
-  {
+  public List<AccountClosureErrorMetadata__mdt> getFailureMetadata(
+    Set<String> failureReasons
+  ) {
     List<AccountClosureErrorMetadata__mdt> constantHeader = new List<AccountClosureErrorMetadata__mdt>();
-    List<AccountClosureErrorMetadata__mdt> failureReasonActions = 
-    [
-        SELECT Type__c, Failure_Reason__c, Chatter_Post__c , Label
-        FROM AccountClosureErrorMetadata__mdt 
-        WHERE Failure_Reason__c IN :failureReasons
+    List<AccountClosureErrorMetadata__mdt> failureReasonActions = [
+      SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
+      FROM AccountClosureErrorMetadata__mdt
+      WHERE Failure_Reason__c IN :failureReasons
     ];
 
-    if(!failureReasonActions.isEmpty())
-    {
-     constantHeader = 
-      [
-          SELECT Type__c, Failure_Reason__c, Chatter_Post__c , Label
-          FROM AccountClosureErrorMetadata__mdt 
-          WHERE Type__c = 'Constant'
+    if (!failureReasonActions.isEmpty()) {
+      constantHeader = [
+        SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
+        FROM AccountClosureErrorMetadata__mdt
+        WHERE Type__c = 'Constant'
       ];
     }
-      
+
     List<AccountClosureErrorMetadata__mdt> chatterActions = new List<AccountClosureErrorMetadata__mdt>();
     chatterActions.addAll(failureReasonActions);
     chatterActions.addAll(constantHeader);
