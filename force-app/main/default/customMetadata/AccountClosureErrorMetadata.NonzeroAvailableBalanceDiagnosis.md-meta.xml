@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Balance on customers account</label>
+    <label>NonzeroAvailableBalanceDiagnosis</label>
     <protected>false</protected>
     <values>
-        <field>Actions__c</field>
+        <field>Chatter_Post__c</field>
         <value xsi:type="xsd:string">Place case on hold
 Check available balances on customer accounts
 Determine if funds are accrued interest or balance

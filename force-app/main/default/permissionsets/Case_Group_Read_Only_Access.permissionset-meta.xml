@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <customMetadataTypeAccesses>
-        <name>Account_Closure_Failure_Actions__mdt</name>
+        <name>AccountClosureErrorMetadata__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <description>This Permission set provides read only access for case group records</description>

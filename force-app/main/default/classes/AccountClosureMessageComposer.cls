@@ -10,7 +10,7 @@ public with sharing class AccountClosureMessageComposer
      * @param actionsList list of failure actions
      * @return richText to be posted on chatter
      */
-    public static String composeRichTextMessage(List<Account_Closure_Failure_Actions__mdt> actionsList) 
+    public static String composeRichTextMessage(List<AccountClosureErrorMetadata__mdt> actionsList) 
     {
         String message = '';
 
@@ -20,11 +20,11 @@ public with sharing class AccountClosureMessageComposer
         Map<String, List<String>> reasonToActions = new Map<String, List<String>>();
         Map<String, String> reasonToActionLabelMap = new Map<String,String>();
 
-        for (Account_Closure_Failure_Actions__mdt actions : actionsList)
+        for (AccountClosureErrorMetadata__mdt actions : actionsList)
         {
             if (actions.Type__c == 'Constant')
             {
-                constantMessages.add(actions.Actions__c);
+                constantMessages.add(actions.Chatter_Post__c);
             }
             else 
             {
@@ -34,7 +34,7 @@ public with sharing class AccountClosureMessageComposer
                     reasonToActionLabelMap.put(actions.Failure_Reason__c,actions.Label);
                 }
                 
-                List<String> actionsBullet = actions.Actions__c.split('\n'); 
+                List<String> actionsBullet = actions.Chatter_Post__c.split('\n'); 
                 reasonToActions.get(actions.Failure_Reason__c).addAll(actionsBullet);
             }
         }

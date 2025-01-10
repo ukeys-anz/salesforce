@@ -270,32 +270,32 @@ public with sharing class AccountClosureRepository {
     );
   }
 
-  /**
+ /**
    * @description Extracts list of failure actions based on failure reason.
    * @param failureReasons set of failure reasons to query
-   * @return List<Account_Closure_Failure_Actions__mdt> list of failure reasons actions details
+   * @return List<AccountClosureErrorMetadata__mdt> list of failure reasons actions details
    */
-  public List<Account_Closure_Failure_Actions__mdt> getFailureMetadata (Set<String> failureReasons)
+  public List<AccountClosureErrorMetadata__mdt> getFailureMetadata (Set<String> failureReasons)
   {
-    List<Account_Closure_Failure_Actions__mdt> constantHeader = new List<Account_Closure_Failure_Actions__mdt>();
-    List<Account_Closure_Failure_Actions__mdt> failureReasonActions = 
+    List<AccountClosureErrorMetadata__mdt> constantHeader = new List<AccountClosureErrorMetadata__mdt>();
+    List<AccountClosureErrorMetadata__mdt> failureReasonActions = 
     [
-        SELECT Type__c, Failure_Reason__c, Actions__c , Label
-        FROM Account_Closure_Failure_Actions__mdt 
+        SELECT Type__c, Failure_Reason__c, Chatter_Post__c , Label
+        FROM AccountClosureErrorMetadata__mdt 
         WHERE Failure_Reason__c IN :failureReasons
     ];
 
     if(!failureReasonActions.isEmpty())
     {
-    constantHeader = 
+     constantHeader = 
       [
-          SELECT Type__c, Failure_Reason__c, Actions__c , Label
-          FROM Account_Closure_Failure_Actions__mdt 
+          SELECT Type__c, Failure_Reason__c, Chatter_Post__c , Label
+          FROM AccountClosureErrorMetadata__mdt 
           WHERE Type__c = 'Constant'
       ];
     }
       
-    List<Account_Closure_Failure_Actions__mdt> chatterActions = new List<Account_Closure_Failure_Actions__mdt>();
+    List<AccountClosureErrorMetadata__mdt> chatterActions = new List<AccountClosureErrorMetadata__mdt>();
     chatterActions.addAll(failureReasonActions);
     chatterActions.addAll(constantHeader);
 

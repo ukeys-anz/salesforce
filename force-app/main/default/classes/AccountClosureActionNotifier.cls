@@ -17,7 +17,7 @@ public with sharing class AccountClosureActionNotifier
      */
     public static void postFailureMessage (String sObjectId, Set<String> failureReasons)
     {
-        List<Account_Closure_Failure_Actions__mdt> failureActions = ACCOUNT_CLOSURE_REPOSITORY.getFailureMetadata(failureReasons);
+        List<AccountClosureErrorMetadata__mdt> failureActions = ACCOUNT_CLOSURE_REPOSITORY.getFailureMetadata(failureReasons);
         
         if (failureActions.isEmpty())
         {

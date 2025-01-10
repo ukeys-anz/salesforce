@@ -54,7 +54,8 @@ public with sharing class AccountClosureController {
 
             if(!casesToUpdate.isEmpty())
             {
-                DML_REPOSITORY.doUpdate(casesToUpdate);
+                DML_REPOSITORY.doUpdate(casesToUpdate,
+                new DmlConfig().allowPartial());
             }
 
             return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesDetailsPostPrecheck(new Map<Id,Case>(casesToUpdate));

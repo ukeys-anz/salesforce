@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>Automated account closure in CAP failed</label>
+    <label>RestraintsDiagnosis</label>
     <protected>false</protected>
     <values>
-        <field>Actions__c</field>
+        <field>Chatter_Post__c</field>
         <value xsi:type="xsd:string">Place case on hold
-Close account in CAP
-Once account closed, re-initiate Account Closure</value>
+Check notes in CAP
+Refer to Fraud / ID Ops via mailbox to remove restraints
+Once restraint is removed, re-initiate Account Closure</value>
     </values>
     <values>
         <field>Failure_Reason__c</field>
-        <value xsi:type="xsd:string">Automated account closure in CAP failed</value>
+        <value xsi:type="xsd:string">restraints</value>
     </values>
     <values>
         <field>Type__c</field>

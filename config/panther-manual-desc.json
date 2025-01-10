@@ -412,9 +412,9 @@
       ],
       "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
-    "Account_Closure_Failure_Actions__mdt":{
-      "IA-2415999": [ 
-        "Actions__c",
+    "AccountClosureErrorMetadata__mdt":{
+      "IA-2468715": [ 
+        "Chatter_Post__c",
         "Failure_Reason__c",
         "Type__c"
       ]

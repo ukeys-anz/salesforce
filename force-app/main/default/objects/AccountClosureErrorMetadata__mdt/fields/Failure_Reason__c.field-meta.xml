@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Failure_Reason__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Fabric</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
     <description>This will give the heading name from Fabric Seal response regarding the failure reason.</description>
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>

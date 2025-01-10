@@ -4,6 +4,14 @@
       <strong>Initiate Account Closure</strong>
     </h2>
   </div>
+  <template lwc:if={hasError}>
+    <div class="customPaddingForErrorMessage">
+      <c-error
+        custom-class-from-parent="slds-theme--error"
+        message={errorMsg}
+      ></c-error>
+    </div>
+  </template>
   <template lwc:if={loading}>
     <article
       class="slds-card slds-var-m-around_xx-large slds-var-m-bottom_large"
@@ -19,14 +27,6 @@
     </article>
   </template>
   <template lwc:else>
-    <template if:true={hasError}>
-      <div class="customPaddingForErrorMessage">
-        <c-error
-          custom-class-from-parent="slds-theme--error"
-          message={errorMsg}
-        ></c-error>
-      </div>
-    </template>
     <div class="slds-var-m-around_xx-large slds-var-m-bottom_large">
       <template if:true={isPrecheckDone}>
         <div
