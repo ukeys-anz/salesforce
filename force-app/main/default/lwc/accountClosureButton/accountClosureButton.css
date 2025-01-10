@@ -1,0 +1,10 @@
+.customPaddingForErrorMessage {
+  padding-left: 5.25rem;
+  padding-top: 1rem;
+  padding-right: 5.25rem;
+}
+
+.spinnerPadding {
+  padding-top: 7rem;
+  padding-bottom: 8rem;
+}
