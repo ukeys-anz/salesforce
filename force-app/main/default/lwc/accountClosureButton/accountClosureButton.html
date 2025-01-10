@@ -1,0 +1,115 @@
+<template>
+  <div class="slds-modal__header">
+    <h2 class="slds-text-heading_medium">Close Accounts</h2>
+  </div>
+  <template if:true={hasError}>
+    <div class="customPaddingForErrorMessage">
+      <c-error
+        custom-class-from-parent="slds-theme--error"
+        message={errorMsg}
+      ></c-error>
+    </div>
+  </template>
+  <template if:true={loading}>
+    <article
+      class="slds-card slds-var-m-around_xx-large slds-var-m-bottom_large"
+    >
+      <div class="slds-align_absolute-center spinner-height">
+        <div role="status" class="slds-spinner_inline spinnerPadding">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </article>
+  </template>
+  <template if:false={loading}>
+    <div class="slds-var-m-around_xx-large slds-var-m-bottom_large">
+      <template if:true={isAccountClosureComplete}>
+        <div
+          class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+        >
+          Are you sure you want to close the accounts below for this customer?
+        </div>
+        <lightning-datatable
+          key-field="id"
+          data={casesData}
+          columns={caseColumns}
+          hide-checkbox-column="true"
+          data-id="datatable"
+        ></lightning-datatable>
+      </template>
+
+      <template if:false={hasError}>
+        <template if:true={showSuccessSection}>
+          <template if:true={showSuccessIcon}>
+            <lightning-icon
+              class="slds-icon-utility-success slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+              icon-name="utility:success"
+              alternative-text="success"
+              variant="success"
+              size="large"
+              title="success"
+              data-id="success"
+            ></lightning-icon>
+          </template>
+          <div
+            class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            The accounts below have been successfully closed.
+          </div>
+          <c-account-closure-records-table
+            records={responseDataSuccess}
+          ></c-account-closure-records-table>
+        </template>
+
+        <template if:true={showFailureSection}>
+          <lightning-icon
+            class="slds-icon-utility-warning slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+            icon-name="utility:warning"
+            alternative-text="warning"
+            variant="warning"
+            size="large"
+            title="warning"
+            data-id="failure"
+          ></lightning-icon>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_medium"
+          >
+            <b>There was an error in closing the accounts below.</b>
+          </div>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            Please raise a TechAssist ticket to resolve.
+          </div>
+          <c-account-closure-records-table
+            records={responseDataFailed}
+          ></c-account-closure-records-table>
+        </template>
+      </template>
+    </div>
+
+    <lightning-modal-footer class="slds-var-m-top_large">
+      <div>
+        <lightning-button
+          class="slds-button"
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCancel}
+          data-id="cancel"
+        ></lightning-button>
+        <template if:true={isAccountClosureComplete}>
+          <lightning-button
+            class="slds-button"
+            variant="destructive"
+            label="Close Accounts"
+            onclick={handleCloseAccounts}
+            data-id="closeaccounts"
+          ></lightning-button>
+        </template>
+      </div>
+    </lightning-modal-footer>
+  </template>
+</template>

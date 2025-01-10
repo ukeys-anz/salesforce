@@ -190,4 +190,4 @@ public with sharing class AccountClosureController {
         throw CommonUtil.logException(objException);
       }
     }
-  }
+ }
