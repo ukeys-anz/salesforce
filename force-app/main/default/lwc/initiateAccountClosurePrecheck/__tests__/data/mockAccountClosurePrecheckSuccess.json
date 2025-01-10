@@ -1,0 +1,57 @@
+[
+    {
+      "Id": "500AD00000K7EypYAF",
+      "CaseNumber": "03771798",
+      "ParentId": "500AD00000K7EyoYAF",
+      "ProductId": "01tOa0000053TR5IAM",
+      "FinServ__FinancialAccount__c": "a0FAD00000257Ce2AI",
+      "Account_Type__c": "Individual",
+      "Product": {
+        "Name": "40% Callable Term Deposit",
+        "Id": "01tOa0000053TR5IAM"
+      },
+      "FinServ__FinancialAccount__r": {
+        "FinServ__FinancialAccountNumber__c": "390992614",
+        "Id": "a0FAD00000257Ce2AI"
+      },
+      "Status": "Escalated",
+      "Sub_Status__c": "Success"
+    },
+    {
+      "Id": "500AD00000K7EypYAA",
+      "CaseNumber": "03771799",
+      "ParentId": "500AD00000K7EyoYAF",
+      "ProductId": "01tOa0000053TR5IAC",
+      "FinServ__FinancialAccount__c": "a0FAD00000257Ce2AA",
+      "Account_Type__c": "Individual",
+      "Product": {
+        "Name": "40% Callable Term Deposit",
+        "Id": "01tOa0000053TR5IAC"
+      },
+      "FinServ__FinancialAccount__r": {
+        "FinServ__FinancialAccountNumber__c": "390992619",
+        "Id": "a0FAD00000257Ce2AA"
+      },
+      "Status": "Escalated",
+      "Sub_Status__c": "Success"
+    },
+    {
+        "Id": "500AD00000K7EypYAC",
+        "CaseNumber": "03771780",
+        "ParentId": "500AD00000K7EyoYAF",
+        "ProductId": "01tOa0000053TR5IJM",
+        "FinServ__FinancialAccount__c": "a0FAD00000257Ce2AC",
+        "Account_Type__c": "Joint",
+        "Product": {
+          "Name": "40% Callable Joint Deposit",
+          "Id": "01tOa0000053TR5IJM"
+        },
+        "FinServ__FinancialAccount__r": {
+          "FinServ__FinancialAccountNumber__c": "390992620",
+          "Id": "a0FAD00000257Ce2AC"
+        },
+        "Status": "Escalated",
+        "Sub_Status__c": "Success"
+      }
+  ]
+  
