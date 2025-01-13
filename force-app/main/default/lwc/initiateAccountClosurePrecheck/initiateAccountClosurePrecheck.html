@@ -6,9 +6,7 @@
   </div>
   <template lwc:if={hasError}>
     <div class="customPaddingForErrorMessage">
-      <c-error
-        message={errorMsg}
-      ></c-error>
+      <c-error message={errorMsg}></c-error>
     </div>
   </template>
   <template lwc:if={loading}>
