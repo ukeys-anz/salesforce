@@ -1976,6 +1976,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Loan_Account__x.Product_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Other_Limits_and_Liabilities__x.Account_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
