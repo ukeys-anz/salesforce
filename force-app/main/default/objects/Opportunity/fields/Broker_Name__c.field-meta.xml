@@ -8,15 +8,26 @@
     <label>Broker Name</label>
     <lookupFilter>
         <active>true</active>
-        <filterItems>
-            <field>Contact.Accreditation_CompactLayout__c</field>
-            <operation>contains</operation>
-            <value>Commercial</value>
-        </filterItems>
+        <booleanFilter>1 AND (2 OR 3 OR 4)</booleanFilter>
         <filterItems>
             <field>Contact.RecordType.DeveloperName</field>
             <operation>equals</operation>
             <value>Broker</value>
+        </filterItems>
+        <filterItems>
+            <field>Contact.Commercial_Accreditation_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Inactive</value>
+        </filterItems>
+        <filterItems>
+            <field>Contact.Asset_Finance_Accreditation_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Inactive</value>
+        </filterItems>
+        <filterItems>
+            <field>Contact.Retail_Accreditation_Status__c</field>
+            <operation>notEqual</operation>
+            <value>Inactive</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
