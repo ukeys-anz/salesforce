@@ -96,6 +96,8 @@ export default class AccountClosureButton extends LightningElement {
       await this.updateCaseStatusToClosed(this.successfulCases);
     } catch (error) {
       this.handleError(error);
+    } finally {
+      this.loading = false;
     }
   }
 
@@ -115,7 +117,6 @@ export default class AccountClosureButton extends LightningElement {
   }
 
   updateResponseData() {
-    this.loading = false;
     if (this.successfulCases.length > 0) {
       this.isAccountClosedSuccess = "success";
       this.responseDataSuccess = this.generateResponseData(
@@ -169,11 +170,10 @@ export default class AccountClosureButton extends LightningElement {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
 
-  handleError(error) {
+  handleError() {
     this.hasError = true;
-    this.errorMsg = error
-      ? error
-      : "Please try again. Raise a fault through TechAssist if the problem persists.";
+    this.errorMsg =
+      "Please try again. Raise a fault through TechAssist if the problem persists.";
   }
 
   async updateCaseStatusToClosed(records) {
