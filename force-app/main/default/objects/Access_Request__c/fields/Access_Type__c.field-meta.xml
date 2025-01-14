@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <inlineHelpText>The type of access level being requested</inlineHelpText>
     <label>Access Type</label>
-    <required>true</required>
+    <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>

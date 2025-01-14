@@ -8,10 +8,19 @@
         <apexClass>AccessRequestFlowHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <description>Grants ability for users to raise a privileged access (PAM) requests</description>
+    <classAccesses>
+        <apexClass>BypassRequestFlowHandler</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <description>Grants ability for users to raise a privileged access (PAM) or Bypass requests</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Access_Request__c.Approver__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Access_Request__c.Automations_to_Bypass__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -22,11 +31,6 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Access_Request__c.Requestor__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Access_Request__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
@@ -40,6 +44,14 @@
         <object>Access_Request__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Access_Request__c.Bypass_Automation_Request</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Access_Request__c.Privileged_Access_requests</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <tabSettings>
         <tab>Access_Request__c</tab>
         <visibility>Visible</visibility>

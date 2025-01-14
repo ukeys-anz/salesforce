@@ -35,6 +35,7 @@ public with sharing class AccessRequestTriggerHandler extends Lib_TriggerHandler
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    AccessRequestCommonActions.checkIfApproverFlowDisabled(records);
     AccessRequestCommonActions.createPARequestRecords(records, oldMap);
     AccessRequestCommonActions.logApprovalDecision(records, oldMap);
   }

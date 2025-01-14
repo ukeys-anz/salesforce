@@ -41,7 +41,7 @@ function checkBypassString() {
         for fi in ./tmp/deploy/force-app/main/default/$1/*; do
             fieldMetadata=$(cat "$fi")
             f=$(basename "$fi") && f=${f/.field-meta.xml/}
-            if [[ $fieldMetadata != *"<object>Salesforce_Library_Settings__c</object>"* ]]; then
+            if [[ $fieldMetadata != *"Salesforce_Library_Settings__c"* ]]; then
                 echo "❗Bypass String NOT FOUND, Please Add Bypass String for Salesforce_Library_Settings__c to the issued file."
                 echo ""
                 echo "  • Issue Found: $1.$f"

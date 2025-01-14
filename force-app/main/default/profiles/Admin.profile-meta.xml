@@ -8636,6 +8636,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Privileged_Access_Request__c.Access_Request_Record_Type_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Access_Request_Record_Type_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Privileged_Access_Request__c.Actual_Access_Revoked_Time__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11315,6 +11325,11 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
+        <recordType>Access_Request__c.Privileged_Access_requests</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Access_Request__c-Bypass Request Layout</layout>
+        <recordType>Access_Request__c.Bypass_Automation_Request</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Account %28Business%29 Legal Entity Layout</layout>

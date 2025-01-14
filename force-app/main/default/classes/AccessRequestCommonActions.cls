@@ -2,7 +2,6 @@
  *
  * @author Shermal Warnakula
  * @since May 2021
- * fake change
  * @description Common Access Request Action methods
  * without sharing: used to allow executing user to query User records to access PAM approver Id
  */
@@ -10,7 +9,9 @@ public without sharing class AccessRequestCommonActions {
   @testVisible
   private static final String STATUS_SUBMITTED = 'Submitted';
   private static final String STATUS_APPROVED = 'Approved';
+  @testVisible
   private static final String STATUS_REJECTED = 'Rejected';
+
   @testVisible
   private static final String REQUEST_IMMEDIATE = 'Immediate';
   private static final String USER_REQUEST_AND_APPROVE_ERROR_MSG = 'You cannot approve your own request. Please get another user from the PAM Approval Group to approve your Access Request';
@@ -59,48 +60,136 @@ public without sharing class AccessRequestCommonActions {
   }
 
   /**
+   * @description create a map of required fields for new Access_Request__c records
+   * This is needed to check if there is any exisiting PARs which ovelaps with the new one
+   * @param requests List<Access_Request__c> requests : All new access requests
+   * @return Map<String, List<AccessRequestMap> {'requester' : ['Access_Request_Record_Type_Id__c', 'Start_Date_Time__c', 'Revoke_Time__c']}
+   **/
+  @testVisible
+  private static Map<String, List<AccessRequestMap>> createAccessRequestsMap(
+    List<Access_Request__c> requests
+  ) {
+    Map<String, List<AccessRequestMap>> accessRequestsMap = new Map<String, List<AccessRequestMap>>();
+    for (Access_Request__c request : requests) {
+      AccessRequestMap requestMap = new AccessRequestMap();
+      requestMap.recordTypeId = request.RecordTypeId;
+      Datetime startTime = calculateStartTime(
+        request.When__c,
+        request.Expected_Start__c
+      );
+      requestMap.startTime = startTime;
+      requestMap.revokeTime = calculateRevokeTime(
+        startTime,
+        request.Duration_hrs__c
+      );
+
+      String requester = request.Requestor__c;
+      if (!accessRequestsMap.containsKey(requester)) {
+        accessRequestsMap.put(requester, new List<AccessRequestMap>());
+      }
+      accessRequestsMap.get(requester).add(requestMap);
+    }
+    return accessRequestsMap;
+  }
+
+  /**
+   * @description find all PARs filtered by requesters which comes from createAccessRequestsMap.keySets()
+   * @param requesters Set<String> requestors : All new access requestors
+   * @return List<Privileged_Access_Request__c>
+   **/
+  private static List<Privileged_Access_Request__c> getPARsByRequester(
+    Set<String> requesters
+  ) {
+    List<Privileged_Access_Request__c> pars = new List<Privileged_Access_Request__c>();
+    if (
+      Schema.sObjectType.Privileged_Access_Request__c.isQueryable() == false
+    ) {
+      return pars;
+    }
+    return [
+      SELECT
+        Id,
+        Name,
+        Access_Request__r.Name,
+        Access_Request__r.Requestor__c,
+        Access_Request_Record_Type_Id__c,
+        Start_Date_Time__c,
+        Revoke_Time__c
+      FROM Privileged_Access_Request__c
+      WHERE Access_Request__r.Requestor__c IN :requesters
+    ];
+  }
+
+  /**
+   * @description create a map of all ovelapping records {requestorId => requestor.Name}
+   * This is needed to check if there is any new request there which overlap with previous PARs
+   * @param accessRequestsMap Map<String, List<AccessRequestMap>>  | this came from createAccessRequestsMap method
+   * @return Map<String, String> {requestorId => requestor.Name}
+   **/
+  @testVisible
+  private static Map<String, String> findOverLappedRequests(
+    Map<String, List<AccessRequestMap>> accessRequestsMap
+  ) {
+    Map<String, String> overlappedRequests = new Map<String, String>();
+    Set<String> requesters = accessRequestsMap.keySet();
+    if (requesters.isEmpty()) {
+      return overlappedRequests;
+    }
+
+    List<Privileged_Access_Request__c> pars = getPARsByRequester(requesters);
+    if (pars.isEmpty()) {
+      return overlappedRequests;
+    }
+    for (Privileged_Access_Request__c par : pars) {
+      String requester = par.Access_Request__r.Requestor__c;
+      List<AccessRequestMap> requesterMapList = accessRequestsMap.get(
+        requester
+      );
+      for (AccessRequestMap newRequestMap : requesterMapList) {
+        if (
+          (par.Start_Date_Time__c <= newRequestMap.revokeTime) &&
+          (par.Revoke_Time__c >= newRequestMap.startTime) &&
+          (par.Access_Request_Record_Type_Id__c == newRequestMap.recordTypeId)
+        ) {
+          overlappedRequests.put(requester, par.Access_Request__r.Name);
+          break;
+        }
+      }
+    }
+
+    return overlappedRequests;
+  }
+
+  /**
    * @description Checks to see if this new PAR is going to overlap with other PARs in the system.
    * If so, throw an error to prevent any unexpected issues during Privilaged Access
    * @param records list of new Access Request records being inserted or updated
    **/
   public static void checkIfRecordsOverlap(List<Access_Request__c> records) {
-    for (Access_Request__c record : records) {
-      //If the record is being rejected we can ignore checking if this record overlaps
-      if (record.Status__c == 'Rejected') {
+    List<Access_Request__c> filteredRequests = ListUtil.filter(records)
+      .notEquals(Access_Request__c.Status__c, STATUS_REJECTED)
+      .toList();
+    Map<String, List<AccessRequestMap>> accessRequestsMap = createAccessRequestsMap(
+      filteredRequests
+    );
+    Map<String, String> ovelappedRequests = findOverLappedRequests(
+      accessRequestsMap
+    );
+    if (ovelappedRequests.isEmpty()) {
+      return;
+    }
+
+    for (Access_Request__c record : filteredRequests) {
+      string requester = record.Requestor__c;
+      if (!ovelappedRequests.containsKey(requester)) {
         continue;
       }
-
-      if (Schema.sObjectType.Privileged_Access_Request__c.isQueryable()) {
-        //Create a dummy PAR
-        List<Id> requesterIdList = new List<Id>();
-        Map<Id, User> requesterUserMap = new Map<Id, User>();
-        requesterIdList.add(record.Requestor__c);
-        requesterUserMap = getRequestingUserMap(requesterIdList);
-        Privileged_Access_Request__c dummyPAR = generatePARRecord(
-          record,
-          requesterUserMap
-        );
-
-        // Note: Informed decision to compromise the Golden Rule of no DMLs/Qeries inside for loops.
-        // Because it is very unlikely that there will be many PARs at one time
-        // See if this Dummy PAR will overlap with any other PARs
-        List<Privileged_Access_Request__c> overlappingRequests = [
-          SELECT Id, Name, Access_Request__r.Name
-          FROM Privileged_Access_Request__c
-          WHERE
-            Access_Request__r.Requestor__c = :record.Requestor__c
-            AND Start_Date_Time__c <= :dummyPAR.Revoke_Time__c
-            AND Revoke_Time__c >= :dummyPAR.Start_Date_Time__c
-        ];
-
-        if (!overlappingRequests.isEmpty()) {
-          record.addError(
-            'The request overlaps with an existing Privilaged Access Request: ' +
-              overlappingRequests[0].Access_Request__r.Name +
-              '. Please double check the start time and duration to ensure they do not overlap'
-          );
-        }
-      }
+      //Check if there any overlapped PAR record and return the PAM number
+      record.addError(
+        'The request overlaps with an existing Privileged Access Request: ' +
+          ovelappedRequests.get(requester) +
+          '. Please double check the start time and duration to ensure they do not overlap'
+      );
     }
   }
 
@@ -174,6 +263,7 @@ public without sharing class AccessRequestCommonActions {
    * @param requesterIdList User Ids of requesting users
    * @return Map<Id, User>
    */
+  @testVisible
   private static Map<Id, User> getRequestingUserMap(List<Id> requesterIdList) {
     Map<Id, User> userMap = new Map<Id, User>();
     if (Schema.sObjectType.User.isQueryable()) {
@@ -190,6 +280,7 @@ public without sharing class AccessRequestCommonActions {
    * @param requesterUserMap requester User map
    * @return Privileged_Access_Request__c
    */
+  @testVisible
   private static Privileged_Access_Request__c generatePARRecord(
     Access_Request__c approvedRequest,
     Map<Id, User> requesterUserMap
@@ -210,6 +301,32 @@ public without sharing class AccessRequestCommonActions {
     );
 
     return par;
+  }
+
+  /**
+   * @description check if flows has been disabled for approver of PAM Request
+   * @param records List<Access_Request__c>
+   */
+  public static void checkIfApproverFlowDisabled(
+    List<Access_Request__c> records
+  ) {
+    Salesforce_Library_Settings__c customSettings = Salesforce_Library_Settings__c.getInstance(
+      UserInfo.getUserId()
+    );
+    if (customSettings == null || !customSettings.Disable_Flows__c) {
+      return;
+    }
+    String customSettingsName = (Salesforce_Library_settings__c.getOrgDefaults()
+        .Name == customSettings.Name)
+      ? 'Salesforce Library Settings (Organization)'
+      : ('user\'s ' + customSettings.Name);
+    for (Access_Request__c record : records) {
+      record.addError(
+        'Updating Access request failed due to: ' +
+          customSettingsName +
+          ' Disable_Flows__c is true.'
+      );
+    }
   }
 
   /**
@@ -259,12 +376,9 @@ public without sharing class AccessRequestCommonActions {
         Logger.info(
           'PAM request ' +
             newRequest.Name +
-            ' requesting ' +
-            newRequest.Access_Type__c +
             ' access has been submitted for approval by ' +
             newRequest.Requestor__c +
-            ', and awaiting approval by ' +
-            newRequest.Approver__c,
+            ', and awaiting approval by PAM Approvers ',
           newRequest
         );
         newRequest.Trace_Id__c = uniquePamTraceId;
@@ -286,12 +400,20 @@ public without sharing class AccessRequestCommonActions {
     for (Access_Request__c newRequest : newRecords) {
       String approvalDecision = getApprovalDecision(newRequest, oldRecordMap);
       if (!String.isBlank(approvalDecision)) {
+        String bypassAutomationRequestRTId = QueryRT.of(
+            Access_Request__c.SObjectType
+          )
+          .getId('Bypass_Automation_Request');
+
+        String requestLog = bypassAutomationRequestRTId ==
+          newRequest.RecordTypeId
+          ? ' to bypass ' + newRequest.Automations_to_Bypass__c
+          : ' requesting ' + newRequest.Access_Type__c + ' access';
         Logger.info(
           'PAM request ' +
             newRequest.Name +
-            ' requesting ' +
-            newRequest.Access_Type__c +
-            ' access has been ' +
+            requestLog +
+            ' has been ' +
             approvalDecision,
           newRequest
         );
@@ -315,5 +437,15 @@ public without sharing class AccessRequestCommonActions {
     );
     return STATUS_SUBMITTED.equals(newRecord.Status__c) &&
       oldRecord.Status__c != newRecord.Status__c;
+  }
+
+  /**
+   * @description Wrapper class to hold all the required information from new access request record -
+   * - to check if there is any overlapping records.
+   */
+  public class AccessRequestMap {
+    public Id recordTypeId;
+    public Datetime startTime;
+    public Datetime revokeTime;
   }
 }

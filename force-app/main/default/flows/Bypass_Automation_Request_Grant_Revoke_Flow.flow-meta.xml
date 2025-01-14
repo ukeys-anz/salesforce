@@ -1,48 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
-        <name>Update_User_Profile</name>
-        <actionName>AccessRequestFlowHandler</actionName>
-        <actionType>apex</actionType>
-        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
-        <inputParameters>
-            <name>privilegedAccReqId</name>
-            <value>
-                <elementReference>$Record.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>processType</name>
-            <value>
-                <stringValue>grant</stringValue>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>profileId</name>
-            <value>
-                <elementReference>Get_Requested_Profile.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>userId</name>
-            <value>
-                <elementReference>Get_Requestor_User_Grant.Id</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
-            <name>disableFlows</name>
-            <value>
-                <elementReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</elementReference>
-            </value>
-        </inputParameters>
-        <label>Update User Profile</label>
-        <locationX>176</locationX>
-        <locationY>528</locationY>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </actionCalls>
-    <actionCalls>
-        <name>Update_User_Profile_0</name>
-        <actionName>AccessRequestFlowHandler</actionName>
+        <name>Revoke_User_Bypass_Settings</name>
+        <actionName>BypassRequestFlowHandler</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
         <inputParameters>
@@ -58,15 +18,9 @@
             </value>
         </inputParameters>
         <inputParameters>
-            <name>profileId</name>
-            <value>
-                <elementReference>$Record.Previous_Profile_Id__c</elementReference>
-            </value>
-        </inputParameters>
-        <inputParameters>
             <name>userId</name>
             <value>
-                <elementReference>Get_Requestor_User_Revoke.Id</elementReference>
+                <elementReference>$Record.Access_Request__r.Requestor__c</elementReference>
             </value>
         </inputParameters>
         <inputParameters>
@@ -75,15 +29,52 @@
                 <elementReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</elementReference>
             </value>
         </inputParameters>
-        <label>Update User Profile</label>
+        <label>Revoke User Bypass Settings</label>
         <locationX>440</locationX>
-        <locationY>408</locationY>
+        <locationY>384</locationY>
+        <nameSegment>BypassRequestFlowHandler</nameSegment>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </actionCalls>
+    <actionCalls>
+        <name>Update_User_Bypass_Settings</name>
+        <actionName>BypassRequestFlowHandler</actionName>
+        <actionType>apex</actionType>
+        <flowTransactionModel>CurrentTransaction</flowTransactionModel>
+        <inputParameters>
+            <name>privilegedAccReqId</name>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>processType</name>
+            <value>
+                <stringValue>grant</stringValue>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>userId</name>
+            <value>
+                <elementReference>$Record.Access_Request__r.Requestor__c</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>disableFlows</name>
+            <value>
+                <elementReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</elementReference>
+            </value>
+        </inputParameters>
+        <label>Update User Bypass Settings</label>
+        <locationX>176</locationX>
+        <locationY>384</locationY>
+        <nameSegment>BypassRequestFlowHandler</nameSegment>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
-    <description>This flow grants and revokes Admin access based on the Privileged Access Request record.</description>
-    <interviewLabel>PAM - Grant/Revoke Access {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>PAM - Grant/Revoke Access</label>
+    <description>Grant/Revoke flow to disable flows, triggers and validations for 24 hours when a bypass automations request is submitted</description>
+    <environments>Default</environments>
+    <interviewLabel>Bypass Automation Request Grant/Revoke Flow {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Bypass Automation Request Grant/Revoke Flow</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -104,32 +95,10 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
-        <name>Get_Requested_Profile</name>
-        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
-        <connector>
-            <targetReference>Update_User_Profile</targetReference>
-        </connector>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Access_Request__r.Access_Type__c</elementReference>
-            </value>
-        </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
-        <label>Get Requested Profile</label>
-        <locationX>176</locationX>
-        <locationY>408</locationY>
-        <object>Profile</object>
-        <queriedFields>Id</queriedFields>
-        <storeOutputAutomatically>true</storeOutputAutomatically>
-    </recordLookups>
-    <recordLookups>
         <name>Get_Requestor_User_Grant</name>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Get_Requested_Profile</targetReference>
+            <targetReference>Update_User_Bypass_Settings</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -139,20 +108,18 @@
                 <elementReference>$Record.Access_Request__r.Requestor__r.Id</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
         <label>Get Requestor User Before Grant</label>
         <locationX>176</locationX>
-        <locationY>288</locationY>
+        <locationY>276</locationY>
         <object>User</object>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>ProfileId</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Requestor_User_Revoke</name>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
-            <targetReference>Update_User_Profile_0</targetReference>
+            <targetReference>Revoke_User_Bypass_Settings</targetReference>
         </connector>
         <filterLogic>and</filterLogic>
         <filters>
@@ -162,13 +129,11 @@
                 <elementReference>$Record.Access_Request__r.Requestor__r.Id</elementReference>
             </value>
         </filters>
-        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
         <label>Get Requestor User Before Revoke</label>
         <locationX>440</locationX>
-        <locationY>288</locationY>
+        <locationY>276</locationY>
         <object>User</object>
-        <queriedFields>Id</queriedFields>
-        <queriedFields>ProfileId</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
@@ -177,7 +142,7 @@
             <field>Access_Request_Record_Type_Name__c</field>
             <operator>EqualTo</operator>
             <value>
-                <stringValue>Privileged Access requests</stringValue>
+                <stringValue>Bypass Automation Request</stringValue>
             </value>
         </filters>
         <locationX>50</locationX>
@@ -209,4 +174,12 @@
         <triggerType>RecordAfterSave</triggerType>
     </start>
     <status>Active</status>
+    <variables>
+        <name>recordTypeId</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Access_Request__c</objectType>
+    </variables>
 </Flow>
