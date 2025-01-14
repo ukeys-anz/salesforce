@@ -1,0 +1,101 @@
+name: Preprod Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      NAME:
+        description: "Preprod Deployment Name"
+        required: true
+        type: string
+
+permissions:
+  contents: "write"
+  id-token: "write"
+
+jobs:
+  preprod-deployment:
+    container:
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.4"
+      options: --user root
+      volumes:
+        - ${{ github.workspace }}/preprod-deployment:/opt/harness-delegate/preprod-deployment
+    runs-on: anzx-default
+    concurrency:
+      group: "salesforce-preprod-deployment-${{ github.event.inputs.NAME }}"
+      cancel-in-progress: false
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        config:
+          - DEPLOYMENT_ENVIRONMENT: "prod-release-start"
+            DEPLOYMENT_TITLE: "Preprod Deployment"
+
+    environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
+    env:
+      PIPELINE_NAME: "${{ github.event.inputs.NAME }}"
+      ARTIFACTORY_SECRET_NAME: "sf-platform-prod-artifact"
+      PREPROD_SECRET_NAME: "sf-platform-prod-preprod"
+      PREPROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-release-start' }}
+      STAGE_NAME: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
+      REPO_NAME: ${{ github.event.repository.name }}
+
+    steps:
+      - name: Environment Varibales Debug
+        run: |
+          echo "DEBUG: PREPROD_DEPLOYMENT_STEP=${{ env.PREPROD_DEPLOYMENT_STEP }}"
+          echo "DEBUG: STAGE_NAME=${{ env.STAGE_NAME }}"
+          echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
+
+      - name: Link SGD plugin
+        run: |
+          cd /opt/harness-delegate/.local/share/sf
+          sf plugins:link node_modules/sfdx-git-delta/bin
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
+
+      - name: "Retrieve GSM Credentials"
+        id: secrets
+        uses: "google-github-actions/get-secretmanager-secrets@v1"
+        with:
+          secrets: |-
+            preprod:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PREPROD_SECRET_NAME }}/versions/latest
+            artifactory:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+
+      - name: Add Genral Secrets to ENV
+        run: |
+          echo CLEANING_JOB="false" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+          lastTag="$( git describe --abbrev=0 --tags --match master* )"
+          echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
+
+      - name: Run ${{ matrix.config.DEPLOYMENT_TITLE }}
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
+          echo CLEANING_JOB="true" >> $GITHUB_ENV
+
+      - name: Cleaning
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
+
+  cleaning:
+    name: "cleaning"
+    runs-on: anzx-default
+    needs: [preprod-deployment]
+    if: failure() || always()
+    steps:
+      - name: Cleanup build artifacts
+        id: cleanup
+        run: |
+          if [ -d "${{ github.workspace }}/preprod-deployment" ]; then
+            rm -rf "${{ github.workspace }}/preprod-deployment"
+          fi
