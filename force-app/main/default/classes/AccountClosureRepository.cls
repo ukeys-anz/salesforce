@@ -205,7 +205,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND Status != 'Closed'
+        AND Status != :GetHelpConstants.CLOSED_STATUS
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
     ];

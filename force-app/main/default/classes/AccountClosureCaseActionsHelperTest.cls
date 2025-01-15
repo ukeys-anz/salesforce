@@ -25,7 +25,7 @@ public with sharing class AccountClosureCaseActionsHelperTest {
     Test.startTest();
     List<Case> newParentCaseRecords = AccountClosureCaseActionsHelper.setFieldsForNewParentCase(
       childRecords,
-      null
+      new Map<Id, Case>()
     );
     Test.stopTest();
 

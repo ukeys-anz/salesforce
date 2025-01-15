@@ -265,12 +265,9 @@ public with sharing class AccountClosureCaseActions {
   private static List<Case> getAccountClosureCasesWithoutParent(
     List<Case> records
   ) {
-    return ListUtil.filter(
-        ListUtil.filter(records)
-          .equals(case.RecordTypeId, RTCase.accountClosure)
-          .toList()
-      )
-      .equals(Case.ParentId, null)
+    return ListUtil.filter(records)
+      .equals(case.RecordTypeId, RTCase.accountClosure)
+      .isNull(Case.ParentId)
       .toList();
   }
 
@@ -278,11 +275,8 @@ public with sharing class AccountClosureCaseActions {
   private static List<Case> getCaseGroupRecordTypeForAccountClosure(
     List<Case> records
   ) {
-    return ListUtil.filter(
-        ListUtil.filter(records)
-          .equals(case.RecordTypeId, RTCase.caseGroup)
-          .toList()
-      )
+    return ListUtil.filter(records)
+      .equals(case.RecordTypeId, RTCase.caseGroup)
       .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
       .toList();
   }
