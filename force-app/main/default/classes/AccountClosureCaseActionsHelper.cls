@@ -23,8 +23,6 @@ public with sharing class AccountClosureCaseActionsHelper {
     List<Case> newCaseGroupList = new List<Case>();
     for (Case closureCase : cases) {
       if (
-        (accountIdToExistingParentCaseMap == null) ||
-        accountIdToExistingParentCaseMap != null &&
         !accountIdToExistingParentCaseMap.containsKey(closureCase.AccountId)
       ) {
         Case newCaseGroup = new Case();
@@ -165,22 +163,15 @@ public with sharing class AccountClosureCaseActionsHelper {
     List<Case> parentCasestoUpdate = new List<Case>();
 
     for (Id parentId : parentCaseIds) {
-      Boolean initiateFlag = false;
-      Boolean closeFlag = false;
-
-      if (parentIdsForInitiatingClosure.contains(parentId)) {
-        initiateFlag = true;
-      }
-
-      if (parentIdsForAccountClosure.contains(parentId)) {
-        closeFlag = true;
-      }
-
       parentCasestoUpdate.add(
         new Case(
           Id = parentId,
-          Show_Initiate_Account_Closure__c = initiateFlag,
-          Show_Account_Closure__c = closeFlag
+          Show_Initiate_Account_Closure__c = parentIdsForInitiatingClosure.contains(
+            parentId
+          ),
+          Show_Account_Closure__c = parentIdsForAccountClosure.contains(
+            parentId
+          )
         )
       );
     }
