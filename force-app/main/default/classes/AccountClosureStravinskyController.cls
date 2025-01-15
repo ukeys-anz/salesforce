@@ -69,7 +69,10 @@ public with sharing class AccountClosureStravinskyController {
       List<Case> caseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryCaseToUpdateStatusAsClosed(
         caseIds
       );
-      DML_REPOSITORY.doUpdate(setStatusToClosed(caseRecords));
+      DML_REPOSITORY.doUpdate(
+        setStatusToClosed(caseRecords),
+        new DmlConfig().allowPartial()
+      );
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
