@@ -66,7 +66,7 @@ public with sharing class AccountClosureWizardControllerHelper {
     caseObj.Closure_Reason__c = caseInput.closureReason;
     caseObj.Account_Type__c = caseInput.accountType;
     caseObj.AccountId = caseInput.accountId;
-    caseObj.FinServ__FinancialAccount__c = caseInput.finiancialAccountId;
+    caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
     caseObj.ProductId = caseInput.productId; // lookup to product table
     caseObj.RecordTypeId = RTCase.accountClosure;
   }
@@ -89,37 +89,109 @@ public with sharing class AccountClosureWizardControllerHelper {
 
   /**
    * @description Extracts the Account Ids from the Case records
-   * @param fabricAccounts list of financial account records
-   * @param dbAccounts map of financial account Ids to query
+   * @param listOfFinAccounts list of financial account records
+   * @param financialAccountsByIdMap map of financial account Ids to query
    * @return List<FinancialAccountsResponse> list of Financial Account response
    */
 
   public static List<FinancialAccountsResponse> prepareFinancialAccountsResponse(
-    List<FinServ__FinancialAccount__c> fabricAccounts,
-    Map<Id, FinServ__FinancialAccount__c> dbAccounts
+    List<FinServ__FinancialAccount__c> listOfFinAccounts,
+    Map<Id, FinServ__FinancialAccount__c> financialAccountsByIdMap
   ) {
     List<FinancialAccountsResponse> listOfFinancialAccountResponse = new List<FinancialAccountsResponse>();
-    for (FinServ__FinancialAccount__c eachAccount : fabricAccounts) {
-      if (dbAccounts.containsKey(eachAccount.Id)) {
-        FinServ__FinancialAccount__c dbAcc = dbAccounts.get(eachAccount.Id);
 
+    for (FinServ__FinancialAccount__c eachAccount : listOfFinAccounts) {
+      if (financialAccountsByIdMap.containsKey(eachAccount.Id)) {
+        FinServ__FinancialAccount__c finAccount = financialAccountsByIdMap.get(
+          eachAccount.Id
+        );
         // Use the Builder pattern to create the FinancialAccountsResponse object
         FinancialAccountsResponse response = new FinancialAccountsResponse.Builder()
-          .setId(dbAcc.Id)
-          .setAccountNumber(dbAcc.FinServ__FinancialAccountNumber__c)
-          .setProductName(dbAcc.FinServ__ProductName__r.Name)
-          .setProductId(dbAcc.FinServ__ProductName__c) // Product Id (lookup field)
-          .setBalance(dbAcc.FinServ__Balance__c)
-          .setOwnership(dbAcc.FinServ__Ownership__c)
-          .setMarketingCode(dbAcc.Marketing_Code__c)
-          .setStatus(dbAcc.FinServ__Status__c)
-          .setRecodTypeName(dbAcc.RecordType.DeveloperName)
+          .setId(finAccount.Id)
+          .setAccountNumber(finAccount.FinServ__FinancialAccountNumber__c)
+          .setProductName(finAccount.FinServ__ProductName__r.Name)
+          .setProductId(finAccount.FinServ__ProductName__c) // Product Id (lookup field)
+          .setBalance(finAccount.FinServ__Balance__c)
+          .setOwnership(finAccount.FinServ__Ownership__c)
+          .setStatus(finAccount.FinServ__Status__c)
+          .setMarketingCode(finAccount.Marketing_Code__c)
+          .setRecodTypeName(finAccount.RecordType.DeveloperName)
+          .setSigningAuthority(finAccount.Number_Of_Signatures__c)
           .build();
-
         // Add the response to the list
         listOfFinancialAccountResponse.add(response);
       }
     }
     return listOfFinancialAccountResponse;
+  }
+
+  /**
+   * @description Includes product name into the case response
+   * @param caseInputs List of case inputs from UI form
+   * @param listOfCases List of cases created/updated
+   */
+
+  public static void addProductNamesToCases(
+    List<caseInput> caseInputs,
+    List<Case> listOfCases
+  ) {
+    if (caseInputs.isEmpty() || listOfCases.isEmpty()) {
+      return;
+    }
+
+    Map<Id, String> financialAccountToProductNameMap = new Map<Id, String>();
+    for (CaseInput caseInput : caseInputs) {
+      if (caseInput.financialAccountId != null) {
+        financialAccountToProductNameMap.put(
+          caseInput.financialAccountId,
+          caseInput.productName
+        );
+      }
+    }
+
+    for (Case caseRecord : listOfCases) {
+      if (
+        caseRecord.FinServ__FinancialAccount__c != null &&
+        financialAccountToProductNameMap.containsKey(
+          caseRecord.FinServ__FinancialAccount__c
+        )
+      ) {
+        caseRecord.put(
+          'Product__c',
+          financialAccountToProductNameMap.get(
+            caseRecord.FinServ__FinancialAccount__c
+          )
+        );
+      }
+    }
+  }
+
+  /**
+   * @description process fin accounts in order to prepare response
+   * @param listOfFinAccounts List of case inputs from UI form
+   * @return List<FinancialAccountsResponse> list of Financial Account response
+   */
+  public static List<FinancialAccountsResponse> processAccounts(
+    List<FinServ__FinancialAccount__c> listOfFinAccounts
+  ) {
+    // Common logic here (Steps 2-4)
+    //Step 2: Identify the accounts with child cases
+    Set<Id> accountIds = ListUtil.getIds(
+      listOfFinAccounts,
+      FinServ__FinancialAccount__c.Id
+    );
+    Set<Id> accountsWithCases = AccountClosureWizardControllerHelper.getAccountsWithChildCases(
+      accountIds
+    );
+    //Step 3: Remove accounts that already have cases linked to them
+    accountIds.removeAll(accountsWithCases);
+    Map<Id, FinServ__FinancialAccount__c> financialAccountMap = ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(
+      accountIds
+    );
+    //Step 4: Prepare response for UI
+    return AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
+      listOfFinAccounts,
+      financialAccountMap
+    );
   }
 }
