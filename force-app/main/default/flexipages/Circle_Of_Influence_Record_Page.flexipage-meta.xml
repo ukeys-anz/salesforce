@@ -12,6 +12,9 @@
                         <valueListItems>
                             <value>Circle_Of_Influence__c.Log_Interaction</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>Circle_Of_Influence__c.Add_Edit_Address</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
