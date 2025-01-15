@@ -161,7 +161,7 @@ public with sharing class AccountClosureWizardControllerTest {
     caseInput.accountId = FAKER_ACCOUNT_ID;
     caseInput.accountType = 'Individual';
     caseInput.productName = 'Business One';
-    caseInput.finiancialAccountId = 'a0FAD00000229qr2AA';
+    caseInput.financialAccountId = 'a0FAD00000229qr2AA';
     caseInput.productId = '01t2P000000GKT0QAO';
 
     // Add to the list
