@@ -95,9 +95,8 @@ export default class AccountClosureButton extends LightningElement {
       this.updateResponseData();
       await this.updateCaseStatusToClosed(this.successfulCases);
     } catch (error) {
-      this.handleError(error);
-    } finally {
       this.loading = false;
+      this.handleError(error);
     }
   }
 
@@ -117,6 +116,7 @@ export default class AccountClosureButton extends LightningElement {
   }
 
   updateResponseData() {
+    this.loading = false;
     if (this.successfulCases.length > 0) {
       this.isAccountClosedSuccess = "success";
       this.responseDataSuccess = this.generateResponseData(
