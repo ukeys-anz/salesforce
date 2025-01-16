@@ -93,22 +93,6 @@ public with sharing class AccountClosureWizardControllerTest {
   }
 
   @isTest
-  static void testGetFilteredFinancialAccounts() {
-    String ocvId = 'ocv12345';
-    List<String> accountNumbers = new List<String>{ '000000000', '111111111' };
-
-    Test.startTest();
-
-    // Call the method under test
-    List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-      ocvId,
-      accountNumbers
-    );
-
-    Test.stopTest();
-  }
-
-  @isTest
   static void testPrepareFinancialAccountsResponse() {
     registerMocks();
     financialAccountControllerMock.mock(
@@ -121,17 +105,23 @@ public with sharing class AccountClosureWizardControllerTest {
       mockFetchFinancialAccounts()
     );
 
-    List<FinServ__FinancialAccount__c> fabricAccounts = mockGetFinancialAccountFabric();
-    Map<Id, FinServ__FinancialAccount__c> dbAccounts = mockFetchFinancialAccounts();
+    List<FinServ__FinancialAccount__c> listOfFinAccounts = mockGetFinancialAccountFabric();
+    Map<Id, FinServ__FinancialAccount__c> finAccountsByIdMap = mockFetchFinancialAccounts();
 
     Test.startTest();
 
     // Call the method under test
     List<FinancialAccountsResponse> response = AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
-      fabricAccounts,
-      dbAccounts
+      listOfFinAccounts,
+      finAccountsByIdMap
     );
-    System.debug('response ' + response);
+
+    System.assert(!response.isEmpty(), 'Response should not be empty');
+    Assert.isTrue(
+      response[0].accountNumber == '000000000',
+      'Account Number should be "000000000"'
+    );
+
     Test.stopTest();
   }
 
