@@ -425,14 +425,19 @@ public without sharing class IDRTaskActions {
     if (caseIDSet.isEmpty()) {
       return;
     }
-    List<CaseMilestone> cmsToUpdate = TASK_REPOSITORY.getMilestonesTobeCompleted(
-      caseIDSet
-    );
-
-    for (CaseMilestone cm : cmsToUpdate) {
-      cm.CompletionDate = System.now();
+    try {
+      List<CaseMilestone> cmsToUpdate = TASK_REPOSITORY.getMilestonesTobeCompleted(
+        caseIDSet
+      );
+      ListUtil.setField(
+        cmsToUpdate,
+        CaseMilestone.CompletionDate,
+        System.now()
+      );
+      DML_REPOSITORY.doUpdate(cmsToUpdate, new DmlConfig().systemMode());
+    } catch (Exception e) {
+      Logger.error('Error occured while updating Milestones', e).save();
     }
-    DML_REPOSITORY.doUpdate(cmsToUpdate,new DmlConfig().systemMode());
   }
 
   /**
@@ -675,15 +680,19 @@ public without sharing class IDRTaskActions {
    * @param cases Set of case Ids
    */
   public static void closeMaxTimeFrameTasks(Set<Id> cases) {
-      List<Task> tasksToClose = TASK_REPOSITORY.getTasksTobeCompleted(
-        cases
+    try {
+      List<Task> tasksToClose = TASK_REPOSITORY.getTasksTobeCompleted(cases);
+      ListUtil.setField(
+        tasksToClose,
+        Task.Status,
+        IDRConstants.TASK_STATUS_COMPLETED
       );
-      for (Task task : tasksToClose) {
-        task.Status = IDRConstants.TASK_STATUS_COMPLETED;
-      }
-        DML_REPOSITORY.doUpdate(tasksToClose);
-      }
-  
+      DML_REPOSITORY.doUpdate(tasksToClose);
+    } catch (Exception ex) {
+      Logger.error('Error occured while updating tasks', ex).save();
+    }
+  }
+
   /**
    * @description method to insert collection tasks and handle errors
    * @param collectionTaskList List of collection tasks

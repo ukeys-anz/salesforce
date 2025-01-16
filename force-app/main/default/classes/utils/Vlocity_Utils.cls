@@ -4,10 +4,6 @@
  * @description  To get the customer information  and account numbers on OCV search
  */
 global with sharing class Vlocity_Utils implements Callable {
-  private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
-    ComplaintsRepository.class
-  );
-
   /**
    * @param methodName The method passed from Integration procedure
    * @param input The input from the Integration procedure
@@ -30,12 +26,11 @@ global with sharing class Vlocity_Utils implements Callable {
       (new ComplaintResolutionActions())
         .deleteComplaintResolution(input, output, options);
     } else if ('createComplaintResolution'.equals(methodName)) {
-      createComplaintResolution(input, output, options);
-    } else if ('getLastModifiedDateOfField'.equals(methodName)) {
-      getLastModifiedDateOfField(input, output, options);
-    } else if ('getCurrentAppName'.equals(methodName)) {
-      getCurrentAppName(input, output, options);
+         createComplaintResolution(input, output, options);
     }
+        else if ('getLastModifiedDateOfField'.equals(methodName)){
+            getLastModifiedDateOfField(input, output, options);
+        }
     return true;
   }
 
@@ -93,30 +88,6 @@ global with sharing class Vlocity_Utils implements Callable {
   }
 
   /**
-   * @description To get Known Issues field values
-   * @param input The input from the Integration procedure
-   * @param output The output to be passed to Integration procedure
-   * @param options The additional parameters required
-   */
-  public void getCurrentAppName(
-    Map<String, Object> input,
-    Map<String, Object> output,
-    Map<String, Object> options
-  ) {
-    UserAppInfo userAppInfo = COMPLAINTS_REPOSITORY.getUserAppInfoForUser(
-      UserInfo.getUserId()
-    );
-    if (userAppInfo == null) {
-      return;
-    }
-    AppDefinition appDefinition = QueryAppDefinition.getByDurableId(
-      userAppInfo.AppDefinitionId
-    );
-
-    output.put('currentAppName', appDefinition.Label);
-  }
-
-  /**
    * @return boolean setting
    * @description to get custom setting value
    */
@@ -126,53 +97,55 @@ global with sharing class Vlocity_Utils implements Callable {
   }
 
   /**
-   * @description To create Complaint Resolution
-   * @param input The input from IP CR Ids
-   * @param output The output to be passed to Integration procedure
-   * @param options The additional parameters required
-   */
-  public static void createComplaintResolution(
-    Map<String, Object> input,
-    Map<String, Object> output,
-    Map<String, Object> options
-  ) {
-    List<Complaint_Resolution__c> crtocreate = new List<Complaint_Resolution__c>();
-    List<Object> complaintRes = (List<Object>) input.get('ComplaintResolution');
-    for (Object c : complaintRes) {
-      RemedyDependentValues remedyValues = (RemedyDependentValues) JSON.deserialize(
-        JSON.serialize(c),
-        RemedyDependentValues.class
+     * @description To create Complaint Resolution
+     * @param input The input from IP CR Ids
+     * @param output The output to be passed to Integration procedure
+     * @param options The additional parameters required
+     */
+    public static void createComplaintResolution(
+      Map<String, Object> input,
+      Map<String, Object> output,
+      Map<String, Object> options
+    ) {
+      List<Complaint_Resolution__c> crtocreate = new List<Complaint_Resolution__c>();
+      List<Object> complaintRes = (List<Object>) input.get(
+        'ComplaintResolution'
       );
-      if (remedyValues.remedy == null) {
-        continue;
+      for (Object c : complaintRes) {
+        RemedyDependentValues remedyValues = (RemedyDependentValues) JSON.deserialize(
+          JSON.serialize(c),
+          RemedyDependentValues.class
+        );
+        if (remedyValues.remedy == null) {
+          continue;
+        }
+        Complaint_Resolution__c cr1 = new Complaint_Resolution__c(
+          IDR_Complaint__c = (Id) input.get('ComplaintId'),
+          IDR_Complaint_Remedy__c = remedyValues.remedy,
+          IDR_Complaint_Sub_Remedy__c = remedyValues.subRemedy
+        );
+        if (remedyValues.durationOfRemedy != null) {
+          cr1.IDR_Duration_of_Remedy__c = remedyValues.durationOfRemedy;
+        }
+        if (remedyValues.otherRemedy != null) {
+          cr1.IDR_Other_Remedy_Provided__c = remedyValues.otherRemedy;
+        }
+        if (remedyValues.paymentProvided != null) {
+          cr1.IDR_Financial_Compensation__c = remedyValues.paymentProvided;
+        }
+        if (remedyValues.rewardPoints != null) {
+          cr1.IDR_Financial_Remedy_Points__c = remedyValues.rewardPoints;
+        }
+        if (remedyValues.detailsOfComplaint != null) {
+          cr1.IDR_Provided_details_to_Manufacturer__c = remedyValues.detailsOfComplaint;
+        }
+        if (remedyValues.id != null) {
+          cr1.Id = remedyValues.id;
+        }
+        crtocreate.add(cr1);
       }
-      Complaint_Resolution__c cr1 = new Complaint_Resolution__c(
-        IDR_Complaint__c = (Id) input.get('ComplaintId'),
-        IDR_Complaint_Remedy__c = remedyValues.remedy,
-        IDR_Complaint_Sub_Remedy__c = remedyValues.subRemedy
-      );
-      if (remedyValues.durationOfRemedy != null) {
-        cr1.IDR_Duration_of_Remedy__c = remedyValues.durationOfRemedy;
-      }
-      if (remedyValues.otherRemedy != null) {
-        cr1.IDR_Other_Remedy_Provided__c = remedyValues.otherRemedy;
-      }
-      if (remedyValues.paymentProvided != null) {
-        cr1.IDR_Financial_Compensation__c = remedyValues.paymentProvided;
-      }
-      if (remedyValues.rewardPoints != null) {
-        cr1.IDR_Financial_Remedy_Points__c = remedyValues.rewardPoints;
-      }
-      if (remedyValues.detailsOfComplaint != null) {
-        cr1.IDR_Provided_details_to_Manufacturer__c = remedyValues.detailsOfComplaint;
-      }
-      if (remedyValues.id != null) {
-        cr1.Id = remedyValues.id;
-      }
-      crtocreate.add(cr1);
-    }
-    if (!crtocreate.isEmpty()) {
-      (new ComplaintResolutionActions()).createResolutionrecords(crtocreate);
+      if (!crtocreate.isEmpty()) {
+        (new ComplaintResolutionActions()).createResolutionrecords(crtocreate);
     }
   }
 
@@ -208,60 +181,56 @@ global with sharing class Vlocity_Utils implements Callable {
         delete crtodel;
       }
     }
+      
+/**
+   * @description To create complaint resolution records
+   * @param crtocreate list of Complaint_Resolution__c records to create
+   */
+    public void createResolutionrecords(List<Complaint_Resolution__c> crtocreate){
+        List<Database.UpsertResult> results = new List<Database.UpsertResult>();
+        DMLUtil.upsertRecords(
+          crtocreate,
+          DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+          DMLUtil.SYSTEM_MODE
+        );
+      }
+    }
 
     /**
-     * @description To create complaint resolution records
-     * @param crtocreate list of Complaint_Resolution__c records to create
-     */
-    public void createResolutionrecords(
-      List<Complaint_Resolution__c> crtocreate
+    * @description To get the last modified date of a particular field for a particular Case.
+    * @param input The input from IP CR Ids
+    * @param output The output to be passed to Integration procedure
+    * @param options The additional parameters required
+    */
+    public void getLastModifiedDateOfField(
+        Map<String, Object> input,
+        Map<String, Object> output,
+        Map<String, Object> options
     ) {
-      DMLUtil.upsertRecords(
-        crtocreate,
-        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
-        DMLUtil.SYSTEM_MODE
-      );
+        String fieldName = String.ValueOf(input.get('FieldName'));
+        String caseId = String.ValueOf(input.get('recordId'));
+        output.put('lastModifiedDate' + fieldName, 0);
+        List<CaseHistory> historyList = [
+            SELECT CreatedDate
+            FROM CaseHistory
+            WHERE Field = :fieldName AND CaseId = :caseId
+            ORDER BY CreatedDate DESC
+            LIMIT 1
+        ];
+        List<Case> cseList = [SELECT CreatedDate FROM Case WHERE ID =: caseId];
+        DateTime lastModifiedDate;
+        DateTime now = DateTime.now();
+        if (!historyList.isEmpty()){
+          lastModifiedDate = historyList[0].CreatedDate;
+        }
+        else if (!cseList.isEmpty()){
+          lastModifiedDate = cseList[0].CreatedDate;
+        }
+        if(lastModifiedDate != null){
+          Integer daysSinceLastUpdate = now.date().daysBetween(lastModifiedDate.date());
+          output.put('lastModifiedDate' + fieldName, Math.abs(daysSinceLastUpdate) + ' Days'); 
+        }
     }
-  }
-
-  /**
-   * @description To get the last modified date of a particular field for a particular Case.
-   * @param input The input from IP CR Ids
-   * @param output The output to be passed to Integration procedure
-   * @param options The additional parameters required
-   */
-  public void getLastModifiedDateOfField(
-    Map<String, Object> input,
-    Map<String, Object> output,
-    Map<String, Object> options
-  ) {
-    String fieldName = String.ValueOf(input.get('FieldName'));
-    String caseId = String.ValueOf(input.get('recordId'));
-    output.put('lastModifiedDate' + fieldName, 0);
-    List<CaseHistory> historyList = [
-      SELECT CreatedDate
-      FROM CaseHistory
-      WHERE Field = :fieldName AND CaseId = :caseId
-      ORDER BY CreatedDate DESC
-      LIMIT 1
-    ];
-    List<Case> cseList = [SELECT CreatedDate FROM Case WHERE ID = :caseId];
-    DateTime lastModifiedDate;
-    DateTime now = DateTime.now();
-    if (!historyList.isEmpty()) {
-      lastModifiedDate = historyList[0].CreatedDate;
-    } else if (!cseList.isEmpty()) {
-      lastModifiedDate = cseList[0].CreatedDate;
-    }
-    if (lastModifiedDate != null) {
-      Integer daysSinceLastUpdate = now.date()
-        .daysBetween(lastModifiedDate.date());
-      output.put(
-        'lastModifiedDate' + fieldName,
-        Math.abs(daysSinceLastUpdate) + ' Days'
-      );
-    }
-  }
   /**
    * @description To deserialize the input from IP.
    */

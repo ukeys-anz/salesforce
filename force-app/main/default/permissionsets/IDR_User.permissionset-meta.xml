@@ -17,6 +17,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>omnistudio__ComponentController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>IDRFilesRelatedListController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -115,7 +119,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Case.Disable_CMOS_Omni__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -375,6 +379,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Completed_Evaluations__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Case.IDR_Correspondence_Reviewed_Formula__c</field>
         <readable>true</readable>
@@ -407,6 +416,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.IDR_Description_of_Outcome_Offered__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.IDR_Date_time_Progressed_Status_selected__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

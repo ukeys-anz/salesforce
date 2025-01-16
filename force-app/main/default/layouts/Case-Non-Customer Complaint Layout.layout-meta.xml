@@ -22,22 +22,6 @@
                 <behavior>Readonly</behavior>
                 <field>IDR_Express_CMOS_Complaint__c</field>
             </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Date_Case_allocated_to_CM__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Previous_Case_Owner__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>IDR_Complaint_Outcome_Offered__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>Show_Resolution_Launcher__c</field>
-            </layoutItems>
         </layoutColumns>
         <layoutColumns>
             <layoutItems>
@@ -214,6 +198,10 @@
             <layoutItems>
                 <behavior>Edit</behavior>
                 <field>IDR_Avoidable_Escalation__c</field>
+            </layoutItems>
+            <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>IDR_Completed_Evaluations__c</field>
             </layoutItems>
         </layoutColumns>
         <layoutColumns>
@@ -844,12 +832,11 @@
     <relatedLists>
         <excludeButtons>New</excludeButtons>
         <fields>Name</fields>
-        <fields>AssessmentRating</fields>
         <fields>AssessmentStatus</fields>
-        <fields>EffectiveDateTime</fields>
-        <fields>ExpirationDateTime</fields>
+        <fields>CreatedDate</fields>
+        <fields>Owner</fields>
         <relatedList>Assessments</relatedList>
-        <sortField>EffectiveDateTime</sortField>
+        <sortField>CreatedDate</sortField>
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>

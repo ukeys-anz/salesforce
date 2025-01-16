@@ -64,6 +64,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
         "The Status must be set to 'Escalated' if either Compliance Checks are selected as 'YES'";
     } else if (!this.checkIsvalidCustomer()) {
       this.modalMsg = "Customer number is not valid or has not been validated";
+    } else if (this.checkIfOCVDown()) {
+      this.modalMsg = "Customer Data not Found";
     } else if (
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
@@ -184,5 +186,15 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       return false;
     }
     return true;
+  }
+  checkIfOCVDown() {
+    if (
+      this.omniJsonData.Response.isOCVDown === "Yes" &&
+      this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
+      !this.omniJsonData.isEligibleAppForLookUp
+    ) {
+      return true;
+    }
+    return false;
   }
 }

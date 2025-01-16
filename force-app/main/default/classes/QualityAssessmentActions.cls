@@ -50,6 +50,10 @@ public with sharing class QualityAssessmentActions {
     IDRConstants.idrtCQQualityAssessment
   };
 
+  static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
   /**
    * @description method to determine if a Case is a Dispute case, not CMOS case, if Dispute case, add this case to qaQualifiedCases List
    * @param record case record to determine
@@ -110,11 +114,14 @@ public with sharing class QualityAssessmentActions {
       qaRecordsWithRelatedCase
     );
 
-    SystemModeActions actions = new SystemModeActions(
-      'QualityAssessmentActions',
-      'populateFields'
+    if (recordsToUpdate.isEmpty()) {
+      return;
+    }
+
+    DML.doUpdate(
+      recordsToUpdate,
+      new DmlConfig().allowPartial().withoutSharing()
     );
-    actions.updateRecords(recordsToUpdate, 'Quality_Assessment__c');
   }
 
   /**
@@ -126,18 +133,14 @@ public with sharing class QualityAssessmentActions {
   private static List<Quality_Assessment__c> assignRelatedCaseFieldsToQA(
     List<Quality_Assessment__c> qaRecordsWithRelatedCase
   ) {
-    if (
-      qaRecordsWithRelatedCase == null ||
-      qaRecordsWithRelatedCase.size() == 0
-    ) {
-      return null;
+    List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
+    if (qaRecordsWithRelatedCase.isEmpty()) {
+      return recordsToUpdate;
     }
 
     Map<Id, Quality_Assessment__c> qaMap = new Map<Id, Quality_Assessment__c>(
       qaRecordsWithRelatedCase
     );
-
-    List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
 
     if (Quality_Assessment__c.SObjectType.getDescribe().isAccessible()) {
       List<Quality_Assessment__c> recordsWithcaseDetails = getRelatedCaseDetailsForQARecords(

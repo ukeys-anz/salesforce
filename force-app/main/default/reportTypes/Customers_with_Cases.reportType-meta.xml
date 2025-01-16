@@ -1032,7 +1032,7 @@
         </columns>
         <masterLabel>Accounts</masterLabel>
     </sections>
-    <sections>
+    <sections> --&gt;
         <columns>
             <checkedByDefault>false</checkedByDefault>
             <field>Id</field>

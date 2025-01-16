@@ -895,6 +895,7 @@
         "Date_Closed__c",
         "Previous_Case_Owner__c",
         "Date_Case_allocated_to_CM__c",
+        "IDR_Date_Case_on_Hold_From__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
