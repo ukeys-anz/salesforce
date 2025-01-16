@@ -3,10 +3,23 @@ name: Preprod Pipeline
 on:
   workflow_dispatch:
     inputs:
+      JOB:
+        description: "Deploy Artifact/Destructive to Preprod"
+        required: true
+        default: "artifact"
+        type: choice
+        option:
+          - "artifact"
+          - "destructive"
       NAME:
         description: "Preprod Deployment Name"
         required: true
         type: string
+      SKIP_DESTRUCTIVE:
+        description: "Skip Destructive Changes"
+        required: true
+        default: false
+        type: boolean
 
 permissions:
   contents: "write"
@@ -21,7 +34,7 @@ jobs:
         - ${{ github.workspace }}/preprod-deployment:/opt/harness-delegate/preprod-deployment
     runs-on: anzx-default
     concurrency:
-      group: "salesforce-preprod-deployment-${{ github.event.inputs.NAME }}"
+      group: "salesforce-preprod-deployment-${{ github.event.inputs.NAME }}-${{ github.event.inputs.JOB }}"
       cancel-in-progress: false
     strategy:
       max-parallel: 1
@@ -33,19 +46,20 @@ jobs:
 
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
     env:
+      WHICH_JOB: "${{ github.event.inputs.JOB }}"
       PIPELINE_NAME: "${{ github.event.inputs.NAME }}"
       ARTIFACTORY_SECRET_NAME: "sf-platform-prod-artifact"
       PREPROD_SECRET_NAME: "sf-platform-prod-preprod"
-      PREPROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-release-start' }}
-      STAGE_NAME: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}
       REPO_NAME: ${{ github.event.repository.name }}
+      SKIP_DESTRUCTIVE_CHANGES: "${{ github.event.inputs.SKIP_DESTRUCTIVE }}"
 
     steps:
       - name: Environment Varibales Debug
         run: |
-          echo "DEBUG: PREPROD_DEPLOYMENT_STEP=${{ env.PREPROD_DEPLOYMENT_STEP }}"
-          echo "DEBUG: STAGE_NAME=${{ env.STAGE_NAME }}"
+          echo "DEBUG: WHICH_JOB=${{ env.WHICH_JOB }}"
           echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
+          echo "DEBUG: PIPELINE_NAME=${{ env.PIPELINE_NAME }}"
+          echo "DEBUG: SKIP_DESTRUCTIVE_CHANGES=${{ env.SKIP_DESTRUCTIVE_CHANGES }}"
 
       - name: Link SGD plugin
         run: |
@@ -78,7 +92,7 @@ jobs:
           lastTag="$( git describe --abbrev=0 --tags --match master* )"
           echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
 
-      - name: Run ${{ matrix.config.DEPLOYMENT_TITLE }}
+      - name: Run "${{ matrix.config.DEPLOYMENT_TITLE }}" | "${{ env.WHICH_JOB }}"
         run: |
           node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
           echo CLEANING_JOB="true" >> $GITHUB_ENV

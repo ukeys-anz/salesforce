@@ -128,6 +128,16 @@ const canSkipTest = (artifactPath, baseRef) => {
 const salesforceForceAppChangesExist = (artifactPath) =>
   folderExist(artifactPath + "/force-app");
 
+const destructivePackageChangesExist = (artifactPath) =>
+  folderExist(artifactPath + "/unpackaged/unpackaged/package.xml");
+
+const moveDestructiveFolderToForceApp = (destructiveFolderpath) => {
+  console.log(`move ${destructiveFolderpath} to force-app`);
+  execSync(`
+    mv ${destructiveFolderpath} force-app
+  `);
+};
+
 // This will check if there is any salesforce diff on artifact folder or not.
 const salesforceDiffExist = (artifactPath) => {
   return (
@@ -454,6 +464,9 @@ export {
   runSfCommand,
   printContextFromFile,
   salesforceDiffExist,
+  salesforceForceAppChangesExist,
+  destructivePackageChangesExist,
+  moveDestructiveFolderToForceApp,
   findAllSpecifiedTests,
   currentDate,
   renameFile,
