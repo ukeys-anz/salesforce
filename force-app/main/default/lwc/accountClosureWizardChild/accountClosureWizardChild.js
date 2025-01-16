@@ -164,7 +164,7 @@ export default class AccountClosureWizardChild extends LightningElement {
       this._selectedRows = validRows;
       return;
     }
-    this.createCasesInApex(validRows);
+    this.createChildCases(validRows);
     this.dispatchEvent(new CustomEvent("errorvisibilty"));
   }
 
@@ -193,7 +193,7 @@ export default class AccountClosureWizardChild extends LightningElement {
   }
 
   // Method to call Apex and create cases
-  async createCasesInApex(validRows) {
+  async createChildCases(validRows) {
     // Map the valid rows to the format expected by the Apex method (CaseData format)
     this.loading = true;
     const caseDataList = validRows.map((row) => ({

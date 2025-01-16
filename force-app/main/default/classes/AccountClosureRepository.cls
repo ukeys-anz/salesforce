@@ -250,28 +250,26 @@ public with sharing class AccountClosureRepository {
   /**
    * @description Extracts map of account Ids and financial account records
    * @param accountIds set of account Ids to query
-   * @return Map<Id, FinServ__FinancialAccount__c> map of account Ids and financial account records
+   * @return List<FinServ__FinancialAccount__c> list of financial account records
    */
-  public Map<Id, FinServ__FinancialAccount__c> fetchFinancialAccounts(
+  public List<FinServ__FinancialAccount__c> fetchFinancialAccounts(
     Set<Id> accountIds
   ) {
-    return new Map<Id, FinServ__FinancialAccount__c>(
-      [
-        SELECT
-          Id,
-          FinServ__FinancialAccountNumber__c,
-          FinServ__ProductName__r.Name,
-          FinServ__ProductName__c,
-          FinServ__Balance__c,
-          FinServ__Ownership__c,
-          FinServ__Status__c,
-          Marketing_Code__c,
-          Number_Of_Signatures__c,
-          RecordType.DeveloperName
-        FROM FinServ__FinancialAccount__c
-        WHERE Id IN :accountIds
-      ]
-    );
+    return [
+      SELECT
+        Id,
+        FinServ__FinancialAccountNumber__c,
+        FinServ__ProductName__r.Name,
+        FinServ__ProductName__c,
+        FinServ__Balance__c,
+        FinServ__Ownership__c,
+        FinServ__Status__c,
+        Marketing_Code__c,
+        Number_Of_Signatures__c,
+        RecordType.DeveloperName
+      FROM FinServ__FinancialAccount__c
+      WHERE Id IN :accountIds
+    ];
   }
 
   /**

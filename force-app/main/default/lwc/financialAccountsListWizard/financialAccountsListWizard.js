@@ -22,15 +22,16 @@ export default class FinancialAccountsListWizard extends LightningElement {
   @api recordId;
   @track finAccData = [];
   @track selectedRows = [];
-  loading = false;
-  customerOcvId;
-  accountId;
   accountDetails = [];
+  loading = false;
   hasFetchedAccounts = false;
   columns = columns;
   showCheckbox = false;
   isCasesCreated = false;
   hasError = false;
+  customerOcvId;
+  accountId;
+  errorMsg;
   ownershipMap = {
     Single: { displayValue: "Sole", apiValue: "Individual" },
     "Multi-party": { displayValue: "Joint", apiValue: "Joint" }
@@ -38,14 +39,18 @@ export default class FinancialAccountsListWizard extends LightningElement {
 
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data }) {
-    if (data && !this.hasFetchedAccounts) {
-      this.customerOcvId =
-        data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
-      this.accountId = data.fields?.AccountId?.value;
-      if (this.customerOcvId) {
-        this.hasFetchedAccounts = true;
-        this.getFinancialAccount();
+    try {
+      if (data && !this.hasFetchedAccounts) {
+        this.customerOcvId =
+          data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
+        this.accountId = data.fields?.AccountId?.value;
+        if (this.customerOcvId) {
+          this.hasFetchedAccounts = true;
+          this.getFinancialAccount();
+        }
       }
+    } catch (error) {
+      this.handleError(error);
     }
   }
 
@@ -128,10 +133,18 @@ export default class FinancialAccountsListWizard extends LightningElement {
   handleCasesCreated() {
     this.isCasesCreated = true;
   }
+
   handleErrorVisibilty() {
     this.hasError = false;
   }
+
   handleCancelAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
+  }
+
+  handleError() {
+    this.hasError = true;
+    this.errorMsg =
+      "Please try again. Raise a fault through TechAssist if the problem persists.";
   }
 }

@@ -18,38 +18,36 @@ public with sharing class AccountClosureWizardControllerHelper {
    * @param listOfExistingDummyCases List of Cases
    * @return Set<Id>
    */
-
-  public static Set<Id> processCases(
+  public static Set<Id> processAndMapCasesFromInput(
     List<CaseInput> inputs,
     List<Case> listOfExistingDummyCases
   ) {
     List<Case> casesToUpdate = new List<Case>();
     List<Case> casesToInsert = new List<Case>();
-    List<Case> masterList = new List<Case>();
     Set<Id> setOfCaseIds = new Set<Id>();
-    Integer index = 0;
-    for (CaseInput input : inputs) {
-      if (index < listOfExistingDummyCases.size()) {
-        Case existingCase = listOfExistingDummyCases[index];
+
+    for (Integer i = 0; i < inputs.size(); i++) {
+      CaseInput input = inputs[i];
+      if (i < listOfExistingDummyCases.size()) {
+        Case existingCase = listOfExistingDummyCases[i];
         mapCaseFields(existingCase, input);
         casesToUpdate.add(existingCase);
-        index++;
       } else {
-        // Create a new case if no existing case is available
         Case newCase = new Case();
         mapCaseFields(newCase, input);
         casesToInsert.add(newCase);
       }
     }
+
+    // Perform DML operations
     if (!casesToUpdate.isEmpty()) {
       DML_REPOSITORY.doUpdate(casesToUpdate);
+      setOfCaseIds.addAll(ListUtil.getIds(casesToUpdate, Case.Id));
     }
     if (!casesToInsert.isEmpty()) {
       DML_REPOSITORY.doInsert(casesToInsert);
+      setOfCaseIds.addAll(ListUtil.getIds(casesToInsert, Case.Id));
     }
-    masterList.addAll(casesToUpdate);
-    masterList.addAll(casesToInsert);
-    setOfCaseIds = ListUtil.getIds(masterList, Case.Id);
     return setOfCaseIds;
   }
 
@@ -90,37 +88,29 @@ public with sharing class AccountClosureWizardControllerHelper {
   /**
    * @description Extracts the Account Ids from the Case records
    * @param listOfFinAccounts list of financial account records
-   * @param financialAccountsByIdMap map of financial account Ids to query
    * @return List<FinancialAccountsResponse> list of Financial Account response
    */
 
   public static List<FinancialAccountsResponse> prepareFinancialAccountsResponse(
-    List<FinServ__FinancialAccount__c> listOfFinAccounts,
-    Map<Id, FinServ__FinancialAccount__c> financialAccountsByIdMap
+    List<FinServ__FinancialAccount__c> listOfFinAccounts
   ) {
     List<FinancialAccountsResponse> listOfFinancialAccountResponse = new List<FinancialAccountsResponse>();
-
     for (FinServ__FinancialAccount__c eachAccount : listOfFinAccounts) {
-      if (financialAccountsByIdMap.containsKey(eachAccount.Id)) {
-        FinServ__FinancialAccount__c finAccount = financialAccountsByIdMap.get(
-          eachAccount.Id
-        );
-        // Use the Builder pattern to create the FinancialAccountsResponse object
-        FinancialAccountsResponse response = new FinancialAccountsResponse.Builder()
-          .setId(finAccount.Id)
-          .setAccountNumber(finAccount.FinServ__FinancialAccountNumber__c)
-          .setProductName(finAccount.FinServ__ProductName__r.Name)
-          .setProductId(finAccount.FinServ__ProductName__c) // Product Id (lookup field)
-          .setBalance(finAccount.FinServ__Balance__c)
-          .setOwnership(finAccount.FinServ__Ownership__c)
-          .setStatus(finAccount.FinServ__Status__c)
-          .setMarketingCode(finAccount.Marketing_Code__c)
-          .setRecodTypeName(finAccount.RecordType.DeveloperName)
-          .setSigningAuthority(finAccount.Number_Of_Signatures__c)
-          .build();
-        // Add the response to the list
-        listOfFinancialAccountResponse.add(response);
-      }
+      // Use the Builder pattern to create the FinancialAccountsResponse object
+      FinancialAccountsResponse response = new FinancialAccountsResponse.Builder()
+        .setId(eachAccount.Id)
+        .setAccountNumber(eachAccount.FinServ__FinancialAccountNumber__c)
+        .setProductName(eachAccount.FinServ__ProductName__r.Name)
+        .setProductId(eachAccount.FinServ__ProductName__c) // Product Id (lookup field)
+        .setBalance(eachAccount.FinServ__Balance__c)
+        .setOwnership(eachAccount.FinServ__Ownership__c)
+        .setStatus(eachAccount.FinServ__Status__c)
+        .setMarketingCode(eachAccount.Marketing_Code__c)
+        .setSigningAuthority(eachAccount.Number_Of_Signatures__c)
+        .setRecodTypeName(eachAccount.RecordType.DeveloperName)
+        .build();
+      // Add the response to the list
+      listOfFinancialAccountResponse.add(response);
     }
     return listOfFinancialAccountResponse;
   }
@@ -185,13 +175,12 @@ public with sharing class AccountClosureWizardControllerHelper {
     );
     //Step 3: Remove accounts that already have cases linked to them
     accountIds.removeAll(accountsWithCases);
-    Map<Id, FinServ__FinancialAccount__c> financialAccountMap = ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(
+    List<FinServ__FinancialAccount__c> listOfFilteredFinAccounts = ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(
       accountIds
     );
     //Step 4: Prepare response for UI
     return AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
-      listOfFinAccounts,
-      financialAccountMap
+      listOfFilteredFinAccounts
     );
   }
 }

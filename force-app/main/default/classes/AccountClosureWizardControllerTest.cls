@@ -100,26 +100,21 @@ public with sharing class AccountClosureWizardControllerTest {
       mockGetFinancialAccountFabric()
     );
     accountClosureRepoMock.mock('fetchChildCases', mockListOfCases());
-    accountClosureRepoMock.mock(
-      'fetchFinancialAccounts',
-      mockFetchFinancialAccounts()
-    );
 
     List<FinServ__FinancialAccount__c> listOfFinAccounts = mockGetFinancialAccountFabric();
-    Map<Id, FinServ__FinancialAccount__c> finAccountsByIdMap = mockFetchFinancialAccounts();
 
     Test.startTest();
 
     // Call the method under test
     List<FinancialAccountsResponse> response = AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
-      listOfFinAccounts,
-      finAccountsByIdMap
+      listOfFinAccounts
     );
 
     System.assert(!response.isEmpty(), 'Response should not be empty');
+
     Assert.isTrue(
-      response[0].accountNumber == '000000000',
-      'Account Number should be "000000000"'
+      response[0].accountNumber == '111111111',
+      'Account Number should be "111111111"'
     );
 
     Test.stopTest();
@@ -180,26 +175,5 @@ public with sharing class AccountClosureWizardControllerTest {
     );
 
     return accounts;
-  }
-
-  // Mock fetchFinancialAccounts method
-  private static Map<Id, FinServ__FinancialAccount__c> mockFetchFinancialAccounts() {
-    Map<Id, FinServ__FinancialAccount__c> accountMap = new Map<Id, FinServ__FinancialAccount__c>();
-
-    // Mock data based on your expected output
-    accountMap.put(
-      'a0FAD000002THXN2A4',
-      new FinServ__FinancialAccount__c(
-        Id = 'a0FAD000002THXN2A4',
-        FinServ__FinancialAccountNumber__c = '000000000',
-        FinServ__ProductName__c = '01t2P000000GKT0QAO', // Product Id
-        FinServ__Balance__c = 18.9912,
-        FinServ__Ownership__c = 'Individual',
-        Marketing_Code__c = 'TRANSACT01',
-        FinServ__Status__c = 'Active',
-        RecordTypeId = '0125m0000004HmBAAU' // Example RecordTypeId
-      )
-    );
-    return accountMap;
   }
 }

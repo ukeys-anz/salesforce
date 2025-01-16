@@ -28,7 +28,7 @@ public with sharing class AccountClosureWizardController {
       parentCaseId
     );
     //Step 2: Process Cases (Create / Update)
-    Set<Id> caseIds = AccountClosureWizardControllerHelper.processCases(
+    Set<Id> caseIds = AccountClosureWizardControllerHelper.processAndMapCasesFromInput(
       caseInputs,
       listOfExistingDummyCases
     );
