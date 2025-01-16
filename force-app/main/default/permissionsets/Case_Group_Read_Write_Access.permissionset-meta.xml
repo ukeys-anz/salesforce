@@ -12,6 +12,10 @@
         <apexClass>AccountClosureStravinskyController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>AccountClosureErrorMetadata__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>This Permission set provides access to case group record type and the fields associated to it.</description>
     <fieldPermissions>
         <editable>false</editable>

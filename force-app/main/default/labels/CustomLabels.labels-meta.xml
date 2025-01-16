@@ -2284,6 +2284,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/aegis-portal/v1/coaches/disclosure-state</value>
     </labels>
     <labels>
+        <fullName>MS_Initiate_Account_Closure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Initiate_Account_Closure</shortDescription>
+        <value>callout:SF_MS_CH2/fabricData/v1/accountsClosureAssist</value>
+    </labels>
+    <labels>
         <fullName>MS_Update_Disclosure_Status</fullName>
         <language>en_US</language>
         <protected>false</protected>

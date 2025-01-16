@@ -412,6 +412,13 @@
       ],
       "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
+    "AccountClosureErrorMetadata__mdt":{
+      "IA-2468715": [ 
+        "Chatter_Post__c",
+        "Failure_Reason__c",
+        "Type__c"
+      ]
+    },
     "Access_Request__c": {
       "IA-2468715": [
         "Access_Type__c",
