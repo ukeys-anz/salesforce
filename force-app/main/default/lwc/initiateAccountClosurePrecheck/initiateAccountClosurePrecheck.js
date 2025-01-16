@@ -1,7 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import fetchEligibleCasesForPrecheck from "@salesforce/apex/AccountClosureController.fetchEligibleCasesForPrecheck";
 import initiateAccountClosurePrecheck from "@salesforce/apex/AccountClosureController.initiateAccountClosurePrecheck";
-
+import processResponsesAndUpdateCases from "@salesforce/apex/AccountClosureController.processResponsesAndUpdateCases";
 import { CloseActionScreenEvent } from "lightning/actions";
 
 const caseColumns = [
@@ -21,42 +21,95 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   eligibleChildCases = [];
   successfulCases = [];
   failureCases = [];
+  precheckResponse = [];
   responseDataSuccess = [];
   responseDataFailed = [];
-  loading = true;
+  loading = false;
+  eligibleCasesFound = false;
   isPrecheckSuccess = false;
   isPrecheckFailed = false;
   hasError = false;
   errorMsg;
+  batchSize = 20;
   @api recordId;
 
   get showSuccessIcon() {
-    return this.isPrecheckSuccess === true && this.isPrecheckFailed === false;
+    return this.isPrecheckSuccess && !this.isPrecheckFailed;
   }
 
   get showOnlyFailureText() {
-    return this.isPrecheckSuccess === false && this.isPrecheckFailed === true;
+    return !this.isPrecheckSuccess && this.isPrecheckFailed;
   }
 
   get showSuccessSection() {
-    return this.isPrecheckSuccess === true;
+    return this.isPrecheckSuccess;
   }
 
   get showFailureSection() {
-    return this.isPrecheckFailed === true;
+    return this.isPrecheckFailed;
   }
 
-  get isPrecheckDone() {
-    return this.isPrecheckSuccess === false && this.isPrecheckFailed === false;
+  get isPrecheckNotDone() {
+    return (
+      !this.isPrecheckSuccess &&
+      !this.isPrecheckFailed &&
+      this.eligibleCasesFound
+    );
+  }
+
+  get isEligibleCasesFound() {
+    return this.eligibleCasesFound;
   }
 
   @wire(fetchEligibleCasesForPrecheck, { parentCaseId: "$recordId" })
   getEligibleChildCasesForPrecheck({ data }) {
-    this.loading = true;
     try {
       if (data && data.length > 0) {
         this.eligibleChildCases = data;
         this.casesData = this.generateData(data);
+        this.eligibleCasesFound = true;
+      }
+    } catch (error) {
+      this.handleError();
+    }
+  }
+
+  async handleInitiateAccountClosure() {
+    this.loading = true;
+    try {
+      const childCasesBatches = this.createChildCaseBatches(
+        this.eligibleChildCases,
+        this.batchSize
+      );
+      const results = await Promise.allSettled(
+        childCasesBatches.map((batch) =>
+          initiateAccountClosurePrecheck({
+            parentCaseId: this.recordId,
+            eligibleCasesForPrecheck: batch
+          })
+            .then((response) => ({
+              status: "fulfilled",
+              caseDetails: batch,
+              result: response
+            }))
+            .catch((error) => ({
+              status: "rejected",
+              caseDetails: batch,
+              error: error.body ? error.body.message : error.message
+            }))
+        )
+      );
+
+      results.forEach((response) => {
+        if (response.status === "fulfilled") {
+          this.precheckResponse.push(response?.value?.result);
+        } else if (response.status === "rejected") {
+          this.handleRejectedResult(response.value.caseDetails);
+        }
+      });
+
+      if (this.precheckResponse.length > 0) {
+        await this.processPrecheckResponse(this.precheckResponse.flat());
       }
     } catch (error) {
       this.handleError();
@@ -65,19 +118,36 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
     }
   }
 
-  async handleInitiateAccountClosure() {
-    this.loading = true;
+  createChildCaseBatches(casesRecords, batchSize) {
+    const batches = [];
+    for (let i = 0; i < casesRecords.length; i += batchSize) {
+      batches.push(casesRecords.slice(i, i + batchSize));
+    }
+    return batches;
+  }
+
+  handleRejectedResult(caseDetails) {
+    caseDetails.forEach((record) => {
+      this.failedCases.push(record);
+    });
+  }
+
+  async processPrecheckResponse(records) {
     try {
       const childCasesDetailsPostPrecheck =
-        await initiateAccountClosurePrecheck({
-          parentCaseId: this.recordId,
+        await processResponsesAndUpdateCases({
+          fabricSealResponseList: records,
           eligibleCasesForPrecheck: this.eligibleChildCases
         });
-      this.segregatePrecheckResults(childCasesDetailsPostPrecheck);
+
+      if (
+        childCasesDetailsPostPrecheck &&
+        childCasesDetailsPostPrecheck.length > 0
+      ) {
+        this.segregatePrecheckResults(childCasesDetailsPostPrecheck);
+      }
     } catch (error) {
       this.handleError();
-    } finally {
-      this.loading = false;
     }
   }
 

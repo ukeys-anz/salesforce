@@ -12,10 +12,8 @@ public with sharing class AccountClosureMessageComposer {
   public static String composeRichTextMessage(
     List<AccountClosureErrorMetadata__mdt> actionsList
   ) {
-    String message = '';
-
     //Seperate constants and failure-specific actions
-
+    List<String> messageParts = new List<String>();
     List<String> constantMessages = new List<String>();
     Map<String, List<String>> reasonToActions = new Map<String, List<String>>();
     Map<String, String> reasonToActionLabelMap = new Map<String, String>();
@@ -34,23 +32,23 @@ public with sharing class AccountClosureMessageComposer {
       }
     }
 
-    //Add constant messages
-
-    for (String constant : constantMessages) {
-      message += constant + '\n\n';
-    }
+    //Add constant message
+    messageParts.addAll(constantMessages);
 
     //Add failure specific actions grouped by reason
-    for (String reason : reasonToActions.keySet()) {
-      message += reasonToActionLabelMap.get(reason) + '\n';
+    for (String reason : reasonToActions.keySet())
+      {
+        List<String> reasonMessageParts = new List<String>();
+        reasonMessageParts.add(reasonToActionLabelMap.get(reason));
 
-      for (String action : reasonToActions.get(reason)) {
-        message += '• ' + action.trim() + '\n';
+        for (String action : reasonToActions.get(reason))
+        {
+            reasonMessageParts.add('• ' + action.trim());
+        }
+
+        messageParts.add(String.join(reasonMessageParts, '\n'));
       }
 
-      message += '\n';
-    }
-
-    return message.trim();
+    return String.join(messageParts, '\n\n').trim();
   }
 }

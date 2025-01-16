@@ -19,7 +19,7 @@
                 <field>Failure_Reason__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Type__c</field>
             </layoutItems>
         </layoutColumns>
@@ -33,7 +33,7 @@
                 <field>NamespacePrefix</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Edit</behavior>
+                <behavior>Required</behavior>
                 <field>Chatter_Post__c</field>
             </layoutItems>
         </layoutColumns>

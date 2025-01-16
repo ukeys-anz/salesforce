@@ -8,7 +8,7 @@
 Check available balances on customer accounts
 Determine if funds are accrued interest or balance
 If amount is a balance and is &lt;$0 assign case to coach to request customer zero balances before closure can proceed
-If there is accrued interest or bonus interest, transfer the interest to ANZ Plus or ANZ Classic account provided or use Web Voucher process
+If there is accrued interest or bonus interest, transfer the interest to the ANZ Plus or ANZ Classic account details the customer has provided or use Web Voucher process if the customer has nominated an account with another financial institution
 Once balances are $0 re-initiate Account Closure</value>
     </values>
     <values>

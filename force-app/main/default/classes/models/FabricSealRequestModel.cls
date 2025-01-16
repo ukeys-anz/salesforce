@@ -29,6 +29,36 @@ public with sharing class FabricSealRequestModel {
         public String accountNumber;
         public String accountName;
         public String bsb;
+
+         /**
+         * @description Parametrised Constructor to initialize the value of the variables
+         * @param accountNumber
+         * @param accountName
+         * @param bsb
+         */
+        public ForwardingAccount(
+            String accountNumber,
+            String accountName,
+            String bsb
+        )
+        {
+            this.accountNumber = accountNumber;
+            this.accountName = accountName;
+            this.bsb = bsb;
+        }
+    }
+
+    /**
+     * @description Parametrised Constructor to initialize the value of the variables
+     * @param account
+     * @param salesforceCaseNumber
+     * @param forwardingAccount
+     */
+    public FabricSealRequestModel(String account,String salesforceCaseNumber,
+    ForwardingAccount forwardingAccount ) {
+        this.account = account;
+        this.salesforceCaseNumber = salesforceCaseNumber;
+        this.forwardingAccount = forwardingAccount;
     }
 
 
