@@ -48,7 +48,7 @@ public with sharing class CaseInput {
    * @description Finiancial Account Id for the Case
    */
   @AuraEnabled
-  public String finiancialAccountId { get; set; }
+  public String financialAccountId { get; set; }
   /**
    * @description Finiancial Account Id for the Case
    */

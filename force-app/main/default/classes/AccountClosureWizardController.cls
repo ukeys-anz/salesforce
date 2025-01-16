@@ -27,18 +27,20 @@ public with sharing class AccountClosureWizardController {
     List<Case> listOfExistingDummyCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfExistingDummyCases(
       parentCaseId
     );
-
-    //Step 2: Process cases (udpate existing, create new)
-    Set<Id> caseIds = AccountClosureWizardControllerHelper.processCases(
+    //Step 2: Process Cases (Create / Update)
+    Set<Id> caseIds = AccountClosureWizardControllerHelper.processAndMapCasesFromInput(
       caseInputs,
       listOfExistingDummyCases
     );
-
-    //Step 3: Fetch the inserted /updated with required fields cases and return result
-
-    return ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
+    //Step 3: Fetch and return updated/inserted cases
+    List<Case> listOfCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
       caseIds
     );
+    AccountClosureWizardControllerHelper.addProductNamesToCases(
+      caseInputs,
+      listOfCases
+    );
+    return listOfCases;
   }
 
   /**
@@ -54,33 +56,36 @@ public with sharing class AccountClosureWizardController {
     List<String> accountNumbers
   ) {
     //Step 1: Fetch financial accounts from fabric service
-    List<FinServ__FinancialAccount__c> listOfFabricAccounts = FinancialAccountController.getFinancialAccountFabric(
+    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountFabric(
       ocvId,
       accountNumbers
     );
-
-    //Step 2: Identify the accounts with child cases
-    Set<Id> accountIds = ListUtil.getIds(
-      listOfFabricAccounts,
-      FinServ__FinancialAccount__c.Id
+    //This method handles handles common logic for both db and fabric service fin accounts (Steps 2-4)
+    return AccountClosureWizardControllerHelper.processAccounts(
+      listOfFinAccounts
     );
+  }
 
-    Set<Id> accountsWithCases = AccountClosureWizardControllerHelper.getAccountsWithChildCases(
-      accountIds
+  /**
+   * @description The Financial Account component uses this to fetch the records to display.
+   * This makes the callout to fabric to fetch data
+   * @param ownerId the ocv id of the customer
+   * @param recordTypeDeveloperNames contains account numbers to provide as parameters for account filtering
+   * @return List<FinancialAccountsResponse>
+   */
+  @AuraEnabled
+  public static List<FinancialAccountsResponse> getFilteredFinancialAccountsDb(
+    Id ownerId,
+    List<String> recordTypeDeveloperNames
+  ) {
+    //Step 1: Fetch financial accounts from database
+    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountDB(
+      ownerId,
+      recordTypeDeveloperNames
     );
-
-    //Step 3: Remove accounts that already have cases
-    accountIds.removeAll(accountsWithCases);
-
-    //Step 4: Fetch account details
-    Map<Id, FinServ__FinancialAccount__c> financialAccountMap = ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(
-      accountIds
-    );
-
-    //Step 5: Prepare Response
-    return AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
-      listOfFabricAccounts,
-      financialAccountMap
+    //This method handles handles common logic for both db and fabric service fin accounts (Steps 2-4)
+    return AccountClosureWizardControllerHelper.processAccounts(
+      listOfFinAccounts
     );
   }
 }

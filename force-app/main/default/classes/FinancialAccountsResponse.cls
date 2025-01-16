@@ -49,6 +49,11 @@ public with sharing class FinancialAccountsResponse {
    */
   @AuraEnabled
   public String recodTypeName { get; set; }
+  @AuraEnabled
+  /**
+   * @description Signing Authority of FinancialAccount
+   */
+  public String signingAuthority { get; set; }
 
   // Private constructor to enforce the Builder pattern
   private FinancialAccountsResponse(Builder builder) {
@@ -61,6 +66,7 @@ public with sharing class FinancialAccountsResponse {
     this.marketingCode = builder.marketingCode;
     this.status = builder.status;
     this.recodTypeName = builder.recodTypeName;
+    this.signingAuthority = builder.signingAuthority;
   }
 
   /**
@@ -78,6 +84,7 @@ public with sharing class FinancialAccountsResponse {
     public String marketingCode;
     public String status;
     public String recodTypeName;
+    public String signingAuthority;
 
     /**
      * @description setter for fin account Id
@@ -158,6 +165,15 @@ public with sharing class FinancialAccountsResponse {
      */
     public Builder setRecodTypeName(String recodTypeName) {
       this.recodTypeName = recodTypeName;
+      return this;
+    }
+    /**
+     * @description setter for signing authority
+     * @param signingAuthority
+     * @return Builder
+     */
+    public Builder setSigningAuthority(String signingAuthority) {
+      this.signingAuthority = signingAuthority;
       return this;
     }
     /**

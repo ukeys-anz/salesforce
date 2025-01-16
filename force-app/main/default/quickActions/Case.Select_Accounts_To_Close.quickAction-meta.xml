@@ -2,7 +2,7 @@
 <QuickAction xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionSubtype>ScreenAction</actionSubtype>
     <label>Select Accounts To Close</label>
-    <lightningWebComponent>accountClosureWizard</lightningWebComponent>
+    <lightningWebComponent>financialAccountsListWizard</lightningWebComponent>
     <optionsCreateFeedItem>false</optionsCreateFeedItem>
     <type>LightningWebComponent</type>
 </QuickAction>
