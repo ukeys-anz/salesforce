@@ -19,7 +19,7 @@
               "eligibility": "ELIGIBILITY_ELIGIBLE"
           },
           "unclearedFunds": {
-              "eligibility": "ELIGIBILITY_INELIGIBLE"
+              "eligibility": "ELIGIBILITY_ELIGIBLE"
           },
           "nonzeroAvailableBalance": {
               "eligibility": "ELIGIBILITY_ELIGIBLE",
