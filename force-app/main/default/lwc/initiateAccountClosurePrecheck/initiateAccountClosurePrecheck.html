@@ -1,0 +1,145 @@
+<template>
+  <!--Header Part-->
+  <div class="slds-modal__header">
+    <h2 class="slds-text-heading_medium">
+      <strong>Initiate Account Closure</strong>
+    </h2>
+  </div>
+  <!--Error Handling Part-->
+  <template if:true={hasError}>
+    <div class="customPaddingForErrorMessage">
+      <c-error
+        custom-class-from-parent="slds-theme--error"
+        message={errorMsg}
+      ></c-error>
+    </div>
+  </template>
+  <!--Loading Icon Section-->
+  <template lwc:if={loading}>
+    <article
+      class="slds-card slds-var-m-around_xx-large slds-var-m-bottom_large"
+    >
+      <div class="slds-align_absolute-center">
+        <div role="status" class="slds-spinner_inline spinnerPadding">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="small"
+          ></lightning-spinner>
+        </div>
+      </div>
+      <div class="slds-align_absolute-center slds-text-heading_small">
+        Initiating account closures for all selected accounts is being
+        processed.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please
+        don't close this modal until it's complete.
+      </div>
+    </article>
+  </template>
+  <template lwc:else>
+    <template if:true={isEligibleCasesFound}>
+      <div class="slds-var-m-around_xx-large slds-var-m-bottom_large">
+        <!--Showing Initial Data Table Section If Precheck Button Not Clicked-->
+
+        <template if:true={isPrecheckNotDone}>
+          <div
+            class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            <b>Are you sure you want to initiate account closure?</b>
+          </div>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            This will start closing all selected accounts below and can't be
+            paused
+          </div>
+
+          <lightning-datatable
+            key-field="id"
+            data={casesData}
+            columns={caseColumns}
+            hide-checkbox-column="true"
+            data-id="datatable"
+          ></lightning-datatable>
+        </template>
+
+        <!--Showing Post Precheck Done Section-->
+        <template if:false={hasError}>
+          <template if:true={showSuccessSection}>
+            <template if:true={showSuccessIcon}>
+              <lightning-icon
+                class="slds-icon-utility-success slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+                icon-name="utility:success"
+                alternative-text="success"
+                variant="success"
+                size="large"
+                title="success"
+                data-id="success"
+              ></lightning-icon>
+            </template>
+            <div
+              class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+            >
+              Initiating account closure was successful for the following
+              accounts
+            </div>
+            <c-account-closure-records-table
+              records={responseDataSuccess}
+            ></c-account-closure-records-table>
+          </template>
+
+          <template if:true={showFailureSection}>
+            <lightning-icon
+              class="slds-icon-utility-warning slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+              icon-name="utility:warning"
+              alternative-text="warning"
+              variant="warning"
+              size="large"
+              title="warning"
+              data-id="failure"
+            ></lightning-icon>
+            <div
+              class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_medium"
+            >
+              <div lwc:if={showOnlyFailureText}>
+                <b>This customer's accounts are not eligible for closure</b>
+              </div>
+              <div lwc:else>
+                <b>There were some accounts not eligible for closure</b>
+              </div>
+            </div>
+            <div
+              class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+            >
+              Refer to chatter notes in each child case related to the account
+              for next steps.
+            </div>
+            <c-account-closure-records-table
+              records={responseDataFailed}
+            ></c-account-closure-records-table>
+          </template>
+        </template>
+      </div>
+    </template>
+    <!--Footer Part-->
+    <lightning-modal-footer class="slds-var-m-top_large">
+      <div>
+        <lightning-button
+          class="slds-button"
+          variant="neutral"
+          label="Cancel"
+          onclick={handleCancel}
+          data-id="cancel"
+        ></lightning-button>
+        <template if:true={isPrecheckNotDone}>
+          <lightning-button
+            class="slds-button"
+            variant="destructive"
+            label="Initiate Account Closure"
+            onclick={handleInitiateAccountClosure}
+            data-id="initiateprecheck"
+          ></lightning-button>
+        </template>
+      </div>
+    </lightning-modal-footer>
+  </template>
+</template>

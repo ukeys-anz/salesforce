@@ -59,11 +59,11 @@ public with sharing class AccountClosureRepository {
 
   /**
    * @description Queries all the related cases (child cases) to the parent case having status as Escalated or Escalated and Failure.
-   * @param parentCaseId set of Case Group ids(Parent Case) for which Owner has changed or status has changed.
+   * @param parentCaseIds Case Group Id(Parent Case) for which Support Coach want to initiate precheck
    * @return List<Case> List of child cases associated to the parent case.
    */
-  public List<Case> queryEligibleChildCaseRecords(Set<Id> parentCaseId) {
-    if (parentCaseId == null || !SObjectType.Case.isQueryable()) {
+  public List<Case> queryEligibleChildCaseRecords(Set<Id> parentCaseIds) {
+    if (parentCaseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
 
@@ -73,19 +73,22 @@ public with sharing class AccountClosureRepository {
         Account.OCV_ID__c,
         CaseNumber,
         ParentId,
+        Product.Name,
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
         Intended_Account_BSB__c,
         Intended_Account_Name__c,
         Intended_Account_Number__c,
         Sub_Status__c,
         Status,
-        Process_Status__c
+        Process_Id__c,
+        Account_Type__c
       FROM Case
       WHERE
-        ParentId = :parentCaseId
+        ParentId IN :parentCaseIds
         AND RecordTypeId = :RTCase.accountClosure
-        AND Status = :GetHelpConstants.CLOSED_STATUS
-        AND (Sub_Status__c = 'Failure'
+        AND FinServ__FinancialAccount__c != NULL
+        AND ProductId != NULL
+        AND (Sub_Status__c = 'Failed'
         OR Sub_Status__c = NULL)
     ];
   }
@@ -116,6 +119,31 @@ public with sharing class AccountClosureRepository {
         AND Sub_Status__c = 'Success'
         AND FinServ__FinancialAccount__c != NULL
         AND ProductId != NULL
+    ];
+  }
+
+  /**
+   * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus Success or Failed post precheck
+   * @param caseIds set of Case Group (Parent Case) Id
+   * @return List<Case> List of child cases associated to the parent case.
+   */
+  public List<Case> queryChildCasesDetailsPostPrecheck(Map<Id, Case> caseIds) {
+    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT
+        Id,
+        CaseNumber,
+        ParentId,
+        Product.Name,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+        Account_Type__c,
+        Status,
+        Sub_Status__c
+      FROM Case
+      WHERE Id IN :caseIds.keySet()
     ];
   }
 
@@ -242,5 +270,43 @@ public with sharing class AccountClosureRepository {
         WHERE Id IN :accountIds
       ]
     );
+  }
+
+  /**
+   * @description Extracts list of failure actions based on failure reason.
+   * @param failureReasons set of failure reasons to query
+   * @return List<AccountClosureErrorMetadata__mdt> list of failure reasons actions details
+   */
+  public List<AccountClosureErrorMetadata__mdt> getFailureMetadata(
+    Set<String> failureReasons
+  ) {
+    if (
+      failureReasons.isEmpty() ||
+      !SObjectType.AccountClosureErrorMetadata__mdt.isQueryable()
+    ) {
+      return new List<AccountClosureErrorMetadata__mdt>();
+    }
+
+    List<AccountClosureErrorMetadata__mdt> failureReasonActions = [
+      SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
+      FROM AccountClosureErrorMetadata__mdt
+      WHERE Failure_Reason__c IN :failureReasons
+    ];
+
+    if (failureReasonActions.isEmpty()) {
+      return new List<AccountClosureErrorMetadata__mdt>();
+    }
+
+    List<AccountClosureErrorMetadata__mdt> constantHeader = [
+      SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
+      FROM AccountClosureErrorMetadata__mdt
+      WHERE Type__c = 'Constant'
+    ];
+
+    List<AccountClosureErrorMetadata__mdt> chatterActions = new List<AccountClosureErrorMetadata__mdt>();
+    chatterActions.addAll(failureReasonActions);
+    chatterActions.addAll(constantHeader);
+
+    return chatterActions;
   }
 }
