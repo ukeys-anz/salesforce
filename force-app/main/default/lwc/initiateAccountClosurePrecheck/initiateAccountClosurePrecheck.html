@@ -25,11 +25,13 @@
             alternative-text="Loading"
             size="small"
           ></lightning-spinner>
-        </div> 
+        </div>
       </div>
       <div class="slds-align_absolute-center slds-text-heading_small">
-        Initiating account closures for all selected accounts is being processed.<br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please don't close this modal until it's complete.
+        Initiating account closures for all selected accounts is being
+        processed.<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Please
+        don't close this modal until it's complete.
       </div>
     </article>
   </template>
@@ -37,30 +39,29 @@
     <template if:true={isEligibleCasesFound}>
       <div class="slds-var-m-around_xx-large slds-var-m-bottom_large">
         <!--Showing Initial Data Table Section If Precheck Button Not Clicked-->
-        
-          <template if:true={isPrecheckNotDone}>
-            <div
-              class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
-            >
-              <b>Are you sure you want to initiate account closure?</b>
-            </div>
-            <div
-              class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
-            >
-              This will start closing all selected accounts below and can't be
-              paused
-            </div>
-    
-            <lightning-datatable
-              key-field="id"
-              data={casesData}
-              columns={caseColumns}
-              hide-checkbox-column="true"
-              data-id="datatable"
-            ></lightning-datatable>
-          </template>
-        
-        
+
+        <template if:true={isPrecheckNotDone}>
+          <div
+            class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            <b>Are you sure you want to initiate account closure?</b>
+          </div>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            This will start closing all selected accounts below and can't be
+            paused
+          </div>
+
+          <lightning-datatable
+            key-field="id"
+            data={casesData}
+            columns={caseColumns}
+            hide-checkbox-column="true"
+            data-id="datatable"
+          ></lightning-datatable>
+        </template>
+
         <!--Showing Post Precheck Done Section-->
         <template if:false={hasError}>
           <template if:true={showSuccessSection}>
@@ -78,7 +79,8 @@
             <div
               class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
             >
-              Initiating account closure was successful for the following accounts
+              Initiating account closure was successful for the following
+              accounts
             </div>
             <c-account-closure-records-table
               records={responseDataSuccess}
@@ -108,15 +110,14 @@
             <div
               class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
             >
-              Refer to chatter notes in each child case related to the account for
-              next steps.
+              Refer to chatter notes in each child case related to the account
+              for next steps.
             </div>
             <c-account-closure-records-table
               records={responseDataFailed}
             ></c-account-closure-records-table>
           </template>
         </template>
-
       </div>
     </template>
     <!--Footer Part-->
