@@ -36,18 +36,16 @@ public with sharing class AccountClosureMessageComposer {
     messageParts.addAll(constantMessages);
 
     //Add failure specific actions grouped by reason
-    for (String reason : reasonToActions.keySet())
-      {
-        List<String> reasonMessageParts = new List<String>();
-        reasonMessageParts.add(reasonToActionLabelMap.get(reason));
+    for (String reason : reasonToActions.keySet()) {
+      List<String> reasonMessageParts = new List<String>();
+      reasonMessageParts.add(reasonToActionLabelMap.get(reason));
 
-        for (String action : reasonToActions.get(reason))
-        {
-            reasonMessageParts.add('• ' + action.trim());
-        }
-
-        messageParts.add(String.join(reasonMessageParts, '\n'));
+      for (String action : reasonToActions.get(reason)) {
+        reasonMessageParts.add('• ' + action.trim());
       }
+
+      messageParts.add(String.join(reasonMessageParts, '\n'));
+    }
 
     return String.join(messageParts, '\n\n').trim();
   }

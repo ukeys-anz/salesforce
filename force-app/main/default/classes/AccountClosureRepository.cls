@@ -280,29 +280,29 @@ public with sharing class AccountClosureRepository {
   public List<AccountClosureErrorMetadata__mdt> getFailureMetadata(
     Set<String> failureReasons
   ) {
-    if (failureReasons.isEmpty()  || !SObjectType.AccountClosureErrorMetadata__mdt.isQueryable()) {
+    if (
+      failureReasons.isEmpty() ||
+      !SObjectType.AccountClosureErrorMetadata__mdt.isQueryable()
+    ) {
       return new List<AccountClosureErrorMetadata__mdt>();
     }
-    
-    List<AccountClosureErrorMetadata__mdt> failureReasonActions = 
-    [
-        SELECT Type__c, Failure_Reason__c, Chatter_Post__c , Label
-        FROM AccountClosureErrorMetadata__mdt 
-        WHERE Failure_Reason__c IN :failureReasons
+
+    List<AccountClosureErrorMetadata__mdt> failureReasonActions = [
+      SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
+      FROM AccountClosureErrorMetadata__mdt
+      WHERE Failure_Reason__c IN :failureReasons
     ];
 
-    if(failureReasonActions.isEmpty())
-    {
+    if (failureReasonActions.isEmpty()) {
       return new List<AccountClosureErrorMetadata__mdt>();
     }
 
-    List<AccountClosureErrorMetadata__mdt> constantHeader = 
-      [
-          SELECT Type__c, Failure_Reason__c, Chatter_Post__c , Label
-          FROM AccountClosureErrorMetadata__mdt 
-          WHERE Type__c = 'Constant'
-      ];
-     
+    List<AccountClosureErrorMetadata__mdt> constantHeader = [
+      SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
+      FROM AccountClosureErrorMetadata__mdt
+      WHERE Type__c = 'Constant'
+    ];
+
     List<AccountClosureErrorMetadata__mdt> chatterActions = new List<AccountClosureErrorMetadata__mdt>();
     chatterActions.addAll(failureReasonActions);
     chatterActions.addAll(constantHeader);

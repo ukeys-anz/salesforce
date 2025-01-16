@@ -20,12 +20,11 @@ public with sharing class AccountClosureController {
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
     try {
-      List<Case> eligibleCases =  ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCaseRecords(
+      List<Case> eligibleCases = ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCaseRecords(
         new Set<Id>{ parentCaseId }
       );
-      if(eligibleCases.isEmpty())
-      {
-          throw CommonUtil.logException(
+      if (eligibleCases.isEmpty()) {
+        throw CommonUtil.logException(
           new AccountClosureApiRepository.NoEligibleCasesFoundException(
             NO_ELIGIBLE_CASES_FOUND
           )
@@ -49,17 +48,15 @@ public with sharing class AccountClosureController {
     List<Case> eligibleCasesForPrecheck
   ) {
     try {
-      
       Case parentCaseRecord = ACCOUNT_CLOSURE_REPOSITORY.queryCaseDetails(
         parentCaseId
-        );
+      );
 
       AccountClosureApiRepository fabricSealApi = new AccountClosureApiRepository();
       return fabricSealApi.initiateAccountClosurePreChecks(
         parentCaseRecord.Account.OCV_ID__c,
         eligibleCasesForPrecheck
       );
-
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
@@ -72,21 +69,20 @@ public with sharing class AccountClosureController {
    * @return List<Case> list of cases updated successfully
    */
   @AuraEnabled
-  public static List<Case> processResponsesAndUpdateCases(List<Object> fabricSealResponseList,
-  List<Case> eligibleCasesForPrecheck) {
-    try
-    {
+  public static List<Case> processResponsesAndUpdateCases(
+    List<Object> fabricSealResponseList,
+    List<Case> eligibleCasesForPrecheck
+  ) {
+    try {
       return AccountClosureControllerHelper.processResponsesAndUpdateCases(
         fabricSealResponseList,
         eligibleCasesForPrecheck
       );
-    }
-    catch (Exception objException) {
+    } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
   }
 
-  
   /**
    * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus as Success
    * @param parentCaseId set of Case Group (Parent Case) Id

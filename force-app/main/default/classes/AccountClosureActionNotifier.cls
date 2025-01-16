@@ -18,8 +18,7 @@ public with sharing class AccountClosureActionNotifier {
     String sObjectId,
     Set<String> failureReasons
   ) {
-    if(sObjectId==null || failureReasons.isEmpty() )
-    {
+    if (sObjectId == null || failureReasons.isEmpty()) {
       return;
     }
 
@@ -40,8 +39,7 @@ public with sharing class AccountClosureActionNotifier {
       failureActions
     );
 
-    if(String.isBlank(richTextMessage))
-    {
+    if (String.isBlank(richTextMessage)) {
       return;
     }
 
@@ -57,7 +55,7 @@ public with sharing class AccountClosureActionNotifier {
   private static void postFeedItemWithRichText(
     String sObjectId,
     String richTextMessage
-  ){
+  ) {
     ConnectApiHelper.postFeedItemWithRichText(null, sObjectId, richTextMessage);
   }
 }
