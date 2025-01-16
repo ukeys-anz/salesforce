@@ -65,13 +65,11 @@ public with sharing class CreditCardFeeExternalQuery extends FinancialAccountQue
       return result;
     }
     for (FeeTableModel fee : ((FeeTableCalloutResponse) calloutResponse).fees) {
-      
-
       Map<String, Object> row = new Map<String, Object>{
         'ExternalId' => fee.compositeFeeId,
         'DisplayUrl' => getDisplayUrl(fee.compositeFeeId),
         this.parentField => this.parentId,
-        'FeeType' => fee.feeType.replace('_', ' ').toLowerCase().capitalize() ?? '',
+        'FeeType' => fee.feeType?.replace('_', ' ')?.toLowerCase()?.capitalize() ?? '',
         'FeeAmount' => fee.feeAmount
       };
       result.externalRecords.add(row);

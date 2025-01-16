@@ -17,32 +17,15 @@ public with sharing class FinancialAccountExternalQueryHelper {
   private final static String ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME = 'BankingAccount';
 
   /**
-   * @description Returns the Financial account role types picklist values
-   */
-  static Map<String, String> roleTypes {
-    get {
-      if (roleTypes != null) {
-        return roleTypes;
-      }
-      roleTypes = new Map<String, String>();
-      for (
-        Schema.PicklistEntry roleType : FinServ__FinancialAccountRole__c.Role_Type__c.getDescribe()
-          .getPicklistValues()
-      ) {
-        roleTypes.put(roleType.getValue(), roleType.getLabel());
-      }
-      return roleTypes;
-    }
-    set;
-  }
-
-  /**
    * @description get role type name
    * @param roleTypeCode role code
    * @return String role type name
    */
   public String getRoleTypeNameByCode(String roleTypeCode) {
-    return roleTypes.get(roleTypeCode) ?? roleTypeCode;
+    return CommonUtil.getSinglePicklistLabel(
+      FinServ__FinancialAccountRole__c.Role_Type__c,
+      roleTypeCode
+    );
   }
 
   /**
@@ -446,7 +429,9 @@ public with sharing class FinancialAccountExternalQueryHelper {
     //Child summary view
     if (isQueryCAPChildAccounts(infoWrapper)) {
       String accountNumber = infoWrapper.parentId.right(
-        infoWrapper.parentId.length() - infoWrapper.parentId.indexOf('|') - 1
+        infoWrapper.parentId.length() -
+        infoWrapper.parentId.indexOf('|') -
+        1
       );
       payload =
         '{"accountNumber": "' +
@@ -480,7 +465,9 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //Account detail view
     String accountNumber = infoWrapper.externalId.right(
-      infoWrapper.externalId.length() - infoWrapper.externalId.indexOf('|') - 1
+      infoWrapper.externalId.length() -
+      infoWrapper.externalId.indexOf('|') -
+      1
     );
     payload = '{"' + infoWrapper.externalField + '": "' + accountNumber + '"';
     payload += String.isNotBlank(infoWrapper.assetFinanceType)
