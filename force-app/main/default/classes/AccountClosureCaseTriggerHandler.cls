@@ -45,6 +45,10 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
       records,
       (Map<Id, Case>) oldMap
     );
+    AccountClosureCaseActions.validateCaseGroupClosure(
+      records,
+      (Map<Id, Case>) oldMap
+    );
   }
 
   public override void onAfterInsert() {

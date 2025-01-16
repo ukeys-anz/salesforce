@@ -177,4 +177,22 @@ public with sharing class AccountClosureCaseActionsHelper {
     }
     return parentCasesToUpdate;
   }
+
+  /**
+   * @description preparing a map storing the parent Id and related case records.
+   * @param childCaseRecords List of Cases with status not set as Closed.
+   * @return Map of parent case and child cases
+   */
+  public static Map<Id, List<Case>> setParentChildCaseMap(
+    List<Case> childCaseRecords
+  ) {
+    Map<Id, List<Case>> parentChildCaseMap = new Map<Id, List<Case>>();
+    for (Case childCaseRecord : childCaseRecords) {
+      if (!parentChildCaseMap.containsKey(childCaseRecord.parentId)) {
+        parentChildCaseMap.put(childCaseRecord.parentId, new List<Case>());
+      }
+      parentChildCaseMap.get(childCaseRecord.parentId).add(childCaseRecord);
+    }
+    return parentChildCaseMap;
+  }
 }

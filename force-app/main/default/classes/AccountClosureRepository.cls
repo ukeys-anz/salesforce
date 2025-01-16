@@ -309,4 +309,24 @@ public with sharing class AccountClosureRepository {
 
     return chatterActions;
   }
+
+  /**
+   * @description Get list of account closure child cases without status as Closed
+   * @param caseIds set of parent case Ids whose status is changed to Closed
+   * @return List<Case> list of child case records
+   */
+  public List<Case> queryNotClosedAccountClosureCases(Set<Id> caseIds) {
+    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, Status, ParentId
+      FROM Case
+      WHERE
+        Status != :GetHelpConstants.CLOSED_STATUS
+        AND ParentId IN :caseIds
+        AND RecordTypeId = :RTCase.accountClosure
+    ];
+  }
 }
