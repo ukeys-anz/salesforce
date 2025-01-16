@@ -153,9 +153,9 @@ export default class ValidateAddressCoi extends NavigationMixin(
       this.closeQuickAction();
       handleErrorShowToast(
         this,
-        "Failed to load Address record",
+        "Error while loading Address record",
         error,
-        error.body.message,
+        "An unexpected error occurred. Please try again later.",
         "pester"
       );
     }
@@ -331,7 +331,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
           this,
           "Error while loading the addresses. Please contact your administrator",
           error,
-          error.body.message,
+          "An unexpected error occurred. Please try again later.",
           "pester"
         );
       });
@@ -375,7 +375,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
             this,
             "Error while selecting the address. Please contact your administrator",
             error,
-            error.body.message,
+            "An unexpected error occurred. Please try again later.",
             "pester"
           );
         });
@@ -450,7 +450,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
           this,
           "Error while validating the address. Please contact your administrator",
           error,
-          error.body.message,
+          "An unexpected error occurred. Please try again later.",
           "pester"
         );
       });
