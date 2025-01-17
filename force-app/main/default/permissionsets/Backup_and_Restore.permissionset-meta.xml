@@ -4448,6 +4448,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Event.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>External_Case_Status__c.Customer_Message__c</field>
         <readable>true</readable>
@@ -8878,6 +8883,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.ML_DataMigration_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Territory__c.Access_Scope__c</field>
         <readable>true</readable>
@@ -10640,7 +10650,7 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.ANZx_Complaint</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.ATM_Dispute</recordType>

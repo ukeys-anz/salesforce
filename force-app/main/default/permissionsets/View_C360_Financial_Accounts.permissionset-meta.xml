@@ -241,14 +241,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMMerchantFacilityQuery</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMMerchantFacilityQueryTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>CCRMOtherLimitsAndLiabilitiesQuery</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -434,10 +426,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>LoanAccountExternalQuery</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>MerchantFacilityExternalQuery</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -929,6 +917,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Balance_History__x.Year__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>CardHolder__x.Additional_Information__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -2334,7 +2327,7 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Transaction_History__x.Credit_Card__c</field>
-        <readable>true</readable>
+        <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
