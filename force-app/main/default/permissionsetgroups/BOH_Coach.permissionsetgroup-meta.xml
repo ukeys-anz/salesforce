@@ -11,6 +11,7 @@
     <permissionSets>Cancel_Residential_Loan_Application</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
+    <permissionSets>Case_Group_Read_Write_Access</permissionSets>
     <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
     <permissionSets>Case_Read_Write_Get_Help</permissionSets>

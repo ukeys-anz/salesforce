@@ -1,0 +1,47 @@
+[
+  {
+    "salesforceCaseNumber": "03771916",
+    "businessProcessId": "1021232",
+    "acceptance": "ACCEPTANCE_ACCEPTED"
+  },
+  {
+    "salesforceCaseNumber": "03771913",
+    "acceptance": "ACCEPTANCE_REJECTED",
+    "unsatisfiedPreconditions": {
+      "restraints": {
+        "eligibility": "ELIGIBILITY_INELIGIBLE"
+      },
+      "bankruptcy": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE"
+      },
+      "deceasedEstates": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE"
+      },
+      "unclearedFunds": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE"
+      },
+      "nonzeroAvailableBalance": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE",
+        "availableBalance": {
+          "currencyCode": "AUD",
+          "units": "138",
+          "nanos": 500000000
+        }
+      },
+      "nonzeroClosureBalance": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE"
+      },
+      "pendingAuths": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE"
+      },
+      "loanOffset": {
+        "eligibility": "ELIGIBILITY_ELIGIBLE"
+      }
+    }
+  },
+  {
+    "salesforceCaseNumber": "03771919",
+    "code": "500",
+    "message": "Technical Error"
+  }
+]

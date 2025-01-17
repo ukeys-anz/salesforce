@@ -1,0 +1,47 @@
+<template>
+  <div class="slds-grid slds-gutters slds-var-m-top_medium">
+    <div class="slds-col slds-size_1-of-2">
+      <!-- Label with dynamic width based on content -->
+      <label
+        class="slds-form-element__control slds-grid slds-grid_vertical-align-center slds-m-top_medium"
+      >
+        <span class="slds-required">*</span> {label}
+        <template if:true={helpText}>
+          <lightning-helptext
+            class="tooltip"
+            content={helpText}
+          ></lightning-helptext>
+        </template>
+      </label>
+    </div>
+
+    <!-- Field (Input or Combobox) -->
+    <div class="slds-col slds-size_1-of-2">
+      <div class="slds-form-element__control">
+        <template if:true={isInputField}>
+          <lightning-input
+            type="text"
+            value={value}
+            data-id={rowId}
+            name={name}
+            onchange={handleInputChange}
+          >
+          </lightning-input>
+        </template>
+
+        <template if:true={isComboboxField}>
+          <lightning-combobox
+            value={value}
+            data-id={rowId}
+            name={name}
+            options={options}
+            onchange={handleInputChange}
+          >
+          </lightning-combobox>
+        </template>
+      </div>
+      <!-- Error Text Display -->
+      <div class="slds-text-color_error" if:true={isInvalid}>{errorText}</div>
+    </div>
+  </div>
+</template>

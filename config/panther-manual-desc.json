@@ -413,6 +413,9 @@
       ],
       "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
     },
+    "AccountClosureErrorMetadata__mdt": {
+      "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
+    },
     "Access_Request__c": {
       "IA-2468715": [
         "Access_Type__c",
@@ -861,6 +864,7 @@
         "External_System_Create_Datetime__c",
         "External_System__c",
         "FinServ__FinancialAccount__c",
+        "Financial_Account_Number__c",
         "Fraud_COR_Event_ID__c",
         "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
@@ -887,18 +891,22 @@
       "IA-2453595": [
         "Actual_Outcome__c",
         "Additional_Type__c",
+        "API_Sub_Status__c",
         "ANZx_Product__c",
         "Auto_Created__c",
         "AuxDomId__c",
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Process_Status__c",
         "Previous_Case_Owner__c",
         "Date_Case_allocated_to_CM__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
+        "Show_Account_Closure__c",
+        "Show_Initiate_Account_Closure__c",
         "SI_Rec_Rem_Action_Status__c",
         "SI_Rec_Rem_Actions__c",
         "SI_Subject_of_Breach_Report__c",
@@ -924,6 +932,7 @@
         "SI_Definite_Deemed_Date__c",
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
+        "Sub_Status__c",
         "IDR_AFCA_Case_Manager__c",
         "CaseOwnerManager__c",
         "IDR_AFCA_Information_Request_Due__c",
@@ -1195,6 +1204,7 @@
         "Amount_Of_Credit_Due__c",
         "Biller_Code__c",
         "Biller_Name__c",
+        "Circumstance__c",
         "Claimed_Amount__c",
         "Company__c",
         "Correct_Customer_Reference_Number__c",
@@ -1228,6 +1238,7 @@
         "Intended_Pay_Id_Value__c",
         "Posted_Amount__c",
         "Posted_Currency__c",
+        "Process_Id__c",
         "Received_Amount__c",
         "Received_Currency__c",
         "Refund_Request_Date__c",
@@ -1252,7 +1263,6 @@
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",
-        "Sub_Status__c",
         "Transaction_Made_By__c"
       ],
       "IA-2415998": [

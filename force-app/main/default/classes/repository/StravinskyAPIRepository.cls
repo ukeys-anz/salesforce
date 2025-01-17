@@ -98,7 +98,10 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     //Attempt to parse expected Error response
     String responseErrMsg = response.error.getMessage();
 
-    if (String.isBlank(responseErrMsg) || !responseErrMsg.containsIgnoreCase(FAILED_PRECONDITION_CODE) ) {
+    if (
+      String.isBlank(responseErrMsg) ||
+      !responseErrMsg.containsIgnoreCase(FAILED_PRECONDITION_CODE)
+    ) {
       throw CommonUtil.logException(response);
     }
 
@@ -173,7 +176,8 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       throw CommonUtil.logException(response);
     }
 
-    String responseErrMsg = response.error.getMessage() ?? 'No response from API';
+    String responseErrMsg = response.error.getMessage() ??
+      'No response from API';
     throw new PIDDataException(responseErrMsg);
   }
 
@@ -254,7 +258,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       body.writeStringField('account_resource', accNum);
       body.writeEndObject();
     }
-    if (!isS2ProductOnCase(caseRecord)) {
+    if (!isS2ProductOnCase(caseRecord) && caseRecord.Package_Id__c != null) {
       body.writeStartObject();
       body.writeStringField('package_resource', caseRecord.Package_Id__c);
       body.writeEndObject();

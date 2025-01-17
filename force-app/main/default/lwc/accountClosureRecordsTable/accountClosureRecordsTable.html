@@ -1,0 +1,92 @@
+<template>
+  <div class="slds-m-around_xx-small">
+    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+      <thead>
+        <tr class="slds-line-height_reset">
+          <th scope="col">
+            <div class="slds-truncate" title="Product">Product</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Account Number">
+              Account Number
+            </div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Account Type">Account Type</div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Child Case Number">
+              Child Case Number
+            </div>
+          </th>
+          <th scope="col">
+            <div class="slds-truncate" title="Status">Workflow</div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <template for:each={records} for:item="record">
+          <tr key={record.id} class="slds-hint-parent">
+            <td data-label="Product">
+              <div class="slds-truncate" title={record.product}>
+                {record.product}
+              </div>
+            </td>
+            <td data-label="Account Number">
+              <div class="slds-truncate" title={record.accountNumber}>
+                {record.accountNumber}
+              </div>
+            </td>
+            <td data-label="Account Type">
+              <div class="slds-truncate" title={record.accountType}>
+                {record.accountType}
+              </div>
+            </td>
+            <td data-label="Child Case Number">
+              <div class="slds-truncate" title={record.childCaseNumber}>
+                <a
+                  href="#"
+                  onclick={handleCaseClick}
+                  data-case-record-case-url={record.caseUrl}
+                  data-case-record-id={record.id}
+                >
+                  #{record.childCaseNumber}
+                </a>
+              </div>
+            </td>
+            <td data-label="Status">
+              <div class="slds-grid">
+                <template if:true={record.isSuccessIcon}>
+                  <lightning-icon
+                    icon-name="utility:success"
+                    alternative-text="Success!"
+                    variant="success"
+                    title="success variant xx-small"
+                    size="x-small"
+                    data-id="success"
+                  ></lightning-icon>
+                </template>
+                <template if:false={record.isSuccessIcon}>
+                  <lightning-icon
+                    icon-name="utility:clear"
+                    alternative-text="error!"
+                    variant="error"
+                    title="error variant xx-small"
+                    size="x-small"
+                    data-id="error"
+                  ></lightning-icon>
+                </template>
+                <div
+                  class="slds-truncate slds-align_absolute-center"
+                  title={record.additionalInfo}
+                >
+                  {record.workFlow}
+                </div>
+              </div>
+            </td>
+          </tr>
+        </template>
+      </tbody>
+    </table>
+  </div>
+</template>
