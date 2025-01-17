@@ -123,7 +123,7 @@ public with sharing class CommercialBillExternalQuery extends FinancialAccountQu
   @testVisible
   private String getCustomerId(String parentId, String compositeAccountNumber) {
     return String.isBlank(parentId)
-      ? compositeAccountNumber.substringBefore('-')
+      ? 'CAP-CIS_' + compositeAccountNumber.substringBefore('-')
       : parentId;
   }
 }

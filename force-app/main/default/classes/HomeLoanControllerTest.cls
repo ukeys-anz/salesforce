@@ -229,10 +229,7 @@ public inherited sharing class HomeLoanControllerTest {
     );
     Test.stopTest();
 
-    Assert.isFalse(
-      offsetDetails.hasError,
-      'Should handle No Offset Found Exception'
-    );
+    Assert.isNull(offsetDetails, 'Should handle No Offset Found Exception');
   }
 
   private static HttpCalloutResponse getNotFoundException() {

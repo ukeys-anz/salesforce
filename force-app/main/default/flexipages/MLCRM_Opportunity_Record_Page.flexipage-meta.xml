@@ -1418,6 +1418,46 @@
                 <identifier>RecordExpected_Settlement_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.New_Lending_Amount__c</fieldItem>
+                <identifier>RecordNew_Lending_Amount_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.AIP_Requested__c</fieldItem>
+                <identifier>RecordAIP_Requested_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Approved_Amount__c</fieldItem>
+                <identifier>RecordApproved_Amount_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Settlement_Booked__c</fieldItem>
+                <identifier>RecordSettlement_Booked_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-365ac247-516d-47b7-9e22-06b96f717b36</name>
         <type>Facet</type>
     </flexiPageRegions>

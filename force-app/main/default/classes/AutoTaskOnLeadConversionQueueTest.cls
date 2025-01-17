@@ -246,7 +246,11 @@ public with sharing class AutoTaskOnLeadConversionQueueTest {
   }
 
   static Lead getMockLead(Boolean isNameMatch, String recordType) {
+    Id accountId = Lib_FakeIdGenerator.getMockId(
+      Schema.Account.getSObjectType()
+    );
     return new Lead(
+      FinServ__RelatedAccount__c = accountId,
       Id = Lib_FakeIdGenerator.getMockId(Schema.Lead.getSObjectType()),
       FirstName = 'test',
       MiddleName = 'test',
@@ -268,11 +272,12 @@ public with sharing class AutoTaskOnLeadConversionQueueTest {
       AdvertisingIndicator__c = true,
       RecordType = new RecordType(DeveloperName = recordType),
       FinServ__RelatedAccount__r = new Account(
-        Id = Lib_FakeIdGenerator.getMockId(Schema.Account.getSObjectType()),
+        Id = accountId,
         FirstName = isNameMatch ? 'test' : 'test1',
         MiddleName = isNameMatch ? 'test' : 'test1',
         LastName = isNameMatch ? 'test' : 'test1',
-        Advertising_Indicator__c = 'Y'
+        Advertising_Indicator__c = 'Y',
+        OCV_Event_Version__c = 1
       )
     );
   }

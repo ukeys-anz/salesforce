@@ -41,15 +41,15 @@ jobs:
           ref: ${{ github.ref }}
           fetch-depth: 0
 
-      - name: Checkout doc gen plugin
+      - name: Checkout salesforce plugin
         uses: actions/checkout@v2
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         with:
-          repository: anzx/salesforce-doc-gen
-          token: ${{ secrets.SALESFORCE_DOC_GEN_TOKEN }}
-          path: plugin
-          ref: a513b5ddf30ccdddaa39b1293ae930cdce6c7698
-          # this is a particular commit on master. Change this when a new plugin version is required for doc:fieldsaccessdiff
+          repository: anzx/salesforce-plugin
+          token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
+          path: salesforce-plugin
+          ref: 071d1c7707f472210c9f698f2c8d5a12e287e7c6
+          # this is a particular commit on master. Change this when a new plugin version is required for sf xschema generate
 
       - name: Install npm packages
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -58,7 +58,7 @@ jobs:
           npm ci -f
 
       - name: Install yarn
-        working-directory: plugin
+        working-directory: salesforce-plugin
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         shell: bash
         run: |
@@ -67,12 +67,19 @@ jobs:
           yarn --version
 
       - name: Install plugin
-        working-directory: plugin
+        working-directory: salesforce-plugin
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         shell: bash
         run: |
           mv ci.yarnrc .yarnrc
           rm -rf node_modules && yarn install --frozen-lockfile
+      
+      - name: Build plugin
+        working-directory: salesforce-plugin
+        if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
+        shell: bash
+        run: |
+          yarn build
 
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
@@ -92,19 +99,20 @@ jobs:
 
       - name: Authenticate all orgs in SFDX CLI
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
-        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}" --sfdx-url-file=/dev/stdin
+        run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}"  --set-default --sfdx-url-file=/dev/stdin
 
-      - name: Get objects changes with fieldsaccessdiff
+      - name: Get objects changes with xschema-generate
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         id: get-changed-objects
         shell: bash
         run: |
           sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
           for object in $sfdatasync_object_list; do
-            echo "running fieldsaccessdiff on sfdatasync user for $object..."
-            if  ! ./plugin/bin/run doc:fieldsaccessdiff -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -o $object \
-                  -f sfdatasync_user_output -u tech.gcb@anzx.com.test24; then
+            echo "running xschema-generate on sfdatasync user for $object..."
+            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -n $object \
+                  -f sfdatasync_user_output; then
                 errors+=("$object for user sfdatasync.user@anzx.com.test24")
+                echo "Errors occurred while running the xSchema generate."
             fi
           done
 
@@ -115,6 +123,8 @@ jobs:
             done
             exit 1 # Exit with a non-zero status
           fi
+          ls -la sfdatasync_user_output/xschema-generate
+          echo "Complete the process of getting object changes."
 
       # Upload failure to artifactory
       - name: Push failure changes to artifactory
@@ -123,7 +133,7 @@ jobs:
         shell: bash
         run: |
           # zip the files
-          mkdir output && mv sfdatasync_user_output/fieldsaccessdiff/* output/
+          mkdir output && mv sfdatasync_user_output/xschema-generate/* output/
           ARTIFACT_NAME="sf_objects_failure_diff_develop_$(git rev-parse --verify HEAD)"
           echo "ARTIFACT_NAME=$ARTIFACT_NAME" >> $GITHUB_OUTPUT
 
@@ -142,7 +152,7 @@ jobs:
         shell: bash
         run: |
           mkdir gcs_bucket
-          object_array=($(find sfdatasync_user_output/fieldsaccessdiff/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
+          object_array=($(find sfdatasync_user_output/xschema-generate/ -maxdepth 1 -mindepth 1 -type d -exec basename {} \;))
           for object in "${object_array[@]}"; do
             if ! output=$(gsutil -m cp -r gs://${{ env.BUCKET_NAME }}/$object gcs_bucket 2>&1); then
               if echo "$output" | grep -q "No URLs matched"; then
@@ -164,7 +174,7 @@ jobs:
         id: run-diff
         shell: bash
         run: |
-          sfdatasync_sha_object_fields="sfdatasync_user_output/fieldsaccessdiff"
+          sfdatasync_sha_object_fields="sfdatasync_user_output/xschema-generate"
           sfdatasync_gcs_object_fields="gcs_bucket"
 
           CHANGES_DETECTED=FALSE
@@ -190,7 +200,7 @@ jobs:
         shell: bash
         run: |
           # zip the files
-          mkdir output && mv sfdatasync_user_output/fieldsaccessdiff/* output/
+          mkdir output && mv sfdatasync_user_output/xschema-generate/* output/
           ARTIFACT_NAME="sf_objects_success_diff_develop_$(git rev-parse --verify HEAD)"
 
           zip -r $ARTIFACT_NAME output && ls -la
