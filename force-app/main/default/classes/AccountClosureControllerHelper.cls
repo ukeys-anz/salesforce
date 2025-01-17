@@ -11,6 +11,10 @@ public with sharing class AccountClosureControllerHelper {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static final String PRECHECK_ACCEPTED = 'ACCEPTANCE_ACCEPTED';
+  private static final String PRECHECK_REJECTED = 'ACCEPTANCE_REJECTED';
+  private static final String TECHNICAL_ERROR = 'techError';
+  private static final String NOT_ELIGIBLE = 'ELIGIBILITY_INELIGIBLE';
 
   /**
    * @description method to process response and segregrate success and failure cases and update
@@ -63,12 +67,12 @@ public with sharing class AccountClosureControllerHelper {
       Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(
         JSON.serialize(eachResponse)
       );
-      if ((String) response.get('acceptance') == 'ACCEPTANCE_ACCEPTED') {
+      if ((String) response.get('acceptance') == PRECHECK_ACCEPTED) {
         successCases.put(
           (String) response.get('salesforceCaseNumber'),
           (String) response.get('businessProcessId')
         );
-      } else if ((String) response.get('acceptance') == 'ACCEPTANCE_REJECTED') {
+      } else if ((String) response.get('acceptance') == PRECHECK_REJECTED) {
         Set<String> failedReasons = createFailedReasonsSet(
           response.get('unsatisfiedPreconditions')
         );
@@ -84,7 +88,7 @@ public with sharing class AccountClosureControllerHelper {
       ) {
         failedCases.put(
           (String) response.get('salesforceCaseNumber'),
-          new Set<String>{ 'techError' }
+          new Set<String>{ TECHNICAL_ERROR }
         );
       }
     }
@@ -106,9 +110,7 @@ public with sharing class AccountClosureControllerHelper {
       Object reasonValue = failedReasonsMap.get(reason);
       if (reasonValue instanceof Map<String, Object>) {
         Map<String, Object> reasonDetails = (Map<String, Object>) reasonValue;
-        if (
-          (String) reasonDetails.get('eligibility') == 'ELIGIBILITY_INELIGIBLE'
-        ) {
+        if ((String) reasonDetails.get('eligibility') == NOT_ELIGIBLE) {
           failedReasons.add(reason);
         }
       }
@@ -149,7 +151,7 @@ public with sharing class AccountClosureControllerHelper {
           new Case(
             Id = caseNumberToIdMap.get(caseNumber),
             Status = GetHelpConstants.ESCALATED_STATUS,
-            Sub_Status__c = 'Success',
+            Sub_Status__c = GetHelpConstants.PROCESSING,
             Process_ID__c = successCases.get(caseNumber)
           )
         );
@@ -161,7 +163,7 @@ public with sharing class AccountClosureControllerHelper {
         Case failedCase = new Case(
           Id = caseNumberToIdMap.get(caseNumber),
           Status = GetHelpConstants.ESCALATED_STATUS,
-          Sub_Status__c = 'Failed'
+          Sub_Status__c = GetHelpConstants.FAILED
         );
 
         AccountClosureActionNotifier.postFailureMessage(

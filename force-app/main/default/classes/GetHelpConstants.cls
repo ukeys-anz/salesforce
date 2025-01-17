@@ -264,6 +264,9 @@ public with sharing class GetHelpConstants {
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
   public static final String CLOSED_SUB_STATUS_NO_LONGER_REQUIRED = 'No Longer Required';
+  public static final String PROCESSING = 'Processing';
+  public static final String FAILED = 'Failed';
+  public static final String SUCCESS = 'Success';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
   // Case Origins for Self Service Dispute Cases

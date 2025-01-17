@@ -442,11 +442,11 @@ public with sharing class AccountClosureCaseActionsTest {
     Case caseRecord = new Case();
     caseRecord.Id = FAKER_CHILD_CASE_ID;
     caseRecord.AccountId = FAKER_ACCOUNT_ID;
-    caseRecord.Status = 'Open';
+    caseRecord.Status = GetHelpConstants.OPEN_STATUS;
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = parentId;
     caseRecord.RecordTypeId = RTCase.accountClosure;
-    caseRecord.Sub_Status__c = 'Success';
+    caseRecord.Sub_Status__c = GetHelpConstants.SUCCESS;
 
     childcases.add(caseRecord);
     return childcases;

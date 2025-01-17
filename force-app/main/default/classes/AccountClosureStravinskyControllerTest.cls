@@ -139,11 +139,11 @@ public with sharing class AccountClosureStravinskyControllerTest {
     Case caseRecord = new Case();
     caseRecord.Id = FAKER_CHILD_CASE_ID;
     caseRecord.AccountId = FAKER_ACCOUNT_ID;
-    caseRecord.Status = 'Escalated';
+    caseRecord.Status = GetHelpConstants.ESCALATED_STATUS;
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = FAKER_PARENT_CASE_ID;
     caseRecord.RecordTypeId = RTCase.accountClosure;
-    caseRecord.Sub_Status__c = 'Success';
+    caseRecord.Sub_Status__c = GetHelpConstants.SUCCESS;
     caseRecord.FinServ__FinancialAccount__c = Lib_FakeIdGenerator.getMockId(
       FinServ__FinancialAccount__c.getSObjectType()
     );
