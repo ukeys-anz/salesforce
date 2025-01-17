@@ -153,7 +153,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
 
   segregatePrecheckResults(childCasesDetailsPostPrecheck) {
     childCasesDetailsPostPrecheck.forEach((record) => {
-      if (record.Sub_Status__c === "Success") {
+      if (record.Sub_Status__c === "Processing") {
         this.successfulCases.push(record);
       } else if (record.Sub_Status__c === "Failed") {
         this.failureCases.push(record);
