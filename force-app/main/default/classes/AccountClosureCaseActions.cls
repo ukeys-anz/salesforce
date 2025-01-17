@@ -14,6 +14,7 @@ public with sharing class AccountClosureCaseActions {
 
   public static final String DUPLICATE_CASEGROUP_ERROR = 'Error occurred while creating CaseGroup Case. A CaseGroup Case already exists for this customer. Case number: ';
 
+  public static final String CASEGROUP_CLOSURE_ERROR_MESSAGE = 'Cannot close this Case as all related cases are not in closed status. Please ensure all related cases are closed.';
   /**
    * @description This method process account closure cases and find if Case Group (Parent case) exists.
    * If none are found, it creates a new "Case Group" and links the "Account closure" cases to it.
@@ -201,6 +202,53 @@ public with sharing class AccountClosureCaseActions {
         caseRecord,
         DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber
       );
+    }
+  }
+
+  /**
+   * @description Validate case group closure . Change status to closed when all related cases are in closed status.
+   * @param records List of Cases.
+   * @param oldMap Old Map of Cases
+   */
+  public static void validateCaseGroupClosure(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> cases = getCaseGroupRecordTypeForAccountClosure(records);
+
+    List<Case> caseGroupRecordsChangedToClosed = ListUtil.filter(cases, oldMap)
+      .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
+      .toList();
+
+    if (
+      caseGroupRecordsChangedToClosed == null ||
+      caseGroupRecordsChangedToClosed.isEmpty()
+    ) {
+      return;
+    }
+
+    Set<Id> caseIds = ListUtil.getIds(caseGroupRecordsChangedToClosed, Case.Id);
+    List<Case> childCaseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedAccountClosureCases(
+      caseIds
+    );
+
+    if (childCaseRecords.isEmpty()) {
+      return;
+    }
+
+    Map<Id, List<Case>> parentChildCaseMap = AccountClosureCaseActionsHelper.setParentChildCaseMap(
+      childCaseRecords
+    );
+
+    for (Case caseGroupRecord : caseGroupRecordsChangedToClosed) {
+      List<Case> caseRecords = parentChildCaseMap.get(caseGroupRecord.Id);
+
+      if (caseRecords.size() > 0) {
+        CommonUtil.addErrorToRecordAndLog(
+          caseGroupRecord,
+          CASEGROUP_CLOSURE_ERROR_MESSAGE
+        );
+      }
     }
   }
 

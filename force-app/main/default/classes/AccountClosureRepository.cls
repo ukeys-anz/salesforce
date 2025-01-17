@@ -88,7 +88,8 @@ public with sharing class AccountClosureRepository {
         AND RecordTypeId = :RTCase.accountClosure
         AND FinServ__FinancialAccount__c != NULL
         AND ProductId != NULL
-        AND (Sub_Status__c = 'Failed'
+        AND Status = :GetHelpConstants.ESCALATED_STATUS
+        AND (Sub_Status__c = :GetHelpConstants.FAILED
         OR Sub_Status__c = NULL)
     ];
   }
@@ -116,7 +117,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
-        AND Sub_Status__c = 'Success'
+        AND Sub_Status__c = :GetHelpConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
         AND ProductId != NULL
     ];
@@ -308,5 +309,25 @@ public with sharing class AccountClosureRepository {
     chatterActions.addAll(constantHeader);
 
     return chatterActions;
+  }
+
+  /**
+   * @description Get list of account closure child cases without status as Closed
+   * @param caseIds set of parent case Ids whose status is changed to Closed
+   * @return List<Case> list of child case records
+   */
+  public List<Case> queryNotClosedAccountClosureCases(Set<Id> caseIds) {
+    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, Status, ParentId
+      FROM Case
+      WHERE
+        Status != :GetHelpConstants.CLOSED_STATUS
+        AND ParentId IN :caseIds
+        AND RecordTypeId = :RTCase.accountClosure
+    ];
   }
 }
