@@ -37,4 +37,18 @@ public with sharing class CCRMContactActions {
       false
     );
   }
+
+  /**
+   * @description Helper method to hide commercial contact by updating record type to "Hidden" after back up record type to Previous_Record_Type__c
+   * @param records List of contacts records
+   */
+  public static void hideContacts(List<Contact> records) {
+    for (Contact record : records) {
+      record.Previous_Record_Type__c = Schema.SObjectType.Contact
+        .getRecordTypeInfosById()
+        .get(record.RecordTypeId)
+        .getName();
+      record.RecordTypeId = CCRMConstants.CONTACT_HIDDEN_RT_ID;
+    }
+  }
 }
