@@ -1,3 +1,11 @@
 .modalbody {
   position: relative; /* Make the modal body position relative */
 }
+.error-width {
+  display: flex;
+  white-space: nowrap;
+  justify-content: center;
+  align-items: center;
+  width: fit-content;
+  margin: 0 auto;
+}

@@ -103,7 +103,7 @@ public with sharing class AccountClosureWizardControllerHelper {
         .setProductName(eachAccount.FinServ__ProductName__r.Name)
         .setProductId(eachAccount.FinServ__ProductName__c) // Product Id (lookup field)
         .setBalance(eachAccount.FinServ__Balance__c)
-        .setOwnership(eachAccount.FinServ__Ownership__c)
+        .setOwnership(eachAccount.Ownership__c)
         .setStatus(eachAccount.FinServ__Status__c)
         .setMarketingCode(eachAccount.Marketing_Code__c)
         .setSigningAuthority(eachAccount.Number_Of_Signatures__c)

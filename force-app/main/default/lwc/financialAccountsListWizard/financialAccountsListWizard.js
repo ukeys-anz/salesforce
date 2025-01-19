@@ -134,8 +134,10 @@ export default class FinancialAccountsListWizard extends LightningElement {
     this.isCasesCreated = true;
   }
 
-  handleErrorVisibilty() {
-    this.hasError = false;
+  handleErrorVisibilty(event) {
+    this.hasError = event.detail.showError;
+    this.errorMsg =
+      "Child cases could not be created. Please enter forwording account details for all accounts";
   }
 
   handleCancelAction() {

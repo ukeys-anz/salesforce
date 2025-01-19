@@ -11,10 +11,12 @@
       ></lightning-spinner>
     </template>
     <template lwc:if={hasError}>
-      <c-error
-        custom-class-from-parent="slds-theme--error"
-        message={errorMsg}
-      ></c-error>
+      <div class="error-width">
+        <c-error
+          custom-class-from-parent="slds-theme--error"
+          message={errorMsg}
+        ></c-error>
+      </div>
     </template>
     <div class="slds-box slds-var-m-around_large">
       <template if:false={loading}>
