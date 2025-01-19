@@ -48,7 +48,6 @@ jobs:
       - name: Find all changed files
         run: |
           BRANCH_NAME=${{ github.base_ref }}
-          [[ "$BRANCH_NAME" == "release" ]] && BRANCH_NAME=develop
           if [[ -f ci/pmd-diff.sh ]];then
             chmod +x ci/pmd-diff.sh
             source ci/pmd-diff.sh
