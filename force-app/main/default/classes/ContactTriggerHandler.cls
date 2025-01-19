@@ -18,7 +18,6 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
    * @name onAfterInsert
    */
   public override void onAfterInsert() {
-    CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }
   /**
    * @description Before Update Action of Contact.
@@ -26,6 +25,5 @@ public with sharing class ContactTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap This Map<Id, SObject> contains the map which holds the previous values of contact.
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMContactActions.deleteCommercialContactsWithoutContactDetails(records);
   }
 }
