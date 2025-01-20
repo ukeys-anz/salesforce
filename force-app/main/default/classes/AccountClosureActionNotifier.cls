@@ -7,7 +7,7 @@ public with sharing class AccountClosureActionNotifier {
   private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
-  private static final String NO_FAILED_REASON_FOUND_ERROR = 'No Failed Reason Record Found ';
+  private static final String NO_FAILED_REASON_FOUND_ERROR = 'No Failed Reason Record Found';
 
   /**
    * @description post failure message on the sobject id passed

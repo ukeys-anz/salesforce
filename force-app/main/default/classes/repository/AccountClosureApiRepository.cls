@@ -48,6 +48,7 @@ public with sharing class AccountClosureApiRepository {
      * @param eligibleCaseList contains list of eligible cases for sending to Fabric Seal for prechecks
      * @return FabricSealRequestModel to be sent to Mulesoft
      */
+    @testVisible
     private List<FabricSealRequestModel> generateFabricSealInputRequest(List<Case> eligibleCaseList)
     {
         List<FabricSealRequestModel> fabricSealRequestList = new List<FabricSealRequestModel>();
