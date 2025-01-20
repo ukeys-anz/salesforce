@@ -74,7 +74,7 @@ describe("c-account-closure-wizard-child", () => {
 
     element.recordId = "0015g00000HJXYZ";
     element.accountId = "0015g00000HJACB";
-    element._selectedRows = mockSelectedRows;
+    element.selectedRows = mockSelectedRows;
     await flushPromises();
     const button = element.shadowRoot.querySelector(
       "lightning-button[data-id=createChildCasesButton]"
@@ -93,7 +93,7 @@ describe("c-account-closure-wizard-child", () => {
 
     element.recordId = "0015g00000HJXYZ";
     element.accountId = "0015g00000HJACB";
-    element._selectedRows = mockSelectedRows;
+    element.selectedRows = mockSelectedRows;
     await flushPromises();
     const button = element.shadowRoot.querySelector(
       "lightning-button[data-id=createChildCasesButton]"
