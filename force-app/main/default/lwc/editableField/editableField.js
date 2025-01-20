@@ -6,6 +6,8 @@ export default class EditableField extends LightningElement {
   @api label;
   @api value;
   @api helpText;
+  @api isInvalid = false;
+  errorText = "This field is required.";
 
   @api options = [];
 

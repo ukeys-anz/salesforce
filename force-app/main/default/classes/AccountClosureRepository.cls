@@ -220,17 +220,16 @@ public with sharing class AccountClosureRepository {
   public List<Case> queryListOfInsertedOrUpdatedCases(
     Set<Id> setOfCaseIdsToQuery
   ) {
-    return [
-      SELECT
-        Id,
-        CaseNumber,
-        Product__r.Name,
-        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
-        Account_Type__c,
-        Status
-      FROM Case
-      WHERE Id IN :setOfCaseIdsToQuery
-    ];
+    SystemModeActions systemAction = new SystemModeActions(
+      'AccountClosureRepository',
+      'queryListOfInsertedOrUpdatedCases'
+    );
+
+    return (List<Case>) systemAction.queryWithBinds(
+      'SELECT Id, CaseNumber,Product__r.Name,FinServ_Product_Name__c,FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,Account_Type__c,Status FROM Case' +
+      ' WHERE Id IN :setOfCaseIdsToQuery',
+      new Map<String, Object>{ 'setOfCaseIdsToQuery' => setOfCaseIdsToQuery }
+    );
   }
 
   /**
@@ -249,7 +248,7 @@ public with sharing class AccountClosureRepository {
   }
 
   /**
-   * @description Extracts map of account Ids and financial account records
+   * @description fetches list of financial account lists for UI
    * @param accountIds set of account Ids to query
    * @return List<FinServ__FinancialAccount__c> list of financial account records
    */
