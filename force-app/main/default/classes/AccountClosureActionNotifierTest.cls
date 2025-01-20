@@ -36,7 +36,6 @@ public with sharing class AccountClosureActionNotifierTest {
         }catch (Exception objException) {
             resultException = objException;
         }
-        System.debug('resultException.getMessage()'+resultException.getMessage());
         Test.stopTest();
         Assert.areEqual(
             resultException.getMessage(),
