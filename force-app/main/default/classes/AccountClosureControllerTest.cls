@@ -32,7 +32,7 @@ public with sharing class AccountClosureControllerTest {
    * @description test method for fetchEligibleChildCasesForPrecheck when successful
    */
     @isTest
-    public static void testFetchEligibleCasesForPrecheckPositive() {
+    public static void testFetchEligibleCasesForPrecheckSuccess() {
         registerMocks();
         accountClosureRepoMock.mock(
             'queryEligibleChildCaseRecords',
@@ -51,7 +51,7 @@ public with sharing class AccountClosureControllerTest {
     * @description test method for fetchEligibleChildCasesForPrecheck when unsuccessful
     */
     @isTest
-    public static void testFetchEligibleCasesForPrecheckNegative() {
+    public static void testFetchEligibleCasesForPrecheckNoCases() {
         Exception resultException;
         Test.startTest();
         try {
@@ -71,7 +71,7 @@ public with sharing class AccountClosureControllerTest {
     * @description test method for initiateAccountClosurePrecheck when successful
     */
     @isTest
-    public static void testInitiateAccountClosurePrecheckPositive() {
+    public static void testInitiateAccountClosurePrecheckSuccess() {
         registerMocks();
         accountClosureRepoMock.mock(
             'queryCaseDetails',
@@ -92,7 +92,7 @@ public with sharing class AccountClosureControllerTest {
     * @description test method for initiateAccountClosurePrecheck when unsuccessful
     */
     @isTest
-    public static void testInitiateAccountClosurePrecheckNegative() {
+    public static void testInitiateAccountClosurePrecheckFailure() {
         registerMocks();
         accountClosureRepoMock.mock(
             'queryCaseDetails',
@@ -120,7 +120,7 @@ public with sharing class AccountClosureControllerTest {
     * @description test method for processResponsesAndUpdateCases when successful
     */
      @isTest
-    public static void testProcessResponsesAndUpdateCasesPositive() {
+    public static void testProcessResponsesAndUpdateCasesSuccess() {
         registerMocks();
         accountClosureRepoMock.mock(
             'queryCaseDetails',
@@ -154,7 +154,7 @@ public with sharing class AccountClosureControllerTest {
     * @description test method for processResponsesAndUpdateCases when unsuccessful
     */
     @isTest
-    public static void testProcessResponsesAndUpdateCasesNegative() {
+    public static void testProcessResponsesAndUpdateCasesFailure() {
         registerMocks();
         String mockFailedCase = '03771913';
         accountClosureRepoMock.mock(

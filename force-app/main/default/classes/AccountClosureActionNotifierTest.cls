@@ -21,7 +21,7 @@ public with sharing class AccountClosureActionNotifierTest {
      * @description test method for postFailureMessage when wrong failed reaons
      */
     @isTest
-    public static void testPostFailureMessageNegative() {
+    public static void testPostFailureMessageFailure() {
         registerMocks();
         accountClosureRepoMock.mock(
             'getFailureMetadata',

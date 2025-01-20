@@ -25,7 +25,7 @@ public with sharing class AccountClosureServiceTest {
       WHERE Name = 'mock_AccountClosurePrecheckSuccess'
     ];
     @isTest
-    static void initiateAccountClosurePreChecks() {
+    static void testInitiateAccountClosurePreChecksSuccess() {
     Test.setMock(HttpCalloutMock.class, new FabricSealMockResponse());
     //load forge staff token
     Cache.Session.put(
