@@ -16,18 +16,18 @@
         </filterItems>
         <filterItems>
             <field>Contact.Commercial_Accreditation_Status__c</field>
-            <operation>notEqual</operation>
-            <value>Inactive</value>
+            <operation>equals</operation>
+            <value>Active</value>
         </filterItems>
         <filterItems>
             <field>Contact.Asset_Finance_Accreditation_Status__c</field>
-            <operation>notEqual</operation>
-            <value>Inactive</value>
+            <operation>equals</operation>
+            <value>Active</value>
         </filterItems>
         <filterItems>
             <field>Contact.Retail_Accreditation_Status__c</field>
-            <operation>notEqual</operation>
-            <value>Inactive</value>
+            <operation>equals</operation>
+            <value>Active</value>
         </filterItems>
         <isOptional>false</isOptional>
     </lookupFilter>
