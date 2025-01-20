@@ -263,10 +263,10 @@ public with sharing class AccountClosureRepository {
         FinServ__ProductName__r.Name,
         FinServ__ProductName__c,
         FinServ__Balance__c,
-        FinServ__Ownership__c,
+        Ownership__c,
         FinServ__Status__c,
         Marketing_Code__c,
-        Number_Of_Signatures__c,
+        toLabel(Number_Of_Signatures__c),
         RecordType.DeveloperName
       FROM FinServ__FinancialAccount__c
       WHERE Id IN :accountIds

@@ -44,7 +44,6 @@
                   name="closureReason"
                   label="Closure Reason"
                   value={row.closureReason}
-                  is-invalid={row.isClosureReasonInvalid}
                   error-text="This field is required."
                   type="combobox"
                   options={closureResonValues}
@@ -61,7 +60,6 @@
                   label="Intended Account Name"
                   value={row.intendedAccountName}
                   help-text="Account name of the recipient where the money was meant to go."
-                  is-invalid={row.isAccountNameInvalid}
                   error-text="This field is required."
                   type="input"
                   onfieldchange={handleFieldChange}
@@ -80,7 +78,6 @@
                   label="Intended Account BSB"
                   value={row.intendedAccountBsb}
                   help-text="Branch code of the recipient's bank where the money was meant to go."
-                  is-invalid={row.isaccountBsbInvalid}
                   error-text="This field is required."
                   type="input"
                   onfieldchange={handleFieldChange}
@@ -95,7 +92,6 @@
                   name="intendedAccountNumber"
                   label="Intended Account Number"
                   value={row.intendedAccountNumber}
-                  is-invalid={row.isAccountNumberInvalid}
                   error-text="This field is required."
                   type="input"
                   onfieldchange={handleFieldChange}
@@ -164,15 +160,17 @@
       </lightning-datatable>
     </div>
 
-    <lightning-modal-footer class="modal-footer">
-      <template if:true={isCasesCreated}>
-        <lightning-button
-          class="slds-button"
-          variant="neutral"
-          label="Close"
-          onclick={handleCancel}
-        ></lightning-button>
-      </template>
-    </lightning-modal-footer>
+    <div class="modal-footer">
+      <lightning-modal-footer>
+        <template if:true={isCasesCreated}>
+          <lightning-button
+            class="slds-button"
+            variant="neutral"
+            label="Close"
+            onclick={handleCancel}
+          ></lightning-button>
+        </template>
+      </lightning-modal-footer>
+    </div>
   </template>
 </template>
