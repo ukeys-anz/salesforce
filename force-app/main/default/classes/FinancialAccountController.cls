@@ -5,6 +5,13 @@
  * @description FinancialAccountController retrieves account details for the financialAccount LWC and the FinancialGoals LWC
  */
 public with sharing class FinancialAccountController {
+  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
   //Map of fabric statuses and user friendly names to map them to
   private static final Map<String, String> FABRIC_STATUSES = new Map<String, String>{
     //Status Mapping of v1beta1
@@ -42,114 +49,13 @@ public with sharing class FinancialAccountController {
     String ocvId,
     List<String> accountNumbers
   ) {
-    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
-    List<FinServ__FinancialAccount__c> financialAccountsUpdate = new List<FinServ__FinancialAccount__c>();
     try {
-      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-      FinancialAccountModel result = coachapi.getAccounts(
-        ocvId,
-        accountNumbers
+      return getFinancialAccountsFromFabric(ocvId, accountNumbers);
+    } catch (DmlException dmlExp) {
+      throw new AuraHandledException(
+        'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator'
       );
-
-      //Check if we have any accounts returned
-      if (result.account_list == null) {
-        return financialAccounts;
-      }
-
-      Set<String> financialAccountNumbers = new Set<String>();
-      for (FinancialAccountModel.AccountList finAccount : result.account_list) {
-        financialAccountNumbers.add(finAccount.account_number);
-      }
-
-      //Added this to create Financial Account and FInancial Account Number Map to be used for fetching Id,OCVID and Ownership- by Shivam
-      Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = getFinAccNumberToFinancialAccountMap(
-        financialAccountNumbers
-      );
-
-      for (FinancialAccountModel.AccountList finAccount : result.account_list) {
-        //Format opened date from string to date
-        Date openedDate = finAccount.opened_at == null
-          ? null
-          : Date.valueOf(finAccount.opened_at);
-
-        //Format closed date from string to date
-        Date closedDate = finAccount.closed_at == null
-          ? null
-          : Date.valueOf(finAccount.closed_at);
-
-        //Added ownership field in order to show on UI if financial account not found in database
-        String ownership;
-        if (finAccount.ownership != null) {
-          ownership = FABRIC_OWNERSHIP.get(finAccount.ownership.type);
-        }
-
-        //Fetch Financial Account from Database
-        FinServ__FinancialAccount__c finAccountFromDatabase = finAccNumberToFinancialAccountMap.get(
-          finAccount.account_number
-        );
-
-        financialAccounts.add(
-          new FinServ__FinancialAccount__c(
-            Id = finAccountFromDatabase == null
-              ? null
-              : finAccountFromDatabase.Id,
-            Name = finAccount.name,
-            FinServ__FinancialAccountNumber__c = finAccount.account_number,
-            FinServ__Balance__c = finAccount.balance.value,
-            FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
-            BSB__c = finAccount.bsb,
-            FinServ__OpenDate__c = openedDate,
-            FinServ__CloseDate__c = closedDate,
-            FinServ__Status__c = FABRIC_STATUSES.get(finAccount.status),
-            Marketing_Code__c = finAccount.marketing_product.code,
-            RecordType = getAccountRecordType(
-              finAccount.marketing_product.code
-            ),
-            FinServ__Ownership__c = finAccountFromDatabase == null
-              ? ownership
-              : finAccountFromDatabase.Ownership__c
-          )
-        );
-
-        if (
-          finAccNumberToFinancialAccountMap.containsKey(
-            finAccount.account_number
-          )
-        ) {
-          financialAccountsUpdate.add(
-            new FinServ__FinancialAccount__c(
-              Id = finAccNumberToFinancialAccountMap.get(
-                  finAccount.account_number
-                )
-                .Id,
-              Name = finAccount.name,
-              FinServ__Balance__c = finAccount.balance.value,
-              FinServ__CurrentPostedBalance__c = finAccount.current_balance.value,
-              FinServ__CloseDate__c = closedDate,
-              FinServ__OpenDate__c = openedDate
-            )
-          );
-        }
-      }
-
-      SystemModeActions actions = new SystemModeActions(
-        'FinancialAccountController',
-        'getFinancialAccountFabric'
-      );
-      Boolean hasError = actions.updateRecords(
-        financialAccountsUpdate,
-        'FinServ__FinancialAccount__c'
-      );
-
-      if (hasError) {
-        throw new AuraHandledException(
-          'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator'
-        );
-      }
-
-      return financialAccounts;
     } catch (Exception e) {
-      // Not logging anything here, as all exceptions are caught in their respective methods.
       throw new AuraHandledException(
         'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator'
       );
@@ -157,25 +63,124 @@ public with sharing class FinancialAccountController {
   }
 
   /**
-   * @description builds a map of finaccnumber to FinServ__FinancialAccount__c
-   * @param financialAccountNumbers the financial account identifiers
-   * @return Map<String, FinServ__FinancialAccount__c> map of the fin acc number to the FinServ__FinancialAccount__c
+   * @description The Financial Account component uses this to fetch the records to display.
+   * This makes the callout to fabric to fetch data
+   *
+   * @param ocvId the ocv id of the customer
+   * @param accountNumbers contains account numbers to provide as parameters for account filtering
+   * @return List<FinServ__FinancialAccount__c>
    */
-  private static Map<String, FinServ__FinancialAccount__c> getFinAccNumberToFinancialAccountMap(
-    Set<String> financialAccountNumbers
+  private static List<FinServ__FinancialAccount__c> getFinancialAccountsFromFabric(
+    String ocvId,
+    List<String> accountNumbers
   ) {
-    Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = new Map<String, FinServ__FinancialAccount__c>();
-    for (FinServ__FinancialAccount__c finAccount : [
-      SELECT Id, FinServ__FinancialAccountNumber__c, Ownership__c
-      FROM FinServ__FinancialAccount__c
-      WHERE FinServ__FinancialAccountNumber__c IN :financialAccountNumbers
-    ]) {
-      finAccNumberToFinancialAccountMap.put(
-        finAccount.FinServ__FinancialAccountNumber__c,
-        finAccount
-      );
+    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
+    List<FinServ__FinancialAccount__c> financialAccountsUpdate = new List<FinServ__FinancialAccount__c>();
+    Set<String> financialAccountNumbers = new Set<String>();
+    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+    FinancialAccountModel result = coachapi.getAccounts(ocvId, accountNumbers);
+
+    if (result.account_list == null) {
+      return financialAccounts;
     }
-    return finAccNumberToFinancialAccountMap;
+
+    for (FinancialAccountModel.AccountList finAccount : result.account_list) {
+      financialAccountNumbers.add(finAccount.account_number);
+    }
+    List<FinServ__FinancialAccount__c> financialAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getFinAccountList(
+      new List<String>(financialAccountNumbers)
+    );
+
+    Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = (Map<String, FinServ__FinancialAccount__c>) ListUtil.mapBy(
+      financialAccountList,
+      FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
+    );
+
+    for (FinancialAccountModel.AccountList finAccount : result.account_list) {
+      FinServ__FinancialAccount__c finAccountFromDatabase = finAccNumberToFinancialAccountMap.get(
+        finAccount.account_number
+      );
+      FinServ__FinancialAccount__c finAccountRecord = getFinancialAccountInstance(
+        finAccount,
+        finAccountFromDatabase
+      );
+      financialAccounts.add(finAccountRecord);
+
+      if (finAccountFromDatabase != null) {
+        FinServ__FinancialAccount__c finAccountRecordToUpdate = getFinancialAccountInstanceToUpdate(
+          finAccount,
+          finAccountFromDatabase
+        );
+        financialAccountsUpdate.add(finAccountRecordToUpdate);
+      }
+    }
+
+    DML.doUpdate(financialAccountsUpdate, new DmlConfig().systemMode());
+
+    return financialAccounts;
+  }
+
+  /**
+   * @description
+   * Creates a instance of Financial Account Record to display it on UI
+   * @param finAccount Financial Account from Fabric
+   * @param finAccountFromDatabase Financial Account from Salesforce Database
+   * @return FinServ__FinancialAccount__c
+   */
+  private static FinServ__FinancialAccount__c getFinancialAccountInstance(
+    FinancialAccountModel.AccountList finAccount,
+    FinServ__FinancialAccount__c finAccountFromDatabase
+  ) {
+    FinServ__FinancialAccount__c finAccountRecord = new FinServ__FinancialAccount__c();
+    finAccountRecord.Id = finAccountFromDatabase?.Id;
+    finAccountRecord.Name = finAccount.name;
+    finAccountRecord.FinServ__FinancialAccountNumber__c = finAccount.account_number;
+    finAccountRecord.FinServ__Balance__c = finAccount.balance.value;
+    finAccountRecord.FinServ__CurrentPostedBalance__c = finAccount.current_balance.value;
+    finAccountRecord.BSB__c = finAccount.bsb;
+    finAccountRecord.FinServ__OpenDate__c = finAccount.opened_at == null
+      ? null
+      : Date.valueOf(finAccount.opened_at);
+    finAccountRecord.FinServ__CloseDate__c = finAccount.closed_at == null
+      ? null
+      : Date.valueOf(finAccount.closed_at);
+    finAccountRecord.FinServ__Status__c = FABRIC_STATUSES.get(
+      finAccount.status
+    );
+    finAccountRecord.Marketing_Code__c = finAccount.marketing_product.code;
+    finAccountRecord.RecordType = getAccountRecordType(
+      finAccount.marketing_product.code
+    );
+    finAccountRecord.FinServ__Ownership__c = finAccountFromDatabase == null
+      ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
+      : finAccountFromDatabase.Ownership__c;
+    finAccountRecord.FinServ__ProductName__c = finAccountFromDatabase.FinServ__ProductName__c;
+    return finAccountRecord;
+  }
+
+  /**
+   * @description
+   * Creates a instance of Financial Account Record to be updated
+   * @param finAccount Financial Account from Fabric
+   * @param finAccountFromDatabase Financial Account from Salesforce Database
+   * @return FinServ__FinancialAccount__c
+   */
+  private static FinServ__FinancialAccount__c getFinancialAccountInstanceToUpdate(
+    FinancialAccountModel.AccountList finAccount,
+    FinServ__FinancialAccount__c finAccountFromDatabase
+  ) {
+    FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
+    record.Id = finAccountFromDatabase.Id;
+    record.Name = finAccount.name;
+    record.FinServ__Balance__c = finAccount.balance.value;
+    record.FinServ__CurrentPostedBalance__c = finAccount.current_balance.value;
+    record.FinServ__CloseDate__c = finAccount.closed_at == null
+      ? null
+      : Date.valueOf(finAccount.closed_at);
+    record.FinServ__OpenDate__c = finAccount.opened_at == null
+      ? null
+      : Date.valueOf(finAccount.opened_at);
+    return record;
   }
 
   /**
@@ -202,29 +207,11 @@ public with sharing class FinancialAccountController {
         List<String> allRelatedAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
           ownerId
         );
-        financialAccount = [
-          SELECT
-            Id,
-            Name,
-            FinServ__Balance__c,
-            FinServ__CurrentPostedBalance__c,
-            FinServ__CloseDate__c,
-            FinServ__FinancialAccountNumber__c,
-            FinServ__Status__c,
-            FinServ__OpenDate__c,
-            Marketing_Code__c,
-            RecordType.DeveloperName,
-            LastModifiedDate,
-            Ownership__c,
-            OCV_ID__c
-          FROM FinServ__FinancialAccount__c
-          WHERE
-            (FinServ__PrimaryOwner__c = :ownerId
-            OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
-            AND RecordType.DeveloperName IN :recordTypeDeveloperNames
-            AND FinServ__Status__c != 'Closed'
-          ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
-        ];
+        financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinacialAccounts(
+          ownerId,
+          allRelatedAccountNumbers,
+          recordTypeDeveloperNames
+        );
       }
     } catch (Exception objException) {
       Logger.error(objException.getMessage(), objException);

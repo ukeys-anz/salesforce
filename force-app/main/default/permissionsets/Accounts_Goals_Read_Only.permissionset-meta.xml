@@ -29,7 +29,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>GetHelpFinancialAccountActions</apexClass>
+        <apexClass>FinancialAccountActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -229,6 +229,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.FinServ__InterestRate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Is_Interest_Tab_Visible__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -96,9 +96,9 @@
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>SavingsAccount</rightValue>
+                        <leftValue>{!Record.Is_Interest_Tab_Visible__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -145,9 +145,6 @@
                     <value>Account Number</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>token</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>useJwt</name>
                     <value>true</value>
                 </componentInstanceProperties>
@@ -159,9 +156,9 @@
                 <identifier>tableau_tableauViz</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <leftValue>{!Record.Is_Interest_Tab_Visible__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>SavingsAccount</rightValue>
+                        <rightValue>true</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -301,8 +298,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Product_Name__c</fieldItem>
-                <identifier>RecordProduct_Name_cField</identifier>
+                <fieldItem>Record.FinServ__ProductName__c</fieldItem>
+                <identifier>RecordFinServ_ProductName_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

@@ -214,10 +214,6 @@ public with sharing class GetHelpConstants {
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
     .getRecordTypeId();
-  // Customer Action - Pending Financial Account Updates
-  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
-    .get('Pending_Financial_Account_Updates')
-    .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';

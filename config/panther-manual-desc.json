@@ -2400,7 +2400,11 @@
         "Name",
         "Product_Name__c"
       ],
-      "IA-2415987": ["FinServ__ProductName__c", "Interest_Rate_URL__c"],
+      "IA-2415987": [
+        "FinServ__ProductName__c",
+        "Interest_Rate_URL__c",
+        "Is_Interest_Tab_Visible__c"
+      ],
       "IA-2530753": [
         "OCV_Event_Version__c",
         "Product_SubCode__c",
@@ -3546,7 +3550,8 @@
         "Product_Start_Date__c",
         "QuantityUnitOfMeasure",
         "StockKeepingUnit",
-        "IDR_Workbasket__c"
+        "IDR_Workbasket__c",
+        "SourceSystem__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3562,7 +3567,8 @@
         "Family"
       ],
       "IA-2415860": ["Sub_Product_Code__c", "OCV_Sub_Product_Key__c"],
-      "IA-2415840": ["ExternalId"]
+      "IA-2415840": ["ExternalId"],
+      "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
     },
     "Product_Family__c": {
       "IA-2530753": [
