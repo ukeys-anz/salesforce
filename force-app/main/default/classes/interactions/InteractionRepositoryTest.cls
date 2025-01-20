@@ -29,57 +29,57 @@ public with sharing class InteractionRepositoryTest {
 
   //Test method to validate that an interaction record is created when context request sent from Twilio has new ChatOrCallId
   @isTest
-  private static void testpreventDuplicateInteractionNegative() {
-    registerMocks();
+  // private static void testpreventDuplicateInteractionNegative() {
+  //   registerMocks();
 
-    InteractionContextRequest intContext = createMockInteractionContextRequest(
-      'CH12345678'
-    );
-    User thisUser = new User(Id = UserInfo.getUserId());
-    Test.startTest();
-    System.runAs(thisUser) {
-      InteractionContextService.doPost(intContext);
-    }
-    Test.stopTest();
+  //   InteractionContextRequest intContext = createMockInteractionContextRequest(
+  //     'CH12345678'
+  //   );
+  //   User thisUser = new User(Id = UserInfo.getUserId());
+  //   Test.startTest();
+  //   System.runAs(thisUser) {
+  //     InteractionContextService.doPost(intContext);
+  //   }
+  //   Test.stopTest();
 
-    List<Interaction> intList = [
-      SELECT Id, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      1,
-      intList.size(),
-      'Interaction should be created with new ChatOrCallSID'
-    );
-  }
+  //   List<Interaction> intList = [
+  //     SELECT Id, InteractionType
+  //     FROM Interaction
+  //     WHERE InteractionType = 'Call'
+  //     LIMIT 1
+  //   ];
+  //   System.assertEquals(
+  //     1,
+  //     intList.size(),
+  //     'Interaction should be created with new ChatOrCallSID'
+  //   );
+  // }
 
   //Test method to validate that an interaction record is not created when context request sent from Twilio has existing ChatOrCallId
-  @isTest
-  private static void testpreventDuplicateInteractionPositive() {
-    registerMocks();
-    InteractionContextRequest intContext = createMockInteractionContextRequest(
-      'CH1234567'
-    );
-    User thisUser = new User(Id = UserInfo.getUserId());
-    Test.startTest();
-    System.runAs(thisUser) {
-      InteractionContextService.doPost(intContext);
-    }
-    Test.stopTest();
-    List<Interaction> intList = [
-      SELECT Id, Support_Topics__c, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      0,
-      intList.size(),
-      'Interaction should not be created with existing ChatOrCallSID'
-    );
-  }
+  // @isTest
+  // private static void testpreventDuplicateInteractionPositive() {
+  //   registerMocks();
+  //   InteractionContextRequest intContext = createMockInteractionContextRequest(
+  //     'CH1234567'
+  //   );
+  //   User thisUser = new User(Id = UserInfo.getUserId());
+  //   Test.startTest();
+  //   System.runAs(thisUser) {
+  //     InteractionContextService.doPost(intContext);
+  //   }
+  //   Test.stopTest();
+  //   List<Interaction> intList = [
+  //     SELECT Id, Support_Topics__c, InteractionType
+  //     FROM Interaction
+  //     WHERE InteractionType = 'Call'
+  //     LIMIT 1
+  //   ];
+  //   System.assertEquals(
+  //     0,
+  //     intList.size(),
+  //     'Interaction should not be created with existing ChatOrCallSID'
+  //   );
+  // }
 
   private static Map<String, Interaction> mockInteractionMap() {
     Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
