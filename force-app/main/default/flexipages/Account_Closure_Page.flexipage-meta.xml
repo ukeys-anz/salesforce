@@ -241,19 +241,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Sub_Status__c</fieldItem>
                 <identifier>RecordSub_Status_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Circumstance__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Deceased Estate</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Circumstance__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Bankruptcy</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

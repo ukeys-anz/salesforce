@@ -26,42 +26,6 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>Case.Initiate_Account_Closure</value>
-                            <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!Record.Show_Initiate_Account_Closure__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Case_Group</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Type}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>Account Closure</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Circumstance__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>Deceased Estate</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Circumstance__c}</leftValue>
-                                    <operator>NE</operator>
-                                    <rightValue>Bankruptcy</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.ANZx_Account_Closure}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>true</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Case.Close_Accounts</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
