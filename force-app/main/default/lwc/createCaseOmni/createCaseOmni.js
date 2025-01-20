@@ -189,6 +189,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   }
   checkIfOCVDown() {
     if (
+      Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response") &&
       this.omniJsonData.Response.isOCVDown === "Yes" &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       !this.omniJsonData.isEligibleAppForLookUp
