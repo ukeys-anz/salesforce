@@ -160,14 +160,20 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   handleCreateChildCases() {
     const { validRows, hasError } = this.validateRows(this._selectedRows);
-    if (hasError) {
-      this._selectedRows = validRows;
-      return;
-    }
-    this.createChildCases(validRows);
-    this.dispatchEvent(new CustomEvent("errorvisibilty"));
-  }
+    this._selectedRows = validRows;
+    this.setErrorVisibility(hasError);
 
+    if (!hasError) {
+      this.createChildCases(validRows);
+    }
+  }
+  setErrorVisibility(showError) {
+    this.dispatchEvent(
+      new CustomEvent("errorvisibilty", {
+        detail: { showError }
+      })
+    );
+  }
   // Method to validate all rows
   validateRows(rows) {
     let hasError = false;
@@ -228,7 +234,7 @@ export default class AccountClosureWizardChild extends LightningElement {
         this.dispatchEvent(new CustomEvent("casescreated"));
       }
     } catch (error) {
-      console.error("Error creating cases:", JSON.stringify(error)); // TODO: THIS HAS TO BE DISCUSSED AND UPDATED
+      console.error("Error creating cases:", +JSON.stringify(error)); // TODO: THIS HAS TO BE DISCUSSED AND UPDATED
     }
     this.loading = false;
   }
