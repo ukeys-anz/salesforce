@@ -5,6 +5,8 @@
  * @description Helper class for Lead conversion process class LeadDMLOperator
  */
 public class LeadConversionActions {
+  @TestVisible
+  static final String ENTITY_TYPE_INDIVIDUAL = 'Individual';
   /**
    * @description getSuccessConvertedLeads to filter out success lead converted records
    * @param lcResults All list of lead records to be convert
