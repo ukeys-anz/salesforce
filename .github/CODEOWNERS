@@ -1,5 +1,16 @@
-# See codeowners.yml for required reviewer policies.
-# All files are owned by anzx-automation, in CODEOWNERS, as a means to
-# enforce commits signing and other policies.
+# This file is used to automatically request reviews on PRs.
 
-* @anzx-codeowner
+# These owners will be the default owners for everything in
+# the repo, unless a match on a later line takes precedence.
+# The below will request review from some members of the
+# salesforce team.
+*                                   @anzx/help-crm
+force-app/main/default/workflows/** @dawsond1x @patelsu @chiranjeebdhar @sebastienquinternet-anz @murugem4 @jasmine-anzx @pvictoriano
+force-app/main/default/flows/**     @dawsond1x @patelsu @chiranjeebdhar @sebastienquinternet-anz @murugem4 @jasmine-anzx @pvictoriano
+
+# The below will request a review from members of the platform 
+# engineering team for changes to CI/CD files
+*.yaml                              @dawsond1x @patelsu @chiranjeebdhar @sebastienquinternet-anz @murugem4 @jasmine-anzx @pvictoriano
+Dockerfile                          @dawsond1x @patelsu @chiranjeebdhar @sebastienquinternet-anz @murugem4 @jasmine-anzx @pvictoriano
+ci/**                               @dawsond1x @patelsu @chiranjeebdhar @sebastienquinternet-anz @murugem4 @jasmine-anzx @pvictoriano
+.github/**                          @dawsond1x @patelsu @chiranjeebdhar @sebastienquinternet-anz @murugem4 @jasmine-anzx @pvictoriano
