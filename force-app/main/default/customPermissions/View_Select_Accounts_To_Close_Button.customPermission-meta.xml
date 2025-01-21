@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This button will be visible to only those users who have access to create account closure records</description>
+    <isLicensed>false</isLicensed>
+    <label>View Select Accounts To Close Button</label>
+</CustomPermission>
