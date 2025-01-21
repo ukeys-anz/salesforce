@@ -11,11 +11,11 @@ import { handleErrorShowToast } from "c/utils";
 
 const fields = ["Case.Account.OCV_ID__c", "Case.AccountId"];
 const columns = [
-  { label: "Product Name", fieldName: "productName" },
+  { label: "Product", fieldName: "productName" },
   { label: "Account Number", fieldName: "accountNumber" },
   { label: "Account Type", fieldName: "finAccountType" },
   { label: "Signing Authority", fieldName: "signingAuthority" },
-  { label: "Balance", fieldName: "balance", type: "currency" }
+  { label: "Available Balance", fieldName: "balance", type: "currency" }
 ];
 
 export default class FinancialAccountsListWizard extends LightningElement {
@@ -140,7 +140,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
   handleErrorVisibilty(event) {
     this.hasError = event.detail.showError;
     this.errorMsg =
-      "Child cases could not be created. Please enter forwording account details for all accounts";
+      "Child cases could not be created. Please enter forwarding account details for all accounts";
   }
 
   handleCancelAction() {
