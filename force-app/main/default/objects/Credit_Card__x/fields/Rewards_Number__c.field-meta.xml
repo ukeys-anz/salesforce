@@ -6,9 +6,9 @@
     <description>Rewards Number</description>
     <externalDeveloperName>RewardsNumber</externalDeveloperName>
     <externalId>false</externalId>
-    <isFilteringDisabled>false</isFilteringDisabled>
+    <isFilteringDisabled>true</isFilteringDisabled>
     <isNameField>false</isNameField>
-    <isSortingDisabled>false</isSortingDisabled>
+    <isSortingDisabled>true</isSortingDisabled>
     <label>Rewards Number</label>
     <length>100</length>
     <required>false</required>

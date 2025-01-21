@@ -921,6 +921,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>CardHolder__x.Additional_Information__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>CardHolder__x.Card_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
