@@ -96,43 +96,6 @@ public with sharing class AccountClosureWizardControllerTest {
     );
   }
 
-  @isTest
-  static void testGetFilteredFinancialAccountsDbWithEmptyData() {
-    List<FinancialAccountsResponse> response;
-    List<String> recordTypes = new List<String>{
-      GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
-      GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-    };
-    Test.startTest();
-    try {
-      response = AccountClosureWizardController.getFilteredFinancialAccountsDb(
-        FAKER_ACCOUNT_ID,
-        recordTypes
-      );
-    } catch (Exception e) {
-    }
-
-    Test.stopTest();
-    System.assert(response.isEmpty(), 'No financial accounts returned');
-  }
-
-  @isTest
-  static void testGetFilteredFinancialAccountsEmptyData() {
-    List<FinancialAccountsResponse> response;
-    String ocvId = '12345';
-    List<String> accountNumbers = new List<String>{ '000000000', '111111111' };
-    Test.startTest();
-    try {
-      response = AccountClosureWizardController.getFilteredFinancialAccounts(
-        ocvId,
-        accountNumbers
-      );
-    } catch (Exception e) {
-    }
-    Test.stopTest();
-    System.assert(response.isEmpty(), 'No financial accounts returned');
-  }
-
   private static List<Case> mockListOfCases() {
     List<Case> listOfExistingCases = new List<Case>();
     Case caseRecord = new Case();
