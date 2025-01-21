@@ -3,8 +3,15 @@
  * @since 05/2022
  * @description CCRMOpportunityActionsTest is the test class for CCRMOpportunityActions class.
  */
+
 @isTest
 private class CCRMOpportunityActionsTest {
+  static Lib_MockProvider oppRepoMock;
+  static void registerMocks() {
+    oppRepoMock = Lib_MockProvider.forType(
+      CommercialOpportunityRepository.class
+    );
+  }
   @isTest
   static void testCreateOpportunity() {
     //Given when banker creates a new Opportunity
@@ -33,6 +40,47 @@ private class CCRMOpportunityActionsTest {
       opp.Opp_Id__c + ' ' + opp.Customer_Needs__c + ' sample Opp',
       opp.Name,
       'Opportunity Name is the same for Manual Opportunity.'
+    );
+  }
+
+  @isTest
+  static void testOpportunityOwnership() {
+    registerMocks();
+    String opportunityId = Lib_FakeIdGenerator.getMockId(
+      Opportunity.SObjectType
+    );
+    String user1 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+    String user2 = Lib_FakeIdGenerator.getMockId(User.SObjectType);
+
+    oppRepoMock.mock('getUserProfileId', QueryProfile.anzCCRMStandardUser.Id);
+
+    Map<Id, Opportunity> oldOppMap = new Map<Id, Opportunity>{
+      opportunityId => (new Opportunity(
+        Id = opportunityId,
+        OwnerId = user1,
+        Opportunity_Owner__c = user1,
+        recordTypeId = CCRMConstants.CCRM_OPP_RT_ID
+      ))
+    };
+
+    //WHEN update the Opportunity_Owner__c field on opportunity
+    List<Opportunity> oppList = new List<Opportunity>{
+      new Opportunity(
+        Id = opportunityId,
+        OwnerId = user1,
+        Opportunity_Owner__c = user2,
+        recordTypeId = CCRMConstants.CCRM_OPP_RT_ID
+      )
+    };
+    Test.startTest();
+    CCRMOpportunityActions.transferOpportunityOwnership(oppList, oldOppMap);
+    Test.stopTest();
+
+    //THEN check if update the actual OwnerId field is updated
+    Assert.areEqual(
+      oppList[0].OwnerId,
+      oppList[0].Opportunity_Owner__c,
+      'Owner not updated'
     );
   }
 

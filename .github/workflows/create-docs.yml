@@ -3,36 +3,48 @@ name: Create docs
 
 on:
   workflow_dispatch:
-    inputs:
-      DOC:
-        description: "Name of the docs"
-        required: true
-        default: "sysl"
-        type: choice
-        options:
-          - sysl
-          - schema
-          - access
+
+permissions:
+  contents: "write"
+  id-token: "write"
+
+env:
+  RUN_ID: "${{ github.run_id }}"
 
 jobs:
   create_docs:
-    runs-on: [self-hosted, salesforce-prod]
+    strategy:
+      fail-fast: false
+      matrix:
+        which-doc:
+          - NAME: "Sysl"
+            SLEEP: 0
+            PLUGIN_COMMAND: "../plugin/bin/run doc:sysl -f config/doc-def.json -p config/panther-manual-desc.json -u staging"
+            CREATED_FOLDER_PATH: "salesforce/docs/sysl"
+
+          - NAME: "Schema"
+            SLEEP: 10
+            PLUGIN_COMMAND: "../plugin/bin/run doc:schema -f config/doc-def.json -u staging"
+            CREATED_FOLDER_PATH: "salesforce/docs/schema"
+
+          - NAME: "Access"
+            SLEEP: 20
+            PLUGIN_COMMAND: "../plugin/bin/run doc:access -f config/doc-def.json -u staging"
+            CREATED_FOLDER_PATH: "salesforce/docs/access"
+
+    runs-on: anzx-default-np
+    concurrency:
+      group: "${{ matrix.which-doc.NAME }}-${{ github.run_id }}"
+      cancel-in-progress: true
     steps:
-      - name: Set BRANCH_NAME
+      - name: Echo informations
         run: |
-          CURRENT_DATE="$(date +%F-%H-%M)"
-          echo BRANCH_NAME="${GITHUB_RUN_ID}-${CURRENT_DATE//-}" >> $GITHUB_ENV
+          echo "which-doc: ${{ matrix.which-doc.NAME }}" 
+          sleep ${{ matrix.which-doc.SLEEP }}
 
       - uses: actions/setup-node@v2.1.5
         with:
           node-version: "18"
-
-      - name: Checkout salesforce-docs repo
-        uses: actions/checkout@v2
-        with:
-          repository: anzx/salesforce-docs
-          token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
-          path: salesforce-docs
 
       - name: Checkout doc plugin
         uses: actions/checkout@v2
@@ -48,12 +60,19 @@ jobs:
           fetch-depth: 0
           path: salesforce
 
-      - name: Install hub
-        run: |
-          curl -SL https://artifactory.gcp.anz/artifactory/github/github/hub/releases/download/v2.14.2/hub-linux-amd64-2.14.2.tgz -o hub.tar.gz && \
-          tar zxf hub.tar.gz && mv -v ./hub-linux-amd64-2.14.2/bin/hub /usr/bin/hub && \
-          chmod -v a+x /usr/bin/hub && \
-          rm -v hub.tar.gz
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: Retrieve required secrets
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            sfdxurl:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-sysl/versions/latest
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
 
       - name: Install npm packages
         working-directory: salesforce
@@ -80,13 +99,6 @@ jobs:
           rm -rf node_modules && yarn install --frozen-lockfile
         shell: bash
 
-      - name: SFDXURL
-        id: secrets
-        uses: google-github-actions/get-secretmanager-secrets@main
-        with:
-          secrets: |-
-            sfdxurl:projects/36540621485/secrets/ghr-salesforce-prod-salesforce-sysl-np/versions/latest
-
       - name: Create auth files with SFDX_URL secret
         working-directory: salesforce
         shell: bash
@@ -94,16 +106,15 @@ jobs:
 
       - name: Authenticate all orgs in SFDX CLI
         working-directory: salesforce
-        run: npx sfdx force:auth:sfdxurl:store -a staging --sfdxurlfile=./SFDX_URL_STAGING.txt
+        run: npx sf org login sfdx-url -a staging --sfdx-url-file=./SFDX_URL_STAGING.txt
 
-      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
-        name: Generate Sysl docs
+      - name: Generate ${{ matrix.which-doc.NAME }} docs
         working-directory: salesforce
         shell: bash
         run: |
-          ../plugin/bin/run doc:sysl -f config/doc-def.json -p config/panther-manual-desc.json -u staging
+          ${{ matrix.which-doc.PLUGIN_COMMAND }}
 
-      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
+      - if: "${{ matrix.which-doc.NAME == 'sysl' }}"
         name: Check if there is any missed information
         working-directory: salesforce
         run: |
@@ -112,84 +123,98 @@ jobs:
             cat ./docs/sysl/sysl-error.txt
           fi
 
-      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
-        name: Copy sysl files
+      - name: Upload to artifactory
         run: |
-          rm -rf salesforce-docs/sysl/salesforce.edg.sysl
-          cp -r salesforce/docs/sysl/salesforce.edg.sysl salesforce-docs/sysl/
+          artifactFoldername="${{ matrix.which-doc.NAME }}-${{ env.RUN_ID }}"
+          mkdir "$artifactFoldername"
+          cp -r ${{ matrix.which-doc.CREATED_FOLDER_PATH }} "$artifactFoldername/"
+          zip -r "$artifactFoldername.zip" "$artifactFoldername"
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory }}" -X PUT -T "$artifactFoldername.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$artifactFoldername.zip"
 
-      - if: "${{ github.event.inputs.DOC == 'sysl' }}"
-        name: Create new branch on anzx/salesforce-docs and commit sysl files
+  raise-pr:
+    strategy:
+      fail-fast: false
+      matrix:
+        which-doc:
+          - NAME: "Sysl"
+            REMOVE_PATH: "salesforce-docs/sysl/salesforce.edg.sysl"
+            CREATED_FOLDER_PATH: "sysl/salesforce.edg.sysl"
+            DESTINATION_FOLDER_PATH: "salesforce-docs/sysl/"
+            ADD_PATH: "sysl/salesforce.edg.sysl"
+
+          - NAME: "Schema"
+            REMOVE_PATH: "salesforce-docs/docs/governance/schema"
+            CREATED_FOLDER_PATH: "schema"
+            DESTINATION_FOLDER_PATH: "salesforce-docs/docs/governance/"
+            ADD_PATH: "docs/governance/schema"
+
+          - NAME: "Access"
+            REMOVE_PATH: "salesforce-docs/docs/governance/access"
+            CREATED_FOLDER_PATH: "access"
+            DESTINATION_FOLDER_PATH: "salesforce-docs/docs/governance/"
+            ADD_PATH: "docs/governance/access"
+
+    runs-on: anzx-default-np
+    needs: [create_docs]
+    steps:
+      - name: Checkout salesforce-docs repo
+        uses: actions/checkout@v2
+        with:
+          repository: anzx/salesforce-docs
+          token: ${{ secrets.SALESFORCE_DOCS_TOKEN }}
+          path: salesforce-docs
+
+      - name: OIDC Authentication (Salesforce Harness Delegate Service Account)
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
+
+      - name: Retrieve required secret
+        id: secrets
+        uses: google-github-actions/get-secretmanager-secrets@main
+        with:
+          secrets: |-
+            artifactory:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
+
+      - name: Download zip file
+        run: |
+          artifactFoldername="${{ matrix.which-doc.NAME }}-${{ env.RUN_ID }}"
+          echo "ARTIFACT_NAME=$artifactFoldername" >> $GITHUB_ENV
+          curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory }}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$artifactFoldername.zip"
+          unzip "$artifactFoldername.zip"
+
+      - name: Copy Sysl files
+        run: |
+          rm -rf ${{ matrix.which-doc.REMOVE_PATH }}
+          cp -r "${{env.ARTIFACT_NAME}}/${{matrix.which-doc.CREATED_FOLDER_PATH}}" ${{ matrix.which-doc.DESTINATION_FOLDER_PATH }}
+
+      - name: Create new branch on anzx/salesforce-docs and commit ${{matrix.which-doc.NAME}} files
         working-directory: salesforce-docs
         shell: bash
         run: |
-          BRANCH_NAME=${{ env.BRANCH_NAME }}
           git config user.name github-actions
           git config user.email github-actions@github.com
-          git checkout -b $BRANCH_NAME
-          git add sysl/salesforce.edg.sysl
-          git commit -m "Update sysl files"
-          git push origin $BRANCH_NAME
+          git checkout -b ${{env.ARTIFACT_NAME}}
+          git add ${{matrix.which-doc.ADD_PATH}}
+          git commit -m "Update ${{matrix.which-doc.NAME}} files"
+          git push origin ${{env.ARTIFACT_NAME}}
 
-      - if: "${{ github.event.inputs.DOC == 'schema' }}"
-        name: Generate Schema docs
-        working-directory: salesforce
-        shell: bash
-        run: |
-          ../plugin/bin/run doc:schema -f config/doc-def.json -u staging
-
-      - if: "${{ github.event.inputs.DOC == 'schema' }}"
-        name: Copy schema files
-        run: |
-          rm -rf salesforce-docs/docs/governance/schema
-          cp -r salesforce/docs/schema salesforce-docs/docs/governance/
-
-      - if: "${{ github.event.inputs.DOC == 'schema' }}"
-        name: Create new commit for schema files
-        working-directory: salesforce-docs
-        shell: bash
-        run: |
-          BRANCH_NAME=${{ env.BRANCH_NAME }}
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -b $BRANCH_NAME
-          git add docs/governance/schema
-          git commit -m "Update schema files"
-          git push origin $BRANCH_NAME
-
-      - if: "${{ github.event.inputs.DOC == 'access' }}"
-        name: Generate Access docs
-        working-directory: salesforce
-        shell: bash
-        run: |
-          ../plugin/bin/run doc:access -f config/doc-def.json -u staging
-
-      - if: "${{ github.event.inputs.DOC == 'access' }}"
-        name: Copy access files
-        run: |
-          rm -rf salesforce-docs/docs/governance/access
-          cp -r salesforce/docs/access salesforce-docs/docs/governance/
-
-      - if: "${{ github.event.inputs.DOC == 'access' }}"
-        name: Create new commit for access files
-        working-directory: salesforce-docs
-        shell: bash
-        run: |
-          BRANCH_NAME=${{ env.BRANCH_NAME }}
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-          git checkout -b $BRANCH_NAME
-          git add docs/governance/access
-          git commit -m "Update access files"
-          git push origin $BRANCH_NAME
+      - name: Install GH
+        uses: "anzx/github-reusable-actions/setup-gh-cli@main"
+        with:
+          gh-cli-version: "2.50.0"
 
       - name: Create a PR on anzx/salesforce-docs
         working-directory: salesforce-docs
         shell: bash
         run: |
           sleep 10
-          BRANCH_NAME=${{ env.BRANCH_NAME }}
-          if git branch | grep -q -w $BRANCH_NAME; then hub pull-request -b master -h $BRANCH_NAME --no-edit -m "Update docs files" -m "An automated PR to update documentations from https://github.com/anzx/salesforce/pull/${{ github.event.number }}"; fi
+          WHICH_JOB="${{matrix.which-doc.NAME}}"
+          ACTION_URL="https://github.com/${{github.repository}}/actions/runs/${{github.run_id}}"
+          if git branch | grep -q -w ${{env.ARTIFACT_NAME}}; then
+            gh pr create -B master -H ${{env.ARTIFACT_NAME}} -t "Update $WHICH_JOB files for Salesforce" -b "An automated PR to update $WHICH_JOB files from $ACTION_URL";
+          fi
           echo "✅ Pull Request raised"
         env:
           GITHUB_TOKEN: ${{ secrets.SALESFORCE_DOCS_TOKEN }}

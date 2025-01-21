@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ANZx_View_CIBA_Authorisation_AAL4</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>CIBA Authorisation Access AAL4</label>
+</PermissionSet>

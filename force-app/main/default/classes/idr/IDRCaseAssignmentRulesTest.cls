@@ -256,6 +256,60 @@ private with sharing class IDRCaseAssignmentRulesTest {
    * @description : This is the test method to get assign respective owner Id to Case.
    */
   @isTest
+  private static void testOwnerisIDRCollections() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Type = '17';
+    newCase.OwnerId = testUserId;
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_Collections').Id,
+      'Owner should be IDR_Collections'
+    );
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @isTest
+  private static void testOwnerisEDRHardshipCollections() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Origin = IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED;
+    newCase.Type = '17';
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('EDR_Hardship').Id,
+      'Owner should be EDR_Hardship'
+    );
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @isTest
   private static void testOwnerisEarlyResLending() {
     Case oldCase = caseRecord1;
 

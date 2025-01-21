@@ -63,7 +63,14 @@ global class CoreBankingDataSourceConnection extends DataSource.Connection {
       );
       result.queryMoreToken = externalQueryResult.queryMoreToken;
     } catch (Exception ex) {
-      Logger.error('Unexpected errors: ' + ex.getMessage());
+      String errorMessge = String.format(
+        'Unexpected error occured for {0}: {1}',
+        new List<Object>{
+          context.TableSelection.tableSelected,
+          ex.getMessage()
+        }
+      );
+      Logger.error(errorMessge);
       Logger.saveLog();
 
       result = DataSource.TableResult.get(

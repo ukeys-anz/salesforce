@@ -5,7 +5,7 @@
  * @group Services
  */
 public with sharing virtual class AccountClosureService extends Service {
-   /**
+  /**
    * @param ocvId ocvId of the customer to generate jwt token
    * @param accountDetailsForPrechecks required to make the callout to Mulesoft
    * @return `HttpCalloutResponse` the api response

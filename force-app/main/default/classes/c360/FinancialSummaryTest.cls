@@ -21,12 +21,10 @@ private class FinancialSummaryTest {
   static void getFinSummaryCallout(
     String responseId,
     Boolean callTotalCustBalanceApi,
-    Boolean callTerminalApi,
     Boolean callAssetFinanceBalanceApi
   ) {
     finSummaryCallout.responseId = responseId;
     finSummaryCallout.callTotalCustBalanceApi = callTotalCustBalanceApi;
-    finSummaryCallout.callTerminalApi = callTerminalApi;
     finSummaryCallout.callAssetFinanceBalanceApi = callAssetFinanceBalanceApi;
   }
 
@@ -132,38 +130,6 @@ private class FinancialSummaryTest {
   }
 
   @isTest
-  static void testGetTotalTerminals() {
-    //GIVEN the List of Cap Customer Ids List & Response Id to call Total Merchant Terminal API
-    List<String> capCustomerIds = new List<String>{ '4017192605' };
-    String responseId = (String) Lib_FakeIdGenerator.getMockId(
-      Account.SobjectType
-    );
-    String status = '';
-
-    Test.setMock(
-      HttpCalloutMock.class,
-      new CCRMTestDataFactory.GetTotalTerminalsMock()
-    );
-
-    Test.startTest();
-    //WHEN calling the Total Merchant Terminals API
-    status = FinancialSummaryController.getTotalMerchantTerminals(
-      responseId,
-      capCustomerIds,
-      FinancialSummaryController.TERMINALS_FIELDSET,
-      true
-    );
-    Test.stopTest();
-
-    //THEN the response should be 'Request Received' from Total Merchant Terminals API
-    system.assertEquals(
-      status,
-      FinancialSummaryController.MULE_RESPONSE,
-      'Errored out while calling the Terminal API'
-    );
-  }
-
-  @isTest
   static void testGetTotalAssetFinanceBalance() {
     //GIVEN the List of cap Customer Ids List & Response Id
     List<String> capCustomerIds = new List<String>{ '4017192605' };
@@ -222,7 +188,7 @@ private class FinancialSummaryTest {
 
   @isTest
   static void testInsertDataInCache() {
-    //GIVEN session Partition, expectedData and the platform event (totalBalanceResponse, terminalResponse, totalAssetBalanceResponse) value.
+    //GIVEN session Partition, expectedData and the platform event (totalBalanceResponse, totalAssetBalanceResponse) value.
     Cache.SessionPartition sessionPart = Cache.Session.getPartition(
       'local.DataPartition'
     );
@@ -231,7 +197,7 @@ private class FinancialSummaryTest {
     );
     String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
     String expectedData =
-      '{"totalMerchantTerminals":3,"totalBalanceAck":"Success","totalBalance":178.01,"totalAssetFinanceBalance":347.01,"terminalAck":"Success","lastSummaryUpdateDate":"' +
+      '{"totalBalanceAck":"Success","totalBalance":178.01,"totalAssetFinanceBalance":347.01,"lastSummaryUpdateDate":"' +
       currentDateTime +
       '","assetBalanceAck":"Success"}';
 
@@ -248,10 +214,6 @@ private class FinancialSummaryTest {
       '{\\"subType\\":\\"TOTAL_DEBIT_BALANCE\\",\\"subTypeValue\\":\\"180\\"},' +
       '{\\"subType\\":\\"TOTAL_CREDIT_BALANCE\\",\\"subTypeValue\\":\\"181\\"}]}"}';
 
-    String terminalResponse =
-      '{"Response_Id__c":"' +
-      responseId +
-      '","Status__c":"Success","Summary__c":"{\\"items\\":[{\\"subType\\":\\"TERMINALS\\",\\"subTypeValue\\":\\"3\\"}]}"}';
     String totalAssetBalanceResponse =
       '{"Response_Id__c":"' +
       responseId +
@@ -262,7 +224,6 @@ private class FinancialSummaryTest {
     Test.startTest();
     //WHEN trying to insert the data in cache
     FinancialSummaryController.insertDataInCache(totalBalanceResponse);
-    FinancialSummaryController.insertDataInCache(terminalResponse);
     FinancialSummaryController.insertDataInCache(totalAssetBalanceResponse);
     Test.stopTest();
     dataInCache = (String) sessionPart.get(responseId);
@@ -274,15 +235,15 @@ private class FinancialSummaryTest {
 
     //THEN the data should be inserted in cache successfully
     System.assertEquals(
-      expectedJSON.totalMerchantTerminals,
-      dataInCacheJSON.totalMerchantTerminals,
+      expectedJSON.totalBalance,
+      dataInCacheJSON.totalBalance,
       'Data not found in cache after insertion'
     );
   }
 
   @isTest
   static void testInsertDataInCacheErrorResponse() {
-    //GIVEN session Partition, expectedData and the platform event (totalBalanceResponse, terminalResponse, totalAssetBalanceResponse) value.
+    //GIVEN session Partition, expectedData and the platform event (totalBalanceResponse, totalAssetBalanceResponse) value.
     Cache.SessionPartition sessionPart = Cache.Session.getPartition(
       'local.DataPartition'
     );
@@ -291,7 +252,7 @@ private class FinancialSummaryTest {
     );
     String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
     String expectedData =
-      '{"totalMerchantTerminals":null,"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":"Unexpected error","totalDebitBalance":null,"totalCreditBalanceAck":"Unexpected error","totalCreditBalance":null,"totalBalanceAck":"Unexpected error","totalBalance":null,"totalAssetFinanceBalance":null,"terminalAck":"Unexpected error","lastSummaryUpdateDate":"' +
+      '{"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":"Unexpected error","totalDebitBalance":null,"totalCreditBalanceAck":"Unexpected error","totalCreditBalance":null,"totalBalanceAck":"Unexpected error","totalBalance":null,"totalAssetFinanceBalance":null,"lastSummaryUpdateDate":"' +
       currentDateTime +
       '","assetBalanceAck":"Unexpected error"}';
 
@@ -303,10 +264,6 @@ private class FinancialSummaryTest {
       '{\\"subType\\":\\"TOTAL_DEBIT_BALANCE\\",\\"subTypeValue\\":\\"0\\"},' +
       '{\\"subType\\":\\"TOTAL_CREDIT_BALANCE\\",\\"subTypeValue\\":\\"0\\"}]}"}';
 
-    String terminalResponse =
-      '{"Response_Id__c":"' +
-      responseId +
-      '","Status__c":"Error","Error_Description__c":"Api Failed","Summary__c":"{\\"items\\":[{\\"subType\\":\\"TERMINALS\\",\\"subTypeValue\\":\\"0\\"}]}"}';
     String totalAssetBalanceResponse =
       '{"Response_Id__c":"' +
       responseId +
@@ -317,7 +274,6 @@ private class FinancialSummaryTest {
     Test.startTest();
     //WHEN trying to insert the data in cache
     FinancialSummaryController.insertDataInCache(totalBalanceResponse);
-    FinancialSummaryController.insertDataInCache(terminalResponse);
     FinancialSummaryController.insertDataInCache(totalAssetBalanceResponse);
     Test.stopTest();
     dataInCache = (String) sessionPart.get(responseId);
@@ -345,15 +301,13 @@ private class FinancialSummaryTest {
     expectedData.responseId = responseId;
     expectedData.totalBalance = null;
     expectedData.totalBalanceAck = null;
-    expectedData.totalMerchantTerminals = 800;
-    expectedData.terminalAck = CCRMConstants.SUCCESS_RESPONSE;
     expectedData.totalAssetFinanceBalance = null;
     expectedData.assetBalanceAck = null;
     expectedData.cacheAck = FinancialSummaryController.CACHE_ACK;
     expectedData.lastSummaryUpdateDate = DateTime.now()
       .format('dd/MM/yyyy hh:mm a');
 
-    getFinSummaryCallout(responseId, false, false, false);
+    getFinSummaryCallout(responseId, false, false);
 
     Test.startTest();
     FinancialSummaryController.insertDataInCache(totalBalanceResponse);
@@ -627,7 +581,7 @@ private class FinancialSummaryTest {
       FinServ__FinancialAccount__c.SobjectType
     );
 
-    getFinSummaryCallout(primaryAccRec.Id, true, true, true);
+    getFinSummaryCallout(primaryAccRec.Id, true, true);
 
     expectedData = new FinancialSummaryResponseWrapper();
     expectedData.responseId = primaryAccRec.Id;
@@ -635,8 +589,6 @@ private class FinancialSummaryTest {
     expectedData.totalBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.totalDebitBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.totalCreditBalanceAck = FinancialSummaryController.MULE_RESPONSE;
-    expectedData.totalMerchantTerminals = null;
-    expectedData.terminalAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.totalAssetFinanceBalance = null;
     expectedData.assetBalanceAck = FinancialSummaryController.MULE_RESPONSE;
     expectedData.cacheAck = null;
@@ -692,7 +644,6 @@ private class FinancialSummaryTest {
     FinancialSummaryResponseWrapper finSumResponse = new FinancialSummaryResponseWrapper();
     finSumResponse.responseId = responseId;
     finSumResponse.totalBalanceAck = FinancialSummaryController.MULE_RESPONSE;
-    finSumResponse.terminalAck = FinancialSummaryController.MULE_RESPONSE;
     finSumResponse.assetBalanceAck = FinancialSummaryController.MULE_RESPONSE;
 
     Cache.SessionPartition sessionPart = Cache.Session.getPartition(
@@ -700,7 +651,7 @@ private class FinancialSummaryTest {
     );
     String currentDateTime = DateTime.now().format('dd/MM/yyyy hh:mm a');
     String expectedData =
-      '{"totalMerchantTerminals":null,"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":null,"totalDebitBalance":null,"totalCreditBalanceAck":null,"totalCreditBalance":null,"totalBalanceAck":"Request Received","totalBalance":null,"totalAssetFinanceBalance":null,"terminalAck":"Request Received","lastSummaryUpdateDate":"' +
+      '{"totalLimitValue":null,"totalLimitAck":null,"totalDebitBalanceAck":null,"totalDebitBalance":null,"totalCreditBalanceAck":null,"totalCreditBalance":null,"totalBalanceAck":"Request Received","totalBalance":null,"totalAssetFinanceBalance":null,"lastSummaryUpdateDate":"' +
       currentDateTime +
       '","assetBalanceAck":"Request Received"}';
 
@@ -797,37 +748,6 @@ private class FinancialSummaryTest {
       3,
       Decimal.valueOf((string) responseMap.get('TERMINALS')),
       'prepareSummaryMapTest is showing correct output'
-    );
-  }
-
-  @isTest
-  static void prepareCacheWrapperTest() {
-    String responseId = (String) Lib_FakeIdGenerator.getMockId(
-      Account.SobjectType
-    );
-
-    String terminalResponse =
-      '{"Response_Id__c":"' +
-      responseId +
-      '","Status__c":"Success","Summary__c":"{\\"items\\":[{\\"subType\\":\\"TERMINALS\\",\\"subTypeValue\\":\\"3\\"}]}"}';
-
-    FinancialSummaryWrapper.CacheData cacheWrapper = FinancialSummaryController.prepareCacheWrapper(
-      responseId
-    );
-    system.assertEquals(
-      cacheWrapper.totalMerchantTerminals,
-      null,
-      'prepareCacheWrapper is not returning correct value when data is not in cache'
-    );
-
-    Test.startTest();
-    FinancialSummaryController.insertDataInCache(terminalResponse);
-    Test.stopTest();
-    cacheWrapper = FinancialSummaryController.prepareCacheWrapper(responseId);
-    system.assertEquals(
-      cacheWrapper.totalMerchantTerminals,
-      3,
-      'prepareCacheWrapper is not returning correct value when data is in cache'
     );
   }
 

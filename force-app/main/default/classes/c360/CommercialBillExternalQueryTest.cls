@@ -102,7 +102,11 @@ private class CommercialBillExternalQueryTest {
     Test.startTest();
     customerId = query.getCustomerId(parentId, compositeAccountNumber);
     Test.stopTest();
-    Assert.areEqual('4017192605', customerId, 'Not able to fetch customerId');
+    Assert.areEqual(
+      'CAP-CIS_4017192605',
+      customerId,
+      'Not able to fetch customerId'
+    );
   }
 
   @isTest

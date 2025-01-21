@@ -191,11 +191,13 @@ public inherited sharing class HomeLoanAPIRepositoryTest {
   }
 
   private static HttpCalloutResponse getResponseNotFound() {
-    String errorBody = '{"code": "ERROR","additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}';
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.statusCode = 404;
     response.successful = false;
-    response.body = errorBody;
+    response.body = null;
+    response.error = new CalloutException(
+      '{"code": "ERROR","additionalInfo": {"reason": "HTTP:NOT_FOUND","category": "TECHNICAL"}}'
+    );
     return response;
   }
 

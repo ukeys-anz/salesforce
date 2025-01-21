@@ -232,15 +232,20 @@ public with sharing class COBCaseStatusPathControllerTest {
     Boolean isCalloutSucccesful = COBCaseStatusPathController.makeTemporalCallout(
       COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       cobIdOpsCase,
-      true
+      1
     );
     Test.stopTest();
 
     Assert.isFalse(isCalloutSucccesful, 'Callout should have failed.');
+    Integer expectedTimes = COBCaseStatusPathController.MAX_RETRY_COUNT + 1;
     Assert.areEqual(
-      2,
+      expectedTimes,
       stravinskyApiRepoMock.getHistories('triggerTemporalCaseWorkflow').size(),
-      'Workflow should be triggered twice, once for the initial call and once for the retry.'
+      'Workflow should be triggered ' +
+        expectedTimes +
+        ' times, once for the initial call and ' +
+        COBCaseStatusPathController.MAX_RETRY_COUNT +
+        ' times for the retry.'
     );
     Assert.areEqual(
       'Error calling out',
@@ -263,7 +268,7 @@ public with sharing class COBCaseStatusPathControllerTest {
     Boolean isCalloutSucccesful = COBCaseStatusPathController.makeTemporalCallout(
       COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       cobIdOpsCase,
-      false
+      COBCaseStatusPathController.MAX_RETRY_COUNT + 1
     );
     Test.stopTest();
 
@@ -294,7 +299,7 @@ public with sharing class COBCaseStatusPathControllerTest {
     Boolean isCalloutSucccesful = COBCaseStatusPathController.makeTemporalCallout(
       COBCaseConstants.COB_DAON_FALLOUT_STATUS,
       cobIdOpsCase,
-      false
+      COBCaseStatusPathController.MAX_RETRY_COUNT + 1
     );
     Test.stopTest();
 

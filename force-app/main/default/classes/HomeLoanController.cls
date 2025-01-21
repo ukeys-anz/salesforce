@@ -93,8 +93,7 @@ public with sharing class HomeLoanController {
       );
       return result;
     } catch (NotFoundException exp) {
-      OffsetAccountModel noOffsetExp = new OffsetAccountModel();
-      return noOffsetExp;
+      return null;
     } catch (Exception ex) {
       OffsetAccountModel offsetError = new OffsetAccountModel();
       offsetError.hasError = true;

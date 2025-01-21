@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <formula>$User.Sub_Team_Code__c = Owner:User.Sub_Team_Code__c 
 &amp;&amp; NOT(ISNULL(Owner:User.Sub_Team_Code__c))
-&amp;&amp;  My_Team__c</formula>
+&amp;&amp;  My_Region_Flag__c</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>My Sub Team</label>
     <securityClassification>Confidential</securityClassification>

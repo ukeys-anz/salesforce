@@ -2450,14 +2450,14 @@
         "hemState": "HEM_STATE_HEM"
       },
       {
-        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/9432e057-96cf-4f26-ac1f-a51fc1187b18",
-        "uid": "9432e057-96cf-4f26-ac1f-a51fc1187b18",
+        "name": "sops/b68362f2-4dee-4ced-95f6-bdaa39a50cb3/expenses/ae9b1ccb-1836-4126-8694-b02d4cb00abd",
+        "uid": "ae9b1ccb-1836-4126-8694-b02d4cb00abd",
         "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
         "expenseParent": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
-        "categoryName": "Owners Corp & Land Tax",
+        "categoryName": "Land Tax",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "0",
+          "units": "8907",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
@@ -2467,11 +2467,12 @@
         "leafNode": true,
         "warningCeilingAmount": null,
         "justificationCeilingAmount": null,
-        "createTime": "2023-07-06T01:52:06.165083Z",
-        "updateTime": "2023-07-06T01:52:06.165083Z",
+        "createTime": "2024-06-21T00:24:53.629493952Z",
+        "updateTime": "2024-06-21T00:24:53.629493952Z",
         "updatedBy": "sop-service",
-        "etag": "1688608326165083000",
-        "hemState": "HEM_STATE_UNSPECIFIED"
+        "etag": "1718929493629493952",
+        "hemState": "HEM_STATE_NON_HEM",
+        "asset": ""
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/expenses/",

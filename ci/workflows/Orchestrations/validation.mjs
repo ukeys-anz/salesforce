@@ -22,7 +22,8 @@ import {
   deleteFolder,
   deleteFile,
   renameItem,
-  findAllArgvs
+  findAllArgvs,
+  canSkipTest
 } from "../Services/helper.mjs";
 
 //////////
@@ -69,10 +70,11 @@ const ARTIFACTORY_SECRET_VALUE = args[1];
 const validationFunction = () => {
   const draftPr = booleanMap(DRAFT_PR);
   const specifiedTestsPR = booleanMap(SPECIFIED_TEST_PR);
+  const skipTestInNP = canSkipTest(WORKING_DIR + "/" + SOURCE_DIR, BASE_REF);
   const testMapping = {
-    NoTest: draftPr,
+    NoTest: draftPr || skipTestInNP,
     SpecifiedTests: specifiedTestsPR,
-    AllTests: !(draftPr || specifiedTestsPR)
+    AllTests: !(draftPr || specifiedTestsPR || skipTestInNP)
   };
 
   const validationFunctionMapping = {
@@ -81,7 +83,7 @@ const validationFunction = () => {
     AllTests: validateWithAllTests
   };
 
-  const chosenTest = Object.keys(testMapping).filter((k) => testMapping[k])[0];
+  const chosenTest = Object.keys(testMapping).find((k) => testMapping[k]);
   return validationFunctionMapping[chosenTest];
 };
 

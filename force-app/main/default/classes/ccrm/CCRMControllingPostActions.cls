@@ -310,11 +310,8 @@ public with sharing class CCRMControllingPostActions {
     Map<String, User> lanIdUserMap
   ) {
     for (Controlling_Post__c cpRec : filteredCpList) {
-      cpRec.CPID_User__c = lanIdUserMap.containsKey(
-          cpRec.CPID_LanID__c.toLowerCase()
-        )
-        ? lanIdUserMap.get(cpRec.CPID_LanID__c.toLowerCase()).Id
-        : null;
+      cpRec.CPID_User__c = lanIdUserMap.get(cpRec.CPID_LanID__c?.toLowerCase())
+        ?.Id;
     }
   }
 
