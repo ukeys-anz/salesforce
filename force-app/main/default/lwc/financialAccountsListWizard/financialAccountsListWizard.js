@@ -139,8 +139,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
 
   handleErrorVisibilty(event) {
     this.hasError = event.detail.showError;
-    this.errorMsg =
-      "Child cases could not be created. Please enter forwarding account details for all accounts";
+    this.errorMsg = event.detail.errorMessage;
   }
 
   handleCancelAction() {

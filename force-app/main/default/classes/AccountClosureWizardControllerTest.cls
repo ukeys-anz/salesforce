@@ -11,18 +11,15 @@ public with sharing class AccountClosureWizardControllerTest {
   private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
+
   static Lib_MockProvider accountClosureRepoMock;
   static Lib_MockProvider dmlRepoMock;
-  static Lib_MockProvider financialAccountControllerMock;
 
   static void registerMocks() {
     accountClosureRepoMock = Lib_MockProvider.forType(
       AccountClosureRepository.class
     );
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    financialAccountControllerMock = Lib_MockProvider.forType(
-      FinancialAccountController.class
-    );
   }
 
   @isTest
@@ -38,18 +35,14 @@ public with sharing class AccountClosureWizardControllerTest {
     );
 
     List<CaseInput> caseInputs = createCaseInputs();
-
     Test.startTest();
 
-    // Call the method under test
     List<Case> result = AccountClosureWizardController.createCasesForAccounts(
       FAKER_PARENT_CASE_ID,
       caseInputs
     );
 
     Test.stopTest();
-
-    // Assertions
     Assert.isFalse(result == null, 'Expected result to be non-null');
     Assert.isFalse(
       result.isEmpty(),
@@ -61,7 +54,6 @@ public with sharing class AccountClosureWizardControllerTest {
     );
   }
 
-  // Test method for createCasesForAccounts with Empty CaseInput List (Negative Scenario)
   @isTest
   static void testCreateCasesForAccountsWithEmptyInput() {
     registerMocks();
@@ -73,19 +65,15 @@ public with sharing class AccountClosureWizardControllerTest {
       'queryListOfInsertedOrUpdatedCases',
       mockListOfCases()
     );
-    List<CaseInput> caseInputs = new List<CaseInput>(); // Empty CaseInput List
+    List<CaseInput> caseInputs = new List<CaseInput>();
 
     Test.startTest();
 
-    // Call the method under test
     List<Case> result = AccountClosureWizardController.createCasesForAccounts(
       FAKER_PARENT_CASE_ID,
       caseInputs
     );
-
     Test.stopTest();
-
-    // Assertions
     Assert.isTrue(
       result.isEmpty(),
       'Expected an empty result list for empty CaseInput'
@@ -94,29 +82,47 @@ public with sharing class AccountClosureWizardControllerTest {
 
   @isTest
   static void testPrepareFinancialAccountsResponse() {
-    registerMocks();
-    financialAccountControllerMock.mock(
-      'getFinancialAccountFabric',
-      mockGetFinancialAccountFabric()
-    );
-    accountClosureRepoMock.mock('fetchChildCases', mockListOfCases());
-
-    List<FinServ__FinancialAccount__c> listOfFinAccounts = mockGetFinancialAccountFabric();
-
+    List<FinServ__FinancialAccount__c> listOfFinAccounts = mockFinancialAccounts();
     Test.startTest();
 
-    // Call the method under test
     List<FinancialAccountsResponse> response = AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
       listOfFinAccounts
     );
-
     System.assert(!response.isEmpty(), 'Response should not be empty');
-
     Assert.isTrue(
       response[0].accountNumber == '111111111',
       'Account Number should be "111111111"'
     );
+    Test.stopTest();
+  }
 
+  @isTest
+  static void testGetFilteredFinancialAccountsFromDbWithEmptyData() {
+    List<String> recordTypes = new List<String>{
+      GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
+      GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+    };
+    Test.startTest();
+
+    List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccountsDb(
+      FAKER_ACCOUNT_ID,
+      recordTypes
+    );
+    System.assert(response.isEmpty(), 'No financial accounts returned');
+    Test.stopTest();
+  }
+
+  @isTest
+  static void testGetFilteredFinancialAccountsFromWithEmptyData() {
+    String ocvId = '12345';
+    List<String> accountNumbers = new List<String>{ '000000000', '111111111' };
+    Test.startTest();
+
+    List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccounts(
+      ocvId,
+      accountNumbers
+    );
+    System.assert(response.isEmpty(), 'No financial accounts returned');
     Test.stopTest();
   }
 
@@ -133,11 +139,8 @@ public with sharing class AccountClosureWizardControllerTest {
     return listOfExistingCases;
   }
 
-  // Helper method to create a mock CaseInput
   private static List<CaseInput> createCaseInputs() {
     List<CaseInput> caseInputs = new List<CaseInput>();
-
-    // Assuming CaseInput has a constructor or setters for these fields
     CaseInput caseInput = new CaseInput();
     caseInput.intendedAccountName = 'hrkeg';
     caseInput.intendedAccountBsb = 'asd';
@@ -148,17 +151,13 @@ public with sharing class AccountClosureWizardControllerTest {
     caseInput.productName = 'Business One';
     caseInput.financialAccountId = 'a0FAD00000229qr2AA';
     caseInput.productId = '01t2P000000GKT0QAO';
-
-    // Add to the list
     caseInputs.add(caseInput);
 
     return caseInputs;
   }
 
-  private static List<FinServ__FinancialAccount__c> mockGetFinancialAccountFabric() {
+  private static List<FinServ__FinancialAccount__c> mockFinancialAccounts() {
     List<FinServ__FinancialAccount__c> accounts = new List<FinServ__FinancialAccount__c>();
-
-    // Mocking the first account as per expected data
     accounts.add(
       new FinServ__FinancialAccount__c(
         Id = 'a0FAD000002THXN2A4',
@@ -166,6 +165,7 @@ public with sharing class AccountClosureWizardControllerTest {
         FinServ__Balance__c = 1.99,
         FinServ__CurrentPostedBalance__c = 1.99,
         BSB__c = '014111',
+        FinServ__ProductName__c = '01t2P000000GKT7QAO',
         FinServ__OpenDate__c = Date.newInstance(2016, 9, 21),
         FinServ__CloseDate__c = null,
         FinServ__Status__c = 'Active',
@@ -173,7 +173,6 @@ public with sharing class AccountClosureWizardControllerTest {
         FinServ__Ownership__c = 'Single'
       )
     );
-
     return accounts;
   }
 }

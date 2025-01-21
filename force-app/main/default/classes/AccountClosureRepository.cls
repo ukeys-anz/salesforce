@@ -268,7 +268,9 @@ public with sharing class AccountClosureRepository {
         toLabel(Number_Of_Signatures__c),
         RecordType.DeveloperName
       FROM FinServ__FinancialAccount__c
-      WHERE Id IN :accountIds
+      WHERE
+        Id IN :accountIds
+        AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
     ];
   }
 
