@@ -88,42 +88,49 @@ public with sharing class AccountClosureWizardControllerTest {
     List<FinancialAccountsResponse> response = AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
       listOfFinAccounts
     );
+    Test.stopTest();
     System.assert(!response.isEmpty(), 'Response should not be empty');
     Assert.isTrue(
       response[0].accountNumber == '111111111',
       'Account Number should be "111111111"'
     );
-    Test.stopTest();
   }
 
   @isTest
   static void testGetFilteredFinancialAccountsFromDbWithEmptyData() {
+    List<FinancialAccountsResponse> response;
     List<String> recordTypes = new List<String>{
       GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
       GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
     };
     Test.startTest();
+    try {
+      response = AccountClosureWizardController.getFilteredFinancialAccountsDb(
+        FAKER_ACCOUNT_ID,
+        recordTypes
+      );
+    } catch (Exception e) {
+    }
 
-    List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccountsDb(
-      FAKER_ACCOUNT_ID,
-      recordTypes
-    );
-    System.assert(response.isEmpty(), 'No financial accounts returned');
     Test.stopTest();
+    System.assert(response.isEmpty(), 'No financial accounts returned');
   }
 
   @isTest
   static void testGetFilteredFinancialAccountsFromWithEmptyData() {
+    List<FinancialAccountsResponse> response;
     String ocvId = '12345';
     List<String> accountNumbers = new List<String>{ '000000000', '111111111' };
     Test.startTest();
-
-    List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-      ocvId,
-      accountNumbers
-    );
-    System.assert(response.isEmpty(), 'No financial accounts returned');
+    try {
+      response = AccountClosureWizardController.getFilteredFinancialAccounts(
+        ocvId,
+        accountNumbers
+      );
+    } catch (Exception e) {
+    }
     Test.stopTest();
+    System.assert(response.isEmpty(), 'No financial accounts returned');
   }
 
   private static List<Case> mockListOfCases() {
