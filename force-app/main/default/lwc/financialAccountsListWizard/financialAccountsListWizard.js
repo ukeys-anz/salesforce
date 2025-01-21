@@ -110,7 +110,10 @@ export default class FinancialAccountsListWizard extends LightningElement {
         accountNumber: record.accountNumber,
         finAccountType: displayValue,
         signingAuthority:
-          record.ownership === "Multi-party" ? record.signingAuthority : "",
+          record.ownership === "Multi-party" &&
+          record.signingAuthority === "All to sign"
+            ? record.signingAuthority
+            : "",
         balance: record.balance,
         productId: record.productId,
         apiFinAccountType: apiValue
