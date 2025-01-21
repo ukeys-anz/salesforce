@@ -36,6 +36,8 @@ export default class AccountClosureWizardChild extends LightningElement {
   copyToAll = false;
   loading = false;
   isCasesCreated = false;
+  hasError = false;
+  errorMsg;
 
   // Get Closure Reason Options
   @wire(getPicklistValues, {
@@ -159,33 +161,36 @@ export default class AccountClosureWizardChild extends LightningElement {
   }
 
   handleCreateChildCases() {
-    const { validRows, hasError } = this.validateRows(this._selectedRows);
+    this.errorMsg =
+      "Child cases could not be created. Please enter forwarding account details for all accounts";
+    const { validRows, isFieldIsBlank } = this.validateRows(this._selectedRows);
     this._selectedRows = validRows;
-    this.setErrorVisibility(hasError);
+    this.setErrorVisibility(isFieldIsBlank, this.errorMsg);
 
-    if (!hasError) {
+    if (!isFieldIsBlank) {
       this.createChildCases(validRows);
     }
   }
-  setErrorVisibility(showError) {
+
+  setErrorVisibility(showError, errorMessage) {
     this.dispatchEvent(
       new CustomEvent("errorvisibilty", {
-        detail: { showError }
+        detail: { showError: showError, errorMessage: errorMessage }
       })
     );
   }
+
   // Method to validate all rows
   validateRows(rows) {
-    let hasError = false;
+    let isFieldIsBlank = false;
     const validRows = rows.map((row) => {
       const invalidFields = this.validateRowFields(row);
       if (Object.values(invalidFields).includes(true)) {
-        hasError = true;
+        isFieldIsBlank = true;
       }
       return { ...row, ...invalidFields };
     });
-
-    return { validRows, hasError };
+    return { validRows, isFieldIsBlank };
   }
 
   // Method to check the validity of each row's fields
@@ -234,13 +239,20 @@ export default class AccountClosureWizardChild extends LightningElement {
         this.dispatchEvent(new CustomEvent("casescreated"));
       }
     } catch (error) {
-      console.error("Error creating cases:", +JSON.stringify(error)); // TODO: THIS HAS TO BE DISCUSSED AND UPDATED
+      this.handleError();
+    } finally {
+      this.loading = false;
     }
-    this.loading = false;
+  }
+
+  handleError() {
+    this.hasError = true;
+    this.errorMsg =
+      "Please try again. Raise a fault through TechAssist if the problem persists.";
+    this.setErrorVisibility(this.hasError, this.errorMsg);
   }
 
   handleCancel() {
-    //this.dispatchEvent(new CloseActionScreenEvent());
     this.dispatchEvent(new CustomEvent("cancel"));
   }
 }

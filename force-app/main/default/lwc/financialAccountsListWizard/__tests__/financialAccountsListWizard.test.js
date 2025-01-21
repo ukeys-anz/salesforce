@@ -1,6 +1,9 @@
 import { createElement } from "lwc";
 import FinancialAccountsListWizard from "c/financialAccountsListWizard";
+import { getRecord } from "lightning/uiRecordApi";
 import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
+const getWiredRecord = require("./data/getWiredRecord.json");
+const finAccountData = require("./data/finAccountData.json");
 
 jest.mock(
   "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts",
@@ -13,21 +16,23 @@ jest.mock(
 );
 
 describe("c-financial-accounts-list-wizard", () => {
-  afterEach(() => {
-    // The jsdom instance is shared across test cases in a single file so reset the DOM
-    while (document.body.firstChild) {
-      document.body.removeChild(document.body.firstChild);
-    }
-  });
-
-  it("Test Case: No Financial Accounts are Available", () => {
-    // Arrange
-    getFilteredFinancialAccounts.mockResolvedValue([]);
+  beforeEach(() => {
     const element = createElement("c-financial-accounts-list-wizard", {
       is: FinancialAccountsListWizard
     });
-    // Act
     document.body.appendChild(element);
+  });
+
+  afterEach(() => {
+    while (document.body.firstChild) {
+      document.body.removeChild(document.body.firstChild);
+    }
+    jest.clearAllMocks();
+  });
+
+  it("renders correctly with no financial accounts data", () => {
+    const element = document.querySelector("c-financial-accounts-list-wizard");
+    getFilteredFinancialAccounts.mockResolvedValue([]);
 
     return Promise.resolve().then(() => {
       let heading = element.shadowRoot.querySelector(
@@ -36,6 +41,41 @@ describe("c-financial-accounts-list-wizard", () => {
       expect(heading.textContent).toBe(
         "No Available Financial Accounts to Close"
       );
+    });
+  });
+
+  it("spinner should not load when no financial accounts getting fetched", () => {
+    const element = document.querySelector("c-financial-accounts-list-wizard");
+    getFilteredFinancialAccounts.mockResolvedValue([]);
+
+    return Promise.resolve().then(() => {
+      const spinner = element.shadowRoot.querySelector(
+        "lightning-spinner[data-id='loading']"
+      );
+      expect(spinner).toBeNull();
+    });
+  });
+
+  it("spinner should load when financial accounts getting fetched", () => {
+    getFilteredFinancialAccounts.mockResolvedValue(finAccountData);
+    const element = document.querySelector("c-financial-accounts-list-wizard");
+    getRecord.emit(getWiredRecord);
+
+    return Promise.resolve().then(() => {
+      const spinner = element.shadowRoot.querySelector(
+        "lightning-spinner[data-id='loading']"
+      );
+      expect(spinner).not.toBeNull();
+    });
+  });
+
+  it("financial accounts fetched from mock", () => {
+    getFilteredFinancialAccounts.mockResolvedValue(finAccountData);
+    document.querySelector("c-financial-accounts-list-wizard");
+    getRecord.emit(getWiredRecord);
+
+    return Promise.resolve().then(() => {
+      expect(getFilteredFinancialAccounts).toHaveBeenCalled();
     });
   });
 });

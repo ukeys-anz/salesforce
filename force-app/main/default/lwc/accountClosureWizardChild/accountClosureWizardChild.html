@@ -2,6 +2,7 @@
   <template if:false={isCasesCreated}>
     <template if:true={loading}>
       <lightning-spinner
+        data-id="spinner"
         alternative-text="Loading"
         size="small"
       ></lightning-spinner>
@@ -20,6 +21,7 @@
             class="slds-var-m-top_medium slds-grid slds-grid_align-end slds-var-p-horizontal_small"
           >
             <lightning-input
+              data-id="copyToAll"
               type="checkbox"
               label="Tick to use the same details for all accounts"
               onchange={handleUseSameDetailsCheckbox}
@@ -42,9 +44,9 @@
                 <c-editable-field
                   row-id={row.id}
                   name="closureReason"
+                  is-invalid={row.isClosureReasonInvalid}
                   label="Closure Reason"
                   value={row.closureReason}
-                  error-text="This field is required."
                   type="combobox"
                   options={closureResonValues}
                   onfieldchange={handleFieldChange}
@@ -57,10 +59,10 @@
                 <c-editable-field
                   row-id={row.id}
                   name="intendedAccountName"
+                  is-invalid={row.isAccountNameInvalid}
                   label="Intended Account Name"
                   value={row.intendedAccountName}
                   help-text="Account name of the recipient where the money was meant to go."
-                  error-text="This field is required."
                   type="input"
                   onfieldchange={handleFieldChange}
                 >
@@ -75,24 +77,23 @@
                 <c-editable-field
                   row-id={row.id}
                   name="intendedAccountBsb"
+                  is-invalid={row.isaccountBsbInvalid}
                   label="Intended Account BSB"
                   value={row.intendedAccountBsb}
                   help-text="Branch code of the recipient's bank where the money was meant to go."
-                  error-text="This field is required."
                   type="input"
                   onfieldchange={handleFieldChange}
                 >
                 </c-editable-field>
               </div>
-
               <!-- Intended Account Number Field -->
               <div class="slds-col slds-size_1-of-2">
                 <c-editable-field
                   row-id={row.id}
                   name="intendedAccountNumber"
+                  is-invalid={row.isAccountNumberInvalid}
                   label="Intended Account Number"
                   value={row.intendedAccountNumber}
-                  error-text="This field is required."
                   type="input"
                   onfieldchange={handleFieldChange}
                 >
@@ -110,6 +111,7 @@
           <lightning-button
             class="slds-button"
             variant="neutral"
+            data-id="cancel"
             label="Cancel"
             onclick={handleCancel}
           ></lightning-button>
@@ -124,6 +126,7 @@
             ></lightning-button>
             <lightning-button
               class="slds-button slds-m-left_x-small"
+              data-id="createChildCasesButton"
               variant="brand"
               onclick={handleCreateChildCases}
               label="Create Child Cases"
@@ -152,6 +155,7 @@
         accounts.
       </div>
       <lightning-datatable
+        data-id="casesDataTable"
         key-field="id"
         data={casesData}
         columns={caseColumns}
