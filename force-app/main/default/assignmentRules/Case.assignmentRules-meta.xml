@@ -240,5 +240,10 @@
             <assignedToType>Queue</assignedToType>
             <formula>AND( ISNEW(), RecordType.DeveloperName = &apos;Profile_Update&apos; )</formula>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>RBM_Coaches_Broker_Enquiry</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(ISNEW(),RecordType.DeveloperName = &quot;Broker_Enquiry&quot;)</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
