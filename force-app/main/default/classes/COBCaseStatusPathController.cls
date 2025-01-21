@@ -28,6 +28,10 @@ public with sharing class COBCaseStatusPathController {
     COBCaseConstants.COB_CONFIRMED_FRAUD_STATUS
   };
 
+  @TestVisible
+  private static final Integer MAX_RETRY_COUNT = 3;
+  private static final String RETRY_MESSAGE = 'Temporal Callout failed to update status: {0}. Attempting {1} auto-retry callout for a Case.';
+
   /**
    * @description Trigger Temporal workflow based on case status
    * @param currentStatus Current status to revert to if update fails
@@ -90,7 +94,7 @@ public with sharing class COBCaseStatusPathController {
     Boolean isCalloutSucccesful = makeTemporalCallout(
       currentStatus,
       cobCase,
-      true
+      1
     );
     handleCaseUpdate(cobCase);
     return new COBCaseUpdateStatus(
@@ -103,14 +107,14 @@ public with sharing class COBCaseStatusPathController {
    * @description Trigger Temporal workflow based on case status
    * @param currentStatus Current status to revert to if update fails
    * @param cobCase Case with new fields data to be updated
-   * @param retryOnFail True to retry on failure, False - no retry on failure
+   * @param attempCount Number of attempts to retry the callout
    * @return Boolean Indicates whether the callout was successful or not
    */
   @TestVisible
   private static Boolean makeTemporalCallout(
     String currentStatus,
     Case cobCase,
-    Boolean retryOnFail
+    Integer attempCount
   ) {
     cobCase.Status_Update_Error__c = ''; // Clear previous error to avoid confusion if this update is successful
     if (COB_CASE_STATUSES_WITH_ENDPOINT.contains(cobCase.Status) == false) {
@@ -123,15 +127,25 @@ public with sharing class COBCaseStatusPathController {
       );
       setCaseStatusFromTemporalResult(cobCase, cobStage);
     } catch (Exception e) {
-      if (retryOnFail) {
+      if (attempCount <= MAX_RETRY_COUNT) {
+        Map<Integer, String> attempCountSuffix = new Map<Integer, String>{
+          1 => '1st',
+          2 => '2nd',
+          3 => '3rd'
+        };
         Logger.info(
-          'Temporal Callout failed to update status: ' +
-            cobCase.Status +
-            '. Attempting auto-retry callout for Case ' +
-            cobCase.Id,
+          String.format(
+            RETRY_MESSAGE,
+            new List<String>{
+              cobCase.Status,
+              attempCountSuffix.get(attempCount)
+            }
+          ),
+          cobCase.Id,
           e
         );
-        return makeTemporalCallout(currentStatus, cobCase, false);
+        attempCount++;
+        return makeTemporalCallout(currentStatus, cobCase, attempCount);
       }
       Logger.error(
         'Temporal Callout failed to update status: ' +

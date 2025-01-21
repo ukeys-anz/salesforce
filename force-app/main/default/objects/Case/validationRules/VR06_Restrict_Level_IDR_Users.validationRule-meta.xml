@@ -19,7 +19,7 @@ Is_Owner_s_Line_Manager_Me__c))||
 
 (isChanged(OwnerId) &amp;&amp; !(PRIORVALUE(OwnerId)=$User.Id ||
 PRIORVALUE(Is_Owner_s_Line_Manager_Me__c)) &amp;&amp; !($Profile.Name = &apos;ANZx Standard User&apos;)) ||
-(isChanged(OwnerId) &amp;&amp; ((PRIORVALUE(OwnerId)=$User.Id &amp;&amp; BEGINS(PRIORVALUE(OwnerId) , &apos;00G&apos;)) || (!ISPICKVAL(PRIORVALUE(Status), &apos;Open&apos;) &amp;&amp; !ISPICKVAL(PRIORVALUE(Status), &apos;Under Investigation&apos;))) &amp;&amp; ($Profile.Name = &apos;ANZx Standard User&apos;)) ||
+(isChanged(OwnerId) &amp;&amp; ((PRIORVALUE(OwnerId)=$User.Id &amp;&amp; BEGINS(PRIORVALUE(OwnerId) , &apos;00G&apos;)) || (!ISPICKVAL(PRIORVALUE(Status), &apos;Open&apos;) &amp;&amp; !ISPICKVAL(PRIORVALUE(Status), &apos;Under Investigation&apos;))) &amp;&amp; ($Profile.Name = &apos;ANZx Standard User&apos;) &amp;&amp;  NOT( OR( $UserRole.Name = &apos;Banker&apos;, $UserRole.Name = &apos;Banker Line Manager&apos;)))  ||
 (isChanged(Status) &amp;&amp; ISPICKVAL(Status, &apos;Re-opened&apos;)) ||
 (isChanged(Status) &amp;&amp; ISPICKVAL(Status, &apos;On Hold&apos;))
 )</errorConditionFormula>

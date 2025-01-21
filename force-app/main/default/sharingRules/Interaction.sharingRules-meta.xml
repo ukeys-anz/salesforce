@@ -1,6 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
+        <fullName>ANZx_Interaction_Read_Only_For_ECH_Users</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>View access to all the ANZx records for Extra Care Hub users</description>
+        <label>ANZx Interaction Read Only For ECH Users</label>
+        <sharedTo>
+            <group>ANZx_Read_Only_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>CCRM_Sharing_ML_Interaction_with_Commercial_Bankers_Read_Only</fullName>
         <accessLevel>Read</accessLevel>
         <label>CCRM Sharing ML Interaction with Commercial Bankers Read Only</label>
@@ -89,6 +104,21 @@
             <field>Name</field>
             <operation>notEqual</operation>
             <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Interaction_Settlement_Officer_Lead_Read_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to users with Settlement Officer Lead and their Subordinates</description>
+        <label>Interaction Settlement Officer Lead Read Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>In Person,Message,Call</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

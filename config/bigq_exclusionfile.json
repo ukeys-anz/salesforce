@@ -417,6 +417,8 @@
     "dupcheck__dc3Index__c",
     "dupcheck__dc3Web2Lead__c"
   ],
+  "Opportunity": ["SourceId"],
+  "Product2": ["AvailabilityDate", "BasedOnId"],
   "ResidentialLoanApplication": [
     "Assessment_Outcome__c",
     "Created_Date__c",

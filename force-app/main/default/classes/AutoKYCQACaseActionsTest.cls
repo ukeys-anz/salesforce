@@ -1,6 +1,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 @IsTest
 public with sharing class AutoKYCQACaseActionsTest {
+  //#region Test Data
   private static final Faker FAKER = new Faker('AU');
 
   private static final String RECTIFY_DEFECT_STATUS = 'Rectify Defect';
@@ -223,7 +224,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       }
     );
   }
+  //#endregion
 
+  //#region tests for populating case field from COBs
   @isTest
   private static void testValidateCob() {
     Test.startTest();
@@ -575,7 +578,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The First Name OCR Server is blank, Middle Names are empty and Full Names are matching, Licence Number is not matching - Middle Name Check should be false'
     );
   }
+  //#endregion
 
+  //#region validate duplicate KYCQA cases
   @isTest
   private static void testValidateDuplicateKYCQACasePerAccount() {
     registerMocks();
@@ -675,7 +680,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       .getParam('cobAppIds');
     Assert.isTrue(cobAppIds.isEmpty(), 'Query param should be empty');
   }
+  //#endregion
 
+  //#region tested date
   @isTest
   private static void testHasKycCheckCompleted() {
     Case theCase = null;
@@ -707,7 +714,9 @@ public with sharing class AutoKYCQACaseActionsTest {
       'The Tasted Date should not be null'
     );
   }
+  //#endregion
 
+  //#region downgrade/upgrade
   @isTest
   private static void testDowngradeWithNoRecords() {
     registerMocks();
@@ -755,29 +764,6 @@ public with sharing class AutoKYCQACaseActionsTest {
       newAccList[0].KYC_Verification_Level__c,
       'KYC Verification Level should be set to: ' +
       AutoKYCQACaseActions.DOWNGRADE_KYC_VERIFICATION_LEVEL
-    );
-  }
-
-  @isTest
-  private static void testHasKycCheckCompletedWithDefect() {
-    Case theCase = constuctCaseWithTestFields(null);
-    Boolean hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(
-      theCase
-    );
-    Assert.isFalse(hasDefect, 'One of the test fields is empty');
-
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
-    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
-    Assert.isTrue(
-      hasDefect,
-      'All test fields are not empty and one of them is NO'
-    );
-
-    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
-    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
-    Assert.isFalse(
-      hasDefect,
-      'All test fields are not empty and all of them are YES'
     );
   }
 
@@ -901,6 +887,31 @@ public with sharing class AutoKYCQACaseActionsTest {
       AutoKYCQACaseActions.UPGRADE_KYC_VERIFICATION_LEVEL
     );
   }
+  //#endregion
+
+  //#region populate closed no defect defaults
+  @isTest
+  private static void testHasKycCheckCompletedWithDefect() {
+    Case theCase = constuctCaseWithTestFields(null);
+    Boolean hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(
+      theCase
+    );
+    Assert.isFalse(hasDefect, 'One of the test fields is empty');
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.NO);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
+    Assert.isTrue(
+      hasDefect,
+      'All test fields are not empty and one of them is NO'
+    );
+
+    theCase = constuctCaseWithTestFields(AutoKYCQACaseActions.YES);
+    hasDefect = AutoKYCQACaseActions.hasKycCheckCompletedWithDefect(theCase);
+    Assert.isFalse(
+      hasDefect,
+      'All test fields are not empty and all of them are YES'
+    );
+  }
 
   @IsTest
   static void testPopulateClosedNoDefectDefaults() {
@@ -977,7 +988,9 @@ public with sharing class AutoKYCQACaseActionsTest {
 
     Assert.isFalse(result, 'Should be false if case was downgraded');
   }
+  //#endregion
 
+  //#region restraints
   @IsTest
   static void testUpdateRestraintResultsError() {
     registerMocks();
@@ -1096,7 +1109,7 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
 
   @IsTest
-  static void testGetRestraintStatusFromCpusNotChange() {
+  static void testGetRestraintStatusFromCpusPending() {
     String restraintsAction = AutoKYCQACaseActions.REMOVE_RESTRAINTS;
     List<Customer_Profile_Updates__c> cpusPending = constructCPUs(
       new List<String>{ 'Pending', 'Completed', 'Completed' },
@@ -1110,9 +1123,13 @@ public with sharing class AutoKYCQACaseActionsTest {
     );
     Test.stopTest();
 
-    // Verify the returned status is Pending
-    Assert.isNull(status, 'The status should be null');
+    Assert.areEqual(
+      AutoKYCQACaseActions.RESTRAINT_PENDING_STATUSES.get(restraintsAction),
+      status,
+      'Incorrect restraint status'
+    );
   }
+  //#endregion
 
   //#region validateOwnerChange
   @IsTest

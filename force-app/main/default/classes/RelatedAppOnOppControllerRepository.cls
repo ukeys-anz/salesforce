@@ -30,7 +30,14 @@ public with sharing class RelatedAppOnOppControllerRepository {
         Application_Number__c,
         Application_Status__c,
         (
-          SELECT Id, Name, Stage, Product.Name, ProductId, Close_Date__c
+          SELECT
+            Id,
+            Name,
+            Stage,
+            Product.Name,
+            ProductId,
+            Close_Date__c,
+            Reference_Number__c
           FROM ApplicationFormProducts
         )
       FROM ApplicationForm

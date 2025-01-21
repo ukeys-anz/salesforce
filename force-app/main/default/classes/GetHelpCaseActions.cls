@@ -54,14 +54,14 @@ public with sharing class GetHelpCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Set<Id> caseIds = new Set<Id>();
     List<Case> validateCaseList = new List<Case>();
-
+    List<Case> caseWhoseDurationToUpdate = new List<Case>();
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
       if (
         oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
         record.Status == GetHelpConstants.CLOSED_STATUS
       ) {
-        updateCaseDurationTime(record);
+        caseWhoseDurationToUpdate.add(record);
       }
 
       if (record.RecordTypeId == RTCase.generalInquiry) {
@@ -93,6 +93,10 @@ public with sharing class GetHelpCaseActions {
         //Set owner of case to cad referral queue if its set to escalated
         record.OwnerId = cadReferralQueue.Id;
       }
+    }
+
+    if (!caseWhoseDurationToUpdate.isEmpty()) {
+      updateCaseDurationTime(caseWhoseDurationToUpdate, (Map<Id, Case>) oldMap);
     }
 
     handlePopulateCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
@@ -407,16 +411,28 @@ public with sharing class GetHelpCaseActions {
   /**
    * @description This method updates the case duration hours field for EA for further usage
    * when the case status is updated to closed
-   * @param record case from the trigger
+   * @param records case from the trigger
+   * @param oldMap old map from the trigger
    */
-  public static void updateCaseDurationTime(Case record) {
-    CaseDurationObject.DurationTime durationTime = CaseDurationService.getCaseDurationTime(
-      record.Id
-    );
-    record.Case_Hour_Duration__c = durationTime.dHours.setScale(
-      2,
-      RoundingMode.HALF_UP
-    );
+  public static void updateCaseDurationTime(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    try {
+      Map<Id, CaseDurationObject.DurationTime> caseIdToDuration = CaseDurationService.getCaseDurationTime(
+        records,
+        (Map<Id, Case>) oldMap
+      );
+      for (Case record : records) {
+        CaseDurationObject.DurationTime duration = caseIdToDuration
+          ?.get(record.Id);
+        record.Case_Hour_Duration__c = duration
+          ?.dHours.setScale(2, RoundingMode.HALF_UP);
+      }
+    } catch (Exception e) {
+      Logger.error('Failed to calculate case duration time', e);
+      Logger.saveLog();
+    }
   }
 
   /**

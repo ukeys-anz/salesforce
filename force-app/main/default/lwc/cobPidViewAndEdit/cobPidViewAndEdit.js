@@ -1,5 +1,5 @@
 import { LightningElement, api, wire, track } from "lwc";
-import { showToast } from "c/utils";
+import { handleErrors, showToast } from "c/utils";
 import { getRecord, getRecordNotifyChange } from "lightning/uiRecordApi";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import { CloseActionScreenEvent } from "lightning/actions";
@@ -193,15 +193,8 @@ export default class CobPidViewAndEdit extends LightningElement {
       } catch (error) {
         this.error = error;
         this.data = this._initDetokenizedData;
-
-        showToast(
-          this,
-          "Error!",
-          "Failed to update details. Please contact your System Administrator.",
-          "",
-          "error",
-          ""
-        );
+        let errorMessage = handleErrors(error);
+        showToast(this, "Error!", errorMessage, "", "error", "");
       }
     }
 

@@ -243,8 +243,6 @@ private class COBPIDViewAndEditControllerTest {
 
   @isTest
   static void testGetTokenizedFieldValuesPassport() {
-    // Set<String> fieldValues = new Set<String>();
-
     Test.startTest();
     fieldValues = COBPIDViewAndEditController.getTokenizedFieldValues(
       pidPassport,
@@ -494,6 +492,43 @@ private class COBPIDViewAndEditControllerTest {
     Assert.isFalse(
       stravinskyApiRepoMock.getHistories('updatePrimaryIDDocument').isEmpty(),
       'updatePrimaryIDDocument call should have been made.'
+    );
+  }
+
+  @isTest
+  static void testGetErrorMessageFound() {
+    String apiErrorMessage = 'FirstName must match pattern';
+    String errorMessage =
+      'failed to validate primaryId Info: ' + apiErrorMessage;
+
+    Test.startTest();
+    String readableErrorMessage = COBPIDViewAndEditController.getErrorMessage(
+      errorMessage
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      COBPIDViewAndEditController.PID_ERRORS_USER_MSG.get(apiErrorMessage),
+      readableErrorMessage,
+      'Error message should be ' + readableErrorMessage
+    );
+  }
+
+  @isTest
+  static void testGetErrorMessageNotFound() {
+    String errorMessage = 'error messagee';
+
+    Test.startTest();
+    String readableErrorMessage = COBPIDViewAndEditController.getErrorMessage(
+      errorMessage
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      COBPIDViewAndEditController.FAILED_TO_UPDATE_DETAILS,
+      readableErrorMessage,
+      'Error message should be ' +
+      COBPIDViewAndEditController.FAILED_TO_UPDATE_DETAILS
     );
   }
 

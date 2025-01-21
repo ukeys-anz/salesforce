@@ -34,7 +34,11 @@ public without sharing class AutoTaskOnLeadConversionQueueable implements Queuea
       Lead leadRecord = LEADCONV_REPOSITORY.getLeadsWithCustomerDetails(
         leadIDs[0]
       );
-      if (leadRecord == null) {
+      if (
+        leadRecord == null ||
+        leadRecord.FinServ__RelatedAccount__c == null ||
+        leadRecord.FinServ__RelatedAccount__r.OCV_Event_Version__c == 0
+      ) {
         return;
       }
       Map<Id, String> mismtachLeadsWithFieldsMap = AutoTaskOnLeadConversionHelper.checkLeadMisMatchCustomer(

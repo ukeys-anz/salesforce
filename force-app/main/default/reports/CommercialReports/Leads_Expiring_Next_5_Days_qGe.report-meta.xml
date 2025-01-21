@@ -27,7 +27,7 @@
     </columns>
     <description>This report is used to display leads which is going to expire in next 5 days.</description>
     <filter>
-        <booleanFilter>1 AND (2 OR (3 AND 4)) AND (5 AND 6)</booleanFilter>
+        <booleanFilter>1 AND (2 OR (3 AND 4)) AND (5 AND 6) AND 7</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -70,6 +70,13 @@
             <operator>greaterOrEqual</operator>
             <value>TODAY</value>
         </criteriaItems>
+        <criteriaItems>
+            <column>Lead.My_Region_Flag__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
@@ -83,7 +90,7 @@
         <value>1</value>
     </params>
     <reportType>LeadList</reportType>
-    <scope>user</scope>
+    <scope>org</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>

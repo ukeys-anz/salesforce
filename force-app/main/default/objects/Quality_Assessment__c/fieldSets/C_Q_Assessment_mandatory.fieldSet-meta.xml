@@ -18,6 +18,11 @@
         <isRequired>false</isRequired>
     </displayedFields>
     <displayedFields>
+        <field>C_Q_Comments_feedback_suggestions__c</field>
+        <isFieldManaged>false</isFieldManaged>
+        <isRequired>false</isRequired>
+    </displayedFields>
+    <displayedFields>
         <field>New_Starter__c</field>
         <isFieldManaged>false</isFieldManaged>
         <isRequired>false</isRequired>

@@ -70,7 +70,7 @@ public with sharing class IDRQualityAssessmentTaskActions {
         lstQAShare.add(oQAShare);
       }
     }
-    DML_REPOSITORY.doDelete(lstQAShare);
+    DML_REPOSITORY.doDelete(lstQAShare, new DMLConfig().withoutSharing());
   }
   /**
    * @description method to create Compliance Task if Quality Assessment record's status is changed to Completed

@@ -95,18 +95,17 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       return cobStage;
     }
 
-    //Attempt to parse excpected Error response
+    //Attempt to parse expected Error response
     String responseErrMsg = response.error.getMessage();
 
-    if (String.isBlank(responseErrMsg)) {
+    if (
+      String.isBlank(responseErrMsg) ||
+      !responseErrMsg.containsIgnoreCase(FAILED_PRECONDITION_CODE)
+    ) {
       throw CommonUtil.logException(response);
     }
 
     COBRASErrorModel parsedResponse = COBRASErrorModel.parse(responseErrMsg);
-
-    if (parsedResponse.code != FAILED_PRECONDITION_CODE) {
-      throw CommonUtil.logException(response);
-    }
 
     for (COBRASErrorModel.Details errDetail : parsedResponse.details) {
       COBRASErrorModel.Debug debug = errDetail.debug;
@@ -169,11 +168,17 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       requestBody
     );
 
-    if (response.successful == false) {
+    if (response.successful == true) {
+      return COBPrimaryIDDocumentModel.parse(response.body);
+    }
+
+    if (response.statusCode != 500) {
       throw CommonUtil.logException(response);
     }
 
-    return COBPrimaryIDDocumentModel.parse(response.body);
+    String responseErrMsg = response.error.getMessage() ??
+      'No response from API';
+    throw new PIDDataException(responseErrMsg);
   }
 
   /**
@@ -216,6 +221,12 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
      * @description reason
      */
     public String reason { get; set; }
+  }
+
+  /**
+   * @description Mismatched Data exception
+   */
+  private class PIDDataException extends Exception {
   }
 
   /**

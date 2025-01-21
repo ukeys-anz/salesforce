@@ -2,7 +2,7 @@
  * @description       : class contains method that is used in IP/OS to invoke OB-Data out functionality
  * @author            : Anuj jain
  * @group             : TFM
- * @last modified on  : 03-05-2024
+ * @last modified on  : 11-15-2024
  **/
 global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOpenInterface, Callable {
   // Remote methods
@@ -13,6 +13,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
   private static final String REVOKECONSENT = 'revokeConsent';
   private static final String GETCONSENTLIST = 'getConsentsList';
   private static final String CONSENTMANAGEMENTACTION = 'consentMgmtAccountList';
+  private static final String GET_TRANSFORMED_DATASCOPES = 'getTransformedDataScopes';
 
   /**
    * @param action String value of local method to invoke
@@ -53,6 +54,8 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       return getConsentAccountList(input, output, options);
     } else if (methodName.equals(GETCONSENTLIST)) {
       return getConsentsList(input, output, options);
+    } else if (methodName.equals(GET_TRANSFORMED_DATASCOPES)) {
+      return getTransformedDataScopes(input, output, options);
     }
     return false;
   }
@@ -82,7 +85,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         accountId,
         emailEnabled
       );
-      if (response.statusCode == 401 || response.statusCode == 403) {
+      if (handleStatusCode(response.statusCode)) {
         output.put('isValid', false);
       } else {
         responseMap = (Map<String, Object>) JSON.deserializeUntyped(
@@ -94,8 +97,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       }
     } catch (Exception e) {
       output.put('showSuccessToast', false);
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      logError(e);
     }
     return true;
   }
@@ -130,7 +132,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         enabled,
         staffModel
       );
-      if (response.statusCode == 401 || response.statusCode == 403) {
+      if (handleStatusCode(response.statusCode)) {
         output.put('isValid', false);
       } else {
         responseMap = (Map<String, Object>) JSON.deserializeUntyped(
@@ -142,8 +144,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       }
     } catch (Exception e) {
       output.put('showSuccessToast', false);
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      logError(e);
       return false;
     }
     return true;
@@ -168,7 +169,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
     try {
       HttpCalloutResponse response = api.getJointAccountPermissions(staffModel);
-      if (response.statusCode == 401 || response.statusCode == 403) {
+      if (handleStatusCode(response.statusCode)) {
         output.put('isValid', false);
       } else {
         responseMap = (Map<String, Object>) JSON.deserializeUntyped(
@@ -178,8 +179,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         output.put('isValid', true);
       }
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      logError(e);
       return false;
     }
     return true;
@@ -198,8 +198,6 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     Map<String, Object> options
   ) {
     Map<String, Object> responseMap = new Map<String, Object>();
-    String dataScopevalue = String.valueOf(input.get('dataScope'));
-    Map<String, String> dataScope = transformDataScopes(dataScopevalue);
     List<Object> consentAccountRecords = (List<Object>) JSON.deserializeUntyped(
       String.valueOf(input.get(TFMConstants.ACCOUNTS))
     );
@@ -217,12 +215,28 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         response.body
       );
       output.put('consentAccountList', responseMap);
-      output.put('dataScope', dataScope);
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      logError(e);
       return false;
     }
+    return true;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description returns ui options for Consent Account
+   */
+  private boolean getTransformedDataScopes(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    String dataScopevalue = String.valueOf(input.get('dataScope'));
+    Map<String, String> dataScope = transformDataScopes(dataScopevalue);
+    output.put('dataScope', dataScope);
     return true;
   }
 
@@ -274,7 +288,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         arrangementId,
         staffModel
       );
-      if (response.statusCode == 401 || response.statusCode == 403) {
+      if (handleStatusCode(response.statusCode)) {
         output.put('isValid', false);
       } else {
         output.put('result', 'Success');
@@ -282,8 +296,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       }
     } catch (Exception e) {
       output.put('showSuccessToast', false);
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      logError(e);
     }
     return true;
   }
@@ -308,7 +321,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
     try {
       HttpCalloutResponse response = api.getConsentsList(staffModel);
-      if (response.statusCode == 401 || response.statusCode == 403) {
+      if (handleStatusCode(response.statusCode)) {
         output.put('isValid', false);
       } else {
         responseMap = (Map<String, Object>) JSON.deserializeUntyped(
@@ -316,10 +329,11 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
         );
         output.put('consentsList', responseMap);
         output.put('isValid', true);
+        output.put(TFMConstants.SHOWTOAST, true);
       }
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
+      output.put(TFMConstants.SHOWTOAST, false);
+      logError(e);
       return false;
     }
     return true;
@@ -344,7 +358,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       String.valueOf(input.get(TFMConstants.ORIGINALEXPIRETIMEVALUE)),
       staffModel
     );
-    if (response.statusCode == 401 || response.statusCode == 403) {
+    if (handleStatusCode(response.statusCode)) {
       responseMap.put('isValid', false);
       return responseMap;
     }
@@ -385,5 +399,25 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
     staffModel.idValue = idValue;
     staffModel.anzTokenType = TFMConstants.ANZTOKENTYPE;
     return staffModel;
+  }
+
+  /**
+   * @param statusCode value of statusCode
+   * @return `Boolean`
+   * @description return Map<String, Object> that sets isvalid to true or false
+   */
+  public static Boolean handleStatusCode(Integer statusCode) {
+    if (statusCode == 401 || statusCode == 403) {
+      return true;
+    }
+    return false;
+  }
+  /**
+   * @param e Excption
+   * @description log's error in logger
+   */
+  public static void logError(Exception e) {
+    Logger.error(e.getMessage(), e);
+    Logger.saveLog();
   }
 }

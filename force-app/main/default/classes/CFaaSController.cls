@@ -65,7 +65,6 @@ public with sharing class CFaaSController {
   ) {
     CFaaSAPIRepository cfaasAPI = new CFaaSAPIRepository();
     CFaaSDocumentModel.CFaaSDownloadUrl downloadUrlModel;
-    Blob documentBody;
 
     try {
       downloadUrlModel = cfaasAPI.getDownloadURL(
@@ -75,13 +74,9 @@ public with sharing class CFaaSController {
         cvId
       );
 
-      List<ContentVersion> cvList = [
-        SELECT ContentDocumentId, CreatedDate, Document_Flag__c
-        FROM ContentVersion
-        WHERE Id = :downloadUrlModel.contentVersionId
-        WITH SECURITY_ENFORCED
-        LIMIT 1
-      ];
+      List<ContentVersion> cvList = CFaaSRepository.queryContentVersionWithId(
+        downloadUrlModel.contentVersionId
+      );
 
       insertDocViewedLog(cfaasFile);
 
@@ -184,15 +179,10 @@ public with sharing class CFaaSController {
     CFaaS_File__c cfaasFile,
     String ocvId
   ) {
-    List<ContentVersion> cvList = [
-      SELECT Id, ContentDocumentId, CreatedDate, Document_Flag__c
-      FROM ContentVersion
-      WHERE
-        FirstPublishLocationId = :cfaasFile.Id
-        AND CreatedById = :CURRENT_USER_ID
-      WITH SECURITY_ENFORCED
-      LIMIT 1
-    ];
+    String uid = cfaasFile.Document_Id__c + '-' + CURRENT_USER_ID;
+    List<ContentVersion> cvList = CFaaSRepository.queryContentVersionWithUid(
+      uid
+    );
 
     if (cvList.isEmpty()) {
       return null;
