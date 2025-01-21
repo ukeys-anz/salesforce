@@ -97,7 +97,7 @@ public with sharing class AccountClosureWizardControllerTest {
   }
 
   @isTest
-  static void testGetFilteredFinancialAccountsFromDbWithEmptyData() {
+  static void testGetFilteredFinancialAccountsDbWithEmptyData() {
     List<FinancialAccountsResponse> response;
     List<String> recordTypes = new List<String>{
       GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
@@ -117,7 +117,7 @@ public with sharing class AccountClosureWizardControllerTest {
   }
 
   @isTest
-  static void testGetFilteredFinancialAccountsFromWithEmptyData() {
+  static void testGetFilteredFinancialAccountsEmptyData() {
     List<FinancialAccountsResponse> response;
     String ocvId = '12345';
     List<String> accountNumbers = new List<String>{ '000000000', '111111111' };
