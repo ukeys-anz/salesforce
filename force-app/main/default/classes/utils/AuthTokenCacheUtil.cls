@@ -33,7 +33,8 @@ public with sharing class AuthTokenCacheUtil {
       Logger.error(
         'Unable to query user ' +
           userId +
-          ' to check if ANZx user can perform token caching'
+          ' to check if ANZx user can perform token caching',
+        Logger.Severity.LOW
       );
       Logger.saveLog();
     }
@@ -90,7 +91,8 @@ public with sharing class AuthTokenCacheUtil {
       } else {
         Logger.error(
           'Login Flow Invocable method did not receive Azure Id Token for user: ' +
-          userId
+          userId,
+          Logger.Severity.LOW
         );
         Logger.saveLog();
       }
@@ -137,7 +139,10 @@ public with sharing class AuthTokenCacheUtil {
       // Id token was not there, if refresh token exists try and refresh the Id token and return it
       return AuthTokenCacheUtil.refreshIdToken(refreshToken);
     } else {
-      Logger.error('Session Id Token not found for user ' + userId);
+      Logger.error(
+        'Session Id Token not found for user ' + userId,
+        Logger.Severity.LOW
+      );
       Logger.saveLog();
       throw new TokenCacheException(
         'Oh dear! Looks like we\'ve messed up and lost a connection downstream.\nThe quick fix is to sign in again and all should be right.'
@@ -173,7 +178,7 @@ public with sharing class AuthTokenCacheUtil {
         true
       );
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
+      Logger.error(e.getMessage(), e, Logger.Severity.LOW);
       Logger.saveLog();
     }
 
@@ -207,7 +212,11 @@ public with sharing class AuthTokenCacheUtil {
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
-      Logger.error('Unable to retrieve staff token. ' + e.getMessage(), e);
+      Logger.error(
+        'Unable to retrieve staff token. ' + e.getMessage(),
+        e,
+        Logger.Severity.LOW
+      );
       Logger.saveLog();
       throw new TokenCacheException(e.getMessage());
     }
@@ -229,7 +238,10 @@ public with sharing class AuthTokenCacheUtil {
    */
   public static String getStaffToken(StaffTokenRequestModel staffModelWrapper) {
     String staffToken;
-    String cacheKey = staffModelWrapper.anzTokenType == TFMConstants.ANZ_STAFF_TOKEN_TYPE ? '' : TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue);
+    String cacheKey = staffModelWrapper.anzTokenType ==
+      TFMConstants.ANZ_STAFF_TOKEN_TYPE
+      ? ''
+      : TextUtils.removeNonAlphanumericChar(staffModelWrapper.idValue);
     if (!Forgerock_Auth__mdt.sObjectType.getDescribe().isQueryable()) {
       throw new AuraHandledException(
         'Unable to query Foregerock - permission denied'
@@ -243,9 +255,7 @@ public with sharing class AuthTokenCacheUtil {
       staffToken = (String) Cache.Session.get(
         STAFFPART +
         getHashedKey(
-          'forgeJWTToken' +
-            cacheKey +
-            staffModelWrapper.apiScopesRequested
+          'forgeJWTToken' + cacheKey + staffModelWrapper.apiScopesRequested
         )
       );
       if (staffToken != null && AuthTokenCacheUtil.isTokenValid(staffToken)) {
@@ -263,7 +273,11 @@ public with sharing class AuthTokenCacheUtil {
       staffToken = responseModel.accessToken;
       expiresIn = responseModel.expiresIn.intValue();
     } catch (Exception e) {
-      Logger.error('Unable to retrieve staff token. ' + e.getMessage(), e);
+      Logger.error(
+        'Unable to retrieve staff token. ' + e.getMessage(),
+        e,
+        Logger.Severity.LOW
+      );
       Logger.saveLog();
       throw new TokenCacheException(e.getMessage());
     }
@@ -272,9 +286,7 @@ public with sharing class AuthTokenCacheUtil {
       Cache.Session.put(
         STAFFPART +
         getHashedKey(
-          'forgeJWTToken' +
-            cacheKey +
-            staffModelWrapper.apiScopesRequested
+          'forgeJWTToken' + cacheKey + staffModelWrapper.apiScopesRequested
         ),
         staffToken,
         expiresIn
@@ -403,7 +415,8 @@ public with sharing class AuthTokenCacheUtil {
       return mapPersonaIdAndCustomerName;
     } catch (Exception e) {
       Logger.error(
-        'Unable to retrieve customer name from persona id which is in staff JWT token.'
+        'Unable to retrieve customer name from persona id which is in staff JWT token.',
+        Logger.Severity.LOW
       );
       Logger.saveLog();
       return null;
