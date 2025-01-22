@@ -239,20 +239,24 @@ const cancel = (
 
   console.log("Prevoius jobId: " + pastJobId);
   createDeployCacheFile(pastJobId, targetOrg, anzxCIPackage, anzxCIPackage);
+  try {
+    const report = runSfCommand(
+      `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
+    );
 
-  const report = runSfCommand(
-    `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
-  );
+    const prevJobStatus = JSON.parse(report)["result"]["status"];
+    if (prevJobStatus !== "InProgress" && prevJobStatus !== "Pending") {
+      console.log(`Past job: ${pastJobId} is already completed/canceled!`);
+      return;
+    }
 
-  const prevJobStatus = JSON.parse(report)["result"]["status"];
-  if (prevJobStatus !== "InProgress" && prevJobStatus !== "Pending") {
-    console.log(`Past job: ${pastJobId} is already completed/canceled!`);
+    const command = `npx sf project deploy cancel --job-id ${pastJobId}`;
+    console.log(command);
+    runSfCommand(command);
+  } catch (error) {
+    console.log(`Prevoius job (${pastJobId}) has already been completed...`);
     return;
   }
-
-  const command = `npx sf project deploy cancel --job-id ${pastJobId}`;
-  console.log(command);
-  runSfCommand(command);
 };
 
 const commandProgress = (

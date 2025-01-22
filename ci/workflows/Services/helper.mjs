@@ -21,7 +21,7 @@ const runSfCommand = (command) => {
   try {
     return execSync(command, {
       stdio: "pipe",
-      maxBuffer: 1024 * 1024 * 10
+      maxBuffer: 1024 * 1024 * 100
     }).toString("utf-8");
   } catch (e) {
     logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
