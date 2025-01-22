@@ -5,6 +5,17 @@
  */
 @isTest
 public with sharing class AccountClosureWizardControllerTest {
+  private static User thisUser = [
+    SELECT Id
+    FROM User
+    WHERE Id = :UserInfo.getUserId()
+  ];
+  @testSetup
+  static void setup() {
+    System.runAs(thisUser) {
+      TestUtil.addAccountsGoalsPs();
+    }
+  }
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
   );
@@ -94,6 +105,43 @@ public with sharing class AccountClosureWizardControllerTest {
       response[0].accountNumber == '111111111',
       'Account Number should be "111111111"'
     );
+  }
+
+  @isTest
+  static void testGetFilteredFinancialAccountsDbWithEmptyData() {
+    System.runAs(thisUser) {
+      List<String> recordTypes = new List<String>{
+        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
+        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
+      };
+      Test.startTest();
+      // Call the method under test
+      List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccountsDb(
+        FAKER_ACCOUNT_ID,
+        recordTypes
+      );
+      System.assert(response.isEmpty(), 'No financial accounts returned');
+      Test.stopTest();
+    }
+  }
+
+  @isTest
+  static void testGetFilteredFinancialAccountsWithEmptyData() {
+    System.runAs(thisUser) {
+      String ocvId = '12345';
+      List<String> accountNumbers = new List<String>{
+        '000000000',
+        '111111111'
+      };
+      Test.startTest();
+      // Call the method under test
+      List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccounts(
+        ocvId,
+        accountNumbers
+      );
+      System.assert(response.isEmpty(), 'No financial accounts returned');
+      Test.stopTest();
+    }
   }
 
   private static List<Case> mockListOfCases() {
