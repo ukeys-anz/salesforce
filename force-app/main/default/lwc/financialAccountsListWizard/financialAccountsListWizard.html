@@ -1,7 +1,8 @@
 <template>
+  <!--Modal Header-->
   <lightning-modal-header label="Add Accounts to Close">
   </lightning-modal-header>
-
+  <!--Modal Body-->
   <lightning-modal-body class="modalbody">
     <template if:true={loading}>
       <lightning-spinner
@@ -25,13 +26,14 @@
             <div
               class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
             >
+              <!--User Message when no Financial Account data present-->
               <h1 data-id="noaccounts" class="slds-text-color_weak">
                 No Available Financial Accounts to Close
               </h1>
             </div>
           </template>
-
           <template if:true={accountDetails.length}>
+            <!--Conditional rendering When user selects account from datatable-->
             <template if:true={selectedRows.length}>
               <div class="slds-grid slds-grid_align-end">
                 <div class="slds-text-color_weak slds-p-around_xx-small">
@@ -39,21 +41,19 @@
                 </div>
               </div>
             </template>
-
             <h1
               class="slds-text-heading_small slds-p-around_xx-small slds-theme_shade"
             >
               Available Accounts
             </h1>
-
             <div
               class="slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
             >
               Tick the accounts to close and a child case will be created for
               each account.
             </div>
-
             <div class="slds-modal__content slds-var-p-top_medium">
+              <!--Data table for Financial accounts-->
               <div class="datatable-container slds-var-m-around_small">
                 <lightning-datatable
                   key-field="id"
@@ -66,8 +66,8 @@
             </div>
           </template>
         </template>
-
         <template if:true={selectedRows.length}>
+          <!--Call child lwc for dynamic rendering for fields based on the selection of accounts from datatable-->
           <c-account-closure-wizard-child
             record-id={recordId}
             selected-rows={selectedRows}
