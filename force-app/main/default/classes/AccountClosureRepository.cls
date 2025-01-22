@@ -226,7 +226,7 @@ public with sharing class AccountClosureRepository {
     );
 
     return (List<Case>) systemAction.queryWithBinds(
-      'SELECT Id, CaseNumber,Product__r.Name,FinServ_Product_Name__c,FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,Account_Type__c,Status FROM Case' +
+      'SELECT Id, CaseNumber,Product__r.Name,FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,Account_Type__c,Status FROM Case' +
       ' WHERE Id IN :setOfCaseIdsToQuery',
       new Map<String, Object>{ 'setOfCaseIdsToQuery' => setOfCaseIdsToQuery }
     );

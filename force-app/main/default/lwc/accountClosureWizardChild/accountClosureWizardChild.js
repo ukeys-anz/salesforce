@@ -233,9 +233,9 @@ export default class AccountClosureWizardChild extends LightningElement {
           product: row.Product__c,
           accountNumber:
             row.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
-          accountType: row.Account_Type__c
+          accountType:
+            row.Account_Type__c === "Individual" ? "Sole" : row.Account_Type__c
         }));
-
         this.dispatchEvent(new CustomEvent("casescreated"));
       }
     } catch (error) {
