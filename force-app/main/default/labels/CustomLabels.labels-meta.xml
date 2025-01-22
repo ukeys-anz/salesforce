@@ -208,6 +208,13 @@
         <value>Anonymous</value>
     </labels>
     <labels>
+        <fullName>Coach_Collaboration_Deeplink</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coach_Collaboration_Deeplink</shortDescription>
+        <value>https://plus.anz/auth/coach/delegated#token=</value>
+    </labels>
+    <labels>
         <fullName>CCRM_ChatterPostMessageBody</fullName>
         <language>en_US</language>
         <protected>false</protected>
