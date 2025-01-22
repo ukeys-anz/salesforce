@@ -390,7 +390,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Desktop Params</shortDescription>
-        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagement</value>
+        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagementUL,CMOS_CS_BL:ComplaintManagementBL,CMOS_CS_HL:ComplaintManagementHL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>
