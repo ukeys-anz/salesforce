@@ -40,6 +40,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     private Decimal tempODInterestRate;
     private String tpmiNumber;
     private String tpmiSAO;
+    private String tpmiType;
     private String tempODInterestRepaymentFrequency;
     private String bsbCode;
     private Integer noOfSignatures;
@@ -188,6 +189,11 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
     '82' => '82 - SSA Inactive',
     '99' => '99 - Active'
   };
+  private static final Map<String, String> MAP_OF_TPMI_TYPE = new Map<String, String>{
+    'O' => 'Broker',
+    'F' => 'Mobile Lender',
+    'S' => 'Spotter'
+  };
 
   /**
    * @description Transform API response to DepositAccount records
@@ -240,7 +246,7 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'OverdraftReferenceIndexRate' => fa.debitInterestIndexRate,
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.tpmiSAO,
+          : fa.tpmiNumber + '-' + fa.tpmiSAO +' '+ (MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
         'LinkedLoanOffsets' => externalQueryHelper.formatAccountNumber(
           fa.productSetOff
         ),

@@ -60,6 +60,8 @@ public with sharing class MLCRMTestDataFactory {
     mlcrmBaseUser.FirstName = 'BaseUser' + staticNumber;
     mlcrmBaseUser.LastName = 'MLCRM';
     mlcrmBaseUser.UserRoleId = mlRoleId;
+    mlcrmBaseUser.email = 'CRMtestMLUser@anz.com';
+    mlcrmBaseUser.IsActive = true;
     mlcrmBaseUser.ProfileId = anzStandardProfileId;
     mlcrmBaseUser.IsActive = true;
     mlcrmBaseUser.Lan_Id__c = 'testMLBaseUL' + (Math.random() * 10);
@@ -579,7 +581,9 @@ public with sharing class MLCRMTestDataFactory {
     ccrmBatchUser = (User) FakerFactory.make(new FakerUserFactory());
     ccrmBatchUser.FirstName = 'CRM' + staticNumber;
     ccrmBatchUser.LastName = 'Batch User';
+    ccrmBatchUser.email = 'CRMtestBatchUser@anz.com';
     ccrmBatchUser.UserRoleId = arcRoleId;
+    ccrmBatchUser.IsActive = true;
     ccrmBatchUser.ProfileId = batchUserProfileId;
     insert ccrmBatchUser;
     addMLCRMUserPS(ccrmBatchUser.id, 'API_Only');
