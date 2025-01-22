@@ -40,18 +40,15 @@ export default class ValidateAddressCoi extends NavigationMixin(
   strLongitude;
   streetFullName;
   isModalOpen = false;
-  showAddresses = false;
   addressList = [];
   searchString;
   selectedAddress;
-  keyLength = 0;
   enabled = false;
   isAddressDisabled = true; // CC-5929
   message;
   isDataValid = true;
   loading = false;
   isValidAddress = false;
-  displayAddresses = false;
   displayMessage = false;
   resetValidationError = false;
   hasValidAddress = true;
@@ -61,6 +58,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
   };
   fields = {};
   disabled = false;
+  pendingSearchRequest;
   columns = [
     {
       label: "Suburb",
@@ -81,6 +79,21 @@ export default class ValidateAddressCoi extends NavigationMixin(
 
   @wire(getCountryNameToCodeMap) countryMetadataRecords;
   @wire(getStateNameToCodeMap) stateMetadataRecords;
+
+  get keyLength() {
+    if (!this.searchString) {
+      return 0;
+    }
+    return this.searchString.match(/[0-9A-Z]/gi)?.length ?? 0;
+  }
+
+  get displayAddresses() {
+    return this.addressList?.length > 0;
+  }
+
+  get showAddresses() {
+    return this.searchString && this.keyLength > 4;
+  }
 
   get title() {
     return this.hasValidAddress
@@ -231,8 +244,8 @@ export default class ValidateAddressCoi extends NavigationMixin(
     this.fields.Postal_Code__c = this.strPostalCode.toString();
   }
 
-  // Submit the form
-  submitForm() {
+  // eslint-disable-next-line no-unused-vars
+  submitForm(fields = this.fields) {
     this.template
       .querySelector("lightning-record-edit-form")
       .submit(this.fields);
@@ -285,24 +298,15 @@ export default class ValidateAddressCoi extends NavigationMixin(
       this.errorInPostalCode = false;
     }
   }
-
   handleSearchKeyChange(event) {
-    this.searchString = event.target.value;
-    let keyCode = event.keyCode;
-    if ((keyCode >= 48 && keyCode <= 57) || (keyCode >= 65 && keyCode <= 90)) {
-      this.keyLength = this.keyLength + 1;
-    } else if (keyCode === 8 && this.keyLength > 0) {
-      this.keyLength = this.keyLength - 1;
-    }
+    this.searchString = event.target.value.trim();
+    clearTimeout(this.pendingSearchRequest); // Clear previous timeout
+
     if (this.searchString && this.keyLength > 4) {
-      this.getAddresses(this.searchString);
-      this.showAddresses = true;
-    } else {
-      this.showAddresses = false;
-    }
-    if (!this.searchString) {
-      this.showAddresses = false;
-      this.keyLength = 0;
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      this.pendingSearchRequest = setTimeout(() => {
+        this.getAddresses(this.searchString);
+      }, 300); // 300ms debounce time
     }
   }
 
@@ -315,14 +319,12 @@ export default class ValidateAddressCoi extends NavigationMixin(
     getValidAddresses({ lookupString: this.searchString })
       .then((result) => {
         this.addressList = result.result;
-        if (this.addressList === undefined || this.addressList.length === 0) {
+        if (!this.addressList) {
           this.message = "No results found. Please enter address manually";
-          this.displayAddresses = false;
           this.displayMessage = true;
         } else {
           this.message = "Enter Address Manually";
           this.displayMessage = false;
-          this.displayAddresses = true;
         }
       })
       .catch((error) => {
@@ -338,28 +340,17 @@ export default class ValidateAddressCoi extends NavigationMixin(
   }
 
   selectAddress(event) {
-    var selectedAddressId = event.currentTarget.dataset.id;
+    this.searchString = "";
+    this.addressList = [];
+    let selectedAddressId = event.currentTarget.dataset.id;
     this.resetValidation();
     if (selectedAddressId) {
       getSelectedAddress({ encodedAddressId: selectedAddressId })
         .then((result) => {
           this.selectedAddress = result;
-          if (
-            this.selectedAddress.levelNumber !== undefined &&
-            this.selectedAddress.levelNumber !== null
-          ) {
-            this.streetFullName =
-              this.selectedAddress.levelNumber +
-              " " +
-              this.selectedAddress.streetNumber +
-              " " +
-              this.selectedAddress.streetName;
-          } else {
-            this.streetFullName =
-              this.selectedAddress.streetNumber +
-              " " +
-              this.selectedAddress.streetName;
-          }
+          this.streetFullName = this.selectedAddress.levelNumber
+            ? `${this.selectedAddress.levelNumber} ${this.selectedAddress.streetNumber} ${this.selectedAddress.streetName}`
+            : `${this.selectedAddress.streetNumber} ${this.selectedAddress.streetName}`;
           this.strStreet = this.streetFullName;
           this.strCity = this.selectedAddress.city;
           this.strState = this.selectedAddress.state;
@@ -380,7 +371,6 @@ export default class ValidateAddressCoi extends NavigationMixin(
           );
         });
     }
-    this.showAddresses = false;
     this.enabled = true;
     this.isAddressDisabled = true;
   }
@@ -389,7 +379,8 @@ export default class ValidateAddressCoi extends NavigationMixin(
     this.isValidAddress = false;
     this.strLatitude = "";
     this.strLongitude = "";
-    this.showAddresses = false;
+    this.searchString = "";
+    this.addressList = [];
     this.enabled = true;
     this.isAddressDisabled = false;
   }
@@ -434,9 +425,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
           fields.State__c = this.strState;
           fields.Country__c = this.strCountry;
           fields.Postal_Code__c = this.strPostalCode.toString();
-          this.template
-            .querySelector("lightning-record-edit-form")
-            .submit(fields);
+          this.submitForm(fields);
         } else {
           this.disabled = true;
           this.hasValidAddress = false;
