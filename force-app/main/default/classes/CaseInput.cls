@@ -5,11 +5,6 @@
  */
 public with sharing class CaseInput {
   /**
-   * @description Status for the Case
-   */
-  @AuraEnabled
-  public String status { get; set; }
-  /**
    * @description Account Name for the Case
    */
   @AuraEnabled

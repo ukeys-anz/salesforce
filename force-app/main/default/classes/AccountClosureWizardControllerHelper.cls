@@ -57,7 +57,6 @@ public with sharing class AccountClosureWizardControllerHelper {
    * @param caseInput from LWC
    */
   private static void mapCaseFields(Case caseObj, CaseInput caseInput) {
-    caseObj.Status = caseInput.status;
     caseObj.Intended_Account_Name__c = caseInput.intendedAccountName;
     caseObj.Intended_Account_BSB__c = caseInput.intendedAccountBsb;
     caseObj.Intended_Account_Number__c = caseInput.intendedAccountNumber;
