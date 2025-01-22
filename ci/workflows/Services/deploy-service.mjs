@@ -13,7 +13,8 @@ import {
   createDeployCacheFile,
   downloadZipFile,
   unzipFile,
-  booleanMap
+  booleanMap,
+  runCommand
 } from "./helper.mjs";
 
 const validateWithoutTest = (targetOrg, artifactPath) => {
@@ -240,7 +241,7 @@ const cancel = (
   console.log("Prevoius jobId: " + pastJobId);
   createDeployCacheFile(pastJobId, targetOrg, anzxCIPackage, anzxCIPackage);
   try {
-    const report = runSfCommand(
+    const report = runCommand(
       `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
     );
 
