@@ -1,0 +1,18 @@
+# yamllint disable-line rule:document-start
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+name: codeowners-plus-trigger
+on:
+  pull_request:
+    types: [opened, ready_for_review, reopened, synchronize]
+  pull_request_review:
+jobs:
+  codeowners-plus-trigger:
+    permissions:
+      id-token: write
+    runs-on: anzx-default
+    steps:
+      - uses: docker://anzx-docker.artifactory.gcp.anz/github-codeowners-plus:latest
+        with:
+          args: trigger --target-url=https://ghcom.platform-github-autopr.services.x.gcp.anz/github/events
