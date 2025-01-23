@@ -82,6 +82,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
       // Map account details to financial account data
       this.finAccData = this.mapAccountDetailsToFinAccData(this.accountDetails);
     } catch (error) {
+      this.handleError(error);
       this.showNoDataMessage = this.accountDetails;
       handleErrorShowToast(
         this,
