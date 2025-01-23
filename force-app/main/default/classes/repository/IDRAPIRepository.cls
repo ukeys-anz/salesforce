@@ -5,10 +5,13 @@
  * @group Repository
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
-
-  //to handle Custom Exception when customer not found
+  /**
+   * @description To handle Custom Exception when customer not found
+   */
   private class CustomCustomerNotFoundException extends Exception{}
-  //to handle Custom Exception when ocv is down
+   /**
+   * @description To handle Custom Exception when ocv is down
+   */
   private class CustomOCVDownException extends Exception{}
 
   /**
