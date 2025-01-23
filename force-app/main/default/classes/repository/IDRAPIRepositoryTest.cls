@@ -27,27 +27,27 @@ public with sharing class IDRAPIRepositoryTest {
     Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
     serv.setCalloutResponse(res);
     IDRAPIRepository repo = new IDRAPIRepository();
-    Test.startTest();
-    IDRCustomerInformationModel result = repo.getCustomerInfo(
-        '12345',
-        'CAP ID'
+      Exception calloutExp;
+      Test.startTest();
+      try{
+          repo.getCustomerInfo(
+              '12345',
+              'CAP ID'
+          );
+      }catch(Exception e){
+          calloutExp = e;
+      }
+      Test.stopTest();
+      System.assertEquals(
+          500,
+          res.statusCode,
+          'Status Code matches for Internal Server Error'
       );
-    Test.stopTest();
-    System.assertEquals(
-      true,
-      result.isOCVDown,
-      'isOCVDown is true when OCV is down'
-    );
-    System.assertEquals(
-      500,
-      res.statusCode,
-      'Status Code matches for Internal Server Error'
-    );
-    System.assertEquals(
-      false,
-      result.isCustomerNotFound,
-      'isCustomerNotFound is false becuase OCV is down'
-    );
+      System.assertEquals(
+          'OCV Down',
+          calloutExp.getMessage(),
+          'OCV down exception message matches'
+      );
   }
 
   @isTest
@@ -93,31 +93,32 @@ public with sharing class IDRAPIRepositoryTest {
 
   @isTest
   static void testCustomerNotFoundFailure() {
-    HttpCalloutResponse res = getCustomerNotFoundResponse();
-    Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
-    serv.setCalloutResponse(res);
-    IDRAPIRepository repo = new IDRAPIRepository();
-    Test.startTest();
-    IDRCustomerInformationModel result = repo.getCustomerInfo(
-        '1231231234',
-        'Customer/Business CAP ID'
+      HttpCalloutResponse res = getCustomerNotFoundResponse();
+      Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
+      serv.setCalloutResponse(res);
+      IDRAPIRepository repo = new IDRAPIRepository();
+      Exception ocvDownExp;
+      Test.startTest();
+      try{
+          repo.getCustomerInfo(
+              '1231231234',
+              'Customer/Business CAP ID'
+          );
+      }catch(Exception e){
+        ocvDownExp = e;
+      }
+      
+      Test.stopTest();
+      System.assertEquals(
+          422,
+          res.statusCode,
+          'Status Code matches for Customer Not Found error'
       );
-    Test.stopTest();
-    System.assertEquals(
-      422,
-      res.statusCode,
-      'Status Code matches for Customer Not Found error'
-    );
-    System.assertEquals(
-      true,
-      result.isCustomerNotFound,
-      'isCustomerNotFound is true for Could not retrieve Customer Data'
-    );
-    System.assertEquals(
-      false,
-      result.isOCVDown,
-      'isOCVDown is false for Could not retrieve Customer Data'
-    );
+      System.assertEquals(
+          'Customer not found',
+          ocvDownExp.getMessage(),
+          'Customer Not Found exception matches'
+      );
   }
   
   private static HttpCalloutResponse getAPIFailureResponse() {

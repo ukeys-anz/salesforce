@@ -5,7 +5,12 @@
  * @group Repository
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
-  private static final String OCV_ERROR = 'Customer Data not found';
+
+  //to handle Custom Exception when customer not found
+  private class CustomCustomerNotFoundException extends Exception{}
+  //to handle Custom Exception when ocv is down
+  private class CustomOCVDownException extends Exception{}
+
   /**
    * @param customerId customer id to be searched
    * @param customerIdentifier customer identifier
@@ -17,10 +22,23 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     String customerId,
     String customerIdentifier
   ) {
+    if (Label.IDR_Excluded_OCV_ProductTypes == null) {
+      return null;
+    }
     IDRAPIRepository cmosapi = new IDRAPIRepository();
     try {
       return cmosapi.getCustomerInfo(customerId, customerIdentifier);
-    } catch (Exception e) {
+    }catch(CustomCustomerNotFoundException e){
+      throw new AuraHandledException(e.getMessage());
+    }catch(CustomOCVDownException e){
+      throw new AuraHandledException(e.getMessage());
+    }catch (Exception e) {
+      Logger.error(
+        'OCV Error' ,
+        String.valueOf(e),
+        Logger.Severity.HIGH
+      );
+      Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
   }
@@ -35,18 +53,24 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     String customerId,
     String customerIdentifier
   ) {
-    IDRCustomerInformationModel result;
     Service s = ServiceProvider.getService(IDRCustomerProfileService.class);
     HttpCalloutResponse response = s.getCustomerInformation(
       customerId,
       customerIdentifier
     );
-    try {
-      if (response.successful) {
-        result = IDRCustomerInformationModel.parse(response.body);
-        if (Label.IDR_Excluded_OCV_ProductTypes == null) {
-          return null;
-        }
+
+    if (response.statusCode == 422) {
+      throw new CustomCustomerNotFoundException('Customer not found');
+    }
+
+    if(response.statusCode > 499){
+      throw new CustomOCVDownException('OCV Down');
+    }
+
+    if(!response.successful){
+      throw response.error;
+    }
+      IDRCustomerInformationModel result = IDRCustomerInformationModel.parse(response.body);
         List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
           ','
         );
@@ -59,31 +83,6 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
         result.accounts = accounts;
         return result;
       }
-      result = new IDRCustomerInformationModel();
-       if (response.statusCode == 422) {
-        result.isCustomerNotFound = true;
-        return result;
-       }
-
-      if (response.statusCode >= 500) {
-        result.isOCVDown = true;
-        Logger.error(
-          'OCV Error - Status Code - ' + response.statusCode,
-          response.error,
-          Logger.Severity.HIGH
-        );
-        Logger.saveLog();
-        return result;
-      }
-      handleErrors(response, response.error, IDRAPIRepository.class);
-      throw response.error;
-    } catch (Exception e) {
-      Logger.info(OCV_ERROR);
-      Logger.saveLog();
-      throw e;
-    }
-  }
-
   /**
    * @param riskEventId customer id to be searched
    * @return SNOWIntegrationModel
