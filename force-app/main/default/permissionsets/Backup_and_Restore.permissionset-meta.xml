@@ -4447,7 +4447,7 @@
         <field>Event.WhoId</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Event.ML_DataMigration_Key__c</field>
         <readable>true</readable>
@@ -8882,7 +8882,7 @@
         <field>Task.WhoId</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.ML_DataMigration_Key__c</field>
         <readable>true</readable>
@@ -10650,7 +10650,7 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.ANZx_Complaint</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.ATM_Dispute</recordType>

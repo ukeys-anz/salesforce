@@ -62,15 +62,18 @@ public class CCRMLeadExpiryHandlerTest {
 
   @IsTest
   static void leadUpdateTest() {
-    List<String> lstOfMLUser = new List<String>{ 'Batch User', 'Admin' };
+    List<String> lstOfMLUserEmail = new List<String>{
+      'CRMAdminUser@anz.com',
+      'CRMtestBatchUser@anz.com'
+    };
     User objBatchUser;
     User adminUser;
     for (User objUser : [
-      SELECT Id, LastName, FirstName
+      SELECT Id, Email
       FROM User
-      WHERE LastName IN :lstOfMLUser
+      WHERE Email IN :lstOfMLUserEmail AND IsActive = TRUE
     ]) {
-      if (objUser.LastName == 'Batch User') {
+      if (objUser.Email == 'CRMtestBatchUser@anz.com') {
         objBatchUser = objUser;
       } else {
         adminUser = objUser;
@@ -131,22 +134,22 @@ public class CCRMLeadExpiryHandlerTest {
   }
   @IsTest
   static void validateMLleadUpdateTest() {
-    List<String> lstOfMLUser = new List<String>{
-      'Batch User',
-      'Admin',
-      'MLCRM'
+    List<String> lstOfMLUserEmail = new List<String>{
+      'CRMAdminUser@anz.com',
+      'CRMtestBatchUser@anz.com',
+      'CRMtestMLUser@anz.com'
     };
     User objBatchUser;
     User adminUser;
     User objMLUser;
     for (User objUser : [
-      SELECT Id, LastName, FirstName
+      SELECT Id, Email
       FROM User
-      WHERE LastName IN :lstOfMLUser AND IsActive = TRUE
+      WHERE Email IN :lstOfMLUserEmail AND IsActive = TRUE
     ]) {
-      if (objUser.LastName == 'Batch User') {
+      if (objUser.email == 'CRMtestBatchUser@anz.com') {
         objBatchUser = objUser;
-      } else if (objUser.LastName == 'Admin') {
+      } else if (objUser.email == 'CRMAdminUser@anz.com') {
         adminUser = objUser;
       } else {
         objMLUser = objUser;

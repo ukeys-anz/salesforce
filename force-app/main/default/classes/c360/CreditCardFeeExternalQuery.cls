@@ -69,7 +69,7 @@ public with sharing class CreditCardFeeExternalQuery extends FinancialAccountQue
         'ExternalId' => fee.compositeFeeId,
         'DisplayUrl' => getDisplayUrl(fee.compositeFeeId),
         this.parentField => this.parentId,
-        'FeeType' => fee.feeType,
+        'FeeType' => fee.feeType?.replace('_', ' ')?.toLowerCase()?.capitalize() ?? '',
         'FeeAmount' => fee.feeAmount
       };
       result.externalRecords.add(row);
