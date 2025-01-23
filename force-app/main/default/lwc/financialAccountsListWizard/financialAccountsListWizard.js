@@ -2,11 +2,6 @@ import { LightningElement, api, wire } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord } from "lightning/uiRecordApi";
 import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
-import getFinancialAccountDB from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccountsDb";
-import {
-  CHECKING_ACCOUNT_RT_APINAME,
-  SAVINGS_ACCOUNT_RT_APINAME
-} from "c/financialAccountParent";
 import { handleErrorShowToast } from "c/utils";
 
 const fields = ["Case.Account.OCV_ID__c", "Case.AccountId"];
@@ -30,8 +25,10 @@ export default class FinancialAccountsListWizard extends LightningElement {
   hasFetchedAccounts = false;
   columns = columns;
   showCheckbox = false;
-  isCasesCreated = false;
   hasError = false;
+  isFinAccountsAvailable = false;
+  showFinDataTable = true;
+  _showNoDataMessage = false;
   customerOcvId;
   accountId;
   errorMsg;
@@ -40,6 +37,14 @@ export default class FinancialAccountsListWizard extends LightningElement {
     Single: { displayValue: "Sole", apiValue: "Individual" },
     "Multi-party": { displayValue: "Joint", apiValue: "Joint" }
   };
+
+  get showNoDataMessage() {
+    return this._showNoDataMessage;
+  }
+
+  set showNoDataMessage(value) {
+    this._showNoDataMessage = value.length === 0;
+  }
 
   get selectedRows() {
     return this.selectedRowsData;
@@ -70,46 +75,24 @@ export default class FinancialAccountsListWizard extends LightningElement {
   async getFinancialAccount() {
     this.loading = true;
     try {
-      const accountDetailsFromApi = await this.fetchAccountDataFromApi();
-      this.accountDetails = accountDetailsFromApi.length
-        ? accountDetailsFromApi
-        : await this.handleErrorFetchingAccounts();
+      this.accountDetails = await getFilteredFinancialAccounts({
+        ocvId: this.customerOcvId
+      });
+      this.showNoDataMessage = this.accountDetails;
       // Map account details to financial account data
       this.finAccData = this.mapAccountDetailsToFinAccData(this.accountDetails);
+    } catch (error) {
+      this.showNoDataMessage = this.accountDetails;
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve Account Details",
+        error,
+        "Failed to retrieve latest account information. Please refresh and try again. If the issue persists, contact your System Administrator.",
+        "pester"
+      );
     } finally {
       this.loading = false;
     }
-  }
-
-  async fetchAccountDataFromApi() {
-    try {
-      return await getFilteredFinancialAccounts({
-        ocvId: this.customerOcvId,
-        accountNumbers: []
-      });
-    } catch {
-      return [];
-    }
-  }
-
-  async handleErrorFetchingAccounts() {
-    this.hasError = true;
-    handleErrorShowToast(
-      this,
-      "Failed To Retrieve Account Details",
-      "error",
-      "Failed to retrieve latest account information. Please refresh and try again. If the issue persists, contact your System Administrator.",
-      "pester"
-    );
-    // Fallback to database retrieval if API call fails
-    // Attempt to fetch from the database
-    return getFinancialAccountDB({
-      ownerId: this.accountId,
-      recordTypeDeveloperNames: [
-        CHECKING_ACCOUNT_RT_APINAME,
-        SAVINGS_ACCOUNT_RT_APINAME
-      ]
-    });
   }
 
   mapAccountDetailsToFinAccData(accountDetails) {
@@ -137,7 +120,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
   }
 
   handleCasesCreated() {
-    this.isCasesCreated = true;
+    this.showFinDataTable = false;
   }
 
   handleErrorVisibilty(event) {

@@ -13,6 +13,45 @@ public with sharing class AccountClosureWizardControllerHelper {
   );
 
   /**
+   * @description process fin accounts in order to prepare response
+   * @param listOfFinAccounts List of case inputs from UI form
+   * @return List<FinancialAccountsResponse> list of Financial Account response
+   */
+  public static List<FinancialAccountsResponse> processAccounts(
+    List<FinServ__FinancialAccount__c> listOfFinAccounts
+  ) {
+    //Step 2: Identify the accounts with child cases
+    Set<Id> accountIds = ListUtil.getIds(
+      listOfFinAccounts,
+      FinServ__FinancialAccount__c.Id
+    );
+    Set<Id> accountsWithCases = getAccountsWithChildCases(accountIds);
+    //Step 3: Remove accounts that already have cases linked to them
+    accountIds.removeAll(accountsWithCases);
+    List<FinServ__FinancialAccount__c> listOfFilteredFinAccounts = ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(
+      accountIds
+    );
+    //Step 4: Prepare response for UI
+    return prepareFinancialAccountsResponse(listOfFilteredFinAccounts);
+  }
+
+  /**
+   * @description Extracts the Account Ids from the Case records
+   * @param acccountIds set of case Ids to query
+   * @return Set<Id> list of case records
+   */
+  public static Set<Id> getAccountsWithChildCases(Set<Id> acccountIds) {
+    List<Case> childCases = ACCOUNT_CLOSURE_REPOSITORY.fetchChildCases(
+      acccountIds
+    );
+    Set<Id> setOfFinAccountIds = ListUtil.getIds(
+      childCases,
+      Case.FinServ__FinancialAccount__c
+    );
+    return setOfFinAccountIds;
+  }
+
+  /**
    * @description Process dummy cases if found and map user input from lwc to case records
    * @param inputs List of CaseInput
    * @param listOfExistingDummyCases List of Cases
@@ -64,24 +103,8 @@ public with sharing class AccountClosureWizardControllerHelper {
     caseObj.Account_Type__c = caseInput.accountType;
     caseObj.AccountId = caseInput.accountId;
     caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
-    caseObj.ProductId = caseInput.productId; // lookup to product table
+    caseObj.ProductId = caseInput.productId; // this is lookup to product table
     caseObj.RecordTypeId = RTCase.accountClosure;
-  }
-
-  /**
-   * @description Extracts the Account Ids from the Case records
-   * @param acccountIds set of case Ids to query
-   * @return Set<Id> list of case records
-   */
-  public static Set<Id> getAccountsWithChildCases(Set<Id> acccountIds) {
-    List<Case> childCases = ACCOUNT_CLOSURE_REPOSITORY.fetchChildCases(
-      acccountIds
-    );
-    Set<Id> setOfFinAccountIds = ListUtil.getIds(
-      childCases,
-      Case.FinServ__FinancialAccount__c
-    );
-    return setOfFinAccountIds;
   }
 
   /**
@@ -153,33 +176,5 @@ public with sharing class AccountClosureWizardControllerHelper {
         );
       }
     }
-  }
-
-  /**
-   * @description process fin accounts in order to prepare response
-   * @param listOfFinAccounts List of case inputs from UI form
-   * @return List<FinancialAccountsResponse> list of Financial Account response
-   */
-  public static List<FinancialAccountsResponse> processAccounts(
-    List<FinServ__FinancialAccount__c> listOfFinAccounts
-  ) {
-    // Common logic here (Steps 2-4)
-    //Step 2: Identify the accounts with child cases
-    Set<Id> accountIds = ListUtil.getIds(
-      listOfFinAccounts,
-      FinServ__FinancialAccount__c.Id
-    );
-    Set<Id> accountsWithCases = AccountClosureWizardControllerHelper.getAccountsWithChildCases(
-      accountIds
-    );
-    //Step 3: Remove accounts that already have cases linked to them
-    accountIds.removeAll(accountsWithCases);
-    List<FinServ__FinancialAccount__c> listOfFilteredFinAccounts = ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(
-      accountIds
-    );
-    //Step 4: Prepare response for UI
-    return AccountClosureWizardControllerHelper.prepareFinancialAccountsResponse(
-      listOfFilteredFinAccounts
-    );
   }
 }

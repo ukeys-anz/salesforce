@@ -108,24 +108,6 @@ public with sharing class AccountClosureWizardControllerTest {
   }
 
   @isTest
-  static void testGetFilteredFinancialAccountsDbWithEmptyData() {
-    System.runAs(thisUser) {
-      List<String> recordTypes = new List<String>{
-        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
-        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-      };
-      Test.startTest();
-      // Call the method under test
-      List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccountsDb(
-        FAKER_ACCOUNT_ID,
-        recordTypes
-      );
-      System.assert(response.isEmpty(), 'No financial accounts returned');
-      Test.stopTest();
-    }
-  }
-
-  @isTest
   static void testGetFilteredFinancialAccountsWithEmptyData() {
     System.runAs(thisUser) {
       String ocvId = '12345';

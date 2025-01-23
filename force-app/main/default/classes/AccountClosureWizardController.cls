@@ -10,6 +10,27 @@ public with sharing class AccountClosureWizardController {
   );
 
   /**
+   * @description The Financial Account component uses this to fetch the records to display.
+   * This makes the callout to fabric to fetch data
+   * @param ocvId the ocv id of the customer
+   * @return List<FinancialAccountsResponse>
+   */
+  @AuraEnabled
+  public static List<FinancialAccountsResponse> getFilteredFinancialAccounts(
+    String ocvId
+  ) {
+    //Step 1: Fetch financial accounts from fabric service
+    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountFabric(
+      ocvId,
+      new List<String>()
+    );
+    //This method handles handles logic to prepare response
+    return AccountClosureWizardControllerHelper.processAccounts(
+      listOfFinAccounts
+    );
+  }
+
+  /**
    * @description
    * @param parentCaseId list of case data from wizard
    * @param caseInputs list of case data from wizard
@@ -41,51 +62,5 @@ public with sharing class AccountClosureWizardController {
       listOfCases
     );
     return listOfCases;
-  }
-
-  /**
-   * @description The Financial Account component uses this to fetch the records to display.
-   * This makes the callout to fabric to fetch data
-   * @param ocvId the ocv id of the customer
-   * @param accountNumbers contains account numbers to provide as parameters for account filtering
-   * @return List<FinancialAccountsResponse>
-   */
-  @AuraEnabled
-  public static List<FinancialAccountsResponse> getFilteredFinancialAccounts(
-    String ocvId,
-    List<String> accountNumbers
-  ) {
-    //Step 1: Fetch financial accounts from fabric service
-    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountFabric(
-      ocvId,
-      accountNumbers
-    );
-    //This method handles handles common logic for both db and fabric service fin accounts (Steps 2-4)
-    return AccountClosureWizardControllerHelper.processAccounts(
-      listOfFinAccounts
-    );
-  }
-
-  /**
-   * @description The Financial Account component uses this to fetch the records to display.
-   * This makes the callout to fabric to fetch data
-   * @param ownerId the ocv id of the customer
-   * @param recordTypeDeveloperNames contains account numbers to provide as parameters for account filtering
-   * @return List<FinancialAccountsResponse>
-   */
-  @AuraEnabled
-  public static List<FinancialAccountsResponse> getFilteredFinancialAccountsDb(
-    Id ownerId,
-    List<String> recordTypeDeveloperNames
-  ) {
-    //Step 1: Fetch financial accounts from database
-    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountDB(
-      ownerId,
-      recordTypeDeveloperNames
-    );
-    //This method handles handles common logic for both db and fabric service fin accounts (Steps 2-4)
-    return AccountClosureWizardControllerHelper.processAccounts(
-      listOfFinAccounts
-    );
   }
 }
