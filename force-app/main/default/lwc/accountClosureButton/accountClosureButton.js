@@ -144,7 +144,7 @@ export default class AccountClosureButton extends LightningElement {
         record.caseRecord.Account_Type__c === "Individual" ? "Sole" : "Joint",
       childCaseNumber: record.caseRecord.CaseNumber,
       isSuccessIcon: isSuccessIcon,
-      workFlow: "Closed"
+      workFlow: isSuccessIcon ? "Closed" : "Escalated"
     }));
   }
 

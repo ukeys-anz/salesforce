@@ -34,19 +34,19 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   @api recordId;
 
   get showSuccessIcon() {
-    return this.isPrecheckSuccess && !this.isPrecheckFailed && !this.hasError;
+    return this.isPrecheckSuccess && !this.isPrecheckFailed;
   }
 
   get showOnlyFailureText() {
-    return !this.isPrecheckSuccess && this.isPrecheckFailed && !this.hasError;
+    return !this.isPrecheckSuccess && this.isPrecheckFailed;
   }
 
   get showSuccessSection() {
-    return this.isPrecheckSuccess && !this.hasError;
+    return this.isPrecheckSuccess;
   }
 
   get showFailureSection() {
-    return this.isPrecheckFailed && !this.hasError;
+    return this.isPrecheckFailed;
   }
 
   get isPrecheckNotDone() {
