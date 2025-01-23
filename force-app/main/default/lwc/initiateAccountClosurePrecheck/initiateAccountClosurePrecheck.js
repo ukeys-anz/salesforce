@@ -34,19 +34,19 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   @api recordId;
 
   get showSuccessIcon() {
-    return this.isPrecheckSuccess && !this.isPrecheckFailed;
+    return this.isPrecheckSuccess && !this.isPrecheckFailed && !this.hasError;
   }
 
   get showOnlyFailureText() {
-    return !this.isPrecheckSuccess && this.isPrecheckFailed;
+    return !this.isPrecheckSuccess && this.isPrecheckFailed && !this.hasError;
   }
 
   get showSuccessSection() {
-    return this.isPrecheckSuccess;
+    return this.isPrecheckSuccess && !this.hasError;
   }
 
   get showFailureSection() {
-    return this.isPrecheckFailed;
+    return this.isPrecheckFailed && !this.hasError;
   }
 
   get isPrecheckNotDone() {
@@ -76,6 +76,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
 
   async handleInitiateAccountClosure() {
     this.loading = true;
+    this.hasError = false;
     try {
       const childCasesBatches = this.createChildCaseBatches(
         this.eligibleChildCases,
@@ -101,9 +102,9 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       );
 
       results.forEach((response) => {
-        if (response.status === "fulfilled") {
+        if (response.status === "fulfilled" && response?.value?.result) {
           this.precheckResponse.push(response?.value?.result);
-        } else if (response.status === "rejected") {
+        } else {
           this.handleRejectedResult(response.value.caseDetails);
         }
       });

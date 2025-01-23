@@ -6,7 +6,7 @@
     </h2>
   </div>
   <!--Error Handling Part-->
-  <template if:true={hasError}>
+  <template lwc:if={hasError}>
     <div class="customPaddingForErrorMessage">
       <c-error
         custom-class-from-parent="slds-theme--error"
@@ -36,11 +36,11 @@
     </article>
   </template>
   <template lwc:else>
-    <template if:true={isEligibleCasesFound}>
+    <template lwc:if={isEligibleCasesFound}>
       <div class="slds-var-m-around_xx-large slds-var-m-bottom_large">
         <!--Showing Initial Data Table Section If Precheck Button Not Clicked-->
 
-        <template if:true={isPrecheckNotDone}>
+        <template lwc:if={isPrecheckNotDone}>
           <div
             class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
           >
@@ -63,60 +63,57 @@
         </template>
 
         <!--Showing Post Precheck Done Section-->
-        <template if:false={hasError}>
-          <template if:true={showSuccessSection}>
-            <template if:true={showSuccessIcon}>
-              <lightning-icon
-                class="slds-icon-utility-success slds-icon_container slds-align_absolute-center slds-var-m-top_large"
-                icon-name="utility:success"
-                alternative-text="success"
-                variant="success"
-                size="large"
-                title="success"
-                data-id="success"
-              ></lightning-icon>
-            </template>
-            <div
-              class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
-            >
-              Initiating account closure was successful for the following
-              accounts
-            </div>
-            <c-account-closure-records-table
-              records={responseDataSuccess}
-            ></c-account-closure-records-table>
-          </template>
-
-          <template if:true={showFailureSection}>
+        <template lwc:if={showSuccessSection}>
+          <template lwc:if={showSuccessIcon}>
             <lightning-icon
-              class="slds-icon-utility-warning slds-icon_container slds-align_absolute-center slds-var-m-top_large"
-              icon-name="utility:warning"
-              alternative-text="warning"
-              variant="warning"
+              class="slds-icon-utility-success slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+              icon-name="utility:success"
+              alternative-text="success"
+              variant="success"
               size="large"
-              title="warning"
-              data-id="failure"
+              title="success"
+              data-id="success"
             ></lightning-icon>
-            <div
-              class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_medium"
-            >
-              <div lwc:if={showOnlyFailureText}>
-                <b>This customer's accounts are not eligible for closure</b>
-              </div>
-              <div lwc:else>
-                <b>There were some accounts not eligible for closure</b>
-              </div>
-            </div>
-            <div
-              class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
-            >
-              Refer to chatter notes in each child case related to the account
-              for next steps.
-            </div>
-            <c-account-closure-records-table
-              records={responseDataFailed}
-            ></c-account-closure-records-table>
           </template>
+          <div
+            class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            Initiating account closure was successful for the following accounts
+          </div>
+          <c-account-closure-records-table
+            records={responseDataSuccess}
+          ></c-account-closure-records-table>
+        </template>
+
+        <template lwc:if={showFailureSection}>
+          <lightning-icon
+            class="slds-icon-utility-warning slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+            icon-name="utility:warning"
+            alternative-text="warning"
+            variant="warning"
+            size="large"
+            title="warning"
+            data-id="failure"
+          ></lightning-icon>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_medium"
+          >
+            <div lwc:if={showOnlyFailureText}>
+              <b>This customer's accounts are not eligible for closure</b>
+            </div>
+            <div lwc:else>
+              <b>There were some accounts not eligible for closure</b>
+            </div>
+          </div>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            Refer to chatter notes in each child case related to the account for
+            next steps.
+          </div>
+          <c-account-closure-records-table
+            records={responseDataFailed}
+          ></c-account-closure-records-table>
         </template>
       </div>
     </template>
@@ -130,7 +127,7 @@
           onclick={handleCancel}
           data-id="cancel"
         ></lightning-button>
-        <template if:true={isPrecheckNotDone}>
+        <template lwc:if={isPrecheckNotDone}>
           <lightning-button
             class="slds-button"
             variant="destructive"
