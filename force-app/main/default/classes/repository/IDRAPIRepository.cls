@@ -23,10 +23,9 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     if (Label.IDR_Excluded_OCV_ProductTypes == null) {
       return null;
     }
-    //IDRAPIRepository cmosapi = new IDRAPIRepository();
-    IDRCustomerInformationModel response = new IDRAPIRepository().getCustomerInfo(customerId, customerIdentifier);
+    IDRAPIRepository cmosapi = new IDRAPIRepository();
     try {
-      return response;//cmosapi.getCustomerInfo(customerId, customerIdentifier);
+      return cmosapi.getCustomerInfo(customerId, customerIdentifier);
     }catch(CustomCustomerNotFoundException e){
       throw new AuraHandledException(e.getMessage());
     }catch(CustomOCVDownException e){

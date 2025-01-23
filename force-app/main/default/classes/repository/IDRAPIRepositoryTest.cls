@@ -30,7 +30,7 @@ public with sharing class IDRAPIRepositoryTest {
       Exception calloutExp;
       Test.startTest();
       try{
-          IDRCustomerInformationModel result = repo.getCustomerInfo(
+          repo.getCustomerInfo(
               '12345',
               'CAP ID'
           );
@@ -97,15 +97,15 @@ public with sharing class IDRAPIRepositoryTest {
       Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
       serv.setCalloutResponse(res);
       IDRAPIRepository repo = new IDRAPIRepository();
-      Exception OCVDownExp;
+      Exception ocvDownExp;
       Test.startTest();
       try{
-          IDRCustomerInformationModel result = repo.getCustomerInfo(
+          repo.getCustomerInfo(
               '1231231234',
               'Customer/Business CAP ID'
           );
       }catch(Exception e){
-          OCVDownExp = e;
+        ocvDownExp = e;
       }
       
       Test.stopTest();
@@ -116,7 +116,7 @@ public with sharing class IDRAPIRepositoryTest {
       );
       System.assertEquals(
           'Customer not found',
-          OCVDownExp.getMessage(),
+          ocvDownExp.getMessage(),
           'Customer Not Found exception matches'
       );
   }
