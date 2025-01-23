@@ -248,7 +248,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
   submitForm(fields = this.fields) {
     this.template
       .querySelector("lightning-record-edit-form")
-      .submit(this.fields);
+      .submit(fields);
   }
 
   addressInputChange(event) {
