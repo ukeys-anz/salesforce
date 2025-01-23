@@ -1944,7 +1944,7 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Response:isCustomerNotFound&quot;
+        &quot;field&quot; : &quot;IsCustomerNotFound&quot;
       }, {
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
@@ -2127,7 +2127,7 @@
       &quot;rules&quot; : [ {
         &quot;data&quot; : &quot;true&quot;,
         &quot;condition&quot; : &quot;=&quot;,
-        &quot;field&quot; : &quot;Response:isOCVDown&quot;
+        &quot;field&quot; : &quot;IsOCVDown&quot;
       }, {
         &quot;field&quot; : &quot;isThisCustomerComplaint&quot;,
         &quot;condition&quot; : &quot;=&quot;,
