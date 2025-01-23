@@ -18,6 +18,9 @@ const columns = [
   { label: "Available Balance", fieldName: "balance", type: "currency" }
 ];
 
+const ERROR_MESSAGE =
+  "Please try again. Raise a fault through TechAssist if the problem persists.";
+
 export default class FinancialAccountsListWizard extends LightningElement {
   @api recordId;
   finAccData = [];
@@ -32,6 +35,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
   customerOcvId;
   accountId;
   errorMsg;
+
   ownershipMap = {
     Single: { displayValue: "Sole", apiValue: "Individual" },
     "Multi-party": { displayValue: "Joint", apiValue: "Joint" }
@@ -48,22 +52,18 @@ export default class FinancialAccountsListWizard extends LightningElement {
 
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data }) {
-    if (data && !this.hasFetchedAccounts) {
-      this.initializeAccountData(data);
-    }
-  }
-
-  initializeAccountData(data) {
     try {
-      this.customerOcvId =
-        data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
-      this.accountId = data.fields?.AccountId?.value;
-      if (this.customerOcvId) {
-        this.hasFetchedAccounts = true;
-        this.getFinancialAccount();
+      if (data && !this.hasFetchedAccounts) {
+        this.customerOcvId =
+          data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
+        this.accountId = data.fields?.AccountId?.value;
+        if (this.customerOcvId) {
+          this.hasFetchedAccounts = true;
+          this.getFinancialAccount();
+        }
       }
     } catch (error) {
-      this.handleError();
+      this.handleError(error);
     }
   }
 
@@ -114,15 +114,12 @@ export default class FinancialAccountsListWizard extends LightningElement {
 
   mapAccountDetailsToFinAccData(accountDetails) {
     return accountDetails.map((record) => {
-      const ownershipInfo = this.ownershipMap[record.ownership] || {
-        displayValue: record.ownership,
-        apiValue: record.ownership
-      };
+      const ownershipInfo = this.ownershipMap[record.ownership] || {};
       return {
         id: record.id,
         productName: record.productName,
         accountNumber: record.accountNumber,
-        finAccountType: ownershipInfo.displayValue,
+        finAccountType: ownershipInfo.displayValue || "",
         signingAuthority:
           record.ownership === "Multi-party" &&
           record.signingAuthority === "All to sign"
@@ -130,13 +127,13 @@ export default class FinancialAccountsListWizard extends LightningElement {
             : "",
         balance: record.balance,
         productId: record.productId,
-        apiFinAccountType: ownershipInfo.apiValue
+        apiFinAccountType: ownershipInfo.apiValue || ""
       };
     });
   }
 
   handleRowSelection(event) {
-    this.selectedRows = [...event.detail.selectedRows];
+    this.selectedRows = event.detail.selectedRows;
   }
 
   handleCasesCreated() {
@@ -154,7 +151,6 @@ export default class FinancialAccountsListWizard extends LightningElement {
 
   handleError() {
     this.hasError = true;
-    this.errorMsg =
-      "Please try again. Raise a fault through TechAssist if the problem persists.";
+    this.errorMsg = ERROR_MESSAGE;
   }
 }
