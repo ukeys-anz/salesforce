@@ -4,9 +4,7 @@
     <fields>Name</fields>
     <fields>RecordTypeId</fields>
     <fields>Other_Email__c</fields>
-    <fields>BillingAddress</fields>
-    <fields>CLG__c</fields>
-    <fields>Industry__c</fields>
+    <fields>Industry</fields>
     <fields>CPID_Link__c</fields>
     <label>DCRM CLG Compact Layout</label>
 </CompactLayout>
