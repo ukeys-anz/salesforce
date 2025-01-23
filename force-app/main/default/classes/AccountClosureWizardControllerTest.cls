@@ -118,8 +118,7 @@ public with sharing class AccountClosureWizardControllerTest {
       Test.startTest();
       // Call the method under test
       List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-        ocvId,
-        accountNumbers
+        ocvId
       );
       System.assert(response.isEmpty(), 'No financial accounts returned');
       Test.stopTest();
