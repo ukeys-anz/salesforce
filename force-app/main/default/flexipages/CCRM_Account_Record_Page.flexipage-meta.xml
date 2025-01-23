@@ -1552,7 +1552,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>siteId</name>
-                    <value>4a6a7286-f90d-4bd5-af0c-34911fc8ba8d</value>
+                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabAdvancedFilter</name>
