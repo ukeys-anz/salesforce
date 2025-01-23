@@ -17,6 +17,18 @@ public with sharing class FinancialAccountExternalQueryHelper {
   private final static String ARNC_FINANCIAL_ACCOUNT_RECORDTYPE_NAME = 'BankingAccount';
 
   /**
+   * @description get role type name
+   * @param roleTypeCode role code
+   * @return String role type name
+   */
+  public String getRoleTypeNameByCode(String roleTypeCode) {
+    return CommonUtil.getSinglePicklistLabel(
+      FinServ__FinancialAccountRole__c.Role_Type__c,
+      roleTypeCode
+    );
+  }
+
+  /**
    * @description get industry code and discription
    * @param  industryCode
    * @return String industryCode plus discription

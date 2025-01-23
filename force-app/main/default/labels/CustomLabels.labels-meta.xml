@@ -208,6 +208,13 @@
         <value>Anonymous</value>
     </labels>
     <labels>
+        <fullName>Coach_Collaboration_Deeplink</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coach_Collaboration_Deeplink</shortDescription>
+        <value>https://plus.anz/auth/coach/delegated#token=</value>
+    </labels>
+    <labels>
         <fullName>CCRM_ChatterPostMessageBody</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -378,14 +385,14 @@
         <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
     </labels>
     <labels>
-    <fullName>XpressionSenderAddress</fullName>
+        <fullName>XpressionSenderAddress</fullName>
         <categories>IDR</categories>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
         <value>Yourfeedback@anz.com</value>
     </labels>
-     <labels>
+    <labels>
         <fullName>EDRM_Desktop_Params</fullName>
         <language>en_US</language>
         <protected>false</protected>

@@ -4,8 +4,7 @@
     <fields>Name</fields>
     <fields>RecordTypeId</fields>
     <fields>Other_Email__c</fields>
-    <fields>BillingAddress</fields>
-    <fields>CLG__c</fields>
+    <fields>Principal_Place_of_Business_Formula__c</fields>
     <fields>CPID_Link__c</fields>
     <label>DCRM Organisation Compact Layout</label>
 </CompactLayout>
