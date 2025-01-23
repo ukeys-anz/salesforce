@@ -5,7 +5,7 @@
  */
 public with sharing class AccountClosureStravinskyController {
   public static final String FAILED_CLOSURE = 'Failed to perform account closure. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
-
+  private static final String SUCCESS_CLOSURE = 'Account closed - ACCOUNT NOT ACTIVE';
   private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
@@ -69,10 +69,11 @@ public with sharing class AccountClosureStravinskyController {
       List<Case> caseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryCaseToUpdateStatusAsClosed(
         caseIds
       );
-      DML_REPOSITORY.doUpdate(
+      List<Database.SaveResult> results = DML_REPOSITORY.doUpdate(
         setStatusToClosed(caseRecords),
         new DmlConfig().allowPartial()
       );
+      postSuccessChatterMessage(results);
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
@@ -85,5 +86,18 @@ public with sharing class AccountClosureStravinskyController {
     }
 
     return caseRecords;
+  }
+
+  @TestVisible
+  private static void postSuccessChatterMessage( List<Database.SaveResult> results)
+  { 
+    for (Integer i = 0; i < results.size(); i++)
+    {
+      if (results[i].isSuccess() == true)
+      {
+        
+        ConnectApiHelper.postFeedItemWithRichText(null, results[i].getId(), SUCCESS_CLOSURE);
+      }
+    }
   }
 }
