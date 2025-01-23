@@ -188,6 +188,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>COBPrimaryIDDocument__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>COBPrimaryIDDocument__c.PassportNumberOCRClient__c</field>
         <readable>true</readable>
     </fieldPermissions>

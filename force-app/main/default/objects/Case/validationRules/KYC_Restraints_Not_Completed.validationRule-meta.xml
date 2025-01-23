@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Restraints_Not_Completed</fullName>
+    <active>true</active>
+    <description>On Restraints Status having Applying Restraints / Removing Restraints / Error Applying Restraints in CAP / Error Removing Restraints in CAP, then case cannot be closed.</description>
+    <errorConditionFormula>AND(
+     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+     RecordType.DeveloperName = &quot;KYC_QA&quot;,
+     ISPICKVAL ( Status, &quot;Closed&quot; ),
+     ISCHANGED( Status ), 
+     OR(
+        ISPICKVAL ( Fraud_Restraint_Status__c , &quot;Applying Restraints in CAP&quot; ),
+        ISPICKVAL ( Fraud_Restraint_Status__c , &quot;Removing Restraints in CAP&quot; ),
+        ISPICKVAL ( Fraud_Restraint_Status__c , &quot;Error Applying Restraints in CAP&quot; ),
+        ISPICKVAL ( Fraud_Restraint_Status__c , &quot;Error Removing Restraints in CAP&quot; )
+     )
+)</errorConditionFormula>
+    <errorMessage>Incorrect Restraint Status, either automated restraints updates are in progress or failed. Please check the value before updating the Case.</errorMessage>
+</ValidationRule>

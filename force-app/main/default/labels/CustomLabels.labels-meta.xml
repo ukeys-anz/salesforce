@@ -382,7 +382,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CustomerRestraintComment</shortDescription>
-        <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
+        <value>KYC QA defects found - do not remove until clarified - call ID OPS 03-4050-7838</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
