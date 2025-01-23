@@ -172,16 +172,7 @@ public with sharing class CCRMContactToContactActions {
     Map<Id, String> contactExtIdMap
   ) {
     if (isValidForExternalIdUpdate(record, contactToContactMap)) {
-      if (
-        String.isNotBlank(
-          reciprocalRolesIdMap.get(record.FinServ__Role__c)
-            .FinServ__InverseRelationship__c
-        )
-      ) {
-        setReciprocalExternalId(record, contactExtIdMap);
-      } else {
-        setNonReciprocalExternalId(record, contactExtIdMap);
-      }
+      setExternalId(record, contactExtIdMap);
     }
   }
 
@@ -206,29 +197,11 @@ public with sharing class CCRMContactToContactActions {
 
   /**
    * @description sets External ID for reciprocal role record
-   * @name setReciprocalExternalId
+   * @name setExternalId
    * @param record FinServ__ContactContactRelation__c record from trigger
    * @param contactExtIdMap person accounts map created from contact field values in FinServ__ContactContactRelation__c
    */
-  private static void setReciprocalExternalId(
-    FinServ__ContactContactRelation__c record,
-    Map<Id, String> contactExtIdMap
-  ) {
-    record.External_Id__c =
-      contactExtIdMap.get(record.FinServ__RelatedContact__c) +
-      '_' +
-      contactExtIdMap.get(record.FinServ__Contact__c) +
-      '_' +
-      reciprocalRolesIdMap.get(record.FinServ__Role__c).Name.replace(' ', '');
-  }
-
-  /**
-   * @description sets External ID for non reciprocal role record
-   * @name setNonReciprocalExternalId
-   * @param record FinServ__ContactContactRelation__c record from trigger
-   * @param contactExtIdMap person accounts map created from contact field values in FinServ__ContactContactRelation__c
-   */
-  private static void setNonReciprocalExternalId(
+  private static void setExternalId(
     FinServ__ContactContactRelation__c record,
     Map<Id, String> contactExtIdMap
   ) {
