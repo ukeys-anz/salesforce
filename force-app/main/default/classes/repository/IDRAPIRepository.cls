@@ -6,8 +6,10 @@
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
 
-  public class CustomCustomerNotFoundException extends Exception{}
-  public class CustomOCVDownException extends Exception{}
+  //to handle Custom Exception when customer not found
+  private class CustomCustomerNotFoundException extends Exception{}
+  //to handle Custom Exception when ocv is down
+  private class CustomOCVDownException extends Exception{}
 
   /**
    * @param customerId customer id to be searched
