@@ -145,6 +145,16 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.PI_Score__c</fieldItem>
+                <identifier>RecordPI_Score_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Establishment_Date__c</fieldItem>
                 <identifier>RecordEstablishment_Date_cField</identifier>
                 <visibilityRule>
@@ -1177,11 +1187,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sortFieldAlias</name>
-                    <value>__DEFAULT__</value>
+                    <value>Customer_Type__c</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>sortFieldOrder</name>
-                    <value>Default</value>
+                    <value>Ascending</value>
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList2</identifier>
@@ -1542,7 +1552,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>siteId</name>
-                    <value>4a6a7286-f90d-4bd5-af0c-34911fc8ba8d</value>
+                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabAdvancedFilter</name>
