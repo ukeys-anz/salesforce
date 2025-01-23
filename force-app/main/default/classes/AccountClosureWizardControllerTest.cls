@@ -111,10 +111,6 @@ public with sharing class AccountClosureWizardControllerTest {
   static void testGetFilteredFinancialAccountsWithEmptyData() {
     System.runAs(thisUser) {
       String ocvId = '12345';
-      List<String> accountNumbers = new List<String>{
-        '000000000',
-        '111111111'
-      };
       Test.startTest();
       // Call the method under test
       List<FinancialAccountsResponse> response = AccountClosureWizardController.getFilteredFinancialAccounts(
