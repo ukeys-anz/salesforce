@@ -36,6 +36,7 @@ public with sharing class CardListModelConverter {
         destCard.account_numbers,
         mapOfAccountNumberAndOwnership
       );
+      destCard.cardBlockType = sourceCard.cardBlockType;
       cardListModelInstance.cards.add(destCard);
     }
     return cardListModelInstance;

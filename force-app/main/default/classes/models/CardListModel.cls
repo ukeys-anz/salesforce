@@ -67,6 +67,8 @@ public with sharing class CardListModel extends CalloutModel {
     public String delivery_status;
     @AuraEnabled
     public CardListModelV1.DeliveryDate delivery_date;
+    @AuraEnabled
+    public String cardBlockType;
 
     /**
      * @description concate account numbers and show on card details screen

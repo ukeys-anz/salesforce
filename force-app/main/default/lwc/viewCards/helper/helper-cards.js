@@ -82,5 +82,20 @@ function mappingStatusOnACard(card) {
 
   card.isIssued = card.status === STATUS.Issued;
   card.isFraudBlocked = FRAUD_STATUSES.includes(card.status);
+  if (card.isFraudBlocked) {
+    card.fraudBlockMessage = getFraudBlockMessage(card.cardBlockType);
+  }
   return card;
+}
+function getFraudBlockMessage(cardBlockType) {
+  if (!cardBlockType) {
+    return `Card controls are unavailable due to an existing fraud block. See chatter posts for more details.`;
+  }
+  if (cardBlockType.toLowerCase() === "automated") {
+    return `Card Controls are unavailable due to an automated fraud block. Please refer customer to the app to self-unblock the card.`;
+  } else if (cardBlockTypy.toLowerCase() === "manual") {
+    return `Card Controls are unavailable due to a manual fraud block. See Chatter post for more detail.`;
+  }
+
+  return `Card Controls Information could not be retrieved due to an Error. Please Retry.`;
 }
