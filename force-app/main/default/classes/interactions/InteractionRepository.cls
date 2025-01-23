@@ -42,9 +42,7 @@ public with sharing class InteractionRepository {
    * @param interactionId Interaction Id from Twilio for updating
    * @return Interaction record with Twilio Details
    */
-  public Interaction fetchTwilioDetailIdFromInteraction(
-    Id interactionId
-  ) {
+  public Interaction fetchTwilioDetailIdFromInteraction(Id interactionId) {
     if (interactionId == null) {
       return null;
     }
@@ -57,23 +55,58 @@ public with sharing class InteractionRepository {
     ];
   }
 
-   /**
+  /**
    * @description query User based on agentEmail
-   * @param agentEmail agentEmail from Twilio 
+   * @param agentEmail agentEmail from Twilio
    * @return List of User
    */
-  public List<User> fetchAgentUserId(
-    String agentEmail
-  ) {
+  public List<User> fetchAgentUserId(String agentEmail) {
     if (String.isBlank(agentEmail) || SObjectType.User.isQueryable() == false) {
       return new List<User>();
     }
 
     return [
-      SELECT Id,FederationIdentifier
+      SELECT Id, FederationIdentifier
       FROM User
-      WHERE FederationIdentifier = :agentEmail
-      AND IsActive = TRUE
-      ];
+      WHERE FederationIdentifier = :agentEmail AND IsActive = TRUE
+    ];
+  }
+
+  /**
+   * @description query ocvId based on customer on Interaction
+   * @param refObject object reference to get OCVId from related account
+   * @param recordId record id
+   * @return SObject
+   */
+  public SObject fetchOCVId(String refObject, String recordId) {
+    Schema.DescribeSObjectResult describeResult = Schema.getGlobalDescribe()
+      .get(refObject)
+      .getDescribe();
+    if (String.isBlank(refObject) || !describeResult.isQueryable()) {
+      return null;
+    }
+    return Database.query(
+      'SELECT Account.OCV_ID__c FROM ' +
+        String.escapeSingleQuotes(refObject) +
+        ' WHERE Id = :recordId'
+    );
+  }
+
+  /**
+   * @description find accounts based on OCVId
+   * @param ocvId String ocvid to search account details
+   * @return Account record
+   */
+  public Account findAccountByOCVId(String ocvId) {
+    PermissionUtils.canQuery('Account');
+    return [
+      SELECT PersonContactId
+      FROM Account
+      WHERE
+        OCV_ID__c = :ocvId
+        AND RecordTypeId = :QueryRT.of(Account.SObjectType)
+          .getId('PersonAccount')
+        AND ANZx_Customer__c = TRUE
+    ];
   }
 }

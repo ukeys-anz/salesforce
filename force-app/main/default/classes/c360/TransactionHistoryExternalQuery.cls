@@ -90,7 +90,7 @@ public with sharing class TransactionHistoryExternalQuery extends FinancialAccou
         'DisplayUrl' => getDisplayUrl(th.compositeId),
         'Amount' => th.amount,
         this.parentField => this.parentId,
-        'Description' => th.description,
+        'Description' => TextUtils.maskDataAnzx(th.description),
         'EffectiveDate' => formatDate(th.transactionDate),
         'PostDate' => formatDate(th.postedDate),
         'RunningBalance' => th.runningBalance,

@@ -184,7 +184,7 @@ jobs:
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory }}" -O "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$artifactFoldername.zip"
           unzip "$artifactFoldername.zip"
 
-      - name: Copy Sysl files
+      - name: Copy ${{ matrix.which-doc.NAME }} files
         run: |
           rm -rf ${{ matrix.which-doc.REMOVE_PATH }}
           cp -r "${{env.ARTIFACT_NAME}}/${{matrix.which-doc.CREATED_FOLDER_PATH}}" ${{ matrix.which-doc.DESTINATION_FOLDER_PATH }}

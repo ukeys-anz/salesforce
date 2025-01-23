@@ -23,6 +23,10 @@
     <picklistValues>
         <picklist>LeadSource</picklist>
         <values>
+            <fullName>AEM promo page</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Coach Lab %28QR code%29</fullName>
             <default>false</default>
         </values>
@@ -48,6 +52,14 @@
         </values>
         <values>
             <fullName>Web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web explore</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Web explore AEM exit page</fullName>
             <default>false</default>
         </values>
     </picklistValues>

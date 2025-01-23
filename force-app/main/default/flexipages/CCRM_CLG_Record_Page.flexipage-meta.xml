@@ -61,8 +61,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.CLG__c</fieldItem>
-                <identifier>RecordCLG_cField</identifier>
+                <fieldItem>Record.Anniversary_Date__c</fieldItem>
+                <identifier>RecordAnniversary_Date_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-49169091-208f-4a02-92b5-117cf02af4dd</name>
@@ -143,6 +143,40 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.LastModifiedById</fieldItem>
+                <identifier>RecordLastModifiedByIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-0e197faa-5b7e-4e63-8af0-161bafe5747b</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.RecordTypeId</fieldItem>
+                <identifier>RecordRecordTypeIdField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.FinServ__Status__c</fieldItem>
+                <identifier>RecordFinServ_Status_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Controlling_Post__c</fieldItem>
                 <identifier>RecordControlling_Post_cField</identifier>
                 <visibilityRule>
@@ -169,40 +203,6 @@
                         <rightValue>&apos;&apos;</rightValue>
                     </criteria>
                 </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <name>Facet-0e197faa-5b7e-4e63-8af0-161bafe5747b</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Anniversary_Date__c</fieldItem>
-                <identifier>RecordAnniversary_Date_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.RecordTypeId</fieldItem>
-                <identifier>RecordRecordTypeIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.LastModifiedById</fieldItem>
-                <identifier>RecordLastModifiedByIdField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-60617370-ada8-49a8-bd5e-54c9311c0d90</name>
@@ -997,7 +997,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>siteId</name>
-                    <value>4a6a7286-f90d-4bd5-af0c-34911fc8ba8d</value>
+                    <value>{!$Label.ANZX_Tableau_Site_Id}</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>tabAdvancedFilter</name>
