@@ -103,7 +103,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
     );
     // Fallback to database retrieval if API call fails
     // Attempt to fetch from the database
-    return await getFinancialAccountDB({
+    return getFinancialAccountDB({
       ownerId: this.accountId,
       recordTypeDeveloperNames: [
         CHECKING_ACCOUNT_RT_APINAME,
