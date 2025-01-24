@@ -63,8 +63,8 @@
   &quot;additionalOutput&quot; : {
     &quot;Response&quot; : &quot;=IF(ISNOTBLANK(getCustomerInfo:Response),DESERIALIZE(getCustomerInfo:Response),false)&quot;,
     &quot;CustomerNumber&quot; : &quot;=IF(ISNOTBLANK(customerId),%customerId%,%cacheId%)&quot;,
-    &quot;IsCustomerNotFound&quot; : &quot;getCustomerInfo:Response:isCustomerNotFound&quot;,
-    &quot;IsOCVDown&quot; : &quot;getCustomerInfo:Response:isOCVDown&quot;
+    &quot;IsCustomerNotFound&quot; : &quot;=IF(ISNOTBLANK(getCustomerInfo:Exceptions) &amp;&amp; %getCustomerInfo:Exceptions% == \&quot;Customer not found\&quot;,True,False)&quot;,
+    &quot;IsOCVDown&quot; : &quot;=IF(ISNOTBLANK(getCustomerInfo:Exceptions) &amp;&amp; %getCustomerInfo:Exceptions% == \&quot;OCV Down\&quot;,True,False)&quot;
   },
   &quot;returnOnlyAdditionalOutput&quot; : true,
   &quot;returnFullDataJSON&quot; : false,
