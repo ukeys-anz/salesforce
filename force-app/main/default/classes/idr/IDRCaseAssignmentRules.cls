@@ -130,8 +130,8 @@ public with sharing class IDRCaseAssignmentRules {
     if (
       oldCase != null &&
       oldcaseStatus.contains(oldCase.Status) &&
-      (oldCase.Status != rec.Status ||
-      oldCase.RecordTypeId == rec.RecordTypeId)
+      (oldCase.Status != rec.Status || oldCase.RecordTypeId == rec.RecordTypeId) ||
+      (oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS && rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED)
     ) {
       return rec.OwnerId;
     }
@@ -187,9 +187,6 @@ public with sharing class IDRCaseAssignmentRules {
       }
       if (rec.Type == 'Scam') {
         return QueryQueue.get('EDR_CM_Everyday_Banking_Wealth').Id; // EDR Scams
-      }
-      if(oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS && rec.Status == IDRConstants.ESCALATED_STATUS){
-        return rec.OwnerId;
     }
       return QueryQueue.get('EDR_Early_Resolution').Id;
     }
