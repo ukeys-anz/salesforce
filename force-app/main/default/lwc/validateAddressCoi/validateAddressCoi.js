@@ -246,9 +246,7 @@ export default class ValidateAddressCoi extends NavigationMixin(
 
   // eslint-disable-next-line no-unused-vars
   submitForm(fields = this.fields) {
-    this.template
-      .querySelector("lightning-record-edit-form")
-      .submit(fields);
+    this.template.querySelector("lightning-record-edit-form").submit(fields);
   }
 
   addressInputChange(event) {
