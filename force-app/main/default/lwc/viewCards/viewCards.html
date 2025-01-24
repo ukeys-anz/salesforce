@@ -28,7 +28,6 @@
                   </lightning-button>
                 </template>
               </div>
-
               <div
                 class="slds-card__body slds-card__body_inner"
                 data-id="loaded-card-details"
@@ -41,8 +40,7 @@
                           class="slds-text-align_center slds-text-title_bold"
                           data-id="fraud-no-controls"
                         >
-                          Card controls are unavailable due to an existing fraud
-                          block. See chatter posts for more details.
+                          {card.fraudBlockMessage}
                         </p>
                       </div>
                     </div>

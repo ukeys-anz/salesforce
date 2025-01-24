@@ -3,7 +3,11 @@
     {
       "name": "cards/8051997368527878",
       "last4Digits": "0796",
-      "cardControlsList": [{ "control_type": "GCT_GLOBAL" }],
+      "cardControlsList": [
+        {
+          "control_type": "GCT_GLOBAL"
+        }
+      ],
       "expiryDate": {
         "year": {
           "value": 2020
@@ -12,7 +16,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -23,7 +29,10 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "applePay": 3, "goggle_pay": 4 },
+      "wallets": {
+        "applePay": 3,
+        "goggle_pay": 4
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "ELVA KOELPIN"
@@ -87,7 +96,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992606"],
+      "accounts": [
+        "accounts/390992606"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -98,7 +109,9 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 4 },
+      "wallets": {
+        "e_commerce": 4
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "I AM THE BIG BOSS"
@@ -162,7 +175,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -237,7 +252,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -245,7 +262,9 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 4 },
+      "wallets": {
+        "e_commerce": 4
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "JED SWANIAWSKI"
@@ -309,7 +328,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -320,7 +341,9 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 4 },
+      "wallets": {
+        "e_commerce": 4
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "SANTA DUBUQUE"
@@ -384,7 +407,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -395,7 +420,9 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "google_pay": 2 },
+      "wallets": {
+        "google_pay": 2
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "GRIMES MITCH"
@@ -459,7 +486,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_DIGITAL_WALLET",
         "ELIGIBILITY_CHANGE_PIN",
@@ -470,7 +499,9 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 4 },
+      "wallets": {
+        "e_commerce": 4
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "SELENA SMITH"
@@ -534,7 +565,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992614"],
+      "accounts": [
+        "accounts/390992614"
+      ],
       "eligibility": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
@@ -548,7 +581,9 @@
         "ELIGIBILITY_DETAILS",
         "ELIGIBILITY_CARD_ON_FILE"
       ],
-      "wallets": { "e_commerce": 1 },
+      "wallets": {
+        "e_commerce": 1
+      },
       "cardControlsEnabled": true,
       "embossing": {
         "lineOne": "MARCELINO SMITH"
@@ -612,7 +647,9 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992618"],
+      "accounts": [
+        "accounts/390992618"
+      ],
       "eligibility": [
         "ELIGIBILITY_APPLE_PAY",
         "ELIGIBILITY_GOOGLE_PAY",
@@ -697,8 +734,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/390992606"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_STOLEN"],
+      "accounts": [
+        "accounts/390992606"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_STOLEN"
+      ],
       "new_name": "cards/2735331274708237",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -763,8 +804,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/222222222"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "accounts": [
+        "accounts/222222222"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_LOST"
+      ],
       "new_name": "cards/8130786547061532",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -829,8 +874,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/210406447"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "accounts": [
+        "accounts/210406447"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_LOST"
+      ],
       "new_name": "cards/5760153516234117",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -895,8 +944,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/210406447"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "accounts": [
+        "accounts/210406447"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_LOST"
+      ],
       "new_name": "cards/0891598838499875",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -961,8 +1014,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/210406447"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "accounts": [
+        "accounts/210406447"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_LOST"
+      ],
       "new_name": "cards/7121931607030402",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1027,8 +1084,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/210406447"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "accounts": [
+        "accounts/210406447"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_LOST"
+      ],
       "new_name": "cards/3721116289044713",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1093,8 +1154,12 @@
           "value": 11
         }
       },
-      "accounts": ["accounts/210406447"],
-      "eligibility": ["ELIGIBILITY_REPLACEMENT_LOST"],
+      "accounts": [
+        "accounts/210406447"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_REPLACEMENT_LOST"
+      ],
       "new_name": "cards/6252727765979807",
       "wallets": {},
       "cardControlsEnabled": true,
@@ -1145,6 +1210,222 @@
           "year": 2024,
           "month": 7,
           "day": 30
+        }
+      }
+    },
+    {
+      "name": "cards/2989602122045490",
+      "last4Digits": "9433",
+      "expiryDate": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 2
+        }
+      },
+      "accounts": [
+        "accounts/391026848"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_FRAUD_SUSPECTED"
+      ],
+      "cardBlockType": "automated",
+      "wallets": {},
+      "cardControlsEnabled": null,
+      "embossing": {
+        "lineOne": "MAGDA LOPEZ",
+        "lineTwo": null
+      },
+      "designCode": "001",
+      "statusCode": "CARD_STATUS_CODE_BLOCKATMPOSCNPBCH",
+      "tokenizedCardNumber": "2989602122045490",
+      "digitalOnly": null,
+      "cardIssueDate": {
+        "year": {
+          "value": 2017
+        },
+        "month": {
+          "value": 2
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "tracking": {
+        "card": "cards/2989602122045490",
+        "address": {
+          "lineOne": "58 Glover Lights PKT North",
+          "city": "Melbourne",
+          "postalCode": "3000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_ORDERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 12
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2989602122045490",
+        "recipient": "a2a2807d-b32d-449b-92b0-f1446c331a69",
+        "stateReportedBy": "PARTY_FABRIC",
+        "stateReportedDate": {
+          "year": 2023,
+          "month": 11,
+          "day": 2
+        }
+      }
+    },
+    {
+      "name": "cards/2989602122045491",
+      "last4Digits": "9433",
+      "expiryDate": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 2
+        }
+      },
+      "accounts": [
+        "accounts/391026848"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_FRAUD_SUSPECTED"
+      ],
+      "cardBlockType": "manual",
+      "wallets": {},
+      "cardControlsEnabled": null,
+      "embossing": {
+        "lineOne": "MAGDA LOPEZ",
+        "lineTwo": null
+      },
+      "designCode": "001",
+      "statusCode": "CARD_STATUS_CODE_BLOCKATMPOSCNPBCH",
+      "tokenizedCardNumber": "2989602122045491",
+      "digitalOnly": null,
+      "cardIssueDate": {
+        "year": {
+          "value": 2017
+        },
+        "month": {
+          "value": 2
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "tracking": {
+        "card": "cards/2989602122045491",
+        "address": {
+          "lineOne": "58 Glover Lights PKT North",
+          "city": "Melbourne",
+          "postalCode": "3000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_ORDERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 12
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2989602122045491",
+        "recipient": "a2a2807d-b32d-449b-92b0-f1446c331a69",
+        "stateReportedBy": "PARTY_FABRIC",
+        "stateReportedDate": {
+          "year": 2023,
+          "month": 11,
+          "day": 2
+        }
+      }
+    },
+    {
+      "name": "cards/2989602122045789",
+      "last4Digits": "9433",
+      "expiryDate": {
+        "year": {
+          "value": 2021
+        },
+        "month": {
+          "value": 2
+        }
+      },
+      "accounts": [
+        "accounts/391026848"
+      ],
+      "eligibility": [
+        "ELIGIBILITY_FRAUD_SUSPECTED"
+      ],
+      "cardBlockType": "Error occurred in verifying the block type",
+      "wallets": {},
+      "cardControlsEnabled": null,
+      "embossing": {
+        "lineOne": "MAGDA LOPEZ",
+        "lineTwo": null
+      },
+      "designCode": "001",
+      "statusCode": "CARD_STATUS_CODE_BLOCKATMPOSCNPBCH",
+      "tokenizedCardNumber": "2989602122045789",
+      "digitalOnly": null,
+      "cardIssueDate": {
+        "year": {
+          "value": 2017
+        },
+        "month": {
+          "value": 2
+        },
+        "day": {
+          "value": 6
+        }
+      },
+      "tracking": {
+        "card": "cards/2989602122045789",
+        "address": {
+          "lineOne": "58 Glover Lights PKT North",
+          "city": "Melbourne",
+          "postalCode": "3000",
+          "state": "VIC",
+          "country": "AUS"
+        },
+        "state": "STATE_ORDERED",
+        "arrivalRange": {
+          "startDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 7
+          },
+          "endDate": {
+            "year": 2023,
+            "month": 11,
+            "day": 12
+          }
+        },
+        "reason": "REASON_JOIN",
+        "name": "cards/2989602122045789",
+        "recipient": "a2a2807d-b32d-449b-92b0-f1446c331a69",
+        "stateReportedBy": "PARTY_FABRIC",
+        "stateReportedDate": {
+          "year": 2023,
+          "month": 11,
+          "day": 2
         }
       }
     }

@@ -32,7 +32,16 @@ public with sharing class AutoKYCQAUnrestraintHandler {
       for (
         Customer_Profile_Updates__c oldCpu : acc.Customer_Profile_Updates__r
       ) {
-        updates.add(generateUpdate(oldCpu));
+        if (oldCpu.TriggeredFrom__c == AutoKYCQACaseActions.REMOVE_RESTRAINTS) {
+          // No more restraints to remove or Current cycle is already completed
+          break;
+        }
+        if (
+          oldCpu.TriggeredFrom__c == AutoKYCQACaseActions.ADD_RESTRAINTS &&
+          oldCpu.Status__c == AutoKYCQACaseActions.COMPLETED
+        ) {
+          updates.add(generateUpdate(oldCpu));
+        }
       }
     }
     return updates;
@@ -46,6 +55,7 @@ public with sharing class AutoKYCQAUnrestraintHandler {
     cpu.Action__c = 'Update';
     cpu.Object_Name__c = 'Case';
     cpu.Customer_Name__c = oldCpu.Customer_Name__c;
+    cpu.Case__c = oldCpu.Case__c;
     cpu.Occurrence_Number__c = oldCpu.Occurrence_Number__c;
     cpu.TriggeredFrom__c = oldCpu.TriggeredFrom__c.replace('Add', 'Remove');
     cpu.NewValue__c = oldCpu.NewValue__c.replace('Apply', 'Remove');

@@ -685,6 +685,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IsKYCChecksCompleted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IsOwner__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -706,6 +711,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Is_this_a_Business_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.KYCChecksHasDefect__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -901,6 +911,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Profile_Updates__c.Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Closed_Update_Defects_Rectified</fullName>
+    <active>true</active>
+    <description>Ensures that an agent can&apos;t update &apos;Have All Defects Been Rectified&apos; if the Case is Closed.</description>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &quot;KYC_QA&quot;,
+    ISPICKVAL ( Status, &quot;Closed&quot; ),
+    ISCHANGED ( Fraud_Defects_Rectified__c )    
+)</errorConditionFormula>
+    <errorMessage>KYC checks are completed and the case is closed, please re-open the case in-order to update the &apos;Have All Defects Been Rectified&apos;.</errorMessage>
+</ValidationRule>

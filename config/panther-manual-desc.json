@@ -1190,7 +1190,9 @@
         "Date_time_Registration_Response_Provided__c",
         "IDR_Complaint_Outcome_Offered__c",
         "IDR_Completed_Evaluations__c",
-        "IDR_Date_time_Progressed_Status_selected__c"
+        "IDR_Date_time_Progressed_Status_selected__c",
+        "IsKYCChecksCompleted__c",
+        "KYCChecksHasDefect__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1449,7 +1451,7 @@
       ]
     },
     "COBAddress__c": {
-      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415860": ["OnboardingAttemptCount__c", "SubmittedAt__c"],
       "IA-2415984": [
         "AddressBuildingName__c",
         "AddressCity__c",
@@ -1491,7 +1493,11 @@
         "PersonaCitizenship__c",
         "CustomerOnboardingApplication__c"
       ],
-      "IA-2415860": ["SubmittedAt__c", "Removed__c"],
+      "IA-2415860": [
+        "OnboardingAttemptCount__c",
+        "Removed__c",
+        "SubmittedAt__c"
+      ],
       "IA-2415984": ["RegionCode__c", "RegionName__c"],
       "IA-2530753": [
         "CreatedById",
@@ -1503,7 +1509,7 @@
       ]
     },
     "COBIDVSearchResult__c": {
-      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415860": ["OnboardingAttemptCount__c", "SubmittedAt__c"],
       "IA-2594111": [
         "MatchIndicator__c",
         "PersonaDataSource__c",
@@ -1522,12 +1528,13 @@
     },
     "COBPrimaryIDDocument__c": {
       "IA-2415860": [
+        "Failed_Message__c",
+        "OnboardingAttemptCount__c",
         "SubmittedAt__c",
         "Verified_By__c",
         "Verification_Date_Time__c",
         "Verification_Status__c",
-        "Verification_Failed_Reason__c",
-        "Failed_Message__c"
+        "Verification_Failed_Reason__c"
       ],
       "IA-2415999": ["idxExtractedFaceId__c"],
       "IA-2594111": [
@@ -1600,7 +1607,11 @@
       ]
     },
     "COBTaxResidency__c": {
-      "IA-2415860": ["Removed__c", "SubmittedAt__c"],
+      "IA-2415860": [
+        "OnboardingAttemptCount__c",
+        "Removed__c",
+        "SubmittedAt__c"
+      ],
       "IA-2415984": [
         "OmissionReasonCode__c",
         "OmissionReasonDescription__c",
@@ -2041,6 +2052,7 @@
         "OldValue__c",
         "ToBeValue__c"
       ],
+      "IA-2415840": ["Case__c"],
       "IA-2415860": [
         "Occurrence_Number__c",
         "Source_System_ID__c",
@@ -2319,7 +2331,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2468715": ["Customer_SourceSystemId__c"]
     },
     "FinServ__ChargesAndFees__c": {
       "IA-2415840": ["Fee_Id__c", "Source__c", "Fee_Type__c"],
