@@ -758,7 +758,9 @@
         "CPID__c",
         "Customer_Number__c"
       ],
-      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
+      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
+      "IA-2423227": ["COI_Member__c"],
+      "IA-2415790": ["Broker_Name__c"]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -2610,7 +2612,8 @@
         "Product__c",
         "Actual_Topic_Formula__c",
         "Reason_for_Visit_Formula__c"
-      ]
+      ],
+      "IA-2423227": ["COI_Member__c"]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -2857,7 +2860,9 @@
       ],
       "IA-2415986": ["Campaign_Name__c"],
       "IA-2431669": ["Primary_Franchise_Owner__c"],
-      "IA-2453350": ["Customer_Pre_Exist__c"]
+      "IA-2453350": ["Customer_Pre_Exist__c"],
+      "IA-2415790": ["Broker_Name__c"],
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -3379,7 +3384,7 @@
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
       "IA-2434298": ["Total_Application_Amount__c"],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
-      "IA-2415790": ["TPMI__c"]
+      "IA-2415790": ["TPMI__c", "Broker_Name__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [
@@ -5241,6 +5246,35 @@
         "Value_Date__c"
       ],
       "IA-2468715": ["Customer__c"]
+    },
+    "Circle_Of_Influence__c": {
+      "IA-2415828": [
+        "COI_Type__c",
+        "First_Name__c",
+        "Last_Name__c",
+        "Name__c",
+        "Email__c",
+        "Mobile__c",
+        "Work_Phone__c",
+        "Job_Title__c"
+      ],
+      "IA-2415790": [
+        "Residence_Number__c",
+        "Residence_Type__c",
+        "Building_Name__c",
+        "Street_Name__c",
+        "Street_Type__c",
+        "City__c",
+        "State__c",
+        "Country__c",
+        "Postal_Code__c"
+      ],
+      "IA-2423227": [
+        "Notes__c",
+        "Preferred_Contact_Method__c",
+        "Preferred_Contact_Time__c",
+        "COI_Company__c"
+      ]
     }
   },
   "lineageInformation": {
