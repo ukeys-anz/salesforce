@@ -59,7 +59,7 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
     AutoKYCQACaseActions.updateTestedDate(validCases);
 
     if (Label.CustomerRestraintEnabled.equalsIgnoreCase('true')) {
-      AutoKYCQACaseActions.setRetraintStatus(
+      AutoKYCQACaseActions.setRestraintStatus(
         validCases,
         (Map<Id, Case>) oldMap
       );

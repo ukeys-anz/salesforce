@@ -11779,6 +11779,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Open Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Power of attorney</fullName>
             <default>false</default>
         </values>

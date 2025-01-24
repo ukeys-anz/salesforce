@@ -11,14 +11,7 @@ public with sharing class AutoKYCQACaseController {
     DmlRepository.class
   );
   private static final String MSG_SUCCESS_CHECKS_COMPLETION = 'All the KYC QA checks are completed successfully.';
-  private static final String MSG_ERROR_CHECKS_ALREADY_COMPLETED = 'All the KYC QA checks have already been completed. No changes were made.';
-  private static final String MSG_ERROR_GENERIC_CHECK_COMPLETION = 'Error performing the completion. Please contact your System Administrator.';
-
-  /**
-   * @description Define custom exceptions
-   */
-  private class CompletionChecksException extends Exception {
-  }
+  private static final String MSG_ERROR_GENERIC_CHECK_COMPLETION = 'Error performing the KYC QA checks completion. Please contact your System Administrator.';
 
   /**
    * @description method invoked in lwc.
@@ -32,16 +25,10 @@ public with sharing class AutoKYCQACaseController {
       List<Case> cases = REPOSITORY.queryKYCQAChecksByIds(
         new Set<Id>{ recordId }
       );
-      if (AutoKYCQACaseActions.hasKycCheckCompleted(cases[0])) {
-        throw new CompletionChecksException(MSG_ERROR_CHECKS_ALREADY_COMPLETED);
-      }
       ListUtil.setFieldIfNull(cases, AutoKYCQACaseActions.TEST_FIELDS, 'Yes');
       DML.doUpdate(cases);
 
       Logger.debug(MSG_SUCCESS_CHECKS_COMPLETION);
-    } catch (CompletionChecksException ex) {
-      Logger.debug(ex.getMessage());
-      throw new AuraHandledException(ex.getMessage());
     } catch (DmlException ex) {
       throw new AuraHandledException(MSG_ERROR_GENERIC_CHECK_COMPLETION);
     } catch (Exception ex) {

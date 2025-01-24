@@ -44,6 +44,7 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
     private Decimal interestRate;
     private String tpmiNumber;
     private String subApprovedOrignation;
+    private String tpmiType;
 
     private String repaymentFrequency;
     private String interestRepayments;
@@ -162,6 +163,12 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
     'P-O' => 'P-O - Paid Off'
   };
 
+  private static final Map<String, String> MAP_OF_TPMI_TYPE = new Map<String, String>{
+    'O' => 'Broker',
+    'F' => 'Mobile Lender',
+    'S' => 'Spotter'
+  };
+
   /**
    * @description LoanAccount API callout response
    */
@@ -246,7 +253,7 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
         'Expires' => formatDate(fa.loanMaturityDate),
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.subApprovedOrignation,
+          : fa.tpmiNumber + '-' + fa.subApprovedOrignation+' '+(MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
         'ANZPlusIdentifier' => fa.anzPlusIdentifier,
         'BranchName' => fa.branchName,
         'AmountInAdvance' => fa.amountInAdvance,
