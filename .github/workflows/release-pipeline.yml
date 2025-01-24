@@ -40,10 +40,10 @@ jobs:
     environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
     env:
       RELEASE_NAME: "${{ github.event.inputs.NAME }}"
-      ARTIFACTORY_SECRET_NAME: "h-salesforce-prod-artifact"
-      PREPROD_SECRET_NAME: "h-salesforce-prod-preprod"
-      PROD_CONSUMER_KEY_SECRET_NAME: "h-salesforce-prod-ca-consumerkey"
-      PROD_CERT_SECRET_NAME: "h-salesforce-prod-cert"
+      ARTIFACTORY_SECRET_NAME: "sf-platform-prod-artifact"
+      PREPROD_SECRET_NAME: "sf-platform-prod-preprod"
+      PROD_CONSUMER_KEY_SECRET_NAME: "sf-platform-prod-ca-consumerkey"
+      PROD_CERT_SECRET_NAME: "sf-platform-prod-cert"
       PREPROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-release-start' }}
       PROD_VALIDATION_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-validation' }}
       PROD_DEPLOYMENT_STEP: ${{ matrix.config.DEPLOYMENT_ENVIRONMENT == 'prod-deployment' }}
@@ -88,10 +88,10 @@ jobs:
         uses: "google-github-actions/get-secretmanager-secrets@v1"
         with:
           secrets: |-
-            preprod:projects/810679854929/secrets/${{ env.PREPROD_SECRET_NAME }}/versions/latest
-            prod-consumer-key:projects/810679854929/secrets/${{ env.PROD_CONSUMER_KEY_SECRET_NAME }}/versions/latest
-            prod-cert:projects/810679854929/secrets/${{ env.PROD_CERT_SECRET_NAME }}/versions/latest
-            artifactory:projects/810679854929/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+            preprod:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PREPROD_SECRET_NAME }}/versions/latest
+            prod-consumer-key:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PROD_CONSUMER_KEY_SECRET_NAME }}/versions/latest
+            prod-cert:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PROD_CERT_SECRET_NAME }}/versions/latest
+            artifactory:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
       - name: Add Genral Secrets to ENV
         run: |
           echo CLEANING_JOB="false" >> $GITHUB_ENV

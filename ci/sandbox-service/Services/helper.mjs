@@ -8,7 +8,7 @@ import {
 } from "fs";
 
 const runCommand = (command) =>
-  execSync(command, { stdio: "pipe", maxBuffer: 1024 * 1024 * 10 }).toString(
+  execSync(command, { stdio: "pipe", maxBuffer: 1024 * 1024 * 100 }).toString(
     "utf-8"
   );
 

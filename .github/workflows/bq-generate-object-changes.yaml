@@ -27,7 +27,7 @@ jobs:
   generate_object_changes:
     outputs:
       CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
-    runs-on: [anzx-default]
+    runs-on: [anzx-default-np]
     steps:
       - uses: actions/setup-node@v2.1.5
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -73,7 +73,7 @@ jobs:
         run: |
           mv ci.yarnrc .yarnrc
           rm -rf node_modules && yarn install --frozen-lockfile
-      
+
       - name: Build plugin
         working-directory: salesforce-plugin
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -109,9 +109,9 @@ jobs:
           sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
           for object in $sfdatasync_object_list; do
             echo "running xschema-generate on sfdatasync user for $object..."
-            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -n $object \
+            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test25 -e ./config/bigq_exclusionfile.json -n $object \
                   -f sfdatasync_user_output; then
-                errors+=("$object for user sfdatasync.user@anzx.com.test24")
+                errors+=("$object for user sfdatasync.user@anzx.com.test25")
                 echo "Errors occurred while running the xSchema generate."
             fi
           done
