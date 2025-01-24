@@ -72,6 +72,7 @@ public with sharing class CoachCollaborationController {
       WhatId = recordId,
       WhoId = objAccount.PersonContactId,
       Status = 'Completed',
+      ActivityDate = System.today(),
       RecordTypeId = QueryRT.of(Task.SObjectType).getId('Coach_Connect')
     );
     DML_REPOSITORY.doInsert(newTask);

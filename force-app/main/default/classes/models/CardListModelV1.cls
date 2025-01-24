@@ -57,6 +57,8 @@ public with sharing class CardListModelV1 extends CalloutModel {
     public CardListModel.FormattedDate cardIssueDate;
     @AuraEnabled
     public Tracking tracking;
+    @AuraEnabled
+    public String cardBlockType;
   }
 
   /**
