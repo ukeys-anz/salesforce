@@ -638,6 +638,11 @@
                 <label>Pricing Request</label>
             </value>
             <value>
+                <fullName>Open Banking</fullName>
+                <default>false</default>
+                <label>Open Banking</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -727,6 +732,10 @@
         <valueSettings>
             <controllingFieldValue>Profile</controllingFieldValue>
             <valueName>Suspect ConnectID Fraud</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Open Banking</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>

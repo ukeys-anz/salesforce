@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>KYC_Restraints_While_Applying</fullName>
+    <active>true</active>
+    <description>On Restraints Status having Applying Restraints / Error Applying Restraints in CAP, then Have All Defects Been Rectified cannot be changed to Yes.</description>
+    <errorConditionFormula>AND(
+     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+     RecordType.DeveloperName = &quot;KYC_QA&quot;,
+     ISCHANGED( Fraud_Defects_Rectified__c ), 
+     ISPICKVAL ( Fraud_Defects_Rectified__c, &quot;Yes&quot; ),
+     OR(
+        ISPICKVAL ( Fraud_Restraint_Status__c , &quot;Applying Restraints in CAP&quot; ),
+        ISPICKVAL ( Fraud_Restraint_Status__c , &quot;Error Applying Restraints in CAP&quot; )
+     )
+)</errorConditionFormula>
+    <errorMessage>Incorrect Restraint Status, either automated restraints updates are in progress or failed. Please check the value before updating the Case.</errorMessage>
+</ValidationRule>

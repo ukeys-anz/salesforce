@@ -319,6 +319,16 @@
     <description>Baseline pset for using the AR&amp;C Commercial CRM app.</description>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.Broker_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>A_Z_Review__c.COI_Member__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>A_Z_Review__c.Banker_LAN_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3349,6 +3359,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Customer_SourceSystemId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Relationship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__AccountAccountRelation__c.FinServ__Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3709,6 +3734,21 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__ContactContactRelation__c.Relationship__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__ContactContactRelation__c.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__ContactContactRelation__c.Customer_SourceSystemId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__ContactContactRelation__c.FinServ__Active__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3830,6 +3870,46 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Account_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Product_Name_Display__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Account_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Product_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Product_Code_Display__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Sub_product_Code_Display__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccountRole__c.Role_Type__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4764,6 +4844,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Interaction.COI_Member__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Interaction.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4845,6 +4930,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>InteractionAttendee.EmailAddress</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Broker_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.Circle_Of_Influence__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6020,6 +6115,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Won_from_Lost_to__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Broker_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8042,6 +8142,116 @@
         <field>qualtrics__Survey_Response__c.qualtrics__Date_Responded__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Work_Phone__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Job_Title__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.COI_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.First_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Last_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Name</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Residence_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Residence_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Building_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Street_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Street_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.City__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Country__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Postal_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Preferred_Contact_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.Preferred_Contact_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Circle_Of_Influence__c.COI_Company__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>CCRM User Read Only</label>
     <license>Salesforce</license>
@@ -8387,6 +8597,19 @@
         <object>qualtrics__Survey_Response__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>Circle_Of_Influence__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
+    <recordTypeVisibilities>
+        <recordType>Circle_Of_Influence__c.Company_Member</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
         <visible>true</visible>
@@ -8563,6 +8786,10 @@
         <recordType>qualtrics__Survey_Response__c.Commercial_A_Z_Review_Survey_Response</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <tabSettings>
+        <tab>Circle_Of_Influence__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
     <tabSettings>
         <tab>A_Z_Review__c</tab>
         <visibility>Available</visibility>

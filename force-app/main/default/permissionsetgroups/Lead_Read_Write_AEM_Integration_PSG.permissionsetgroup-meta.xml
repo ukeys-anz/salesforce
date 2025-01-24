@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Permission set group for AEM Integration for BOH web callback</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Lead Read Write - AEM Integration PSG</label>
+    <permissionSets>Lead_Read_Write_AEM_Integration</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>
