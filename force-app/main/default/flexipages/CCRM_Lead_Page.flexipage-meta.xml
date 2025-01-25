@@ -426,8 +426,8 @@
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Description</fieldItem>
-                <identifier>RecordDescriptionField</identifier>
+                <fieldItem>Record.Note__c</fieldItem>
+                <identifier>RecordNote_cField2</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-8txk4cfnye</name>
@@ -688,16 +688,6 @@
                 <identifier>RecordEmailField2</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Account_Number__c</fieldItem>
-                <identifier>RecordAccount_Number_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-neuxiammgui</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -818,6 +808,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Expiry_Indicator__c</fieldItem>
                 <identifier>RecordExpiry_Indicator_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Account_Number__c</fieldItem>
+                <identifier>RecordAccount_Number_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
