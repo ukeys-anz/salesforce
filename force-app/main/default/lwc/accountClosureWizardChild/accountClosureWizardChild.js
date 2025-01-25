@@ -1,7 +1,7 @@
 import { LightningElement, track, wire, api } from "lwc";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
 import CLOSURE_REASON from "@salesforce/schema/Case.Closure_Reason__c";
-import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createCasesForAccounts";
+import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts";
 
 const caseColumns = [
   { label: "Product", fieldName: "product" },
@@ -54,7 +54,6 @@ export default class AccountClosureWizardChild extends LightningElement {
   }
 
   get closureResonValues() {
-    // Only add "--None--" option if no picklist values are available
     return this.closureReasonOptions.length === 0
       ? [{ label: "--None--", value: "--None--" }]
       : [...this.closureReasonOptions];
@@ -230,7 +229,7 @@ export default class AccountClosureWizardChild extends LightningElement {
         this.casesData = result.map((row) => ({
           childCaseNumberUrl: "/" + row.Id,
           childCaseNumber: row.CaseNumber,
-          product: row.Product__c,
+          product: row.Product.Name,
           accountNumber:
             row.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
           accountType:

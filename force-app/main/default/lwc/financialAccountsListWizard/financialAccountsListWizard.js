@@ -88,7 +88,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
         this,
         "Failed To Retrieve Account Details",
         error,
-        "Failed to retrieve latest account information. Please refresh and try again. If the issue persists, contact your System Administrator.",
+        "Failed to retrieve latest account details. Please refresh and try again. If the issue persists, please contact your System Administrator",
         "pester"
       );
     } finally {
@@ -96,21 +96,24 @@ export default class FinancialAccountsListWizard extends LightningElement {
     }
   }
 
+  /**
+   * Helper method to map account details to financial account data.
+   */
   mapAccountDetailsToFinAccData(accountDetails) {
     return accountDetails.map((record) => {
-      const ownershipInfo = this.ownershipMap[record.ownership] || {};
+      const ownershipInfo = this.ownershipMap[record.Ownership__c] || {};
       return {
-        id: record.id,
-        productName: record.productName,
-        accountNumber: record.accountNumber,
+        id: record.Id,
+        productName: record.FinServ__ProductName__r.Name,
+        accountNumber: record.FinServ__FinancialAccountNumber__c,
         finAccountType: ownershipInfo.displayValue || "",
         signingAuthority:
-          record.ownership === "Multi-party" &&
-          record.signingAuthority === "All to sign"
-            ? record.signingAuthority
+          record.Ownership__c === "Multi-party" &&
+          record.Number_Of_Signatures__c === "All to sign"
+            ? record.Number_Of_Signatures__c
             : "",
-        balance: record.balance,
-        productId: record.productId,
+        balance: record.FinServ__Balance__c,
+        productId: record.FinServ__ProductName__c,
         apiFinAccountType: ownershipInfo.apiValue || ""
       };
     });
