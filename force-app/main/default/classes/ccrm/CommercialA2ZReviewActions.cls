@@ -3,7 +3,7 @@
  * @since        : 05/2024
  * @description  :
  **/
-public with sharing class CCRMA2ZReviewActions {
+public with sharing class CommercialA2ZReviewActions {
   /**
    * @description Define custom exceptions
    */
@@ -99,6 +99,28 @@ public with sharing class CCRMA2ZReviewActions {
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
       throw new CustomException(e.getMessage());
+    }
+  }
+
+  /**
+   * @description : It will restrict the user to upload images in rich text fields
+   * @name : restrictImagesInRichTextFields
+   * @param records List of A-Z records
+   * @param oldMap Map of old A-Z records
+   */
+  public static void restrictImagesInRichTextFields(
+    List<A_Z_Review__c> records,
+    Map<Id, A_Z_Review__c> oldMap
+  ) {
+    try {
+      List<SObjectField> fieldList = Schema.SObjectType.A_Z_Review__c.fields.getMap()
+        .values();
+      Set<SObjectField> richTextFieldSet = CommercialCommonUtil.getRichTextFields(
+        fieldList
+      );
+      CommercialCommonUtil.restrictImages(records, oldMap, richTextFieldSet);
+    } catch (Exception e) {
+      Logger.error('Error while restrict images on A-Z Review', e).save();
     }
   }
 }
