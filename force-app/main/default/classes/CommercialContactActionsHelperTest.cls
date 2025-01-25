@@ -7,6 +7,7 @@
 @isTest
 public class CommercialContactActionsHelperTest {
   static Lib_MockProvider accountRepoMock;
+  static Lib_MockProvider contactRepoMock;
   static Lib_MockProvider dmlRepoMock;
 
   static void registerMocks() {
@@ -14,11 +15,19 @@ public class CommercialContactActionsHelperTest {
     accountRepoMock = Lib_MockProvider.forType(
       CommercialAccountRepository.class
     );
+    contactRepoMock = Lib_MockProvider.forType(
+      CommercialContactRepository.class
+    );
   }
 
   @isTest
   static void testGetExistingOrProspectContacts() {
     registerMocks();
+
+    contactRepoMock.mock(
+      'getUserProfileId',
+      QueryProfile.anzCCRMStandardUser.Id
+    );
 
     //GIVEN Account and Contact record
     Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
@@ -42,15 +51,13 @@ public class CommercialContactActionsHelperTest {
 
     //WHEN we call the method to get Existing or Prospect contacts
     Test.startTest();
-    List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
-      conList
-    );
+    CommercialContactActionsHelper.getExistingOrProspectContacts(conList);
     Test.stopTest();
 
     //THEN it should find 1 record
     Assert.areEqual(
       1,
-      existingAndProspectContactsList.size(),
+      CommercialContactActionsHelper.existingAndProspectContactsList.size(),
       'Not able to form the contact wrapper'
     );
   }
