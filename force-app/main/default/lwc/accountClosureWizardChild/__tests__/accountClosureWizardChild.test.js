@@ -1,9 +1,9 @@
 import { createElement } from "lwc";
 import AccountClosureWizardChild from "c/accountClosureWizardChild";
-import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createCasesForAccounts";
+import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts";
 
 jest.mock(
-  "@salesforce/apex/AccountClosureWizardController.createCasesForAccounts",
+  "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts",
   () => {
     return {
       default: jest.fn()
