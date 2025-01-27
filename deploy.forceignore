@@ -142,9 +142,6 @@ force-app/main/default/flexipages/ANZx_Trailblazer.flexipage-meta.xml
 force-app/main/default/flexipages/Trailblazer_Home.flexipage-meta.xml
 force-app/main/default/objects/Case/listViews/Deceased_Estate_Cases.listView-meta.xml
 
-# do not merge this to higher env, this was added for back merge from develop to cmosa
-force-app/main/default/flexipages/Coach_Home_Page.flexipage-meta.xml 
-
 #ignore to allow linting
 force-app/main/default/triggers/ContactPointEmailTrigger.trigger-meta.xml
 force-app/main/default/triggers/ContactPointAddressTrigger.trigger-meta.xml
