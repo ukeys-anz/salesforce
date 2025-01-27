@@ -382,7 +382,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CustomerRestraintComment</shortDescription>
-        <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
+        <value>KYC QA defects found - do not remove until clarified - call ID OPS 03-4050-7838</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
@@ -2712,5 +2712,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Proceed Confirmation Message</shortDescription>
         <value>Do you wish to proceed?</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_IndividualCustomerWarning</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_IndividualCustomerWarning</shortDescription>
+        <value>Please fill out the details in contact information section.</value>
     </labels>
 </CustomLabels>

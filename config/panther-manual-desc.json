@@ -759,7 +759,9 @@
         "CPID__c",
         "Customer_Number__c"
       ],
-      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"]
+      "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
+      "IA-2423227": ["COI_Member__c"],
+      "IA-2415790": ["Broker_Name__c"]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -1189,7 +1191,9 @@
         "Date_time_Registration_Response_Provided__c",
         "IDR_Complaint_Outcome_Offered__c",
         "IDR_Completed_Evaluations__c",
-        "IDR_Date_time_Progressed_Status_selected__c"
+        "IDR_Date_time_Progressed_Status_selected__c",
+        "IsKYCChecksCompleted__c",
+        "KYCChecksHasDefect__c"
       ],
       "IA-2415999": [
         "Amount_Of_Authorised_Transaction__c",
@@ -1448,7 +1452,7 @@
       ]
     },
     "COBAddress__c": {
-      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415860": ["OnboardingAttemptCount__c", "SubmittedAt__c"],
       "IA-2415984": [
         "AddressBuildingName__c",
         "AddressCity__c",
@@ -1490,7 +1494,11 @@
         "PersonaCitizenship__c",
         "CustomerOnboardingApplication__c"
       ],
-      "IA-2415860": ["SubmittedAt__c", "Removed__c"],
+      "IA-2415860": [
+        "OnboardingAttemptCount__c",
+        "Removed__c",
+        "SubmittedAt__c"
+      ],
       "IA-2415984": ["RegionCode__c", "RegionName__c"],
       "IA-2530753": [
         "CreatedById",
@@ -1502,7 +1510,7 @@
       ]
     },
     "COBIDVSearchResult__c": {
-      "IA-2415860": ["SubmittedAt__c"],
+      "IA-2415860": ["OnboardingAttemptCount__c", "SubmittedAt__c"],
       "IA-2594111": [
         "MatchIndicator__c",
         "PersonaDataSource__c",
@@ -1521,12 +1529,13 @@
     },
     "COBPrimaryIDDocument__c": {
       "IA-2415860": [
+        "Failed_Message__c",
+        "OnboardingAttemptCount__c",
         "SubmittedAt__c",
         "Verified_By__c",
         "Verification_Date_Time__c",
         "Verification_Status__c",
-        "Verification_Failed_Reason__c",
-        "Failed_Message__c"
+        "Verification_Failed_Reason__c"
       ],
       "IA-2415999": ["idxExtractedFaceId__c"],
       "IA-2594111": [
@@ -1599,7 +1608,11 @@
       ]
     },
     "COBTaxResidency__c": {
-      "IA-2415860": ["Removed__c", "SubmittedAt__c"],
+      "IA-2415860": [
+        "OnboardingAttemptCount__c",
+        "Removed__c",
+        "SubmittedAt__c"
+      ],
       "IA-2415984": [
         "OmissionReasonCode__c",
         "OmissionReasonDescription__c",
@@ -2040,6 +2053,7 @@
         "OldValue__c",
         "ToBeValue__c"
       ],
+      "IA-2415840": ["Case__c"],
       "IA-2415860": [
         "Occurrence_Number__c",
         "Source_System_ID__c",
@@ -2318,7 +2332,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2468715": ["Customer_SourceSystemId__c"]
     },
     "FinServ__ChargesAndFees__c": {
       "IA-2415840": ["Fee_Id__c", "Source__c", "Fee_Type__c"],
@@ -2602,7 +2617,8 @@
         "Product__c",
         "Actual_Topic_Formula__c",
         "Reason_for_Visit_Formula__c"
-      ]
+      ],
+      "IA-2423227": ["COI_Member__c"]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -2849,7 +2865,9 @@
       ],
       "IA-2415986": ["Campaign_Name__c"],
       "IA-2431669": ["Primary_Franchise_Owner__c"],
-      "IA-2453350": ["Customer_Pre_Exist__c"]
+      "IA-2453350": ["Customer_Pre_Exist__c"],
+      "IA-2415790": ["Broker_Name__c"],
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -3371,7 +3389,7 @@
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
       "IA-2434298": ["Total_Application_Amount__c"],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
-      "IA-2415790": ["TPMI__c"]
+      "IA-2415790": ["TPMI__c", "Broker_Name__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [
@@ -5237,6 +5255,35 @@
         "Value_Date__c"
       ],
       "IA-2468715": ["Customer__c"]
+    },
+    "Circle_Of_Influence__c": {
+      "IA-2415828": [
+        "COI_Type__c",
+        "First_Name__c",
+        "Last_Name__c",
+        "Name__c",
+        "Email__c",
+        "Mobile__c",
+        "Work_Phone__c",
+        "Job_Title__c"
+      ],
+      "IA-2415790": [
+        "Residence_Number__c",
+        "Residence_Type__c",
+        "Building_Name__c",
+        "Street_Name__c",
+        "Street_Type__c",
+        "City__c",
+        "State__c",
+        "Country__c",
+        "Postal_Code__c"
+      ],
+      "IA-2423227": [
+        "Notes__c",
+        "Preferred_Contact_Method__c",
+        "Preferred_Contact_Time__c",
+        "COI_Company__c"
+      ]
     }
   },
   "lineageInformation": {

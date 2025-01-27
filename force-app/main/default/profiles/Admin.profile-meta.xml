@@ -4547,6 +4547,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBAddress__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBAddress__c.PersonaAddressType__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4568,6 +4573,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBAddress__c.SubmittedAt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBCitizenship__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4603,6 +4613,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBIDVSearchResult__c.MatchIndicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4837,6 +4852,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.PassportNumberOCRClientTransform__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4908,6 +4928,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBTaxResidency__c.OmissionReasonDescription__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBTaxResidency__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

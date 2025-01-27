@@ -150,21 +150,9 @@
                     OR(
                         ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/Savings accounts&quot;),
                         ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;),
-                        ISPICKVAL(IDR_Product_Category__c, &quot;ANZ Plus&quot;)
+                        ISPICKVAL(IDR_Product_Category__c, &quot;ANZ Plus&quot;),
+                        ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;)
                     ),
-                    ANZx_Customer__c = true
-                )
-            </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BOH_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
-                AND(
-                    ISNEW(),
-                    RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
-                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
-                    ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;),
                     ANZx_Customer__c = true
                 )
             </formula>
@@ -209,19 +197,6 @@
             <assignedTo>Digital_Fraud_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>AND(ISNEW(), RecordType.DeveloperName = &quot;General_Inquiry&quot;,  ISPICKVAL(Type,&quot;Fraud&quot;),  BOH_Fraud_Case__c = TRUE)</formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BOH_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
-                AND(
-                    ISNEW(), 
-                    RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
-                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;),
-                    ISPICKVAL(IDR_Product_Category__c,&quot;Home loans&quot; ),
-                    ANZx_Customer__c = true 
-                )
-            </formula>
         </ruleEntry>
         <ruleEntry>
             <assignedTo>Coach_Queue</assignedTo>

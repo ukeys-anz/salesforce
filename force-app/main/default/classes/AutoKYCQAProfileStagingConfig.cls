@@ -38,6 +38,7 @@ public with sharing class AutoKYCQAProfileStagingConfig extends ProfileStagingCo
     cpu.Object_Name__c = 'Case';
     cpu.TriggeredFrom__c = 'Case.KYC_QA';
     cpu.Customer_Name__c = acc.Id;
+    cpu.Case__c = theCase.Id;
   }
 
   /**

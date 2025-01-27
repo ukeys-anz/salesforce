@@ -4,6 +4,31 @@
         <apexClass>CoachCollaborationController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Subject</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.ActivityDate</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.WhatId</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Task.WhoId</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <customPermissions>
         <name>ANZx_View_Coach_Connect</name>
         <enabled>true</enabled>
@@ -14,4 +39,8 @@
         <recordType>Task.Coach_Connect</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>EditTask</name>
+    </userPermissions>
 </PermissionSet>
