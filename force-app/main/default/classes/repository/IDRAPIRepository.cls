@@ -5,15 +5,16 @@
  * @group Repository
  */
 public with sharing class IDRAPIRepository extends RepositoryBase {
-
   /**
    * @description To handle Custom Exception when customer not found
    */
-  private class CustomCustomerNotFoundException extends Exception{}
+  private class CustomCustomerNotFoundException extends Exception {
+  }
   /**
    * @description To handle Custom Exception when ocv is down
    */
-  private class CustomOCVDownException extends Exception{}
+  private class CustomOCVDownException extends Exception {
+  }
 
   /**
    * @param customerId customer id to be searched
@@ -32,16 +33,12 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
     IDRAPIRepository cmosapi = new IDRAPIRepository();
     try {
       return cmosapi.getCustomerInfo(customerId, customerIdentifier);
-    }catch(CustomCustomerNotFoundException e){
+    } catch (CustomCustomerNotFoundException e) {
       throw new AuraHandledException(e.getMessage());
-    }catch(CustomOCVDownException e){
+    } catch (CustomOCVDownException e) {
       throw new AuraHandledException(e.getMessage());
-    }catch (Exception e) {
-      Logger.error(
-        'OCV Error' ,
-        String.valueOf(e),
-        Logger.Severity.HIGH
-      );
+    } catch (Exception e) {
+      Logger.error('OCV Error', String.valueOf(e), Logger.Severity.HIGH);
       Logger.saveLog();
       throw new AuraHandledException(e.getMessage());
     }
@@ -67,26 +64,28 @@ public with sharing class IDRAPIRepository extends RepositoryBase {
       throw new CustomCustomerNotFoundException('Customer not found');
     }
 
-    if(response.statusCode > 499){
+    if (response.statusCode > 499) {
       throw new CustomOCVDownException('OCV Down');
     }
 
-    if(!response.successful){
+    if (!response.successful) {
       throw response.error;
     }
-      IDRCustomerInformationModel result = IDRCustomerInformationModel.parse(response.body);
-        List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
-          ','
-        );
-        List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
-        for (IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
-          if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
-            accounts.add(oAccount);
-          }
-        }
-        result.accounts = accounts;
-        return result;
+    IDRCustomerInformationModel result = IDRCustomerInformationModel.parse(
+      response.body
+    );
+    List<String> lstExcludedProductTypes = Label.IDR_Excluded_OCV_ProductTypes.split(
+      ','
+    );
+    List<IDRCustomerInformationModel.Accounts> accounts = new List<IDRCustomerInformationModel.Accounts>();
+    for (IDRCustomerInformationModel.Accounts oAccount : result.accounts) {
+      if (!lstExcludedProductTypes.contains(oAccount.subProductCode)) {
+        accounts.add(oAccount);
       }
+    }
+    result.accounts = accounts;
+    return result;
+  }
   /**
    * @param riskEventId customer id to be searched
    * @return SNOWIntegrationModel
