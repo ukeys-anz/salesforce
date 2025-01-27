@@ -1,0 +1,24 @@
+{
+  "caseRecord": {
+    "Id": "500AD00000KjSZKYA3",
+    "AccountId": "001AD00000c3WdNYAU",
+    "Account_Type__c": "Individual",
+    "Account": {
+      "OCV_ID__c": "1001074642",
+      "Id": "001AD00000c3WdNYAU"
+    }
+  },
+  "finAccounts": [
+    {
+      "Id": "a0FAD000001pxtV2AQ",
+      "FinServ__FinancialAccountNumber__c": "391074663",
+      "Ownership__c": "Single",
+      "OCV_ID__c": "1001074642",
+      "RecordTypeId": "0125m0000004HmBAAU",
+      "RecordType": {
+        "DeveloperName": "CheckingAccount",
+        "Id": "0125m0000004HmBAAU"
+      }
+    }
+  ]
+}

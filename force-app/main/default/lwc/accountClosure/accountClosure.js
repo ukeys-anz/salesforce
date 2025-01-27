@@ -1,6 +1,9 @@
 import getPackageClosureAura from "@salesforce/apex/StravinskyController.getPackageClosureAura";
+import fetchFinancialAccounts from "@salesforce/apex/StravinskyController.fetchFinancialAccounts";
+import getPackageClosureAuraFlex from "@salesforce/apex/StravinskyController.getPackageClosureAuraFlex";
 import { api, LightningElement, wire } from "lwc";
 import hasAccountClosurePermission from "@salesforce/customPermission/ANZx_Account_Closure";
+import hasAccountClosurePilotPermission from "@salesforce/customPermission/ANZx_Account_Closure_Pilot";
 import { handleErrorShowToast, showToast } from "c/utils";
 import { getRecord } from "lightning/uiRecordApi";
 import ACCOUNT_PRODUCT_FIELD from "@salesforce/schema/Case.Account_Product__c";
@@ -14,12 +17,17 @@ export default class AccountClosure extends LightningElement {
   packageValue;
   showConfirmation = false;
   isFlexSaverAccountClosure = false;
+  showConfirmationSelectAccount = false;
+  showConfirmationAccountClosure = false;
+  selectedAccount = "";
+  caseRecordDetails;
   dynamicColumnSize = "slds-col slds-size_1-of-4";
   packageData = {
     accountsClosed: null,
     cardsClosed: null,
     packagesClosed: null
   };
+  selectAccountOptions = [];
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -39,12 +47,36 @@ export default class AccountClosure extends LightningElement {
     }
   }
 
+  async showFAData() {
+    this.selectAccountOptions = [];
+    const accountFlexWrapper = await fetchFinancialAccounts({
+      recordId: this.recordId
+    });
+    const allFinancialAccount = accountFlexWrapper.finAccounts;
+    for (let index = 0; index < allFinancialAccount.length; index++) {
+      const eachAccount = allFinancialAccount[index];
+      this.selectAccountOptions.push({
+        label: eachAccount.FinServ__FinancialAccountNumber__c,
+        value: eachAccount.FinServ__FinancialAccountNumber__c
+      });
+    }
+    this.caseRecordDetails = accountFlexWrapper.caseRecord;
+    this.showConfirmationSelectAccount = true;
+  }
+
   get displayEnabledButton() {
     return hasAccountClosurePermission;
   }
 
   toggleConfirmation() {
     this.showConfirmation = !this.showConfirmation;
+    this.showConfirmationAccountClosure = false;
+    this.showConfirmationSelectAccount = false;
+    if (hasAccountClosurePilotPermission) {
+      this.showFAData();
+    } else {
+      this.showConfirmationAccountClosure = true;
+    }
   }
 
   async handleClosure() {
@@ -52,9 +84,17 @@ export default class AccountClosure extends LightningElement {
       this.loading = true;
       this.toggleConfirmation();
       try {
-        this.packageData = await getPackageClosureAura({
-          recordId: this.recordId
-        });
+        if (hasAccountClosurePilotPermission) {
+          this.packageData = await getPackageClosureAuraFlex({
+            caseRecord: this.caseRecordDetails,
+            finAccountValue: this.selectedAccount
+          });
+        } else {
+          this.packageData = await getPackageClosureAura({
+            recordId: this.recordId
+          });
+        }
+
         //Set default messages and variant
         let message = "Account closure successful";
         let variant = "Success";
@@ -119,5 +159,17 @@ export default class AccountClosure extends LightningElement {
       cardsClosed: cardsClosedMessage,
       packagesClosed: packagesClosedMessage
     };
+  }
+
+  handleAccountSelect(objEvent) {
+    objEvent.preventDefault();
+    this.selectedAccount = "accounts/" + objEvent.detail.value;
+  }
+
+  handleNextPage(objEvent) {
+    objEvent.preventDefault();
+    if (this.selectedAccount) {
+      this.showConfirmationAccountClosure = true;
+    }
   }
 }
