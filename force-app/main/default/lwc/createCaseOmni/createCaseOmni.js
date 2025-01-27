@@ -48,7 +48,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       (this.omniJsonData.Response === false ||
         !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response")) &&
-      !this.omniJsonData.isEligibleAppForLookUp
+      !this.omniJsonData.isEligibleAppForLookUp &&
+      !this.omniJsonData.IsOCVDown
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
@@ -65,7 +66,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (!this.checkIsvalidCustomer()) {
       this.modalMsg = "Customer number is not valid or has not been validated";
     } else if (this.checkIfOCVDown()) {
-      this.modalMsg = "Customer Data not Found";
+      this.modalMsg = "Customer Data not Found, as OCV is down, please try after sometime";
     } else if (
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
@@ -189,7 +190,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   }
   checkIfOCVDown() {
     if (
-      this.omniJsonData.Response.isOCVDown === "Yes" &&
+      this.omniJsonData.IsOCVDown &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       !this.omniJsonData.isEligibleAppForLookUp
     ) {
