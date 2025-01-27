@@ -145,16 +145,7 @@
     </template>
     <div class="modal-footer">
       <lightning-modal-footer>
-        <template if:false={_selectedRows.length}>
-          <lightning-button
-            class="slds-button"
-            variant="neutral"
-            data-id="cancel"
-            label="Cancel"
-            onclick={handleCancel}
-          ></lightning-button>
-        </template>
-        <template if:true={_selectedRows.length}>
+        <template lwc:if={_selectedRows.length}>
           <div class="slds-align_absolute-center">
             <lightning-button
               class="slds-button"

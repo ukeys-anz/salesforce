@@ -59,24 +59,18 @@ public with sharing class AccountClosureWizardController {
     if (String.isBlank(parentCaseId) || caseInputs.isEmpty()) {
       return new List<Case>();
     }
+    List<Case> casesToUpdate = new List<Case>();
+    List<Case> casesToInsert = new List<Case>();
     List<Case> listOfExistingUnUsedCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfExistingUnUsedCases(
       parentCaseId
     );
 
-    List<Case> casesToUpdate = new List<Case>();
-    List<Case> casesToInsert = new List<Case>();
-
-    for (CaseInputWrapper eachInput : caseInputs) {
-      if (!listOfExistingUnUsedCases.isEmpty()) {
-        Case existingCase = listOfExistingUnUsedCases.remove(0);
-        mapCaseFields(existingCase, eachInput);
-        casesToUpdate.add(existingCase);
-      } else {
-        Case newCase = new Case();
-        mapCaseFields(newCase, eachInput);
-        casesToInsert.add(newCase);
-      }
-    }
+    processCaseInputsAndUpdateOrCreate(
+      caseInputs,
+      listOfExistingUnUsedCases,
+      casesToUpdate,
+      casesToInsert
+    );
 
     DML_REPOSITORY.doUpdate(casesToUpdate);
     DML_REPOSITORY.doInsert(casesToInsert);
@@ -88,6 +82,32 @@ public with sharing class AccountClosureWizardController {
     return ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
       caseIds
     );
+  }
+
+  /**
+   * @description proccess case inputs and update or create cases
+   * @param caseInputs case inputs from wizard
+   * @param listOfExistingUnUsedCases case record to be updated
+   * @param casesToUpdate list of case to be updated
+   * @param casesToInsert list of case to be inserted
+   */
+  private static void processCaseInputsAndUpdateOrCreate(
+    List<CaseInputWrapper> caseInputs,
+    List<Case> listOfExistingUnUsedCases,
+    List<Case> casesToUpdate,
+    List<Case> casesToInsert
+  ) {
+    for (CaseInputWrapper eachInput : caseInputs) {
+      if (!listOfExistingUnUsedCases.isEmpty()) {
+        Case existingCase = listOfExistingUnUsedCases.remove(0);
+        mapCaseFields(existingCase, eachInput);
+        casesToUpdate.add(existingCase);
+      } else {
+        Case newCase = new Case();
+        mapCaseFields(newCase, eachInput);
+        casesToInsert.add(newCase);
+      }
+    }
   }
 
   /**
