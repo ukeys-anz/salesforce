@@ -66,7 +66,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (!this.checkIsvalidCustomer()) {
       this.modalMsg = "Customer number is not valid or has not been validated";
     } else if (this.checkIfOCVDown()) {
-      this.modalMsg = "Customer Data not Found, as OCV is down, please try after sometime";
+      this.modalMsg =
+        "Customer Data not Found, as OCV is down, please try after sometime";
     } else if (
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
