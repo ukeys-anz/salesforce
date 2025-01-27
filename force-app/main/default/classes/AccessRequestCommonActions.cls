@@ -397,14 +397,13 @@ public without sharing class AccessRequestCommonActions {
     List<Access_Request__c> newRecords,
     Map<Id, SObject> oldRecordMap
   ) {
+    String bypassAutomationRequestRTId = QueryRT.of(
+        Access_Request__c.SObjectType
+      )
+      .getId('Bypass_Automation_Request');
     for (Access_Request__c newRequest : newRecords) {
       String approvalDecision = getApprovalDecision(newRequest, oldRecordMap);
       if (!String.isBlank(approvalDecision)) {
-        String bypassAutomationRequestRTId = QueryRT.of(
-            Access_Request__c.SObjectType
-          )
-          .getId('Bypass_Automation_Request');
-
         String requestLog = bypassAutomationRequestRTId ==
           newRequest.RecordTypeId
           ? ' to bypass ' + newRequest.Automations_to_Bypass__c
