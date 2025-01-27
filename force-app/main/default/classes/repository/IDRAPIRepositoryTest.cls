@@ -35,12 +35,12 @@ public with sharing class IDRAPIRepositoryTest {
       calloutExp = e;
     }
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       500,
       res.statusCode,
       'Status Code matches for Internal Server Error'
     );
-    System.assertEquals(
+    Assert.areEqual(
       'OCV Down',
       calloutExp.getMessage(),
       'OCV down exception message matches'
@@ -103,12 +103,12 @@ public with sharing class IDRAPIRepositoryTest {
     }
 
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       422,
       res.statusCode,
       'Status Code matches for Customer Not Found error'
     );
-    System.assertEquals(
+    Assert.areEqual(
       'Customer not found',
       ocvDownExp.getMessage(),
       'Customer Not Found exception matches'
