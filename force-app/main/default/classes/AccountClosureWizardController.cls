@@ -9,6 +9,10 @@ public with sharing class AccountClosureWizardController {
     AccountClosureRepository.class
   );
 
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+
   /**
    * @description The Financial Account component uses this to fetch the records to display.
    * This makes the callout to fabric to fetch data
@@ -23,9 +27,22 @@ public with sharing class AccountClosureWizardController {
       ocvId,
       new List<String>()
     );
-    return AccountClosureWizardControllerHelper.filterFinancialAccountsLinkedWithCase(
-      listOfFinAccounts
+
+    Set<Id> accountIds = ListUtil.getIds(
+      listOfFinAccounts,
+      FinServ__FinancialAccount__c.Id
     );
+
+    accountIds.removeAll(
+      ListUtil.getIds(
+        ACCOUNT_CLOSURE_REPOSITORY.fetchChildCasesRelatedToFinAccounts(
+          accountIds
+        ),
+        Case.FinServ__FinancialAccount__c
+      )
+    );
+
+    return ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(accountIds);
   }
 
   /**
@@ -45,14 +62,48 @@ public with sharing class AccountClosureWizardController {
     List<Case> listOfExistingUnUsedCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfExistingUnUsedCases(
       parentCaseId
     );
-    Set<Id> caseIds = AccountClosureWizardControllerHelper.createAccountClosureChildCases(
-      caseInputs,
-      listOfExistingUnUsedCases
-    );
-    List<Case> listOfCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
+
+    List<Case> casesToUpdate = new List<Case>();
+    List<Case> casesToInsert = new List<Case>();
+
+    for (CaseInputWrapper eachInput : caseInputs) {
+      if (!listOfExistingUnUsedCases.isEmpty()) {
+        Case existingCase = listOfExistingUnUsedCases.remove(0);
+        mapCaseFields(existingCase, eachInput);
+        casesToUpdate.add(existingCase);
+      } else {
+        Case newCase = new Case();
+        mapCaseFields(newCase, eachInput);
+        casesToInsert.add(newCase);
+      }
+    }
+
+    DML_REPOSITORY.doUpdate(casesToUpdate);
+    DML_REPOSITORY.doInsert(casesToInsert);
+
+    Set<Id> caseIds = new Set<Id>();
+    caseIds.addAll(ListUtil.getIds(casesToUpdate, Case.Id));
+    caseIds.addAll(ListUtil.getIds(casesToInsert, Case.Id));
+
+    return ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
       caseIds
     );
+  }
 
-    return listOfCases;
+  /**
+   * @description map case fields from CaseInputWrapper to Case
+   * @param caseObj case object record to be inserted or updated
+   * @param caseInput from LWC
+   */
+  private static void mapCaseFields(Case caseObj, CaseInputWrapper caseInput) {
+    caseObj.Intended_Account_Name__c = caseInput.intendedAccountName;
+    caseObj.Intended_Account_BSB__c = caseInput.intendedAccountBsb;
+    caseObj.Intended_Account_Number__c = caseInput.intendedAccountNumber;
+    caseObj.Closure_Reason__c = caseInput.closureReason;
+    caseObj.Account_Type__c = caseInput.accountType;
+    caseObj.AccountId = caseInput.accountId;
+    caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
+    caseObj.ProductId = caseInput.productId;
+    caseObj.RecordTypeId = RTCase.accountClosure;
   }
 }
