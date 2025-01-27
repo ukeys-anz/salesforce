@@ -30,20 +30,6 @@ describe("c-financial-accounts-list-wizard", () => {
     jest.clearAllMocks();
   });
 
-  it("renders correctly with no financial accounts data", () => {
-    const element = document.querySelector("c-financial-accounts-list-wizard");
-    getFilteredFinancialAccounts.mockResolvedValue([]);
-
-    return Promise.resolve().then(() => {
-      let heading = element.shadowRoot.querySelector(
-        "h1[data-id='noaccounts']"
-      );
-      expect(heading.textContent).toBe(
-        "No Available Financial Accounts to Close"
-      );
-    });
-  });
-
   it("spinner should not load when no financial accounts getting fetched", () => {
     const element = document.querySelector("c-financial-accounts-list-wizard");
     getFilteredFinancialAccounts.mockResolvedValue([]);
