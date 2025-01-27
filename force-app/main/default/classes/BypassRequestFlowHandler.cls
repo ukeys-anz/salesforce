@@ -168,7 +168,7 @@ public with sharing class BypassRequestFlowHandler {
       SELECT Id
       FROM Salesforce_Library_Settings__c
       WHERE SetupOwnerId IN :flowInstanceUserIds
-    ] ?? existingCustomSettings;
+    ];
   }
 
   /**
