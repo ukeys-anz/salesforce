@@ -55,10 +55,7 @@ public with sharing class AccountClosureWizardControllerTest {
 
     Test.stopTest();
     Assert.isFalse(result == null, 'Expected result to be non-null');
-    Assert.isFalse(
-      result.isEmpty(),
-      'Expected at least one case to be created/updated'
-    );
+    Assert.isFalse(result.isEmpty(), 'Expected case to be updated');
     Assert.isTrue(
       result[0].Status == 'New',
       'Expected case status to be "New"'
