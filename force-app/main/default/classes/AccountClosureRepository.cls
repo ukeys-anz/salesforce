@@ -185,16 +185,15 @@ public with sharing class AccountClosureRepository {
   }
 
   /**
-   * @description Dummy cases are those which are created in Org for that parent Id
+   * @description Unused account closure cases are those which are created in Org for case parent Id
    * Find such cases for update with latest data rather creating new one
    * @param parentCaseId Id of the parent case
    * @return List<Case> list of child cases
    */
-  public List<Case> queryListOfExistingDummyCases(Id parentCaseId) {
+  public List<Case> getUnusedChildCasesByParentId(Id parentCaseId) {
     return [
       SELECT
         Id,
-        Status,
         Intended_Account_Name__c,
         Intended_Account_BSB__c,
         Intended_Account_Number__c,
@@ -217,16 +216,16 @@ public with sharing class AccountClosureRepository {
    * @param setOfCaseIdsToQuery set of case Ids to query
    * @return List<Case> list of case records
    */
-  public List<Case> queryListOfInsertedOrUpdatedCases(
+  public List<Case> getInsertedOrUpdatedCaseDetails(
     Set<Id> setOfCaseIdsToQuery
   ) {
     SystemModeActions systemAction = new SystemModeActions(
       'AccountClosureRepository',
-      'queryListOfInsertedOrUpdatedCases'
+      'getInsertedOrUpdatedCaseDetails'
     );
 
     return (List<Case>) systemAction.queryWithBinds(
-      'SELECT Id, CaseNumber,Product__r.Name,FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,Account_Type__c,Status FROM Case' +
+      'SELECT Id, CaseNumber,Product.Name,FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,Account_Type__c,Status FROM Case' +
       ' WHERE Id IN :setOfCaseIdsToQuery',
       new Map<String, Object>{ 'setOfCaseIdsToQuery' => setOfCaseIdsToQuery }
     );
@@ -235,11 +234,11 @@ public with sharing class AccountClosureRepository {
   /**
    * @description Extracts listOfCases based on accountIds
    * @param accountIds set of account Ids to query
-   * @return List<Case> list of case records
+   * @return List<Case> list of account closure case linked with FA
    */
-  public List<Case> fetchChildCases(Set<Id> accountIds) {
+  public List<Case> getCasesByFinancialAccountIds(Set<Id> accountIds) {
     return [
-      SELECT Id, FinServ__FinancialAccount__c
+      SELECT FinServ__FinancialAccount__c
       FROM Case
       WHERE
         FinServ__FinancialAccount__c IN :accountIds
@@ -248,11 +247,11 @@ public with sharing class AccountClosureRepository {
   }
 
   /**
-   * @description fetches list of financial account lists for UI
+   * @description Extracts map of account Ids and financial account records
    * @param accountIds set of account Ids to query
    * @return List<FinServ__FinancialAccount__c> list of financial account records
    */
-  public List<FinServ__FinancialAccount__c> fetchFinancialAccounts(
+  public List<FinServ__FinancialAccount__c> fetchFilteredFinancialAccountsDetails(
     Set<Id> accountIds
   ) {
     return [

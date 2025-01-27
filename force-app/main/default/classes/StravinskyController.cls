@@ -97,19 +97,22 @@ public with sharing class StravinskyController {
       when 'Joint' {
         financialAccountsRole = getListOfJointFinancialAccountRoles(caseRecord);
 
-        //Added to throw exception if more than 1 Joint Account(One Savings and One Transactions) found. A Joint Account will always have one Savings and one Transactions financial account at Salesforce end.
-        if (financialAccountsRole.size() > 2) {
-          Logger.error(
-            'Error closing package - ' + MORE_THAN_ONE_JOINT_ACCOUNT,
-            caseRecord.Id
-          );
-          Logger.saveLog();
-          AuraHandledException e = new AuraHandledException(
-            MORE_THAN_ONE_JOINT_ACCOUNT
-          );
-          e.setMessage(MORE_THAN_ONE_JOINT_ACCOUNT);
-          throw e;
+        if (!FeatureManagement.checkPermission('ANZx_Account_Closure_Pilot')) {
+          //Added to throw exception if more than 1 Joint Account(One Savings and One Transactions) found. A Joint Account will always have one Savings and one Transactions financial account at Salesforce end.
+          if (financialAccountsRole.size() > 2) {
+            Logger.error(
+              'Error closing package - ' + MORE_THAN_ONE_JOINT_ACCOUNT,
+              caseRecord.Id
+            );
+            Logger.saveLog();
+            AuraHandledException e = new AuraHandledException(
+              MORE_THAN_ONE_JOINT_ACCOUNT
+            );
+            e.setMessage(MORE_THAN_ONE_JOINT_ACCOUNT);
+            throw e;
+          }
         }
+
         //Creating List Of Financial Accounts based on Financial Account Roles found
         financialAccounts = getJointFinancialAccountsDetails(
           financialAccountsRole,

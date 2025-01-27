@@ -53,11 +53,18 @@ export default class AccountClosure extends LightningElement {
       recordId: this.recordId
     });
     const allFinancialAccount = accountFlexWrapper.finAccounts;
-    for (let index = 0; index < allFinancialAccount.length; index++) {
-      const eachAccount = allFinancialAccount[index];
+    const uniqueAccountNumbers = [
+      ...new Set(
+        allFinancialAccount.map(
+          (account) => account.FinServ__FinancialAccountNumber__c
+        )
+      )
+    ];
+    for (let index = 0; index < uniqueAccountNumbers.length; index++) {
+      const eachAccount = uniqueAccountNumbers[index];
       this.selectAccountOptions.push({
-        label: eachAccount.FinServ__FinancialAccountNumber__c,
-        value: eachAccount.FinServ__FinancialAccountNumber__c
+        label: eachAccount,
+        value: eachAccount
       });
     }
     this.caseRecordDetails = accountFlexWrapper.caseRecord;

@@ -3,7 +3,7 @@
  * @since Mon Dec 16 2024
  * @description Wrapper class for Financial Accounts Response
  */
-public with sharing class CaseInput {
+public with sharing class CaseInputWrapper {
   /**
    * @description Account Name for the Case
    */
