@@ -190,7 +190,7 @@ public with sharing class AccountClosureRepository {
    * @param parentCaseId Id of the parent case
    * @return List<Case> list of child cases
    */
-  public List<Case> queryListOfExistingUnUsedCases(Id parentCaseId) {
+  public List<Case> getUnusedChildCasesByParentId(Id parentCaseId) {
     return [
       SELECT
         Id,
@@ -216,12 +216,12 @@ public with sharing class AccountClosureRepository {
    * @param setOfCaseIdsToQuery set of case Ids to query
    * @return List<Case> list of case records
    */
-  public List<Case> queryListOfInsertedOrUpdatedCases(
+  public List<Case> getInsertedOrUpdatedCaseDetails(
     Set<Id> setOfCaseIdsToQuery
   ) {
     SystemModeActions systemAction = new SystemModeActions(
       'AccountClosureRepository',
-      'queryListOfInsertedOrUpdatedCases'
+      'getInsertedOrUpdatedCaseDetails'
     );
 
     return (List<Case>) systemAction.queryWithBinds(
@@ -236,9 +236,9 @@ public with sharing class AccountClosureRepository {
    * @param accountIds set of account Ids to query
    * @return List<Case> list of account closure case linked with FA
    */
-  public List<Case> fetchChildCasesRelatedToFinAccounts(Set<Id> accountIds) {
+  public List<Case> getCasesByFinancialAccountIds(Set<Id> accountIds) {
     return [
-      SELECT Id, FinServ__FinancialAccount__c
+      SELECT FinServ__FinancialAccount__c
       FROM Case
       WHERE
         FinServ__FinancialAccount__c IN :accountIds
@@ -251,7 +251,7 @@ public with sharing class AccountClosureRepository {
    * @param accountIds set of account Ids to query
    * @return List<FinServ__FinancialAccount__c> list of financial account records
    */
-  public List<FinServ__FinancialAccount__c> fetchFinancialAccounts(
+  public List<FinServ__FinancialAccount__c> fetchFilteredFinancialAccountsDetails(
     Set<Id> accountIds
   ) {
     return [

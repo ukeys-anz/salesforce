@@ -28,45 +28,49 @@ public with sharing class AccountClosureWizardController {
       new List<String>()
     );
 
-    Set<Id> accountIds = ListUtil.getIds(
+    Set<Id> finAccountIds = ListUtil.getIds(
       listOfFinAccounts,
       FinServ__FinancialAccount__c.Id
     );
 
-    accountIds.removeAll(
+    List<Case> existingCasesForFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.getCasesByFinancialAccountIds(
+      finAccountIds
+    );
+
+    finAccountIds.removeAll(
       ListUtil.getIds(
-        ACCOUNT_CLOSURE_REPOSITORY.fetchChildCasesRelatedToFinAccounts(
-          accountIds
-        ),
+        existingCasesForFinancialAccounts,
         Case.FinServ__FinancialAccount__c
       )
     );
 
-    return ACCOUNT_CLOSURE_REPOSITORY.fetchFinancialAccounts(accountIds);
+    return ACCOUNT_CLOSURE_REPOSITORY.fetchFilteredFinancialAccountsDetails(
+      finAccountIds
+    );
   }
 
   /**
    * @description This method is used to create child cases for the Financial Accounts
    * @param parentCaseId Id of the parent case
-   * @param caseInputs list of case data from wizard
+   * @param childCaseInputs list of case data from wizard
    * @return List<Case> list of case inserted/updated case records
    */
   @AuraEnabled
   public static List<Case> createChildCasesForFinAccounts(
     Id parentCaseId,
-    List<CaseInputWrapper> caseInputs
+    List<CaseInputWrapper> childCaseInputs
   ) {
-    if (String.isBlank(parentCaseId) || caseInputs.isEmpty()) {
+    if (String.isBlank(parentCaseId) || childCaseInputs.isEmpty()) {
       return new List<Case>();
     }
     List<Case> casesToUpdate = new List<Case>();
     List<Case> casesToInsert = new List<Case>();
-    List<Case> listOfExistingUnUsedCases = ACCOUNT_CLOSURE_REPOSITORY.queryListOfExistingUnUsedCases(
+    List<Case> listOfExistingUnUsedCases = ACCOUNT_CLOSURE_REPOSITORY.getUnusedChildCasesByParentId(
       parentCaseId
     );
 
-    processCaseInputsAndUpdateOrCreate(
-      caseInputs,
+    processCaseInputs(
+      childCaseInputs,
       listOfExistingUnUsedCases,
       casesToUpdate,
       casesToInsert
@@ -79,25 +83,23 @@ public with sharing class AccountClosureWizardController {
     caseIds.addAll(ListUtil.getIds(casesToUpdate, Case.Id));
     caseIds.addAll(ListUtil.getIds(casesToInsert, Case.Id));
 
-    return ACCOUNT_CLOSURE_REPOSITORY.queryListOfInsertedOrUpdatedCases(
-      caseIds
-    );
+    return ACCOUNT_CLOSURE_REPOSITORY.getInsertedOrUpdatedCaseDetails(caseIds);
   }
 
   /**
    * @description proccess case inputs and update or create cases
-   * @param caseInputs case inputs from wizard
+   * @param childCaseInputs case inputs from wizard
    * @param listOfExistingUnUsedCases case record to be updated
    * @param casesToUpdate list of case to be updated
    * @param casesToInsert list of case to be inserted
    */
-  private static void processCaseInputsAndUpdateOrCreate(
-    List<CaseInputWrapper> caseInputs,
+  private static void processCaseInputs(
+    List<CaseInputWrapper> childCaseInputs,
     List<Case> listOfExistingUnUsedCases,
     List<Case> casesToUpdate,
     List<Case> casesToInsert
   ) {
-    for (CaseInputWrapper eachInput : caseInputs) {
+    for (CaseInputWrapper eachInput : childCaseInputs) {
       if (!listOfExistingUnUsedCases.isEmpty()) {
         Case existingCase = listOfExistingUnUsedCases.remove(0);
         mapCaseFields(existingCase, eachInput);

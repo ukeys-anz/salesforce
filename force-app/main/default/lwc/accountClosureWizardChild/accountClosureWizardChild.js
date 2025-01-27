@@ -221,10 +221,9 @@ export default class AccountClosureWizardChild extends LightningElement {
     try {
       let result = await createCasesForAccounts({
         parentCaseId: this.recordId,
-        caseInputs: caseDataList
+        childCaseInputs: caseDataList
       });
-
-      if (result) {
+      if (result.length > 0) {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
           childCaseNumberUrl: "/" + row.Id,

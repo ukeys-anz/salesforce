@@ -22,7 +22,6 @@ public with sharing class AccountClosureWizardControllerTest {
   private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
-
   static Lib_MockProvider accountClosureRepoMock;
   static Lib_MockProvider dmlRepoMock;
 
@@ -37,11 +36,11 @@ public with sharing class AccountClosureWizardControllerTest {
   private static void testCreateChildCasesForFinAccounts() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryListOfExistingUnUsedCases',
+      'getUnusedChildCasesByParentId',
       mockListOfCases()
     );
     accountClosureRepoMock.mock(
-      'queryListOfInsertedOrUpdatedCases',
+      'getInsertedOrUpdatedCaseDetails',
       mockListOfCases()
     );
 
@@ -66,11 +65,11 @@ public with sharing class AccountClosureWizardControllerTest {
   static void tesCreateChildCasesForFinAccountsWithEmptyInput() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryListOfExistingUnUsedCases',
+      'getUnusedChildCasesByParentId',
       mockListOfCases()
     );
     accountClosureRepoMock.mock(
-      'queryListOfInsertedOrUpdatedCases',
+      'getInsertedOrUpdatedCaseDetails',
       mockListOfCases()
     );
     List<CaseInputWrapper> caseInputs = new List<CaseInputWrapper>();
