@@ -1,10 +1,19 @@
 import { createElement } from "lwc";
 import AccountClosure from "c/accountClosure";
-import getPackageClosureAura from "@salesforce/apex/StravinskyController.getPackageClosureAura";
+import getPackageClosureAuraFlex from "@salesforce/apex/StravinskyController.getPackageClosureAuraFlex";
+import fetchFinancialAccounts from "@salesforce/apex/StravinskyController.fetchFinancialAccounts";
 import { setImmediate } from "timers";
 
 jest.mock(
-  "@salesforce/apex/StravinskyController.getPackageClosureAura",
+  "@salesforce/apex/StravinskyController.getPackageClosureAuraFlex",
+  () => ({
+    default: jest.fn()
+  }),
+  { virtual: true }
+);
+
+jest.mock(
+  "@salesforce/apex/StravinskyController.fetchFinancialAccounts",
   () => ({
     default: jest.fn()
   }),
@@ -12,6 +21,7 @@ jest.mock(
 );
 
 const ACCOUNT_CLOSURE_RESPONSE = require("./data/response.json");
+const FETCH_FINANCIAL_ACCOUNTS = require("./data/financialaccounts.json");
 
 describe("c-account-closure", () => {
   afterEach(() => {
@@ -26,18 +36,35 @@ describe("c-account-closure", () => {
   }
 
   it("Check Close Package button visible", async () => {
-    getPackageClosureAura.mockResolvedValue(ACCOUNT_CLOSURE_RESPONSE);
+    fetchFinancialAccounts.mockResolvedValue(FETCH_FINANCIAL_ACCOUNTS);
+    getPackageClosureAuraFlex.mockResolvedValue(ACCOUNT_CLOSURE_RESPONSE);
     const element = createElement("c-account-closure", {
       is: AccountClosure
     });
     // element.goalData = ACCOUNT_CLOSURE_RESPONSE;
     document.body.appendChild(element);
-
+    expect(element);
     let closeButton = element.shadowRoot.querySelector(
       "lightning-button[data-id='close-account-button']"
     );
     expect(closeButton).toBeTruthy();
     closeButton.click();
+    await flushPromises();
+
+    let combobox = element.shadowRoot.querySelector(
+      "lightning-combobox[data-id='combobox']"
+    );
+    expect(combobox).toBeTruthy();
+    combobox.value = "391074663";
+    combobox.dispatchEvent(
+      new CustomEvent("change", { detail: { value: "391074663" } })
+    );
+
+    let nextButton = element.shadowRoot.querySelector(
+      "button[data-id='next-button']"
+    );
+    expect(nextButton).toBeTruthy();
+    nextButton.click();
     await flushPromises();
 
     closeButton = element.shadowRoot.querySelector(
