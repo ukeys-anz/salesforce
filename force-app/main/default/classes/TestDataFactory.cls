@@ -427,6 +427,8 @@ public without sharing class TestDataFactory {
       Schema.SObjectField fieldAPI = caseFieldSchemaMap.get(fieldName.trim());
       theCase.put(fieldAPI, value);
     } catch (Exception e) {
+      System.debug('fieldName: ' + fieldName);
+      System.debug('value: ' + value);
       throw e;
     }
     return theCase;
@@ -757,7 +759,7 @@ public without sharing class TestDataFactory {
     ca.Financial_Account__c = financialAccountId;
     ca.New_Value__c = '2';
     ca.Old_Value__c = '1';
-    ca.Status__c = FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING;
+    ca.Status__c = GetHelpFinancialAccountActions.CUSTOMER_ACTION_STATUS_PEDING;
     ca.Triggered_From__c = faker.randomString(10);
 
     if (isInsert) {

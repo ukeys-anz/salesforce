@@ -22,7 +22,6 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
     CCRMFinancialAccountActions.validateSourceStatus(records, null);
     CCRMFinancialAccountActions.setPrimaryOwner(records);
     MLCRMFinancialAccountActions.populateANZProduct(records, null);
-    FinancialAccountActions.populateProductOnFinancialAccount(records, null);
   }
 
   /**
@@ -37,10 +36,6 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
       records,
       (Map<Id, FinServ__FinancialAccount__c>) oldMap
     );
-    FinancialAccountActions.populateProductOnFinancialAccount(
-      records,
-      (Map<Id, FinServ__FinancialAccount__c>) oldMap
-    );
   }
 
   /**
@@ -48,7 +43,7 @@ public with sharing class FinancialAccountTriggerHandler extends Lib_TriggerHand
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    FinancialAccountActions.updateCustomerActionRecord(
+    GetHelpFinancialAccountActions.updateCustomerActionRecord(
       records,
       (Map<Id, FinServ__FinancialAccount__c>) oldMap
     );

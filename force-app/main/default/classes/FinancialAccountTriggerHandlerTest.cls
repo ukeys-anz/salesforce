@@ -71,8 +71,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     insert finAccount;
 
     Customer_Action__c ca = TestDataFactory.createCustomerActionRecord(
-      QueryRT.of(Customer_Action__c.SObjectType)
-        .getId('Pending_Financial_Account_Updates'),
+      GetHelpConstants.CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID,
       accnt.Id,
       finAccount.Id,
       true
@@ -151,8 +150,7 @@ public with sharing class FinancialAccountTriggerHandlerTest {
     newFinAccount.Id = finAccount.Id;
 
     Customer_Action__c ca = TestDataFactory.createCustomerActionRecord(
-      QueryRT.of(Customer_Action__c.SObjectType)
-        .getId('Pending_Financial_Account_Updates'),
+      GetHelpConstants.CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID,
       accnt.Id,
       finAccount.Id,
       false
@@ -169,70 +167,19 @@ public with sharing class FinancialAccountTriggerHandlerTest {
       finAccount.Id => ca
     };
 
-    List<Customer_Action__c> updatedCustomerActionList = FinancialAccountActions.updateCustomerActionToComplete(
+    List<Customer_Action__c> updatedCustomerActionList = GetHelpFinancialAccountActions.updateCustomerActionToComplete(
       records,
       oldMap,
       finAccIdToCustActionMap
     );
     // Dummy callout for test coverage
-    FinancialAccountActions.updateCustomerActionRecord(records, oldMap);
+    GetHelpFinancialAccountActions.updateCustomerActionRecord(records, oldMap);
     Test.stopTest();
 
     Assert.areEqual(
-      FinancialAccountActions.CUSTOMER_ACTION_STATUS_COMPLETED,
+      GetHelpFinancialAccountActions.CUSTOMER_ACTION_STATUS_COMPLETED,
       updatedCustomerActionList[0].Status__c,
       'Number of Signatory updated successfully'
-    );
-  }
-
-  @isTest
-  public static void testpopulateProductOnFinancialAccount() {
-    Faker faker = new Faker('AU');
-    Account accnt = new Account();
-    accnt.Name = 'TestAccount';
-    accnt.Display_Name__c = 'TestAccount';
-    accnt.OCV_ID__c = faker.randomString(10);
-    accnt.ANZx_Customer__c = true;
-    accnt.External_Id__c = faker.randomString(10);
-    accnt.Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
-    Product2 product = new Product2(
-      Id = productId,
-      Name = 'Test Product',
-      ANZ_Product_Code__c = '198'
-    );
-
-    // adding mock product to selector
-    QueryProducts.productsByProductCode = new Map<String, Product2>{
-      product.ANZ_Product_Code__c => product
-    };
-
-    FinServ__FinancialAccount__c finAccount = TestDataFactory.createFinancialAccountRecord(
-      GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
-      accnt.Id,
-      false
-    );
-    FinServ__FinancialAccount__c newFinAccount = TestDataFactory.createFinancialAccountRecord(
-      GetHelpConstants.CHECKING_ACCOUNT_RT_ID,
-      accnt.Id,
-      false
-    );
-    newFinAccount.Marketing_Code__c = '198';
-    newFinAccount.Id = finAccount.Id;
-    Test.startTest();
-    Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>{
-      finAccount.Id => finAccount
-    };
-    List<FinServ__FinancialAccount__c> records = new List<FinServ__FinancialAccount__c>{
-      newFinAccount
-    };
-    FinancialAccountActions.populateProductOnFinancialAccount(records, oldMap);
-    Test.stopTest();
-
-    Assert.areEqual(
-      records[0].FinServ__ProductName__c,
-      product.Id,
-      'Product linked successfully'
     );
   }
 }

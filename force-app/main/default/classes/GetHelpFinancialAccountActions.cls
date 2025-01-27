@@ -3,15 +3,8 @@
  * @since 01/02/2024
  * @description To handle all Get Help Financial Account Actions
  */
-public class FinancialAccountActions {
-  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
-    FinancialAccountRepository.class
-  );
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
-
-  public static final String CUSTOMER_ACTION_STATUS_PENDING = 'STATE_PENDING';
+public class GetHelpFinancialAccountActions {
+  public static final String CUSTOMER_ACTION_STATUS_PEDING = 'STATE_PENDING';
   public static final String CUSTOMER_ACTION_ERROR = 'Error';
   public static final String CUSTOMER_ACTION_STATUS_COMPLETED = 'Completed';
 
@@ -25,26 +18,19 @@ public class FinancialAccountActions {
     Map<Id, FinServ__FinancialAccount__c> oldMap
   ) {
     try {
-      List<Customer_Action__c> pendingCustomerActions = FINANCIAL_ACCOUNT_REPOSITORY.getPendingCustomerActionForFinancialAccounts(
+      Map<Id, Customer_Action__c> finAccIdToCustActionMap = getPendingCustomerAction(
         oldMap.keySet()
       );
-
-      Map<Id, Customer_Action__c> finAccIdToCustActionMap = (Map<Id, Customer_Action__c>) ListUtil.mapBy(
-        pendingCustomerActions,
-        Customer_Action__c.Financial_Account__c
-      );
-
-      if (finAccIdToCustActionMap.isEmpty()) {
-        return;
-      }
-
       List<Customer_Action__c> customerActionToUpdateList = updateCustomerActionToComplete(
         records,
         oldMap,
         finAccIdToCustActionMap
       );
-
-      DML_REPOSITORY.doUpdate(customerActionToUpdateList);
+      DMLUtil.updateRecords(
+        customerActionToUpdateList,
+        DMLUtil.NOT_ALLOW_PARTIAL_UPDATE,
+        DMLUtil.USER_MODE
+      );
     } catch (Exception exp) {
       Logger.error(exp.getMessage(), exp);
       Logger.saveLog();
@@ -80,37 +66,26 @@ public class FinancialAccountActions {
   }
 
   /**
-   * @description Set Financial Account product name field
-   * @name populateProduct
-   * @param records FinServ__FinancialAccount__c new updated records
-   * @param oldMap FinServ__FinancialAccount__c map of old records
+   * @description To get the Customer_Action__c records based on Financial Account Ids
+   * @param financialAccountIdSet Set of Financial Account Ids
+   * @return Map of Financial Account Id to Pending Customer Action record
    */
-  public static void populateProductOnFinancialAccount(
-    List<FinServ__FinancialAccount__c> records,
-    Map<Id, FinServ__FinancialAccount__c> oldMap
+  private static Map<Id, Customer_Action__c> getPendingCustomerAction(
+    Set<Id> financialAccountIdSet
   ) {
-    for (FinServ__FinancialAccount__c record : records) {
-      String newMarketingCode = record.Marketing_Code__c;
-
-      String oldMarketingCode = oldMap?.get(record.Id).Marketing_Code__c ??
-        null;
-
-      if (String.isBlank(newMarketingCode)) {
-        record.FinServ__ProductName__c = null;
-        continue;
-      }
-      if (
-        oldMarketingCode == null || !newMarketingCode.equals(oldMarketingCode)
-      ) {
-        if (QueryProducts.productsByProductCode.containsKey(newMarketingCode)) {
-          record.FinServ__ProductName__c = QueryProducts.productsByProductCode.get(
-              newMarketingCode
-            )
-            ?.Id;
-          continue;
-        }
-        record.FinServ__ProductName__c = null;
-      }
+    Map<Id, Customer_Action__c> finAccIdToCustActionMap = new Map<Id, Customer_Action__c>();
+    List<Customer_Action__c> custActionList = [
+      SELECT Id, Status__c, Financial_Account__c
+      FROM Customer_Action__c
+      WHERE
+        RecordTypeId = :GetHelpConstants.CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID
+        AND Financial_Account__c IN :financialAccountIdSet
+        AND Status__c = :CUSTOMER_ACTION_STATUS_PEDING
+      WITH SECURITY_ENFORCED
+    ];
+    for (Customer_Action__c ca : custActionList) {
+      finAccIdToCustActionMap.put(ca.Financial_Account__c, ca);
     }
+    return finAccIdToCustActionMap;
   }
 }

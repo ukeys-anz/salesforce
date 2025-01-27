@@ -119,9 +119,8 @@ global with sharing class SigningAuthorityController implements Callable {
       FROM Customer_Action__c
       WHERE
         Financial_Account__c = :finAccountId
-        AND Status__c = :FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING
-        AND RecordTypeId = :QueryRT.of(Customer_Action__c.SObjectType)
-          .getId('Pending_Financial_Account_Updates')
+        AND Status__c = :GetHelpFinancialAccountActions.CUSTOMER_ACTION_STATUS_PEDING
+        AND RecordTypeId = :GetHelpConstants.CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID
       ORDER BY LastModifiedDate
       LIMIT 1
     ];
