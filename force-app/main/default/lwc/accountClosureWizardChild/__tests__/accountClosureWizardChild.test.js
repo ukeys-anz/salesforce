@@ -1,9 +1,9 @@
 import { createElement } from "lwc";
 import AccountClosureWizardChild from "c/accountClosureWizardChild";
-import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createCasesForAccounts";
+import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts";
 
 jest.mock(
-  "@salesforce/apex/AccountClosureWizardController.createCasesForAccounts",
+  "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts",
   () => {
     return {
       default: jest.fn()
@@ -117,10 +117,14 @@ describe("c-account-closure-wizard-child", () => {
   });
 
   it("4. dispatches cancel event when cancel button is clicked", async () => {
+    createCasesForAccounts.mockResolvedValue(apexCreateCasesResponse);
     const element = createElement("c-account-closure-wizard-child", {
       is: AccountClosureWizardChild
     });
     document.body.appendChild(element);
+    element.recordId = "0015g00000HJXYZ";
+    element.accountId = "0015g00000HJACB";
+    element.selectedRows = mockSelectedRows;
     await flushPromises();
     const handler = jest.fn();
     element.addEventListener("cancel", handler);
