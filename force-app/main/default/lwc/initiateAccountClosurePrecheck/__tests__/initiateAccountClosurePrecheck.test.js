@@ -1,7 +1,9 @@
 import { createElement } from "lwc";
 import InitiateAccountClosurePrecheck from "c/initiateAccountClosurePrecheck";
+import { getRecord } from "lightning/uiRecordApi";
 import fetchEligibleCasesForPrecheck from "@salesforce/apex/AccountClosureController.fetchEligibleCasesForPrecheck";
 
+const getWiredRecord = require("./data/getWiredRecord.json");
 const MOCK_ELIGIBLE_CASES_FOR_PRECHECK = require("./data/mockFetchCaseDataSuccess.json");
 
 const RECORD_ID = "500AD00000K7EyoYAF";
@@ -9,9 +11,8 @@ const RECORD_ID = "500AD00000K7EyoYAF";
 jest.mock(
   "@salesforce/apex/AccountClosureController.fetchEligibleCasesForPrecheck",
   () => {
-    const { createApexTestWireAdapter } = require("@salesforce/sfdx-lwc-jest");
     return {
-      default: createApexTestWireAdapter(jest.fn(() => Promise.resolve()))
+      default: jest.fn()
     };
   },
   { virtual: true }
@@ -38,10 +39,11 @@ describe("c-initiate-account-closure-precheck", () => {
   }
 
   it("renders the button with the correct label and initial state", async () => {
+    fetchEligibleCasesForPrecheck.mockResolvedValue(MOCK_ELIGIBLE_CASES_FOR_PRECHECK);
     const element = document.querySelector(
       "c-initiate-account-closure-precheck"
     );
-    fetchEligibleCasesForPrecheck.emit(MOCK_ELIGIBLE_CASES_FOR_PRECHECK);
+    getRecord.emit(getWiredRecord);
     await flushPromises();
     const cancelButton = element.shadowRoot.querySelector(
       "lightning-button[data-id=cancel]"

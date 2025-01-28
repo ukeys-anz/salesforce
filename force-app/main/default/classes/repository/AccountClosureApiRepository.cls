@@ -5,8 +5,6 @@
  */
 public with sharing class AccountClosureApiRepository {
 
-    private static final String REQUIRED_FIELDS_MISSING_ERROR = 'Parent Case And Eligible Cases Required';
-
     /**
      * @param ocvId ocvId of the customer
      * @param eligibleCaseList card number to be detokenzed
@@ -17,14 +15,6 @@ public with sharing class AccountClosureApiRepository {
     String ocvId,
     List<Case> eligibleCaseList
     ) {
-        if(ocvId == null || eligibleCaseList.isEmpty())
-        {
-          throw CommonUtil.logException(
-            new RequiredFieldMissingException(
-              REQUIRED_FIELDS_MISSING_ERROR
-            )
-          );
-        }
         AccountClosureService serviceInstance = (AccountClosureService) ServiceProvider.getService(
             AccountClosureService.class
         );

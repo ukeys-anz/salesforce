@@ -50,29 +50,16 @@ public with sharing class AccountClosureControllerHelper {
   }
 
   /**
-   * @description method to create set of failed reasons whose eligibility is ineligible
-   * @param cases List of Eligible Cases for Precheck
-   * @return Map<String, Id> map of CaseNumber and Id
-   */
-  public static Map<String, Id> createCaseNumberToIdMap(List<Case> cases) {
-    Map<String, Id> caseNumberToIdMap = new Map<String, Id>();
-    for (Case caseRec : cases) {
-      caseNumberToIdMap.put(caseRec.CaseNumber, caseRec.Id);
-    }
-    return caseNumberToIdMap;
-  }
-
-  /**
    * @description method to prepare list of cases to update
    * @param successCases map of successfull cases and their business process id
    * @param failedCases map of failed cases and their failed reasons
-   * @param caseNumberToIdMap Map<String, Id>
+   * @param caseNumberToIdMap Map<String, Case>
    * @return List of cases to be updated
    */
   public static List<Case> prepareCasesForUpdate(
     Map<String, String> successCases,
     Map<String, Set<String>> failedCases,
-    Map<String, Id> caseNumberToIdMap
+    Map<String, Case> caseNumberToIdMap
   ) {
     List<Case> casesToUpdate = new List<Case>();
 
@@ -81,7 +68,8 @@ public with sharing class AccountClosureControllerHelper {
     allPrecheckedCases.addAll(failedCases.keySet());
 
     for (String caseNumber : allPrecheckedCases) {
-      Case caseRecord = new Case(Id = caseNumberToIdMap.get(caseNumber));
+      Id caseId = caseNumberToIdMap?.get(caseNumber)?.Id;
+      Case caseRecord = new Case(Id = caseId);
 
       if (successCases.containsKey(caseNumber)) {
         caseRecord.Sub_Status__c = GetHelpConstants.PROCESSING;
@@ -89,10 +77,7 @@ public with sharing class AccountClosureControllerHelper {
       } else {
         caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
 
-        postFailureMessage(
-          caseNumberToIdMap.get(caseNumber),
-          failedCases.get(caseNumber)
-        );
+        postFailureMessage(caseId, failedCases.get(caseNumber));
       }
       casesToUpdate.add(caseRecord);
     }
