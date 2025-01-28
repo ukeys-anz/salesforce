@@ -1,0 +1,26 @@
+<template>
+  <lightning-spinner
+    lwc:if={isLoadingImage}
+    alternative-text="Loading"
+    variant="brand"
+  ></lightning-spinner>
+
+  <img
+    lwc:if={url}
+    src={imgSrc}
+    oncontextmenu={disableRightClick}
+    class={imgClass}
+    onload={handler.onLoad}
+    onerror={handler.onError}
+  />
+  <img lwc:else src={placeholder} class={imgClass} />
+
+  <div lwc:if={showError} class="slds-text-align_center">
+    <lightning-icon
+      icon-name="utility:warning"
+      alternative-text="Warning!"
+      title="Warning"
+    ></lightning-icon>
+    {error}
+  </div>
+</template>

@@ -65,7 +65,7 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
    * @param output arg for omnistudio flex card
    * @param options arg for omnistudio flex card
    * @return HttpCalloutResponse response
-   * @description get and modify the joint account notifications
+   * @description get and modify the joint account notification
    */
   private boolean getORModifyJointAccountNotificationAPI(
     Map<String, Object> input,
@@ -337,36 +337,6 @@ global with sharing class TFMRemoteActionUtility implements omnistudio.VlocityOp
       return false;
     }
     return true;
-  }
-
-  /**
-   * @param input arg for omnistudio flex card
-   * @return `Map<String, Object>`
-   * @description returns ui options for Joint Account Permission Details
-   */
-  public static Map<String, Object> getConsentDataSharingHistory(
-    Map<String, Object> input
-  ) {
-    Map<String, Object> responseMap = new Map<String, Object>();
-    StaffTokenRequestModel staffModel = setStaffModel(
-      (String) input.get(TFMConstants.IDVALUE)
-    );
-    TFMSearchCustomerAPIRepository api = new TFMSearchCustomerAPIRepository();
-    HttpCalloutResponse response = api.getConsentDataSharingHistory(
-      String.valueOf(input.get(TFMConstants.CONSENTIDSTRING)),
-      String.valueOf(input.get(TFMConstants.ORGINALCREATETIMEVALUE)),
-      String.valueOf(input.get(TFMConstants.ORIGINALEXPIRETIMEVALUE)),
-      staffModel
-    );
-    if (handleStatusCode(response.statusCode)) {
-      responseMap.put('isValid', false);
-      return responseMap;
-    }
-    responseMap.put('isValid', true);
-    responseMap.putAll(
-      (Map<String, Object>) JSON.deserializeUntyped(response.body)
-    );
-    return responseMap;
   }
 
   /**

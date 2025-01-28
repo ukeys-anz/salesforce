@@ -93,7 +93,7 @@ function getFraudBlockMessage(cardBlockType) {
   }
   if (cardBlockType.toLowerCase() === "automated") {
     return `Card Controls are unavailable due to an automated fraud block. Please refer customer to the app to self-unblock the card.`;
-  } else if (cardBlockTypy.toLowerCase() === "manual") {
+  } else if (cardBlockType.toLowerCase() === "manual") {
     return `Card Controls are unavailable due to a manual fraud block. See Chatter post for more detail.`;
   }
 

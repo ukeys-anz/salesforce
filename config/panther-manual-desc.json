@@ -888,6 +888,7 @@
         "Owner_Role__c"
       ],
       "IA-2453595": [
+        "AcceptableDocumentQuality__c",
         "Actual_Outcome__c",
         "Additional_Type__c",
         "ANZx_Product__c",
@@ -1141,6 +1142,7 @@
         "Is_this_a_Business_Customer__c",
         "Location__c",
         "Merchant_Description__c",
+        "NameCorrection__c",
         "NPP_Dispute_Reason__c",
         "NPP_Subtype__c",
         "OCV_Id__c",
@@ -1270,11 +1272,6 @@
         "AddressURL__c",
         "Case_Age_in_Days__c",
         "Has_Assessment__c",
-        "SI_Repository_COM_IDs__c",
-        "SI_Category__c",
-        "SI_Complaint_Count__c",
-        "SI_Date_Event_Created__c",
-        "SI_Category_Other__c",
         "ContactMobile",
         "ContactEmail",
         "IDR_3rdParty_Country__c",
@@ -1308,6 +1305,17 @@
         "IDR_NC_Suburb__c",
         "IDR_Nominated_3rd_Party_Notification__c",
         "IDR_Non_Financial_Remedy__c",
+        "LinkBetweenOldIdentityAndNewName__c",
+        "NameOnIDMatchesTheNameRequested__c",
+        "NewFirstName__c",
+        "NewMiddleName__c",
+        "NewLastName__c",
+        "PhotoOnIDMatchesSelfieOnFile__c",
+        "SI_Repository_COM_IDs__c",
+        "SI_Category__c",
+        "SI_Complaint_Count__c",
+        "SI_Date_Event_Created__c",
+        "SI_Category_Other__c",
         "SuppliedEmail",
         "Tactical_Fix__c"
       ],
@@ -1326,9 +1334,14 @@
         "Settlement_Date__c"
       ],
       "IA-2530753": [
+        "CertificateIdentifier__c",
+        "DocumentFailureReason__c",
+        "External_Request_Id__c",
         "IDR_Product_Family__c",
+        "LicenceCardNumber__c",
+        "LicenceNumber__c",
         "OnboardingVerificationFailedReason__c",
-        "External_Request_Id__c"
+        "PassportNumber__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -1357,18 +1370,20 @@
         "Title_Reference_Number__c"
       ],
       "IA-2415860": [
-        "Package_Id__c",
-        "Status_Update_Error__c",
-        "System_Action__c",
         "Aegis_Workflow_Id__c",
-        "Person_Digital_Identity__c",
-        "Pin_History_Check_Failed__c",
-        "IAL_Status__c",
         "Context_Id__c",
         "Context_Type__c",
-        "Verified_Date__c",
         "Credit_Assessment_Expiry_Date__c",
-        "Has_Credit_Assessment_Expired__c"
+        "Has_Credit_Assessment_Expired__c",
+        "IAL_Status__c",
+        "Package_Id__c",
+        "Person_Digital_Identity__c",
+        "Pin_History_Check_Failed__c",
+        "Status_Update_Error__c",
+        "System_Action__c",
+        "VerificationOutcome__c",
+        "VerificationRequest__c",
+        "Verified_Date__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1377,7 +1392,19 @@
         "PersonID__c",
         "Fraud_PersonID__c"
       ],
-      "IA-2468710": ["SLATesting__c", "CardScamType__c"]
+      "IA-2468710": ["SLATesting__c", "CardScamType__c"],
+      "IA-2594116": [
+        "AcceptableDocumentType__c",
+        "CertificateShowsCurrentContactName__c",
+        "CertificateIdentifierType__c",
+        "CountryCode__c",
+        "DateOfBirthOnIDMatchesProfile__c",
+        "DocumentType__c",
+        "ExpiryDate__c",
+        "NamesCertificateSupportNameRequested__c",
+        "RegistrationDate__c",
+        "StateCode__c"
+      ]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [

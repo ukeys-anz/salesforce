@@ -1,0 +1,103 @@
+<template>
+  <lightning-card title="Supporting Documents" icon-name="standard:file">
+    <lightning-button
+      lwc:if={canShow}
+      label="Close"
+      slot="actions"
+      onclick={handler.handlePreview}
+    ></lightning-button>
+    <lightning-button
+      lwc:else
+      label="View"
+      slot="actions"
+      onclick={handler.handlePreview}
+    ></lightning-button>
+
+    <lightning-spinner
+      lwc:if={isLoading}
+      alternative-text="Loading"
+      variant="brand"
+    ></lightning-spinner>
+
+    <div lwc:if={canShow} class="slds-p-horizontal_small">
+      <div class="slds-p-around_medium">
+        <lightning-input
+          lwc:if={isLicence}
+          type="text"
+          label="Licence Card Number"
+          value={licenceCardNumber}
+          data-id="licenceCardNumber"
+          variant="label-inline"
+          min-length={inputMinLength}
+          max-length={inputMaxLength}
+          message-when-too-short={inputLengthError}
+          message-when-too-long={inputLengthError}
+          onchange={handler.handleChange}
+          disabled={disableEdit}
+          required
+        ></lightning-input>
+        <lightning-input
+          lwc:if={isLicence}
+          type="text"
+          label="Licence Number"
+          value={licenceNumber}
+          data-id="licenceNumber"
+          variant="label-inline"
+          min-length={inputMinLength}
+          max-length={inputMaxLength}
+          message-when-too-short={inputLengthError}
+          message-when-too-long={inputLengthError}
+          onchange={handler.handleChange}
+          disabled={disableEdit}
+          required
+        ></lightning-input>
+
+        <lightning-input
+          lwc:elseif={isPassport}
+          type="text"
+          label="Passport Number"
+          value={passportNumber}
+          data-id="passportNumber"
+          variant="label-inline"
+          min-length={inputMinLength}
+          max-length={inputMaxLength}
+          message-when-too-short={inputLengthError}
+          message-when-too-long={inputLengthError}
+          onchange={handler.handleChange}
+          disabled={disableEdit}
+          required
+        ></lightning-input>
+
+        <lightning-input
+          lwc:else
+          type="text"
+          label="Certificate Identifier"
+          value={certificateIdentifier}
+          data-id="certificateIdentifier"
+          variant="label-inline"
+          min-length={inputMinLength}
+          max-length={inputMaxLength}
+          message-when-too-short={inputLengthError}
+          message-when-too-long={inputLengthError}
+          onchange={handler.handleChange}
+          disabled={disableEdit}
+          required
+        ></lightning-input>
+
+        <lightning-button
+          variant="brand"
+          label="Save"
+          title="Primary action"
+          onclick={handler.handleSave}
+          class="slds-m-left_x-small"
+          disabled={disableEdit}
+        ></lightning-button>
+      </div>
+      <c-daon-file-download
+        layout={layout}
+        metadata={metadata}
+        onaction={handler.onActionClick}
+      ></c-daon-file-download>
+    </div>
+  </lightning-card>
+</template>
