@@ -3,7 +3,7 @@
  * @since Jan 2025
  * @description Test class for AccountClosureStravinskyController
  */
-@IsTest(SeeAllData=true)
+@IsTest
 public with sharing class AccountClosureStravinskyControllerTest {
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
@@ -45,7 +45,7 @@ public with sharing class AccountClosureStravinskyControllerTest {
     );
   }
 
-  @IsTest(SeeAllData=true)
+  @IsTest
   private static void testUpdateCaseStatusAndPostChatterMessageSuccess() {
     registerMocks();
     accountClosureRepoMock.mock(
@@ -61,7 +61,8 @@ public with sharing class AccountClosureStravinskyControllerTest {
         )
       }
     );
-    Boolean exceptionThrown = false;
+
+    Exception resultException;
 
     List<Id> records = new List<Id>{ FAKER_CHILD_CASE_ID };
 
@@ -77,15 +78,15 @@ public with sharing class AccountClosureStravinskyControllerTest {
       AccountClosureStravinskyController.updateCaseStatusAndPostChatterMessage(
         records
       );
-    } catch (ConnectApi.ConnectApiException e) {
-      System.assertEquals(
-        'You posted to a group that has been deleted or archived.',
-        e.getMessage(),
-        'You posted to a group that has been deleted or archived.'
-      );
-      exceptionThrown = true;
+    } catch (Exception objException) {
+      resultException = objException;
     }
-    System.assert(exceptionThrown, 'Exception should be thrown');
+
+    Assert.areEqual(
+      resultException.getMessage(),
+      'ConnectApi methods are not supported in data siloed tests. Please use @IsTest(SeeAllData=true).',
+      'Exception was expected'
+    );
 
     Test.stopTest();
 
