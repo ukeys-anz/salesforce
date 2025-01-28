@@ -43,8 +43,6 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     Set<String> setOfAccountNumberToBeClosed,
     List<String> customerOCVIds
   ) {
-    GenesisPackageClosureModel result;
-
     Service s = ServiceProvider.getService(StravinskyService.class);
     //Updated ClosedPackage method to accept OCVId and ClosureCaseRequest
     HttpCalloutResponse response = s.closePackage(
@@ -58,15 +56,13 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
 
     if (response.successful) {
       try {
-        result = GenesisPackageClosureModel.parse(response.body);
+        return GenesisPackageClosureModel.parse(response.body);
       } catch (Exception objException) {
         throw CommonUtil.logException(objException);
       }
     } else {
       throw CommonUtil.logException(response);
     }
-
-    return result;
   }
 
   /**
