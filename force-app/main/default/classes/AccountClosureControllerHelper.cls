@@ -11,7 +11,7 @@ public with sharing class AccountClosureControllerHelper {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  
+
   private static final String TECHNICAL_ERROR = 'techError';
 
   /**
@@ -25,21 +25,29 @@ public with sharing class AccountClosureControllerHelper {
     Map<String, Set<String>> failedCases,
     List<CaseInputWrapper> accountClosurePrecheckResponse
   ) {
-    for(CaseInputWrapper response : accountClosurePrecheckResponse)
-      {
-        Switch on response.acceptance {
-          when 'ACCEPTANCE_ACCEPTED' {
-            successCases.put(response.salesforceCaseNumber, response.businessProcessId);
-          }
-          when 'ACCEPTANCE_REJECTED'{
-            failedCases.put(response.salesforceCaseNumber, new Set<String> (response.failedReasons));
-          }
-          when else{
-            failedCases.put(response.salesforceCaseNumber, new Set<String>{ TECHNICAL_ERROR });
-          }
+    for (CaseInputWrapper response : accountClosurePrecheckResponse) {
+      switch on response.acceptance {
+        when 'ACCEPTANCE_ACCEPTED' {
+          successCases.put(
+            response.salesforceCaseNumber,
+            response.businessProcessId
+          );
+        }
+        when 'ACCEPTANCE_REJECTED' {
+          failedCases.put(
+            response.salesforceCaseNumber,
+            new Set<String>(response.failedReasons)
+          );
+        }
+        when else {
+          failedCases.put(
+            response.salesforceCaseNumber,
+            new Set<String>{ TECHNICAL_ERROR }
+          );
         }
       }
     }
+  }
 
   /**
    * @description method to create set of failed reasons whose eligibility is ineligible
@@ -71,16 +79,14 @@ public with sharing class AccountClosureControllerHelper {
     Set<String> allPrecheckedCases = new Set<String>();
     allPrecheckedCases.addAll(successCases.keySet());
     allPrecheckedCases.addAll(failedCases.keySet());
- 
-    for(String caseNumber : allPrecheckedCases)
-    {
+
+    for (String caseNumber : allPrecheckedCases) {
       Case caseRecord = new Case(Id = caseNumberToIdMap.get(caseNumber));
- 
-      if(successCases.containsKey(caseNumber)){       
+
+      if (successCases.containsKey(caseNumber)) {
         caseRecord.Sub_Status__c = GetHelpConstants.PROCESSING;
         caseRecord.Process_ID__c = successCases.get(caseNumber);
-      }
-      else{
+      } else {
         caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
 
         postFailureMessage(
@@ -102,14 +108,16 @@ public with sharing class AccountClosureControllerHelper {
     String sObjectId,
     Set<String> failureReasons
   ) {
-
     String richTextMessage = composeRichTextMessage(
       ACCOUNT_CLOSURE_REPOSITORY.getFailureMetadata(failureReasons)
     );
 
-    if(!String.isBlank(richTextMessage))
-    {
-      ConnectApiHelper.postFeedItemWithRichText(null, sObjectId, richTextMessage);
+    if (!String.isBlank(richTextMessage)) {
+      ConnectApiHelper.postFeedItemWithRichText(
+        null,
+        sObjectId,
+        richTextMessage
+      );
     }
   }
 

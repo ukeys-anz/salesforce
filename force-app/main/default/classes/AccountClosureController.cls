@@ -20,11 +20,9 @@ public with sharing class AccountClosureController {
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
     try {
-
       return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
         new Set<Id>{ parentCaseId }
       );
-
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
@@ -68,28 +66,31 @@ public with sharing class AccountClosureController {
     List<CaseInputWrapper> accountClosurePrecheckResponse,
     List<Case> eligibleCasesForPrecheck
   ) {
-    
     try {
-
-      if(accountClosurePrecheckResponse == null || eligibleCasesForPrecheck == null){
+      if (
+        accountClosurePrecheckResponse == null ||
+        eligibleCasesForPrecheck == null
+      ) {
         return new List<Case>();
       }
-      
+
       Map<String, String> successCases = new Map<String, String>();
       Map<String, Set<String>> failedCases = new Map<String, Set<String>>();
 
-      AccountClosureControllerHelper.segregrateCasesByResponseStatus(successCases,
-       failedCases,
-       accountClosurePrecheckResponse);
+      AccountClosureControllerHelper.segregrateCasesByResponseStatus(
+        successCases,
+        failedCases,
+        accountClosurePrecheckResponse
+      );
 
-      if(successCases.isEmpty() && failedCases.isEmpty()){
+      if (successCases.isEmpty() && failedCases.isEmpty()) {
         return new List<Case>();
       }
 
       Map<String, Id> caseNumberToIdMap = AccountClosureControllerHelper.createCaseNumberToIdMap(
         eligibleCasesForPrecheck
       );
-  
+
       List<Case> casesToUpdate = AccountClosureControllerHelper.prepareCasesForUpdate(
         successCases,
         failedCases,
