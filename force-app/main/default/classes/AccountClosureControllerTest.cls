@@ -55,7 +55,7 @@ public with sharing class AccountClosureControllerTest {
         Exception resultException;
         Test.startTest();
         try {
-            List<Case> eligibleCases = AccountClosureController.fetchEligibleCasesForPrecheck('ABGSDSGSJ');
+            AccountClosureController.fetchEligibleCasesForPrecheck('ABGSDSGSJ');
         } catch (Exception objException) {
             resultException = objException;
         }
@@ -101,7 +101,7 @@ public with sharing class AccountClosureControllerTest {
         Exception resultException;
         Test.startTest();
             try{
-            List<AccountClosurePrecheckResponseModel> response = AccountClosureController.initiateAccountClosurePrechecks(
+            AccountClosureController.initiateAccountClosurePrechecks(
                 FAKER_PARENT_CASE_ID,
                 new List<Case>());  
             }catch (Exception objException) {
