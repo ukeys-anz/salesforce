@@ -19,70 +19,6 @@ public with sharing class AccountClosureCaseActions {
   public static final String DUPLICATE_CASEGROUP_ERROR = 'Error occurred while creating CaseGroup Case. A CaseGroup Case already exists for this customer. Case number: ';
 
   public static final String CASEGROUP_CLOSURE_ERROR_MESSAGE = 'Cannot close this Case as all related cases are not in closed status. Please ensure all related cases are closed.';
-  /**
-   * @description This method process account closure cases and find if Case Group (Parent case) exists.
-   * If none are found, it creates a new "Case Group" and links the "Account closure" cases to it.
-   * @param childCases The list of Case records with record type as Account closure
-   */
-  public static void linkChildCasesWithParent(List<Case> childCases) {
-    Set<Id> accountIds = ListUtil.getIds(childCases, Case.AccountId);
-
-    Map<Id, Case> accountIdToExistingParentCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      ACCOUNT_CLOSURE_REPOSITORY.queryExistingParentCases(accountIds),
-      Case.AccountId
-    );
-
-    List<Case> newParentCases = setParentCaseFieldsIfNotFound(
-      childCases,
-      accountIdToExistingParentCaseMap
-    );
-
-    DML_REPOSITORY.doInsert(newParentCases);
-
-    Map<Id, Case> accountIdToNewParentCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      newParentCases,
-      Case.AccountId
-    );
-
-    Map<Id, Case> accountIdToAllParentCasesMap = new Map<Id, Case>(
-      accountIdToExistingParentCaseMap
-    );
-    accountIdToAllParentCasesMap.putAll(accountIdToNewParentCaseMap);
-
-    for (Case caseRecord : childCases) {
-      Case parentCase = accountIdToAllParentCasesMap.get(caseRecord.AccountId);
-
-      if (parentCase == null) {
-        continue;
-      }
-      caseRecord.ParentId = parentCase.Id;
-      caseRecord.Status = parentCase.Status;
-      caseRecord.Circumstance__c = parentCase.Circumstance__c;
-      caseRecord.OwnerId = parentCase.OwnerId ?? UserInfo.getUserId();
-    }
-  }
-
-  @TestVisible
-  private static List<Case> setParentCaseFieldsIfNotFound(
-    List<Case> childCases,
-    Map<Id, Case> accountIdToExistingParentCaseMap
-  ) {
-    List<Case> newParentCases = new List<Case>();
-    for (Case closureCase : childCases) {
-      if (accountIdToExistingParentCaseMap.containsKey(closureCase.AccountId)) {
-        continue;
-      }
-
-      Case newParentCase = new Case(
-        RecordTypeId = RTCase.caseGroup,
-        AccountId = closureCase.AccountId,
-        Type = GetHelpConstants.ACCOUNT_CLOSURE
-      );
-      newParentCases.add(newParentCase);
-    }
-
-    return newParentCases;
-  }
 
   /**
    * @description This Method fetch all the child case records records linked to the case group(Parent case)
@@ -174,24 +110,31 @@ public with sharing class AccountClosureCaseActions {
   ) {
     Set<Id> caseIds = ListUtil.getIds(parentCases, Case.Id);
 
-    Set<Id> parentCaseIdsWithChild = new Set<Id>();
-
-    for (
-      Case childCaseRecord : ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedChildCases(
-        caseIds
-      )
-    ) {
-      parentCaseIdsWithChild.add(childCaseRecord.ParentId);
-    }
+    Set<Id> parentCaseIdsWithOpenChildCases = fetchParentCaseIdOfOpenChildCases(
+      caseIds
+    );
 
     for (Case caseGroupRecord : parentCases) {
-      if (parentCaseIdsWithChild.contains(caseGroupRecord.Id)) {
+      if (parentCaseIdsWithOpenChildCases.contains(caseGroupRecord.Id)) {
         CommonUtil.addErrorToRecordAndLog(
           caseGroupRecord,
           CASEGROUP_CLOSURE_ERROR_MESSAGE
         );
       }
     }
+  }
+
+  @TestVisible
+  private static Set<Id> fetchParentCaseIdOfOpenChildCases(Set<Id> caseIds) {
+    Set<Id> parentCaseIdsWithOpenChildCases = new Set<Id>();
+    for (
+      Case childCaseRecord : ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedChildCases(
+        caseIds
+      )
+    ) {
+      parentCaseIdsWithOpenChildCases.add(childCaseRecord.ParentId);
+    }
+    return parentCaseIdsWithOpenChildCases;
   }
 
   /**
@@ -233,5 +176,64 @@ public with sharing class AccountClosureCaseActions {
       );
     }
     DML_REPOSITORY.doUpdate(parentCasesToUpdate);
+  }
+
+  /**
+   * @description This method process account closure cases and find if Case Group (Parent case) exists.
+   * If none are found, it creates a new "Case Group" and links the "Account closure" cases to it.
+   * @param childCases The list of Case records with record type as Account closure
+   */
+  public static void linkChildCasesWithParent(List<Case> childCases) {
+    Set<Id> accountIds = ListUtil.getIds(childCases, Case.AccountId);
+
+    Map<Id, Case> accountIdToExistingParentCaseMap = (Map<Id, Case>) ListUtil.mapBy(
+      ACCOUNT_CLOSURE_REPOSITORY.queryExistingParentCases(accountIds),
+      Case.AccountId
+    );
+
+    List<Case> newParentCases = createParentCaseIfNotFound(
+      childCases,
+      accountIdToExistingParentCaseMap
+    );
+
+    Map<Id, Case> accountIdToNewParentCaseMap = (Map<Id, Case>) ListUtil.mapBy(
+      newParentCases,
+      Case.AccountId
+    );
+
+    Map<Id, Case> accountIdToAllParentCasesMap = new Map<Id, Case>(
+      accountIdToExistingParentCaseMap
+    );
+    accountIdToAllParentCasesMap.putAll(accountIdToNewParentCaseMap);
+
+    for (Case caseRecord : childCases) {
+      Case parentCase = accountIdToAllParentCasesMap.get(caseRecord.AccountId);
+      caseRecord.ParentId = parentCase.Id;
+      caseRecord.Status = parentCase.Status;
+      caseRecord.Circumstance__c = parentCase.Circumstance__c;
+      caseRecord.OwnerId = parentCase.OwnerId ?? UserInfo.getUserId();
+    }
+  }
+
+  @TestVisible
+  private static List<Case> createParentCaseIfNotFound(
+    List<Case> childCases,
+    Map<Id, Case> accountIdToExistingParentCaseMap
+  ) {
+    List<Case> newParentCases = new List<Case>();
+    for (Case closureCase : childCases) {
+      if (accountIdToExistingParentCaseMap.containsKey(closureCase.AccountId)) {
+        continue;
+      }
+
+      Case newParentCase = new Case(
+        RecordTypeId = RTCase.caseGroup,
+        AccountId = closureCase.AccountId,
+        Type = GetHelpConstants.ACCOUNT_CLOSURE
+      );
+      newParentCases.add(newParentCase);
+    }
+    DML_REPOSITORY.doInsert(newParentCases);
+    return newParentCases;
   }
 }
