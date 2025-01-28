@@ -117,7 +117,7 @@ public with sharing class FacilitiesExternalQuery extends FinancialAccountQueryB
       FacilityModel fac : ((FacilityCalloutResponse) this.calloutResponse)
         .facilities
     ) {
-      if(fac.ollSequence == 0){
+      if (fac.ollSequence == 0) {
         continue;
       }
       String tpmiSAO = '';
@@ -130,8 +130,8 @@ public with sharing class FacilitiesExternalQuery extends FinancialAccountQueryB
 
       Map<String, Object> row = new Map<String, Object>{
         'ExternalId' => fac.compositeFacilityId,
-        'Facility' => fac.accountNumber + 
-        '-' + 
+        'Facility' => fac.accountNumber +
+        '-' +
         String.valueOf(fac.ollSequence),
         'DisplayUrl' => getDisplayUrl(
           fac.productCode + '-' + fac.accountNumber
@@ -147,12 +147,9 @@ public with sharing class FacilitiesExternalQuery extends FinancialAccountQueryB
         ),
         'Source_System_Status' => MAP_SOURCE_SYSTEM_STATUS.get(
           fac.sourceSystemStatus
-        )
-        ?? fac.sourceSystemStatus,
-        'Product_Name' => MAP_PRODUCT_NAME.get(
-          fac.productName
-        )
-        ?? fac.productName,
+        ) ?? fac.sourceSystemStatus,
+        'Product_Name' => MAP_PRODUCT_NAME.get(fac.productName) ??
+          fac.productName,
         'TPMI_SAO' => tpmiSAO
       };
       result.externalRecords.add(row);

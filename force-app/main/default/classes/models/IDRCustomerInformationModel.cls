@@ -23,7 +23,6 @@ public with sharing class IDRCustomerInformationModel extends CalloutModel {
   public RelationshipManager relationshipManager;
   @AuraEnabled
   public List<Accounts> accounts;
-
   /**
    * @description address wrapper
    */

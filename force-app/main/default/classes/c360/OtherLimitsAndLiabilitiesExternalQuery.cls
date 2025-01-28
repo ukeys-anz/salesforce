@@ -99,7 +99,7 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
       OtherLimitsAndLiabilitiesModel fa : ((OLLCalloutResponse) this.calloutResponse)
         .accounts
     ) {
-       if (String.isBlank(fa.status) || fa.status == 'DEL') {
+      if (String.isBlank(fa.status) || fa.status == 'DEL') {
         continue;
       }
       Map<String, Object> row = new Map<String, Object>{
@@ -126,7 +126,9 @@ public with sharing class OtherLimitsAndLiabilitiesExternalQuery extends Financi
         'Date_Closed' => formatDate(fa.inactiveDate),
         'Product_Code' => fa.productCode,
         'Product_Name' => getProductName(fa.accountNumber),
-        'Source_System_Status' => MAP_SOURCE_SYSTEM_STATUS.get(fa.sourceSystemStatus) ?? fa.sourceSystemStatus
+        'Source_System_Status' => MAP_SOURCE_SYSTEM_STATUS.get(
+          fa.sourceSystemStatus
+        ) ?? fa.sourceSystemStatus
       };
       result.externalRecords.add(row);
     }

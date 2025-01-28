@@ -253,7 +253,11 @@ public with sharing class LoanAccountExternalQuery extends FinancialAccountQuery
         'Expires' => formatDate(fa.loanMaturityDate),
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.subApprovedOrignation+' '+(MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
+          : fa.tpmiNumber +
+            '-' +
+            fa.subApprovedOrignation +
+            ' ' +
+            (MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
         'ANZPlusIdentifier' => fa.anzPlusIdentifier,
         'BranchName' => fa.branchName,
         'AmountInAdvance' => fa.amountInAdvance,

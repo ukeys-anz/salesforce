@@ -7,6 +7,12 @@ public with sharing class IDRTaskActionsRepository {
   public static final String TASK_TYPE_NOTIFICATION = 'Notification';
   public static final String MILESTONE_STANDARD = '30-day IDR Response Due';
   public static final String MILESTONE_PRIORITY = '21-day IDR Response Due';
+  public static final String TASK_STATUS_COMPLETED = 'Completed';
+  public static Set<String> allowedCaseStatuses = new Set<String>{
+    IDRConstants.CLOSED_STATUS,
+    IDRConstants.WITHDRAWN_STATUS,
+    IDRConstants.RESOLVED_STATUS
+  };
   /**
    * @description Query cases to get the ownerId
    * @param caseIds case Ids in current context
@@ -156,7 +162,43 @@ public with sharing class IDRTaskActionsRepository {
         AND RecordTypeId = :RTTask.idrSystemTask
         AND IsClosed = FALSE
         AND Type = :TASK_TYPE_NOTIFICATION
-        WITH USER_MODE
+      WITH USER_MODE
+    ];
+  }
+  /**
+   * @description Method to get cases for Completed Correspondance Tasks
+   * @param caseIds Set of Case Ids
+   * @return list of Cases to be updated
+   */
+  public List<Case> getCasestobeUpdated(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Case>();
+    }
+    return [
+      SELECT Id, IDR_Additional_Correspondence_reviewed__c, Status
+      FROM Case
+      WHERE Id = :caseIds AND Status IN :allowedCaseStatuses
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Method to get Existing Tasks
+   * @param caseIds Set of Case Ids
+   * @return list of Tasks
+   */
+  public List<Task> getexistingTasks(Set<Id> caseIds) {
+    if (caseIds.isEmpty()) {
+      return new List<Task>();
+    }
+    return [
+      SELECT Id, Status, Subject, WhatId
+      FROM Task
+      WHERE
+        WhatId IN :caseIds
+        AND RecordTypeId = :RTTask.idrTask
+        AND Status != :TASK_STATUS_COMPLETED
+      WITH USER_MODE
     ];
   }
 }

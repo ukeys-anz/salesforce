@@ -36,6 +36,7 @@ List<Aegis_Env_Setting__c> aegisSetting = [
 // If there is one, update the Aegis_URL__c
 if (aegisSetting.size() > 0) {
   aegisSetting[0].Aegis_URL__c = nonProdAegisURL;
+  aegisSetting[0].Env_Name__c = 'SIT';
   update aegisSetting[0];
   // Otherwise create a new one.
 } else {
@@ -45,3 +46,41 @@ if (aegisSetting.size() > 0) {
   aegis.Env_Name__c = 'SIT';
   insert aegis;
 }
+
+//--- Add non-prod approvers to PAM Approvers Queue
+
+// Find the sandbox name:
+System.Domain d = System.DomainParser.parse(URL.getOrgDomainUrl());
+String sandboxName = d.getSandboxName();
+
+List<GroupMember> gms = new List<GroupMember>();
+Group pamApproversQueue = [
+  SELECT Id, Name
+  FROM Group
+  WHERE Name = 'PAM Approvers' AND type = 'Queue'
+  LIMIT 1
+];
+
+// Add users to PAM approver Queue
+List<String> npApproversUserNames = new List<String>{
+  'victor.wang@anzx.com.' +
+  sandboxName, // Qing Wang ( Victor )
+  'mani.murugesan@anzx.com.' +
+  sandboxName, // Manivasaga Vengatesh Murugesan
+  'ngockieutrang.nguyen@anzx.com.' +
+  sandboxName // Jasmine Nguyen
+};
+List<User> usrs = [
+  SELECT Id, Username
+  FROM User
+  WHERE Username IN :npApproversUserNames
+];
+
+for (User u : usrs) {
+  gms.add(
+    new GroupMember(GroupId = pamApproversQueue.id, UserOrGroupId = u.id)
+  );
+}
+
+insert gms;
+System.debug(gms);

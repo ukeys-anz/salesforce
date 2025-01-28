@@ -429,9 +429,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     //Child summary view
     if (isQueryCAPChildAccounts(infoWrapper)) {
       String accountNumber = infoWrapper.parentId.right(
-        infoWrapper.parentId.length() -
-        infoWrapper.parentId.indexOf('|') -
-        1
+        infoWrapper.parentId.length() - infoWrapper.parentId.indexOf('|') - 1
       );
       payload =
         '{"accountNumber": "' +
@@ -465,9 +463,7 @@ public with sharing class FinancialAccountExternalQueryHelper {
     }
     //Account detail view
     String accountNumber = infoWrapper.externalId.right(
-      infoWrapper.externalId.length() -
-      infoWrapper.externalId.indexOf('|') -
-      1
+      infoWrapper.externalId.length() - infoWrapper.externalId.indexOf('|') - 1
     );
     payload = '{"' + infoWrapper.externalField + '": "' + accountNumber + '"';
     payload += String.isNotBlank(infoWrapper.assetFinanceType)

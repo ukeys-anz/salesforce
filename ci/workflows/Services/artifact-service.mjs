@@ -150,6 +150,18 @@ const uploadToArtifactory = (
   deleteZipArtifactory(artifactPath);
 };
 
+const uploadDestructiveToArtifactory = (
+  artifactorySecret,
+  destructiveDir,
+  artifactoryRepoName
+) => {
+  logger("Upload Destructive Folder");
+  if (!folderExist(destructiveDir)) return;
+  zipArtifactory(destructiveDir);
+  uploadArtifact(destructiveDir, artifactorySecret, artifactoryRepoName);
+  deleteZipArtifactory(destructiveDir);
+};
+
 const createAndUploadArtifact = (
   folderName,
   tagRef,
@@ -178,5 +190,6 @@ export {
   createDiffOnValidate,
   createDiffOnDeploy,
   uploadToArtifactory,
+  uploadDestructiveToArtifactory,
   renameForceignore
 };

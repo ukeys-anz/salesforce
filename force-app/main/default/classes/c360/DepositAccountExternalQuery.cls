@@ -246,7 +246,11 @@ public with sharing class DepositAccountExternalQuery extends FinancialAccountQu
         'OverdraftReferenceIndexRate' => fa.debitInterestIndexRate,
         'TPMISAO' => String.isBlank(fa.tpmiNumber)
           ? ''
-          : fa.tpmiNumber + '-' + fa.tpmiSAO +' '+ (MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
+          : fa.tpmiNumber +
+            '-' +
+            fa.tpmiSAO +
+            ' ' +
+            (MAP_OF_TPMI_TYPE.get(fa.tpmiType) ?? ''),
         'LinkedLoanOffsets' => externalQueryHelper.formatAccountNumber(
           fa.productSetOff
         ),

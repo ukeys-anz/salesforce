@@ -30,8 +30,8 @@
         <readable>true</readable>
     </fieldPermissions>
     <customPermissions>
-        <enabled>true</enabled>
         <name>ANZx_View_Coach_Connect</name>
+        <enabled>true</enabled>
     </customPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Coach Collaboration Access</label>
