@@ -19,9 +19,9 @@ public with sharing class AccountClosureController {
    */
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
-      return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
-        new Set<Id>{ parentCaseId }
-      );
+    return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
+      new Set<Id>{ parentCaseId }
+    );
   }
 
   /**
@@ -103,8 +103,8 @@ public with sharing class AccountClosureController {
    */
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchChildCasesForClosure(Id parentCaseId) {
-      return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForClosure(
-        new Set<Id>{ parentCaseId }
-      );
+    return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForClosure(
+      new Set<Id>{ parentCaseId }
+    );
   }
 }

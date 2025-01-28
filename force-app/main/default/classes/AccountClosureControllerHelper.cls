@@ -77,10 +77,7 @@ public with sharing class AccountClosureControllerHelper {
       } else {
         caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
 
-        postFailureMessage(
-          caseId,
-          failedCases.get(caseNumber)
-        );
+        postFailureMessage(caseId, failedCases.get(caseNumber));
       }
       casesToUpdate.add(caseRecord);
     }
