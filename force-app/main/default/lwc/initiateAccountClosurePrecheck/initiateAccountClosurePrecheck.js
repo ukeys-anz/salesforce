@@ -1,6 +1,6 @@
 import { LightningElement, api, wire } from "lwc";
 import fetchEligibleCasesForPrecheck from "@salesforce/apex/AccountClosureController.fetchEligibleCasesForPrecheck";
-import initiateAccountClosurePrecheck from "@salesforce/apex/AccountClosureController.initiateAccountClosurePrecheck";
+import initiateAccountClosurePrecheck from "@salesforce/apex/AccountClosureController.initiateAccountClosurePrechecks";
 import processResponsesAndUpdateCases from "@salesforce/apex/AccountClosureController.processResponsesAndUpdateCases";
 import { CloseActionScreenEvent } from "lightning/actions";
 
@@ -76,6 +76,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
 
   async handleInitiateAccountClosure() {
     this.loading = true;
+    this.hasError = false;
     try {
       const childCasesBatches = this.createChildCaseBatches(
         this.eligibleChildCases,
@@ -101,9 +102,9 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       );
 
       results.forEach((response) => {
-        if (response.status === "fulfilled") {
+        if (response.status === "fulfilled" && response?.value?.result) {
           this.precheckResponse.push(response?.value?.result);
-        } else if (response.status === "rejected") {
+        } else {
           this.handleRejectedResult(response.value.caseDetails);
         }
       });
@@ -134,9 +135,10 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
 
   async processPrecheckResponse(records) {
     try {
+      const processedResponses = this.generateResponseToProcess(records);
       const childCasesDetailsPostPrecheck =
         await processResponsesAndUpdateCases({
-          fabricSealResponseList: records,
+          accountClosurePrecheckResponse: processedResponses,
           eligibleCasesForPrecheck: this.eligibleChildCases
         });
 
@@ -216,5 +218,33 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       isSuccessIcon: isSuccessIcon,
       workFlow: caseRecord.Status
     }));
+  }
+
+  generateResponseToProcess(records) {
+    const processedResponses = records.map((response) => {
+      const {
+        salesforceCaseNumber,
+        acceptance,
+        unsatisfiedPreconditions,
+        businessProcessId
+      } = response;
+      let failedReasons = [];
+
+      if (acceptance === "ACCEPTANCE_REJECTED" && unsatisfiedPreconditions) {
+        Object.keys(unsatisfiedPreconditions).forEach((precheckKey) => {
+          const precondition = unsatisfiedPreconditions[precheckKey];
+          if (precondition?.eligibility === "ELIGIBILITY_INELIGIBLE") {
+            failedReasons.push(precheckKey);
+          }
+        });
+      }
+      return {
+        salesforceCaseNumber,
+        acceptance,
+        failedReasons,
+        businessProcessId
+      };
+    });
+    return processedResponses;
   }
 }
