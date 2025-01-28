@@ -11,4 +11,5 @@ trigger CaseTrigger on Case(
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
   AccountClosureCaseTriggerHandler accountClosureHandler = new AccountClosureCaseTriggerHandler();
+  CaseGroupTriggerHandler caseGroupHandler = new CaseGroupTriggerHandler();
 }

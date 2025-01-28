@@ -281,6 +281,7 @@ public with sharing class GetHelpConstants {
   public static final String MANUAL_ADDRESS_UPDATE_TYPE = 'Manual Address Update';
   public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
   public static final String ACCOUNT_CLOSURE = 'Account Closure';
+  public static final String CASE_GROUP = 'Case Group';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';

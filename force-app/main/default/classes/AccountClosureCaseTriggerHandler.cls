@@ -4,12 +4,6 @@
  * @since 11/2024
  */
 public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHandler {
-  //appliable case record types to this handler
-  public static final Set<Id> ACCNT_CLOSURE_CASE_RT_IDS = new Set<Id>{
-    RTCase.accountClosure,
-    RTCase.caseGroup
-  };
-
   /**
    * @description Constructor to initialise Trigger Handler library
    */
@@ -18,55 +12,59 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
   }
 
   //Validate the record relevance to this handler based on record type
-
-  public override Boolean isValidRecord(SObject records) {
-    return ACCNT_CLOSURE_CASE_RT_IDS.contains(((Case) records).RecordTypeId);
+  public override Boolean isValidRecord(SObject record) {
+    return ((Case) record).RecordTypeId == RTCase.accountClosure;
   }
 
   public override void onBeforeInsert() {
-    AccountClosureCaseActions.assignParentCaseToChildCase(records);
-    AccountClosureCaseActions.validateDuplicateCaseGroupPerAccount(
-      records,
-      null
-    );
-    AccountClosureCaseActions.populateCaseSubject(records, null);
-  }
+    List<Case> accountClosureChildCasesWithoutParent = ListUtil.filter(records)
+      .isNull(Case.ParentId)
+      .toList();
 
-  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    AccountClosureCaseActions.setQueueOwnerToEscalatedCases(
-      records,
-      (Map<Id, Case>) oldMap
+    AccountClosureCaseActions.linkChildCasesWithParent(
+      accountClosureChildCasesWithoutParent
     );
     AccountClosureCaseActions.populateCaseSubject(
       records,
-      (Map<Id, Case>) oldMap
+      GetHelpConstants.ACCOUNT_CLOSURE
     );
-    AccountClosureCaseActions.validateDuplicateCaseGroupPerAccount(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-    AccountClosureCaseActions.validateCaseGroupClosure(
-      records,
-      (Map<Id, Case>) oldMap
+  }
+
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    List<Case> parentCasesWhereCustomerChanged = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .changed(case.AccountId)
+      .toList();
+    AccountClosureCaseActions.populateCaseSubject(
+      parentCasesWhereCustomerChanged,
+      GetHelpConstants.ACCOUNT_CLOSURE
     );
   }
 
   public override void onAfterInsert() {
-    AccountClosureCaseActions.handleButtonVisibiltyFlag(records, null);
+    AccountClosureCaseActions.handleButtonVisibiltyFlags(records);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    AccountClosureCaseActions.updateChildCaseField(
-      records,
-      (Map<Id, Case>) oldMap
+    List<Case> casesWithChangedFields = new List<Case>();
+    casesWithChangedFields.addAll(
+      (List<Case>) ListUtil.filter(records, oldMap)
+        .changed(case.Status)
+        .toList()
     );
-    AccountClosureCaseActions.handleButtonVisibiltyFlag(
-      records,
-      (Map<Id, Case>) oldMap
+    casesWithChangedFields.addAll(
+      (List<Case>) ListUtil.filter(records, oldMap)
+        .changed(case.Sub_Status__c)
+        .toList()
+    );
+    AccountClosureCaseActions.handleButtonVisibiltyFlags(
+      casesWithChangedFields
     );
   }
 
   public override void onAfterDelete() {
-    AccountClosureCaseActions.handleButtonVisibiltyFlag(records, null);
+    AccountClosureCaseActions.handleButtonVisibiltyFlags(records);
   }
 }

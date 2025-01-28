@@ -12,189 +12,149 @@ public with sharing class AccountClosureCaseActions {
     DmlRepository.class
   );
 
+  public static Group accountClosureQueue = QueryQueue.get(
+    'Account_Closure_Queue'
+  );
+
   public static final String DUPLICATE_CASEGROUP_ERROR = 'Error occurred while creating CaseGroup Case. A CaseGroup Case already exists for this customer. Case number: ';
 
   public static final String CASEGROUP_CLOSURE_ERROR_MESSAGE = 'Cannot close this Case as all related cases are not in closed status. Please ensure all related cases are closed.';
   /**
    * @description This method process account closure cases and find if Case Group (Parent case) exists.
    * If none are found, it creates a new "Case Group" and links the "Account closure" cases to it.
-   * @param records The list of Case records with record type as Account closure
+   * @param childCases The list of Case records with record type as Account closure
    */
-  public static void assignParentCaseToChildCase(List<Case> records) {
-    List<Case> cases = getAccountClosureCasesWithoutParent(records);
-    if (cases == null || cases.isEmpty()) {
-      return;
-    }
+  public static void linkChildCasesWithParent(List<Case> childCases) {
+    Set<Id> accountIds = ListUtil.getIds(childCases, Case.AccountId);
 
-    Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
-    List<Case> caseGroupRecords = ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedCaseGroups(
-      accountIds
-    );
     Map<Id, Case> accountIdToExistingParentCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      caseGroupRecords,
+      ACCOUNT_CLOSURE_REPOSITORY.queryExistingParentCases(accountIds),
       Case.AccountId
     );
 
-    List<Case> newCaseGroups = AccountClosureCaseActionsHelper.setFieldsForNewParentCase(
-      cases,
+    List<Case> newParentCases = setParentCaseFieldsIfNotFound(
+      childCases,
       accountIdToExistingParentCaseMap
     );
 
+    DML_REPOSITORY.doInsert(newParentCases);
+
     Map<Id, Case> accountIdToNewParentCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      newCaseGroups,
+      newParentCases,
       Case.AccountId
     );
 
-    if (newCaseGroups != null && !newCaseGroups.isEmpty()) {
-      DML_REPOSITORY.doInsert(newCaseGroups);
+    Map<Id, Case> accountIdToAllParentCasesMap = new Map<Id, Case>(
+      accountIdToExistingParentCaseMap
+    );
+    accountIdToAllParentCasesMap.putAll(accountIdToNewParentCaseMap);
+
+    for (Case caseRecord : childCases) {
+      Case parentCase = accountIdToAllParentCasesMap.get(caseRecord.AccountId);
+
+      if (parentCase == null) {
+        continue;
+      }
+      caseRecord.ParentId = parentCase.Id;
+      caseRecord.Status = parentCase.Status;
+      caseRecord.Circumstance__c = parentCase.Circumstance__c;
+      caseRecord.OwnerId = parentCase.OwnerId ?? UserInfo.getUserId();
+    }
+  }
+
+  @TestVisible
+  private static List<Case> setParentCaseFieldsIfNotFound(
+    List<Case> childCases,
+    Map<Id, Case> accountIdToExistingParentCaseMap
+  ) {
+    List<Case> newParentCases = new List<Case>();
+    for (Case closureCase : childCases) {
+      if (accountIdToExistingParentCaseMap.containsKey(closureCase.AccountId)) {
+        continue;
+      }
+
+      Case newParentCase = new Case(
+        RecordTypeId = RTCase.caseGroup,
+        AccountId = closureCase.AccountId,
+        Type = GetHelpConstants.ACCOUNT_CLOSURE
+      );
+      newParentCases.add(newParentCase);
     }
 
-    AccountClosureCaseActionsHelper.assignClosureCasesToParentCase(
-      cases,
-      accountIdToExistingParentCaseMap,
-      accountIdToNewParentCaseMap
-    );
+    return newParentCases;
   }
 
   /**
    * @description This Method fetch all the child case records records linked to the case group(Parent case)
    * then set the field value of the child cases same as parent case
-   * @param records holds all the case group(Parent case) records whose owner is changed.
-   * @param oldMap holds the field values of old record
+   * @param parentCases holds all the case group(Parent case) records whose owner is changed.
    */
-  public static void updateChildCaseField(
-    List<Case> records,
-    Map<Id, Case> oldMap
+  public static void cascadeParentFieldChangesToChildCases(
+    List<Case> parentCases
   ) {
-    List<Case> cases = getCaseGroupRecordTypeForAccountClosure(records);
-    if (cases == null || cases.isEmpty()) {
-      return;
-    }
+    Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(parentCases);
 
-    Set<Schema.SObjectField> fieldsToMonitor = new Set<Schema.SObjectField>{
-      Case.OwnerId,
-      Case.Status,
-      Case.Circumstance__c
-    };
-    List<Case> changedParentCases = RecordComparisonUtil.getRecordsWithChangedFields(
-      cases,
-      oldMap,
-      fieldsToMonitor
-    );
-
-    if (changedParentCases == null || changedParentCases.isEmpty()) {
-      return;
-    }
-
-    Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
-      changedParentCases
-    );
-
-    List<Case> childCaseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryChildCaseRecords(
+    List<Case> childCaseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryRelatedChildCasesPerParent(
       parentIdAndCaseDetailsMap.keySet()
     );
 
-    List<Case> recordsToBeUpdated = AccountClosureCaseActionsHelper.setChildCaseField(
-      childCaseRecords,
-      oldMap,
-      parentIdAndCaseDetailsMap,
-      fieldsToMonitor
-    );
-
-    if (recordsToBeUpdated == null || recordsToBeUpdated.isEmpty()) {
-      return;
+    for (Case childCase : childCaseRecords) {
+      Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
+      childCase.OwnerId = parentCase.OwnerId;
+      childCase.Status = parentCase.Status;
+      childCase.Circumstance__c = parentCase.Circumstance__c;
     }
 
-    DML_REPOSITORY.doUpdate(recordsToBeUpdated);
+    DML_REPOSITORY.doUpdate(childCaseRecords);
   }
 
   /**
    * @description Change Owner as Account Closure Queue for escalated cases
-   * @param records List of Cases with record type as Case Group.
-   * @param oldMap Old Map of Cases
+   * @param escalatedCases List of Cases with record type as Case Group.
    */
-  public static void setQueueOwnerToEscalatedCases(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    List<Case> cases = getCaseGroupRecordTypeForAccountClosure(records);
-
-    if (cases == null || cases.isEmpty()) {
-      return;
+  public static void assignEscalatedCasesToQueue(List<Case> escalatedCases) {
+    for (Case escalatedCase : escalatedCases) {
+      escalatedCase.OwnerId = accountClosureQueue.Id;
     }
-
-    List<Case> escalatedCases = ListUtil.filter(cases, oldMap)
-      .changedTo(Case.Status, GetHelpConstants.ESCALATED_STATUS)
-      .toList();
-
-    if (escalatedCases == null || escalatedCases.isEmpty()) {
-      return;
-    }
-
-    AccountClosureCaseActionsHelper.assignOwnerAsQueue(escalatedCases);
   }
 
   /**
    * @description Populate the case Subject
    * @param cases List of Cases.
-   * @param oldMap Old Map of Cases
+   * @param recordType Name of the record Type
    */
-  public static void populateCaseSubject(
-    List<Case> cases,
-    Map<Id, Case> oldMap
-  ) {
-    if (oldMap != null) {
-      cases = ListUtil.filter(cases, oldMap).changed(Case.AccountId).toList();
-    }
-
-    if (cases == null || cases.isEmpty()) {
-      return;
-    }
-
+  public static void populateCaseSubject(List<Case> cases, String recordType) {
     Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
 
-    List<Account> accountInfo = ACCOUNT_CLOSURE_REPOSITORY.queryAccountName(
-      accountIds
-    );
-
     Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
-      accountInfo
+      ACCOUNT_CLOSURE_REPOSITORY.queryAccountName(accountIds)
     );
 
-    AccountClosureCaseActionsHelper.assignCaseSubject(
-      cases,
-      accountIdToAccountInfoMap
-    );
+    for (Case caserecord : cases) {
+      caserecord.Subject =
+        recordType +
+        ' - ' +
+        accountIdToAccountInfoMap.get(caserecord.AccountId).Name;
+    }
   }
 
   /**
    * @description Prevent Duplicate Case Group Against a Customer (Account)
-   * @param records List of Cases
-   * @param oldMap Map of old Case values
+   * @param parentCases List of Cases
    */
-  public static void validateDuplicateCaseGroupPerAccount(
-    List<Case> records,
-    Map<Id, SObject> oldMap
+  public static void validateDuplicateParentCasePerAccount(
+    List<Case> parentCases
   ) {
-    List<Case> cases = getCaseGroupRecordTypeForAccountClosure(records);
-
-    if (oldMap != null) {
-      cases = getChangedRecords(cases, oldMap, case.AccountId);
-    }
-
-    if (cases == null || cases.isEmpty()) {
-      return;
-    }
-
     Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      cases,
+      parentCases,
       Case.AccountId
     );
 
-    List<Case> existingCaseGroupRecords = ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedCaseGroups(
-      accountIdAndCaseMap.keySet()
-    );
-    for (Case existingCaseGroupRecord : existingCaseGroupRecords) {
+    for (
+      Case existingCaseGroupRecord : ACCOUNT_CLOSURE_REPOSITORY.queryExistingParentCases(
+        accountIdAndCaseMap.keySet()
+      )
+    ) {
       Case caseRecord = accountIdAndCaseMap.get(
         existingCaseGroupRecord.AccountId
       );
@@ -207,43 +167,25 @@ public with sharing class AccountClosureCaseActions {
 
   /**
    * @description Validate case group closure . Change status to closed when all related cases are in closed status.
-   * @param records List of Cases.
-   * @param oldMap Old Map of Cases
+   * @param parentCases List of Cases.
    */
-  public static void validateCaseGroupClosure(
-    List<Case> records,
-    Map<Id, Case> oldMap
+  public static void validateParentClosureIfChildCasesOpen(
+    List<Case> parentCases
   ) {
-    List<Case> cases = getCaseGroupRecordTypeForAccountClosure(records);
+    Set<Id> caseIds = ListUtil.getIds(parentCases, Case.Id);
 
-    List<Case> caseGroupRecordsChangedToClosed = ListUtil.filter(cases, oldMap)
-      .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
-      .toList();
+    Set<Id> parentCaseIdsWithChild = new Set<Id>();
 
-    if (
-      caseGroupRecordsChangedToClosed == null ||
-      caseGroupRecordsChangedToClosed.isEmpty()
+    for (
+      Case childCaseRecord : ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedChildCases(
+        caseIds
+      )
     ) {
-      return;
+      parentCaseIdsWithChild.add(childCaseRecord.ParentId);
     }
 
-    Set<Id> caseIds = ListUtil.getIds(caseGroupRecordsChangedToClosed, Case.Id);
-    List<Case> childCaseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedAccountClosureCases(
-      caseIds
-    );
-
-    if (childCaseRecords.isEmpty()) {
-      return;
-    }
-
-    Map<Id, List<Case>> parentChildCaseMap = AccountClosureCaseActionsHelper.setParentChildCaseMap(
-      childCaseRecords
-    );
-
-    for (Case caseGroupRecord : caseGroupRecordsChangedToClosed) {
-      List<Case> caseRecords = parentChildCaseMap.get(caseGroupRecord.Id);
-
-      if (caseRecords.size() > 0) {
+    for (Case caseGroupRecord : parentCases) {
+      if (parentCaseIdsWithChild.contains(caseGroupRecord.Id)) {
         CommonUtil.addErrorToRecordAndLog(
           caseGroupRecord,
           CASEGROUP_CLOSURE_ERROR_MESSAGE
@@ -254,94 +196,42 @@ public with sharing class AccountClosureCaseActions {
 
   /**
    * @description Update button Visibility Flags
-   * @param records List of Cases
-   * @param oldMap Map of old Case values
+   * @param childCases List of Cases
    */
-  public static void handleButtonVisibiltyFlag(
-    List<Case> records,
-    Map<Id, SObject> oldMap
-  ) {
-    List<Case> cases = (records != null && !records.isEmpty())
-      ? getAccountClosureRecords(records)
-      : new List<Case>();
+  public static void handleButtonVisibiltyFlags(List<Case> childCases) {
+    Set<Id> parentCaseIds = ListUtil.getIds(childCases, Case.ParentId);
 
-    List<Case> filteredCases = new List<Case>();
-
-    if (oldMap != null) {
-      filteredCases.addAll(getChangedRecords(cases, oldMap, case.Status));
-      filteredCases.addAll(
-        getChangedRecords(cases, oldMap, case.Sub_Status__c)
-      );
-    }
-
-    Set<Id> parentCaseIds = ListUtil.getIds(
-      oldMap != null ? filteredCases : cases,
-      Case.ParentId
-    );
-
-    if (cases == null || cases.isEmpty()) {
+    if (parentCaseIds.isEmpty()) {
       return;
     }
 
-    List<Case> eligibleChildCasesForInitiatingClosure = ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCaseRecords(
-      parentCaseIds
-    );
-
-    List<Case> eligibleChildCasesForAccountClosure = ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesForClosure(
-      parentCaseIds
-    );
-
-    Set<Id> parentIdsForInitiatingClosure = ListUtil.getIds(
-      eligibleChildCasesForInitiatingClosure,
+    Set<Id> parentIdsForInitiatingPrecheck = ListUtil.getIds(
+      ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
+        parentCaseIds
+      ),
       Case.ParentId
     );
     Set<Id> parentIdsForAccountClosure = ListUtil.getIds(
-      eligibleChildCasesForAccountClosure,
+      ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForClosure(
+        parentCaseIds
+      ),
       Case.ParentId
     );
 
-    List<Case> parentCasesToUpdate = AccountClosureCaseActionsHelper.setParentFieldValues(
-      parentCaseIds,
-      parentIdsForInitiatingClosure,
-      parentIdsForAccountClosure
-    );
-
+    List<Case> parentCasesToUpdate = new List<Case>();
+    for (Id parentId : parentCaseIds) {
+      parentCasestoUpdate.add(
+        new Case(
+          Id = parentId,
+          Show_Initiate_Account_Closure__c = parentIdsForInitiatingPrecheck.contains(
+            parentId
+          ),
+          Show_Account_Closure__c = parentIdsForAccountClosure.contains(
+            parentId
+          )
+        )
+      );
+    }
     DML_REPOSITORY.doUpdate(parentCasesToUpdate);
-  }
-
-  //Fetch Records with Account Closure record type and no Parent case attached to it
-  private static List<Case> getAccountClosureCasesWithoutParent(
-    List<Case> records
-  ) {
-    return ListUtil.filter(records)
-      .equals(case.RecordTypeId, RTCase.accountClosure)
-      .isNull(Case.ParentId)
-      .toList();
-  }
-
-  //Fetch records with Case Group record type
-  private static List<Case> getCaseGroupRecordTypeForAccountClosure(
-    List<Case> records
-  ) {
-    return ListUtil.filter(records)
-      .equals(case.RecordTypeId, RTCase.caseGroup)
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
-      .toList();
-  }
-
-  //Fetch records with Account Closure record type
-  private static List<Case> getAccountClosureRecords(List<Case> records) {
-    return ListUtil.filter(records)
-      .equals(Case.RecordTypeId, RTCase.accountClosure)
-      .toList();
-  }
-
-  //Fetch records if the mentioned field value gets updated
-  private static List<Case> getChangedRecords(
-    List<Case> records,
-    Map<Id, SObject> oldMap,
-    Schema.SObjectField fieldName
-  ) {
-    return ListUtil.filter(records, oldMap).changed(fieldName).toList();
   }
 }

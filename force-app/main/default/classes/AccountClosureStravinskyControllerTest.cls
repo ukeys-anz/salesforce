@@ -3,7 +3,7 @@
  * @since Jan 2025
  * @description Test class for AccountClosureStravinskyController
  */
-@isTest
+@IsTest(SeeAllData=true)
 public with sharing class AccountClosureStravinskyControllerTest {
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
@@ -45,13 +45,24 @@ public with sharing class AccountClosureStravinskyControllerTest {
     );
   }
 
-  @isTest
-  private static void testUpdateCaseStatusSuccess() {
+  @IsTest(SeeAllData=true)
+  private static void testUpdateCaseStatusAndPostChatterMessageSuccess() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryCaseToUpdateStatusAsClosed',
       mockQueryCaseToUpdateStatusAsClosed()
     );
+
+    dmlRepoMock.mock(
+      'doUpdate',
+      new List<Database.SaveResult>{
+        TestUtil.getMockSaveResult(
+          '{"success":true,"id":"' + FAKER_CHILD_CASE_ID + '"}'
+        )
+      }
+    );
+    Boolean exceptionThrown = false;
+
     List<Id> records = new List<Id>{ FAKER_CHILD_CASE_ID };
 
     List<Case> childCaseRecords = mockQueryCaseToUpdateStatusAsClosed();
@@ -62,7 +73,20 @@ public with sharing class AccountClosureStravinskyControllerTest {
     );
 
     Test.startTest();
-    AccountClosureStravinskyController.updateCaseStatus(records);
+    try {
+      AccountClosureStravinskyController.updateCaseStatusAndPostChatterMessage(
+        records
+      );
+    } catch (ConnectApi.ConnectApiException e) {
+      System.assertEquals(
+        'You posted to a group that has been deleted or archived.',
+        e.getMessage(),
+        'You posted to a group that has been deleted or archived.'
+      );
+      exceptionThrown = true;
+    }
+    System.assert(exceptionThrown, 'Exception should be thrown');
+
     Test.stopTest();
 
     List<Case> caseRecordsUpdated = (List<Case>) dmlRepoMock.getHistory(
@@ -77,7 +101,7 @@ public with sharing class AccountClosureStravinskyControllerTest {
   }
 
   @isTest
-  private static void testUpdateCaseStatusNegative() {
+  private static void testUpdateCaseStatusAndPostChatterMessageNegative() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryCaseToUpdateStatusAsClosed',
@@ -87,45 +111,14 @@ public with sharing class AccountClosureStravinskyControllerTest {
     List<Id> records = new List<Id>();
 
     Test.startTest();
-    AccountClosureStravinskyController.updateCaseStatus(records);
+    AccountClosureStravinskyController.updateCaseStatusAndPostChatterMessage(
+      records
+    );
     Test.stopTest();
 
     Assert.isNull(
       dmlRepoMock.getHistory('doUpdate'),
       'doUpdate should not have been invoked'
-    );
-  }
-
-  @isTest
-  private static void testSetStatusToClosedSuccess() {
-    List<Case> caseRecords = mockQueryCaseToUpdateStatusAsClosed();
-
-    Assert.isTrue(
-      caseRecords[0].Status == 'Escalated',
-      'Child case status is Escalated'
-    );
-
-    Test.startTest();
-    AccountClosureStravinskyController.setStatusToClosed(caseRecords);
-    Test.stopTest();
-
-    Assert.isTrue(
-      caseRecords[0].Status == 'Closed',
-      'Child case status is set to Closed'
-    );
-  }
-
-  @isTest
-  private static void testSetStatusToClosedNegative() {
-    List<Case> caseRecords = mockQueryCaseToUpdateStatusAsClosed();
-    List<Case> records = new List<Case>();
-    Test.startTest();
-    AccountClosureStravinskyController.setStatusToClosed(records);
-    Test.stopTest();
-
-    Assert.isFalse(
-      caseRecords[0].Status == 'Closed',
-      'Child case status is set to Closed'
     );
   }
 
