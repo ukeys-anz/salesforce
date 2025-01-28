@@ -1,8 +1,11 @@
 import { LightningElement, api, wire } from "lwc";
+import { getRecord } from "lightning/uiRecordApi";
 import fetchEligibleCasesForPrecheck from "@salesforce/apex/AccountClosureController.fetchEligibleCasesForPrecheck";
 import initiateAccountClosurePrecheck from "@salesforce/apex/AccountClosureController.initiateAccountClosurePrechecks";
 import processResponsesAndUpdateCases from "@salesforce/apex/AccountClosureController.processResponsesAndUpdateCases";
 import { CloseActionScreenEvent } from "lightning/actions";
+
+const fields = ["Case.Account.OCV_ID__c"];
 
 const caseColumns = [
   { label: "Product", fieldName: "product" },
@@ -17,6 +20,7 @@ const caseColumns = [
 ];
 export default class InitiateAccountClosurePrecheck extends LightningElement {
   caseColumns = caseColumns;
+  customerOcvId;
   casesData = [];
   eligibleChildCases = [];
   successfulCases = [];
@@ -25,6 +29,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   responseDataSuccess = [];
   responseDataFailed = [];
   loading = false;
+  hasFetchedCases = false;
   eligibleCasesFound = false;
   isPrecheckSuccess = false;
   isPrecheckFailed = false;
@@ -61,12 +66,30 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
     return this.eligibleCasesFound;
   }
 
-  @wire(fetchEligibleCasesForPrecheck, { parentCaseId: "$recordId" })
-  getEligibleChildCasesForPrecheck({ data }) {
+  @wire(getRecord, { recordId: "$recordId", fields })
+  wiredData({ data }) {
     try {
-      if (data && data.length > 0) {
-        this.eligibleChildCases = data;
-        this.casesData = this.generateData(data);
+      if (data && !this.hasFetchedCases) {
+        this.customerOcvId =
+          data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
+        if (this.customerOcvId) {
+          this.hasFetchedCases = true;
+          this.getEligibleChildCasesForPrecheck();
+        }
+      }
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  async getEligibleChildCasesForPrecheck() {
+    try {
+      const caseDetails = await fetchEligibleCasesForPrecheck({
+        parentCaseId: this.recordId
+      });
+      if (caseDetails && caseDetails.length > 0) {
+        this.eligibleChildCases = caseDetails;
+        this.casesData = this.generateData(caseDetails);
         this.eligibleCasesFound = true;
       }
     } catch (error) {
@@ -85,7 +108,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       const results = await Promise.allSettled(
         childCasesBatches.map((batch) =>
           initiateAccountClosurePrecheck({
-            parentCaseId: this.recordId,
+            customerOcvId: this.customerOcvId,
             eligibleCasesForPrecheck: batch
           })
             .then((response) => ({

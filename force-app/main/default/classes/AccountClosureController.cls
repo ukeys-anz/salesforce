@@ -19,35 +19,27 @@ public with sharing class AccountClosureController {
    */
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
-    try {
       return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
         new Set<Id>{ parentCaseId }
       );
-    } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
-    }
   }
 
   /**
    * @description Initiate Account Closure Prechecks by making callout to Fabric Seal and perform after actions based on response for each case
-   * @param parentCaseId Parent Case Id for which Precheck Initiated
+   * @param customerOcvId customerOcvId from Parent Case for which Precheck Initiated
    * @param eligibleCasesForPrecheck Cases to be sent to Fabric Seal for Precheck
    * @return List<AccountClosurePrecheckResponseModel> fabric seal response for each case
    */
   @AuraEnabled
   public static List<AccountClosurePrecheckResponseModel> initiateAccountClosurePrechecks(
-    Id parentCaseId,
+    String customerOcvId,
     List<Case> eligibleCasesForPrecheck
   ) {
     try {
-      Case parentCaseRecord = ACCOUNT_CLOSURE_REPOSITORY.queryCaseDetails(
-        parentCaseId
-      );
-
       AccountClosureApiRepository accountClosurePrecheckApi = new AccountClosureApiRepository();
 
       return accountClosurePrecheckApi.initiateAccountClosurePreChecks(
-        parentCaseRecord.Account.OCV_ID__c,
+        customerOcvId,
         eligibleCasesForPrecheck
       );
     } catch (Exception objException) {
@@ -83,12 +75,9 @@ public with sharing class AccountClosureController {
         accountClosurePrecheckResponse
       );
 
-      if (successCases.isEmpty() && failedCases.isEmpty()) {
-        return new List<Case>();
-      }
-
-      Map<String, Id> caseNumberToIdMap = AccountClosureControllerHelper.createCaseNumberToIdMap(
-        eligibleCasesForPrecheck
+      Map<String, Case> caseNumberToIdMap = (Map<String, Case>) ListUtil.mapBy(
+        eligibleCasesForPrecheck,
+        Case.CaseNumber
       );
 
       List<Case> casesToUpdate = AccountClosureControllerHelper.prepareCasesForUpdate(
@@ -114,12 +103,8 @@ public with sharing class AccountClosureController {
    */
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchChildCasesForClosure(Id parentCaseId) {
-    try {
       return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForClosure(
         new Set<Id>{ parentCaseId }
       );
-    } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
-    }
   }
 }
