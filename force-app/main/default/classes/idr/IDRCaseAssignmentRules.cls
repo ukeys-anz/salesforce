@@ -128,12 +128,17 @@ public with sharing class IDRCaseAssignmentRules {
     }
 
     if (
-      (oldCase != null &&
+      oldCase != null &&
       oldcaseStatus.contains(oldCase.Status) &&
-      (oldCase.Status != rec.Status || oldCase.RecordTypeId == rec.RecordTypeId)) ||
-      (oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS && rec.Status == IDRConstants.ESCALATED_STATUS
-       && rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED)
+      (oldCase.Status != rec.Status || oldCase.RecordTypeId == rec.RecordTypeId)
     ) {
+      return rec.OwnerId;
+    }
+      
+    if(oldCase != null && 
+       oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS &&
+       rec.Status == IDRConstants.ESCALATED_STATUS &&
+       rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED){
       return rec.OwnerId;
     }
 
