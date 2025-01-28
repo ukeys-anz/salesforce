@@ -11,119 +11,42 @@ public with sharing class AccountClosureControllerHelper {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final String PRECHECK_ACCEPTED = 'ACCEPTANCE_ACCEPTED';
-  private static final String PRECHECK_REJECTED = 'ACCEPTANCE_REJECTED';
+  
   private static final String TECHNICAL_ERROR = 'techError';
-  private static final String NOT_ELIGIBLE = 'ELIGIBILITY_INELIGIBLE';
-
-  /**
-   * @description method to process response and segregrate success and failure cases and update
-   * @param fabricSealResponseList response received from fabric seal api
-   * @param eligibleCasesForPrecheck eligibleCasesForPrecheck
-   * @return List<Case> list of cases updated successfully
-   */
-  public static List<Case> processResponsesAndUpdateCases(
-    List<Object> fabricSealResponseList,
-    List<Case> eligibleCasesForPrecheck
-  ) {
-    Map<String, String> successCases = new Map<String, String>();
-    Map<String, Set<String>> failedCases = new Map<String, Set<String>>();
-
-    segregrateResponses(successCases, failedCases, fabricSealResponseList);
-
-    Map<String, Id> caseNumberToIdMap = createCaseNumberToIdMap(
-      eligibleCasesForPrecheck
-    );
-
-    List<Case> casesToUpdate = prepareCasesForUpdate(
-      successCases,
-      failedCases,
-      caseNumberToIdMap
-    );
-
-    if (casesToUpdate.isEmpty()) {
-      return new List<Case>();
-    }
-
-    DML_REPOSITORY.doUpdate(casesToUpdate, new DmlConfig().allowPartial());
-
-    return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesDetailsPostPrecheck(
-      new Map<Id, Case>(casesToUpdate)
-    );
-  }
 
   /**
    * @description method to prepare map of successful cases and failed cases
    * @param successCases pass by reference for map of successfull cases and their business process id
    * @param failedCases  pass by reference for map of failed cases and their failed reasons
-   * @param fabricSealResponseList consolidated fabric seal response
+   * @param accountClosurePrecheckResponse consolidated fabric seal response
    */
-  private static void segregrateResponses(
+  public static void segregrateCasesByResponseStatus(
     Map<String, String> successCases,
     Map<String, Set<String>> failedCases,
-    List<Object> fabricSealResponseList
+    List<CaseInputWrapper> accountClosurePrecheckResponse
   ) {
-    for (Object eachResponse : fabricSealResponseList) {
-      Map<String, Object> response = (Map<String, Object>) JSON.deserializeUntyped(
-        JSON.serialize(eachResponse)
-      );
-      if ((String) response.get('acceptance') == PRECHECK_ACCEPTED) {
-        successCases.put(
-          (String) response.get('salesforceCaseNumber'),
-          (String) response.get('businessProcessId')
-        );
-      } else if ((String) response.get('acceptance') == PRECHECK_REJECTED) {
-        Set<String> failedReasons = createFailedReasonsSet(
-          response.get('unsatisfiedPreconditions')
-        );
-        if (!failedReasons.isEmpty()) {
-          failedCases.put(
-            (String) response.get('salesforceCaseNumber'),
-            failedReasons
-          );
-        }
-      } else if (
-        (String) response.get('acceptance') == null &&
-        (String) response.get('message') != null
-      ) {
-        failedCases.put(
-          (String) response.get('salesforceCaseNumber'),
-          new Set<String>{ TECHNICAL_ERROR }
-        );
-      }
-    }
-  }
-  /**
-   * @description method to create set of failed reasons whose eligibility is ineligible
-   * @param reasons instance of FabricSealResponseModel.UnsatisfiedPreconditions
-   * @return Set<String> set of reasons which are ineligible
-   */
-  private static Set<String> createFailedReasonsSet(Object reasons) {
-    Set<String> failedReasons = new Set<String>();
-    if (reasons == null) {
-      return failedReasons;
-    }
-
-    Map<String, Object> failedReasonsMap = (Map<String, Object>) reasons;
-
-    for (String reason : failedReasonsMap.keySet()) {
-      Object reasonValue = failedReasonsMap.get(reason);
-      if (reasonValue instanceof Map<String, Object>) {
-        Map<String, Object> reasonDetails = (Map<String, Object>) reasonValue;
-        if ((String) reasonDetails.get('eligibility') == NOT_ELIGIBLE) {
-          failedReasons.add(reason);
+    for(CaseInputWrapper response : accountClosurePrecheckResponse)
+      {
+        Switch on response.acceptance {
+          when 'ACCEPTANCE_ACCEPTED' {
+            successCases.put(response.salesforceCaseNumber, response.businessProcessId);
+          }
+          when 'ACCEPTANCE_REJECTED'{
+            failedCases.put(response.salesforceCaseNumber, new Set<String> (response.failedReasons));
+          }
+          when else{
+            failedCases.put(response.salesforceCaseNumber, new Set<String>{ TECHNICAL_ERROR });
+          }
         }
       }
     }
-    return failedReasons;
-  }
 
   /**
    * @description method to create set of failed reasons whose eligibility is ineligible
    * @param cases List of Eligible Cases for Precheck
    * @return Map<String, Id> map of CaseNumber and Id
    */
-  private static Map<String, Id> createCaseNumberToIdMap(List<Case> cases) {
+  public static Map<String, Id> createCaseNumberToIdMap(List<Case> cases) {
     Map<String, Id> caseNumberToIdMap = new Map<String, Id>();
     for (Case caseRec : cases) {
       caseNumberToIdMap.put(caseRec.CaseNumber, caseRec.Id);
@@ -138,42 +61,101 @@ public with sharing class AccountClosureControllerHelper {
    * @param caseNumberToIdMap Map<String, Id>
    * @return List of cases to be updated
    */
-  private static List<Case> prepareCasesForUpdate(
+  public static List<Case> prepareCasesForUpdate(
     Map<String, String> successCases,
     Map<String, Set<String>> failedCases,
     Map<String, Id> caseNumberToIdMap
   ) {
     List<Case> casesToUpdate = new List<Case>();
 
-    if (!successCases.isEmpty()) {
-      for (String caseNumber : successCases.keySet()) {
-        casesToUpdate.add(
-          new Case(
-            Id = caseNumberToIdMap.get(caseNumber),
-            Status = GetHelpConstants.ESCALATED_STATUS,
-            Sub_Status__c = GetHelpConstants.PROCESSING,
-            Process_ID__c = successCases.get(caseNumber)
-          )
-        );
+    Set<String> allPrecheckedCases = new Set<String>();
+    allPrecheckedCases.addAll(successCases.keySet());
+    allPrecheckedCases.addAll(failedCases.keySet());
+ 
+    for(String caseNumber : allPrecheckedCases)
+    {
+      Case caseRecord = new Case(Id = caseNumberToIdMap.get(caseNumber));
+ 
+      if(successCases.containsKey(caseNumber)){       
+        caseRecord.Sub_Status__c = GetHelpConstants.PROCESSING;
+        caseRecord.Process_ID__c = successCases.get(caseNumber);
       }
-    }
+      else{
+        caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
 
-    if (!failedCases.isEmpty()) {
-      for (String caseNumber : failedCases.keySet()) {
-        Case failedCase = new Case(
-          Id = caseNumberToIdMap.get(caseNumber),
-          Status = GetHelpConstants.ESCALATED_STATUS,
-          Sub_Status__c = GetHelpConstants.FAILED
-        );
-
-        AccountClosureActionNotifier.postFailureMessage(
+        postFailureMessage(
           caseNumberToIdMap.get(caseNumber),
           failedCases.get(caseNumber)
         );
-        casesToUpdate.add(failedCase);
+      }
+      casesToUpdate.add(caseRecord);
+    }
+    return casesToUpdate;
+  }
+
+  /**
+   * @description post failure message on the sobject id passed
+   * @param sObjectId Id of the case record
+   * @param failureReasons Set<String> failure reasons
+   */
+  private static void postFailureMessage(
+    String sObjectId,
+    Set<String> failureReasons
+  ) {
+
+    String richTextMessage = composeRichTextMessage(
+      ACCOUNT_CLOSURE_REPOSITORY.getFailureMetadata(failureReasons)
+    );
+
+    if(!String.isBlank(richTextMessage))
+    {
+      ConnectApiHelper.postFeedItemWithRichText(null, sObjectId, richTextMessage);
+    }
+  }
+
+  /**
+   * @description post failure message on the sobject id passed
+   * @param actionsList list of failure actions
+   * @return richText to be posted on chatter
+   */
+  private static String composeRichTextMessage(
+    List<AccountClosureErrorMetadata__mdt> actionsList
+  ) {
+    //Seperate constants and failure-specific actions
+    List<String> messageParts = new List<String>();
+    List<String> constantMessages = new List<String>();
+    Map<String, List<String>> reasonToActions = new Map<String, List<String>>();
+    Map<String, String> reasonToActionLabelMap = new Map<String, String>();
+
+    for (AccountClosureErrorMetadata__mdt actions : actionsList) {
+      if (actions.Type__c == 'Constant') {
+        constantMessages.add(actions.Chatter_Post__c);
+      } else {
+        if (!reasonToActions.containsKey(actions.Failure_Reason__c)) {
+          reasonToActions.put(actions.Failure_Reason__c, new List<String>());
+          reasonToActionLabelMap.put(actions.Failure_Reason__c, actions.Label);
+        }
+
+        List<String> actionsBullet = actions.Chatter_Post__c.split('\n');
+        reasonToActions.get(actions.Failure_Reason__c).addAll(actionsBullet);
       }
     }
 
-    return casesToUpdate;
+    //Add constant message
+    messageParts.addAll(constantMessages);
+
+    //Add failure specific actions grouped by reason
+    for (String reason : reasonToActions.keySet()) {
+      List<String> reasonMessageParts = new List<String>();
+      reasonMessageParts.add(reasonToActionLabelMap.get(reason));
+
+      for (String action : reasonToActions.get(reason)) {
+        reasonMessageParts.add('• ' + action.trim());
+      }
+
+      messageParts.add(String.join(reasonMessageParts, '\n'));
+    }
+
+    return String.join(messageParts, '\n\n').trim();
   }
 }

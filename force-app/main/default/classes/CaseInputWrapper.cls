@@ -49,4 +49,25 @@ public with sharing class CaseInputWrapper {
    */
   @AuraEnabled
   public Id productId { get; set; }
+
+  /**
+   * @description Salesforce Case Number for the Case
+   */
+  @AuraEnabled
+  public String salesforceCaseNumber { get; set; }
+  /**
+   * @description Precheck Acceptance Status for the Case
+   */
+  @AuraEnabled
+  public String acceptance { get; set; }
+  /**
+   * @description Precheck Failed Reasons for the Case
+   */
+  @AuraEnabled
+  public List<String> failedReasons { get; set; }
+  /**
+   * @description Business Process Id for the Case
+   */
+  @AuraEnabled
+  public String businessProcessId { get; set; }
 }

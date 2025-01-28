@@ -13,7 +13,7 @@ public with sharing virtual class AccountClosureService extends Service {
    */
   public virtual HttpCalloutResponse initiateAccountClosurePreChecks(
     String ocvId,
-    List<FabricSealRequestModel> accountDetailsForPrechecks
+    List<AccountClosurePrecheckRequestModel> accountDetailsForPrechecks
   ) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
