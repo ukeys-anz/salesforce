@@ -10,10 +10,10 @@ public with sharing class AccountClosureApiRepository {
     /**
      * @param ocvId ocvId of the customer
      * @param eligibleCaseList card number to be detokenzed
-     * @return List<FabricSealResponseModel> fabric seal responses for each cases
+     * @return List<AccountClosurePrecheckResponseModel> fabric seal responses for each cases
      * @description initiate Fabric Seal Prechecks for eligible cases
      */
-    public List<FabricSealResponseModel> initiateAccountClosurePreChecks(
+    public List<AccountClosurePrecheckResponseModel> initiateAccountClosurePreChecks(
     String ocvId,
     List<Case> eligibleCaseList
     ) {
@@ -28,8 +28,7 @@ public with sharing class AccountClosureApiRepository {
         AccountClosureService serviceInstance = (AccountClosureService) ServiceProvider.getService(
             AccountClosureService.class
         );
-        List<FabricSealRequestModel> contextReq = generateFabricSealInputRequest(eligibleCaseList);
-        
+        List<AccountClosurePrecheckRequestModel> contextReq = generateAccountClosurePrecheckRequest(eligibleCaseList);
         HttpCalloutResponse response = serviceInstance.initiateAccountClosurePreChecks(
             ocvId,
             contextReq
@@ -39,54 +38,36 @@ public with sharing class AccountClosureApiRepository {
             throw CommonUtil.logException(response);
         }
 
-        return FabricSealResponseModel.parse(response.body);
+        return AccountClosurePrecheckResponseModel.parse(response.body);
     }
 
 
     /**
      * @description Generate Json Request to be sent to Mulesoft
      * @param eligibleCaseList contains list of eligible cases for sending to Fabric Seal for prechecks
-     * @return FabricSealRequestModel to be sent to Mulesoft
+     * @return AccountClosurePrecheckRequestModel to be sent to Mulesoft
      */
     @testVisible
-    private List<FabricSealRequestModel> generateFabricSealInputRequest(List<Case> eligibleCaseList)
+    private List<AccountClosurePrecheckRequestModel> generateAccountClosurePrecheckRequest(List<Case> eligibleCaseList)
     {
-        List<FabricSealRequestModel> fabricSealRequestList = new List<FabricSealRequestModel>();
+        List<AccountClosurePrecheckRequestModel> accountClosurePrecheckRequestList = new List<AccountClosurePrecheckRequestModel>();
         for(Case eligibleCase: eligibleCaseList)
         {
-            FabricSealRequestModel fabSealInput = new FabricSealRequestModel(
-                'accounts/' + (eligibleCase.FinServ__FinancialAccount__r?.FinServ__FinancialAccountNumber__c ?? ''),
+            AccountClosurePrecheckRequestModel accountClosurePrecheckInput = new AccountClosurePrecheckRequestModel(
+                'accounts/' + eligibleCase.FinServ__FinancialAccount__r?.FinServ__FinancialAccountNumber__c,
                 eligibleCase.CaseNumber,
-                new FabricSealRequestModel.ForwardingAccount(
-                    eligibleCase?.Intended_Account_Number__c ?? '',
-                    eligibleCase?.Intended_Account_Name__c ?? '',
-                    eligibleCase?.Intended_Account_BSB__c ?? ''
+                new AccountClosurePrecheckRequestModel.ForwardingAccount(
+                    eligibleCase.Intended_Account_Number__c,
+                    eligibleCase.Intended_Account_Name__c,
+                    eligibleCase.Intended_Account_BSB__c
                 )
             );
-            fabricSealRequestList.add(fabSealInput);
+            accountClosurePrecheckRequestList.add(accountClosurePrecheckInput);
         }
-
-        return fabricSealRequestList;
-
+        return accountClosurePrecheckRequestList;
     }
 
     /**
-     * @author Shivam Swaraj
-     * @since December 2024
-     * @description no failed reason record found in the metadata for provided failed reason
-     */
-    public class NoFailedReasonFoundException extends Exception {
-    }
-
-    /**
-     * @author Shivam Swaraj
-     * @since December 2024
-     * @description no eligible cases found
-     */
-    public class NoEligibleCasesFoundException extends Exception {
-    }
-
-       /**
      * @author Shivam Swaraj
      * @since December 2024
      * @description required field missing excpetion

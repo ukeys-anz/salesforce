@@ -19,14 +19,14 @@ public with sharing class AccountClosureServiceTest {
 
   private static final String MOCK_CASE_NUMBER = '03771916';
 
-  private static final StaticResource MOCK_SEAL_RESPONSE = [
+  private static final StaticResource MOCK_PRECHECK_RESPONSE = [
     SELECT body
     FROM StaticResource
     WHERE Name = 'mock_AccountClosurePrecheckSuccess'
   ];
   @isTest
   static void testInitiateAccountClosurePreChecksSuccess() {
-    Test.setMock(HttpCalloutMock.class, new FabricSealMockResponse());
+    Test.setMock(HttpCalloutMock.class, new AccountClosurePrecheckMockResponse());
     //load forge staff token
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',
@@ -35,7 +35,7 @@ public with sharing class AccountClosureServiceTest {
 
     Test.startTest();
     AccountClosureApiRepository apiRepoInstance = new AccountClosureApiRepository();
-    List<FabricSealRequestModel> contextReq = apiRepoInstance.generateFabricSealInputRequest(
+    List<AccountClosurePrecheckRequestModel> contextReq = apiRepoInstance.generateAccountClosurePrecheckRequest(
       mockQueryEligibleChildCases()
     );
     AccountClosureService serviceInstance = new AccountClosureService();
@@ -49,7 +49,7 @@ public with sharing class AccountClosureServiceTest {
     Assert.isTrue(contextReq.size() > 0, 'Response Done Successfully');
   }
 
-  class FabricSealMockResponse implements HttpCalloutMock {
+  class AccountClosurePrecheckMockResponse implements HttpCalloutMock {
     /**
      * @description mock response for callout
      * @param req incoming request
@@ -58,7 +58,7 @@ public with sharing class AccountClosureServiceTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setStatusCode(200);
-      res.setBody(JSON.serialize(MOCK_SEAL_RESPONSE.body));
+      res.setBody(JSON.serialize(MOCK_PRECHECK_RESPONSE.body));
       res.setHeader('Content-Type', 'application/json');
       return res;
     }

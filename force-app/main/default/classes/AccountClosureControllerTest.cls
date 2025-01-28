@@ -32,7 +32,7 @@ public with sharing class AccountClosureControllerTest {
    * @description test method for fetchEligibleChildCasesForPrecheck when successful
    */
   @isTest
-  public static void testFetchEligibleCasesForPrecheckSuccess() {
+  public static void testFetchEligibleCasesForPrecheckPositive() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryEligibleChildCasesForPrecheck',
@@ -49,31 +49,50 @@ public with sharing class AccountClosureControllerTest {
       'There should be one eligible child case for precheck'
     );
   }
+  /**
+   * @description test method for fetchEligibleChildCasesForPrecheck when unsuccessful
+   */
+  @isTest
+  public static void testFetchEligibleCasesForPrecheckNegative() {
+    Exception resultException;
+    Test.startTest();
+    try {
+      AccountClosureController.fetchEligibleCasesForPrecheck('ABGSDSGSJ');
+    } catch (Exception objException) {
+      resultException = objException;
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      resultException.getMessage(),
+      'Invalid id: ABGSDSGSJ',
+      'Exception was expected'
+    );
+  }
 
   /**
    * @description test method for initiateAccountClosurePrecheck when successful
    */
   @isTest
-  public static void testInitiateAccountClosurePrecheckSuccess() {
+  public static void testInitiateAccountClosurePrecheckPositive() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryCaseDetails',
       mockCaseRecord(MOCK_CASE_NUMBER, '')
     );
     Test.startTest();
-    List<FabricSealResponseModel> response = AccountClosureController.initiateAccountClosurePrecheck(
+    List<AccountClosurePrecheckResponseModel> response = AccountClosureController.initiateAccountClosurePrechecks(
       FAKER_PARENT_CASE_ID,
       mockQueryEligibleChildCases(MOCK_CASE_NUMBER)
     );
     Test.stopTest();
-    Assert.isTrue(response.size() > 0, 'Fabric Seal Response Successful');
+    Assert.isTrue(response.size() > 0, 'Precheck Response Successful');
   }
 
   /**
    * @description test method for initiateAccountClosurePrecheck when unsuccessful
    */
   @isTest
-  public static void testInitiateAccountClosurePrecheckFailure() {
+  public static void testInitiateAccountClosurePrecheckNegative() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryCaseDetails',
@@ -82,7 +101,7 @@ public with sharing class AccountClosureControllerTest {
     Exception resultException;
     Test.startTest();
     try {
-      AccountClosureController.initiateAccountClosurePrecheck(
+      AccountClosureController.initiateAccountClosurePrechecks(
         FAKER_PARENT_CASE_ID,
         new List<Case>()
       );
@@ -102,7 +121,7 @@ public with sharing class AccountClosureControllerTest {
    * @description test method for processResponsesAndUpdateCases when successful
    */
   @isTest
-  public static void testProcessResponsesAndUpdateCasesSuccess() {
+  public static void testProcessResponsesAndUpdateCasesPositive() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryCaseDetails',
@@ -118,12 +137,14 @@ public with sharing class AccountClosureControllerTest {
     );
 
     Test.startTest();
-    List<FabricSealResponseModel> response = AccountClosureController.initiateAccountClosurePrecheck(
-      FAKER_PARENT_CASE_ID,
-      mockQueryEligibleChildCases(MOCK_CASE_NUMBER)
+    List<CaseInputWrapper> caseInputList = mockCaseInputWrapper(
+      MOCK_CASE_NUMBER,
+      'ACCEPTANCE_ACCEPTED',
+      new List<String>(),
+      '14311'
     );
     AccountClosureController.processResponsesAndUpdateCases(
-      new List<FabricSealResponseModel>{ response[0] },
+      caseInputList,
       mockQueryEligibleChildCases(MOCK_CASE_NUMBER)
     );
     List<Case> caseUpdated = (List<Case>) dmlRepoMock.getHistory('doUpdate')
@@ -135,7 +156,7 @@ public with sharing class AccountClosureControllerTest {
    * @description test method for processResponsesAndUpdateCases when unsuccessful
    */
   @isTest
-  public static void testProcessResponsesAndUpdateCasesFailure() {
+  public static void testProcessResponsesAndUpdateCasesNegative() {
     registerMocks();
     String mockFailedCase = '03771913';
     accountClosureRepoMock.mock(
@@ -146,12 +167,14 @@ public with sharing class AccountClosureControllerTest {
     Exception resultException;
     Test.startTest();
     try {
-      List<FabricSealResponseModel> response = AccountClosureController.initiateAccountClosurePrecheck(
-        FAKER_PARENT_CASE_ID,
-        mockQueryEligibleChildCases(mockFailedCase)
+      List<CaseInputWrapper> caseInputList = mockCaseInputWrapper(
+        mockFailedCase,
+        'ACCEPTANCE_REJECTED',
+        new List<String>{ 'restraints' },
+        ''
       );
       AccountClosureController.processResponsesAndUpdateCases(
-        new List<FabricSealResponseModel>{ response[1] },
+        caseInputList,
         mockQueryEligibleChildCases(mockFailedCase)
       );
     } catch (Exception objException) {
@@ -179,12 +202,14 @@ public with sharing class AccountClosureControllerTest {
     Exception resultException;
     Test.startTest();
     try {
-      List<FabricSealResponseModel> response = AccountClosureController.initiateAccountClosurePrecheck(
-        FAKER_PARENT_CASE_ID,
-        mockQueryEligibleChildCases(mockFailedCase)
+      List<CaseInputWrapper> caseInputList = mockCaseInputWrapper(
+        mockFailedCase,
+        '',
+        new List<String>{ 'techError' },
+        ''
       );
       AccountClosureController.processResponsesAndUpdateCases(
-        new List<FabricSealResponseModel>{ response[2] },
+        caseInputList,
         mockQueryEligibleChildCases(mockFailedCase)
       );
     } catch (Exception objException) {
@@ -264,5 +289,19 @@ public with sharing class AccountClosureControllerTest {
     );
     mockMetaData.add(dummyRecord2);
     return mockMetaData;
+  }
+
+  private static List<CaseInputWrapper> mockCaseInputWrapper(
+    String salesforceCaseNumber,
+    String acceptance,
+    List<String> failedReasons,
+    String businessProcessId
+  ) {
+    CaseInputWrapper caseInput = new CaseInputWrapper();
+    caseInput.salesforceCaseNumber = salesforceCaseNumber;
+    caseInput.acceptance = acceptance;
+    caseInput.failedReasons = failedReasons;
+    caseInput.businessProcessId = businessProcessId;
+    return new List<CaseInputWrapper>{ caseInput };
   }
 }

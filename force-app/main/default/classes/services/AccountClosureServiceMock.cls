@@ -26,7 +26,7 @@ public with sharing class AccountClosureServiceMock extends AccountClosureServic
    */
   public override HttpCalloutResponse initiateAccountClosurePreChecks(
     String ocvId,
-    List<FabricSealRequestModel> accountDetailsForPrechecks
+    List<AccountClosurePrecheckRequestModel> accountDetailsForPrechecks
   ) {
     if (!preset) {
       response.body = INITIATE_ACCOUNT_CLOSURE_SUCCESS;

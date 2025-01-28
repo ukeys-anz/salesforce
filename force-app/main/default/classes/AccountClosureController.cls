@@ -11,7 +11,7 @@ public with sharing class AccountClosureController {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final String NO_ELIGIBLE_CASES_FOUND = 'No Eligible Cases Found';
+
   /**
    * @description Fetch Eligible Cases for Fabric Seal Precheck
    * @param parentCaseId Input Date from LWC
@@ -20,17 +20,9 @@ public with sharing class AccountClosureController {
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
     try {
-      List<Case> eligibleCases = ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
+      return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
         new Set<Id>{ parentCaseId }
       );
-      if (eligibleCases.isEmpty()) {
-        throw CommonUtil.logException(
-          new AccountClosureApiRepository.NoEligibleCasesFoundException(
-            NO_ELIGIBLE_CASES_FOUND
-          )
-        );
-      }
-      return eligibleCases;
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
@@ -40,10 +32,10 @@ public with sharing class AccountClosureController {
    * @description Initiate Account Closure Prechecks by making callout to Fabric Seal and perform after actions based on response for each case
    * @param parentCaseId Parent Case Id for which Precheck Initiated
    * @param eligibleCasesForPrecheck Cases to be sent to Fabric Seal for Precheck
-   * @return List<FabricSealResponseModel> fabric seal response for each case
+   * @return List<AccountClosurePrecheckResponseModel> fabric seal response for each case
    */
   @AuraEnabled
-  public static List<FabricSealResponseModel> initiateAccountClosurePrecheck(
+  public static List<AccountClosurePrecheckResponseModel> initiateAccountClosurePrechecks(
     Id parentCaseId,
     List<Case> eligibleCasesForPrecheck
   ) {
@@ -52,8 +44,9 @@ public with sharing class AccountClosureController {
         parentCaseId
       );
 
-      AccountClosureApiRepository fabricSealApi = new AccountClosureApiRepository();
-      return fabricSealApi.initiateAccountClosurePreChecks(
+      AccountClosureApiRepository accountClosurePrecheckApi = new AccountClosureApiRepository();
+
+      return accountClosurePrecheckApi.initiateAccountClosurePreChecks(
         parentCaseRecord.Account.OCV_ID__c,
         eligibleCasesForPrecheck
       );
@@ -64,19 +57,50 @@ public with sharing class AccountClosureController {
 
   /**
    * @description method to process response and segregrate success and failure cases and update
-   * @param fabricSealResponseList response received from fabric seal api
+   * @param accountClosurePrecheckResponse response received from fabric seal api
    * @param eligibleCasesForPrecheck eligibleCasesForPrecheck
    * @return List<Case> list of cases updated successfully
    */
   @AuraEnabled
   public static List<Case> processResponsesAndUpdateCases(
-    List<Object> fabricSealResponseList,
+    List<CaseInputWrapper> accountClosurePrecheckResponse,
     List<Case> eligibleCasesForPrecheck
   ) {
     try {
-      return AccountClosureControllerHelper.processResponsesAndUpdateCases(
-        fabricSealResponseList,
+      if (
+        accountClosurePrecheckResponse == null ||
+        eligibleCasesForPrecheck == null
+      ) {
+        return new List<Case>();
+      }
+
+      Map<String, String> successCases = new Map<String, String>();
+      Map<String, Set<String>> failedCases = new Map<String, Set<String>>();
+
+      AccountClosureControllerHelper.segregrateCasesByResponseStatus(
+        successCases,
+        failedCases,
+        accountClosurePrecheckResponse
+      );
+
+      if (successCases.isEmpty() && failedCases.isEmpty()) {
+        return new List<Case>();
+      }
+
+      Map<String, Id> caseNumberToIdMap = AccountClosureControllerHelper.createCaseNumberToIdMap(
         eligibleCasesForPrecheck
+      );
+
+      List<Case> casesToUpdate = AccountClosureControllerHelper.prepareCasesForUpdate(
+        successCases,
+        failedCases,
+        caseNumberToIdMap
+      );
+
+      DML_REPOSITORY.doUpdate(casesToUpdate, new DmlConfig().allowPartial());
+
+      return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesDetailsPostPrecheck(
+        new Map<Id, Case>(casesToUpdate)
       );
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
