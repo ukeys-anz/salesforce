@@ -5,7 +5,8 @@
  */
 public with sharing class AccountClosureStravinskyController {
   public static final String FAILED_CLOSURE = 'Failed to perform account closure. Please refresh and try again. Raise a fault through TechAssist if the problem persists.';
-  private static final String SUCCESS_CLOSURE = 'Account closed - ACCOUNT NOT ACTIVE';
+  public static final String SUCCESS_CLOSURE = 'Account closed - ACCOUNT NOT ACTIVE';
+
   private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
@@ -21,30 +22,28 @@ public with sharing class AccountClosureStravinskyController {
    */
   @AuraEnabled(cacheable=true)
   public static GenesisPackageClosureModel getPackageClosureAura(Id recordId) {
-    GenesisPackageClosureModel response;
     if (recordId == null) {
-      return response;
+      return null;
     }
 
-    Set<String> setOfAccountNumberToBeClosed = new Set<String>();
-    List<String> customerOcvIdsList = new List<String>();
-    StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
-
-    PermissionUtils.canQuery('Case');
     try {
       Case caseRecord = ACCOUNT_CLOSURE_REPOSITORY.queryCaseDetails(recordId);
 
-      setOfAccountNumberToBeClosed.add(
+      Set<String> accountNumbersToBeClosed = new Set<String>{
         'accounts/' +
         caseRecord.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-      );
+      };
 
-      customerOcvIdsList.add(caseRecord.Account.OCV_ID__c);
+      List<String> customerOCVIds = new List<String>{
+        caseRecord.Account.OCV_ID__c
+      };
 
-      response = stravinskyApi.packageClosure(
+      StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
+
+      return stravinskyApi.packageClosure(
         caseRecord,
-        setOfAccountNumberToBeClosed,
-        customerOcvIdsList
+        accountNumbersToBeClosed,
+        customerOCVIds
       );
     } catch (Exception e) {
       Logger.error('Error to perform account closure', recordId, e);
@@ -53,50 +52,47 @@ public with sharing class AccountClosureStravinskyController {
       ex.setMessage(FAILED_CLOSURE);
       throw e;
     }
-    return response;
   }
   /**
    * @description This method close the case records if the accounts are succesfully closed
    * @param records The Id of the cases for which Staus should be updated to Closed
    */
+
   @AuraEnabled
-  public static void updateCaseStatus(List<Id> records) {
+  public static void updateCaseStatusAndPostChatterMessage(List<Id> records) {
     try {
-      Set<Id> caseIds = new Set<Id>(records);
-      if (caseIds == null || caseIds.isEmpty()) {
+      if (records == null || records.isEmpty()) {
         return;
       }
+
       List<Case> caseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryCaseToUpdateStatusAsClosed(
-        caseIds
+        new Set<Id>(records)
       );
+
+      for (Case caseRecord : caseRecords) {
+        caseRecord.Status = GetHelpConstants.CLOSED_STATUS;
+      }
+
       List<Database.SaveResult> results = DML_REPOSITORY.doUpdate(
-        setStatusToClosed(caseRecords),
+        caseRecords,
         new DmlConfig().allowPartial()
       );
-      postSuccessChatterMessage(results);
+
+      postChatterMessage(results);
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
   }
 
   @TestVisible
-  private static List<Case> setStatusToClosed(List<Case> caseRecords) {
-    for (Case caseRecord : caseRecords) {
-      caseRecord.Status = 'Closed';
-    }
-
-    return caseRecords;
-  }
-
-  @TestVisible
-  private static void postSuccessChatterMessage( List<Database.SaveResult> results)
-  { 
-    for (Integer i = 0; i < results.size(); i++)
-    {
-      if (results[i].isSuccess() == true)
-      {
-        
-        ConnectApiHelper.postFeedItemWithRichText(null, results[i].getId(), SUCCESS_CLOSURE);
+  private static void postChatterMessage(List<Database.SaveResult> results) {
+    for (Database.SaveResult result : results) {
+      if (result.isSuccess()) {
+        ConnectApiHelper.postFeedItemWithRichText(
+          null,
+          result.getId(),
+          SUCCESS_CLOSURE
+        );
       }
     }
   }

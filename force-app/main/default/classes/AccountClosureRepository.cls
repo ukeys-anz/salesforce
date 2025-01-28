@@ -9,7 +9,7 @@ public with sharing class AccountClosureRepository {
    * @param accountIds set of Account Ids associated to the case
    * @return List<Case> list of Case Group cases
    */
-  public List<Case> queryNotClosedCaseGroups(Set<Id> accountIds) {
+  public List<Case> queryExistingParentCases(Set<Id> accountIds) {
     if (accountIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
@@ -30,7 +30,7 @@ public with sharing class AccountClosureRepository {
    * @param parentIds set of Case Group ids(Parent Case) for which Owner has changed or status has changed.
    * @return List<Case> List of child cases associated to the parent case.
    */
-  public List<Case> queryChildCaseRecords(Set<Id> parentIds) {
+  public List<Case> queryRelatedChildCasesPerParent(Set<Id> parentIds) {
     if (parentIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
@@ -62,7 +62,7 @@ public with sharing class AccountClosureRepository {
    * @param parentCaseIds Case Group Id(Parent Case) for which Support Coach want to initiate precheck
    * @return List<Case> List of child cases associated to the parent case.
    */
-  public List<Case> queryEligibleChildCaseRecords(Set<Id> parentCaseIds) {
+  public List<Case> queryEligibleChildCasesForPrecheck(Set<Id> parentCaseIds) {
     if (parentCaseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
@@ -99,7 +99,7 @@ public with sharing class AccountClosureRepository {
    * @param parentCaseId set of Case Group (Parent Case) Id
    * @return List<Case> List of child cases associated to the parent case.
    */
-  public List<Case> queryChildCasesForClosure(Set<Id> parentCaseId) {
+  public List<Case> queryEligibleChildCasesForClosure(Set<Id> parentCaseId) {
     if (parentCaseId == null || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }
@@ -168,6 +168,7 @@ public with sharing class AccountClosureRepository {
         FinServ__FinancialAccount__r.RecordType.DeveloperName
       FROM Case
       WHERE Id = :recordId
+      WITH USER_MODE
     ];
   }
 
@@ -316,7 +317,7 @@ public with sharing class AccountClosureRepository {
    * @param caseIds set of parent case Ids whose status is changed to Closed
    * @return List<Case> list of child case records
    */
-  public List<Case> queryNotClosedAccountClosureCases(Set<Id> caseIds) {
+  public List<Case> queryNotClosedChildCases(Set<Id> caseIds) {
     if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
       return new List<Case>();
     }

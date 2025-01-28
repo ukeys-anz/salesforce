@@ -1,7 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import fetchChildCasesForClosure from "@salesforce/apex/AccountClosureController.fetchChildCasesForClosure";
 import getPackageClosureAura from "@salesforce/apex/AccountClosureStravinskyController.getPackageClosureAura";
-import updateCaseStatus from "@salesforce/apex/AccountClosureStravinskyController.updateCaseStatus";
+import updateCaseStatusAndPostChatterMessage from "@salesforce/apex/AccountClosureStravinskyController.updateCaseStatusAndPostChatterMessage";
 import { CloseActionScreenEvent } from "lightning/actions";
 
 const caseColumns = [
@@ -179,7 +179,7 @@ export default class AccountClosureButton extends LightningElement {
   async updateCaseStatusToClosed(records) {
     try {
       let caseIds = records.map((record) => record.caseRecord.Id);
-      await updateCaseStatus({
+      await updateCaseStatusAndPostChatterMessage({
         records: caseIds
       });
     } catch (error) {

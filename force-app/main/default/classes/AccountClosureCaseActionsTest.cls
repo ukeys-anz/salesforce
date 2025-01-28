@@ -29,10 +29,10 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testAssignParentCaseToChildCaseWithExistingRecord() {
+  private static void testLinkChildCasesWithParent() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedCaseGroups',
+      'queryExistingParentCases',
       mockParentCaseRecord('Open', null)
     );
     List<Case> childCaseRecords = mockQueryChildCaseRecords(null);
@@ -43,7 +43,7 @@ public with sharing class AccountClosureCaseActionsTest {
     );
 
     Test.startTest();
-    AccountClosureCaseActions.assignParentCaseToChildCase(childCaseRecords);
+    AccountClosureCaseActions.linkChildCasesWithParent(childCaseRecords);
     Test.stopTest();
 
     Assert.isTrue(
@@ -53,10 +53,10 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testAssignParentCaseToChildCaseWithoutExistingRecords() {
+  private static void testLinkChildCasesWithoutParent() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedCaseGroups',
+      'queryExistingParentCases',
       mockExistingRecordsAsBlank()
     );
     List<Case> childCaseRecords = mockQueryChildCaseRecords(null);
@@ -67,7 +67,7 @@ public with sharing class AccountClosureCaseActionsTest {
     );
 
     Test.startTest();
-    AccountClosureCaseActions.assignParentCaseToChildCase(childCaseRecords);
+    AccountClosureCaseActions.linkChildCasesWithParent(childCaseRecords);
     Test.stopTest();
 
     List<Case> caseRecordsUpdated = (List<Case>) dmlRepoMock.getHistory(
@@ -82,30 +82,10 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testAssignParentCaseToChildCaseWithExistingRecordNegative() {
+  private static void testCascadeParentFieldChangesToChildCasesPostive() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedCaseGroups',
-      mockParentCaseRecord('Open', null)
-    );
-
-    Test.startTest();
-    AccountClosureCaseActions.assignParentCaseToChildCase(
-      mockQueryChildCaseRecords(null)
-    );
-    Test.stopTest();
-
-    Assert.isNull(
-      dmlRepoMock.getHistory('doInsert'),
-      'doInsert should not have been invoked'
-    );
-  }
-
-  @isTest
-  private static void testUpdateChildCaseFieldStatusPostive() {
-    registerMocks();
-    accountClosureRepoMock.mock(
-      'queryChildCaseRecords',
+      'queryRelatedChildCasesPerParent',
       mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
     );
 
@@ -113,9 +93,8 @@ public with sharing class AccountClosureCaseActionsTest {
 
     Assert.isTrue(ChildCases[0].Status == 'Open', 'Child Case status is Open');
     Test.startTest();
-    AccountClosureCaseActions.updateChildCaseField(
-      mockParentCaseRecord('Escalated', null),
-      new Map<Id, Case>(mockParentCaseRecord('Open', null))
+    AccountClosureCaseActions.cascadeParentFieldChangesToChildCases(
+      mockParentCaseRecord('Escalated', null)
     );
     Test.stopTest();
 
@@ -131,31 +110,10 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testUpdateChildCaseFieldStatusNegative() {
+  private static void testUpdateChildCaseFieldCircumstancePositive() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryChildCaseRecords',
-      mockExistingRecordsAsBlank()
-    );
-
-    Test.startTest();
-    AccountClosureCaseActions.updateChildCaseField(
-      mockParentCaseRecord('Escalated', null),
-      new Map<Id, Case>(mockParentCaseRecord('Open', null))
-    );
-    Test.stopTest();
-
-    Assert.isNull(
-      dmlRepoMock.getHistory('doUpdate'),
-      'doUpdate should not have been invoked'
-    );
-  }
-
-  @isTest
-  private static void testupdateChildCaseFieldCircumstancePostive() {
-    registerMocks();
-    accountClosureRepoMock.mock(
-      'queryChildCaseRecords',
+      'queryRelatedChildCasesPerParent',
       mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
     );
 
@@ -166,9 +124,8 @@ public with sharing class AccountClosureCaseActionsTest {
       'Child Case circumstance should be Null'
     );
     Test.startTest();
-    AccountClosureCaseActions.updateChildCaseField(
-      mockParentCaseRecord('Escalated', 'Deceased Estate'),
-      new Map<Id, Case>(mockParentCaseRecord('Open', null))
+    AccountClosureCaseActions.cascadeParentFieldChangesToChildCases(
+      mockParentCaseRecord('Escalated', 'Deceased Estate')
     );
     Test.stopTest();
 
@@ -184,42 +141,17 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testSetQueueOwnerToEscalatedCasesPositive() {
+  private static void testAssignEscalatedCasesToQueuePositive() {
     List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
-    Map<Id, Case> olMap = new Map<Id, Case>(mockParentCaseRecord('Open', null));
 
     Test.startTest();
-    AccountClosureCaseActions.setQueueOwnerToEscalatedCases(
-      currentParentRecord,
-      olMap
-    );
+    AccountClosureCaseActions.assignEscalatedCasesToQueue(currentParentRecord);
     Test.stopTest();
 
     Assert.isTrue(
       currentParentRecord[0].OwnerId ==
-      AccountClosureCaseActionsHelper.accountClosureQueue.Id,
+      AccountClosureCaseActions.accountClosureQueue.Id,
       'OwnerId of the case is updated to accountClosureQueue'
-    );
-  }
-
-  @isTest
-  private static void testSetQueueOwnerToEscalatedCasesNegative() {
-    List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
-    Map<Id, Case> olMap = new Map<Id, Case>(
-      mockParentCaseRecord('Escalated', null)
-    );
-
-    Test.startTest();
-    AccountClosureCaseActions.setQueueOwnerToEscalatedCases(
-      currentParentRecord,
-      olMap
-    );
-    Test.stopTest();
-
-    Assert.isFalse(
-      currentParentRecord[0].OwnerId ==
-      AccountClosureCaseActionsHelper.accountClosureQueue.Id,
-      'OwnerId of the case is not updated to accountClosureQueue as no updated records are found'
     );
   }
 
@@ -230,7 +162,10 @@ public with sharing class AccountClosureCaseActionsTest {
     List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
 
     Test.startTest();
-    AccountClosureCaseActions.populateCaseSubject(currentParentRecord, null);
+    AccountClosureCaseActions.populateCaseSubject(
+      currentParentRecord,
+      'Case Group'
+    );
     Test.stopTest();
 
     Assert.isTrue(
@@ -240,37 +175,17 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testPopulateCaseSubjectNegative() {
-    registerMocks();
-    accountClosureRepoMock.mock('queryAccountName', mockQueryAccountName());
-    List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
-
-    Test.startTest();
-    AccountClosureCaseActions.populateCaseSubject(
-      currentParentRecord,
-      new Map<Id, case>(mockParentCaseRecord('Escalated', null))
-    );
-    Test.stopTest();
-
-    Assert.isFalse(
-      currentParentRecord[0].Subject == 'Case Group - Sample Name',
-      'Subject of the case is not updated to Case Group - Sample Name as their is no change in the Account'
-    );
-  }
-
-  @isTest
-  private static void testValidateDuplicateCaseGroupPerAccountPositive() {
+  private static void testValidateDuplicateParentCasePerAccountPositive() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedCaseGroups',
+      'queryExistingParentCases',
       mockParentCaseRecord('Open', null)
     );
     List<Case> currentParentRecord = mockParentCaseRecord('Open', null);
 
     Test.startTest();
-    AccountClosureCaseActions.validateDuplicateCaseGroupPerAccount(
-      currentParentRecord,
-      null
+    AccountClosureCaseActions.validateDuplicateParentCasePerAccount(
+      currentParentRecord
     );
     Test.stopTest();
 
@@ -293,15 +208,14 @@ public with sharing class AccountClosureCaseActionsTest {
   private static void testValidateDuplicateCaseGroupPerAccountNegative() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedCaseGroups',
+      'queryExistingParentCases',
       mockExistingRecordsAsBlank()
     );
     List<Case> currentParentRecord = mockParentCaseRecord('Open', null);
 
     Test.startTest();
-    AccountClosureCaseActions.validateDuplicateCaseGroupPerAccount(
-      currentParentRecord,
-      null
+    AccountClosureCaseActions.validateDuplicateParentCasePerAccount(
+      currentParentRecord
     );
     Test.stopTest();
 
@@ -313,23 +227,22 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testHandleButtonVisibiltyFlagPostive() {
+  private static void testHandleButtonVisibiltyFlagsPostive() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryChildCasesForClosure',
+      'queryEligibleChildCasesForClosure',
       mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
     );
 
     accountClosureRepoMock.mock(
-      'queryEligibleChildCaseRecords',
+      'queryEligibleChildCasesForPrecheck',
       mockExistingRecordsAsBlank()
     );
 
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
-    AccountClosureCaseActions.handleButtonVisibiltyFlag(
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID),
-      null
+    AccountClosureCaseActions.handleButtonVisibiltyFlags(
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
     );
     Test.stopTest();
 
@@ -348,23 +261,22 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testHandleButtonVisibiltyFlagNegative() {
+  private static void testHandleButtonVisibiltyFlagsNegative() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryChildCasesForClosure',
+      'queryEligibleChildCasesForClosure',
       mockExistingRecordsAsBlank()
     );
 
     accountClosureRepoMock.mock(
-      'queryEligibleChildCaseRecords',
+      'queryEligibleChildCasesForPrecheck',
       mockExistingRecordsAsBlank()
     );
 
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
-    AccountClosureCaseActions.handleButtonVisibiltyFlag(
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID),
-      null
+    AccountClosureCaseActions.handleButtonVisibiltyFlags(
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
     );
     Test.stopTest();
 
@@ -383,18 +295,17 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testValidateCaseGroupClosurePositive() {
+  private static void testValidateParentClosureIfChildCasesOpenPositive() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedAccountClosureCases',
+      'queryNotClosedChildCases',
       mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
     );
     List<Case> currentParentRecord = mockParentCaseRecord('Closed', null);
 
     Test.startTest();
-    AccountClosureCaseActions.validateCaseGroupClosure(
-      currentParentRecord,
-      new Map<Id, Case>(mockParentCaseRecord('Open', null))
+    AccountClosureCaseActions.validateParentClosureIfChildCasesOpen(
+      currentParentRecord
     );
     Test.stopTest();
 
@@ -414,18 +325,17 @@ public with sharing class AccountClosureCaseActionsTest {
   }
 
   @isTest
-  private static void testValidateCaseGroupClosureNegative() {
+  private static void testValidateParentClosureIfChildCasesOpenNegative() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryNotClosedAccountClosureCases',
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+      'queryNotClosedChildCases',
+      mockExistingRecordsAsBlank()
     );
     List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
 
     Test.startTest();
-    AccountClosureCaseActions.validateCaseGroupClosure(
-      currentParentRecord,
-      new Map<Id, Case>(mockParentCaseRecord('Open', null))
+    AccountClosureCaseActions.validateParentClosureIfChildCasesOpen(
+      currentParentRecord
     );
     Test.stopTest();
 
@@ -442,11 +352,11 @@ public with sharing class AccountClosureCaseActionsTest {
     Case caseRecord = new Case();
     caseRecord.Id = FAKER_CHILD_CASE_ID;
     caseRecord.AccountId = FAKER_ACCOUNT_ID;
-    caseRecord.Status = GetHelpConstants.OPEN_STATUS;
+    caseRecord.Status = 'Open';
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = parentId;
     caseRecord.RecordTypeId = RTCase.accountClosure;
-    caseRecord.Sub_Status__c = GetHelpConstants.SUCCESS;
+    caseRecord.Sub_Status__c = 'Success';
 
     childcases.add(caseRecord);
     return childcases;

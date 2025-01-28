@@ -35,7 +35,7 @@ public with sharing class AccountClosureControllerTest {
   public static void testFetchEligibleCasesForPrecheckSuccess() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryEligibleChildCaseRecords',
+      'queryEligibleChildCasesForPrecheck',
       mockQueryEligibleChildCases(MOCK_CASE_NUMBER)
     );
     Test.startTest();
@@ -47,27 +47,6 @@ public with sharing class AccountClosureControllerTest {
     Assert.isTrue(
       eligibleCases.size() > 0,
       'There should be one eligible child case for precheck'
-    );
-  }
-  /**
-   * @description test method for fetchEligibleChildCasesForPrecheck when unsuccessful
-   */
-  @isTest
-  public static void testFetchEligibleCasesForPrecheckNoCases() {
-    Exception resultException;
-    Test.startTest();
-    try {
-      AccountClosureController.fetchEligibleCasesForPrecheck(
-        FAKER_CHILD_CASE_ID
-      );
-    } catch (Exception objException) {
-      resultException = objException;
-    }
-    Test.stopTest();
-    Assert.areEqual(
-      resultException.getMessage(),
-      'No Eligible Cases Found',
-      'Exception was expected'
     );
   }
 

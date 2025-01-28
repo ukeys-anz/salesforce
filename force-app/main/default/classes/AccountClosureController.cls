@@ -20,7 +20,7 @@ public with sharing class AccountClosureController {
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
     try {
-      List<Case> eligibleCases = ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCaseRecords(
+      List<Case> eligibleCases = ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
         new Set<Id>{ parentCaseId }
       );
       if (eligibleCases.isEmpty()) {
@@ -91,7 +91,7 @@ public with sharing class AccountClosureController {
   @AuraEnabled(cacheable=true)
   public static List<Case> fetchChildCasesForClosure(Id parentCaseId) {
     try {
-      return ACCOUNT_CLOSURE_REPOSITORY.queryChildCasesForClosure(
+      return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForClosure(
         new Set<Id>{ parentCaseId }
       );
     } catch (Exception objException) {
