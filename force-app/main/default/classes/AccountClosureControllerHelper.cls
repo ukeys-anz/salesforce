@@ -35,7 +35,7 @@ public with sharing class AccountClosureControllerHelper {
         }
         when else {
           caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
-          postFailureMessage(caseId, new Set<String>{TECHNICAL_ERROR});
+          postFailureMessage(caseId, new Set<String>{ TECHNICAL_ERROR });
         }
       }
       casesToUpdate.add(caseRecord);
