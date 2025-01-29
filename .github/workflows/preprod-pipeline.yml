@@ -1,0 +1,115 @@
+name: Preprod Pipeline
+
+on:
+  workflow_dispatch:
+    inputs:
+      JOB:
+        description: "Deploy Artifact/Destructive to Preprod"
+        required: true
+        default: "artifact"
+        type: choice
+        option:
+          - "artifact"
+          - "destructive"
+      NAME:
+        description: "Preprod Deployment Name"
+        required: true
+        type: string
+      SKIP_DESTRUCTIVE:
+        description: "Skip Destructive Changes"
+        required: true
+        default: false
+        type: boolean
+
+permissions:
+  contents: "write"
+  id-token: "write"
+
+jobs:
+  preprod-deployment:
+    container:
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.4"
+      options: --user root
+      volumes:
+        - ${{ github.workspace }}/preprod-deployment:/opt/harness-delegate/preprod-deployment
+    runs-on: anzx-default
+    concurrency:
+      group: "salesforce-preprod-deployment-${{ github.event.inputs.NAME }}-${{ github.event.inputs.JOB }}"
+      cancel-in-progress: false
+    strategy:
+      max-parallel: 1
+      fail-fast: true
+      matrix:
+        config:
+          - DEPLOYMENT_ENVIRONMENT: "prod-release-start"
+            DEPLOYMENT_TITLE: "Preprod Deployment"
+
+    environment: "${{ matrix.config.DEPLOYMENT_ENVIRONMENT }}"
+    env:
+      WHICH_JOB: "${{ github.event.inputs.JOB }}"
+      PIPELINE_NAME: "${{ github.event.inputs.NAME }}"
+      ARTIFACTORY_SECRET_NAME: "sf-platform-prod-artifact"
+      PREPROD_SECRET_NAME: "sf-platform-prod-preprod"
+      REPO_NAME: ${{ github.event.repository.name }}
+      SKIP_DESTRUCTIVE_CHANGES: "${{ github.event.inputs.SKIP_DESTRUCTIVE }}"
+
+    steps:
+      - name: Environment Varibales Debug
+        run: |
+          echo "DEBUG: WHICH_JOB=${{ env.WHICH_JOB }}"
+          echo "DEBUG: REPO_NAME=${{ env.REPO_NAME }}"
+          echo "DEBUG: PIPELINE_NAME=${{ env.PIPELINE_NAME }}"
+          echo "DEBUG: SKIP_DESTRUCTIVE_CHANGES=${{ env.SKIP_DESTRUCTIVE_CHANGES }}"
+
+      - name: Link SGD plugin
+        run: |
+          cd /opt/harness-delegate/.local/share/sf
+          sf plugins:link node_modules/sfdx-git-delta/bin
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
+        id: "authenticate-harness-delegate"
+        uses: "anzx/github-reusable-actions/authenticate-gcp@main"
+        with:
+          service_account: "h-sf-primary-prod@anz-x-bootstrap-prod-3b7a6d.iam.gserviceaccount.com"
+
+      - name: "Retrieve GSM Credentials"
+        id: secrets
+        uses: "google-github-actions/get-secretmanager-secrets@v1"
+        with:
+          secrets: |-
+            preprod:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.PREPROD_SECRET_NAME }}/versions/latest
+            artifactory:projects/anz-x-gh-sf-prod-be3529/secrets/${{ env.ARTIFACTORY_SECRET_NAME }}/versions/latest
+
+      - name: Add Genral Secrets to ENV
+        run: |
+          echo CLEANING_JOB="false" >> $GITHUB_ENV
+          echo WORKING_DIR="$(pwd)" >> $GITHUB_ENV
+          lastTag="$( git describe --abbrev=0 --tags --match master* )"
+          echo BASE_REF_LAST_TAG="$lastTag" >> $GITHUB_ENV
+
+      - name: Run "${{ matrix.config.DEPLOYMENT_TITLE }}" | "${{ env.WHICH_JOB }}"
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
+          echo CLEANING_JOB="true" >> $GITHUB_ENV
+
+      - name: Cleaning
+        run: |
+          node --no-warnings ci/workflows/Orchestrations/preprodDeployment.mjs "${{ steps.secrets.outputs.preprod }}" "${{ steps.secrets.outputs.artifactory }}"
+
+  cleaning:
+    name: "cleaning"
+    runs-on: anzx-default
+    needs: [preprod-deployment]
+    if: failure() || always()
+    steps:
+      - name: Cleanup build artifacts
+        id: cleanup
+        run: |
+          if [ -d "${{ github.workspace }}/preprod-deployment" ]; then
+            rm -rf "${{ github.workspace }}/preprod-deployment"
+          fi

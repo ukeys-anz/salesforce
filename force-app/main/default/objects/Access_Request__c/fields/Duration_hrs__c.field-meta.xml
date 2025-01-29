@@ -17,6 +17,11 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
+                <fullName>1</fullName>
+                <default>false</default>
+                <label>1</label>
+            </value>
+            <value>
                 <fullName>2</fullName>
                 <default>false</default>
                 <label>2</label>
@@ -50,6 +55,11 @@
                 <fullName>8</fullName>
                 <default>false</default>
                 <label>8</label>
+            </value>
+            <value>
+                <fullName>24</fullName>
+                <default>false</default>
+                <label>24</label>
             </value>
         </valueSetDefinition>
     </valueSet>

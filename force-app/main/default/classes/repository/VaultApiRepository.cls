@@ -7,6 +7,11 @@
 public with sharing class VaultApiRepository {
   private static final String GET_CARD_NUMBER_PERMISSION_ERROR = 'User does not have permission to view full card number';
   private static final String TOKENIZATION_TYPE = 'TOKEN_TYPE_CARD_NUMBER';
+
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
   /**
    * @param ocvId ocvId of the customer
    * @param cardNumberToBeDetokenized card number to be detokenzed
@@ -17,7 +22,7 @@ public with sharing class VaultApiRepository {
     String ocvId,
     String cardNumberToBeDetokenized
   ) {
-    if (!FeatureManagement.checkPermission('ANZx_View_Card_Number')) {
+    if (USER_INFO.checkCustomPermission('ANZx_View_Card_Number') == false) {
       throw CommonUtil.logExceptionInfo(
         new CoachBankingAPIRepository.PermissionException(
           GET_CARD_NUMBER_PERMISSION_ERROR
@@ -38,6 +43,63 @@ public with sharing class VaultApiRepository {
       throw CommonUtil.logException(response);
     }
     return DetokenizationResponseModel.parse(response.body);
+  }
+
+  /**
+   * @description Tokenize Document number
+   * @param customerId customer Id
+   * @param customerIdType customer Id type
+   * @param tokenizeDocumentNumberRequest tokenize document number request
+   * @return `TokenizeDocumentNumberRequestModel` detokenized document number
+   */
+  public TokenizeDocumentNumberResponseModel tokenizeDocumentNumber(
+    String customerId,
+    String customerIdType,
+    TokenizeDocumentNumberRequestModel tokenizeDocumentNumberRequest
+  ) {
+    VaultService serviceInstance = (VaultService) ServiceProvider.getService(
+      VaultService.class
+    );
+
+    HttpCalloutResponse response = serviceInstance.tokenizeDocumentNumber(
+      customerId,
+      customerIdType,
+      tokenizeDocumentNumberRequest
+    );
+
+    if (response.successful == false) {
+      throw CommonUtil.logException(response);
+    }
+
+    return TokenizeDocumentNumberResponseModel.parse(response.body);
+  }
+
+  /**
+   * @description Detokenize Document number
+   * @param customerId customer Id
+   * @param customerIdType customer Id type
+   * @param detokenizeDocumentNumberRequest detokenize document number request
+   * @return `DetokenizeDocumentNumberRequestModel` detokenized document number
+   */
+  public DetokenizeDocumentNumberResponseModel detokenizeDocumentNumber(
+    String customerId,
+    String customerIdType,
+    DetokenizeDocumentNumberRequestModel detokenizeDocumentNumberRequest
+  ) {
+    VaultService serviceInstance = (VaultService) ServiceProvider.getService(
+      VaultService.class
+    );
+
+    HttpCalloutResponse response = serviceInstance.detokenizeDocumentNumber(
+      customerId,
+      customerIdType,
+      detokenizeDocumentNumberRequest
+    );
+    if (response.successful == false) {
+      throw CommonUtil.logException(response);
+    }
+
+    return DetokenizeDocumentNumberResponseModel.parse(response.body);
   }
 
   /**

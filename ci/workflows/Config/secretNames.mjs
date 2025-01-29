@@ -59,7 +59,9 @@ const salesforceSecretNames = {
   "epic/go4bmain": "sf-platform-np-go4bmain",
   "epic/transcript": "sf-platform-np-transcript",
   "epic/sopineligible": "sf-platform-np-ineligible",
-  "epic/viewoffset": "sf-platform-np-viewoffset"
+  "epic/viewoffset": "sf-platform-np-viewoffset",
+  "epic/coachcollab": "sf-platform-np-coachcoll",
+  "epic/legal-name": "sf-platform-np-legalname"
 };
 
 const brokerSecretNames = {

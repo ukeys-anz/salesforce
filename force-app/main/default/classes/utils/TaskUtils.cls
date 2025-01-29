@@ -20,4 +20,29 @@ public with sharing class TaskUtils {
 
     return null;
   }
+
+  /**
+   * @description Creates instance of Task from metadata record
+   * @param metadataRecord metadata record
+   * @return objTask Task instance
+   */
+  public static Task generateTaskFromMetadata(
+    Task_Creation_Mapping__mdt metadataRecord
+  ) {
+    if (metadataRecord == null) {
+      throw new IllegalArgumentException('Metadata record cannot be null');
+    }
+    Task objTask = new Task(
+      OwnerId = QueryQueue.get(metadataRecord.Owner__c).Id,
+      Subject = metadataRecord.Subject__c,
+      Status = metadataRecord.Status__c,
+      Type = metadataRecord.Type__c,
+      Priority = metadataRecord.Priority__c,
+      Coach_Action__c = metadataRecord.Coach_Action__c,
+      RecordTypeId = QueryRT.of(Task.SObjectType)
+        .getId(metadataRecord.RecordType_DeveloperName__c)
+    );
+
+    return objTask;
+  }
 }

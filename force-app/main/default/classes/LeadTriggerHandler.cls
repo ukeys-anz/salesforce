@@ -164,6 +164,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     CCRMLeadActions.copyLeadId(records);
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Lead');
     CCRMLeadActions.notifyLeadOwners(null, records);
+    LeadActionsHelper.checkAndCreateCallbackTask(records);
   }
 
   /**

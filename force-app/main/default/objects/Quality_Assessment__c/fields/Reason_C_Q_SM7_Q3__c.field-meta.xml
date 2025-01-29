@@ -47,6 +47,11 @@
                 <default>false</default>
                 <label>customer does not reply to telephone calls and/or correspondence despite our attempts to contact them.</label>
             </value>
+            <value>
+                <fullName>We did not ask for, or did not give the customer sufficient opportunity to provide additional information required to clarify their current financial position, or their expected position post assistance.</fullName>
+                <default>false</default>
+                <label>We did not ask for, or did not give the customer sufficient opportunity to provide additional information required to clarify their current financial position, or their expected position post assistance.</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
@@ -59,6 +64,10 @@
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
             <valueName>we did not ask for, or we did not give the customer sufficient opportunity to provide additional information needed to enable us to objectively determine what happened.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>We did not ask for, or did not give the customer sufficient opportunity to provide additional information required to clarify their current financial position, or their expected position post assistance.</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>

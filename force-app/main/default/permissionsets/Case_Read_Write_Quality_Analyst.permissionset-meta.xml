@@ -647,6 +647,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.IsKYCChecksCompleted__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.IsOwner__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -663,6 +668,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Is_The_Card_Lost_Stolen__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.KYCChecksHasDefect__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -803,6 +813,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Type</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Profile_Updates__c.Case__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

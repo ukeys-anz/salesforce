@@ -55,6 +55,8 @@ public with sharing class CCRMTestDataFactory {
     adminUser = (User) FakerFactory.make(new FakerUserFactory());
     adminUser.FirstName = 'TestUser' + staticNumber;
     adminUser.LastName = 'Admin';
+    adminUser.email = 'CRMAdminUser@anz.com';
+    adminUser.IsActive = true;
     adminUser.UserRoleId = commercialBankerRole.Id;
     adminUser.ProfileId = adminProfileId;
     insert adminUser;

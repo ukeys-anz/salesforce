@@ -989,7 +989,7 @@
     </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Case.ANZx_Complaint</recordType>
-        <visible>true</visible>
+        <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Case.General_Inquiry</recordType>

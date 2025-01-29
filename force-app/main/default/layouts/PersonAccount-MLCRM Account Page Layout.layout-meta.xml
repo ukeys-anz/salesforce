@@ -251,6 +251,14 @@
         <sortOrder>Desc</sortOrder>
     </relatedLists>
     <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>Limit__c</fields>
+        <fields>Account_Status__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Other_Limits_and_Liabilities__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
         <relatedList>RelatedEntityHistoryList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -311,6 +319,15 @@
         <fields>Account_Status__c</fields>
         <fields>Relationship__c</fields>
         <relatedList>Term_Deposit__x.Customer__c</relatedList>
+    </relatedLists>
+    <relatedLists>
+        <fields>Account_Number__c</fields>
+        <fields>Product_Name__c</fields>
+        <fields>Balance__c</fields>
+        <fields>Credit_Limit__c</fields>
+        <fields>Account_Status__c</fields>
+        <fields>Relationship__c</fields>
+        <relatedList>Credit_Card__x.Customer__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

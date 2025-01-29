@@ -21,6 +21,7 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
     private Decimal currentDueAmount;
     private Decimal availableBalance;
     private String rewardsNumber;
+    private String frequentFlyerNumber;
     private Decimal delinquentAmount;
     public Integer totalDelinquentDays;
     private String address;
@@ -167,6 +168,7 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
         'MinimumMonthlyPayment' => fa.currentDueAmount,
         'AvailableFunds' => fa.availableBalance,
         'RewardsNumber' => fa.rewardsNumber,
+        'FrequentFlyerNumber' => fa.frequentFlyerNumber,
         'DelinquentAmount' => fa.delinquentAmount,
         'DaysDelinquent' => fa.totalDelinquentDays,
         'StatementMailingAddress' => fa.address

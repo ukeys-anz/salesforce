@@ -9,7 +9,8 @@
         <fieldNames>Work_Phone__c</fieldNames>
         <fieldNames>MobilePhone</fieldNames>
         <fieldNames>Email</fieldNames>
-        <info>&lt;ul&gt;&lt;li&gt;Access additional Lead information from the Related tab.&lt;/li&gt;&lt;li&gt;View customer profile and ensure the customer is not &amp;#39;High Risk&amp;#39; e.g. (i.e. PI Scores, Risk Grades)&lt;/li&gt;&lt;li&gt;View customer contact information if Lead is associated with an existing customer&lt;/li&gt;&lt;li&gt;Access &lt;a href=&quot;https://anz.sharepoint.com/teams/ConversationsHUB/SitePages/Customer-Conversations-Hub.aspx&quot; target=&quot;_blank&quot;&gt;Conversation Hub&lt;/a&gt; for additional assistance.&lt;/li&gt;&lt;li&gt;Make contact with customer.&lt;/li&gt;&lt;li&gt;Log response activities to capture interactions&lt;span style=&quot;font-size: 14px;&quot;&gt;, &lt;/span&gt;servicing needs and avoid escalation or expiry.&lt;/li&gt;&lt;li&gt;Set a reasonable follow up date if required.&lt;/li&gt;&lt;/ul&gt;</info>
+        <fieldNames>Description</fieldNames>
+        <info>&lt;ul&gt;&lt;li&gt;Access additional Lead information from the Related tab.&lt;/li&gt;&lt;li&gt;View customer profile and ensure the customer is not &amp;#39;High Risk&amp;#39; e.g. (i.e. PI Scores, Risk Grades)&lt;/li&gt;&lt;li&gt;View customer contact information if Lead is associated with an existing customer&lt;/li&gt;&lt;li&gt;Access &lt;a href=&quot;https://anz.sharepoint.com/teams/ConversationsHUB&quot; target=&quot;_blank&quot;&gt;Conversation Hub&lt;/a&gt; for additional assistance.&lt;/li&gt;&lt;li&gt;Make contact with customer.&lt;/li&gt;&lt;li&gt;Log response activities to capture interactions&lt;span style=&quot;font-size: 14px;&quot;&gt;, &lt;/span&gt;servicing needs and avoid escalation or expiry.&lt;/li&gt;&lt;li&gt;Set a reasonable follow up date if required.&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Assigned</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
@@ -23,7 +24,7 @@
     <pathAssistantSteps>
         <fieldNames>Company</fieldNames>
         <fieldNames>FinServ__ExpressedInterest__c</fieldNames>
-        <info>&lt;ul&gt;&lt;li&gt;Prepare to convert the lead - ensure required fields are completed&lt;/li&gt;&lt;li&gt;Record details of servicing needs addressed&lt;/li&gt;&lt;li&gt;Lead may be transferred to relevant Product specialist via Log a response process.&lt;/li&gt;&lt;li&gt;If customer has a future need, ensure to create a reminder to make contact in future.&lt;/li&gt;&lt;/ul&gt;</info>
+        <info>&lt;ul&gt;&lt;li&gt;Prepare to convert the lead - ensure required fields are completed&lt;/li&gt;&lt;li&gt;Record details of servicing needs addressed&lt;/li&gt;&lt;li&gt;If customer has a future need, ensure to create a reminder to make contact in future.&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Outcome</picklistValueName>
     </pathAssistantSteps>
     <recordTypeName>CCRM_Lead</recordTypeName>
