@@ -2744,6 +2744,34 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Do you wish to proceed?</value>
     </labels>
     <labels>
+        <fullName>Simpology_Base_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Simpology Base Url</shortDescription>
+        <value>https://loanapp-sso.simpology.anz.com/access/login?returnUrl={0}</value>
+    </labels>
+    <labels>
+        <fullName>CreateApplicationEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreateApplicationEndpoint</shortDescription>
+        <value>callout:SF_LOANAPP/dcrm/opportunities/v1/loan-applications</value>
+    </labels>
+    <labels>
+        <fullName>LoanappPrerequisiteLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LoanappPrerequisiteLabel</shortDescription>
+        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender.</value>
+    </labels>
+    <labels>
+        <fullName>LoanappFriendlyErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LoanappFriendlyErrorMessage</shortDescription>
+        <value>Unable to create an application</value>
+    </labels>
+    <labels>
         <fullName>CCRM_IndividualCustomerWarning</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>

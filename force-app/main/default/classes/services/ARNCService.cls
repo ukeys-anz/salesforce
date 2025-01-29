@@ -260,6 +260,40 @@ public with sharing class ARNCService extends Service {
   }
 
   /**
+   * @param endpoint simpology mule endpoint
+   * @param payload simpology create/open payload.
+   * @return `HttpCalloutResponse` response from mule
+   * @description makes rest callout to mule to create loanApp.
+   */
+  public HttpCalloutResponse makeLoanappCallout(
+    String endpoint,
+    String payload
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCommonHeaders(headers);
+    headers.put(
+      'Authorization',
+      'Bearer ' + AuthTokenCacheUtil.getSessionIdToken()
+    );
+    HttpCalloutResponse response;
+    try {
+      Lib_HttpCallout calloutService = new Lib_HttpCallout();
+      response = calloutService.makeRestCallout(
+        endPoint,
+        HTTP_METHOD.HTTP_POST,
+        headers,
+        payload,
+        120000
+      );
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+      throw new AuraHandledException('Error : ' + e.getMessage());
+    }
+    return response;
+  }
+
+  /**
    * @param headers key value pairs of headers to set
    * @return `Map<String, String>` header map
    * @description sets all headers required for a mulesoft callout, loads client id and secret from named credential

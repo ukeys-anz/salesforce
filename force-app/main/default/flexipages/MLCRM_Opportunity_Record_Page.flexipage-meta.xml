@@ -26,6 +26,25 @@
                             <value>Edit</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Opportunity.Create_Loanapp</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Can_Create_Loanapp__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Opportunity.Open_Loanapp</value>
+                            <visibilityRule>
+                                <criteria>
+                                    <leftValue>{!Record.Loanapp_Reference__c}</leftValue>
+                                    <operator>NE</operator>
+                                </criteria>
+                            </visibilityRule>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Opportunity.Log_Interaction_ML</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND 2</booleanFilter>

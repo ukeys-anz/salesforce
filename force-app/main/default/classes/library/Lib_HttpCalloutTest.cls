@@ -41,6 +41,38 @@ public inherited sharing class Lib_HttpCalloutTest {
   }
 
   @isTest
+  static void testMakeRestCalloutConfigurableTimeoutSuccess() {
+    Lib_HttpMockCallout fakeResponse = new Lib_HttpMockCallout(
+      200,
+      'Complete',
+      TEST_SUCCESS_BODY,
+      null
+    );
+    Test.setMock(HttpCalloutMock.class, fakeResponse);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'https://testapi.com/test',
+      HTTP_METHOD.HTTP_GET,
+      new Map<String, String>{ 'Content-Type' => 'application/json' },
+      null,
+      120000
+    );
+    System.assert(response.successful, 'Successful response');
+    System.assertEquals(
+      'Complete',
+      response.status,
+      'The response status should be as expected.'
+    );
+    System.assertEquals(
+      TEST_SUCCESS_BODY,
+      response.body,
+      'The response body should be as expected.'
+    );
+    System.assertEquals(200, response.statusCode, 'Status code is 200');
+    System.assert(response.error == null, 'There are no exceptions');
+  }
+
+  @isTest
   static void testMethodNullError() {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
     HttpCalloutResponse response = calloutService.makeRestCallout(
@@ -59,6 +91,56 @@ public inherited sharing class Lib_HttpCalloutTest {
     );
     System.assertEquals(
       'Endpoint or Method cannot be empty for a HTTP callout',
+      response.error.getMessage(),
+      'The error message should be as expected.'
+    );
+  }
+
+  @isTest
+  static void testMethodNullConfigurableTimeoutError() {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      '',
+      HTTP_METHOD.HTTP_GET,
+      null,
+      null,
+      120000
+    );
+    System.assert(
+      response.successful == false,
+      'The callout was not successful'
+    );
+    System.assert(
+      response.error instanceof CalloutException,
+      'Callout exception'
+    );
+    System.assertEquals(
+      'Endpoint or Method cannot be empty for a HTTP callout',
+      response.error.getMessage(),
+      'The error message should be as expected.'
+    );
+  }
+
+  @isTest
+  static void testInvalidTimeoutError() {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      'https://testapi.com/test',
+      HTTP_METHOD.HTTP_GET,
+      null,
+      null,
+      0
+    );
+    System.assert(
+      response.successful == false,
+      'The callout was not successful'
+    );
+    System.assert(
+      response.error instanceof CalloutException,
+      'Callout exception'
+    );
+    System.assertEquals(
+      'Timeout needs to be a valid value between 1 to 120000',
       response.error.getMessage(),
       'The error message should be as expected.'
     );

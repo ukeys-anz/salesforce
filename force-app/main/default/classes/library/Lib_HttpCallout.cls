@@ -38,6 +38,26 @@ public with sharing class Lib_HttpCallout {
     Map<String, String> headers,
     String requestBody
   ) {
+    return makeRestCallout(endpoint, method, headers, requestBody, 20000);
+  }
+
+  /**
+   * @param endpoint API endpoint to make the request against
+   * @param method which HTTP method to use
+   * @param headers request header key value pairs
+   * @param requestBody HTTP request body for PUT/PATCH/POST - currently unused
+   * @param timeout connection and read timeout (maximum of 120000)
+   * @return `HttpCalloutResponse` response type which handles all callout responses.
+   * @description handler to build and send REST requests, and handle response errors
+   */
+  @SuppressWarnings('PMD.ExcessiveParameterList')
+  public HttpCalloutResponse makeRestCallout(
+    String endpoint,
+    HTTP_METHOD method,
+    Map<String, String> headers,
+    String requestBody,
+    Integer timeout
+  ) {
     HttpRequest request = new HttpRequest();
     if (String.isBlank(endpoint) || String.isBlank(method.name())) {
       HttpCalloutResponse callResponse = new HttpCalloutResponse();
@@ -47,7 +67,15 @@ public with sharing class Lib_HttpCallout {
       );
       return callResponse;
     }
-    request.setTimeout(20000);
+    if (timeout == null || timeout < 1 || timeout > 120000) {
+      HttpCalloutResponse callResponse = new HttpCalloutResponse();
+      callResponse.successful = false;
+      callResponse.error = new CalloutException(
+        'Timeout needs to be a valid value between 1 to 120000'
+      );
+      return callResponse;
+    }
+    request.setTimeout(timeout);
     request.setEndpoint(endpoint);
     request.setMethod(method.name().remove('HTTP_'));
 
