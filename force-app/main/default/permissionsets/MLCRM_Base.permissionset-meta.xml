@@ -129,7 +129,11 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MLCRMOpportunityActions</apexClass>
+        <apexClass>OpportunityActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>OCRRelatedListController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -3035,6 +3039,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.Profile_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User_Territory__c.ML_Role__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3703,6 +3712,11 @@
         <field>Deposit_Account__x.TPMI_SAO__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>EmailMessage.Attachment_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>  
     <fieldPermissions>
         <editable>false</editable>
         <field>Diary_Comment__x.Account__c</field>
