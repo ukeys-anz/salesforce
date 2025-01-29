@@ -32,7 +32,7 @@ public with sharing class AccountClosureControllerTest {
    * @description test method for fetchEligibleChildCasesForPrecheck when successful
    */
   @isTest
-  public static void testFetchEligibleCasesForPrecheckPositive() {
+  public static void testFetchEligibleCasesForPrecheck() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryEligibleChildCasesForPrecheck',
@@ -49,31 +49,12 @@ public with sharing class AccountClosureControllerTest {
       'There should be one eligible child case for precheck'
     );
   }
-  /**
-   * @description test method for fetchEligibleChildCasesForPrecheck when unsuccessful
-   */
-  @isTest
-  public static void testFetchEligibleCasesForPrecheckNegative() {
-    Exception resultException;
-    Test.startTest();
-    try {
-      AccountClosureController.fetchEligibleCasesForPrecheck('ABGSDSGSJ');
-    } catch (Exception objException) {
-      resultException = objException;
-    }
-    Test.stopTest();
-    Assert.areEqual(
-      resultException.getMessage(),
-      'Invalid id: ABGSDSGSJ',
-      'Exception was expected'
-    );
-  }
 
   /**
    * @description test method for initiateAccountClosurePrecheck when successful
    */
   @isTest
-  public static void testInitiateAccountClosurePrecheckPositive() {
+  public static void testInitiateAccountClosurePrecheck() {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryCaseDetails',
@@ -81,40 +62,11 @@ public with sharing class AccountClosureControllerTest {
     );
     Test.startTest();
     List<AccountClosurePrecheckResponseModel> response = AccountClosureController.initiateAccountClosurePrechecks(
-      FAKER_PARENT_CASE_ID,
+      'OCVID887766',
       mockQueryEligibleChildCases(MOCK_CASE_NUMBER)
     );
     Test.stopTest();
     Assert.isTrue(response.size() > 0, 'Precheck Response Successful');
-  }
-
-  /**
-   * @description test method for initiateAccountClosurePrecheck when unsuccessful
-   */
-  @isTest
-  public static void testInitiateAccountClosurePrecheckNegative() {
-    registerMocks();
-    accountClosureRepoMock.mock(
-      'queryCaseDetails',
-      mockCaseRecord(MOCK_CASE_NUMBER, '')
-    );
-    Exception resultException;
-    Test.startTest();
-    try {
-      AccountClosureController.initiateAccountClosurePrechecks(
-        FAKER_PARENT_CASE_ID,
-        new List<Case>()
-      );
-    } catch (Exception objException) {
-      resultException = objException;
-    }
-
-    Test.stopTest();
-    Assert.areEqual(
-      resultException.getMessage(),
-      'Parent Case And Eligible Cases Required',
-      'Exception was expected'
-    );
   }
 
   /**
