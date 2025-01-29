@@ -321,4 +321,23 @@ public with sharing class StravinskyController {
     @AuraEnabled
     public Case caseRecord;
   }
+
+  /**
+   * @description This method post the chatter message for successfull account closure
+   * @param caseRecord Case/Record Id (required)
+   * @param finAccountNumber Financial Account Number
+   */
+  @AuraEnabled
+  public static void postChatterMessage(
+    Case caseRecord,
+    String finAccountNumber
+  ) {
+    ConnectApiHelper.postFeedItemWithRichText(
+      null,
+      caseRecord.Id,
+      'Account ' +
+        TextUtils.maskData(finAccountNumber) +
+        ' closed successfully.'
+    );
+  }
 }

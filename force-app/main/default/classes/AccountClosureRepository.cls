@@ -87,7 +87,6 @@ public with sharing class AccountClosureRepository {
         ParentId IN :parentCaseIds
         AND RecordTypeId = :RTCase.accountClosure
         AND FinServ__FinancialAccount__c != NULL
-        AND ProductId != NULL
         AND Status = :GetHelpConstants.ESCALATED_STATUS
         AND (Sub_Status__c = :GetHelpConstants.FAILED
         OR Sub_Status__c = NULL)
@@ -119,7 +118,6 @@ public with sharing class AccountClosureRepository {
         AND RecordTypeId = :RTCase.accountClosure
         AND Sub_Status__c = :GetHelpConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
-        AND ProductId != NULL
     ];
   }
 

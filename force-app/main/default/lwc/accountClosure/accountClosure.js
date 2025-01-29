@@ -1,6 +1,7 @@
 import getPackageClosureAura from "@salesforce/apex/StravinskyController.getPackageClosureAura";
 import fetchFinancialAccounts from "@salesforce/apex/StravinskyController.fetchFinancialAccounts";
 import getPackageClosureAuraFlex from "@salesforce/apex/StravinskyController.getPackageClosureAuraFlex";
+import postChatterMessage from "@salesforce/apex/StravinskyController.postChatterMessage";
 import { api, LightningElement, wire } from "lwc";
 import hasAccountClosurePermission from "@salesforce/customPermission/ANZx_Account_Closure";
 import hasAccountClosurePilotPermission from "@salesforce/customPermission/ANZx_Account_Closure_Pilot";
@@ -76,6 +77,7 @@ export default class AccountClosure extends LightningElement {
   }
 
   toggleConfirmation() {
+    this.selectedAccount = "";
     this.showConfirmation = !this.showConfirmation;
     this.showConfirmationAccountClosure = false;
     this.showConfirmationSelectAccount = false;
@@ -89,12 +91,12 @@ export default class AccountClosure extends LightningElement {
   async handleClosure() {
     if (hasAccountClosurePermission) {
       this.loading = true;
-      this.toggleConfirmation();
+      this.showConfirmation = !this.showConfirmation;
       try {
         if (hasAccountClosurePilotPermission) {
           this.packageData = await getPackageClosureAuraFlex({
             caseRecord: this.caseRecordDetails,
-            finAccountValue: this.selectedAccount
+            finAccountValue: "accounts/" + this.selectedAccount
           });
         } else {
           this.packageData = await getPackageClosureAura({
@@ -115,6 +117,12 @@ export default class AccountClosure extends LightningElement {
           this.generatePackageData("Success", "Success", "Success");
           this.loading = false;
           showToast(this, "Account Closure", message, "", variant, "");
+          if (hasAccountClosurePilotPermission) {
+            postChatterMessage({
+              caseRecord: this.caseRecordDetails,
+              finAccountNumber: this.selectedAccount
+            });
+          }
         } else {
           message = this.packageData?.errorInfo?.reason;
           variant = "Warning";
@@ -170,7 +178,7 @@ export default class AccountClosure extends LightningElement {
 
   handleAccountSelect(objEvent) {
     objEvent.preventDefault();
-    this.selectedAccount = "accounts/" + objEvent.detail.value;
+    this.selectedAccount = objEvent.detail.value;
   }
 
   handleNextPage(objEvent) {
