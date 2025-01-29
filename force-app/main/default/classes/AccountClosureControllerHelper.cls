@@ -8,76 +8,35 @@ public with sharing class AccountClosureControllerHelper {
     AccountClosureRepository.class
   );
 
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
-
   private static final String TECHNICAL_ERROR = 'techError';
 
   /**
-   * @description method to prepare map of successful cases and failed cases
-   * @param successCases pass by reference for map of successfull cases and their business process id
-   * @param failedCases  pass by reference for map of failed cases and their failed reasons
-   * @param accountClosurePrecheckResponse consolidated fabric seal response
-   */
-  public static void segregrateCasesByResponseStatus(
-    Map<String, String> successCases,
-    Map<String, Set<String>> failedCases,
-    List<CaseInputWrapper> accountClosurePrecheckResponse
-  ) {
-    for (CaseInputWrapper response : accountClosurePrecheckResponse) {
-      switch on response.acceptance {
-        when 'ACCEPTANCE_ACCEPTED' {
-          successCases.put(
-            response.salesforceCaseNumber,
-            response.businessProcessId
-          );
-        }
-        when 'ACCEPTANCE_REJECTED' {
-          failedCases.put(
-            response.salesforceCaseNumber,
-            new Set<String>(response.failedReasons)
-          );
-        }
-        when else {
-          failedCases.put(
-            response.salesforceCaseNumber,
-            new Set<String>{ TECHNICAL_ERROR }
-          );
-        }
-      }
-    }
-  }
-
-  /**
    * @description method to prepare list of cases to update
-   * @param successCases map of successfull cases and their business process id
-   * @param failedCases map of failed cases and their failed reasons
+   * @param accountClosurePrecheckResponse consolidated fabric seal response
    * @param caseNumberToIdMap Map<String, Case>
    * @return List of cases to be updated
    */
   public static List<Case> prepareCasesForUpdate(
-    Map<String, String> successCases,
-    Map<String, Set<String>> failedCases,
+    List<CaseInputWrapper> accountClosurePrecheckResponse,
     Map<String, Case> caseNumberToIdMap
   ) {
     List<Case> casesToUpdate = new List<Case>();
-
-    Set<String> allPrecheckedCases = new Set<String>();
-    allPrecheckedCases.addAll(successCases.keySet());
-    allPrecheckedCases.addAll(failedCases.keySet());
-
-    for (String caseNumber : allPrecheckedCases) {
-      Id caseId = caseNumberToIdMap?.get(caseNumber)?.Id;
+    for (CaseInputWrapper response : accountClosurePrecheckResponse) {
+      Id caseId = caseNumberToIdMap?.get(response.salesforceCaseNumber)?.Id;
       Case caseRecord = new Case(Id = caseId);
-
-      if (successCases.containsKey(caseNumber)) {
-        caseRecord.Sub_Status__c = GetHelpConstants.PROCESSING;
-        caseRecord.Process_ID__c = successCases.get(caseNumber);
-      } else {
-        caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
-
-        postFailureMessage(caseId, failedCases.get(caseNumber));
+      switch on response.acceptance {
+        when 'ACCEPTANCE_ACCEPTED' {
+          caseRecord.Sub_Status__c = GetHelpConstants.PROCESSING;
+          caseRecord.Process_ID__c = response.businessProcessId;
+        }
+        when 'ACCEPTANCE_REJECTED' {
+          caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
+          postFailureMessage(caseId, new Set<String>(response.failedReasons));
+        }
+        when else {
+          caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
+          postFailureMessage(caseId, new Set<String>{ TECHNICAL_ERROR });
+        }
       }
       casesToUpdate.add(caseRecord);
     }

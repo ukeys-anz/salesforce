@@ -66,23 +66,13 @@ public with sharing class AccountClosureController {
         return new List<Case>();
       }
 
-      Map<String, String> successCases = new Map<String, String>();
-      Map<String, Set<String>> failedCases = new Map<String, Set<String>>();
-
-      AccountClosureControllerHelper.segregrateCasesByResponseStatus(
-        successCases,
-        failedCases,
-        accountClosurePrecheckResponse
-      );
-
       Map<String, Case> caseNumberToIdMap = (Map<String, Case>) ListUtil.mapBy(
         eligibleCasesForPrecheck,
         Case.CaseNumber
       );
 
       List<Case> casesToUpdate = AccountClosureControllerHelper.prepareCasesForUpdate(
-        successCases,
-        failedCases,
+        accountClosurePrecheckResponse,
         caseNumberToIdMap
       );
 
