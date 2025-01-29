@@ -227,12 +227,15 @@ export default class AccountClosureWizardChild extends LightningElement {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
           childCaseNumberUrl: "/" + row.Id,
-          childCaseNumber: row.CaseNumber,
-          product: row.Product.Name,
+          childCaseNumber: row?.CaseNumber || null,
+          product: row?.Product?.Name || null,
           accountNumber:
-            row.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+            row?.FinServ__FinancialAccount__r
+              ?.FinServ__FinancialAccountNumber__c || null,
           accountType:
-            row.Account_Type__c === "Individual" ? "Sole" : row.Account_Type__c
+            row?.Account_Type__c === "Individual"
+              ? "Sole"
+              : row?.Account_Type__c
         }));
         this.dispatchEvent(new CustomEvent("casescreated"));
       }

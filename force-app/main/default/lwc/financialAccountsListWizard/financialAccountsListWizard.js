@@ -104,16 +104,16 @@ export default class FinancialAccountsListWizard extends LightningElement {
       const ownershipInfo = this.ownershipMap[record.Ownership__c] || {};
       return {
         id: record.Id,
-        productName: record.FinServ__ProductName__r.Name,
-        accountNumber: record.FinServ__FinancialAccountNumber__c,
+        productId: record?.FinServ__ProductName__c || null,
+        productName: record?.FinServ__ProductName__r?.Name || null,
+        accountNumber: record?.FinServ__FinancialAccountNumber__c || null,
         finAccountType: ownershipInfo.displayValue || "",
         signingAuthority:
           record.Ownership__c === "Multi-party" &&
           record.Number_Of_Signatures__c === "All to sign"
             ? record.Number_Of_Signatures__c
             : "",
-        balance: record.FinServ__Balance__c,
-        productId: record.FinServ__ProductName__c,
+        balance: record?.FinServ__Balance__c,
         apiFinAccountType: ownershipInfo.apiValue || ""
       };
     });
