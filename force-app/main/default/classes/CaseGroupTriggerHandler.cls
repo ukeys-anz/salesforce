@@ -31,25 +31,19 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
   }
 
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<Case> parentCasesOfAccountClosureType = ListUtil.filter(records)
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
-      .toList();
     List<Case> parentCasesWhereCustomerChanged = ListUtil.filter(
-        parentCasesOfAccountClosureType,
+        records,
         oldMap
       )
+      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
       .changed(case.AccountId)
       .toList();
-    List<Case> parentCasesWithStatusEscalated = ListUtil.filter(
-        parentCasesOfAccountClosureType,
-        oldMap
-      )
+    List<Case> parentCasesWithStatusEscalated = ListUtil.filter(records, oldMap)
+      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
       .changedTo(Case.Status, GetHelpConstants.ESCALATED_STATUS)
       .toList();
-    List<Case> parentCasesWithStatusClosed = ListUtil.filter(
-        parentCasesOfAccountClosureType,
-        oldMap
-      )
+    List<Case> parentCasesWithStatusClosed = ListUtil.filter(records, oldMap)
+      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
       .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
       .toList();
 
