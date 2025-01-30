@@ -14,7 +14,7 @@ public with sharing class DAONFileRepository {
       return new List<ContentVersion>();
     }
     return [
-      SELECT Document_Flag__c
+      SELECT Id, Document_Flag__c, UUID__c
       FROM ContentVersion
       WHERE
         IsLatest = TRUE
