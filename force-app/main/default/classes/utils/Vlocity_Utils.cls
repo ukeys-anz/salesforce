@@ -73,7 +73,7 @@ global with sharing class Vlocity_Utils implements Callable {
       );
       output.put('Response', JSON.serialize(result));
     } catch (Exception ex) {
-      output.put('Response', '');
+      output.put('Exceptions', ex.getMessage());
     }
   }
 

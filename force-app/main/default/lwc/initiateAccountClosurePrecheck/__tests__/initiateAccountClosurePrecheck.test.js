@@ -39,7 +39,9 @@ describe("c-initiate-account-closure-precheck", () => {
   }
 
   it("renders the button with the correct label and initial state", async () => {
-    fetchEligibleCasesForPrecheck.mockResolvedValue(MOCK_ELIGIBLE_CASES_FOR_PRECHECK);
+    fetchEligibleCasesForPrecheck.mockResolvedValue(
+      MOCK_ELIGIBLE_CASES_FOR_PRECHECK
+    );
     const element = document.querySelector(
       "c-initiate-account-closure-precheck"
     );

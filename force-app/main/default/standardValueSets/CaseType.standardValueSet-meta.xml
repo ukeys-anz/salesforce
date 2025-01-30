@@ -447,8 +447,8 @@
         <label>Simplification/Decommissioning</label>
     </standardValue>
     <standardValue>
-        <fullName>Account Closure</fullName>
+        <fullName>Legal Name QA</fullName>
         <default>false</default>
-        <label>Account Closure</label>
+        <label>Legal Name QA</label>
     </standardValue>
 </StandardValueSet>

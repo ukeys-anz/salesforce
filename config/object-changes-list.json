@@ -23,6 +23,7 @@
     "Customer_Relationship__c",
     "EmailMessage",
     "EmailMessageRelation",
+    "Event",
     "External_Case_Status__c",
     "FinServ__FinancialAccount__c",
     "Group",

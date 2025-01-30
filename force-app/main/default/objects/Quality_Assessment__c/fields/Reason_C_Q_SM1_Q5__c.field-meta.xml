@@ -42,6 +42,11 @@
                 <default>false</default>
                 <label>A Confirming Resolution letter (CR003) was appropriately used.</label>
             </value>
+            <value>
+                <fullName>In circumstances where a sustainable option was not feasible, we did not provide a clear and understandable explanation of why assistance cannot be offered.</fullName>
+                <default>false</default>
+                <label>In circumstances where a sustainable option was not feasible, we did not provide a clear and understandable explanation of why assistance cannot be offered.</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
@@ -54,6 +59,10 @@
         <valueSettings>
             <controllingFieldValue>Not met</controllingFieldValue>
             <valueName>If CM relied on relevant information/documents to reach a decision, they did not provide some or all of these.</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Not met</controllingFieldValue>
+            <valueName>In circumstances where a sustainable option was not feasible, we did not provide a clear and understandable explanation of why assistance cannot be offered.</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Not met (outside CM control)</controllingFieldValue>

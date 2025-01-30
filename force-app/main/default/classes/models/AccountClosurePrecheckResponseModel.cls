@@ -5,212 +5,209 @@
  * Suppressing PMD naming convention warnings as some fields return in snake case formatting from the API.
  * ExcessivePublicCount Surpressed : AccountClosurePrecheckResponseModel to have all the public methods and attributes together.
  */
-@SuppressWarnings(
-    'PMD.ExcessivePublicCount, PMD.FieldNamingConventions'
-  )
+@SuppressWarnings('PMD.ExcessivePublicCount, PMD.FieldNamingConventions')
 public with sharing class AccountClosurePrecheckResponseModel extends CalloutModel {
+  /**
+   * @description acceptance value from Precheck Api
+   */
+  @AuraEnabled
+  public String acceptance { get; set; }
+  /**
+   * @description salesforceCaseNumber value from Precheck Api
+   */
+  @AuraEnabled
+  public String salesforceCaseNumber { get; set; }
+  /**
+   * @description businessProcessId value from Precheck Api
+   */
+  @AuraEnabled
+  public String businessProcessId { get; set; }
+  /**
+   * @description unsatisfiedPreconditions value from Precheck Api
+   */
+  @AuraEnabled
+  public UnsatisfiedPreconditions unsatisfiedPreconditions { get; set; }
+  /**
+   * @description code value from Precheck Api
+   */
+  @AuraEnabled
+  public String code { get; set; }
+  /**
+   * @description message value from Precheck Api
+   */
+  @AuraEnabled
+  public String message { get; set; }
+
+  /**
+   * @description unsatisfied pre conditions values
+   */
+  public class UnsatisfiedPreconditions {
     /**
-     * @description acceptance value from Precheck Api
-     */
-	@AuraEnabled
-    public String acceptance {get; set;}
-    /**
-     * @description salesforceCaseNumber value from Precheck Api
+     * @description restraints value from Precheck Api
      */
     @AuraEnabled
-    public String salesforceCaseNumber  {get; set;}
+    public Restraints restraints { get; set; }
     /**
-     * @description businessProcessId value from Precheck Api
+     * @description bankruptcy value from Precheck Api
      */
-    @AuraEnabled	
-    public String businessProcessId  {get; set;}
+    @AuraEnabled
+    public Bankruptcy bankruptcy { get; set; }
     /**
-     * @description unsatisfiedPreconditions value from Precheck Api
+     * @description deceasedEstates value from Precheck Api
      */
-    @AuraEnabled	
-    public UnsatisfiedPreconditions unsatisfiedPreconditions  {get; set;}
+    @AuraEnabled
+    public DeceasedEstates deceasedEstates { get; set; }
     /**
-     * @description code value from Precheck Api
+     * @description unclearedFunds value from Precheck Api
      */
-    @AuraEnabled	
-    public String code  {get; set;}
+    @AuraEnabled
+    public UnclearedFunds unclearedFunds { get; set; }
     /**
-     * @description message value from Precheck Api
+     * @description nonzeroAvailableBalance value from Precheck Api
      */
-    @AuraEnabled	
-    public String message  {get; set;}
-    
+    @AuraEnabled
+    public NonzeroAvailableBalance nonzeroAvailableBalance { get; set; }
     /**
-     * @description unsatisfied pre conditions values
+     * @description nonzeroClosureBalance value from Precheck Api
      */
-	public class UnsatisfiedPreconditions {
-        /**
-         * @description restraints value from Precheck Api
-         */    
-        @AuraEnabled
-		public Restraints restraints { get; set; }
-        /**
-         * @description bankruptcy value from Precheck Api
-         */         
-        @AuraEnabled
-		public Bankruptcy bankruptcy { get; set; }
-        /**
-         * @description deceasedEstates value from Precheck Api
-         */         
-        @AuraEnabled
-		public DeceasedEstates deceasedEstates { get; set; }
-        /**
-         * @description unclearedFunds value from Precheck Api
-         */         
-        @AuraEnabled
-		public UnclearedFunds unclearedFunds { get; set; }
-        /**
-         * @description nonzeroAvailableBalance value from Precheck Api
-         */         
-        @AuraEnabled
-		public NonzeroAvailableBalance nonzeroAvailableBalance{ get; set; }
-        /**
-         * @description nonzeroClosureBalance value from Precheck Api
-         */         
-        @AuraEnabled
-		public NonzeroClosureBalance nonzeroClosureBalance{ get; set; }
-        /**
-         * @description pendingAuths value from Precheck Api
-         */        
-        @AuraEnabled
-		public PendingAuths pendingAuths{ get; set; }
-        /**
-         * @description loanOffset value from Precheck Api
-         */ 
-        @AuraEnabled
-		public LoanOffset loanOffset{ get; set; }
-	}
+    @AuraEnabled
+    public NonzeroClosureBalance nonzeroClosureBalance { get; set; }
+    /**
+     * @description pendingAuths value from Precheck Api
+     */
+    @AuraEnabled
+    public PendingAuths pendingAuths { get; set; }
+    /**
+     * @description loanOffset value from Precheck Api
+     */
+    @AuraEnabled
+    public LoanOffset loanOffset { get; set; }
+  }
 
+  /**
+   * @description restraint values
+   */
+  public class Restraints {
     /**
-     * @description restraint values
+     * @description eligibility value from Precheck Api
      */
-	public class Restraints {
-        /**
-         * @description eligibility value from Precheck Api
-         */ 
-        @AuraEnabled
-		public String eligibility { get; set; }	
-	}
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
 
+  /**
+   * @description Bankruptcy values
+   */
+  public class Bankruptcy {
     /**
-     * @description Bankruptcy values
+     * @description eligibility value from Precheck Api
      */
-	public class Bankruptcy {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility { get; set; }	
-	}
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
 
+  /**
+   * @description the DeceasedEstates value
+   */
+  public class DeceasedEstates {
     /**
-     * @description the DeceasedEstates value
+     * @description eligibility value from Precheck Api
      */
-	public class DeceasedEstates {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility{ get; set; }
-	}
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
 
+  /**
+   * @description UnclearedFunds value
+   */
+  public class UnclearedFunds {
     /**
-     * @description UnclearedFunds value
+     * @description eligibility value from Precheck Api
      */
-	public class UnclearedFunds {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility{ get; set; }
-	}
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
 
+  /**
+   * @description NonzeroAvailableBalance value
+   */
+  public class NonzeroAvailableBalance {
     /**
-     * @description NonzeroAvailableBalance value
+     * @description eligibility value from Precheck Api
      */
-	public class NonzeroAvailableBalance {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility{ get; set; }
-        /**
-         * @description availableBalance value from Precheck Api
-         */
-        @AuraEnabled	
-		public AvailableBalance availableBalance{ get; set; }
-	}
-
+    @AuraEnabled
+    public String eligibility { get; set; }
     /**
-     * @description AvailableBalance value
+     * @description availableBalance value from Precheck Api
      */
-	public class AvailableBalance {
-        /**
-         * @description currencyCode value from Precheck Api
-         */
-        @AuraEnabled
-		public String currencyCode{ get; set; }
-        /**
-         * @description units value from Precheck Api
-         */
-        @AuraEnabled	
-		public String units{ get; set; }
-        /**
-         * @description nanos value from Precheck Api
-         */
-        @AuraEnabled	
-		public Integer nanos{ get; set; }
-	}
+    @AuraEnabled
+    public AvailableBalance availableBalance { get; set; }
+  }
 
+  /**
+   * @description AvailableBalance value
+   */
+  public class AvailableBalance {
     /**
-     * @description NonzeroClosureBalance value
+     * @description currencyCode value from Precheck Api
      */
-	public class NonzeroClosureBalance {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility{ get; set; }
-	}
-
+    @AuraEnabled
+    public String currencyCode { get; set; }
     /**
-     * @description PendingAuths value
+     * @description units value from Precheck Api
      */
-	public class PendingAuths {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility{ get; set; }
-	}
-
+    @AuraEnabled
+    public String units { get; set; }
     /**
-     * @description LoanOffset value
+     * @description nanos value from Precheck Api
      */
-	public class LoanOffset {
-        /**
-         * @description eligibility value from Precheck Api
-         */
-        @AuraEnabled
-		public String eligibility{ get; set; }
-	}
+    @AuraEnabled
+    public Integer nanos { get; set; }
+  }
 
-	/**
-     * @param json input string to deserialize
-     * @return `List<AccountClosurePrecheckResponseModel>`
-     * @description deserializes the input string into the model, using the base method and reserved key replacement
+  /**
+   * @description NonzeroClosureBalance value
+   */
+  public class NonzeroClosureBalance {
+    /**
+     * @description eligibility value from Precheck Api
      */
-    public static List<AccountClosurePrecheckResponseModel> parse(String json) {
-        List<AccountClosurePrecheckResponseModel> model = (List<AccountClosurePrecheckResponseModel>) deserialize(
-        json,
-        List<AccountClosurePrecheckResponseModel>.class
-        );
-        return model;
-    }
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
 
+  /**
+   * @description PendingAuths value
+   */
+  public class PendingAuths {
+    /**
+     * @description eligibility value from Precheck Api
+     */
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
+
+  /**
+   * @description LoanOffset value
+   */
+  public class LoanOffset {
+    /**
+     * @description eligibility value from Precheck Api
+     */
+    @AuraEnabled
+    public String eligibility { get; set; }
+  }
+
+  /**
+   * @param json input string to deserialize
+   * @return `List<AccountClosurePrecheckResponseModel>`
+   * @description deserializes the input string into the model, using the base method and reserved key replacement
+   */
+  public static List<AccountClosurePrecheckResponseModel> parse(String json) {
+    List<AccountClosurePrecheckResponseModel> model = (List<AccountClosurePrecheckResponseModel>) deserialize(
+      json,
+      List<AccountClosurePrecheckResponseModel>.class
+    );
+    return model;
+  }
 }

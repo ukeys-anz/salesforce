@@ -26,7 +26,10 @@ public with sharing class AccountClosureServiceTest {
   ];
   @isTest
   static void testInitiateAccountClosurePreChecksSuccess() {
-    Test.setMock(HttpCalloutMock.class, new AccountClosurePrecheckMockResponse());
+    Test.setMock(
+      HttpCalloutMock.class,
+      new AccountClosurePrecheckMockResponse()
+    );
     //load forge staff token
     Cache.Session.put(
       AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken1111',

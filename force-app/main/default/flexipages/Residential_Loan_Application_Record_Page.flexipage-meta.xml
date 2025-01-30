@@ -12,7 +12,7 @@
                         <valueListItems>
                             <value>ResidentialLoanApplication.Cancel</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND (2 OR 3 OR 4 OR 5)</booleanFilter>
+                                <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6)</booleanFilter>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.View_Cancel_Residential_Loan_Application_Action}</leftValue>
                                     <operator>EQUAL</operator>
@@ -37,6 +37,11 @@
                                     <leftValue>{!Record.Status}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>STATE_SETTLEMENT_INITATED</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>STATE_CAPTURE</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

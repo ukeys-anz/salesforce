@@ -65,7 +65,11 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>TFMExportConsentDetailsHelper</apexClass>
+        <apexClass>QueryDataScopes</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>DataOutExportConsentHelper</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>

@@ -11,7 +11,7 @@
     <label>Asset Finance AMBIT Contract</label>
     <length>255</length>
     <referenceTo>Asset_Finance_AMBIT_Contract__x</referenceTo>
-    <relationshipLabel>Asset Finance AMBIT Credit Lines</relationshipLabel>
+    <relationshipLabel>Asset Finance AMBIT Credit Line</relationshipLabel>
     <relationshipName>Asset_Finance_AMBIT_Credit_Lines</relationshipName>
     <securityClassification>Confidential</securityClassification>
     <type>ExternalLookup</type>
