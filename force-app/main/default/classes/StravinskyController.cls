@@ -97,19 +97,22 @@ public with sharing class StravinskyController {
       when 'Joint' {
         financialAccountsRole = getListOfJointFinancialAccountRoles(caseRecord);
 
-        //Added to throw exception if more than 1 Joint Account(One Savings and One Transactions) found. A Joint Account will always have one Savings and one Transactions financial account at Salesforce end.
-        if (financialAccountsRole.size() > 2) {
-          Logger.error(
-            'Error closing package - ' + MORE_THAN_ONE_JOINT_ACCOUNT,
-            caseRecord.Id
-          );
-          Logger.saveLog();
-          AuraHandledException e = new AuraHandledException(
-            MORE_THAN_ONE_JOINT_ACCOUNT
-          );
-          e.setMessage(MORE_THAN_ONE_JOINT_ACCOUNT);
-          throw e;
+        if (!FeatureManagement.checkPermission('ANZx_Account_Closure_Pilot')) {
+          //Added to throw exception if more than 1 Joint Account(One Savings and One Transactions) found. A Joint Account will always have one Savings and one Transactions financial account at Salesforce end.
+          if (financialAccountsRole.size() > 2) {
+            Logger.error(
+              'Error closing package - ' + MORE_THAN_ONE_JOINT_ACCOUNT,
+              caseRecord.Id
+            );
+            Logger.saveLog();
+            AuraHandledException e = new AuraHandledException(
+              MORE_THAN_ONE_JOINT_ACCOUNT
+            );
+            e.setMessage(MORE_THAN_ONE_JOINT_ACCOUNT);
+            throw e;
+          }
         }
+
         //Creating List Of Financial Accounts based on Financial Account Roles found
         financialAccounts = getJointFinancialAccountsDetails(
           financialAccountsRole,
@@ -245,5 +248,96 @@ public with sharing class StravinskyController {
       e.setMessage(MISSING_PACKAGE_ID);
       throw e;
     }
+  }
+
+  /**
+   * @param recordId Case/Record Id (required)
+   * @return List<FinServ__FinancialAccount__c> fetch financial accounts related to case account id
+   * @description Get all the related financial accounts of Case
+   */
+  @AuraEnabled(cacheable=true)
+  public static AccountFlexWrapper fetchFinancialAccounts(Id recordId) {
+    Case caseRecord = queryCase(recordId);
+
+    List<FinServ__FinancialAccount__c> finAccounts = checkAccountTypeAndReturnFinancialAccounts(
+      caseRecord,
+      new List<String>()
+    );
+
+    AccountFlexWrapper accountFlexRecord = new AccountFlexWrapper();
+    accountFlexRecord.finAccounts = finAccounts;
+    accountFlexRecord.caseRecord = caseRecord;
+
+    return accountFlexRecord;
+  }
+
+  /**
+   * @description This method send the parameteres for forming Stravinsky request.
+   *              Calls Stravinsky Api for closing the Account / Package for account flexibility
+   * @param caseRecord Case/Record Id (required)
+   * @param finAccountValue Financial Account Number
+   * @return stravinsky api response in GenesisPackageClosureModel form
+   */
+  @AuraEnabled
+  public static GenesisPackageClosureModel getPackageClosureAuraFlex(
+    Case caseRecord,
+    String finAccountValue
+  ) {
+    GenesisPackageClosureModel response;
+
+    Set<String> setOfAccountNumberToBeClosed = new Set<String>();
+    List<String> customerOcvIdsList = new List<String>{};
+    StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
+
+    setOfAccountNumberToBeClosed.add(finAccountValue);
+
+    customerOcvIdsList.add(caseRecord.Account.OCV_ID__c);
+    try {
+      response = stravinskyApi.packageClosure(
+        caseRecord,
+        setOfAccountNumberToBeClosed,
+        customerOcvIdsList
+      );
+    } catch (Exception e) {
+      Logger.error(
+        'Error to perform account closure flexibility',
+        caseRecord.Id,
+        e
+      );
+      Logger.saveLog();
+      AuraHandledException ex = new AuraHandledException(FAILED_CLOSURE);
+      ex.setMessage(FAILED_CLOSURE);
+      throw e;
+    }
+    return response;
+  }
+
+  /**
+   * @description AccountFlexWrapper Stores Financial Accounts and caseRecord Details
+   */
+  public class AccountFlexWrapper {
+    @AuraEnabled
+    public List<FinServ__FinancialAccount__c> finAccounts;
+    @AuraEnabled
+    public Case caseRecord;
+  }
+
+  /**
+   * @description This method post the chatter message for successfull account closure
+   * @param caseRecord Case/Record Id (required)
+   * @param finAccountNumber Financial Account Number
+   */
+  @AuraEnabled
+  public static void postChatterMessage(
+    Case caseRecord,
+    String finAccountNumber
+  ) {
+    ConnectApiHelper.postFeedItemWithRichText(
+      null,
+      caseRecord.Id,
+      'Account ' +
+        TextUtils.maskData(finAccountNumber) +
+        ' closed successfully.'
+    );
   }
 }

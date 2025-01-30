@@ -3,6 +3,7 @@
     <fullName>Account_Closure</fullName>
     <active>true</active>
     <businessProcess>ANZx Account Closure</businessProcess>
+    <compactLayoutAssignment>Account_Closure_Compact_Layout</compactLayoutAssignment>
     <description>Record type for handling account closures</description>
     <label>Account Closure</label>
     <picklistValues>
@@ -156,6 +157,21 @@
         </values>
         <values>
             <fullName>CARD_SCHEME_VISA</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Circumstance__c</picklist>
+        <values>
+            <fullName>All To Sign</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bankruptcy</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Deceased Estate</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -8999,6 +9015,21 @@
         <picklist>SRE_Team__c</picklist>
         <values>
             <fullName>Core SRE</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Sub_Status__c</picklist>
+        <values>
+            <fullName>Failed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Processing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Success</fullName>
             <default>false</default>
         </values>
     </picklistValues>
