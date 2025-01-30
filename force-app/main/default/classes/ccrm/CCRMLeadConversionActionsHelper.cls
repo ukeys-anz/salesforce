@@ -338,6 +338,12 @@ public with sharing class CCRMLeadConversionActionsHelper {
       //remove when the field is set to optional
       shellProspectToInsert.OCV_ID__c = shellProspectInfoInstance.ocvId;
       shellProspectToInsert.OwnerId = userList[0].Id;
+      shellProspectToInsert.Gender__pc = reqRecord.strGender;
+      shellProspectToInsert.PersonBirthdate = String.isNotBlank(
+        reqRecord.strDateOfBirth
+      )
+      ? Date.valueOf(reqRecord.strDateOfBirth)
+      : null;
       CCRMLeadConversionActions.manualLeadConversionInitiated = true;
       Database.SaveResult result = Database.insert(
         shellProspectToInsert,

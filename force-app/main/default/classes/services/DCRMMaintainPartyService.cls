@@ -124,6 +124,9 @@ public with sharing class DCRMMaintainPartyService extends Service {
     maintainPartyReq.gender = String.isNotBlank(record.strGender)
       ? record.strGender
       : null;
+    maintainPartyReq.dateOfBirth = String.isNotBlank(record.strDateOfBirth)
+      ? record.strDateOfBirth
+      : null;
     maintainPartyReq.names.add(name);
 
     //Add Email Address
@@ -178,6 +181,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
     private String source; //CRM
     private String status; //Prospect
     private String gender; //F
+    private String dateOfBirth; //1993-11-08
     private List<Names> names = new List<Names>();
     private List<Phones> phones = new List<Phones>();
     private List<Emails> emails = new List<Emails>();
