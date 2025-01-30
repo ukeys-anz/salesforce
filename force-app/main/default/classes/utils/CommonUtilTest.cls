@@ -254,4 +254,35 @@ public with sharing class CommonUtilTest {
       'Should return 2 Account Ids'
     );
   }
+
+  /*
+   * description test method for raiseSobjectError
+   */
+  @isTest
+  static void testRaiseSobjectError() {
+    Id sobjectId = Lib_FakeIdGenerator.getMockId(Lead.SObjectType);
+    List<sObject> lstOfSobjectTerritoryNull = new List<sObject>();
+    sObject objSObject = new Lead();
+    objSObject.put('Id', sobjectId);
+    objSObject.put('Territory__c', null);
+
+    lstOfSobjectTerritoryNull.add(objSObject);
+    String strTerritoryNullMessage = 'Territory needs to be populated.';
+    String strNonTerritoryOwnerMessage = 'You cannot assign record to a Territory you are not assigned to.';
+    Test.startTest();
+    CommonUtil.raiseSobjectError(
+      lstOfSobjectTerritoryNull,
+      strTerritoryNullMessage
+    );
+    CommonUtil.raiseSobjectError(
+      lstOfSobjectTerritoryNull,
+      strNonTerritoryOwnerMessage
+    );
+    Test.stopTest();
+    System.assertEquals(
+      lstOfSobjectTerritoryNull[0].getErrors()[0].getMessage(),
+      strTerritoryNullMessage,
+      'AddError method not working properly in case of multiple error message on same sobject record'
+    );
+  }
 }

@@ -1,0 +1,59 @@
+{
+  "countOfRecords": 2,
+  "relatedRecordList": [
+    {
+      "OpportunityId": "0069h000006oQ0gAAE",
+      "ContactId": "0039h00000BnvI9AAJ",
+      "Role": "Applicant",
+      "CreatedDate": "2024-08-21T03:21:07.000Z",
+      "Id": "00K9h000009vZ5VEAU",
+      "Opportunity": {
+        "Name": "0-0000398 Tom Jerry",
+        "StageName": "Solution Development",
+        "Amount": 500000,
+        "Customer_Needs__c": "Home Loan - Purchase",
+        "Id": "0069h000006oQ0gAAE"
+      },
+      "Contact": {
+        "Name": "Ronald Wesley",
+        "Id": "0039h00000BnvI9AAJ"
+      }
+    },
+    {
+      "OpportunityId": "0069h000005nUOhAAM",
+      "ContactId": "0039h00000BnvI9AAJ",
+      "Role": "Guarantor",
+      "CreatedDate": "2024-08-07T00:51:51.000Z",
+      "Id": "00K9h000009pW5WEAU",
+      "Opportunity": {
+        "Name": "0-00000125 Rose Mary",
+        "StageName": "Needs Analysis",
+        "Amount": 10000,
+        "Customer_Needs__c": "Home Loan - Purchase",
+        "Id": "0069h000005nUOhAAM"
+      },
+      "Contact": {
+        "Name": "Ronald Wesley",
+        "Id": "0039h00000BnvI9AAJ"
+      }
+    },
+    {
+      "OpportunityId": "0069h000005hEpgAAE",
+      "ContactId": "0039h00000BnvI9AAJ",
+      "Role": "Applicant",
+      "CreatedDate": "2024-08-01T23:40:10.000Z",
+      "Id": "00K9h000009ncBpEAI",
+      "Opportunity": {
+        "Name": "0-00000094 kalyani singh kadamb",
+        "StageName": "Needs Analysis",
+        "Amount": 9000,
+        "Customer_Needs__c": "Asset Finance",
+        "Id": "0069h000005hEpgAAE"
+      },
+      "Contact": {
+        "Name": "Ronald Wesley",
+        "Id": "0039h00000BnvI9AAJ"
+      }
+    }
+  ]
+}
