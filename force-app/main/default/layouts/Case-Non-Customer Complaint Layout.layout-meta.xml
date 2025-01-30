@@ -493,6 +493,10 @@
                 <behavior>Readonly</behavior>
                 <field>StopStartDate</field>
             </layoutItems>
+            <layoutItems>
+                <behavior>Edit</behavior>
+                <field>Test_Complaint__c</field>
+            </layoutItems>
         </layoutColumns>
         <style>TwoColumnsLeftToRight</style>
     </layoutSections>

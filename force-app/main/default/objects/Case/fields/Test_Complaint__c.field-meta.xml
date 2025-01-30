@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Test_Complaint__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <defaultValue>false</defaultValue>
+    <description>This tick box will be selected for complaints created for testing purposes.</description>
+    <inlineHelpText>This tick box should only be selected for complaints created for testing purposes only.  These complaints will be excluded from internal and external reporting</inlineHelpText>
+    <label>Test Complaint</label>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>
