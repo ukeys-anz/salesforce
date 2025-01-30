@@ -288,6 +288,14 @@
         <relatedList>Diary_Comment__x.Account__c</relatedList>
     </relatedLists>
     <relatedLists>
+        <fields>OPPORTUNITY.NAME</fields>
+        <fields>OPPORTUNITY.STAGE_NAME</fields>
+        <fields>OPPORTUNITY.AMOUNT</fields>
+        <fields>Customer_Needs__c</fields>
+        <fields>OPPORTUNITY.CREATED_DATE</fields>
+        <relatedList>ContactRelatedOpportunityList</relatedList>
+    </relatedLists>
+    <relatedLists>
         <fields>Account_Number__c</fields>
         <fields>Product_Name__c</fields>
         <fields>Balance__c</fields>

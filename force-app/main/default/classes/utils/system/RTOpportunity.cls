@@ -7,4 +7,6 @@ public class RTOpportunity {
   static QueryRT base = QueryRT.of(Opportunity.SObjectType);
 
   public static Id commercialOpportunity = base.getId('Commercial_Opportunity');
+  public static Id mlOpportunity = base.getId('MLCRM_Opportunity');
+
 }

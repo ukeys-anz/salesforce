@@ -149,6 +149,27 @@ public with sharing class ARNCService extends Service {
   }
 
   /**
+   * @param calloutRequest ExternalObjectCalloutRequestBase
+   * @return HttpCalloutResponse
+   * @description Generic method for querying exernal data via API
+   */
+  public HttpCalloutResponse queryExternalData(
+    ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest
+  ) {
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+
+    Map<String, String> headers = new Map<String, String>();
+    setCommonHeaders(headers);
+
+    return calloutService.makeRestCallout(
+      Label.Financial_Account_Endpoint + calloutRequest.getEndpoint(),
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      calloutRequest.getPayload()
+    );
+  }
+
+  /**
    * @return String
    * @description get Lan Id of user
    */
@@ -250,6 +271,40 @@ public with sharing class ARNCService extends Service {
         HTTP_METHOD.HTTP_GET,
         headers,
         null
+      );
+    } catch (Exception e) {
+      Logger.error(e.getMessage());
+      Logger.saveLog();
+      throw new AuraHandledException('Error : ' + e.getMessage());
+    }
+    return response;
+  }
+
+  /**
+   * @param endpoint simpology mule endpoint
+   * @param payload simpology create/open payload.
+   * @return `HttpCalloutResponse` response from mule
+   * @description makes rest callout to mule to create loanApp.
+   */
+  public HttpCalloutResponse makeLoanappCallout(
+    String endpoint,
+    String payload
+  ) {
+    Map<String, String> headers = new Map<String, String>();
+    setCommonHeaders(headers);
+    headers.put(
+      'Authorization',
+      'Bearer ' + AuthTokenCacheUtil.getSessionIdToken()
+    );
+    HttpCalloutResponse response;
+    try {
+      Lib_HttpCallout calloutService = new Lib_HttpCallout();
+      response = calloutService.makeRestCallout(
+        endPoint,
+        HTTP_METHOD.HTTP_POST,
+        headers,
+        payload,
+        120000
       );
     } catch (Exception e) {
       Logger.error(e.getMessage());

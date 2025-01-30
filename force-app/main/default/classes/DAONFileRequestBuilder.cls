@@ -4,26 +4,56 @@
  * @description Helper class for constructing DAONFileRequestModel
  */
 public with sharing class DAONFileRequestBuilder {
+  /**
+   * @description The ID of the related record
+   */
   @AuraEnabled
-  public String relatedRecordId;
+  public String relatedRecordId { get; set; }
+  /**
+   * @description The ID of the customer
+   */
   @AuraEnabled
-  public String customerId;
+  public String customerId { get; set; }
+  /**
+   * @description The type of the customer ID
+   */
   @AuraEnabled
-  public String customerIdType;
+  public String customerIdType { get; set; }
+  /**
+   * @description idx_user_id
+   */
   @AuraEnabled
-  public String idxUserId;
+  public String idxUserId { get; set; }
+  /**
+   * @description idx_id_check_id
+   */
   @AuraEnabled
-  public String idxIdCheckId;
+  public String idxIdCheckId { get; set; }
+  /**
+   * @description idx_document_id
+   */
   @AuraEnabled
-  public String idxDocumentId;
+  public String idxDocumentId { get; set; }
+  /**
+   * @description idx_extracted_face_id
+   */
   @AuraEnabled
-  public String idxExtractedFaceId;
+  public String idxExtractedFaceId { get; set; }
+  /**
+   * @description workflowId
+   */
   @AuraEnabled
-  public String workflowId;
+  public String workflowId { get; set; }
+  /**
+   * @description challengeId for pin_recovery/selfie_recovery
+   */
   @AuraEnabled
-  public String challengeId;
+  public String challengeId { get; set; }
+  /**
+   * @description challengeType for selfie_recovery
+   */
   @AuraEnabled
-  public DAONFileRequestModel.DAONChallengeType challengeType;
+  public String challengeType { get; set; }
 
   /**
    * @description Builds a map of DAONFileType to UUID based on the provided file types.
@@ -47,7 +77,7 @@ public with sharing class DAONFileRequestBuilder {
       if (String.isBlank(value)) {
         continue;
       }
-      Set<String> keys = new Set<String>{
+      List<String> keys = new List<String>{
         UserInfo.getUserId(),
         fileType,
         value,
@@ -101,7 +131,7 @@ public with sharing class DAONFileRequestBuilder {
     } else {
       file.selfie_recovery = new DAONFileRequestModel.SelfieRecoveryChallenge(
         this.challengeId,
-        this.challengeType
+        DAONFileRequestModel.DAONChallengeType.valueOf(this.challengeType)
       );
     }
     return file;

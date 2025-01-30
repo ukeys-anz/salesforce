@@ -6,8 +6,8 @@ import gender from "@salesforce/schema/Lead.Gender__c";
 import Lead_OBJECT from "@salesforce/schema/Lead";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
-import createProspectFromOpportunity from "@salesforce/apex/MLCRMOpportunityActions.createProspectFromOpportunity";
-import createProspectForCustomer from "@salesforce/apex/MLCRMOpportunityActions.createOppContactRoleForCustomer";
+import createProspectFromOpportunity from "@salesforce/apex/OpportunityActions.createProspectFromOpportunity";
+import createProspectForCustomer from "@salesforce/apex/OpportunityActions.createOppContactRoleForCustomer";
 
 //labels
 import MLCRM_CreateProspect_Header from "@salesforce/label/c.MLCRM_CreateProspect_Header";
