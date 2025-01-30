@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ANZx_Account_Closure_Pilot</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>This permission set is added to certain users who want to test the account flexibility functionality</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View Account Closure Pilot</label>
+</PermissionSet>
