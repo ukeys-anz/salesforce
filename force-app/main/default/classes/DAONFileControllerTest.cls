@@ -20,7 +20,7 @@ public class DAONFileControllerTest {
       builder.idxExtractedFaceId = 'testIdxExtractedFaceId';
       builder.workflowId = 'testWorkflowId';
       builder.challengeId = 'testChallengeId';
-      builder.challengeType = DAONFileRequestModel.DAONChallengeType.SELFIE_RECOVERY_CHALLENGE_TYPE_REG_CHALLENGE;
+      builder.challengeType = 'SELFIE_RECOVERY_CHALLENGE_TYPE_REG_CHALLENGE';
       return builder;
     }
     set;
