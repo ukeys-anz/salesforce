@@ -7,7 +7,9 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &quot;KYC_QA&quot;,
     ISPICKVAL ( Status, &quot;Closed&quot; ),
-    ISCHANGED ( Fraud_Defects_Rectified__c )    
+    ISCHANGED ( Fraud_Defects_Rectified__c ), 
+    NOT(ISCHANGED ( Status ) ),
+    NOT(ISCHANGED ( Sub_Status__c ) ) 
 )</errorConditionFormula>
     <errorMessage>KYC checks are completed and the case is closed, please re-open the case in-order to update the &apos;Have All Defects Been Rectified&apos;.</errorMessage>
 </ValidationRule>

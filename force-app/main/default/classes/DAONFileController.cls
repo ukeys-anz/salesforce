@@ -34,14 +34,17 @@ public with sharing class DAONFileController {
       currentTime +
       ' | Apex execution for DAONFileController.getDocuments started'
     );
+    Map<DAONFileType, String> uuidByType = new Map<DAONFileType, String>();
+    Map<DAONFileType, ContentVersion> cvByType = new Map<DAONFileType, ContentVersion>();
+    Map<String, String> urlByType = new Map<String, String>();
     try {
-      Map<DAONFileType, String> uuidByType = builder.buildUUIDByType(fileTypes);
-      Map<DAONFileType, ContentVersion> cvByType = queryCvByType(uuidByType);
+      uuidByType = builder.buildUUIDByType(fileTypes);
+      cvByType = queryCvByType(uuidByType);
       Map<DAONFileType, ContentVersion> incompleteTypes = filterIncomplete(
         cvByType
       );
       if (incompleteTypes.isEmpty()) {
-        Map<String, String> urlByType = buildUrlByType(cvByType);
+        urlByType = buildUrlByType(cvByType);
         logAudit(builder, urlByType);
         return urlByType;
       }
@@ -52,11 +55,21 @@ public with sharing class DAONFileController {
         builder.customerIdType
       );
       cvByType = queryCvByType(uuidByType);
-      Map<String, String> urlByType = buildUrlByType(cvByType);
+      urlByType = buildUrlByType(cvByType);
       logAudit(builder, urlByType);
       return urlByType;
+    } catch (RepositoryBase.ServerErrorException e) {
+      //check partial success
+      cvByType = queryCvByType(uuidByType);
+      if (cvByType.isEmpty()) {
+        throw new AuraHandledException(e.getMessage());
+      }
+      urlByType = buildUrlByType(cvByType);
+      logAudit(builder, urlByType);
+      Logger.error('partial file downloaded', e, Logger.Severity.LOW);
+      return urlByType;
     } catch (Exception e) {
-      throw CommonUtil.logException(e);
+      throw new AuraHandledException(e.getMessage());
     } finally {
       Logger.debug(
           currentTime +
