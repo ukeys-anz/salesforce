@@ -14,6 +14,24 @@
     <navType>Console</navType>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Broker_Enquiry</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Broker_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Broker_Enquiry</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Broker_Enquiry</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Residential_Loan_Application_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
@@ -119,6 +137,7 @@
     <tabs>standard-Contact</tabs>
     <tabs>FinServ__ContactContactRelation__c</tabs>
     <tabs>standard-ResidentialLoanApplication</tabs>
+    <tabs>standard-Case</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Broker_Workbench_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -127,6 +146,9 @@
         </mappings>
         <mappings>
             <tab>standard-Account</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Case</tab>
         </mappings>
         <mappings>
             <tab>standard-Contact</tab>
