@@ -102,16 +102,15 @@
             ></lightning-input>
           </lightning-layout-item>
           <lightning-layout-item size="6" padding="around-small">
-            <lightning-combobox
-              name="strRole"
-              label="Role"
-              class="role"
-              value={createProspectPayload.strRole}
-              placeholder="--None--"
-              options={rolePicklistValue}
+            <lightning-input
+              name="strDateOfBirth"
+              type="date"
+              data-id="dob"
+              value={createProspectPayload.strDateOfBirth}
+              label="DOB"
               onchange={handleChange}
               required
-            ></lightning-combobox>
+            ></lightning-input>
           </lightning-layout-item>
           <lightning-layout-item size="6" padding="around-small">
             <lightning-input
@@ -123,8 +122,18 @@
               required="true"
             ></lightning-input>
           </lightning-layout-item>
-        </lightning-layout>
-        <lightning-layout multiple-rows>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-combobox
+              name="strGender"
+              label="Gender"
+              class="gender"
+              value={createProspectPayload.strGender}
+              placeholder="--None--"
+              options={genderPicklistValues}
+              onchange={handleChange}
+              required
+            ></lightning-combobox>
+          </lightning-layout-item>
           <lightning-layout-item size="6" padding="around-small">
             <lightning-input
               type="text"
@@ -133,6 +142,18 @@
               label="Suffix"
               onchange={handleChange}
             ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" padding="around-small">
+            <lightning-combobox
+              name="strRole"
+              label="Role"
+              class="role"
+              value={createProspectPayload.strRole}
+              placeholder="--None--"
+              options={rolePicklistValue}
+              onchange={handleChange}
+              required
+            ></lightning-combobox>
           </lightning-layout-item>
         </lightning-layout>
       </div>

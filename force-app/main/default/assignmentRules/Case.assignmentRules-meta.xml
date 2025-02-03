@@ -146,14 +146,7 @@
                 AND(
                     ISNEW(),
                     RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
-                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
-                    OR(
-                        ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/Savings accounts&quot;),
-                        ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;),
-                        ISPICKVAL(IDR_Product_Category__c, &quot;ANZ Plus&quot;),
-                        ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;)
-                    ),
-                    ANZx_Customer__c = true
+                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;)
                 )
             </formula>
         </ruleEntry>
@@ -205,8 +198,7 @@
                 AND( 
                     ISNEW(), 
                     RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
-                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;),
-                    ANZx_Customer__c = true 
+                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;) 
                 )
             </formula>
         </ruleEntry>

@@ -391,7 +391,6 @@ public with sharing class OpportunityActions {
     record.strPostalCode = '';
     record.strHomePhone = '';
     record.strWorkPhone = '';
-    record.strGender = '';
     record.strAdvertisingIndicator = ''; //added as part of CC-6745
     return record;
   }
