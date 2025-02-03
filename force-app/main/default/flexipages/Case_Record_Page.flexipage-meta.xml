@@ -9,56 +9,16 @@
                         <valueListItems>
                             <value>Case.Complete_Checks_as_Yes</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND (2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9 OR 10)</booleanFilter>
+                                <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>KYC_QA</rightValue>
                                 </criteria>
                                 <criteria>
-                                    <leftValue>{!Record.Fraud_Customer_Details__c}</leftValue>
+                                    <leftValue>{!Record.IsKYCChecksCompleted__c}</leftValue>
                                     <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_MiddleNameCheck__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_Selfie_Comparison_Match__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_PO_Box__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_Address_Valid__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_ID_Legible__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_ID_Not_Picture__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_Customer_Photo_Modified__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!Record.Fraud_Security_Features__c}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>No</rightValue>
+                                    <rightValue>false</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>
@@ -693,11 +653,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
-                    <value>4</value>
+                    <value>2</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
-                    <value>Case.AccountId</value>
+                    <value>Case.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>
@@ -772,11 +732,11 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>maxRecordsToDisplay</name>
-                    <value>4</value>
+                    <value>6</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>parentFieldApiName</name>
-                    <value>Case.AccountId</value>
+                    <value>Case.Id</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListApiName</name>

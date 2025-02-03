@@ -146,26 +146,7 @@
                 AND(
                     ISNEW(),
                     RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
-                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
-                    OR(
-                        ISPICKVAL(IDR_Product_Category__c, &quot;Cheque/Savings accounts&quot;),
-                        ISPICKVAL(IDR_Product_Category__c, &quot;Not product related&quot;),
-                        ISPICKVAL(IDR_Product_Category__c, &quot;ANZ Plus&quot;)
-                    ),
-                    ANZx_Customer__c = true
-                )
-            </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>BOH_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
-                AND(
-                    ISNEW(),
-                    RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
-                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;),
-                    ISPICKVAL(IDR_Product_Category__c, &quot;Home loans&quot;),
-                    ANZx_Customer__c = true
+                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;)
                 )
             </formula>
         </ruleEntry>
@@ -211,34 +192,15 @@
             <formula>AND(ISNEW(), RecordType.DeveloperName = &quot;General_Inquiry&quot;,  ISPICKVAL(Type,&quot;Fraud&quot;),  BOH_Fraud_Case__c = TRUE)</formula>
         </ruleEntry>
         <ruleEntry>
-            <assignedTo>BOH_Coach_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>
-                AND(
-                    ISNEW(), 
-                    RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
-                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;),
-                    ISPICKVAL(IDR_Product_Category__c,&quot;Home loans&quot; ),
-                    ANZx_Customer__c = true 
-                )
-            </formula>
-        </ruleEntry>
-        <ruleEntry>
             <assignedTo>Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
                 AND( 
                     ISNEW(), 
                     RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
-                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;),
-                    ANZx_Customer__c = true 
+                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;) 
                 )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <assignedTo>ID_Ops_Queue</assignedTo>
-            <assignedToType>Queue</assignedToType>
-            <formula>AND( ISNEW(), RecordType.DeveloperName = &apos;Profile_Update&apos; )</formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

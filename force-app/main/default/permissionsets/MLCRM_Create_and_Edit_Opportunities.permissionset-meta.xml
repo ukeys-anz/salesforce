@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ML_Allow_Opportunity_Creation</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <description>This permission set is for ML user which allows them to create and edit opportunities</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Create and Edit Opportunities</label>

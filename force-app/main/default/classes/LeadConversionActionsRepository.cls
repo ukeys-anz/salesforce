@@ -165,7 +165,8 @@ public without sharing class LeadConversionActionsRepository {
         FinServ__RelatedAccount__r.PersonContact.OtherState,
         FinServ__RelatedAccount__r.PersonContact.OtherCountry,
         FinServ__RelatedAccount__r.PersonContact.OtherPostalCode,
-        FinServ__RelatedAccount__r.Advertising_Indicator__c
+        FinServ__RelatedAccount__r.Advertising_Indicator__c,
+        FinServ__RelatedAccount__r.OCV_Event_Version__c
       FROM Lead
       WHERE Id = :leadId
     ];

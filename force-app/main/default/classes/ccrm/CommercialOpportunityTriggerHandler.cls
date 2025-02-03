@@ -25,11 +25,23 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
   }
 
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   * @name onBeforeInsert
+   */
+  public override void onBeforeInsert() {
+    CommercialOpportunityActions.restrictImagesInRichTextFields(records, null);
+  }
+
+  /**
    * @description onBeforeUpdate to handle before update trigger actions.
    * @name onBeforeUpdate
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CommercialOpportunityActions.restrictImagesInRichTextFields(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
     CCRMOpportunityActions.transferOpportunityOwnership(
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap

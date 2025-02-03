@@ -6,6 +6,8 @@
  */
 @isTest
 private class ARNCServiceTest {
+  //jwt containing a single claim of exp 26/11/2050
+  public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
   @TestSetup
   static void createTestData() {
     // Insert User & PermissionSet as current user, to get around MIXED_DML_OPERATION error
@@ -334,6 +336,29 @@ private class ARNCServiceTest {
     Test.stopTest();
   }
 
+  @isTest
+  static void makeLoanappCalloutTest() {
+    Cache.Session.put(
+      'local.SessionAzureTokens.idToken' + UserInfo.getUserId(),
+      IDTESTVALUE,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
+    Test.startTest();
+    LoanappModel lm = new LoanappModel();
+    lm.request_id = String.valueOf(UUID.randomUUID());
+    String payload = JSON.serialize(lm);
+    Test.setMock(HttpCalloutMock.class, new CreateLoanappTestMock());
+    ARNCService svc = new ARNCService();
+    HTTPCalloutResponse resp = svc.makeLoanappCallout(
+      Label.CreateApplicationEndpoint,
+      payload
+    );
+    Test.stopTest();
+    Assert.areEqual(resp.statusCode, 200, 'response should be successful!');
+  }
+
   /**
    * @description HTTP mock class
    */
@@ -456,6 +481,24 @@ private class ARNCServiceTest {
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'create-diary-comment');
       res.setBody(new ARNCServiceMock().createDiaryComment().body);
+      res.setStatusCode(200);
+      return res;
+    }
+  }
+
+  /**
+   * @description create HTTP mock response for testing
+   */
+  public class CreateLoanappTestMock implements HttpCalloutMock {
+    /**
+     * @description HTTP mock response
+     * @param req HTTP request
+     * @return HTTPResponse
+     */
+    public HTTPResponse respond(HTTPRequest req) {
+      String jsonBody = Service.getStaticResource('mock_createLoanappResponse');
+      HTTPResponse res = new HTTPResponse();
+      res.setBody(jsonBody);
       res.setStatusCode(200);
       return res;
     }

@@ -208,6 +208,7 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
   @testVisible
   protected override ExternalObjectQueryBase.ExternalQueryResult createExternalRecordsBySOQLQuery() {
     ExternalObjectQueryBase.ExternalQueryResult result = new ExternalObjectQueryBase.ExternalQueryResult();
+    FinancialAccountExternalQueryHelper externalQueryHelper = new FinancialAccountExternalQueryHelper();
     Integer index = 0;
     for (FinServ__FinancialAccountRole__c faRole : relatedCustomers) {
       String externalId =
@@ -225,7 +226,9 @@ public with sharing class AccountRelationshipExternalQuery extends FinancialAcco
         'ExternalId' => externalId,
         'DisplayUrl' => displayUrl,
         'Customer' => faRole.FinServ__RelatedAccount__r.External_Id__c,
-        'Relationship' => this.roleTypes.get(faRole.Role_Type__c)
+        'Relationship' => externalQueryHelper.getRoleTypeNameByCode(
+          faRole.Role_Type__c
+        )
       };
       row.put(this.parentField, this.parentId);
       result.externalRecords.add(row);

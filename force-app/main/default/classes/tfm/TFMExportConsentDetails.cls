@@ -21,78 +21,104 @@ global with sharing class TFMExportConsentDetails implements Callable {
     Map<String, Object> options
   ) {
     Boolean result = false;
-    if (methodName.equals(TFMConstants.EXPORTCSVACTION)) {
-      exportToCSV(input, output, options);
+    if (methodName.equals('exportToCSV')) {
+      String jsonString = JSON.serialize(input);
+      DataOutExportModel dataExportModelDetails = DataOutExportModel.parse(
+        jsonString
+      );
+      output.putAll(exportToCSV(dataExportModelDetails));
       result = true;
     }
     return result;
   }
 
   /**
-   * @param input arg for omnistudio flex card
-   * @param output arg for omnistudio flex card
-   * @param options arg for omnistudio flex card
-   * @return `Boolean`
+   * @param dataExportModelDetails DataOutExportModel model with input paramters
+   * @return `Map<String, Object`
    * @description exports data to CSV
    */
-  global static Map<String, Object> exportToCSV(
-    Map<String, Object> input,
-    Map<String, Object> output,
-    Map<String, Object> options
+  public static Map<String, Object> exportToCSV(
+    DataOutExportModel dataExportModelDetails
   ) {
+    Map<String, Object> output = new Map<String, Object>();
+    String fileTitle = DataOutExportConsentHelper.buildCSVTitle(
+      dataExportModelDetails.consentIdValue
+    );
     try {
-      Map<String, TFM_Data_Scopes__mdt> mapScopeIDToTFMDataScopes = TFMExportConsentDetailsHelper.getDataScopesMetadata();
-
-      List<String> newDataScopes = TFMExportConsentDetailsHelper.getNewDataScopes(
-        input
+      TFMExportConsentModel dataSharingModel = DataOutExportConsentHelper.getConsentDataSharingHistory(
+        dataExportModelDetails
       );
+      String csvFile = buildCSV(dataExportModelDetails, dataSharingModel);
 
-      String csvContent = TFMExportConsentDetailsHelper.getReportHeader();
-
-      Map<String, Object> returnMap = TFMExportConsentDetailsHelper.formConsentData(
-        input,
-        input.get(TFMConstants.ACCOUNTSVALUE),
-        csvContent
-      );
-
-      csvContent = String.valueOf(
-        returnMap.get(TFMConstants.CSVCONTENTVARIABLE)
-      );
-
-      csvContent = TFMExportConsentDetailsHelper.formClusterData(
-        csvContent,
-        returnMap,
-        newDataScopes,
-        mapScopeIDToTFMDataScopes
-      );
-
-      Map<String, Object> sharingHistoryMap = TFMExportConsentDetailsHelper.formDataSharingHistoryData(
-        csvContent,
-        mapScopeIDToTFMDataScopes,
-        input
-      );
-      Boolean isValid = Boolean.valueOf(sharingHistoryMap.get('isValid'));
-      output.put('isValid', isValid);
-      if (!isValid) {
-        return output;
-      }
-
-      csvContent = String.valueOf(sharingHistoryMap.get('csvContent'));
-
-      String fileTitle = TFMExportConsentDetailsHelper.getFileTitle(
-        String.valueOf(input.get(TFMConstants.CONSENTIDSTRING))
-      );
-
-      output.put(TFMConstants.SHOWTOAST, TFMConstants.YESSTRING);
-      output.put(TFMConstants.BLOBCONTENT, Blob.valueOf(csvContent));
-      output.put(TFMConstants.FILETITLE, fileTitle);
+      output = setOutputMap(csvFile, fileTitle);
+      return output;
+    } catch (OpenBankingAPIRepository.InsufficientAccessException e) {
+      Logger.info(e.getMessage(), e);
+      Logger.saveLog();
+      output.put('isValid', false);
+      return output;
+    } catch (OpenBankingAPIRepository.ServerErrorException e) {
+      logError(e);
+      String csvFile = buildCSV(dataExportModelDetails, null);
+      output = setOutputMap(csvFile, fileTitle);
       return output;
     } catch (Exception e) {
-      Logger.error(e.getMessage(), e);
-      Logger.saveLog();
-      output.put(TFMConstants.SHOWTOAST, TFMConstants.ERROR);
+      logError(e);
+      output.put('showToast', 'error');
       return output;
     }
+  }
+
+  /**
+   * @param dataExportModelDetails DataOutExportModel model with input paramters
+   * @param dataSharingModel TFMExportConsentModel model with sharing API response
+   * @return `String`
+   * @description build csv file
+   */
+  public static String buildCSV(
+    DataOutExportModel dataExportModelDetails,
+    TFMExportConsentModel dataSharingModel
+  ) {
+    List<List<String>> csvContent = DataOutExportConsentHelper.buildCSVContent(
+      dataExportModelDetails,
+      dataSharingModel
+    );
+
+    String csvFile = '';
+    for (List<String> row : csvContent) {
+      if (row.isEmpty()) {
+        continue;
+      }
+      csvFile += String.join(row, ',') + '\n';
+    }
+    return csvFile;
+  }
+
+  /**
+   * @param e Exception to set log
+   * @description Log error
+   */
+  public static void logError(Exception e) {
+    Logger.error(e.getMessage(), e);
+    Logger.saveLog();
+  }
+
+  /**
+   * @param csvFile String having csvFile
+   * @param fileTitle String having fileTitle
+   * @return Map<String, Object> having output
+   * @description Log error
+   */
+  public static Map<String, Object> setOutputMap(
+    String csvFile,
+    String fileTitle
+  ) {
+    Map<String, Object> output = new Map<String, Object>();
+    output.put('blobContent', Blob.valueOf(csvFile));
+    output.put('fileTitle', fileTitle);
+    output.put('isValid', true);
+    output.put('showToast', 'yes');
+    return output;
   }
 
   /**

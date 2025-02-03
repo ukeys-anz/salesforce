@@ -118,19 +118,21 @@ private class AutoKYCQACaseControllerTest {
   @isTest
   static void testCompleteCheckAsYesFailed() {
     registerMocks();
-
-    autoKYCQACaseRepoMock.mock(
-      'queryKYCQAChecksByIds',
-      new List<Case>{ kycQACompleted }
-    );
+    List<Database.SaveResult> saveResults = new List<Database.SaveResult>{
+      TestUtil.getMockSaveResult(
+        '{"success":false,"id":"5008r00000EhhODAAZ","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"TestErrorMessage","fields":[]}]}'
+      )
+    };
+    dmlRepoMock.mock('doUpdate', saveResults);
 
     try {
       Test.startTest();
       AutoKYCQACaseController.completeChecksAsYes(kycQACompleted.Id);
       Test.stopTest();
     } catch (Exception ex) {
-      Assert.isTrue(
-        ex instanceof AuraHandledException,
+      Assert.isInstanceOfType(
+        ex,
+        AuraHandledException.class,
         'AuraHandledException should have been thrown'
       );
     }

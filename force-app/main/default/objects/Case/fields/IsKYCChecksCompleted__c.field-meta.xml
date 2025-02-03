@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>IsKYCChecksCompleted__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Check if KYC QA Case Checks Completed</description>
+    <formula>AND (
+      RecordType.DeveloperName = &quot;KYC_QA&quot;,
+      NOT( ISBLANK( TEXT( Fraud_Customer_Details__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_MiddleNameCheck__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_Selfie_Comparison_Match__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_PO_Box__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_Address_Valid__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_ID_Legible__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_ID_Not_Picture__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_Customer_Photo_Modified__c ) ) ),
+      NOT( ISBLANK( TEXT( Fraud_Security_Features__c ) ) )
+)</formula>
+    <label>Is KYC Checks Completed</label>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

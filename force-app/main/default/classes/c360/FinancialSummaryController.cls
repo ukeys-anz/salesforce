@@ -27,7 +27,8 @@ public with sharing class FinancialSummaryController {
     'CAP-CIS:RSV',
     'CAP-CIS:ILS',
     'CAP-CIS:PCA',
-    'CAP-CIS:CDA'
+    'CAP-CIS:CDA',
+    'CAP-CIS:OLL'
   };
 
   private static final FinancialAccountQueryBaseRepository FA_REPOSITORY = (FinancialAccountQueryBaseRepository) Lib_InstanceProvider.forType(
