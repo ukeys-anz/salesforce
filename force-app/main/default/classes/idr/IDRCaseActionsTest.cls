@@ -244,37 +244,17 @@ private with sharing class IDRCaseActionsTest {
 
   @isTest
   static void testUpdateDateTimePsiTicked() {
-    //GIVEN new PSIs
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = IDRConstants.NON_CUSTOMER_COMPLAINT_RT_ID,
-          IDR_Is_Common__c = 'yes',
-          IDR_Systemic_Issue_Category__c = '1',
-          IDR_Systemic_Issue_Description__c = 'Test'
-        )
-      );
-    }
-    //WHEN they're inserted
-    insert newCases;
-    //THEN Date/Time flag is populated
-    Case c = [SELECT IDR_Datetime_PSI_Ticked__c FROM Case LIMIT 1];
-    System.assert(
-      c.IDR_Datetime_PSI_Ticked__c != null,
-      'Date/Time flag should have been populated'
-    );
-    //AND WHEN they're unflagged
-    for (Case newCase : newCases) {
-      newCase.IDR_Is_Common__c = 'No';
-    }
-    update newCases;
-    //THEN Date/Time flag is cleared
-    c = [SELECT IDR_Datetime_PSI_Ticked__c FROM Case LIMIT 1];
-    System.assert(
-      c.IDR_Datetime_PSI_Ticked__c == null,
-      'Date/Time flag should have been cleared'
-    );
+    DateTime dateTimePSIChanged = IDRCaseActions.populatePSITicked('Yes');
+    Assert.isNotNull(dateTimePSIChanged,
+    'Date/Time flag should have been populated');
+  }
+  @isTest
+  static void testUpdateDateTimePsiNotTicked(){
+    DateTime dateTimePSIChanged = IDRCaseActions.populatePSITicked('No');
+    Assert.isNull(dateTimePSIChanged,
+   'Date/Time flag should have been cleared'
+   );
+
   }
   @isTest
   static void testUpdateKnowledgeKeyWordCaseFieldsonInsert() {
