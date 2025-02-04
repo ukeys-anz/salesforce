@@ -1,0 +1,24 @@
+[
+  {
+    "accountNumber": "111111111",
+    "balance": 1.99,
+    "id": "a0FAD000002kIFJ2A2",
+    "ownership": "Multi-party",
+    "productId": "01t2P000000GKT0QAO",
+    "productName": "Business One",
+    "recodTypeName": "CheckingAccount",
+    "signingAuthority": "All to sign",
+    "status": "Active"
+  },
+  {
+    "accountNumber": "000000000",
+    "balance": 18.9912,
+    "id": "a0FAD000002kILl2AM",
+    "ownership": "Single",
+    "productId": "01t2P000000GKT0QAO",
+    "productName": "Business One",
+    "recodTypeName": "SavingsAccount",
+    "signingAuthority": "Not Applicable",
+    "status": "Active"
+  }
+]
