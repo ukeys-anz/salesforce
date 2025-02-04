@@ -417,7 +417,15 @@
     "dupcheck__dc3Web2Lead__c"
   ],
   "Opportunity": ["SourceId"],
-  "Product2": ["AvailabilityDate", "BasedOnId"],
+  "Product2": [
+    "AvailabilityDate",
+    "BasedOnId",
+    "DiscontinuedDate",
+    "EndOfLifeDate",
+    "HelpText",
+    "IsAssetizable",
+    "IsSoldOnlyWithOtherProds"
+  ],
   "ResidentialLoanApplication": [
     "Assessment_Outcome__c",
     "Created_Date__c",
