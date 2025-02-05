@@ -43,8 +43,6 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     Set<String> setOfAccountNumberToBeClosed,
     List<String> customerOCVIds
   ) {
-    GenesisPackageClosureModel result;
-
     Service s = ServiceProvider.getService(StravinskyService.class);
     //Updated ClosedPackage method to accept OCVId and ClosureCaseRequest
     HttpCalloutResponse response = s.closePackage(
@@ -58,15 +56,13 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
 
     if (response.successful) {
       try {
-        result = GenesisPackageClosureModel.parse(response.body);
+        return GenesisPackageClosureModel.parse(response.body);
       } catch (Exception objException) {
         throw CommonUtil.logException(objException);
       }
     } else {
       throw CommonUtil.logException(response);
     }
-
-    return result;
   }
 
   /**
@@ -98,7 +94,10 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
     //Attempt to parse expected Error response
     String responseErrMsg = response.error.getMessage();
 
-    if (String.isBlank(responseErrMsg) || !responseErrMsg.containsIgnoreCase(FAILED_PRECONDITION_CODE) ) {
+    if (
+      String.isBlank(responseErrMsg) ||
+      !responseErrMsg.containsIgnoreCase(FAILED_PRECONDITION_CODE)
+    ) {
       throw CommonUtil.logException(response);
     }
 
@@ -173,7 +172,8 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       throw CommonUtil.logException(response);
     }
 
-    String responseErrMsg = response.error.getMessage() ?? 'No response from API';
+    String responseErrMsg = response.error.getMessage() ??
+      'No response from API';
     throw new PIDDataException(responseErrMsg);
   }
 
@@ -254,7 +254,7 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       body.writeStringField('account_resource', accNum);
       body.writeEndObject();
     }
-    if (!isS2ProductOnCase(caseRecord)) {
+    if (!isS2ProductOnCase(caseRecord) && caseRecord.Package_Id__c != null) {
       body.writeStartObject();
       body.writeStringField('package_resource', caseRecord.Package_Id__c);
       body.writeEndObject();

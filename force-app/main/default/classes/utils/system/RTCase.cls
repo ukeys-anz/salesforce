@@ -16,6 +16,7 @@ public class RTCase {
   public static Id creditReferral = base.getId('Credit_Referral');
   public static Id customerComplaint = base.getId('Customer_Complaint');
   public static Id customerFeedback = base.getId('Customer_Feedback');
+  public static Id caseGroup = base.getId('Case_Group');
   public static Id directDebitDispute = base.getId('Direct_Debit_Dispute');
   public static Id directEntryDispute = base.getId('Direct_Entry_Dispute');
   public static Id falseCustomerProfile = base.getId('False_Customer_Profile');

@@ -75,6 +75,10 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Case Group Layout</layout>
+        <recordType>Case.Case_Group</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>

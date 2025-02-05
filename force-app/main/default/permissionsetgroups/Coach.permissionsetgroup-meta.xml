@@ -9,6 +9,7 @@
     <permissionSets>Bugs_Read_Write</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Card_Management_Coach</permissionSets>
+    <permissionSets>Case_Group_Read_Write_Access</permissionSets>
     <permissionSets>Case_Read_Only_Credit_Referral</permissionSets>
     <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>
