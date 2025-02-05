@@ -27,6 +27,7 @@ public with sharing class FinancialAccountRoleTriggerHandler extends Lib_Trigger
    */
   public override void onAfterInsert() {
     CCRMFinancialAccountRoleActions.updateFinancialAccountOwner(records);
+    CCRMFinancialAccountRoleActions.deactivateDuplicateRecords(records, null);
   }
 
   /**
@@ -40,6 +41,17 @@ public with sharing class FinancialAccountRoleTriggerHandler extends Lib_Trigger
     );
     CCRMFinancialAccountRoleActions.setRecordType(records);
     CCRMFinancialAccountRoleActions.checkLastPrimaryOwnerDeactivated(
+      records,
+      (Map<Id, FinServ__FinancialAccountRole__c>) oldMap
+    );
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    CCRMFinancialAccountRoleActions.deactivateDuplicateRecords(
       records,
       (Map<Id, FinServ__FinancialAccountRole__c>) oldMap
     );
