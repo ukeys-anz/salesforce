@@ -290,6 +290,7 @@
     "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
     "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
+    "Trade_Finance__x": "External Trade Finance accounts",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
     "trailheadapp__Trail__c": "Representation of a learning trail",
@@ -5315,6 +5316,21 @@
         "Preferred_Contact_Time__c",
         "COI_Company__c"
       ]
+    },
+    "Trade_Finance__x": {
+      "IA-2415720": [
+        "CAP_Limit__c",
+        "Currency__c",
+        "Interest_Rate__c",
+        "Limit__c",
+        "Limit_Expiry__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Sequence_Number__c",
+        "Sub_Product_Code__c",
+        "Term__c"
+      ],
+      "IA-2468715": ["Account_Number__c", "OLL_Account_Number__c", "Customer__c"]
     }
   },
   "lineageInformation": {

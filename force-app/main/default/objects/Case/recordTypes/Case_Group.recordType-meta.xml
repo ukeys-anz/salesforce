@@ -302,10 +302,6 @@
     <picklistValues>
         <picklist>Circumstance__c</picklist>
         <values>
-            <fullName>All To Sign</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Bankruptcy</fullName>
             <default>false</default>
         </values>

@@ -4,7 +4,6 @@
         functions.</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Card Dispute Agent</label>
-    <permissionSets>AccessAegisFeatures</permissionSets>
     <permissionSets>Accounts_Goals_Read_Only</permissionSets>
     <permissionSets>ANZx_Aegis_Redirect</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>

@@ -33,10 +33,6 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
     //populate fields
     List<Case> validCases = ListUtil.filter(records).noError().toList();
     AutoKYCQACaseActions.populateAutoKYCQAChecks(validCases);
-    AutoKYCQACaseActions.populateClosedNoDefectDefaults(
-      validCases,
-      new Map<Id, Case>()
-    );
     Logger.debug('On_Before_Insert finished: ' + System.now());
     Logger.saveLog();
   }

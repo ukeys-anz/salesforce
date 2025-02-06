@@ -27,10 +27,10 @@ public with sharing class CCRMContentDocumentLinkRepository {
           CcAddress,
           ToAddress,
           Incoming,
-          CreatedBy.Profile.Name,
+          CreatedBy.Profile_Name__c,
           Attachment_Notes__c
         FROM EmailMessage
-        WHERE Createdby.profile.name IN :profileNames AND Id IN :emailMessageIds
+        WHERE Createdby.Profile_Name__c IN :profileNames AND Id IN :emailMessageIds
         WITH USER_MODE
       ]
     );
