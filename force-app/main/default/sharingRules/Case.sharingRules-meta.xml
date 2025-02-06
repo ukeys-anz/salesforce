@@ -8,10 +8,21 @@
         <sharedTo>
             <role>ANZ_Plus_Operations_Read_Only</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -23,8 +34,19 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
             <operation>equals</operation>
             <value>Account Closure</value>
         </criteriaItems>
@@ -109,7 +131,7 @@
         <sharedTo>
             <role>Business_Admin</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6) OR (7 AND 8)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -139,6 +161,16 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -273,7 +305,7 @@
         <sharedTo>
             <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8) OR (9 AND 10)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -313,6 +345,16 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -425,7 +467,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8) OR (9 AND 10)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -465,6 +507,16 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -806,10 +858,21 @@
         <sharedTo>
             <role>Onboarding_Support_Read_Only</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,PayTo,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -915,10 +978,21 @@
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,PayTo,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -979,10 +1053,21 @@
         <sharedTo>
             <group>BOH_All_Case_Read_Only_Access_Group</group>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
