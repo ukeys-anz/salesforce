@@ -321,6 +321,26 @@
                 <identifier>RecordTax_Exemption_Type_cField</identifier>
             </fieldInstance>
         </itemInstances>
+         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.VOI_Expiry_Date_Classic__c</fieldItem>
+                <identifier>RecordVOI_Expiry_Date_Classic_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.VOI_Status_Classic__c</fieldItem>
+                <identifier>RecordVOI_Status_Classic_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-c7422b5e-2f2f-4c3b-adba-ac149d3183a8</name>
         <type>Facet</type>
     </flexiPageRegions>
