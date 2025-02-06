@@ -62,73 +62,118 @@
   </lightning-card>
 
   <template lwc:if={showConfirmation}>
-    <section class="slds-modal slds-fade-in-open">
-      <div class="slds-modal__container">
-        <article class="slds-card">
-          <div class="slds-card__header slds-grid header-div">
-            <header class="slds-has-flexi-truncate card-header">
-              <h2>Account Closure</h2>
-            </header>
-          </div>
-          <div class="slds-card__body slds-p-horizontal--small">
-            <div class="slds-p-around_medium slds-m-bottom_small">
-              <template lwc:if={isFlexSaverAccountClosure}>
-                <p class="slds-text-title_bold slds-m-bottom_small">
-                  Are you sure you want to initiate closure for the customer’s
-                  account?
-                </p>
-                <p>
-                  Please ensure the following has been confirmed prior to
-                  submission:
-                </p>
-                <ul class="slds-list_dotted">
-                  <li>There are no pending transactions on the account</li>
-                  <li>The account balance has been zeroed out</li>
-                  <li>There is no interest accrued on the account</li>
-                  <li>
-                    The status of the account has been set to Closed in CAP
-                  </li>
-                </ul>
-              </template>
-              <template lwc:else>
-                <p class="slds-text-title_bold slds-m-bottom_small">
-                  Are you sure you want to initiate the package closure for the
-                  customers account?
-                </p>
-                <p>
-                  Please ensure the following has been confirmed prior to
-                  submission:
-                </p>
-                <ul class="slds-list_dotted">
-                  <li>There are no pending transactions on the account(s)</li>
-                  <li>The card has been disabled in CTM</li>
-                  <li>The account balances have been zeroed out</li>
-                  <li>There is no interest accrued on the account(s)</li>
-                  <li>
-                    The status of the account(s) has been set to Closed in CAP
-                  </li>
-                </ul>
-              </template>
+    <template lwc:if={showConfirmationSelectAccount}>
+      <section class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <article class="slds-card">
+            <div class="slds-card__header slds-grid header-div">
+              <header class="slds-has-flexi-truncate card-header">
+                <h2>Account Closure</h2>
+              </header>
             </div>
-            <button
-              class="slds-button slds-button--brand close-button"
-              onclick={handleClosure}
-              data-id="close-button"
-            >
-              Close Account
-            </button>
-          </div>
-          <footer class="slds-modal__footer">
-            <button
-              class="slds-button slds-button--neutral"
-              onclick={toggleConfirmation}
-            >
-              Cancel
-            </button>
-          </footer>
-        </article>
-      </div>
-    </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
+            <div class="slds-card__body slds-p-horizontal--small">
+              <div class="slds-p-around_medium slds-m-bottom_small">
+                <lightning-combobox
+                  name="accounts"
+                  label="Select Account to close ?"
+                  value={selectedAccount}
+                  options={selectAccountOptions}
+                  onchange={handleAccountSelect}
+                  data-id="combobox"
+                  required
+                >
+                </lightning-combobox>
+              </div>
+              <button
+                class="slds-button slds-button--brand close-button"
+                onclick={handleNextPage}
+                data-id="next-button"
+              >
+                Next
+              </button>
+            </div>
+            <footer class="slds-modal__footer">
+              <button
+                class="slds-button slds-button--neutral"
+                onclick={toggleConfirmation}
+              >
+                Cancel
+              </button>
+            </footer>
+          </article>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template lwc:if={showConfirmationAccountClosure}>
+      <section class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+          <article class="slds-card">
+            <div class="slds-card__header slds-grid header-div">
+              <header class="slds-has-flexi-truncate card-header">
+                <h2>Account Closure</h2>
+              </header>
+            </div>
+            <div class="slds-card__body slds-p-horizontal--small">
+              <div class="slds-p-around_medium slds-m-bottom_small">
+                <template lwc:if={isFlexSaverAccountClosure}>
+                  <p class="slds-text-title_bold slds-m-bottom_small">
+                    Are you sure you want to initiate closure for the customer’s
+                    account?
+                  </p>
+                  <p>
+                    Please ensure the following has been confirmed prior to
+                    submission:
+                  </p>
+                  <ul class="slds-list_dotted">
+                    <li>There are no pending transactions on the account</li>
+                    <li>The account balance has been zeroed out</li>
+                    <li>There is no interest accrued on the account</li>
+                    <li>
+                      The status of the account has been set to Closed in CAP
+                    </li>
+                  </ul>
+                </template>
+                <template lwc:else>
+                  <p class="slds-text-title_bold slds-m-bottom_small">
+                    Are you sure you want to initiate the package closure for
+                    the customers account?
+                  </p>
+                  <p>
+                    Please ensure the following has been confirmed prior to
+                    submission:
+                  </p>
+                  <ul class="slds-list_dotted">
+                    <li>There are no pending transactions on the account(s)</li>
+                    <li>The card has been disabled in CTM</li>
+                    <li>The account balances have been zeroed out</li>
+                    <li>There is no interest accrued on the account(s)</li>
+                    <li>
+                      The status of the account(s) has been set to Closed in CAP
+                    </li>
+                  </ul>
+                </template>
+              </div>
+              <button
+                class="slds-button slds-button--brand close-button"
+                onclick={handleClosure}
+                data-id="close-button"
+              >
+                Close Account
+              </button>
+            </div>
+            <footer class="slds-modal__footer">
+              <button
+                class="slds-button slds-button--neutral"
+                onclick={toggleConfirmation}
+              >
+                Cancel
+              </button>
+            </footer>
+          </article>
+        </div>
+      </section>
+      <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
   </template>
 </template>
