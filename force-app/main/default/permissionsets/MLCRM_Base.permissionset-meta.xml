@@ -1204,6 +1204,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Customer_SourceSystemId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__AccountAccountRelation__c.FinServ__Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
