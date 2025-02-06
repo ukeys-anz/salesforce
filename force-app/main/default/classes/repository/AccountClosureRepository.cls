@@ -329,4 +329,28 @@ public with sharing class AccountClosureRepository {
         AND RecordTypeId = :RTCase.accountClosure
     ];
   }
+
+  /**
+   * @description Get list of FinancialAccount Roles linked to the financial account
+   * @param finAccountValue Financial account  number to be closed
+   * @return List<FinServ__FinancialAccountRole__c> list of Financial account roles
+   */
+  public List<FinServ__FinancialAccountRole__c> queryFinancialAccountRoles(
+    String finAccountValue
+  ) {
+    if (
+      String.isBlank(finAccountValue) ||
+      !SObjectType.FinServ__FinancialAccountRole__c.isQueryable()
+    ) {
+      return new List<FinServ__FinancialAccountRole__c>();
+    }
+
+    return [
+      SELECT FinServ__RelatedAccount__r.OCV_ID__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c = :finAccountValue
+        AND FinServ__Active__c = TRUE
+    ];
+  }
 }
