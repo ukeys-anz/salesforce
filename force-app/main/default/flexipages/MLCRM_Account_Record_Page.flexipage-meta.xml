@@ -73,34 +73,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Gender__pc</fieldItem>
-                <identifier>RecordGender_pcField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Gender__pc</fieldItem>
                 <identifier>RecordGender_pcField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -289,6 +265,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__KYCStatus__c</fieldItem>
                 <identifier>RecordFinServ_KYCStatus_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -299,6 +282,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.KYC_Verification_Level__c</fieldItem>
                 <identifier>RecordKYC_Verification_Level_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -309,6 +299,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.TFN_Verification__c</fieldItem>
                 <identifier>RecordTFN_Verification_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -319,6 +316,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Tax_Exemption_Type__c</fieldItem>
                 <identifier>RecordTax_Exemption_Type_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c7422b5e-2f2f-4c3b-adba-ac149d3183a8</name>
@@ -333,6 +337,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Employee_Indicator__c</fieldItem>
                 <identifier>RecordEmployee_Indicator_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -343,6 +354,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ANZx_Customer__c</fieldItem>
                 <identifier>RecordANZx_Customer_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -353,6 +371,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Collections__c</fieldItem>
                 <identifier>RecordCollections_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -363,6 +388,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Hardship__c</fieldItem>
                 <identifier>RecordHardship_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -373,6 +405,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Bankrupt_Date__c</fieldItem>
                 <identifier>RecordBankrupt_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -383,6 +422,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Deceased_Date__c</fieldItem>
                 <identifier>RecordDeceased_Date_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c558cd01-7a10-43bc-bcf7-03401ad27d3a</name>
@@ -497,6 +543,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__Status__c</fieldItem>
                 <identifier>RecordFinServ_Status_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -976,6 +1029,9 @@
                     <valueList>
                         <valueListItems>
                             <value>FinServ__RelatedAccount__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Customer_SourceSystemId__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Relationship__c</value>
@@ -1759,10 +1815,16 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Collections__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1780,10 +1842,16 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Hardship__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
