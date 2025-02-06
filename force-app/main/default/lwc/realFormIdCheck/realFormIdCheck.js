@@ -1,13 +1,9 @@
-import { LightningElement, api, wire } from "lwc";
+import { LightningElement, api } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { NavigationMixin } from "lightning/navigation";
 import getSNOWEventInfoLWC from "@salesforce/apex/IDRAPIRepository.getSNOWEventInfoLWC";
-import { getRecord } from "lightning/uiRecordApi";
-import REAL_FORM_REQUIRED from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
-import REAL_FORM_ID from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
 import { handleErrorShowToast, showToast } from "c/utils";
 import { CloseActionScreenEvent } from "lightning/actions";
-import lightning_LightningDateTimePicker_rangeUnderflow from "@salesforce/label/c.lightning_LightningDateTimePicker_rangeUnderflow";
 import SNOW_URL from "@salesforce/label/c.IDR_ServiceNow_env_url";
 const env_Names = {
   Dev: "anz--cmosdev,anz--cmosa",
@@ -34,19 +30,13 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   redirectionUrl;
   snowUrlJson = JSON.parse(SNOW_URL);
 
-  @wire(getRecord, {
-    recordId: "$recordId",
-    fields: [REAL_FORM_REQUIRED, REAL_FORM_ID]
-  })
-  wiredProject({ data }) {
-    if (data) {
-      this.realFormId = data.fields[REAL_FORM_ID.fieldApiName].value;
-      this.realFormRequired =
-        data.fields[REAL_FORM_REQUIRED.fieldApiName].value;
-      if (!this.showButton) {
-        this.runDirectValidation();
-      }
-    }
+  showError() {
+    handleErrorShowToast(
+      this,
+      "Real Form ID Invalid",
+      undefined,
+      "Please enter a valid Risk Event ID to continue."
+    );
   }
 
   @api set selectedOption(value) {
@@ -59,14 +49,13 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   closeAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
-  runDirectValidation() {
-    if (
-      this.realFormRequired !== "No" &&
-      this.realFormRequired &&
-      !(this.realFormId === null || this.realFormId === undefined)
-    ) {
-      this.callAPI(this.realFormId);
-    }
+  showResponseFailError() {
+    handleErrorShowToast(
+      this,
+      "Unable to Validate",
+      undefined,
+      "CMOS is unable to validate the Risk Event ID at this time, please try again later"
+    );
   }
   startValidation() {
     let data = {};
@@ -113,21 +102,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
     }
     this.omniApplyCallResp(data);
   }
-  callAPI(riskEventId) {
-    riskEventId = riskEventId.trim();
-    this.loading = true;
-    getSNOWEventInfoLWC({
-      riskEventId: riskEventId
-    })
-      .then((result) => {
-        this.showValidations(result, undefined, riskEventId);
-        this.loading = false;
-      })
-      .catch((error) => {
-        this.showValidations(undefined, error, undefined);
-        this.loading = false;
-      });
-  }
   showValidations(result, error, riskEventId) {
     this.apiRun = true;
     let data = {
@@ -162,7 +136,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       }
     }
     if (error) {
-      console.log("Error " + JSON.stringify(error));
       data.apiRun = true;
       data.apiSuccess = false;
       this.showResponseFailError();
@@ -181,7 +154,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
         instanceName = key;
       }
     });
-
     let redirectionUrl =
       this.snowUrlJson[instanceName] + this.omniJsonData.recordId;
 
@@ -192,20 +164,19 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       }
     });
   }
-  showError() {
-    handleErrorShowToast(
-      this,
-      "Real Form ID Invalid",
-      undefined,
-      "Please enter a valid Risk Event ID to continue."
-    );
-  }
-  showResponseFailError() {
-    handleErrorShowToast(
-      this,
-      "Unable to Validate",
-      undefined,
-      "CMOS is unable to validate the Risk Event ID at this time, please try again later"
-    );
+  callAPI(riskEventId) {
+    riskEventId = riskEventId.trim();
+    this.loading = true;
+    getSNOWEventInfoLWC({
+      riskEventId: riskEventId
+    })
+      .then((result) => {
+        this.showValidations(result, undefined, riskEventId);
+        this.loading = false;
+      })
+      .catch((error) => {
+        this.showValidations(undefined, error, undefined);
+        this.loading = false;
+      });
   }
 }
