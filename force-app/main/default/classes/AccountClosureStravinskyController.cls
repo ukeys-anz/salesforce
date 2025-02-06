@@ -35,9 +35,6 @@ public with sharing class AccountClosureStravinskyController {
         caseRecord.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
       };
 
-      List<String> customerOCVIds = new List<String>{
-        caseRecord.Account.OCV_ID__c
-      };
       for (
         FinServ__FinancialAccountRole__c finAccountRole : ACCOUNT_CLOSURE_REPOSITORY.queryFinancialAccountRoles(
           caseRecord.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
@@ -87,7 +84,6 @@ public with sharing class AccountClosureStravinskyController {
         caseRecords,
         new DmlConfig().allowPartial()
       );
-
       postChatterMessage(results);
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);

@@ -253,6 +253,7 @@ public with sharing class StravinskyController {
       throw e;
     }
   }
+
   /**
    * @param recordId Case/Record Id (required)
    * @return List<FinServ__FinancialAccount__c> fetch financial accounts related to case account id
@@ -293,7 +294,6 @@ public with sharing class StravinskyController {
 
     setOfAccountNumberToBeClosed.add(finAccountValue);
 
-    customerOcvIdsList.add(caseRecord.Account.OCV_ID__c);
     for (
       FinServ__FinancialAccountRole__c finAccountRole : ACCOUNT_CLOSURE_REPOSITORY.queryFinancialAccountRoles(
         finAccountValue.substringAfter('/')
