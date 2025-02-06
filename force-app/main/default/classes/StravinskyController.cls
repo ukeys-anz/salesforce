@@ -10,6 +10,10 @@ public with sharing class StravinskyController {
   //Added this error message if more than one joint account found
   public static final String MORE_THAN_ONE_JOINT_ACCOUNT = System.Label.MoreThanOneJointAccountFoundError;
 
+  private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
+    AccountClosureRepository.class
+  );
+
   /**
    * @param recordId Case/Record Id (required)
    * @return GenesisPackageClosureModel
@@ -249,7 +253,6 @@ public with sharing class StravinskyController {
       throw e;
     }
   }
-
   /**
    * @param recordId Case/Record Id (required)
    * @return List<FinServ__FinancialAccount__c> fetch financial accounts related to case account id
@@ -285,11 +288,21 @@ public with sharing class StravinskyController {
   ) {
     Set<String> setOfAccountNumberToBeClosed = new Set<String>();
     List<String> customerOcvIdsList = new List<String>{};
+    Set<String> ocvIds = new Set<String>();
     StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
 
     setOfAccountNumberToBeClosed.add(finAccountValue);
 
     customerOcvIdsList.add(caseRecord.Account.OCV_ID__c);
+    for (
+      FinServ__FinancialAccountRole__c finAccountRole : ACCOUNT_CLOSURE_REPOSITORY.queryFinancialAccountRoles(
+        finAccountValue.substringAfter('/')
+      )
+    ) {
+      ocvIds.add(finAccountRole.FinServ__RelatedAccount__r.OCV_ID__c);
+    }
+
+    customerOcvIdsList.addAll(ocvIds);
     try {
       return stravinskyApi.packageClosure(
         caseRecord,

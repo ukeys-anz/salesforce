@@ -31,6 +31,10 @@ public with sharing class AccountClosureStravinskyControllerTest {
   private static void testGetPackageClosureAuraSuccess() {
     registerMocks();
     accountClosureRepoMock.mock('queryCaseDetails', mockQueryCaseDetails());
+    accountClosureRepoMock.mock(
+      'queryFinancialAccountRoles',
+      mockFinancialAccountRoles()
+    );
 
     Test.startTest();
     GenesisPackageClosureModel response = AccountClosureStravinskyController.getPackageClosureAura(
@@ -146,5 +150,15 @@ public with sharing class AccountClosureStravinskyControllerTest {
     );
 
     return caseRecord;
+  }
+
+  private static List<FinServ__FinancialAccountRole__c> mockFinancialAccountRoles() {
+    List<FinServ__FinancialAccountRole__c> finAccountRoleList = new List<FinServ__FinancialAccountRole__c>();
+
+    FinServ__FinancialAccountRole__c finAccountRole = new FinServ__FinancialAccountRole__c();
+    finAccountRole.FinServ__RelatedAccount__c = FAKER_ACCOUNT_ID;
+    finAccountRoleList.add(finAccountRole);
+
+    return finAccountRoleList;
   }
 }
