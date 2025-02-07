@@ -412,7 +412,8 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
+      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
