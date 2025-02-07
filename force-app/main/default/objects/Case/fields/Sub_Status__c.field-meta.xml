@@ -32,21 +32,6 @@
                 <default>false</default>
                 <label>Customer Not Responding</label>
             </value>
-            <value>
-                <fullName>Processing</fullName>
-                <default>false</default>
-                <label>Processing</label>
-            </value>
-            <value>
-                <fullName>Success</fullName>
-                <default>false</default>
-                <label>Success</label>
-            </value>
-            <value>
-                <fullName>Failed</fullName>
-                <default>false</default>
-                <label>Failed</label>
-            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
@@ -59,21 +44,6 @@
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
             <valueName>Customer Not Responding</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <controllingFieldValue>Escalated</controllingFieldValue>
-            <valueName>Processing</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <controllingFieldValue>Escalated</controllingFieldValue>
-            <valueName>Success</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Closed</controllingFieldValue>
-            <controllingFieldValue>Escalated</controllingFieldValue>
-            <valueName>Failed</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

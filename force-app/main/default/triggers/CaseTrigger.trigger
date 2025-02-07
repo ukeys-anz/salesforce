@@ -3,14 +3,11 @@ trigger CaseTrigger on Case(
   before update,
   after insert,
   after update,
-  before delete,
-  after delete
+  before delete
 ) {
   CaseTriggerHandler handler = new CaseTriggerHandler();
   COBCaseTriggerHandler cobhandler = new COBCaseTriggerHandler();
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
-  AccountClosureCaseTriggerHandler accountClosureHandler = new AccountClosureCaseTriggerHandler();
-  CaseGroupTriggerHandler caseGroupHandler = new CaseGroupTriggerHandler();
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
 }
