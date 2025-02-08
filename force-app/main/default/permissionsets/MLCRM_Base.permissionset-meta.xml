@@ -609,6 +609,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.VOI_Status_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VOI_Expiry_Date_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account_Relationship__x.Credit_Card__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1190,6 +1200,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__AccountAccountRelation__c.CPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Customer_SourceSystemId__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

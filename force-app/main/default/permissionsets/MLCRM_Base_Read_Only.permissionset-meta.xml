@@ -407,6 +407,16 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.VOI_Status_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VOI_Expiry_Date_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Self_Certified_Tax_Residency__c</field>
         <readable>true</readable>
     </fieldPermissions>

@@ -412,7 +412,8 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
+      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -2097,7 +2098,8 @@
       "IA-2530753": ["Customer_Name__c"],
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
-      "IA-2468715": ["Source_System_Name__c"]
+      "IA-2468715": ["Source_System_Name__c"],
+      "IA-2415720": ["Customer_Status__c"]
     },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
