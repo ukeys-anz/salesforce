@@ -78,7 +78,7 @@ private class SigningAuthorityControllerTest {
       AuthServiceTest.IDTESTVALUE
     );
 
-    Boolean isInvoked = (Boolean) ctrl.call(
+    ctrl.call(
       'updateSigningAutority',
       new Map<String, Object>{
         'input' => inputMap,
@@ -153,7 +153,8 @@ private class SigningAuthorityControllerTest {
     );
     List<Customer_Action__c> customerActionRecords = new List<Customer_Action__c>();
     Customer_Action__c ca = TestDataFactory.createCustomerActionRecord(
-      GetHelpConstants.CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID,
+      QueryRT.of(Customer_Action__c.SObjectType)
+        .getId('Pending_Financial_Account_Updates'),
       accnt.Id,
       finAccount.Id,
       false
@@ -173,7 +174,7 @@ private class SigningAuthorityControllerTest {
     );
     Test.stopTest();
     Assert.areEqual(
-      GetHelpFinancialAccountActions.CUSTOMER_ACTION_ERROR,
+      FinancialAccountActions.CUSTOMER_ACTION_ERROR,
       updatedCustomerActionList[0].Status__c,
       'Customer Action Status Should be Error'
     );
