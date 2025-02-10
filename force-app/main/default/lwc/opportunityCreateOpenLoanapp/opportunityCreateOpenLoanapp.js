@@ -21,8 +21,6 @@ import LoanappPrerequisiteLabel from "@salesforce/label/c.LoanappPrerequisiteLab
 import LoanappFriendlyErrorMessage from "@salesforce/label/c.LoanappFriendlyErrorMessage";
 
 const USER_FRIENDLY_ERROR = LoanappFriendlyErrorMessage;
-const DUPLICATE_LOANAPP_REF_ERROR =
-  "Duplicate Loanapp Reference number found! Please check and update existing records and try again.";
 const VALID_CUSTOMER_NEEDS = [
   "Home Loan - Bridging Finance",
   "Home Loan - Refinance",
@@ -165,9 +163,11 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
         return;
       }
       this.userFriendlyErrorMessage = error.body.message.includes(
-        "DUPLICATE_VALUE"
+        "FIELD_CUSTOM_VALIDATION_EXCEPTION"
       )
-        ? DUPLICATE_LOANAPP_REF_ERROR
+        ? error.body.message.substring(
+            82 + "FIELD_CUSTOM_VALIDATION_EXCEPTION".length
+          )
         : `${USER_FRIENDLY_ERROR}: ${error.body.message}`;
       this.showError = true;
     }

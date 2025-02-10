@@ -4657,7 +4657,8 @@
         "Customer_Groups__c",
         "Indicative_FUM__c",
         "Newsletter__c",
-        "Status__c"
+        "Status__c",
+        "Customer_Name__c"
       ],
       "IA-2423278": ["Relationship_Owner__c"]
     },

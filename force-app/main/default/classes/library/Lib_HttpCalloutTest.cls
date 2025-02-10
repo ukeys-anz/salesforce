@@ -50,13 +50,15 @@ public inherited sharing class Lib_HttpCalloutTest {
     );
     Test.setMock(HttpCalloutMock.class, fakeResponse);
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      'https://testapi.com/test',
-      HTTP_METHOD.HTTP_GET,
-      new Map<String, String>{ 'Content-Type' => 'application/json' },
-      null,
-      120000
-    );
+    Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+    restWrap.endpoint = 'https://testapi.com/test';
+    restWrap.method = HTTP_METHOD.HTTP_GET;
+    restWrap.headers = new Map<String, String>{
+      'Content-Type' => 'application/json'
+    };
+    restWrap.requestBody = null;
+    restWrap.timeout = 120000;
+    HttpCalloutResponse response = calloutService.makeRestCallout(restWrap);
     System.assert(response.successful, 'Successful response');
     System.assertEquals(
       'Complete',
@@ -99,13 +101,13 @@ public inherited sharing class Lib_HttpCalloutTest {
   @isTest
   static void testMethodNullConfigurableTimeoutError() {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      '',
-      HTTP_METHOD.HTTP_GET,
-      null,
-      null,
-      120000
-    );
+    Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+    restWrap.endpoint = '';
+    restWrap.method = HTTP_METHOD.HTTP_GET;
+    restWrap.headers = null;
+    restWrap.requestBody = null;
+    restWrap.timeout = 120000;
+    HttpCalloutResponse response = calloutService.makeRestCallout(restWrap);
     System.assert(
       response.successful == false,
       'The callout was not successful'
@@ -124,13 +126,13 @@ public inherited sharing class Lib_HttpCalloutTest {
   @isTest
   static void testInvalidTimeoutError() {
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      'https://testapi.com/test',
-      HTTP_METHOD.HTTP_GET,
-      null,
-      null,
-      0
-    );
+    Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+    restWrap.endpoint = 'https://testapi.com/test';
+    restWrap.method = HTTP_METHOD.HTTP_GET;
+    restWrap.headers = null;
+    restWrap.requestBody = null;
+    restWrap.timeout = 0;
+    HttpCalloutResponse response = calloutService.makeRestCallout(restWrap);
     System.assert(
       response.successful == false,
       'The callout was not successful'

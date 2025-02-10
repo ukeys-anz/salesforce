@@ -5,6 +5,27 @@
  */
 @isTest
 public class CustomerRelationNotesTriggerActionsTest {
+  private static final String CUSTOME_RELATIONSHIP_JSON = '{"Newsletter__c":true, "Status__c":"Active", "Customer__r":{"Name":"TestName","Salutation":"Dr"}}';
+
+  static Customer_Relationship__c createTestCustomerRelationship() {
+    return (Customer_Relationship__c) JSON.deserialize(
+      CUSTOME_RELATIONSHIP_JSON,
+      Customer_Relationship__c.class
+    );
+  }
+  static Lib_MockProvider accountActionsRepoMock;
+  static Lib_MockProvider customerRelationshipRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    accountActionsRepoMock = Lib_MockProvider.forType(
+      AccountActionsRepository.class
+    );
+    customerRelationshipRepoMock = Lib_MockProvider.forType(
+      CustomerRelationshipsRepository.class
+    );
+  }
+
   @testSetup
   static void setup() {
     User mlBusinessAdminUser = MLCRMTestDataFactory.createMLBusinessAdminUser();
@@ -59,7 +80,10 @@ public class CustomerRelationNotesTriggerActionsTest {
         FROM Customer_Relationship__c
       ];
       // asserting territory gets populated via trigger
-      Assert.isTrue(lstOfCustomerRelation[0].Territory__c != null);
+      Assert.isTrue(
+        lstOfCustomerRelation[0].Territory__c != null,
+        'territory is not getting populated properly via trigger'
+      );
 
       // asserting same territory gets assigned to customer relation record to which user is part of
       Assert.areEqual(
@@ -67,5 +91,111 @@ public class CustomerRelationNotesTriggerActionsTest {
         lstOfCustomerRelation[0].Territory__c
       );
     }
+  }
+  /**
+   * @description test method for updateCustomerName
+   */
+  @isTest
+  public static void testUpdateCustomerName() {
+    registerMocks();
+    String accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Map<Id, Account> mapOfAccount = new Map<Id, Account>{
+      accountId => new Account(
+        Id = accountId,
+        Name = 'TestName',
+        Salutation = 'Dr'
+      )
+    };
+
+    List<Customer_Relationship__c> lstOfSobject = new List<Customer_Relationship__c>();
+    Customer_Relationship__c objSObject = new Customer_Relationship__c();
+    objSObject.put('Newsletter__c', true);
+    objSObject.put('Status__c', 'Active');
+    objSObject.put('Customer__c', accountId);
+    lstOfSobject.add(objSObject);
+    Test.StartTest();
+    accountActionsRepoMock.mock('getAccountByIds', mapOfAccount);
+    CustomerRelationNotesTriggerActions.updateCustomerName(null, lstOfSobject);
+    Test.StopTest();
+    System.assertEquals(
+      'Dr TestName',
+      lstOfSobject[0].Customer_Name__c,
+      'On creation or updation on Customer_Relationship__c object the Customer_Name__c field did not updated successfully'
+    );
+  }
+  /**
+   * @description test method for updateCustomerNameOnCustomerRelationship
+   */
+  @isTest
+  public static void testUpdateCustomerNameOnCustomerRelationship() {
+    registerMocks();
+    String accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Test.StartTest();
+
+    Customer_Relationship__c testCustomerRelationship = createTestCustomerRelationship();
+    customerRelationshipRepoMock.mock(
+      'getCustomerRelationshipByAccountIds',
+      new List<Customer_Relationship__c>{ testCustomerRelationship }
+    );
+    CustomerRelationNotesTriggerActions.updateCustomerNameOnCustomerRelationship(
+      new Set<Id>{ accountId }
+    );
+    Test.StopTest();
+
+    List<Customer_Relationship__c> crUpdatedList = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    System.assertEquals(
+      'Dr TestName',
+      crUpdatedList[0].Customer_Name__c,
+      'On updation of Account object the Customer_Name__c field on Customer_Relationship__c object is not updating successfully'
+    );
+  }
+  /**
+   * @description test method for getUpdatedCustomersIds
+   */
+  @isTest
+  public static void testGetUpdatedCustomersIds() {
+    registerMocks();
+    String accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Account objAccount = new Account(
+      Id = accountId,
+      Salutation = 'Dr',
+      FirstName = 'TestName',
+      LastName = 'TestName',
+      RecordTypeId = RTAccount.personAccount
+    );
+
+    Map<Id, Account> mapOfOldAcc = new Map<Id, Account>();
+    Account objAcc = new Account();
+    objAcc.put('Id', accountId);
+    objAcc.put('Salutation', 'Dr');
+    objAcc.put('FirstName', 'Test');
+    objAcc.put('LastName', 'Name');
+    objAcc.put('RecordTypeId', RTAccount.personAccount);
+    mapOfOldAcc.put(accountId, objAcc);
+
+    Test.StartTest();
+    Customer_Relationship__c testCustomerRelationship = createTestCustomerRelationship();
+    customerRelationshipRepoMock.mock(
+      'getCustomerRelationshipByAccountIds',
+      new List<Customer_Relationship__c>{ testCustomerRelationship }
+    );
+    CustomerRelationNotesTriggerActions.getUpdatedCustomersIds(
+      mapOfOldAcc,
+      new List<Account>{ objAccount }
+    );
+    Test.StopTest();
+
+    List<Customer_Relationship__c> crUpdatedList = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    System.assertEquals(
+      'Dr TestName',
+      crUpdatedList[0].Customer_Name__c,
+      'On updation of Account object the Customer_Name__c field on Customer_Relationship__c object is not updating successfully'
+    );
   }
 }
