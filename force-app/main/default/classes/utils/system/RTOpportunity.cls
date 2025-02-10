@@ -8,5 +8,4 @@ public class RTOpportunity {
 
   public static Id commercialOpportunity = base.getId('Commercial_Opportunity');
   public static Id mlOpportunity = base.getId('MLCRM_Opportunity');
-
 }

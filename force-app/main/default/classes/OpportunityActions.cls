@@ -22,6 +22,8 @@ public with sharing class OpportunityActions {
   private static final String STR_APPLICANT = 'Applicant';
   private static final String STAGE_CLOSED = 'Closed';
   private static final String STAGE_LOST = 'Lost';
+  @testVisible
+  private static final String DUPLICATE_LAR_ERROR = 'This Loanapp Reference is already linked to an Opportunity. Check the Loanapp Reference is correct and De-link from the other opportunity before proceeding.';
 
   /**
    * @description Define custom exceptions
@@ -329,6 +331,69 @@ public with sharing class OpportunityActions {
   ) {
     OpportunityContactRoleGenerator objInnerClass = new OpportunityContactRoleGenerator();
     objInnerClass.createOpportunityContactRole(strRecordId, oppId, strRole);
+  }
+
+  /**
+   * @description This method is used to throw an error on duplicate Loanapp_Reference__c
+   * @name preventDuplicateLoanappReferenceNumber
+   * @param lstOfOpp list of Opportunity sobject records
+   * @param oldOppMap map of old Opportunity sObject records
+   */
+  public static void preventDuplicateLoanappReferenceNumber(
+    List<Opportunity> lstOfOpp,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    List<Opportunity> oppErrorList = new List<Opportunity>();
+    Set<String> duplicateLARSetLowercase = new Set<String>();
+    List<Opportunity> filteredOppList = getFilteredOpportunitiesForLoanappReferenceNumber(
+      lstOfOpp,
+      oldOppMap
+    );
+    Set<String> loanappRefNumSet = ListUtil.getStrings(
+      filteredOppList,
+      Opportunity.Loanapp_Reference__c
+    );
+    List<Opportunity> duplicateOppList = OPPACTION_REPOSITORY.getOpportunityByLoanappReference(
+      loanappRefNumSet
+    );
+    for (
+      String loanappRef : ListUtil.getStrings(
+        duplicateOppList,
+        Opportunity.Loanapp_Reference__c
+      )
+    ) {
+      duplicateLARSetLowerCase.add(loanappRef.toLowerCase());
+    }
+    for (Opportunity opp : filteredOppList) {
+      if (
+        !duplicateLARSetLowerCase.contains(
+          opp.Loanapp_Reference__c.toLowerCase()
+        )
+      ) {
+        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c);
+        continue;
+      }
+      oppErrorList.add(opp);
+    }
+    CommonUtil.raiseSobjectError(oppErrorList, DUPLICATE_LAR_ERROR);
+  }
+
+  /**
+   * @description This method is used to filter Opportunities for Loanapp_Reference__c
+   * @name getFilteredOpportunitiesForLoanappReferenceNumber
+   * @param oppList list of Opportunity sobject records
+   * @param oldOppMap map of old Opportunity sObject records
+   * @return List<Opportunity>
+   */
+  public static List<Opportunity> getFilteredOpportunitiesForLoanappReferenceNumber(
+    List<Opportunity> oppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    return ListUtil.filter(oppList, oldOppMap)
+      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
+      .changed(Opportunity.Loanapp_Reference__c)
+      .isNotNull(Opportunity.Loanapp_Reference__c)
+      .toList();
   }
 
   /**
