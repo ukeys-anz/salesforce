@@ -39,6 +39,10 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Case>) oldMap
     );
+    ProfileUpdateCaseActions.sendLegalNameUpdateToOCV(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     Logger.debug('On_After_Update finished: ' + System.now());
     Logger.saveLog();
   }
