@@ -172,7 +172,8 @@
     "FinServ__PrimaryAddressIsShipping__pc",
     "dupcheck__dc3DisableDuplicateCheck__pc",
     "Is_Preferred_Contact__pc",
-    "qualtrics__Informed_Consent__pc"
+    "qualtrics__Informed_Consent__pc",
+    "SourceSystemIdentifier"
   ],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
@@ -612,6 +613,12 @@
     "UserPreferencesBRELookupTableWelcomeMat",
     "UserPermissionsSFContentUser",
     "UserPermissionsSupportUser",
-    "UserPreferencesAssistiveActionsEnabledInActionLauncher"
+    "UserPreferencesAssistiveActionsEnabledInActionLauncher",
+    "UserRoleId",
+    "SuAccessExpirationDate",
+    "StartDay",
+    "PasswordExpirationDate",
+    "HasUserVerifiedPhone",
+    "Address"
   ]
 }
