@@ -5,7 +5,6 @@
     <label>IDR CRP Team Leaders</label>
     <permissionSets>Chatter_User_with_License</permissionSets>
     <permissionSets>dupcheck_CMOS</permissionSets>
-    <permissionSets>force__EinsteinAnalyticsPlusUser</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__IndustriesServiceExcellence</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
