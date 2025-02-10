@@ -81,6 +81,11 @@
                 <default>false</default>
                 <label>Funds never Received</label>
             </value>
+            <value>
+                <fullName>System Outage</fullName>
+                <default>false</default>
+                <label>System Outage</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

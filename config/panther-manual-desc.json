@@ -1342,8 +1342,15 @@
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
         "LicenceNumber__c",
+        "MonthlyAlertVolumes__c",
+        "MonthlyEstimatedSavings__c",
+        "MonthlyFPR__c",
+        "NascScamCategory__c",
+        "NascScamChannel__c",
+        "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
-        "PassportNumber__c"
+        "PassportNumber__c",
+        "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",

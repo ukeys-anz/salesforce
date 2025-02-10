@@ -171,10 +171,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Funds never left</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Merchant Liable</fullName>
             <default>false</default>
         </values>
@@ -188,6 +184,10 @@
         </values>
         <values>
             <fullName>Funds never Received</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Outage</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3262,6 +3262,10 @@
         </values>
         <values>
             <fullName>Unable to Contact</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Intended Recipient</fullName>
             <default>false</default>
         </values>
     </picklistValues>
