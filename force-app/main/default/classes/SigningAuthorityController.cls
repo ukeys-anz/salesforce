@@ -114,13 +114,15 @@ global with sharing class SigningAuthorityController implements Callable {
   public static List<Customer_Action__c> getLatestPendingCustomerAction(
     String finAccountId
   ) {
+    Id customerActionRecordTypeId = QueryRT.of(Customer_Action__c.SObjectType)
+      .getId('Pending_Financial_Account_Updates');
     List<Customer_Action__c> custActionRecords = [
       SELECT Id, Status__c, Error_Description__c
       FROM Customer_Action__c
       WHERE
         Financial_Account__c = :finAccountId
-        AND Status__c = :GetHelpFinancialAccountActions.CUSTOMER_ACTION_STATUS_PEDING
-        AND RecordTypeId = :GetHelpConstants.CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID
+        AND Status__c = :FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING
+        AND RecordTypeId = :customerActionRecordTypeId
       ORDER BY LastModifiedDate
       LIMIT 1
     ];

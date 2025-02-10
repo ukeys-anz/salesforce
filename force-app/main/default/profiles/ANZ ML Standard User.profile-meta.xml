@@ -7398,7 +7398,7 @@
         <recordType>Account.FinServ__IndustriesIndividual</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-MLCRM Account Layout</layout>
+        <layout>Account-MLCRM CLG Layout</layout>
         <recordType>Account.CLG</recordType>
     </layoutAssignments>
     <layoutAssignments>

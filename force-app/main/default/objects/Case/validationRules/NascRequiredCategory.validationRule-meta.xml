@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NascRequiredCategory</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;Scam&apos;,
+    NOT(ISPICKVAL(Type, &apos;Not a Scam&apos;)),
+    ISPICKVAL(Status, &apos;Resolved&apos;),
+    OR(
+        ISPICKVAL(NascScamCategory__c, &apos;&apos;),
+        ISPICKVAL(NascScamSubCategory__c, &apos;&apos;)
+    )
+)</errorConditionFormula>
+    <errorMessage>NASC Scam Category and NASC Scam Sub Category are required for scam case.</errorMessage>
+</ValidationRule>

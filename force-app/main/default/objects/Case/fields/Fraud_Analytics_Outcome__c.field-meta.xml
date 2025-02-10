@@ -4,8 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Outcome of detection uplifted review for Fraud Analytics Investigation</description>
-    <externalId>false</externalId>
-    <label>Results Reviewed in Detection Uplift</label>
+    <label>Review Resulted in Detection Uplift</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

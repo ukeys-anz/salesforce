@@ -31,7 +31,8 @@ private class ProfileStagingHandlerTest {
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    repoMock = Lib_MockProvider.forType(ProfileStagingRepository.class);
+    repoMock = Lib_MockProvider.forType(ProfileStagingRepository.class)
+      .mock('queryEventConfig', new List<ProfileStagingEventConfig__mdt>());
     userMock = Lib_MockProvider.forType(UserInfoRepository.class)
       .mock('getUser', currentUser);
   }

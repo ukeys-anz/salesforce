@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NascScamSubCategory__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>To track the sub-category in which a customer was introduced to a scam for NASC reporting.</description>
+    <label>NASC Scam Sub Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>NascScamCategory__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Dating</fullName>
+                <default>false</default>
+                <label>Dating</label>
+            </value>
+            <value>
+                <fullName>Email Compromise</fullName>
+                <default>false</default>
+                <label>Email Compromise</label>
+            </value>
+            <value>
+                <fullName>Email Interception</fullName>
+                <default>false</default>
+                <label>Email Interception</label>
+            </value>
+            <value>
+                <fullName>Family Member</fullName>
+                <default>false</default>
+                <label>Family Member</label>
+            </value>
+            <value>
+                <fullName>Friend</fullName>
+                <default>false</default>
+                <label>Friend</label>
+            </value>
+            <value>
+                <fullName>Impersonation</fullName>
+                <default>false</default>
+                <label>Impersonation</label>
+            </value>
+            <value>
+                <fullName>Job Boards</fullName>
+                <default>false</default>
+                <label>Job Boards</label>
+            </value>
+            <value>
+                <fullName>Messaging App</fullName>
+                <default>false</default>
+                <label>Messaging App</label>
+            </value>
+            <value>
+                <fullName>Not previously known</fullName>
+                <default>false</default>
+                <label>Not previously known</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Phishing</fullName>
+                <default>false</default>
+                <label>Phishing</label>
+            </value>
+            <value>
+                <fullName>Professional acquaintance</fullName>
+                <default>false</default>
+                <label>Professional acquaintance</label>
+            </value>
+            <value>
+                <fullName>Purchase</fullName>
+                <default>false</default>
+                <label>Purchase</label>
+            </value>
+            <value>
+                <fullName>Search Engine</fullName>
+                <default>false</default>
+                <label>Search Engine</label>
+            </value>
+            <value>
+                <fullName>Social Media</fullName>
+                <default>false</default>
+                <label>Social Media</label>
+            </value>
+            <value>
+                <fullName>Telco</fullName>
+                <default>false</default>
+                <label>Telco</label>
+            </value>
+            <value>
+                <fullName>Travel &amp; Accomodation</fullName>
+                <default>false</default>
+                <label>Travel &amp; Accomodation</label>
+            </value>
+            <value>
+                <fullName>Unknown</fullName>
+                <default>false</default>
+                <label>Unknown</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Dating</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Job Boards</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Purchase</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Search Engine</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Social Media</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Website or App</controllingFieldValue>
+            <valueName>Travel &amp; Accomodation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call, SMS or Messaging</controllingFieldValue>
+            <valueName>Messaging App</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Call, SMS or Messaging</controllingFieldValue>
+            <valueName>Telco</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <valueName>Family Member</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <valueName>Friend</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <valueName>Not previously known</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <valueName>Professional acquaintance</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>In Person</controllingFieldValue>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <controllingFieldValue>Unknown</controllingFieldValue>
+            <valueName>Unknown</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <valueName>Email Compromise</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <valueName>Email Interception</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <valueName>Impersonation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Email</controllingFieldValue>
+            <valueName>Phishing</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

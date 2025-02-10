@@ -369,7 +369,17 @@ public inherited sharing class DmlRepository {
 
   //#region HELPERS
   private static Exception logException(Exception e, DmlConfig config) {
-    Logger.error(config.errorLog, e, config.optSeverity).save();
+    if ((e instanceof DmlException) == false) {
+      Logger.error(config.errorLog, e, config.optSeverity).save();
+      return e;
+    }
+    for (Integer i = 0; i < e.getNumDml(); i++) {
+      StatusCode code = e.getDmlType(i);
+      if (DatabaseResultHelper.IGNORED_CODES.contains(code) == false) {
+        Logger.error(config.errorLog, e, config.optSeverity).save();
+        return e;
+      }
+    }
     return e;
   }
 

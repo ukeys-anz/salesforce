@@ -10,16 +10,16 @@ public with sharing class TradeFinanceExternalQuery extends EBDFinancialAccountQ
    */
   @testVisible
   private class TradeFinanceModel extends FinancialAccountModelBase {
-    public String  compositeAccountNumber;  
+    public String compositeAccountNumber;
     public Decimal capAccountLimit;
-    public String  currencyCode;
+    public String currencyCode;
     public Decimal interestRate;
     public Decimal originalLimit;
-    public Date    limitExpiry;
-    public String  ollAccountNumber;
-    public String  productDescription;
+    public Date expiryDate;
+    public String ollAccountNumber;
+    public String productDescription;
     public Decimal sequenceNumber;
-    public String  subProductCode;
+    public String subProductCode;
     public Decimal term;
   }
 
@@ -44,32 +44,37 @@ public with sharing class TradeFinanceExternalQuery extends EBDFinancialAccountQ
    * @param tableSelection DataSource TableSelection
    * @return QueryMode Enum
    */
-  @TestVisible  
+  @TestVisible
   protected override ExternalObjectCalloutRequestBase prepareCallout(
     DataSource.QueryContext queryContext,
     DataSource.TableSelection tableSelection
   ) {
     ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest = super.prepareCallout(
-      queryContext, 
+      queryContext,
       queryContext.TableSelection
     );
-      
-    if(calloutRequest.isSummaryRequest()) {
-      Set<String> customerIds = externalQueryHelper.getCLGRelatedCustomerIds(this.parentId);
-      ((FinancialAccountEntities.FinancialAccountPayload)calloutRequest.payload).capCustomerIds = new Set<String>();  
+
+    if (calloutRequest.isSummaryRequest()) {
+      Set<String> customerIds = externalQueryHelper.getCLGRelatedCustomerIds(
+        this.parentId
+      );
+      ((FinancialAccountEntities.FinancialAccountPayload) calloutRequest.payload)
+        .capCustomerIds = new Set<String>();
       for (String customerId : customerIds) {
         customerId = customerId.contains('_')
           ? customerId.substringAfter('_')
           : customerId;
-        ((FinancialAccountEntities.FinancialAccountPayload)calloutRequest.payload).capCustomerIds.add(customerId);
+        ((FinancialAccountEntities.FinancialAccountPayload) calloutRequest.payload)
+          .capCustomerIds.add(customerId);
       }
-    } else if(calloutRequest.isDetailRequest()) {
-      ((FinancialAccountEntities.FinancialAccountPayload)calloutRequest.payload).compositeAccountNumber = this.externalId;
+    } else if (calloutRequest.isDetailRequest()) {
+      ((FinancialAccountEntities.FinancialAccountPayload) calloutRequest.payload)
+        .compositeAccountNumber = this.externalId;
     }
-      
+
     return calloutRequest;
   }
-    
+
   /**
    * @description Deserialize API callout response
    * @param responseBody API response payload
@@ -82,7 +87,7 @@ public with sharing class TradeFinanceExternalQuery extends EBDFinancialAccountQ
     if (String.isBlank(responseBody)) {
       return this.calloutResponse;
     }
-    this.calloutResponse = (TradeFinanceCalloutResponse)CalloutModel.deserialize(
+    this.calloutResponse = (TradeFinanceCalloutResponse) CalloutModel.deserialize(
       responseBody,
       TradeFinanceCalloutResponse.class
     );
@@ -103,25 +108,29 @@ public with sharing class TradeFinanceExternalQuery extends EBDFinancialAccountQ
       return result;
     }
     for (
-      TradeFinanceModel account : ((TradeFinanceCalloutResponse)this.calloutResponse)
+      TradeFinanceModel account : ((TradeFinanceCalloutResponse) this.calloutResponse)
         .accounts
     ) {
       Map<String, Object> row = new Map<String, Object>{
         'ExternalId' => account.compositeAccountNumber,
         'DisplayUrl' => getDisplayUrl(account.compositeAccountNumber),
         this.parentField => this.parentId,
-        'AccountNumber' => externalQueryHelper.formatAccountNumber(account.accountNumber),
+        'AccountNumber' => externalQueryHelper.formatAccountNumber(
+          account.accountNumber
+        ),
         'CAPLimit' => account.capAccountLimit,
         'Currency' => account.currencyCode,
         'InterestRate' => account.interestRate,
         'Limit' => account.originalLimit,
-        'LimitExpiry' => account.LimitExpiry,
-        'OLLAccountNumber' => externalQueryHelper.formatAccountNumber(account.ollAccountNumber),
+        'LimitExpiry' => account.expiryDate,
+        'OLLAccountNumber' => externalQueryHelper.formatAccountNumber(
+          account.ollAccountNumber
+        ),
         'ProductCode' => account.productCode,
         'ProductName' => account.productDescription,
         'SequenceNumber' => account.sequenceNumber,
         'SubProductCode' => account.subProductCode,
-        'Term' => account.term    
+        'Term' => account.term
       };
       result.externalRecords.add(row);
     }

@@ -633,6 +633,9 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
                       this.recordTypeName
                   )
               )
+              .copyFields(
+                Schema.SObjectType.ContactPointPhone.fieldSets.DCRMProspectCopyFields
+              )
           }
         );
       }
