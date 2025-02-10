@@ -447,11 +447,6 @@
         <label>Simplification/Decommissioning</label>
     </standardValue>
     <standardValue>
-        <fullName>Account Closure</fullName>
-        <default>false</default>
-        <label>Account Closure</label>
-    </standardValue>
-    <standardValue>
         <fullName>Legal Name QA</fullName>
         <default>false</default>
         <label>Legal Name QA</label>

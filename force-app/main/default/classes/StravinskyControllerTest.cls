@@ -5,12 +5,6 @@
  */
 @isTest
 public with sharing class StravinskyControllerTest {
-  private static User thisUser = [
-    SELECT Id
-    FROM User
-    WHERE Id = :UserInfo.getUserId()
-  ];
-
   @testSetup
   static void setup() {
     Faker faker = new Faker('AU');
@@ -54,34 +48,28 @@ public with sharing class StravinskyControllerTest {
     savingsAccount.FinServ__PrimaryOwner__c = acc.Id;
     savingsAccount.Account_Key__c = faker.randomString(10);
     insert savingsAccount;
-
-    System.runAs(thisUser) {
-      TestUtil.assignPermissionSetGroups(
-        new List<String>{ 'Coach' },
-        new List<User>{ thisUser }
-      );
-    }
   }
 
   @isTest
   static void testPackageClosureAuraSuccess() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+    ];
+
+    Faker faker = new Faker('AU');
+    Case newCase = new Case(
+      AccountId = acc.Id,
+      Account_Type__c = 'Individual',
+      RecordTypeId = RTCase.accountClosure,
+      Package_Id__c = faker.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    insert newCase;
+
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
-      Account acc = [
-        SELECT Id
-        FROM Account
-        WHERE Display_Name__c = 'TestAccount'
-      ];
-
-      Faker faker = new Faker('AU');
-      Case newCase = new Case(
-        AccountId = acc.Id,
-        Account_Type__c = 'Individual',
-        RecordTypeId = RTCase.accountClosure,
-        Package_Id__c = faker.randomString(10),
-        Account_Product__c = 'ANZ Plus & ANZ Save'
-      );
-      insert newCase;
-
       Test.startTest();
       GenesisPackageClosureModel response = StravinskyController.getPackageClosureAura(
         newCase.Id
@@ -98,23 +86,23 @@ public with sharing class StravinskyControllerTest {
 
   @isTest
   static void testPackageClosureNoFinAccount() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccountNoFin'
+    ];
+
+    Faker faker = new Faker('AU');
+    Case newCase = new Case(
+      AccountId = acc.Id,
+      Account_Type__c = 'Individual',
+      RecordTypeId = RTCase.accountClosure,
+      Package_Id__c = faker.randomString(10),
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    insert newCase;
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
-      Account acc = [
-        SELECT Id
-        FROM Account
-        WHERE Display_Name__c = 'TestAccountNoFin'
-      ];
-
-      Faker faker = new Faker('AU');
-      Case newCase = new Case(
-        AccountId = acc.Id,
-        Account_Type__c = 'Individual',
-        RecordTypeId = RTCase.accountClosure,
-        Package_Id__c = faker.randomString(10),
-        Account_Product__c = 'ANZ Plus & ANZ Save'
-      );
-      insert newCase;
-
       Test.startTest();
       try {
         StravinskyController.getPackageClosureAura(newCase.Id);
@@ -131,21 +119,21 @@ public with sharing class StravinskyControllerTest {
 
   @isTest
   static void testPackageClosureNoPackageId() {
+    Account acc = [
+      SELECT Id
+      FROM Account
+      WHERE Display_Name__c = 'TestAccount'
+    ];
+
+    Case newCase = new Case(
+      AccountId = acc.Id,
+      Account_Type__c = 'Individual',
+      RecordTypeId = RTCase.accountClosure,
+      Account_Product__c = 'ANZ Plus & ANZ Save'
+    );
+    insert newCase;
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
-      Account acc = [
-        SELECT Id
-        FROM Account
-        WHERE Display_Name__c = 'TestAccount'
-      ];
-
-      Case newCase = new Case(
-        AccountId = acc.Id,
-        Account_Type__c = 'Individual',
-        RecordTypeId = RTCase.accountClosure,
-        Account_Product__c = 'ANZ Plus & ANZ Save'
-      );
-      insert newCase;
-
       Test.startTest();
       try {
         StravinskyController.getPackageClosureAura(newCase.Id);
@@ -163,6 +151,7 @@ public with sharing class StravinskyControllerTest {
 
   @isTest
   static void testPackageClosureJointAccount() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
       //Joint Account
@@ -209,6 +198,7 @@ public with sharing class StravinskyControllerTest {
 
   @isTest
   static void testPackageClosureJointAccountException() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
       //Joint Account
