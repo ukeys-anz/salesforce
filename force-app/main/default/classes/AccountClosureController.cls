@@ -17,7 +17,7 @@ public with sharing class AccountClosureController {
    * @param parentCaseId Input Date from LWC
    * @return List<Case> eligible case list
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static List<Case> fetchEligibleCasesForPrecheck(Id parentCaseId) {
     return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(
       new Set<Id>{ parentCaseId }
@@ -91,7 +91,7 @@ public with sharing class AccountClosureController {
    * @param parentCaseId set of Case Group (Parent Case) Id
    * @return List<Case> List of child cases associated to the parent case.
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static List<Case> fetchChildCasesForClosure(Id parentCaseId) {
     return ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForClosure(
       new Set<Id>{ parentCaseId }

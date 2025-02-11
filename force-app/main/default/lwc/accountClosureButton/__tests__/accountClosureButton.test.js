@@ -1,11 +1,13 @@
 import { createElement } from "lwc";
 import AccountClosureButton from "c/accountClosureButton";
+import { getRecord } from "lightning/uiRecordApi";
 import fetchChildCasesForClosure from "@salesforce/apex/AccountClosureController.fetchChildCasesForClosure";
 import getPackageClosureAura from "@salesforce/apex/AccountClosureStravinskyController.getPackageClosureAura";
 
 const MOCK_ELIGIBLE_CASES_FOR_CLOSURE = require("./data/mockSuccessResponse.json");
 const MOCK_SUCCESS_PACKAGE_RESPONSE = require("./data/mockSuccessPackageResponse.json");
 const MOCK_FAILURE_PACKAGE_RESPONSE = require("./data/mockFailurePackageResponse.json");
+const MOCK_WIRE_OCVID = require("./data/wire-mock-ocvid.json");
 
 const RECORD_ID = "500AD00000K7EypYAF";
 
@@ -52,6 +54,11 @@ describe("c-account-closure-button", () => {
 
   it("renders the button with the correct label and initial state", async () => {
     const element = document.querySelector("c-account-closure-button");
+    getRecord.emit(MOCK_WIRE_OCVID);
+    return Promise.resolve().then(() => {
+      const ocvID = MOCK_WIRE_OCVID.fields.OCV_ID__c.value;
+      expect(ocvID).toBe("Test OCV_ID");
+    });
     fetchChildCasesForClosure.emit(MOCK_ELIGIBLE_CASES_FOR_CLOSURE);
     await flushPromises();
     const cancelButton = element.shadowRoot.querySelector(
@@ -71,6 +78,11 @@ describe("c-account-closure-button", () => {
   });
 
   it("displays success message when accounts are successfully closed", async () => {
+    getRecord.emit(MOCK_WIRE_OCVID);
+    return Promise.resolve().then(() => {
+      const ocvID = MOCK_WIRE_OCVID.fields.OCV_ID__c.value;
+      expect(ocvID).toBe("Test OCV_ID");
+    });
     getPackageClosureAura.mockResolvedValue(MOCK_SUCCESS_PACKAGE_RESPONSE);
     const element = document.querySelector("c-account-closure-button");
     fetchChildCasesForClosure.emit(MOCK_ELIGIBLE_CASES_FOR_CLOSURE);
@@ -97,6 +109,11 @@ describe("c-account-closure-button", () => {
   });
 
   it("displays failure message when accounts are fail to close", async () => {
+    getRecord.emit(MOCK_WIRE_OCVID);
+    return Promise.resolve().then(() => {
+      const ocvID = MOCK_WIRE_OCVID.fields.OCV_ID__c.value;
+      expect(ocvID).toBe("Test OCV_ID");
+    });
     getPackageClosureAura.mockResolvedValue(MOCK_FAILURE_PACKAGE_RESPONSE);
     const element = document.querySelector("c-account-closure-button");
     fetchChildCasesForClosure.emit(MOCK_ELIGIBLE_CASES_FOR_CLOSURE);

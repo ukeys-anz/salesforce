@@ -1,8 +1,12 @@
 import { LightningElement, api, wire } from "lwc";
+import { getRecord } from "lightning/uiRecordApi";
 import fetchChildCasesForClosure from "@salesforce/apex/AccountClosureController.fetchChildCasesForClosure";
 import getPackageClosureAura from "@salesforce/apex/AccountClosureStravinskyController.getPackageClosureAura";
 import updateCaseStatusAndPostChatterMessage from "@salesforce/apex/AccountClosureStravinskyController.updateCaseStatusAndPostChatterMessage";
 import { CloseActionScreenEvent } from "lightning/actions";
+import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
+
+const fields = ["Case.Account.OCV_ID__c"];
 
 const caseColumns = [
   { label: "Product", fieldName: "product" },
@@ -28,21 +32,12 @@ export default class AccountClosureButton extends LightningElement {
   isAccountClosedFailure = "pending";
   hasError = false;
   loading = false;
+  intialloading = false;
+  hasFetchedCases = false;
   errorMsg;
+  customerOcvId;
 
   @api recordId;
-
-  @wire(fetchChildCasesForClosure, { parentCaseId: "$recordId" })
-  wiredData({ data }) {
-    try {
-      if (data && data.length > 0) {
-        this.childCases = data;
-        this.casesData = this.generateData(data);
-      }
-    } catch (error) {
-      this.handleError(error);
-    }
-  }
 
   get showSuccessIcon() {
     return (
@@ -62,8 +57,45 @@ export default class AccountClosureButton extends LightningElement {
   get isAccountClosureComplete() {
     return (
       this.isAccountClosedSuccess === "pending" &&
-      this.isAccountClosedFailure === "pending"
+      this.isAccountClosedFailure === "pending" &&
+      !this.intialloading
     );
+  }
+
+  get showLoading() {
+    return this.intialloading || this.loading;
+  }
+
+  @wire(getRecord, { recordId: "$recordId", fields })
+  wiredData({ data }) {
+    try {
+      this.intialloading = true;
+      if (data && !this.hasFetchedCases) {
+        this.customerOcvId =
+          data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
+        if (this.customerOcvId) {
+          this.hasFetchedCases = true;
+          this.getChildCasesForClosure();
+        }
+      }
+    } catch (error) {
+      this.handleError(error);
+    }
+  }
+
+  async getChildCasesForClosure() {
+    try {
+      const caseDetails = await fetchChildCasesForClosure({
+        parentCaseId: this.recordId
+      });
+      if (caseDetails && caseDetails.length > 0) {
+        this.childCases = caseDetails;
+        this.casesData = this.generateData(caseDetails);
+        this.intialloading = false;
+      }
+    } catch (error) {
+      this.handleError();
+    }
   }
 
   async handleCloseAccounts() {
@@ -94,6 +126,7 @@ export default class AccountClosureButton extends LightningElement {
       });
       this.updateResponseData();
       await this.updateCaseStatusToClosed(this.successfulCases);
+      await this.refreshTab();
     } catch (error) {
       this.loading = false;
       this.handleError(error);
@@ -136,10 +169,10 @@ export default class AccountClosureButton extends LightningElement {
   generateResponseData(records, isSuccessIcon) {
     return records.map((record) => ({
       id: record.caseRecord.Id,
-      product: record.caseRecord.Product.Name,
+      product: record.caseRecord?.Product?.Name || null,
       accountNumber:
-        record.caseRecord.FinServ__FinancialAccount__r
-          .FinServ__FinancialAccountNumber__c,
+        record.caseRecord?.FinServ__FinancialAccount__r
+          ?.FinServ__FinancialAccountNumber__c || null,
       accountType:
         record.caseRecord.Account_Type__c === "Individual" ? "Sole" : "Joint",
       childCaseNumber: record.caseRecord.CaseNumber,
@@ -151,9 +184,10 @@ export default class AccountClosureButton extends LightningElement {
   generateData(records) {
     return records.map((record) => ({
       id: record.Id,
-      product: record.Product.Name,
+      product: record?.Product?.Name || null,
       accountNumber:
-        record.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+        record?.FinServ__FinancialAccount__r
+          ?.FinServ__FinancialAccountNumber__c || null,
       accountType: record.Account_Type__c === "Individual" ? "Sole" : "Joint",
       childCaseNumber: "#" + record.CaseNumber,
       childCaseNumberUrl: "/" + record.Id
@@ -185,5 +219,12 @@ export default class AccountClosureButton extends LightningElement {
     } catch (error) {
       this.handleError(error);
     }
+  }
+
+  async refreshTab() {
+    const { tabId } = await getFocusedTabInfo();
+    await refreshTab(tabId, {
+      includeAllSubtabs: false
+    });
   }
 }

@@ -9,3 +9,11 @@
   padding-top: 1rem;
   padding-bottom: 2rem;
 }
+
+.center-justify {
+  text-align: center;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}

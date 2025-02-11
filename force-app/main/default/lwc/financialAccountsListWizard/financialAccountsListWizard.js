@@ -1,6 +1,7 @@
 import { LightningElement, api, wire } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord } from "lightning/uiRecordApi";
+import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
 import { handleErrorShowToast } from "c/utils";
 
@@ -125,6 +126,7 @@ export default class FinancialAccountsListWizard extends LightningElement {
 
   handleCasesCreated() {
     this.showFinDataTable = false;
+    this.refreshTab();
   }
 
   handleErrorVisibilty(event) {
@@ -139,5 +141,12 @@ export default class FinancialAccountsListWizard extends LightningElement {
   handleError() {
     this.hasError = true;
     this.errorMsg = ERROR_MESSAGE;
+  }
+
+  async refreshTab() {
+    const { tabId } = await getFocusedTabInfo();
+    await refreshTab(tabId, {
+      includeAllSubtabs: false
+    });
   }
 }

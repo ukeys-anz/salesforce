@@ -24,7 +24,8 @@ public with sharing virtual class AccountClosureService extends Service {
       Label.MS_Initiate_Account_Closure,
       HTTP_METHOD.HTTP_GET,
       headers,
-      JSON.serialize(accountDetailsForPrechecks)
+      JSON.serialize(accountDetailsForPrechecks),
+      60000
     );
   }
 }
