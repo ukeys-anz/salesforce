@@ -31,39 +31,7 @@ public without sharing class IDRTaskActionHelper {
       );
     }
     List<Task> taskToInsert = verifyAssignmentTask(taskRecordList);
-    List<Database.SaveResult> results = DML.doInsert(
-      taskToInsert,
-      new DmlConfig().allowPartial().withoutSharing()
-    );
-    logError(taskToInsert, results);
-  }
-  /**
-   * @description Build Log message to return and add in Log entry for file deletion
-   * @param taskToInsert List of Tasks
-   * @param results Database results
-   */
-  private static void logError(
-    List<Task> taskToInsert,
-    List<Database.SaveResult> results
-  ) {
-    for (Integer i = 0; i < taskToInsert.size(); i++) {
-      Database.SaveResult sr = results[i];
-      if (sr.isSuccess()) {
-        continue;
-      }
-      String errorMessage =
-        'Unable to create assignment tasks ' +
-        +' associated case: ' +
-        taskToInsert[i].WhatId +
-        ' associated case owner/queue: ' +
-        taskToInsert[i].OwnerId +
-        ' ';
-      for (Database.Error err : sr.getErrors()) {
-        errorMessage += err;
-        Logger.error(errorMessage);
-        Logger.saveLog();
-      }
-    }
+    DML.doInsert(taskToInsert, new DmlConfig().allowPartial());
   }
   /**
    * @description verify task records for complaint assignment / New file attached / New Email Attached / New comment on closed case.

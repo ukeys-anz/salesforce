@@ -43,7 +43,6 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     GetHelpCaseActions.validateFinancialAccByAccId(records);
     GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
-    GetHelpCaseActions.setOwnerToIDOpsQueue(records);
     GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
       (List<Case>) records,
       null

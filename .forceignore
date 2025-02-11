@@ -92,6 +92,8 @@ force-app/main/default/classes/UpdateAccountsAndGoals.cls
 force-app/main/default/messageChannels/FinancialAccountsGoalsUpdate.messageChannel-meta.xml
 force-app/main/default/classes/GetAccountsAndGoals.cls
 force-app/main/default/classes/utils/CommonUtils.cls
+force-app/main/default/classes/IDRCaseActionsHelper.cls
+force-app/main/default/classes/IDRCaseActionsHelperTest.cls
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus

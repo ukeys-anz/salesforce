@@ -8,6 +8,7 @@
         <fieldNames>Assessment_Outcome__c</fieldNames>
         <fieldNames>Assessment_Outcome_Date__c</fieldNames>
         <fieldNames>Approval_Expiry_Date__c</fieldNames>
+        <fieldNames>Approved_Amount__c</fieldNames>
         <info>&lt;ul&gt;&lt;li&gt;You will receive a decision on your application.&lt;/li&gt;&lt;li&gt;Look at reworking deals for declined applications&lt;/li&gt;&lt;li&gt;Set follow-up dates for AST/AIP outcomes.&lt;/li&gt;&lt;li&gt;Update the waiting indicator to get the required information from the customer based on the conditions on AST/AIP notice.&lt;/li&gt;&lt;li&gt;Create tasks for follow-ups as required&lt;/li&gt;&lt;li&gt;Direct customer to perform KYC checks for Approved outcomes&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Assessed</picklistValueName>
     </pathAssistantSteps>
@@ -22,12 +23,12 @@
         <picklistValueName>Lost</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>
-        <fieldNames>Interview_Date__c</fieldNames>
-        <fieldNames>Amount</fieldNames>
+        <fieldNames>AIP_Requested__c</fieldNames>
         <fieldNames>Customer_Needs__c</fieldNames>
-        <fieldNames>LMI_Applies__c</fieldNames>
+        <fieldNames>Servicing_Branch__c</fieldNames>
+        <fieldNames>Amount</fieldNames>
         <fieldNames>Expected_Settlement_Date__c</fieldNames>
-        <info>&lt;ul&gt;&lt;li&gt;Book appointment with the customer and conduct customer interview(s)&lt;/li&gt;&lt;li&gt;Start Simpology application for serviceability, application capture, and supporting document requests. Your Simpology application will be in &amp;quot;Open&amp;quot; status at this stage&lt;/li&gt;&lt;li&gt;Order valuation(s)&lt;/li&gt;&lt;li&gt;Submit pricing request&lt;/li&gt;&lt;/ul&gt;</info>
+        <info>&lt;ul&gt;&lt;li&gt;Book appointment with the customer and conduct customer interview(s)&lt;/li&gt;&lt;li&gt;Enter in the mandatory fields Amount, Customer Needs, Expected Settlement Date, Servicing Branch to display the Create Loanapp button.&lt;/li&gt;&lt;li&gt;Ensure all related parties have a DOB and Gender on their profile.&lt;/li&gt;&lt;li&gt;Start Simpology application for serviceability, application capture, and supporting document requests. Your Simpology application will be in &amp;quot;Open&amp;quot; status at this stage&lt;/li&gt;&lt;li&gt;Order valuation(s)&lt;/li&gt;&lt;li&gt;Submit pricing request&lt;/li&gt;&lt;/ul&gt;</info>
         <picklistValueName>Needs Analysis</picklistValueName>
     </pathAssistantSteps>
     <pathAssistantSteps>

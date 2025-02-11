@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Flows</fullName>
+        <default>false</default>
+        <label>Flows</label>
+    </customValue>
+    <customValue>
+        <fullName>Triggers</fullName>
+        <default>false</default>
+        <label>Triggers</label>
+    </customValue>
+    <customValue>
+        <fullName>Validation_rules</fullName>
+        <default>false</default>
+        <label>Validation Rules</label>
+    </customValue>
+    <masterLabel>Automations to Bypass</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

@@ -14,6 +14,8 @@ public with sharing class CCRMLeadActionsHelper {
   static final String CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE = 'CUSTOMER NUMBER NOT FOUND';
   @TestVisible
   static final String CLG_NOT_FOUND_ERROR_MESSAGE = 'CLG NOT FOUND';
+  @TestVisible
+  static final String ENTITY_TYPE_INDIVIDUAL = 'Individual';
   private static final CCRMLeadRepository LEAD_REPOSITORY = (CCRMLeadRepository) Lib_InstanceProvider.forType(
     CCRMLeadRepository.class
   );
@@ -162,6 +164,26 @@ public with sharing class CCRMLeadActionsHelper {
       ) {
         record.LeadSource = MLCRMConstants.ANZ_CAMPAIGNS;
       }
+    }
+  }
+
+  /**
+   * @description Populate Registered_Company__c on New Leads before Inserting based on Entity Type.
+   *  - Registered_Company__c: populate it as per Entity Type
+   * @name populateRegisteredCompany
+   * @param leadList List of lead records.
+   */
+  public static void populateRegisteredCompany(List<Lead> leadList) {
+    List<Lead> filteredLeadsList = ListUtil.filter(leadList)
+      .equals(
+        Lead.RecordTypeId,
+        QueryRT.of(Lead.SObjectType).getId('CCRM_Lead')
+      )
+      .equals(Lead.Entity_Type__c, ENTITY_TYPE_INDIVIDUAL)
+      .toList();
+
+    for (Lead leadIterator : filteredLeadsList) {
+      leadIterator.Registered_Company__c = 'No';
     }
   }
 

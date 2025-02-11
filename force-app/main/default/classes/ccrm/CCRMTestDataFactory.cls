@@ -55,6 +55,8 @@ public with sharing class CCRMTestDataFactory {
     adminUser = (User) FakerFactory.make(new FakerUserFactory());
     adminUser.FirstName = 'TestUser' + staticNumber;
     adminUser.LastName = 'Admin';
+    adminUser.email = 'CRMAdminUser@anz.com';
+    adminUser.IsActive = true;
     adminUser.UserRoleId = commercialBankerRole.Id;
     adminUser.ProfileId = adminProfileId;
     insert adminUser;
@@ -1759,8 +1761,13 @@ public with sharing class CCRMTestDataFactory {
       HtmlBody = 'Hello World',
       Incoming = false,
       Attachment_Notes__c = 'This email has no attachments',
-      CreatedBy = new User(
-        Profile = new Profile(Name = 'ANZ CCRM Standard User')
+      CreatedBy = (User)TestUtil.setFields(
+        new User (
+            Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType())
+        ),
+        new Map<String, Object> {
+            'Profile_Name__c' => 'ANZ CCRM Standard User'
+        }
       )
     );
     return emRecord;

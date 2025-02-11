@@ -446,8 +446,8 @@ private class TaskTriggerHandlerTest {
     Task coachNudgeTask = TestDataFactory.createTaskRecord(
       GetHelpConstants.COACH_NUDGE_RT_ID,
       null,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
     Test.startTest();
@@ -455,8 +455,8 @@ private class TaskTriggerHandlerTest {
       Task newCoachNudgeTask = TestDataFactory.createTaskRecord(
         GetHelpConstants.COACH_NUDGE_RT_ID,
         null,
-        '0069p000000' + faker.randomString(7),
-        '00G9p000000' + faker.randomString(7),
+        Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+        Lib_FakeIdGenerator.getMockId(Group.SObjectType),
         false
       );
       newCoachNudgeTask.Status = 'Expired';
@@ -479,21 +479,21 @@ private class TaskTriggerHandlerTest {
   @isTest
   public static void testfilterCoachNudgeTasks() {
     Faker faker = new Faker('AU');
-    Id accId = '0019p000000' + faker.randomString(7);
-    Id testRTId = '0122P000' + faker.randomString(7);
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Id testRTId = GetHelpConstants.TASK_COMPLIANCE_RT_ID;
     List<Task> taskRecords = new List<Task>();
     Task coachNudgeTask = TestDataFactory.createTaskRecord(
       GetHelpConstants.COACH_NUDGE_RT_ID,
       accId,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
     Task otherTaskRT = TestDataFactory.createTaskRecord(
       testRTId,
       accId,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
     taskRecords.add(coachNudgeTask);
@@ -516,12 +516,12 @@ private class TaskTriggerHandlerTest {
   @isTest
   public static void testgetWhoIdFromTask() {
     Faker faker = new Faker('AU');
-    Id accId = '0019p000000' + faker.randomString(7);
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Task coachNudgeTask = TestDataFactory.createTaskRecord(
       GetHelpConstants.COACH_NUDGE_RT_ID,
       accId,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
     Test.startTest();
@@ -537,12 +537,12 @@ private class TaskTriggerHandlerTest {
   @isTest
   public static void testCoachNudgeCloudEvent() {
     Faker faker = new Faker('AU');
-    Id accId = '0019p000000' + faker.randomString(7);
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
     Task coachNudgeTask = TestDataFactory.createTaskRecord(
       GetHelpConstants.COACH_NUDGE_RT_ID,
       accId,
-      '0069p000000' + faker.randomString(7),
-      '00G9p000000' + faker.randomString(7),
+      Lib_FakeIdGenerator.getMockId(ResidentialLoanApplication.SObjectType),
+      Lib_FakeIdGenerator.getMockId(Group.SObjectType),
       false
     );
 

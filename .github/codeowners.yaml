@@ -1,0 +1,20 @@
+requiredReviewers:
+  default: 'approvals("anzx/help-crm") >= 2'
+
+  files:
+    - files: '^\.github\/.*$'
+      expr: 'approvals("anzx/deployment-salesforce-approvers-prod") >= 1 && approvals("anzx/help-crm") >= 2'
+
+    - files: "^force-app/main/default/flows/.*$"
+      expr: 'approvals("anzx/deployment-salesforce-approvers-prod") >= 1 && approvals("anzx/help-crm") >= 2'
+
+    - files: "^force-app/main/default/flows/.*$"
+      expr: 'approvals("anzx/deployment-salesforce-approvers-prod") >= 1 && approvals("anzx/help-crm") >= 2'
+
+    - files: '\.(Dockerfile|ya?ml)$'
+      expr: 'approvals("anzx/deployment-salesforce-approvers-prod") >= 1 && approvals("anzx/help-crm") >= 2'
+
+    - files: "^ci/.*$"
+      expr: 'approvals("anzx/deployment-salesforce-approvers-prod") >= 1 && approvals("anzx/help-crm") >= 2'
+
+version: 2

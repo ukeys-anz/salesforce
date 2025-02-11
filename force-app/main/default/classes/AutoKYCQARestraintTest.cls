@@ -80,4 +80,30 @@ private class AutoKYCQARestraintTest {
       'Incorrect productCode'
     );
   }
+  @IsTest
+  static void testgetSepcialCommentByIndex() {
+    Assert.areEqual(
+      10,
+      handler.getSepcialCommentByIndex(0, 10).length(),
+      'lenght should be 10'
+    );
+
+    Assert.areEqual(
+      Label.CustomerRestraintComment,
+      handler.getSepcialCommentByIndex(0, 200),
+      'comment should match the label'
+    );
+
+    Assert.areEqual(
+      '',
+      handler.getSepcialCommentByIndex(-2, -1),
+      'comment should be empty'
+    );
+
+    Assert.areEqual(
+      '',
+      handler.getSepcialCommentByIndex(100, 200),
+      'comment should be empty'
+    );
+  }
 }

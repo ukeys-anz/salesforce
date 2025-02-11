@@ -33,4 +33,48 @@ public with sharing class VaultServiceMock extends VaultService {
     }
     return response;
   }
+
+    /**
+   * @param customerId customer Id
+   * @param customerIdType customer Id type
+   * @param documentNumberToBeTokenizedRequest the detokenized document number to be tokenized
+   * @return `HttpCalloutResponse` method response
+   * @description Token API tokenizeDocumentNumber
+   */
+  public override HttpCalloutResponse tokenizeDocumentNumber(
+    String customerId,
+    String customerIdType,
+    TokenizeDocumentNumberRequestModel documentNumberToBeTokenizedRequest
+  ) {
+    if (!preset) {
+      Map<String, String> responseMap = new Map<String, String>{
+        'value' => EncodingUtil.base64Encode(Blob.valueOf(documentNumberToBeTokenizedRequest.value))
+      };
+      response.body = JSON.serialize(responseMap);
+    }
+
+    return response;
+  }
+
+  /**
+   * @param customerId customer Id
+   * @param customerIdType customer Id type
+   * @param documentNumberToBeDetokenizedRequest the tokenized document number to be detokenized
+   * @return `HttpCalloutResponse` method response
+   * @description Token API detokenizeDocumentNumber
+   */
+  public override HttpCalloutResponse detokenizeDocumentNumber(
+    String customerId,
+    String customerIdType,
+    DetokenizeDocumentNumberRequestModel documentNumberToBeDetokenizedRequest
+  ) {
+    if (!preset) {
+      Map<String, String> responseMap = new Map<String, String>{
+        'value' => EncodingUtil.base64Decode(documentNumberToBeDetokenizedRequest.value).toString()
+      };
+      response.body = JSON.serialize(responseMap);
+    }
+
+    return response;
+  }
 }

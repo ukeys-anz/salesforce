@@ -27,27 +27,24 @@ public with sharing class IDRAPIRepositoryTest {
     Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
     serv.setCalloutResponse(res);
     IDRAPIRepository repo = new IDRAPIRepository();
-      Exception calloutExp;
-      Test.startTest();
-      try{
-          repo.getCustomerInfo(
-              '12345',
-              'CAP ID'
-          );
-      }catch(Exception e){
-          calloutExp = e;
-      }
-      Test.stopTest();
-      System.assertEquals(
-          500,
-          res.statusCode,
-          'Status Code matches for Internal Server Error'
-      );
-      System.assertEquals(
-          'OCV Down',
-          calloutExp.getMessage(),
-          'OCV down exception message matches'
-      );
+    Exception calloutExp;
+    Test.startTest();
+    try {
+      repo.getCustomerInfo('12345', 'CAP ID');
+    } catch (Exception e) {
+      calloutExp = e;
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      500,
+      res.statusCode,
+      'Status Code matches for Internal Server Error'
+    );
+    Assert.areEqual(
+      'OCV Down',
+      calloutExp.getMessage(),
+      'OCV down exception message matches'
+    );
   }
 
   @isTest
@@ -93,34 +90,31 @@ public with sharing class IDRAPIRepositoryTest {
 
   @isTest
   static void testCustomerNotFoundFailure() {
-      HttpCalloutResponse res = getCustomerNotFoundResponse();
-      Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
-      serv.setCalloutResponse(res);
-      IDRAPIRepository repo = new IDRAPIRepository();
-      Exception ocvDownExp;
-      Test.startTest();
-      try{
-          repo.getCustomerInfo(
-              '1231231234',
-              'Customer/Business CAP ID'
-          );
-      }catch(Exception e){
-        ocvDownExp = e;
-      }
-      
-      Test.stopTest();
-      System.assertEquals(
-          422,
-          res.statusCode,
-          'Status Code matches for Customer Not Found error'
-      );
-      System.assertEquals(
-          'Customer not found',
-          ocvDownExp.getMessage(),
-          'Customer Not Found exception matches'
-      );
+    HttpCalloutResponse res = getCustomerNotFoundResponse();
+    Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
+    serv.setCalloutResponse(res);
+    IDRAPIRepository repo = new IDRAPIRepository();
+    Exception ocvDownExp;
+    Test.startTest();
+    try {
+      repo.getCustomerInfo('1231231234', 'Customer/Business CAP ID');
+    } catch (Exception e) {
+      ocvDownExp = e;
+    }
+
+    Test.stopTest();
+    Assert.areEqual(
+      422,
+      res.statusCode,
+      'Status Code matches for Customer Not Found error'
+    );
+    Assert.areEqual(
+      'Customer not found',
+      ocvDownExp.getMessage(),
+      'Customer Not Found exception matches'
+    );
   }
-  
+
   private static HttpCalloutResponse getAPIFailureResponse() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.error = new CalloutException(
