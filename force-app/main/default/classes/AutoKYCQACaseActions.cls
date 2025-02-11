@@ -691,6 +691,76 @@ public with sharing class AutoKYCQACaseActions {
       completedCpus,
       Customer_Profile_Updates__c.Case__c
     );
+
+    //staging records are individually updated across multiple transactions
+    //use queueable to ensure all staging records statuses are persisted before updating case
+    if (casesIds.size() == 1) {
+      new UpdateRestraintResultsQueueable(
+          casesIds.iterator().next(),
+          restraintsAction
+        )
+        .enqueue();
+      return;
+    }
+    updateRestraintResults(casesIds, restraintsAction);
+  }
+
+  /**
+   * @description Updates the restraint results for a given case asynchronously
+   */
+  public class UpdateRestraintResultsQueueable implements Queueable {
+    private Id caseId;
+    private String action;
+
+    /**
+     * @description Constructor for UpdateRestraintResultsQueueable
+     * @param caseId The ID of the case to update.
+     * @param action The action to be taken on the restraints.
+     */
+    public UpdateRestraintResultsQueueable(Id caseId, String action) {
+      this.caseId = caseId;
+      this.action = action;
+    }
+
+    /**
+     * @description Enqueues the job to update restraint results.
+     */
+    public void enqueue() {
+      AsyncOptions options = new AsyncOptions();
+      options.DuplicateSignature = QueueableDuplicateSignature.Builder()
+        .addId(this.caseId)
+        .addString('UpdateRestraints')
+        .build();
+      Case c = new Case(Id = this.caseId);
+      try {
+        System.enqueueJob(this, options);
+      } catch (DuplicateMessageException ex) {
+        Logger.debug('Skip scheduling updating case restraint status', c)
+          .save();
+      } catch (Exception ex) {
+        Logger.error('Failed to schedule updating case restraint status', c)
+          .save();
+      }
+    }
+
+    /**
+     * @description execute method
+     * @param context QueueableContext
+     */
+    public void execute(QueueableContext context) {
+      updateRestraintResults(new Set<Id>{ this.caseId }, this.action);
+    }
+  }
+
+  /**
+   * @description Updates the restraint results for a set of KYC QA cases.
+   * @param casesIds Set<Id> - The set of case IDs to update.
+   * @param restraintsAction String - The action to be taken on the restraints.
+   */
+  private static void updateRestraintResults(
+    Set<Id> casesIds,
+    String restraintsAction
+  ) {
     List<Case> kycQACases = REPOSITORY.queryKYCQACasesWithCpu(casesIds);
     List<Case> casesWithStatus = getCasesWithUpdatedRestraintStatus(
       kycQACases,
