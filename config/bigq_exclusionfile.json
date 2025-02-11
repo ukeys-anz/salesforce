@@ -116,6 +116,7 @@
     "Industry",
     "Industry__c",
     "IsPersonAccount",
+		"Is_Broker_User_Active__pc",
     "Jigsaw",
     "JigsawCompanyId",
     "KYCVerificationDate__c",
@@ -230,6 +231,9 @@
     "StateOfIssueOCRServer__c",
     "SubmittedAt__c"
   ],
+	"Case": [
+		"MilestoneStatusIcon"
+	],
   "Contact": [
     "AssetFinanceTPMISAO__c",
     "Accreditation_CompactLayout__c",
@@ -295,6 +299,9 @@
     "TncName__c",
     "TncVersion__c"
   ],
+	"Event": [
+		"LocationId"
+	],
   "FinServ__FinancialAccount__c": [
     "FinServ__AccrualFrequency__c",
     "FinServ__AccruedInterest__c",
@@ -425,7 +432,8 @@
     "EndOfLifeDate",
     "HelpText",
     "IsAssetizable",
-    "IsSoldOnlyWithOtherProds"
+		"IsSoldOnlyWithOtherProds",
+		"UnitOfMeasureId"
   ],
   "ResidentialLoanApplication": [
     "Assessment_Outcome__c",
