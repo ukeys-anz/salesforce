@@ -80,16 +80,21 @@ public with sharing class AccountClosureControllerHelper {
     Map<String, String> reasonToActionLabelMap = new Map<String, String>();
 
     for (AccountClosureErrorMetadata__mdt actions : actionsList) {
-      if (actions.Type__c == 'Constant') {
-        constantMessages.add(actions.Chatter_Post__c);
-      } else {
-        if (!reasonToActions.containsKey(actions.Failure_Reason__c)) {
-          reasonToActions.put(actions.Failure_Reason__c, new List<String>());
-          reasonToActionLabelMap.put(actions.Failure_Reason__c, actions.Label);
-        }
+      if (actions.Chatter_Post__c != null) {
+        if (actions.Type__c == 'Constant') {
+          constantMessages.add(actions.Chatter_Post__c);
+        } else {
+          if (!reasonToActions.containsKey(actions.Failure_Reason__c)) {
+            reasonToActions.put(actions.Failure_Reason__c, new List<String>());
+            reasonToActionLabelMap.put(
+              actions.Failure_Reason__c,
+              actions.Label
+            );
+          }
 
-        List<String> actionsBullet = actions.Chatter_Post__c.split('\n');
-        reasonToActions.get(actions.Failure_Reason__c).addAll(actionsBullet);
+          List<String> actionsBullet = actions.Chatter_Post__c.split('\n');
+          reasonToActions.get(actions.Failure_Reason__c).addAll(actionsBullet);
+        }
       }
     }
 

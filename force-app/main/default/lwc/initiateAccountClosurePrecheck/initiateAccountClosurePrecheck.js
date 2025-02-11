@@ -4,6 +4,7 @@ import fetchEligibleCasesForPrecheck from "@salesforce/apex/AccountClosureContro
 import initiateAccountClosurePrecheck from "@salesforce/apex/AccountClosureController.initiateAccountClosurePrechecks";
 import processResponsesAndUpdateCases from "@salesforce/apex/AccountClosureController.processResponsesAndUpdateCases";
 import { CloseActionScreenEvent } from "lightning/actions";
+import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 
 const fields = ["Case.Account.OCV_ID__c"];
 
@@ -30,7 +31,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   responseDataFailed = [];
   loading = false;
   hasFetchedCases = false;
-  eligibleCasesFound = false;
+  initialLoading = false;
   isPrecheckSuccess = false;
   isPrecheckFailed = false;
   hasError = false;
@@ -56,18 +57,17 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
 
   get isPrecheckNotDone() {
     return (
-      !this.isPrecheckSuccess &&
-      !this.isPrecheckFailed &&
-      this.eligibleCasesFound
+      !this.isPrecheckSuccess && !this.isPrecheckFailed && !this.initialLoading
     );
   }
 
-  get isEligibleCasesFound() {
-    return this.eligibleCasesFound;
+  get showLoading() {
+    return this.initialLoading || this.loading;
   }
 
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data }) {
+    this.initialLoading = true;
     try {
       if (data && !this.hasFetchedCases) {
         this.customerOcvId =
@@ -90,7 +90,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       if (caseDetails && caseDetails.length > 0) {
         this.eligibleChildCases = caseDetails;
         this.casesData = this.generateData(caseDetails);
-        this.eligibleCasesFound = true;
+        this.initialLoading = false;
       }
     } catch (error) {
       this.handleError();
@@ -135,6 +135,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       if (this.precheckResponse.length > 0) {
         await this.processPrecheckResponse(this.precheckResponse.flat());
       }
+      await this.refreshTab();
     } catch (error) {
       this.handleError();
     } finally {
@@ -217,12 +218,14 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   generateData(caseRecords) {
     return caseRecords.map((caseRecord) => ({
       id: caseRecord.Id,
-      product: caseRecord.Product.Name,
+      product: caseRecord?.Product?.Name || null,
       accountNumber:
-        caseRecord.FinServ__FinancialAccount__r
-          .FinServ__FinancialAccountNumber__c,
+        caseRecord?.FinServ__FinancialAccount__r
+          ?.FinServ__FinancialAccountNumber__c || null,
       accountType:
-        caseRecord.Account_Type__c === "Individual" ? "Sole" : "Joint",
+        caseRecord?.Account_Type__c === "Individual"
+          ? "Sole"
+          : caseRecord?.Account_Type__c,
       childCaseNumber: "#" + caseRecord.CaseNumber,
       childCaseNumberUrl: "/" + caseRecord.Id
     }));
@@ -231,12 +234,14 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   generateResponseData(caseRecords, isSuccessIcon) {
     return caseRecords.map((caseRecord) => ({
       id: caseRecord.Id,
-      product: caseRecord.Product.Name,
+      product: caseRecord?.Product?.Name || null,
       accountNumber:
-        caseRecord.FinServ__FinancialAccount__r
-          .FinServ__FinancialAccountNumber__c,
+        caseRecord?.FinServ__FinancialAccount__r
+          ?.FinServ__FinancialAccountNumber__c || null,
       accountType:
-        caseRecord.Account_Type__c === "Individual" ? "Sole" : "Joint",
+        caseRecord?.Account_Type__c === "Individual"
+          ? "Sole"
+          : caseRecord?.Account_Type__c,
       childCaseNumber: caseRecord.CaseNumber,
       isSuccessIcon: isSuccessIcon,
       workFlow: caseRecord.Status
@@ -269,5 +274,12 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
       };
     });
     return processedResponses;
+  }
+
+  async refreshTab() {
+    const { tabId } = await getFocusedTabInfo();
+    await refreshTab(tabId, {
+      includeAllSubtabs: false
+    });
   }
 }

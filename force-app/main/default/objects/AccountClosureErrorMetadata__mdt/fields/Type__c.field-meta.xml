@@ -7,7 +7,7 @@
     <externalId>false</externalId>
     <fieldManageability>DeveloperControlled</fieldManageability>
     <label>Type</label>
-    <required>false</required>
+    <required>true</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>

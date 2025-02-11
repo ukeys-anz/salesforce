@@ -87,25 +87,6 @@ export default class AccountClosureWizardChild extends LightningElement {
     });
   }
 
-  handleInputChange(event) {
-    const { name, value } = event.target;
-    const rowId = event.target.dataset.id;
-
-    // Update the corresponding field for the selected row.
-    this._selectedRows = this._selectedRows.map((row) => {
-      if (row.id === rowId) {
-        row[name] = value; // Update the field value.
-        row[`is${this.capitalize(name)}Invalid`] = false; // Reset validation flag.
-
-        // If the user selected 'copy to all', update other rows.
-        if (this.copyToAll && this._selectedRows[0].id === rowId) {
-          this.cascadeFields(name, value);
-        }
-      }
-      return row;
-    });
-  }
-
   handleFieldChange(event) {
     const { rowId, name, value } = event.detail;
 
