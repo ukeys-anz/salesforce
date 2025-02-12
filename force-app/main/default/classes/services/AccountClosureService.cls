@@ -25,7 +25,7 @@ public with sharing virtual class AccountClosureService extends Service {
       HTTP_METHOD.HTTP_GET,
       headers,
       JSON.serialize(accountDetailsForPrechecks),
-      60000
+      120000
     );
   }
 }
