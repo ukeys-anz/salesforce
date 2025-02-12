@@ -67,7 +67,6 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
 
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data }) {
-    this.initialLoading = true;
     try {
       if (data && !this.hasFetchedCases) {
         this.customerOcvId =
@@ -83,6 +82,7 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
   }
 
   async getEligibleChildCasesForPrecheck() {
+    this.initialLoading = true;
     try {
       const caseDetails = await fetchEligibleCasesForPrecheck({
         parentCaseId: this.recordId

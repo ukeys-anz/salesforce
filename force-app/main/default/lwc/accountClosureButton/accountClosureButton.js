@@ -69,7 +69,6 @@ export default class AccountClosureButton extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data }) {
     try {
-      this.intialloading = true;
       if (data && !this.hasFetchedCases) {
         this.customerOcvId =
           data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
@@ -84,6 +83,7 @@ export default class AccountClosureButton extends LightningElement {
   }
 
   async getChildCasesForClosure() {
+    this.intialloading = true;
     try {
       const caseDetails = await fetchChildCasesForClosure({
         parentCaseId: this.recordId
