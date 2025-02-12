@@ -2866,22 +2866,6 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
-            <name>LineBreak10</name>
-            <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;label&quot; : &quot;LineBreak1&quot;,
-  &quot;padding&quot; : 0,
-  &quot;show&quot; : null,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;
-}</propertySetConfig>
-            <sequenceNumber>113.0</sequenceNumber>
-            <type>Line Break</type>
-        </childElements>
-        <childElements>
             <name>LineBreak11</name>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
             <isActive>true</isActive>
@@ -4782,7 +4766,7 @@
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;data&quot; : &quot;Y_EXI&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;realFormRequired&quot;
       } ]
@@ -4796,7 +4780,7 @@
   &quot;disOnTplt&quot; : false,
   &quot;autocomplete&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>114.0</sequenceNumber>
+            <sequenceNumber>113.0</sequenceNumber>
             <type>Text</type>
         </childElements>
         <childElements>
@@ -4821,8 +4805,12 @@
   &quot;helpText&quot; : &quot;A REAL form must be completed in the event of: a failure of internal process, people (e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search ‘REAL Form’, or on the MAX homepage go to the Quick Links section &apos;Operational Risk Events - REAL&apos;.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
-    &quot;name&quot; : &quot;Yes&quot;,
-    &quot;value&quot; : &quot;Yes&quot;,
+    &quot;name&quot; : &quot;Y_NEW&quot;,
+    &quot;value&quot; : &quot;Yes, I need to record a new REaL Form&quot;,
+    &quot;autoAdv&quot; : null
+  }, {
+    &quot;name&quot; : &quot;Y_EXI&quot;,
+    &quot;value&quot; : &quot;Yes, I have already recorded a REaL Form&quot;,
     &quot;autoAdv&quot; : null
   }, {
     &quot;name&quot; : &quot;No&quot;,
@@ -5527,6 +5515,58 @@
             <type>Radio</type>
         </childElements>
         <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>showRealFormInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;controlWidth&quot; : null,
+  &quot;label&quot; : &quot;show RealForm Info&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF((%ComplaintRemedy1% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1% ==\&quot;2\&quot; || %ComplaintSubRemedy1% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy1Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy1Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2% ==\&quot;2\&quot; || %ComplaintSubRemedy2% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Accepted% ==\&quot;2\&quot; || %ComplaintRemedy3Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy2Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy3% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3% ==\&quot;2\&quot; || %ComplaintSubRemedy3% ==\&quot;3\&quot;))|| \n(%ComplaintRemedy3Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy3Accepted% ==\&quot;3\&quot;))||\n(%ComplaintRemedy3Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy3Offered% ==\&quot;3\&quot;))\n  ,true,false)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+            <sequenceNumber>116.0</sequenceNumber>
+            <type>Formula</type>
+        </childElements>
+         <childElements>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
+            <name>displayRealFormInfo</name>
+            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+            <propertySetConfig>{
+  &quot;sanitize&quot; : false,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;dataJSON&quot; : false,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;showRealFormInfo&quot;
+      } ]
+    }
+  },
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;Non-financial risk max page&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;em&gt;for further information on when to record a REaL Form&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;label&quot; : &quot;TextBlock6&quot;,
+  &quot;controlWidth&quot; : null
+}</propertySetConfig>
+            <sequenceNumber>117.0</sequenceNumber>
+            <type>Text Block</type>
+        </childElements>
+        <childElements>
             <name>TextBlock1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -5767,11 +5807,15 @@
   &quot;label&quot; : &quot;Validate Event Id&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
-      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;operator&quot; : &quot;OR&quot;,
       &quot;rules&quot; : [ {
-        &quot;data&quot; : &quot;Yes&quot;,
+        &quot;data&quot; : &quot;Y_EXI&quot;,
         &quot;condition&quot; : &quot;=&quot;,
         &quot;field&quot; : &quot;realFormRequired&quot;
+      }, {
+        &quot;field&quot; : &quot;realFormRequired&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;Y_NEW&quot;
       } ]
     }
   },
@@ -5784,7 +5828,7 @@
     &quot;source&quot; : &quot;true&quot;
   } ]
 }</propertySetConfig>
-            <sequenceNumber>115.0</sequenceNumber>
+            <sequenceNumber>114.0</sequenceNumber>
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
