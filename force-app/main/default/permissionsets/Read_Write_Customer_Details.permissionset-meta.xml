@@ -403,7 +403,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Account.VOI_Expiry_Date_Classic__c</field>
         <readable>true</readable>
     </fieldPermissions>
