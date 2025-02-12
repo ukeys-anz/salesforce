@@ -487,6 +487,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account_Relationship__x.Other_Limits_and_Liabilities__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account_Relationship__x.Sequence__c</field>
         <readable>true</readable>
     </fieldPermissions>
