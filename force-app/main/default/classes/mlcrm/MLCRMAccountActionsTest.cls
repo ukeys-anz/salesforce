@@ -150,4 +150,61 @@ public class MLCRMAccountActionsTest {
       'No Error found'
     );
   }
+
+  /**
+   * @description test method for setErrorAndRetNonOrgMlRec for ML User
+   */
+  @isTest
+  static void testSetErrorAndRetNonOrgMlRecForMLUser() {
+    ID accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    ID accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    //GIVEN a Opportunity record
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accountId1 => (new Account(
+        Id = accountId1,
+        recordTypeId = RTAccount.businessAccount
+      )),
+      accountId2 => (new Account(
+        Id = accountId2,
+        recordTypeId = RTAccount.personAccount
+      ))
+    };
+    Test.startTest();
+    // Running as ML user -> Orgnastion Records will be removed\
+    system.assertEquals(
+      MLCRMAccountActions.setErrorAndRetNonOrgMlRec(accMap.values(), accMap)
+        .size(),
+      2,
+      'setErrorAndRetNonOrgMlRec is not returing correct result for ml user'
+    );
+    Test.stopTest();
+  }
+  /**
+   * @description test method for setErrorAndRetNonOrgMlRec for non ml user
+   */
+  @isTest
+  static void testSetErrorAndRetNonOrgMlRecForCCRMUser() {
+    ID accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    ID accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    //GIVEN a Opportunity record
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accountId1 => (new Account(
+        Id = accountId1,
+        recordTypeId = RTAccount.businessAccount
+      )),
+      accountId2 => (new Account(
+        Id = accountId2,
+        recordTypeId = RTAccount.personAccount
+      ))
+    };
+    Test.startTest();
+    // Running as non-ML user -> Orgnastion Records will be kept\
+    system.assertEquals(
+      MLCRMAccountActions.setErrorAndRetNonOrgMlRec(accMap.values(), accMap)
+        .size(),
+      2,
+      'setErrorAndRetNonOrgMlRec is not returing correct result for non-ml user'
+    );
+    Test.stopTest();
+  }
 }

@@ -7402,7 +7402,7 @@
         <recordType>Account.CLG</recordType>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Account-MLCRM Account Layout</layout>
+        <layout>Account-MLCRM Organization Layout</layout>
         <recordType>Account.Business_Account</recordType>
     </layoutAssignments>
     <layoutAssignments>
@@ -7432,7 +7432,11 @@
         <layout>Customer_Profile_Updates__c-DCRM Customer Profile Updates Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>Contact-FinServ__Contact %28Business%29 Layout</layout>
+        <layout>Contact-MLCRM Organisation Contact Layout</layout>
+        <recordType>Contact.Organisation</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Contact-MLCRM Organisation Contact Layout</layout>
         <recordType>Contact.FinServ__IndustriesBusiness</recordType>
     </layoutAssignments>
     <layoutAssignments>

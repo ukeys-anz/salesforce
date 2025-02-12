@@ -15,69 +15,10 @@ public abstract with sharing class ExternalObjectQueryBase {
   }
 
   /**
-   * @description SourceSystem enums for determining API systems
-   */
-  public enum SourceSystemEnum {
-    CAP,
-    EBD
-  }
-    
-  /**
-   * @description abstract external object callout Request Payload class
-   */  
-  public abstract class PayloadBase {
-  }  
-  /**
-   * @description abstract external object callout Request class
-   */
-  public virtual class ExternalObjectCalloutRequestBase {
-    public QueryModeEnum queryMode;  
-    public PayloadBase payload;
-    /**
-     * @description Constructor
-     * @param queryContext DataSource QueryContext
-     * @param queryMode QueryModeEnum
-     */  
-    public ExternalObjectCalloutRequestBase(
-      DataSource.QueryContext queryContext, 
-      QueryModeEnum queryMode
-    ) {
-      this.queryMode = queryMode;
-    }
-    /**
-     * @description get API end point
-     * @return String API end point
-     */   
-    public virtual String getEndpoint() {
-      return '';
-    }
-    /**
-     * @description get API Payload
-     * @return String API Payload
-     */   
-    public virtual String getPayload() {
-      return JSON.serialize(this.payload, true);
-    }
-    /**
-     * @description is summary request?
-     * @return is summary yes or no 
-     */  
-    public Boolean isSummaryRequest() {
-      return this.queryMode == QueryModeEnum.RELATED_LIST;
-    }
-    /**
-     * @description is detail request?
-     * @return is detail yes or no  
-     */  
-    public Boolean isDetailRequest() {
-      return this.queryMode == QueryModeEnum.RECORD_DETAIL;
-    }    
-  }  
-  /**
-   * @description abstract external object callout Response class
+   * @description abstract external object callout response class
    */
   public abstract class ExternalObjectCalloutResponse {
-  }  
+  }
 
   /**
    * @description QueryMode enums for determining type of external query
@@ -100,8 +41,6 @@ public abstract with sharing class ExternalObjectQueryBase {
   @testVisible
   protected String parentField;
   protected String paginationKey;
-  protected String tableName;
-  protected QueryModeEnum queryMode; 
   protected Boolean enableServerPagination = false;
 
   /**
@@ -142,21 +81,6 @@ public abstract with sharing class ExternalObjectQueryBase {
     this.parentField = getParentName(queryContext.TableSelection);
     return parseFilters(this.parentField, queryContext.TableSelection);
   }
-    
-  /**
-   * @description Prepare API callout using SF query contenxt paramaters
-   * @param queryContext DataSource QueryContext
-   * @param tableSelection DataSource.TableSelection
-   * @return ExternalObjectCalloutRequestBase
-   */
-  protected virtual ExternalObjectCalloutRequestBase prepareCallout(
-    DataSource.QueryContext queryContext, 
-    DataSource.TableSelection tableSelection  
-  ) {
-    this.parentField = getParentName(queryContext.TableSelection);
-    this.queryMode = parseFilters(this.parentField, tableSelection);
-    return null; 
-  }  
 
   /**
    * @description Parse External Id and Customer Id from SF query contenxt paramaters
@@ -230,17 +154,6 @@ public abstract with sharing class ExternalObjectQueryBase {
   ) {
     return null;
   }
-    
-  /**
-   * @description Rest API callout to get financial accounts by product codes and account numbers
-   * @param calloutRequest ExternalObjectCalloutRequestBase
-   * @return HttpCalloutResponse
-   */
-  protected virtual HttpCalloutResponse makeCallout(
-    ExternalObjectCalloutRequestBase calloutRequest
-  ) {
-    return null;
-  }  
 
   /**
    * @description virtual Transform API response to external records
@@ -320,9 +233,7 @@ public abstract with sharing class ExternalObjectQueryBase {
       TimeZone tz = TimeZone.getTimeZone('Australia/Sydney');
       //getOffset returns the value in ms, we need it in seconds.
       DateTime utcTime = localTime.addSeconds(
-        -1 *
-        tz.getOffset(localTime) /
-        1000
+        -1 * tz.getOffset(localTime) / 1000
       );
       return utcTime;
     }
