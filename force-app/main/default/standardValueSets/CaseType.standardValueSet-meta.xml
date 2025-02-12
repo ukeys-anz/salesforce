@@ -337,6 +337,11 @@
         <label>Impersonation (Bank)</label>
     </standardValue>
     <standardValue>
+        <fullName>Impersonation (Other)</fullName>
+        <default>false</default>
+        <label>Impersonation (Other)</label>
+    </standardValue>
+    <standardValue>
         <fullName>11</fullName>
         <default>false</default>
         <label>Other</label>
@@ -445,11 +450,6 @@
         <fullName>22</fullName>
         <default>false</default>
         <label>Simplification/Decommissioning</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Impersonation (Other)</fullName>
-        <default>false</default>
-        <label>Impersonation (Other)</label>
     </standardValue>
     <standardValue>
         <fullName>Intended Recipient</fullName>

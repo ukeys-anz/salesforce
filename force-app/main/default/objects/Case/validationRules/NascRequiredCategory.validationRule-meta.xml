@@ -6,6 +6,7 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;Scam&apos;,
     NOT(ISPICKVAL(Type, &apos;Not a Scam&apos;)),
+	NOT(ISPICKVAL(Type, &apos;Potential Scam&apos;)),
     ISPICKVAL(Status, &apos;Resolved&apos;),
     OR(
         ISPICKVAL(NascScamCategory__c, &apos;&apos;),
