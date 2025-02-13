@@ -4,8 +4,8 @@
     <active>true</active>
     <description>Channel 
 IS Mandatory for CCRM Leads
-WHEN Type IN (‘Inbound’ OR ‘Inbound/Outbound&apos;)  THEN values IN (MLCRM, CCRM)
-WHEN Type IN (‘Outbound’) THEN values IN (CCRM)
+WHEN Type IN (‘Inbound’ OR ‘Inbound/Outbound&apos;)  THEN values IN (iKnow Telesales, iKnow Commercial, iKnow Branch)
+WHEN Type IN (‘Outbound’) THEN values IN (iKnow Commercial)
 OTHERWISE value Not Mandatory</description>
     <errorConditionFormula>$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false &amp;&amp;
 NOT($Profile.Name = &quot;System Administrator&quot;) &amp;&amp;
@@ -14,18 +14,21 @@ NOT( ISPICKVAL(Type,&apos;&apos;) ) &amp;&amp;
 IF(
 CASE(Text(Type),
 &quot;Inbound&quot;, CASE(Text(Channel__c),
-&quot;CCRM&quot;,1,
-&quot;MLCRM&quot;,1,
+&quot;iKnow Telesales&quot;,1,
+&quot;iKnow Commercial&quot;,1,
+&quot;iKnow Branch&quot;,1,
 &quot;&quot;,0,
 1),
 &quot;Inbound / Outbound&quot;, CASE(Text(Channel__c),
-&quot;CCRM&quot;,1,
-&quot;MLCRM&quot;,1,
+&quot;iKnow Telesales&quot;,1,
+&quot;iKnow Commercial&quot;,1,
+&quot;iKnow Branch&quot;,1,
 &quot;&quot;,0,
 1),
 &quot;Outbound&quot;, CASE(Text(Channel__c),
-&quot;MLCRM&quot;,0,
-&quot;CCRM&quot;,1,
+&quot;iKnow Telesales&quot;,0,
+&quot;iKnow Commercial&quot;,1,
+&quot;iKnow Branch&quot;,0,
 &quot;&quot;,0,
 1),
 1)=0, true, false)</errorConditionFormula>
