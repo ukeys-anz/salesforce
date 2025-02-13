@@ -54,15 +54,27 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
       )
     );
 
-    if (response.successful) {
-      try {
-        return GenesisPackageClosureModel.parse(response.body);
-      } catch (Exception objException) {
-        throw CommonUtil.logException(objException);
-      }
-    } else {
-      throw CommonUtil.logException(response);
+    if (response.successful == true) {
+      return GenesisPackageClosureModel.parse(response.body);
     }
+
+    if (response.statusCode == 500) {
+      CommonUtil.logAndThrowSAE('HTTP 500 Error from StravinskyService');
+    }
+
+    if (response.statusCode == 400) {
+      CommonUtil.logAndThrowUAE('HTTP 400 Error from StravinskyService');
+    }
+
+    Logger.error('UnhandledException StravinskyService');
+    Logger.saveLog();
+    throw new UnhandledException('UnhandledException StravinskyService');
+  }
+
+  /**
+   * @description extend the Exception class to allow errors to be thrown if the user gets some other exception while doing api call
+   */
+  private class UnhandledException extends Exception {
   }
 
   /**

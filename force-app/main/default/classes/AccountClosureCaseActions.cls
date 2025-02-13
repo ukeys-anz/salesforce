@@ -94,7 +94,7 @@ public with sharing class AccountClosureCaseActions {
       Case caseRecord = accountIdAndCaseMap.get(
         existingCaseGroupRecord.AccountId
       );
-      CommonUtil.addErrorToRecordAndLog(
+      CommonUtil.addInfoToRecordAndLog(
         caseRecord,
         DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber
       );
@@ -116,7 +116,7 @@ public with sharing class AccountClosureCaseActions {
 
     for (Case caseGroupRecord : parentCases) {
       if (parentCaseIdsWithOpenChildCases.contains(caseGroupRecord.Id)) {
-        CommonUtil.addErrorToRecordAndLog(
+        CommonUtil.addInfoToRecordAndLog(
           caseGroupRecord,
           CASEGROUP_CLOSURE_ERROR_MESSAGE
         );

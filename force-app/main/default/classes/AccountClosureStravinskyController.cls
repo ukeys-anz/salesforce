@@ -53,8 +53,6 @@ public with sharing class AccountClosureStravinskyController {
         customerOCVIds
       );
     } catch (Exception e) {
-      Logger.error('Error to perform account closure', recordId, e);
-      Logger.saveLog();
       AuraHandledException ex = new AuraHandledException(FAILED_CLOSURE);
       ex.setMessage(FAILED_CLOSURE);
       throw e;
@@ -84,6 +82,8 @@ public with sharing class AccountClosureStravinskyController {
         caseRecords,
         new DmlConfig().allowPartial()
       );
+
+      system.debug('testing the value =>' + results);
       postChatterMessage(results);
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
