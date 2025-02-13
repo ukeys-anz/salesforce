@@ -21,8 +21,7 @@ public with sharing class LegalNameUpdateModel {
   private static final String PARTY_TYPE = 'P';
   @TestVisible
   private static final String SOURCE_VALUE = 'AX3';
-  @TestVisible
-  private static final DateTime START_DATE = Datetime.now();
+  private static final String DATE_FORMAT = 'yyyy-MM-dd HH:mm:ss.SSS';
   @TestVisible
   private static final String VERIFICATION_ATTRIBUTE = 'Name Change Verification';
   @TestVisible
@@ -42,7 +41,7 @@ public with sharing class LegalNameUpdateModel {
   private static final Map<String, String> DOC_TYPE_MAP = new Map<String, String>{
     DOCUMENT_TYPE_AUSTRALIAN_BIRTH_CERTIFICATE => 'Birth Document',
     DOCUMENT_TYPE_AUSTRALIAN_CHANGE_OF_NAME_CERTIFICATE => 'Change of Name',
-    DOCUMENT_TYPE_AUSTRALIAN_DRIVERS_LICENCE => 'Drivers Licence',
+    DOCUMENT_TYPE_AUSTRALIAN_DRIVERS_LICENCE => 'Drivers License',
     DOCUMENT_TYPE_AUSTRALIAN_MARRIAGE_CERTIFICATE => 'Marriage Certificate',
     DOCUMENT_TYPE_AUSTRALIAN_PASSPORT => 'Passport'
   };
@@ -63,10 +62,6 @@ public with sharing class LegalNameUpdateModel {
    * @description List of Legal Name Details with Changes
    */
   public List<Name> names;
-  /**
-   * @description List of Source System Details
-   */
-  public List<SourceSystem> sourceSystems;
 
   /**
    * @description Create new instance of LegalNameUpdateModel
@@ -81,12 +76,6 @@ public with sharing class LegalNameUpdateModel {
     };
     this.names = new List<LegalNameUpdateModel.Name>{
       new LegalNameUpdateModel.Name(theCase)
-    };
-    this.sourceSystems = new List<LegalNameUpdateModel.SourceSystem>{
-      new LegalNameUpdateModel.SourceSystem(
-        acc.Source_System_ID__c,
-        acc.Source_System_Name__c
-      )
     };
   }
 
@@ -108,34 +97,15 @@ public with sharing class LegalNameUpdateModel {
   }
 
   /**
-   * @description Source System Details from Account Record
-   */
-  public class SourceSystem {
-    public String sourceSystemId;
-    public String sourceSystemName;
-
-    /**
-     * @description Create new instance of LegalNameUpdateModel.SourceSystem
-     * @param sourceSystemId the Customer's Source_System_ID__c
-     * @param sourceSystemName the Customer's Source_System_Name__c
-     */
-    public SourceSystem(String sourceSystemId, String sourceSystemName) {
-      this.sourceSystemId = sourceSystemId;
-      this.sourceSystemName = sourceSystemName;
-    }
-  }
-
-  /**
    * @description Legal Name Details (e.g. new FirstName, MiddleName, LastName)
    */
   public class Name {
-    public DateTime endDate;
     public String firstName;
     public String lastName;
     public String middleName;
     public String nameUsageType;
     public String source;
-    public DateTime startDate;
+    public String startDate;
     public List<LegalNameUpdateModel.RelatedEntity> relatedEntities;
     public List<LegalNameUpdateModel.VerificationDetail> verificationDetails;
 
@@ -149,12 +119,12 @@ public with sharing class LegalNameUpdateModel {
       this.middleName = theCase.NewMiddleName__c;
       this.nameUsageType = NAME_USAGE_TYPE;
       this.source = SOURCE_VALUE;
-      this.startDate = START_DATE;
+      this.startDate = getFormattedDate(theCase.LastModifiedDate);
       this.relatedEntities = new List<LegalNameUpdateModel.RelatedEntity>{
         new LegalNameUpdateModel.RelatedEntity(theCase)
       };
       this.verificationDetails = new List<LegalNameUpdateModel.VerificationDetail>{
-        new LegalNameUpdateModel.VerificationDetail()
+        new LegalNameUpdateModel.VerificationDetail(theCase)
       };
     }
   }
@@ -165,26 +135,23 @@ public with sharing class LegalNameUpdateModel {
   public class VerificationDetail {
     public String channel;
     public String documentReference;
-    public DateTime endDate;
-    public DateTime reVerificationDate;
-    public String reVerificationTimeDesignator;
-    public String reVerificationTimeInterval;
-    public DateTime startDate;
+    public String startDate;
     public String verificationAttribute;
     public String verificationMethod;
     public String verifiedBy;
-    public DateTime verifiedDate;
+    public String verifiedDate;
 
     /**
      * @description Create new instance of LegalNameUpdateModel.VerificationDetail
+     * @param theCase the Case record
      */
-    public VerificationDetail() {
+    public VerificationDetail(Case theCase) {
       this.channel = CHANNEL_VALUE;
-      this.startDate = START_DATE;
+      this.startDate = getFormattedDate(theCase.LastModifiedDate);
       this.verificationAttribute = VERIFICATION_ATTRIBUTE;
       this.verificationMethod = VERIFICATION_METHOD;
       this.verifiedBy = VERIFIED_BY;
-      this.verifiedDate = Datetime.now();
+      this.verifiedDate = getFormattedDate(theCase.LastModifiedDate);
     }
   }
 
@@ -213,15 +180,14 @@ public with sharing class LegalNameUpdateModel {
    * @description Document Details Submitted for Legal Name change evidence
    */
   public class DocumentIdentifier {
-    public DateTime endDate;
-    public DateTime expiryDate;
+    public String expiryDate;
     public String identificationIssueLocation;
     public String identificationCountry;
     public String identificationState;
     public String identifier;
     public String identifierUsageType;
     public String source;
-    public DateTime startDate;
+    public String startDate;
     public List<LegalNameUpdateModel.DocumentRelatedIdentifier> relatedIdentifiers;
 
     /**
@@ -244,14 +210,14 @@ public with sharing class LegalNameUpdateModel {
         encryptedIdentifier = theCase.CertificateIdentifier__c;
       }
 
-      this.expiryDate = theCase.ExpiryDate__c;
+      this.expiryDate = getFormattedDate(theCase.ExpiryDate__c);
       this.identificationIssueLocation = theCase.CountryCode__c;
       this.identificationCountry = theCase.CountryCode__c;
       this.identificationState = theCase.StateCode__c;
       this.identifierUsageType = DOC_TYPE_MAP.get(theCase.DocumentType__c);
       this.identifier = 'enc(' + encryptedIdentifier + ')';
       this.source = SOURCE_VALUE;
-      this.startDate = START_DATE;
+      this.startDate = getFormattedDate(theCase.LastModifiedDate);
     }
   }
 
@@ -276,5 +242,12 @@ public with sharing class LegalNameUpdateModel {
       this.identifier = 'enc(' + theCase.LicenceCardNumber__c + ')';
       this.source = SOURCE_VALUE;
     }
+  }
+  @TestVisible
+  private static String getFormattedDate(Datetime dt) {
+    if (dt == null) {
+      return '';
+    }
+    return dt.format(DATE_FORMAT);
   }
 }
