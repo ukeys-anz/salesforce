@@ -82,8 +82,6 @@ public with sharing class AccountClosureStravinskyController {
         caseRecords,
         new DmlConfig().allowPartial()
       );
-
-      system.debug('testing the value =>' + results);
       postChatterMessage(results);
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
