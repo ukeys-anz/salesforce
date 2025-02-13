@@ -71,12 +71,6 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   }
 
   /**
-   * @description extend the Exception class to allow errors to be thrown if the user gets some other exception while doing api call
-   */
-  private class UnhandledException extends Exception {
-  }
-
-  /**
    * @param caseRecord COB Case to be updated
    * @return String representing an onboarding stage of the expected Temporal API error response, otherwise throws exception
    * @description triggers Temporal Case Workflow API
