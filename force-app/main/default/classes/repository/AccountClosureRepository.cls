@@ -10,7 +10,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of Case Group cases
    */
   public List<Case> queryExistingParentCases(Set<Id> accountIds) {
-    if (accountIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+    if (accountIds.isEmpty()) {
       return new List<Case>();
     }
 
@@ -22,6 +22,7 @@ public with sharing class AccountClosureRepository {
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
         AND Type = :GetHelpConstants.ACCOUNT_CLOSURE
+      WITH USER_MODE
     ];
   }
 
@@ -31,13 +32,14 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryRelatedChildCasesPerParent(Set<Id> parentIds) {
-    if (parentIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+    if (parentIds.isEmpty()) {
       return new List<Case>();
     }
     return [
       SELECT Id, ParentId
       FROM Case
       WHERE ParentId IN :parentIds AND RecordTypeId = :RTCase.accountClosure
+      WITH USER_MODE
     ];
   }
 
@@ -47,13 +49,14 @@ public with sharing class AccountClosureRepository {
    * @return List<Account> List of accounts with their names
    */
   public List<Account> queryAccountName(Set<Id> accountIds) {
-    if (accountIds.isEmpty() || !SObjectType.Account.isQueryable()) {
+    if (accountIds.isEmpty()) {
       return new List<Account>();
     }
     return [
       SELECT Id, Name
       FROM Account
       WHERE Id IN :accountIds
+      WITH USER_MODE
     ];
   }
 
@@ -63,7 +66,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEligibleChildCasesForPrecheck(Set<Id> parentCaseIds) {
-    if (parentCaseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+    if (parentCaseIds.isEmpty()) {
       return new List<Case>();
     }
 
@@ -90,6 +93,7 @@ public with sharing class AccountClosureRepository {
         AND Status = :GetHelpConstants.ESCALATED_STATUS
         AND (Sub_Status__c = :GetHelpConstants.FAILED
         OR Sub_Status__c = NULL)
+        WITH USER_MODE
     ];
   }
 
@@ -99,7 +103,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEligibleChildCasesForClosure(Set<Id> parentCaseId) {
-    if (parentCaseId == null || !SObjectType.Case.isQueryable()) {
+    if (parentCaseId == null) {
       return new List<Case>();
     }
 
@@ -118,6 +122,7 @@ public with sharing class AccountClosureRepository {
         AND RecordTypeId = :RTCase.accountClosure
         AND Sub_Status__c = :GetHelpConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
+        WITH USER_MODE
     ];
   }
 
@@ -127,7 +132,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryChildCasesDetailsPostPrecheck(Map<Id, Case> caseIds) {
-    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+    if (caseIds.isEmpty()) {
       return new List<Case>();
     }
 
@@ -143,6 +148,7 @@ public with sharing class AccountClosureRepository {
         Sub_Status__c
       FROM Case
       WHERE Id IN :caseIds.keySet()
+      WITH USER_MODE
     ];
   }
 
@@ -180,6 +186,7 @@ public with sharing class AccountClosureRepository {
       SELECT Id, Status
       FROM Case
       WHERE Id IN :recordIds
+      WITH USER_MODE
     ];
   }
 
@@ -207,6 +214,7 @@ public with sharing class AccountClosureRepository {
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
+        WITH USER_MODE
     ];
   }
 
@@ -242,6 +250,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         FinServ__FinancialAccount__c IN :accountIds
         AND RecordTypeId = :RTCase.accountClosure
+        WITH USER_MODE
     ];
   }
 
@@ -269,6 +278,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         Id IN :accountIds
         AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+        WITH USER_MODE
     ];
   }
 
@@ -281,8 +291,7 @@ public with sharing class AccountClosureRepository {
     Set<String> failureReasons
   ) {
     if (
-      failureReasons.isEmpty() ||
-      !SObjectType.AccountClosureErrorMetadata__mdt.isQueryable()
+      failureReasons.isEmpty()
     ) {
       return new List<AccountClosureErrorMetadata__mdt>();
     }
@@ -291,6 +300,7 @@ public with sharing class AccountClosureRepository {
       SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
       FROM AccountClosureErrorMetadata__mdt
       WHERE Failure_Reason__c IN :failureReasons
+      WITH USER_MODE
     ];
 
     if (failureReasonActions.isEmpty()) {
@@ -301,6 +311,7 @@ public with sharing class AccountClosureRepository {
       SELECT Type__c, Failure_Reason__c, Chatter_Post__c, Label
       FROM AccountClosureErrorMetadata__mdt
       WHERE Type__c = 'Constant'
+      WITH USER_MODE
     ];
 
     List<AccountClosureErrorMetadata__mdt> chatterActions = new List<AccountClosureErrorMetadata__mdt>();
@@ -316,7 +327,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of child case records
    */
   public List<Case> queryNotClosedChildCases(Set<Id> caseIds) {
-    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+    if (caseIds.isEmpty()) {
       return new List<Case>();
     }
 
@@ -327,6 +338,7 @@ public with sharing class AccountClosureRepository {
         Status != :GetHelpConstants.CLOSED_STATUS
         AND ParentId IN :caseIds
         AND RecordTypeId = :RTCase.accountClosure
+        WITH USER_MODE
     ];
   }
 
@@ -339,8 +351,7 @@ public with sharing class AccountClosureRepository {
     String finAccountValue
   ) {
     if (
-      String.isBlank(finAccountValue) ||
-      !SObjectType.FinServ__FinancialAccountRole__c.isQueryable()
+      String.isBlank(finAccountValue)
     ) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
@@ -351,6 +362,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c = :finAccountValue
         AND FinServ__Active__c = TRUE
+        WITH USER_MODE
     ];
   }
 }
