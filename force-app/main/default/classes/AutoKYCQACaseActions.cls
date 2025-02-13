@@ -728,18 +728,38 @@ public with sharing class AutoKYCQACaseActions {
     public void enqueue() {
       AsyncOptions options = new AsyncOptions();
       options.DuplicateSignature = QueueableDuplicateSignature.Builder()
-        .addId(this.caseId)
-        .addString('UpdateRestraints')
+        .addInteger(System.hashCode(this.caseId))
+        .addId(UserInfo.getUserId())
         .build();
-      Case c = new Case(Id = this.caseId);
+      Logger.debug(
+        this.action + ' : Queueable action scheduling at : ' + currentTime,
+        this.caseId
+      );
+      Logger.debug(
+        this.action +
+          ' : Queueable action scheduling with unique id : ' +
+          options.DuplicateSignature.toString(),
+        this.caseId
+      );
       try {
         System.enqueueJob(this, options);
+        Logger.debug(
+          this.action + ' : Queueable action scheduled at : ' + currentTime,
+          this.caseId
+        );
       } catch (DuplicateMessageException ex) {
-        Logger.debug('Skip scheduling updating case restraint status', c)
-          .save();
+        Logger.debug(
+          'Skip scheduling updating case restraint status',
+          this.caseId
+        );
       } catch (Exception ex) {
-        Logger.error('Failed to schedule updating case restraint status', c)
-          .save();
+        Logger.error(
+          'Failed to schedule updating case restraint status',
+          this.caseId,
+          ex
+        );
+      } finally {
+        Logger.saveLog();
       }
     }
 
@@ -749,6 +769,12 @@ public with sharing class AutoKYCQACaseActions {
      */
     public void execute(QueueableContext context) {
       updateRestraintResults(new Set<Id>{ this.caseId }, this.action);
+    }
+  }
+
+  private static String currentTime {
+    get {
+      return System.now().format('HH:mm:ss.SSS');
     }
   }
 
@@ -789,13 +815,24 @@ public with sharing class AutoKYCQACaseActions {
         kycQACase.Customer_Profile_Updates__r,
         restraintsAction
       );
-
+      Logger.debug(
+        String.format(
+          '[{0}] Restraint status from "{1}" to "{2}"',
+          new List<String>{
+            currentTime,
+            kycQACase.Fraud_Restraint_Status__c,
+            status
+          }
+        ),
+        kycQACase.Id
+      );
       if (status != null && kycQACase.Fraud_Restraint_Status__c != status) {
         cases.add(
           new Case(Id = kycQACase.Id, Fraud_Restraint_Status__c = status)
         );
       }
     }
+    Logger.saveLog();
     return cases;
   }
 
