@@ -292,26 +292,6 @@ public with sharing class CommonUtil {
   }
 
   /**
-   * @description Log an error and throw an exception if user is getting 500 error from api callout
-   * @param errorDescription Error description used to create the log record.
-   */
-  public static void logAndThrowSAE(String errorDescription) {
-    Logger.error(errorDescription, Logger.Severity.HIGH);
-    Logger.saveLog();
-    throw new ServerErrorException(errorDescription);
-  }
-
-  /**
-   * @description Log an error and throw an exception if user is getting 400 error from api callout
-   * @param errorDescription Error description used to create the log record.
-   */
-  public static void logAndThrowUAE(String errorDescription) {
-    Logger.info(errorDescription);
-    Logger.saveLog();
-    throw new UserErrorException(errorDescription);
-  }
-
-  /**
    * @description Logs and return the given exception.
    * Useful for re-throw from caller.
    * @param ex The exception to be logged.
@@ -360,18 +340,6 @@ public with sharing class CommonUtil {
    * @description extend the Exception class to allow errors to be thrown if the user does not have access
    */
   private class InsufficientAccessException extends Exception {
-  }
-
-  /**
-   * @description extend the Exception class to allow errors to be thrown if the user is getting 500 error in api response
-   */
-  private class ServerErrorException extends Exception {
-  }
-
-  /**
-   * @description extend the Exception class to allow errors to be thrown if the user is getting 400 error in api response
-   */
-  private class UserErrorException extends Exception {
   }
 
   /**
