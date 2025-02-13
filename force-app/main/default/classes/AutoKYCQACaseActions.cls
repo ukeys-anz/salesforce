@@ -726,41 +726,15 @@ public with sharing class AutoKYCQACaseActions {
      * @description Enqueues the job to update restraint results.
      */
     public void enqueue() {
-      AsyncOptions options = new AsyncOptions();
-      options.DuplicateSignature = QueueableDuplicateSignature.Builder()
-        .addInteger(System.hashCode(this.caseId))
-        .addId(UserInfo.getUserId())
-        .build();
+      System.enqueueJob(this);
       Logger.debug(
-        this.action + ' : Queueable action scheduling at : ' + currentTime,
+        DateTimeUtils.timeString +
+          ' | ' +
+          this.action +
+          ': Queueable action scheduled',
         this.caseId
       );
-      Logger.debug(
-        this.action +
-          ' : Queueable action scheduling with unique id : ' +
-          options.DuplicateSignature.toString(),
-        this.caseId
-      );
-      try {
-        System.enqueueJob(this, options);
-        Logger.debug(
-          this.action + ' : Queueable action scheduled at : ' + currentTime,
-          this.caseId
-        );
-      } catch (DuplicateMessageException ex) {
-        Logger.debug(
-          'Skip scheduling updating case restraint status',
-          this.caseId
-        );
-      } catch (Exception ex) {
-        Logger.error(
-          'Failed to schedule updating case restraint status',
-          this.caseId,
-          ex
-        );
-      } finally {
-        Logger.saveLog();
-      }
+      Logger.saveLog();
     }
 
     /**
@@ -769,12 +743,6 @@ public with sharing class AutoKYCQACaseActions {
      */
     public void execute(QueueableContext context) {
       updateRestraintResults(new Set<Id>{ this.caseId }, this.action);
-    }
-  }
-
-  private static String currentTime {
-    get {
-      return System.now().format('HH:mm:ss.SSS');
     }
   }
 
@@ -787,6 +755,12 @@ public with sharing class AutoKYCQACaseActions {
     Set<Id> casesIds,
     String restraintsAction
   ) {
+    Logger.debug(
+      DateTimeUtils.timeString +
+        ' | ' +
+        restraintsAction +
+        ': Updating Restraint Results'
+    );
     List<Case> kycQACases = REPOSITORY.queryKYCQACasesWithCpu(casesIds);
     List<Case> casesWithStatus = getCasesWithUpdatedRestraintStatus(
       kycQACases,
@@ -796,6 +770,13 @@ public with sharing class AutoKYCQACaseActions {
       casesWithStatus,
       new DmlConfig().allowPartial().withoutSharing()
     );
+    Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          restraintsAction +
+          ': Updated Restraint Results'
+      )
+      .save();
   }
 
   /**
@@ -817,9 +798,9 @@ public with sharing class AutoKYCQACaseActions {
       );
       Logger.debug(
         String.format(
-          '[{0}] Restraint status from "{1}" to "{2}"',
+          '{0} | Restraint status from "{1}" to "{2}"',
           new List<String>{
-            currentTime,
+            DateTimeUtils.timeString,
             kycQACase.Fraud_Restraint_Status__c,
             status
           }
