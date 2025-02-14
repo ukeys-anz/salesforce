@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomFieldTranslation xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Channel__c</name>
     <label><!-- Channel --></label>
+    <name>Channel__c</name>
     <picklistValues>
-        <masterLabel>CCRM</masterLabel>
-        <translation><!-- CCRM --></translation>
+        <masterLabel>iKnow Branch</masterLabel>
+        <translation><!-- iKnow Branch --></translation>
     </picklistValues>
     <picklistValues>
-        <masterLabel>MLCRM</masterLabel>
-        <translation><!-- MLCRM --></translation>
+        <masterLabel>iKnow Commercial</masterLabel>
+        <translation><!-- iKnow Commercial --></translation>
+    </picklistValues>
+    <picklistValues>
+        <masterLabel>iKnow Telesales</masterLabel>
+        <translation><!-- iKnow Telesales --></translation>
     </picklistValues>
 </CustomFieldTranslation>

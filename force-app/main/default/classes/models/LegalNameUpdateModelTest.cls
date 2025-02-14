@@ -113,27 +113,6 @@ public with sharing class LegalNameUpdateModelTest {
   }
 
   @IsTest
-  static void testSourceSystemConstructor() {
-    Test.startTest();
-    LegalNameUpdateModel.SourceSystem model = new LegalNameUpdateModel.SourceSystem(
-      acct.Source_System_ID__c,
-      acct.Source_System_Name__c
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      acct.Source_System_ID__c,
-      model.sourceSystemId,
-      'sourceSystemId is incorrect.'
-    );
-    Assert.areEqual(
-      acct.Source_System_Name__c,
-      model.sourceSystemName,
-      'sourceSystemName is incorrect.'
-    );
-  }
-
-  @IsTest
   static void testRelatedEntityConstructor() {
     Test.startTest();
     LegalNameUpdateModel.RelatedEntity model = new LegalNameUpdateModel.RelatedEntity(
@@ -156,7 +135,9 @@ public with sharing class LegalNameUpdateModelTest {
   @IsTest
   static void testVerificationDetailConstructor() {
     Test.startTest();
-    LegalNameUpdateModel.VerificationDetail model = new LegalNameUpdateModel.VerificationDetail();
+    LegalNameUpdateModel.VerificationDetail model = new LegalNameUpdateModel.VerificationDetail(
+      caseLicence
+    );
     Test.stopTest();
 
     Assert.areEqual(
@@ -195,7 +176,7 @@ public with sharing class LegalNameUpdateModelTest {
       'doc identifier is incorrect.'
     );
     Assert.areEqual(
-      caseLicence.ExpiryDate__c,
+      LegalNameUpdateModel.getFormattedDate(caseLicence.ExpiryDate__c),
       model.expiryDate,
       'expiryDate is incorrect.'
     );
@@ -230,7 +211,7 @@ public with sharing class LegalNameUpdateModelTest {
       'doc identifier is incorrect.'
     );
     Assert.areEqual(
-      casePassport.ExpiryDate__c,
+      LegalNameUpdateModel.getFormattedDate(casePassport.ExpiryDate__c),
       model.expiryDate,
       'expiryDate is incorrect.'
     );
@@ -280,10 +261,6 @@ public with sharing class LegalNameUpdateModelTest {
       'identifiers should have records'
     );
     Assert.isFalse(model.names.isEmpty(), 'names should have records');
-    Assert.isFalse(
-      model.sourceSystems.isEmpty(),
-      'sourceSystems should have records'
-    );
     Assert.isFalse(
       model.names[0].relatedEntities.isEmpty(),
       'relatedEntities should have records'

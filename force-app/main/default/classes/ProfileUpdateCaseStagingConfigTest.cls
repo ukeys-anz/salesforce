@@ -113,12 +113,6 @@ private with sharing class ProfileUpdateCaseStagingConfigTest {
       cpu.ToBeValue__c.contains('"identifier":"' + acct.OCV_ID__c),
       'Should set the correct ocv identifier value'
     );
-    Assert.isTrue(
-      cpu.ToBeValue__c.contains(
-        '"sourceSystemName":"' + acct.Source_System_Name__c
-      ),
-      'Should set the correct source system value'
-    );
   }
 
   @IsTest

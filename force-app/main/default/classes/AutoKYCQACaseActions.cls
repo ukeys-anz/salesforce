@@ -726,21 +726,15 @@ public with sharing class AutoKYCQACaseActions {
      * @description Enqueues the job to update restraint results.
      */
     public void enqueue() {
-      AsyncOptions options = new AsyncOptions();
-      options.DuplicateSignature = QueueableDuplicateSignature.Builder()
-        .addId(this.caseId)
-        .addString('UpdateRestraints')
-        .build();
-      Case c = new Case(Id = this.caseId);
-      try {
-        System.enqueueJob(this, options);
-      } catch (DuplicateMessageException ex) {
-        Logger.debug('Skip scheduling updating case restraint status', c)
-          .save();
-      } catch (Exception ex) {
-        Logger.error('Failed to schedule updating case restraint status', c)
-          .save();
-      }
+      System.enqueueJob(this);
+      Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          this.action +
+          ': Queueable action scheduled',
+        this.caseId
+      );
+      Logger.saveLog();
     }
 
     /**
@@ -761,6 +755,12 @@ public with sharing class AutoKYCQACaseActions {
     Set<Id> casesIds,
     String restraintsAction
   ) {
+    Logger.debug(
+      DateTimeUtils.timeString +
+        ' | ' +
+        restraintsAction +
+        ': Updating Restraint Results'
+    );
     List<Case> kycQACases = REPOSITORY.queryKYCQACasesWithCpu(casesIds);
     List<Case> casesWithStatus = getCasesWithUpdatedRestraintStatus(
       kycQACases,
@@ -770,6 +770,13 @@ public with sharing class AutoKYCQACaseActions {
       casesWithStatus,
       new DmlConfig().allowPartial().withoutSharing()
     );
+    Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          restraintsAction +
+          ': Updated Restraint Results'
+      )
+      .save();
   }
 
   /**
@@ -789,13 +796,24 @@ public with sharing class AutoKYCQACaseActions {
         kycQACase.Customer_Profile_Updates__r,
         restraintsAction
       );
-
+      Logger.debug(
+        String.format(
+          '{0} | Restraint status from "{1}" to "{2}"',
+          new List<String>{
+            DateTimeUtils.timeString,
+            kycQACase.Fraud_Restraint_Status__c,
+            status
+          }
+        ),
+        kycQACase.Id
+      );
       if (status != null && kycQACase.Fraud_Restraint_Status__c != status) {
         cases.add(
           new Case(Id = kycQACase.Id, Fraud_Restraint_Status__c = status)
         );
       }
     }
+    Logger.saveLog();
     return cases;
   }
 

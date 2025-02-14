@@ -13,14 +13,19 @@
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>CCRM</fullName>
+                <fullName>iKnow Telesales</fullName>
                 <default>false</default>
-                <label>CCRM</label>
+                <label>iKnow Telesales</label>
             </value>
             <value>
-                <fullName>MLCRM</fullName>
+                <fullName>iKnow Commercial</fullName>
                 <default>false</default>
-                <label>MLCRM</label>
+                <label>iKnow Commercial</label>
+            </value>
+            <value>
+                <fullName>iKnow Branch</fullName>
+                <default>false</default>
+                <label>iKnow Branch</label>
             </value>
         </valueSetDefinition>
     </valueSet>

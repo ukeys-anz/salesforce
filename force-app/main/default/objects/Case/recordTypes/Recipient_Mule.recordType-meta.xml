@@ -3257,10 +3257,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Potential Recipient</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Unable to Contact</fullName>
             <default>false</default>
         </values>

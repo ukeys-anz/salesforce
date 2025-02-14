@@ -115,7 +115,7 @@ public with sharing class FinancialAccountController {
       }
     }
 
-    DML.doUpdate(financialAccountsUpdate, new DmlConfig().systemMode());
+    DML.doUpdate(financialAccountsUpdate, new DmlConfig().withoutSharing());
 
     return financialAccounts;
   }
