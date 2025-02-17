@@ -6,6 +6,16 @@
  */
 public with sharing class DateTimeUtils {
   /**
+   * @description Returns the current time formatted as 'HH:mm:ss.SSS'.
+   * @return String The current time.
+   */
+  public static String timeString {
+    get {
+      return System.now().format('HH:mm:ss.SSS');
+    }
+  }
+
+  /**
    * @description Calculate the difference between start and endtime in mills
    * To get the hours use .intValue() and to get minutes substract and multiply by @link{SFConstants.MIN_IN_HOUR}
    * @param startTimeInMillis start time in millis

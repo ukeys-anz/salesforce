@@ -38,28 +38,26 @@ public with sharing class Lib_HttpCallout {
     Map<String, String> headers,
     String requestBody
   ) {
-    return makeRestCallout(endpoint, method, headers, requestBody, 20000);
+    RESTCalloutWrapper restWrap = new RESTCalloutWrapper();
+    restWrap.endpoint = endpoint;
+    restWrap.method = method;
+    restWrap.headers = headers;
+    restWrap.requestBody = requestBody;
+    restWrap.timeout = 20000;
+    return makeRestCallout(restWrap);
   }
 
   /**
-   * @param endpoint API endpoint to make the request against
-   * @param method which HTTP method to use
-   * @param headers request header key value pairs
-   * @param requestBody HTTP request body for PUT/PATCH/POST - currently unused
-   * @param timeout connection and read timeout (maximum of 120000)
+   * @param restWrap RESTCalloutWrapper containing all callout parameters.
    * @return `HttpCalloutResponse` response type which handles all callout responses.
    * @description handler to build and send REST requests, and handle response errors
    */
-  @SuppressWarnings('PMD.ExcessiveParameterList')
-  public HttpCalloutResponse makeRestCallout(
-    String endpoint,
-    HTTP_METHOD method,
-    Map<String, String> headers,
-    String requestBody,
-    Integer timeout
-  ) {
+  public HttpCalloutResponse makeRestCallout(RESTCalloutWrapper restWrap) {
     HttpRequest request = new HttpRequest();
-    if (String.isBlank(endpoint) || String.isBlank(method.name())) {
+    if (
+      String.isBlank(restWrap.endpoint) ||
+      String.isBlank(restWrap.method.name())
+    ) {
       HttpCalloutResponse callResponse = new HttpCalloutResponse();
       callResponse.successful = false;
       callResponse.error = new CalloutException(
@@ -67,7 +65,11 @@ public with sharing class Lib_HttpCallout {
       );
       return callResponse;
     }
-    if (timeout == null || timeout < 1 || timeout > 120000) {
+    if (
+      restWrap.timeout == null ||
+      restWrap.timeout < 1 ||
+      restWrap.timeout > 120000
+    ) {
       HttpCalloutResponse callResponse = new HttpCalloutResponse();
       callResponse.successful = false;
       callResponse.error = new CalloutException(
@@ -75,17 +77,17 @@ public with sharing class Lib_HttpCallout {
       );
       return callResponse;
     }
-    request.setTimeout(timeout);
-    request.setEndpoint(endpoint);
-    request.setMethod(method.name().remove('HTTP_'));
+    request.setTimeout(restWrap.timeout);
+    request.setEndpoint(restWrap.endpoint);
+    request.setMethod(restWrap.method.name().remove('HTTP_'));
 
-    if (headers != null) {
-      for (String httpHeader : headers.keySet()) {
-        request.setHeader(httpHeader, headers.get(httpHeader));
+    if (restWrap.headers != null) {
+      for (String httpHeader : restWrap.headers.keySet()) {
+        request.setHeader(httpHeader, restWrap.headers.get(httpHeader));
       }
     }
-    if (!String.isBlank(requestBody)) {
-      request.setBody(requestBody);
+    if (!String.isBlank(restWrap.requestBody)) {
+      request.setBody(restWrap.requestBody);
     }
 
     return performCallout(request);
@@ -172,5 +174,31 @@ public with sharing class Lib_HttpCallout {
     }
 
     return callResponse;
+  }
+
+  /**
+   * @description Wrapper class for callout parameters.
+   */
+  public class RESTCalloutWrapper {
+    /**
+     * @description endpoint API endpoint to make the request against
+     */
+    public String endpoint { get; set; }
+    /**
+     * @description method which HTTP method to use
+     */
+    public HTTP_METHOD method { get; set; }
+    /**
+     * @description headers request header key value pairs
+     */
+    public Map<String, String> headers { get; set; }
+    /**
+     * @description requestBody HTTP request body for PUT/PATCH/POST - currently unused
+     */
+    public String requestBody { get; set; }
+    /**
+     * @description timeout connection and read timeout (maximum of 120000)
+     */
+    public Integer timeout { get; set; }
   }
 }

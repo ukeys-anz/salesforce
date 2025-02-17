@@ -268,4 +268,27 @@ public class SObjectFilterBuilder {
     base.records = output;
     return this;
   }
+
+  /**
+   * @description Filter records with specified field value changed.
+   * @param fields The set of fields to check for changed.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder anyChanged(Set<SObjectField> fields) {
+    if (this.oldMap.isEmpty()) {
+      return this;
+    }
+    List<Object> output = base.handler.emptyList;
+    for (SObject record : this.toList()) {
+      SObject oldRecord = this.oldMap.get(record.Id);
+      for (SObjectField field : fields) {
+        if (record.get(field) != oldRecord.get(field)) {
+          output.add(record);
+          break;
+        }
+      }
+    }
+    base.records = output;
+    return this;
+  }
 }

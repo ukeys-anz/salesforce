@@ -134,7 +134,9 @@ public with sharing class FacilitiesExternalQuery extends FinancialAccountQueryB
         '-' +
         String.valueOf(fac.ollSequence),
         'DisplayUrl' => getDisplayUrl(
-          fac.productCode + '-' + fac.accountNumber
+          fac.productCode +
+          '-' +
+          fac.accountNumber
         ),
         this.parentField => this.parentId,
         'Sequence' => fac.ollSequence,

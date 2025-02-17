@@ -68,7 +68,7 @@ public with sharing class CommercialBillRepaymentExternalQuery extends Financial
         .repayments
     ) {
       Map<String, Object> row = new Map<String, Object>{
-        this.externalField => repay.compositeAccountRepaymentId,
+        'ExternalId' => repay.compositeAccountRepaymentId,
         'DisplayUrl' => getDisplayUrl(repay.compositeAccountRepaymentId),
         this.parentField => this.parentId,
         'ScheduledBillReductionAmount' => repay.scheduledBillReductionAmount,

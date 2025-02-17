@@ -290,7 +290,6 @@
     "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
     "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
-    "Trade_Finance__x": "External Trade Finance accounts",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
     "trailheadapp__Trail__c": "Representation of a learning trail",
@@ -412,7 +411,8 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
+      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -1341,8 +1341,15 @@
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
         "LicenceNumber__c",
+        "MonthlyAlertVolumes__c",
+        "MonthlyEstimatedSavings__c",
+        "MonthlyFPR__c",
+        "NascScamCategory__c",
+        "NascScamChannel__c",
+        "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
-        "PassportNumber__c"
+        "PassportNumber__c",
+        "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -2097,7 +2104,8 @@
       "IA-2530753": ["Customer_Name__c"],
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
-      "IA-2468715": ["Source_System_Name__c"]
+      "IA-2468715": ["Source_System_Name__c"],
+      "IA-2415720": ["Customer_Status__c"]
     },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
@@ -2443,7 +2451,11 @@
         "Name",
         "Product_Name__c"
       ],
-      "IA-2415987": ["FinServ__ProductName__c", "Interest_Rate_URL__c"],
+      "IA-2415987": [
+        "FinServ__ProductName__c",
+        "Interest_Rate_URL__c",
+        "Is_Interest_Tab_Visible__c"
+      ],
       "IA-2530753": [
         "OCV_Event_Version__c",
         "Product_SubCode__c",
@@ -3592,7 +3604,8 @@
         "Product_Start_Date__c",
         "QuantityUnitOfMeasure",
         "StockKeepingUnit",
-        "IDR_Workbasket__c"
+        "IDR_Workbasket__c",
+        "SourceSystem__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3608,7 +3621,8 @@
         "Family"
       ],
       "IA-2415860": ["Sub_Product_Code__c", "OCV_Sub_Product_Key__c"],
-      "IA-2415840": ["ExternalId"]
+      "IA-2415840": ["ExternalId"],
+      "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
     },
     "Product_Family__c": {
       "IA-2530753": [
@@ -4642,7 +4656,8 @@
         "Customer_Groups__c",
         "Indicative_FUM__c",
         "Newsletter__c",
-        "Status__c"
+        "Status__c",
+        "Customer_Name__c"
       ],
       "IA-2423278": ["Relationship_Owner__c"]
     },
@@ -5306,21 +5321,6 @@
         "Preferred_Contact_Time__c",
         "COI_Company__c"
       ]
-    },
-    "Trade_Finance__x": {
-      "IA-2415720": [
-        "CAP_Limit__c",
-        "Currency__c",
-        "Interest_Rate__c",
-        "Limit__c",
-        "Limit_Expiry__c",
-        "Product_Code__c",
-        "Product_Name__c",
-        "Sequence_Number__c",
-        "Sub_Product_Code__c",
-        "Term__c"
-      ],
-      "IA-2468715": ["Account_Number__c", "OLL_Account_Number__c", "Customer__c"]
     }
   },
   "lineageInformation": {

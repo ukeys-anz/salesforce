@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NascScamChannel__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy_Non_Personal_Information;Source - Salesforce</complianceGroup>
+    <description>To track the specific channel in which a customer was introduced to a scam for NASC reporting.</description>
+    <label>NASC Scam Channel</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>NascScamSubCategory__c</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Airbnb</fullName>
+                <default>false</default>
+                <label>Airbnb</label>
+            </value>
+            <value>
+                <fullName>Alibaba</fullName>
+                <default>false</default>
+                <label>Alibaba</label>
+            </value>
+            <value>
+                <fullName>Amazon</fullName>
+                <default>false</default>
+                <label>Amazon</label>
+            </value>
+            <value>
+                <fullName>Bing</fullName>
+                <default>false</default>
+                <label>Bing</label>
+            </value>
+            <value>
+                <fullName>Booking.com</fullName>
+                <default>false</default>
+                <label>Booking.com</label>
+            </value>
+            <value>
+                <fullName>Bumble</fullName>
+                <default>false</default>
+                <label>Bumble</label>
+            </value>
+            <value>
+                <fullName>Discord</fullName>
+                <default>false</default>
+                <label>Discord</label>
+            </value>
+            <value>
+                <fullName>DuckDuckGo</fullName>
+                <default>false</default>
+                <label>DuckDuckGo</label>
+            </value>
+            <value>
+                <fullName>Ebay</fullName>
+                <default>false</default>
+                <label>Ebay</label>
+            </value>
+            <value>
+                <fullName>Edreams</fullName>
+                <default>false</default>
+                <label>Edreams</label>
+            </value>
+            <value>
+                <fullName>Eharmony</fullName>
+                <default>false</default>
+                <label>Eharmony</label>
+            </value>
+            <value>
+                <fullName>Facebook</fullName>
+                <default>false</default>
+                <label>Facebook</label>
+            </value>
+            <value>
+                <fullName>Facebook Marketplace</fullName>
+                <default>false</default>
+                <label>Facebook Marketplace</label>
+            </value>
+            <value>
+                <fullName>Flatmate</fullName>
+                <default>false</default>
+                <label>Flatmate</label>
+            </value>
+            <value>
+                <fullName>GlassDoor</fullName>
+                <default>false</default>
+                <label>GlassDoor</label>
+            </value>
+            <value>
+                <fullName>Google</fullName>
+                <default>false</default>
+                <label>Google</label>
+            </value>
+            <value>
+                <fullName>Grindr</fullName>
+                <default>false</default>
+                <label>Grindr</label>
+            </value>
+            <value>
+                <fullName>Gumtree</fullName>
+                <default>false</default>
+                <label>Gumtree</label>
+            </value>
+            <value>
+                <fullName>Hinge</fullName>
+                <default>false</default>
+                <label>Hinge</label>
+            </value>
+            <value>
+                <fullName>iMessage</fullName>
+                <default>false</default>
+                <label>iMessage</label>
+            </value>
+            <value>
+                <fullName>Indeed</fullName>
+                <default>false</default>
+                <label>Indeed</label>
+            </value>
+            <value>
+                <fullName>Instagram</fullName>
+                <default>false</default>
+                <label>Instagram</label>
+            </value>
+            <value>
+                <fullName>Jetstar</fullName>
+                <default>false</default>
+                <label>Jetstar</label>
+            </value>
+            <value>
+                <fullName>Kayak</fullName>
+                <default>false</default>
+                <label>Kayak</label>
+            </value>
+            <value>
+                <fullName>Line</fullName>
+                <default>false</default>
+                <label>Line</label>
+            </value>
+            <value>
+                <fullName>LinkedIn</fullName>
+                <default>false</default>
+                <label>LinkedIn</label>
+            </value>
+            <value>
+                <fullName>Match.com</fullName>
+                <default>false</default>
+                <label>Match.com</label>
+            </value>
+            <value>
+                <fullName>Optus</fullName>
+                <default>false</default>
+                <label>Optus</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>Plenty of fish</fullName>
+                <default>false</default>
+                <label>Plenty of fish</label>
+            </value>
+            <value>
+                <fullName>Qantas</fullName>
+                <default>false</default>
+                <label>Qantas</label>
+            </value>
+            <value>
+                <fullName>Seek</fullName>
+                <default>false</default>
+                <label>Seek</label>
+            </value>
+            <value>
+                <fullName>Snapshat</fullName>
+                <default>false</default>
+                <label>Snapshat</label>
+            </value>
+            <value>
+                <fullName>Stayz</fullName>
+                <default>false</default>
+                <label>Stayz</label>
+            </value>
+            <value>
+                <fullName>Telegram</fullName>
+                <default>false</default>
+                <label>Telegram</label>
+            </value>
+            <value>
+                <fullName>Telstra</fullName>
+                <default>false</default>
+                <label>Telstra</label>
+            </value>
+            <value>
+                <fullName>TikTok</fullName>
+                <default>false</default>
+                <label>TikTok</label>
+            </value>
+            <value>
+                <fullName>Tinder</fullName>
+                <default>false</default>
+                <label>Tinder</label>
+            </value>
+            <value>
+                <fullName>Viber</fullName>
+                <default>false</default>
+                <label>Viber</label>
+            </value>
+            <value>
+                <fullName>Virgin</fullName>
+                <default>false</default>
+                <label>Virgin</label>
+            </value>
+            <value>
+                <fullName>Vodaphone</fullName>
+                <default>false</default>
+                <label>Vodaphone</label>
+            </value>
+            <value>
+                <fullName>Wechat</fullName>
+                <default>false</default>
+                <label>Wechat</label>
+            </value>
+            <value>
+                <fullName>Weibo</fullName>
+                <default>false</default>
+                <label>Weibo</label>
+            </value>
+            <value>
+                <fullName>WhatsApp</fullName>
+                <default>false</default>
+                <label>WhatsApp</label>
+            </value>
+            <value>
+                <fullName>X (Twitter)</fullName>
+                <default>false</default>
+                <label>X (Twitter)</label>
+            </value>
+            <value>
+                <fullName>Yahoo</fullName>
+                <default>false</default>
+                <label>Yahoo</label>
+            </value>
+            <value>
+                <fullName>Youtube</fullName>
+                <default>false</default>
+                <label>Youtube</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Purchase</controllingFieldValue>
+            <valueName>Alibaba</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Purchase</controllingFieldValue>
+            <valueName>Amazon</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Purchase</controllingFieldValue>
+            <valueName>Ebay</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Purchase</controllingFieldValue>
+            <valueName>Facebook Marketplace</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Purchase</controllingFieldValue>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <controllingFieldValue>Job Boards</controllingFieldValue>
+            <valueName>Gumtree</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Purchase</controllingFieldValue>
+            <controllingFieldValue>Search Engine</controllingFieldValue>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <controllingFieldValue>Telco</controllingFieldValue>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <controllingFieldValue>Job Boards</controllingFieldValue>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <controllingFieldValue>Other</controllingFieldValue>
+            <valueName>Other</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Search Engine</controllingFieldValue>
+            <valueName>Bing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Search Engine</controllingFieldValue>
+            <valueName>DuckDuckGo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Search Engine</controllingFieldValue>
+            <valueName>Google</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Search Engine</controllingFieldValue>
+            <valueName>Yahoo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Search Engine</controllingFieldValue>
+            <valueName>Youtube</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <valueName>Facebook</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <valueName>Instagram</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <controllingFieldValue>Job Boards</controllingFieldValue>
+            <valueName>LinkedIn</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <valueName>Snapshat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <valueName>TikTok</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Social Media</controllingFieldValue>
+            <valueName>X (Twitter)</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Telco</controllingFieldValue>
+            <valueName>Optus</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Telco</controllingFieldValue>
+            <valueName>Telstra</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Telco</controllingFieldValue>
+            <valueName>Vodaphone</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Airbnb</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Booking.com</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Edreams</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Flatmate</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Jetstar</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Kayak</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Qantas</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Stayz</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Travel &amp; Accomodation</controllingFieldValue>
+            <valueName>Virgin</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Bumble</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Eharmony</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Grindr</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Hinge</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Match.com</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Plenty of fish</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Dating</controllingFieldValue>
+            <valueName>Tinder</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Boards</controllingFieldValue>
+            <valueName>GlassDoor</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Boards</controllingFieldValue>
+            <valueName>Indeed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Job Boards</controllingFieldValue>
+            <valueName>Seek</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>Discord</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>iMessage</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>Line</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>Telegram</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>Viber</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>Wechat</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>Weibo</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Messaging App</controllingFieldValue>
+            <valueName>WhatsApp</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

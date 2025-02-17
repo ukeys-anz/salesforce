@@ -149,27 +149,6 @@ public with sharing class ARNCService extends Service {
   }
 
   /**
-   * @param calloutRequest ExternalObjectCalloutRequestBase
-   * @return HttpCalloutResponse
-   * @description Generic method for querying exernal data via API
-   */
-  public HttpCalloutResponse queryExternalData(
-    ExternalObjectQueryBase.ExternalObjectCalloutRequestBase calloutRequest
-  ) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-
-    Map<String, String> headers = new Map<String, String>();
-    setCommonHeaders(headers);
-
-    return calloutService.makeRestCallout(
-      Label.Financial_Account_Endpoint + calloutRequest.getEndpoint(),
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      calloutRequest.getPayload()
-    );
-  }
-
-  /**
    * @return String
    * @description get Lan Id of user
    */
@@ -299,13 +278,13 @@ public with sharing class ARNCService extends Service {
     HttpCalloutResponse response;
     try {
       Lib_HttpCallout calloutService = new Lib_HttpCallout();
-      response = calloutService.makeRestCallout(
-        endPoint,
-        HTTP_METHOD.HTTP_POST,
-        headers,
-        payload,
-        120000
-      );
+      Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+      restWrap.endpoint = endPoint;
+      restWrap.method = HTTP_METHOD.HTTP_POST;
+      restWrap.headers = headers;
+      restWrap.requestBody = payload;
+      restWrap.timeout = 120000;
+      response = calloutService.makeRestCallout(restWrap);
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();

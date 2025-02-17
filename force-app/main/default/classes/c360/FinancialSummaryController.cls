@@ -37,6 +37,7 @@ public with sharing class FinancialSummaryController {
   private static final FinancialSummaryRepository FS_REPOSITORY = (FinancialSummaryRepository) Lib_InstanceProvider.forType(
     FinancialSummaryRepository.class
   );
+  private static final String ML_USER_PROFILE_NAME = 'ANZ ML Standard User';
 
   private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
     UserActionsRepository.class
@@ -175,7 +176,10 @@ public with sharing class FinancialSummaryController {
 
     Account accountRec = FS_REPOSITORY.getAccountById(customerId);
     if (
-      accountRec.RecordType.DeveloperName != 'CLG' &&
+      (
+        accountRec.RecordType.DeveloperName != 'CLG' || 
+        UserInfo.getProfileId() == QueryProfile.get(ML_USER_PROFILE_NAME).Id
+      ) &&
       accountRec.External_Id__c != null
     ) {
       custIdWrapper.capIdsList.add(accountRec.External_Id__c);

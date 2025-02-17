@@ -22,4 +22,13 @@ public with sharing class AccountActionsRepository {
       ]
     );
   }
+
+  /**
+   * @description check current user is ML User or not
+   * @name isCurrentUserML
+   * @return Boolean is Current User ML or Not
+   */
+  public Boolean isCurrentUserML() {
+    return UserInfo.getProfileId() == QueryProfile.anzMLStandardUser.Id;
+  }
 }

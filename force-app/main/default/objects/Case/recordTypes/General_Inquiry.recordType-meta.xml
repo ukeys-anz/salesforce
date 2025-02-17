@@ -11739,6 +11739,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Letter of Authority</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Loan Auto Repayment %28DLP%29</fullName>
             <default>false</default>
         </values>

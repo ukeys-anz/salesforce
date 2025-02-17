@@ -370,10 +370,11 @@
         <relatedList>Commercial_Bill__x.Customer__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>Account_Name__c</fields>
         <fields>Account_Number__c</fields>
-        <fields>Account_Status__c</fields>
+        <fields>Product_Code__c</fields>
+        <fields>Account_Name__c</fields>
         <fields>Limit__c</fields>
+        <fields>Account_Status__c</fields>
         <relatedList>Indemnity_Guarantee__x.Customer__c</relatedList>
     </relatedLists>
     <relatedLists>
@@ -405,14 +406,6 @@
         <fields>Residual_Value__c</fields>
         <fields>Status__c</fields>
         <relatedList>Asset_Finance_AMBIT_Contract__x.Customer__c</relatedList>
-    </relatedLists>
-    <relatedLists>
-        <fields>Account_Number__c</fields>
-        <fields>Product_Code__c</fields>
-        <fields>Currency__c</fields>
-        <fields>Limit__c</fields>
-        <fields>Limit_Expiry__c</fields>
-        <relatedList>Trade_Finance__x.Customer__c</relatedList>
     </relatedLists>
     <showEmailCheckbox>false</showEmailCheckbox>
     <showHighlightsPanel>false</showHighlightsPanel>

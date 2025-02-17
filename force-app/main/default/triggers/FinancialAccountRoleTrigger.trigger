@@ -7,7 +7,8 @@
 trigger FinancialAccountRoleTrigger on FinServ__FinancialAccountRole__c(
   before insert,
   after insert,
-  before update
+  before update,
+  after update
 ) {
   FinancialAccountRoleTriggerHandler handler = new FinancialAccountRoleTriggerHandler();
 }
