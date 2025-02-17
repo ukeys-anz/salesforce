@@ -19,7 +19,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>ANZX Case Event ce type</shortDescription>
-        <value>anzx.salesforce.broker.v1alpha1.casedata</value>
+        <value>anzx.salesforce.broker.v1alpha1.brokerenquiry.</value>
     </labels>
     <labels>
         <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>

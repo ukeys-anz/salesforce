@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>RBM_Coach_Broker_Call_Back_Request</fullName>
+    <fullName>Broker_Enquiries_Case</fullName>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>External_Case_ID__c</columns>
     <columns>CASES.SUBJECT</columns>
@@ -10,10 +10,14 @@
     <columns>CASES.STATUS</columns>
     <columns>CASES.CREATED_DATE_DATE_ONLY</columns>
     <filters>
-        <field>CASES.RECORDTYPE</field>
-        <operation>equals</operation>
-        <value>Case.Broker_Enquiry</value>
+        <field>CASES.STATUS</field>
+        <operation>notEqual</operation>
+        <value>Closed</value>
     </filters>
-    <filterScope>Everything</filterScope>
-    <label>RBM/Coach Broker Call Back Request</label>
+    <filterScope>Queue</filterScope>
+    <label>RBM/Coaches Broker Enquiry</label>
+    <queue>RBM_Coaches_Broker_Enquiry</queue>
+    <sharedTo>
+        <allInternalUsers/>
+    </sharedTo>
 </ListView>
