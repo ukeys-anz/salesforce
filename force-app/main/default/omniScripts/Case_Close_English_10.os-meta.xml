@@ -4744,7 +4744,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;REAL Form MAX ID/ServiceNow ID&quot;,
+  &quot;label&quot; : &quot;REaL Form / Event ID&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
@@ -4754,7 +4754,7 @@
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;Once a REAL form has been submitted via MAX, an auto-generated REAL form &apos;MAX ID/ServiceNow ID&apos; will be displayed. Record this &apos;MAX ID/ServiceNow ID&apos; into this field.&quot;,
+  &quot;helpText&quot; : &quot;If a REaL Form is created from CMOS, the REaL Form / Event ID will automatically populate in this field. If created outside of CMOS, please record the REaL Form / Event ID in this field.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
