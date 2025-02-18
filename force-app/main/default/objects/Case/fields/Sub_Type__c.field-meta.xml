@@ -698,6 +698,16 @@
                 <label>Other</label>
             </value>
             <value>
+                <fullName>Open Banking</fullName>
+                <default>false</default>
+                <label>Open Banking</label>
+            </value>
+            <value>
+                <fullName>Letter of Authority</fullName>
+                <default>false</default>
+                <label>Letter of Authority</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -789,6 +799,10 @@
             <valueName>Suspect ConnectID Fraud</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Profile</controllingFieldValue>
+            <valueName>Open Banking</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
             <valueName>General fraud enquiry</valueName>
         </valueSettings>
@@ -848,6 +862,10 @@
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
             <valueName>Unacceptable customer behaviour</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Letter of Authority</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>

@@ -5,6 +5,8 @@
  * @description Helper class for Lead conversion process class LeadDMLOperator
  */
 public class LeadConversionActions {
+  @TestVisible
+  static final String ENTITY_TYPE_INDIVIDUAL = 'Individual';
   /**
    * @description getSuccessConvertedLeads to filter out success lead converted records
    * @param lcResults All list of lead records to be convert
@@ -94,7 +96,13 @@ public class LeadConversionActions {
    */
   public Boolean isAutoMisMatchTaskRequired(List<Lead> convertedLeads) {
     for (Lead leadRecord : convertedLeads) {
-      if (CCRMLeadUtil.isMLCRMLeadType(leadRecord)) {
+      if (
+        leadRecord.RecordTypeId ==
+        QueryRT.of(Lead.getSObjectType()).getId('MLCRM_Lead') ||
+        (leadRecord.RecordTypeId ==
+        QueryRT.of(Lead.getSObjectType()).getId('CCRM_Lead') &&
+        leadRecord.Entity_Type__c == ENTITY_TYPE_INDIVIDUAL)
+      ) {
         return true;
       }
     }

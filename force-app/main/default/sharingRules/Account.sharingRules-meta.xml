@@ -79,26 +79,6 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
-        <fullName>DCRM_Account_RO</fullName>
-        <accessLevel>Read</accessLevel>
-        <accountSettings>
-            <caseAccessLevel>None</caseAccessLevel>
-            <contactAccessLevel>None</contactAccessLevel>
-            <opportunityAccessLevel>None</opportunityAccessLevel>
-        </accountSettings>
-        <description>provide read only access to all AR &amp; C customers</description>
-        <label>DCRM_Account_RO</label>
-        <sharedTo>
-            <roleAndSubordinatesInternal>AR_C</roleAndSubordinatesInternal>
-        </sharedTo>
-        <criteriaItems>
-            <field>ANZx_Customer__c</field>
-            <operation>equals</operation>
-            <value>False</value>
-        </criteriaItems>
-        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
-    </sharingCriteriaRules>
-    <sharingCriteriaRules>
         <fullName>MLCRM_Account_RW</fullName>
         <accessLevel>Edit</accessLevel>
         <accountSettings>
@@ -204,6 +184,89 @@
         </sharedTo>
         <criteriaItems>
             <field>ANZx_Customer__c</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>CCRM_Account_RO_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Provides read only access to Commercial Banking Roles and Subordinates</description>
+        <label>CCRM Account RO Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation,CLG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>MLCRM_Account_RO_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Provides read only access to Mobile Lending Roles and Subordinates</description>
+        <label>MLCRM Account RO Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        </sharedTo>
+        <booleanFilter>(1 OR 2 ) AND 3</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation,CLG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
+            <operation>equals</operation>
+            <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Source_System_Name__c</field>
+            <operation>equals</operation>
+            <value>CAP-CIS</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>DCRM_Account_RO_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <accountSettings>
+            <caseAccessLevel>None</caseAccessLevel>
+            <contactAccessLevel>Read</contactAccessLevel>
+            <opportunityAccessLevel>None</opportunityAccessLevel>
+        </accountSettings>
+        <description>Provides read only access to AR&amp;C Role</description>
+        <label>DCRM Account RO Sharing Rule</label>
+        <sharedTo>
+            <role>AR_C</role>
+        </sharedTo>
+        <booleanFilter>1 OR 2</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Organisation,CLG</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IsPersonAccount</field>
             <operation>equals</operation>
             <value>True</value>
         </criteriaItems>

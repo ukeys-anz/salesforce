@@ -2,9 +2,6 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <actionCalls>
         <name>Update_User_Profile</name>
-        <label>Update User Profile</label>
-        <locationX>176</locationX>
-        <locationY>528</locationY>
         <actionName>AccessRequestFlowHandler</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -32,13 +29,19 @@
                 <elementReference>Get_Requestor_User_Grant.Id</elementReference>
             </value>
         </inputParameters>
+        <inputParameters>
+            <name>disableFlows</name>
+            <value>
+                <elementReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</elementReference>
+            </value>
+        </inputParameters>
+        <label>Update User Profile</label>
+        <locationX>176</locationX>
+        <locationY>528</locationY>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <actionCalls>
         <name>Update_User_Profile_0</name>
-        <label>Update User Profile</label>
-        <locationX>440</locationX>
-        <locationY>408</locationY>
         <actionName>AccessRequestFlowHandler</actionName>
         <actionType>apex</actionType>
         <flowTransactionModel>CurrentTransaction</flowTransactionModel>
@@ -66,6 +69,15 @@
                 <elementReference>Get_Requestor_User_Revoke.Id</elementReference>
             </value>
         </inputParameters>
+        <inputParameters>
+            <name>disableFlows</name>
+            <value>
+                <elementReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</elementReference>
+            </value>
+        </inputParameters>
+        <label>Update User Profile</label>
+        <locationX>440</locationX>
+        <locationY>408</locationY>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </actionCalls>
     <apiVersion>51.0</apiVersion>
@@ -93,9 +105,6 @@
     <processType>AutoLaunchedFlow</processType>
     <recordLookups>
         <name>Get_Requested_Profile</name>
-        <label>Get Requested Profile</label>
-        <locationX>176</locationX>
-        <locationY>408</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_User_Profile</targetReference>
@@ -109,15 +118,15 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Requested Profile</label>
+        <locationX>176</locationX>
+        <locationY>408</locationY>
         <object>Profile</object>
         <queriedFields>Id</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <recordLookups>
         <name>Get_Requestor_User_Grant</name>
-        <label>Get Requestor User Before Grant</label>
-        <locationX>176</locationX>
-        <locationY>288</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Get_Requested_Profile</targetReference>
@@ -131,6 +140,9 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Requestor User Before Grant</label>
+        <locationX>176</locationX>
+        <locationY>288</locationY>
         <object>User</object>
         <queriedFields>Id</queriedFields>
         <queriedFields>ProfileId</queriedFields>
@@ -138,9 +150,6 @@
     </recordLookups>
     <recordLookups>
         <name>Get_Requestor_User_Revoke</name>
-        <label>Get Requestor User Before Revoke</label>
-        <locationX>440</locationX>
-        <locationY>288</locationY>
         <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
         <connector>
             <targetReference>Update_User_Profile_0</targetReference>
@@ -154,12 +163,23 @@
             </value>
         </filters>
         <getFirstRecordOnly>true</getFirstRecordOnly>
+        <label>Get Requestor User Before Revoke</label>
+        <locationX>440</locationX>
+        <locationY>288</locationY>
         <object>User</object>
         <queriedFields>Id</queriedFields>
         <queriedFields>ProfileId</queriedFields>
         <storeOutputAutomatically>true</storeOutputAutomatically>
     </recordLookups>
     <start>
+        <filterLogic>1</filterLogic>
+        <filters>
+            <field>Access_Request_Record_Type_Name__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Privileged Access requests</stringValue>
+            </value>
+        </filters>
         <locationX>50</locationX>
         <locationY>0</locationY>
         <object>Privileged_Access_Request__c</object>

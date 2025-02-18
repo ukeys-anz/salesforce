@@ -100,7 +100,7 @@ describe("c-financial-summary-view-async", () => {
         totalBalanceVisible = true;
         return;
       }
-      if (card.headerName === "Total Asset Financial Balance") {
+      if (card.headerName === "Total Asset Finance Balance") {
         totalAssetFinanceBalance = card.headerValue;
         assetBalanceVisible = true;
       }

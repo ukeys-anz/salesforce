@@ -108,6 +108,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Interaction_Settlement_Officer_Lead_Read_Sharing_Rule</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to users with Settlement Officer Lead and their Subordinates</description>
+        <label>Interaction Settlement Officer Lead Read Sharing Rule</label>
+        <sharedTo>
+            <roleAndSubordinates>Settlement_Officer_Lead</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>In Person,Message,Call</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>BOH_Coach_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule shares all Interaction records with Read/Write access to BOH

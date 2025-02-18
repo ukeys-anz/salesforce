@@ -3,20 +3,32 @@
     <fullName>DISPUTE_NPP_VR4</fullName>
     <active>true</active>
     <errorConditionFormula>AND(
-$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
-RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
-OR(
- ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;),
- ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;),
- ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;),
- ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;),
- AND(
-   ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;),
-   NOT(Transaction_Type__c = &apos;TRANSACTION_TYPE_BSB_ACC_NUM&apos;),
-   NOT(Transaction_Type__c = &apos;TRANSACTION_TYPE_PAYID&apos;)
- )
-),
-ISBLANK(Description)
-)</errorConditionFormula>
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
+  OR(
+ (AND(
+      OR(
+        ISPICKVAL(Dispute_Reason__c, &quot;Return money received from an unknown person&quot;),
+        ISPICKVAL(Dispute_Reason__c, &quot;Amount not received by payee&quot;),
+        ISPICKVAL(Dispute_Reason__c, &quot;Duplicate Transaction&quot;),
+    AND(
+        ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Account Details&quot;),
+        NOT(Transaction_Type__c = &apos;TRANSACTION_TYPE_BSB_ACC_NUM&apos;),
+        NOT(Transaction_Type__c = &apos;TRANSACTION_TYPE_PAYID&apos;)
+       )
+     ),
+  
+     AND(
+         ISBLANK(Description),
+         NOT(ISPICKVAL(Origin, &apos;App&apos;))
+        )
+  )),
+  
+    AND(
+        ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;), 
+        ISBLANK(Description)
+        )
+  )
+  )</errorConditionFormula>
     <errorMessage>Please provide Description of Issue.</errorMessage>
 </ValidationRule>

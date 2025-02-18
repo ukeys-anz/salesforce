@@ -96,10 +96,10 @@ public with sharing class CCRMContentDocumentLinkActions {
       if (em == null || !MLCRMCommonUtils.isContentDocumentDeleteAllowed(em)) {
         continue;
       }
-      if (em.CreatedBy.Profile.Name == System.Label.MLCRM_Profile_Name) {
+      if (em.CreatedBy.Profile_Name__c == System.Label.MLCRM_Profile_Name) {
         cdEmWrapper.mlContentDocsToDelete.add(cdl.ContentDocumentId);
       }
-      if (em.CreatedBy.Profile.Name == System.Label.CCRM_Profile_Name) {
+      if (em.CreatedBy.Profile_Name__c == System.Label.CCRM_Profile_Name) {
         cdEmWrapper.ccrmContentDocsToDelete.add(cdl.ContentDocumentId);
       }
     }

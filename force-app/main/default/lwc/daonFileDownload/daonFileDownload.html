@@ -1,0 +1,57 @@
+<template>
+  <lightning-card
+    lwc:if={viewModel}
+    for:each={viewModel}
+    for:item="group"
+    key={group.title}
+    title={group.title}
+    class="group-card slds-card_boundary slds-m-bottom_small"
+  >
+    <lightning-layout
+      vertical-align={group.verticalAlign}
+      horizontal-align={group.horizontalAlign}
+      multiple-rows
+    >
+      <lightning-layout-item
+        for:each={group.files}
+        for:item="file"
+        padding="around-small"
+        key={file.title}
+        size={file.size}
+      >
+        <article
+          lwc:if={file.fileType}
+          class="file-card slds-card slds-card_boundary"
+        >
+          <div class="slds-card__header slds-grid" lwc:if={file.title}>
+            <h2 class="slds-card__header-title">{file.title}</h2>
+          </div>
+          <div class="slds-card__body slds-p-horizontal_small">
+            <c-daon-file-image
+              placeholder={file.placeholder}
+              url={file.url}
+              is-loading={isLoading}
+              error={file.error}
+            ></c-daon-file-image>
+          </div>
+          <div
+            lwc:if={file.url}
+            class="slds-card__footer slds-p-around_x-small"
+          >
+            <lightning-button
+              lwc:if={file.actions}
+              for:each={file.actions}
+              for:item="action"
+              key={action.label}
+              class="slds-p-left_x-small"
+              label={action.label}
+              variant={action.variant}
+              data-filetype={file.fileType}
+              onclick={handler.onButtonClick}
+            ></lightning-button>
+          </div>
+        </article>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-card>
+</template>

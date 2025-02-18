@@ -37,6 +37,10 @@ public with sharing class GetHelpConstants {
     .get('ANZx_Complaint')
     .getRecordTypeId();
 
+  public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Customer_Complaint')
+    .getRecordTypeId();
+
   //Case - ANZx Fraud Case RT Ids
   public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Fraud')
@@ -209,10 +213,6 @@ public with sharing class GetHelpConstants {
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
-    .getRecordTypeId();
-  // Customer Action - Pending Financial Account Updates
-  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
-    .get('Pending_Financial_Account_Updates')
     .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';

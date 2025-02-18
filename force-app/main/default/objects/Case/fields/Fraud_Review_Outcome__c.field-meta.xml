@@ -26,6 +26,16 @@
                 <default>false</default>
                 <label>Fail</label>
             </value>
+            <value>
+                <fullName>Failed - Document Provided Invalid</fullName>
+                <default>false</default>
+                <label>Failed - Document Provided Invalid</label>
+            </value>
+            <value>
+                <fullName>Failed - Document Quality Issue</fullName>
+                <default>false</default>
+                <label>Failed - Document Quality Issue</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

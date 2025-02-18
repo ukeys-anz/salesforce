@@ -1,0 +1,10 @@
+div.page-header {
+  border: var(--lwc-borderWidthThin, 1px) solid rgb(201, 201, 201);
+}
+
+ul.page-header-detail {
+  border-top: var(--lwc-borderWidthThin, 1px) solid rgb(201, 201, 201);
+}
+.background-white {
+  --slds-c-button-color-background: white;
+}

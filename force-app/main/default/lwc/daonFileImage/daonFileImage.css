@@ -1,0 +1,7 @@
+.imgCSS {
+  width: 100%;
+}
+:host {
+  min-height: 13em;
+  display: block;
+}

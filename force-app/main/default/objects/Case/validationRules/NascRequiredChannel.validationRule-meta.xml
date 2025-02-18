@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>NascRequiredChannel</fullName>
+    <active>true</active>
+    <errorConditionFormula>AND(
+    $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+    RecordType.DeveloperName = &apos;Scam&apos;,
+    NOT(ISPICKVAL(Type, &apos;Not a Scam&apos;)),
+	NOT(ISPICKVAL(Type, &apos;Potential Scam&apos;)),
+    ISPICKVAL(Status, &apos;Resolved&apos;),
+    AND(
+		OR(
+			ISPICKVAL(NascScamCategory__c, &apos;Website or App&apos;),
+			ISPICKVAL(NascScamCategory__c, &apos;Call, SMS or Messaging&apos;)
+		),
+		ISPICKVAL(NascScamChannel__c, &apos;&apos;)
+    )
+)</errorConditionFormula>
+    <errorMessage>NASC Scam Channel is required for the selected NASC Scam category</errorMessage>
+</ValidationRule>

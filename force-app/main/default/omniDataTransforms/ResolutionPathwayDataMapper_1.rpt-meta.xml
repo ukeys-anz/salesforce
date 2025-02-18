@@ -9,42 +9,13 @@
     <name>ResolutionPathwayDataMapper</name>
     <nullInputsIncludedInOutput>false</nullInputsIncludedInOutput>
     <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
-        <disabled>true</disabled>
-        <filterGroup>0.0</filterGroup>
-        <filterOperator>=</filterOperator>
-        <globalKey>ResolutionPathwayDataMapperCustom9664</globalKey>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <migrationValue>FAKEMAPPING</migrationValue>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>Id</outputFieldName>
-        <outputObjectName>Assessment</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
-        <disabled>false</disabled>
-        <filterGroup>0.0</filterGroup>
-        <globalKey>ResolutionPathwayDataMapperCustom2569</globalKey>
-        <inputFieldName>UserId</inputFieldName>
-        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
-        <linkedObjectSequence>0.0</linkedObjectSequence>
-        <outputCreationSequence>1.0</outputCreationSequence>
-        <outputFieldName>OwnerId</outputFieldName>
-        <outputObjectName>Assessment</outputObjectName>
-        <requiredForUpsert>false</requiredForUpsert>
-        <upsertKey>false</upsertKey>
-    </omniDataTransformItem>
-    <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>ResolutionPathwayDataMapperCustom7604</globalKey>
         <inputFieldName>Status</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>AssessmentStatus</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -52,13 +23,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>ResolutionPathwayDataMapperCustom8583</globalKey>
         <inputFieldName>dateToday</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>EffectiveDateTime</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -66,13 +37,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>ResolutionPathwayDataMapperCustom9505</globalKey>
         <inputFieldName>CaseId</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>CaseId</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -80,7 +51,6 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>$Vlocity.UserId</formulaConverted>
@@ -90,6 +60,7 @@
         <globalKey>ResolutionPathwayDataMapperCustom9035</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -97,7 +68,35 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
+        <disabled>true</disabled>
+        <filterGroup>0.0</filterGroup>
+        <filterOperator>=</filterOperator>
+        <globalKey>ResolutionPathwayDataMapperCustom9664</globalKey>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <migrationValue>FAKEMAPPING</migrationValue>
         <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>Id</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
+        <disabled>false</disabled>
+        <filterGroup>0.0</filterGroup>
+        <globalKey>ResolutionPathwayDataMapperCustom2569</globalKey>
+        <inputFieldName>UserId</inputFieldName>
+        <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
+        <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
+        <outputCreationSequence>1.0</outputCreationSequence>
+        <outputFieldName>OwnerId</outputFieldName>
+        <outputObjectName>Assessment</outputObjectName>
+        <requiredForUpsert>false</requiredForUpsert>
+        <upsertKey>false</upsertKey>
+    </omniDataTransformItem>
+    <omniDataTransformItem>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <formulaConverted>&apos;In/\/\/Progress&apos;</formulaConverted>
@@ -107,6 +106,7 @@
         <globalKey>ResolutionPathwayDataMapperCustom370</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -114,13 +114,13 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
         <globalKey>ResolutionPathwayDataMapperCustom6364</globalKey>
         <inputFieldName>Name</inputFieldName>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>1.0</outputCreationSequence>
         <outputFieldName>Name</outputFieldName>
         <outputObjectName>Assessment</outputObjectName>
@@ -128,16 +128,16 @@
         <upsertKey>false</upsertKey>
     </omniDataTransformItem>
     <omniDataTransformItem>
-        <name>ResolutionPathwayDataMapper</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| TODAY</formulaConverted>
-        <formulaExpression>TODAY()</formulaExpression>
+        <formulaConverted>| NOW</formulaConverted>
+        <formulaExpression>NOW()</formulaExpression>
         <formulaResultPath>dateToday</formulaResultPath>
         <formulaSequence>3.0</formulaSequence>
         <globalKey>ResolutionPathwayDataMapperCustom9092</globalKey>
         <inputObjectQuerySequence>0.0</inputObjectQuerySequence>
         <linkedObjectSequence>0.0</linkedObjectSequence>
+        <name>ResolutionPathwayDataMapper</name>
         <outputCreationSequence>0.0</outputCreationSequence>
         <outputFieldName>Formula</outputFieldName>
         <outputObjectName>Formula</outputObjectName>
@@ -146,7 +146,7 @@
     </omniDataTransformItem>
     <outputType>SObject</outputType>
     <previewJsonData>{
-  &quot;Name&quot; : &quot;Test1234&quot;,
+  &quot;Name&quot; : &quot;PATHWAY 11&quot;,
   &quot;customButtonsList&quot; : {
     &quot;beginPhoneCallButtonList&quot; : [ {
       &quot;name&quot; : &quot;Call Answered&quot;,
@@ -306,7 +306,7 @@
   &quot;localTimeZoneName&quot; : &quot;Asia/Calcutta&quot;,
   &quot;CustomerType&quot; : &quot;2&quot;,
   &quot;LastName&quot; : &quot;Cena&quot;,
-  &quot;CaseId&quot; : &quot;5009p00000K6l7CAAR&quot;,
+  &quot;CaseId&quot; : &quot;5009r00000ALR5uAAH&quot;,
   &quot;CaseNumber&quot; : &quot;03297932&quot;,
   &quot;UserId&quot; : &quot;005Oa0000004lQ9IAI&quot;,
   &quot;Phone&quot; : &quot;9876543210&quot;,

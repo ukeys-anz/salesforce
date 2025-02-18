@@ -17,11 +17,22 @@ const renameFile = (oldFilepath, newFilepath) => {
   console.log(`${oldFilepath} renamed to ${newFilepath}.`);
 };
 
+const runCommand = (command) => {
+  try {
+    return execSync(command, {
+      stdio: "pipe",
+      maxBuffer: 1024 * 1024 * 100
+    }).toString("utf-8");
+  } catch (e) {
+    logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
+  }
+};
+
 const runSfCommand = (command) => {
   try {
     return execSync(command, {
       stdio: "pipe",
-      maxBuffer: 1024 * 1024 * 10
+      maxBuffer: 1024 * 1024 * 100
     }).toString("utf-8");
   } catch (e) {
     logger("ERROR: " + JSON.parse(e.stdout.toString("utf-8")).message);
@@ -127,6 +138,16 @@ const canSkipTest = (artifactPath, baseRef) => {
 
 const salesforceForceAppChangesExist = (artifactPath) =>
   folderExist(artifactPath + "/force-app");
+
+const destructivePackageChangesExist = (artifactPath) =>
+  folderExist(artifactPath + "/unpackaged/unpackaged/package.xml");
+
+const moveDestructiveFolderToForceApp = (destructiveFolderpath) => {
+  console.log(`move ${destructiveFolderpath} to force-app`);
+  execSync(`
+    mv ${destructiveFolderpath} force-app
+  `);
+};
 
 // This will check if there is any salesforce diff on artifact folder or not.
 const salesforceDiffExist = (artifactPath) => {
@@ -451,9 +472,13 @@ const findAllArgvs = () => {
 };
 
 export {
+  runCommand,
   runSfCommand,
   printContextFromFile,
   salesforceDiffExist,
+  salesforceForceAppChangesExist,
+  destructivePackageChangesExist,
+  moveDestructiveFolderToForceApp,
   findAllSpecifiedTests,
   currentDate,
   renameFile,

@@ -38,14 +38,6 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Date_Opened__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
-                <field>Date_Closed__c</field>
-            </layoutItems>
-            <layoutItems>
-                <behavior>Edit</behavior>
                 <field>CPID__c</field>
             </layoutItems>
             <layoutItems>
@@ -82,7 +74,7 @@
         <relatedList>Facility__x.Other_Limits_and_Liabilities__c</relatedList>
     </relatedLists>
     <relatedLists>
-        <fields>ExternalId</fields>
+        <fields>Sequence__c</fields>
         <fields>Description__c</fields>
         <fields>Date_Placed__c</fields>
         <fields>Operator__c</fields>

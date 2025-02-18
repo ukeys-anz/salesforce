@@ -8220,6 +8220,10 @@
         <recordType>Task.Coach_Nudge</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Task-Coach Connect</layout>
+        <recordType>Task.Coach_Connect</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Task-Compliance Task Layout</layout>
         <recordType>Task.Compliance_Task</recordType>
     </layoutAssignments>

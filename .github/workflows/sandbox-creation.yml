@@ -3,7 +3,8 @@ name: Sandbox
 
 on:
   push:
-    branches: [develop]
+    branches:
+      - x
     paths:
       - config/sandbox-config/*
 

@@ -27,6 +27,26 @@ public with sharing class TFMRemoteActionUtilityTest {
   }
 
   @isTest
+  static void testGetJointAccountPermissionsException() {
+    HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    s.setCalloutResponse(res);
+    Test.startTest();
+    TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    Map<String, Object> input = new Map<String, Object>();
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('recordId', 'x00Bm000008L9jfake');
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = controller.call('getJointAccountPermissionsList', args);
+    Test.stopTest();
+    Assert.areEqual(false, isInvoked, 'Method invoked.');
+  }
+
+  @isTest
   static void testupdatedisclosureStatus() {
     Test.startTest();
     TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
@@ -52,6 +72,28 @@ public with sharing class TFMRemoteActionUtilityTest {
       ((Map<String, Object>) payload.get('disclosureState')).size(),
       'Should return 5 record'
     );
+  }
+
+  @isTest
+  static void testupdatedisclosureStatusException() {
+    HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    s.setCalloutResponse(res);
+    Test.startTest();
+    TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    Map<String, Object> input = new Map<String, Object>();
+    input.put('accountNumber', '000011 000000011');
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('recordId', 'x00Bm000008L9jfake');
+    input.put('enabled', 'true');
+     Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = controller.call('updatedisclosureStatus', args);
+    Test.stopTest();
+    Assert.areEqual(false, isInvoked, 'Method not invoked.');
   }
 
   @isTest
@@ -83,6 +125,33 @@ public with sharing class TFMRemoteActionUtilityTest {
       ((List<Object>) payload.get('jointAccountNotificationSettings')).size(),
       'Should return 2 record'
     );
+  }
+
+  @isTest
+  static void testgetORModifyJointAccountNotificationAPIException() {
+        TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    s.setCalloutResponse(res);
+    Test.startTest();
+    Map<String, Object> input = new Map<String, Object>();
+    input.put('account_id', 'testst');
+    input.put('email_enabled', true);
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('recordId', 'x00Bm000008L9jfake');
+   Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = controller.call(
+      'getORModifyJointAccountNotificationAPI',
+      args
+    );
+    Test.stopTest();
+    Boolean payload = (Boolean) output.get('showSuccessToast');
+       Assert.areEqual(true, isInvoked, 'Method not invoked.');
+    Assert.areEqual(false, payload, 'Should return atleast 1 record');
   }
 
   @isTest
@@ -149,6 +218,29 @@ public with sharing class TFMRemoteActionUtilityTest {
   }
 
   @isTest
+  static void testrevokeConsentsException() {
+       TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    s.setCalloutResponse(res);
+    Test.startTest();
+    Map<String, Object> input = new Map<String, Object>();
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('arrangementId', 'x00Bm000008L9jfake');
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = controller.call('revokeConsent', args);
+    Test.stopTest();
+
+    Boolean payload = (Boolean) output.get('showSuccessToast');
+      Assert.areEqual(true, isInvoked, 'Method not invoked.');
+    Assert.areEqual(false, payload, 'Consent is revoked successfully');
+  }
+
+  @isTest
   static void testgetConsentsList() {
     Test.startTest();
     TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
@@ -175,19 +267,57 @@ public with sharing class TFMRemoteActionUtilityTest {
   }
 
   @isTest
-  public static void testgetConsentDataSharingHistory() {
+  static void testgetConsentsListException() {
+    HttpCalloutResponse res = TFMSearchCustomerServiceMock.setMockErrorResponse();
+    Service s = ServiceProvider.getService(TFMSearchCustomerService.class);
+    s.setCalloutResponse(res);
     Test.startTest();
-
+    TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
     Map<String, Object> input = new Map<String, Object>();
-    Map<String, Object> payload = TFMRemoteActionUtility.getConsentDataSharingHistory(
-      input
-    );
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('dataScope', '["bank:accounts.basic:read"]');
+    input.put('consentId', 'x00Bm000008L9jfake');
+    String jsonData =
+      '[' +
+      '{' +
+      '"bsb": "014111",' +
+      '"accountNumber": "391077004",' +
+      '"displayName": "ANZ Plus",' +
+      '"state": "STATE_ELIGIBLE"' +
+      '},' +
+      '{' +
+      '"bsb": "014111",' +
+      '"accountNumber": "391077012",' +
+      '"displayName": "ANZ Save",' +
+      '"state": "STATE_ELIGIBLE"' +
+      '}' +
+      ']';
+    input.put('accounts', jsonData);
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = controller.call('getConsentAccountList', args);
     Test.stopTest();
-    Assert.areEqual(
-      1,
-      ((List<Object>) payload.get('aggregatedEvents')).size(),
-      'Should return 1 record'
-    );
+    Assert.areEqual(false, isInvoked, 'Should return 1 record');
+  }
+
+  @isTest
+  public static void testInvokeMethodException() {
+    Test.startTest();
+    TFMRemoteActionUtility controller = new TFMRemoteActionUtility();
+    Map<String, Object> input = new Map<String, Object>();
+    Map<String, Object> output = new Map<String, Object>();
+    input.put('recordId', 'x00Bm000008L9jfake');
+    Map<String, Object> args = new Map<String, Object>{
+      'input' => input,
+      'output' => output,
+      'options' => new Map<String, Object>()
+    };
+    Object isInvoked = controller.call('test', args);
+    Test.stopTest();
+    Assert.areEqual(false, isInvoked, 'Method invoked.');
   }
 
   @isTest

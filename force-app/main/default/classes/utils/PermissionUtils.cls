@@ -11,11 +11,13 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has create permission, otherwise throws an error
    */
   public static Boolean canCreate(String objectName) {
-    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
+    Schema.SObjectType targetType = ((SObject) Type.forName(objectName)
+        .newInstance())
+      .getSObjectType();
     Boolean createable = targetType.getDescribe().isCreateable();
 
     if (!createable) {
-      NoAccessException error = new System.NoAccessException();
+      CustomNoAccessException error = new CustomNoAccessException();
       error.setMessage(
         'User does not have the permissions to create ' + objectName
       );
@@ -31,11 +33,13 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has access permission, otherwise throws an error
    */
   public static Boolean canAccess(String objectName) {
-    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
+    Schema.SObjectType targetType = ((SObject) Type.forName(objectName)
+        .newInstance())
+      .getSObjectType();
     Boolean accessible = targetType.getDescribe().isAccessible();
 
     if (!accessible) {
-      NoAccessException error = new System.NoAccessException();
+      CustomNoAccessException error = new CustomNoAccessException();
       error.setMessage(
         'User does not have the permissions to access ' + objectName
       );
@@ -51,11 +55,13 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has update permission, otherwise throws an error
    */
   public static Boolean canUpdate(String objectName) {
-    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
+    Schema.SObjectType targetType = ((SObject) Type.forName(objectName)
+        .newInstance())
+      .getSObjectType();
     Boolean updateable = targetType.getDescribe().isUpdateable();
 
     if (!updateable) {
-      NoAccessException error = new System.NoAccessException();
+      CustomNoAccessException error = new CustomNoAccessException();
       error.setMessage(
         'User does not have the permissions to update ' + objectName
       );
@@ -71,11 +77,13 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has the delete permission, otherwise throws an error
    */
   public static Boolean canDelete(String objectName) {
-    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
+    Schema.SObjectType targetType = ((SObject) Type.forName(objectName)
+        .newInstance())
+      .getSObjectType();
     Boolean deletable = targetType.getDescribe().isDeletable();
 
     if (!deletable) {
-      NoAccessException error = new System.NoAccessException();
+      CustomNoAccessException error = new CustomNoAccessException();
       error.setMessage(
         'User does not have the permissions to delete ' + objectName
       );
@@ -91,11 +99,13 @@ public with sharing class PermissionUtils {
    * @return Boolean - True if the user has query permission, otherwise throws an error
    */
   public static Boolean canQuery(String objectName) {
-    Schema.SObjectType targetType = ((SObject)Type.forName(objectName).newInstance()).getSObjectType();
+    Schema.SObjectType targetType = ((SObject) Type.forName(objectName)
+        .newInstance())
+      .getSObjectType();
     Boolean queryable = targetType.getDescribe().isQueryable();
 
     if (!queryable) {
-      NoAccessException error = new System.NoAccessException();
+      CustomNoAccessException error = new CustomNoAccessException();
       error.setMessage(
         'User does not have the permissions to query ' + objectName
       );
@@ -124,5 +134,11 @@ public with sharing class PermissionUtils {
       return !permissionAssignedList.isEmpty();
     }
     return false;
+  }
+
+  /**
+   * @description Custom NoAccessException
+   */
+  public class CustomNoAccessException extends Exception {
   }
 }

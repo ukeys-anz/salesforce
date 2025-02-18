@@ -4,6 +4,7 @@
  * @description This class represents the profile staging handler for the AutoKYCQA restraint event.
  */
 public with sharing class AutoKYCQARestraintHandler {
+  private static final String RESTRAINTS_EXPIRYDATE = '9999-12-31';
   private static final AutoKYCQACaseRepository REPOSITORY = (AutoKYCQACaseRepository) Lib_InstanceProvider.forType(
     AutoKYCQACaseRepository.class
   );
@@ -59,6 +60,7 @@ public with sharing class AutoKYCQARestraintHandler {
     cpu.Action__c = 'Update';
     cpu.Object_Name__c = 'Case';
     cpu.Customer_Name__c = kycCase.AccountId;
+    cpu.Case__c = kycCase.Id;
     cpu.TriggeredFrom__c = 'Case.KYC_QA.AddRestraints';
     cpu.NewValue__c = 'Apply Restraints Type ' + type + ' of Class Hard Hold';
     cpu.Name = String.format(
@@ -83,13 +85,24 @@ public with sharing class AutoKYCQARestraintHandler {
     model.productCode = fa.Product_Type__c.split(':')[1];
     model.restraints.restraintClass = 1;
     model.restraints.restraintType = restraintType;
-    // API is not accepting 9999-12-31 atm to be updated later
-    model.restraints.dateExpires = System.now()
-      .addDays(475)
-      .format('YYYY-MM-dd');
-    model.restraints.specialComment1 = SPECIAL_COMMENT_1;
-    model.restraints.specialComment2 = SPECIAL_COMMENT_2;
-    model.restraints.specialComment3 = SPECIAL_COMMENT_3;
+    model.restraints.dateExpires = RESTRAINTS_EXPIRYDATE;
+    model.restraints.specialComment1 = getSepcialCommentByIndex(0, 30);
+    model.restraints.specialComment2 = getSepcialCommentByIndex(30, 60);
+    model.restraints.specialComment3 = getSepcialCommentByIndex(60, 90);
     return JSON.serialize(model, true);
+  }
+  @TestVisible
+  private string getSepcialCommentByIndex(
+    Integer startIndex,
+    Integer endIndex
+  ) {
+    String comment = Label.CustomerRestraintComment;
+    if (startIndex < 0 || endIndex < 0 || startIndex > comment.length()) {
+      return '';
+    }
+    if (endIndex > comment.length()) {
+      return comment.substring(startIndex, comment.length());
+    }
+    return comment.substring(startIndex, endIndex);
   }
 }

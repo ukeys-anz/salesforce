@@ -56,7 +56,7 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
     SAVE: "Save",
     BACK: "Back"
   };
-  selectedProductIds = [];
+  selectedOppLineItemIds = [];
   buttonLabel;
   oppId;
   sourceSystemId;
@@ -125,12 +125,12 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
   }
 
   getSelectedRow(event) {
-    this.selectedProductIds = [];
+    this.selectedOppLineItemIds = [];
     const selectedRows = event.detail.selectedRows;
     this.disableSave = selectedRows.length > 0 ? false : true;
     for (let row in selectedRows) {
-      if (selectedRows[row].productId) {
-        this.selectedProductIds.push(selectedRows[row].productId);
+      if (selectedRows[row].oppLineItemId) {
+        this.selectedOppLineItemIds.push(selectedRows[row].oppLineItemId);
       }
     }
   }
@@ -149,7 +149,7 @@ export default class LaunchAppOnOpp extends NavigationMixin(LightningElement) {
 
     createApplication({
       oppId: this.recordId,
-      productIds: this.selectedProductIds,
+      oppLineItemIds: this.selectedOppLineItemIds,
       recordTypeId: recordTypeId
     })
       .then((result) => {

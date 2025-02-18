@@ -7,6 +7,8 @@
 public without sharing class AccessRequestFlowHandler {
   private static final String STATUS_GRANTED = 'Granted';
   private static final String STATUS_REVOKED = 'Revoked';
+  private static final String PROCESS_TYPE_GRANT = 'grant';
+  private static final String PROCESS_TYPE_REVOKE = 'revoke';
 
   /**
    * @description Process the requests sent from 'PAM - Grant/Revoke Access' flow to update user profile
@@ -51,8 +53,14 @@ public without sharing class AccessRequestFlowHandler {
   private static Boolean modifyPrivilegedAccess(
     ProfileUpdateWrapper flowInstance
   ) {
-    Boolean isSuccess;
+    Boolean isSuccess = true;
     try {
+      if (flowInstance.disableFlows) {
+        logFailures(
+          flowInstance,
+          'Disable Flow is true on Salesforce_Library_Settings custom settings for approver.'
+        );
+      }
       if (Schema.sObjectType.User.isQueryable()) {
         List<User> users = [
           SELECT Id, ProfileId, UserRole.DeveloperName
@@ -64,7 +72,7 @@ public without sharing class AccessRequestFlowHandler {
           //If the Process is Revoke, restore the default Profile for the user's Role.
           //EG: A Engineer will be mapped on the Metadata to 'Minimum Access'
 
-          if (flowInstance.processType == 'revoke') {
+          if (flowInstance.processType == PROCESS_TYPE_REVOKE) {
             String profileName = [
               SELECT Profile_Name__c
               FROM User_Provisioning_Setting__mdt
@@ -82,7 +90,6 @@ public without sharing class AccessRequestFlowHandler {
 
             users[0].ProfileId = profileId;
             update users[0];
-            isSuccess = true;
           } else {
             //If the Profile ID is the same do nothing.
             if (users[0].ProfileId == flowInstance.profileId) {
@@ -94,7 +101,6 @@ public without sharing class AccessRequestFlowHandler {
             } else {
               users[0].ProfileId = flowInstance.profileId;
               update users[0];
-              isSuccess = true;
             }
           }
         } else {
@@ -164,10 +170,10 @@ public without sharing class AccessRequestFlowHandler {
 
     try {
       String actionName;
-      if (processType == 'grant') {
+      if (processType == PROCESS_TYPE_GRANT) {
         parList[0].Actual_Access_Granted_Time__c = actualTime;
         actionName = STATUS_GRANTED;
-      } else if (processType == 'revoke') {
+      } else if (processType == PROCESS_TYPE_REVOKE) {
         parList[0].Actual_Access_Revoked_Time__c = actualTime;
         actionName = STATUS_REVOKED;
       }
@@ -257,5 +263,8 @@ public without sharing class AccessRequestFlowHandler {
 
     @InvocableVariable
     public String processType;
+
+    @InvocableVariable
+    public Boolean disableFlows;
   }
 }

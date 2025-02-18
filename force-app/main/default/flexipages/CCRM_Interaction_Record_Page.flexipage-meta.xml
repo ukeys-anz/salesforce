@@ -65,6 +65,16 @@
                 <identifier>RecordAccountIdField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.COI_Member__c</fieldItem>
+                <identifier>RecordCOI_Member_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-39ee70c1-93dd-4602-a25f-a21433608907</name>
         <type>Facet</type>
     </flexiPageRegions>

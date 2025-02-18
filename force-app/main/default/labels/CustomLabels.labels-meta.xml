@@ -200,6 +200,20 @@
         <value>com.anzx.salesforce.interaction.v1alpha1.interaction.coachnudge.</value>
     </labels>
     <labels>
+        <fullName>ANZX_ProfileUpdate_Event_Type_v1alpha1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile update cloud event type v1alpha1</shortDescription>
+        <value>anzx.salesforce.case.v1alpha1.profileupdate.</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_LegalName_Event_DataSchema_v1alpha1</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Profile update cloud event data schema v1alpha1</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.profileupdate.v1alpha1#</value>
+    </labels>
+    <labels>
         <fullName>Interaction_Status</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -213,6 +227,13 @@
         <protected>false</protected>
         <shortDescription>Anonymous Customer</shortDescription>
         <value>Anonymous</value>
+    </labels>
+    <labels>
+        <fullName>Coach_Collaboration_Deeplink</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Coach_Collaboration_Deeplink</shortDescription>
+        <value>https://plus.anz/auth/coach/delegated#token=</value>
     </labels>
     <labels>
         <fullName>CCRM_ChatterPostMessageBody</fullName>
@@ -382,7 +403,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CustomerRestraintComment</shortDescription>
-        <value>KYC QA defects found - do not remove until clarified - call ID OPS 030-4050-7838</value>
+        <value>KYC QA defects found - do not remove until clarified - call ID OPS 03-4050-7838</value>
     </labels>
     <labels>
         <fullName>XpressionSenderAddress</fullName>
@@ -391,6 +412,27 @@
         <protected>false</protected>
         <shortDescription>Xpression will use this address to send letters to Xpression recipient address</shortDescription>
         <value>Yourfeedback@anz.com</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_Desktop_Params</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Desktop Params</shortDescription>
+        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagementUL,CMOS_CS_BL:desktop=ComplaintManagementBL,CMOS_CS_HL:desktop=ComplaintManagementHL</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_DEV</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_DEV</shortDescription>
+        <value>https://fnedrmicnSIT2-ui.service.dev/navigator/?</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_URL_PROD</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM_URL_PROD</shortDescription>
+        <value>https://fnedrmicn-ui.service.anz/navigator/?</value>
     </labels>
     <labels>
         <fullName>XpressionRecepientInboxAddress</fullName>
@@ -669,6 +711,14 @@
         <protected>false</protected>
         <shortDescription>MS_Temp_Lock_Card</shortDescription>
         <value>callout:SF_MS_CH2/coach-banking/v1beta2/cardcontrols/</value>
+    </labels>
+    <labels>
+        <fullName>MS_TokenizeDocumentNumber</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_TokenizeDocumentNumber</shortDescription>
+        <value>callout:SF_MS_CH2/vault-token/v1/tokenize/documentnumber</value>
     </labels>
     <labels>
         <fullName>MS_Get_Financial_Accounts</fullName>
@@ -1980,6 +2030,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/credit-assessment/v1/creditenquiries/</value>
     </labels>
     <labels>
+        <fullName>MS_DetokenizeDocumentNumber</fullName>
+        <categories>MS</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_DetokenizeDocumentNumber</shortDescription>
+        <value>callout:SF_MS_CH2/vault-token/v1/detokenize/documentnumber</value>
+    </labels>
+    <labels>
         <fullName>MS_Get_Mandate_List</fullName>
         <categories>ST</categories>
         <language>en_US</language>
@@ -2063,7 +2121,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CCRM Non-Production JWT Siging Certificate</shortDescription>
-        <value>sfglobaltestegressks2023</value>
+        <value>sfglobaltestegressks2025</value>
     </labels>
     <labels>
         <fullName>CCRM_JWT_Siging_Certificate</fullName>
@@ -2588,7 +2646,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL</value>
+        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>
@@ -2691,5 +2749,41 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Proceed Confirmation Message</shortDescription>
         <value>Do you wish to proceed?</value>
+    </labels>
+    <labels>
+        <fullName>Simpology_Base_Url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Simpology Base Url</shortDescription>
+        <value>https://loanapp-sso.simpology.anz.com/access/login?returnUrl={0}</value>
+    </labels>
+    <labels>
+        <fullName>CreateApplicationEndpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CreateApplicationEndpoint</shortDescription>
+        <value>callout:SF_LOANAPP/dcrm/opportunities/v1/loan-applications</value>
+    </labels>
+    <labels>
+        <fullName>LoanappPrerequisiteLabel</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LoanappPrerequisiteLabel</shortDescription>
+        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender.</value>
+    </labels>
+    <labels>
+        <fullName>LoanappFriendlyErrorMessage</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>LoanappFriendlyErrorMessage</shortDescription>
+        <value>Unable to create an application</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_IndividualCustomerWarning</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CCRM_IndividualCustomerWarning</shortDescription>
+        <value>Please fill out the details in contact information section.</value>
     </labels>
 </CustomLabels>

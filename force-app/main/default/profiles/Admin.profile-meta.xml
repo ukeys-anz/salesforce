@@ -534,10 +534,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>ContactRequestTriggerHandlerTest</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>ContactPointObjectsController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1430,7 +1426,7 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>MLCRMOpportunityActions</apexClass>
+        <apexClass>OpportunityActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1813,6 +1809,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.Industry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.IsSkeleton__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1889,6 +1890,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Phone</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Principal_Place_of_Business_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3508,6 +3514,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>EmailMessage.Attachment_Notes__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>EmailMessage.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4547,6 +4558,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBAddress__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBAddress__c.PersonaAddressType__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4568,6 +4584,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBAddress__c.SubmittedAt__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBCitizenship__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4603,6 +4624,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBIDVSearchResult__c.MatchIndicator__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBIDVSearchResult__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4837,6 +4863,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>COBPrimaryIDDocument__c.OnboardingAttemptCount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>COBPrimaryIDDocument__c.PassportNumberOCRClientTransform__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -4908,6 +4939,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>COBTaxResidency__c.OmissionReasonDescription__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>COBTaxResidency__c.OnboardingAttemptCount__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -5903,6 +5939,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Profile_Updates__c.Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Profile_Updates__c.Customer_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8606,6 +8647,36 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Opportunity.AIP_Requested__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Approved_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.New_Lending_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Settlement_Booked__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Opportunity.Application_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Can_Create_Loanapp__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>OpportunityLineItem.Application_Number__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8632,6 +8703,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Privileged_Access_Request__c.Actual_Access_Granted_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Access_Request_Record_Type_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Privileged_Access_Request__c.Access_Request_Record_Type_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -11309,12 +11390,22 @@
         <field>Case.Person_Digital_Identity__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>OpportunityContactRole.Source_System_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>A_Z_Review__c-Commercial A-Z Review Page Layout</layout>
         <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Access_Request__c-Access Request Layout</layout>
+        <recordType>Access_Request__c.Privileged_Access_requests</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Access_Request__c-Bypass Request Layout</layout>
+        <recordType>Access_Request__c.Bypass_Automation_Request</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Account-Account %28Business%29 Legal Entity Layout</layout>

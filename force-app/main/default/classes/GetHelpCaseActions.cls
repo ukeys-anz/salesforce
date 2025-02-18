@@ -42,7 +42,6 @@ public with sharing class GetHelpCaseActions {
     'CAD_Credit_Referral_Case_Queue'
   );
   public static Group digitalFraudQueue = QueryQueue.get('Digital_Fraud_Queue');
-  public static Group idOpsQueue = QueryQueue.get('ID_Ops_Queue');
 
   /**
    * @description beforeUpdate(oldMap, records) method handles the following
@@ -914,21 +913,6 @@ public with sharing class GetHelpCaseActions {
       if (c.BOH_Fraud_Case__c) {
         c.Sub_Type__c = 'Home Loan document verification';
         c.OwnerId = digitalFraudQueue.Id;
-      }
-    }
-  }
-
-  /**
-   * @description Assign newly created Profile Update Cases to ID Ops Queue
-   * @param lstNewCases Case records being inserted by trigger
-   */
-  public static void setOwnerToIDOpsQueue(List<Case> lstNewCases) {
-    for (Case oCase : lstNewCases) {
-      if (
-        oCase.RecordTypeId == RTCase.profileUpdate &&
-        oCase.Type == GetHelpConstants.RESIDENTIAL_ADDRESS_QA
-      ) {
-        oCase.OwnerId = idOpsQueue.Id;
       }
     }
   }

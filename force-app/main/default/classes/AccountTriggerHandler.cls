@@ -40,6 +40,13 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    oldMap = (Map<Id, SObject>) MLCRMAccountActions.setErrorAndRetNonOrgMlRec(
+      records,
+      (Map<Id, Account>) oldMap
+    );
+    if (oldMap.isEmpty()) {
+      return; // If oldMap has no records left then exit from method
+    }
     MLCRMAccountActions.validateDateOfBirth(records);
     CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       records
@@ -48,10 +55,8 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
     if (isAllowedProfileCheck) {
       MLCRMAccountActions.revertShellProspectBillingAddress(records);
-      CCRMAccountActions.preventEditShellProspect(
-        records,
-        (Map<Id, Account>) oldMap
-      ); //CC-5050
+      CCRMAccountActions.preventEditShellProspect(records); //CC-5050
+      CCRMAccountActions.preventEditOcvId(records, (Map<Id, Account>) oldMap);
 
       CCRMCustomerProfileUpdateHelper.restrictEdit(
         existingOrProspectAccounts.existingAccounts.values(),
@@ -96,6 +101,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Account>) oldMap,
       CustomerEventActions.CUSTOMER_EVENT_UPDATE
+    );
+    CustomerRelationNotesTriggerActions.getUpdatedCustomersIds(
+      (Map<Id, Account>) oldMap,
+      records
     );
   }
 }

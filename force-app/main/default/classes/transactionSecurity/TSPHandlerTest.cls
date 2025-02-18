@@ -1,5 +1,5 @@
 @isTest
- public with sharing class TSPHandlerTest {
+public with sharing class TSPHandlerTest {
   static String anzUserProfile = 'ANZ Standard User';
   static String anzxUserProfile = 'ANZx Standard User';
   static String integrationProfile = 'Integration User';
@@ -7,6 +7,10 @@
   static void registerMocks() {
     queryMock = Lib_MockProvider.forType(TSPRepository.class);
   }
+  static Lib_MockProvider testUserMock = Lib_MockProvider.forType(
+    TSPRepository.class
+  );
+
   static User anzUser = new User(
     Id = Lib_FakeIdGenerator.getMockId(User.SObjectType),
     Alias = 'anzUser',
@@ -88,18 +92,15 @@
     registerMocks();
     List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
     queryMock.mock('queryPermissionSetAssignment', psaList);
-    Lib_MockProvider anzxUserMock = Lib_MockProvider.forType(
-        TSPRepository.class
-      )
-      .mock('queryProfilebyEventUserId', anzxUser);
+    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
 
-      //WHEN the user want to query ReportEvent
-      ReportEvent testEvent = new ReportEvent();
-      testevent.Operation = 'ReportExported';
+    //WHEN the user want to query ReportEvent
+    ReportEvent testEvent = new ReportEvent();
+    testevent.Operation = 'ReportExported';
 
-      //THEN the condition should be true
-      Boolean result = TSPHandler.evaluate(testEvent);
-      System.assert(result, 'Should return true');
+    //THEN the condition should be true
+    Boolean result = TSPHandler.evaluate(testEvent);
+    System.assert(result, 'Should return true');
   }
 
   static List<PermissionSetAssignment> getPermissionSetAssignments {
@@ -133,8 +134,7 @@
     registerMocks();
     List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
     queryMock.mock('queryPermissionSetAssignment', psaList);
-    Lib_MockProvider anzUserMock = Lib_MockProvider.forType(TSPRepository.class)
-      .mock('queryProfilebyEventUserId', anzUser);
+    testUserMock.mock('queryProfilebyEventUserId', anzUser);
     Test.startTest();
 
     //WHEN the user want to query ReportEvent
@@ -154,10 +154,7 @@
     registerMocks();
     List<PermissionSetAssignment> psaList = getPermissionSetAssignments;
     queryMock.mock('queryPermissionSetAssignment', psaList);
-    Lib_MockProvider integrationUserMock = Lib_MockProvider.forType(
-        TSPRepository.class
-      )
-      .mock('queryProfilebyEventUserId', integrationUser);
+    testUserMock.mock('queryProfilebyEventUserId', integrationUser);
     //WHEN the user want to query ReportEvent
     ReportEvent testEvent = new ReportEvent();
     testevent.Operation = 'ReportExported';
@@ -231,42 +228,25 @@
 
   @isTest
   static void testBlockRefreshTokenQueried() {
-    //GIVEN the user with `ANZx Standard User` profile
-    User thisUser = TestUtil.createTestUserWithProfile('ANZx Standard User');
-    insert thisUser;
-    String errorMessage =
-      'Block RefreshToken Queried APIEvent has been done by ' +
-      thisUser.Username +
-      ' (Id: ' +
-      thisUser.Id +
-      ' ) with ANZx Standard User profile.';
+    //GIVEN
+    //1. the user with `ANZx Standard User` profile
+    //2. Set the queried entity to User
+    //3. Set the query to get Refresh_Token__c field  from User object
+    testUserMock.mock('queryProfilebyEventUserId', anzxUser);
+    ApiEvent testQueryEvent = new ApiEvent();
+    testQueryEvent.QueriedEntities = 'User';
+    testQueryEvent.query = 'SELECT Id, Refresh_Token__c FROM User';
 
     //WHEN the user want to query RefreshToken Field
     Test.startTest();
-    System.runAs(thisUser) {
-      String testQuery = '[SELECT Id, Refresh_Token__c FROM User]';
-      ApiEvent testEvent = new ApiEvent();
-      testEvent.QueriedEntities = 'User';
-      testEvent.query = testQuery;
-      Boolean result = TSPHandler.evaluate(testEvent);
-      Logger.saveLog(Logger.SaveMethod.QUEUEABLE);
-      Test.stopTest();
+    Boolean result = TSPHandler.evaluate(testQueryEvent);
+    Test.stopTest();
 
-      //THEN error message should be logged
-      LogEntry__c testLogEntry = [
-        SELECT LogMessage__c
-        FROM LogEntry__c
-        WHERE ApexClassName__c = 'TSPHandler'
-        LIMIT 1
-      ];
-      String testLog = testLogEntry.LogMessage__c;
-
-      System.assertEquals(
-        errorMessage.toLowerCase(),
-        testLog.toLowerCase(),
-        'Error Message should be logged as expected'
-      );
-    }
+    //THEN TSP should return true when user query RefreshToken Field from user object
+    Assert.isTrue(
+      result,
+      'TSP for refreshTokenQueriedEvent should return true for refresh_token__c when being que'
+    );
   }
 
   private static User createTestUser(String profileName) {

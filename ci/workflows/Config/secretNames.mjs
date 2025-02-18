@@ -56,10 +56,12 @@ const salesforceSecretNames = {
   "epic/marvelepic": "sf-platform-np-marvelepic",
   "epic/kycqa-auto-grading": "sf-platform-np-kycqagrade",
   "epic/complaint": "sf-platform-np-complaint",
-  "epic/go4bmain": "sf-platform-np-go4bmain",
   "epic/transcript": "sf-platform-np-transcript",
   "epic/sopineligible": "sf-platform-np-ineligible",
-  "epic/viewoffset": "sf-platform-np-viewoffset"
+  "epic/viewoffset": "sf-platform-np-viewoffset",
+  "epic/go4bmain-rbm": "sf-platform-np-go4bmain",
+  "epic/coachcollab": "sf-platform-np-coachcoll",
+  "epic/legal-name": "sf-platform-np-legalname"
 };
 
 const brokerSecretNames = {

@@ -7,7 +7,7 @@
     <columns>OPPORTUNITY.STAGE_NAME</columns>
     <columns>OPPORTUNITY.CLOSE_DATE</columns>
     <columns>OPPORTUNITY.AMOUNT</columns>
-    <columns>Opportunity_Owner__c</columns>
+    <columns>CORE.USERS.FULL_NAME</columns>
     <filters>
         <field>OPPORTUNITY.STAGE_NAME</field>
         <operation>notEqual</operation>
