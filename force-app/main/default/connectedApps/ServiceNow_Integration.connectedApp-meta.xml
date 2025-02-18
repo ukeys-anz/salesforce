@@ -4,7 +4,6 @@
     <label>ServiceNow Integration</label>
     <oauthConfig>
         <callbackUrl>https://anzbankdev.service-now.com</callbackUrl>
-        <consumerKey>3MVG9rZSDEiGkwu_uoYEDEbwSf3WeNY5_quklpnQN35U1o2MhHXhMW2UyEsj.s2JMm9OMER4z3jRJUOROK2is</consumerKey>
         <isAdminApproved>false</isAdminApproved>
         <isClientCredentialEnabled>false</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>

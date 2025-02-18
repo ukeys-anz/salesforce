@@ -6,6 +6,15 @@
  */
 @isTest
 public with sharing class SNOWIntegrationServiceTest {
+  /**
+   * @description Setup common test data
+   */
+  @testSetup
+  public static void setup() {
+    List<ServiceNow_environment_settings__c> lSettings = createSnowEnvSettings();
+    insert lSettings;
+  }
+
   @isTest
   static void testGetRiskEventInformation() {
     Test.setMock(HttpCalloutMock.class, new MockCMOSGetSNOWInfoCallout());
@@ -99,5 +108,63 @@ public with sharing class SNOWIntegrationServiceTest {
       res.setBody('{"message" : "User Not Authenticated"}');
       return res;
     }
+  }
+
+  /**
+   * @description test method to fetch snow instance url
+   */
+  @isTest
+  static void testSnowUrl() {
+    Test.startTest();
+    String snowUrl = SNOWIntegrationService.getEnvSettings();
+    Test.stopTest();
+    String expectedUrl = 'https://domainorg.com';
+    Assert.areEqual(
+      expectedUrl,
+      snowUrl,
+      'Domain url should have been fetched correctly'
+    );
+  }
+
+  /**
+   * @description test method to negative scenario where no matching environment setting is found
+   */
+  @isTest
+  static void testBlankSnowUrl() {
+    ServiceNow_environment_settings__c settingRecord = [
+      SELECT Id
+      FROM ServiceNow_environment_settings__c
+      WHERE Name = 'Dev'
+      LIMIT 1
+    ];
+    delete settingRecord;
+    Test.startTest();
+    String snowUrl = SNOWIntegrationService.getEnvSettings();
+    Test.stopTest();
+    String expectedUrl = '';
+    Assert.areEqual(
+      expectedUrl,
+      snowUrl,
+      'Blank string should be returned when no matching environment setting is found'
+    );
+  }
+  /**
+   * @description private method to create ServiceNow_environment_settings__c records for test data
+   */
+  private static List<ServiceNow_environment_settings__c> createSnowEnvSettings() {
+    List<ServiceNow_environment_settings__c> lSettings = new List<ServiceNow_environment_settings__c>();
+    ServiceNow_environment_settings__c snowEnvSettings1 = new ServiceNow_environment_settings__c();
+    String domainUrl = System.URL.getOrgDomainUrl().getHost().split('\\.')[0];
+    snowEnvSettings1.Name = 'Dev';
+    snowEnvSettings1.Environment_name__c = ',' + domainUrl + ',';
+    snowEnvSettings1.Url__c = 'https://domainorg.com';
+    lSettings.add(snowEnvSettings1);
+    ServiceNow_environment_settings__c snowEnvSettings2 = new ServiceNow_environment_settings__c();
+    snowEnvSettings2.Name = 'UAT';
+    snowEnvSettings2.Environment_name__c = 'anz--uatorg';
+    snowEnvSettings2.Url__c = 'https://anzuatorg.com';
+    lSettings.add(snowEnvSettings2);
+
+    return lSettings;
   }
 }

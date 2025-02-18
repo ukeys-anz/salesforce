@@ -1,16 +1,11 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { NavigationMixin } from "lightning/navigation";
 import getSNOWEventInfoLWC from "@salesforce/apex/IDRAPIRepository.getSNOWEventInfoLWC";
 import { handleErrorShowToast, showToast } from "c/utils";
 import { CloseActionScreenEvent } from "lightning/actions";
-import SNOW_URL from "@salesforce/label/c.IDR_ServiceNow_env_url";
-const env_Names = {
-  Dev: "anz--cmosdev,anz--cmosa",
-  TechTest: "anz--anzxbau25",
-  UAT: "",
-  Prod: "anz"
-};
+import getEnvSettings from "@salesforce/apex/SNOWIntegrationService.getEnvSettings";
+
 export default class RealFormIdCheck extends OmniscriptBaseMixin(
   NavigationMixin(LightningElement)
 ) {
@@ -24,11 +19,11 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   realFormId;
   callFromOmni = false;
   realFormRequired;
-  showCreate = false;
+  _showCreate = false;
   showValidate = false;
   _selectedOption;
   redirectionUrl;
-  snowUrlJson = JSON.parse(SNOW_URL);
+  snowInstanceUrl;
 
   showError() {
     handleErrorShowToast(
@@ -39,13 +34,29 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
     );
   }
 
+  @wire(getEnvSettings)
+  wiredEnvSettings({ data, error }) {
+    if (data) {
+      this.snowInstanceUrl = data;
+      console.log("##snowInstanceUrl " + this.snowInstanceUrl);
+    } else if (error) {
+      handleErrorShowToast(
+        this,
+        "Unable to fetch ServiceNow instance url",
+        error,
+        "Please contact your system administrator."
+      );
+    }
+  }
+
   @api set selectedOption(value) {
-    this.showCreate = value === "Y_NEW" ? true : false;
+    this._showCreate = value === "Y_NEW" ? true : false;
     this._selectedOption = value;
   }
   get selectedOption() {
     return this._selectedOption;
   }
+
   closeAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
@@ -147,22 +158,23 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
     }
   }
   redirectToForm() {
-    let domainName = window.location.host.split(".")[0];
-    let instanceName;
-    Object.entries(env_Names).forEach(([key, value]) => {
-      if (("," + value.toLowerCase() + ",").includes("," + domainName + ",")) {
-        instanceName = key;
-      }
-    });
-    let redirectionUrl =
-      this.snowUrlJson[instanceName] + this.omniJsonData.recordId;
+    if (this.snowInstanceUrl) {
+      let redirectionUrl = this.snowInstanceUrl + this.omniJsonData.recordId;
 
-    this[NavigationMixin.Navigate]({
-      type: "standard__webPage",
-      attributes: {
-        url: redirectionUrl
-      }
-    });
+      this[NavigationMixin.Navigate]({
+        type: "standard__webPage",
+        attributes: {
+          url: redirectionUrl
+        }
+      });
+    } else {
+      handleErrorShowToast(
+        this,
+        "Unable to fetch a valid url",
+        undefined,
+        "Please contact your system administrator to set the required redirection url."
+      );
+    }
   }
   callAPI(riskEventId) {
     riskEventId = riskEventId.trim();
