@@ -533,10 +533,15 @@ private class ListUtilTest {
   }
   @IsTest
   static void testFilterAnyChanged() {
+    Map<Id, Account> oldMap = new Map<Id, Account>{
+    accounts[0].Id => accounts[0].clone(true, true, true, true),
+    accounts[1].Id => accounts[1].clone(true, true, true, true),
+    accounts[2].Id => accounts[2].clone(true, true, true, true)
+  };
     accounts[0].Name = FAKER.randomString(6);
     accounts[1].NumberOfEmployees = FAKER.randomInteger(1);
     accounts[2].Name = FAKER.randomString(6);
-
+      
     Test.startTest();
     List<Account> results = ListUtil.filter(accounts, oldMap)
       .anyChanged(changeAccountFields)
@@ -544,7 +549,7 @@ private class ListUtilTest {
     Test.stopTest();
 
     Assert.areEqual(
-      new List<Account>{ accounts[0], accounts[2] },
+      new List<Account>{ accounts[0],accounts[2]},
       results,
       'Expected accounts that are updated Name field only'
     );
