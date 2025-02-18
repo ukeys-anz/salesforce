@@ -270,8 +270,6 @@ force-app/main/default/objects/Opportunity/listViews/My_Closed_Opportunities.lis
 force-app/main/default/objects/Task/listViews/ML_MyDelegatedTasks.listView-meta.xml
 force-app/main/default/objects/Opportunity/listViews/My_Opportunities.listView-meta.xml
 =======
-#CC-11040 - Ignore Action launcher deployment
-force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti7woscmbp1i57jhu21mgn4.actionLauncherItemDef-meta.xml
 
 force-app/main/default/objects/Customer_Relationship__c/listViews/All.listView-meta.xml
 force-app/main/default/objects/Customer_Relationship__c/listViews/My_Customers.listView-meta.xml
