@@ -5826,6 +5826,9 @@
   &quot;customAttributes&quot; : [ {
     &quot;name&quot; : &quot;showButton&quot;,
     &quot;source&quot; : &quot;true&quot;
+  },{
+    &quot;name&quot; : &quot;selected-option&quot;,
+    &quot;source&quot; : &quot;%Case:realFormRequired%&quot;
   } ]
 }</propertySetConfig>
             <sequenceNumber>114.0</sequenceNumber>
