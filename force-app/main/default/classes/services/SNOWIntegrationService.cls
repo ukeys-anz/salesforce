@@ -5,6 +5,9 @@
  * @group Service
  */
 public with sharing virtual class SNOWIntegrationService extends Service {
+  private static final ServiceNowSettingRepository SNOW_SETTING_REPOSITORY = (ServiceNowSettingRepository) Lib_InstanceProvider.forType(
+    ServiceNowSettingRepository.class
+  );
   /**
    * @param riskEventId risk event Id to be searched
    * @return HttpCalloutResponse
