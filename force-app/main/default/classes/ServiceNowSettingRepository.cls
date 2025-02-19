@@ -5,12 +5,11 @@
  * @last modified by  : Prabhupad Sahu | Salesforce
  **/
 public with sharing class ServiceNowSettingRepository {
-    /**
-     * @return  `ServiceNow_environment_settings__c` ServiceNow environment Settings defaults
-     * @description
-     */
-    public List<ServiceNow_environment_settings__c> getSnowEnvSettings() {
-
-      return ServiceNow_environment_settings__c.getAll().values();
-    }
+  /**
+   * @return  `ServiceNow_environment_settings__c` ServiceNow environment Settings defaults
+   * @description
+   */
+  public List<ServiceNow_environment_settings__c> getSnowEnvSettings() {
+    return ServiceNow_environment_settings__c.getAll().values();
   }
+}
