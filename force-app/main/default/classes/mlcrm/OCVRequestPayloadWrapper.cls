@@ -40,4 +40,6 @@ public class OCVRequestPayloadWrapper {
   public String strAdvertisingIndicator; //added as part of CC-6745
   @AuraEnabled
   public String strRecordId;
+  @AuraEnabled
+  public String strDateOfBirth;
 }

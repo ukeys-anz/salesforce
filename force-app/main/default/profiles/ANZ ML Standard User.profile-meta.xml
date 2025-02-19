@@ -7533,7 +7533,7 @@
         <layout>OpportunityLineItem-Opportunity Product Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
-        <layout>OpportunityContactRole-Opportunity Contact Role Layout</layout>
+        <layout>OpportunityContactRole-MLCRM Opportunity Contact Role Layout</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Order-Order Layout</layout>

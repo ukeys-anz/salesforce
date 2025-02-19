@@ -71,7 +71,7 @@ global with sharing class TSPHandler implements TxnSecurity.EventCondition, TxnS
       Boolean condition = TSPCondition.condition(userId, profileName, event);
 
       if (condition) {
-        Logger.error(
+        Logger.info(
           eventName +
             ' has been done by ' +
             username +

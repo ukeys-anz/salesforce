@@ -2,11 +2,12 @@ import { LightningElement, wire, api } from "lwc";
 import { getPicklistValues, getObjectInfo } from "lightning/uiObjectInfoApi";
 import role from "@salesforce/schema/OpportunityContactRole.Role";
 import salutation from "@salesforce/schema/Lead.Salutation";
+import gender from "@salesforce/schema/Lead.Gender__c";
 import Lead_OBJECT from "@salesforce/schema/Lead";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
-import createProspectFromOpportunity from "@salesforce/apex/MLCRMOpportunityActions.createProspectFromOpportunity";
-import createProspectForCustomer from "@salesforce/apex/MLCRMOpportunityActions.createOppContactRoleForCustomer";
+import createProspectFromOpportunity from "@salesforce/apex/OpportunityActions.createProspectFromOpportunity";
+import createProspectForCustomer from "@salesforce/apex/OpportunityActions.createOppContactRoleForCustomer";
 
 //labels
 import MLCRM_CreateProspect_Header from "@salesforce/label/c.MLCRM_CreateProspect_Header";
@@ -60,6 +61,12 @@ export default class CreateProspectAndContactRole extends LightningElement {
   })
   salutationPicklistValue;
 
+  @wire(getPicklistValues, {
+    recordTypeId: "$recordTypeId",
+    fieldApiName: gender
+  })
+  genderPicklistValue;
+
   // Table header column for existing customer table
   columnsIndividual = [
     {
@@ -96,6 +103,12 @@ export default class CreateProspectAndContactRole extends LightningElement {
   get rolePicklistValue() {
     return this.rolePicklistValues.data
       ? this.rolePicklistValues.data.values
+      : [];
+  }
+
+  get genderPicklistValues() {
+    return this.genderPicklistValue.data
+      ? this.genderPicklistValue.data.values
       : [];
   }
 
@@ -136,6 +149,8 @@ export default class CreateProspectAndContactRole extends LightningElement {
       evt.target.name === "strMobilePhone"
     ) {
       this.validateEmailOrPhone();
+    } else if (evt.target.name === "strDateOfBirth") {
+      this.validateDOBNotInFuture(evt);
     }
   }
 
@@ -159,9 +174,12 @@ export default class CreateProspectAndContactRole extends LightningElement {
           return validSoFar && inputFields.checkValidity();
         }, true) && mobileOrEmailValid;
       if (allValid) {
+        let strFirstName = this.createProspectPayload.strFirstName
+          ? this.createProspectPayload.strFirstName
+          : "";
         this.headerText =
           "Creating New Prospect:" +
-          this.createProspectPayload.strFirstName +
+          strFirstName +
           " " +
           this.createProspectPayload.strLastName;
         this.showCreateProspect = false;
@@ -246,6 +264,20 @@ export default class CreateProspectAndContactRole extends LightningElement {
     }
     this.showMobileOrPhoneError = true;
     return false;
+  }
+
+  // method to validate user should not enter DOB in future
+  validateDOBNotInFuture(event) {
+    let emailInput = this.template.querySelector('[data-id="dob"]');
+    const selectedDate = new Date(event.target.value);
+    const todayDate = new Date();
+    todayDate.setHours(0, 0, 0, 0);
+    if (selectedDate > todayDate) {
+      emailInput.setCustomValidity("Date of birth should be in past");
+    } else {
+      emailInput.setCustomValidity("");
+    }
+    emailInput.reportValidity();
   }
 
   // method to show toast message

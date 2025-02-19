@@ -6,19 +6,8 @@
     <description>Formula field to control visibility of Create Loanapp button</description>
     <formula>AND(
   TEXT(StageName) = &quot;Needs Analysis&quot;,
-  ISBLANK( Loanapp_Reference__c ),
-  Amount &gt; 0,
-  NOT(ISBLANK(TPMI__c)),
-  NOT(ISBLANK(Expected_Settlement_Date__c)),
-  NOT(ISBLANK(Servicing_Branch__c)),
-  OR(
-    TEXT(Customer_Needs__c) = &quot;Home Loan - Bridging Finance&quot;,
-    TEXT(Customer_Needs__c) = &quot;Home Loan - Refinance&quot;,
-    TEXT(Customer_Needs__c) = &quot;Home Loan - Refinance + Purchase&quot;,
-    TEXT(Customer_Needs__c) = &quot;Home Loan - Construction&quot;,
-    TEXT(Customer_Needs__c) = &quot;Home Loan - Purchase&quot;,
-    TEXT(Customer_Needs__c) = &quot;Home Loan - Other&quot;
-  )
+  $Permission.ML_Allow_Opportunity_Creation,
+  ISBLANK( Loanapp_Reference__c )
 )</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Can Create Loanapp</label>

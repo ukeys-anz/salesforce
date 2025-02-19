@@ -9,6 +9,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   //jwt containing a single claim of exp 26/11/2050
   public final static String IDTESTVALUE = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjI1NTMwMzIxNzh9.eAWGLhTYhn4y9M2t2OHeTLIe7MLPObBFK2Nli8CPTD4';
 
+  private static Integer mockedCardsSize = 18;
+
   static Lib_MockProvider finAccRepoMock;
 
   static void registerMocks() {
@@ -234,7 +236,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
       Assert.isTrue(
-        cardsModel.cards.size() == 15,
+        cardsModel.cards.size() == mockedCardsSize,
         'The number of cards should be as expected.'
       );
     }
@@ -257,7 +259,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       CardListModel cardsModel = coachAPI.getCardList('1111');
       Test.stopTest();
       Assert.isTrue(
-        cardsModel.cards.size() == 15,
+        cardsModel.cards.size() == mockedCardsSize,
         'Invalid Card will be removed from the Card List Having total 30 Cards'
       );
     }
@@ -374,7 +376,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       // THEN
       // parsing data on to CardListModel should not fail
       System.assertEquals(
-        15,
+        mockedCardsSize,
         cardsModel.cards.size(),
         'Error occured while parsing JSON payload related to cards'
       );

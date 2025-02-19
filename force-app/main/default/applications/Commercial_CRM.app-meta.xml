@@ -116,6 +116,24 @@
         <type>Flexipage</type>
         <pageOrSobjectType>Opportunity</pageOrSobjectType>
     </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Circle_Of_Influence_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Circle_Of_Influence__c</pageOrSobjectType>
+    </actionOverrides>
+    <actionOverrides>
+        <actionName>View</actionName>
+        <comment>Action override created by Lightning App Builder during activation.</comment>
+        <content>Circle_Of_Influence_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <skipRecordTypeSelect>false</skipRecordTypeSelect>
+        <type>Flexipage</type>
+        <pageOrSobjectType>Circle_Of_Influence__c</pageOrSobjectType>
+    </actionOverrides>
     <brand>
         <headerColor>#0070D2</headerColor>
         <logo>ANZLogoRGBANZBLUE</logo>
@@ -471,9 +489,13 @@
     <tabs>standard-Opportunity</tabs>
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-report</tabs>
+    <tabs>Circle_Of_Influence__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Commercial_CRM_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Circle_Of_Influence__c</tab>
+        </mappings>
         <mappings>
             <tab>standard-Account</tab>
         </mappings>

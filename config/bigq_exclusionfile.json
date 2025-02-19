@@ -153,6 +153,7 @@
     "Self_Employed__c",
     "ShippingAddress",
     "SicDesc",
+    "SourceSySourceSystemIdentifier",
     "Tax_Exemption_Type__c",
     "Temporary_External_Id__c",
     "TFN_Verification__c",
@@ -171,7 +172,8 @@
     "FinServ__PrimaryAddressIsShipping__pc",
     "dupcheck__dc3DisableDuplicateCheck__pc",
     "Is_Preferred_Contact__pc",
-    "qualtrics__Informed_Consent__pc"
+    "qualtrics__Informed_Consent__pc",
+    "SourceSystemIdentifier"
   ],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
@@ -324,9 +326,7 @@
     "FinServ__EscrowBalance__c",
     "FinServ__ExpectedCloseDate__c",
     "FinServ__FinancialAccountChargesAndFees__c",
-    "FinServ__FinancialAccountNumber__c",
     "FinServ__FinancialAccountSource__c",
-    "FinServ__FinancialAccountType__c",
     "FinServ__HardwareSerial__c",
     "FinServ__HeldAway__c",
     "FinServ__HoldingCount__c",
@@ -418,7 +418,15 @@
     "dupcheck__dc3Web2Lead__c"
   ],
   "Opportunity": ["SourceId"],
-  "Product2": ["AvailabilityDate", "BasedOnId"],
+  "Product2": [
+    "AvailabilityDate",
+    "BasedOnId",
+    "DiscontinuedDate",
+    "EndOfLifeDate",
+    "HelpText",
+    "IsAssetizable",
+    "IsSoldOnlyWithOtherProds"
+  ],
   "ResidentialLoanApplication": [
     "Assessment_Outcome__c",
     "Created_Date__c",
@@ -467,7 +475,6 @@
   "Twilio_Details__c": ["Call_Transcript__c"],
   "User": [
     "AboutMe",
-    "Address",
     "BadgeText",
     "BannerPhotoUrl",
     "CallCenterId",
@@ -480,10 +487,12 @@
     "EmailPreferencesAutoBccStayInTouch",
     "EmailPreferencesStayInTouchReminder",
     "EmployeeNumber",
+    "EndDay",
     "Fax",
     "FinServ__ReferrerScore__c",
     "ForecastEnabled",
     "FullPhotoUrl",
+    "HasUserVerifiedEmail",
     "IndividualId",
     "IsExtIndicatorVisible",
     "IsProfilePhotoActive",
@@ -591,7 +600,6 @@
     "UserPreferencesSuppressTaskSFXReminders",
     "UserPreferencesTaskRemindersCheckboxDefault",
     "UserPreferencesUserDebugModePref",
-    "UserRoleId",
     "UserPreferencesHideOnlineSalesAppTabVisibilityRequirementsModal",
     "LocaleSidKey",
     "FederationIdentifier",
@@ -605,6 +613,12 @@
     "UserPreferencesBRELookupTableWelcomeMat",
     "UserPermissionsSFContentUser",
     "UserPermissionsSupportUser",
-    "UserPreferencesAssistiveActionsEnabledInActionLauncher"
+    "UserPreferencesAssistiveActionsEnabledInActionLauncher",
+    "UserRoleId",
+    "SuAccessExpirationDate",
+    "StartDay",
+    "PasswordExpirationDate",
+    "HasUserVerifiedPhone",
+    "Address"
   ]
 }

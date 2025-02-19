@@ -297,7 +297,7 @@ public with sharing class IDRTaskActions2 {
       caseIds,
       subject
     );
-  
+
     return (Map<Id, Task>) ListUtil.mapBy(existingTasksOnCase, Task.WhatId);
   }
   /**

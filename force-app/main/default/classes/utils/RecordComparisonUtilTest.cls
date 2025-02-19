@@ -231,7 +231,9 @@ private class RecordComparisonUtilTest {
     List<SObjectField> result = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
       newCase,
       oldCase,
-      new Set<SObjectField>{ Case.Received_Amount__c }
+      new Set<SObjectField>{
+        Case.Received_Amount__c
+      }
     );
     System.assertEquals(
       'Received_Amount__c',
@@ -249,7 +251,9 @@ private class RecordComparisonUtilTest {
     List<SObjectField> result = RecordComparisonUtil.detectWhichFieldWasChangedAndNotEqualNull(
       newCase,
       oldCase,
-      new Set<SObjectField>{ Case.Received_Amount__c }
+      new Set<SObjectField>{
+        Case.Received_Amount__c
+      }
     );
     System.assertNotEquals(
       'Description',

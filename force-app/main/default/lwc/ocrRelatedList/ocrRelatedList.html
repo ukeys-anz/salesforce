@@ -1,0 +1,107 @@
+<!-- sldsValidatorIgnore -->
+<template>
+  <lightning-card>
+    <template lwc:if={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading"
+        variant="brand"
+      ></lightning-spinner>
+    </template>
+    <div
+      class="slds-page-header slds-page-header_record-home page-header"
+      style={calculateHeaderMargin}
+    >
+      <div class="slds-page-header__row">
+        <div class="slds-page-header__col-title">
+          <template lwc:if={secondLoad}>
+            <nav role="navigation" aria-label="Breadcrumbs">
+              <ol class="slds-breadcrumb slds-list_horizontal slds-wrap">
+                <li class="slds-breadcrumb__item">
+                  <a href={accountsHomeUrl} target="_self">Customers</a>
+                </li>
+                <li class="slds-breadcrumb__item">
+                  <a href={customerUrl} target="_self">{customerName}</a>
+                </li>
+              </ol>
+            </nav>
+          </template>
+          <div class="slds-media">
+            <div class="slds-media__figure">
+              <span class="slds-icon_container">
+                <lightning-icon
+                  icon-name="standard:opportunity"
+                  alternative-text={cardTitle}
+                  title={cardTitle}
+                  size="small"
+                ></lightning-icon>
+              </span>
+            </div>
+            <div class="slds-media__body">
+              <h2 class="slds-card__header-title">{cardTitle}</h2>
+            </div>
+          </div>
+          <p class="slds-page-header__name-meta slds-var-m-top_small">
+            {oppCount} items • Sorted by {sortedByColumnLabel}
+          </p>
+        </div>
+        <div class="slds-page-header__col-actions">
+          <div class="slds-page-header__controls">
+            <div class="slds-page-header__control">
+              <ul class="slds-button-group-list">
+                <li>
+                  <lightning-button-icon
+                    class="background-white"
+                    icon-name="utility:refresh"
+                    alternative-text="Refresh"
+                    title="Refresh"
+                    tooltip="Refresh"
+                    onclick={handleRefresh}
+                  ></lightning-button-icon>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+      <template lwc:if={showData}>
+        <div class="slds-page-header__row slds-page-header__row_gutters">
+          <div class="slds-page-header__col-details">
+            <ul
+              class="slds-page-header__detail-row slds-p-around_none page-header-detail"
+            >
+              <div style="display: flex" class="slds-scrollable">
+                <div style="height: max-content; flex: 1">
+                  <div style={calculateHeight}>
+                    <lightning-datatable
+                      data={ocrList}
+                      columns={columns}
+                      key-field="OcrId"
+                      hide-checkbox-column="true"
+                      show-row-number-column
+                      sorted-by={sortedBy}
+                      sorted-direction={sortedDirection}
+                      default-sort-direction={defaultSortDirection}
+                      onsort={handleSort}
+                    ></lightning-datatable>
+                  </div>
+                </div>
+              </div>
+            </ul>
+          </div>
+        </div>
+        <div
+          lwc:if={showViewAll}
+          slot="footer"
+          class="slds-align_absolute-center slds-var-m-top_medium"
+        >
+          <lightning-button
+            variant="base"
+            onclick={handleViewAll}
+            title="View All"
+            label="View All"
+          ></lightning-button>
+        </div>
+      </template>
+    </div>
+  </lightning-card>
+</template>

@@ -166,4 +166,19 @@
         <default>false</default>
         <label>Digital Exception Process (DEP)</label>
     </standardValue>
+    <standardValue>
+        <fullName>Web explore</fullName>
+        <default>false</default>
+        <label>Web explore</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Web explore AEM exit page</fullName>
+        <default>false</default>
+        <label>Web explore AEM exit page</label>
+    </standardValue>
+    <standardValue>
+        <fullName>AEM promo page</fullName>
+        <default>false</default>
+        <label>AEM promo page</label>
+    </standardValue>
 </StandardValueSet>

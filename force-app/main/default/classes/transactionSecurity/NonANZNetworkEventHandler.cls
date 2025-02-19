@@ -88,7 +88,7 @@ global with sharing class NonANZNetworkEventHandler implements TxnSecurity.Event
         'with sourceIp: ' +
         eventSourceIp;
 
-      Logger.info(logMessage);
+      Logger.error(logMessage, Logger.Severity.HIGH);
     } catch (Exception e) {
       String logMessage =
         'Failed to process ANZ Network Security Policy or IP Address is invalid for ' +

@@ -5,10 +5,19 @@
  */
 @isTest
 public with sharing class AccessRequestCommonActionsTest {
+  private static final Id BYPASS_AUTOMATION_REQUEST_RT_ID = QueryRT.of(
+      Access_Request__c.SObjectType
+    )
+    .getId('Bypass_Automation_Request');
+
+  private static final Id PRIVILEGED_ACCESS_REQUESTS_RT_ID = QueryRT.of(
+      Access_Request__c.SObjectType
+    )
+    .getId('Privileged_Access_requests');
+
   /**
    * @description Setup common test data
    */
-
   @testSetup
   public static void setup() {
     List<User> testUserList = new List<User>();
@@ -83,6 +92,7 @@ public with sharing class AccessRequestCommonActionsTest {
       ar.Reference_Number__c = 'AC-001';
       ar.Access_Type__c = 'System Administrator';
       ar.When__c = 'Immediate';
+      ar.RecordTypeId = PRIVILEGED_ACCESS_REQUESTS_RT_ID;
       ar.Duration_hrs__c = '2';
       insert ar;
       ar.Status__c = AccessRequestCommonActions.STATUS_SUBMITTED;
@@ -101,9 +111,13 @@ public with sharing class AccessRequestCommonActionsTest {
   /**
    * @description Common method to generate an Access_Request__c instance with default values
    * @param requesterId User Id of the Requestor user
+   * @param recordTypeId RecordTypeId of the Access Request
    * @return Access_Request__c
    */
-  private static Access_Request__c getAccessRequest(Id requesterId) {
+  private static Access_Request__c getAccessRequest(
+    Id requesterId,
+    Id recordTypeId
+  ) {
     Access_Request__c accessReq = new Access_Request__c(
       Requestor__c = requesterId,
       Reason__c = 'Production deployment',
@@ -111,7 +125,8 @@ public with sharing class AccessRequestCommonActionsTest {
       Access_Type__c = 'System Administrator',
       When__c = 'Future',
       Expected_Start__c = Datetime.now().addDays(2),
-      Duration_hrs__c = '4'
+      Duration_hrs__c = '4',
+      RecordTypeId = recordTypeId
     );
 
     return accessReq;
@@ -128,7 +143,10 @@ public with sharing class AccessRequestCommonActionsTest {
 
     // WHEN
     // an Engineer requests a PAM
-    Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
+    Access_Request__c pamRequest = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
 
     pamRequest.Requestor__c = engineerUser.Id;
     System.runAs(engineerUser) {
@@ -168,7 +186,8 @@ public with sharing class AccessRequestCommonActionsTest {
     // GIVEN
     // a particular PAM request has already been processed
     Access_Request__c pamRequest = getAccessRequest(
-      Lib_FakeIdGenerator.getMockId(User.getSObjectType())
+      Lib_FakeIdGenerator.getMockId(User.getSObjectType()),
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
     );
     pamRequest.Status__c = 'Approved';
     pamRequest.Approver__c = Lib_FakeIdGenerator.getMockId(
@@ -207,7 +226,10 @@ public with sharing class AccessRequestCommonActionsTest {
     Test.startTest();
 
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
-    Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
+    Access_Request__c pamRequest = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
     pamRequest.Status__c = 'Rejected';
     Test.stopTest();
 
@@ -227,7 +249,10 @@ public with sharing class AccessRequestCommonActionsTest {
     // GIVEN
     // an Acess Request has been raised
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
-    Access_Request__c pamRequest = getAccessRequest(engineerUser.Id);
+    Access_Request__c pamRequest = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
     insert pamRequest;
     pamRequest.Status__c = AccessRequestCommonActions.STATUS_SUBMITTED;
     update pamRequest;
@@ -282,13 +307,19 @@ public with sharing class AccessRequestCommonActionsTest {
     // GIVEN
     // an Acess Request has been raised
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
-    Access_Request__c newRecordInstance = getAccessRequest(engineerUser.Id);
+    Access_Request__c newRecordInstance = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
     newRecordInstance.Id = Lib_FakeIdGenerator.getMockId(
       Access_Request__c.getSObjectType()
     );
 
     // creating a mock oldMap
-    Access_Request__c oldRecordInstance = getAccessRequest(engineerUser.Id);
+    Access_Request__c oldRecordInstance = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
     oldRecordInstance.Id = newRecordInstance.Id;
     oldRecordInstance.Status__c = '';
     Map<Id, SObject> oldMap = new Map<Id, SObject>{
@@ -357,7 +388,10 @@ public with sharing class AccessRequestCommonActionsTest {
     // GIVEN
     // there is a chance for an exception to happen
     User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
-    Access_Request__c newRecordInstance = getAccessRequest(engineerUser.Id);
+    Access_Request__c newRecordInstance = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
     newRecordInstance.Id = Lib_FakeIdGenerator.getMockId(
       Access_Request__c.getSObjectType()
     );
@@ -391,6 +425,186 @@ public with sharing class AccessRequestCommonActionsTest {
   }
 
   @isTest
+  static void testBypassSalesforceLibrarySetting() {
+    // GIVEN
+    // a PAM Request has been Approved to disable salesforce library settings and create a new PAR has been created
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+
+    Access_Request__c ar = new Access_Request__c();
+    ar.Requestor__c = engineerUser.Id;
+    ar.Reason__c = 'Production deployment';
+    ar.Reference_Number__c = 'CR-987987';
+    ar.Automations_to_Bypass__c = 'Flows;Triggers';
+    ar.When__c = 'Immediate';
+    ar.Duration_hrs__c = '24';
+    ar.RecordTypeId = BYPASS_AUTOMATION_REQUEST_RT_ID;
+
+    Privileged_Access_Request__c par = new Privileged_Access_Request__c();
+    BypassRequestFlowHandler.LibraryUpdateWrapper req = new BypassRequestFlowHandler.LibraryUpdateWrapper();
+    req.processType = 'grant';
+    req.userId = engineerUser.Id;
+    req.disableFlows = false;
+
+    // WHEN
+    // the flow tries to assign System Administrator (priviileged) acces to a user
+    List<Boolean> results;
+    Test.startTest();
+    insert ar;
+    par.Access_Request__c = ar.Id;
+    insert par;
+    req.privilegedAccReqId = par.Id;
+    results = BypassRequestFlowHandler.updateUserSFLibSetting(
+      new List<BypassRequestFlowHandler.LibraryUpdateWrapper>{ req }
+    );
+    Test.stopTest();
+
+    // THEN
+    // updateUserSFLibSetting() invocable method should return success response
+    Assert.isTrue(
+      results[0],
+      'Bypass Automation Access Flow should be triggered.'
+    );
+  }
+
+  @isTest
+  static void testBypassFailureNotCompleteRequest() {
+    BypassRequestFlowHandler.LibraryUpdateWrapper req = new BypassRequestFlowHandler.LibraryUpdateWrapper();
+    req.disableFlows = false;
+
+    // WHEN
+    // the flow tries to assign System Administrator (priviileged) acces to a user
+    List<Boolean> results;
+    Test.startTest();
+    try {
+      results = BypassRequestFlowHandler.updateUserSFLibSetting(
+        new List<BypassRequestFlowHandler.LibraryUpdateWrapper>{ req }
+      );
+    } catch (Exception e) {
+      Assert.isTrue(true, 'Trigger should throw an Exception error.');
+    }
+
+    Test.stopTest();
+
+    // THEN
+    // updateUserSFLibSetting() invocable method should return success response
+    Assert.isFalse(
+      results[0],
+      'Bypass Automation Access Flow should be triggered, but does not do anything.'
+    );
+  }
+
+  @isTest
+  static void testBypassFailure() {
+    Profile noAccessProfile = CommonUtil.getProfileByName('No Access');
+    UserRole engineerRole = CommonUtil.getUserRoleByDevName('Banker');
+    User noAccessUser = TestUtil.createTestUser(
+      new Map<String, Object>{
+        'FirstName' => 'No_Access_User',
+        'ProfileId' => noAccessProfile.Id,
+        'UserRoleId' => engineerRole.Id
+      }
+    );
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Privileged_Access_Request__c par = [
+      SELECT Id
+      FROM Privileged_Access_Request__c
+      LIMIT 1
+    ];
+    BypassRequestFlowHandler.LibraryUpdateWrapper req = new BypassRequestFlowHandler.LibraryUpdateWrapper();
+    req.disableFlows = false;
+    req.privilegedAccReqId = par.Id;
+    req.processType = 'grant';
+    req.userId = engineerUser.Id;
+
+    // WHEN
+    // the flow tries to assign System Administrator (priviileged) acces to a user
+    List<Boolean> results;
+    System.runAs(noAccessUser) {
+      Test.startTest();
+      try {
+        results = BypassRequestFlowHandler.updateUserSFLibSetting(
+          new List<BypassRequestFlowHandler.LibraryUpdateWrapper>{ req }
+        );
+      } catch (Exception e) {
+        Assert.isTrue(true, 'Trigger should throw an Exception error.');
+      }
+      Test.stopTest();
+    }
+
+    // THEN
+    // updateUserSFLibSetting() invocable method should return success response
+    Assert.isFalse(
+      results[0],
+      'Bypass Automation Access Flow should be triggered, and return false.'
+    );
+  }
+
+  @isTest
+  static void testBypassFlowDisabledFlow() {
+    // GIVEN
+    // a PAM Request has been Approved to disable salesforce library settings and create a new PAR has been created
+
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    // User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+
+    Access_Request__c ar = new Access_Request__c();
+    ar.Requestor__c = engineerUser.Id;
+    ar.Reason__c = 'Production deployment';
+    ar.Reference_Number__c = 'CR-987987';
+    ar.Automations_to_Bypass__c = 'Flows;Triggers';
+    ar.When__c = 'Immediate';
+    ar.Duration_hrs__c = '24';
+    ar.RecordTypeId = BYPASS_AUTOMATION_REQUEST_RT_ID;
+
+    Privileged_Access_Request__c par = new Privileged_Access_Request__c();
+    BypassRequestFlowHandler.LibraryUpdateWrapper req = new BypassRequestFlowHandler.LibraryUpdateWrapper();
+    req.processType = 'grant';
+    req.userId = engineerUser.Id;
+    req.disableFlows = true;
+
+    // WHEN
+    // the flow tries to assign System Administrator (priviileged) acces to a user
+    List<Boolean> results;
+    Test.startTest();
+    insert ar;
+    par.Access_Request__c = ar.Id;
+    insert par;
+    req.privilegedAccReqId = par.Id;
+    results = BypassRequestFlowHandler.updateUserSFLibSetting(
+      new List<BypassRequestFlowHandler.LibraryUpdateWrapper>{ req }
+    );
+    Test.stopTest();
+
+    // THEN
+    // updateUserSFLibSetting() invocable method should return false response
+    Assert.isTrue(
+      results[0],
+      'Bypass Automation Access Flow should be triggered.'
+    );
+    Access_Request__c arr = [
+      SELECT Name, Automations_to_Bypass__c
+      FROM Access_Request__c
+      WHERE Id = :ar.Id
+      LIMIT 1
+    ];
+    String expectedLogMessage =
+      '%Error occured in Bypass grant flow. Related to request ' +
+      arr.Name +
+      ' requesting ' +
+      arr.Automations_to_Bypass__c +
+      ' Bypass.%';
+    List<LogEntry__c> logs = [
+      SELECT LogMessage__c
+      FROM LogEntry__c
+      WHERE LogMessage__c LIKE :expectedLogMessage
+    ];
+    Assert.isTrue(
+      !logs.isEmpty(),
+      'LogEntry should be created to inform that Disable Flow is true.'
+    );
+  }
+
+  @isTest
   private static void testupdateUserProfile() {
     // GIVEN
     // a PAM Request has been Approved and a new PAR has been created
@@ -402,6 +616,7 @@ public with sharing class AccessRequestCommonActionsTest {
     req.processType = 'grant';
     req.userId = engineerUser.Id;
     req.profileId = adminProfile.Id;
+    req.disableFlows = false;
 
     // WHEN
     // the flow tries to assign System Administrator (priviileged) acces to a user
@@ -419,66 +634,7 @@ public with sharing class AccessRequestCommonActionsTest {
       'Error occured while assigning profiles via PAM flow'
     );
   }
-  /*
-  @isTest
-  private static void testupdateUserSameProfile() {
-    // GIVEN
-    // a PAM Request has been Approved and a new PAR has been created
-    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
-    Profile noAccessProfile = CommonUtil.getProfileByName('No Access');
-    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
-    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
-    req.privilegedAccReqId = par.Id;
-    req.processType = 'grant';
-    req.userId = engineerUser.Id;
-    req.profileId = noAccessProfile.Id;
 
-    // WHEN
-    // the flow tries to assign same Profile as the existing one to a user
-    List<Boolean> results;
-    Test.startTest();
-    results = AccessRequestFlowHandler.updateUserProfile(
-      new List<AccessRequestFlowHandler.ProfileUpdateWrapper>{ req }
-    );
-    Test.stopTest();
-
-    // THEN
-    // the status response should not have any success values
-    System.assert(
-      !results[0],
-      'Flow should not try to assign profiles on irrelevant user records'
-    );
-  }
-
-  @isTest
-  private static void testupdateUserProfileException() {
-    // GIVEN
-    // a PAM Request has been Approved and a new PAR has been created
-    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
-    Privileged_Access_Request__c par = getPrivilegedAccessRequest();
-    AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
-    req.privilegedAccReqId = par.Id;
-    req.processType = 'grant';
-    req.userId = engineerUser.Id;
-    req.profileId = 'invalid_profileid'; // setting an invalid profile Id to generate an exception
-
-    // WHEN
-    // the flow tries to assign an invalid Profile to a user
-    List<Boolean> results;
-    Test.startTest();
-    results = AccessRequestFlowHandler.updateUserProfile(
-      new List<AccessRequestFlowHandler.ProfileUpdateWrapper>{ req }
-    );
-    Test.stopTest();
-
-    // THEN
-    // the status response should not have any success values
-    System.assert(
-      !results[0],
-      'Flow should not try to assign invalid profiles on user records'
-    );
-  }
-*/
   @isTest
   private static void testSetAccessGrantedTimestamp() {
     // GIVEN
@@ -539,6 +695,7 @@ public with sharing class AccessRequestCommonActionsTest {
     AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
     req.privilegedAccReqId = par.Id;
     req.processType = 'grant';
+    req.disableFlows = false;
 
     // WHEN
     // an error occurs in the Grant flow which resulted in calling logGrantRevokeFailures()
@@ -562,6 +719,7 @@ public with sharing class AccessRequestCommonActionsTest {
     AccessRequestFlowHandler.ProfileUpdateWrapper req = new AccessRequestFlowHandler.ProfileUpdateWrapper();
     req.privilegedAccReqId = par.Id;
     req.processType = 'revoke';
+    req.disableFlows = false;
 
     // WHEN
     // an error occurs in the Revoke flow which resulted in calling logGrantRevokeFailures()
@@ -575,6 +733,299 @@ public with sharing class AccessRequestCommonActionsTest {
       !String.isBlank(traceId),
       'Error occured while creating an Application Trace Log for revoke flow failures'
     );
+  }
+
+  @isTest
+  private static void testRevokeBypassFlow() {
+    // GIVEN
+    // a PAM Request has been Approved to disable salesforce library settings and create a new PAR has been created
+
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+
+    Access_Request__c ar = new Access_Request__c();
+    ar.Requestor__c = engineerUser.Id;
+    ar.Reason__c = 'Production deployment';
+    ar.Reference_Number__c = 'CR-987987';
+    ar.Automations_to_Bypass__c = 'Flows;Triggers';
+    ar.When__c = 'Immediate';
+    ar.Duration_hrs__c = '24';
+    ar.RecordTypeId = BYPASS_AUTOMATION_REQUEST_RT_ID;
+
+    Privileged_Access_Request__c par = new Privileged_Access_Request__c();
+    BypassRequestFlowHandler.LibraryUpdateWrapper req = new BypassRequestFlowHandler.LibraryUpdateWrapper();
+    req.processType = 'revoke';
+    req.userId = engineerUser.Id;
+    req.disableFlows = false;
+    Salesforce_Library_Settings__c customSettings = new Salesforce_Library_Settings__c(
+      SetupOwnerId = engineerUser.Id,
+      Disable_Flows__c = false,
+      Disable_Triggers__c = true,
+      Disable_VRs__c = true
+    );
+    // WHEN
+    // the flow tries to assign System Administrator (priviileged) acces to a user
+    List<Boolean> results;
+    Test.startTest();
+    insert ar;
+    par.Access_Request__c = ar.Id;
+    insert par;
+    req.privilegedAccReqId = par.Id;
+    insert customSettings;
+    results = BypassRequestFlowHandler.updateUserSFLibSetting(
+      new List<BypassRequestFlowHandler.LibraryUpdateWrapper>{ req }
+    );
+    Test.stopTest();
+
+    // THEN
+    // updateUserSFLibSetting() invocable method should return false response
+    Assert.isTrue(
+      results[0],
+      'Bypass Automation Access Flow should not be triggered.'
+    );
+    List<Salesforce_Library_Settings__c> deletedLib = [
+      SELECT Id
+      FROM Salesforce_Library_Settings__c
+      WHERE Id = :customSettings.Id
+    ];
+    Assert.isTrue(
+      deletedLib.isEmpty(),
+      'Salesforce library settings for user should be removed.'
+    );
+  }
+
+  @isTest
+  static void createAccessRequestsMapTest() {
+    List<Access_Request__c> requests = [
+      SELECT
+        Id,
+        RecordTypeId,
+        Expected_Start__c,
+        Duration_hrs__c,
+        Requestor__c,
+        When__c
+      FROM Access_Request__c
+    ];
+
+    Test.startTest();
+    Map<String, List<AccessRequestCommonActions.AccessRequestMap>> accessRequestsMap = AccessRequestCommonActions.createAccessRequestsMap(
+      requests
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      !accessRequestsMap.isEmpty(),
+      'Access request map should be created for existing access request'
+    );
+    Assert.isTrue(
+      accessRequestsMap.containsKey(requests[0].Requestor__c),
+      'The key should be created'
+    );
+    Assert.isTrue(
+      accessRequestsMap.get(requests[0].Requestor__c).size() == 1,
+      'The map for the existing access request should have on Map<String, Object>'
+    );
+    Assert.areEqual(
+      requests[0].RecordTypeId,
+      accessRequestsMap.get(requests[0].Requestor__c)[0].recordTypeId,
+      'The map for the existing access request should have on Map<String, Object>'
+    );
+    Assert.isNotNull(
+      accessRequestsMap.get(requests[0].Requestor__c)[0].startTime,
+      'There should be value'
+    );
+    Assert.isNotNull(
+      accessRequestsMap.get(requests[0].Requestor__c)[0].revokeTime,
+      'The map for the existing access request should have on Map<String, Object>'
+    );
+  }
+
+  @isTest
+  static void createAccessRequestsMapTestNoRequest() {
+    Test.startTest();
+    Map<String, List<AccessRequestCommonActions.AccessRequestMap>> accessRequestsMap = AccessRequestCommonActions.createAccessRequestsMap(
+      new List<Access_Request__c>()
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      accessRequestsMap.isEmpty(),
+      'Access request map should not be created for existing access request'
+    );
+  }
+
+  @isTest
+  static void findOverLappedRequestsTest() {
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    Access_Request__c ar = new Access_Request__c();
+    ar.Requestor__c = engineerUser.Id;
+    ar.Reason__c = 'Production deployment';
+    ar.Reference_Number__c = 'CR-findOverLappedRequestsTest';
+    ar.Access_Type__c = 'System Administrator';
+    ar.When__c = 'Immediate';
+    ar.Duration_hrs__c = '3';
+    ar.RecordTypeId = PRIVILEGED_ACCESS_REQUESTS_RT_ID;
+
+    Privileged_Access_Request__c par = new Privileged_Access_Request__c();
+    par.Previous_Profile_Id__c = stdUserProfile.Id;
+    par.Start_Date_Time__c = system.now().addHours(1);
+    par.Revoke_Time__c = system.now().addHours(3);
+
+    Test.startTest();
+    insert ar;
+    par.Access_Request__c = ar.Id;
+    insert par;
+    Map<String, List<AccessRequestCommonActions.AccessRequestMap>> accessRequestsMap = AccessRequestCommonActions.createAccessRequestsMap(
+      new List<Access_Request__c>{ ar }
+    );
+    Map<String, String> overlappedRequests = AccessRequestCommonActions.findOverLappedRequests(
+      accessRequestsMap
+    );
+    Test.stopTest();
+    ar = [
+      SELECT Name
+      FROM Access_Request__c
+      WHERE Reference_Number__c = 'CR-findOverLappedRequestsTest'
+      LIMIT 1
+    ];
+    Assert.isTrue(
+      !overlappedRequests.isEmpty(),
+      'It should find overlapped PAM'
+    );
+    Assert.isTrue(
+      overlappedRequests.containsKey(engineerUser.Id),
+      'The overlapping record should have a Requestor__c key.'
+    );
+    Assert.areEqual(
+      overlappedRequests.get(engineerUser.Id),
+      ar.Name,
+      'The requester key should have the right value.'
+    );
+  }
+
+  @isTest
+  static void noOverLappedRequestsTest() {
+    List<Access_Request__c> requests = [
+      SELECT
+        Id,
+        RecordTypeId,
+        Expected_Start__c,
+        Duration_hrs__c,
+        Requestor__c,
+        When__c
+      FROM Access_Request__c
+    ];
+    List<Privileged_Access_Request__c> pars = [
+      SELECT
+        Id,
+        Name,
+        Access_Request__r.Name,
+        Access_Request__r.Requestor__c,
+        Access_Request_Record_Type_Id__c,
+        Start_Date_Time__c,
+        Revoke_Time__c
+      FROM Privileged_Access_Request__c
+    ];
+    Test.startTest();
+    delete pars;
+    Map<String, List<AccessRequestCommonActions.AccessRequestMap>> accessRequestsMap = AccessRequestCommonActions.createAccessRequestsMap(
+      requests
+    );
+    Map<String, String> overlappedRequests = AccessRequestCommonActions.findOverLappedRequests(
+      accessRequestsMap
+    );
+    Test.stopTest();
+    Assert.isTrue(
+      overlappedRequests.isEmpty(),
+      'It should not find overlapped PAM'
+    );
+  }
+
+  @isTest
+  static void checkIfOverlapTest() {
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    String accessRequestName = [
+      SELECT Id, Name
+      FROM Access_Request__c
+    ][0]
+    .Name;
+    Access_Request__c ar = new Access_Request__c();
+    ar.Requestor__c = engineerUser.Id;
+    ar.Reason__c = 'Production deployment';
+    ar.Reference_Number__c = 'CR-987987';
+    ar.Access_Type__c = 'System Administrator';
+    ar.When__c = 'Immediate';
+    ar.Duration_hrs__c = '3';
+    ar.RecordTypeId = PRIVILEGED_ACCESS_REQUESTS_RT_ID;
+
+    Privileged_Access_Request__c par = new Privileged_Access_Request__c();
+    par.Previous_Profile_Id__c = stdUserProfile.Id;
+    par.Start_Date_Time__c = system.now().addHours(1);
+    par.Revoke_Time__c = system.now().addHours(3);
+
+    Test.startTest();
+    insert ar;
+    par.Access_Request__c = ar.Id;
+    insert par;
+    ar.Status__c = AccessRequestCommonActions.STATUS_SUBMITTED;
+    try {
+      update ar;
+
+      //IF we reach this then our trigger did not apply successfully.
+      Assert.isTrue(false, 'Failed to check overlapping on trigger.');
+    } catch (DmlException error) {
+      //IF we reach this then our trigger did not apply successfully.
+      Assert.isTrue(
+        error.getMessage()
+          .contains(
+            'The request overlaps with an existing Privileged Access Request: ' +
+              accessRequestName +
+              '. Please double check the start time and duration to ensure they do not overlap'
+          ),
+        'Succeed to check overlapping on trigger.'
+      );
+    }
+    Test.stopTest();
+  }
+
+  @isTest
+  static void checkIfApproverFlowDisabledGlobal() {
+    User engineerUser = TestUtil.getUserByFirstName('PAM_Engineer');
+    Access_Request__c accessRequest = getAccessRequest(
+      engineerUser.Id,
+      PRIVILEGED_ACCESS_REQUESTS_RT_ID
+    );
+
+    Test.startTest();
+    insert new Salesforce_Library_Settings__c(
+      SetupOwnerId = UserInfo.getOrganizationId(),
+      Disable_Flows__c = true,
+      Disable_Triggers__c = false,
+      Disable_VRs__c = false
+    );
+    insert accessRequest;
+    accessRequest.Status__c = AccessRequestCommonActions.STATUS_SUBMITTED;
+    String customSettingsName = Salesforce_Library_settings__c.getOrgDefaults()
+      .Name;
+    try {
+      update accessRequest;
+      Assert.isTrue(
+        false,
+        'Trigger could not check if flow has been disabled.'
+      );
+    } catch (DmlException error) {
+      Assert.isTrue(
+        error.getMessage()
+          .contains(
+            'Updating Access request failed due to: ' +
+              customSettingsName +
+              ' Disable_Flows__c is true.'
+          ),
+        'Trigger could check if flow has been disabled.'
+      );
+    }
+
+    Test.stopTest();
   }
 
   private static Privileged_Access_Request__c getPrivilegedAccessRequest() {
