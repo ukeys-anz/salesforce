@@ -38,7 +38,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   wiredEnvSettings({ data, error }) {
     if (data) {
       this.snowInstanceUrl = data;
-      console.log("##snowInstanceUrl " + this.snowInstanceUrl);
     } else if (error) {
       handleErrorShowToast(
         this,
