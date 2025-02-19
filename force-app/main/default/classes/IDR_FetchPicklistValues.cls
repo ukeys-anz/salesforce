@@ -3,7 +3,7 @@
  * @since 16/2023
  * @description IDR_FetchPicklistValues is the class for mapping Issue types and sub Issue types
  */
-global with sharing class IDR_FetchPicklistValues implements Callable {
+global with sharing class IDR_FetchPicklistValues implements Omnistudio.VlocityOpenInterface , Callable {
   /**
    * @param action beaviour of the method to exhibit
    * @param args arguments to be used by the specified action
