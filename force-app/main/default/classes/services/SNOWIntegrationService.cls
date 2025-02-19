@@ -3,8 +3,6 @@
  * @since April 2024
  * @description extended service class for CMOS SNOW Integration callout
  * @group Service
- * @last modified on  : 20-02-2025
- * @last modified by  : Prabhupad Sahu
  */
 public with sharing virtual class SNOWIntegrationService extends Service {
   /**
