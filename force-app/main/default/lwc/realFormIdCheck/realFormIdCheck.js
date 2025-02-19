@@ -1,10 +1,13 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
+import { NavigationMixin } from "lightning/navigation";
 import getSNOWEventInfoLWC from "@salesforce/apex/IDRAPIRepository.getSNOWEventInfoLWC";
 import { handleErrorShowToast, showToast } from "c/utils";
 import { CloseActionScreenEvent } from "lightning/actions";
+import getEnvSettings from "@salesforce/apex/SNOWIntegrationService.getEnvSettings";
+
 export default class RealFormIdCheck extends OmniscriptBaseMixin(
-  LightningElement
+  NavigationMixin(LightningElement)
 ) {
   loading = false;
   iconName;
@@ -16,6 +19,12 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   realFormId;
   callFromOmni = false;
   realFormRequired;
+  _showCreate = false;
+  showValidate = false;
+  _selectedOption;
+  redirectionUrl;
+  snowInstanceUrl;
+
   showError() {
     handleErrorShowToast(
       this,
@@ -24,6 +33,29 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       "Please enter a valid Risk Event ID to continue."
     );
   }
+
+  @wire(getEnvSettings)
+  wiredEnvSettings({ data, error }) {
+    if (data) {
+      this.snowInstanceUrl = data;
+    } else if (error) {
+      handleErrorShowToast(
+        this,
+        "Unable to fetch ServiceNow instance url",
+        error,
+        "Please contact your system administrator."
+      );
+    }
+  }
+
+  @api set selectedOption(value) {
+    this._showCreate = value === "Y_NEW" ? true : false;
+    this._selectedOption = value;
+  }
+  get selectedOption() {
+    return this._selectedOption;
+  }
+
   closeAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
@@ -42,7 +74,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       if (
         this.omniJsonData.Case.ResolutionInformation &&
         this.omniJsonData.Case.ResolutionInformation.realFormRequired ===
-          "Yes" &&
+          "Y_EXI" &&
         !(
           this.omniJsonData.Case.ResolutionInformation.realFormMAXId === null ||
           this.omniJsonData.Case.ResolutionInformation.realFormMAXId ===
@@ -67,7 +99,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       }
     } else if (
       this.omniJsonData.EditRealFormID &&
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
       !(
         this.omniJsonData.EditRealFormID.RealFormID === null ||
         this.omniJsonData.EditRealFormID.RealFormID === undefined
@@ -122,6 +154,25 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       this.omniApplyCallResp(data);
     } else {
       this.closeAction();
+    }
+  }
+  redirectToForm() {
+    if (this.snowInstanceUrl) {
+      let redirectionUrl = this.snowInstanceUrl + this.omniJsonData.recordId;
+
+      this[NavigationMixin.Navigate]({
+        type: "standard__webPage",
+        attributes: {
+          url: redirectionUrl
+        }
+      });
+    } else {
+      handleErrorShowToast(
+        this,
+        "Unable to fetch a valid url",
+        undefined,
+        "Please contact your system administrator to set the required redirection url."
+      );
     }
   }
   callAPI(riskEventId) {

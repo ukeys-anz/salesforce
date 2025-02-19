@@ -2,10 +2,16 @@
  * @author Anuja Vats
  * @since April 2024
  * @description test class for SNOWIntegrationService
- * @group Service
+ * @group Service 
  */
 @isTest
 public with sharing class SNOWIntegrationServiceTest {
+  static Lib_MockProvider snowRepoMock;
+  static void registerMocks() {
+    snowRepoMock = Lib_MockProvider.forType(
+      ServiceNowSettingRepository.class
+    );
+  }
   @isTest
   static void testGetRiskEventInformation() {
     Test.setMock(HttpCalloutMock.class, new MockCMOSGetSNOWInfoCallout());
@@ -99,5 +105,61 @@ public with sharing class SNOWIntegrationServiceTest {
       res.setBody('{"message" : "User Not Authenticated"}');
       return res;
     }
+  }
+
+  /**
+   * @description test method to fetch snow instance url
+   */
+  @isTest
+  static void testSnowUrl() {
+    registerMocks();
+    List<ServiceNow_environment_settings__c> snowCustomSettings = createSnowEnvSettings(true);
+    snowRepoMock.mock('getSnowEnvSettings', snowCustomSettings);
+    Test.startTest();
+    String snowUrl = SNOWIntegrationService.getEnvSettings();
+    Test.stopTest();
+    String expectedUrl = 'https://domainorg.com';
+    Assert.areEqual(
+      snowUrl,
+      expectedUrl,
+      'Domain url should have been fetched correctly'
+    );
+  }
+
+  /**
+   * @description test method to negative scenario where no matching environment setting is found
+   */
+  @isTest
+  static void testBlankSnowUrl() {
+    registerMocks();
+    List<ServiceNow_environment_settings__c> snowCustomSettings = createSnowEnvSettings(false);
+    snowRepoMock.mock('getSnowEnvSettings', snowCustomSettings);
+    Test.startTest();
+    String snowUrl = SNOWIntegrationService.getEnvSettings();
+    Test.stopTest();
+    String expectedUrl = '';
+    Assert.areEqual(
+      expectedUrl,
+      snowUrl,
+      'Blank string should be returned when no matching environment setting is found'
+    );
+  }
+  /**
+   * @description private method to create ServiceNow_environment_settings__c records for test data
+   * @param isPositiveCase boolean value to determine if test is for positive or negative case
+   * @return List of ServiceNow_environment_settings__c records
+   */
+  private static List<ServiceNow_environment_settings__c> createSnowEnvSettings(Boolean isPositiveCase) {
+    List<ServiceNow_environment_settings__c> lSnowEnvSettings = new List<ServiceNow_environment_settings__c>();
+    ServiceNow_environment_settings__c snowEnvSetting1 = new ServiceNow_environment_settings__c();
+
+    String domainUrl = System.URL.getOrgDomainUrl().getHost().split('\\.')[0];
+    snowEnvSetting1.Environment_name__c = isPositiveCase ? ','+domainUrl+',' : 'anz--domain';
+    snowEnvSetting1.Url__c = 'https://domainorg.com';
+    snowEnvSetting1.Id = Lib_FakeIdGenerator.getMockId(
+      ServiceNow_environment_settings__c.SObjectType
+    );
+    lSnowEnvSettings.add(snowEnvSetting1);
+    return lSnowEnvSettings;
   }
 }
