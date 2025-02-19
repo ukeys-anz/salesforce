@@ -29,8 +29,8 @@ public with sharing virtual class SNOWIntegrationService extends Service {
   }
 
   /**
-   * @return url as string
    * @description method to fetch service-now instance url for redirection
+   * @return Url as String
    */
   @AuraEnabled(cacheable=true)
   public static String getEnvSettings() {

@@ -145,8 +145,9 @@ public with sharing class SNOWIntegrationServiceTest {
     );
   }
   /**
-   * return List of ServiceNow_environment_settings__c records
    * @description private method to create ServiceNow_environment_settings__c records for test data
+   * @param isPositiveCase boolean value to determine if test is for positive or negative case
+   * @return List of ServiceNow_environment_settings__c records
    */
   private static List<ServiceNow_environment_settings__c> createSnowEnvSettings(Boolean isPositiveCase) {
     List<ServiceNow_environment_settings__c> lSnowEnvSettings = new List<ServiceNow_environment_settings__c>();
