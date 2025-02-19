@@ -98,4 +98,37 @@ public with sharing class DataPartitionUtil {
   public static void storeDataToCache(String sessionCacheKey, Object value) {
     dataPartition.put(sessionCacheKey?.replace('-', ''), value, ttlSecs);
   }
+
+  /**
+   * @description storing the first call out of 'home loan account (H1) details' from HomeLoanAPIRepository
+   * @param sessionCacheKey the key is the ocvID. Therefore the session cache stores homeloan details based on ocvID
+   * @param value - value that is added to the cache
+   */
+  public static void storeLoanAccountDetailsCache(
+    String sessionCacheKey,
+    List<UnifiedFinancialAccountModel.AccountList> value
+  ) {
+    dataPartition.put(sessionCacheKey, value, ttlSecs);
+  }
+
+  /**
+   * @description retrieving 'home loan account (H1 Account) details' from the session cache
+   * @param ocvId retrieve Session Cache data based on ocvId
+   * @return accountDetails, all details under the given ocvId
+   *
+   */
+  @AuraEnabled
+  public static List<UnifiedFinancialAccountModel.AccountList> getLoanAccountDetailsCache(
+    String ocvId
+  ) {
+    List<UnifiedFinancialAccountModel.AccountList> accountDetails = (List<UnifiedFinancialAccountModel.AccountList>) DataPartition.get(
+      ocvId
+    );
+    if (accountDetails != null) {
+      Logger.debug('Loan Account Details Caching hit: ')
+        .setPayload(json.serialize(accountDetails));
+      Logger.saveLog();
+    }
+    return accountDetails;
+  }
 }

@@ -105,4 +105,138 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__Active__c = TRUE
     ];
   }
+
+  /**
+   * @description gets all the finanacial account which needds to be displayed on UI
+   * @param ownerId owner of fin account
+   * @param allRelatedAccountNumbers all the rekated financial account numbers
+   * @param recordTypeDeveloperNames record type developer names
+   * @return list of FinServ__FinancialAccount__c
+   */
+  public List<FinServ__FinancialAccount__c> getFinacialAccounts(
+    Id ownerId,
+    List<String> allRelatedAccountNumbers,
+    List<String> recordTypeDeveloperNames
+  ) {
+    return [
+      SELECT
+        Id,
+        Name,
+        FinServ__Balance__c,
+        FinServ__CurrentPostedBalance__c,
+        FinServ__CloseDate__c,
+        FinServ__FinancialAccountNumber__c,
+        FinServ__Status__c,
+        FinServ__OpenDate__c,
+        Marketing_Code__c,
+        RecordType.DeveloperName,
+        LastModifiedDate,
+        Ownership__c,
+        OCV_ID__c,
+        FinServ__ProductName__c
+      FROM FinServ__FinancialAccount__c
+      WHERE
+        (FinServ__PrimaryOwner__c = :ownerId
+        OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
+        AND RecordType.DeveloperName IN :recordTypeDeveloperNames
+        AND FinServ__Status__c != 'Closed'
+      WITH USER_MODE
+      ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
+    ];
+  }
+
+  /**
+   * @description This method prepares map of product code and financial account UI config details
+   * @return Map of product code and financial account UI config record
+   */
+  public Map<String, FinancialAccountUIConfiguration__mdt> mapProductCodeToFinAccountConfiguration() {
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccConfigMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+
+    List<FinancialAccountUIConfiguration__mdt> financialAccountUIDetails = [
+      SELECT
+        Product_Code__c,
+        Is_Active__c,
+        Is_Home_Loan__c,
+        Show_Goals__c,
+        Sort_Order__c,
+        Ownership_Type__c,
+        Product_Name__c,
+        Section_Header_Title__c,
+        Balance_Title__c
+      FROM FinancialAccountUIConfiguration__mdt
+      WITH USER_MODE
+    ];
+
+    for (
+      FinancialAccountUIConfiguration__mdt finUIConfig : financialAccountUIDetails
+    ) {
+      String key =
+        finUIConfig?.Product_Code__c +
+        '-' +
+        finUIConfig?.Ownership_Type__c;
+      if (!productCodeToFinAccConfigMap.containsKey(key)) {
+        productCodeToFinAccConfigMap.put(key, finUIConfig);
+      }
+    }
+    return productCodeToFinAccConfigMap;
+  }
+
+  /**
+   * @description This method prepares map of product code and financial account UI config details
+   * @return Map of product code and financial account UI config record
+   */
+  public Map<String, FinancialAccountUIConfiguration__mdt> mapProductCodeToFinAccounDetails() {
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+
+    List<FinancialAccountUIConfiguration__mdt> financialAccountUIDetails = [
+      SELECT
+        Product_Code__c,
+        Ownership_Type__c,
+        Show_Goals__c,
+        Sort_Order__c,
+        Is_Home_Loan__c,
+        Is_Active__c,
+        Account_Type__c,
+        Balance_Title__c,
+        Product_Name__c,
+        Section_Header_Title__c
+      FROM FinancialAccountUIConfiguration__mdt
+      WITH USER_MODE
+    ];
+
+    for (
+      FinancialAccountUIConfiguration__mdt finUIConfig : financialAccountUIDetails
+    ) {
+      if (!productCodeToFinAccMap.containsKey(finUIConfig.Product_Code__c)) {
+        productCodeToFinAccMap.put(finUIConfig.Product_Code__c, finUIConfig);
+      }
+    }
+    return productCodeToFinAccMap;
+  }
+
+  /**
+   * @description This method returnd financial account UI config details based on product code
+   * @param productCodes set of product codes
+   * @return List of financial account UI config data based on product code
+   */
+  public List<FinancialAccountUIConfiguration__mdt> fetchMetadataForProductCodes(
+    Set<String> productCodes
+  ) {
+    return [
+      SELECT
+        Product_Code__c,
+        Ownership_Type__c,
+        Show_Goals__c,
+        Sort_Order__c,
+        Is_Home_Loan__c,
+        Is_Active__c,
+        Account_Type__c,
+        Balance_Title__c,
+        Product_Name__c,
+        Section_Header_Title__c
+      FROM FinancialAccountUIConfiguration__mdt
+      WHERE Product_Code__c IN :productCodes
+      WITH USER_MODE
+    ];
+  }
 }
