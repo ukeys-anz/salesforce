@@ -1259,7 +1259,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>18.0</sequenceNumber>
+                <sequenceNumber>20.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1304,7 +1304,7 @@
   &quot;label&quot; : &quot;Business Name (if Bus account)&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
+                <sequenceNumber>16.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -1333,7 +1333,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>31.0</sequenceNumber>
+                <sequenceNumber>33.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1361,7 +1361,7 @@
   &quot;label&quot; : &quot;Country&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>27.0</sequenceNumber>
+                <sequenceNumber>29.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1394,7 +1394,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>8.0</sequenceNumber>
+                <sequenceNumber>9.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1427,7 +1427,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>7.0</sequenceNumber>
+                <sequenceNumber>8.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1460,7 +1460,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>6.0</sequenceNumber>
+                <sequenceNumber>7.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1665,7 +1665,7 @@
   &quot;label&quot; : &quot;Customer Type&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>13.0</sequenceNumber>
+                <sequenceNumber>15.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1739,7 +1739,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>20.0</sequenceNumber>
+                <sequenceNumber>22.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -1768,7 +1768,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>41.0</sequenceNumber>
+                <sequenceNumber>44.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1816,7 +1816,7 @@
   &quot;label&quot; : &quot;Express Case Creation&quot;,
   &quot;controlWidth&quot; : 5.0
 }</propertySetConfig>
-                <sequenceNumber>30.0</sequenceNumber>
+                <sequenceNumber>32.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -1845,7 +1845,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
+                <sequenceNumber>17.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -1893,7 +1893,7 @@
   &quot;label&quot; : &quot;Gender&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>19.0</sequenceNumber>
+                <sequenceNumber>21.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -1988,7 +1988,7 @@
   &quot;label&quot; : &quot;Last Name&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>17.0</sequenceNumber>
+                <sequenceNumber>19.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2003,7 +2003,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>28.0</sequenceNumber>
+                <sequenceNumber>30.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2018,7 +2018,7 @@
   &quot;padding&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>40.0</sequenceNumber>
                 <type>Line Break</type>
             </childElements>
             <childElements>
@@ -2063,7 +2063,7 @@
   &quot;label&quot; : &quot;Middle Names&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>16.0</sequenceNumber>
+                <sequenceNumber>18.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2106,7 +2106,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>21.0</sequenceNumber>
+                <sequenceNumber>23.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2185,7 +2185,7 @@
   &quot;label&quot; : &quot;Phone&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>22.0</sequenceNumber>
+                <sequenceNumber>24.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2230,7 +2230,7 @@
   &quot;label&quot; : &quot;Postcode&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>25.0</sequenceNumber>
+                <sequenceNumber>27.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2263,7 +2263,43 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>12.0</sequenceNumber>
+                <sequenceNumber>14.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
+            <childElements>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <name>rmDetailsError</name>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;TextBlock2&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;span style=\&quot;color: #000000;\&quot;&gt;Relationship Manager Details&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;br /&gt;Error : Couldn&apos;t retrieve relationship details for the given CPID.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : null,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;Response:relationshipManager:details&quot;
+      }, {
+        &quot;field&quot; : &quot;Response:relationshipManager:error&quot;,
+        &quot;condition&quot; : &quot;&lt;&gt;&quot;,
+        &quot;data&quot; : null
+      }, {
+        &quot;field&quot; : &quot;isEligibleAppForLookUp&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;data&quot; : &quot;false&quot;
+      } ]
+    }
+  },
+  &quot;dataJSON&quot; : false,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;textKey&quot; : &quot;&quot;,
+  &quot;sanitize&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>13.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2291,7 +2327,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>26.0</sequenceNumber>
+                <sequenceNumber>28.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2319,7 +2355,7 @@
   &quot;bStandalone&quot; : false,
   &quot;customAttributes&quot; : [ ]
 }</propertySetConfig>
-                <sequenceNumber>23.0</sequenceNumber>
+                <sequenceNumber>25.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2347,7 +2383,7 @@
   &quot;label&quot; : &quot;Suburb&quot;,
   &quot;controlWidth&quot; : 4.0
 }</propertySetConfig>
-                <sequenceNumber>24.0</sequenceNumber>
+                <sequenceNumber>26.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
@@ -2408,7 +2444,7 @@
   &quot;lwcComponentOverride&quot; : &quot;&quot;,
   &quot;defaultValue&quot; : &quot;false&quot;
 }</propertySetConfig>
-                <sequenceNumber>33.0</sequenceNumber>
+                <sequenceNumber>35.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2456,7 +2492,7 @@
   &quot;enableCaption&quot; : true,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>29.0</sequenceNumber>
+                <sequenceNumber>31.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -2489,7 +2525,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>9.0</sequenceNumber>
+                <sequenceNumber>10.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2522,7 +2558,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>10.0</sequenceNumber>
+                <sequenceNumber>11.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2555,7 +2591,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>11.0</sequenceNumber>
+                <sequenceNumber>12.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2599,7 +2635,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party company name&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>35.0</sequenceNumber>
+                <sequenceNumber>37.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2647,7 +2683,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party country&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>43.0</sequenceNumber>
+                <sequenceNumber>46.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2689,7 +2725,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>37.0</sequenceNumber>
+                <sequenceNumber>39.0</sequenceNumber>
                 <type>Email</type>
             </childElements>
             <childElements>
@@ -2733,7 +2769,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>38.0</sequenceNumber>
+                <sequenceNumber>41.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2778,7 +2814,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>34.0</sequenceNumber>
+                <sequenceNumber>36.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2822,7 +2858,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party phone&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>39.0</sequenceNumber>
+                <sequenceNumber>42.0</sequenceNumber>
                 <type>Telephone</type>
             </childElements>
             <childElements>
@@ -2867,7 +2903,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>42.0</sequenceNumber>
+                <sequenceNumber>45.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <childElements>
@@ -2915,7 +2951,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>36.0</sequenceNumber>
+                <sequenceNumber>38.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -2977,7 +3013,7 @@
   &quot;label&quot; : &quot;Does Customer wish to be represented by third party?&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>32.0</sequenceNumber>
+                <sequenceNumber>34.0</sequenceNumber>
                 <type>Radio</type>
             </childElements>
             <childElements>
@@ -3025,7 +3061,7 @@
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>44.0</sequenceNumber>
+                <sequenceNumber>47.0</sequenceNumber>
                 <type>Select</type>
             </childElements>
             <childElements>
@@ -3070,7 +3106,7 @@
   &quot;label&quot; : &quot;Nominated 3rd party street&quot;,
   &quot;controlWidth&quot; : 3.0
 }</propertySetConfig>
-                <sequenceNumber>40.0</sequenceNumber>
+                <sequenceNumber>43.0</sequenceNumber>
                 <type>Text</type>
             </childElements>
             <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
@@ -6926,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>62dc75a1-1f68-7cf0-cf59-6fdc964d4ec6</webComponentKey>
+    <webComponentKey>fffbe3df-bd55-283f-3693-5f475a7ae83a</webComponentKey>
 </OmniScript>
