@@ -37,7 +37,7 @@ public with sharing class UnifiedFinancialAccountController {
       );
       DataPartitionUtil.storeLoanAccountDetailsCache(
         ocvId,
-        filterOutNonHomeLoanAccounts(enrichedFinancialAccounts)
+        filterOutNonHomeLoanAccounts(homeloanaccounts)
       );
 
       return groupAndSortFinancialAccounts(enrichedFinancialAccounts);

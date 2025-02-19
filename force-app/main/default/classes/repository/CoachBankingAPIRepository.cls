@@ -31,11 +31,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       );
       if (response.successful) {
         try {
-          if (GetHelpConstants.isAccountV1()) {
-            result = FinancialAccountModelV1.parse(response.body);
-          } else {
-            result = FinancialAccountModel.parse(response.body);
-          }
+          result = FinancialAccountModelV1.parse(response.body);
         } catch (Exception e) {
           handleErrors(null, e, CoachBankingAPIRepository.class);
         }
