@@ -4819,7 +4819,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 4,
-  &quot;label&quot; : &quot;Is a REAL form required?&quot;,
+  &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
@@ -6409,5 +6409,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_10</uniqueName>
     <versionNumber>10.0</versionNumber>
-    <webComponentKey>26aab1c6-1316-7a67-13a3-3d5ef905b942</webComponentKey>
+    <webComponentKey>a75328fd-98e2-2692-5eb1-46a2305295e0</webComponentKey>
 </OmniScript>

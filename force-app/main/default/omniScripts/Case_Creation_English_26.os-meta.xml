@@ -2273,7 +2273,7 @@
                 <name>rmDetailsError</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12,
+  &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;span style=\&quot;color: #000000;\&quot;&gt;Relationship Manager Details&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;br /&gt;Error : Couldn&apos;t retrieve relationship details for the given CPID.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
@@ -5853,8 +5853,8 @@
                 <propertySetConfig>{
   &quot;label&quot; : &quot;REaL Form / Event ID&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;controlWidth&quot; : 4,
+  &quot;inputWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 4.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -5865,8 +5865,8 @@
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
-  &quot;minLength&quot; : 0,
-  &quot;maxLength&quot; : 255,
+  &quot;minLength&quot; : 0.0,
+  &quot;maxLength&quot; : 255.0,
   &quot;placeholder&quot; : &quot;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -5880,7 +5880,7 @@
   },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
-  &quot;debounceValue&quot; : 0,
+  &quot;debounceValue&quot; : 0.0,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;hide&quot; : false,
   &quot;disOnTplt&quot; : false
@@ -5924,7 +5924,7 @@
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 5,
-  &quot;label&quot; : &quot;Is a REAL form required?&quot;,
+  &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
@@ -6324,7 +6324,7 @@
   &quot;controlWidth&quot; : null,
   &quot;label&quot; : &quot;showRealFormMessage&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;expression&quot; : &quot;IF(\n(%ComplaintRemedy1% == 1 &amp;&amp; (%ComplaintSubRemedy1% ==2 || %ComplaintSubRemedy1% ==3)) ||\n(%ComplaintRemedy2% == 1 &amp;&amp; (%ComplaintSubRemedy2% ==2 || %ComplaintSubRemedy2% ==3))||\n(%ComplaintRemedy3% == 1 &amp;&amp; (%ComplaintSubRemedy3% ==2 || %ComplaintSubRemedy3% ==3))\n,true,false)&quot;,
   &quot;hide&quot; : true,
   &quot;show&quot; : null,
@@ -6552,7 +6552,7 @@
                 <name>validateEventId</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 3,
+  &quot;controlWidth&quot; : 3.0,
   &quot;label&quot; : &quot;Validate Event Id&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
@@ -6962,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>4ac542ee-48c9-1baf-0143-c15408ea85b0</webComponentKey>
+    <webComponentKey>28c9d530-10e4-7d5d-74aa-5638a9535265</webComponentKey>
 </OmniScript>

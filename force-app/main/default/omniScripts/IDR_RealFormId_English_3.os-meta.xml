@@ -181,7 +181,7 @@
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 5,
-  &quot;label&quot; : &quot;Is a REAL form required?&quot;,
+  &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
@@ -333,5 +333,5 @@
     <type>IDR</type>
     <uniqueName>IDR_RealFormId_English_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>b19d51eb-435c-2e9e-1ca1-d986d823c1f9</webComponentKey>
+    <webComponentKey>2beaa03e-ba48-3300-d45f-3b1e75552b1d</webComponentKey>
 </OmniScript>
