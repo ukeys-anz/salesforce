@@ -1,8 +1,7 @@
 /**
  * @description       : Repository class for ServiceNow environment Settings
  * @author            : Prabhupad Sahu | Salesforce
- * @last modified on  : 20-02-2025
- * @last modified by  : Prabhupad Sahu | Salesforce
+ * @since  : 20-02-2025
  **/
 public with sharing class ServiceNowSettingRepository {
   /**

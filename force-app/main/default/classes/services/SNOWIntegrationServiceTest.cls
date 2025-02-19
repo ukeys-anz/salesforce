@@ -160,13 +160,6 @@ public with sharing class SNOWIntegrationServiceTest {
       ServiceNow_environment_settings__c.SObjectType
     );
     lSnowEnvSettings.add(snowEnvSetting1);
-    ServiceNow_environment_settings__c snowEnvSetting2 = new ServiceNow_environment_settings__c();
-    snowEnvSetting2.Environment_name__c = 'randomDomain';
-    snowEnvSetting2.Url__c = 'https://randomorg.com';
-    snowEnvSetting2.Id = Lib_FakeIdGenerator.getMockId(
-      ServiceNow_environment_settings__c.SObjectType
-    );
-    lSnowEnvSettings.add(snowEnvSetting2);
     return lSnowEnvSettings;
   }
 }
