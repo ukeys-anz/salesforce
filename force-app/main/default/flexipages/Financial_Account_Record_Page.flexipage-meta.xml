@@ -298,8 +298,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.FinServ__ProductName__c</fieldItem>
-                <identifier>RecordFinServ_ProductName_cField</identifier>
+                <fieldItem>Record.Product_Name__c</fieldItem>
+                <identifier>RecordProduct_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
