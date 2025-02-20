@@ -1,8 +1,6 @@
-import { LightningElement, api, wire } from "lwc";
+import { LightningElement, api } from "lwc";
 
 import { NavigationMixin } from "lightning/navigation";
-import { getRecord } from "lightning/uiRecordApi";
-import PRODUCT_NAME_FIELD from "@salesforce/schema/Product2.Name";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
@@ -12,12 +10,6 @@ const ACCOUNT_TYPES_CONSTANT = {
   checking: "Everyday - ANZ Plus Account",
   savings: "Savings - ANZ Save Account",
   savingss2: "Savings - ANZ Plus Flex Saver Account"
-};
-
-const ACCOUNT_TYPES = {
-  checking: "Everyday - ",
-  savings: "Savings - ",
-  savingss2: "Savings - "
 };
 
 export default class FinancialAccount extends NavigationMixin(
@@ -36,7 +28,6 @@ export default class FinancialAccount extends NavigationMixin(
   productTitle;
   titleIcon;
   iconColor;
-  productId;
   _accountDetails;
 
   @api
@@ -46,18 +37,6 @@ export default class FinancialAccount extends NavigationMixin(
 
   get accountDetails() {
     return this._accountDetails;
-  }
-
-  @wire(getRecord, {
-    recordId: "$productId",
-    fields: [PRODUCT_NAME_FIELD]
-  })
-  product({ data }) {
-    if (data) {
-      this.componentTitle =
-        ACCOUNT_TYPES[this.accountType.toLowerCase()] +
-        data?.fields?.Name?.value;
-    }
   }
 
   get displayContent() {
@@ -100,12 +79,9 @@ export default class FinancialAccount extends NavigationMixin(
   }
 
   connectedCallback() {
-    this.productId = this._accountDetails[0]?.FinServ__ProductName__c;
     if (this.accountType) {
-      if (!this.productId) {
-        this.componentTitle =
-          ACCOUNT_TYPES_CONSTANT[this.accountType.toLowerCase()];
-      }
+      this.componentTitle =
+        ACCOUNT_TYPES_CONSTANT[this.accountType.toLowerCase()];
       let accountHeaderData = handleAccountHeaderData(this.accountType);
       this.balanceTitle = accountHeaderData.balanceTitle;
       this.iconColor = accountHeaderData.iconColor;

@@ -248,3 +248,6 @@ force-app/main/default/roles/Team_Leader_NBC.role-meta.xml
 force-app/main/default/ActionLauncherItemDef/CaseResolutionPathwaysEnglish_1d1ti7woscmbp1i57jhu21mgn4.actionLauncherItemDef-meta.xml
 force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.deployment-meta.xml
 
+#Add Automation Test Profile to Deploy.forceignore - Not required in Production 
+force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
+force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
