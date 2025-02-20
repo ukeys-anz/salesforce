@@ -994,6 +994,17 @@ public with sharing class CommonUtil {
   }
 
   /**
+   * @description Add error on the record and log message
+   * @param record record to add error
+   * @param errorMsg error message to use in the addError
+   */
+  public static void addInfoToRecordAndLog(SObject record, String errorMsg) {
+    Logger.info(errorMsg);
+    Logger.saveLog();
+    record.addError(errorMsg);
+  }
+
+  /**
    * @description This method is used to get iconName
    * @param objectName Name of the Object
    * @return String iconName
