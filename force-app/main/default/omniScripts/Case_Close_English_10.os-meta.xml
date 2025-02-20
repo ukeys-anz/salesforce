@@ -1986,11 +1986,11 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;Non-financial risk max page&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;em&gt;for further information on when to record a REaL Form&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;em&gt;&lt;a class=\&quot;external-link\&quot; href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; target=\&quot;_blank\&quot; rel=\&quot;nofollow noopener\&quot; style=\&quot;color: #e03e2d;\&quot;&gt;&lt;u&gt;Non-financial risk max page&lt;/u&gt;&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;em&gt;for further information on when to record a REaL Form&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock6&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
-            <sequenceNumber>117.0</sequenceNumber>
+            <sequenceNumber>116.0</sequenceNumber>
             <type>Text Block</type>
         </childElements>
         <childElements>

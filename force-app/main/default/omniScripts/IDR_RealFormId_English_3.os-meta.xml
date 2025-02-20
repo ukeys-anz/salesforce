@@ -133,7 +133,7 @@
             <name>RealFormID</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;REaL Form / Event ID&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -333,5 +333,5 @@
     <type>IDR</type>
     <uniqueName>IDR_RealFormId_English_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>2beaa03e-ba48-3300-d45f-3b1e75552b1d</webComponentKey>
+    <webComponentKey>3f4c5789-b778-f296-5986-7f04e567a659</webComponentKey>
 </OmniScript>

@@ -2,7 +2,7 @@
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>true</isActive>
+    <isActive>false</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -104,7 +104,7 @@
         <childElements>
             <childElements>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
-                <isActive>false</isActive>
+                <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
                 <level>2.0</level>
                 <name>AccountPolicyNumber</name>
@@ -5909,7 +5909,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;em&gt;&lt;a href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; class=\&quot;external-link\&quot; target=\&quot;_blank\&quot; title=\&quot;Follow link\&quot; style=\&quot;color: #e03e2d;\&quot; rel=\&quot;noopener\&quot;&gt;Non-financial risk max page&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;em&gt;for further information on when to record a REaL Form.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;It appears that&lt;/em&gt;&amp;nbsp;&lt;em&gt;A REaL form may be required for this complaint. Please take a moment to review the complaint and record a new REaL form if necessary.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;\n&lt;p&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;em&gt;Please refer to&lt;/em&gt;&amp;nbsp;&lt;span style=\&quot;text-decoration: underline;\&quot;&gt;&lt;em&gt;&lt;a href=\&quot;https://anz.sharepoint.com/sites/max-work/SitePages/Report-NFR-Event.aspx\&quot; class=\&quot;external-link\&quot; target=\&quot;_blank\&quot; title=\&quot;Follow link\&quot; style=\&quot;color: #e03e2d; text-decoration: underline;\&quot; rel=\&quot;noopener\&quot;&gt;Non-financial risk max page&lt;/a&gt;&lt;/em&gt;&amp;nbsp;&lt;/span&gt;&lt;em&gt;for further information on when to record a REaL Form.&lt;/em&gt;&lt;/span&gt;&lt;/p&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock2&quot;,
   &quot;controlWidth&quot; : null
 }</propertySetConfig>
@@ -5923,10 +5923,10 @@
                 <name>realFormRequired</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5,
+  &quot;controlWidth&quot; : 5.0,
   &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
+  &quot;inputWidth&quot; : 12.0,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -6962,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>28c9d530-10e4-7d5d-74aa-5638a9535265</webComponentKey>
+    <webComponentKey>ba17cc36-56b9-dfbf-74d1-4fe9f3b7e679</webComponentKey>
 </OmniScript>
