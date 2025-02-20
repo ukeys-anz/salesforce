@@ -2,7 +2,7 @@
 <OmniScript xmlns="http://soap.sforce.com/2006/04/metadata">
     <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
     <elementTypeComponentMapping>{&quot;ElementTypeToHTMLTemplateList&quot;:[]}</elementTypeComponentMapping>
-    <isActive>false</isActive>
+    <isActive>true</isActive>
     <isIntegrationProcedure>false</isIntegrationProcedure>
     <isMetadataCacheDisabled>false</isMetadataCacheDisabled>
     <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -6962,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>ba17cc36-56b9-dfbf-74d1-4fe9f3b7e679</webComponentKey>
+    <webComponentKey>2582eaff-63da-930d-0f52-eb194b5511ec</webComponentKey>
 </OmniScript>
