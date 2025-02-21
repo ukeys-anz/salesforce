@@ -4,7 +4,7 @@ import { NavigationMixin } from "lightning/navigation";
 import getSNOWEventInfoLWC from "@salesforce/apex/IDRAPIRepository.getSNOWEventInfoLWC";
 import { handleErrorShowToast, showToast } from "c/utils";
 import { CloseActionScreenEvent } from "lightning/actions";
-import getEnvSettings from "@salesforce/apex/SNOWIntegrationService.getEnvSettings";
+import SNOW_URL from "@salesforce/label/c.IDR_ServiceNow_env_url";
 
 export default class RealFormIdCheck extends OmniscriptBaseMixin(
   NavigationMixin(LightningElement)
@@ -22,8 +22,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   _showCreate = false;
   showValidate = false;
   _selectedOption;
-  redirectionUrl;
-  snowInstanceUrl;
+  snowUrlJson = JSON.parse(SNOW_URL);
 
   showError() {
     handleErrorShowToast(
@@ -32,20 +31,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       undefined,
       "Please enter a valid Risk Event ID to continue."
     );
-  }
-
-  @wire(getEnvSettings)
-  wiredEnvSettings({ data, error }) {
-    if (data) {
-      this.snowInstanceUrl = data;
-    } else if (error) {
-      handleErrorShowToast(
-        this,
-        "Unable to fetch ServiceNow instance url",
-        error,
-        "Please contact your system administrator."
-      );
-    }
   }
 
   @api set selectedOption(value) {
@@ -156,8 +141,18 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       this.closeAction();
     }
   }
+
   redirectToForm() {
-    if (this.snowInstanceUrl) {
+    let domainName = window.location.host.split(".")[0];
+    let snowInstanceUrl = this.snowUrlJson[domainName] ?? "";
+    if (!snowInstanceUrl) {
+      handleErrorShowToast(
+        this,
+        "Unable to fetch a valid url",
+        undefined,
+        "Please contact your system administrator to set the required redirection url."
+      );
+    } else {
       let redirectionUrl = this.snowInstanceUrl + this.omniJsonData.recordId;
 
       this[NavigationMixin.Navigate]({
@@ -166,13 +161,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
           url: redirectionUrl
         }
       });
-    } else {
-      handleErrorShowToast(
-        this,
-        "Unable to fetch a valid url",
-        undefined,
-        "Please contact your system administrator to set the required redirection url."
-      );
     }
   }
   callAPI(riskEventId) {
