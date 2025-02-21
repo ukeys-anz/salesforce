@@ -134,8 +134,8 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
           this.progress >= 90 && this.progress !== 99
             ? this.progress + 1
             : this.progress === 99
-            ? (this.progress = 99)
-            : this.progress + 2;
+              ? (this.progress = 99)
+              : this.progress + 2;
       }
     }, 400);
   }
