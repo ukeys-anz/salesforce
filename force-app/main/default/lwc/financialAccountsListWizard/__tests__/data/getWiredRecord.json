@@ -1,0 +1,47 @@
+{
+  "apiName": "Case",
+  "childRelationships": {},
+  "fields": {
+    "Account": {
+      "displayValue": "Nilesh Jaiswal",
+      "value": {
+        "apiName": "Account",
+        "childRelationships": {},
+        "fields": {
+          "OCV_ID__c": {
+            "displayValue": null,
+            "value": "1001297679"
+          }
+        },
+        "id": "001AD00000beyc1YAA",
+        "lastModifiedById": "0052P000001BfonQAC",
+        "lastModifiedDate": "2024-11-04T08:20:54.000Z",
+        "recordTypeId": "0125m0000004HloAAE",
+        "recordTypeInfo": {
+          "available": true,
+          "defaultRecordTypeMapping": false,
+          "master": false,
+          "name": "Individual",
+          "recordTypeId": "0125m0000004HloAAE"
+        },
+        "systemModstamp": "2024-12-06T07:52:26.000Z"
+      }
+    },
+    "AccountId": {
+      "displayValue": null,
+      "value": "001AD00000beyc1YAA"
+    }
+  },
+  "id": "500AD00000K5jtqYAB",
+  "lastModifiedById": "005AD000009zALRYA2",
+  "lastModifiedDate": "2025-01-16T05:31:30.000Z",
+  "recordTypeId": "012AD000001Zv9JYAS",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Case Group",
+    "recordTypeId": "012AD000001Zv9JYAS"
+  },
+  "systemModstamp": "2025-01-16T05:31:30.000Z"
+}

@@ -9,7 +9,7 @@
                         <valueListItems>
                             <value>Customer_Profile_Updates__c.Retry</value>
                             <visibilityRule>
-                                <booleanFilter>1 AND 2 AND 3</booleanFilter>
+                                <booleanFilter>(1 OR 4) AND 2 AND 3</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.TriggeredFrom__c}</leftValue>
                                     <operator>CONTAINS</operator>
@@ -24,6 +24,11 @@
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Profile_Staging_Retry}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.TriggeredFrom__c}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>Case.ProfileUpdate.LegalNameUpdate</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

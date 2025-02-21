@@ -6,8 +6,12 @@
 public with sharing class ProfileUpdateCaseActions {
   @TestVisible
   private static Group idOpsQueue = QueryQueue.get('ID_Ops_Queue');
+<<<<<<< HEAD
   @TestVisible
   private static final string CASE_TYPE_LEGAL_NAME = 'Legal Name QA';
+=======
+  public static final string CASE_TYPE_LEGAL_NAME = 'Legal Name QA';
+>>>>>>> develop
   public static final string PASS = 'Pass';
   public static final string FAILED_DOCUMENT_INVALID = 'Failed - Document Provided Invalid';
   public static final string FAILED_DOCUMENT_QUALITY = 'Failed - Document Quality Issue';
@@ -19,6 +23,13 @@ public with sharing class ProfileUpdateCaseActions {
   private static final ProfileUpdateCaseRepository REPOSITORY = (ProfileUpdateCaseRepository) Lib_InstanceProvider.forType(
     ProfileUpdateCaseRepository.class
   );
+<<<<<<< HEAD
+=======
+  private static final ProfileStagingHandler PROFILE_STAGING = (ProfileStagingHandler) Lib_InstanceProvider.forType(
+    ProfileStagingHandler.class
+  );
+
+>>>>>>> develop
   /**
    * @description Assign newly created Profile Update Cases to ID Ops Queue
    * @param records Case records being inserted by trigger
@@ -51,4 +62,34 @@ public with sharing class ProfileUpdateCaseActions {
     }
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
+<<<<<<< HEAD
+=======
+
+  /**
+   * @description when case's Review Outcome is set to 'Pass', a staging record will be created and a Cloud Event will be published
+   * @param records Case records being updated by trigger
+   * @param oldMap old instaces Case records being updated by trigger
+   */
+  public static void sendLegalNameUpdateToOCV(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> validCases = ListUtil.filter(records, oldMap)
+      .equals(Case.Type, CASE_TYPE_LEGAL_NAME)
+      .changedTo(Case.Fraud_Review_Outcome__c, PASS)
+      .toList();
+
+    Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
+      validCases,
+      Case.AccountId
+    );
+    List<Account> acctRecords = REPOSITORY.getAccounts(accIdToCaseMap.keySet());
+
+    PROFILE_STAGING.process(
+      new ProfileUpdateCaseStagingConfig(accIdToCaseMap),
+      acctRecords,
+      null
+    );
+  }
+>>>>>>> develop
 }

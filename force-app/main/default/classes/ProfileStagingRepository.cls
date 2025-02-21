@@ -16,9 +16,52 @@ public with sharing class ProfileStagingRepository {
       return new List<Customer_Profile_Updates__c>();
     }
     return [
-      SELECT Id, Customer_Name__r.RecordType.DeveloperName
+      SELECT
+        Id,
+        Action__c,
+        Case__c,
+        Case__r.CaseNumber,
+        Customer_Name__r.RecordType.DeveloperName,
+        Customer_Name__c,
+        Object_Name__c,
+        Occurrence_Number__c,
+        Name,
+        NewValue__c,
+        OCV_Id__c,
+        Source_System_ID__c,
+        Source_System_Name__c,
+        Status__c,
+        ToBeValue__c,
+        TriggeredFrom__c
       FROM Customer_Profile_Updates__c
       WHERE Id IN :recordIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Queries event configurations based on the provided list of triggers.
+   * @param triggers The set of trigger events to query.
+   * @return A list of event configuration records matching the provided triggers.
+   */
+  public List<ProfileStagingEventConfig__mdt> queryEventConfig(
+    Set<String> triggers
+  ) {
+    if (triggers.isEmpty()) {
+      return new List<ProfileStagingEventConfig__mdt>();
+    }
+    return [
+      SELECT
+        DataSchema__c,
+        EventType__c,
+        PartitionKey__c,
+        PayloadModel__c,
+        RelatedIdField__c,
+        Source__c,
+        Subject__c,
+        TriggeredFrom__c
+      FROM ProfileStagingEventConfig__mdt
+      WHERE TriggeredFrom__c IN :triggers
       WITH USER_MODE
     ];
   }

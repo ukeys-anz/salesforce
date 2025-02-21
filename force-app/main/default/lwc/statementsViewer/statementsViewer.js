@@ -1,5 +1,5 @@
 import { LightningElement, api, track, wire } from "lwc";
-import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import { getRecord } from "lightning/uiRecordApi";
 import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 import { CurrentPageReference } from "lightning/navigation";
 import getStatements from "@salesforce/apex/StatementAPIRepository.getStatementsAura";
@@ -11,9 +11,7 @@ import FINANCIAL_ACCOUNT_ID_FIELD from "@salesforce/schema/FinServ__FinancialAcc
 import PRODUCT_NAME_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.Product_Name__c";
 import OCV_ID_FIELD from "@salesforce/schema/FinServ__FinancialAccount__c.OCV_ID__c";
 import FIN_ACCOUNT_OWNERSHIP_TYPE from "@salesforce/schema/FinServ__FinancialAccount__c.Ownership__c";
-import FIN_ACCOUNT_RT_APINAME from "@salesforce/schema/FinServ__FinancialAccount__c.RecordType.DeveloperName";
 import hasViewStatementsPermission from "@salesforce/customPermission/ANZx_View_Statements";
-import { BANK_ACCOUNT_RT_APINAME } from "c/financialAccountParent";
 
 const DEFAULT_PAGE_SIZE = 10;
 
@@ -23,7 +21,6 @@ const FIELDS = [
   FINANCIAL_ACCOUNT_ID_FIELD,
   PRODUCT_NAME_FIELD,
   OCV_ID_FIELD,
-  FIN_ACCOUNT_RT_APINAME,
   FIN_ACCOUNT_OWNERSHIP_TYPE
 ];
 
@@ -96,12 +93,7 @@ export default class StatementsViewer extends LightningElement {
       if (!this.ocvId) {
         return;
       }
-      this.accRecordTypeApiName = getFieldValue(data, FIN_ACCOUNT_RT_APINAME);
-      if (this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME) {
-        this.productName = "ANZ Plus Home Loan";
-      } else {
-        this.productName = data.fields.Product_Name__c.value;
-      }
+      this.productName = data.fields.Product_Name__c.value;
       this.getStatementsData(
         this.ocvId,
         this.accountNumber,

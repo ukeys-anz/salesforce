@@ -165,9 +165,12 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
         return;
       }
       this.userFriendlyErrorMessage = error.body.message.includes(
-        "DUPLICATE_VALUE"
+
+        "FIELD_CUSTOM_VALIDATION_EXCEPTION"
       )
-        ? DUPLICATE_LOANAPP_REF_ERROR
+        ? error.body.message.substring(
+            82 + "FIELD_CUSTOM_VALIDATION_EXCEPTION".length
+          )
         : `${USER_FRIENDLY_ERROR}: ${error.body.message}`;
       this.showError = true;
     }

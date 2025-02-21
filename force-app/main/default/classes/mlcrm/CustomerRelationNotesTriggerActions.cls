@@ -5,6 +5,23 @@
  * @description CustomerRelationNotesTriggerActions is class to handle all the MLCRM (Mobile Lending CRM) Actions
  */
 public with sharing class CustomerRelationNotesTriggerActions {
+  private static final CustomerRelationshipsRepository CUSTOMER_RELATIONSHIP_REPOSITORY = (CustomerRelationshipsRepository) Lib_InstanceProvider.forType(
+    CustomerRelationshipsRepository.class
+  );
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final AccountActionsRepository ACCOUNT_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
+    AccountActionsRepository.class
+  );
+  private static final Set<SObjectField> CUSTOMER_RELATIONSHIP_FIELDS = new Set<SObjectField>{
+    Account.FirstName,
+    Account.MiddleName,
+    Account.LastName,
+    Account.Salutation,
+    Account.Suffix
+  };
+
   /**
    * @description This method to update is new flag checkbox to false during implicit update while lead creation
    * @name validatePrimaryRelationshipNotes
@@ -124,7 +141,10 @@ public with sharing class CustomerRelationNotesTriggerActions {
         reqRecord,
         (ID) records[0].get('Territory__c')
       );
-      Database.SaveResult result = Database.insert(objRelation, false);
+      DML_REPOSITORY.doInsert(
+        objRelation,
+        new DmlConfig().allowPartial().systemMode()
+      );
     }
 
     /**
@@ -206,5 +226,89 @@ public with sharing class CustomerRelationNotesTriggerActions {
       recordQuery += 'Opportunity WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null';
     }
     return recordQuery;
+  }
+
+  /**
+   * @description Update Customer_Name__c field on Customer_Relationship__c object
+   * @name updateCustomerName
+   * @param oldMap A Map of Customer_Relationship__c records.
+   * @param records list Customer_Relationship__c records.
+   */
+  public static void updateCustomerName(
+    Map<id, Customer_Relationship__c> oldMap,
+    List<Customer_Relationship__c> records
+  ) {
+    List<Customer_Relationship__c> listOfSobjects = ListUtil.filter(records, oldMap)
+        .changed(Customer_Relationship__c.Customer__c)
+        .toList();
+    set<Id> accIdsSet = ListUtil.getIds(
+      listOfSobjects,
+      Customer_Relationship__c.Customer__c
+    );
+    Map<Id, Account> mapOfAccount = ACCOUNT_REPOSITORY.getAccountByIds(
+      accIdsSet
+    );
+    for (Customer_Relationship__c obj : listOfSobjects) {
+      if (mapOfAccount.get(obj.Customer__c) == null) {
+        obj.Customer_Name__c = '';
+        continue;
+      }
+      obj.Customer_Name__c =
+        mapOfAccount.get(obj.Customer__c).Salutation +
+        ' ' +
+        mapOfAccount.get(obj.Customer__c).Name;
+    }
+  }
+  /**
+   * @description get set of updated customer's id's who specific fields got updated
+   * @name getUpdatedCustomersIds
+   * @param oldMap A Map of AccountId and Account.
+   * @param records list of updated Account records.
+   */
+  public static void getUpdatedCustomersIds(
+    Map<Id, Account> oldMap,
+    List<Account> records
+  ) {
+    if (System.isFuture() || System.isBatch()) {
+      return;
+    }
+    List<Account> listOfSobjects = ListUtil.filter(records, oldMap)
+      .equals(Account.RecordTypeId, RTAccount.personAccount)
+      .anyChanged(CUSTOMER_RELATIONSHIP_FIELDS)
+      .toList();
+
+    Set<id> setOfAccountIds = ListUtil.getIds(
+      listOfSobjects,
+      Customer_Relationship__c.Customer__r.Id
+    );
+    if (setOfAccountIds.isEmpty()) { 
+      return;
+    }
+    updateCustomerNameOnCustomerRelationship(setOfAccountIds);
+  }
+  /**
+   * @description Executes asynchronously to update Customer_Name__c field on Customer_Relationship__c object
+   * @name updateCustomerNameOnCustomerRelationship
+   * @param setOfAccountIds set of accountIds.
+   */
+  @future
+  public static void updateCustomerNameOnCustomerRelationship(
+    Set<id> setOfAccountIds
+  ) {
+    List<Customer_Relationship__c> listOfCustomerRelationship = CUSTOMER_RELATIONSHIP_REPOSITORY.getCustomerRelationshipByAccountIds(
+      setOfAccountIds
+    );
+    for (
+      Customer_Relationship__c customerRelationship : listOfCustomerRelationship
+    ) {
+      customerRelationship.Customer_Name__c =
+        customerRelationship.Customer__r.Salutation +
+        ' ' +
+        customerRelationship.Customer__r.Name;
+    }
+    DML_REPOSITORY.doUpdate(
+      listOfCustomerRelationship,
+      new DmlConfig().allowPartial().systemMode()
+    );
   }
 }

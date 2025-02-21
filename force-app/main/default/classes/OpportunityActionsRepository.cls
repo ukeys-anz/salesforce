@@ -38,4 +38,26 @@ public class OpportunityActionsRepository {
       WITH USER_MODE
     ];
   }
+<<<<<<< HEAD
+=======
+
+  /**
+   * @description return Opportunities using Loanapp_Reference__c
+   * using SYSTEM_MODE SOQL to scan through all ML Opportunities
+   * @param larSet Loanapp_Reference__c of Opportunity
+   * @return List<Opportunity>
+   */
+  public List<Opportunity> getOpportunityByLoanappReference(
+    Set<String> larSet
+  ) {
+    return [
+      SELECT Id, Loanapp_Reference__c
+      FROM Opportunity
+      WHERE
+        Loanapp_Reference__c IN :larSet
+        AND RecordTypeId = :RTOpportunity.mlOpportunity
+      WITH SYSTEM_MODE
+    ];
+  }
+>>>>>>> develop
 }

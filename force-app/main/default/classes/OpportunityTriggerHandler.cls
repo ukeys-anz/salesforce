@@ -36,6 +36,8 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
 
     //checks for validations on opportunities
     CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
+    //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
+    OpportunityActions.preventDuplicateLoanappReferenceNumber(records, null);
     //CC-4528 validate Opportunity for MLCRM
     OpportunityActions.validateMLCRMOpportunity(records, null);
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
@@ -120,7 +122,11 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap,
       false
     );
-
+    //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
+    OpportunityActions.preventDuplicateLoanappReferenceNumber(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
     //CC-4528 validate Opportunity for MLCRM
     OpportunityActions.validateMLCRMOpportunity(
       records,

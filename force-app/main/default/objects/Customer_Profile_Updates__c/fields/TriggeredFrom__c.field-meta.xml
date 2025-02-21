@@ -7,7 +7,7 @@
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>TriggeredFrom</label>
-    <length>30</length>
+    <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackTrending>false</trackTrending>

@@ -53,7 +53,7 @@
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>
-                <field>Industry</field>
+                <field>Industry__c</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Edit</behavior>

@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_OCV</complianceGroup>
     <description>Accreditation End Date</description>
     <externalId>false</externalId>
-    <label>Accreditation End Date</label>
+    <label>End Date</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>

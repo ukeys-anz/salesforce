@@ -46,6 +46,8 @@ public with sharing class AutoKYCQACaseActions {
     'Open',
     'Under Review',
     'Closed'
+    'Under Review',
+    'Closed'
   };
 
   private static final Set<String> DOWNGRADE_NEW_STATUSES = new Set<String>{
@@ -691,6 +693,76 @@ public with sharing class AutoKYCQACaseActions {
       completedCpus,
       Customer_Profile_Updates__c.Case__c
     );
+
+    //staging records are individually updated across multiple transactions
+    //use queueable to ensure all staging records statuses are persisted before updating case
+    if (casesIds.size() == 1) {
+      new UpdateRestraintResultsQueueable(
+          casesIds.iterator().next(),
+          restraintsAction
+        )
+        .enqueue();
+      return;
+    }
+    updateRestraintResults(casesIds, restraintsAction);
+  }
+
+  /**
+   * @description Updates the restraint results for a given case asynchronously
+   */
+  public class UpdateRestraintResultsQueueable implements Queueable {
+    private Id caseId;
+    private String action;
+
+    /**
+     * @description Constructor for UpdateRestraintResultsQueueable
+     * @param caseId The ID of the case to update.
+     * @param action The action to be taken on the restraints.
+     */
+    public UpdateRestraintResultsQueueable(Id caseId, String action) {
+      this.caseId = caseId;
+      this.action = action;
+    }
+
+    /**
+     * @description Enqueues the job to update restraint results.
+     */
+    public void enqueue() {
+      System.enqueueJob(this);
+      Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          this.action +
+          ': Queueable action scheduled',
+        this.caseId
+      );
+      Logger.saveLog();
+    }
+
+    /**
+     * @description execute method
+     * @param context QueueableContext
+     */
+    public void execute(QueueableContext context) {
+      updateRestraintResults(new Set<Id>{ this.caseId }, this.action);
+    }
+  }
+
+  /**
+   * @description Updates the restraint results for a set of KYC QA cases.
+   * @param casesIds Set<Id> - The set of case IDs to update.
+   * @param restraintsAction String - The action to be taken on the restraints.
+   */
+  private static void updateRestraintResults(
+    Set<Id> casesIds,
+    String restraintsAction
+  ) {
+    Logger.debug(
+      DateTimeUtils.timeString +
+        ' | ' +
+        restraintsAction +
+        ': Updating Restraint Results'
+    );
     List<Case> kycQACases = REPOSITORY.queryKYCQACasesWithCpu(casesIds);
     List<Case> casesWithStatus = getCasesWithUpdatedRestraintStatus(
       kycQACases,
@@ -700,6 +772,13 @@ public with sharing class AutoKYCQACaseActions {
       casesWithStatus,
       new DmlConfig().allowPartial().withoutSharing()
     );
+    Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          restraintsAction +
+          ': Updated Restraint Results'
+      )
+      .save();
   }
 
   /**
@@ -719,13 +798,24 @@ public with sharing class AutoKYCQACaseActions {
         kycQACase.Customer_Profile_Updates__r,
         restraintsAction
       );
-
+      Logger.debug(
+        String.format(
+          '{0} | Restraint status from "{1}" to "{2}"',
+          new List<String>{
+            DateTimeUtils.timeString,
+            kycQACase.Fraud_Restraint_Status__c,
+            status
+          }
+        ),
+        kycQACase.Id
+      );
       if (status != null && kycQACase.Fraud_Restraint_Status__c != status) {
         cases.add(
           new Case(Id = kycQACase.Id, Fraud_Restraint_Status__c = status)
         );
       }
     }
+    Logger.saveLog();
     return cases;
   }
 

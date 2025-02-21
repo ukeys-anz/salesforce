@@ -288,7 +288,6 @@ private class CCRMAccountActionsTest {
 
   @isTest
   static void testValidateCustomerInformation() {
-    Faker faker = new Faker('AU');
     Database.SaveResult result;
     //GIVEN A active account with ABN as  50 110 219 460
     Account testAccount = [SELECT Id FROM Account WHERE Name = 'Test Pty Ltd'];
@@ -344,5 +343,125 @@ private class CCRMAccountActionsTest {
       System.Label.CCRM_CustomerTypeLengthCheck,
       'Customer Type Length cannot be greater than 2 characters.'
     );
+  }
+
+  /**
+   * @description test method for PreventEditShellProspect
+   */
+  @isTest
+  static void testPreventEditShellProspect() {
+    ID accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    List<Account> accList = new List<Account>();
+    accList.add(
+      new Account(
+        Id = accountId1,
+        recordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID,
+        OCV_Event_Version__c = 0
+      )
+    );
+
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
+      // Positive Scenario
+      try {
+        CCRMAccountActions.preventEditShellProspect(accList);
+      } catch (Exception ex) {
+        Boolean expectedExceptionThrown = ex.getMessage()
+            .contains(Label.ML_ShellProspect_Update_ErrorMessage)
+          ? true
+          : false;
+        system.assertEquals(
+          true,
+          expectedExceptionThrown,
+          'preventEditShellProspect is not Preventing Shell Records to Update'
+        );
+      }
+      // Negative Scenario
+      try {
+        accList[0].OCV_Event_Version__c = 1;
+        CCRMAccountActions.preventEditShellProspect(accList);
+      } catch (Exception ex) {
+        Boolean expectedExceptionThrown = ex.getMessage()
+            .contains(Label.ML_ShellProspect_Update_ErrorMessage)
+          ? true
+          : false;
+        system.assertEquals(
+          false,
+          expectedExceptionThrown,
+          'preventEditShellProspect is Preventing to update for Non-Shell Records'
+        );
+      }
+    }
+  }
+
+  /**
+   * @description test method for preventEditOcvId
+   */
+  @isTest
+  static void testPreventEditOcvId() {
+    ID accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      accountId1 => (new Account(
+        Id = accountId1,
+        recordTypeId = CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID,
+        OCV_ID__c = '1234'
+      ))
+    };
+    List<Account> accList = accMap.values();
+    accList[0].OCV_ID__c = 'test';
+
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
+      // Positive Scenario
+      try {
+        CCRMAccountActions.preventEditOcvId(accList, accMap);
+      } catch (Exception ex) {
+        Boolean expectedExceptionThrown = ex.getMessage()
+            .contains(Label.ML_OCV_ID_Update_ErrorMessage)
+          ? true
+          : false;
+        system.assertEquals(
+          true,
+          expectedExceptionThrown,
+          'PreventEditOcvId is not Preventing OCV Id'
+        );
+      }
+      //Negative Scenario
+      try {
+        CCRMAccountActions.preventEditOcvId(accMap.values(), accMap);
+      } catch (Exception ex) {
+        Boolean expectedExceptionThrown = ex.getMessage()
+            .contains(Label.ML_OCV_ID_Update_ErrorMessage)
+          ? true
+          : false;
+        system.assertEquals(
+          true,
+          expectedExceptionThrown,
+          'PreventEditOcvId thowing error when OCV id is not changed'
+        );
+      }
+    }
+  }
+
+  /**
+   * @description test method for preventEditOcvId
+   */
+  @isTest
+  static void testBypassPreventEditRecords() {
+    System.runAs(MLCRMTestDataFactory.getMLCRMBaseUser()) {
+      system.assertEquals(
+        false,
+        CCRMAccountActions.bypassPreventEditRecords(),
+        'ML user is able to bypass PreventEdit Check'
+      );
+    }
+    User ocvIntegrationUser = MLCRMTestDataFactory.createMLCRMIntegrationUser(
+      Label.CCRM_OCVIntegrationUsername + '.test123'
+    );
+    System.runAs(ocvIntegrationUser) {
+      system.assertEquals(
+        true,
+        CCRMAccountActions.bypassPreventEditRecords(),
+        'ML user is able to bypass PreventEdit Check'
+      );
+    }
   }
 }
