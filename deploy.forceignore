@@ -81,8 +81,8 @@ force-app/main/default/classes/ccrm/CCRMContactActions.cls
 force-app/main/default/classes/ccrm/CCRMContactActions.cls-meta.xml
 force-app/main/default/classes/ccrm/CCRMContactActionsTest.cls
 force-app/main/default/classes/ccrm/CCRMContactActionsTest.cls-meta.xml
-force-app/main/default/classes/tfm/CCRMContactActionsTest.cls-meta.xml
-force-app/main/default/classes/tfm/CCRMContactActionsTest.cls-meta.xml
+force-app/main/default/classes/tfm/TFMExportConsentDetailsHelper.cls
+force-app/main/default/classes/tfm/TFMExportConsentDetailsHelper.cls-meta.xml
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus

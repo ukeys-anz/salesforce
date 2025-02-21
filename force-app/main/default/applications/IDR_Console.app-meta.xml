@@ -62,6 +62,33 @@
         <content>Quality_Assessment_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
+        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Quality_Assessment_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
         <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
@@ -73,7 +100,7 @@
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <type>Flexipage</type>
-        <profile>Admin</profile>
+        <profile>ANZx Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -82,7 +109,7 @@
         <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <type>Flexipage</type>
-        <profile>ANZ Standard Automation User</profile>
+        <profile>Admin</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -92,15 +119,6 @@
         <recordType>Quality_Assessment__c.C_Q_Assessment</recordType>
         <type>Flexipage</type>
         <profile>ANZ Standard User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Quality_Assessment_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Quality_Assessment__c</pageOrSobjectType>
-        <recordType>Quality_Assessment__c.Call_Letter_Review_Assessment</recordType>
-        <type>Flexipage</type>
-        <profile>ANZ Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>

@@ -147,7 +147,6 @@
                     ISNEW(),
                     RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
                     ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;)
-                    ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;)
                 )
             </formula>
         </ruleEntry>
@@ -202,9 +201,6 @@
                     ISPICKVAL(Origin, &quot;ANZ Plus App&quot;) 
                 )
             </formula>
-        </ruleEntry>
-        <ruleEntry>
-            <formula>AND(NOT(ISNEW()), OR(RecordType.DeveloperName = &quot;Account_Closure&quot;,AND(RecordType.DeveloperName = &quot;Case_Group&quot;, ISPICKVAL(Type, &quot;Account Closure&quot;))))</formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

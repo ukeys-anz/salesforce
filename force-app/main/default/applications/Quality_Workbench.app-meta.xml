@@ -137,34 +137,7 @@
         <pageOrSobjectType>Case</pageOrSobjectType>
         <recordType>Case.Customer_Complaint</recordType>
         <type>Flexipage</type>
-        <profile>ANZ Standard Automation User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Complaint_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <recordType>Case.Customer_Complaint</recordType>
-        <type>Flexipage</type>
         <profile>ANZ Standard User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Complaint_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <recordType>Case.Customer_Complaint</recordType>
-        <type>Flexipage</type>
-        <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Complaint_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <recordType>Case.Non_Customer_Complaint</recordType>
-        <type>Flexipage</type>
-        <profile>ANZ Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -299,15 +272,6 @@
         <pageOrSobjectType>Case</pageOrSobjectType>
         <recordType>Case.Non_Customer_Complaint</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard Automation User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Complaint_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>Case</pageOrSobjectType>
-        <recordType>Case.Non_Customer_Complaint</recordType>
-        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -361,14 +325,6 @@
         <formFactor>Large</formFactor>
         <pageOrSobjectType>standard-home</pageOrSobjectType>
         <type>Flexipage</type>
-        <profile>ANZx Standard Automation User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>Tab</actionName>
-        <content>Quality_Workbench_Home_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>standard-home</pageOrSobjectType>
-        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -405,22 +361,6 @@
         <recordType>Quality_Assessment__c.General</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Residential_Loan_Application_Record_Page</content>
-        <formFactor>Small</formFactor>
-        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
-        <type>Flexipage</type>
-        <profile>ANZx Standard Automation User</profile>
-    </profileActionOverrides>
-    <profileActionOverrides>
-        <actionName>View</actionName>
-        <content>Residential_Loan_Application_Record_Page</content>
-        <formFactor>Large</formFactor>
-        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
-        <type>Flexipage</type>
-        <profile>ANZx Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -551,7 +491,7 @@
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.Appointment</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard Automation User</profile>
+        <profile>ANZ Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -560,7 +500,7 @@
         <pageOrSobjectType>Interaction</pageOrSobjectType>
         <recordType>Interaction.Appointment</recordType>
         <type>Flexipage</type>
-        <profile>ANZx Standard Automation User</profile>
+        <profile>ANZ Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -604,6 +544,30 @@
         <formFactor>Small</formFactor>
         <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
         <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Minimum Access - Salesforce</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
         <profile>ANZx Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -613,6 +577,14 @@
         <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Interaction_Attendee_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>InteractionAttendee</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>Minimum Access - Salesforce</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
