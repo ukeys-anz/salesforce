@@ -27,27 +27,4 @@ public with sharing virtual class SNOWIntegrationService extends Service {
       ''
     );
   }
-
-  /**
-   * @description method to fetch service-now instance url for redirection
-   * @return Url as String
-   */
-  @AuraEnabled(cacheable=true)
-  public static String getEnvSettings() {
-    List<ServiceNow_environment_settings__c> envSettings = SNOW_SETTING_REPOSITORY.getSnowEnvSettings();
-    String domainUrl = System.URL.getOrgDomainUrl().getHost().split('\\.')[0];
-    String envUrl = '';
-    for (ServiceNow_environment_settings__c setting : envSettings) {
-      if (
-        !(',' +
-          setting.Environment_name__c.toLowerCase() +
-          ',')
-          .contains(',' + domainUrl + ',')
-      ) {
-        continue;
-      }
-      envUrl = setting.Url__c;
-    }
-    return envUrl;
-  }
 }

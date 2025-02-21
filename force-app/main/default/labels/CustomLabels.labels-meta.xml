@@ -843,6 +843,19 @@
         <value>7</value>
     </labels>
     <labels>
+        <fullName>IDR_ServiceNow_env_url</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ServiceNow env url</shortDescription>
+        <value>{
+&quot;anz--cmosadev25&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--cmosa&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--anzxbau25&quot;: &quot;https://anzbankuat.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--test25&quot;: &quot;https://anztechtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz&quot;: &quot;&quot;
+}</value>
+    </labels>
+    <labels>
         <fullName>IDR_Toggle_Old_New_Resolution_Pathway</fullName>
         <language>en_US</language>
         <protected>false</protected>

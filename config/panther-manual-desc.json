@@ -4138,9 +4138,6 @@
         "RecordsJson__c"
       ]
     },
-    "ServiceNow_environment_settings__c": {
-      "IA-2453595": ["Url__c", "Environment_name__c"]
-    },
     "Settlement__c": {
       "IA-2415840": [
         "Settlement_ID__c",
