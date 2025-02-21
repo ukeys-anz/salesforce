@@ -93,7 +93,7 @@ public with sharing class AccountClosureRepository {
         AND Status = :GetHelpConstants.ESCALATED_STATUS
         AND (Sub_Status__c = :GetHelpConstants.FAILED
         OR Sub_Status__c = NULL)
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -122,7 +122,7 @@ public with sharing class AccountClosureRepository {
         AND RecordTypeId = :RTCase.accountClosure
         AND Sub_Status__c = :GetHelpConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -214,7 +214,7 @@ public with sharing class AccountClosureRepository {
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -250,7 +250,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         FinServ__FinancialAccount__c IN :accountIds
         AND RecordTypeId = :RTCase.accountClosure
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -270,15 +270,13 @@ public with sharing class AccountClosureRepository {
         FinServ__ProductName__c,
         FinServ__Balance__c,
         Ownership__c,
-        FinServ__Status__c,
-        Marketing_Code__c,
-        toLabel(Number_Of_Signatures__c),
-        RecordType.DeveloperName
+        toLabel(Number_Of_Signatures__c)
       FROM FinServ__FinancialAccount__c
       WHERE
         Id IN :accountIds
         AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
-        WITH USER_MODE
+        AND RecordType.DeveloperName IN :GetHelpConstants.anzxFinancialAccountRecordTypes
+      WITH USER_MODE
     ];
   }
 
@@ -290,9 +288,7 @@ public with sharing class AccountClosureRepository {
   public List<AccountClosureErrorMetadata__mdt> getFailureMetadata(
     Set<String> failureReasons
   ) {
-    if (
-      failureReasons.isEmpty()
-    ) {
+    if (failureReasons.isEmpty()) {
       return new List<AccountClosureErrorMetadata__mdt>();
     }
 
@@ -338,7 +334,7 @@ public with sharing class AccountClosureRepository {
         Status != :GetHelpConstants.CLOSED_STATUS
         AND ParentId IN :caseIds
         AND RecordTypeId = :RTCase.accountClosure
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -350,9 +346,7 @@ public with sharing class AccountClosureRepository {
   public List<FinServ__FinancialAccountRole__c> queryFinancialAccountRoles(
     String finAccountValue
   ) {
-    if (
-      String.isBlank(finAccountValue)
-    ) {
+    if (String.isBlank(finAccountValue)) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -362,7 +356,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c = :finAccountValue
         AND FinServ__Active__c = TRUE
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 }
