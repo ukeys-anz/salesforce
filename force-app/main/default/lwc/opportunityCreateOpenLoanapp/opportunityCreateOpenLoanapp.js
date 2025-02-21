@@ -58,7 +58,9 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
   }
 
   get bodyText() {
-    return `${this.openApp ? "Opening" : "Creating"} Loanapp for ${this.oppDetails?.Name}. You will be automatically redirected to Simpology Loanapp.`;
+    return `${this.openApp ? "Opening" : "Creating"} Loanapp for ${
+      this.oppDetails?.Name
+    }. You will be automatically redirected to Simpology Loanapp.`;
   }
 
   get headerText() {
@@ -134,8 +136,8 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
           this.progress >= 90 && this.progress !== 99
             ? this.progress + 1
             : this.progress === 99
-              ? (this.progress = 99)
-              : this.progress + 2;
+            ? (this.progress = 99)
+            : this.progress + 2;
       }
     }, 400);
   }
@@ -165,7 +167,6 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
         return;
       }
       this.userFriendlyErrorMessage = error.body.message.includes(
-
         "FIELD_CUSTOM_VALIDATION_EXCEPTION"
       )
         ? error.body.message.substring(
