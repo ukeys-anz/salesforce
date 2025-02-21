@@ -8620,7 +8620,7 @@
     </recordTypeVisibilities>
     <tabSettings>
         <tab>Circle_Of_Influence__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>A_Z_Review__c</tab>
