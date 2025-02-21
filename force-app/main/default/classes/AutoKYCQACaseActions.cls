@@ -46,8 +46,6 @@ public with sharing class AutoKYCQACaseActions {
     'Open',
     'Under Review',
     'Closed'
-    'Under Review',
-    'Closed'
   };
 
   private static final Set<String> DOWNGRADE_NEW_STATUSES = new Set<String>{
