@@ -2273,9 +2273,9 @@
                 <name>rmDetailsError</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;TextBlock2&quot;,
-  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;span style=\&quot;color: #000000;\&quot;&gt;Relationship Manager Details&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;br /&gt;Error : Couldn&apos;t retrieve relationship details for the given CPID.&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;p&gt;&lt;strong&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;span style=\&quot;color: #000000;\&quot;&gt;Relationship Manager Details:&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=\&quot;color: #e03e2d;\&quot;&gt;&lt;br /&gt;Error : &lt;em&gt;Relationship Manager details are not available for the customer&apos;s CPID.&lt;/em&gt;&lt;/span&gt;&lt;/strong&gt;&lt;/p&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -6962,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>2582eaff-63da-930d-0f52-eb194b5511ec</webComponentKey>
+    <webComponentKey>22fcb216-5b4b-1ee3-51be-1d66a799ab35</webComponentKey>
 </OmniScript>
