@@ -22,11 +22,8 @@ public with sharing class OpportunityActions {
   private static final String STR_APPLICANT = 'Applicant';
   private static final String STAGE_CLOSED = 'Closed';
   private static final String STAGE_LOST = 'Lost';
-<<<<<<< HEAD
-=======
   @testVisible
   private static final String DUPLICATE_LAR_ERROR = 'This Loanapp Reference is already linked to an Opportunity. Check the Loanapp Reference is correct and De-link from the other opportunity before proceeding.';
->>>>>>> develop
 
   /**
    * @description Define custom exceptions
@@ -337,8 +334,6 @@ public with sharing class OpportunityActions {
   }
 
   /**
-<<<<<<< HEAD
-=======
    * @description This method is used to throw an error on duplicate Loanapp_Reference__c
    * @name preventDuplicateLoanappReferenceNumber
    * @param lstOfOpp list of Opportunity sobject records
@@ -402,7 +397,6 @@ public with sharing class OpportunityActions {
   }
 
   /**
->>>>>>> develop
    * @description called from create Propect from opportunity lwc component
    *              without sharing due to new shell prospect won't be shared to current
    *              user for further querying until after the current transaction

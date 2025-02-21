@@ -52,21 +52,7 @@ public with sharing class OpportunityCreateOpenLoanappController {
       String appKey = service.getCreateApplicationCalloutResponse(requestModel);
       return appKey;
     } catch (CalloutException cex) {
-<<<<<<< HEAD
-      String errorMessage = cex.getMessage();
-      try {
-        Map<String, Object> errorMap = (Map<String, Object>) JSON.deserializeUntyped(
-          errorMessage
-        );
-        errorMessage = String.valueOf(
-          errorMap?.get('message') ?? cex.getMessage()
-        );
-      } catch (Exception e) {
-        Logger.info('Unable to parse JSON, error is not of JSON type!');
-      }
-=======
       String errorMessage = getCalloutExceptionErrorMessage(cex.getMessage());
->>>>>>> develop
       Logger.error(errorMessage + '\n' + cex.getStackTraceString());
       Logger.saveLog();
       throw new AuraHandledException(errorMessage);
@@ -99,8 +85,6 @@ public with sharing class OpportunityCreateOpenLoanappController {
       throw new AuraHandledException(e.getMessage());
     }
   }
-<<<<<<< HEAD
-=======
 
   /**
    * @description to handle callout exception error
@@ -118,5 +102,4 @@ public with sharing class OpportunityCreateOpenLoanappController {
       return errorMsg;
     }
   }
->>>>>>> develop
 }

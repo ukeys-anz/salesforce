@@ -268,8 +268,6 @@ public class OpportunityActionsTest {
       'Failed to form map of opportunity contact role'
     );
   }
-<<<<<<< HEAD
-=======
 
   /**
    * @description test method for preventDuplicateLoanappReferenceNumber
@@ -328,5 +326,4 @@ public class OpportunityActionsTest {
     Test.stopTest();
     Assert.areEqual(1, oppList.size(), '1 opportunity should be returned!');
   }
->>>>>>> develop
 }

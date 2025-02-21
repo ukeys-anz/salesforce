@@ -38,8 +38,6 @@ public class OpportunityActionsRepository {
       WITH USER_MODE
     ];
   }
-<<<<<<< HEAD
-=======
 
   /**
    * @description return Opportunities using Loanapp_Reference__c
@@ -59,5 +57,4 @@ public class OpportunityActionsRepository {
       WITH SYSTEM_MODE
     ];
   }
->>>>>>> develop
 }

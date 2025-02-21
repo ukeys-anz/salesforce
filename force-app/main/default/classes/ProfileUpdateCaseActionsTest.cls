@@ -2,19 +2,13 @@
 private class ProfileUpdateCaseActionsTest {
   private static final Faker FAKER = new Faker('AU');
   static Lib_MockProvider profileUpdateCaseRepoMock;
-<<<<<<< HEAD
-=======
   static Lib_MockProvider handlerMock;
->>>>>>> develop
 
   static void registerMocks() {
     profileUpdateCaseRepoMock = Lib_MockProvider.forType(
       ProfileUpdateCaseRepository.class
     );
-<<<<<<< HEAD
-=======
     handlerMock = Lib_MockProvider.forType(ProfileStagingHandler.class);
->>>>>>> develop
   }
 
   static Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
@@ -81,8 +75,6 @@ private class ProfileUpdateCaseActionsTest {
       'getLegalNameCaseForNotification should have been called.'
     );
   }
-<<<<<<< HEAD
-=======
 
   @IsTest
   static void testSendLegalNameUpdateToOCV() {
@@ -116,5 +108,4 @@ private class ProfileUpdateCaseActionsTest {
       'ProfileStagingHandler.process should have been called.'
     );
   }
->>>>>>> develop
 }
