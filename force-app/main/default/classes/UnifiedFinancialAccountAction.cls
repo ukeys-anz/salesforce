@@ -154,17 +154,18 @@ public with sharing class UnifiedFinancialAccountAction {
     List<UnifiedFinancialAccountModel.AccountList> unifiedFinancialAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
 
     try {
-      if (String.isNotBlank(ownerId) && !recordTypeDeveloperNames.isEmpty()) {
-        //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
-        //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
-        List<String> allRelatedAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
-          ownerId
-        );
-        List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinacialAccounts(
-          ownerId,
-          allRelatedAccountNumbers,
-          recordTypeDeveloperNames
-        );
+      //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
+      //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
+      List<String> allRelatedAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
+        ownerId
+      );
+      List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinacialAccounts(
+        ownerId,
+        allRelatedAccountNumbers,
+        recordTypeDeveloperNames
+      );
+
+      if (financialAccount != null && !financialAccount.isEmpty()) {
         unifiedFinancialAccounts = FinancialAccountWrapper.generateAccountJson(
           financialAccount
         );
