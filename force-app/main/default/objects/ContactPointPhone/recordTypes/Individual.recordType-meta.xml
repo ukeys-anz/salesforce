@@ -29,5 +29,9 @@
             <fullName>Primary Home Telephone</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Security Mobile</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
 </RecordType>

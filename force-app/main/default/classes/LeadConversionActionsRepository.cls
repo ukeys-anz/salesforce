@@ -158,7 +158,7 @@ public without sharing class LeadConversionActionsRepository {
         FinServ__RelatedAccount__r.Phone,
         FinServ__RelatedAccount__r.PersonContactId,
         FinServ__RelatedAccount__r.PersonContact.HomePhone,
-        FinServ__RelatedAccount__r.PersonContact.MobilePhone,
+        FinServ__RelatedAccount__r.PersonContact.OtherPhone,
         FinServ__RelatedAccount__r.PersonContact.Email,
         FinServ__RelatedAccount__r.PersonContact.OtherStreet,
         FinServ__RelatedAccount__r.PersonContact.OtherCity,

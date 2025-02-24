@@ -39,23 +39,6 @@ public with sharing class CCRMContactPointEmailActions {
   }
 
   /**
-   * @description Unlink parent prospect account when ActiveToDate value is set
-   * @name unlinkProspectParentOnDeactivation
-   * @param records from the trigger
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in beforUpdate.
-   */
-  public static void unlinkProspectParentOnDeactivation(
-    List<ContactPointEmail> records,
-    Map<Id, ContactPointEmail> oldMap
-  ) {
-    for (ContactPointEmail cpe : records) {
-      if (oldMap.get(cpe.id).ActiveToDate == null && cpe.ActiveToDate != null) {
-        cpe.ParentId = null;
-      }
-    }
-  }
-
-  /**
    * @description getExistingOrProspectCPE to get the CPE related to Existing or Prospect Account
    * @param records List of CPE Records
    * @return ContactPointEmailWrapper return List of Existing or Prospect CPE
@@ -97,6 +80,9 @@ public with sharing class CCRMContactPointEmailActions {
   public static void checkExistingEmailOnProspectOrExistingCust(
     List<ContactPointEmail> records
   ) {
+    if (!IS_CCRM_USER) {
+      return;
+    }
     Map<Id, AggregateResult> mapAccountIdToEmailCount = new Map<Id, AggregateResult>();
     Set<Id> accountIds = new Set<Id>();
     for (ContactPointEmail record : records) {

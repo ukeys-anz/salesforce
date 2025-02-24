@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Update_ActiveToDate_Field</name>
+        <actionName>ContactPointObjectActions</actionName>
+        <actionType>apex</actionType>
+        <connector>
+            <targetReference>Is_ActiveToDate_Updated</targetReference>
+        </connector>
+        <description>To update the ActiveToDate field to Today&apos;s date. In case of ContactPointPhone show a validation if only one classic phone exists</description>
+        <faultConnector>
+            <targetReference>Fault_Message</targetReference>
+        </faultConnector>
+        <flowTransactionModel>Automatic</flowTransactionModel>
+        <inputParameters>
+            <name>recordIds</name>
+            <value>
+                <elementReference>recordId</elementReference>
+            </value>
+        </inputParameters>
+        <label>Update ActiveToDate Field</label>
+        <locationX>605</locationX>
+        <locationY>458</locationY>
+        <nameSegment>ContactPointObjectActions</nameSegment>
+        <offset>0</offset>
+        <outputParameters>
+            <name>output</name>
+            <assignToReference>apexOutputMessage</assignToReference>
+        </outputParameters>
+        <versionSegment>1</versionSegment>
+    </actionCalls>
+    <apiVersion>62.0</apiVersion>
+    <constants>
+        <name>SuccessValue</name>
+        <dataType>String</dataType>
+        <description>To Store Success value</description>
+        <value>
+            <stringValue>Success</stringValue>
+        </value>
+    </constants>
+    <decisions>
+        <name>Is_ActiveToDate_Updated</name>
+        <defaultConnector>
+            <targetReference>Error_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Error</defaultConnectorLabel>
+        <description>If the field is updated it will return success</description>
+        <label>Is ActiveToDate Updated?</label>
+        <locationX>605</locationX>
+        <locationY>566</locationY>
+        <rules>
+            <name>Success</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>apexOutputMessage</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <elementReference>SuccessValue</elementReference>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Close_Current_Tab</targetReference>
+            </connector>
+            <label>Success</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Is_Flow_disabled</name>
+        <defaultConnector>
+            <targetReference>Confirmation_Screen</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Not Disabled</defaultConnectorLabel>
+        <description>To check the flow is disabled for User/Profile using Salesforce_Library_Settings__c Custom setting</description>
+        <label>Is Flow disabled?</label>
+        <locationX>176</locationX>
+        <locationY>134</locationY>
+        <rules>
+            <name>Disabled</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Setup.Salesforce_Library_Settings__c.Disable_Flows__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Disabled</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Terminate_Flow</name>
+        <defaultConnector>
+            <targetReference>Update_ActiveToDate_Field</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>No</defaultConnectorLabel>
+        <description>To terminate flow on click of cancel button</description>
+        <label>Terminate Flow?</label>
+        <locationX>407</locationX>
+        <locationY>350</locationY>
+        <rules>
+            <name>Yes</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>Custom_Flow_Footer.terminate</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <booleanValue>true</booleanValue>
+                </rightValue>
+            </conditions>
+            <label>Yes</label>
+        </rules>
+    </decisions>
+    <description>Screen flow to be used for delete functionality in Contact Point Objects</description>
+    <environments>Default</environments>
+    <interviewLabel>Delete Contact Point {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Delete Contact Point</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>Flow</processType>
+    <screens>
+        <name>Close_Current_Tab</name>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <description>To close current tab if delete button is clicked</description>
+        <fields>
+            <name>Close_Tab</name>
+            <extensionName>c:closeCurrentTab</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <label>Close Current Tab</label>
+        <locationX>473</locationX>
+        <locationY>674</locationY>
+        <showFooter>true</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Confirmation_Screen</name>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <backButtonLabel>Cancel</backButtonLabel>
+        <connector>
+            <targetReference>Terminate_Flow</targetReference>
+        </connector>
+        <description>Confirmation Screen for deleting contact point objects</description>
+        <fields>
+            <name>Warning_Message</name>
+            <fieldText>&lt;p&gt;&lt;span style=&quot;background-color: rgb(255, 255, 255); font-size: 14px; font-family: -apple-system, BlinkMacSystemFont, &amp;quot;Segoe UI&amp;quot;, Roboto, &amp;quot;Noto Sans&amp;quot;, Ubuntu, &amp;quot;Droid Sans&amp;quot;, &amp;quot;Helvetica Neue&amp;quot;, sans-serif; color: rgb(23, 43, 77);&quot;&gt;Are you sure you want to delete this record?&lt;/span&gt;&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <fields>
+            <name>Custom_Flow_Footer</name>
+            <extensionName>c:contactPointFlowFooter</extensionName>
+            <fieldType>ComponentInstance</fieldType>
+            <inputsOnNextNavToAssocScrn>UseStoredValues</inputsOnNextNavToAssocScrn>
+            <isRequired>true</isRequired>
+            <storeOutputAutomatically>true</storeOutputAutomatically>
+        </fields>
+        <label>Confirmation Screen</label>
+        <locationX>407</locationX>
+        <locationY>242</locationY>
+        <nextOrFinishButtonLabel>Done</nextOrFinishButtonLabel>
+        <showFooter>false</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Error_Screen</name>
+        <allowBack>false</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>false</allowPause>
+        <description>To show error message</description>
+        <fields>
+            <name>Error_Message</name>
+            <fieldText>&lt;p&gt;{!apexOutputMessage}&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <label>Error Screen</label>
+        <locationX>737</locationX>
+        <locationY>674</locationY>
+        <nextOrFinishButtonLabel>Close</nextOrFinishButtonLabel>
+        <showFooter>false</showFooter>
+        <showHeader>true</showHeader>
+    </screens>
+    <screens>
+        <name>Fault_Message</name>
+        <allowBack>true</allowBack>
+        <allowFinish>true</allowFinish>
+        <allowPause>true</allowPause>
+        <description>Fault Screen</description>
+        <fields>
+            <name>Show_Fault_Message</name>
+            <fieldText>&lt;p&gt;There has been an issue while deleting the record.&lt;/p&gt;</fieldText>
+            <fieldType>DisplayText</fieldType>
+        </fields>
+        <label>Fault Message</label>
+        <locationX>1001</locationX>
+        <locationY>566</locationY>
+        <showFooter>false</showFooter>
+        <showHeader>false</showHeader>
+    </screens>
+    <start>
+        <connector>
+            <targetReference>Is_Flow_disabled</targetReference>
+        </connector>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>apexOutputMessage</name>
+        <dataType>String</dataType>
+        <description>Output message from invocable method</description>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+    <variables>
+        <name>recordId</name>
+        <dataType>String</dataType>
+        <description>RecordId of Contact Point Object</description>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+    </variables>
+</Flow>

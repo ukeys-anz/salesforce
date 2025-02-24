@@ -197,6 +197,7 @@ private class ListUtilTest {
       'Should return 1 group with 2 records'
     );
   }
+  //#endregion
 
   @IsTest
   static void testSetField() {
@@ -238,6 +239,7 @@ private class ListUtilTest {
     );
   }
   //#endregion
+
 
   //#region Generic Utilities Tests
   @IsTest
@@ -470,12 +472,14 @@ private class ListUtilTest {
     new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
       Name = FAKER.randomString(5),
-      NumberOfEmployees = FAKER.randomInteger(2)
+      NumberOfEmployees = FAKER.randomInteger(2),
+      Disclosure_Indicator__c = 'Y'
     ),
     new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
       Name = FAKER.randomString(5),
-      NumberOfEmployees = FAKER.randomInteger(2)
+      NumberOfEmployees = FAKER.randomInteger(2),
+      Disclosure_Indicator__c = 'Y'
     ),
     new Account(Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType))
   };
@@ -517,6 +521,52 @@ private class ListUtilTest {
       new List<Account>{ accounts[0], accounts[2] },
       results,
       'Expected accounts that is either have updated Name & NumberOfEmployees, or no prior record'
+    );
+  }
+
+  @IsTest
+  static void testAnychangedWithNewValueNull() {
+    accounts[0].Name = FAKER.randomString(6);
+    accounts[0].NumberOfEmployees = FAKER.randomInteger(1);
+    accounts[0].Disclosure_Indicator__c = null;
+    accounts[1].Name = FAKER.randomString(6);
+    Test.startTest();
+    List<Account> results = ListUtil.filter(
+        new List<Account>{ accounts[0], accounts[1] },
+        oldMap
+      )
+      .anychangedWithNewValueNull(
+        new Set<SObjectField>{ Account.Disclosure_Indicator__c }
+      )
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      results.size(),
+      'The method did not detected the field change value to null properly'
+    );
+  }
+
+  @IsTest
+  static void testAnychanged() {
+    accounts[0].Name = FAKER.randomString(6);
+    accounts[0].NumberOfEmployees = FAKER.randomInteger(1);
+    accounts[0].Disclosure_Indicator__c = 'test';
+    accounts[1].Name = FAKER.randomString(6);
+    Test.startTest();
+    List<Account> results = ListUtil.filter(
+        new List<Account>{ accounts[0], accounts[1] },
+        oldMap
+      )
+      .anychanged(new Set<SObjectField>{ Account.Disclosure_Indicator__c })
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      results.size(),
+      'The method did not detected field change values properly'
     );
   }
 

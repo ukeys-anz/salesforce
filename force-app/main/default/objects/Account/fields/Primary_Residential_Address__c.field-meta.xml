@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_Residential_Address__c</fullName>
+    <businessStatus>Hidden</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <externalId>false</externalId>
+    <formula>HYPERLINK(&quot;https://www.google.com/maps/search/?api=1&amp;query=&quot;&amp;PersonOtherStreet&amp;&quot;+&quot;&amp;PersonOtherCity&amp;&quot;+&quot;&amp;PersonOtherState&amp;&quot;+&quot;&amp;PersonOtherPostalCode&amp;&quot;+&quot;&amp;PersonOtherCountry,PersonOtherStreet &amp; BR()
+&amp;PersonOtherCity&amp;&quot; &quot;&amp;PersonOtherState&amp;&quot; &quot;&amp;PersonOtherPostalCode&amp;BR()&amp;PersonOtherCountry,&quot;_blank&quot;)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Primary Residential Address</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

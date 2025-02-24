@@ -3446,7 +3446,7 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2415984": ["Role"],
+      "IA-2415984": ["Role", "Mobile_Classic__c", "Email_Classic__c"],
       "IA-2428130": ["ContactId"],
       "IA-2530753": ["Source_System_Id__c"]
     },

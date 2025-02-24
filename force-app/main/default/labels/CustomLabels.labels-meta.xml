@@ -2786,4 +2786,12 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>CCRM_IndividualCustomerWarning</shortDescription>
         <value>Please fill out the details in contact information section.</value>
     </labels>
+    <labels>
+        <fullName>ExistingContactPointPhoneError</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ExistingContactPointPhoneError</shortDescription>
+        <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
+    </labels>
 </CustomLabels>

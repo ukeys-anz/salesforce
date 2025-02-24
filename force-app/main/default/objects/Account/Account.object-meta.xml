@@ -263,8 +263,8 @@
         <fields>ACCOUNT.NAME</fields>
         <fields>FinServ__OtherAddress__pc</fields>
         <fields>PC_BIRTHDATE</fields>
-        <fields>PC_EMAIL</fields>
-        <fields>PC_PHONE3</fields>
+        <fields>Other_Email__c</fields>
+        <fields>PC_PHONE5</fields>
         <fields>FinServ__KYCStatus__c</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
