@@ -904,10 +904,10 @@ public with sharing class AutoKYCQACaseActionsTest {
   //#region populate closed no defect defaults
   @IsTest
   static void testPopulateClosedNoDefectDefaults() {
-    Case newCase = (Case) TestUtil.setFields(
-      new Case(Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT),
-      new Map<String, Object>{ 'KYCChecksHasDefect__c' => false }
+    Case newCase = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
     );
+
     List<Case> records = new List<Case>{ newCase };
 
     Test.startTest();

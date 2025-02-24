@@ -223,6 +223,20 @@ public class SObjectFilterBuilder {
   }
 
   /**
+   * @description Filter records with all fields not equal to a given value or list/set of values
+   * @param fields The field to compare against.
+   * @param valueOrCollection The values to compare with the field.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder allNotEqual(
+    Set<SObjectField> fields,
+    Object valueOrCollection
+  ) {
+    base.allNotEqual(this.toSetString(fields), valueOrCollection);
+    return this;
+  }
+
+  /**
    * @description Filter records with old field value equals to a given value or list/set of values
    * @param field The field to filter on.
    * @param valueOrCollection The set of values to filter for. Can be any `primitive` type, `List`, or `Set`.

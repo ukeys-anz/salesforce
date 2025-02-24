@@ -905,5 +905,20 @@ private class ListUtilTest {
       'Expected myAccounts with specified Name'
     );
   }
+
+  @IsTest
+  static void testGenericFilterNoneMatch() {
+    Test.startTest();
+    List<MyAccount> results = (List<MyAccount>) ListUtil.filter(myAccounts)
+      .allNotEqual(myAccountFields, myAccounts[1].Name)
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      2,
+      results.size(),
+      'Expected 2 accounts without the specified Name'
+    );
+  }
   //#endregion
 }
