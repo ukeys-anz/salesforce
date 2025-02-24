@@ -6309,7 +6309,7 @@
     }, {
       &quot;ComplaintSubRemedy1&quot; : &quot;Complaint Sub Remedy 1&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REAL form required?&quot;
+      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Is this a possible systemic issue?&quot;
     } ],
@@ -6332,7 +6332,7 @@
     }, {
       &quot;ComplaintSubRemedy1Offered&quot; : &quot;Complaint Sub Remedy 1 Offered&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REAL form required?&quot;
+      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Is this a possible systemic issue?&quot;
     } ],
@@ -6355,7 +6355,7 @@
     }, {
       &quot;ComplaintSubRemedy1Accepted&quot; : &quot;Complaint Sub Remedy 1&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REAL form required?&quot;
+      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;isSystemicIssue&quot; : &quot;Is this a possible systemic issue?&quot;
     } ],
@@ -6370,7 +6370,7 @@
       &quot;ComplaintSubRemedy3Accepted&quot; : &quot;Complaint Sub Remedy 3&quot;
     } ],
     &quot;realFormMap&quot; : [ {
-      &quot;REALFormMAXID&quot; : &quot;REAL Form MAX ID/ServiceNow ID&quot;
+      &quot;REALFormMAXID&quot; : &quot;REaL Form / Event ID&quot;
     } ],
     &quot;sysIssueMap&quot; : [ {
       &quot;WhyIsThisPossibleSystemicIssue&quot; : &quot;Why is this a possible systemic issue?&quot;
@@ -6409,5 +6409,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_10</uniqueName>
     <versionNumber>10.0</versionNumber>
-    <webComponentKey>a75328fd-98e2-2692-5eb1-46a2305295e0</webComponentKey>
+    <webComponentKey>95cfb63f-5848-007e-5ac3-26d25e32bb73</webComponentKey>
 </OmniScript>

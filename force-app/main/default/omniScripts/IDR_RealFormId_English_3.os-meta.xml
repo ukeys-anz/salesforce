@@ -145,7 +145,7 @@
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;If a REaL Form is created from CMOS, the REaL Form / Event ID will automatically populate in this field. If created outside of CMOS, please record the REaL Form / Event ID in this field.&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;top-left&quot;,
   &quot;mask&quot; : &quot;&quot;,
   &quot;pattern&quot; : &quot;&quot;,
   &quot;ptrnErrText&quot; : &quot;&quot;,
@@ -192,7 +192,7 @@
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
   &quot;helpText&quot; : &quot;A REaL Form must be completed for failures in internal processes, people (e.g., human error), or systems causing compliance, financial or reputational impacts to ANZ or our customers. To record REaL Form details in CMOS, click &apos;Link REaL Form&apos; on the top right corner of your complaint.  If you need to record a new REaL Form, select &apos;Yes, I need to record a new REaL Form.&apos; If you have already recorded a REaL form and need to link the REaL Form ID, select &apos;Yes, I have already recorded a REaL Form&apos;&quot;,
-  &quot;helpTextPos&quot; : &quot;&quot;,
+  &quot;helpTextPos&quot; : &quot;top-left&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Y_NEW&quot;,
     &quot;value&quot; : &quot;Yes, I need to record a new REaL Form&quot;,
@@ -333,5 +333,5 @@
     <type>IDR</type>
     <uniqueName>IDR_RealFormId_English_3</uniqueName>
     <versionNumber>3.0</versionNumber>
-    <webComponentKey>3f4c5789-b778-f296-5986-7f04e567a659</webComponentKey>
+    <webComponentKey>2ded9e8f-d008-0588-c05f-1979e4b5b4c3</webComponentKey>
 </OmniScript>

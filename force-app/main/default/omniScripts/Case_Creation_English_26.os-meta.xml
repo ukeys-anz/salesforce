@@ -5923,10 +5923,10 @@
                 <name>realFormRequired</name>
                 <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
                 <propertySetConfig>{
-  &quot;controlWidth&quot; : 5.0,
+  &quot;controlWidth&quot; : 5,
   &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12.0,
+  &quot;inputWidth&quot; : 12,
   &quot;required&quot; : true,
   &quot;repeat&quot; : false,
   &quot;repeatClone&quot; : false,
@@ -5934,7 +5934,7 @@
   &quot;readOnly&quot; : false,
   &quot;defaultValue&quot; : null,
   &quot;help&quot; : true,
-  &quot;helpText&quot; : &quot;A REaL Form must be completed for failures in internal processes, people (e.g., human error), or systems causing compliance, financial or reputational impacts to ANZ or our customers. To record REaL Form details in CMOS, click &apos;Link REaL Form&apos; on the top right corner of your complaint.  If you need to record a new REaL Form, select &apos;Yes, I need to record a new REaL Form.&apos; If you have already recorded a REaL form and need to link the REaL Form ID, select &apos;Yes, I have already recorded a REaL Form&apos;.&quot;,
+  &quot;helpText&quot; : &quot;A REaL Form must be completed for failures in internal processes, people (e.g., human error), or systems causing compliance, financial or reputational impacts to ANZ or our customers. To record REaL Form details in CMOS, click &apos;Link REaL Form&apos; on the top right corner of your complaint.\nIf you need to record a new REaL Form, select &apos;Yes, I need to record a new REaL Form.&apos; If you have already recorded a REaL form and need to link the REaL Form ID, select &apos;Yes, I have already recorded a REaL Form&apos;.&quot;,
   &quot;helpTextPos&quot; : &quot;&quot;,
   &quot;options&quot; : [ {
     &quot;name&quot; : &quot;Y_NEW&quot;,
@@ -6837,7 +6837,7 @@
         <name>SetValues</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
-  &quot;controlWidth&quot; : 12.0,
+  &quot;controlWidth&quot; : 12,
   &quot;label&quot; : &quot;&quot;,
   &quot;elementValueMap&quot; : {
     &quot;custMap&quot; : [ {
@@ -6908,12 +6908,12 @@
     }, {
       &quot;ComplaintSubRemedy1&quot; : &quot;Complaint Sub Remedy 1&quot;
     }, {
-      &quot;realFormRequired&quot; : &quot;Is a REAL form required?&quot;
+      &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
       &quot;systemicIssue&quot; : &quot;Is this a possible systemic issue?&quot;
     } ],
     &quot;realMap&quot; : [ {
-      &quot;realFormMAXId&quot; : &quot;REAL Form MAX ID/ServiceNow ID&quot;
+      &quot;realFormMAXId&quot; : &quot;REaL Form / Event ID&quot;
     } ],
     &quot;sysIssueMap&quot; : [ {
       &quot;systemicIssueReason&quot; : &quot;Why is this a possible systemic issue?&quot;
@@ -6962,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>22fcb216-5b4b-1ee3-51be-1d66a799ab35</webComponentKey>
+    <webComponentKey>df020e9e-18e6-a7f4-dbde-3120cbd39509</webComponentKey>
 </OmniScript>
