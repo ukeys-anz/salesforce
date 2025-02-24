@@ -1708,6 +1708,9 @@
                             <value>Relationship_Owner__c</value>
                         </valueListItems>
                         <valueListItems>
+                            <value>Status__c</value>
+                        </valueListItems>
+                        <valueListItems>
                             <value>Relationship_To_Franchise__c</value>
                         </valueListItems>
                     </valueList>

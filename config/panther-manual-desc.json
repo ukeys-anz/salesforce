@@ -4588,7 +4588,8 @@
         "CreatedDate",
         "Id",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "Status__c"
       ],
       "IA-2415790": ["TPMI__c"]
     },

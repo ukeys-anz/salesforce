@@ -5,6 +5,8 @@
  * @description CustomerRelationNotesTriggerActions is class to handle all the MLCRM (Mobile Lending CRM) Actions
  */
 public with sharing class CustomerRelationNotesTriggerActions {
+  private static final String RELATIONSHIP_TO_FRANCHISE = 'Primary';
+
   private static final CustomerRelationshipsRepository CUSTOMER_RELATIONSHIP_REPOSITORY = (CustomerRelationshipsRepository) Lib_InstanceProvider.forType(
     CustomerRelationshipsRepository.class
   );
@@ -14,12 +16,17 @@ public with sharing class CustomerRelationNotesTriggerActions {
   private static final AccountActionsRepository ACCOUNT_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
     AccountActionsRepository.class
   );
-  private static final Set<SObjectField> CUSTOMER_RELATIONSHIP_FIELDS = new Set<SObjectField>{
+  private static final Set<SObjectField> CUSTOMER_FIELDS = new Set<SObjectField>{
     Account.FirstName,
     Account.MiddleName,
     Account.LastName,
     Account.Salutation,
     Account.Suffix
+  };
+  private static final Set<SObjectField> CUSTOMER_RELATIONSHIP_FIELDS = new Set<SObjectField>{
+    Customer_Relationship__c.Relationship_To_Franchise__c,
+    Customer_Relationship__c.OwnerId,
+    Customer_Relationship__c.Territory__c
   };
 
   /**
@@ -37,75 +44,62 @@ public with sharing class CustomerRelationNotesTriggerActions {
     Set<Id> idsOfPrimaryOwner = new Set<Id>();
     Set<Id> idsOfCustomer = new Set<Id>();
     String strNotesPrimaryKey;
-    for (Customer_Relationship__c objRelationship : records) {
-      if (
-        (oldMap == null ||
-        (oldMap != null &&
-        (oldMap.get(objRelationship.Id).Relationship_To_Franchise__c !=
-        objRelationship.Relationship_To_Franchise__c ||
-        oldMap.get(objRelationship.Id).OwnerId != objRelationship.OwnerId ||
-        oldMap.get(objRelationship.Id).Territory__c !=
-        objRelationship.Territory__c)))
-      ) {
-        idsOfCustomer.add(objRelationship.Customer__c);
-      }
+    List<Customer_Relationship__c> custRelRecords = records;
+
+    if (oldMap != null) {
+      custRelRecords = ListUtil.filter(records, oldMap)
+        .anyChanged(CUSTOMER_RELATIONSHIP_FIELDS)
+        .toList();
     }
-    if (!idsOfCustomer.isEmpty()) {
-      Map<String, Integer> mapOfPrimaryNotes = new Map<String, Integer>();
-      for (Customer_Relationship__c objRelation : [
-        SELECT Id, Customer__c, Territory__r.Primary_Franchise_Owner__c
-        FROM Customer_Relationship__c
-        WHERE
-          Customer__c IN :idsOfCustomer
-          AND Relationship_To_Franchise__c = 'Primary'
-      ]) {
-        strNotesPrimaryKey =
-          String.valueOf(objRelation.Customer__c) +
-          String.valueOf(objRelation.Territory__r.Primary_Franchise_Owner__c);
-        if (!mapOfPrimaryNotes.containsKey(strNotesPrimaryKey)) {
-          mapOfPrimaryNotes.put(strNotesPrimaryKey, 1);
-        } else {
-          Integer counter = mapOfPrimaryNotes.get(strNotesPrimaryKey);
-          mapOfPrimaryNotes.put(strNotesPrimaryKey, counter + 1);
-        }
-        if (objRelation.Territory__r.Primary_Franchise_Owner__c != null) {
-          idsOfPrimaryOwner.add(
-            objRelation.Territory__r.Primary_Franchise_Owner__c
-          );
-        }
+
+    idsOfCustomer = ListUtil.getIds(
+      custRelRecords,
+      Customer_Relationship__c.Customer__c
+    );
+
+    Map<String, Integer> mapOfPrimaryNotes = new Map<String, Integer>();
+    for (
+      Customer_Relationship__c objRelation : CUSTOMER_RELATIONSHIP_REPOSITORY.getCustomerRelationshipByCustomerIds(
+        idsOfCustomer
+      )
+    ) {
+      strNotesPrimaryKey =
+        String.valueOf(objRelation.Customer__c) +
+        String.valueOf(objRelation.Territory__r.Primary_Franchise_Owner__c);
+
+      mapOfPrimaryNotes.put(
+        strNotesPrimaryKey,
+        (mapOfPrimaryNotes.get(strNotesPrimaryKey) ?? 0) + 1
+      );
+
+      if (objRelation.Territory__r.Primary_Franchise_Owner__c == null) {
+        continue;
+      }
+      idsOfPrimaryOwner.add(
+        objRelation.Territory__r.Primary_Franchise_Owner__c
+      );
+    }
+
+    Map<Id, Territory__c> mapOfTerritory = CUSTOMER_RELATIONSHIP_REPOSITORY.getTerritoriesbyPrimaryFranchiseOwnerIds(
+      idsOfPrimaryOwner
+    );
+
+    for (Customer_Relationship__c objRelationship : records) {
+      String strFranchiseOwnerId = mapOfTerritory.get(
+          objRelationship.Territory__c
+        )
+        ?.Primary_Franchise_Owner__c;
+      if (strFranchiseOwnerId == null) {
+        continue;
       }
 
-      Map<Id, Territory__c> mapOfTerritory = new Map<Id, Territory__c>(
-        [
-          SELECT Id, Primary_Franchise_Owner__c
-          FROM Territory__c
-          WHERE Primary_Franchise_Owner__c IN :idsOfPrimaryOwner
-        ]
-      );
-      for (Customer_Relationship__c objRelationship : records) {
-        String strFranchiseOwnerId = mapOfTerritory.get(
-            objRelationship.Territory__c
-          )
-          ?.Primary_Franchise_Owner__c;
-        if (
-          oldMap == null &&
-          strFranchiseOwnerId != null &&
-          !mapOfPrimaryNotes.containsKey(
-            objRelationship.Customer__c + strFranchiseOwnerId
-          )
-        ) {
-          objRelationship.addError(LABEL.MLCRM_Minimum_Primary_Notes_Error);
-        } else if (
-          strFranchiseOwnerId != null &&
-          mapOfPrimaryNotes.containsKey(
-            objRelationship.Customer__c + strFranchiseOwnerId
-          ) &&
-          mapOfPrimaryNotes.get(
-            objRelationship.Customer__c + strFranchiseOwnerId
-          ) > 1
-        ) {
-          objRelationship.addError(LABEL.MLCRM_Maximum_Primary_Notes_Error);
-        }
+      Integer counter = mapOfPrimaryNotes.get(
+        objRelationship.Customer__c + strFranchiseOwnerId
+      ) ?? 0;
+      if (oldMap == null && counter < 1) {
+        objRelationship.addError(LABEL.MLCRM_Minimum_Primary_Notes_Error);
+      } else if (counter > 1) {
+        objRelationship.addError(LABEL.MLCRM_Maximum_Primary_Notes_Error);
       }
     }
   }
@@ -125,15 +119,16 @@ public with sharing class CustomerRelationNotesTriggerActions {
       OCVRequestPayloadWrapper reqRecord
     ) {
       ID recordId = ID.valueOf(reqRecord.strRecordId);
-      List<SObject> records = new List<SObject>(
-        database.query(buildQueryForCRDetails(recordId))
+
+      List<SObject> records = CUSTOMER_RELATIONSHIP_REPOSITORY.getCRDetails(
+        recordId
       );
 
-      List<Customer_Relationship__c> lstOfPrimaryNotes = getExistingCustomerRelationships(
+      Customer_Relationship__c primaryNote = getExistingCustomerRelationships(
         shellProspectAccountId,
         records
       );
-      if (!lstOfPrimaryNotes.isEmpty()) {
+      if (primaryNote != null) {
         return;
       }
       Customer_Relationship__c objRelation = autoCustomerRelationshipCreation(
@@ -155,23 +150,24 @@ public with sharing class CustomerRelationNotesTriggerActions {
      * @return List<Customer_Relationship__c>
      */
     @TestVisible
-    private List<Customer_Relationship__c> getExistingCustomerRelationships(
+    private Customer_Relationship__c getExistingCustomerRelationships(
       Id shellProspectAccountId,
       List<SObject> records
     ) {
+      if (records.isEmpty()) {
+        return null;
+      }
       Id strPrimaryOwnerId = (Id) records[0]
         .getSobject('Territory__r')
         ?.get('Primary_Franchise_Owner__c');
-      List<Customer_Relationship__c> lstOfPrimaryNotes = [
-        SELECT Id
-        FROM Customer_Relationship__c
-        WHERE
-          Relationship_To_Franchise__c = 'Primary'
-          AND Territory__r.Primary_Franchise_Owner__c = :strPrimaryOwnerId
-          AND Customer__c = :shellProspectAccountId
-        LIMIT 1
-      ];
-      return lstOfPrimaryNotes;
+      List<Customer_Relationship__c> lstprimaryNote = CUSTOMER_RELATIONSHIP_REPOSITORY.getCustRelationshipIdofShellProspectAccount(
+        strPrimaryOwnerId,
+        shellProspectAccountId
+      );
+      if (lstprimaryNote.isEmpty()) {
+        return null;
+      }
+      return lstprimaryNote[0];
     }
 
     /**
@@ -189,43 +185,22 @@ public with sharing class CustomerRelationNotesTriggerActions {
       Id strTerritoryId
     ) {
       Customer_Relationship__c objRelation = new Customer_Relationship__c();
-      objRelation.Preferred_Name__c =
-        reqRecord?.strFirstName +
-        ' ' +
-        reqRecord?.strLastName;
-      if (!String.isBlank(reqRecord.strMiddleName)) {
-        objRelation.Preferred_Name__c += ' ' + reqRecord.strMiddleName;
+      List<String> lstOfPreferredName = new List<String>();
+      if (reqRecord.strFirstName != null) {
+        lstOfPreferredName.add(reqRecord.strFirstName);
       }
+      if (reqRecord.strMiddleName != null) {
+        lstOfPreferredName.add(reqRecord.strMiddleName);
+      }
+      lstOfPreferredName.add(reqRecord.strLastName);
+      objRelation.Preferred_Name__c = String.join(lstOfPreferredName, ' ');
       objRelation.Customer__c = shellProspectAccountId;
       objRelation.Territory__c = strTerritoryId;
       objRelation.OwnerId = reqRecord.strOwnerId;
-      objRelation.Relationship_To_Franchise__c = MLCRMConstants.PRIMARY;
+      objRelation.Relationship_To_Franchise__c = RELATIONSHIP_TO_FRANCHISE;
       objRelation.Date_Relationship_Commenced__c = System.today();
       return objRelation;
     }
-  }
-
-  /**
-   * @description CC-2175 create CustomerRelationship against shell prospect after receiving response from cap API
-   * @name buildQueryForCRDetails
-   * @param recordId sobject recordId from where we need to get territory details
-   * @return String
-   */
-  @TestVisible
-  private static String buildQueryForCRDetails(Id recordId) {
-    String recordQuery = 'Select Id, Territory__c,Territory__r.Primary_Franchise_Owner__c From ';
-    if (
-      recordId.getSObjectType().getDescribe().getName() ==
-      MLCRMConstants.SOBJECT_LEAD
-    ) {
-      recordQuery += 'Lead WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null';
-    } else if (
-      recordId.getSObjectType().getDescribe().getName() ==
-      MLCRMConstants.SOBJECT_OPPORTUNITY
-    ) {
-      recordQuery += 'Opportunity WHERE Id = :recordId AND Territory__r.Primary_Franchise_Owner__c != null';
-    }
-    return recordQuery;
   }
 
   /**
@@ -238,9 +213,13 @@ public with sharing class CustomerRelationNotesTriggerActions {
     Map<id, Customer_Relationship__c> oldMap,
     List<Customer_Relationship__c> records
   ) {
-    List<Customer_Relationship__c> listOfSobjects = ListUtil.filter(records, oldMap)
+    List<Customer_Relationship__c> listOfSobjects = records;
+    if (oldMap != null) {
+      listOfSobjects = ListUtil.filter(records, oldMap)
         .changed(Customer_Relationship__c.Customer__c)
         .toList();
+    }
+
     set<Id> accIdsSet = ListUtil.getIds(
       listOfSobjects,
       Customer_Relationship__c.Customer__c
@@ -274,14 +253,14 @@ public with sharing class CustomerRelationNotesTriggerActions {
     }
     List<Account> listOfSobjects = ListUtil.filter(records, oldMap)
       .equals(Account.RecordTypeId, RTAccount.personAccount)
-      .anyChanged(CUSTOMER_RELATIONSHIP_FIELDS)
+      .anyChanged(CUSTOMER_FIELDS)
       .toList();
 
     Set<id> setOfAccountIds = ListUtil.getIds(
       listOfSobjects,
       Customer_Relationship__c.Customer__r.Id
     );
-    if (setOfAccountIds.isEmpty()) { 
+    if (setOfAccountIds.isEmpty()) {
       return;
     }
     updateCustomerNameOnCustomerRelationship(setOfAccountIds);
