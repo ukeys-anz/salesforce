@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates the ID Type of Certificate provided by the customer for the Legal Name Change</description>
+    <inlineHelpText>Certificate Number is the preferred identifier for all certificates. If it is unavailable for the document, you will need to select and capture Registration Number or Registration Date depending on the state and date of issue. For more detail on which identifier to use please consult the Document ID table in the DVS document check section of the procedural guide.</inlineHelpText>
     <label>Certificate Identifier Type</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates the ID Provided by the Customer establishes a link between the current identity and the new name</description>
+    <inlineHelpText>The checks required to make a link between the customer&apos;s old identity and their new name are specific to the identity document provided by the customer. Therefore, please ensure the Document Type field populated in the case matches the document supplied by the customer. If the customer document passes the underlying document level checks, select &apos;Yes&apos;. Otherwise select &apos;No&apos;, update the review outcome, save and closed the case.</inlineHelpText>
     <label>Link between Old Identity and New Name</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

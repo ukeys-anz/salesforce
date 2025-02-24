@@ -1417,6 +1417,7 @@
         "CertificateIdentifierType__c",
         "CountryCode__c",
         "DateOfBirthOnIDMatchesProfile__c",
+        "DateOfEvent__c",
         "DocumentType__c",
         "ExpiryDate__c",
         "NamesCertificateSupportNameRequested__c",
