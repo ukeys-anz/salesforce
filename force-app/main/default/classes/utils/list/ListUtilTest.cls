@@ -907,6 +907,36 @@ private class ListUtilTest {
   }
 
   @IsTest
+  static void testSubList() {
+    List<Case> caseRecords = new List<Case>();
+    list<string> stringRecords = new List<String>();
+    list<integer> integerRecords = new List<integer>();
+    for (Integer i = 1; i <= 10; i++) {
+      caseRecords.add(new Case(Subject = FAKER.randomString(i)));
+      stringRecords.add('Item' + i);
+      integerRecords.add(i);
+    }
+
+    Test.startTest();
+    List<Object> caseSubList = ListUtil.subList(caseRecords, 6, 2);
+    List<Object> stringSubList = ListUtil.subList(stringRecords, 1, 4);
+    List<Object> integerSubList = ListUtil.subList(integerRecords, 5, 3);
+    Test.stopTest();
+
+    Assert.areEqual(2, caseSubList.size(), 'Expected 2 records');
+
+    Assert.areEqual(caseRecords[6], caseSubList[0], 'Expected record 7');
+
+    Assert.areEqual(4, stringSubList.size(), 'Expected 4 records');
+
+    Assert.areEqual(stringRecords[1], stringSubList[0], 'Expected record 2');
+
+    Assert.areEqual(3, integerSubList.size(), 'Expected 3 records');
+
+    Assert.areEqual(integerRecords[5], integerSubList[0], 'Expected record 6');
+  }
+
+  @IsTest
   static void testGenericFilterNoneMatch() {
     Test.startTest();
     List<MyAccount> results = (List<MyAccount>) ListUtil.filter(myAccounts)
@@ -919,6 +949,7 @@ private class ListUtilTest {
       results.size(),
       'Expected 2 accounts without the specified Name'
     );
+
   }
   //#endregion
 }
