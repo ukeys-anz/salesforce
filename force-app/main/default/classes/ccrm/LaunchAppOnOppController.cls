@@ -33,32 +33,28 @@ public with sharing class LaunchAppOnOppController {
    * @description create app Form and app form product
    * @name createApplication
    * @param oppId opportunity Id
-   * @param productIds string of product Ids
+   * @param oppLineItemIds string of opp line items Ids
    * @param recordTypeId record type Id
    * @return List<Id> app form products Ids set
    */
   @AuraEnabled
   public static List<Id> createApplication(
     Id oppId,
-    List<Id> productIds,
+    List<Id> oppLineItemIds,
     Id recordTypeId
   ) {
     try {
-      Set<Id> productIdsSet = new Set<Id>(productIds);
+      Set<Id> oppLineItemIdsSet = new Set<Id>(oppLineItemIds);
       Id applicationFormId = LaunchAppOnOppHelper.createApplicationForm(
         oppId,
         recordTypeId
       );
-      List<OpportunityLineItem> items = APP_REPOSITORY.getOpportunityLineItemsRelatedToOppAndProduct(
-        oppId,
-        productIdsSet
-      );
-      Map<Id, Decimal> productAmountMap = LaunchAppOnOppHelper.createProductAmountMap(
-        items
+      List<OpportunityLineItem> items = APP_REPOSITORY.getSelectedOppLineItems(
+        oppLineItemIdsSet
       );
       List<Id> appFormProductIds = LaunchAppOnOppHelper.createApplicationFormProduct(
         applicationFormId,
-        productAmountMap
+        items
       );
       return appFormProductIds;
     } catch (Exception e) {
@@ -71,6 +67,8 @@ public with sharing class LaunchAppOnOppController {
    * @description wrapper class for OppLineItemWrapper
    */
   public class OppLineItemWrapper {
+    @AuraEnabled
+    public String oppLineItemId;
     @AuraEnabled
     public String productId;
     @AuraEnabled

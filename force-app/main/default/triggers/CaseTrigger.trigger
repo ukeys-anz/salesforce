@@ -17,4 +17,5 @@ trigger CaseTrigger on Case(
   AutoKYCQACaseTriggerHandler kycQaHandler = new AutoKYCQACaseTriggerHandler();
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
   BrokerEnquiryCaseTriggerHandler brokerEnquiryHandler = new BrokerEnquiryCaseTriggerHandler();
+  ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
 }

@@ -6,7 +6,8 @@
 public with sharing class AutoKYCQACaseRepository {
   static final Set<String> FA_CODES = new Set<String>{
     'TRANSACT01',
-    'SAVING01'
+    'SAVING01',
+    'SAVING02'
   };
   /**
    * @description Get list of COBs By persona Ids
@@ -141,16 +142,16 @@ public with sharing class AutoKYCQACaseRepository {
         (
           SELECT
             Customer_Name__c,
+            Case__c,
             LastModifiedDate,
             Name,
             NewValue__c,
             Occurrence_Number__c,
             ToBeValue__c,
-            TriggeredFrom__c
+            TriggeredFrom__c,
+            Status__c
           FROM Customer_Profile_Updates__r
-          WHERE
-            TriggeredFrom__c = 'Case.KYC_QA.AddRestraints'
-            AND Status__c = 'Completed'
+          WHERE TriggeredFrom__c IN :AutoKYCQACaseActions.RESTRAINT_KEYS
           ORDER BY CreatedDate DESC
         )
       FROM Account
@@ -223,12 +224,12 @@ public with sharing class AutoKYCQACaseRepository {
   }
 
   /**
-   * @description Queries the Account records with the Customer Profile Updates and KYC QA Cases.
-   * @param accountIds A set of Account IDs to query the records for.
-   * @return A list of Account records with the Customer Profile Updates and KYC QA Cases.
+   * @description Queries the Case records with the Customer Profile Updates.
+   * @param casesIds A set of Cases IDs to query the records for.
+   * @return A list of Case records with the Customer Profile Updates.
    */
-  public List<Account> queryAccountsWithCpuAndKYCQaCases(Set<Id> accountIds) {
-    return new SystemAction().queryAccountsWithCpuAndKYCQaCases(accountIds);
+  public List<Case> queryKYCQACasesWithCpu(Set<Id> casesIds) {
+    return new SystemAction().queryKYCQACasesWithCpu(casesIds);
   }
 
   /**
@@ -261,30 +262,25 @@ public with sharing class AutoKYCQACaseRepository {
     }
 
     /**
-     * @description Queries the Account records with the Customer Profile Updates and KYC QA Cases.
-     * @param accountIds A set of Account IDs to query the records for.
-     * @return A list of Account records with the Customer Profile Updates and KYC QA Cases.
+     * @description Queries the KYC QA Cases with the Customer Profile Updates.
+     * @param casesIds A set of Case IDs to query the records for.
+     * @return A list of Case records with the Customer Profile Updates.
      */
-    public List<Account> queryAccountsWithCpuAndKYCQaCases(Set<Id> accountIds) {
-      if (accountIds.isEmpty()) {
-        return new List<Account>();
+    public List<Case> queryKYCQACasesWithCpu(Set<Id> casesIds) {
+      if (casesIds.isEmpty()) {
+        return new List<Case>();
       }
       return [
         SELECT
           Id,
+          Fraud_Restraint_Status__c,
+          LastModifiedDate,
           (
             SELECT Id, Status__c, TriggeredFrom__c
             FROM Customer_Profile_Updates__r
-          ),
-          (
-            SELECT Id, Fraud_Restraint_Status__c, LastModifiedDate
-            FROM Cases
-            WHERE RecordTypeId = :RTCase.kycQa
-            ORDER BY LastModifiedDate DESC
-            LIMIT 1
           )
-        FROM Account
-        WHERE Id IN :accountIds
+        FROM Case
+        WHERE RecordTypeId = :RTCase.kycQa AND Id IN :casesIds
         WITH SYSTEM_MODE
       ];
     }

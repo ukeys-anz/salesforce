@@ -1,0 +1,36 @@
+<template>
+  <lightning-quick-action-panel header={headerText}>
+    <template lwc:if={showProgressScreen}>
+      <span class="slds-align_absolute-center slds-text-heading_small"
+        >{bodyText}</span
+      >
+      <div class="slds-m-around_medium">
+        <lightning-progress-bar
+          size="medium"
+          value={progress}
+          variant="circular"
+        >
+        </lightning-progress-bar>
+      </div>
+    </template>
+    <template lwc:if={showError}>
+      <span class="slds-text-color_error slds-align_absolute-center"
+        >{userFriendlyErrorMessage}</span
+      >
+    </template>
+    <template lwc:if={isLoading}>
+      <div class="demo-only" style="height: 6rem; position: relative">
+        <div class="slds-spinner_container">
+          <div
+            role="status"
+            class="slds-spinner slds-spinner_medium slds-spinner_brand"
+          >
+            <span class="slds-assistive-text">Loading</span>
+            <div class="slds-spinner__dot-a"></div>
+            <div class="slds-spinner__dot-b"></div>
+          </div>
+        </div>
+      </div>
+    </template>
+  </lightning-quick-action-panel>
+</template>

@@ -9,11 +9,11 @@
 ) // PMD.AvoidHardcodingId - The hardcoded Id is used for deserialisation so will not caused issue when deployed to another environment. Cannot use random string as Apex requires a correctly formatted Id.
 @isTest
 public with sharing class LoggerTest {
-  private static final String MOCK_STD_DATABASE_RESULT = '{"id":"0012N00000ABCDEQA5","success":false,"errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}]}';
+  private static final String MOCK_STD_DATABASE_RESULT = '{"id":"0012N00000ABCDEQA5","success":false,"errors":[{"statusCode":"INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY","message":"Testerrormessage","fields":[]}]}';
 
-  private static final String MOCK_MERGE_DATABASE_RESULT = '{"errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}],"id":"0012N00000ABCDEQA5","mergedRecordIds":null,"success":false,"updatedRelatedIds":null}';
+  private static final String MOCK_MERGE_DATABASE_RESULT = '{"errors":[{"statusCode":"INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY","message":"Testerrormessage","fields":[]}],"id":"0012N00000ABCDEQA5","mergedRecordIds":null,"success":false,"updatedRelatedIds":null}';
 
-  private static final String MOCK_UPSERT_DATABASE_RESULT = '{"id":"0012N00000ABCDEQA5","success":false,"errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}],"created":false}';
+  private static final String MOCK_UPSERT_DATABASE_RESULT = '{"id":"0012N00000ABCDEQA5","success":false,"errors":[{"statusCode":"INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY","message":"Testerrormessage","fields":[]}],"created":false}';
 
   private static final String MOCK_CASE = '{"Id":"5002N00000E5ndCQAR","RecordTypeId":"0122N000003T83iQAC"}';
   @TestSetup

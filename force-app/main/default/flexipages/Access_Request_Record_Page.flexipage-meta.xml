@@ -91,8 +91,36 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Access_Type__c</fieldItem>
                 <identifier>RecordAccess_Type__cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Privileged_Access_requests</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Automations_to_Bypass__c</fieldItem>
+                <identifier>RecordAutomations_to_Bypass_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Bypass_Automation_Request</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -128,10 +156,16 @@
                 <fieldItem>Record.Expected_Start__c</fieldItem>
                 <identifier>RecordExpected_Start__cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.When__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Future</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>CONTAINS</operator>
+                        <rightValue>Privileged_Access_requests</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -158,6 +192,10 @@
         </itemInstances>
         <itemInstances>
             <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Approver__c</fieldItem>
                 <identifier>RecordApprover__cField</identifier>
             </fieldInstance>
@@ -249,6 +287,10 @@
                     <value>Facet-9cc52c7d-91f6-47c1-be82-01a4c032fb22</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
                     <name>label</name>
                     <value>Information</value>
                 </componentInstanceProperties>
@@ -261,6 +303,10 @@
                 <componentInstanceProperties>
                     <name>columns</name>
                     <value>Facet-b5ea63d6-14c0-433c-8342-ccefbe9de99c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>

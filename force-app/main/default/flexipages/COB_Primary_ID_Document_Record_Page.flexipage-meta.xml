@@ -153,6 +153,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.OnboardingAttemptCount__c</fieldItem>
+                <identifier>RecordOnboardingAttemptCount_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.PersonaDocumentId__c</fieldItem>
                 <identifier>RecordPersonaDocumentId_cField</identifier>
             </fieldInstance>

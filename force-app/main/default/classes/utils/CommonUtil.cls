@@ -8,6 +8,8 @@
   'PMD.CyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class CommonUtil {
+  private static Set<Id> errorTrackerSet = new Set<Id>();
+
   /**
    * @description Get all the business hours
    */
@@ -1035,5 +1037,27 @@ public with sharing class CommonUtil {
     Schema.SObjectField field
   ) {
     return ListUtil.getIds(records, field);
+  }
+
+  /**
+   * @name raiseSobjectError
+   * @param lstSobjects List of sObject records
+   * @param strErrorMessage String of errormessage to add error
+   * @description  reusable method to raise Error.
+   */
+  public static void raiseSobjectError(
+    List<sObject> lstSobjects,
+    String strErrorMessage
+  ) {
+    if (lstSobjects == null || lstSobjects.isEmpty()) {
+      return;
+    }
+    for (sObject objSobject : lstSobjects) {
+      if (errorTrackerSet.contains((Id) objSobject.get('Id'))) {
+        continue;
+      }
+      objSobject.addError(strErrorMessage);
+      errorTrackerSet.add((Id) objSobject.get('Id'));
+    }
   }
 }

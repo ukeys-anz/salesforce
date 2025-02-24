@@ -116,25 +116,14 @@ public with sharing class CCRMAccountAccountRelationActions {
     ) {
       return;
     }
-    Boolean isNonReciprocal =
-      mapRoles.get(record.FinServ__Role__c)?.FinServ__InverseRelationship__c ==
-      null;
-    String party1 = mapAccounts.get(record.FinServ__RelatedAccount__c)
+    String party1 = mapAccounts.get(record.FinServ__Account__c).External_Id__c;
+    String party2 = mapAccounts.get(record.FinServ__RelatedAccount__c)
       .External_Id__c;
-    String party2 = mapAccounts.get(record.FinServ__Account__c).External_Id__c;
     String role = mapRoles.get(record.FinServ__Role__c).Name.replace(' ', '');
-
-    if (isNonReciprocal) {
-      record.External_Id__c = String.format(
-        EXTERNAL_ID_TEMPLATE,
-        new List<String>{ party2, party1, role }
-      );
-    } else {
-      record.External_Id__c = String.format(
-        EXTERNAL_ID_TEMPLATE,
-        new List<String>{ party1, party2, role }
-      );
-    }
+    record.External_Id__c = String.format(
+      EXTERNAL_ID_TEMPLATE,
+      new List<String>{ party1, party2, role }
+    );
   }
 
   /**

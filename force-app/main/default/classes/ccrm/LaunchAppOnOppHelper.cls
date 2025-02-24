@@ -19,6 +19,7 @@ public with sharing class LaunchAppOnOppHelper {
     List<LaunchAppOnOppController.OppLineItemWrapper> itemWrapper = new List<LaunchAppOnOppController.OppLineItemWrapper>();
     for (OpportunityLineItem record : items) {
       LaunchAppOnOppController.OppLineItemWrapper item = new LaunchAppOnOppController.OppLineItemWrapper();
+      item.oppLineItemId = record.Id;
       item.productURL = '/lightning/r/Product2/' + record.Product2Id + '/view';
       item.productName = record.Product2?.Name;
       item.unitPrice = record.UnitPrice;
@@ -27,22 +28,6 @@ public with sharing class LaunchAppOnOppHelper {
       itemWrapper.add(item);
     }
     return itemWrapper;
-  }
-
-  /**
-   * @description create productId  amount map
-   * @name createProductAmountMap
-   * @param items opp line items
-   * @return Map<Id, Decimal> productIdToAmountMap
-   */
-  public static Map<Id, Decimal> createProductAmountMap(
-    List<OpportunityLineItem> items
-  ) {
-    Map<Id, Decimal> productIdToAmountMap = new Map<Id, Decimal>();
-    for (OpportunityLineItem item : items) {
-      productIdToAmountMap.put(item.Product2Id, item.UnitPrice);
-    }
-    return productIdToAmountMap;
   }
 
   /**
@@ -67,21 +52,21 @@ public with sharing class LaunchAppOnOppHelper {
    * @description create application form products
    * @name createApplicationFormProduct
    * @param appFormId appFormId
-   * @param productAmountMap productIdAmountMap
+   * @param oppLineItems oppLineItems
    * @return Id app form product Id
    */
   public static List<Id> createApplicationFormProduct(
     Id appFormId,
-    Map<Id, Decimal> productAmountMap
+    List<OpportunityLineItem> oppLineItems
   ) {
     List<Id> appFormProductIds = new List<Id>();
     List<ApplicationFormProduct> appFormProducts = new List<ApplicationFormProduct>();
-    for (Id productId : productAmountMap.keySet()) {
+    for (OpportunityLineItem item : oppLineItems) {
       ApplicationFormProduct appFormProduct = new ApplicationFormProduct(
         ApplicationFormId = appFormId,
-        ProductId = productId,
+        ProductId = item.Product2Id,
         Stage = CCRMConstants.OPP_IDENTIFIED,
-        Amount__c = productAmountMap.get(productId)
+        Amount__c = item.UnitPrice
       );
       appFormProducts.add(appFormProduct);
     }

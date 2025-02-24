@@ -9,13 +9,13 @@
 ) // PMD.AvoidHardcodingId - The hardcoded Id is used for deserialisation so will not caused issue when deployed to another environment. Cannot use random string as Apex requires a correctly formatted Id.
 @isTest
 public with sharing class LogEventBuilderTest {
-  private static final String MOCK_STD_DATABASE_RESULT_WITH_ERROR = '{"success":false,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}]}';
+  private static final String MOCK_STD_DATABASE_RESULT_WITH_ERROR = '{"success":false,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY","message":"Testerrormessage","fields":[]}]}';
   private static final String MOCK_STD_DATABASE_RESULT_WITHOUT_ERROR = '{"id":"5002N00000E5ndCQAR","success":true,"errors":[]}';
 
-  private static final String MOCK_MERGE_DATABASE_RESULT_WITH_ERROR = '{"updatedRelatedIds":null,"success":false,"mergedRecordIds":null,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}]}';
+  private static final String MOCK_MERGE_DATABASE_RESULT_WITH_ERROR = '{"updatedRelatedIds":null,"success":false,"mergedRecordIds":null,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY","message":"Testerrormessage","fields":[]}]}';
   private static final String MOCK_MERGE_DATABASE_RESULT_WITHOUT_ERROR = '{"errors":null,"id":"5002N00000E5ndCQAR","mergedRecordIds":["5002N00000E5ndCQAR"],"success":true,"updatedRelatedIds":[]}';
 
-  private static final String MOCK_UPSERT_DATABASE_RESULT_WITH_ERROR = '{"success":false,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"FIELD_CUSTOM_VALIDATION_EXCEPTION","message":"Testerrormessage","fields":[]}],"created":false}';
+  private static final String MOCK_UPSERT_DATABASE_RESULT_WITH_ERROR = '{"success":false,"id":"0012N00000ABCDEQA5","errors":[{"statusCode":"INSUFFICIENT_ACCESS_ON_CROSS_REFERENCE_ENTITY","message":"Testerrormessage","fields":[]}],"created":false}';
   private static final String MOCK_UPSERT_DATABASE_RESULT_WITHOUT_ERROR = '{"id":"5002N00000E5ndCQAR","success":true,"errors":[],"created":true}';
 
   private static final String MOCK_UNDELETE_DATABASE_RESULT_WITHOUT_ERROR = '{"id":"5002N00000E5ndCQAR","success":true}';
@@ -217,9 +217,7 @@ public with sharing class LogEventBuilderTest {
     // The result is returned as a list so adding the square brackets so the string can be identical for comparison purpose
     // Also delete whitespaces as pretty JSON are difficult to compare
     System.assertEquals(
-      '[' +
-      MOCK_STD_DATABASE_RESULT_WITH_ERROR +
-      ']',
+      '[' + MOCK_STD_DATABASE_RESULT_WITH_ERROR + ']',
       builder.getLogEvent().DatabaseResult__c.deleteWhitespace(),
       'Database Result should match the serialised save result'
     );
@@ -272,9 +270,7 @@ public with sharing class LogEventBuilderTest {
     // The result is returned as a list so adding the square brackets so the string can be identical for comparison purpose
     // Also delete whitespaces as pretty JSON are difficult to compare
     System.assertEquals(
-      '[' +
-      MOCK_STD_DATABASE_RESULT_WITH_ERROR +
-      ']',
+      '[' + MOCK_STD_DATABASE_RESULT_WITH_ERROR + ']',
       builder.getLogEvent().DatabaseResult__c.deleteWhitespace(),
       'Database Result should match the serialised save result'
     );
@@ -326,11 +322,14 @@ public with sharing class LogEventBuilderTest {
 
     // The result is returned as a list so adding the square brackets so the string can be identical for comparison purpose
     // Also delete whitespaces as pretty JSON are difficult to compare
-    System.assertEquals(
-      '[' +
-      MOCK_MERGE_DATABASE_RESULT_WITH_ERROR +
-      ']',
-      builder.getLogEvent().DatabaseResult__c.deleteWhitespace(),
+    Assert.areEqual(
+      JSON.serialize(new List<Database.MergeResult>{ mr }),
+      JSON.serialize(
+        JSON.deserialize(
+          builder.getLogEvent().DatabaseResult__c,
+          List<Database.MergeResult>.class
+        )
+      ),
       'Database Result should match the serialised save result'
     );
   }
@@ -381,9 +380,7 @@ public with sharing class LogEventBuilderTest {
     // The result is returned as a list so adding the square brackets so the string can be identical for comparison purpose
     // Also delete whitespaces as pretty JSON are difficult to compare
     System.assertEquals(
-      '[' +
-      MOCK_UPSERT_DATABASE_RESULT_WITH_ERROR +
-      ']',
+      '[' + MOCK_UPSERT_DATABASE_RESULT_WITH_ERROR + ']',
       builder.getLogEvent().DatabaseResult__c.deleteWhitespace(),
       'Database Result should match the serialised save result'
     );
@@ -435,9 +432,7 @@ public with sharing class LogEventBuilderTest {
     // The result is returned as a list so adding the square brackets so the string can be identical for comparison purpose
     // Also delete whitespaces as pretty JSON are difficult to compare
     System.assertEquals(
-      '[' +
-      MOCK_STD_DATABASE_RESULT_WITH_ERROR +
-      ']',
+      '[' + MOCK_STD_DATABASE_RESULT_WITH_ERROR + ']',
       builder.getLogEvent().DatabaseResult__c.deleteWhitespace(),
       'Database Result should match the serialised save result'
     );

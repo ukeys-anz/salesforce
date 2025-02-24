@@ -4,6 +4,13 @@
  * @description  : CommercialContactTriggerHandler is the handler class for Contact Trigger which extends Lib_TriggerHandler from the trigger framework used.
  **/
 public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHandler {
+  private static final CommercialContactRepository CONTACT_REPOSITORY = (CommercialContactRepository) Lib_InstanceProvider.forType(
+    CommercialContactRepository.class
+  );
+
+  private static Id anzMLStandardUserProfileId = QueryProfile.anzMLStandardUser.Id;
+  private static Id curentUserProfileId = CONTACT_REPOSITORY.getUserProfileId();
+
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
@@ -20,7 +27,9 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    */
   public override Boolean isValidRecord(SObject record) {
     Contact contactRecord = (Contact) record;
-    return contactRecord.RecordTypeId == RTContact.organisation;
+    return contactRecord.RecordTypeId == RTContact.organisation &&
+      curentUserProfileId != anzMLStandardUserProfileId &&
+      !CCRMLeadConversionActions.leadConverionFlow;
   }
 
   /**
@@ -28,16 +37,46 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    * @name onBeforeInsert
    */
   public override void onBeforeInsert() {
-    List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
-      records
-    );
+    CommercialContactActionsHelper.getExistingOrProspectContacts(records);
     CommercialContactActions.populateLastName(
-      existingAndProspectContactsList,
+      CommercialContactActionsHelper.existingAndProspectContactsList,
       null
     );
     CommercialContactActions.populateName(
-      existingAndProspectContactsList,
+      CommercialContactActionsHelper.existingAndProspectContactsList,
       null
+    );
+
+    CommercialContactActions.validateExistingOrProspectContacts(
+      CommercialContactActionsHelper.existingAndProspectContactsList
+    );
+
+    CommercialContactActions.checkMaxContactsPerOrganisation(
+      CommercialContactActionsHelper.existingAndProspectContactsList
+    );
+  }
+
+  /**
+   * @description After Insert Action of Contact.
+   * @name onAfterInsert
+   */
+  public override void onAfterInsert() {
+    CommercialContactActionsHelper.getExistingOrProspectContacts(records);
+
+    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+      CommercialContactActionsHelper.prospectContactsList,
+      null,
+      true
+    );
+
+    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+      CommercialContactActionsHelper.existingContactsList,
+      null,
+      false
+    );
+
+    CommercialContactActions.deleteCommercialContactsWithoutContactDetails(
+      records
     );
   }
 
@@ -47,16 +86,40 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<Contact> existingAndProspectContactsList = CommercialContactActionsHelper.getExistingOrProspectContacts(
-      records
+    CommercialContactActionsHelper.getExistingOrProspectContacts(records);
+
+    CommercialContactActions.validateExistingOrProspectContacts(
+      CommercialContactActionsHelper.existingAndProspectContactsList
     );
+
     CommercialContactActions.populateLastName(
-      existingAndProspectContactsList,
+      CommercialContactActionsHelper.existingAndProspectContactsList,
       (Map<Id, Contact>) oldMap
     );
     CommercialContactActions.populateName(
-      existingAndProspectContactsList,
+      CommercialContactActionsHelper.existingAndProspectContactsList,
       (Map<Id, Contact>) oldMap
+    );
+
+    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+      CommercialContactActionsHelper.prospectContactsList,
+      (Map<Id, Contact>) oldMap,
+      true
+    );
+
+    CCRMCustomerProfileUpdateHelper.restrictEdit(
+      CommercialContactActionsHelper.existingContactsList,
+      (Map<Id, Contact>) oldMap
+    );
+
+    CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
+      CommercialContactActionsHelper.existingContactsList,
+      (Map<Id, Contact>) oldMap,
+      false
+    );
+
+    CommercialContactActions.deleteCommercialContactsWithoutContactDetails(
+      records
     );
   }
 }

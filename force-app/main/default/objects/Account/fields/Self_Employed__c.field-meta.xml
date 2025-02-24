@@ -9,7 +9,7 @@
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>false</trackHistory>
+    <trackHistory>true</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <valueSetDefinition>
@@ -17,12 +17,12 @@
             <value>
                 <fullName>Y</fullName>
                 <default>false</default>
-                <label>Y</label>
+                <label>Yes</label>
             </value>
             <value>
                 <fullName>N</fullName>
                 <default>false</default>
-                <label>N</label>
+                <label>No</label>
             </value>
         </valueSetDefinition>
     </valueSet>

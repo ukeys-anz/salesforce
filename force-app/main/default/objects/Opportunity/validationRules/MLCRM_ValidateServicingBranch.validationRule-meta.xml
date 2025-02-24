@@ -7,9 +7,13 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     RecordType.DeveloperName = &apos;MLCRM_Opportunity&apos;,
     NOT($Profile.Name = &quot;System Administrator&quot;),
+    OR(ISNEW(), ISCHANGED(Servicing_Branch__c)),
     NOT(ISBLANK(Servicing_Branch__c)),
-    OR(NOT(ISNUMBER(Servicing_Branch__c)),
-    BEGINS(Servicing_Branch__c,&apos;0&apos;))
+    OR(
+        NOT(ISNUMBER(Servicing_Branch__c)),
+        BEGINS(Servicing_Branch__c,&apos;0&apos;),
+        LEN(Servicing_Branch__c) &lt; 4
+    )
 )</errorConditionFormula>
     <errorDisplayField>Servicing_Branch__c</errorDisplayField>
     <errorMessage>Servicing Branch is a 4-digit number, and should not start with a zero.</errorMessage>

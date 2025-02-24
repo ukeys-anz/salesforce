@@ -1,5 +1,4 @@
 name: BQ Generate Object Changes
-
 on:
   workflow_dispatch:
     inputs:
@@ -15,32 +14,27 @@ on:
         required: false
         default: false
         type: boolean
-
 permissions:
   contents: "read"
   id-token: "write"
-
 env:
   BUCKET_NAME: sfdatasync-v3-bucket-sit
-
 jobs:
   generate_object_changes:
     outputs:
       CHANGES_DETECTED: ${{ steps.run-diff.outputs.CHANGES_DETECTED }}
-    runs-on: [anzx-default]
+    runs-on: [anzx-default-np]
     steps:
       - uses: actions/setup-node@v2.1.5
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         with:
           node-version: "18"
-
       - name: Checkout salesforce repo
         uses: actions/checkout@v2
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         with:
           ref: ${{ github.ref }}
           fetch-depth: 0
-
       - name: Checkout salesforce plugin
         uses: actions/checkout@v2
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -48,15 +42,13 @@ jobs:
           repository: anzx/salesforce-plugin
           token: ${{ secrets.SALESFORCE_ACTIONS_CHECKOUT_TOKEN }}
           path: salesforce-plugin
-          ref: 071d1c7707f472210c9f698f2c8d5a12e287e7c6
+          ref: a2988df1ab001c5ea0546dad0168ec23bd696333
           # this is a particular commit on master. Change this when a new plugin version is required for sf xschema generate
-
       - name: Install npm packages
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         run: |
           mv ci.npmrc .npmrc
           npm ci -f
-
       - name: Install yarn
         working-directory: salesforce-plugin
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -65,7 +57,6 @@ jobs:
           npm install --global yarn --registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
           yarn config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/
           yarn --version
-
       - name: Install plugin
         working-directory: salesforce-plugin
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -73,21 +64,18 @@ jobs:
         run: |
           mv ci.yarnrc .yarnrc
           rm -rf node_modules && yarn install --frozen-lockfile
-      
       - name: Build plugin
         working-directory: salesforce-plugin
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         shell: bash
         run: |
           yarn build
-
       - name: "OIDC Authentication (Salesforce Harness Delegate Service Account)"
         id: "authenticate-harness-delegate"
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         uses: "anzx/github-reusable-actions/authenticate-gcp@main"
         with:
           service_account: "h-sf-primary-np@anz-x-bootstrap-np-487e09.iam.gserviceaccount.com"
-
       - name: SFDXURL
         id: secrets
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
@@ -96,11 +84,9 @@ jobs:
           secrets: |-
             sfdxurl:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-test/versions/latest
             artifactory_token:projects/anz-x-gh-sf-nonprod-ea5caa/secrets/sf-platform-np-artifact/versions/latest
-
       - name: Authenticate all orgs in SFDX CLI
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         run: echo "${{ steps.secrets.outputs.sfdxurl }}" | npx sf org login sfdx-url -a "${{ github.base_ref }}"  --set-default --sfdx-url-file=/dev/stdin
-
       - name: Get objects changes with xschema-generate
         if: github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop'
         id: get-changed-objects
@@ -109,9 +95,9 @@ jobs:
           sfdatasync_object_list=$(jq -r '.sfdatasync_object_whitelist[]' ./config/object-changes-list.json)
           for object in $sfdatasync_object_list; do
             echo "running xschema-generate on sfdatasync user for $object..."
-            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test24 -e ./config/bigq_exclusionfile.json -n $object \
+            if  ! ./salesforce-plugin/bin/run.js xschema generate -a sfdatasync.user@anzx.com.test25 -e ./config/bigq_exclusionfile.json -n $object \
                   -f sfdatasync_user_output; then
-                errors+=("$object for user sfdatasync.user@anzx.com.test24")
+                errors+=("$object for user sfdatasync.user@anzx.com.test25")
                 echo "Errors occurred while running the xSchema generate."
             fi
           done
@@ -125,7 +111,6 @@ jobs:
           fi
           ls -la sfdatasync_user_output/xschema-generate
           echo "Complete the process of getting object changes."
-
       # Upload failure to artifactory
       - name: Push failure changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'failure' && !cancelled() && (github.ref == 'refs/heads/develop' || github.event.pull_request.base.ref == 'develop') }}
@@ -139,13 +124,11 @@ jobs:
 
           zip -r $ARTIFACT_NAME output && ls -la
           curl -H "Authorization: Bearer ${{ steps.secrets.outputs.artifactory_token }}" -X PUT -T "$ARTIFACT_NAME.zip" "https://artifactory.gcp.anz/artifactory/anzx-salesforce-releases-np/$ARTIFACT_NAME.zip"
-
       - name: "Set up Cloud SDK"
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop'  && inputs.diff-only == false }}
         uses: "anzx/github-reusable-actions/setup-gcloud@main"
         with:
           install_components: "core"
-
       - name: Pull current changes from GCS SIT
         if: ${{ steps.get-changed-objects.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop'  && inputs.diff-only == false }}
         id: pull-from-gcs
@@ -168,7 +151,6 @@ jobs:
             fi
           done
           ls -la gcs_bucket
-
       - name: Run diff
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' && inputs.diff-only == false }}
         id: run-diff
@@ -192,7 +174,6 @@ jobs:
           fi
           echo "CHANGES_DETECTED=$CHANGES_DETECTED" >> $GITHUB_OUTPUT
           cat $GITHUB_OUTPUT
-
       # Upload success to artifactory
       - name: Push success changes to artifactory
         if: ${{ steps.get-changed-objects.outcome == 'success' && steps.run-diff.outcome == 'success' && steps.pull-from-gcs.outcome == 'success' && !cancelled() && github.ref == 'refs/heads/develop' && inputs.diff-only == false }}

@@ -36,8 +36,10 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
 
     //checks for validations on opportunities
     CommercialOpportunityHelper.validateCCRMOpportunity(oppWrapper, true);
+    //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
+    OpportunityActions.preventDuplicateLoanappReferenceNumber(records, null);
     //CC-4528 validate Opportunity for MLCRM
-    MLCRMOpportunityActions.validateMLCRMOpportunity(records, null);
+    OpportunityActions.validateMLCRMOpportunity(records, null);
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     //CC-1058 This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
@@ -82,6 +84,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     );
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(null, records, 'Opportunity');
+    OpportunityActions.createOpportunityContactRole(records);
   }
 
   /**
@@ -119,9 +122,13 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap,
       false
     );
-
+    //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
+    OpportunityActions.preventDuplicateLoanappReferenceNumber(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
     //CC-4528 validate Opportunity for MLCRM
-    MLCRMOpportunityActions.validateMLCRMOpportunity(
+    OpportunityActions.validateMLCRMOpportunity(
       records,
       (Map<Id, Opportunity>) oldMap
     );
@@ -131,7 +138,10 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtilsHelper.validateOwnerChange(oldMap, records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
-
+    OpportunityActions.updatePrimaryApplicantOnUpdate(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
     if (!CCRMOpportunityActions.insertOpportunityContext) {
       CCRMOpportunityActions.updateOpportunityNameOnUpdate(
         oppWrapper.filteredOpps,

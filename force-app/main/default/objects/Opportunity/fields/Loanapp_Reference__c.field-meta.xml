@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy_Sensitive_Personal_Information;Source - Salesforce</complianceGroup>
     <description>Simpology Application Reference Number</description>
+    <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
     <label>Loanapp Reference</label>
     <length>100</length>

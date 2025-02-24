@@ -7,7 +7,7 @@ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
 ISPICKVAL(Dispute_Reason__c, &quot;Incorrect Amount Transferred&quot;),
 OR(
-ISBLANK(Description),
+AND(ISBLANK(Description),NOT(ISPICKVAL(Origin, &apos;App&apos;))),
 ISBLANK(Intended_Amount__c)
 )
 )</errorConditionFormula>

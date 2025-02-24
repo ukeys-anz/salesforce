@@ -339,7 +339,6 @@
         <excludeButtons>OppContactRoleMultiEdit</excludeButtons>
         <fields>ContactName</fields>
         <fields>Role</fields>
-        <fields>IsPrimary</fields>
         <fields>ContactPhone</fields>
         <fields>ContactEmail</fields>
         <relatedList>RelatedContactRoleList</relatedList>

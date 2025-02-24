@@ -44,7 +44,8 @@ public with sharing class AutoKYCQACaseActions {
 
   private static final Set<String> DOWNGRADE_OLD_STATUSES = new Set<String>{
     'Open',
-    'Under Review'
+    'Under Review',
+    'Closed'
   };
 
   private static final Set<String> DOWNGRADE_NEW_STATUSES = new Set<String>{
@@ -93,28 +94,41 @@ public with sharing class AutoKYCQACaseActions {
 
   public static final String ADD_RESTRAINTS = 'Case.KYC_QA.AddRestraints';
   public static final String REMOVE_RESTRAINTS = 'Case.KYC_QA.RemoveRestraints';
+  public static final Set<String> RESTRAINT_KEYS = new Set<String>{
+    ADD_RESTRAINTS,
+    REMOVE_RESTRAINTS
+  };
   private static final String ERROR = 'Error';
   private static final String PENDING = 'Pending';
-  private static final String COMPLETED = 'Completed';
+  public static final String COMPLETED = 'Completed';
   private static final Set<String> STAGING_STATUSES = new Set<String>{
     ERROR,
     PENDING,
     COMPLETED
   };
+
+  @TestVisible
+  private static final String APPLIED = 'Applied';
+  @TestVisible
+  private static final String ERROR_APPLYING_RESTRAINTS_IN_CAP = 'Error Applying Restraints in CAP';
+  @TestVisible
+  private static final String APPLYING_RESTRAINTS_IN_CAP = 'Applying Restraints in CAP';
+  @TestVisible
+  private static final String REMOVING_RESTRAINTS_IN_CAP = 'Removing Restraints in CAP';
   @TestVisible
   private static final Map<String, String> RESTRAINT_SUCCESS_STATUSES = new Map<String, String>{
-    ADD_RESTRAINTS => 'Applied',
+    ADD_RESTRAINTS => APPLIED,
     REMOVE_RESTRAINTS => 'Removed'
   };
   @TestVisible
   private static final Map<String, String> RESTRAINT_ERROR_STATUSES = new Map<String, String>{
-    ADD_RESTRAINTS => 'Error Applying Restraints in CAP',
+    ADD_RESTRAINTS => ERROR_APPLYING_RESTRAINTS_IN_CAP,
     REMOVE_RESTRAINTS => 'Error Removing Restraints in CAP'
   };
   @TestVisible
   private static final Map<String, String> RESTRAINT_PENDING_STATUSES = new Map<String, String>{
-    ADD_RESTRAINTS => 'Applying Restraints in CAP',
-    REMOVE_RESTRAINTS => 'Removing Restraints in CAP'
+    ADD_RESTRAINTS => APPLYING_RESTRAINTS_IN_CAP,
+    REMOVE_RESTRAINTS => REMOVING_RESTRAINTS_IN_CAP
   };
   //#endregion
 
@@ -427,7 +441,7 @@ public with sharing class AutoKYCQACaseActions {
     List<Case> validCases = ListUtil.filter(cases)
       .isNull(Case.TestedDate__c)
       .isNotNull(Case.Fraud_Restraint_Status__c)
-      .allNotNull(TEST_FIELDS)
+      .equals(Case.IsKYCChecksCompleted__c, true)
       .toList();
     ListUtil.setField(validCases, Case.TestedDate__c, System.now());
   }
@@ -438,13 +452,33 @@ public with sharing class AutoKYCQACaseActions {
    * @param cases List of Cases
    * @param oldMap Old Map of Cases
    */
-  public static void setRetraintStatus(List<Case> cases, Map<Id, Case> oldMap) {
+  public static void setRestraintStatus(
+    List<Case> cases,
+    Map<Id, Case> oldMap
+  ) {
     List<Case> validCases = filterDowngradedCases(cases, oldMap);
+    List<Case> casesToRestraint = ListUtil.filter(validCases)
+      .notEquals(
+        Case.Fraud_Restraint_Status__c,
+        new Set<String>{
+          APPLIED,
+          ERROR_APPLYING_RESTRAINTS_IN_CAP,
+          APPLYING_RESTRAINTS_IN_CAP
+        }
+      )
+      .toList();
+
     ListUtil.setField(
-      validCases,
+      casesToRestraint,
       Case.Fraud_Restraint_Status__c,
       RESTRAINT_PENDING_STATUSES.get(ADD_RESTRAINTS)
     );
+
+    // If a resolved case is going to defective status after cycle 1 is completed, reset HADBR
+    List<Case> casesToResetHADBR = ListUtil.filter(casesToRestraint)
+      .equals(Case.Fraud_Defects_Rectified__c, YES)
+      .toList();
+    ListUtil.setField(casesToResetHADBR, Case.Fraud_Defects_Rectified__c, '');
   }
 
   private static List<Case> filterDowngradedCases(
@@ -452,8 +486,8 @@ public with sharing class AutoKYCQACaseActions {
     Map<Id, Case> oldMap
   ) {
     return ListUtil.filter(cases, oldMap)
-      .allNotNull(TEST_FIELDS)
-      .anyEqual(TEST_FIELDS, NO)
+      .equals(Case.IsKYCChecksCompleted__c, true)
+      .equals(Case.KYCChecksHasDefect__c, true)
       .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
       .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
       .toList();
@@ -466,6 +500,12 @@ public with sharing class AutoKYCQACaseActions {
    */
   public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
     List<Case> casesToDowngrade = filterDowngradedCases(cases, oldMap);
+    if (REPOSITORY.isRestraintEnabled()) {
+      casesToDowngrade = ListUtil.filter(casesToDowngrade, oldMap)
+        .changedTo(Case.Fraud_Restraint_Status__c, APPLYING_RESTRAINTS_IN_CAP)
+        .toList();
+    }
+
     Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToDowngrade,
       Case.AccountId
@@ -495,9 +535,14 @@ public with sharing class AutoKYCQACaseActions {
     Map<Id, Case> oldMap
   ) {
     List<Case> updatedCases = filterUpgradedCases(cases, oldMap);
-    Set<Id> accIds = ListUtil.getIds(updatedCases, Case.AccountId);
+    List<Case> casesToUnrestraint = ListUtil.filter(updatedCases)
+      .equals(Case.Fraud_Restraint_Status__c, APPLIED)
+      .toList();
+
+    Set<Id> accIds = ListUtil.getIds(casesToUnrestraint, Case.AccountId);
     List<Account> accounts = retrieveAccountsNotExited(accIds);
-    List<Case> validCases = ListUtil.filter(updatedCases)
+    /*
+    List<Case> validCases = ListUtil.filter(casesToUnrestraint)
       .equals(Case.AccountId, new Map<Id, Account>(accounts).keySet())
       .toList();
     ListUtil.setField(
@@ -505,6 +550,34 @@ public with sharing class AutoKYCQACaseActions {
       Case.Fraud_Restraint_Status__c,
       RESTRAINT_PENDING_STATUSES.get(REMOVE_RESTRAINTS)
     );
+    */
+    // BACKWARD COMPATIBILITY - For Manually applied cases before feature activation,
+    // once all the cases are under automation, remove this block and activate above block
+    setManualUnrestraintStatus(casesToUnrestraint, accounts);
+    // temp code end
+  }
+
+  @TestVisible
+  private static void setManualUnrestraintStatus(
+    List<Case> casesToUnrestraint,
+    List<Account> accounts
+  ) {
+    Map<Id, Account> accountsMap = new Map<Id, Account>(accounts);
+    for (case rec : casesToUnrestraint) {
+      if (!accountsMap.containsKey(rec.AccountId)) {
+        continue;
+      }
+      List<Customer_Profile_Updates__c> oldCpus = accountsMap.get(rec.AccountId)
+        .Customer_Profile_Updates__r;
+      if (oldCpus.isEmpty()) {
+        continue;
+      }
+      if (oldCpus[0].TriggeredFrom__c == ADD_RESTRAINTS) {
+        rec.Fraud_Restraint_Status__c = RESTRAINT_PENDING_STATUSES.get(
+          REMOVE_RESTRAINTS
+        );
+      }
+    }
   }
 
   private static List<Case> filterUpgradedCases(
@@ -523,6 +596,12 @@ public with sharing class AutoKYCQACaseActions {
    */
   public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
     List<Case> casesToUpgrade = filterUpgradedCases(cases, oldMap);
+    if (REPOSITORY.isRestraintEnabled()) {
+      casesToUpgrade = ListUtil.filter(casesToUpgrade, oldMap)
+        .changedTo(Case.Fraud_Restraint_Status__c, REMOVING_RESTRAINTS_IN_CAP)
+        .toList();
+    }
+
     Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToUpgrade,
       Case.AccountId
@@ -569,10 +648,15 @@ public with sharing class AutoKYCQACaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    for (Case record : records) {
-      if (!checkClosedAsNoDefect(record, oldMap.get(record.Id))) {
-        continue;
-      }
+    List<Case> casesToUpdate = ListUtil.filter(records, oldMap)
+      .changedTo(
+        Case.Sub_Status__c,
+        GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
+      )
+      .equals(Case.KYCChecksHasDefect__c, false)
+      .notEquals(Case.Fraud_Defects_Rectified__c, YES)
+      .toList();
+    for (Case record : casesToUpdate) {
       for (SObjectField field : TEST_FIELDS) {
         record.put(field, YES);
       }
@@ -581,56 +665,6 @@ public with sharing class AutoKYCQACaseActions {
       record.Fraud_Restraint_Status__c = 'N/A';
       record.Fraud_Defects_Rectified__c = 'Not Applicable';
     }
-  }
-
-  /**
-   * @description Checks if the case is closed as "No Defect" and not downgraded.
-   * @param record The new Case record.
-   * @param oldRecord The old Case record.
-   * @return `Boolean` Returns true if the case is closed as "No Defect" and not downgraded, false otherwise.
-   */
-  @TestVisible
-  private static Boolean checkClosedAsNoDefect(Case record, Case oldRecord) {
-    Boolean closedAsNoDefect =
-      record.Sub_Status__c != oldRecord?.Sub_Status__c &&
-      record.Sub_Status__c == GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT;
-    Boolean wasDowngraded =
-      hasKycCheckCompletedWithDefect(record) &&
-      record.Fraud_Defects_Rectified__c == YES;
-    return closedAsNoDefect && !wasDowngraded;
-  }
-
-  /**
-   * @description Check if the KYC QA Case has a defect
-   * @param oCase KYC QA Case
-   * @return True if the KYC QA Case has a defect, false otherwise
-   */
-  @TestVisible
-  private static Boolean hasKycCheckCompletedWithDefect(Case oCase) {
-    if (!hasKycCheckCompleted(oCase)) {
-      return false;
-    }
-    for (SObjectField field : TEST_FIELDS) {
-      if (oCase.get(field) == NO) {
-        return true;
-      }
-    }
-    return false;
-  }
-
-  /**
-   * @description Check if all Test fields are not empty
-   * @param oCase Case
-   * @return True if all Test fields are not empty, false otherwise
-   */
-  public static boolean hasKycCheckCompleted(Case oCase) {
-    for (SObjectField field : TEST_FIELDS) {
-      String value = String.valueOf(oCase?.get(field));
-      if (String.isBlank(value)) {
-        return false;
-      }
-    }
-    return true;
   }
   //#endregion
 
@@ -653,40 +687,133 @@ public with sharing class AutoKYCQACaseActions {
       .equals(Customer_Profile_Updates__c.TriggeredFrom__c, restraintsAction)
       .changedTo(Customer_Profile_Updates__c.Status__c, STAGING_STATUSES)
       .toList();
-    Set<Id> accIds = ListUtil.getIds(
+    Set<Id> casesIds = ListUtil.getIds(
       completedCpus,
-      Customer_Profile_Updates__c.Customer_Name__c
+      Customer_Profile_Updates__c.Case__c
     );
-    List<Account> accs = REPOSITORY.queryAccountsWithCpuAndKYCQaCases(accIds);
-    List<Case> cases = getCasesWithUpdatedRestraintStatus(
-      accs,
+
+    //staging records are individually updated across multiple transactions
+    //use queueable to ensure all staging records statuses are persisted before updating case
+    if (casesIds.size() == 1) {
+      new UpdateRestraintResultsQueueable(
+          casesIds.iterator().next(),
+          restraintsAction
+        )
+        .enqueue();
+      return;
+    }
+    updateRestraintResults(casesIds, restraintsAction);
+  }
+
+  /**
+   * @description Updates the restraint results for a given case asynchronously
+   */
+  public class UpdateRestraintResultsQueueable implements Queueable {
+    private Id caseId;
+    private String action;
+
+    /**
+     * @description Constructor for UpdateRestraintResultsQueueable
+     * @param caseId The ID of the case to update.
+     * @param action The action to be taken on the restraints.
+     */
+    public UpdateRestraintResultsQueueable(Id caseId, String action) {
+      this.caseId = caseId;
+      this.action = action;
+    }
+
+    /**
+     * @description Enqueues the job to update restraint results.
+     */
+    public void enqueue() {
+      System.enqueueJob(this);
+      Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          this.action +
+          ': Queueable action scheduled',
+        this.caseId
+      );
+      Logger.saveLog();
+    }
+
+    /**
+     * @description execute method
+     * @param context QueueableContext
+     */
+    public void execute(QueueableContext context) {
+      updateRestraintResults(new Set<Id>{ this.caseId }, this.action);
+    }
+  }
+
+  /**
+   * @description Updates the restraint results for a set of KYC QA cases.
+   * @param casesIds Set<Id> - The set of case IDs to update.
+   * @param restraintsAction String - The action to be taken on the restraints.
+   */
+  private static void updateRestraintResults(
+    Set<Id> casesIds,
+    String restraintsAction
+  ) {
+    Logger.debug(
+      DateTimeUtils.timeString +
+        ' | ' +
+        restraintsAction +
+        ': Updating Restraint Results'
+    );
+    List<Case> kycQACases = REPOSITORY.queryKYCQACasesWithCpu(casesIds);
+    List<Case> casesWithStatus = getCasesWithUpdatedRestraintStatus(
+      kycQACases,
       restraintsAction
     );
-    DML.doUpdate(cases, new DmlConfig().allowPartial().withoutSharing());
+    DML.doUpdate(
+      casesWithStatus,
+      new DmlConfig().allowPartial().withoutSharing()
+    );
+    Logger.debug(
+        DateTimeUtils.timeString +
+          ' | ' +
+          restraintsAction +
+          ': Updated Restraint Results'
+      )
+      .save();
   }
 
   /**
    * @description Get Cases with Updated Restraint Status
-   * @param accs List of Accounts
+   * @param kycQACases List of KYC QA Cases
    * @param restraintsAction Restraints Action: AddRestraints or RemoveRestraints
    * @return List of Cases with Updated Restraint Status
    */
   @TestVisible
   private static List<Case> getCasesWithUpdatedRestraintStatus(
-    List<Account> accs,
+    List<Case> kycQACases,
     String restraintsAction
   ) {
     List<Case> cases = new List<Case>();
-    for (Account acc : accs) {
+    for (Case kycQACase : kycQACases) {
       String status = getRestraintStatusFromCpus(
-        acc.Customer_Profile_Updates__r,
+        kycQACase.Customer_Profile_Updates__r,
         restraintsAction
       );
-      Case kyc = acc.Cases[0];
-      if (status != null && kyc.Fraud_Restraint_Status__c != status) {
-        cases.add(new Case(Id = kyc.Id, Fraud_Restraint_Status__c = status));
+      Logger.debug(
+        String.format(
+          '{0} | Restraint status from "{1}" to "{2}"',
+          new List<String>{
+            DateTimeUtils.timeString,
+            kycQACase.Fraud_Restraint_Status__c,
+            status
+          }
+        ),
+        kycQACase.Id
+      );
+      if (status != null && kycQACase.Fraud_Restraint_Status__c != status) {
+        cases.add(
+          new Case(Id = kycQACase.Id, Fraud_Restraint_Status__c = status)
+        );
       }
     }
+    Logger.saveLog();
     return cases;
   }
 

@@ -1036,6 +1036,10 @@
             <fullName>Funds never Received</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>System Outage</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Fraud_Recipient_Remitter__c</picklist>

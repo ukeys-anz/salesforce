@@ -262,4 +262,17 @@ public with sharing class TFMSearchCustomerServiceMock extends TFMSearchCustomer
     response.error = new CalloutException(TFMConstants.SERVERERROR);
     return response;
   }
+    
+    /**
+   * @description mock response for callout
+   * @return HttpCalloutResponse invalid response
+   */
+  public static HttpCalloutResponse setMockErrorResponseForInsufficentAccess() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.body = AUTHENTICATION_ERROR_RESPONSE;
+    response.statusCode = 401;
+    response.successful = false;
+    response.error = new CalloutException(TFMConstants.INSUFFICIENT_ACCESS_ERROR);
+    return response;
+  }
 }

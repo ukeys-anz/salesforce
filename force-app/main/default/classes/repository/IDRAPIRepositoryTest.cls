@@ -22,6 +22,32 @@ public with sharing class IDRAPIRepositoryTest {
   }
 
   @isTest
+  static void testGetCustomerInfoLWCFailure() {
+    HttpCalloutResponse res = getAPIFailureResponse();
+    Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
+    serv.setCalloutResponse(res);
+    IDRAPIRepository repo = new IDRAPIRepository();
+    Exception calloutExp;
+    Test.startTest();
+    try {
+      repo.getCustomerInfo('12345', 'CAP ID');
+    } catch (Exception e) {
+      calloutExp = e;
+    }
+    Test.stopTest();
+    Assert.areEqual(
+      500,
+      res.statusCode,
+      'Status Code matches for Internal Server Error'
+    );
+    Assert.areEqual(
+      'OCV Down',
+      calloutExp.getMessage(),
+      'OCV down exception message matches'
+    );
+  }
+
+  @isTest
   static void testGetSNOWEventInfoLWCforValidId() {
     Test.startTest();
     SNOWIntegrationModel info = IDRAPIRepository.getSNOWEventInfoLWC(
@@ -45,7 +71,7 @@ public with sharing class IDRAPIRepositoryTest {
     Exception calloutException;
     Test.startTest();
     try {
-      SNOWIntegrationModel result = repo.getSNOWEventInfo('IRE0073261');
+      repo.getSNOWEventInfo('IRE0073261');
     } catch (Exception e) {
       calloutException = e;
     }
@@ -62,12 +88,49 @@ public with sharing class IDRAPIRepositoryTest {
     );
   }
 
+  @isTest
+  static void testCustomerNotFoundFailure() {
+    HttpCalloutResponse res = getCustomerNotFoundResponse();
+    Service serv = ServiceProvider.getService(IDRCustomerProfileService.class);
+    serv.setCalloutResponse(res);
+    IDRAPIRepository repo = new IDRAPIRepository();
+    Exception ocvDownExp;
+    Test.startTest();
+    try {
+      repo.getCustomerInfo('1231231234', 'Customer/Business CAP ID');
+    } catch (Exception e) {
+      ocvDownExp = e;
+    }
+
+    Test.stopTest();
+    Assert.areEqual(
+      422,
+      res.statusCode,
+      'Status Code matches for Customer Not Found error'
+    );
+    Assert.areEqual(
+      'Customer not found',
+      ocvDownExp.getMessage(),
+      'Customer Not Found exception matches'
+    );
+  }
+
   private static HttpCalloutResponse getAPIFailureResponse() {
     HttpCalloutResponse response = new HttpCalloutResponse();
     response.error = new CalloutException(
       '{"message":{"Internal Server Error"}}'
     );
     response.statusCode = 500;
+    response.successful = false;
+    return response;
+  }
+
+  private static HttpCalloutResponse getCustomerNotFoundResponse() {
+    HttpCalloutResponse response = new HttpCalloutResponse();
+    response.error = new CalloutException(
+      '{"message": "Could not retrieve Customer Data"}'
+    );
+    response.statusCode = 422;
     response.successful = false;
     return response;
   }

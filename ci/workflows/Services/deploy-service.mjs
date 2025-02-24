@@ -1,5 +1,8 @@
 import { exec, execSync } from "child_process";
-import { renameForceignore } from "./artifact-service.mjs";
+import {
+  createArtifactFolder,
+  renameForceignore
+} from "./artifact-service.mjs";
 import {
   runSfCommand,
   printContextFromFile,
@@ -13,7 +16,13 @@ import {
   createDeployCacheFile,
   downloadZipFile,
   unzipFile,
-  booleanMap
+  booleanMap,
+  runCommand,
+  salesforceForceAppChangesExist,
+  salesforceDestructiveChanges,
+  loggerInStep,
+  destructivePackageChangesExist,
+  moveDestructiveFolderToForceApp
 } from "./helper.mjs";
 
 const validateWithoutTest = (targetOrg, artifactPath) => {
@@ -28,6 +37,14 @@ const validateWithAllTests = (targetOrg, artifactPath) => {
   if (!salesforceDiffExist(artifactPath)) return;
   logger("Running Validation | All Local Tests");
   const command = `npx sf project deploy start -o ${targetOrg} --manifest "${artifactPath}/package/package.xml" --post-destructive-changes "${artifactPath}/destructiveChanges/destructiveChanges.xml" --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
+  console.log(command);
+  return runSfCommand(command);
+};
+
+const validateWithAllTestsSkipDestructive = (targetOrg, artifactPath) => {
+  logger("Running Validation | Skip Destrictive Changes | All Local Tests");
+  if (!salesforceForceAppChangesExist(artifactPath)) return;
+  const command = `npx sf project deploy start -o ${targetOrg} --manifest "${artifactPath}/package/package.xml" --dry-run --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
   console.log(command);
   return runSfCommand(command);
 };
@@ -62,12 +79,41 @@ const deployWithoutTest = (targetOrg, artifactPath) => {
   return runSfCommand(command);
 };
 
+const deployWithoutTestSkipDestructive = (targetOrg, artifactPath) => {
+  if (!destructivePackageChangesExist(artifactPath)) return;
+  logger("Running Deployment | Skip Destrictive Changes | No Test");
+  const command = `npx sf project deploy start -o ${targetOrg} --manifest "${artifactPath}/unpackaged/unpackaged/package.xml" --ignore-conflicts --async --verbose --json`;
+  console.log(command);
+  return runSfCommand(command);
+};
+
 const deployWithAllTests = (targetOrg, artifactPath) => {
   if (!salesforceDiffExist(artifactPath)) return;
   logger("Running Deployment | All Local Tests");
   const command = `npx sf project deploy start -o ${targetOrg} --manifest "${artifactPath}/package/package.xml" --post-destructive-changes "${artifactPath}/destructiveChanges/destructiveChanges.xml" --ignore-conflicts --async --verbose --test-level RunLocalTests --json`;
   console.log(command);
   return runSfCommand(command);
+};
+
+const destructiveDeployment = (
+  destructiveFolderName,
+  artifactorySecret,
+  artifactoryRepoName,
+  targetOrg
+) => {
+  downloadZipFile(
+    destructiveFolderName,
+    artifactorySecret,
+    artifactoryRepoName,
+    "Destructive"
+  );
+  unzipFile(destructiveFolderName);
+  moveDestructiveFolderToForceApp(destructiveFolderName);
+  renameForceignore();
+  return deployWithoutTestSkipDestructive(
+    targetOrg,
+    "force-app/" + destructiveFolderName
+  );
 };
 
 const quickDeployment = (targetOrg, jobId) => {
@@ -239,20 +285,24 @@ const cancel = (
 
   console.log("Prevoius jobId: " + pastJobId);
   createDeployCacheFile(pastJobId, targetOrg, anzxCIPackage, anzxCIPackage);
+  try {
+    const report = runCommand(
+      `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
+    );
 
-  const report = runSfCommand(
-    `npx sf project deploy report --job-id ${pastJobId} -o ${targetOrg} --json`
-  );
+    const prevJobStatus = JSON.parse(report)["result"]["status"];
+    if (prevJobStatus !== "InProgress" && prevJobStatus !== "Pending") {
+      console.log(`Past job: ${pastJobId} is already completed/canceled!`);
+      return;
+    }
 
-  const prevJobStatus = JSON.parse(report)["result"]["status"];
-  if (prevJobStatus !== "InProgress" && prevJobStatus !== "Pending") {
-    console.log(`Past job: ${pastJobId} is already completed/canceled!`);
+    const command = `npx sf project deploy cancel --job-id ${pastJobId}`;
+    console.log(command);
+    runSfCommand(command);
+  } catch (error) {
+    console.log(`Prevoius job (${pastJobId}) has already been completed...`);
     return;
   }
-
-  const command = `npx sf project deploy cancel --job-id ${pastJobId}`;
-  console.log(command);
-  runSfCommand(command);
 };
 
 const commandProgress = (
@@ -418,17 +468,38 @@ const codeCoverage = (jobIdFilePath, draftPR) => {
   return;
 };
 
+const retrieveDestructiveFiles = (
+  targetOrg,
+  artifactPath,
+  destructivePackageXMLPath,
+  targetFolderPath
+) => {
+  logger("Running Retrieve | All Destructive Changes");
+  if (!salesforceDestructiveChanges(artifactPath)) {
+    loggerInStep("There is no Destructive changes to be retrieved.");
+    return;
+  }
+  createArtifactFolder(targetFolderPath);
+  const command = `npx sf project retrieve start -o "${targetOrg}" --manifest "${destructivePackageXMLPath}" --target-metadata-dir "${targetFolderPath}" --unzip --wait 20 --json`;
+  console.log(command);
+  return runSfCommand(command);
+};
+
 ///////////////////////////////////////////
 
 export {
   validateWithoutTest,
   validateWithSpecifiedTests,
   validateWithAllTests,
+  validateWithAllTestsSkipDestructive,
   prodValidationWithAllTests,
   prodDeploymentWithAllTests,
   prodQuickDeployment,
   deployWithoutTest,
+  deployWithoutTestSkipDestructive,
   deployWithAllTests,
+  retrieveDestructiveFiles,
+  destructiveDeployment,
   cancel,
   validateProgress,
   deployProgress,
