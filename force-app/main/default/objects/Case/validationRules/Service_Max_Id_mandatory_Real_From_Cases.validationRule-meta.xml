@@ -17,5 +17,5 @@ ISBLANK( IDR_Real_Form_Ref_No__c )
 )
 )
 )</errorConditionFormula>
-    <errorMessage>REAL Form MAX ID/Service ID&apos; must be completed when &apos;Is a REAL form required?&apos; is ticked Yes.</errorMessage>
+    <errorMessage>REaL Form MAX ID/Service ID&apos; must be completed when &apos;Is a REaL form required?&apos; is ticked Yes.</errorMessage>
 </ValidationRule>

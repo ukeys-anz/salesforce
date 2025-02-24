@@ -63,9 +63,9 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
     ) {
       handleErrorShowToast(
         this,
-        "Is a REAL Form Required - Mandatory",
+        "Is a REaL Form Required - Mandatory",
         undefined,
-        "Please select a value for this field - Is a REAL Form Required"
+        "Please select a value for this field - Is a REaL Form Required"
       );
       this.loading = false;
       return;

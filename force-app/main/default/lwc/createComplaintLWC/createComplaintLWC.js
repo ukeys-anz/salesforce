@@ -781,12 +781,12 @@ export default class CreateComplaintLWC extends NavigationMixin(
     ) {
       isFieldValid = false;
       this.missingDataFields +=
-        /*inputCmp.label + ", "*/ " Is Real form required, ";
+        /*inputCmp.label + ", "*/ " Is REaL form required, ";
     }
     if (this.isRealFormNeeded === "Yes" && !this.realFormRefNo) {
       isFieldValid = false;
       this.missingDataFields +=
-        /*inputCmp.label + ", "*/ " REAL Form MAX ID/ServiceNow ID, ";
+        /*inputCmp.label + ", "*/ "REaL Form / Event ID, ";
     }
     let isRadioGroupValid = [
       ...this.template.querySelectorAll("lightning-radio-group")
