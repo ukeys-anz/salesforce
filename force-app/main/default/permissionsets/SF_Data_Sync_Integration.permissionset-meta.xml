@@ -3353,11 +3353,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.CertificateIdentifier__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.CertificateIdentifierType__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3403,16 +3398,6 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Case.LicenceCardNumber__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.LicenceNumber__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
         <field>Case.LinkBetweenOldIdentityAndNewName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3444,11 +3429,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.NewMiddleName__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>false</editable>
-        <field>Case.PassportNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
