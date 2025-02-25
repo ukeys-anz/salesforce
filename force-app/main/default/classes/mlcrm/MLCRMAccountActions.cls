@@ -6,6 +6,10 @@
  * @runTests CCRMAccountActionsTest
  */
 public with sharing class MLCRMAccountActions {
+  private static final AccountActionsRepository ACC_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
+    AccountActionsRepository.class
+  );
+   
   /**
    * @description CC-5112 && CC-7016 to restrict Date of Birth in Future
    * @name validateDateOfBirth
@@ -66,5 +70,35 @@ public with sharing class MLCRMAccountActions {
     shellRecord.BillingState != null ||
     shellRecord.BillingCountry != null ||
     shellRecord.BillingPostalCode != null));
+  }
+
+  /**
+   * @description CC-7202 Organisation RT fields should be read-only. Add Error to Orgnisation Records when OCV id is changed and Running User having ML Profile. Return Non-Organisation Records from OldMap
+   * @name setErrorAndRetNonOrgMlRec
+   * @param updatedRecords List of Account Records from Trigger.New
+   * @param oldMap The Account records passed from Trigger
+   * @return Map<Id, User> Map of Non-Organisation Records for ML Users, return old map if user is not having ML Profile
+   */
+  public static Map<Id, Account> setErrorAndRetNonOrgMlRec(
+    List<Account> updatedRecords,
+    Map<Id, Account> oldMap
+  ) {
+    // If user is not ML User then do nothing and return OldMap
+    if (!ACC_REPOSITORY.isCurrentUserML()) {
+      return oldMap;
+    }
+    Map<Id, Account> orgRecords = new Map<Id, Account>();
+    Map<Id, Account> nonOrgRecords = new Map<Id, Account>();
+
+    for (String key : oldMap.keySet()) {
+      Account record = oldMap.get(key);
+      if (record.RecordTypeId == RTAccount.businessAccount) {
+        orgRecords.put(key, record);
+        continue;
+      }
+      nonOrgRecords.put(key, record);
+    }
+    CCRMAccountActions.preventEditOcvId(updatedRecords, orgRecords);
+    return nonOrgRecords;
   }
 }

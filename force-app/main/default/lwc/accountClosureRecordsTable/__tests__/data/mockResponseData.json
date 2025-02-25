@@ -1,0 +1,20 @@
+[
+  {
+    "id": "500AD00000K7EypYAF",
+    "product": "40% Callable Term Deposit",
+    "accountNumber": "390992614",
+    "accountType": "Sole",
+    "childCaseNumber": "03771798",
+    "isSuccessIcon": true,
+    "workFlow": "Closed"
+  },
+  {
+    "id": "500AD00000K7EypYAA",
+    "product": "40% Callable Term Deposit",
+    "accountNumber": "390992619",
+    "accountType": "Sole",
+    "childCaseNumber": "03771799",
+    "isSuccessIcon": true,
+    "workFlow": "Closed"
+  }
+]

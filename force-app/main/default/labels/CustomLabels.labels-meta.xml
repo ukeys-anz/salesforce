@@ -2356,6 +2356,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/aegis-portal/v1/coaches/disclosure-state</value>
     </labels>
     <labels>
+        <fullName>MS_Initiate_Account_Closure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Initiate_Account_Closure</shortDescription>
+        <value>callout:SF_MS_CH2/fabricData/v1/accountsClosureAssist</value>
+    </labels>
+    <labels>
         <fullName>MS_JointNotificationSettingAPI</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2639,7 +2646,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>EDRM Business Streams Mapping</shortDescription>
-        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL,Home Lending:CMOS_CS_HL</value>
+        <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL</value>
     </labels>
     <labels>
         <fullName>EDRM_URL_DEV</fullName>

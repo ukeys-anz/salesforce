@@ -247,13 +247,12 @@ public with sharing class Logger {
     List<Database.DeleteResult> deleteResults,
     Severity severity
   ) {
-    if (
-      String.isBlank(DatabaseResultHelper.getDeleteResultError(deleteResults))
-    ) {
+    String error = DatabaseResultHelper.getDeleteResultError(deleteResults);
+    if (String.isBlank(error)) {
       return EMPTY;
     }
     return error()
-      .setDatabaseResult(deleteResults)
+      .setDatabaseResult(error)
       .setMessage(message)
       .setSeverity(severity);
   }
@@ -283,13 +282,12 @@ public with sharing class Logger {
     List<Database.MergeResult> mergeResults,
     Severity severity
   ) {
-    if (
-      String.isBlank(DatabaseResultHelper.getMergeResultError(mergeResults))
-    ) {
+    String error = DatabaseResultHelper.getMergeResultError(mergeResults);
+    if (String.isBlank(error)) {
       return EMPTY;
     }
     return error()
-      .setDatabaseResult(mergeResults)
+      .setDatabaseResult(error)
       .setMessage(message)
       .setSeverity(severity);
   }
@@ -319,11 +317,12 @@ public with sharing class Logger {
     List<Database.SaveResult> saveResults,
     Severity severity
   ) {
-    if (String.isBlank(DatabaseResultHelper.getSaveResultError(saveResults))) {
+    String error = DatabaseResultHelper.getSaveResultError(saveResults);
+    if (String.isBlank(error)) {
       return EMPTY;
     }
     return error()
-      .setDatabaseResult(saveResults)
+      .setDatabaseResult(error)
       .setMessage(message)
       .setSeverity(severity);
   }
@@ -353,15 +352,12 @@ public with sharing class Logger {
     List<Database.UndeleteResult> undeleteResults,
     Severity severity
   ) {
-    if (
-      String.isBlank(
-        DatabaseResultHelper.getUndeleteResultError(undeleteResults)
-      )
-    ) {
+    String error = DatabaseResultHelper.getUndeleteResultError(undeleteResults);
+    if (String.isBlank(error)) {
       return EMPTY;
     }
     return error()
-      .setDatabaseResult(undeleteResults)
+      .setDatabaseResult(error)
       .setMessage(message)
       .setSeverity(severity);
   }
@@ -391,13 +387,12 @@ public with sharing class Logger {
     List<Database.UpsertResult> upsertResults,
     Severity severity
   ) {
-    if (
-      String.isBlank(DatabaseResultHelper.getUpsertResultError(upsertResults))
-    ) {
+    String error = DatabaseResultHelper.getUpsertResultError(upsertResults);
+    if (String.isBlank(error)) {
       return EMPTY;
     }
     return error()
-      .setDatabaseResult(upsertResults)
+      .setDatabaseResult(error)
       .setMessage(message)
       .setSeverity(severity);
   }

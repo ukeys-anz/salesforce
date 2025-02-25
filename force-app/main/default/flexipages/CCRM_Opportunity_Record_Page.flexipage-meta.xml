@@ -472,7 +472,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>none</value>
+                    <value>readonly</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Lead_Id__c</fieldItem>
                 <identifier>RecordLead_Id_cField2</identifier>

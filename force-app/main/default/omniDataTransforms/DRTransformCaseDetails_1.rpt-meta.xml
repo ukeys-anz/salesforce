@@ -1667,7 +1667,7 @@
         <name>DRTransformCaseDetails</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-          <formulaConverted>| var:Case:AccountId var:AdditionalCustomerDetails:gender var:Response:profile:gender IF</formulaConverted>
+        <formulaConverted>| var:Case:AccountId var:AdditionalCustomerDetails:gender var:Response:profile:gender IF</formulaConverted>
         <formulaExpression>IF(%Case:AccountId%,%AdditionalCustomerDetails:gender%,%Response:profile:gender%)</formulaExpression>
         <formulaResultPath>gender</formulaResultPath>
         <formulaSequence>19.0</formulaSequence>

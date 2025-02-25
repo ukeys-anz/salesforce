@@ -4,7 +4,7 @@
     <label>Tableau CRM - Read Only</label>
     <license>EinsteinAnalyticsPlusPsl</license>
     <userPermissions>
-        <enabled>true</enabled>
+        <enabled>false</enabled>
         <name>InsightsAppUser</name>
     </userPermissions>
 </PermissionSet>

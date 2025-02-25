@@ -99,6 +99,21 @@ public without sharing class LogEventBuilder {
   // DML-result builder methods.
   /**
    * @description Sets the log entry event's database operation result fields
+   * @param resultString The result string to log
+   * @return The same instance of `LogEventBuilder`, useful for chaining methods
+   */
+  public LogEventBuilder setDatabaseResult(String resultString) {
+    if (this.shouldSave && String.isNotBlank(resultString)) {
+      this.logEvent.DatabaseResult__c = LogEventBuilderHelper.truncateFieldValue(
+        LogEvent__e.DatabaseResult__c,
+        resultString
+      );
+    }
+    return this;
+  }
+
+  /**
+   * @description Sets the log entry event's database operation result fields
    * @param  saveResult The instance of `Database.SaveResult` to log
    * @return            The same instance of `LogEventBuilder`, useful for chaining methods
    */

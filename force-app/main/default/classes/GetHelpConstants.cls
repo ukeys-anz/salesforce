@@ -214,10 +214,6 @@ public with sharing class GetHelpConstants {
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
     .getRecordTypeId();
-  // Customer Action - Pending Financial Account Updates
-  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
-    .get('Pending_Financial_Account_Updates')
-    .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
   public static final String CARD_DISPUTE_GENERAL_QUEUE = 'Card_Dispute_General_Queue';
@@ -268,6 +264,9 @@ public with sharing class GetHelpConstants {
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
   public static final String CLOSED_SUB_STATUS_NO_LONGER_REQUIRED = 'No Longer Required';
+  public static final String PROCESSING = 'Processing';
+  public static final String FAILED = 'Failed';
+  public static final String SUCCESS = 'Success';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
   // Case Origins for Self Service Dispute Cases
@@ -281,6 +280,8 @@ public with sharing class GetHelpConstants {
   // ANZX Case Type
   public static final String MANUAL_ADDRESS_UPDATE_TYPE = 'Manual Address Update';
   public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
+  public static final String ACCOUNT_CLOSURE = 'Account Closure';
+  public static final String CASE_GROUP = 'Case Group';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';

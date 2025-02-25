@@ -12,7 +12,7 @@
     <label>Credit Card</label>
     <length>255</length>
     <referenceTo>Credit_Card__x</referenceTo>
-    <relationshipLabel>Transaction Histories</relationshipLabel>
+    <relationshipLabel>Transaction History</relationshipLabel>
     <relationshipName>Transaction_History</relationshipName>
     <securityClassification>Confidential</securityClassification>
     <type>ExternalLookup</type>

@@ -299,13 +299,13 @@ public with sharing class ARNCService extends Service {
     HttpCalloutResponse response;
     try {
       Lib_HttpCallout calloutService = new Lib_HttpCallout();
-      response = calloutService.makeRestCallout(
-        endPoint,
-        HTTP_METHOD.HTTP_POST,
-        headers,
-        payload,
-        120000
-      );
+      Lib_HttpCallout.RESTCalloutWrapper restWrap = new Lib_HttpCallout.RESTCalloutWrapper();
+      restWrap.endpoint = endPoint;
+      restWrap.method = HTTP_METHOD.HTTP_POST;
+      restWrap.headers = headers;
+      restWrap.requestBody = payload;
+      restWrap.timeout = 120000;
+      response = calloutService.makeRestCallout(restWrap);
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();

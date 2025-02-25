@@ -6,7 +6,7 @@ import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accoun
 
 import { handleAccountHeaderData } from "c/utils";
 
-const ACCOUNT_TYPES = {
+const ACCOUNT_TYPES_CONSTANT = {
   checking: "Everyday - ANZ Plus Account",
   savings: "Savings - ANZ Save Account",
   savingss2: "Savings - ANZ Plus Flex Saver Account"
@@ -17,8 +17,6 @@ export default class FinancialAccount extends NavigationMixin(
 ) {
   @api recordId;
   @api accountType;
-  //Account details received through personAccountFinancialDetails LWC
-  @api accountDetails;
   @api error;
   //Savings jar details received through personAccountFinancialDetails LWC
   @api savingsJar;
@@ -30,6 +28,16 @@ export default class FinancialAccount extends NavigationMixin(
   productTitle;
   titleIcon;
   iconColor;
+  _accountDetails;
+
+  @api
+  set accountDetails(val) {
+    this._accountDetails = val;
+  }
+
+  get accountDetails() {
+    return this._accountDetails;
+  }
 
   get displayContent() {
     return hasAccountsGoalsPermission;
@@ -72,10 +80,10 @@ export default class FinancialAccount extends NavigationMixin(
 
   connectedCallback() {
     if (this.accountType) {
-      this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
+      this.componentTitle =
+        ACCOUNT_TYPES_CONSTANT[this.accountType.toLowerCase()];
       let accountHeaderData = handleAccountHeaderData(this.accountType);
       this.balanceTitle = accountHeaderData.balanceTitle;
-      this.productTitle = accountHeaderData.productTitle;
       this.iconColor = accountHeaderData.iconColor;
       this.titleIcon = accountHeaderData.titleIcon;
     }

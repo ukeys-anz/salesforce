@@ -479,6 +479,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Industry__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Is_Prospect__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -525,6 +530,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.PPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Principal_Place_of_Business_Formula__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -609,6 +619,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.VOI_Status_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VOI_Expiry_Date_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account_Relationship__x.Credit_Card__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -640,6 +660,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Account_Relationship__x.Term_Deposit__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account_Relationship__x.Other_Limits_and_Liabilities__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -850,6 +875,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Contact.Email</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.Fax</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1194,6 +1224,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Customer_SourceSystemId__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__AccountAccountRelation__c.Customer_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>FinServ__AccountAccountRelation__c.FinServ__Account__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1285,6 +1325,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__FinancialAccount__c.Source_System_Status_Display__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Account_Key__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Account_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -3098,6 +3153,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Relationship__c.Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Relationship__c.Date_Relationship_Commenced__c</field>
         <readable>true</readable>
@@ -3716,7 +3776,7 @@
         <editable>true</editable>
         <field>EmailMessage.Attachment_Notes__c</field>
         <readable>true</readable>
-    </fieldPermissions>  
+    </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Diary_Comment__x.Account__c</field>
@@ -4375,6 +4435,10 @@
     <userPermissions>
         <enabled>true</enabled>
         <name>AllowViewEditConvertedLeads</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
+        <name>CreateCustomizeFilters</name>
     </userPermissions>
     <userPermissions>
         <enabled>true</enabled>

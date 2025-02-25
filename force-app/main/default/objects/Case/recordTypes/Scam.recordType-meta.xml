@@ -1033,7 +1033,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Funds never Received</fullName>
+            <fullName>System Outage</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3795,6 +3795,295 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>NascScamCategory__c</picklist>
+        <values>
+            <fullName>Call%2C SMS or Messaging</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>In Person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Website or App</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NascScamChannel__c</picklist>
+        <values>
+            <fullName>Airbnb</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Alibaba</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Amazon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Booking%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Bumble</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Discord</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>DuckDuckGo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ebay</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Edreams</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Eharmony</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facebook</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Facebook Marketplace</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Flatmate</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>GlassDoor</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Google</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Grindr</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Gumtree</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Hinge</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indeed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Instagram</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Jetstar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Kayak</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Line</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LinkedIn</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Match%2Ecom</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Optus</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Plenty of fish</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Qantas</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seek</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Snapshat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Stayz</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telegram</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telstra</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TikTok</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tinder</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Viber</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Virgin</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vodaphone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Wechat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Weibo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>WhatsApp</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>X %28Twitter%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yahoo</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Youtube</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>iMessage</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>NascScamSubCategory__c</picklist>
+        <values>
+            <fullName>Dating</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email Compromise</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email Interception</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Family Member</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Friend</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Impersonation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Job Boards</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Messaging App</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Not previously known</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phishing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Professional acquaintance</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Purchase</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Search Engine</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Social Media</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Telco</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Travel %26 Accomodation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unknown</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>Customer</fullName>
@@ -3996,19 +4285,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Awaiting Details</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Business Email Compromise</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Dating %26 Romance</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Fake Charity</fullName>
             <default>false</default>
         </values>
         <values>
@@ -4028,15 +4309,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Remote Access</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Threats %26 Extortion</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>Bank Impersonation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Impersonation (Other)</fullName>
             <default>false</default>
         </values>
         <values>

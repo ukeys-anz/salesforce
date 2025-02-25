@@ -1069,6 +1069,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.VOI_Status_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VOI_Expiry_Date_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationForm.App_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
