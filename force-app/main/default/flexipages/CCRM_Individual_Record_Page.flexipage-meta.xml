@@ -180,8 +180,18 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Occupation__c</fieldItem>
-                <identifier>RecordOccupation_cField</identifier>
+                <fieldItem>Record.Employment_Type__c</fieldItem>
+                <identifier>RecordEmployment_Type_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Employer_Name__c</fieldItem>
+                <identifier>RecordEmployer_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-9f71a1d7-7bb1-4eed-94e8-ccadb7cd0c6b</name>
@@ -194,8 +204,18 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Employer_Name__c</fieldItem>
-                <identifier>RecordEmployer_Name_cField</identifier>
+                <fieldItem>Record.Occupation__c</fieldItem>
+                <identifier>RecordOccupation_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Self_Employed__c</fieldItem>
+                <identifier>RecordSelf_Employed_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-11d59d00-35ee-4e83-886f-1af349f75f35</name>
