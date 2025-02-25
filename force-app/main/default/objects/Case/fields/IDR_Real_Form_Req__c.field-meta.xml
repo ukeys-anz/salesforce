@@ -3,7 +3,7 @@
     <fullName>IDR_Real_Form_Req__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Is a REAL form required? Yes or No response required. 
+    <description>Is a REaL form required? Yes or No response required. 
 Checkbox for: &quot;Does this complaint relate/create a COR event/Compliance Incident&quot;</description>
     <externalId>false</externalId>
     <inlineHelpText>A REaL Form must be completed for failures in internal processes, people (e.g., human error), or systems causing compliance, financial or reputational impacts to ANZ or our customers. To record REaL Form details in CMOS, click &apos;Link REaL Form&apos; on the top right corner of your complaint. 
