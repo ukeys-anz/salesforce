@@ -7,6 +7,13 @@
         <shortDescription>Brokerdata cloud event type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
     </labels>
+        <labels>
+        <fullName>ANZx_Broker_Contract_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Contract cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.contract.</value>
+    </labels>
     <labels>
         <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
         <language>en_US</language>

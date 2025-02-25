@@ -2,7 +2,7 @@
  * @author Supriya
  * @since  08/Feb
  * @description Wrapper Class for Inserting brokerdata into Broker ORG
- * @runTests  BrokerDataCloudEventTest
+ * @runTests  BrokerCloudEventBuilderTest
  */
 @SuppressWarnings(
   'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.PropertyNamingConventions, PMD.NcssConstructorCount'
@@ -22,6 +22,32 @@ public virtual with sharing class BrokerDataCloudEventModel extends BrokerCloudE
     this.ce_dataschema =
       System.Label.ANZX_Broker_Event_Proto_Data_Schema + '#brokerdata';
     this.ce_xtargets = 'Broker/' + contact.External_Id__c;
+    this.ce_traceparent = '';
+    this.ce_data = new BrokerCloudEventDataModel(payload);
+  }
+
+  /**
+   * @description Constructor to get an instance of BrokerDataCloudEventModel
+   * @param financialAccount FinServ__FinancialAccount__c record
+   * @param payload data to be send with the cloud event
+   * @param action add/update
+   */
+  public BrokerDataCloudEventModel(
+    FinServ__FinancialAccount__c financialAccount,
+    List<BrokerDataCloudEventModel.MasterNode> payload,
+    String action
+  ) {
+    super();
+    this.ce_type = System.Label.ANZx_Broker_Contract_Event_ce_type + action;
+    this.ce_source = 'broker.salesforce.anzx';
+    this.ce_subject =
+      'FinServ__FinancialAccount__c/' + financialAccount.Account_Key__c;
+    this.ce_partitionkey = 'External_Id__c/' + financialAccount.Account_Key__c;
+    this.ce_sequence = Decimal.ValueOf(Datetime.now().getTime());
+    this.ce_dataschema =
+      System.Label.ANZX_Broker_Event_Proto_Data_Schema + '#brokerdata';
+    this.ce_xtargets =
+      'FinServ__FinancialAccount__c/' + financialAccount.Account_Key__c;
     this.ce_traceparent = '';
     this.ce_data = new BrokerCloudEventDataModel(payload);
   }

@@ -27,10 +27,10 @@ public with sharing class CustomerEventActions {
     try {
       //Checking Broker Settings Custom Setting if cloud event publish has to be bypassed
       if (
-        BROKER_SETTING_REPOSITORY.getBrokerSettings()
-          .BypassCustomerSyncEvents__c == true
+        BROKER_SETTING_REPOSITORY.getBrokerSettings().BypassCustomerEvent__c ==
+        true
       ) {
-        return null;
+        return new List<Cloud_Event__e>();
       }
       List<Account> accBasedOnOCVVersion = filterOCVVersionUpdate(
         records,

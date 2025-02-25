@@ -5,7 +5,7 @@
  */
 
 @IsTest
-private class BrokerDataCloudEventTest {
+private class BrokerCloudEventBuilderTest {
   private static final String CONTACT_JSON = '{"Name":"TEST_NAME", "External_Id__c":"TEST_EXTERNAL_ID", "Broker_Customer_Profile__r":{"External_Id__c":"TEST_ACCOUNT_EXTERNAL_ID"}}';
 
   static Contact createTestContact() {
@@ -87,7 +87,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerCloudEventModel.MasterNode contactNode = BrokerDataContactCEBuilder.buildContactNode(
+    BrokerCloudEventModel.MasterNode contactNode = BrokerCloudEventBuilder.buildContactNode(
       testContact
     );
     Test.stopTest();
@@ -102,7 +102,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildAccountNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerCloudEventModel.MasterNode accountNode = BrokerDataContactCEBuilder.buildAccountNode(
+    BrokerCloudEventModel.MasterNode accountNode = BrokerCloudEventBuilder.buildAccountNode(
       testContact
     );
     Test.stopTest();
@@ -117,7 +117,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildBrokerCodeNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerCloudEventModel.MasterNode brokerCodeNode = BrokerDataContactCEBuilder.buildBrokerCodeNode(
+    BrokerCloudEventModel.MasterNode brokerCodeNode = BrokerCloudEventBuilder.buildBrokerCodeNode(
       testContact
     );
     Test.stopTest();
@@ -132,7 +132,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactPointPhoneNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerCloudEventModel.MasterNode contactPointPhoneNode = BrokerDataContactCEBuilder.buildContactInfoNode(
+    BrokerCloudEventModel.MasterNode contactPointPhoneNode = BrokerCloudEventBuilder.buildContactInfoNode(
       testContact,
       'ContactPointPhone'
     );
@@ -148,7 +148,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactPointAddressNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerCloudEventModel.MasterNode contactPointAddressNode = BrokerDataContactCEBuilder.buildContactInfoNode(
+    BrokerCloudEventModel.MasterNode contactPointAddressNode = BrokerCloudEventBuilder.buildContactInfoNode(
       testContact,
       'ContactPointAddress'
     );
@@ -164,7 +164,7 @@ private class BrokerDataCloudEventTest {
   static void testBuildContactPointEmailNode() {
     Contact testContact = createTestContact();
     Test.startTest();
-    BrokerCloudEventModel.MasterNode contactPointEmailNode = BrokerDataContactCEBuilder.buildContactInfoNode(
+    BrokerCloudEventModel.MasterNode contactPointEmailNode = BrokerCloudEventBuilder.buildContactInfoNode(
       testContact,
       'ContactPointEmail'
     );
@@ -174,5 +174,80 @@ private class BrokerDataCloudEventTest {
       'sourceObjectName should be ContactPointEmail'
     );
     Test.stopTest();
+  }
+
+  /**
+   * @description test function to test BrokerCloudEventBuilder.buildFinancialAccountNode
+   * Assertion is made against the data populated in the returned data type
+   */
+  @IsTest
+  static void testBuildFinancialAccountNode() {
+    FinServ__FinancialAccount__c financialAccount = new FinServ__FinancialAccount__c();
+    financialAccount.Account_Key__c = 'AccKey20010101';
+    Account accnt = new Account();
+    accnt.External_Id__c = 'ExID20010101';
+    Test.startTest();
+    BrokerCloudEventModel.MasterNode brokerFinAccountMasterNode = BrokerCloudEventBuilder.buildFinancialAccountNode(
+      financialAccount,
+      accnt
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      'FinServ__FinancialAccount__c',
+      brokerFinAccountMasterNode.sourceObjectName,
+      'sourceObjectName should be FinServ__FinancialAccount__c'
+    );
+    Assert.areEqual(
+      'AccKey20010101',
+      brokerFinAccountMasterNode.sourceObjectExtId,
+      'sourceObjectExtId should be the Account Key of the Financial Account'
+    );
+    Assert.areEqual(
+      'FinServ__PrimaryOwner__c',
+      brokerFinAccountMasterNode.sourceObjectParentExtIdName,
+      'sourceObjectParentExtIdName should be FinServ__PrimaryOwner__c'
+    );
+    Assert.areEqual(
+      'ExID20010101',
+      brokerFinAccountMasterNode.sourceObjectParentExtId,
+      'sourceObjectParentExtId should be should be the External Id of the parent account'
+    );
+    BrokerCloudEventModel.TargetNode targetNode = brokerFinAccountMasterNode.targetObjects;
+    Assert.areEqual(
+      'FinServ__FinancialAccount__c',
+      targetNode.extObjectName,
+      'extObjectName should be FinServ__FinancialAccount__c'
+    );
+    Assert.areEqual(
+      'AccKey20010101',
+      targetNode.extIdField,
+      'extIdField should be should be the Account Key of the Financial Account'
+    );
+    List<BrokerCloudEventModel.ParentNode> parent = targetNode.parent;
+    Assert.areEqual(
+      1,
+      parent.size(),
+      'parent node should have only one element'
+    );
+    Assert.areEqual(
+      'FinServ__PrimaryOwner__c',
+      parent[0].referenceField,
+      'referenceField should be FinServ__PrimaryOwner__c'
+    );
+    Assert.areEqual(
+      'Account',
+      parent[0].objectName,
+      'objectName should be Account'
+    );
+    Assert.areEqual(
+      'External_Id__c',
+      parent[0].extIdField,
+      'extIdField should be External_Id__c'
+    );
+    Assert.areEqual(
+      'ExID20010101',
+      parent[0].extId,
+      'extId should be the External Id of the parent account'
+    );
   }
 }
