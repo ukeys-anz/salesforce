@@ -1,0 +1,17 @@
+{
+  "categoryId": "b9615970-e432-4105-bf94-860200cf4570",
+  "categoryName": "Pet Care",
+  "control": "EXPENSE_CONTROL_UNSPECIFIED",
+  "etag": "1727674251629621281",
+  "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/36db429d-82b5-5f05-944a-ac453f857988",
+  "hemState": "HEM_STATE_HEM",
+  "leafNode": true,
+  "monthlySpend": 11,
+  "name": "Pet Care",
+  "review": "EXPENSE_REVIEW_UNSPECIFIED",
+  "sopName": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/571e001f-e3db-4aed-93a0-9f5f186106e3",
+  "uid": "571e001f-e3db-4aed-93a0-9f5f186106e3",
+  "updateTime": "30 September 2024 | 3:30 pm",
+  "description": "Any spend to keep a fur baby looking and feeling their best, except pet insurance.",
+  "children": []
+}

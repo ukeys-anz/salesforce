@@ -31,7 +31,7 @@
         <field>Opportunity.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
-      <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Task.ML_DataMigration_Key__c</field>
         <readable>true</readable>

@@ -1,0 +1,22 @@
+.reasonTextHeaderStyle {
+  font-size: 11px;
+  font-weight: var(--lwc-fontWeightBold);
+  line-height: var(--amount-line-height);
+  color: var(--amount-font-color);
+}
+
+.reasonTextValueStyle {
+  font-size: 11px;
+  font-weight: var(--amount-font-weight);
+  line-height: var(--amount-line-height);
+  color: var(--amount-font-color);
+}
+
+.reasonIconStyle {
+  width: 24px;
+  height: 24px;
+}
+
+.reasonBackground {
+  background-color: var(--slds-g-color-palette-cloud-blue-95, #e2f6fd80);
+}
