@@ -11,6 +11,10 @@ public with sharing class CCRMLeadConversionActionsHelper {
   private static final String SHELL_PROSPECT_CREATION_ERROR = 'Error occured while shell prospect creation during maintain Party callout :';
   private static final String CUSTOMER_RELATIONSHIP_CREATION_ERROR = 'Error occured while creating Customer Relationship during maintain Party callout :';
   private static final String EXISTING_CUSTOMER_NOT_FOUND_ERROR = 'Cannot found Existing Customer in Salesforce with ExternalId: ';
+
+  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
+    LeadConversionActionsRepository.class
+  );
   /**
    * @description Define custom exceptions
    */
@@ -338,12 +342,17 @@ public with sharing class CCRMLeadConversionActionsHelper {
       //remove when the field is set to optional
       shellProspectToInsert.OCV_ID__c = shellProspectInfoInstance.ocvId;
       shellProspectToInsert.OwnerId = userList[0].Id;
-      shellProspectToInsert.Gender__pc = reqRecord.strGender;
-      shellProspectToInsert.PersonBirthdate = String.isNotBlank(
-        reqRecord.strDateOfBirth
-      )
-      ? Date.valueOf(reqRecord.strDateOfBirth)
-      : null;
+      if (
+        LEADCONV_REPOSITORY.getUserProfileId() ==
+        QueryProfile.anzMLStandardUser.Id
+      ) {
+        shellProspectToInsert.Gender__pc = reqRecord.strGender;
+        shellProspectToInsert.PersonBirthdate = String.isNotBlank(
+            reqRecord.strDateOfBirth
+          )
+          ? Date.valueOf(reqRecord.strDateOfBirth)
+          : null;
+      }
       CCRMLeadConversionActions.manualLeadConversionInitiated = true;
       Database.SaveResult result = Database.insert(
         shellProspectToInsert,

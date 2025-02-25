@@ -171,4 +171,12 @@ public without sharing class LeadConversionActionsRepository {
       WHERE Id = :leadId
     ];
   }
+
+  /**
+   * @description It will fetch the user Profile Id
+   * @return Id Profile Id of the current user
+   */
+  public Id getUserProfileId() {
+    return UserInfo.getProfileId();
+  }
 }
