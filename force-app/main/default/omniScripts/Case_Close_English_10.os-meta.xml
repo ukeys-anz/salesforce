@@ -4818,7 +4818,7 @@
             <name>realFormRequired</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 5,
   &quot;label&quot; : &quot;Is a REaL form required?&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -6409,5 +6409,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_10</uniqueName>
     <versionNumber>10.0</versionNumber>
-    <webComponentKey>95cfb63f-5848-007e-5ac3-26d25e32bb73</webComponentKey>
+    <webComponentKey>861fede4-9212-5bdf-a3d4-9f6a8ed2a2ed</webComponentKey>
 </OmniScript>

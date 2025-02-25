@@ -7,7 +7,7 @@
 Checkbox for: &quot;Does this complaint relate/create a COR event/Compliance Incident&quot;</description>
     <externalId>false</externalId>
     <inlineHelpText>A REaL Form must be completed for failures in internal processes, people (e.g., human error), or systems causing compliance, financial or reputational impacts to ANZ or our customers. To record REaL Form details in CMOS, click &apos;Link REaL Form&apos; on the top right corner of your complaint. 
-If you need to record a new REaL Form, select &apos;Yes, I need to record a new REaL Form.&apos; If you have already recorded a REaL form and need to link the REaL Form ID, select &apos;Yes, I have already recorded a REaL Form&apos;</inlineHelpText>
+If you need to record a new REaL Form, select &apos;Yes, I need to record a new REaL Form.&apos; If you have already recorded a REaL form and need to link the REaL Form ID, select &apos;Yes, I have already recorded a REaL Form&apos;.</inlineHelpText>
     <label>Is a REaL form required?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
