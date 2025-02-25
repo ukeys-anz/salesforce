@@ -1,0 +1,29 @@
+:host {
+  --accordion-header-line-height: 24px;
+  --accordion-background-color: #f3f2f2;
+}
+.accordianSection {
+  --slds-c-accordion-summary-color-background: var(
+    --accordion-background-color
+  );
+  --slds-c-accordion-heading-font-size: var(--amount-and-header-text-size);
+  --slds-c-accordion-heading-line-height: var(--accordion-header-line-height);
+  --slds-c-accordion-section-spacing-inline-end: 0px;
+  --slds-c-accordion-section-spacing-inline-start: 1px;
+}
+.headerStyling {
+  font-size: var(--amount-and-header-text-size);
+  font-weight: var(--amount-and-header-font-weight);
+  line-height: var(--amount-and-header-line-height);
+}
+.financeFalse {
+  font-size: var(--text-font-size);
+  font-weight: var(---lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+  text-align: left;
+  color: var(--total-and-finance-section-color);
+}
+.spinnerHolder {
+  position: relative;
+  padding-top: 10vh;
+}

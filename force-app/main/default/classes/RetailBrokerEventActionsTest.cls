@@ -9,6 +9,11 @@ private class RetailBrokerEventActionsTest {
   private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
     .get('Broker')
     .recordTypeId;
+
+  public static Lib_MockProvider retailBrokerRepo = Lib_MockProvider.forType(
+    RetailBrokerRepository.class
+  );
+
   static List<Contact> createTestContactList(Id recordTypeId) {
     List<Contact> contacts = new List<Contact>();
     for (Integer counter = 0; counter < 10; counter++) {
@@ -27,7 +32,6 @@ private class RetailBrokerEventActionsTest {
   @IsTest
   static void testPublishEvent() {
     List<Contact> newContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
-    RetailBrokerEventActions.mockBrokerContacts = newContacts;
     Map<Id, String> brokerIdToEventTypeMap = new Map<Id, String>();
     for (Contact broker : newContacts) {
       brokerIdToEventTypeMap.put(
@@ -35,6 +39,7 @@ private class RetailBrokerEventActionsTest {
         RetailBrokerEventActions.BROKER_EVENT_ADD
       );
     }
+    retailBrokerRepo.mock('getBrokerContactsByIds', newContacts);
     Test.startTest();
     List<SObject> successEvents = RetailBrokerEventActions.publishEventForBrokers(
       brokerIdToEventTypeMap
@@ -45,10 +50,32 @@ private class RetailBrokerEventActionsTest {
       successEvents.size(),
       'The size of success events should be the same as the input size'
     );
+    Integer counter = 0;
+    for (SObject event : successEvents) {
+      Map<String, Object> result = (Map<String, Object>) JSON.deserializeUntyped(
+        (String) event.get('Data_1__c')
+      );
+      Assert.areEqual(
+        'Broker/' + newContacts[counter].External_Id__c,
+        result.get('ce_xtargets'),
+        'The external id should be the same as the contact external id'
+      );
+      Assert.areEqual(
+        newContacts[counter].OCV_Event_Version__c,
+        result.get('ce_sequence'),
+        'The sequence should be the same as the contact OCV event version'
+      );
+      counter++;
+    }
   }
 
   @IsTest
   static void testPublishEventEventNegative() {
+    createTestContactList(RECORD_TYPE_ID_BROKER);
+    retailBrokerRepo.mock(
+      'getBrokerContactsByIds',
+      new List<FinServ__FinancialAccount__c>{}
+    );
     Test.startTest();
     List<SObject> successEvents = RetailBrokerEventActions.publishEventForBrokers(
       null
@@ -57,29 +84,6 @@ private class RetailBrokerEventActionsTest {
     Assert.isTrue(
       successEvents.isEmpty(),
       'The success events should be empty as no valid event map passed in'
-    );
-  }
-
-  @IsTest
-  static void testGetBrokerContactsByIds() {
-    List<Contact> newContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
-    Map<Id, Contact> newMap = new Map<Id, Contact>(newContacts);
-    Test.startTest();
-    List<Contact> results = RetailBrokerEventActions.getBrokerContactsByIds(
-      newMap.keySet()
-    );
-    Assert.areEqual(
-      true,
-      results.isEmpty(),
-      'The query result should be empty as no test data inserted by DML'
-    );
-    RetailBrokerEventActions.mockBrokerContacts = newContacts;
-    results = RetailBrokerEventActions.getBrokerContactsByIds(newMap.keySet());
-    Test.stopTest();
-    Assert.areEqual(
-      newContacts,
-      results,
-      'The result should be the same as the mock input'
     );
   }
 

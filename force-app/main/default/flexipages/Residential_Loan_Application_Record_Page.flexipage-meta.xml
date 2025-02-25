@@ -606,12 +606,32 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>sopFinances</componentName>
+                <identifier>c_sopFinances</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.SOP_Omni}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>flexcardName</name>
                     <value>SOP_Finances_Savings</value>
                 </componentInstanceProperties>
                 <componentName>runtime_omnistudio:flexcard</componentName>
                 <identifier>runtime_omnistudio_flexcard</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$Permission.CustomPermission.SOP_Omni}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-88412bd3-6030-47f6-b683-1dff8c71ce20</name>

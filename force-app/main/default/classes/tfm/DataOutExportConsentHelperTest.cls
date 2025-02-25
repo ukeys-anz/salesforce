@@ -139,9 +139,9 @@ public with sharing class DataOutExportConsentHelperTest {
       dataExportObj,
       exportConsentModelObj
     );
-    Test.stopTest();
-     String formattedDatetime = System.now()
+    String formattedDatetime = System.now()
       .format('dd MMM yyy HH:mm:ss', 'Australia/Sydney');
+    Test.stopTest();
      String expectedFormat = 'Report Generated At ' +formattedDatetime +' GMT+1000 (Australian Eastern Standard Time)';
     Assert.areEqual(expectedFormat, response[0][0], 'csv content not generated');
     Assert.areEqual('Consent Data Sharing History for:', response[2][0], 'csv content not generated');

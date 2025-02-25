@@ -155,3 +155,22 @@ export function isS2Account(marketingCode) {
 export function isS2Enabled() {
   return IsS2Enabled.toLowerCase() === "true";
 }
+//formats timestap in `25 September 2023 | 11:54 am`
+export function setTimestamp(timestamp) {
+  let lastModified = new Date(timestamp);
+  lastModified =
+    lastModified.getDate() +
+    " " +
+    lastModified.toLocaleString("en-AU", {
+      month: "long"
+    }) +
+    " " +
+    lastModified.getFullYear() +
+    " | " +
+    lastModified.toLocaleString("en-AU", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true
+    });
+  return lastModified;
+}

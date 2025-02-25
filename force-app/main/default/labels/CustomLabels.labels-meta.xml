@@ -7,6 +7,13 @@
         <shortDescription>Brokerdata cloud event type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
     </labels>
+        <labels>
+        <fullName>ANZx_Broker_Contract_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Contract cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.contract.</value>
+    </labels>
     <labels>
         <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
         <language>en_US</language>
@@ -2719,13 +2726,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
         <value>false</value>
-    </labels>
-    <labels>
-        <fullName>SOP_Expense_Config</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>SOP_Expense_Config</shortDescription>
-        <value>1695597985652695,1701819944151648,1714356391121987</value>
     </labels>
     <labels>
         <fullName>MLCRM_NoOpportunityModalHeader</fullName>

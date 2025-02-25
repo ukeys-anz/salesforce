@@ -1,0 +1,136 @@
+<template>
+  <lightning-layout
+    multiple-rows
+    horizontal-align="spread"
+    class="slds-box slds-m-top_medium"
+  >
+    <!-- Header -->
+    <lightning-layout-item size="12" class="slds-p-around_small sectionHeader">
+      <lightning-formatted-text
+        value={headerTitle}
+        class="headerStyling"
+      ></lightning-formatted-text>
+    </lightning-layout-item>
+
+    <!-- Description -->
+    <template lwc:if={isNotLevel2Expense}>
+      <lightning-layout-item
+        size="12"
+        padding="horizontal-medium"
+        class="slds-p-top_medium"
+      >
+        <lightning-formatted-text
+          value={expenseItem.description}
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+    </template>
+
+    <!-- Monthly Input -->
+    <lightning-layout-item
+      size="2"
+      padding="horizontal-small"
+      class="slds-p-top_large"
+    >
+      <template lwc:if={expenseItem.isMandatoryExpense}>
+        <span class="fontRed">* </span>
+        <lightning-formatted-text value="Monthly Spend">
+        </lightning-formatted-text>
+      </template>
+      <template lwc:else>
+        <lightning-formatted-text
+          value="Monthly Spend"
+          class="slds-p-left_xx-small"
+        >
+        </lightning-formatted-text>
+      </template>
+    </lightning-layout-item>
+    <lightning-layout-item size="4">
+      <span onkeypress={preventInvalidInputs}>
+        <lightning-input
+          type="number"
+          formatter="currency"
+          currency-code="AUD"
+          currency-display-as="symbol"
+          value={expenseItem.monthlySpend}
+          step=".01"
+          onchange={handleMonthlySpendChange}
+          placeholder="$0.00"
+          data-jest-id="monthlySpendInput"
+        ></lightning-input>
+      </span>
+    </lightning-layout-item>
+    <lightning-layout-item size="6"></lightning-layout-item>
+
+    <template lwc:if={expenseItem.isMandatoryExpense}>
+      <!-- Prompt -->
+      <lightning-layout-item
+        size="2"
+        class="slds-p-left_large slds-p-top_small"
+      ></lightning-layout-item>
+      <lightning-layout-item size="10">
+        <lightning-layout>
+          <template lwc:if={expenseItem.hasWarning}>
+            <lightning-layout-item>
+              <lightning-icon
+                icon-name="utility:warning"
+                size="small"
+                class="slds-align_absolute-center"
+              ></lightning-icon>
+            </lightning-layout-item>
+          </template>
+          <lightning-layout-item
+            size="9"
+            class="slds-p-vertical_xx-small slds-p-left_small"
+          >
+            <lightning-formatted-text
+              value={expenseItem.warningMessage}
+              class="promptStyling"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+
+      <template lwc:if={expenseItem.hasReason}>
+        <!-- Reason for change -->
+        <lightning-layout-item
+          padding="horizontal-medium"
+          size="2"
+          class="slds-p-vertical_small"
+        >
+          <lightning-formatted-text value="Reason for change">
+          </lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item size="4" class="slds-p-vertical_small">
+          <lightning-formatted-text value={expenseItem.reason}>
+          </lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item size="6"></lightning-layout-item>
+
+        <!-- Description -->
+        <template lwc:if={expenseItem.otherJustificationText}>
+          <lightning-layout-item
+            padding="horizontal-medium"
+            size="2"
+            class="slds-p-vertical_xxx-small"
+          >
+            <lightning-formatted-text value="Description">
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item size="10" class="slds-p-vertical_xxx-small">
+            <lightning-formatted-text
+              value={expenseItem.otherJustificationText}
+              data-jest-id="description"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+        </template>
+      </template>
+    </template>
+
+    <lightning-layout-item
+      size="12"
+      class="slds-p-vertical_medium"
+    ></lightning-layout-item>
+  </lightning-layout>
+</template>
