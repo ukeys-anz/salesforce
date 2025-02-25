@@ -1,0 +1,17 @@
+.addDebtStyle {
+  font-size: 20px;
+  font-weight: var(--lwc-fontWeightbold);
+  line-height: 30px;
+  color: #ffffff;
+}
+
+.logoPadding {
+  padding: 10px;
+}
+
+.marginStyle {
+  margin-left: 25px;
+  margin-right: 20px;
+  margin-top: 25px;
+  margin-bottom: 11px;
+}

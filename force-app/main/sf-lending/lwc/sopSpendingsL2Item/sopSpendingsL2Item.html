@@ -1,0 +1,275 @@
+<template>
+  <!-- L1 Expense -->
+  <lightning-layout class="slds-m-top_medium">
+    <!-- Icon -->
+    <lightning-layout-item size="1" flexibility="shrink">
+      <img src={expenseDataL2.icon} class="logoStyle" />
+    </lightning-layout-item>
+
+    <!-- Name -->
+    <lightning-layout-item size="7" flexibility="shrink" class="textStyle">
+      <lightning-formatted-text
+        value={expenseDataL2.name}
+        class="headerStyling slds-p-top_medium"
+      ></lightning-formatted-text>
+    </lightning-layout-item>
+
+    <!-- Monthly Spend -->
+    <lightning-layout-item size="4" flexibility="shrink">
+      <lightning-layout
+        class="slds-grid slds-grid_vertical totalAndAmountStyle"
+      >
+        <lightning-layout-item>
+          <lightning-formatted-text
+            value="Total Monthly Spend"
+            class="totalStyle slds-p-right_medium"
+          >
+          </lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item>
+          <lightning-formatted-number
+            value={expenseDataL2.monthlySpend}
+            format-style="currency"
+            currency-code="AUD"
+            currency-display-as="symbol"
+            class="amountStyle slds-p-right_medium"
+          >
+          </lightning-formatted-number>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-layout-item>
+  </lightning-layout>
+
+  <!-- L1 Expense Description -->
+  <lightning-layout class="slds-m-top_medium">
+    <lightning-formatted-text
+      value={expenseDataL2.description}
+    ></lightning-formatted-text>
+  </lightning-layout>
+
+  <!-- Go Back -->
+  <lightning-layout class="slds-m-top_medium">
+    <a onclick={goBackToRootExpenses} class="backStyle slds-truncate">
+      <lightning-formatted-text value="< Go Back"></lightning-formatted-text>
+    </a>
+  </lightning-layout>
+
+  <!-- L2 Expense List -->
+  <template for:each={expense} for:item="expense" for:index="index">
+    <!-- L2 Collapsed Expense -->
+    <template lwc:if={expense.isCollapsed}>
+      <lightning-layout
+        key={expense.sopName}
+        data-id={expense.name}
+        class="slds-box slds-m-top_medium"
+        onclick={toggleL3Expenses}
+      >
+        <!-- Icon -->
+        <lightning-layout-item size="1" flexibility="shrink">
+          <img src={expense.icon} class="logoStyle" />
+        </lightning-layout-item>
+
+        <!-- Name -->
+        <lightning-layout-item size="8" flexibility="shrink" class="textStyle">
+          <lightning-formatted-text
+            value={expense.name}
+            class="headerStyling slds-rich-text-editor__output"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+
+        <!-- Warning -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small"
+        >
+          <template lwc:if={expense.hasWarning}>
+            <lightning-icon
+              icon-name="utility:warning"
+              size="small"
+              class="slds-align_absolute-center"
+            ></lightning-icon>
+          </template>
+        </lightning-layout-item>
+
+        <!-- Monthly Spend -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small"
+        >
+          <lightning-formatted-number
+            value={expense.monthlySpend}
+            data-jest-id="monthlySpend"
+            format-style="currency"
+            currency-code="AUD"
+            currency-display-as="symbol"
+            class="amountStyleSection slds-align_absolute-center"
+          >
+          </lightning-formatted-number>
+        </lightning-layout-item>
+
+        <!-- Chevron -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small"
+        >
+          <lightning-icon
+            icon-name="utility:chevronright"
+            size="small"
+            class="slds-align_absolute-center"
+          ></lightning-icon>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+
+    <!-- L2 Expanded Expense -->
+    <template lwc:else>
+      <lightning-layout
+        key={expense.name}
+        multiple-rows
+        horizontal-align="spread"
+        class="slds-box slds-m-top_medium"
+      >
+        <!-- Icon -->
+        <lightning-layout-item size="1" flexibility="shrink">
+          <img src={expense.icon} class="logoStyle" />
+        </lightning-layout-item>
+
+        <!-- Name -->
+        <lightning-layout-item size="10" flexibility="shrink" class="textStyle">
+          <lightning-formatted-text
+            value={expense.name}
+            class="headerStyling slds-rich-text-editor__output"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+
+        <!-- Chevron -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small"
+        >
+          <lightning-icon
+            icon-name="utility:chevrondown"
+            size="small"
+            data-id={expense.name}
+            onclick={toggleL3Expenses}
+            class="slds-align_absolute-center"
+          ></lightning-icon>
+        </lightning-layout-item>
+
+        <!-- Edit Button -->
+        <template lwc:if={hasAddEditPermission}>
+          <lightning-layout-item
+            size="12"
+            class="slds-text-align_right slds-p-top_small"
+          >
+            <lightning-button
+              label="Edit"
+              onclick={handleClick}
+              aria-haspopup="dialog"
+              data-expense={expense.serializedExpense}
+            ></lightning-button>
+          </lightning-layout-item>
+        </template>
+
+        <!-- Description -->
+        <lightning-layout-item size="8" class="slds-p-top_small">
+          <lightning-formatted-text
+            value={expense.description}
+            class="slds-rich-text-editor__output"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+
+        <!-- Monthly Spend -->
+        <lightning-layout-item size="4" flexibility="shrink">
+          <lightning-layout
+            class="slds-grid slds-grid_vertical totalAndAmountStyle slds-p-top_x-small"
+          >
+            <lightning-layout-item>
+              <lightning-formatted-text
+                value="Monthly Spend"
+                class="totalStyle"
+              >
+              </lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item>
+              <lightning-formatted-number
+                value={expense.monthlySpend}
+                format-style="currency"
+                currency-code="AUD"
+                currency-display-as="symbol"
+                class="amountStyle"
+              >
+              </lightning-formatted-number>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+
+        <!-- L3 Items -->
+        <template lwc:if={expense.children.length}>
+          <template for:each={expense.children} for:item="expenseL3">
+            <c-sop-spendings-l3-item
+              key={expenseL3.sopName}
+              expense-data-l3={expenseL3}
+            ></c-sop-spendings-l3-item>
+          </template>
+        </template>
+
+        <!-- No Grandchild -->
+        <template lwc:else>
+          <!-- Warning & Message-->
+
+          <template lwc:if={expense.isMandatoryExpense}>
+            <lightning-layout-item
+              size="12"
+              flexibility="shrink"
+              class="warningTextStyle slds-p-top_small slds-text-align_right"
+            >
+              <template lwc:if={expense.hasWarning}>
+                <lightning-icon
+                  icon-name="utility:warning"
+                  size="small"
+                  class="slds-p-right_x-small"
+                ></lightning-icon>
+              </template>
+              <lightning-formatted-text
+                value={expense.warningMessage}
+                class="slds-rich-text-editor__output"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </template>
+
+          <!-- Reasons -->
+          <template lwc:if={expense.hasReason}>
+            <lightning-layout-item
+              size="12"
+              flexibility="shrink"
+              class="slds-p-top_small"
+            >
+              <c-sop-spendings-reasons
+                expense-reasons-data={expense}
+              ></c-sop-spendings-reasons>
+            </lightning-layout-item>
+          </template>
+
+          <!--Last Modified Date -->
+          <lightning-layout-item
+            class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
+            size="11"
+            alignment-bump="left"
+            ><lightning-formatted-text
+              value="Last Modified"
+            ></lightning-formatted-text>
+            <lightning-formatted-text
+              value={expense.updateTime}
+              class="slds-p-left_xx-small"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+        </template>
+      </lightning-layout>
+    </template>
+  </template>
+</template>

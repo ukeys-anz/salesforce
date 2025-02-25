@@ -155,7 +155,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Customer Relationship</label>
     <nameField>
-        <displayFormat>CR-{00000}</displayFormat>
+        <displayFormat>CR-{0}</displayFormat>
         <label>Name</label>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>

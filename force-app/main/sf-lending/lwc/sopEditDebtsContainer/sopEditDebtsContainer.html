@@ -1,0 +1,54 @@
+<template>
+  <template lwc:if={loading}>
+    <article class="slds-card slds-m-bottom_small">
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </article>
+  </template>
+  <template lwc:else>
+    <lightning-modal-header
+      class="headerStyle slds-text-align_center"
+      label={modalTitle}
+    ></lightning-modal-header>
+    <lightning-modal-body>
+      <template lwc:if={hasBelongsToError}>
+        <c-error message={belongsToErrorMessage}></c-error>
+      </template>
+      <template lwc:else>
+        <c-sop-add-edit-debts
+          data-id="debtItem"
+          record-id={recordId}
+          debt-type={debtType}
+          debt-data={debtData}
+          action-type="Edit"
+          parties={belongsToOptions}
+        ></c-sop-add-edit-debts>
+      </template>
+    </lightning-modal-body>
+    <lightning-modal-footer>
+      <lightning-layout>
+        <lightning-layout-item size="6" class="slds-text-align_left">
+          <lightning-button
+            variant="neutral"
+            label="Cancel"
+            onclick={handleClose}
+          ></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item size="6" class="slds-text-align_right">
+          <lightning-button
+            variant="brand"
+            label="Save"
+            onclick={handleSave}
+            lwc:if={showSaveButton}
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-modal-footer>
+  </template>
+</template>

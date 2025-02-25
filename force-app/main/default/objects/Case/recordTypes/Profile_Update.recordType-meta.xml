@@ -1350,7 +1350,55 @@
     <picklistValues>
         <picklist>DocumentFailureReason__c</picklist>
         <values>
-            <fullName>Failed</fullName>
+            <fullName>Certified copy instead of original</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Document has been tampered with or altered</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Document has expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Incorrect document type</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Key data point obscured%2Fcropped%2Fmissing</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No Match - DVS check failed</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No match - Date of Birth</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No match - New Name</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No match - Previous Name</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>No match - Selfie%2FID comparison</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Photo in ID unusable for selfie comparison</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Picture of a picture of ID doc detected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Text in document illegible%2Funreadable</fullName>
             <default>false</default>
         </values>
     </picklistValues>

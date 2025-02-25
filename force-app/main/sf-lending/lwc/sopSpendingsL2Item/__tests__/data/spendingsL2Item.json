@@ -1,0 +1,38 @@
+{
+  "categoryId": "f4725362-94b8-476b-be9f-14a28936a9aa",
+  "categoryName": "Other",
+  "control": "EXPENSE_CONTROL_UNSPECIFIED",
+  "etag": "1727674251629621281",
+  "expenseParent": "",
+  "hemState": "HEM_STATE_NON_HEM",
+  "leafNode": true,
+  "monthlySpend": 0,
+  "name": "Other",
+  "review": "EXPENSE_REVIEW_UNSPECIFIED",
+  "sopName": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e43fe3e6-4c15-42f2-a546-decd5949167a",
+  "uid": "e43fe3e6-4c15-42f2-a546-decd5949167a",
+  "updateTime": "30 September 2024 | 3:30 pm",
+  "description": "This is the average monthly spending for all other expenses. It will be used to estimate the regular expenses.",
+  "icon": "/resource/1693345496000/SOP_Expense_Other",
+  "children": [
+    {
+      "categoryId": "f4725362-94b8-476b-be9f-14a28936a9aa",
+      "categoryName": "Other",
+      "control": "EXPENSE_CONTROL_UNSPECIFIED",
+      "etag": "1727674251629621281",
+      "expenseParent": "",
+      "hemState": "HEM_STATE_NON_HEM",
+      "leafNode": true,
+      "monthlySpend": 0,
+      "name": "Other",
+      "review": "EXPENSE_REVIEW_UNSPECIFIED",
+      "sopName": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e43fe3e6-4c15-42f2-a546-decd5949167a",
+      "uid": "e43fe3e6-4c15-42f2-a546-decd5949167a",
+      "updateTime": "30 September 2024 | 3:30 pm",
+      "description": "Overseas travel, pet insurance and any other regular expenses.",
+      "icon": "/resource/1693345496000/SOP_Expense_Other",
+      "children": []
+    }
+  ],
+  "rootIcon": "/resource/1693345495000/SOP_Expense_Grey_Circle"
+}

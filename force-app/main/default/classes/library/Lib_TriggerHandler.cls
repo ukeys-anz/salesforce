@@ -294,7 +294,7 @@ public virtual with sharing class Lib_TriggerHandler {
    * @description Calls the applicable override methods such as beforeInsert, beforeUpdate etc. based on a Trigger context
    **/
   private void triggerHandler() {
-    if (this.records.isEmpty() || this.disableTriggers) {
+    if (this.disableTriggers || this.records.isEmpty()) {
       return;
     }
     // Invoke the applicable handler

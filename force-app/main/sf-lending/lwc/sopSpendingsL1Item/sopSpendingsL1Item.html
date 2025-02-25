@@ -1,0 +1,77 @@
+<template>
+  <template lwc:if={isL1ExpensesVisible}>
+    <!-- L1 Expenses List -->
+    <template for:each={expenseDataL1} for:item="expense">
+      <!-- L1 Expense -->
+      <lightning-layout
+        key={expense.name}
+        class="slds-box slds-m-top_medium"
+        data-id={expense.name}
+        onclick={showL2Expenses}
+      >
+        <!-- Icon -->
+        <lightning-layout-item size="1" flexibility="shrink">
+          <img src={expense.rootIcon} class="logoStyle" />
+        </lightning-layout-item>
+        <lightning-layout-item size="8" flexibility="shrink" class="textStyle">
+          <lightning-formatted-text
+            value={expense.name}
+            class="headerStyling slds-rich-text-editor__output"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+
+        <!-- Warning -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small iconStyle"
+        >
+          <template lwc:if={expense.hasWarning}>
+            <lightning-icon
+              icon-name="utility:warning"
+              size="small"
+              class="slds-align_absolute-center"
+            ></lightning-icon>
+          </template>
+        </lightning-layout-item>
+
+        <!-- Monthly Spend -->
+        <lightning-layout-item size="1" flexibility="shrink">
+          <lightning-formatted-number
+            value={expense.monthlySpend}
+            data-jest-id="monthlySpend"
+            format-style="currency"
+            currency-code="AUD"
+            currency-display-as="symbol"
+            class="amountStyleParent slds-p-top_x-small slds-align_absolute-center"
+          >
+          </lightning-formatted-number>
+        </lightning-layout-item>
+
+        <!-- Chevron -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small"
+        >
+          <lightning-icon
+            icon-name="utility:chevronright"
+            size="small"
+            class="slds-align_absolute-center"
+          ></lightning-icon>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+  </template>
+
+  <!-- L2 Item -->
+  <template lwc:if={isL2ExpensesVisible}>
+    <!-- pass array for easy rerendering between L1 & L2 -->
+    <c-sop-spendings-l2-item
+      onexpenseselectl2={hideL2Expenses}
+      expense-data-l2={selectedExpense}
+      record-id={recordId}
+      sop={sop}
+    ></c-sop-spendings-l2-item>
+  </template>
+</template>

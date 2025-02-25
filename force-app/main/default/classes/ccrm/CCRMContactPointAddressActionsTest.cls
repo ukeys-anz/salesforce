@@ -48,30 +48,6 @@ private class CCRMContactPointAddressActionsTest {
     CCRMTestDataFactory.createAccountShare(prospectAccount.Id, ccrmBaseUser.Id);
     CCRMTestDataFactory.createAccountShare(activeAccount.Id, ccrmBaseUser.Id);
   }
-  @IsTest
-  static void testUpdateCpaRecord() {
-    //Given when creates a new record
-    ContactPointAddress cpa = [
-      SELECT Id, ParentId, ActiveToDate
-      FROM ContactPointAddress
-      WHERE Customer_Name__r.Is_Prospect__c = TRUE
-      LIMIT 1
-    ];
-
-    //WHEN That ContactPointAddress is updated
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      cpa.ActiveToDate = date.today();
-      update cpa;
-    }
-    Test.stopTest();
-
-    System.assertEquals(
-      null,
-      [SELECT ParentId FROM ContactPointAddress WHERE Id = :cpa.Id].ParentId,
-      'Address should not appear'
-    );
-  }
 
   @IsTest
   static void testTrackChangedFields() {

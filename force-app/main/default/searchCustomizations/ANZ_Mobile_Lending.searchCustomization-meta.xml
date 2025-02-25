@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SearchCustomization xmlns="http://soap.sforce.com/2006/04/metadata">
+    <channel>GlobalSearch</channel>
+    <masterLabel>ANZ_Mobile_Lending</masterLabel>
+    <objectOverride>
+        <objectApiName>Contact</objectApiName>
+        <searchable>false</searchable>
+    </objectOverride>
+    <objectToAlwaysSearch>FinServ__FinancialAccount__c</objectToAlwaysSearch>
+    <profile>anz ml standard user</profile>
+</SearchCustomization>

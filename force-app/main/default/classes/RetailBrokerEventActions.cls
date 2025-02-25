@@ -8,8 +8,9 @@
 public with sharing class RetailBrokerEventActions {
   public static final String BROKER_EVENT_ADD = 'add';
   public static final String BROKER_EVENT_UPDATE = 'update';
-  @TestVisible
-  private static List<Contact> mockBrokerContacts = new List<Contact>();
+  private static final RetailBrokerRepository RETAIL_BROKER_REPOSITORY = (RetailBrokerRepository) Lib_InstanceProvider.forType(
+    RetailBrokerRepository.class
+  );
 
   /**
    * @description Publish event for brokers
@@ -22,7 +23,7 @@ public with sharing class RetailBrokerEventActions {
     if (brokerIdToEventTypeMap == null || brokerIdToEventTypeMap.isEmpty()) {
       return new List<SObject>();
     }
-    List<Contact> brokers = getBrokerContactsByIds(
+    List<Contact> brokers = RETAIL_BROKER_REPOSITORY.getBrokerContactsByIds(
       brokerIdToEventTypeMap.keySet()
     );
     List<BrokerCloudEventModel> cloudEventModels = new List<BrokerCloudEventModel>();
@@ -39,29 +40,6 @@ public with sharing class RetailBrokerEventActions {
     );
     logSuccessEvents(successPublishedEvents);
     return successPublishedEvents;
-  }
-
-  /**
-   * @description Get broker contacts by Ids
-   * @param contactIds Set of contact Ids
-   * @return List of contact records
-   */
-  @TestVisible
-  private static List<Contact> getBrokerContactsByIds(Set<Id> contactIds) {
-    if (mockBrokerContacts.isEmpty() == false) {
-      return mockBrokerContacts;
-    }
-    return [
-      SELECT
-        Id,
-        Name,
-        External_Id__c,
-        Broker_Customer_Profile__r.External_Id__c,
-        OCV_Event_Version__c,
-        Sync_Status__c
-      FROM Contact
-      WHERE Id IN :contactIds
-    ];
   }
 
   /**
@@ -92,27 +70,21 @@ public with sharing class RetailBrokerEventActions {
     Contact record
   ) {
     List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
-    masterNodes.add(BrokerDataContactCEBuilder.buildAccountNode(record));
-    masterNodes.add(BrokerDataContactCEBuilder.buildContactNode(record));
+    masterNodes.add(BrokerCloudEventBuilder.buildAccountNode(record));
+    masterNodes.add(BrokerCloudEventBuilder.buildContactNode(record));
     masterNodes.add(
-      BrokerDataContactCEBuilder.buildContactInfoNode(
-        record,
-        'ContactPointPhone'
-      )
+      BrokerCloudEventBuilder.buildContactInfoNode(record, 'ContactPointPhone')
     );
     masterNodes.add(
-      BrokerDataContactCEBuilder.buildContactInfoNode(
-        record,
-        'ContactPointEmail'
-      )
+      BrokerCloudEventBuilder.buildContactInfoNode(record, 'ContactPointEmail')
     );
     masterNodes.add(
-      BrokerDataContactCEBuilder.buildContactInfoNode(
+      BrokerCloudEventBuilder.buildContactInfoNode(
         record,
         'ContactPointAddress'
       )
     );
-    masterNodes.add(BrokerDataContactCEBuilder.buildBrokerCodeNode(record));
+    masterNodes.add(BrokerCloudEventBuilder.buildBrokerCodeNode(record));
     return masterNodes;
   }
 
@@ -127,26 +99,20 @@ public with sharing class RetailBrokerEventActions {
   ) {
     List<BrokerCloudEventModel.MasterNode> masterNodes = new List<BrokerCloudEventModel.MasterNode>();
     masterNodes.add(
-      BrokerDataContactCEBuilder.buildContactInfoNode(
-        record,
-        'ContactPointPhone'
-      )
+      BrokerCloudEventBuilder.buildContactInfoNode(record, 'ContactPointPhone')
     );
     masterNodes.add(
-      BrokerDataContactCEBuilder.buildContactInfoNode(
-        record,
-        'ContactPointEmail'
-      )
+      BrokerCloudEventBuilder.buildContactInfoNode(record, 'ContactPointEmail')
     );
     masterNodes.add(
-      BrokerDataContactCEBuilder.buildContactInfoNode(
+      BrokerCloudEventBuilder.buildContactInfoNode(
         record,
         'ContactPointAddress'
       )
     );
-    masterNodes.add(BrokerDataContactCEBuilder.buildBrokerCodeNode(record));
-    masterNodes.add(BrokerDataContactCEBuilder.buildContactNode(record));
-    masterNodes.add(BrokerDataContactCEBuilder.buildAccountNode(record));
+    masterNodes.add(BrokerCloudEventBuilder.buildBrokerCodeNode(record));
+    masterNodes.add(BrokerCloudEventBuilder.buildContactNode(record));
+    masterNodes.add(BrokerCloudEventBuilder.buildAccountNode(record));
     return masterNodes;
   }
 

@@ -1,0 +1,493 @@
+<template>
+  <template lwc:if={loading}>
+    <article class="slds-card slds-m-bottom_small">
+      <div class="slds-align_absolute-center" style="height: 4rem">
+        <div role="status" class="slds-spinner_inline">
+          <lightning-spinner
+            alternative-text="Loading"
+            variant="brand"
+          ></lightning-spinner>
+        </div>
+      </div>
+    </article>
+  </template>
+  <template lwc:else>
+    <lightning-layout horizontal-align="spread" multiple-rows>
+      <lightning-layout-item size="12" class="slds-text-align_right">
+        <span class="required">*</span> = Required fields
+      </lightning-layout-item>
+      <lightning-layout-item size="12" class="slds-p-around_small">
+        <img src={debtImage} class="debtImage" />
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="12"
+        class="slds-p-around_small"
+        lwc:if={showConnectedDataMessage}
+      >
+        <span>Some details have been pre-filled from connected data.</span>
+      </lightning-layout-item>
+    </lightning-layout>
+    <lightning-accordion
+      allow-multiple-sections-open
+      active-section-name={activeSections}
+    >
+      <lightning-accordion-section
+        name="Debt Details"
+        label="Debt Details"
+        data-id="debtDetails"
+        class="accordianSection"
+      >
+        <lightning-combobox
+          name="belongsTo"
+          label="Belongs To"
+          value={belongsToValue}
+          options={belongsToOptions}
+          onchange={handleBelongsToChange}
+          required
+          disabled={fieldVisibility.disableBelongsTo}
+        ></lightning-combobox>
+        <lightning-input
+          name="debtType"
+          type="text"
+          label="Debt Type"
+          disabled
+          value={readableType}
+          required
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Arrangement Type"
+          disabled
+          value={arrangementType}
+          lwc:if={fieldVisibility.showArrangementType}
+          required
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Institution"
+          value={institutionValue}
+          required
+          onchange={handleInstitutionChange}
+          lwc:if={fieldVisibility.showInstitution}
+          disabled={fieldVisibility.disableInstitution}
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="BSB"
+          value={bsb}
+          lwc:if={fieldVisibility.showBSB}
+          disabled
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Account Number"
+          value={accountNumber}
+          lwc:if={fieldVisibility.showAccountNumber}
+          disabled
+          required
+        ></lightning-input>
+        <lightning-formatted-text
+          class="fieldMessage"
+          lwc:if={fieldVisibility.showAccountStatusMessage}
+          value={accountStatusMessage}
+        ></lightning-formatted-text>
+        <lightning-input
+          type="text"
+          label="Account Status"
+          value={accountStatus}
+          lwc:if={fieldVisibility.showAccountStatus}
+          disabled
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Card Number"
+          value={debtData.cardNumber}
+          lwc:if={fieldVisibility.showCardNumber}
+          disabled
+          required
+        ></lightning-input>
+        <lightning-combobox
+          label="Customer Excluded Debt"
+          value={customerStatedClosed}
+          options={yesNoOptions}
+          onchange={handleCustomerExcludedDebt}
+          required
+          lwc:if={fieldVisibility.showCustomerExcludedDebt}
+          disabled={fieldVisibility.disableCustomerStatedClosed}
+        ></lightning-combobox>
+        <lightning-formatted-text
+          class="fieldMessage"
+          lwc:if={fieldVisibility.showCustomerExcludedDebtMessage}
+          value="When applying for the loan, this customer's indicated that this debt is closed"
+        ></lightning-formatted-text>
+      </lightning-accordion-section>
+
+      <lightning-accordion-section
+        name="Debt Amounts"
+        label="Debt Amounts"
+        data-id="debtAmounts"
+        class="accordianSection"
+      >
+        <div
+          class="slds-text-title_bold slds-p-bottom_small"
+          lwc:if={fieldVisibility.showLimitTitle}
+        >
+          Limit
+        </div>
+        <lightning-input
+          type="checkbox"
+          label={umiLimitLabel}
+          class="slds-text-align_right"
+          lwc:if={fieldVisibility.showUMICheckbox}
+          onchange={handleUMICheckbox}
+          checked={validatedLimit}
+        ></lightning-input>
+        <lightning-input
+          type="number"
+          name="limit"
+          label={limitLabel}
+          value={limit}
+          formatter="currency"
+          step="0.01"
+          required
+          lwc:if={fieldVisibility.showLimit}
+          onchange={handleLimitChange}
+        ></lightning-input>
+        <lightning-input
+          type="number"
+          name="bureauLimit"
+          label={creditBureauLimitLabel}
+          value={creditBureauBalanceOwing}
+          formatter="currency"
+          step="0.01"
+          lwc:if={fieldVisibility.showCreditBureauLimit}
+          disabled
+          required
+        ></lightning-input>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showOtherCreditDetailsTitle}
+        >
+          Other Credit Card Details
+        </div>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showOtherOverdraftDetailsTitle}
+        >
+          Other Overdraft Details
+        </div>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showBalanceTitle}
+        >
+          Balance
+        </div>
+        <lightning-input
+          type="checkbox"
+          label="Use updated Balance Owing for UMI"
+          class="slds-text-align_right"
+          lwc:if={fieldVisibility.showBalanceOwingCheckbox}
+          onchange={handleBalanceOwingCheckbox}
+          checked={balanceOwingCheckbox}
+        ></lightning-input>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showOtherDetailsTitle}
+        >
+          Other Details
+        </div>
+        <template lwc:if={fieldVisibility.showBalanceOwingSplit}>
+          <lightning-layout horizontal-align="spread" multiple-rows>
+            <lightning-layout-item size="6" class="slds-p-right_small">
+              <lightning-input
+                type="number"
+                name="balanceOwing"
+                label="Balance Owing"
+                value={balanceOwing}
+                formatter="currency"
+                step="0.01"
+                required
+                lwc:if={fieldVisibility.showBalanceOwing}
+                onchange={handleBalanceOwingChange}
+              ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" class="slds-p-left_small">
+              <lightning-input
+                type="number"
+                name="availableRedraw"
+                label="Available Redraw"
+                value={availableRedraw}
+                formatter="currency"
+                step="0.01"
+                required
+                lwc:if={fieldVisibility.showAvailableRedraw}
+                onchange={handleAvailableRedrawChange}
+              ></lightning-input>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              lwc:if={fieldVisibility.showBureauBalanceSpacing}
+            ></lightning-layout-item>
+            <lightning-layout-item size="6" class="slds-p-right_small">
+              <lightning-input
+                type="number"
+                label="Credit Bureau Balance Owing"
+                value={creditBureauBalanceOwing}
+                formatter="currency"
+                step="0.01"
+                required
+                lwc:if={fieldVisibility.showCreditBureauBalanceOwing}
+                disabled
+              ></lightning-input>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
+        <template lwc:else>
+          <lightning-input
+            type="number"
+            name="balanceOwing"
+            label="Balance Owing"
+            value={balanceOwing}
+            formatter="currency"
+            step="0.01"
+            required
+            lwc:if={fieldVisibility.showBalanceOwing}
+            onchange={handleBalanceOwingChange}
+          ></lightning-input>
+          <lightning-layout-item size="6" class="slds-p-right_small">
+            <lightning-input
+              type="number"
+              label="Credit Bureau Balance Owing"
+              value={creditBureauBalanceOwing}
+              formatter="currency"
+              step="0.01"
+              required
+              lwc:if={fieldVisibility.showCreditBureauBalanceOwing}
+              disabled
+            ></lightning-input>
+          </lightning-layout-item>
+        </template>
+        <lightning-input
+          type="number"
+          label="Minimum Monthly Repayment"
+          value={debtData.institutionalLiability.minimumRepayment}
+          formatter="currency"
+          step="0.01"
+          required
+          lwc:if={fieldVisibility.showMinMonthRepayment}
+          onchange={handleMinimumMonthlyRepaymentChange}
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Interest Rate"
+          value={debtData.institutionalLiability.interestRate}
+          required
+          lwc:if={fieldVisibility.showInterestRate}
+          disabled
+        ></lightning-input>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showRemainingTermTitle}
+        >
+          Remaining Term
+        </div>
+        <lightning-input
+          type="checkbox"
+          label="Use updated Remaining Term for UMI"
+          class="slds-text-align_right"
+          lwc:if={fieldVisibility.showRemainingTermCheckbox}
+          onchange={handleRemainingTermCheckbox}
+          checked={remainingTermCheckbox}
+        ></lightning-input>
+        <lightning-layout horizontal-align="spread" multiple-rows>
+          <lightning-layout-item size="6" class="slds-p-right_small">
+            <lightning-input
+              type="number"
+              name="years"
+              label="Years"
+              value={years}
+              step="1"
+              required
+              lwc:if={fieldVisibility.showYears}
+              onchange={handleYears}
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" class="slds-p-left_small">
+            <lightning-input
+              type="number"
+              name="months"
+              label="Months"
+              value={months}
+              step="1"
+              required
+              lwc:if={fieldVisibility.showMonths}
+              onchange={handleMonths}
+            ></lightning-input>
+          </lightning-layout-item>
+          <lightning-layout-item size="6" class="slds-p-right_small">
+            <lightning-input
+              type="text"
+              label="Credit Bureau Remaining Term"
+              value={creditBureauRemainingTerm}
+              required
+              lwc:if={fieldVisibility.showCreditBureauRemainingTerm}
+              disabled
+            ></lightning-input>
+          </lightning-layout-item>
+        </lightning-layout>
+        <lightning-combobox
+          name="withheldFromPay"
+          label="Withheld From Pay"
+          value={withheldFromPay}
+          options={yesNoOptions}
+          onchange={handleWithheldFromPayChange}
+          lwc:if={fieldVisibility.showWithheldFromPay}
+          required
+        ></lightning-combobox>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showOtherLoanDetailsTitle}
+        >
+          {otherLoanDetailsLabel}
+        </div>
+        <lightning-input
+          type="text"
+          label="Loan Type"
+          value={loanType}
+          disabled
+          required
+          lwc:if={fieldVisibility.showLoanType}
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Interest Rate"
+          value={debtData.institutionalLiability.interestRate}
+          required
+          lwc:if={fieldVisibility.showInterestRateOther}
+          disabled
+        ></lightning-input>
+        <div
+          class="slds-text-title_bold slds-p-bottom_small slds-p-top_small"
+          lwc:if={fieldVisibility.showOtherBNPLDetailsTitle}
+        >
+          Other Buy Now Pay Later Details
+        </div>
+        <lightning-input
+          type="number"
+          name="balanceOwing"
+          label="Balance Owing"
+          value={balanceOwing}
+          formatter="currency"
+          step="0.01"
+          required
+          lwc:if={fieldVisibility.showBalanceOwingOtherDetails}
+          onchange={handleBalanceOwingChange}
+        ></lightning-input>
+        <lightning-combobox
+          name="repaymentFrequency"
+          label="Repayment Frequency"
+          value={repaymentFrequency}
+          options={repaymentFrequencyOptions}
+          onchange={handleRepaymentFrequencyChange}
+          lwc:if={fieldVisibility.showRepaymentFrequency}
+          required
+        ></lightning-combobox>
+        <lightning-input
+          type="number"
+          name="repaymentAmount"
+          label="Repayment Amount"
+          value={repaymentAmount}
+          formatter="currency"
+          step="0.01"
+          required
+          lwc:if={fieldVisibility.showRepaymentAmount}
+          onchange={handleRepaymentAmountChange}
+        ></lightning-input>
+        <lightning-combobox
+          name="paidInFull"
+          label="Paid in Full (Monthly)"
+          value={paidInFull}
+          options={yesNoOptions}
+          onchange={handlePaidInFullChange}
+          required
+          lwc:if={fieldVisibility.showPaidInFull}
+        ></lightning-combobox>
+        <lightning-input
+          type="number"
+          name="monthlyRepayment"
+          label="Monthly Repayment"
+          value={monthlyRepayment}
+          formatter="currency"
+          step="0.01"
+          required
+          lwc:if={fieldVisibility.showMonthlyRepayment}
+          onchange={handleMonthlyRepayment}
+        ></lightning-input>
+        <lightning-input
+          type="text"
+          label="Debt Source"
+          disabled
+          value={debtSource}
+          required
+          data-id="debtSource"
+        ></lightning-input>
+      </lightning-accordion-section>
+
+      <lightning-accordion-section
+        name="Close Debt"
+        label="Close Debt"
+        data-id="closeDebt"
+        class="accordianSection"
+      >
+        <lightning-layout horizontal-align="spread" multiple-rows>
+          <lightning-layout-item size="12">
+            <p>
+              Tick the box if the debt is to be closed and to update the UMI.
+              Closing the debt will take priority over any updates.
+            </p>
+          </lightning-layout-item>
+          <lightning-layout-item size="1" class="slds-p-top_x-small">
+            <img src={closedDebtImage} class="debtImage" />
+          </lightning-layout-item>
+          <lightning-layout-item size="11" class="slds-p-top_large">
+            <lightning-input
+              type="checkbox"
+              label="Paid off & Closed"
+              name="paidOffAndClosed"
+              onchange={handlePaidOffAndClosed}
+              checked={paidOffAndClosed}
+            ></lightning-input>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-accordion-section>
+      <template lwc:if={fieldVisibility.showDebtEvidence}>
+        <lightning-accordion-section
+          name="Debt Evidenced"
+          label="Debt Evidenced"
+          class="accordianSection"
+        >
+          <lightning-layout horizontal-align="spread" multiple-rows>
+            <lightning-layout-item size="12">
+              <p>
+                Tick the box once you have received documents to confirm any
+                changes you have made.
+              </p>
+            </lightning-layout-item>
+            <lightning-layout-item size="1" class="slds-p-top_x-small">
+              <img src={evidenceProvidedImage} class="debtImage" />
+            </lightning-layout-item>
+            <lightning-layout-item size="11" class="slds-p-top_large">
+              <lightning-input
+                type="checkbox"
+                label="Evidence received"
+                name="evidence"
+                onchange={handleEvidenceReceived}
+                checked={evidenceProvided}
+              ></lightning-input>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-accordion-section>
+      </template>
+    </lightning-accordion>
+  </template>
+</template>

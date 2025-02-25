@@ -591,6 +591,9 @@ public with sharing class CCRMCustomerProfileUpdateConfig {
                     this.recordTypeName
                 )
             )
+            .copyFields(
+              Schema.SObjectType.ContactPointEmail.fieldSets.DCRMProspectCopyFields
+            )
         },
         Schema.SObjectType.ContactPointAddress.Name => new List<TrackingConfig>{
           new TrackingConfig(

@@ -1,0 +1,134 @@
+<template>
+  <lightning-modal-header
+    class="addDebtStyle slds-text-align_center"
+    label={modalTitle}
+  ></lightning-modal-header>
+  <lightning-modal-body>
+    <template lwc:if={hasBelongsToError}>
+      <c-error message={belongsToErrorMessage}></c-error>
+    </template>
+    <template lwc:else>
+      <template lwc:if={noSelectedDebtError}>
+        <div class="slds-notify_container slds-is-relative">
+          <div
+            class="slds-notify slds-theme_error slds-p-around_small"
+            role="status"
+          >
+            <div class="slds-notify__content">
+              <h2 class="slds-text-heading_small">
+                Please select a debt type to continue.
+              </h2>
+            </div>
+          </div>
+        </div>
+      </template>
+      <template lwc:if={showDebtSelection}>
+        <lightning-layout
+          class="slds-box marginStyle"
+          multiple-rows
+          horizontal-align="spread"
+        >
+          <lightning-layout-item size="12" class="slds-p-left_small">
+            <img src={logoImage} class="childCardLogo logoPadding" />
+          </lightning-layout-item>
+          <lightning-layout-item size="12" class="slds-p-left_medium">
+            <lightning-radio-group
+              data-id="debtSelection"
+              class="radioButtonSpacing"
+              label="Please select the type of debt you would like to add."
+              options={debtOptions}
+              value={value}
+              type="radio"
+              onchange={handleDebtType}
+              required
+            >
+            </lightning-radio-group>
+          </lightning-layout-item>
+        </lightning-layout>
+      </template>
+      <template lwc:if={showBNPLSelection}>
+        <lightning-layout
+          class="slds-box marginStyle"
+          multiple-rows
+          horizontal-align="spread"
+        >
+          <lightning-layout-item size="12" class="slds-p-left_small">
+            <img src={logoImage} class="childCardLogo logoPadding" />
+          </lightning-layout-item>
+          <lightning-layout-item size="12" class="slds-p-left_medium">
+            <lightning-radio-group
+              class="radioButtonSpacing"
+              label="Select the buy now pay later arrangement type."
+              options={bnplOptions}
+              value={value}
+              type="radio"
+              onchange={handleDebtType}
+              required
+            >
+            </lightning-radio-group>
+            <div class="slds-p-top_large">
+              <span
+                ><b>Note:</b> For individual purchases that are generally paid
+                within 2 months add it in the spending section. These are
+                purchases made using an instalment-based provider like Afterpay
+                or Zip Pay</span
+              >
+            </div>
+          </lightning-layout-item>
+        </lightning-layout>
+      </template>
+      <template lwc:if={showAddForm}>
+        <c-sop-add-edit-debts
+          record-id={recordId}
+          debt-type={selectedDebtType}
+          parties={belongsToOptions}
+          action-type="Add"
+        ></c-sop-add-edit-debts>
+      </template>
+    </template>
+  </lightning-modal-body>
+  <lightning-modal-footer>
+    <lightning-layout>
+      <lightning-layout-item size="6" class="slds-text-align_left">
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleClose}
+        ></lightning-button>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="6"
+        class="slds-text-align_right"
+        lwc:if={showNextButton}
+      >
+        <lightning-button
+          variant="brand"
+          label="Next"
+          onclick={handleAddDebtForSelectedType}
+        ></lightning-button>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="5"
+        class="slds-text-align_right"
+        lwc:if={showBackButton}
+      >
+        <lightning-button
+          variant="neutral"
+          label="Back"
+          onclick={handleBack}
+        ></lightning-button>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="1"
+        class="slds-text-align_right"
+        lwc:if={showSaveButton}
+      >
+        <lightning-button
+          variant="brand"
+          label="Save"
+          onclick={handleSave}
+        ></lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-modal-footer>
+</template>
