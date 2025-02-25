@@ -54,32 +54,7 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
     sm.loan_application.branch = brn;
 
     //populate applicants
-    List<LoanappModel.Applicants> applicantList = new List<LoanappModel.Applicants>();
-    List<OpportunityContactRole> ocrListReorder = opp.OpportunityContactRoles;
-    Integer indexOfCustomer = -1;
-    for (Integer i = 0; i < ocrListReorder.size(); i++) {
-      if (
-        ocrListReorder[i].Source_System_Id__c == opp.Account.Source_System_ID__c
-      ) {
-        indexOfCustomer = i;
-        break;
-      }
-    }
-    if (indexOfCustomer != -1 && ocrListReorder.size() > 1) {
-      OpportunityContactRole ocrFirst = ocrListReorder.remove(indexOfCustomer);
-      ocrListReorder.add(0, ocrFirst);
-    }
-    for (OpportunityContactRole ocr : ocrListReorder) {
-      LoanappModel.Applicants applicant = new LoanappModel.Applicants();
-      applicant.uid = generateRandomUid();
-      applicant.type = (ocr.Role == 'Applicant')
-        ? 'APPLICANT_TYPE_BORROWER'
-        : 'APPLICANT_TYPE_GUARANTOR';
-      applicant.external_references = new List<String>{
-        'capcisid/' + ocr.Source_System_Id__c
-      };
-      applicantList.add(applicant);
-    }
+    List<LoanappModel.Applicants> applicantList = populateApplicants(opp);
     LoanappModel.Households hh = new LoanappModel.Households();
     hh.applicants = applicantList;
     sm.loan_application.households = new List<LoanappModel.Households>{ hh };
@@ -149,6 +124,44 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
     amt.units = opp.Amount;
     fund.amount = amt;
     return fund;
+  }
+
+  /**
+   * @description populate applicants for Simpology payload
+   * @param opp Opportunity
+   * @return List<LoanappModel.Applicants>
+   */
+  @TestVisible
+  private static List<LoanappModel.Applicants> populateApplicants(
+    Opportunity opp
+  ) {
+    List<LoanappModel.Applicants> applicantList = new List<LoanappModel.Applicants>();
+    List<OpportunityContactRole> ocrListReorder = opp.OpportunityContactRoles;
+    Integer indexOfCustomer = -1;
+    for (Integer i = 0; i < ocrListReorder.size(); i++) {
+      if (
+        ocrListReorder[i].Source_System_Id__c == opp.Account.Source_System_ID__c
+      ) {
+        indexOfCustomer = i;
+        break;
+      }
+    }
+    if (indexOfCustomer != -1 && ocrListReorder.size() > 1) {
+      OpportunityContactRole ocrFirst = ocrListReorder.remove(indexOfCustomer);
+      ocrListReorder.add(0, ocrFirst);
+    }
+    for (OpportunityContactRole ocr : ocrListReorder) {
+      LoanappModel.Applicants applicant = new LoanappModel.Applicants();
+      applicant.uid = generateRandomUid();
+      applicant.type = (ocr.Role == 'Applicant')
+        ? 'APPLICANT_TYPE_BORROWER'
+        : 'APPLICANT_TYPE_GUARANTOR';
+      applicant.external_references = new List<String>{
+        'capcisid/' + ocr.Source_System_Id__c
+      };
+      applicantList.add(applicant);
+    }
+    return applicantList;
   }
 
   /**

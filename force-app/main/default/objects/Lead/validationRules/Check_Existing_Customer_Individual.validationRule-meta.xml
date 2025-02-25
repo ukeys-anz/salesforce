@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Check_Existing_Customer_Individual</fullName>
+    <active>true</active>
+    <description>To check only existing or prospective Individual customers can be linked as an Existing Customer for MLCRM Leads</description>
+    <errorConditionFormula>AND(
+  $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+  NOT( 
+    CONTAINS($User.Username,$Label.UnicaIntegrationUserName) 
+  ),
+  NOT( 
+   CONTAINS($User.Username,$Label.AdobeIntegrationUserName) 
+  ),
+  AND(
+    RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,
+    NOT(
+      ISBLANK(FinServ__RelatedAccount__c)
+    ),
+    FinServ__RelatedAccount__r.RecordType.DeveloperName &lt;&gt; &apos;PersonAccount&apos;
+  )
+)</errorConditionFormula>
+    <errorDisplayField>FinServ__RelatedAccount__c</errorDisplayField>
+    <errorMessage>Only Individual customers can be linked as an existing customer.</errorMessage>
+</ValidationRule>

@@ -145,9 +145,6 @@
                     <value>Account Number</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>token</name>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>useJwt</name>
                     <value>true</value>
                 </componentInstanceProperties>

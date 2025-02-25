@@ -72,6 +72,7 @@ public with sharing class IDRAPIRepositoryTest {
     Test.startTest();
     try {
       repo.getSNOWEventInfo('IRE0073261');
+      repo.getSNOWEventInfo('IRE0073261');
     } catch (Exception e) {
       calloutException = e;
     }

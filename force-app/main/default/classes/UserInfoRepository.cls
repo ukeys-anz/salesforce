@@ -9,7 +9,13 @@ public with sharing class UserInfoRepository {
     get {
       return currentUser ??
         (currentUser = [
-          SELECT Id, UserName, Lan_Id__c, Profile.Name, UserRole.DeveloperName
+          SELECT
+            Id,
+            Email,
+            UserName,
+            Lan_Id__c,
+            Profile.Name,
+            UserRole.DeveloperName
           FROM User
           WHERE Id = :UserInfo.getUserId()
           WITH SYSTEM_MODE

@@ -290,7 +290,6 @@
     "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
     "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
-    "Trade_Finance__x": "External Trade Finance accounts",
     "trailheadapp__Badge__c": "Available Trailhead badges.",
     "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
     "trailheadapp__Trail__c": "Representation of a learning trail",
@@ -412,7 +411,11 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"]
+      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
+      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"]
+    },
+    "AccountClosureErrorMetadata__mdt": {
+      "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -865,6 +868,7 @@
         "External_System_Create_Datetime__c",
         "External_System__c",
         "FinServ__FinancialAccount__c",
+        "Financial_Account_Number__c",
         "Fraud_COR_Event_ID__c",
         "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
@@ -892,18 +896,22 @@
         "AcceptableDocumentQuality__c",
         "Actual_Outcome__c",
         "Additional_Type__c",
+        "API_Sub_Status__c",
         "ANZx_Product__c",
         "Auto_Created__c",
         "AuxDomId__c",
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Process_Status__c",
         "Previous_Case_Owner__c",
         "Date_Case_allocated_to_CM__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
+        "Show_Account_Closure__c",
+        "Show_Initiate_Account_Closure__c",
         "SI_Rec_Rem_Action_Status__c",
         "SI_Rec_Rem_Actions__c",
         "SI_Subject_of_Breach_Report__c",
@@ -929,6 +937,7 @@
         "SI_Definite_Deemed_Date__c",
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
+        "Sub_Status__c",
         "IDR_AFCA_Case_Manager__c",
         "CaseOwnerManager__c",
         "IDR_AFCA_Information_Request_Due__c",
@@ -1195,7 +1204,6 @@
         "IDR_Complaint_Outcome_Offered__c",
         "IDR_Completed_Evaluations__c",
         "IDR_Date_time_Progressed_Status_selected__c",
-        "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
         "KYCChecksHasDefect__c"
       ],
@@ -1204,6 +1212,7 @@
         "Amount_Of_Credit_Due__c",
         "Biller_Code__c",
         "Biller_Name__c",
+        "Circumstance__c",
         "Claimed_Amount__c",
         "Company__c",
         "Correct_Customer_Reference_Number__c",
@@ -1237,6 +1246,7 @@
         "Intended_Pay_Id_Value__c",
         "Posted_Amount__c",
         "Posted_Currency__c",
+        "Process_Id__c",
         "Received_Amount__c",
         "Received_Currency__c",
         "Refund_Request_Date__c",
@@ -1261,7 +1271,6 @@
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",
-        "Sub_Status__c",
         "Transaction_Made_By__c"
       ],
       "IA-2415998": [
@@ -1342,8 +1351,15 @@
         "IDR_Product_Family__c",
         "LicenceCardNumber__c",
         "LicenceNumber__c",
+        "MonthlyAlertVolumes__c",
+        "MonthlyEstimatedSavings__c",
+        "MonthlyFPR__c",
+        "NascScamCategory__c",
+        "NascScamChannel__c",
+        "NascScamSubCategory__c",
         "OnboardingVerificationFailedReason__c",
-        "PassportNumber__c"
+        "PassportNumber__c",
+        "RemoteAccessUsed__c"
       ],
       "IA-2415840": [
         "Advocacy_Score__c",
@@ -2098,7 +2114,8 @@
       "IA-2530753": ["Customer_Name__c"],
       "IA-2571531": ["Error_Description__c"],
       "IA-2453595": ["Action__c"],
-      "IA-2468715": ["Source_System_Name__c"]
+      "IA-2468715": ["Source_System_Name__c"],
+      "IA-2415720": ["Customer_Status__c"]
     },
     "Customer_Profile_Update_Event__e": {
       "IA-2415860": [
@@ -2444,7 +2461,11 @@
         "Name",
         "Product_Name__c"
       ],
-      "IA-2415987": ["FinServ__ProductName__c", "Interest_Rate_URL__c"],
+      "IA-2415987": [
+        "FinServ__ProductName__c",
+        "Interest_Rate_URL__c",
+        "Is_Interest_Tab_Visible__c"
+      ],
       "IA-2530753": [
         "OCV_Event_Version__c",
         "Product_SubCode__c",
@@ -3593,7 +3614,8 @@
         "Product_Start_Date__c",
         "QuantityUnitOfMeasure",
         "StockKeepingUnit",
-        "IDR_Workbasket__c"
+        "IDR_Workbasket__c",
+        "SourceSystem__c"
       ],
       "IA-2468715": [
         "CreatedById",
@@ -3609,7 +3631,8 @@
         "Family"
       ],
       "IA-2415860": ["Sub_Product_Code__c", "OCV_Sub_Product_Key__c"],
-      "IA-2415840": ["ExternalId"]
+      "IA-2415840": ["ExternalId"],
+      "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
     },
     "Product_Family__c": {
       "IA-2530753": [
@@ -4643,7 +4666,8 @@
         "Customer_Groups__c",
         "Indicative_FUM__c",
         "Newsletter__c",
-        "Status__c"
+        "Status__c",
+        "Customer_Name__c"
       ],
       "IA-2423278": ["Relationship_Owner__c"]
     },
@@ -4765,7 +4789,6 @@
       "IA-2415984": ["Statement_Mailing_Address__c"],
       "IA-2415999": ["Frequent_Flyer_Number__c"]
     },
-
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
     },
@@ -5307,21 +5330,6 @@
         "Preferred_Contact_Time__c",
         "COI_Company__c"
       ]
-    },
-    "Trade_Finance__x": {
-      "IA-2415720": [
-        "CAP_Limit__c",
-        "Currency__c",
-        "Interest_Rate__c",
-        "Limit__c",
-        "Limit_Expiry__c",
-        "Product_Code__c",
-        "Product_Name__c",
-        "Sequence_Number__c",
-        "Sub_Product_Code__c",
-        "Term__c"
-      ],
-      "IA-2468715": ["Account_Number__c", "OLL_Account_Number__c", "Customer__c"]
     }
   },
   "lineageInformation": {

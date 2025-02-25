@@ -9,6 +9,7 @@ import {
   runLoggingRecordsPurgeScheduler,
   runSandboxConfigSetupApex,
   updateOmniStudioRemoteSetting,
+  updatePamApproversCustomSetting,
   updateUserFedId
 } from "../Services/config-setting.mjs";
 import { removeSensitiveProdInformation } from "../Services/remove-secrets.mjs";

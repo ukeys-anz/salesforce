@@ -5819,11 +5819,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Y_NEW</fullName>
+            <fullName>Y_EXI</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Y_EXI</fullName>
+            <fullName>Y_NEW</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -11740,6 +11740,10 @@
         </values>
         <values>
             <fullName>Legal Name Change</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Letter of Authority</fullName>
             <default>false</default>
         </values>
         <values>

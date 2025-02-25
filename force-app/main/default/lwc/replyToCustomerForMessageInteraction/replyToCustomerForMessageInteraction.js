@@ -73,7 +73,7 @@ export default class ReplyToCustomerForInteraction extends LightningElement {
         handleErrorShowToast(
           this,
           "Failed to re-initiate Chat",
-          errorMessage,
+          error,
           errorMessage,
           "pester"
         );

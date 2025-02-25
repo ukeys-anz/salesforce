@@ -8,7 +8,7 @@
     <externalId>false</externalId>
     <inlineHelpText>Branch code of the recipient&apos;s bank where the money was meant to go.</inlineHelpText>
     <label>Intended Account BSB</label>
-    <length>6</length>
+    <length>200</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
