@@ -213,32 +213,6 @@ public with sharing class FinancialAccountRepository {
   }
 
   /**
-   * @description This method returnd financial account UI config details based on product code
-   * @param productCodes set of product codes
-   * @return List of financial account UI config data based on product code
-   */
-  public List<FinancialAccountUIConfiguration__mdt> fetchMetadataForProductCodes(
-    Set<String> productCodes
-  ) {
-    return [
-      SELECT
-        Product_Code__c,
-        Ownership_Type__c,
-        Show_Goals__c,
-        Sort_Order__c,
-        Is_Home_Loan__c,
-        Is_Active__c,
-        Account_Type__c,
-        Balance_Title__c,
-        Product_Name__c,
-        Section_Header_Title__c
-      FROM FinancialAccountUIConfiguration__mdt
-      WHERE Product_Code__c IN :productCodes
-      WITH USER_MODE
-    ];
-  }
-
-  /**
    * @description builds a list of finaccnumbers from the financial account roles for the customer sent from the UI
    * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
    * @param customerRecordPrimaryOwnerId customer id receive from the UI
