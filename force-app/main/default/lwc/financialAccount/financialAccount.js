@@ -3,36 +3,32 @@ import { LightningElement, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
-
-import { handleAccountHeaderData } from "c/utils";
-
-const ACCOUNT_TYPES = {
-  checking: "Everyday - ANZ Plus Account",
-  savings: "Savings - ANZ Save Account",
-  savingss2: "Savings - ANZ Plus Flex Saver Account"
-};
+import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
+import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
 
 export default class FinancialAccount extends NavigationMixin(
   LightningElement
 ) {
   @api recordId;
-  @api accountType;
   //Account details received through personAccountFinancialDetails LWC
   @api accountDetails;
   @api error;
-  //Savings jar details received through personAccountFinancialDetails LWC
-  @api savingsJar;
   //Added by Shivam to utilize the ocv id received through personAccountFinancialDetails LWC
   @api ocvId;
-  componentTitle;
-  balanceTitle;
+  @api componentTitle;
+  @api componentSubTitle;
+  @api balanceTitle;
+  @api titleIcon;
+  @api iconColor;
+  @api productCode;
   showInfoModal = false;
-  productTitle;
-  titleIcon;
-  iconColor;
 
   get displayContent() {
     return hasAccountsGoalsPermission;
+  }
+
+  get processedFinAccounts() {
+    return this.handleAccountDetails(this.accountDetails);
   }
 
   get hasAccountDetails() {
@@ -70,15 +66,72 @@ export default class FinancialAccount extends NavigationMixin(
     return lastUpdated;
   }
 
-  connectedCallback() {
-    if (this.accountType) {
-      this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
-      let accountHeaderData = handleAccountHeaderData(this.accountType);
-      this.balanceTitle = accountHeaderData.balanceTitle;
-      this.productTitle = accountHeaderData.productTitle;
-      this.iconColor = accountHeaderData.iconColor;
-      this.titleIcon = accountHeaderData.titleIcon;
+  handleAccountDetails(accountDetails) {
+    if (accountDetails) {
+      // Shallow copy the account array to avoid mutating the original array
+      accountDetails = accountDetails.map((account) => {
+        let finAccount = { ...account };
+
+        // Only show showMultipartyBadge when the ownership type is "Multi-party"
+        if (
+          finAccount.finserv_status !== "Closed" &&
+          finAccount.finserv_ownership === "Multi-party"
+        ) {
+          finAccount.showMultipartyBadge = true;
+          finAccount.finserv_ownership = "Joint";
+        }
+        return finAccount;
+      });
+      // Sorting the accounts after modification
+      accountDetails = this.sortFinancialAccounts(accountDetails);
     }
+    return accountDetails;
+  }
+
+  sortFinancialAccounts(arrOfAccounts) {
+    // Create a shallow copy of the array to avoid mutating the original array
+
+    const accounts = [...arrOfAccounts];
+    return accounts.sort((firstAccount, otherAccount) => {
+      const statusOrder = FinancialAccountStatusForSorting.split(",");
+      const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
+
+      //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
+      if (firstAccount.finserv_ownership !== otherAccount.finserv_ownership) {
+        return (
+          ownershipOrder.indexOf(otherAccount.finserv_ownership) -
+          ownershipOrder.indexOf(firstAccount.finserv_ownership)
+        );
+      }
+
+      // Sort by status first
+      if (
+        firstAccount.finserv_ownership === otherAccount.finserv_ownership &&
+        firstAccount.finserv_status !== otherAccount.finserv_status
+      ) {
+        return (
+          statusOrder.indexOf(otherAccount.finserv_status) -
+          statusOrder.indexOf(firstAccount.finserv_status)
+        );
+      }
+      // Handle null openDate values
+      if (
+        firstAccount.finserv_opendate === null &&
+        otherAccount.finserv_opendate !== null
+      )
+        return 1;
+      if (
+        otherAccount.finserv_opendate === null &&
+        firstAccount.finserv_opendate !== null
+      )
+        return -1;
+
+      // Sort by date next if status is same
+      return (
+        new Date(otherAccount.finserv_opendate) -
+        new Date(firstAccount.finserv_opendate)
+      );
+    });
   }
 
   navigateToRecordViewPage(event) {

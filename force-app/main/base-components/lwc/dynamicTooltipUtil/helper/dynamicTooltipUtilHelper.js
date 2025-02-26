@@ -74,14 +74,14 @@ const totalSavedFinancialPosition = `<span>
                     transaction may be declined.
                 </span>`;
 
-const savings = `<span>
+const SAVING01 = `<span>
                     <p class="slds-text-title_bold">
                     The amount shown is indicative of the amount you may be able to
                     use but may not be what is actually available.
                     </p>
                     <br />
                     The amount shown is indicative of the amount you may be able to use
-                    in your ANZ Save account. This amount, when shown at an ATM or
+                    in your {productName} account. This amount, when shown at an ATM or
                     on a receipt, may have a different label such as 'Funds' or
                     'Balance'. Regardless, the amount shown may not be what is actually
                     available because:
@@ -108,14 +108,14 @@ const savings = `<span>
                     declined.
                 </span>`;
 
-const checking = `<span>
+const TRANSACT01 = `<span>
                 <p class="slds-text-title_bold">
                 The amount shown is indicative of the amount you may be able to
                 use but may not be what is actually available.
                 </p>
                 <br />
                 The amount shown is indicative of the amount you may be able to use
-                in your ANZ Plus account. This amount, when shown at an ATM or
+                in your {productName} account. This amount, when shown at an ATM or
                 on a receipt, may have a different label such as 'Funds' or
                 'Balance'. Regardless, the amount shown may not be what is actually
                 available because:
@@ -142,14 +142,14 @@ const checking = `<span>
                 declined.
             </span>`;
 
-const savingss2 = `<span>
+const SAVING02 = `<span>
                     <p class="slds-text-title_bold">
                     The amount shown is indicative of the amount a customer may be able to
-                    use but may not be what should be available or is actually available.
+                    use but may not be what should be avaialble or is actually available.
                     </p>
                     <br />
                     The amount shown is indicative of the amount a customer may be able to use
-                    in their ANZ Plus Flex Saver account. This amount, when shown at an ATM or
+                    in their {productName} account. This amount, when shown at an ATM or
                     on a receipt, may have a different label such as 'Funds' or
                     'Balance'. Regardless, the amount shown may not be what should be available or is actually
                     available.
@@ -179,16 +179,52 @@ const savingss2 = `<span>
                     declined.
                 </span>`;
 
+const savingGoals = `<span>
+                    <p class="slds-text-title_bold">
+                    The amount shown is indicative of the amount you may be able to
+                    use but may not be what is actually available.
+                    </p>
+                    <br />
+                    The amount shown is indicative of the amount you may be able to use
+                    in your {productName} account
+                    <strong> for this goal</strong>. The amount shown may not be what is
+                    actually available because:
+                    <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+                    <li>
+                        some transactions may not have updated the amount shown (e.g.
+                        reversals)
+                    </li>
+                    <li>
+                        some transactions may have updated the amount shown but are not
+                        yet fully processed (e.g. pending transactions), and/or
+                    </li>
+                    <li>
+                        we may not process transactions at the time, on the day or in
+                        the order that they are made.
+                    </li>
+                    </ul>
+                    If you proceed with a transaction when there may be insufficient
+                    funds, your account may go overdrawn or the transaction may be
+                    declined.
+                </span>`;
+
 // map to store key value pair of resourcename and tooltip content to display based on resourcename
 const TOOLTIP_MAP = {
   totalFinancialPosition: totalFinancialPosition,
   totalSavedFinancialPosition: totalSavedFinancialPosition,
-  savings: savings,
-  checking: checking,
-  savingss2: savingss2
+  SAVING01: SAVING01,
+  TRANSACT01: TRANSACT01,
+  SAVING02: SAVING02,
+  savingGoals: savingGoals
 };
 
 //this method is use to fetch the tooltip content dynamically based on the resourcename
-export function fetchTooltipContent(resourceName) {
-  return resourceName ? TOOLTIP_MAP[resourceName] : "";
+export function fetchTooltipContent(resourceName, productName) {
+  return resourceName
+    ? populateProductName(TOOLTIP_MAP[resourceName], productName)
+    : "";
+}
+
+function populateProductName(toolTipContent, productName) {
+  return toolTipContent.replace("{productName}", productName);
 }

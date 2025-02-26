@@ -21,6 +21,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   @api accountOwnersList;
   @api offsetDetails;
   timestamp;
+  stringified = "";
   financialAccounts = [];
   showBalanceModal = false;
   offsetList;
@@ -42,6 +43,7 @@ export default class HomeLoanAccountCard extends NavigationMixin(
   };
 
   connectedCallback() {
+    this.stringified = JSON.stringify(this.accountDetails);
     if (hasHomeLoanPermission) {
       this.init();
     }
@@ -59,8 +61,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     if (this.ownershipType === "Multi-party") {
       this.multiparty = true;
     }
-    if (this.accountDetails) {
-      this.financialAccounts = JSON.parse(this.accountDetails);
+    if (this.stringified) {
+      this.financialAccounts = JSON.parse(this.stringified);
       try {
         //Only need to get financial account id if we are on person account
         if (this.isAccountTab) {

@@ -1,14 +1,13 @@
 /* LWC IMPORTS */
 import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
-import { handleErrorShowToast, isS2Account, isS2Enabled } from "c/utils";
+import { handleErrorShowToast } from "c/utils";
 import { handleGoalThemes } from "c/accountsGoalsUtils";
+import { groupGoalsByAccountNumber } from "./helper/helper-goalsDetails";
 
 /* IMPORT APEX METHODS */
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
 import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
-//import getLoans from "@salesforce/resourceUrl/mock_homeloanaccounts";
-import getHomeLoanAccount from "@salesforce/apex/HomeLoanController.getHomeLoanAccount";
 import getOffsetHomeLoanAccount from "@salesforce/apex/HomeLoanController.getListOffset";
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 
@@ -18,15 +17,6 @@ import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 
 /* IMPORT SCHEMA FIELDS */
 import ACCOUNT_OCV_ID_FIELD from "@salesforce/schema/Account.OCV_ID__c";
-import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
-import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
-
-import {
-  CHECKING_ACCOUNT_RT_APINAME,
-  SAVINGS_ACCOUNT_RT_APINAME
-} from "c/financialAccountParent";
-
-import { MULTI_PARTY, JOINT } from "c/transactionHistoryService";
 
 export default class PersonAccountFinancialDetails extends LightningElement {
   @api recordId;
@@ -36,25 +26,40 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   loading;
   goalError;
   totalBalanceError;
-  accountData = {
-    checking: [],
-    savings: [],
-    savingss2: []
-  };
-  savingsJar = [];
   loanData;
   offsetData = {};
-  //Pass this to the goals lwc so we can navigate to the
-  //savings financial account
-  savingsId;
   accountToOwnership = new Map();
   isS2AccountExist = false;
+  fetchedAccounts;
+  processedAccounts = {};
+  savingAccountExist = false;
 
   connectedCallback() {
     window.addEventListener(
       "refreshFinances_" + this.recordId,
       this.handleRefreshFinances.bind(this)
     );
+  }
+
+  get accountData() {
+    return this.processedAccounts;
+  }
+
+  get isSavingAccountExist() {
+    return this.savingAccountExist;
+  }
+
+  get hasHomeLoan() {
+    return (
+      Array.isArray(this.processedAccounts.groupedAccounts) &&
+      this.processedAccounts.groupedAccounts.some((group) => group.isHomeLoan)
+    );
+  }
+
+  get homeLoanAccounts() {
+    return this.processedAccounts.groupedAccounts
+      .filter((group) => group.isHomeLoan)
+      .flatMap((group) => group.accounts);
   }
 
   @wire(getRecord, {
@@ -68,41 +73,45 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     }
     if (this.ocvId && hasAccountsGoalsPermission) {
       await this.getFinancialAccount();
-      await this.getGoals();
     }
     if (this.ocvId && hasHomeLoanPermission) {
-      const [loanResponse, offsetResponse] = await Promise.all([
-        this.getHomeLoanResponse(),
-        this.getOffsetHomeLoanResponse()
-      ]);
-      //Need to stringify and send as the array consists of many objects and SF proxies it
-      //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
-      if (loanResponse.accounts.length > 0) {
-        this.loanData = JSON.stringify(loanResponse.accounts);
-      }
+      const offsetResponse = await this.getOffsetHomeLoanResponse();
       this.offsetData = offsetResponse;
     }
     this.loading = false;
   }
-  async getHomeLoanResponse() {
+
+  async getFinancialAccount() {
     try {
-      //No need to filter by accounts as we want all H1s
-      //No need for record id, only used in fin account record call
-      let response = await getHomeLoanAccount({
+      this.fetchedAccounts = await getFinancialAccountFabric({
         ocvId: this.ocvId,
         accountNumbers: []
       });
-      return response;
+
+      this.processedAccounts = structuredClone(this.fetchedAccounts);
     } catch (error) {
       handleErrorShowToast(
         this,
-        "Failed To Retrieve Home Loan Details.",
+        "Failed To Retrieve Account Details",
         error,
-        "Failed To Retrieve Home Loan Details. Please refresh and try again. If issue persists please contact your System Administrator",
+        "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator",
         "pester"
       );
+      //If the API callout fails to fetch latest data, use this as a fallback to fetch
+      //the records stored in Salesforce
+      this.fetchedAccounts = await getFinancialAccountDB({
+        ocvId: this.ocvId,
+        ownerId: this.recordId
+      });
+      this.processedAccounts = structuredClone(this.fetchedAccounts);
+    } finally {
+      //Raise this event to call initiate fetching of total balance
+      window.dispatchEvent(
+        new CustomEvent("refreshFinances_" + this.recordId, {
+          detail: "FetchBalance"
+        })
+      );
     }
-    return null;
   }
 
   async getOffsetHomeLoanResponse() {
@@ -130,76 +139,23 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     return hasAccountsGoalsPermission;
   }
 
-  async getFinancialAccount() {
-    this.accountData = {
-      checking: [],
-      savings: [],
-      savingss2: []
-    };
-    try {
-      //Attempt to get the latest account details from fabric
-      let accountDetails = await getFinancialAccountFabric({
-        ocvId: this.ocvId,
-        accountNumbers: []
-      });
-      this.handleAccountInformation(accountDetails);
-    } catch (error) {
-      handleErrorShowToast(
-        this,
-        "Failed To Retrieve Account Details",
-        error,
-        "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator",
-        "pester"
-      );
-
-      //If the API callout fails to fetch latest data, use this as a fallback to fetch
-      //the records stored in Salesforce
-      let accountDetails = await getFinancialAccountDB({
-        ownerId: this.recordId,
-        recordTypeDeveloperNames: [
-          CHECKING_ACCOUNT_RT_APINAME,
-          SAVINGS_ACCOUNT_RT_APINAME
-        ]
-      });
-      this.handleAccountInformation(accountDetails);
-    } finally {
-      //Raise this event to call initiate fetching of total balance
-      window.dispatchEvent(
-        new CustomEvent("refreshFinances_" + this.recordId, {
-          detail: "FetchBalance"
-        })
-      );
-    }
-  }
-
   async getGoals() {
     this.goalDetails = [];
-    this.savingsJar = null;
     try {
       let goalData = await getAccountBuckets({
         ocvId: this.ocvId,
         pageSize: 10,
-        nextPageToken: ""
+        nextPageToken: "",
+        accountNumber: ""
       });
-      goalData = handleGoalThemes(goalData);
-      const goalBucket = goalData.account_buckets.filter((eachGoalData) => {
-        let ownership = "";
-        if (this.accountToOwnership.has(eachGoalData.account_number)) {
-          ownership = this.accountToOwnership.get(eachGoalData.account_number);
-        }
-        return ownership !== MULTI_PARTY;
-      });
-      goalData.account_buckets = goalBucket;
 
-      //Savings jar will always be default, so retrieve it
-      //to pass through to other components that need it
-      this.savingsJar = goalData.account_buckets.filter((obj) => {
-        return obj.is_default;
-      })[0];
+      goalData = handleGoalThemes(goalData);
+
       //Remove savings jar as its not displayed on goals component
-      this.goalDetails = goalData.account_buckets.filter((obj) => {
+      const goalDetailsToShow = goalData.account_buckets.filter((obj) => {
         return !obj.is_default;
       });
+      this.goalDetails = groupGoalsByAccountNumber(goalDetailsToShow);
     } catch (error) {
       this.goalError =
         "Failed to retrieve latest goal details. Please refresh and try again. If issue persists please contact your System Administrator";
@@ -211,103 +167,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         "pester"
       );
     }
-  }
-
-  handleAccountInformation(finAccounts) {
-    if (finAccounts) {
-      finAccounts.forEach((account) => {
-        //Determine the type of financial account
-        if (account.FinServ__Status__c !== "Closed") {
-          // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
-          account.showSavingsJar = true;
-
-          // Only show showMultipartyBadge badge when the ownership is multi-party - By Shivam, Oct'23
-          if (account.FinServ__Ownership__c) {
-            account = this.handleShowMultiPartyBadge(
-              account,
-              "FinServ__Ownership__c"
-            );
-          } else if (account.Ownership__c) {
-            account = this.handleShowMultiPartyBadge(account, "Ownership__c");
-            account.FinServ__Ownership__c = account.Ownership__c;
-          }
-
-          this.accountToOwnership.set(
-            account.FinServ__FinancialAccountNumber__c,
-            account.FinServ__Ownership__c
-          );
-
-          if (
-            account.RecordType.DeveloperName === CHECKING_ACCOUNT_RT_APINAME
-          ) {
-            this.accountData.checking.push(account);
-          } else if (
-            account.RecordType.DeveloperName === SAVINGS_ACCOUNT_RT_APINAME
-          ) {
-            if (isS2Enabled() && isS2Account(account.Marketing_Code__c)) {
-              this.accountData.savingss2.push(account);
-              this.isS2AccountExist = true;
-            } else if (!isS2Account(account.Marketing_Code__c)) {
-              this.accountData.savings.push(account);
-              if (account.FinServ__Ownership__c !== MULTI_PARTY) {
-                this.savingsId = account.Id;
-              }
-            }
-          }
-        } else if (isS2Account(account.Marketing_Code__c) && isS2Enabled()) {
-          this.isS2AccountExist = true;
-        }
-      });
-      this.sortFinancialAccounts(this.accountData.checking);
-      this.sortFinancialAccounts(this.accountData.savings);
-      this.sortFinancialAccounts(this.accountData.savingss2);
-    }
-    return finAccounts;
-  }
-  //Sorting the order of accounts based on account status and then based on opendate for similar account statuses.
-  sortFinancialAccounts(arrOfAccounts) {
-    return arrOfAccounts.sort((firstAccount, otherAccount) => {
-      const statusOrder = FinancialAccountStatusForSorting.split(",");
-      const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
-
-      // Sort by status first
-      if (firstAccount.FinServ__Status__c !== otherAccount.FinServ__Status__c) {
-        return (
-          statusOrder.indexOf(firstAccount.FinServ__Status__c) -
-          statusOrder.indexOf(otherAccount.FinServ__Status__c)
-        );
-      }
-
-      //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
-      if (
-        firstAccount.FinServ__Status__c === otherAccount.FinServ__Status__c &&
-        firstAccount.FinServ__Ownership__c !==
-          otherAccount.FinServ__Ownership__c
-      ) {
-        return (
-          ownershipOrder.indexOf(firstAccount.FinServ__Ownership__c) -
-          ownershipOrder.indexOf(otherAccount.FinServ__Ownership__c)
-        );
-      }
-
-      // Handle null openDate values
-      if (
-        firstAccount.FinServ__OpenDate__c === null &&
-        otherAccount.FinServ__OpenDate__c !== null
-      )
-        return 1;
-      if (
-        otherAccount.FinServ__OpenDate__c === null &&
-        firstAccount.FinServ__OpenDate__c !== null
-      )
-        return -1;
-
-      // Sort by date next if status is same
-      return (
-        new Date(otherAccount.FinServ__OpenDate__c) -
-        new Date(firstAccount.FinServ__OpenDate__c)
-      );
-    });
   }
 
   handleRefreshFinances(event) {
@@ -328,15 +187,5 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       "refreshFinances_" + this.recordId,
       this.handleRefreshFinances.bind(this)
     );
-  }
-
-  //Created this method to check whether the account have Multi-party or Single ownership type
-  handleShowMultiPartyBadge(finAccount, finAccountOwner) {
-    finAccount.showMultipartyBadge =
-      finAccount[finAccountOwner] === MULTI_PARTY;
-    finAccount.multiParty = finAccount.showMultipartyBadge
-      ? JOINT
-      : finAccount[finAccountOwner];
-    return finAccount;
   }
 }

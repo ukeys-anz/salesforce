@@ -4,6 +4,7 @@ import { fetchTooltipContent } from "./helper/dynamicTooltipUtilHelper";
 export default class DynamicTooltipUtil extends LightningElement {
   @api headerTitle;
   @api resourceName;
+  @api productName;
   hasRendered = false;
 
   renderedCallback() {
@@ -14,7 +15,10 @@ export default class DynamicTooltipUtil extends LightningElement {
       );
       if (tooltipContentMarkup) {
         // eslint-disable-next-line @lwc/lwc/no-inner-html
-        tooltipContentMarkup.innerHTML = fetchTooltipContent(this.resourceName);
+        tooltipContentMarkup.innerHTML = fetchTooltipContent(
+          this.resourceName,
+          this.productName
+        );
       }
     }
   }
