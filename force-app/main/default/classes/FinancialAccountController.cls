@@ -49,14 +49,21 @@ public with sharing class FinancialAccountController {
         ocvId,
         accountNumbers
       );
-      List<UnifiedFinancialAccountModel.AccountList> homeloanaccounts = filterOutNonHomeLoanAccounts(
-        fabricAccountList
-      );
+
+      if (fabricAccountList == null || fabricAccountList.isEmpty()) {
+        return new Map<String, Object>();
+      }
+
       DataPartitionUtil.storeH1AccountDetailsCache(
         ocvId,
-        filterOutNonHomeLoanAccounts(homeloanaccounts)
+        filterOutNonHomeLoanAccounts(fabricAccountList)
       );
-      return groupAndSortFinancialAccounts(fabricAccountList);
+      Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = FinancialAccountControllerAction.groupByProductCode(
+        fabricAccountList
+      );
+      return FinancialAccountControllerAction.processFinAccountUIConfiAndBuildResponse(
+        groupedAccounts
+      );
     } catch (DmlException dmlExp) {
       throw CommonUtil.logAuraException(FAILED_FIN_ACCOUNT_UPDATE);
     } catch (Exception e) {
@@ -213,27 +220,6 @@ public with sharing class FinancialAccountController {
   }
 
   /**
-   * @description roups financial accounts by product code and sorts them
-   * @param fabricAccountList List of financial accounts with updated information.
-   * @return A map of grouped and sorted financial accounts by product code.
-   */
-  @TestVisible
-  private static Map<String, Object> groupAndSortFinancialAccounts(
-    List<UnifiedFinancialAccountModel.AccountList> fabricAccountList
-  ) {
-    if (fabricAccountList == null || fabricAccountList.isEmpty()) {
-      return new Map<String, Object>();
-    }
-
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = FinancialAccountControllerAction.groupByProductCode(
-      fabricAccountList
-    );
-    return FinancialAccountControllerAction.processFinAccountUIConfiAndBuildResponse(
-      groupedAccounts
-    );
-  }
-
-  /**
    * @description This method is an orchestration layer for retrieving financial accounts from database and then group accounts , add metadata values and sort grouped records
    * Also, fetching the homeloan accounts from the Cache
    * @param ocvId The ocv id of the customer
@@ -266,7 +252,20 @@ public with sharing class FinancialAccountController {
       ) {
         combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
       }
-      return groupAndSortFinancialAccounts(combinedFinancialAccountList);
+
+      if (
+        combinedFinancialAccountList == null ||
+        combinedFinancialAccountList.isEmpty()
+      ) {
+        return new Map<String, Object>();
+      }
+
+      Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = FinancialAccountControllerAction.groupByProductCode(
+        combinedFinancialAccountList
+      );
+      return FinancialAccountControllerAction.processFinAccountUIConfiAndBuildResponse(
+        groupedAccounts
+      );
     } catch (Exception objException) {
       CommonUtil.logException(objException);
       throw new AuraHandledException(MISSING_FIN_ACCOUNT);
