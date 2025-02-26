@@ -110,13 +110,11 @@ public with sharing class FinancialAccountRepository {
    * @description gets all the finanacial account which needds to be displayed on UI
    * @param ownerId owner of fin account
    * @param allRelatedAccountNumbers all the rekated financial account numbers
-   * @param recordTypeDeveloperNames record type developer names
    * @return list of FinServ__FinancialAccount__c
    */
   public List<FinServ__FinancialAccount__c> getFinacialAccounts(
     Id ownerId,
-    List<String> allRelatedAccountNumbers,
-    List<String> recordTypeDeveloperNames
+    List<String> allRelatedAccountNumbers
   ) {
     return [
       SELECT
@@ -138,7 +136,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         (FinServ__PrimaryOwner__c = :ownerId
         OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
-        AND RecordType.DeveloperName IN :recordTypeDeveloperNames
+        AND RecordTypeId != :RTFinancialAccount.bankAccount
         AND FinServ__Status__c != 'Closed'
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
@@ -238,5 +236,28 @@ public with sharing class FinancialAccountRepository {
       WHERE Product_Code__c IN :productCodes
       WITH USER_MODE
     ];
+  }
+
+  /**
+   * @description builds a list of finaccnumbers from the financial account roles for the customer sent from the UI
+   * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+   * @param customerRecordPrimaryOwnerId customer id receive from the UI
+   * @return List<String> list of the financial account numbers
+   */
+  public List<String> getAllAccountNumberFromFAR(
+    Id customerRecordPrimaryOwnerId
+  ) {
+    List<String> financialAccountNumbers = new List<String>();
+
+    for (FinServ__FinancialAccountRole__c finAccRole : [
+      SELECT Account_Number__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
+        AND FinServ__Active__c = TRUE
+    ]) {
+      financialAccountNumbers.add(finAccRole.Account_Number__c);
+    }
+    return financialAccountNumbers;
   }
 }

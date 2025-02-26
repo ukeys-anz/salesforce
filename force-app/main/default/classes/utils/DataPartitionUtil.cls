@@ -20,34 +20,6 @@ public with sharing class DataPartitionUtil {
     }
     set;
   }
-  /**
-   * @description storing the first call out of 'home loan account (H1) details' from HomeLoanAPIRepository
-   * @param sessionCacheKey the key is the ocvID. Therefore the session cache stores homeloan details based on ocvID
-   * @param value - value that is added to the cache
-   */
-  public static void storeH1AccountDetailsCache(
-    String sessionCacheKey,
-    HomeLoanModel value
-  ) {
-    dataPartition.put(sessionCacheKey, value, ttlSecs);
-  }
-
-  /**
-   * @description retrieving 'home loan account (H1 Account) details' from the session cache
-   * @param ocvId retrieve Session Cache data based on ocvId
-   * @return accountDetails, all details under the given ocvId
-   *
-   */
-  @AuraEnabled
-  public static HomeLoanModel getH1AccountDetailsCache(String ocvId) {
-    HomeLoanModel accountDetails = (HomeLoanModel) DataPartition.get(ocvId);
-    if (accountDetails != null) {
-      Logger.debug('Home Loan Caching hit: ')
-        .setPayload(json.serialize(accountDetails));
-      Logger.saveLog();
-    }
-    return accountDetails;
-  }
 
   /**
    * @description storing the first call out of `sop` from `ResidentialLoanApplicationAPIRepository`
@@ -104,7 +76,7 @@ public with sharing class DataPartitionUtil {
    * @param sessionCacheKey the key is the ocvID. Therefore the session cache stores homeloan details based on ocvID
    * @param value - value that is added to the cache
    */
-  public static void storeLoanAccountDetailsCache(
+  public static void storeH1AccountDetailsCache(
     String sessionCacheKey,
     List<UnifiedFinancialAccountModel.AccountList> value
   ) {
@@ -118,7 +90,7 @@ public with sharing class DataPartitionUtil {
    *
    */
   @AuraEnabled
-  public static List<UnifiedFinancialAccountModel.AccountList> getLoanAccountDetailsCache(
+  public static List<UnifiedFinancialAccountModel.AccountList> getH1AccountDetailsCache(
     String ocvId
   ) {
     List<UnifiedFinancialAccountModel.AccountList> accountDetails = (List<UnifiedFinancialAccountModel.AccountList>) DataPartition.get(
