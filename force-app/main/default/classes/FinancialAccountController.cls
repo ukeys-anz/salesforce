@@ -277,6 +277,7 @@ public with sharing class FinancialAccountController {
    * @param ownerId The record id of the customer / primary owner of the financial accounts
    * @return Grouped Financial Accounts based on product code.
    */
+  @TestVisible
   private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
     Id ownerId
   ) {
