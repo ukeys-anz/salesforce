@@ -153,8 +153,6 @@ public with sharing class FinancialAccountRepository {
     List<FinancialAccountUIConfiguration__mdt> financialAccountUIDetails = [
       SELECT
         Product_Code__c,
-        Is_Active__c,
-        Is_Home_Loan__c,
         Show_Goals__c,
         Sort_Order__c,
         Ownership_Type__c,
@@ -192,8 +190,6 @@ public with sharing class FinancialAccountRepository {
         Ownership_Type__c,
         Show_Goals__c,
         Sort_Order__c,
-        Is_Home_Loan__c,
-        Is_Active__c,
         Account_Type__c,
         Balance_Title__c,
         Product_Name__c,
