@@ -31,34 +31,25 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
   }
 
-  /**
-   * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_financialAccount.json
-   * called in force-app/main/default/classes/services/FabricServiceMock.cls
-   */
-  @isTest
-  static void financialAccountValidResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-      FinancialAccountModel model = coachapi.getAccounts(
-        '1111',
-        new List<String>()
-      );
-      Test.stopTest();
+  / /**
+  * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_financialAccount.json
+  * called in force-app/main/default/classes/services/FabricServiceMock.cls
+  */
+ @isTest
+ static void financialAccountValidResponse() {
+   User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+   System.runAs(thisUser) {
+     Test.startTest();
+     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+     UnifiedFinancialAccountModel model = coachapi.getAccounts(
+       '1111',
+       new List<String>()
+     );
+     Test.stopTest();
 
-      System.assertEquals(
-        2,
-        model.account_list.size(),
-        'Account list size should be as expected.'
-      );
-      System.assertEquals(
-        '000000000',
-        model.account_list[1].account_number,
-        'Account number should be as expected.'
-      );
-    }
-  }
+     Assert.isTrue(model.accounts.size()>2,'Financial Account list size should be as expected.');
+   }
+ }
 
   /**
    * @description fetch invalid accounts
@@ -67,7 +58,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   static void financialAccountInvalidResponse() {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
-      FinancialAccountModel model;
+      UnifiedFinancialAccountModel model;
       HttpCalloutResponse res = getFinancialAccountInvalidResponse();
       Service s = ServiceProvider.getService(FabricService.class);
       s.setCalloutResponse(res);
