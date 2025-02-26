@@ -56,10 +56,7 @@ public with sharing class FinancialAccountControllerTest {
 
     Test.startTest();
     try {
-      Map<String, Object> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
-        '12345',
-        null
-      );
+      FinancialAccountController.getFinancialAccountFabric('12345', null);
     } catch (Exception objException) {
       resultException = objException;
     }
@@ -338,9 +335,6 @@ public with sharing class FinancialAccountControllerTest {
   }
 
   private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
-    Id fakerAccountRoleId = Lib_FakeIdGenerator.getMockId(
-      FinServ__FinancialAccountRole__c.getSObjectType()
-    );
     Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
     Product2 product = new Product2(
       Id = productId,

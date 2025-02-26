@@ -42,7 +42,6 @@ public with sharing class FinancialAccountControllerAction {
   public static Map<String, Object> processFinAccountUIConfiAndBuildResponse(
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts
   ) {
-    Set<String> productCodes = groupedAccounts.keySet();
     Map<String, FinancialAccountUIConfiguration__mdt> finAccountUIConfigMap = FINANCIAL_ACCOUNT_REPOSITORY.mapProductCodeToFinAccounDetails();
     Map<String, Integer> productTileSortOrderMap = new Map<String, Integer>();
     Map<String, Map<String, Integer>> productOwnershipOrderMap = new Map<String, Map<String, Integer>>();
