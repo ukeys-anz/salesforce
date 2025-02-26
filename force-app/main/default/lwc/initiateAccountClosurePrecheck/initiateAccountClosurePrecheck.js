@@ -254,23 +254,36 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
         salesforceCaseNumber,
         acceptance,
         unsatisfiedPreconditions,
-        businessProcessId
+        businessProcessId,
+        code,
+        message
       } = response;
       let failedReasons = [];
 
       if (acceptance === "ACCEPTANCE_REJECTED" && unsatisfiedPreconditions) {
-        Object.keys(unsatisfiedPreconditions).forEach((precheckKey) => {
-          const precondition = unsatisfiedPreconditions[precheckKey];
-          if (precondition?.eligibility === "ELIGIBILITY_INELIGIBLE") {
-            failedReasons.push(precheckKey);
-          }
-        });
+        failedReasons = Object.keys(unsatisfiedPreconditions)
+          .filter(
+            (precheckKey) =>
+              unsatisfiedPreconditions[precheckKey]?.eligibility ===
+              "ELIGIBILITY_INELIGIBLE"
+          )
+          .map((precheckKey) => {
+            return precheckKey === "nonzeroAvailableBalance"
+              ? this.updatePrecheckKeyDynamic(
+                  precheckKey,
+                  unsatisfiedPreconditions[precheckKey]
+                )
+              : precheckKey;
+          });
       }
+
       return {
         salesforceCaseNumber,
         acceptance,
         failedReasons,
-        businessProcessId
+        businessProcessId,
+        code,
+        message
       };
     });
     return processedResponses;
@@ -281,5 +294,11 @@ export default class InitiateAccountClosurePrecheck extends LightningElement {
     await refreshTab(tabId, {
       includeAllSubtabs: false
     });
+  }
+
+  updatePrecheckKeyDynamic(precheckKey, precondition) {
+    return parseFloat(precondition?.availableBalance?.units) > 0
+      ? precheckKey + "_positive"
+      : precheckKey + "_negative";
   }
 }
