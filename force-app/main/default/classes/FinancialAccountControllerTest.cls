@@ -1,148 +1,387 @@
+/**
+ *
+ * @author Kopal Goswami
+ * @since 2025
+ * @description FinancialAccountControllerTest is the test class for UnifiedFinancialAccountController class
+ */
 @isTest
 public with sharing class FinancialAccountControllerTest {
-  private static User thisUser = [
-    SELECT Id
-    FROM User
-    WHERE Id = :UserInfo.getUserId()
-  ];
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
 
-  @testSetup
-  static void setup() {
-    Account accnt = new Account();
-    accnt.Name = 'TestAccount';
-    accnt.Display_Name__c = 'TestAccount';
-    accnt.OCV_ID__c = '1';
-    accnt.ANZx_Customer__c = true;
-    accnt.External_Id__c = '82jfsa80534';
-    insert accnt;
+  static Lib_MockProvider finAccRepoMock;
+  static Lib_MockProvider dmlRepoMock;
 
-    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
-
-    // skip 111111111 because it is in the fabric mock response, and we need to test the partial update
-    List<String> testFinAccNumbers = new List<String>{
-      '000000000',
-      '222222222',
-      '111111111'
-    };
-
-    for (Integer i = 0; i < 3; i++) {
-      FinServ__FinancialAccount__c finAccount = new FinServ__FinancialAccount__c();
-      finAccount.Name = 'Everyday Account' + i;
-      finAccount.FinServ__Balance__c = 200;
-      finAccount.FinServ__CurrentPostedBalance__c = 200;
-      finAccount.FinServ__Status__c = 'Active';
-      finAccount.RecordTypeId = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
-      finAccount.FinServ__PrimaryOwner__c = accnt.Id;
-      finAccount.Account_Key__c = '342490981' + i;
-      finAccount.FinServ__FinancialAccountNumber__c = testFinAccNumbers[i];
-
-      financialAccounts.add(finAccount);
-    }
-
-    insert financialAccounts;
-
-    // Inserting as current user, to get around MIXED_DML_OPERATION error
-    System.runAs(thisUser) {
-      TestUtil.addAccountsGoalsPs();
-    }
+  static void registerMocks() {
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
-  /**
-   * @description Test retrieval of financial accounts
-   */
   @isTest
-  public static void testFinAccountDBRetrieval() {
-    System.runAs(thisUser) {
-      Account accnt = [
-        SELECT Id
-        FROM Account
-        WHERE Display_Name__c = 'TestAccount'
-        LIMIT 1
-      ];
+  public static void testGetFinancialAccountFabricPositive() {
+    registerMocks();
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
 
-      List<String> accountTypes = new List<String>{
-        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
-        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-      };
-      Test.startTest();
+    finAccRepoMock.mock(
+      'mapProductCodeToFinAccounDetails',
+      mockMetadataRecords()
+    );
 
-      List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccountDB(
-        accnt.Id,
-        accountTypes
-      );
+    Test.startTest();
+    Map<String, Object> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+      '12345',
+      null
+    );
+    Test.stopTest();
 
-      Test.stopTest();
-
-      Assert.areEqual(
-        3,
-        finAccountList.size(),
-        'Incorrect number of financial accounts returned'
-      );
-    }
+    Assert.isNotNull(
+      processedfinancialAccounts.get('groupedAccounts'),
+      'Financial Accounts are grouped and sorted'
+    );
   }
 
-  /**
-   * @description Test retrieval of financial accounts, with 3 accounts in the response and only 2 in the database
-   */
   @isTest
-  public static void testFinAccountFabricRetrieval() {
-    System.runAs(thisUser) {
-      Account accnt = [
-        SELECT Id
-        FROM Account
-        WHERE Display_Name__c = 'TestAccount'
-        LIMIT 1
-      ];
+  public static void testFetchAllFinancialAccountsNegative() {
+    registerMocks();
 
-      List<String> accountTypes = new List<String>{
-        GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME,
-        GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-      };
-      Test.startTest();
+    finAccRepoMock.mock(
+      'mapProductCodeToFinAccounDetails',
+      mockInvalidMetadataRecord()
+    );
 
-      List<FinServ__FinancialAccount__c> finAccountList = FinancialAccountController.getFinancialAccountFabric(
-        accnt.Id,
-        accountTypes
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+
+    Exception resultException;
+
+    Test.startTest();
+    try {
+      Map<String, Object> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+        '12345',
+        null
       );
-
-      Test.stopTest();
-
-      Assert.areEqual(
-        2,
-        finAccountList.size(),
-        'Two accounts in the mock response should be returned'
-      );
-
-      for (FinServ__FinancialAccount__c fa : finAccountList) {
-        Assert.isNotNull(
-          fa.RecordType?.DeveloperName,
-          'DeveloperName must be available'
-        );
-      }
-
-      FinServ__FinancialAccount__c databaseFinancialAccount = (FinServ__FinancialAccount__c) [
-        SELECT FinServ__Balance__c
-        FROM FinServ__FinancialAccount__c
-        WHERE FinServ__FinancialAccountNumber__c = '000000000'
-      ];
-      Assert.areEqual(
-        18.0012,
-        databaseFinancialAccount.FinServ__Balance__c,
-        'Financial account balance should be updated'
-      );
+    } catch (Exception objException) {
+      resultException = objException;
     }
+    Test.stopTest();
+
+    Assert.areEqual(
+      resultException.getMessage(),
+      'Script-thrown exception',
+      'Exception was expected'
+    );
+  }
+
+  @isTest
+  public static void testGetFinancialAccountInstancePositive() {
+    FinServ__FinancialAccount__c mockfinAccountFromDatabase = createMockFinancialAccount()[0];
+    Test.startTest();
+    UnifiedFinancialAccountModel.AccountList finAccountRecord = FinancialAccountController.getFinancialAccountInstance(
+      mockFabricFinancialAccounts[0],
+      mockfinAccountFromDatabase
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      finAccountRecord.finserv_ownership,
+      'Single',
+      'Ownership should be updated with the database financial Account'
+    );
+  }
+
+  @isTest
+  public static void testGetFinancialAccountInstanceNegative() {
+    Test.startTest();
+    UnifiedFinancialAccountModel.AccountList finAccountRecord = FinancialAccountController.getFinancialAccountInstance(
+      mockFabricFinancialAccounts[0],
+      null
+    );
+    Test.stopTest();
+
+    Assert.isNull(finAccountRecord.Id, 'Id node should be null');
+  }
+
+  @isTest
+  public static void testGetFinancialAccountInstanceToUpdatePositive() {
+    FinServ__FinancialAccount__c mockfinAccountFromDatabase = createMockFinancialAccount()[0];
+    Id finAccId = mockfinAccountFromDatabase.id;
+
+    Test.startTest();
+    FinServ__FinancialAccount__c finAccountToUpdate = FinancialAccountController.getFinancialAccountInstanceToUpdate(
+      mockFabricFinancialAccounts[0],
+      mockfinAccountFromDatabase
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      finAccountToUpdate.Id,
+      finAccId,
+      'Id node should be updated with the database financial Account Id'
+    );
+  }
+
+  @isTest
+  public static void testGetFinancialAccountInstanceToUpdateNegative() {
+    FinServ__FinancialAccount__c mockfinAccountFromDatabase = createMockFinancialAccount()[0];
+
+    Test.startTest();
+    FinServ__FinancialAccount__c finAccountToUpdate = FinancialAccountController.getFinancialAccountInstanceToUpdate(
+      mockFabricFinancialAccounts[2],
+      mockfinAccountFromDatabase
+    );
+    Test.stopTest();
+
+    Assert.isNull(
+      finAccountToUpdate.FinServ__CloseDate__c,
+      'Close date node should be null'
+    );
+  }
+
+  @isTest
+  public static void testFilterOutNonHomeLoanAccountsPositive() {
+    registerMocks();
+
+    finAccRepoMock.mock(
+      'mapProductCodeToFinAccounDetails',
+      mockMetadataRecords()
+    );
+
+    Test.startTest();
+    List<UnifiedFinancialAccountModel.AccountList> homeloanAccountList = FinancialAccountController.filterOutNonHomeLoanAccounts(
+      mockFabricFinancialAccounts
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      homeloanAccountList.size() > 0,
+      'Home Loan Financial Accounts are filtered'
+    );
+  }
+
+  @isTest
+  public static void testGetFinancialAccountDBPositive() {
+    registerMocks();
+
+    finAccRepoMock.mock(
+      'getAllAccountNumberFromFAR',
+      mockGetAllAccountNumberFromFAR()
+    );
+
+    finAccRepoMock.mock('getFinacialAccounts', createMockFinancialAccount());
+
+    finAccRepoMock.mock(
+      'mapProductCodeToFinAccounDetails',
+      mockMetadataRecords()
+    );
+
+    Test.startTest();
+    Map<String, Object> processedfinancialAccountsDB = FinancialAccountController.getFinancialAccountDB(
+      '12345',
+      FAKER_ACCOUNT_ID
+    );
+    Test.stopTest();
+
+    Assert.isTrue(
+      processedfinancialAccountsDB.size() > 0,
+      'Financial Accounts are grouped and sorted based on Database data'
+    );
+  }
+
+  @isTest
+  public static void testGetFinancialAccountDBNegative() {
+    registerMocks();
+
+    finAccRepoMock.mock(
+      'getAllAccountNumberFromFAR',
+      mockGetAllAccountNumberFromFAR()
+    );
+
+    finAccRepoMock.mock(
+      'getFinacialAccounts',
+      new List<FinServ__FinancialAccount__c>()
+    );
+
+    finAccRepoMock.mock(
+      'mapProductCodeToFinAccounDetails',
+      mockMetadataRecords()
+    );
+
+    Test.startTest();
+    Map<String, Object> processedfinancialAccountsDB = FinancialAccountController.getFinancialAccountDB(
+      '12345',
+      FAKER_ACCOUNT_ID
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      0,
+      processedfinancialAccountsDB.size(),
+      'No Financial accounts are received'
+    );
+  }
+
+  @isTest
+  public static void testFetchAllFinancialAccountsDBPositive() {
+    registerMocks();
+    finAccRepoMock.mock(
+      'getAllAccountNumberFromFAR',
+      mockGetAllAccountNumberFromFAR()
+    );
+
+    finAccRepoMock.mock('getFinacialAccounts', createMockFinancialAccount());
+
+    Test.startTest();
+    List<UnifiedFinancialAccountModel.AccountList> convertedFinancialAccountsToJson = FinancialAccountController.fetchAllFinancialAccountsDB(
+      FAKER_ACCOUNT_ID
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      convertedFinancialAccountsToJson[0].finserv_ownership,
+      'Single',
+      'Financial account ownership is updated on the json node finserv_ownership'
+    );
+  }
+
+  @isTest
+  public static void testFetchAllFinancialAccountsDBNegative() {
+    registerMocks();
+    finAccRepoMock.mock(
+      'getAllAccountNumberFromFAR',
+      mockGetAllAccountNumberFromFAR()
+    );
+
+    finAccRepoMock.mock(
+      'getFinacialAccounts',
+      new List<FinServ__FinancialAccount__c>()
+    );
+
+    Test.startTest();
+    List<UnifiedFinancialAccountModel.AccountList> convertedFinancialAccountsToJson = FinancialAccountController.fetchAllFinancialAccountsDB(
+      FAKER_ACCOUNT_ID
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      0,
+      convertedFinancialAccountsToJson.size(),
+      'No Financial accounts are received'
+    );
   }
 
   @isTest
   public static void testFetchOCVIdFromAccount() {
-    Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
     Test.startTest();
-    String ocvId = FinancialAccountController.fetchOCVIdFromAccount(accountId);
+    String ocvId = FinancialAccountController.fetchOCVIdFromAccount(
+      FAKER_ACCOUNT_ID
+    );
     Test.stopTest();
-    System.assertEquals(
-      null,
+    Assert.isNull(
       ocvId,
       'Ocv Id should be null as we are passing fake record Id'
     );
+  }
+
+  /**
+   * @description This method helps in providing the mock response from Fabric
+   * @return Fabric financial accounts
+   */
+  private static List<UnifiedFinancialAccountModel.AccountList> mockFabricFinancialAccounts {
+    get {
+      String mockFabricFinancialAccountsResponse = [
+          SELECT body
+          FROM StaticResource
+          WHERE Name = 'mock_FinancialAccountMappingv1'
+        ]
+        .body.toString();
+      return UnifiedFinancialAccountModel.parse(
+          mockFabricFinancialAccountsResponse
+        )
+        .accounts;
+    }
+  }
+
+  /**
+   * @description helper method to create mock metadata records in map format
+   * @return map of product code and FinancialAccountUIConfiguration__mdt record
+   */
+  private static Map<String, FinancialAccountUIConfiguration__mdt> mockMetadataRecords() {
+    List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
+    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
+      Product_Code__c = 'HOMELOAN1',
+      Account_Type__c = 'Loan',
+      Balance_Title__c = 'Loan Balance',
+      Product_Name__c = 'ANZ Plus fixed Rate Home Loan',
+      Section_Header_Title__c = 'Loan',
+      Sort_Order__c = 1
+    );
+    mockMetaData.add(dummyRecord1);
+
+    FinancialAccountUIConfiguration__mdt dummyRecord2 = new FinancialAccountUIConfiguration__mdt(
+      Product_Code__c = 'SAVING01',
+      Account_Type__c = 'Savings',
+      Balance_Title__c = 'Total Saved',
+      Product_Name__c = 'ANZ Save',
+      Section_Header_Title__c = 'Savings',
+      Sort_Order__c = 2
+    );
+    mockMetaData.add(dummyRecord2);
+
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+    for (FinancialAccountUIConfiguration__mdt finUIConfig : mockMetaData) {
+      String key = finUIConfig?.Product_Code__c;
+      if (!productCodeToFinAccMap.containsKey(key)) {
+        productCodeToFinAccMap.put(key, finUIConfig);
+      }
+    }
+    return productCodeToFinAccMap;
+  }
+
+  private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
+    Id fakerAccountRoleId = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccountRole__c.getSObjectType()
+    );
+    Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
+    Product2 product = new Product2(
+      Id = productId,
+      Name = 'Test Product',
+      ANZ_Product_Code__c = 'SAVING01'
+    );
+    Account testAccount = TestDataFactory.createPersonAccount('1111', false);
+    testAccount.Id = FAKER_ACCOUNT_ID;
+    List<FinServ__FinancialAccount__c> financialAccountsList = new List<FinServ__FinancialAccount__c>();
+    FinServ__FinancialAccount__c finAccount1 = TestDataFactory.createFinancialAccountRecord(
+      GetHelpConstants.SAVINGS_ACCOUNT_RT_ID,
+      FAKER_ACCOUNT_ID,
+      false
+    );
+    FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
+      finAccount1,
+      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+    );
+    finAccount.FinServ__ProductName__r = product;
+    finAccount.FinServ__FinancialAccountNumber__c = '111111111';
+    financialAccountsList.add(finAccount);
+    return financialAccountsList;
+  }
+
+  private static List<String> mockGetAllAccountNumberFromFAR() {
+    List<String> accountNumbers = new List<String>();
+    accountNumbers.add('111111111');
+    return accountNumbers;
+  }
+  /**
+   * @description helper method to create mock metadata records in map format
+   * @return map of product code and FinancialAccountUIConfiguration__mdt record
+   */
+  private static List<FinancialAccountUIConfiguration__mdt> mockInvalidMetadataRecord() {
+    List<FinancialAccountUIConfiguration__mdt> mockInvalidMetaData = new List<FinancialAccountUIConfiguration__mdt>();
+    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
+      Product_Code__c = 'SAVING01',
+      Product_Name__c = 'ANZ Save',
+      Section_Header_Title__c = 'Savings'
+    );
+    mockInvalidMetaData.add(dummyRecord1);
+    return mockInvalidMetaData;
   }
 }
