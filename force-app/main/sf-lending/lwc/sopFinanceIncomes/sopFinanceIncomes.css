@@ -1,0 +1,44 @@
+:host {
+  --vertical-padding-size: 14px;
+  --last-modified-dimensions: 10px;
+}
+.verticalSpaceStyle {
+  padding-top: var(--vertical-padding-size);
+  padding-bottom: var(--vertical-padding-size);
+}
+.logoDollarDimension {
+  height: 32px;
+}
+.logoTransStyle {
+  height: var(--child-card-image-dimensions);
+  width: var(--child-card-image-dimensions);
+  padding: 10px;
+}
+.headerStyling {
+  font-size: 13px;
+  font-weight: var(--lwc-fontWeightBold);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+.borderstyling {
+  border-radius: var(--lwc-borderRadiusMedium);
+}
+.labelStyle {
+  font-size: var(--text-font-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+.lastModifiedStyle {
+  font-size: var(--last-modified-dimensions);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--last-modified-dimensions);
+  color: #706e6b;
+}
+.boxstyle {
+  padding: 14px 24px;
+  border-radius: var(--lwc-borderRadiusMedium);
+}
+.transBlockStyle {
+  background-color: rgb(243, 242, 242);
+}

@@ -1,0 +1,114 @@
+<template>
+  <lightning-card>
+    <template lwc:if={financeSummaryData.allPartiesConsented}>
+      <lightning-layout
+        multiple-rows
+        class="slds-p-right_x-large slds-p-left_x-large slds-m-top_medium slds-m-bottom_medium"
+      >
+        <lightning-layout-item
+          size="12"
+          class="slds-p-top_medium slds-m-bottom_medium"
+        >
+          <lightning-formatted-text
+            value="An overview of the progress of the finances section of the application."
+            class="textStyle"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" class="spacing">
+          <table
+            class="slds-table slds-table_cell-buffer slds-table_bordered slds-no-row-hover slds-table_fixed-layout"
+          >
+            <thead>
+              <tr class="slds-line-height_reset">
+                <th class="col1 slds-text-align_left custom-header" scope="col">
+                  <div title="Finances">Finances</div>
+                </th>
+                <template for:each={owners} for:item="owner">
+                  <th
+                    class="col2 slds-text-align_center custom-header"
+                    scope="col"
+                    key={owner}
+                  >
+                    <div title={owner}>{owner}</div>
+                  </th>
+                </template>
+                <th
+                  class="col4 slds-text-align_right custom-header"
+                  scope="col"
+                >
+                  <div title="TotalAmount">Total Amount</div>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <template for:each={finances} for:item="finance">
+                <tr key={finance.type}>
+                  <td class="slds-text-align_left no-padding-vertical">
+                    <div class="image-with-text">
+                      <img src={finance.imgsrc} class="typeimg" />
+                      <div class="text-container">
+                        <p>{finance.type}</p>
+                      </div>
+                    </div>
+                  </td>
+                  <template
+                    for:each={finance.confirmation}
+                    for:item="confirmation"
+                  >
+                    <td
+                      class="slds-text-align_center no-padding-vertical"
+                      key={confirmation.ownerName}
+                    >
+                      <template lwc:if={confirmation.status}>
+                        <div>
+                          <img src={tickimg} class="tick" />
+                        </div>
+                      </template>
+                      <template lwc:else>
+                        <p>Review</p>
+                      </template>
+                    </td>
+                  </template>
+                  <td class="slds-text-align_right no-padding-vertical">
+                    <div title="amount">
+                      <lightning-formatted-number
+                        value={finance.totalAmount}
+                        format-style="currency"
+                        currency-code="AUD"
+                        minimum-fraction-digits="2"
+                        maximum-fraction-digits="2"
+                      ></lightning-formatted-number>
+                    </div>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <template lwc:else>
+      <lightning-layout>
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          alignment-bump="left"
+          class="childCardLogo slds-p-around_x-small"
+        >
+          <img src={sopAppImage} />
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="11"
+          flexibility="shrink"
+          alignment-bump="left"
+        >
+          <lightning-formatted-text
+            value="Finance Progress details will only be shown after the customer(s) provide their confirmations. See Connect Data tab for status of these confirmations."
+            class="textStyle"
+          >
+          </lightning-formatted-text>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+  </lightning-card>
+</template>

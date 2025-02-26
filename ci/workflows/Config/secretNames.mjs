@@ -61,7 +61,8 @@ const salesforceSecretNames = {
   "epic/viewoffset": "sf-platform-np-viewoffset",
   "epic/go4bmain-rbm": "sf-platform-np-go4bmain",
   "epic/coachcollab": "sf-platform-np-coachcoll",
-  "epic/legal-name": "sf-platform-np-legalname"
+  "epic/legal-name": "sf-platform-np-legalname",
+  "epic/adhocmarv": "sf-platform-np-adhocmarv"
 };
 
 const brokerSecretNames = {

@@ -6,7 +6,8 @@
 trigger ContactPointEmailTrigger on ContactPointEmail(
   before insert,
   after insert,
-  before update
+  before update,
+  after update
 ) {
   ContactPointEmailTriggerHandler handler = new ContactPointEmailTriggerHandler();
 }

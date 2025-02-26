@@ -19,7 +19,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     AccountCommonActions.populateFieldsValue(records);
-    MLCRMAccountActions.validateDateOfBirth(records);
+    IndividualAccountActions.validateDateOfBirth(records);
     CCRMAccountActions.setControllingPost(records, null);
   }
 
@@ -40,21 +40,23 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    oldMap = (Map<Id, SObject>) MLCRMAccountActions.setErrorAndRetNonOrgMlRec(
+    oldMap = (Map<Id, SObject>) IndividualAccountActions.setErrorAndRetNonOrgMlRec(
       records,
       (Map<Id, Account>) oldMap
     );
     if (oldMap.isEmpty()) {
       return; // If oldMap has no records left then exit from method
     }
-    MLCRMAccountActions.validateDateOfBirth(records);
+    IndividualAccountActions.validateDateOfBirth(records);
     CCRMAccountActions.AccountWrapper existingOrProspectAccounts = new CCRMAccountActions.AccountWrapper(
       records
     );
+    // CC-9886-Individual Customer Data Attribute Enhancement
+    IndividualAccountActions.validateCustomerAttribute(records, oldMap);
     AccountCommonActions.revertAccountChanges(records, oldMap);
     Boolean isAllowedProfileCheck = CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging();
     if (isAllowedProfileCheck) {
-      MLCRMAccountActions.revertShellProspectBillingAddress(records);
+      IndividualAccountActions.revertShellProspectBillingAddress(records);
       CCRMAccountActions.preventEditShellProspect(records); //CC-5050
       CCRMAccountActions.preventEditOcvId(records, (Map<Id, Account>) oldMap);
 
@@ -68,6 +70,10 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
       );
     }
     AccountCommonActions.populateFieldsValue(records);
+    IndividualAccountActions.handleEmploymentTypeChange(
+      records,
+      (Map<Id, Account>) oldMap
+    );
 
     CCRMAccountActions.setControllingPost(records, (Map<Id, Account>) oldMap);
 

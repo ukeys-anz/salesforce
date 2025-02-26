@@ -96,9 +96,9 @@
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Is_Interest_Tab_Visible__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>SavingsAccount</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -156,9 +156,9 @@
                 <identifier>tableau_tableauViz</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!Record.Is_Interest_Tab_Visible__c}</leftValue>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>SavingsAccount</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -298,8 +298,8 @@
                     <name>uiBehavior</name>
                     <value>readonly</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.FinServ__ProductName__c</fieldItem>
-                <identifier>RecordFinServ_ProductName_cField</identifier>
+                <fieldItem>Record.Product_Name__c</fieldItem>
+                <identifier>RecordProduct_Name_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

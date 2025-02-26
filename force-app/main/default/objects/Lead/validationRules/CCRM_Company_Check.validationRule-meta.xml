@@ -7,7 +7,10 @@
     $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
     NOT($Permission.CCRM_Skip_Validation),
     TEXT(Lead_Originator__c) != &apos;Adobe&apos;,
-    TEXT(Entity_Type__c) != &apos;Individual&apos;,
+    AND(
+        TEXT(Entity_Type__c) != &apos;Individual&apos;,
+        TEXT(Entity_Type__c) != &apos;Customer Lending Group&apos;
+    ),
     RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
 	OR(
 		ISBLANK(Company), 

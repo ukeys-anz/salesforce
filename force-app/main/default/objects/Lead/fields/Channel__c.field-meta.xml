@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Channel__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Target Stream that will be receiving the referral.</description>
+    <label>Channel</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Branch</fullName>
+                <default>false</default>
+                <label>Branch</label>
+            </value>
+            <value>
+                <fullName>Commercial</fullName>
+                <default>false</default>
+                <label>Commercial</label>
+            </value>
+            <value>
+                <fullName>International Banking Services</fullName>
+                <default>false</default>
+                <label>International Banking Services</label>
+            </value>
+            <value>
+                <fullName>Mobile Lending</fullName>
+                <default>false</default>
+                <label>Mobile Lending</label>
+            </value>
+            <value>
+                <fullName>Private Bank</fullName>
+                <default>false</default>
+                <label>Private Bank</label>
+            </value>
+            <value>
+                <fullName>Video Conferencing (Mortgages)</fullName>
+                <default>false</default>
+                <label>Video Conferencing (Mortgages)</label>
+            </value>
+            <value>
+                <fullName>Home Loan Hotline</fullName>
+                <default>false</default>
+                <label>Home Loan Hotline</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

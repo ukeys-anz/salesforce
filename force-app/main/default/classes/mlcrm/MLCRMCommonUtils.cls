@@ -235,6 +235,7 @@ public with sharing class MLCRMCommonUtils {
         WHERE
           User__c IN :idsofLeadOwner
           AND Status__c = :MLCRMConstants.STATUS_ACTIVE
+          AND Territory__r.Status__c = :MLCRMConstants.STATUS_ACTIVE
         ORDER BY Territory__r.Name
       ];
       if (!lstOfUserTerritory.isEmpty()) {

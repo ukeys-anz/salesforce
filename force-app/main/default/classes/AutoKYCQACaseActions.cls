@@ -441,7 +441,7 @@ public with sharing class AutoKYCQACaseActions {
     List<Case> validCases = ListUtil.filter(cases)
       .isNull(Case.TestedDate__c)
       .isNotNull(Case.Fraud_Restraint_Status__c)
-      .equals(Case.IsKYCChecksCompleted__c, true)
+      .allNotNull(TEST_FIELDS)
       .toList();
     ListUtil.setField(validCases, Case.TestedDate__c, System.now());
   }
@@ -486,8 +486,8 @@ public with sharing class AutoKYCQACaseActions {
     Map<Id, Case> oldMap
   ) {
     return ListUtil.filter(cases, oldMap)
-      .equals(Case.IsKYCChecksCompleted__c, true)
-      .equals(Case.KYCChecksHasDefect__c, true)
+      .allNotNull(TEST_FIELDS)
+      .anyEqual(TEST_FIELDS, NO)
       .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
       .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
       .toList();
@@ -653,7 +653,7 @@ public with sharing class AutoKYCQACaseActions {
         Case.Sub_Status__c,
         GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
       )
-      .equals(Case.KYCChecksHasDefect__c, false)
+      .allNotEqual(TEST_FIELDS, NO)
       .notEquals(Case.Fraud_Defects_Rectified__c, YES)
       .toList();
     for (Case record : casesToUpdate) {

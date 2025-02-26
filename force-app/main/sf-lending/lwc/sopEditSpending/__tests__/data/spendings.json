@@ -1,0 +1,22 @@
+{
+  "categoryId": "c463b0ad-89ef-46a0-9571-e0c8341c9446",
+  "categoryName": "LifeStyle",
+  "control": "EXPENSE_CONTROL_WARNING",
+  "etag": "1696480928516168299",
+  "expenseParent": "",
+  "hemState": "HEM_STATE_HEM",
+  "leafNode": true,
+  "monthlySpend": 500,
+  "name": "Lifestyle",
+  "review": "EXPENSE_REVIEW_COMPLETED",
+  "sopName": "sops/647cdafd-fdec-4262-9c79-89815f95555f/expenses/3dfba4e8-e7bd-4c3f-a505-a7727fd86ed2",
+  "uid": "3dfba4e8-e7bd-4c3f-a505-a7727fd86ed2",
+  "updateTime": "5 October 2023 | 3:42 pm",
+  "isMandatoryExpense": true,
+  "hasReason": false,
+  "hasWarning": false,
+  "warningMessage": "This looks a bit low. Please make sure it's accurate",
+  "description": "Domestic holidays, takeaway, retail therapy ... whatever is spent to treat yourself.",
+  "icon": "/resource/1693345495000/SOP_Expense_Lifestyle",
+  "children": []
+}

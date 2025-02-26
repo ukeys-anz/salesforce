@@ -202,5 +202,8 @@
                 )
             </formula>
         </ruleEntry>
+        <ruleEntry>
+            <formula>AND(NOT(ISNEW()), OR(RecordType.DeveloperName = &quot;Account_Closure&quot;,AND(RecordType.DeveloperName = &quot;Case_Group&quot;, ISPICKVAL(Type, &quot;Account Closure&quot;))))</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
