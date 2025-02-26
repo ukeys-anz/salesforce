@@ -17,5 +17,5 @@ ISBLANK( IDR_Real_Form_Ref_No__c )
 )
 )
 )</errorConditionFormula>
-    <errorMessage>REaL Form MAX ID/Service ID&apos; must be completed when &apos;Is a REaL form required?&apos; is ticked Yes.</errorMessage>
+    <errorMessage>&apos;REaL Form / Event ID&apos; must be completed when &apos;Is a REaL form required?&apos; is Yes, I have already recorded a REaL Form.</errorMessage>
 </ValidationRule>
