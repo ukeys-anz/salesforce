@@ -21,8 +21,6 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   }
 
   @AuraEnabled
-  public String isActive;
-  @AuraEnabled
   public String balanceTitle;
   @AuraEnabled
   public String productNameTitle;
@@ -30,8 +28,6 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   public String sectionHeaderTitle;
   @AuraEnabled
   public String isSaving;
-  @AuraEnabled
-  public String isHomeLoan;
   @AuraEnabled
   public String isOthers;
   @AuraEnabled
