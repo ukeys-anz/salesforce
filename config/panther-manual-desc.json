@@ -1204,6 +1204,7 @@
         "IDR_Complaint_Outcome_Offered__c",
         "IDR_Completed_Evaluations__c",
         "IDR_Date_time_Progressed_Status_selected__c",
+        "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
         "KYCChecksHasDefect__c"
       ],
