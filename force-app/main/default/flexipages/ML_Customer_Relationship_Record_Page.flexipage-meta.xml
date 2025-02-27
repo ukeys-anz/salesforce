@@ -85,6 +85,16 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Last_Interaction_Date__c</fieldItem>
+                <identifier>RecordLast_Interaction_Date_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Indicative_FUM__c</fieldItem>
                 <identifier>RecordIndicative_FUM_cField</identifier>
             </fieldInstance>
@@ -121,6 +131,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Customer_Groups__c</fieldItem>
                 <identifier>RecordCustomer_Groups_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Next_Interaction_Date__c</fieldItem>
+                <identifier>RecordNext_Interaction_Date_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-3ff37e9b-4e6f-49a8-a95f-b79a024a2dc2</name>
