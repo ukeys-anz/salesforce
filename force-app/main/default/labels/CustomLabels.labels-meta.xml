@@ -7,7 +7,7 @@
         <shortDescription>Brokerdata cloud event type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
     </labels>
-        <labels>
+    <labels>
         <fullName>ANZx_Broker_Contract_Event_ce_type</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -396,6 +396,14 @@
         <protected>false</protected>
         <shortDescription>CustomerRestraintEnabled</shortDescription>
         <value>False</value>
+    </labels>
+    <labels>
+        <fullName>CustomerRestraintFaCodes</fullName>
+        <categories>Join;KYCQA</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>CustomerRestraintFaCodes</shortDescription>
+        <value>TRANSACT01,SAVING01,SAVING02</value>
     </labels>
     <labels>
         <fullName>CustomerRestraintComment</fullName>
