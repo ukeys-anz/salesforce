@@ -152,6 +152,7 @@ public with sharing class FinancialAccountControllerActionTest {
       Sort_Order__c = 3,
       Ownership_Type__c = 'Multi-Party'
     );
+    mockMetaData.add(dummyRecord2);
 
     FinancialAccountUIConfiguration__mdt dummyRecord3 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'SAVING01',
@@ -162,7 +163,7 @@ public with sharing class FinancialAccountControllerActionTest {
       Sort_Order__c = 2,
       Ownership_Type__c = 'Single'
     );
-    mockMetaData.add(dummyRecord2);
+    mockMetaData.add(dummyRecord3);
 
     Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
     for (FinancialAccountUIConfiguration__mdt finUIConfig : mockMetaData) {

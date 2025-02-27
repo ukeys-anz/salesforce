@@ -136,19 +136,20 @@ public with sharing class AccountClosureWizardController {
   private static Set<Id> getFinancialAccountIdsFromFabricResponse(
     Map<String, object> groupedFinancialAccounts
   ) {
-    List<Map<String, Object>> groupedAccountsList = (List<Map<String, Object>>) groupedFinancialAccounts.get(
+    Set<Id> finaccountIds = new Set<Id>();
+    List<Map<String, Object>> groupedFinancialAccountsList = (List<Map<String, Object>>) groupedFinancialAccounts.get(
       'groupedAccounts'
     );
-    Set<Id> finaccountIds = new Set<Id>();
-    for (Map<String, Object> accountGroup : groupedAccountsList) {
-      List<UnifiedFinancialAccountModel.AccountList> accountsList = (List<UnifiedFinancialAccountModel.AccountList>) accountGroup.get(
+
+    for (Map<String, Object> finAccountGroup : groupedFinancialAccountsList) {
+      List<UnifiedFinancialAccountModel.AccountList> finAccountList = (List<UnifiedFinancialAccountModel.AccountList>) finAccountGroup.get(
         'accounts'
       );
       for (
-        UnifiedFinancialAccountModel.AccountList accountRecord : accountsList
+        UnifiedFinancialAccountModel.AccountList finAccountRecord : finAccountList
       ) {
-        if (String.isNotBlank(accountRecord.id)) {
-          finaccountIds.add(accountRecord.id);
+        if (String.isNotBlank(finAccountRecord.id)) {
+          finaccountIds.add(finAccountRecord.id);
         }
       }
     }
