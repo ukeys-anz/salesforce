@@ -73,6 +73,11 @@ private class CreditCardExternalQueryTest {
       result.externalRecords[0].get('BlockCode2'),
       'block code should be B - Bankrupt!'
     );
+    Assert.areEqual(
+      116,
+      result.externalRecords[0].get('DelinquentAmount'),
+      'delinquent Amount should be 116'
+    );
   }
 
   @isTest

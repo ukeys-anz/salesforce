@@ -10,7 +10,7 @@ public with sharing class ProfileUpdateCaseRepository {
    * @return List<Case> list of Legal name cases
    */
   public List<Case> getLegalNameCaseForNotification(Set<Id> caseIds) {
-    if (caseIds.isEmpty() || !SObjectType.Case.isQueryable()) {
+    if (caseIds.isEmpty()) {
       return new List<Case>();
     }
     return [
@@ -69,6 +69,31 @@ public with sharing class ProfileUpdateCaseRepository {
         END
       FROM Case
       WHERE Id IN :caseIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Get list of Accounts by account Ids
+   * @param accountIds set of Case Ids
+   * @return List<Account> list of Account records
+   */
+  public List<Account> getAccounts(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new List<Account>();
+    }
+    return [
+      SELECT
+        Id,
+        FirstName,
+        MiddleName,
+        LastName,
+        OCV_ID__c,
+        Source_System_ID__c,
+        Source_System_Name__c
+      FROM Account
+      WHERE Id IN :accountIds
+      WITH USER_MODE
     ];
   }
 }

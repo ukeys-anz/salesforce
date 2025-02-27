@@ -11739,6 +11739,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Letter of Authority</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Loan Auto Repayment %28DLP%29</fullName>
             <default>false</default>
         </values>
@@ -11764,6 +11768,10 @@
         </values>
         <values>
             <fullName>Managing Repayments</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Manual Valuation Request</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11876,6 +11884,10 @@
         </values>
         <values>
             <fullName>TFN exemption %28non resident %26 %3C16yrs old%29</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Title Search</fullName>
             <default>false</default>
         </values>
         <values>

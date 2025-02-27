@@ -168,10 +168,10 @@
     <profileSearchLayouts>
         <fields>NAME</fields>
         <fields>Account_Number__c</fields>
+        <fields>Product_Code_Display__c</fields>
+        <fields>Sub_product_Code_Display__c</fields>
+        <fields>Product_Name_Display__c</fields>
         <fields>FinServ__Status__c</fields>
-        <fields>FinServ__Balance__c</fields>
-        <fields>FinServ__OpenDate__c</fields>
-        <fields>FinServ__PrimaryOwner__c</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
     <recordTypeTrackHistory>true</recordTypeTrackHistory>

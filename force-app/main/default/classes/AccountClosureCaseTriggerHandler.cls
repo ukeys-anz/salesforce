@@ -44,7 +44,7 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
   }
 
   public override void onAfterInsert() {
-    AccountClosureCaseActions.handleButtonVisibiltyFlags(records);
+    AccountClosureCaseActions.initiatePrecheckButtonVisibility(records);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {

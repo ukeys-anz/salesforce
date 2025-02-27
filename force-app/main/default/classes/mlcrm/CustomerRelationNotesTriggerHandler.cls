@@ -22,6 +22,7 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
     //Added for CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Notes__c');
+    CustomerRelationNotesTriggerActions.updateCustomerName(null, records);
   }
 
   /**
@@ -50,6 +51,10 @@ public class CustomerRelationNotesTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(oldMap, records);
     //Added for CC-4053 Redaction
     TextUtils.maskSObjectDataANZExtended(records, 'Notes__c');
+    CustomerRelationNotesTriggerActions.updateCustomerName(
+      (Map<id, Customer_Relationship__c>) oldMap,
+      records
+    );
   }
 
   /**

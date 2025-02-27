@@ -169,7 +169,7 @@ public with sharing class CreditCardExternalQuery extends FinancialAccountQueryB
         'AvailableFunds' => fa.availableBalance,
         'RewardsNumber' => fa.rewardsNumber,
         'FrequentFlyerNumber' => fa.frequentFlyerNumber,
-        'DelinquentAmount' => fa.delinquentAmount,
+        'DelinquentAmount' => (fa.delinquentAmount ?? 0) / 100,
         'DaysDelinquent' => fa.totalDelinquentDays,
         'StatementMailingAddress' => fa.address
       };

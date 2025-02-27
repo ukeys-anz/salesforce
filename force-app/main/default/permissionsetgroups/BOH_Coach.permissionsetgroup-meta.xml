@@ -54,8 +54,10 @@
     <permissionSets>Raise_Dispute</permissionSets>
     <permissionSets>Record_Access_Log</permissionSets>
     <permissionSets>Release_Read_Only</permissionSets>
+    <permissionSets>SOP_Add</permissionSets>
+    <permissionSets>SOP_Delete</permissionSets>
+    <permissionSets>SOP_Edit</permissionSets>
     <permissionSets>Store_Interaction_Read_Only</permissionSets>
-    <permissionSets>Tableau_CRM_Read_Only</permissionSets>
     <permissionSets>Title_Details_Read_Only</permissionSets>
     <permissionSets>Twilio_Detail_Read_Write</permissionSets>
     <permissionSets>Update_Signing_Authority</permissionSets>

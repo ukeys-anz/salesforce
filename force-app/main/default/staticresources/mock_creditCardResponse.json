@@ -7,7 +7,8 @@
       "accountBalance": "500.04",
       "accountLimit": "2000",
       "status": "Active",
-      "blockCodes": ["A", "B"]
+      "blockCodes": ["A", "B"],
+      "delinquentAmount": 11600
     }
   ]
 }

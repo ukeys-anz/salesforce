@@ -61,7 +61,7 @@ describe("c-profile-staging-retry", () => {
     await flushPromises();
 
     expect(handler).toHaveBeenCalled();
-    expect(handler.mock.calls[0][0].detail.message).toBe(
+    expect(handler.mock.calls[0][0].detail.title).toBe(
       "Request has been re-triggered successfully."
     );
   });
@@ -74,9 +74,9 @@ describe("c-profile-staging-retry", () => {
     element.addEventListener(ShowToastEventName, handler);
     element.invoke();
 
-    await flushPromises().catch(() => {
-      expect(handler).toHaveBeenCalled();
-      expect(handler.mock.calls[0][0].detail.message).toBe(ERROR_MESSAGE);
-    });
+    await flushPromises();
+
+    expect(handler).toHaveBeenCalled();
+    expect(handler.mock.calls[0][0].detail.title).toBe(ERROR_MESSAGE);
   });
 });

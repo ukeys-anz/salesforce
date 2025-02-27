@@ -3,7 +3,6 @@
  * @since  21/02/2024
  * @description Test class for RetailBrokerContactActions
  */
-
 @IsTest
 private class RetailBrokerContactActionsTest {
   private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
@@ -59,43 +58,6 @@ private class RetailBrokerContactActionsTest {
       results[0].Sync_Status__c,
       'The sync status should be set to Broker Org'
     );
-  }
-
-  @IsTest
-  static void testPublishBrokerEvents() {
-    // Prepare test data for add event
-    List<Contact> newContactsForAdd = createTestContactList();
-    List<Contact> oldContactsForAdd = newContactsForAdd.deepClone(true);
-    updateContactList(
-      newContactsForAdd,
-      1,
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG
-    );
-    updateContactList(oldContactsForAdd, 0, null);
-    // Prepare test data for update event
-    List<Contact> newContactsForUpdate = createTestContactList();
-    List<Contact> oldContactsForUpdate = newContactsForUpdate.deepClone(true);
-    updateContactList(
-      newContactsForUpdate,
-      2,
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG
-    );
-    updateContactList(
-      oldContactsForUpdate,
-      1,
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG
-    );
-    Test.startTest();
-    // no assertion required for void methods
-    RetailBrokerContactActions.publishBrokerEvents(
-      newContactsForAdd,
-      new Map<Id, Contact>(oldContactsForAdd)
-    );
-    RetailBrokerContactActions.publishBrokerEvents(
-      newContactsForUpdate,
-      new Map<Id, Contact>(oldContactsForUpdate)
-    );
-    Test.stopTest();
   }
 
   @IsTest

@@ -15,5 +15,6 @@ Industry of the customer, values from OCV master list</description>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
     <type>Lookup</type>
 </CustomField>

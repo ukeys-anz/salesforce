@@ -29,7 +29,7 @@ public with sharing class AutoKYCQACustomerUpdateTriggerHandler extends Lib_Trig
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    Logger.debug('On_After_Update started: ' + System.now());
+    Logger.debug('On_After_Update started: ' + DateTimeUtils.timeString);
     if (Label.CustomerRestraintEnabled.equalsIgnoreCase('true')) {
       AutoKYCQACaseActions.updateRestraintResults(
         records,
@@ -42,6 +42,7 @@ public with sharing class AutoKYCQACustomerUpdateTriggerHandler extends Lib_Trig
         AutoKYCQACaseActions.REMOVE_RESTRAINTS
       );
     }
-    Logger.debug('On_After_Update finished: ' + System.now()).save();
+    Logger.debug('On_After_Update finished: ' + DateTimeUtils.timeString)
+      .save();
   }
 }

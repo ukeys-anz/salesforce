@@ -1,0 +1,47 @@
+{
+  "consentReceived": true,
+  "creditBureauChecks": [
+    {
+      "liabilityState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+      "ownerName": "Tony",
+      "retrievedTime": "2023-09-25T01:54:50.000Z",
+      "subType": "Illion",
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU"
+    },
+    {
+      "liabilityState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+      "ownerName": "Tony",
+      "retrievedTime": "2023-09-25T01:54:50.000Z",
+      "subType": "Equifax",
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU"
+    },
+    {
+      "liabilityState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+      "ownerName": "Tony",
+      "retrievedTime": "2023-09-25T01:54:50.000Z",
+      "subType": "Experian",
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU"
+    },
+    {
+      "liabilityState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+      "ownerName": "John",
+      "retrievedTime": "2023-09-25T01:54:50.000Z",
+      "subType": "Illion",
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU"
+    },
+    {
+      "liabilityState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+      "ownerName": "John",
+      "retrievedTime": "2023-09-25T01:54:50.000Z",
+      "subType": "Equifax",
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU"
+    },
+    {
+      "liabilityState": "LOAD_BUREAU_LIABILITIES_STATE_COMPLETE",
+      "ownerName": "John",
+      "retrievedTime": "2023-09-25T01:54:50.000Z",
+      "subType": "Experian",
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU"
+    }
+  ]
+}

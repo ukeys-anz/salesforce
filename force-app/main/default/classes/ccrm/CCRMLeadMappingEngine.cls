@@ -870,14 +870,11 @@ public with sharing class CCRMLeadMappingEngine {
     Lead lead,
     Map<String, Industry__c> mapIndustries
   ) {
-    string industryId = accounts.get(lead.FinServ__RelatedAccount__c).Industry;
-    if (
-      string.isNotBlank(industryId) &&
-      mapIndustries.containsKey(industryId) &&
-      String.isBlank(lead.Industry__c)
-    ) {
-      lead.Industry__c = mapIndustries.get(industryId).Id;
+    if (String.isNotBlank(lead.Industry__c)) {
+      return;
     }
+    lead.Industry__c = accounts.get(lead.FinServ__RelatedAccount__c)
+      .Industry__c ?? null;
   }
 
   /**

@@ -17,9 +17,6 @@ public with sharing class FinancialAccountRepository {
   public List<FinServ__FinancialAccountRole__c> getAccountOwnerDetails(
     Id financialAccountId
   ) {
-    //Check if can query financial account role
-    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
-
     return [
       SELECT Id, FinServ__RelatedAccount__c, FinServ__RelatedAccount__r.Name
       FROM FinServ__FinancialAccountRole__c
@@ -27,6 +24,7 @@ public with sharing class FinancialAccountRepository {
         FinServ__FinancialAccount__c = :financialAccountId
         AND FinServ__Active__c = TRUE
         AND FinServ__Role__c IN :FINSERV_ROLE_TYPES
+      WITH USER_MODE
     ];
   }
 
@@ -69,16 +67,18 @@ public with sharing class FinancialAccountRepository {
   public List<FinServ__FinancialAccount__c> getFinAccountList(
     List<String> finAccountNumbers
   ) {
-    if (
-      finAccountNumbers.isEmpty() ||
-      PermissionUtils.canQuery('FinServ__FinancialAccount__c') == false
-    ) {
+    if (finAccountNumbers.isEmpty()) {
       return new List<FinServ__FinancialAccount__c>();
     }
     return [
-      SELECT Id, FinServ__FinancialAccountNumber__c
+      SELECT
+        Id,
+        FinServ__FinancialAccountNumber__c,
+        Ownership__c,
+        FinServ__ProductName__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :finAccountNumbers
+      WITH USER_MODE
     ];
   }
 
@@ -103,6 +103,30 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.bankAccount
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
         AND FinServ__Active__c = TRUE
+    ];
+  }
+
+  /**
+   * @description To get the Customer_Action__c records based on Financial Account Ids
+   * @param financialAccountIdSet Set of Financial Account Ids
+   * @return List of Pending Customer Action records
+   */
+  public List<Customer_Action__c> getPendingCustomerActionForFinancialAccounts(
+    Set<Id> financialAccountIdSet
+  ) {
+    if (financialAccountIdSet.isEmpty()) {
+      return new List<Customer_Action__c>();
+    }
+
+    return [
+      SELECT Id, Status__c, Financial_Account__c
+      FROM Customer_Action__c
+      WHERE
+        RecordTypeId = :QueryRT.of(Customer_Action__c.SObjectType)
+          .getId('Pending_Financial_Account_Updates')
+        AND Financial_Account__c IN :financialAccountIdSet
+        AND Status__c = :FinancialAccountActions.CUSTOMER_ACTION_STATUS_PENDING
+      WITH USER_MODE
     ];
   }
 

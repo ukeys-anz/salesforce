@@ -37,7 +37,9 @@ public with sharing class AccountClosureCaseActions {
     for (Case childCase : childCaseRecords) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
-      childCase.Status = parentCase.Status;
+      if (childCase.Status != GetHelpConstants.CLOSED_STATUS) {
+        childCase.Status = parentCase.Status;
+      }
       childCase.Circumstance__c = parentCase.Circumstance__c;
     }
 
@@ -235,5 +237,30 @@ public with sharing class AccountClosureCaseActions {
     }
     DML_REPOSITORY.doInsert(newParentCases);
     return newParentCases;
+  }
+
+  /**
+   * @description Update Initiate Precheck Button Visibility Flags on parent case on insert operation
+   * @param childCases List of Cases
+   */
+  public static void initiatePrecheckButtonVisibility(List<Case> childCases) {
+    List<Case> validCases = ListUtil.filter(childCases)
+      .isNotNull(Case.FinServ__FinancialAccount__c)
+      .isNotNull(Case.ParentId)
+      .equals(Case.Status, GetHelpConstants.ESCALATED_STATUS)
+      .toList();
+
+    Set<Id> parentIdsForInitiatingPrecheck = ListUtil.getIds(
+      validCases,
+      Case.ParentId
+    );
+
+    List<Case> parentCasesToUpdate = new List<Case>();
+    for (Id parentId : parentIdsForInitiatingPrecheck) {
+      parentCasestoUpdate.add(
+        new Case(Id = parentId, Show_Initiate_Account_Closure__c = true)
+      );
+    }
+    DML_REPOSITORY.doUpdate(parentCasesToUpdate);
   }
 }

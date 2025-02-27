@@ -34,12 +34,26 @@ public with sharing class AccountClosureControllerHelper {
           postFailureMessage(caseId, new Set<String>(response.failedReasons));
         }
         when else {
+          if (response.code == '403' || response.code == '400') {
+            Logger.info(
+              response.salesforceCaseNumber +
+                ' - Precheck Failure Reason for Account Closure Process: ' +
+                response.message
+            );
+          } else {
+            Logger.error(
+              response.salesforceCaseNumber +
+                ' - Precheck Failure Reason from Account Closure Service: ' +
+                response.message
+            );
+          }
           caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
           postFailureMessage(caseId, new Set<String>{ TECHNICAL_ERROR });
         }
       }
       casesToUpdate.add(caseRecord);
     }
+    Logger.saveLog();
     return casesToUpdate;
   }
 

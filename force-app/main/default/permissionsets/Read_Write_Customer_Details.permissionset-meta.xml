@@ -203,6 +203,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Is_Prospect__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.IsSkeleton__c</field>
         <readable>true</readable>
@@ -395,6 +400,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Was_ANZx_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VOI_Status_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.VOI_Expiry_Date_Classic__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

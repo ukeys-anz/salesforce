@@ -98,6 +98,47 @@ public virtual with sharing class ProfileStagingHandler {
     List<Customer_Profile_Updates__c> records = REPOSITORY.queryCustomerProfileUpdates(
       recordIds
     );
+    Set<String> triggers = ListUtil.getStrings(
+      records,
+      Customer_Profile_Updates__c.TriggeredFrom__c
+    );
+    List<ProfileStagingEventConfig__mdt> eventConfigs = REPOSITORY.queryEventConfig(
+      triggers
+    );
+    this.publishEventsByType(records, eventConfigs);
+  }
+
+  private virtual void publishEventsByType(
+    List<Customer_Profile_Updates__c> records,
+    List<ProfileStagingEventConfig__mdt> eventConfigs
+  ) {
+    Map<String, ProfileStagingEventConfig__mdt> triggerConfigMap = (Map<String, ProfileStagingEventConfig__mdt>) ListUtil.mapBy(
+      eventConfigs,
+      Customer_Profile_Updates__c.TriggeredFrom__c
+    );
+
+    List<Customer_Profile_Updates__c> toPlatformEvents = ListUtil.filter(
+        records
+      )
+      .notEquals(
+        Customer_Profile_Updates__c.TriggeredFrom__c,
+        triggerConfigMap.Keyset()
+      )
+      .toList();
+    this.publishPlatformEvents(toPlatformEvents);
+
+    List<Customer_Profile_Updates__c> toCloudEvents = ListUtil.filter(records)
+      .Equals(
+        Customer_Profile_Updates__c.TriggeredFrom__c,
+        triggerConfigMap.Keyset()
+      )
+      .toList();
+    this.publishCloudEvents(toCloudEvents, triggerConfigMap);
+  }
+
+  private virtual void publishPlatformEvents(
+    List<Customer_Profile_Updates__c> records
+  ) {
     List<Customer_Profile_Update_Event__e> events = generateEvents(records);
     DML.doPublish(events);
   }
@@ -116,6 +157,35 @@ public virtual with sharing class ProfileStagingHandler {
       Customer_Profile_Update_Event__e event = new Customer_Profile_Update_Event__e(
         Customer_Profile_Update_Identifier__c = record.Id,
         RecordType_Name__c = record.Customer_Name__r?.RecordType?.DeveloperName
+      );
+      events.add(event);
+    }
+    return events;
+  }
+
+  private virtual void publishCloudEvents(
+    List<Customer_Profile_Updates__c> records,
+    Map<String, ProfileStagingEventConfig__mdt> triggerConfigMap
+  ) {
+    List<Cloud_Event__e> events = generateCloudEvents(
+      records,
+      triggerConfigMap
+    );
+    DML.doPublish(events);
+  }
+
+  private virtual List<Cloud_Event__e> generateCloudEvents(
+    List<Customer_Profile_Updates__c> records,
+    Map<String, ProfileStagingEventConfig__mdt> triggerConfigMap
+  ) {
+    List<Cloud_Event__e> events = new List<Cloud_Event__e>();
+    for (Customer_Profile_Updates__c record : records) {
+      ProfileStagingEventConfig__mdt config = triggerConfigMap.get(
+        record.TriggeredFrom__c
+      );
+      CloudEventModel model = new ProfileStagingCloudEventModel(record, config);
+      Cloud_Event__e event = new Cloud_Event__e(
+        Data_1__c = JSON.serialize(model, true)
       );
       events.add(event);
     }

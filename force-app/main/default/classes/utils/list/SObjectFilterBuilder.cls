@@ -179,6 +179,16 @@ public class SObjectFilterBuilder {
    * @param fields The fields to filter on.
    * @return The updated SObjectFilterBuilder instance.
    */
+  public SObjectFilterBuilder anyNotNull(Set<SObjectField> fields) {
+    base.anyNotNull(this.toSetString(fields));
+    return this;
+  }
+
+  /**
+   * @description Filter records with all specified fields have values.
+   * @param fields The fields to filter on.
+   * @return The updated SObjectFilterBuilder instance.
+   */
   public SObjectFilterBuilder allNotNull(Set<SObjectField> fields) {
     base.allNotNull(this.toSetString(fields));
     return this;
@@ -209,6 +219,20 @@ public class SObjectFilterBuilder {
     Object valueOrCollection
   ) {
     base.allEqual(this.toSetString(fields), valueOrCollection);
+    return this;
+  }
+
+  /**
+   * @description Filter records with all fields not equal to a given value or list/set of values
+   * @param fields The field to compare against.
+   * @param valueOrCollection The values to compare with the field.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder allNotEqual(
+    Set<SObjectField> fields,
+    Object valueOrCollection
+  ) {
+    base.allNotEqual(this.toSetString(fields), valueOrCollection);
     return this;
   }
 
@@ -263,6 +287,57 @@ public class SObjectFilterBuilder {
         oldValues.contains(oldRecord.get(field)) == false
       ) {
         output.add(record);
+      }
+    }
+    base.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with specified field changed and is null.
+   * @param fields The set of fields to check for changes and is null.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder anyChangedWithNewValueNull(
+    Set<SObjectField> fields
+  ) {
+    if (this.oldMap.isEmpty()) {
+      return this;
+    }
+    List<Object> output = base.handler.emptyList;
+    for (SObject record : this.toList()) {
+      SObject oldRecord = this.oldMap.get(record.Id);
+      for (SObjectField field : fields) {
+        if (
+          record.get(field) != oldRecord.get(field) &&
+          record.get(field) == null
+        ) {
+          output.add(record);
+          break;
+        }
+      }
+    }
+    base.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with specified field value changed.
+   * @param fields The set of fields to check for changed.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder anyChanged(Set<SObjectField> fields) {
+    if (this.oldMap.isEmpty()) {
+      return this;
+    }
+    List<Object> output = base.handler.emptyList;
+    for (SObject record : this.toList()) {
+      SObject oldRecord = this.oldMap.get(record.Id);
+      for (SObjectField field : fields) {
+        if (record.get(field) != oldRecord.get(field)) {
+          output.add(record);
+          break;
+        }
       }
     }
     base.records = output;

@@ -93,7 +93,7 @@ public with sharing class CCRMContentDocumentLinkActions {
 
     for (ContentDocumentLink cdl : cdlList) {
       EmailMessage em = emailMessagesMap.get(cdl.LinkedEntityId);
-      if (em == null || !MLCRMCommonUtils.isContentDocumentDeleteAllowed(em)) {
+      if (em == null || !isContentDocumentDeleteAllowed(em)) {
         continue;
       }
       if (em.CreatedBy.Profile_Name__c == System.Label.MLCRM_Profile_Name) {
@@ -128,7 +128,7 @@ public with sharing class CCRMContentDocumentLinkActions {
     for (ContentDocumentLink cdl : cdlList) {
       EmailMessage em = emailMessagesMap.get(cdl.LinkedEntityId);
       count = 0;
-      if (em == null || !MLCRMCommonUtils.isContentDocumentDeleteAllowed(em)) {
+      if (em == null || !isContentDocumentDeleteAllowed(em)) {
         continue;
       }
       Matcher m = p.matcher(em.Attachment_Notes__c);
@@ -195,5 +195,37 @@ public with sharing class CCRMContentDocumentLinkActions {
     List<Id> mlContentDocsToDelete = new List<Id>();
     @testVisible
     List<Id> ccrmContentDocsToDelete = new List<Id>();
+  }
+  /**
+   * @description This method check if Delete opeation is allowed on ContentDocument for ML User. Used in Outlook-SF Integration.
+   * @param em EmailMessage record
+   * @return Boolean
+   * @US CC-1893
+   */
+  public static Boolean isContentDocumentDeleteAllowed(EmailMessage em) {
+    return em.Incoming == true ||
+      (checkFromAddressExists(em.FromAddress, em.ToAddress) ||
+      checkFromAddressExists(em.FromAddress, em.CcAddress));
+  }
+  
+  /**
+   * @description Checks if FromAddress exisist in TargetAddress (Scenario - checks if FromAddress exists in either ccAddress or TO Address)
+   * @param fromAddress EmailMessage fromAddress String value
+   * @param addressToCheck EmailMessage targetAddress to check(Ex- ccAddress, ToAddress). In case of multiple address in cc - Format:  abc.xyz@anz.com; pqr.mnp@anz.com
+   * @return Boolean
+   * @US CC-1893
+   */
+  @TestVisible
+  private static Boolean checkFromAddressExists(
+    String fromAddress,
+    String addressToCheck
+  ) {
+    if (addressToCheck == null) {
+      return false;
+    }
+    List<String> addressessListToCheck = addressToCheck.replaceAll('\\s+', '')
+      .toLowerCase()
+      .split(';');
+    return addressessListToCheck.contains(fromAddress.toLowerCase());
   }
 }

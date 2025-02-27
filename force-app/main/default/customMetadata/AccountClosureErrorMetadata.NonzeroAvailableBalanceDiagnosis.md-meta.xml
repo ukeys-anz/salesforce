@@ -5,15 +5,13 @@
     <values>
         <field>Chatter_Post__c</field>
         <value xsi:type="xsd:string">Place case on hold
-Check available balances on customer accounts
-Determine if funds are accrued interest or balance
-If amount is a balance and is &lt;$0 assign case to coach to request customer zero balances before closure can proceed
-If there is accrued interest or bonus interest, transfer the interest to the ANZ Plus or ANZ Classic account details the customer has provided or use Web Voucher process if the customer has nominated an account with another financial institution
-Once balances are $0 re-initiate Account Closure</value>
+Check available balance on customer account
+If amount is a balance and is &gt;$0 assign case to coach to request customer zero balances before closure can proceed
+Once balance is zero re-initiate Account Closure</value>
     </values>
     <values>
         <field>Failure_Reason__c</field>
-        <value xsi:type="xsd:string">nonzeroAvailableBalance</value>
+        <value xsi:type="xsd:string">nonzeroAvailableBalance_positive</value>
     </values>
     <values>
         <field>Type__c</field>

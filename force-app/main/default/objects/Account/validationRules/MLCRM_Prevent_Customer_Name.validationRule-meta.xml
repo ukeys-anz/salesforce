@@ -6,7 +6,7 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 $Profile.Name = &apos;ANZ ML Standard User&apos;,
-RecordType.DeveloperName = &apos;PersonAccount&apos;,
+OR(RecordType.DeveloperName = &apos;PersonAccount&apos;, RecordType.DeveloperName = &apos;Business_Account&apos;),
 OR(ISCHANGED(Name),
 ISCHANGED(Salutation),
 ISCHANGED(FirstName),

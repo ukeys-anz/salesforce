@@ -10,11 +10,12 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     //Added as part of CC-4737
-    MLCRMContactPointPhoneActions.copyParentIdToCustomerName(records);
+    ContactPointPhoneActions.copyParentIdToCustomerName(records);
+    ContactPointPhoneActions.validateUsageType(records);
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      MLCRMContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
-      existingOrProspectAccountsCPP = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(
+      ContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new ContactPointPhoneActions.ContactPointPhoneWrapper();
+      existingOrProspectAccountsCPP = ContactPointPhoneActions.getExistingOrProspectCPP(
         records
       );
 
@@ -22,10 +23,8 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
         existingOrProspectAccountsCPP.existingCPP,
         null
       );
-      MLCRMContactPointPhoneActions.validatePhones(records);
-      MLCRMContactPointPhoneActions.checkExistingPhoneOnIndividualRecords(
-        records
-      );
+      ContactPointPhoneActions.validatePhones(records);
+      ContactPointPhoneActions.checkExistingPhoneOnIndividualRecords(records);
     }
   }
 
@@ -34,8 +33,8 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
    */
   public override void onAfterInsert() {
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      MLCRMContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
-      existingOrProspectAccountsCPP = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(
+      ContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new ContactPointPhoneActions.ContactPointPhoneWrapper();
+      existingOrProspectAccountsCPP = ContactPointPhoneActions.getExistingOrProspectCPP(
         records
       );
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
@@ -56,18 +55,17 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    CCRMContactPointActions.updateContactPoints(records);
-    MLCRMContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new MLCRMContactPointPhoneActions.ContactPointPhoneWrapper();
-    existingOrProspectAccountsCPP = MLCRMContactPointPhoneActions.getExistingOrProspectCPP(
-      records
-    );
-    MLCRMContactPointPhoneActions.unlinkProspectParentOnDeactivation(
-      existingOrProspectAccountsCPP.prospectCPP,
+    ContactPointPhoneActions.preventEdit(
+      records,
       (Map<Id, ContactPointPhone>) oldMap
+    );
+    ContactPointPhoneActions.ContactPointPhoneWrapper existingOrProspectAccountsCPP = new ContactPointPhoneActions.ContactPointPhoneWrapper();
+    existingOrProspectAccountsCPP = ContactPointPhoneActions.getExistingOrProspectCPP(
+      records
     );
 
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
-      MLCRMContactPointPhoneActions.validatePhones(records);
+      ContactPointPhoneActions.validatePhones(records);
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         existingOrProspectAccountsCPP.prospectCPP,
         (Map<Id, ContactPointPhone>) oldMap,
@@ -83,5 +81,16 @@ public with sharing class ContactPointPhoneTriggerHandler extends Lib_TriggerHan
         false
       );
     }
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ContactPointPhoneActions.deleteExpiredRecords(
+      records,
+      (Map<Id, ContactPointPhone>) oldMap
+    );
   }
 }

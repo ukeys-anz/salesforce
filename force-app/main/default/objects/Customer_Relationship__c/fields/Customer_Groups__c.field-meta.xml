@@ -55,6 +55,21 @@
                 <default>false</default>
                 <label>Medical Professional</label>
             </value>
+            <value>
+                <fullName>Next Home Buyer</fullName>
+                <default>false</default>
+                <label>Next Home Buyer</label>
+            </value>
+            <value>
+                <fullName>Refinance</fullName>
+                <default>false</default>
+                <label>Refinance</label>
+            </value>
+            <value>
+                <fullName>Restructure</fullName>
+                <default>false</default>
+                <label>Restructure</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

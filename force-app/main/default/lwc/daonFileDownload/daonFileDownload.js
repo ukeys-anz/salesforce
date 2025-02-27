@@ -39,13 +39,18 @@ const FILETYPE_DEFAULTS = {
     placeholder: IMG_SELFIE,
     size: 4
   },
-  DAON_FILE_TYPE_SELFIE: {
+  DAON_FILE_TYPE_SELFIE_ENROLLED: {
     title: "Enrolled Selfie",
     placeholder: IMG_SELFIE,
     size: 4
   },
-  DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED: {
+  DAON_FILE_TYPE_SELFIE_TO_BE_ENROLLED: {
     title: "Selfie to be enrolled",
+    placeholder: IMG_SELFIE,
+    size: 4
+  },
+  DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED: {
+    title: "Selfie to be verified",
     placeholder: IMG_SELFIE,
     size: 4
   }

@@ -17,7 +17,7 @@
             <sorted>false</sorted>
             <value>
                 <fullName>Primary</fullName>
-                <default>false</default>
+                <default>true</default>
                 <label>Primary</label>
             </value>
             <value>
