@@ -3,6 +3,7 @@
     <fullName>Broker_Enquiry</fullName>
     <active>true</active>
     <businessProcess>Broker Enquiry Support Process</businessProcess>
+    <compactLayoutAssignment>Broker_Enquiry</compactLayoutAssignment>
     <description>Record type for handling broker enquiries</description>
     <label>Broker Enquiry</label>
     <picklistValues>

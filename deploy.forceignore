@@ -275,3 +275,4 @@ force-app/main/default/objects/Customer_Relationship__c/listViews/All.listView-m
 force-app/main/default/objects/Customer_Relationship__c/listViews/My_Customers.listView-meta.xml
 force-app/main/default/objects/Product2/listViews/All_Active_ANZ_Products.listView-meta.xml
 
+force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
