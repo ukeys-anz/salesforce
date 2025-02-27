@@ -31,25 +31,28 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     );
   }
 
-  / /**
-  * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_financialAccount.json
-  * called in force-app/main/default/classes/services/FabricServiceMock.cls
-  */
- @isTest
- static void financialAccountValidResponse() {
-   User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-   System.runAs(thisUser) {
-     Test.startTest();
-     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-     UnifiedFinancialAccountModel model = coachapi.getAccounts(
-       '1111',
-       new List<String>()
-     );
-     Test.stopTest();
+  /**
+   * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_financialAccount.json
+   * called in force-app/main/default/classes/services/FabricServiceMock.cls
+   */
+  @isTest
+  static void financialAccountValidResponse() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
+      UnifiedFinancialAccountModel model = coachapi.getAccounts(
+        '1111',
+        new List<String>()
+      );
+      Test.stopTest();
 
-     Assert.isTrue(model.accounts.size()>2,'Financial Account list size should be as expected.');
-   }
- }
+      Assert.isTrue(
+        model.accounts.size() > 2,
+        'Financial Account list size should be as expected.'
+      );
+    }
+  }
 
   /**
    * @description fetch invalid accounts
