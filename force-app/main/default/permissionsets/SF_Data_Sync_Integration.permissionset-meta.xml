@@ -4117,7 +4117,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Event.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5553,6 +5553,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Approved_Amount__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Application_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6652,7 +6657,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Task.ML_DataMigration_Key__c</field>
         <readable>true</readable>
     </fieldPermissions>

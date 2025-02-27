@@ -301,9 +301,6 @@ public class SObjectFilterBuilder {
   public SObjectFilterBuilder anyChangedWithNewValueNull(
     Set<SObjectField> fields
   ) {
-    if (this.oldMap.isEmpty()) {
-      return this;
-    }
     List<Object> output = base.handler.emptyList;
     for (SObject record : this.toList()) {
       SObject oldRecord = this.oldMap.get(record.Id);
