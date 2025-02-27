@@ -23,14 +23,13 @@ public with sharing class AccountClosureWizardController {
   public static List<FinServ__FinancialAccount__c> getFilteredFinancialAccounts(
     String ocvId
   ) {
-    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountFabric(
+    Map<String, Object> groupedFinAccounts = FinancialAccountController.getFinancialAccountFabric(
       ocvId,
       new List<String>()
     );
 
-    Set<Id> finAccountIds = ListUtil.getIds(
-      listOfFinAccounts,
-      FinServ__FinancialAccount__c.Id
+    Set<Id> finAccountIds = getFinancialAccountIdsFromFabricResponse(
+      groupedFinAccounts
     );
 
     List<Case> existingCasesForFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.getCasesByFinancialAccountIds(
@@ -127,5 +126,33 @@ public with sharing class AccountClosureWizardController {
     caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
     caseObj.ProductId = caseInput.productId;
     caseObj.RecordTypeId = RTCase.accountClosure;
+  }
+
+  /**
+   * @description Get the Id of Financial Account records received from Fabric api
+   * @param groupedFinancialAccounts grouped financial accounts based on the marketing code eg: TRANSACT01,SAVING01
+   * @return Id of the financial account
+   */
+  private static Set<Id> getFinancialAccountIdsFromFabricResponse(
+    Map<String, object> groupedFinancialAccounts
+  ) {
+    List<Map<String, Object>> groupedAccountsList = (List<Map<String, Object>>) groupedFinancialAccounts.get(
+      'groupedAccounts'
+    );
+    Set<Id> finaccountIds = new Set<Id>();
+    for (Map<String, Object> accountGroup : groupedAccountsList) {
+      List<UnifiedFinancialAccountModel.AccountList> accountsList = (List<UnifiedFinancialAccountModel.AccountList>) accountGroup.get(
+        'accounts'
+      );
+      for (
+        UnifiedFinancialAccountModel.AccountList accountRecord : accountsList
+      ) {
+        if (String.isNotBlank(accountRecord.id)) {
+          finaccountIds.add(accountRecord.id);
+        }
+      }
+    }
+
+    return finaccountIds;
   }
 }
