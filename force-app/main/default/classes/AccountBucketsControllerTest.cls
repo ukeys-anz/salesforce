@@ -47,8 +47,8 @@ public with sharing class AccountBucketsControllerTest {
   public static void validResponseOnCustomerRecord() {
     registerMocks();
     finAccRepoMock.mock(
-        'fetchFinancialAccountsByStatus',
-        createMockFinancialAccount()
+      'fetchFinancialAccountsByStatus',
+      createMockFinancialAccount()
     );
     finAccRepoMock.mock(
       'mapProductCodeToFinAccountConfiguration',
@@ -90,35 +90,41 @@ public with sharing class AccountBucketsControllerTest {
       fakerAccountRoleId,
       false
     );
-    FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(finAccount1,
-    new Map<String, Object>{ 'Ownership__c' => 'Single' });
+    FinServ__FinancialAccount__c finAccount = (FinServ__FinancialAccount__c) TestUtil.setFields(
+      finAccount1,
+      new Map<String, Object>{ 'Ownership__c' => 'Single' }
+    );
     finAccount.FinServ__ProductName__r = product;
     finAccount.FinServ__FinancialAccountNumber__c = '111111111';
     financialAccountsList.add(finAccount);
     return financialAccountsList;
   }
 
-   /**
+  /**
    * @description helper method to create mock metadata records for FinancialAccountUIConfiguration__mdt
    * @return List<FinancialAccountUIConfiguration__mdt>
    */
-  private static Map<String,FinancialAccountUIConfiguration__mdt> mockMetaDataRecord(){
+  private static Map<String, FinancialAccountUIConfiguration__mdt> mockMetaDataRecord() {
     List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
-    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt
-       (Product_Code__c='SAVING01',
-       Sort_Order__c=1,
-       Ownership_Type__c ='Single',
-       Show_Goals__c = true,
-       Label = 'SAVING01');
+    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
+      Product_Code__c = 'SAVING01',
+      Sort_Order__c = 1,
+      Ownership_Type__c = 'Single',
+      Show_Goals__c = true,
+      Label = 'SAVING01'
+    );
     mockMetaData.add(dummyRecord1);
 
-    Map<String,FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String,FinancialAccountUIConfiguration__mdt>();
-    for(FinancialAccountUIConfiguration__mdt finUIConfig : mockMetaData){
-      String key = finUIConfig?.Product_Code__c+'-'+ finUIConfig?.Ownership_Type__c;
-      if(!productCodeToFinAccMap.containsKey(key)){
-       productCodeToFinAccMap.put(key,finUIConfig);
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+    for (FinancialAccountUIConfiguration__mdt finUIConfig : mockMetaData) {
+      String key =
+        finUIConfig?.Product_Code__c +
+        '-' +
+        finUIConfig?.Ownership_Type__c;
+      if (!productCodeToFinAccMap.containsKey(key)) {
+        productCodeToFinAccMap.put(key, finUIConfig);
       }
-   }
-  return productCodeToFinAccMap;
-}
+    }
+    return productCodeToFinAccMap;
+  }
 }

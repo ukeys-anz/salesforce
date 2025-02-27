@@ -36,9 +36,7 @@ public with sharing class FinancialAccountRepository {
   public List<FinServ__FinancialAccount__c> fetchFinancialAccountsByStatus(
     String ocvId
   ) {
-    if (
-      String.isBlank(ocvId)
-    ) {
+    if (String.isBlank(ocvId)) {
       return new List<FinServ__FinancialAccount__c>();
     }
     return [

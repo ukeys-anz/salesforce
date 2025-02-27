@@ -32,33 +32,36 @@ public with sharing class AccountBucketsController {
       accountNumber
     );
 
-    if(String.isNotBlank(accountNumber))
-    {
+    if (String.isNotBlank(accountNumber)) {
       return result;
     }
-  
+
     List<FinServ__FinancialAccount__c> finanancialAccountList = FINACC_REPOSITORY.fetchFinancialAccountsByStatus(
-        ocvId
+      ocvId
     );
-    
-    if(finanancialAccountList.isEmpty())
-    {
+
+    if (finanancialAccountList.isEmpty()) {
       return null;
     }
 
-    Map<String,FinancialAccountUIConfiguration__mdt> productCodeToFinancialConfigMap = FINACC_REPOSITORY.mapProductCodeToFinAccountConfiguration();
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinancialConfigMap = FINACC_REPOSITORY.mapProductCodeToFinAccountConfiguration();
 
-    Map<String,FinancialAccountUIConfiguration__mdt> accountNumberToFinancialConfigMap = new Map<String,FinancialAccountUIConfiguration__mdt>();
+    Map<String, FinancialAccountUIConfiguration__mdt> accountNumberToFinancialConfigMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
 
-    Map<String, FinServ__FinancialAccount__c> accountsToShowGoalsMap = fetchAccountsToShowGoals(finanancialAccountList,
-    productCodeToFinancialConfigMap,
-    accountNumberToFinancialConfigMap);
+    Map<String, FinServ__FinancialAccount__c> accountsToShowGoalsMap = fetchAccountsToShowGoals(
+      finanancialAccountList,
+      productCodeToFinancialConfigMap,
+      accountNumberToFinancialConfigMap
+    );
 
-    return filterGoalsToShow(result,accountsToShowGoalsMap,accountNumberToFinancialConfigMap);
-    
+    return filterGoalsToShow(
+      result,
+      accountsToShowGoalsMap,
+      accountNumberToFinancialConfigMap
+    );
   }
 
-   /**
+  /**
    * @description this method will prepare map of financial accounts for which we need to show goals
    * @param finanancialAccountList list of failure actions
    * @param productCodeToFinancialConfigMap map of product code with the fin account configuration
@@ -67,19 +70,27 @@ public with sharing class AccountBucketsController {
    */
   private static Map<String, FinServ__FinancialAccount__c> fetchAccountsToShowGoals(
     List<FinServ__FinancialAccount__c> finanancialAccountList,
-    Map<String,FinancialAccountUIConfiguration__mdt> productCodeToFinancialConfigMap,
-    Map<String,FinancialAccountUIConfiguration__mdt> accountNumberToFinancialConfigMap
-  )
-  {
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinancialConfigMap,
+    Map<String, FinancialAccountUIConfiguration__mdt> accountNumberToFinancialConfigMap
+  ) {
     Map<String, FinServ__FinancialAccount__c> accountsToShowGoalsMap = new Map<String, FinServ__FinancialAccount__c>();
-    for(FinServ__FinancialAccount__c account : finanancialAccountList)
-    {
-      String key = account.FinServ__ProductName__r.ANZ_Product_Code__c+'-'+account.Ownership__c;
-      if(!productCodeToFinancialConfigMap.containsKey(key) ||
-      productCodeToFinancialConfigMap.get(key).Show_Goals__c) 
-      {
-        accountsToShowGoalsMap.put(account.FinServ__FinancialAccountNumber__c,account);
-        accountNumberToFinancialConfigMap.put(account.FinServ__FinancialAccountNumber__c,productCodeToFinancialConfigMap.get(key));
+    for (FinServ__FinancialAccount__c account : finanancialAccountList) {
+      String key =
+        account.FinServ__ProductName__r.ANZ_Product_Code__c +
+        '-' +
+        account.Ownership__c;
+      if (
+        !productCodeToFinancialConfigMap.containsKey(key) ||
+        productCodeToFinancialConfigMap.get(key).Show_Goals__c
+      ) {
+        accountsToShowGoalsMap.put(
+          account.FinServ__FinancialAccountNumber__c,
+          account
+        );
+        accountNumberToFinancialConfigMap.put(
+          account.FinServ__FinancialAccountNumber__c,
+          productCodeToFinancialConfigMap.get(key)
+        );
       }
     }
     return accountsToShowGoalsMap;
@@ -92,18 +103,22 @@ public with sharing class AccountBucketsController {
    * @param accountNumberToFinancialConfigMap map of account number and financial account details config data
    * @return AccountBucketsModel return final response with filtered goals
    */
-  private static AccountBucketsModel filterGoalsToShow(AccountBucketsModel result , 
-  Map<String, FinServ__FinancialAccount__c> accountsToShowGoalsMap,
-  Map<String,FinancialAccountUIConfiguration__mdt> accountNumberToFinancialConfigMap){
-    List<AccountBucketsModel.AccountBuckets> filteredAccountbuckets = new  List<AccountBucketsModel.AccountBuckets>();
-    for(AccountBucketsModel.AccountBuckets  bucket : result.account_buckets)
-    {
-      if(accountsToShowGoalsMap.keyset().contains(bucket.account_number))
-      {
-        FinancialAccountUIConfiguration__mdt uiConfig = accountNumberToFinancialConfigMap.get(bucket.account_number);
-        FinServ__FinancialAccount__c finAccount = accountsToShowGoalsMap.get(bucket.account_number);
+  private static AccountBucketsModel filterGoalsToShow(
+    AccountBucketsModel result,
+    Map<String, FinServ__FinancialAccount__c> accountsToShowGoalsMap,
+    Map<String, FinancialAccountUIConfiguration__mdt> accountNumberToFinancialConfigMap
+  ) {
+    List<AccountBucketsModel.AccountBuckets> filteredAccountbuckets = new List<AccountBucketsModel.AccountBuckets>();
+    for (AccountBucketsModel.AccountBuckets bucket : result.account_buckets) {
+      if (accountsToShowGoalsMap.keyset().contains(bucket.account_number)) {
+        FinancialAccountUIConfiguration__mdt uiConfig = accountNumberToFinancialConfigMap.get(
+          bucket.account_number
+        );
+        FinServ__FinancialAccount__c finAccount = accountsToShowGoalsMap.get(
+          bucket.account_number
+        );
         bucket.financial_account_name = finAccount.Name;
-        bucket.ownershipType =finAccount.Ownership__c;
+        bucket.ownershipType = finAccount.Ownership__c;
         bucket.financial_account_id = finAccount.Id;
         bucket.sortOrder = uiConfig?.Sort_Order__c;
         bucket.product_name = uiConfig?.Product_Name__c;
