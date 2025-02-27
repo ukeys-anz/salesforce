@@ -2563,8 +2563,6 @@
       "IA-2468715": [
         "Account_Type__c",
         "Balance_Title__c",
-        "Is_Active__c",
-        "Is_Home_Loan__c",
         "Ownership_Type__c",
         "Product_Code__c",
         "Product_Name__c",

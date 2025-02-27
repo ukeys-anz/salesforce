@@ -73,6 +73,10 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     }
     if (this.ocvId && hasAccountsGoalsPermission) {
       await this.getFinancialAccount();
+      if (this.handleGoalApiCallout()) {
+        this.savingAccountExist = true;
+        await this.getGoals();
+      }
     }
     if (this.ocvId && hasHomeLoanPermission) {
       const offsetResponse = await this.getOffsetHomeLoanResponse();
@@ -186,6 +190,13 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     window.removeEventListener(
       "refreshFinances_" + this.recordId,
       this.handleRefreshFinances.bind(this)
+    );
+  }
+
+  handleGoalApiCallout() {
+    return (
+      Array.isArray(this.processedAccounts.groupedAccounts) &&
+      this.processedAccounts.groupedAccounts.some((group) => group.isSaving)
     );
   }
 }

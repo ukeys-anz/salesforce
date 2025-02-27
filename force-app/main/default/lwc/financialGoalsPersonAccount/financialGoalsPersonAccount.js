@@ -1,16 +1,18 @@
 import { LightningElement, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
+import { MULTI_PARTY, JOINT } from "c/transactionHistoryService";
 
 export default class FinancialGoalsPersonAccount extends NavigationMixin(
   LightningElement
 ) {
   goalDetails;
-  @api savingsAccount;
-  viewAll = false;
   showInfoModal = false;
   hasGoals;
   @api error;
+  onLoadGoalDisplayCount = 2;
+  productName;
+  balanceTitle;
 
   @api
   get goalData() {
@@ -18,7 +20,7 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
   }
 
   set goalData(value) {
-    this.goalDetails = value;
+    this.goalDetails = structuredClone(value);
   }
 
   get displayContent() {
@@ -48,27 +50,20 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
   }
 
   connectedCallback() {
-    if (this.goalDetails && this.goalDetails.length > 0) {
-      this.hasGoals = true;
-      //Only need to display 3 goals
-      if (this.goalDetails.length >= 3) {
-        this.goalDetails = this.goalDetails.slice(0, 3);
-        this.viewAll = true;
-      }
-    } else {
-      this.hasGoals = false;
-    }
+    this.processGoalDetails(this.goalDetails);
   }
 
-  handleInfoModal() {
+  handleInfoModal(event) {
+    this.productName = event.currentTarget.dataset.productname;
+    this.balanceTitle = event.currentTarget.dataset.balancetitle;
     this.showInfoModal = !this.showInfoModal;
   }
 
-  navigateToRecordViewPage() {
+  navigateToFinancialAccountViewPage(event) {
     this[NavigationMixin.Navigate]({
       type: "standard__recordPage",
       attributes: {
-        recordId: this.savingsAccount,
+        recordId: event.currentTarget.dataset.id,
         actionName: "view"
       }
     });
@@ -78,12 +73,53 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
     this[NavigationMixin.Navigate]({
       type: "standard__recordPage",
       attributes: {
-        recordId: this.savingsAccount,
+        recordId: event.currentTarget.dataset.finid,
         actionName: "view"
       },
       state: {
         c__goalId: event.currentTarget.dataset.id
       }
     });
+  }
+
+  processGoalDetails(goalDetails) {
+    if (this.goalDetails && this.goalDetails.length > 0) {
+      this.hasGoals = true;
+      goalDetails.forEach((record) => {
+        if (record.buckets) {
+          if (record.buckets.length >= this.onLoadGoalDisplayCount) {
+            record.goalsLeftToView = this.pendingGoalssTobeViewed(
+              record.buckets.length
+            );
+            record.buckets = record.buckets.slice(
+              0,
+              this.onLoadGoalDisplayCount
+            );
+            record.viewAll = true;
+          } else {
+            record.viewAll = false;
+          }
+          record.haveGoals = true;
+          record.showMultipartyBadge = record.ownershipType === MULTI_PARTY;
+          record.ownershipType = record.showMultipartyBadge
+            ? JOINT
+            : record.ownershipType;
+        } else {
+          record.haveGoals = false;
+        }
+      });
+    } else {
+      this.hasGoals = false;
+    }
+  }
+
+  pendingGoalssTobeViewed(bucketsLength) {
+    return bucketsLength > this.onLoadGoalDisplayCount
+      ? bucketsLength - this.onLoadGoalDisplayCount
+      : 0;
+  }
+
+  closeModal() {
+    this.showInfoModal = false;
   }
 }

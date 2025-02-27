@@ -387,12 +387,11 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     System.runAs(thisUser) {
       Test.startTest();
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-      AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '');
+      AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '','');
       Test.stopTest();
 
-      System.assertEquals(
-        7,
-        response.account_buckets.size(),
+      Assert.isTrue(
+        response.account_buckets.size() == 7,
         'Response account buckets size should be as expected.'
       );
     }
@@ -407,18 +406,18 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     System.runAs(thisUser) {
       AccountBucketsModel accountBucketsModel;
       HttpCalloutResponse res = getAccountBucketsInvalidResponse();
-      Service s = ServiceProvider.getService(FabricService.class);
-      s.setCalloutResponse(res);
+      Service serviceInstance = ServiceProvider.getService(FabricService.class);
+      serviceInstance.setCalloutResponse(res);
       Exception resultException;
       Test.startTest();
       CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
       try {
-        accountBucketsModel = coachAPI.getAccountBuckets('1111', 4, '');
+        accountBucketsModel = coachAPI.getAccountBuckets('1111', 4, '','');
       } catch (Exception e) {
         resultException = e;
       }
       Test.stopTest();
-      System.assertEquals(
+      Assert.areEqual(
         'Get account buckets failed',
         resultException.getMessage(),
         'Error message should be as expected.'
@@ -545,7 +544,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
     Test.startTest();
     String paramUrlString = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
       pageSize,
-      nextPageToken
+      nextPageToken,
+      ''
     );
     Test.stopTest();
 

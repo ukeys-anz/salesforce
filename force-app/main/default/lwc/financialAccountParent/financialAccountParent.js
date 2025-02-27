@@ -104,7 +104,6 @@ export default class FinancialAccountParent extends LightningElement {
   accountOwnershipType;
   wiredMethodCalled = false;
   accountOwners = [];
-  showSavingsGoals = false;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -164,7 +163,6 @@ export default class FinancialAccountParent extends LightningElement {
         if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
           this.isSavings = true;
           this.accountType = "savings";
-          this.showSavingsGoals = true;
         } else if (this.accRecordTypeApiName === CHECKING_ACCOUNT_RT_APINAME) {
           this.isSavings = false;
           this.accountType = "checking";
@@ -291,19 +289,10 @@ export default class FinancialAccountParent extends LightningElement {
           //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
           ocvId: this.ocvId,
           pageSize: 20,
-          nextPageToken: paramUrl
+          nextPageToken: paramUrl,
+          accountNumber: this.accountNumber
         });
 
-        // Filter goal for this account data
-        const accountGoalData = this.goalData.account_buckets.filter(
-          (eachGoalData) => {
-            return (
-              this.accountData[0].FinServ__FinancialAccountNumber__c ===
-              eachGoalData.account_number
-            );
-          }
-        );
-        this.goalData.account_buckets = accountGoalData;
         this.goalData = handleGoalData(this.goalData);
         this.emojiMap = getEmojiMap(this.goalData);
         this.imageMap = getImageMap(this.goalData);
@@ -490,7 +479,6 @@ export default class FinancialAccountParent extends LightningElement {
       }
       if (isS2Account(finAccount.Marketing_Code__c)) {
         this.accountType = "savingss2";
-        this.showSavingsGoals = false;
       }
     });
 

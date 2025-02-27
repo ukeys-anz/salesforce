@@ -37,16 +37,18 @@ public with sharing class FinancialAccountRepository {
     String ocvId
   ) {
     if (
-      SObjectType.FinServ__FinancialAccount__c.isQueryable() == false &&
       String.isBlank(ocvId)
     ) {
       return new List<FinServ__FinancialAccount__c>();
     }
     return [
       SELECT
+        Id,
+        Name,
         FinServ__FinancialAccountNumber__c,
         Ownership__c,
-        FinServ__Status__c
+        FinServ__Status__c,
+        FinServ__ProductName__r.ANZ_Product_Code__c
       FROM FinServ__FinancialAccount__c
       WHERE
         Id IN (
@@ -56,6 +58,7 @@ public with sharing class FinancialAccountRepository {
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
             AND FinServ__Active__c = TRUE
         )
+      WITH USER_MODE
     ];
   }
 

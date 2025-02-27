@@ -1,6 +1,8 @@
 import { createElement } from "lwc";
 import PersonAccountFinancialDetails from "c/personAccountFinancialDetails";
 
+global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));
+
 describe("c-person-account-financial-details", () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM

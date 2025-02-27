@@ -11,6 +11,9 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   private static final FinancialAccountRepository FINACC_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
     FinancialAccountRepository.class
   );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
 
   /**
    * @param ocvId customer id
@@ -244,39 +247,41 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
    * @param ocvId customer id
    * @param pageSize amount of goals to return
    * @param nextPageToken token used to retrieve next page of data
+   * @param accountNumber accountnumber for which goals needs to fetch
    * @return `AccountBucketsModel` model class constructed from api response
    * @description fetches account buckets from fabric, deserialized to a model
    */
   public AccountBucketsModel getAccountBuckets(
     String ocvId,
     Integer pageSize,
-    String nextPageToken
+    String nextPageToken,
+    String accountNumber
   ) {
     AccountBucketsModel result;
-    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
-      Service s = ServiceProvider.getService(FabricService.class);
-
-      String paramUrl = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
-        pageSize,
-        nextPageToken
+    if (USER_INFO.checkPermission('ANZx_Accounts_and_Goals') == false) {
+      throw CommonUtil.logExceptionInfo(
+        new CoachBankingAPIRepository.PermissionException(
+          ACCOUNTS_AND_GOALS_PERMISSION_ERROR
+        )
       );
+    }
 
-      HttpCalloutResponse response = s.getAccountBuckets(ocvId, paramUrl);
-      if (response.successful) {
-        try {
-          result = AccountBucketsModel.parse(response.body);
-        } catch (Exception e) {
-          handleErrors(null, e, CoachBankingAPIRepository.class);
-        }
-      } else {
-        handleErrors(response, null, CoachBankingAPIRepository.class);
-      }
-    } else {
-      handleErrorAsInfo(
-        null,
-        new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
-        CoachBankingAPIRepository.class
-      );
+    Service serviceInstance = ServiceProvider.getService(FabricService.class);
+    String paramUrl = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
+      pageSize,
+      nextPageToken,
+      accountNumber
+    );
+
+    HttpCalloutResponse response = serviceInstance.getAccountBuckets(ocvId, paramUrl);
+    if (!response.successful) {
+      throw CommonUtil.logException(response);
+    }
+
+    try {
+      result = AccountBucketsModel.parse(response.body);
+    } catch (Exception objException) {
+      throw CommonUtil.logException(objException);
     }
     return result;
   }
