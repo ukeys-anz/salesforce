@@ -36,7 +36,7 @@ public with sharing class AccountClosureRepository {
       return new List<Case>();
     }
     return [
-      SELECT Id, ParentId
+      SELECT Id, ParentId, Status
       FROM Case
       WHERE ParentId IN :parentIds AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
@@ -182,6 +182,9 @@ public with sharing class AccountClosureRepository {
    * @return Case records with the details
    */
   public List<Case> queryCaseToUpdateStatusAsClosed(Set<Id> recordIds) {
+    if (recordIds.isEmpty()) {
+      return new List<Case>();
+    }
     return [
       SELECT Id, Status
       FROM Case
@@ -262,6 +265,9 @@ public with sharing class AccountClosureRepository {
   public List<FinServ__FinancialAccount__c> fetchFilteredFinancialAccountsDetails(
     Set<Id> accountIds
   ) {
+    if (accountIds.isEmpty()) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
     return [
       SELECT
         Id,
@@ -275,7 +281,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         Id IN :accountIds
         AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
-        AND RecordType.DeveloperName IN :GetHelpConstants.anzxFinancialAccountRecordTypes
+        AND RecordTypeId != :RTFinancialAccount.bankAccount
       WITH USER_MODE
     ];
   }

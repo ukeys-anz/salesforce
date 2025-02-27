@@ -3,7 +3,8 @@
     <fullName>Sub_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Based on the type of case, the sub type provides a more detailed categorisation of the case.</description>
+    <description>Based on the type of case, the sub type provides a more detailed categorisation of
+        the case.</description>
     <externalId>false</externalId>
     <label>Issue Sub Type</label>
     <required>false</required>
@@ -643,6 +644,21 @@
                 <label>Open Banking</label>
             </value>
             <value>
+                <fullName>Letter of Authority</fullName>
+                <default>false</default>
+                <label>Letter of Authority</label>
+            </value>
+            <value>
+                <fullName>Title Search</fullName>
+                <default>false</default>
+                <label>Title Search</label>
+            </value>
+            <value>
+                <fullName>Manual Valuation Request</fullName>
+                <default>false</default>
+                <label>Manual Valuation Request</label>
+            </value>
+            <value>
                 <fullName>Direct Debit or Recurring Payments 13 month statement</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -783,6 +799,10 @@
             <valueName>Raising a concern</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Manual Valuation Request</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
             <valueName>Refer a Friend</valueName>
         </valueSettings>
@@ -797,6 +817,10 @@
         <valueSettings>
             <controllingFieldValue>Other Enquiries</controllingFieldValue>
             <valueName>Unacceptable customer behaviour</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Other Enquiries</controllingFieldValue>
+            <valueName>Letter of Authority</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>About Us</controllingFieldValue>
@@ -1078,6 +1102,10 @@
         <valueSettings>
             <controllingFieldValue>Home Loans</controllingFieldValue>
             <valueName>Bureau Decline</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Home Loans</controllingFieldValue>
+            <valueName>Title Search</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>App Support</controllingFieldValue>

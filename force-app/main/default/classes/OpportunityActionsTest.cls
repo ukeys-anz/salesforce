@@ -268,4 +268,62 @@ public class OpportunityActionsTest {
       'Failed to form map of opportunity contact role'
     );
   }
+
+  /**
+   * @description test method for preventDuplicateLoanappReferenceNumber
+   */
+  @isTest
+  static void preventDuplicateLoanappReferenceNumberTest() {
+    registerMocks();
+    Opportunity oppMl = new Opportunity(
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      Loanapp_Reference__c = 'MLCRM-101'
+    );
+    oppActoinRepoMock.mock(
+      'getOpportunityByLoanappReference',
+      new List<Opportunity>{ oppMl }
+    );
+    Test.startTest();
+    OpportunityActions.preventDuplicateLoanappReferenceNumber(
+      new List<Opportunity>{ oppMl },
+      null
+    );
+    Test.stopTest();
+    List<Database.Error> errors = oppMl.getErrors();
+    Assert.areEqual(1, errors.size(), 'record should not be valid!');
+    Assert.areEqual(
+      OpportunityActions.DUPLICATE_LAR_ERROR,
+      errors[0].getMessage(),
+      'should throw duplicate Loanapp Reference Error!'
+    );
+    Assert.areEqual(
+      StatusCode.FIELD_CUSTOM_VALIDATION_EXCEPTION,
+      errors[0].getStatusCode(),
+      'No Error found'
+    );
+  }
+
+  /**
+   * @description test method for getFilteredOpportunitiesForLoanappReferenceNumber
+   */
+  @isTest
+  static void getFilteredOpportunitiesForLoanappReferenceNumberTest() {
+    registerMocks();
+    Opportunity oppMl = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      Loanapp_Reference__c = 'MLCRM-101'
+    );
+    Opportunity oppMlChanged = new Opportunity(
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      Loanapp_Reference__c = 'MLCRM-102'
+    );
+    Test.startTest();
+    List<Opportunity> oppList = OpportunityActions.getFilteredOpportunitiesForLoanappReferenceNumber(
+      new List<Opportunity>{ oppMl },
+      new Map<Id, Opportunity>{ oppMl.Id => oppMlChanged }
+    );
+    Test.stopTest();
+    Assert.areEqual(1, oppList.size(), '1 opportunity should be returned!');
+  }
 }

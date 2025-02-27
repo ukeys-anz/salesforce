@@ -29,6 +29,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Is_Prospect__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.IsSnapshotError__c</field>
         <readable>true</readable>
@@ -566,6 +571,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Customer_Profile_Updates__c.Customer_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Profile_Updates__c.Customer_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

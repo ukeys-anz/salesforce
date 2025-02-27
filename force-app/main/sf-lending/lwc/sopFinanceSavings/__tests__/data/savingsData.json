@@ -1,0 +1,62 @@
+{
+  "currencyCode": "AUD",
+  "savings": [
+    {
+      "accountNumber": "876542108",
+      "accountStatus": "ACCOUNT_STATE_ACTIVE",
+      "balance": 4000.35,
+      "bsb": "013711",
+      "financialInstitution": "ANZ",
+      "ownerName": "Tony",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "updateTime": "2023-05-04T08:59:41.084Z"
+    },
+    {
+      "accountNumber": "876542108",
+      "accountStatus": "ACCOUNT_STATE_ACTIVE",
+      "balance": 5000.35,
+      "bsb": "013711",
+      "financialInstitution": "ANZ",
+      "ownerName": "Joint",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "updateTime": "2023-05-04T09:20:11.272Z"
+    },
+    {
+      "balance": 3000,
+      "ownerName": "John",
+      "type": "ASSET_TYPE_CASH",
+      "updateTime": "2023-05-04T08:51:14.878Z"
+    },
+    {
+      "accountNumber": "210418624",
+      "accountStatus": "ACCOUNT_STATE_ACTIVE",
+      "balance": 109.58,
+      "bsb": "014111",
+      "financialInstitution": "ANZ Plus",
+      "ownerName": "Tony",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "updateTime": "2023-07-13T11:25:50.337Z"
+    },
+    {
+      "accountNumber": "210418632",
+      "accountStatus": "ACCOUNT_STATE_ACTIVE",
+      "balance": 11.65,
+      "bsb": "014111",
+      "financialInstitution": "ANZ Plus",
+      "ownerName": "Tony",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "updateTime": "2023-07-13T11:25:50.337Z"
+    },
+    {
+      "accountNumber": "115476489",
+      "accountStatus": "ACCOUNT_STATE_ACTIVE",
+      "balance": 34500.85,
+      "bsb": "063345",
+      "financialInstitution": "Westpac",
+      "ownerName": "John",
+      "type": "ASSET_TYPE_BANK_ACCOUNT",
+      "updateTime": "2023-05-04T09:20:11.272Z"
+    }
+  ],
+  "savingsTotalAmount": 13000.7
+}

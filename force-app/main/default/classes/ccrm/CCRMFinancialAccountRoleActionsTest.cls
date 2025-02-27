@@ -7,6 +7,14 @@
 @IsTest
 private class CCRMFinancialAccountRoleActionsTest {
   static Faker faker = new Faker('AU');
+  static Lib_MockProvider financialAccountRoleRepoMock;
+  static Lib_MockProvider dmlRepoMock;
+  static void registerMocks() {
+    financialAccountRoleRepoMock = Lib_MockProvider.forType(
+      FinancialAccountRoleRepository.class
+    );
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+  }
 
   @TestSetup
   static void makeData() {
@@ -17,6 +25,85 @@ private class CCRMFinancialAccountRoleActionsTest {
       CCRMTestDataFactory.createSystemCustomer();
     }
   }
+
+  @IsTest
+  static void testDeactivateDuplicateRecordsInsert() {
+    registerMocks();
+    Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
+    Id faId = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccount__c.getSobjectType()
+    );
+    Id farId = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccountRole__c.getSobjectType()
+    );
+    Id far2Id = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccountRole__c.getSobjectType()
+    );
+
+    //GIVEN Financial Account Role Record
+    FinServ__FinancialAccount__c fa = new FinServ__FinancialAccount__c(
+      Id = faId,
+      Account_Key__c = 'accountkey123'
+    );
+    Account acc = new Account(
+        Id = accId,
+      External_Id__c = 'externalid123'
+    );
+    List<FinServ__FinancialAccountRole__c> farList = new List<FinServ__FinancialAccountRole__c>{
+      new FinServ__FinancialAccountRole__c(
+        Id = farId,
+        FinServ__Role__c = 'Primary Owner',
+        FinServ__RelatedAccount__r = acc,
+        FinServ__FinancialAccount__r = fa,
+        FinServ__Active__c = true
+      )
+    };
+    FinServ__FinancialAccountRole__c far2Rec = new FinServ__FinancialAccountRole__c(
+      Id = far2Id,
+      FinServ__Role__c = 'Additional Owner',
+      FinServ__RelatedAccount__r = acc,
+      FinServ__FinancialAccount__r = fa,
+      FinServ__Active__c = true
+    );
+    List<FinServ__FinancialAccountRole__c> farMockList = new List<FinServ__FinancialAccountRole__c>{
+      far2Rec,
+      farList[0]
+    };
+
+    financialAccountRoleRepoMock.mock(
+      'getActiveFinancialAccountRoleRecords',
+      farMockList
+    );
+
+    List<Database.UpsertResult> upsertResult = new List<Database.UpsertResult>{
+      TestUtil.getMockUpsertResult(
+        '{"id":"0039p00000O5p46AAB","success":true,"errors":[]}'
+      )
+    };
+    dmlRepoMock.mock('updateRecords', upsertResult);
+
+    //WHEN calling deactivateDuplicateRecords method
+    Test.startTest();
+    CCRMFinancialAccountRoleActions.deactivateDuplicateRecords(farList, null);
+    Test.stopTest();
+
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doUpdate'),
+      'doUpdate should have been invoked'
+    );
+
+    List<FinServ__FinancialAccountRole__c> updateRecordList = (List<FinServ__FinancialAccountRole__c>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+
+    //THEN It should insert new Financial Account Role Record and Update Existing FAR Record to inActive
+    Assert.isFalse(
+      updateRecordList[0].FinServ__Active__c,
+      'More than one Active Financial Account Roles'
+    );
+  }
+
 
   @IsTest
   static void testMapRoleTypeToRole() {

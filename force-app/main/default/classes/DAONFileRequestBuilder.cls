@@ -66,7 +66,8 @@ public with sharing class DAONFileRequestBuilder {
       DAONFileType.DAON_FILE_TYPE_FRONT_PROCESSED => this.idxDocumentId,
       DAONFileType.DAON_FILE_TYPE_BACK_UNPROCESSED => this.idxDocumentId,
       DAONFileType.DAON_FILE_TYPE_BACK_PROCESSED => this.idxDocumentId,
-      DAONFileType.DAON_FILE_TYPE_SELFIE => this.idxUserId,
+      DAONFileType.DAON_FILE_TYPE_SELFIE_ENROLLED => this.idxUserId,
+      DAONFileType.DAON_FILE_TYPE_SELFIE_TO_BE_ENROLLED => this.idxIdCheckId,
       DAONFileType.DAON_FILE_TYPE_EXTRACTED_FACE => this.idxExtractedFaceId,
       DAONFileType.DAON_FILE_TYPE_SELFIE_TO_BE_VERIFIED => this.challengeId
     };

@@ -1,0 +1,76 @@
+{
+  "employer": "ANZ Bank Ltd",
+  "employmentType": "EMPLOYMENT_BASIS_PART_TIME",
+  "etag": "1688778120380501000",
+  "incomeItemDetails": [
+    {
+      "amountType": "INCOME_AMOUNT_TYPE_GROSS",
+      "amountValue": 600000.6,
+      "bonusPayments": 0,
+      "frequency": "INCOME_FREQUENCY_MONTHLY",
+      "type": "INCOME_TYPE_BASE_SALARY",
+      "isBonuses": false,
+      "readableFrequency": "Monthly",
+      "categoryOfIncome": "Before Tax",
+      "itemHeading": "Base Salary",
+      "isBase": true,
+      "isOverTime": false,
+      "isCommission": false
+    },
+    {
+      "amountType": "INCOME_AMOUNT_TYPE_GROSS",
+      "amountValue": 600000.01,
+      "bonusPayments": 0,
+      "frequency": "INCOME_FREQUENCY_WEEKLY",
+      "type": "INCOME_TYPE_OVERTIME",
+      "isBonuses": false,
+      "readableFrequency": "Weekly",
+      "categoryOfIncome": "Before Tax",
+      "itemHeading": "Overtime",
+      "isBase": false,
+      "isOverTime": true,
+      "isCommission": false
+    },
+    {
+      "amountType": "INCOME_AMOUNT_TYPE_GROSS",
+      "amountValue": 3000,
+      "bonusPayments": 0,
+      "frequency": "INCOME_FREQUENCY_ANNUALLY",
+      "type": "INCOME_TYPE_COMMISSION",
+      "isBonuses": false,
+      "readableFrequency": "Annually",
+      "categoryOfIncome": "Before Tax",
+      "itemHeading": "Commission",
+      "isBase": false,
+      "isOverTime": false,
+      "isCommission": true
+    }
+  ],
+  "incomeSource": "Manual",
+  "incomeVerified": false,
+  "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/incomes/62fa55af-8d60-49dd-829d-0436713e1f20",
+  "partyId": "1000991493",
+  "partyIdToFirstNameMap": [
+    {
+      "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "firstName": "first"
+    },
+    {
+      "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+      "firstName": "second"
+    }
+  ],
+  "sopId": "sops/1e5fbfb6-4d91-4853-9ede-c043019e469a",
+  "startDate": "2015/5/13",
+  "uid": "62fa55af-8d60-49dd-829d-0436713e1f20",
+  "updateTime": "2023-07-08T01:02:00.380Z",
+  "index": 0,
+  "readableEmpType": "Part Time",
+  "readableStartDate": "13 May 2015",
+  "logo": "/resource/1693345494000/ANZ_img",
+  "isManual": true,
+  "isTransaction": false,
+  "lastModified": "8 July 2023 | 11:02 am",
+  "readableIncomeVerified": "No",
+  "loanId": "0cdOg0000000lbdIAA"
+}

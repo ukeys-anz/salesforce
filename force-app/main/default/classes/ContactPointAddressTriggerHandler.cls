@@ -67,13 +67,6 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
       records
     );
 
-    CCRMContactPointActions.updateContactPoints(records);
-
-    CCRMContactPointAddressActions.unlinkProspectParentOnDeactivation(
-      existingOrProspectAccountsCPA.prospectCPA,
-      (Map<Id, ContactPointAddress>) oldMap
-    );
-
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
       CCRMCustomerProfileUpdateHelper.createCustomerProfileUpdates(
         existingOrProspectAccountsCPA.prospectCPA,
@@ -92,5 +85,16 @@ public with sharing class ContactPointAddressTriggerHandler extends Lib_TriggerH
         false
       );
     }
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ContactPointAddressActions.deleteExpiredRecords(
+      records,
+      (Map<Id, ContactPointAddress>) oldMap
+    );
   }
 }

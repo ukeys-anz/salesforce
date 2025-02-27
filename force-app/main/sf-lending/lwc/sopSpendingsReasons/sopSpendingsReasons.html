@@ -1,0 +1,47 @@
+<template>
+  <lightning-layout
+    multiple-rows
+    horizontal-align="spread"
+    class="slds-p-around_medium reasonBackground"
+  >
+    <lightning-layout-item
+      size="1"
+      flexibility="shrink"
+      class="slds-p-left_medium"
+    >
+      <img src={expenseQuestionIcon} class="reasonIconStyle" />
+    </lightning-layout-item>
+
+    <!-- Reason -->
+    <lightning-layout-item size="11" flexibility="shrink">
+      <lightning-layout multiple-rows>
+        <lightning-layout-item size="12">
+          <lightning-formatted-text
+            value="Reason For Change"
+            class="reasonTextHeaderStyle"
+          >
+          </lightning-formatted-text>
+        </lightning-layout-item>
+        <template lwc:if={expenseReason}>
+          <lightning-layout-item size="12">
+            <lightning-formatted-text
+              value={expenseReason}
+              data-jest-id="reason"
+              class="reasonTextValueStyle"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+        </template>
+        <template lwc:else>
+          <lightning-layout-item size="12">
+            <lightning-formatted-text
+              value="<Select a Reason>"
+              class="reasonTextValueStyle"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+        </template>
+      </lightning-layout>
+    </lightning-layout-item>
+  </lightning-layout>
+</template>

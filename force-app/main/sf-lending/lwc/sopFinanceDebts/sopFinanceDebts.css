@@ -1,0 +1,81 @@
+:host {
+  --logo-dimensions: 60px;
+  --last-modified-dimensions: 10px;
+  --last-modified-text-color: #706e6b;
+}
+
+.debtAmountStyle {
+  font-size: 16px;
+  font-weight: 590;
+  line-height: var(--slds-g-font-lineheight-3);
+  color: #3e3e3c;
+}
+
+.headerStyling {
+  font-size: var(--amount-and-header-text-size);
+  font-weight: var(--amount-and-header-font-weight);
+  line-height: var(--amount-and-header-line-height);
+  color: var(--text-color);
+}
+
+.logoStyle {
+  width: var(--logo-dimensions);
+  height: var(--logo-dimensions);
+}
+
+.fieldValue {
+  font-size: var(--text-font-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+
+.lastModifiedStyle {
+  font-size: var(--last-modified-dimensions);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--last-modified-dimensions);
+  color: var(--last-modified-text-color);
+}
+
+/* Paid off & Closed border styling */
+.paidOffClosed {
+  border-color: #dddbda;
+  color: #c23934;
+  font-size: 12pt;
+  line-height: var(--text-line-height);
+  font-weight: var(--slds-g-font-weight-7);
+}
+
+/* Loan refinance styling */
+.loanRefinance {
+  border-color: #dddbda;
+  color: #706e6b;
+  font-size: 12pt;
+  line-height: var(--text-line-height);
+  font-weight: var(--slds-g-font-weight-7);
+}
+
+/* additional repayment styling */
+.fieldMessage {
+  font-style: italic;
+  color: #706e6b;
+  font-size: 10pt;
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--text-line-height);
+}
+
+.customerAdvisedClosed {
+  border-color: #dddbda;
+  color: #d83a00;
+  font-size: 12pt;
+  line-height: var(--text-line-height);
+  font-weight: var(--slds-g-font-weight-7);
+}
+
+.totalDebt {
+  font-size: 16px;
+  font-weight: 600;
+  line-height: 22px;
+  text-align: right;
+  float: right;
+}

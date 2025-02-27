@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Referral_Category__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Categories the source of the referral</description>
+    <label>Referral Category</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>A-Z Review</fullName>
+                <default>false</default>
+                <label>A-Z Review</label>
+            </value>
+            <value>
+                <fullName>Affluent</fullName>
+                <default>false</default>
+                <label>Affluent</label>
+            </value>
+            <value>
+                <fullName>Borrow - Mortgage</fullName>
+                <default>false</default>
+                <label>Borrow - Mortgage</label>
+            </value>
+            <value>
+                <fullName>Borrow - Other</fullName>
+                <default>false</default>
+                <label>Borrow - Other</label>
+            </value>
+            <value>
+                <fullName>Home Loan Check-In</fullName>
+                <default>false</default>
+                <label>Home Loan Check-In</label>
+            </value>
+            <value>
+                <fullName>Moving Overseas</fullName>
+                <default>false</default>
+                <label>Moving Overseas</label>
+            </value>
+            <value>
+                <fullName>Corporate Banking</fullName>
+                <default>false</default>
+                <label>Corporate Banking</label>
+            </value>
+            <value>
+                <fullName>Commercial Cards, BB, RBB &amp; PB</fullName>
+                <default>false</default>
+                <label>Commercial Cards, BB, RBB &amp; PB</label>
+            </value>
+            <value>
+                <fullName>SME</fullName>
+                <default>false</default>
+                <label>SME</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

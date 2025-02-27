@@ -6,7 +6,7 @@
     <description>Created this field to utilise existing Mobile hyperlink field to be used as text in Customer highlighted panel.</description>
     <externalId>false</externalId>
     <formula>PersonMobilePhone</formula>
-    <label>Mobile</label>
+    <label>Mobile (ANZ Plus)</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>false</trackHistory>

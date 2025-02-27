@@ -101,6 +101,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LogAResponseControllerRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CCRMTestDataFactory</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -428,6 +432,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.VOI_Status_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.VOI_Expiry_Date_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.ABN_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -457,7 +471,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Account.Other_Email__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -862,6 +876,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.OtherPhone</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Legal_Entity__c.Account__c</field>
         <readable>true</readable>
@@ -907,7 +926,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Contact.Email</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -922,7 +941,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Contact.MobilePhone</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1019,6 +1038,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ContactPointEmail.Occurrence_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ContactPointEmail.UsageType</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1462,7 +1486,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Lead.Lead_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1692,7 +1716,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Opportunity.Lead_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8972,7 +8996,7 @@
     </recordTypeVisibilities>
     <tabSettings>
         <tab>Circle_Of_Influence__c</tab>
-        <visibility>Available</visibility>
+        <visibility>Visible</visibility>
     </tabSettings>
     <tabSettings>
         <tab>A_Z_Review__c</tab>

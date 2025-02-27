@@ -1,0 +1,23 @@
+.required {
+  color: var(--slds-g-color-palette-red-50, #ea001e);
+}
+
+.debtImage {
+  width: 50px;
+}
+
+.fieldMessage {
+  font-style: italic;
+  color: var(--slds-g-color-on-surface-1, #706e6b);
+  font-size: 10pt;
+  font-weight: var(--slds-g-font-weight-4);
+  line-height: var(--text-line-height);
+}
+
+.accordianSection {
+  --slds-c-accordion-summary-color-background: #f3f2f2;
+  --slds-c-accordion-heading-font-size: 16px;
+  --slds-c-accordion-heading-line-height: 24px;
+  --slds-c-accordion-section-spacing-inline-end: 0px;
+  --slds-c-accordion-section-spacing-inline-start: 1px;
+}

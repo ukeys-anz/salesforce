@@ -155,7 +155,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Customer Relationship</label>
     <nameField>
-        <displayFormat>CR-{00000}</displayFormat>
+        <displayFormat>CR-{0}</displayFormat>
         <label>Name</label>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
@@ -163,10 +163,10 @@
     </nameField>
     <pluralLabel>Customer Relationships</pluralLabel>
     <profileSearchLayouts>
+        <fields>NAME</fields>
         <fields>Customer__c</fields>
         <fields>Suburb__c</fields>
         <fields>Postal_Code__c</fields>
-        <fields>DOB__c</fields>
         <fields>Email__c</fields>
         <fields>Mobile__c</fields>
         <fields>Territory__c</fields>
@@ -179,11 +179,11 @@
         <searchResultsAdditionalFields>Customer__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Suburb__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Postal_Code__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>DOB__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Email__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Mobile__c</searchResultsAdditionalFields>
         <searchResultsAdditionalFields>Territory__c</searchResultsAdditionalFields>
-        <searchResultsAdditionalFields>Relationship_Owner__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Customer_Groups__c</searchResultsAdditionalFields>
+        <searchResultsAdditionalFields>Customer_Name__c</searchResultsAdditionalFields>
     </searchLayouts>
     <sharingModel>Private</sharingModel>
     <visibility>Public</visibility>

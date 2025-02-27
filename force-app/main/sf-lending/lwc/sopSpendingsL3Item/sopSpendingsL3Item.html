@@ -1,0 +1,100 @@
+<template>
+  <lightning-layout-item size="12">
+    <lightning-layout
+      multiple-rows
+      horizontal-align="spread"
+      class="slds-box slds-m-top_medium"
+    >
+      <!-- Name -->
+      <lightning-layout-item size="10" flexibility="shrink" class="textStyle">
+        <lightning-formatted-text
+          value={expenseDataL3.name}
+          class="headerStyling slds-rich-text-editor__output"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+
+      <!-- Monthly Spend -->
+      <lightning-layout-item
+        size="2"
+        flexibility="shrink"
+        class="slds-p-top_x-small slds-text-align_right"
+      >
+        <lightning-formatted-number
+          value={expenseDataL3.monthlySpend}
+          data-jest-id="monthlySpend"
+          format-style="currency"
+          currency-code="AUD"
+          currency-display-as="symbol"
+          class="amountStyleSection"
+        >
+        </lightning-formatted-number>
+      </lightning-layout-item>
+
+      <!-- Description -->
+      <lightning-layout-item
+        size="6"
+        flexibility="shrink"
+        class="textStyle slds-p-top_small"
+      >
+        <lightning-formatted-text
+          value={expenseDataL3.description}
+          class="slds-rich-text-editor__output"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+
+      <lightning-layout-item size="6" class="slds-text-align_right">
+        <lightning-layout>
+          <!-- Warning & Message -->
+          <template lwc:if={expenseDataL3.isMandatoryExpense}>
+            <lightning-layout-item size="4"></lightning-layout-item>
+
+            <lightning-layout-item
+              size="8"
+              flexibility="shrink"
+              class="warningTextStyle slds-p-top_small"
+            >
+              <template lwc:if={expenseDataL3.hasWarning}>
+                <lightning-icon
+                  icon-name="utility:warning"
+                  size="small"
+                  class="slds-p-right_x-small"
+                ></lightning-icon>
+              </template>
+              <lightning-formatted-text
+                value={expenseDataL3.warningMessage}
+                class="slds-rich-text-editor__output"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </template>
+        </lightning-layout>
+      </lightning-layout-item>
+
+      <!-- Reason -->
+      <template lwc:if={expenseDataL3.hasReason}>
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          class="slds-p-top_small"
+        >
+          <c-sop-spendings-reasons
+            expense-reasons-data={expenseDataL3}
+          ></c-sop-spendings-reasons>
+        </lightning-layout-item>
+      </template>
+
+      <!-- Last Modified Date -->
+      <lightning-layout-item
+        class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
+        size="11"
+        alignment-bump="left"
+        ><lightning-formatted-text
+          value="Last Modified"
+        ></lightning-formatted-text>
+        <lightning-formatted-text
+          value={expenseDataL3.updateTime}
+          class="slds-p-left_xx-small"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-layout-item>
+</template>

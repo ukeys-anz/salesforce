@@ -5,6 +5,12 @@
  * @test class - ContentDocumentLinkTriggerHandler
  */
 public class MLCRMContentDocDeleteQueueable implements Queueable {
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final CCRMContentDocumentLinkRepository CDL_REPOSITORY = (CCRMContentDocumentLinkRepository) Lib_InstanceProvider.forType(
+    CCRMContentDocumentLinkRepository.class
+  );
   public List<Id> contentDocsToDelete;
 
   /**
@@ -20,11 +26,12 @@ public class MLCRMContentDocDeleteQueueable implements Queueable {
    * @param context contex variable
    */
   public void execute(QueueableContext context) {
-    List<ContentDocument> cds = [
-      SELECT id
-      FROM ContentDocument
-      WHERE id IN :contentDocsToDelete
-    ];
-    delete cds;
+    List<ContentDocument> contentDocListToDelete = CDL_REPOSITORY.getContentDocuments(
+      new Set<Id>(contentDocsToDelete)
+    );
+    DML_REPOSITORY.doDelete(
+      contentDocListToDelete,
+      new DmlConfig().allowPartial().systemMode()
+    );
   }
 }

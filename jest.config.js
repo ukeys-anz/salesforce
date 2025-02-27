@@ -30,6 +30,8 @@ module.exports = {
     "^lightning/refresh$":
       "<rootDir>/force-app/tests/jest-mocks/lightning/refresh",
     "^c/customerAccountPageCssUtility$":
-      "<rootDir>/force-app/main/default/lwc/customerAccountPageCssUtility/customerAccountPageCssUtility.css"
+      "<rootDir>/force-app/main/default/lwc/customerAccountPageCssUtility/customerAccountPageCssUtility.css",
+    "^lightning/flowSupport$":
+      "<rootDir>/force-app/tests/jest-mocks/lightning/flowSupport"
   }
 };

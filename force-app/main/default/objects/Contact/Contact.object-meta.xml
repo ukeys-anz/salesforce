@@ -336,8 +336,7 @@
         <fields>ACCOUNT.NAME</fields>
         <fields>FinServ__OtherAddress__c</fields>
         <fields>CONTACT.BIRTHDATE</fields>
-        <fields>CONTACT.PHONE3</fields>
-        <fields>CONTACT.EMAIL</fields>
+        <fields>CONTACT.PHONE5</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
     <recordTypeTrackFeedHistory>false</recordTypeTrackFeedHistory>

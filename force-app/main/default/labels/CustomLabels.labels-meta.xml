@@ -7,6 +7,13 @@
         <shortDescription>Brokerdata cloud event type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
     </labels>
+        <labels>
+        <fullName>ANZx_Broker_Contract_Event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Broker Contract cloud event type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.contract.</value>
+    </labels>
     <labels>
         <fullName>ANZX_Broker_Event_Proto_Data_Schema</fullName>
         <language>en_US</language>
@@ -2349,18 +2356,18 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>callout:SF_MS_CH2/aegis-portal/v1/coaches/disclosure-state</value>
     </labels>
     <labels>
-        <fullName>MS_Initiate_Account_Closure</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>MS_Initiate_Account_Closure</shortDescription>
-        <value>callout:SF_MS_CH2/fabricData/v1/accountsClosureAssist</value>
-    </labels>
-    <labels>
         <fullName>MS_Update_Disclosure_Status</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Update_Disclosure_Status</shortDescription>
         <value>callout:SF_MS_CH2/aegis-portal/v1/coaches/disclosure-state</value>
+    </labels>
+    <labels>
+        <fullName>MS_Initiate_Account_Closure</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Initiate_Account_Closure</shortDescription>
+        <value>callout:SF_MS_CH2/fabricData/v1/accountsClosureAssist</value>
     </labels>
     <labels>
         <fullName>MS_JointNotificationSettingAPI</fullName>
@@ -2625,7 +2632,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>BBD Link</shortDescription>
-        <value>https://bbd.csp.service.anz/#/customers/{!Account.Source_System_ID__c}?source=CRM&amp;opportunityId={!Opportunity.Opp_Id__c}</value>
+        <value>https://bbd-ui.banker.service.anz/#/customers/{!Account.Source_System_ID__c}?source=CRM&amp;opportunityId={!Opportunity.Opp_Id__c}</value>
     </labels>
     <labels>
         <fullName>CLP_Link</fullName>
@@ -2721,13 +2728,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>false</value>
     </labels>
     <labels>
-        <fullName>SOP_Expense_Config</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>SOP_Expense_Config</shortDescription>
-        <value>1695597985652695,1701819944151648,1714356391121987</value>
-    </labels>
-    <labels>
         <fullName>MLCRM_NoOpportunityModalHeader</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
@@ -2785,5 +2785,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>CCRM_IndividualCustomerWarning</shortDescription>
         <value>Please fill out the details in contact information section.</value>
+    </labels>
+    <labels>
+        <fullName>ExistingContactPointPhoneError</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ExistingContactPointPhoneError</shortDescription>
+        <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
     </labels>
 </CustomLabels>

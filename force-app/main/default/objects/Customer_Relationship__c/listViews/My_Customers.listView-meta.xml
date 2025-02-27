@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>My_Customers</fullName>
+    <columns>NAME</columns>
     <columns>Customer__c</columns>
     <columns>Suburb__c</columns>
     <columns>Postal_Code__c</columns>
     <columns>DOB__c</columns>
     <columns>Email__c</columns>
     <columns>Mobile__c</columns>
+    <columns>Indicative_FUM__c</columns>
     <columns>Territory__c</columns>
     <columns>Relationship_Owner__c</columns>
     <filterScope>Mine</filterScope>
-    <label>My Customers</label>
+    <filters>
+        <field>Status__c</field>
+        <operation>equals</operation>
+        <value>Active</value>
+    </filters>
+    <filters>
+        <field>Relationship_To_Franchise__c</field>
+        <operation>equals</operation>
+        <value>Primary</value>
+    </filters>
+    <label>My Active Customers</label>
     <sharedTo>
         <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
     </sharedTo>

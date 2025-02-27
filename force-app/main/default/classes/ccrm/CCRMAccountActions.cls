@@ -5,6 +5,7 @@
  * @description CCRMAccountActions is class to handle all the CCRM Account Actions
  * @runTests CCRMAccountActionsTest
  */
+@SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CCRMAccountActions {
   private static final Set<String> RECORD_TYPE_SET = new Set<String>{
     String.valueOf(CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID),
@@ -271,29 +272,37 @@ public with sharing class CCRMAccountActions {
    * @description CC-5050 to restrict or prevent editing of shell prospect
    * @name preventEditShellProspect
    * @param records The Account records passed from Trigger.new()
-   * @param oldMap old trigger values
    */
-  public static void preventEditShellProspect(
-    List<Account> records,
-    Map<Id, Account> oldMap
-  ) {
-    String currUsername = UserInfo.getUserName();
-    // bypassed if current user is OCV Integration or this is in context of lead conversion, or is a system admin
-    if (
-      currUsername.startsWith(Label.CCRM_OCVIntegrationUsername) ||
-      CCRMLeadConversionActions.manualLeadConversionInitiated ||
-      UserInfo.getProfileId() ==
-      CommonUtil.getProfileByName(MLCRMConstants.ADMIN_PROFILE_NAME).Id
-    ) {
+  public static void preventEditShellProspect(List<Account> records) {
+    if (bypassPreventEditRecords()) {
       return;
     }
     for (Account rec : records) {
       if (isShellAccount(rec)) {
         rec.addError(Label.ML_ShellProspect_Update_ErrorMessage);
-      } else if (
+      }
+    }
+  }
+
+  /**
+   * @description Restrict editing of OCV Id for Business Customer
+   * @name preventEditOcvId
+   * @param records The Account records passed from Trigger.new()
+   * @param oldMap old trigger values
+   */
+  public static void preventEditOcvId(
+    List<Account> records,
+    Map<Id, Account> oldMap
+  ) {
+    if (bypassPreventEditRecords()) {
+      return;
+    }
+    for (Account rec : records) {
+      if (
         (rec.isPersonAccount ||
         rec.RecordTypeId ==
         CCRMConstants.ACCOUNT_ORGANISATION_BUSINESS_RT_ID) &&
+        oldMap.containsKey(rec.Id) &&
         rec.OCV_ID__c != oldMap.get(rec.id)?.OCV_ID__c
       ) {
         rec.addError(Label.ML_OCV_ID_Update_ErrorMessage);
@@ -480,5 +489,17 @@ public with sharing class CCRMAccountActions {
   public static Boolean isShellAccount(Account accountRecord) {
     return (accountRecord.FinServ__Status__c == CCRMConstants.PROSPECT &&
     accountRecord.OCV_Event_Version__c == 0);
+  }
+
+  /**
+   * @description isExistingCustomer to check if the Account is an active/inactive account or not
+   * @return Boolean True if Edit Record Allowed. When user in OCV, ADMIN, or Trigger in running in Lead Converstion then allowed
+   */
+  public static Boolean bypassPreventEditRecords() {
+    String currUsername = UserInfo.getUserName();
+    return (currUsername.startsWith(Label.CCRM_OCVIntegrationUsername) ||
+    CCRMLeadConversionActions.manualLeadConversionInitiated ||
+    UserInfo.getProfileId() ==
+    CommonUtil.getProfileByName(MLCRMConstants.ADMIN_PROFILE_NAME).Id);
   }
 }

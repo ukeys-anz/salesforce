@@ -4,6 +4,13 @@
  * @description  : CommercialContactTriggerHandler is the handler class for Contact Trigger which extends Lib_TriggerHandler from the trigger framework used.
  **/
 public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHandler {
+  private static final CommercialContactRepository CONTACT_REPOSITORY = (CommercialContactRepository) Lib_InstanceProvider.forType(
+    CommercialContactRepository.class
+  );
+
+  private static Id anzMLStandardUserProfileId = QueryProfile.anzMLStandardUser.Id;
+  private static Id curentUserProfileId = CONTACT_REPOSITORY.getUserProfileId();
+
   /**
    * @description Constructor to call the trigger framework
    * which will call the appropriate methods such as onBeforeInsert etc.
@@ -21,6 +28,7 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
   public override Boolean isValidRecord(SObject record) {
     Contact contactRecord = (Contact) record;
     return contactRecord.RecordTypeId == RTContact.organisation &&
+      curentUserProfileId != anzMLStandardUserProfileId &&
       !CCRMLeadConversionActions.leadConverionFlow;
   }
 

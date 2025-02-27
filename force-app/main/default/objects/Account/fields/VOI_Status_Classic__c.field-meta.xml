@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>VOI_Status_Classic__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>This is to calculate the status based on VOI expiry date * If VOI expiry date is less than today, then &apos;Expired&apos;
+If VOI expiry date is greater or equal to Today, then &apos;Complete&apos;
+If VOI expiry date is Blank, then &apos;Incomplete&apos;</description>
+    <externalId>false</externalId>
+    <formula>IF( VOI_Expiry_Date_Classic__c &gt;=  TODAY() , &apos;Complete&apos;, IF(VOI_Expiry_Date_Classic__c &lt;  TODAY(),&apos;Expired&apos;,&apos;Incomplete&apos;))</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>VOI Status (Classic)</label>
+    <required>false</required>
+    <securityClassification>Restricted</securityClassification>
+    <trackHistory>false</trackHistory>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

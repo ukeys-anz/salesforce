@@ -20,12 +20,12 @@ public with sharing virtual class AccountClosureService extends Service {
     headers.put('x-correlation-id', CommonUtil.generateUUID());
     headers.put('Content-Type', 'application/json');
     Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    return calloutService.makeRestCallout(
-      Label.MS_Initiate_Account_Closure,
-      HTTP_METHOD.HTTP_GET,
-      headers,
-      JSON.serialize(accountDetailsForPrechecks),
-      120000
-    );
+    Lib_HttpCallout.RESTCalloutWrapper restWrapper = new Lib_HttpCallout.RESTCalloutWrapper();
+    restWrapper.endpoint = Label.MS_Initiate_Account_Closure;
+    restWrapper.method = HTTP_METHOD.HTTP_GET;
+    restWrapper.headers = headers;
+    restWrapper.requestBody = JSON.serialize(accountDetailsForPrechecks);
+    restWrapper.timeout = 35000;
+    return calloutService.makeRestCallout(restWrapper);
   }
 }

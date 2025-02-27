@@ -70,4 +70,14 @@ public with sharing class CaseInputWrapper {
    */
   @AuraEnabled
   public String businessProcessId { get; set; }
+  /**
+   * @description status code of the failure Case
+   */
+  @AuraEnabled
+  public String code { get; set; }
+  /**
+   * @description message of the failure case
+   */
+  @AuraEnabled
+  public String message { get; set; }
 }

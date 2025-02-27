@@ -108,7 +108,7 @@ export default class LegalNameDocuments extends LightningElement {
       {
         title: "Selfies",
         size: 10,
-        files: [{ fileType: "DAON_FILE_TYPE_SELFIE" }]
+        files: [{ fileType: "DAON_FILE_TYPE_SELFIE_ENROLLED" }]
       }
     ];
   }

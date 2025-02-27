@@ -18,6 +18,22 @@
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
         <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Residential_Loan_Application_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Residential_Loan_Application_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
+        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -43,6 +59,24 @@
         <pageOrSobjectType>ResidentialLoanApplication</pageOrSobjectType>
         <type>Flexipage</type>
         <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Broker_Details_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Contact</pageOrSobjectType>
+        <recordType>Contact.Broker</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Broker_Details_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Contact</pageOrSobjectType>
+        <recordType>Contact.Broker</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
@@ -68,7 +102,15 @@
         <formFactor>Large</formFactor>
         <pageOrSobjectType>standard-home</pageOrSobjectType>
         <type>Flexipage</type>
-        <profile>ANZ Standard User</profile>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>Tab</actionName>
+        <content>Home_Page_Default</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>standard-home</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>Tab</actionName>
@@ -103,6 +145,24 @@
         <pageOrSobjectType>Case</pageOrSobjectType>
         <recordType>Case.Credit_Referral</recordType>
         <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Credit_Referral</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Credit_Referral</recordType>
+        <type>Flexipage</type>
+        <profile>ANZx Standard Automation User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Credit_Referral</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Credit_Referral</recordType>
+        <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
     </profileActionOverrides>
     <profileActionOverrides>
@@ -113,6 +173,24 @@
         <recordType>Case.Credit_Referral</recordType>
         <type>Flexipage</type>
         <profile>ANZx Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Credit_Referral</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Credit_Referral</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Credit_Referral</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Case</pageOrSobjectType>
+        <recordType>Case.Credit_Referral</recordType>
+        <type>Flexipage</type>
+        <profile>Admin</profile>
     </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
