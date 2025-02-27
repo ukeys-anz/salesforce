@@ -5,7 +5,6 @@ import getOffsetHomeLoanAccount from "@salesforce/apex/HomeLoanController.getLis
 import { getRecord } from "lightning/uiRecordApi";
 const accountData = require("./data/accountData.json");
 const getWiredRecord = require("./data/getWiredData.json");
-const Offset_Data = require("./data/mock_viewOffset.json");
 
 global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));
 
@@ -42,7 +41,6 @@ describe("c-person-account-financial-details", () => {
 
   it("tests the components are displayed", async () => {
     getFinancialAccountFabric.mockResolvedValue(accountData);
-    getOffsetHomeLoanAccount.mockResolvedValue(Offset_Data);
     const element = createElement("c-person-account-financial-details", {
       is: PersonAccountFinancialDetails
     });
