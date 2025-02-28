@@ -6,9 +6,12 @@
 @isTest
 public with sharing class AccountBucketsControllerTest {
   static Lib_MockProvider finAccRepoMock;
+  static Lib_MockProvider userMock;
 
   static void registerMocks() {
     finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
   }
 
   /**
@@ -23,21 +26,19 @@ public with sharing class AccountBucketsControllerTest {
    */
   @isTest
   public static void validResponseOnFinancialRecord() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
-        '123',
-        7,
-        '',
-        '111111111'
-      );
-      Assert.isTrue(
-        response.account_buckets.size() == 7,
-        'Response account buckets size should be as expected.'
-      );
-      Test.stopTest();
-    }
+    registerMocks();
+    Test.startTest();
+    AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
+      '123',
+      7,
+      '',
+      '111111111'
+    );
+    Assert.isTrue(
+      response.account_buckets.size() == 7,
+      'Response account buckets size should be as expected.'
+    );
+    Test.stopTest();
   }
 
   /**
@@ -54,21 +55,18 @@ public with sharing class AccountBucketsControllerTest {
       'mapProductCodeToFinAccountConfiguration',
       mockMetaDataRecord()
     );
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
-        '123',
-        7,
-        '',
-        ''
-      );
-      Assert.isTrue(
-        response.account_buckets.size() == 7,
-        'Response account buckets size should be as expected.'
-      );
-      Test.stopTest();
-    }
+    Test.startTest();
+    AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
+      '123',
+      7,
+      '',
+      ''
+    );
+    Assert.isTrue(
+      response.account_buckets.size() == 7,
+      'Response account buckets size should be as expected.'
+    );
+    Test.stopTest();
   }
 
   private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {

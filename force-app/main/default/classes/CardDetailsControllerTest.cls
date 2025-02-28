@@ -12,7 +12,7 @@ public with sharing class CardDetailsControllerTest {
   @testSetup
   public static void setup() {
     TestUtil.addPermissionSets(
-      new List<String>{ 'View_Card_Details', 'View_Card_Number' }
+      new List<String>{ 'View_Card_Details', 'View_Card_Number' , 'Accounts_Goals_Read_Only' }
     );
   }
   /**

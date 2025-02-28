@@ -12,9 +12,12 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   private static Integer mockedCardsSize = 18;
 
   static Lib_MockProvider finAccRepoMock;
+  static Lib_MockProvider userMock;
 
   static void registerMocks() {
     finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
   }
 
   /**
@@ -26,7 +29,8 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
       new List<String>{
         'Accounts_Goals_Read_Only',
         'View_Card_Details',
-        'View_Transaction_History'
+        'View_Transaction_History',
+        'Product_Read_Only'
       }
     );
   }
@@ -383,18 +387,15 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void accountBucketsValidResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-      AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '','');
-      Test.stopTest();
+    Test.startTest();
+    CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+    AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '','');
+    Test.stopTest();
 
-      Assert.isTrue(
-        response.account_buckets.size() == 7,
-        'Response account buckets size should be as expected.'
-      );
-    }
+    Assert.isTrue(
+      response.account_buckets.size() == 7,
+      'Response account buckets size should be as expected.'
+    );
   }
 
   /**
@@ -402,27 +403,24 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void accountBucketsInvalidResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      AccountBucketsModel accountBucketsModel;
-      HttpCalloutResponse res = getAccountBucketsInvalidResponse();
-      Service serviceInstance = ServiceProvider.getService(FabricService.class);
-      serviceInstance.setCalloutResponse(res);
-      Exception resultException;
-      Test.startTest();
-      CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-      try {
-        accountBucketsModel = coachAPI.getAccountBuckets('1111', 4, '','');
-      } catch (Exception e) {
-        resultException = e;
-      }
-      Test.stopTest();
-      Assert.areEqual(
-        'Get account buckets failed',
-        resultException.getMessage(),
-        'Error message should be as expected.'
-      );
+    AccountBucketsModel accountBucketsModel;
+    HttpCalloutResponse res = getAccountBucketsInvalidResponse();
+    Service serviceInstance = ServiceProvider.getService(FabricService.class);
+    serviceInstance.setCalloutResponse(res);
+    Exception resultException;
+    Test.startTest();
+    CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
+    try {
+      accountBucketsModel = coachAPI.getAccountBuckets('1111', 4, '','');
+    } catch (Exception e) {
+      resultException = e;
     }
+    Test.stopTest();
+    Assert.areEqual(
+      'Get account buckets failed',
+      resultException.getMessage(),
+      'Error message should be as expected.'
+    );
   }
 
   /**
