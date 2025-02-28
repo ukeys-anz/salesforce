@@ -15,12 +15,13 @@ public class FinancialAccountModelV1Test {
     FinancialAccountModel obj = FinancialAccountModelV1.parse(
       sr.body.toString()
     );
-    System.assert(
-      obj.account_list.size() == 2,
+    Assert.areEqual(
+      obj.account_list.size(),
+      3,
       'The Account list size should be as expected.'
     );
 
-    System.assertEquals(
+    Assert.areEqual(
       '000000000',
       obj.account_list[1].account_number,
       'Account number should be as expected.'
