@@ -26,27 +26,26 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     List<String> accountNumbers
   ) {
     UnifiedFinancialAccountModel result;
-    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
-      Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getFinancialAccounts(
-        ocvId,
-        accountNumbers
-      );
-      if (response.successful) {
-        try {
-          result = UnifiedFinancialAccountModel.parse(response.body);
-        } catch (Exception e) {
-          handleErrors(null, e, CoachBankingAPIRepository.class);
-        }
-      } else {
-        handleErrors(response, null, CoachBankingAPIRepository.class);
-      }
-    } else {
+    if (USER_INFO.checkPermission('ANZx_Accounts_and_Goals') == false) {
       handleErrorAsInfo(
         null,
         new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
         CoachBankingAPIRepository.class
       );
+    }
+    Service s = ServiceProvider.getService(FabricService.class);
+    HttpCalloutResponse response = s.getFinancialAccounts(
+      ocvId,
+      accountNumbers
+    );
+    if (response.successful) {
+      try {
+        result = UnifiedFinancialAccountModel.parse(response.body);
+      } catch (Exception e) {
+        handleErrors(null, e, CoachBankingAPIRepository.class);
+      }
+    } else {
+      handleErrors(response, null, CoachBankingAPIRepository.class);
     }
     return result;
   }
@@ -273,7 +272,10 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       accountNumber
     );
 
-    HttpCalloutResponse response = serviceInstance.getAccountBuckets(ocvId, paramUrl);
+    HttpCalloutResponse response = serviceInstance.getAccountBuckets(
+      ocvId,
+      paramUrl
+    );
     if (!response.successful) {
       throw CommonUtil.logException(response);
     }
