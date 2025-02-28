@@ -16,7 +16,7 @@ public class FinancialAccountModelV1Test {
       sr.body.toString()
     );
     System.assert(
-      obj.account_list.size() == 2,
+      obj.account_list.size() == 3,
       'The Account list size should be as expected.'
     );
 
