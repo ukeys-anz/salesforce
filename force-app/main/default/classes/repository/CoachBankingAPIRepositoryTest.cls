@@ -387,6 +387,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void accountBucketsValidResponse() {
+    registerMocks();
     Test.startTest();
     CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
     AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '','');
@@ -403,6 +404,7 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
    */
   @isTest
   static void accountBucketsInvalidResponse() {
+    registerMocks();
     AccountBucketsModel accountBucketsModel;
     HttpCalloutResponse res = getAccountBucketsInvalidResponse();
     Service serviceInstance = ServiceProvider.getService(FabricService.class);
