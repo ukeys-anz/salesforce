@@ -18,27 +18,44 @@ public with sharing class FinancialAccountControllerTest {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
+  /**
+   * @description Add required PermissionSet
+   */
+  @testSetup
+  public static void setup() {
+    TestUtil.addPermissionSets(
+      new List<String>{
+        'Accounts_Goals_Read_Only',
+        'View_Card_Details',
+        'View_Transaction_History'
+      }
+    );
+  }
+
   @isTest
   public static void testGetFinancialAccountFabricPositive() {
-    registerMocks();
-    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      registerMocks();
+      finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
 
-    finAccRepoMock.mock(
-      'mapProductCodeToFinAccounDetails',
-      mockMetadataRecords()
-    );
+      finAccRepoMock.mock(
+        'mapProductCodeToFinAccounDetails',
+        mockMetadataRecords()
+      );
 
-    Test.startTest();
-    Map<String, Object> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
-      '12345',
-      null
-    );
-    Test.stopTest();
+      Test.startTest();
+      Map<String, Object> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+        '12345',
+        null
+      );
+      Test.stopTest();
 
-    Assert.isNotNull(
-      processedfinancialAccounts.get('groupedAccounts'),
-      'Financial Accounts are grouped and sorted'
-    );
+      Assert.isNotNull(
+        processedfinancialAccounts.get('groupedAccounts'),
+        'Financial Accounts are grouped and sorted'
+      );
+    }
   }
 
   @isTest
