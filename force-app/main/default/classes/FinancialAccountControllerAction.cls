@@ -8,19 +8,88 @@ public with sharing class FinancialAccountControllerAction {
   private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
     FinancialAccountRepository.class
   );
+  private static final Integer DEFAULT_SORT_ORDER = 999;
 
   /**
-   * @description Groups financial accounts based on product code .
+   * @description Groups financial accounts based on product code and sort the financial accounts
    * @param finAccounts list of financial accounts received from fabric or database.
    * @return map of product code and list of financial accounts associated with that product code.
    */
-  public static Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupByProductCode(
+  public static List<Map<String, Object>> processFinancialAccounts(
     List<UnifiedFinancialAccountModel.AccountList> finAccounts
+  ) {
+    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+    Map<String, Boolean> productCodeExistsMap = new Map<String, Boolean>();
+    Map<String, Integer> tileSortOrderMap = new Map<String, Integer>();
+    Map<String, Map<String, Integer>> ownershipSortOrderMap = new Map<String, Map<String, Integer>>();
+
+    processUIConfigurations(uiConfigMap, productCodeExistsMap);
+    fetchSortingRules(uiConfigMap, tileSortOrderMap, ownershipSortOrderMap);
+
+    Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = groupAccounts(
+      finAccounts,
+      uiConfigMap
+    );
+
+    return sortAndFormatResponse(
+      groupedAccount,
+      tileSortOrderMap,
+      ownershipSortOrderMap,
+      uiConfigMap
+    );
+  }
+
+  private static void processUIConfigurations(
+    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap,
+    Map<String, Boolean> productCodeExistsMap
+  ) {
+    List<FinancialAccountUIConfiguration__mdt> uiConfigDetails = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+
+    for (FinancialAccountUIConfiguration__mdt config : uiConfigDetails) {
+      productCodeExistsMap.put(config.Product_Code__c, true);
+
+      if (config.Is_Active__c == true) {
+        uiConfigMap.put(config.Product_Code__c, config);
+      }
+    }
+  }
+
+  private static void fetchSortingRules(
+    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap,
+    Map<String, Integer> tileSortOrderMap,
+    Map<String, Map<String, Integer>> ownershipSortOrderMap
+  ) {
+    for (FinancialAccountUIConfiguration__mdt config : uiConfigMap.values()) {
+      tileSortOrderMap.put(
+        config.Product_Code__c,
+        config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER
+      );
+
+      if (!ownershipSortOrderMap.containsKey(config.Product_Code__c)) {
+        ownershipSortOrderMap.put(
+          config.Product_Code__c,
+          new Map<String, Integer>()
+        );
+      }
+      ownershipSortOrderMap.get(config.Product_Code__c)
+        .put(
+          config.Ownership_Type__c,
+          config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER
+        );
+    }
+  }
+
+  private static Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupAccounts(
+    List<UnifiedFinancialAccountModel.AccountList> finAccounts,
+    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap
   ) {
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
 
-    for (UnifiedFinancialAccountModel.AccountList finAccount : finAccounts) {
-      String productCode = finAccount.product_details.marketing_code;
+    for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
+      String productCode = account.product_details.marketing_code;
+      FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
+        productCode
+      );
 
       if (!groupedAccounts.containsKey(productCode)) {
         groupedAccounts.put(
@@ -28,168 +97,77 @@ public with sharing class FinancialAccountControllerAction {
           new List<UnifiedFinancialAccountModel.AccountList>()
         );
       }
-      groupedAccounts.get(productCode).add(finAccount);
+
+      groupedAccounts.get(productCode).add(account);
     }
 
     return groupedAccounts;
   }
 
-  /**
-   * @description update financial accounts with metata values and sort the records on tile / account level
-   * @param groupedAccounts map of product code and list of financial accounts associated with that product code.
-   * @return  updated financial accounts with metadata values and sorted based on sort order
-   */
-  public static Map<String, Object> processFinAccountUIConfiAndBuildResponse(
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts
-  ) {
-    Map<String, FinancialAccountUIConfiguration__mdt> finAccountUIConfigMap = FINANCIAL_ACCOUNT_REPOSITORY.mapProductCodeToFinAccounDetails();
-    Map<String, Integer> productTileSortOrderMap = new Map<String, Integer>();
-    Map<String, Map<String, Integer>> productOwnershipOrderMap = new Map<String, Map<String, Integer>>();
-
-    determineSortOrder(
-      productTileSortOrderMap,
-      productOwnershipOrderMap,
-      finAccountUIConfigMap.values()
-    );
-
-    List<Map<String, Object>> sortedGroups = buildSortedGroups(
-      groupedAccounts,
-      productTileSortOrderMap,
-      productOwnershipOrderMap,
-      finAccountUIConfigMap
-    );
-
-    sortedGroups.sort(new TileComparator());
-
-    return new Map<String, Object>{ 'groupedAccounts' => sortedGroups };
-  }
-
-  private static void determineSortOrder(
-    Map<String, Integer> productTileSortOrderMap,
-    Map<String, Map<String, Integer>> productOwnershipOrderMap,
-    List<FinancialAccountUIConfiguration__mdt> finAccountUIConfigRecords
-  ) {
-    for (
-      FinancialAccountUIConfiguration__mdt finAccountUIConfigRecord : finAccountUIConfigRecords
-    ) {
-      String prodCode = finAccountUIConfigRecord.Product_Code__c;
-
-      Integer sortOrder = (finAccountUIConfigRecord.Sort_Order__c != null)
-        ? finAccountUIConfigRecord.Sort_Order__c.intValue()
-        : 999;
-
-      if (
-        !productTileSortOrderMap.containsKey(prodCode) ||
-        sortOrder < productTileSortOrderMap.get(prodCode)
-      ) {
-        productTileSortOrderMap.put(prodCode, sortOrder);
-      }
-
-      if (!productOwnershipOrderMap.containsKey(prodCode)) {
-        productOwnershipOrderMap.put(prodCode, new Map<String, Integer>());
-      }
-      productOwnershipOrderMap.get(prodCode)
-        .put(finAccountUIConfigRecord.Ownership_Type__c, sortOrder);
-    }
-  }
-
-  @TestVisible
-  private static List<Map<String, Object>> buildSortedGroups(
+  private static List<Map<String, Object>> sortAndFormatResponse(
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts,
-    Map<String, Integer> productTileSortOrderMap,
-    Map<String, Map<String, Integer>> productOwnershipOrderMap,
-    Map<String, FinancialAccountUIConfiguration__mdt> finAccountUIConfigMap
+    Map<String, Integer> tileSortOrderMap,
+    Map<String, Map<String, Integer>> ownershipSortOrderMap,
+    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap
   ) {
     List<Map<String, Object>> sortedGroups = new List<Map<String, Object>>();
 
-    for (String prodCode : groupedAccounts.keySet()) {
-      Integer tileSortOrder = productTileSortOrderMap.containsKey(prodCode)
-        ? productTileSortOrderMap.get(prodCode)
-        : 999;
+    for (String productCode : groupedAccounts.keySet()) {
+      FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
+        productCode
+      );
+
+      Integer tileSortOrder = tileSortOrderMap.containsKey(productCode)
+        ? tileSortOrderMap.get(productCode)
+        : DEFAULT_SORT_ORDER;
       List<UnifiedFinancialAccountModel.AccountList> accounts = groupedAccounts.get(
-        prodCode
+        productCode
       );
+
       accounts.sort(
-        new CompositeComparator(
-          prodCode,
+        new compositeComparator(
+          productCode,
           tileSortOrder,
-          productOwnershipOrderMap
+          ownershipSortOrderMap
         )
       );
 
-      FinancialAccountUIConfiguration__mdt finAccountUIConfigRecord = finAccountUIConfigMap.containsKey(
-          prodCode
-        )
-        ? finAccountUIConfigMap.get(prodCode)
-        : null;
-
-      Map<String, Object> groupData = populateFinAccountNodesFromUIConfig(
-        prodCode,
-        tileSortOrder,
-        finAccountUIConfigRecord,
-        accounts
+      sortedGroups.add(
+        prepareUIResponse(productCode, tileSortOrder, uiConfig, accounts)
       );
-      sortedGroups.add(groupData);
     }
+
+    sortedGroups.sort(new TileComparator());
     return sortedGroups;
   }
 
-  private static Map<String, Object> populateFinAccountNodesFromUIConfig(
-    String prodCode,
+  private static Map<String, Object> prepareUIResponse(
+    String productCode,
     Integer tileSortOrder,
-    FinancialAccountUIConfiguration__mdt finAccountUIConfigRecord,
+    FinancialAccountUIConfiguration__mdt uiConfig,
     List<UnifiedFinancialAccountModel.AccountList> accounts
   ) {
-    Map<String, Object> financialAccountNodeMap = new Map<String, Object>();
-    financialAccountNodeMap.put('productCode', prodCode);
-    financialAccountNodeMap.put('sortOrder', tileSortOrder);
-    financialAccountNodeMap.put(
-      'accountType',
-      finAccountUIConfigRecord != null
-        ? finAccountUIConfigRecord.Account_Type__c
-        : 'Non Savings'
-    );
-    financialAccountNodeMap.put('accounts', accounts);
-    financialAccountNodeMap.put(
-      'balanceTitle',
-      finAccountUIConfigRecord != null
-        ? finAccountUIConfigRecord.Balance_Title__c
-        : ''
-    );
-    financialAccountNodeMap.put(
-      'productNameTitle',
-      finAccountUIConfigRecord != null
-        ? finAccountUIConfigRecord.Product_Name__c
-        : ''
-    );
-    financialAccountNodeMap.put(
-      'sectionHeaderTitle',
-      finAccountUIConfigRecord != null
-        ? finAccountUIConfigRecord.Section_Header_Title__c
-        : ''
-    );
-    financialAccountNodeMap.put(
-      'isSaving',
-      finAccountUIConfigRecord != null
-        ? (finAccountUIConfigRecord.Account_Type__c == 'Savings') ? true : false
-        : false
-    );
-    financialAccountNodeMap.put(
-      'isOthers',
-      finAccountUIConfigRecord != null
-        ? (finAccountUIConfigRecord.Account_Type__c == 'Savings' ||
-            finAccountUIConfigRecord.Account_Type__c == 'Loan')
-            ? false
-            : true
-        : true
-    );
-    financialAccountNodeMap.put(
-      'isHomeLoan',
-      finAccountUIConfigRecord != null
-        ? finAccountUIConfigRecord.Account_Type__c == 'Loan' ? true : false
-        : false
-    );
-    return financialAccountNodeMap;
+    return new Map<String, Object>{
+      'productCode' => productCode,
+      'sortOrder' => tileSortOrder,
+      'accountType' => uiConfig != null
+        ? uiConfig.Account_Type__c
+        : 'Non Savings',
+      'balanceTitle' => uiConfig != null ? uiConfig.Balance_Title__c : '',
+      'productNameTitle' => uiConfig != null ? uiConfig.Product_Name__c : '',
+      'balanceTitle' => uiConfig != null ? uiConfig.Balance_Title__c : '',
+      'sectionHeaderTitle' => uiConfig != null
+        ? uiConfig.Section_Header_Title__c
+        : '',
+      'accounts' => accounts,
+      'isSaving' => uiConfig != null &&
+      uiConfig.Account_Type__c == 'Savings',
+      'isOthers' => uiConfig != null &&
+      !(uiConfig.Account_Type__c == 'Savings' ||
+      uiConfig.Account_Type__c == 'Loan'),
+      'isHomeLoan' => uiConfig != null &&
+      uiConfig.Account_Type__c == 'Loan'
+    };
   }
 
   private class CompositeComparator implements System.Comparator<UnifiedFinancialAccountModel.AccountList> {

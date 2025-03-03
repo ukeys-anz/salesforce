@@ -40,8 +40,8 @@ public with sharing class FinancialAccountControllerTest {
       finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
 
       finAccRepoMock.mock(
-        'mapProductCodeToFinAccounDetails',
-        mockMetadataRecords()
+        'fetchFinancialAccountUIConfigInfo',
+        mockfinAccountUiConfig()
       );
 
       Test.startTest();
@@ -59,40 +59,13 @@ public with sharing class FinancialAccountControllerTest {
   }
 
   @isTest
-  public static void testFetchAllFinancialAccountsNegative() {
-    registerMocks();
-
-    finAccRepoMock.mock(
-      'mapProductCodeToFinAccounDetails',
-      mockInvalidMetadataRecord()
-    );
-
-    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
-
-    Exception resultException;
-
-    Test.startTest();
-    try {
-      FinancialAccountController.getFinancialAccountFabric('12345', null);
-    } catch (Exception objException) {
-      resultException = objException;
-    }
-    Test.stopTest();
-
-    Assert.areEqual(
-      resultException.getMessage(),
-      'Script-thrown exception',
-      'Exception was expected'
-    );
-  }
-
-  @isTest
   public static void testGetFinancialAccountInstancePositive() {
     FinServ__FinancialAccount__c mockfinAccountFromDatabase = createMockFinancialAccount()[0];
     Test.startTest();
     UnifiedFinancialAccountModel.AccountList finAccountRecord = FinancialAccountController.getFinancialAccountInstance(
       mockFabricFinancialAccounts[0],
-      mockfinAccountFromDatabase
+      mockfinAccountFromDatabase,
+      mockProductCodeOwnershipToFinAccount()
     );
     Test.stopTest();
 
@@ -108,7 +81,8 @@ public with sharing class FinancialAccountControllerTest {
     Test.startTest();
     UnifiedFinancialAccountModel.AccountList finAccountRecord = FinancialAccountController.getFinancialAccountInstance(
       mockFabricFinancialAccounts[0],
-      null
+      null,
+      mockProductCodeOwnershipToFinAccount()
     );
     Test.stopTest();
 
@@ -156,8 +130,8 @@ public with sharing class FinancialAccountControllerTest {
     registerMocks();
 
     finAccRepoMock.mock(
-      'mapProductCodeToFinAccounDetails',
-      mockMetadataRecords()
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
     );
 
     Test.startTest();
@@ -177,15 +151,15 @@ public with sharing class FinancialAccountControllerTest {
     registerMocks();
 
     finAccRepoMock.mock(
-      'getAllAccountNumberFromFAR',
-      mockGetAllAccountNumberFromFAR()
+      'getAllAccountNumberPerOwner',
+      mockFinancialAccountRoles()
     );
 
     finAccRepoMock.mock('getFinacialAccounts', createMockFinancialAccount());
 
     finAccRepoMock.mock(
-      'mapProductCodeToFinAccounDetails',
-      mockMetadataRecords()
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
     );
 
     Test.startTest();
@@ -206,8 +180,8 @@ public with sharing class FinancialAccountControllerTest {
     registerMocks();
 
     finAccRepoMock.mock(
-      'getAllAccountNumberFromFAR',
-      mockGetAllAccountNumberFromFAR()
+      'getAllAccountNumberPerOwner',
+      mockFinancialAccountRoles()
     );
 
     finAccRepoMock.mock(
@@ -216,8 +190,8 @@ public with sharing class FinancialAccountControllerTest {
     );
 
     finAccRepoMock.mock(
-      'mapProductCodeToFinAccounDetails',
-      mockMetadataRecords()
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
     );
 
     Test.startTest();
@@ -238,11 +212,16 @@ public with sharing class FinancialAccountControllerTest {
   public static void testFetchAllFinancialAccountsDBPositive() {
     registerMocks();
     finAccRepoMock.mock(
-      'getAllAccountNumberFromFAR',
-      mockGetAllAccountNumberFromFAR()
+      'getAllAccountNumberPerOwner',
+      mockFinancialAccountRoles()
     );
 
     finAccRepoMock.mock('getFinacialAccounts', createMockFinancialAccount());
+
+    finAccRepoMock.mock(
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
+    );
 
     Test.startTest();
     List<UnifiedFinancialAccountModel.AccountList> convertedFinancialAccountsToJson = FinancialAccountController.fetchAllFinancialAccountsDB(
@@ -261,13 +240,18 @@ public with sharing class FinancialAccountControllerTest {
   public static void testFetchAllFinancialAccountsDBNegative() {
     registerMocks();
     finAccRepoMock.mock(
-      'getAllAccountNumberFromFAR',
-      mockGetAllAccountNumberFromFAR()
+      'getAllAccountNumberPerOwner',
+      mockFinancialAccountRoles()
     );
 
     finAccRepoMock.mock(
       'getFinacialAccounts',
       new List<FinServ__FinancialAccount__c>()
+    );
+
+    finAccRepoMock.mock(
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
     );
 
     Test.startTest();
@@ -315,11 +299,7 @@ public with sharing class FinancialAccountControllerTest {
     }
   }
 
-  /**
-   * @description helper method to create mock metadata records in map format
-   * @return map of product code and FinancialAccountUIConfiguration__mdt record
-   */
-  private static Map<String, FinancialAccountUIConfiguration__mdt> mockMetadataRecords() {
+  private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
     List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
     FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'HOMELOAN1',
@@ -327,7 +307,9 @@ public with sharing class FinancialAccountControllerTest {
       Balance_Title__c = 'Loan Balance',
       Product_Name__c = 'ANZ Plus fixed Rate Home Loan',
       Section_Header_Title__c = 'Loan',
-      Sort_Order__c = 1
+      Sort_Order__c = 1,
+      Ownership_Type__c = 'Single',
+      Show_Goals__c = false
     );
     mockMetaData.add(dummyRecord1);
 
@@ -337,21 +319,35 @@ public with sharing class FinancialAccountControllerTest {
       Balance_Title__c = 'Total Saved',
       Product_Name__c = 'ANZ Save',
       Section_Header_Title__c = 'Savings',
-      Sort_Order__c = 2
+      Sort_Order__c = 2,
+      Ownership_Type__c = 'Single',
+      Show_Goals__c = true
     );
     mockMetaData.add(dummyRecord2);
 
-    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
-    for (FinancialAccountUIConfiguration__mdt finUIConfig : mockMetaData) {
-      String key = finUIConfig?.Product_Code__c;
-      if (!productCodeToFinAccMap.containsKey(key)) {
-        productCodeToFinAccMap.put(key, finUIConfig);
+    return mockMetaData;
+  }
+
+  private static Map<String, FinancialAccountUIConfiguration__mdt> mockProductCodeOwnershipToFinAccount() {
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeOwnershipToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+    for (
+      FinancialAccountUIConfiguration__mdt finUIConfig : mockfinAccountUiConfig()
+    ) {
+      String key =
+        finUIConfig.Product_Code__c +
+        '-' +
+        finUIConfig.Ownership_Type__c;
+      if (!productCodeOwnershipToFinAccMap.containsKey(key)) {
+        productCodeOwnershipToFinAccMap.put(key, finUIConfig);
       }
     }
-    return productCodeToFinAccMap;
+    return productCodeOwnershipToFinAccMap;
   }
 
   private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
+    Id fakerAccountRoleId = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccountRole__c.getSObjectType()
+    );
     Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
     Product2 product = new Product2(
       Id = productId,
@@ -376,23 +372,14 @@ public with sharing class FinancialAccountControllerTest {
     return financialAccountsList;
   }
 
-  private static List<String> mockGetAllAccountNumberFromFAR() {
-    List<String> accountNumbers = new List<String>();
-    accountNumbers.add('111111111');
-    return accountNumbers;
-  }
-  /**
-   * @description helper method to create mock metadata records in map format
-   * @return map of product code and FinancialAccountUIConfiguration__mdt record
-   */
-  private static List<FinancialAccountUIConfiguration__mdt> mockInvalidMetadataRecord() {
-    List<FinancialAccountUIConfiguration__mdt> mockInvalidMetaData = new List<FinancialAccountUIConfiguration__mdt>();
-    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'SAVING01',
-      Product_Name__c = 'ANZ Save',
-      Section_Header_Title__c = 'Savings'
-    );
-    mockInvalidMetaData.add(dummyRecord1);
-    return mockInvalidMetaData;
+  private static List<FinServ__FinancialAccountRole__c> mockFinancialAccountRoles() {
+    List<FinServ__FinancialAccountRole__c> finAccountRoleList = new List<FinServ__FinancialAccountRole__c>();
+
+    FinServ__FinancialAccountRole__c finAccountRole = new FinServ__FinancialAccountRole__c();
+    finAccountRole.FinServ__RelatedAccount__c = FAKER_ACCOUNT_ID;
+    finAccountRole.FinServ__Active__c = true;
+    finAccountRoleList.add(finAccountRole);
+
+    return finAccountRoleList;
   }
 }

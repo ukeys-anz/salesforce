@@ -14,22 +14,23 @@ public with sharing class FinancialAccountController {
   );
   public static final String MISSING_FIN_ACCOUNT = 'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator';
   public static final String FAILED_FIN_ACCOUNT_UPDATE = 'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator';
+  private static final Integer DEFAULT_SORT_ORDER = 999;
 
   //Map of fabric statuses and user friendly names to map them to
   private static final Map<String, String> FABRIC_STATUSES = new Map<String, String>{
     //State Mapping for v1
-    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
-    'ACCOUNT_STATE_OPEN' => 'Open', // the account is open
-    'ACCOUNT_STATE_ACTIVE' => 'Active', // the account is active
-    'ACCOUNT_STATE_SUSPENDED' => 'Suspended', // the account is suspended
-    'ACCOUNT_STATE_DORMANT' => 'Dormant', // the account is dormant
-    'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
+    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified',
+    'ACCOUNT_STATE_OPEN' => 'Open',
+    'ACCOUNT_STATE_ACTIVE' => 'Active',
+    'ACCOUNT_STATE_SUSPENDED' => 'Suspended',
+    'ACCOUNT_STATE_DORMANT' => 'Dormant',
+    'ACCOUNT_STATE_CLOSED' => 'Closed'
   };
 
   //Map of fabric ownership and user friendly names to map them to
   private static final Map<String, String> FABRIC_OWNERSHIP = new Map<String, String>{
-    'OWNERSHIP_TYPE_MULTIPARTY' => 'Multi-party', // its a joint account
-    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single' // its an individual account
+    'OWNERSHIP_TYPE_MULTIPARTY' => 'Multi-party',
+    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
 
   /**
@@ -50,20 +51,21 @@ public with sharing class FinancialAccountController {
         accountNumbers
       );
 
-      if (fabricAccountList == null || fabricAccountList.isEmpty()) {
+      if (fabricAccountList.isEmpty()) {
         return new Map<String, Object>();
       }
 
-      DataPartitionUtil.storeH1AccountDetailsCache(
-        ocvId,
-        filterOutNonHomeLoanAccounts(fabricAccountList)
-      );
-      Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = FinancialAccountControllerAction.groupByProductCode(
+      List<UnifiedFinancialAccountModel.AccountList> homeloanaccounts = filterOutNonHomeLoanAccounts(
         fabricAccountList
       );
-      return FinancialAccountControllerAction.processFinAccountUIConfiAndBuildResponse(
-        groupedAccounts
+
+      DataPartitionUtil.storeH1AccountDetailsCache(ocvId, homeloanaccounts);
+
+      List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+        fabricAccountList
       );
+
+      return new Map<String, Object>{ 'groupedAccounts' => processedAccounts };
     } catch (DmlException dmlExp) {
       throw CommonUtil.logAuraException(FAILED_FIN_ACCOUNT_UPDATE);
     } catch (Exception e) {
@@ -84,10 +86,6 @@ public with sharing class FinancialAccountController {
     String ocvId,
     List<String> accountNumbers
   ) {
-    List<UnifiedFinancialAccountModel.AccountList> processedFinancialAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
-    List<FinServ__FinancialAccount__c> financialAccountsToUpdate = new List<FinServ__FinancialAccount__c>();
-    Set<String> financialAccountNumbers = new Set<String>();
-
     CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
     UnifiedFinancialAccountModel result = coachapi.getAccounts(
       ocvId,
@@ -97,6 +95,7 @@ public with sharing class FinancialAccountController {
       return new List<UnifiedFinancialAccountModel.AccountList>();
     }
 
+    Set<String> financialAccountNumbers = new Set<String>();
     for (
       UnifiedFinancialAccountModel.AccountList finAccount : result.accounts
     ) {
@@ -106,11 +105,19 @@ public with sharing class FinancialAccountController {
     List<FinServ__FinancialAccount__c> financialAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getFinAccountList(
       new List<String>(financialAccountNumbers)
     );
-
     Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = (Map<String, FinServ__FinancialAccount__c>) ListUtil.mapBy(
       financialAccountList,
       FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
     );
+
+    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+    Map<String, FinancialAccountUIConfiguration__mdt> financialAccountConfigMap = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
+      financialAccountConfigRecords,
+      FinancialAccountUIConfiguration__mdt.DeveloperName
+    );
+
+    List<UnifiedFinancialAccountModel.AccountList> processedFinancialAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
+    List<FinServ__FinancialAccount__c> financialAccountsToUpdate = new List<FinServ__FinancialAccount__c>();
 
     for (
       UnifiedFinancialAccountModel.AccountList finAccount : result.accounts
@@ -120,7 +127,8 @@ public with sharing class FinancialAccountController {
       );
       UnifiedFinancialAccountModel.AccountList finAccountRecord = getFinancialAccountInstance(
         finAccount,
-        finAccountFromDatabase
+        finAccountFromDatabase,
+        financialAccountConfigMap
       );
       processedFinancialAccounts.add(finAccountRecord);
 
@@ -143,18 +151,23 @@ public with sharing class FinancialAccountController {
    * Creates a instance of Financial Account Record to display it on UI
    * @param finAccount Financial Account from Fabric
    * @param finAccountFromDatabase Financial Account from Salesforce Database
+   * @param financialAccountConfigMap map of productcode-ownership as key and financial account ui configurations
    * @return financial account to be displayed on UI
    */
   @TestVisible
   private static UnifiedFinancialAccountModel.AccountList getFinancialAccountInstance(
     UnifiedFinancialAccountModel.AccountList finAccount,
-    FinServ__FinancialAccount__c finAccountFromDatabase
+    FinServ__FinancialAccount__c finAccountFromDatabase,
+    Map<String, FinancialAccountUIConfiguration__mdt> financialAccountConfigMap
   ) {
     finAccount.Id = finAccountFromDatabase?.Id;
-    finAccount.finserv_product_name = finAccountFromDatabase != null
-      ? (finAccountFromDatabase.FinServ__ProductName__c != null
-          ? finAccountFromDatabase.FinServ__ProductName__c
-          : null)
+    finAccount.finserv_product_name = (finAccountFromDatabase != null &&
+      finAccountFromDatabase.FinServ__ProductName__c != null)
+      ? finAccountFromDatabase.FinServ__ProductName__c
+      : null;
+    finAccount.finserv_product_display_name = (finAccountFromDatabase != null &&
+      finAccountFromDatabase.Product_Name_Display__c != null)
+      ? finAccountFromDatabase.Product_Name_Display__c
       : null;
     finAccount.finserv_opendate = finAccount.open_date == null
       ? null
@@ -166,6 +179,16 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_ownership = finAccountFromDatabase == null
       ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
+    String key =
+      finAccount.product_details.marketing_code +
+      '_' +
+      finAccount.finserv_ownership;
+    finAccount.finserv_sortorder = financialAccountConfigMap.containsKey(key)
+      ? financialAccountConfigMap.get(key).Sort_Order__c
+      : DEFAULT_SORT_ORDER;
+    finAccount.finserv_showgoal = financialAccountConfigMap.containsKey(key)
+      ? financialAccountConfigMap.get(key)?.Show_Goals__c
+      : true;
     return finAccount;
   }
 
@@ -204,7 +227,11 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> filterOutNonHomeLoanAccounts(
     List<UnifiedFinancialAccountModel.AccountList> financialAccountFabric
   ) {
-    Map<String, FinancialAccountUIConfiguration__mdt> mapOfProductCodeWithFinUIConfig = FINANCIAL_ACCOUNT_REPOSITORY.mapProductCodeToFinAccounDetails();
+    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+    Map<String, FinancialAccountUIConfiguration__mdt> mapOfProductCodeWithFinUIConfig = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
+      financialAccountConfigRecords,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
     List<UnifiedFinancialAccountModel.AccountList> homeLoanAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
     for (
       UnifiedFinancialAccountModel.AccountList acc : financialAccountFabric
@@ -260,12 +287,11 @@ public with sharing class FinancialAccountController {
         return new Map<String, Object>();
       }
 
-      Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = FinancialAccountControllerAction.groupByProductCode(
+      List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         combinedFinancialAccountList
       );
-      return FinancialAccountControllerAction.processFinAccountUIConfiAndBuildResponse(
-        groupedAccounts
-      );
+
+      return new Map<String, Object>{ 'groupedAccounts' => processedAccounts };
     } catch (Exception objException) {
       CommonUtil.logException(objException);
       throw new AuraHandledException(MISSING_FIN_ACCOUNT);
@@ -281,15 +307,28 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
     Id ownerId
   ) {
+    List<FinancialAccountUIConfiguration__mdt> listOfFinAccConfig = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+
+    Set<String> marketingCodes = ListUtil.getStrings(
+      listOfFinAccConfig,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
+
     //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
     //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
-    List<String> allRelatedAccountNumbers = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberFromFAR(
-      ownerId
+    List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
+      ownerId,
+      marketingCodes
+    );
+
+    Set<String> allRelatedAccountNumbers = ListUtil.getStrings(
+      allRelatedAccountsRoles,
+      FinServ__FinancialAccountRole__c.Account_Number__c
     );
 
     List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinacialAccounts(
       ownerId,
-      allRelatedAccountNumbers
+      new List<String>(allRelatedAccountNumbers)
     );
 
     if (financialAccount == null || financialAccount.isEmpty()) {

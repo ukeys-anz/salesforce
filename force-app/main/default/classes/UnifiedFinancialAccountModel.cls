@@ -6,7 +6,7 @@
  * ExcessivePublicCount Surpressed : UnifiedFinancialModel to have all the public methods and attributes together.
  */
 @SuppressWarnings(
-  'PMD.ExcessivePublicCount, PMD.VariableNamingConventions, PMD.FieldNamingConventions'
+  'PMD.ExcessivePublicCount, PMD.VariableNamingConventions, PMD.FieldNamingConventions, PMD.TooManyFields'
 )
 public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   @AuraEnabled
@@ -48,6 +48,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     @AuraEnabled
     public String finserv_product_name;
     @AuraEnabled
+    public String finserv_product_display_name;
+    @AuraEnabled
     public Date finserv_opendate;
     @AuraEnabled
     public Date finserv_closedate;
@@ -55,6 +57,10 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public String finserv_status;
     @AuraEnabled
     public String finserv_ownership;
+    @AuraEnabled
+    public Decimal finserv_sortorder;
+    @AuraEnabled
+    public Boolean finserv_showgoal;
     @AuraEnabled
     public String account_number;
     @AuraEnabled

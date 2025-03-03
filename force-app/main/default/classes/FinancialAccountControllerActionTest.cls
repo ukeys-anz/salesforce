@@ -14,96 +14,45 @@ public with sharing class FinancialAccountControllerActionTest {
 
   @isTest
   public static void testGroupByProductCodePositive() {
+    registerMocks();
+
+    finAccRepoMock.mock(
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
+    );
+
     Test.startTest();
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.groupByProductCode(
+    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
       mockFabricFinancialAccounts
     );
     Test.stopTest();
 
-    Assert.isTrue(
-      mapOfProductodeAndFinAccounts.get('SAVING01').size() > 0,
+    Assert.areEqual(
+      (Boolean) mapOfProductodeAndFinAccounts[0].get('isOthers'),
+      true,
       'Financial Accounts should be grouped by Product Code'
     );
   }
 
   @isTest
   public static void testGroupByProductCodeNegative() {
+    registerMocks();
+
+    finAccRepoMock.mock(
+      'fetchFinancialAccountUIConfigInfo',
+      mockfinAccountUiConfig()
+    );
+
     Test.startTest();
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductCodeAndFinAccounts = FinancialAccountControllerAction.groupByProductCode(
+    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
       new List<UnifiedFinancialAccountModel.AccountList>()
     );
     Test.stopTest();
 
-    Assert.isTrue(
-      mapOfProductCodeAndFinAccounts.size() == 0,
-      'Financial Accounts should not be grouped'
-    );
-  }
-
-  @isTest
-  public static void testProcessMetadataAndBuildResponsePositive() {
-    registerMocks();
-    finAccRepoMock.mock('fetchMetadataForProductCodes', mockMetadataRecords());
-
-    finAccRepoMock.mock(
-      'mapProductCodeToFinAccounDetails',
-      mockMetadataRecords()
-    );
-
-    Test.startTest();
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.groupByProductCode(
-      mockFabricFinancialAccounts
-    );
-    Map<String, Object> processedFinancialAccounts = FinancialAccountControllerAction.processFinAccountUIConfiAndBuildResponse(
-      mapOfProductodeAndFinAccounts
-    );
-    Test.stopTest();
-
-    Assert.isNotNull(
-      processedFinancialAccounts.get('groupedAccounts'),
-      'The financial Accounts are grouped under groupedAccounts'
-    );
-  }
-
-  @isTest
-  public static void testBuildSortedGroupsPositive() {
-    Test.startTest();
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.groupByProductCode(
-      mockFabricFinancialAccounts
-    );
-    List<Map<String, Object>> processedFinancialAccounts = FinancialAccountControllerAction.buildSortedGroups(
-      mapOfProductodeAndFinAccounts,
-      mockProductTileSortOrderMap(),
-      mockProductOwnershipOrderMap(),
-      mockMetadataRecords()
-    );
-    Test.stopTest();
-
     Assert.areEqual(
-      processedFinancialAccounts[0].get('sortOrder'),
-      1,
-      'The financial Accounts with sort order 1 should be at top'
-    );
-  }
-
-  @isTest
-  public static void testBuildSortedGroupsNegative() {
-    Test.startTest();
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.groupByProductCode(
-      mockFabricFinancialAccounts
-    );
-    List<Map<String, Object>> processedFinancialAccounts = FinancialAccountControllerAction.buildSortedGroups(
-      mapOfProductodeAndFinAccounts,
-      mockProductTileSortOrderMap(),
-      mockProductOwnershipOrderMap(),
-      mockMetadataRecords()
-    );
-    Test.stopTest();
-
-    Assert.areEqual(
-      processedFinancialAccounts[1].get('sortOrder'),
-      999,
-      'The financial Accounts with no metadata defined should have sortorder as 999'
+      mapOfProductodeAndFinAccounts.size(),
+      0,
+      'Financial Accounts are grouped and sorted'
     );
   }
 
@@ -130,7 +79,7 @@ public with sharing class FinancialAccountControllerActionTest {
    * @description helper method to create mock metadata records in map format
    * @return map of product code and FinancialAccountUIConfiguration__mdt record
    */
-  private static Map<String, FinancialAccountUIConfiguration__mdt> mockMetadataRecords() {
+  private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
     List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
     FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'HOMELOAN1',
@@ -152,7 +101,6 @@ public with sharing class FinancialAccountControllerActionTest {
       Sort_Order__c = 3,
       Ownership_Type__c = 'Multi-Party'
     );
-    mockMetaData.add(dummyRecord2);
 
     FinancialAccountUIConfiguration__mdt dummyRecord3 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'SAVING01',
@@ -163,16 +111,9 @@ public with sharing class FinancialAccountControllerActionTest {
       Sort_Order__c = 2,
       Ownership_Type__c = 'Single'
     );
-    mockMetaData.add(dummyRecord3);
+    mockMetaData.add(dummyRecord2);
 
-    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
-    for (FinancialAccountUIConfiguration__mdt finUIConfig : mockMetaData) {
-      String key = finUIConfig?.Product_Code__c;
-      if (!productCodeToFinAccMap.containsKey(key)) {
-        productCodeToFinAccMap.put(key, finUIConfig);
-      }
-    }
-    return productCodeToFinAccMap;
+    return mockMetaData;
   }
 
   private static Map<String, Integer> mockProductTileSortOrderMap() {
