@@ -3,7 +3,10 @@ import { LightningElement, api, wire } from "lwc";
 import { getRecord } from "lightning/uiRecordApi";
 import { handleErrorShowToast } from "c/utils";
 import { handleGoalThemes } from "c/accountsGoalsUtils";
-import { groupGoalsByAccountNumber } from "./helper/helper-goalsDetails";
+import {
+  groupGoalsByAccountNumber,
+  addFinAccountAndMetaDataToGoals
+} from "./helper/helper-goalsDetails";
 
 /* IMPORT APEX METHODS */
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
@@ -153,12 +156,19 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         accountNumber: ""
       });
 
-      goalData = handleGoalThemes(goalData);
+      //Add additional financial account and meta data details to goals
+      const goalCopy = addFinAccountAndMetaDataToGoals(
+        this.processedAccounts,
+        goalData
+      );
+
+      goalData = handleGoalThemes(goalCopy);
 
       //Remove savings jar as its not displayed on goals component
-      const goalDetailsToShow = goalData.account_buckets.filter((obj) => {
+      const goalDetailsToShow = goalCopy.account_buckets.filter((obj) => {
         return !obj.is_default;
       });
+
       this.goalDetails = groupGoalsByAccountNumber(goalDetailsToShow);
     } catch (error) {
       this.goalError =

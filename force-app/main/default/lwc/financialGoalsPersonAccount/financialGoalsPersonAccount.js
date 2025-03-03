@@ -83,34 +83,43 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
   }
 
   processGoalDetails(goalDetails) {
-    if (this.goalDetails && this.goalDetails.length > 0) {
-      this.hasGoals = true;
-      goalDetails.forEach((record) => {
-        if (record.buckets) {
-          if (record.buckets.length >= this.onLoadGoalDisplayCount) {
-            record.goalsLeftToView = this.pendingGoalssTobeViewed(
-              record.buckets.length
-            );
-            record.buckets = record.buckets.slice(
-              0,
-              this.onLoadGoalDisplayCount
-            );
-            record.viewAll = true;
-          } else {
-            record.viewAll = false;
-          }
-          record.haveGoals = true;
-          record.showMultipartyBadge = record.ownershipType === MULTI_PARTY;
-          record.ownershipType = record.showMultipartyBadge
-            ? JOINT
-            : record.ownershipType;
-        } else {
-          record.haveGoals = false;
-        }
-      });
-    } else {
+    if (!goalDetails || goalDetails.length === 0) {
       this.hasGoals = false;
+      return;
     }
+
+    this.hasGoals = true;
+
+    goalDetails.forEach((record) => {
+      // Check if record has valid buckets and showGoal is true
+      if (!record.buckets || record.showGoal !== true) {
+        record.haveGoals = false;
+        return;
+      }
+
+      // Handle the buckets
+      if (record.buckets.length >= this.onLoadGoalDisplayCount) {
+        record.goalsLeftToView = this.pendingGoalssTobeViewed(
+          record.buckets.length
+        );
+        record.buckets = record.buckets.slice(0, this.onLoadGoalDisplayCount);
+        record.viewAll = true;
+      } else {
+        record.viewAll = false;
+      }
+
+      // General flags and properties
+      record.haveGoals = true;
+      record.showMultipartyBadge = record.ownershipType === MULTI_PARTY;
+      record.ownershipType = record.showMultipartyBadge
+        ? JOINT
+        : record.ownershipType;
+    });
+
+    // Sort the goal details by sortOrder
+    goalDetails.sort(
+      (firstGoal, secondGoal) => firstGoal.sortOrder - secondGoal.sortOrder
+    );
   }
 
   pendingGoalssTobeViewed(bucketsLength) {

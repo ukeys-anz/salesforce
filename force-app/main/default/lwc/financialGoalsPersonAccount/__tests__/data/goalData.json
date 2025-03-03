@@ -9,6 +9,7 @@
     "header_title": "Savings",
     "balance_title": "Total Saved",
     "product_code": "SAVING01",
+    "showGoal": true,
     "buckets": [
       {
         "account_number": "111111111",

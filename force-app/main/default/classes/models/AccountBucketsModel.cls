@@ -83,6 +83,8 @@ public with sharing class AccountBucketsModel extends CalloutModel {
     public Boolean is_balance_current;
     @AuraEnabled
     public Goal goal;
+    @AuraEnabled
+    public Boolean showGoal;
   }
 
   /**
