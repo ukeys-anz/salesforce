@@ -11,7 +11,7 @@ public with sharing class FinancialAccountControllerAction {
   private static final Integer DEFAULT_SORT_ORDER = 999;
 
   /**
-   * @description Groups financial accounts based on product code and sort the financial accounts
+   * @description Groups financial accounts based on product code .
    * @param finAccounts list of financial accounts received from fabric or database.
    * @return map of product code and list of financial accounts associated with that product code.
    */
@@ -20,10 +20,10 @@ public with sharing class FinancialAccountControllerAction {
   ) {
     Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
     Map<String, Boolean> productCodeExistsMap = new Map<String, Boolean>();
+    processUIConfigurations(uiConfigMap, productCodeExistsMap);
+
     Map<String, Integer> tileSortOrderMap = new Map<String, Integer>();
     Map<String, Map<String, Integer>> ownershipSortOrderMap = new Map<String, Map<String, Integer>>();
-
-    processUIConfigurations(uiConfigMap, productCodeExistsMap);
     fetchSortingRules(uiConfigMap, tileSortOrderMap, ownershipSortOrderMap);
 
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = groupAccounts(
@@ -32,7 +32,7 @@ public with sharing class FinancialAccountControllerAction {
     );
 
     return sortAndFormatResponse(
-      groupedAccount,
+      groupedAccounts,
       tileSortOrderMap,
       ownershipSortOrderMap,
       uiConfigMap
@@ -91,6 +91,15 @@ public with sharing class FinancialAccountControllerAction {
         productCode
       );
 
+      Boolean isActive = (uiConfig != null &&
+        uiConfig.Is_Active__c != null)
+        ? uiConfig.Is_Active__c
+        : true;
+
+      if (!isActive && uiConfig != null) {
+        continue;
+      }
+
       if (!groupedAccounts.containsKey(productCode)) {
         groupedAccounts.put(
           productCode,
@@ -116,6 +125,14 @@ public with sharing class FinancialAccountControllerAction {
       FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
         productCode
       );
+
+      Boolean isActive = (uiConfig != null &&
+        uiConfig.Is_Active__c != null)
+        ? uiConfig.Is_Active__c
+        : true;
+      if (!isActive && uiConfig != null) {
+        continue;
+      }
 
       Integer tileSortOrder = tileSortOrderMap.containsKey(productCode)
         ? tileSortOrderMap.get(productCode)
@@ -162,7 +179,7 @@ public with sharing class FinancialAccountControllerAction {
       'accounts' => accounts,
       'isSaving' => uiConfig != null &&
       uiConfig.Account_Type__c == 'Savings',
-      'isOthers' => uiConfig != null &&
+      'isOthers' => uiConfig == null ||
       !(uiConfig.Account_Type__c == 'Savings' ||
       uiConfig.Account_Type__c == 'Loan'),
       'isHomeLoan' => uiConfig != null &&
