@@ -1,94 +1,73 @@
 <template>
-  <template lwc:if={displayLoan}>
-    <template lwc:if={loading}>
-      <div
-        class="slds-align_absolute-center"
-        style="height: 4rem"
-        data-id="loading-spinner"
-      >
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
-        </div>
+  <template lwc:if={loading}>
+    <div
+      class="slds-align_absolute-center"
+      style="height: 4rem"
+      data-id="loading-spinner"
+    >
+      <div role="status" class="slds-spinner_inline">
+        <lightning-spinner
+          alternative-text="Loading"
+          variant="brand"
+        ></lightning-spinner>
       </div>
-    </template>
-    <template lwc:elseif={loanData}>
-      <c-home-loan-account
-        record-id={recordId}
-        object-api-name={objectApiName}
-        account-details={loanData}
-        ownership-type={accountOwnershipType}
-        account-owners-list={accountOwners}
-        offset-details={offsetData}
-      ></c-home-loan-account>
-    </template>
+    </div>
   </template>
-  <template lwc:if={displayNotLoan}>
-    <template lwc:if={loading}>
-      <div
-        class="slds-align_absolute-center"
-        style="height: 4rem"
-        data-id="loading-spinner"
-      >
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
-        </div>
-      </div>
-    </template>
-    <template lwc:else>
-      <div class="slds-clearfix">
-        <lightning-button
-          label="Refresh all"
-          onclick={refreshData}
-          class="slds-float_right slds-p-bottom_small"
-        ></lightning-button>
-      </div>
-      <c-financial-account-header
-        record-id={recordId}
-        account-type={accountType}
-        account-details={accountData}
-        error={accountError}
-        savings-jar={savingsJar}
-        data-id="financial-account"
-        account-owners-list={accountOwners}
-      ></c-financial-account-header>
-      <div class="slds-m-top_small"></div>
-      <template lwc:if={isSavings}>
-        <c-financial-goals
+  <template lwc:else>
+    <template lwc:if={hasAccountData}>
+      <template lwc:if={displayLoan}>
+        <c-home-loan-account
           record-id={recordId}
-          goal-data={goalData}
-          data-id="financial-goals"
-          error={goalError}
-          onloadmoregoals={handleLoadMoreGoals}
-          onfiltergoals={handleGoalFilters}
-          preselected-goal={preselectedGoal}
-          loading-more={goalsLoading}
-        ></c-financial-goals>
-        <div class="slds-m-top_small"></div>
+          object-api-name={objectApiName}
+          account-details={financialAccount.accounts}
+          data-id="home-account"
+          ownership-type={accountOwnershipType}
+          account-owners-list={accountOwners}
+          offset-details={offsetData}
+        ></c-home-loan-account>
+      </template>
+      <template lwc:else>
+        <template lwc:if={financialAccount.accounts}>
+          <div class="slds-clearfix">
+            <lightning-button
+              label="Refresh all"
+              onclick={refreshData}
+              class="slds-float_right slds-p-bottom_small"
+            ></lightning-button>
+          </div>
+        </template>
+        <c-financial-account-header
+          record-id={recordId}
+          account-details={financialAccount.accounts}
+          error={accountError}
+          savings-jar={savingsJar}
+          data-id="financial-account"
+          account-owners-list={accountOwners}
+          component-title={financialAccount.sectionHeaderTitle}
+          component-sub-title={financialAccount.productNameTitle}
+          balance-title={financialAccount.balanceTitle}
+          title-icon="custom:custom17"
+          icon-color="slds-m-right_small cicon"
+          product-code={financialAccount.productCode}
+        ></c-financial-account-header>
       </template>
     </template>
-  </template>
-  <template lwc:if={transactionData}>
-    <template lwc:if={loading}>
-      <div
-        class="slds-align_absolute-center"
-        style="height: 4rem"
-        data-id="loading-spinner"
-      >
-        <div role="status" class="slds-spinner_inline">
-          <lightning-spinner
-            alternative-text="Loading"
-            variant="brand"
-          ></lightning-spinner>
-        </div>
-      </div>
+    <div class="slds-m-top_small"></div>
+    <template lwc:if={isSavings}>
+      <c-financial-goals
+        record-id={recordId}
+        goal-data={goalData}
+        data-id="financial-goals"
+        error={goalError}
+        onloadmoregoals={handleLoadMoreGoals}
+        onfiltergoals={handleGoalFilters}
+        preselected-goal={preselectedGoal}
+        loading-more={goalsLoading}
+      ></c-financial-goals>
+      <div class="slds-m-top_small"></div>
     </template>
-    <template lwc:else>
+    <!-- Transaction Data Block -->
+    <template lwc:if={transactionData}>
       <c-transaction-history-board
         component-title={componentTitle}
         record-id={recordId}

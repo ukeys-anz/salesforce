@@ -1,6 +1,6 @@
 import { LightningElement, api, wire, track } from "lwc";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
-import { handleErrorShowToast, isS2Account } from "c/utils";
+import { handleErrorShowToast } from "c/utils";
 import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
@@ -19,12 +19,10 @@ import FIN_ACCOUNT_OWNERSHIP_TYPE from "@salesforce/schema/FinServ__FinancialAcc
 import FIN_ACCOUNT_INTEREST from "@salesforce/schema/FinServ__FinancialAccount__c.Interest_Accrued__c";
 import { TRANSACTION_HISTORY_RETRIEVE_ERROR } from "c/transactionHistoryService";
 
-import getHomeLoanAccount from "@salesforce/apex/HomeLoanController.getHomeLoanAccount";
 import getOffsetHomeLoanAccount from "@salesforce/apex/HomeLoanController.getListOffset";
 
 /* IMPORT PERMISSIONS */
 import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
-import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 
 import {
   getEmojiMap,
@@ -56,7 +54,6 @@ export default class FinancialAccountParent extends LightningElement {
   @wire(EnclosingTabId) tabId;
   @api recordId;
   @api objectApiName;
-  accountData = [];
   accountError;
   accountNumber;
   accountType;
@@ -72,7 +69,6 @@ export default class FinancialAccountParent extends LightningElement {
   imageMap;
   isSavings;
   isHomeLoan;
-  loanData;
   offsetData = {};
   loading;
   ocvId;
@@ -104,6 +100,9 @@ export default class FinancialAccountParent extends LightningElement {
   accountOwnershipType;
   wiredMethodCalled = false;
   accountOwners = [];
+  goalExist = false;
+  financialAccount = {};
+  fetchedAccounts;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -149,15 +148,8 @@ export default class FinancialAccountParent extends LightningElement {
       ) {
         this.isHomeLoan = true;
         this.showRaiseDispute = false;
-
-        const [loanResponse, offsetResponse] = await Promise.all([
-          this.getHomeLoanResponse(),
-          this.getOffsetHomeLoanResponse()
-        ]);
-        //Need to stringify and send as the array consists of many objects and SF proxies it
-        //https://developer.salesforce.com/docs/platform/lwc/guide/security-array-proxy.html
-        this.loanData = JSON.stringify(loanResponse.accounts);
-        this.offsetData = offsetResponse;
+        await this.getFinancialData();
+        this.offsetData = await this.getOffsetHomeLoanResponse();
       } else {
         this.showRaiseDispute = true;
         if (this.accRecordTypeApiName === SAVINGS_ACCOUNT_RT_APINAME) {
@@ -238,32 +230,37 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
-  get displayNotLoan() {
-    return (
-      hasAccountsGoalsPermission &&
-      this.accRecordTypeApiName !== BANK_ACCOUNT_RT_APINAME
-    );
+  get displayLoan() {
+    return this.financialAccount.isHomeLoan;
   }
 
-  get displayLoan() {
-    return (
-      hasHomeLoanPermission &&
-      this.accRecordTypeApiName === BANK_ACCOUNT_RT_APINAME
-    );
+  get hasAccountData() {
+    return Object.keys(this.financialAccount).length > 0;
   }
 
   async getFinancialData() {
-    this.accountData = [];
     try {
-      let accountDetails = await getFinancialAccountFabric({
-        //Added this to send ocvid of the joint owner from where the joint account called - By Shivam, Oct'23
+      this.fetchedAccounts = await getFinancialAccountFabric({
         ocvId: this.ocvId,
         accountNumbers: [this.accountNumber]
       });
-      this.accountData = this.handleAccountInformation(accountDetails);
+
+      this.financialAccount = structuredClone(this.fetchedAccounts);
+      this.financialAccount = this.getAccountByAccountNumber(
+        this.accountNumber
+      );
     } catch (error) {
+      this.fetchedAccounts = await getFinancialAccountDB({
+        ocvId: this.ocvId,
+        ownerId: this.recordId
+      });
+
       this.accountError =
         "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator";
+      this.financialAccount = structuredClone(this.fetchedAccounts);
+      this.financialAccount = this.getAccountByAccountNumber(
+        this.accountNumber
+      );
       handleErrorShowToast(
         this,
         "Failed To Retrieve Account Details",
@@ -271,14 +268,27 @@ export default class FinancialAccountParent extends LightningElement {
         this.accountError,
         "pester"
       );
-      // If the API callout fails to fetch latest data, use this as a fallback to fetch
-      // the records stored in Salesforce
-      let accountDetails = await getFinancialAccountDB({
-        ownerId: this.primaryOwner,
-        recordTypeDeveloperNames: [this.accRecordTypeApiName]
-      });
-      this.accountData = this.handleAccountInformation(accountDetails);
     }
+  }
+
+  getAccountByAccountNumber(accountNumber) {
+    const orignalData = this.financialAccount;
+    let filteredData = { groupedAccounts: [] };
+    orignalData.groupedAccounts.forEach((group) => {
+      const filteredAccounts = group.accounts.filter(
+        (account) => account.account_number === accountNumber
+      );
+      if (filteredAccounts.length > 0) {
+        filteredData.groupedAccounts.push({
+          ...group,
+          accounts: filteredAccounts
+        });
+      }
+    });
+    if (filteredData.groupedAccounts.length === 0) {
+      return { noAccountFound: true };
+    }
+    return filteredData.groupedAccounts[0];
   }
 
   async getGoalData(paramUrl = "") {
@@ -408,26 +418,6 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
-  async getHomeLoanResponse() {
-    try {
-      //Filter to only get H1 account we are viewing
-      let response = await getHomeLoanAccount({
-        ocvId: this.ocvId,
-        accountNumbers: [this.accountNumber]
-      });
-      return response;
-    } catch (error) {
-      handleErrorShowToast(
-        this,
-        "Failed To Retrieve Home Loan Details.",
-        error,
-        "Failed To Retrieve Home Loan Details. Please refresh and try again. If issue persists please contact your System Administrator",
-        "pester"
-      );
-    }
-    return null;
-  }
-
   async getOffsetHomeLoanResponse() {
     try {
       //Filter to only get offset account we are viewing
@@ -447,42 +437,6 @@ export default class FinancialAccountParent extends LightningElement {
       );
     }
     return null;
-  }
-
-  handleAccountInformation(finAccounts) {
-    // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence,changing the badge class
-    finAccounts.forEach((finAccount) => {
-      finAccount.badgeClass =
-        finAccount.FinServ__Status__c === "Active" ||
-        finAccount.FinServ__Status__c === "Open"
-          ? "slds-badge slds-theme_success"
-          : finAccount.FinServ__Status__c === "Closed"
-            ? "slds-badge closedBadgeClass"
-            : finAccount.FinServ__Status__c === "Dormant"
-              ? "slds-badge dormantBadgeClass"
-              : "slds-badge";
-
-      // Only show Savings Jar when FinServ__Status__c is not "CLOSED"
-      finAccount.showSavingsJar =
-        finAccount.FinServ__Status__c !== "Closed" &&
-        this.isSoleAccount &&
-        !isS2Account(finAccount.Marketing_Code__c);
-
-      // Only show showMultipartyBadge badge when the ownership is multi-party
-      if (finAccount.FinServ__Ownership__c) {
-        finAccount = this.handleShowMultiPartyBadge(
-          finAccount,
-          "FinServ__Ownership__c"
-        );
-      } else if (finAccount.Ownership__c) {
-        finAccount = this.handleShowMultiPartyBadge(finAccount, "Ownership__c");
-      }
-      if (isS2Account(finAccount.Marketing_Code__c)) {
-        this.accountType = "savingss2";
-      }
-    });
-
-    return finAccounts;
   }
 
   handleLoadMore(event) {
