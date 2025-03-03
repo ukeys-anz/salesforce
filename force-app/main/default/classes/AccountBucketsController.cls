@@ -31,6 +31,6 @@ public with sharing class AccountBucketsController {
       nextPageToken,
       accountNumber
     );
-    return result; 
+    return result;
   }
 }
