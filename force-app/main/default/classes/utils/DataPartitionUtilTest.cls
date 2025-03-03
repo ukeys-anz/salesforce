@@ -51,10 +51,10 @@ public with sharing class DataPartitionUtilTest {
 
     //WHEN
     Test.startTest();
-    HomeLoanModel cachedData = DataPartitionUtil.getH1AccountDetailsCache(
+    List<UnifiedFinancialAccountModel.AccountList> cachedData = DataPartitionUtil.getH1AccountDetailsCache(
       SESSION_KEY
     );
-    String cachedAcc = cachedData.accounts.get(0)?.account_number;
+    String cachedAcc = cachedData[0].account_number;
 
     /** SOP */
     SOPModel cachedSOPData = DataPartitionUtil.getSOPDetailsCache(
@@ -65,10 +65,10 @@ public with sharing class DataPartitionUtilTest {
 
     //THEN
     //Check if value retriving from getH1AccountDetailsCache matahes with inserted data
-    HomeLoanModel retrievedData = (HomeLoanModel) dataPartition.get(
+    List<UnifiedFinancialAccountModel.AccountList> retrievedData = (List<UnifiedFinancialAccountModel.AccountList>) dataPartition.get(
       SESSION_KEY
     );
-    String retrievedAcc = retrievedData.accounts.get(0)?.account_number;
+    String retrievedAcc = retrievedData[0].account_number;
 
     System.assertEquals(
       cachedAcc,
@@ -90,15 +90,17 @@ public with sharing class DataPartitionUtilTest {
    * @return `HomeLoanModel` mock response
    * @description returns mock response from the static resources
    */
-  private static HomeLoanModel setupModel() {
+  private static List<UnifiedFinancialAccountModel.AccountList> setupModel() {
     StaticResource mockH1 = [
       SELECT body
       FROM StaticResource
       WHERE Name = 'mock_homeloanaccounts'
     ];
 
-    HomeLoanModel testModel = HomeLoanModel.parse(mockH1.body.toString());
-    return testModel;
+    UnifiedFinancialAccountModel testModel = UnifiedFinancialAccountModel.parse(
+      mockH1.body.toString()
+    );
+    return testModel.accounts;
   }
 
   /**

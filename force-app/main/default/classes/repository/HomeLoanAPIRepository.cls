@@ -20,12 +20,7 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     if (FeatureManagement.checkPermission('ANZx_Home_Loan') == false) {
       throw new PermissionException(BOH_READ_ONLY_PERMISSION_ERROR);
     }
-    HomeLoanModel h1AccountDetails = DataPartitionUtil.getH1AccountDetailsCache(
-      ocvId
-    );
-    if (h1AccountDetails != null) {
-      return h1AccountDetails;
-    }
+    HomeLoanModel h1AccountDetails;
     Service s = ServiceProvider.getService(HomeLoanService.class);
     HttpCalloutResponse response = s.getHomeLoanAccounts(ocvId, accountNumbers);
     if (response.successful == false) {
@@ -34,7 +29,6 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
     try {
       h1AccountDetails = HomeLoanModel.parse(response.body);
       filterOutNonHomeLoanAccounts(h1AccountDetails);
-      DataPartitionUtil.storeH1AccountDetailsCache(ocvId, h1AccountDetails);
       Logger.debug('Home Loan API hit:')
         .setPayload(json.serialize(h1AccountDetails));
       Logger.saveLog();

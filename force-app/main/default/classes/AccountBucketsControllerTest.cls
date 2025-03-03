@@ -5,6 +5,15 @@
  */
 @isTest
 public with sharing class AccountBucketsControllerTest {
+  static Lib_MockProvider finAccRepoMock;
+  static Lib_MockProvider userMock;
+
+  static void registerMocks() {
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
+  }
+
   /**
    * @description Add required PermissionSet
    */
@@ -17,20 +26,18 @@ public with sharing class AccountBucketsControllerTest {
    */
   @isTest
   public static void validResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
-        '123',
-        7,
-        ''
-      );
-      System.assertEquals(
-        7,
-        response.account_buckets.size(),
-        'Response account buckets size should be as expected.'
-      );
-      Test.stopTest();
-    }
+    registerMocks();
+    Test.startTest();
+    AccountBucketsModel response = AccountBucketsController.getAccountBuckets(
+      '123',
+      7,
+      '',
+      '111111111'
+    );
+    Assert.isTrue(
+      response.account_buckets.size() == 7,
+      'Response account buckets size should be as expected.'
+    );
+    Test.stopTest();
   }
 }

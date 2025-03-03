@@ -22,55 +22,75 @@
           <div
             class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-right_xx-small"
           >
-            <c-financial-account
-              account-type="checking"
-              record-id={recordId}
-              account-details={accountData.checking}
-              data-id="checking-account"
-              data-test-id="checking-account"
-              ocv-id={ocvId}
-            ></c-financial-account>
+            <template
+              for:each={accountData.groupedAccounts}
+              for:item="eachGroupedAccount"
+            >
+              <div key={eachGroupedAccount.productCode}>
+                <template lwc:if={eachGroupedAccount.isOthers}>
+                  <c-financial-account
+                    record-id={recordId}
+                    account-details={eachGroupedAccount.accounts}
+                    data-id="checking-account"
+                    data-test-id="checking-account"
+                    ocv-id={ocvId}
+                    component-title={eachGroupedAccount.sectionHeaderTitle}
+                    component-sub-title={eachGroupedAccount.productNameTitle}
+                    balance-title={eachGroupedAccount.balanceTitle}
+                    title-icon="custom:custom51"
+                    icon-color="slds-m-right_small"
+                    product-code={eachGroupedAccount.productCode}
+                  ></c-financial-account>
+                </template>
+              </div>
+            </template>
 
-            <div class="slds-m-top_medium"></div>
-            <c-home-loan-account
-              record-id={recordId}
-              object-api-name={objectApiName}
-              account-details={loanData}
-              data-id="home-account"
-              offset-details={offsetData}
-            ></c-home-loan-account>
+            <template lwc:if={hasHomeLoan}>
+              <c-home-loan-account
+                record-id={recordId}
+                object-api-name={objectApiName}
+                account-details={homeLoanAccounts}
+                data-id="home-account"
+                offset-details={offsetData}
+              ></c-home-loan-account>
+            </template>
           </div>
+
           <div
             class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-p-left_xx-small"
           >
-            <c-financial-account
-              account-type="savings"
-              record-id={recordId}
-              account-details={accountData.savings}
-              savings-jar={savingsJar}
-              data-id="savings-account"
-              data-test-id="savings-account"
-              ocv-id={ocvId}
-            ></c-financial-account>
-            <div class="slds-m-top_medium"></div>
-            <template lwc:if={isS2AccountExist}>
-              <c-financial-account
-                account-type="savingss2"
-                record-id={recordId}
-                account-details={accountData.savingss2}
-                savings-jar={savingsJar}
-                data-id="savingss2-account"
-                data-test-id="savingss2-account"
-                ocv-id={ocvId}
-              ></c-financial-account>
-              <div class="slds-m-top_medium"></div>
-            </template>
-            <c-financial-goals-person-account
-              goal-data={goalDetails}
-              savings-account={savingsId}
-              error={goalError}
+            <template
+              for:each={accountData.groupedAccounts}
+              for:item="eachGroupedAccount"
             >
-            </c-financial-goals-person-account>
+              <div key={eachGroupedAccount.productCode}>
+                <template lwc:if={eachGroupedAccount.isSaving}>
+                  <c-financial-account
+                    record-id={recordId}
+                    account-details={eachGroupedAccount.accounts}
+                    data-id="savings-account"
+                    data-test-id="savings-account"
+                    ocv-id={ocvId}
+                    component-title={eachGroupedAccount.sectionHeaderTitle}
+                    component-sub-title={eachGroupedAccount.productNameTitle}
+                    balance-title={eachGroupedAccount.balanceTitle}
+                    title-icon="custom:custom17"
+                    icon-color="slds-m-right_small cicon"
+                    product-code={eachGroupedAccount.productCode}
+                  ></c-financial-account>
+                </template>
+              </div>
+            </template>
+
+            <div class="slds-m-top_medium"></div>
+
+            <template lwc:if={isSavingAccountExist}>
+              <c-financial-goals-person-account
+                goal-data={goalDetails}
+                error={goalError}
+              >
+              </c-financial-goals-person-account>
+            </template>
           </div>
         </div>
       </div>

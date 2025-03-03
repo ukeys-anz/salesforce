@@ -7,14 +7,15 @@
         class={iconColor}
       ></lightning-icon>
       {componentTitle}
+      <p class="sub-title">{componentSubTitle}</p>
     </h1>
     <template lwc:if={displayContent}>
       <template lwc:if={hasAccountDetails}>
-        <template for:each={accountDetails} for:item="finAccount">
+        <template for:each={processedFinAccounts} for:item="finAccount">
           <div class="dividerTop" key={finAccount.Id}></div>
           <div
             class="slds-card__body slds-card__body_inner"
-            key={finAccount.Id}
+            key={finAccount.id}
             data-id="fin-account"
           >
             <article class="slds-card">
@@ -23,16 +24,18 @@
                   <h2 class="card-heading-bold">
                     <a
                       onclick={navigateToRecordViewPage}
-                      data-id={finAccount.Id}
+                      data-id={finAccount.id}
                       data-ownership={finAccount.showMultipartyBadge}
                       class="slds-truncate"
-                      title={finAccount.Name}
+                      title={finAccount.account_name}
                     >
-                      <span>{finAccount.Name}</span>
+                      <span data-id="account-name"
+                        >{finAccount.account_name}</span
+                      >
                     </a>
                     <template lwc:if={finAccount.showMultipartyBadge}>
                       <span class="slds-badge dormantBadgeClass"
-                        >{finAccount.multiParty}</span
+                        >{finAccount.finserv_ownership}</span
                       >
                     </template>
                   </h2>
@@ -47,7 +50,7 @@
                       <div class="header-column">
                         <p class="card-heading-font">Account Number</p>
                         <p class="card-heading-value">
-                          {finAccount.FinServ__FinancialAccountNumber__c}
+                          {finAccount.account_number}
                         </p>
                       </div>
                     </div>
@@ -66,7 +69,7 @@
                         </p>
                         <p data-test-id="balance">
                           <lightning-formatted-number
-                            value={finAccount.FinServ__Balance__c}
+                            value={finAccount.balances.balance.value}
                             format-style="currency"
                             data-id="amount"
                             class="fontstyle"
@@ -107,7 +110,8 @@
   <template lwc:if={showInfoModal}>
     <c-dynamic-tooltip-util
       header-title={balanceTitle}
-      resource-name={accountType}
+      resource-name={productCode}
+      product-name={componentSubTitle}
       onclosemodal={closeModal}
     ></c-dynamic-tooltip-util>
   </template>

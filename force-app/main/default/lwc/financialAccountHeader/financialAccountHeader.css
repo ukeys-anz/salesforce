@@ -53,6 +53,14 @@
   font-weight: bold;
 }
 
+.card-title .sub-title {
+  /* Apply different styles for the subtitle (p element) */
+  font-size: 0.9rem;
+  color: inherit;
+  margin-left: 2.7rem;
+  font-weight: 400;
+}
+
 .vertical-align {
   position: relative;
   top: 50%;

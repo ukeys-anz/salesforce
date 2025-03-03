@@ -1,116 +1,305 @@
-{
-  "account_buckets": [
-    {
-      "id": "4096fead-c325-59a4-89a6-a7a7378f0e93",
-      "account_number": "210454465",
-      "created_at": "2021-12-06T01:48:36.114223Z",
-      "is_default": false,
-      "balance": {
-        "currency_code": "AUD",
-        "units": "20000",
-        "nanos": 200000
+[
+  {
+    "account_number": "111111111",
+    "account_name": "Mitch Grimes",
+    "account_id": "a0FAD000002kIFJ2A2",
+    "ownershipType": "Single",
+    "sortOrder": 2,
+    "product_name": "ANZ Save",
+    "header_title": "Savings",
+    "balance_title": "Total Saved",
+    "product_code": "SAVING01",
+    "showGoal": true,
+    "buckets": [
+      {
+        "account_number": "111111111",
+        "balance": {
+          "currency_code": "AUD",
+          "nanos": 200000,
+          "units": "20",
+          "value": 20.0002
+        },
+        "balance_title": "Total Saved",
+        "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+        "created_at": "2021-12-06T01:48:36.114223Z",
+        "financial_account_id": "a0FAD000002kIFJ2A2",
+        "financial_account_name": "Mitch Grimes",
+        "goal": {
+          "color": {
+            "value": ""
+          },
+          "emoji": {
+            "value": "🥭"
+          },
+          "is_open": true,
+          "name": "Mangoes",
+          "target_amount": "$10.00",
+          "target_date": {
+            "day": {
+              "value": "31"
+            },
+            "month": {
+              "value": "12"
+            },
+            "year": {
+              "value": "2022"
+            }
+          },
+          "theme": "",
+          "updated_at": "2021-12-06T01:48:36.114223Z"
+        },
+        "header_title": "Savings",
+        "id": "3096fead-c325-59a4-89a6-a7a7378f0e93",
+        "is_balance_current": true,
+        "is_default": false,
+        "ownershipType": "Single",
+        "product_code": "SAVING01",
+        "product_name": "ANZ Save",
+        "sortOrder": 2,
+        "emoji": "🥭",
+        "fillPercent": 200,
+        "fillPercentValue": 100,
+        "balanceRemaining": -10.0001
       },
-      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
-      "is_balance_current": true,
-      "goal": {
-        "name": "Holiday in Japan",
-        "target_amount": null,
-        "target_date": null,
-        "theme": "GOAL_THEME_TRAVEL",
-        "emoji": {
-          "value": ""
+      {
+        "account_number": "111111111",
+        "balance": {
+          "currency_code": "AUD",
+          "nanos": 300000,
+          "units": "30",
+          "value": 30.0003
         },
-        "color": {
-          "value": ""
+        "balance_title": "Total Saved",
+        "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+        "created_at": "2021-12-06T01:48:20.975071Z",
+        "financial_account_id": "a0FAD000002kIFJ2A2",
+        "financial_account_name": "Mitch Grimes",
+        "goal": {
+          "color": {
+            "value": ""
+          },
+          "emoji": {
+            "value": ""
+          },
+          "is_open": true,
+          "name": "Buy a car",
+          "target_amount": "$100.00",
+          "theme": "GOAL_THEME_BUY_A_CAR",
+          "updated_at": "2021-12-06T01:48:20.975071Z"
         },
-        "is_open": true,
-        "closed_at": null,
-        "updated_at": "2021-12-06T01:48:36.114223Z"
-      }
-    },
-    {
-      "id": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b",
-      "account_number": "210454465",
-      "created_at": "2021-12-06T01:48:20.975071Z",
-      "is_default": false,
-      "balance": {
-        "currency_code": "AUD",
-        "units": "100000",
-        "nanos": 300000
+        "header_title": "Savings",
+        "id": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b",
+        "is_balance_current": true,
+        "is_default": false,
+        "ownershipType": "Single",
+        "product_code": "SAVING01",
+        "product_name": "ANZ Save",
+        "sortOrder": 2,
+        "image": "/resource/1646946281000/goal_themes/GOAL_THEME_BUY_A_CAR.png",
+        "fillPercent": 31,
+        "fillPercentValue": 31,
+        "balanceRemaining": 69.99980000000001
       },
-      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
-      "is_balance_current": true,
-      "goal": {
-        "name": "Buy a car",
-        "target_amount": null,
-        "target_date": null,
-        "theme": "GOAL_THEME_BUY_A_CAR",
-        "emoji": {
-          "value": ""
+      {
+        "account_number": "111111111",
+        "balance": {
+          "currency_code": "AUD",
+          "nanos": 200000,
+          "units": "9000",
+          "value": 9000.0002
         },
-        "color": {
-          "value": ""
+        "balance_title": "Total Saved",
+        "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+        "created_at": "2021-12-06T01:48:36.114223Z",
+        "financial_account_id": "a0FAD000002kIFJ2A2",
+        "financial_account_name": "Mitch Grimes",
+        "goal": {
+          "color": {
+            "value": ""
+          },
+          "emoji": {
+            "value": ""
+          },
+          "is_open": true,
+          "name": "Holiday in Japan",
+          "target_amount": "$12,000.00",
+          "target_date": {
+            "day": {
+              "value": "31"
+            },
+            "month": {
+              "value": "12"
+            },
+            "year": {
+              "value": "2022"
+            }
+          },
+          "theme": "GOAL_THEME_TRAVEL",
+          "updated_at": "2021-12-06T01:48:36.114223Z"
         },
-        "is_open": true,
-        "closed_at": null,
-        "updated_at": "2021-12-06T01:48:20.975071Z"
-      }
-    },
-    {
-      "id": "4096fead-c325-59a4-89a6-a7a7378f0e94",
-      "account_number": "210454465",
-      "created_at": "2021-12-06T01:48:36.114223Z",
-      "is_default": false,
-      "balance": {
-        "currency_code": "AUD",
-        "units": "20",
-        "nanos": 200000
+        "header_title": "Savings",
+        "id": "3596fead-c325-59a4-89a6-a7a7378f0e93",
+        "is_balance_current": true,
+        "is_default": false,
+        "ownershipType": "Single",
+        "product_code": "SAVING01",
+        "product_name": "ANZ Save",
+        "sortOrder": 2,
+        "image": "/resource/1646946281000/goal_themes/GOAL_THEME_TRAVEL.png",
+        "fillPercent": 76,
+        "fillPercentValue": 76,
+        "balanceRemaining": 2999.999899999999
       },
-      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
-      "is_balance_current": true,
-      "goal": {
-        "name": "Holiday in Japan",
-        "target_amount": null,
-        "target_date": null,
-        "theme": "GOAL_THEME_TRAVEL",
-        "emoji": {
-          "value": ""
+      {
+        "account_number": "111111111",
+        "balance": {
+          "currency_code": "AUD",
+          "nanos": 300000,
+          "units": "6000",
+          "value": 6000.0003
         },
-        "color": {
-          "value": ""
+        "balance_title": "Total Saved",
+        "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+        "created_at": "2021-12-06T01:48:20.975071Z",
+        "financial_account_id": "a0FAD000002kIFJ2A2",
+        "financial_account_name": "Mitch Grimes",
+        "goal": {
+          "color": {
+            "value": ""
+          },
+          "emoji": {
+            "value": ""
+          },
+          "is_open": true,
+          "name": "It's raining, it's pouring",
+          "target_amount": "$10,000.00",
+          "theme": "GOAL_THEME_RAINY_DAY",
+          "updated_at": "2021-12-06T01:48:20.975071Z"
         },
-        "is_open": true,
-        "closed_at": null,
-        "updated_at": "2021-12-06T01:48:36.114223Z"
-      }
-    },
-    {
-      "id": "476e0ac6-5553-5fda-bdd8-b8f87af2d83b",
-      "account_number": "210454465",
-      "created_at": "2021-12-06T01:48:20.975071Z",
-      "is_default": false,
-      "balance": {
-        "currency_code": "AUD",
-        "units": "30",
-        "nanos": 300000
+        "header_title": "Savings",
+        "id": "476e0qc6-5553-5fda-bdd8-b8f87af2d83b",
+        "is_balance_current": true,
+        "is_default": false,
+        "ownershipType": "Single",
+        "product_code": "SAVING01",
+        "product_name": "ANZ Save",
+        "sortOrder": 2,
+        "image": "/resource/1646946281000/goal_themes/GOAL_THEME_RAINY_DAY.png",
+        "fillPercent": 61,
+        "fillPercentValue": 61,
+        "balanceRemaining": 3999.9997999999996
       },
-      "balance_valid_at": "2021-12-06T02:01:15.786332Z",
-      "is_balance_current": true,
-      "goal": {
-        "name": "Buy a car",
-        "target_amount": null,
-        "target_date": null,
-        "theme": "GOAL_THEME_BUY_A_CAR",
-        "emoji": {
-          "value": ""
+      {
+        "account_number": "111111111",
+        "balance": {
+          "currency_code": "AUD",
+          "nanos": 200000,
+          "units": "2000",
+          "value": 2000.0002
         },
-        "color": {
-          "value": ""
+        "balance_title": "Total Saved",
+        "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+        "created_at": "2021-12-06T01:48:36.114223Z",
+        "financial_account_id": "a0FAD000002kIFJ2A2",
+        "financial_account_name": "Mitch Grimes",
+        "goal": {
+          "color": {
+            "value": ""
+          },
+          "emoji": {
+            "value": ""
+          },
+          "is_open": true,
+          "name": "I GOT BILLS, I GOTTA PAY",
+          "target_amount": "$3,000.00",
+          "target_date": {
+            "day": {
+              "value": "31"
+            },
+            "month": {
+              "value": "12"
+            },
+            "year": {}
+          },
+          "theme": "GOAL_THEME_EXPENSES",
+          "updated_at": "2021-12-06T01:48:36.114223Z"
         },
-        "is_open": true,
-        "closed_at": null,
-        "updated_at": "2021-12-06T01:48:20.975071Z"
+        "header_title": "Savings",
+        "id": "40900ead-c325-59a4-89a6-a7a7378f0e93",
+        "is_balance_current": true,
+        "is_default": false,
+        "ownershipType": "Single",
+        "product_code": "SAVING01",
+        "product_name": "ANZ Save",
+        "sortOrder": 2,
+        "image": "/resource/1646946281000/goal_themes/GOAL_THEME_EXPENSES.png",
+        "fillPercent": 67,
+        "fillPercentValue": 67,
+        "balanceRemaining": 999.9999000000003
       }
-    }
-  ]
-}
+    ]
+  },
+  {
+    "account_number": "111111112",
+    "account_name": "Home Loan",
+    "account_id": "a0FAD000002THXN2A4",
+    "ownershipType": "Multi-party",
+    "sortOrder": 6,
+    "product_name": "ANZ Plus Flex Saver",
+    "header_title": "Savings",
+    "balance_title": "Flex Funds",
+    "product_code": "SAVING02",
+    "buckets": [
+      {
+        "account_number": "111111112",
+        "balance": {
+          "currency_code": "AUD",
+          "nanos": 200000,
+          "units": "110000",
+          "value": 110000.0002
+        },
+        "balance_title": "Flex Funds",
+        "balance_valid_at": "2021-12-06T02:01:15.786332Z",
+        "created_at": "2021-12-06T01:48:36.114223Z",
+        "financial_account_id": "a0FAD000002THXN2A4",
+        "financial_account_name": "Home Loan",
+        "goal": {
+          "color": {
+            "value": ""
+          },
+          "emoji": {
+            "value": ""
+          },
+          "is_open": true,
+          "name": "Saving for the house to build",
+          "target_amount": "$150,000.00",
+          "target_date": {
+            "day": {
+              "value": "31"
+            },
+            "month": {
+              "value": "12"
+            },
+            "year": {
+              "value": "2022"
+            }
+          },
+          "theme": "GOAL_THEME_BUY_A_HOME",
+          "updated_at": "2021-12-06T01:48:36.114223Z"
+        },
+        "header_title": "Savings",
+        "id": "4096fead-c325-59a4-89a6-a7a7378f0e93",
+        "is_balance_current": true,
+        "is_default": false,
+        "ownershipType": "Multi-party",
+        "product_code": "SAVING02",
+        "product_name": "ANZ Plus Flex Saver",
+        "sortOrder": 6,
+        "image": "/resource/1646946281000/goal_themes/GOAL_THEME_BUY_A_HOME.png",
+        "fillPercent": 74,
+        "fillPercentValue": 74,
+        "balanceRemaining": 39999.99990000001
+      }
+    ]
+  }
+]
