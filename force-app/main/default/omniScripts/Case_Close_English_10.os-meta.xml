@@ -4770,7 +4770,7 @@
             <name>REALFormMAXID</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
-  &quot;controlWidth&quot; : 4,
+  &quot;controlWidth&quot; : 3,
   &quot;label&quot; : &quot;REaL Form / Event ID&quot;,
   &quot;showInputWidth&quot; : false,
   &quot;inputWidth&quot; : 12,
@@ -6409,5 +6409,5 @@
     <type>Case</type>
     <uniqueName>Case_Close_English_10</uniqueName>
     <versionNumber>10.0</versionNumber>
-    <webComponentKey>861fede4-9212-5bdf-a3d4-9f6a8ed2a2ed</webComponentKey>
+    <webComponentKey>7bf25b4b-c97c-c49b-177e-ec6365b366e3</webComponentKey>
 </OmniScript>
