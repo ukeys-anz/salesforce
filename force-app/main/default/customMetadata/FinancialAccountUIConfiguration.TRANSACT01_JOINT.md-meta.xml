@@ -11,6 +11,14 @@
         <value xsi:type="xsd:string">Everyday Funds</value>
     </values>
     <values>
+        <field>Include_In_Total_Financial_Position__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
+        <field>Is_Active__c</field>
+        <value xsi:type="xsd:boolean">true</value>
+    </values>
+    <values>
         <field>Ownership_Type__c</field>
         <value xsi:type="xsd:string">Multi-party</value>
     </values>
@@ -32,6 +40,6 @@
     </values>
     <values>
         <field>Sort_Order__c</field>
-        <value xsi:type="xsd:double">4.0</value>
+        <value xsi:type="xsd:double">2.0</value>
     </values>
 </CustomMetadata>

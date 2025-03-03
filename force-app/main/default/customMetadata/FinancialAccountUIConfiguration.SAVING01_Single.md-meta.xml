@@ -20,7 +20,7 @@
     </values>
     <values>
         <field>Ownership_Type__c</field>
-        <value xsi:type="xsd:string">Multi-party</value>
+        <value xsi:type="xsd:string">Single</value>
     </values>
     <values>
         <field>Product_Code__c</field>
@@ -40,6 +40,6 @@
     </values>
     <values>
         <field>Sort_Order__c</field>
-        <value xsi:type="xsd:double">2.0</value>
+        <value xsi:type="xsd:double">1.0</value>
     </values>
 </CustomMetadata>

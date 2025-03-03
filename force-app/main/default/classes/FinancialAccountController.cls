@@ -33,6 +33,12 @@ public with sharing class FinancialAccountController {
     'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
 
+  //Map of fabric ownership and user friendly names for UI
+  private static final Map<String, String> FABRIC_OWNERSHIP_UI = new Map<String, String>{
+    'Multi-party' => 'Joint',
+    'Single' => 'Single'
+  };
+
   /**
    * @description This method is an orchestration layer for retrieving financial accounts, grouped accounts , add metadata values and sort grouped records
    *
@@ -182,7 +188,7 @@ public with sharing class FinancialAccountController {
     String key =
       finAccount.product_details.marketing_code +
       '_' +
-      finAccount.finserv_ownership;
+      FABRIC_OWNERSHIP_UI.get(finAccount.finserv_ownership);
     finAccount.finserv_sortorder = financialAccountConfigMap.containsKey(key)
       ? financialAccountConfigMap.get(key).Sort_Order__c
       : DEFAULT_SORT_ORDER;
