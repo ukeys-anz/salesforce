@@ -111,7 +111,7 @@ public with sharing class FinancialAccountControllerActionTest {
       Sort_Order__c = 2,
       Ownership_Type__c = 'Single'
     );
-    mockMetaData.add(dummyRecord2);
+    mockMetaData.add(dummyRecord3);
 
     return mockMetaData;
   }

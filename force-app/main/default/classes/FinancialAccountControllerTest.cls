@@ -345,9 +345,6 @@ public with sharing class FinancialAccountControllerTest {
   }
 
   private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {
-    Id fakerAccountRoleId = Lib_FakeIdGenerator.getMockId(
-      FinServ__FinancialAccountRole__c.getSObjectType()
-    );
     Id productId = Lib_FakeIdGenerator.getMockId(Product2.SObjectType);
     Product2 product = new Product2(
       Id = productId,
