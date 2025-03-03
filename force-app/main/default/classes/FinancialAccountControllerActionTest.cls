@@ -101,6 +101,7 @@ public with sharing class FinancialAccountControllerActionTest {
       Sort_Order__c = 3,
       Ownership_Type__c = 'Multi-Party'
     );
+    mockMetaData.add(dummyRecord2);
 
     FinancialAccountUIConfiguration__mdt dummyRecord3 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'SAVING01',
