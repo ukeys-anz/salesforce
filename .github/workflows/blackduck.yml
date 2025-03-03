@@ -4,7 +4,7 @@ on:
   pull_request:
     branches:
       - master
-      - develop
+      - release
   push:
     branches:
       - develop
@@ -12,48 +12,33 @@ on:
     - cron: "57 2 * * *" # Run every day between 2-3am
 
 jobs:
-  pass-ref:
-    runs-on: anzx-default
-    outputs:
-      ref: ${{ steps.find-ref.outputs.ref }}
-    steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 0
-      - name: Find ref
-        id: find-ref
-        run: |
-          REF="${{ github.head_ref }}"
-          if [[ $REF == '' ]];then
-            REF="$(echo ${GITHUB_REF#refs/heads/})"
-          fi
-
-          echo "ref=$REF" >> $GITHUB_OUTPUT
-
   scan:
     uses: anzx/sec-domain-actions/.github/workflows/bd-scan-ci.yaml@stable
     secrets: inherit
-    needs: pass-ref
-    with:
-      scan-ref: ${{ needs.pass-ref.outputs.ref }}
 
   status:
     if: ${{ always() }}
     needs:
-      - pass-ref
       - scan
     runs-on: [self-hosted, salesforce-prod]
     steps:
+      - name: Set BASE_REF
+        run: echo BASE_REF=$(echo ${GITHUB_REF#refs/heads/}) >> $GITHUB_ENV
+
       - name: Slack message
         shell: bash
         env:
           BLACKDUCK_STATUS: ${{ needs.scan.result }}
-          GITHUB_HEAD_REF: ${{ needs.pass-ref.outputs.ref }}
+          GITHUB_HEAD_REF: ${{ github.head_ref }}
         run: |
           if [[ $BLACKDUCK_STATUS == success ]];then
             status=:white_check_mark:
           else
             status=:X:
+          fi
+
+          if [[ $GITHUB_HEAD_REF == '' ]];then
+            GITHUB_HEAD_REF="$BASE_REF"
           fi
 
           TodayDate="$(TZ=Australia/Melbourne date +%F\|%H:%M)"
