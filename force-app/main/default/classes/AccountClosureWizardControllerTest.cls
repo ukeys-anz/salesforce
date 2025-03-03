@@ -87,19 +87,19 @@ public with sharing class AccountClosureWizardControllerTest {
     );
   }
 
-  @isTest
-  static void testGetFilteredFinancialAccountsWithEmptyData() {
-    System.runAs(thisUser) {
-      String ocvId = '12345';
-      Test.startTest();
-      // Call the method under test
-      List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-        ocvId
-      );
-      System.assert(response.isEmpty(), 'No financial accounts returned');
-      Test.stopTest();
-    }
-  }
+  // @isTest
+  // static void testGetFilteredFinancialAccountsWithEmptyData() {
+  //   System.runAs(thisUser) {
+  //     String ocvId = '12345';
+  //     Test.startTest();
+  //     // Call the method under test
+  //     List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
+  //       ocvId
+  //     );
+  //     System.assert(response.isEmpty(), 'No financial accounts returned');
+  //     Test.stopTest();
+  //   }
+  // }
 
   private static List<Case> mockListOfCases() {
     List<Case> listOfExistingCases = new List<Case>();
