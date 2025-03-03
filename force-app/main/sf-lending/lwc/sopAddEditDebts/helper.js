@@ -336,6 +336,7 @@ const DEBT_TYPES = {
       showMonthlyRepayment: isActionAdd(actionType)
         ? false
         : isActionEdit(actionType) &&
+            !debt.customerStatedClosed &&
             debt.institutionalLiability?.paidInFull === false
           ? true
           : false,
