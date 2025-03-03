@@ -223,7 +223,7 @@ public with sharing class FinancialAccountRepository {
    * @description Aggregates the total saved balance for all checking and saving account for eligible marketing codes
    * @param accountNumbers list of account numbers received from FAR query for the given OCVId
    * @param marketingCodes eligible marketing codes to be included in balance total
-   * @param savingRTId saving record type id
+   * @param savingRTId Saving RecordType Id
    * @return SUM of the balance for the eligible marketing codes
    */
   public AggregateResult getTotalSavedBalance(
@@ -252,10 +252,12 @@ public with sharing class FinancialAccountRepository {
    * @description builds a list of financial account roles for the customer sent from the UI
    * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
    * @param customerRecordPrimaryOwnerId customer id receive from the UI
+   * @param marketingCodes ANZX marketing codes
    * @return List<String> list of the financial account roles
    */
   public List<FinServ__FinancialAccountRole__c> getAllAccountNumberPerOwner(
-    Id customerRecordPrimaryOwnerId
+    Id customerRecordPrimaryOwnerId,
+    Set<String> marketingCodes
   ) {
     if (customerRecordPrimaryOwnerId == null) {
       return new List<FinServ__FinancialAccountRole__c>();
@@ -267,6 +269,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
+        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
       WITH USER_MODE
     ];
   }

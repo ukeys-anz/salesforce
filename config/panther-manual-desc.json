@@ -2568,7 +2568,9 @@
         "Product_Name__c",
         "Section_Header_Title__c",
         "Show_Goals__c",
-        "Sort_Order__c"
+        "Sort_Order__c",
+        "Include_In_Total_Financial_Position__c",
+        "Is_Active__c"
       ]
     },
     "Group": {

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Is_Active__c</fullName>
-    <complianceGroup>Integrity_Trusted;Source_Salesforce</complianceGroup>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <defaultValue>false</defaultValue>
     <description>Determines whether a certain product is ready to be shown on. Financial Account UI from Business perspective.</description>
     <fieldManageability>DeveloperControlled</fieldManageability>
