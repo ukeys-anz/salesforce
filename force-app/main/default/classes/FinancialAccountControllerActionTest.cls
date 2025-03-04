@@ -13,7 +13,7 @@ public with sharing class FinancialAccountControllerActionTest {
   }
 
   @isTest
-  public static void testGroupByProductCodePositive() {
+  public static void testProcessFinancialAccountsPositive() {
     registerMocks();
 
     finAccRepoMock.mock(
@@ -28,14 +28,14 @@ public with sharing class FinancialAccountControllerActionTest {
     Test.stopTest();
 
     Assert.areEqual(
-      (Boolean) mapOfProductodeAndFinAccounts[0].get('isSaving'),
+      (Boolean) mapOfProductodeAndFinAccounts[1].get('isSaving'),
       true,
       'Financial Accounts should be grouped by Product Code'
     );
   }
 
   @isTest
-  public static void testGroupByProductCodeNegative() {
+  public static void testProcessFinancialAccountsNegative() {
     registerMocks();
 
     finAccRepoMock.mock(

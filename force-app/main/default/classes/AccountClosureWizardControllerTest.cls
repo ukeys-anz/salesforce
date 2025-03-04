@@ -10,11 +10,18 @@ public with sharing class AccountClosureWizardControllerTest {
     FROM User
     WHERE Id = :UserInfo.getUserId()
   ];
+  /**
+   * @description Add required PermissionSet
+   */
   @testSetup
-  static void setup() {
-    System.runAs(thisUser) {
-      TestUtil.addAccountsGoalsPs();
-    }
+  public static void setup() {
+    TestUtil.addPermissionSets(
+      new List<String>{
+        'Accounts_Goals_Read_Only',
+        'View_Card_Details',
+        'View_Transaction_History'
+      }
+    );
   }
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
@@ -94,6 +101,7 @@ public with sharing class AccountClosureWizardControllerTest {
   }
   @isTest
   public static void testGetFilteredFinancialAccountsPositive() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
@@ -129,6 +137,7 @@ public with sharing class AccountClosureWizardControllerTest {
 
   @isTest
   public static void testGetFinancialAccountIdsFromFabricResponsePositive() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
@@ -158,6 +167,7 @@ public with sharing class AccountClosureWizardControllerTest {
 
   @isTest
   public static void testGetFinancialAccountIdsFromFabricResponseNegative() {
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       registerMocks();
       finAccRepoMock.mock(
