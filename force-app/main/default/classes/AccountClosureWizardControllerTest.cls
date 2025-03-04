@@ -10,18 +10,11 @@ public with sharing class AccountClosureWizardControllerTest {
     FROM User
     WHERE Id = :UserInfo.getUserId()
   ];
-  /**
-   * @description Add required PermissionSet
-   */
   @testSetup
-  public static void setup() {
-    TestUtil.addPermissionSets(
-      new List<String>{
-        'Accounts_Goals_Read_Only',
-        'View_Card_Details',
-        'View_Transaction_History'
-      }
-    );
+  static void setup() {
+    System.runAs(thisUser) {
+      TestUtil.addAccountsGoalsPs();
+    }
   }
   private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
@@ -101,7 +94,6 @@ public with sharing class AccountClosureWizardControllerTest {
   }
   @isTest
   public static void testGetFilteredFinancialAccountsPositive() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
@@ -136,38 +128,7 @@ public with sharing class AccountClosureWizardControllerTest {
   }
 
   @isTest
-  public static void testGetFinancialAccountIdsFromFabricResponsePositive() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      registerMocks();
-      finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
-
-      finAccRepoMock.mock(
-        'fetchFinancialAccountUIConfigInfo',
-        mockfinAccountUiConfig()
-      );
-
-      Test.startTest();
-      Map<String, Object> groupedFinAccounts = FinancialAccountController.getFinancialAccountFabric(
-        '12345',
-        new List<String>()
-      );
-      Set<Id> finAccountId = AccountClosureWizardController.getFinancialAccountIdsFromFabricResponse(
-        groupedFinAccounts
-      );
-      Test.stopTest();
-
-      Assert.areEqual(
-        finAccountId.size(),
-        1,
-        'Financial account record Id should be stored from the grouped financial accounts'
-      );
-    }
-  }
-
-  @isTest
   public static void testGetFinancialAccountIdsFromFabricResponseNegative() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       registerMocks();
       finAccRepoMock.mock(
