@@ -76,6 +76,53 @@ public inherited sharing class ListUtil {
   }
 
   /**
+   * @description Returns sublist of elements from a parent list
+   * @param records The list of sobjects
+   * @param startIndex start index of sublist
+   * @param numOfRecords number of records needed in the sublist
+   * @return The sub list of Objects.
+   **/
+  public static List<SObject> subList(
+    List<SObject> records,
+    Integer startIndex,
+    Integer numOfRecords
+  ) {
+    startIndex = Math.max(0, startIndex);
+    Integer endIndex = Math.min(records.size(), startIndex + numOfRecords) - 1;
+    Schema.sObjectType listType = records.getSObjectType();
+    List<SObject> newSubList = (List<SObject>) System.Type.forName(
+        'List<' + listType + '>'
+      )
+      .newInstance();
+    for (Integer i = startIndex; i <= endIndex; i++) {
+      newSubList.add(records[i]);
+    }
+    return newSubList;
+  }
+
+  /**
+   * @description Returns sublist of elements from a parent list
+   * @param records The list of objects
+   * @param startIndex start index of sublist
+   * @param numOfRecords number of records needed in the sublist
+   * @return The sub list of Objects.
+   **/
+  public static List<Object> subList(
+    List<Object> records,
+    Integer startIndex,
+    Integer numOfRecords
+  ) {
+    List<Object> newSubList = records.clone();
+    newSubList.clear();
+    startIndex = Math.max(0, startIndex);
+    Integer endIndex = Math.min(records.size(), startIndex + numOfRecords) - 1;
+    for (Integer i = startIndex; i <= endIndex; i++) {
+      newSubList.add(records[i]);
+    }
+    return newSubList;
+  }
+
+  /**
    * @description Returns a Set of unique values from the given records based on the specified field and field type.
    * @param records The list of records.
    * @param field The field to get unique values from.

@@ -301,7 +301,7 @@ public with sharing class StravinskyController {
     ) {
       ocvIds.add(finAccountRole.FinServ__RelatedAccount__r.OCV_ID__c);
     }
-
+    ocvIds.remove(null);
     customerOcvIdsList.addAll(ocvIds);
     try {
       return stravinskyApi.packageClosure(

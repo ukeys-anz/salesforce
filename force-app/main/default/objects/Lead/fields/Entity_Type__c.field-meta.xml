@@ -12,7 +12,7 @@
     <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
-        <restricted>true</restricted>
+        <restricted>false</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
@@ -88,7 +88,7 @@
             <value>
                 <fullName>Customer Lending Group</fullName>
                 <default>false</default>
-                <isActive>false</isActive>
+                <isActive>true</isActive>
                 <label>Customer Lending Group</label>
             </value>
             <value>

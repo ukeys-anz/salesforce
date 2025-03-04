@@ -2,6 +2,154 @@
 <FlexiPage xmlns="http://soap.sforce.com/2006/04/metadata">
     <flexiPageRegions>
         <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Name</fieldItem>
+                <identifier>RecordNameField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-089311e1-2e4b-4c6c-aa3c-0816c94fb4a0</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.RecordTypeId</fieldItem>
+                <identifier>RecordRecordTypeIdField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PersonBirthdate</fieldItem>
+                <identifier>RecordPersonBirthdateField3</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Mobile__c</fieldItem>
+                <identifier>RecordMobile_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PersonEmail</fieldItem>
+                <identifier>RecordPersonEmailField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PersonOtherPhone</fieldItem>
+                <identifier>RecordPersonOtherPhoneField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Other_Email__c</fieldItem>
+                <identifier>RecordOther_Email_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Primary_Residential_Address__c</fieldItem>
+                <identifier>RecordPrimary_Residential_Address_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Controlling_Post__c</fieldItem>
+                <identifier>RecordControlling_Post_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Controlling_Post__r.Name}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CPID__c</fieldItem>
+                <identifier>RecordCPID_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Controlling_Post__r.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-56c4d518-a795-4525-a101-6e831022de06</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
                     <name>actionNames</name>
@@ -32,27 +180,19 @@
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
-                    <name>collapsed</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>enableActionsConfiguration</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>enableActionsInNative</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>hideChatterActions</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
                     <name>numVisibleActions</name>
                     <value>3</value>
                 </componentInstanceProperties>
-                <componentName>force:highlightsPanel</componentName>
-                <identifier>force_highlightsPanel</identifier>
+                <componentInstanceProperties>
+                    <name>primaryField</name>
+                    <value>Facet-089311e1-2e4b-4c6c-aa3c-0816c94fb4a0</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>secondaryFields</name>
+                    <value>Facet-56c4d518-a795-4525-a101-6e831022de06</value>
+                </componentInstanceProperties>
+                <componentName>record_flexipage:dynamicHighlights</componentName>
+                <identifier>record_flexipage_dynamicHighlights</identifier>
             </componentInstance>
         </itemInstances>
         <name>header</name>
@@ -181,8 +321,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Occupation__c</fieldItem>
-                <identifier>RecordOccupation_cField</identifier>
+                <fieldItem>Record.Employment_Type__c</fieldItem>
+                <identifier>RecordEmployment_Type_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -191,8 +331,31 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Employment_Type__c</fieldItem>
-                <identifier>RecordEmployment_Type_cField</identifier>
+                <fieldItem>Record.Employer_Name__c</fieldItem>
+                <identifier>RecordEmployer_Name_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Full-time</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Part-time</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Casual</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Contractor/Consultant</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-227a031b-c644-4b01-a1aa-4c18d2a4c6be</name>
@@ -205,8 +368,51 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Employer_Name__c</fieldItem>
-                <identifier>RecordEmployer_Name_cField</identifier>
+                <fieldItem>Record.Occupation__c</fieldItem>
+                <identifier>RecordOccupation_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Full-time</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Part-time</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Casual</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Contractor/Consultant</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Student</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Retired/Pensioner</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Homemaker</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Unemployed</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -217,6 +423,29 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Self_Employed__c</fieldItem>
                 <identifier>RecordSelf_Employed_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Full-time</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Part-time</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Casual</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Employment_Type__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Contractor/Consultant</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-91c57b69-3a36-4300-ba1e-3a3119df904d</name>
@@ -325,7 +554,7 @@
                 </visibilityRule>
             </fieldInstance>
         </itemInstances>
-         <itemInstances>
+        <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
@@ -333,6 +562,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.VOI_Expiry_Date_Classic__c</fieldItem>
                 <identifier>RecordVOI_Expiry_Date_Classic_cField</identifier>
+                 <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -343,6 +579,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.VOI_Status_Classic__c</fieldItem>
                 <identifier>RecordVOI_Status_Classic_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c7422b5e-2f2f-4c3b-adba-ac149d3183a8</name>
@@ -839,7 +1082,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
+                    <value>ADVGRID</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
@@ -872,7 +1115,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
+                    <value>ADVGRID</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>rowsToDisplay</name>
@@ -1294,32 +1537,6 @@
                 <identifier>lst_dynamicRelatedList4</identifier>
             </componentInstance>
         </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Account.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>PersonOpportunityContactRoles</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>ADVGRID</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer4</identifier>
-            </componentInstance>
-        </itemInstances>
         <name>Facet-f33c58c7-c9fe-4ac5-9089-23dde52655e1</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -1533,6 +1750,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Relationship_Owner__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Status__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Relationship_To_Franchise__c</value>

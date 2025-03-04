@@ -92,6 +92,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Source_System_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -683,6 +688,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Case.Is_this_a_Business_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Loan_Application__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

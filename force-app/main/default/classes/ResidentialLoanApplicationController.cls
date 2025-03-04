@@ -350,10 +350,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       }
 
       rlaRepo.updateIncome(
-        loanRec.Account?.OCV_ID__c,
-        incomeVerified,
-        JSON.serialize(model),
-        loanId,
+        new Map<String, String>{
+          'ocvId' => loanRec.Account?.OCV_ID__c,
+          'verification' => incomeVerified,
+          'incomeBody' => JSON.serialize(model),
+          'loanId' => loanId
+        },
         incomeVerifiedChanged
       );
       publishRLARecordMonitoringToast(loanRec);
@@ -785,7 +787,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       return;
     }
-    BOHService.setToReassessmentIsRequired(loan.Id);
+
+    SOPHelper.setToReassessmentIsRequired(loan.Id);
   }
 
   /**

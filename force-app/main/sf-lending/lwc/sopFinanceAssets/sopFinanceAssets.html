@@ -1,0 +1,271 @@
+<template>
+  <lightning-card>
+    <lightning-layout class="slds-p-bottom_x-small">
+      <lightning-layout-item
+        size="8"
+        flexibility="shrink"
+        alignment-bump="left"
+        class="textStyle"
+      >
+        <lightning-formatted-text
+          value="These are all the assets - including any properties, vehicles, investments or any other asset owned."
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="4"
+        flexibility="shrink"
+        alignment-bump="right"
+      >
+        <lightning-layout multiple-rows class="totalAndAmountStyle">
+          <lightning-layout-item size="12" class="slds-text-align_right">
+            <lightning-formatted-text
+              value="Total Assets"
+              class="totalStyle slds-p-right_medium"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item size="12">
+            <lightning-formatted-number
+              value={sopAssetsData.assetsTotalAmount}
+              format-style="currency"
+              currency-code="AUD"
+              currency-display-as="symbol"
+              class="amountStyle slds-p-right_medium"
+            >
+            </lightning-formatted-number>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <!--No Assets-->
+    <template lwc:if={noDataAvailable}>
+      <lightning-layout class="noDataBlock slds-m-left_xx-small">
+        <lightning-layout-item class="utilityStyle"
+          ><img src={error_img}
+        /></lightning-layout-item>
+        <lightning-layout-item class="noDataBlockMessage slds-p-top_xx-small">
+          <lightning-formatted-text
+            value="There are no additional assets."
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <template lwc:else>
+      <!-- Assets -->
+      <template for:each={assets} for:item="assetSummary">
+        <div key={assetSummary.title}>
+          <lightning-formatted-text
+            value={assetSummary.title}
+            class="headerStyling"
+            data-id="assetsSummaryHeading"
+          ></lightning-formatted-text>
+          <lightning-layout multiple-rows horizontal-align="spread">
+            <template for:each={assetSummary.assets} for:item="asset">
+              <lightning-layout-item key={asset} size="6">
+                <lightning-layout
+                  multiple-rows
+                  class="slds-box slds-m-top_small slds-m-left_small"
+                >
+                  <lightning-layout-item>
+                    <!-- Icon -->
+                    <img
+                      src={asset.image}
+                      class="logoStyle slds-p-around_x-small"
+                    />
+                  </lightning-layout-item>
+
+                  <lightning-layout-item size="12" class="slds-p-left_xx-large">
+                    <lightning-layout
+                      class="slds-p-left_large"
+                      multiple-rows
+                      horizontal-align="spread"
+                    >
+                      <!-- Belongs To -->
+                      <lightning-layout-item
+                        size="8"
+                        class="labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Belongs To"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={asset.ownerName}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- Asset Type -->
+                      <lightning-layout-item
+                        size="8"
+                        class="slds-p-top_small labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Asset Type"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-p-top_x-small slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={asset.readableType}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- Vehicle Type -->
+                      <template lwc:if={asset.showVehicleType}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Vehicle Type"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={asset.subType}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Address -->
+                      <template lwc:if={asset.showAddress}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Address"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={asset.propertyAddress}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Property Valuation -->
+                      <template lwc:if={asset.showPropertyValuation}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <span
+                            >Property Valuation
+                            <lightning-helptext
+                              class="tooltip"
+                              content="This is the same amount as the Property Market Value in the Property tab. If this amount is $0, the Property Valuation is pending."
+                            ></lightning-helptext>
+                          </span>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={asset.propertyValue}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Name -->
+                      <template lwc:if={asset.showName}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Name"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            value={asset.assetName}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Value -->
+                      <template lwc:if={asset.showValue}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Value"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={asset.estimatedValue}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+                    </lightning-layout>
+                  </lightning-layout-item>
+
+                  <!-- Last Modified Date -->
+                  <lightning-layout-item
+                    class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
+                    size="12"
+                  >
+                    <lightning-formatted-text
+                      value="Last Modified"
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                      value={asset.lastModified}
+                      class="slds-p-left_xx-small"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </div>
+      </template>
+    </template>
+  </lightning-card>
+</template>

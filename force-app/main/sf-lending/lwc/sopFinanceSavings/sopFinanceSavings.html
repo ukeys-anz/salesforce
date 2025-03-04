@@ -1,0 +1,318 @@
+<template>
+  <lightning-card>
+    <lightning-layout class="slds-p-bottom_x-small">
+      <lightning-layout-item
+        size="8"
+        flexibility="shrink"
+        alignment-bump="left"
+        class="textStyle"
+      >
+        <lightning-formatted-text
+          value="This includes any cash and money in your bank accounts."
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="4"
+        flexibility="shrink"
+        alignment-bump="right"
+      >
+        <lightning-layout multiple-rows class="totalAndAmountStyle">
+          <lightning-layout-item size="12" class="slds-text-align_right">
+            <lightning-formatted-text
+              value="Total Savings"
+              class="totalStyle slds-p-right_medium"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item size="12">
+            <lightning-formatted-number
+              value={sopSavingsData.savingsTotalAmount}
+              format-style="currency"
+              currency-code="AUD"
+              currency-display-as="symbol"
+              class="amountStyle slds-p-right_medium"
+            >
+            </lightning-formatted-number>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <!--No Savings-->
+    <template lwc:if={noDataAvailable}>
+      <lightning-layout class="noDataBlock slds-m-left_xx-small">
+        <lightning-layout-item class="utilityStyle"
+          ><img src={error_img}
+        /></lightning-layout-item>
+        <lightning-layout-item class="noDataBlockMessage slds-p-top_xx-small">
+          <lightning-formatted-text
+            value="This customer has no additional savings"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <template lwc:else>
+      <!-- Savings -->
+      <template for:each={savings} for:item="savingSummary">
+        <div key={savingSummary.title}>
+          <lightning-formatted-text
+            value={savingSummary.title}
+            class="headerStyling"
+            data-id="savingSummaryHeading"
+          ></lightning-formatted-text>
+          <lightning-layout multiple-rows horizontal-align="spread">
+            <template for:each={savingSummary.savings} for:item="saving">
+              <lightning-layout-item
+                key={saving}
+                size="6"
+                class="slds-p-bottom_medium"
+              >
+                <lightning-layout
+                  multiple-rows
+                  class="slds-box slds-m-top_small slds-m-left_small"
+                >
+                  <lightning-layout-item>
+                    <!-- Icon -->
+                    <img
+                      src={saving.image}
+                      class="logoStyle slds-p-around_x-small"
+                    />
+                  </lightning-layout-item>
+
+                  <lightning-layout-item size="12" class="slds-p-left_xx-large">
+                    <lightning-layout
+                      class="slds-p-left_large"
+                      multiple-rows
+                      horizontal-align="spread"
+                    >
+                      <!-- Belongs To -->
+                      <lightning-layout-item
+                        size="8"
+                        class="labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Belongs To"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={saving.ownerName}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- Product Name -->
+                      <template lwc:if={saving.showProductName}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Product Name"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={saving.productName}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Institution -->
+                      <template lwc:if={saving.showInstitution}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Institution"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={saving.financialInstitution}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Balance -->
+                      <template lwc:if={saving.showBalance}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Balance"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={saving.balance}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Amount -->
+                      <template lwc:if={saving.showAmount}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Amount"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={saving.balance}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Savings Type -->
+                      <lightning-layout-item
+                        size="8"
+                        class="slds-p-top_x-small labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Savings Type"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-p-top_x-small slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={saving.readableType}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- BSB -->
+                      <template lwc:if={saving.showBsb}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="BSB"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={saving.bsb}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Account Number -->
+                      <template lwc:if={saving.showAccountNumber}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Account Number"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={saving.accountNumber}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Account Status -->
+                      <template lwc:if={saving.showAccountStatus}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Account Status"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={saving.readableStatus}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+                    </lightning-layout>
+                  </lightning-layout-item>
+
+                  <!-- Last Modified Date -->
+                  <lightning-layout-item
+                    class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
+                    size="12"
+                  >
+                    <lightning-formatted-text
+                      value="Last Modified"
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                      value={saving.lastModified}
+                      class="slds-p-left_xx-small"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </div>
+      </template>
+    </template>
+  </lightning-card>
+</template>

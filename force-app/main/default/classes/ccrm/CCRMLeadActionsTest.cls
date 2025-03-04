@@ -476,41 +476,33 @@ private class CCRMLeadActionsTest {
         return;
       }
       //THEN account details should be matched and copied to the lead
-      System.assertEquals(lead.ACN__c, acc.ACN__c, 'ACN updated correctly');
-      System.assertEquals(lead.ABN__c, acc.ABN__c, 'ABN updated correctly');
-      System.assertEquals(lead.City, acc.BillingCity, 'City updated correctly');
-      System.assertEquals(
+      Assert.areEqual(lead.ACN__c, acc.ACN__c, 'ACN updated correctly');
+      Assert.areEqual(lead.ABN__c, acc.ABN__c, 'ABN updated correctly');
+      Assert.areEqual(lead.City, acc.ShippingCity, 'City updated correctly');
+      Assert.areEqual(
         lead.Street,
-        acc.BillingStreet,
+        acc.ShippingStreet,
         'Street updated correctly'
       );
-      System.assertEquals(
-        lead.State,
-        acc.BillingState,
-        'State updated correctly'
-      );
-      System.assertEquals(
+      Assert.areEqual(lead.State, acc.ShippingState, 'State updated correctly');
+      Assert.areEqual(
         lead.Postalcode,
-        acc.BillingPostalcode,
+        acc.ShippingPostalcode,
         'Postalcode updated correctly'
       );
-      System.assertEquals(lead.Company, acc.Name, 'Company updated correctly');
-      System.assertNotEquals(
+      Assert.areEqual(lead.Company, acc.Name, 'Company updated correctly');
+      Assert.areNotEqual(
         lead.LastName,
         contact.LastName,
         'FirstName updated correctly'
       );
-      System.assertNotEquals(
+      Assert.areNotEqual(
         lead.FirstName,
         acc.FirstName,
         'LastName updated correctly'
       );
-      System.assertNotEquals(
-        lead.Email,
-        contact.Email,
-        'Email updated correctly'
-      );
-      System.assertNotEquals(
+      Assert.areNotEqual(lead.Email, contact.Email, 'Email updated correctly');
+      Assert.areNotEqual(
         lead.MobilePhone,
         contact.MobilePhone,
         'MobilePhone updated correctly'

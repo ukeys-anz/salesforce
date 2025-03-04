@@ -339,8 +339,8 @@
         <excludeButtons>OppContactRoleMultiEdit</excludeButtons>
         <fields>ContactName</fields>
         <fields>Role</fields>
-        <fields>ContactPhone</fields>
-        <fields>ContactEmail</fields>
+        <fields>Mobile_Classic__c</fields>
+        <fields>Email_Classic__c</fields>
         <relatedList>RelatedContactRoleList</relatedList>
     </relatedLists>
     <relatedLists>
@@ -353,7 +353,7 @@
     <showRunAssignmentRulesCheckbox>false</showRunAssignmentRulesCheckbox>
     <showSubmitAndAttachButton>false</showSubmitAndAttachButton>
     <summaryLayout>
-        <masterLabel>00h8s000002NUve</masterLabel>
+        <masterLabel>00h9h000001ZSAX</masterLabel>
         <sizeX>4</sizeX>
         <sizeY>0</sizeY>
         <summaryLayoutStyle>Default</summaryLayoutStyle>

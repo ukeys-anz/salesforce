@@ -36,8 +36,9 @@ public with sharing class AutoKYCQARestraintHandler {
     List<Customer_Profile_Updates__c> updates = new List<Customer_Profile_Updates__c>();
     for (Account acc : records) {
       for (
-        FinServ__FinancialAccount__c fa : acc.FinServ__ClientFinancialAccounts__r
+        FinServ__FinancialAccountRole__c far : acc.FinServ__FinancialAccountRoles__r
       ) {
+        FinServ__FinancialAccount__c fa = far.FinServ__FinancialAccount__r;
         Case kycCase = mapAccIdToCase.get(acc.Id);
         updates.add(this.generateUpdate(fa, kycCase, 60));
         updates.add(this.generateUpdate(fa, kycCase, 61));

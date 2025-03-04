@@ -4,6 +4,8 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Type of Document which Customer has provided to verify.</description>
+    <inlineHelpText>The document selected in this field should match the identity document captured by the customer.
+    This field should only be edited in the case that the customer has incorrectly done this.</inlineHelpText>
     <label>Document Type</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Suburb of this customer.</description>
     <externalId>false</externalId>
-    <formula>Customer__r.BillingCity</formula>
+    <formula>Customer__r.PersonOtherCity</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Suburb</label>
     <required>false</required>

@@ -23,7 +23,7 @@ public without sharing class AutoTaskOnLeadConversionHelper {
     'Country' => 'OtherCountry',
     'PostalCode' => 'OtherPostalCode',
     'Home_Phone__c' => 'HomePhone',
-    'MobilePhone' => 'MobilePhone'
+    'MobilePhone' => 'OtherPhone'
   };
 
   private static final Map<String, Schema.SObjectField> LEAD_FIELDS = SObjectType.Lead.fields.getMap();

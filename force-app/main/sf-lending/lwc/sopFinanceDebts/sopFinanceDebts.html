@@ -1,0 +1,831 @@
+<template>
+  <lightning-card>
+    <lightning-layout class="slds-p-bottom_x-small">
+      <lightning-layout-item
+        size="1"
+        flexibility="shrink"
+        alignment-bump="left"
+      >
+        <img src={sopDebtsImage} class="logoStyle" />
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="7"
+        flexibility="shrink"
+        alignment-bump="left"
+        class="textStyle"
+      >
+        <lightning-formatted-text
+          value="These are the debts including any loans, credit cards, buy now pay later or other lines of credit."
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item
+        size="4"
+        flexibility="shrink"
+        alignment-bump="right"
+      >
+        <lightning-layout multiple-rows class="totalAndAmountStyle">
+          <lightning-layout-item size="12" class="slds-text-align_right">
+            <lightning-formatted-text
+              value="Total Debts"
+              class="totalStyle slds-p-right_medium"
+            >
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item size="12">
+            <lightning-formatted-number
+              value={totalDebtAmount}
+              format-style="currency"
+              currency-code="AUD"
+              currency-display-as="symbol"
+              class="slds-p-right_medium totalDebt"
+            >
+            </lightning-formatted-number>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+    </lightning-layout>
+    <template lwc:if={allowAdd}>
+      <lightning-layout class="slds-p-bottom_x-small slds-p-top_small">
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          alignment-bump="right"
+        >
+          <lightning-layout>
+            <lightning-layout-item size="12" class="slds-text-align_right">
+              <lightning-button
+                label="Add Debt"
+                class="slds-m-right_small"
+                onclick={handleAddDebt}
+                data-id="addBtn"
+              ></lightning-button>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <!--No Debts-->
+    <template lwc:if={noDataAvailable}>
+      <lightning-layout class="noDataBlock slds-m-left_xx-small">
+        <lightning-layout-item class="utilityStyle"
+          ><img src={sopDebtsImage}
+        /></lightning-layout-item>
+        <lightning-layout-item class="noDataBlockMessage slds-p-top_xx-small">
+          <lightning-formatted-text
+            value="This customer has no debts"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+    <template lwc:else>
+      <!-- Debts -->
+      <template for:each={debts} for:item="debtSummary">
+        <div key={debtSummary.title}>
+          <lightning-formatted-text
+            value={debtSummary.title}
+            class="headerStyling"
+            data-id="debtSummaryHeading"
+          ></lightning-formatted-text>
+          <lightning-layout multiple-rows horizontal-align="spread">
+            <template for:each={debtSummary.debts} for:item="debt">
+              <lightning-layout-item
+                key={debt}
+                size="6"
+                class="slds-p-bottom_medium"
+              >
+                <lightning-layout
+                  multiple-rows
+                  class="slds-box slds-m-top_small slds-m-left_small"
+                >
+                  <lightning-layout-item size="2">
+                    <!-- Icon -->
+                    <img
+                      src={debt.image}
+                      class="logoStyle slds-p-around_x-small"
+                    />
+                  </lightning-layout-item>
+                  <lightning-layout-item
+                    size="10"
+                    class="slds-text-align_right"
+                  >
+                    <template lwc:if={debt.showDeleteBtn}>
+                      <template lwc:if={allowDelete}>
+                        <lightning-button
+                          data-id={debt.uid}
+                          label="Delete"
+                          class="slds-m-right_small"
+                          onclick={handleDeleteClick}
+                        ></lightning-button>
+                      </template>
+                    </template>
+                    <template lwc:if={debt.debtEditable}>
+                      <template lwc:if={allowEdit}>
+                        <lightning-button
+                          data-id={debt.uid}
+                          label="Edit"
+                          onclick={handleEditDebt}
+                          data-jest-id="editBtn"
+                        ></lightning-button>
+                      </template>
+                    </template>
+                  </lightning-layout-item>
+                  <template lwc:if={debt.hasRefinance}>
+                    <lightning-layout-item
+                      size="12"
+                      class="slds-text-align_right slds-p-bottom_x-small slds-m-bottom_x-small slds-border_bottom loanRefinance"
+                      alignment-bump="left"
+                    >
+                      <lightning-formatted-text
+                        value="Loan being refinanced - can't be changed"
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+                  </template>
+
+                  <template lwc:if={debt.showPaidOffAndClosed}>
+                    <lightning-layout-item
+                      size="12"
+                      class="slds-text-align_right slds-p-bottom_x-small slds-m-bottom_x-small slds-border_bottom paidOffClosed"
+                      alignment-bump="left"
+                    >
+                      <lightning-formatted-text
+                        value="Paid off & Closed"
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+                  </template>
+                  <template lwc:if={debt.showCustomerExcludedDebtMessage}>
+                    <lightning-layout-item
+                      size="12"
+                      class="slds-text-align_right slds-p-bottom_x-small slds-m-bottom_x-small slds-border_bottom customerAdvisedClosed"
+                      alignment-bump="left"
+                    >
+                      <lightning-formatted-text
+                        value="Customer Advised Closed"
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+                  </template>
+
+                  <lightning-layout-item size="12" class="slds-p-left_xx-large">
+                    <lightning-layout
+                      class="slds-p-left_large"
+                      multiple-rows
+                      horizontal-align="spread"
+                    >
+                      <!-- Belongs To -->
+                      <lightning-layout-item
+                        size="8"
+                        class="labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Belongs To"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={debt.ownerName}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- Debt Type -->
+                      <lightning-layout-item
+                        size="8"
+                        class="slds-p-top_small labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Debt Type"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-p-top_x-small slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={debt.readableType}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- Arrangement Type -->
+                      <template lwc:if={debt.showArrangementType}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Arrangement Type"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.arrangementType}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Institution -->
+                      <template lwc:if={debt.showInstitution}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Institution"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.institutionalLiability.financialInstitution}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- BSB -->
+                      <template lwc:if={debt.showBsb}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="BSB"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.bsb}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Account Number -->
+                      <template lwc:if={debt.showAccountNumber}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Account Number"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.accountNumber}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Account Status -->
+                      <template lwc:if={debt.showAccountStatus}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Account Status"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.readableStatus}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Card Number -->
+                      <template lwc:if={debt.showCardNumber}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Card Number"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.cardNumber}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Limit -->
+                      <template lwc:if={debt.showLimit}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value={debt.limitLabel}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.institutionalLiability.limitAmountNegative}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+                      <template lwc:if={debt.showLimitMessage}>
+                        <lightning-layout-item
+                          size="12"
+                          flexibility="shrink"
+                          class="fieldMessage"
+                        >
+                          <lightning-formatted-text
+                            value="Updated amount used for UMI"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Credit Bureau Limit -->
+                      <template lwc:if={debt.showBureauLimit}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value={debt.bureauLimitLabel}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.verifiedOutstandingBalanceNegative}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Balance Owing -->
+                      <template lwc:if={debt.showBalanceOwing}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Balance Owing"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.outstandingBalanceNegative}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+                      <template lwc:if={debt.showBalanceOwingMessage}>
+                        <lightning-layout-item
+                          size="12"
+                          class="slds-p-top_x-small fieldMessage"
+                        >
+                          <lightning-formatted-text
+                            value="Updated amount used for UMI"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Paid in Full -->
+                      <template lwc:if={debt.showPaidInFull}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Paid in Full (Monthly)"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.paidInFullValue}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Credit Bureau Balance Owing -->
+                      <template lwc:if={debt.showBureauBalanceOwing}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Credit Bureau Balance Owing"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.verifiedOutstandingBalanceNegative}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+                      <template lwc:if={debt.showBureauBalanceMessage}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small fieldMessage"
+                        >
+                          <lightning-formatted-text
+                            value="May not include additional repayments"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Available Redraw / Redraw Amount -->
+                      <template lwc:if={debt.showRedraw}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <!-- Redraw for home loan shows differently, so determine label in JS -->
+                          <lightning-formatted-text
+                            value={debt.redrawLabel}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.institutionalLiability.redrawAmount}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Loan Type -->
+                      <template lwc:if={debt.showLoanType}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Loan Type"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.readableTermType}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Interest Rate -->
+                      <template lwc:if={debt.showInterestRate}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Interest Rate"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.institutionalLiability.interestRate}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Remaining Term -->
+                      <template lwc:if={debt.showRemainingTerm}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Remaining Term"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.institutionalLiability.readablePrincipalInterestRemainingTerm}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+                      <template lwc:if={debt.showRemainingTermMessage}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small fieldMessage"
+                        >
+                          <lightning-formatted-text
+                            value="Updated term used for UMI"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Credit Bureau Remaining Term -->
+                      <template lwc:if={debt.showBureauRemainingTerm}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Credit Bureau Remaining Term"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.institutionalLiability.readableVerifiedPrincipalInterestRemainingTerm}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Monthly Repayment -->
+                      <template lwc:if={debt.showMonthlyRepayment}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value={debt.monthlyRepaymentLabel}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.institutionalLiability.minimumRepayment}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Repayment Frequency -->
+                      <template lwc:if={debt.showRepaymentFrequency}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Repayment Frequency"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.readableFrequency}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Repayment Amount -->
+                      <template lwc:if={debt.showRepaymentAmount}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Repayment Amount"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={debt.institutionalLiability.repaymentAmount}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Customer Excluded Debt -->
+                      <template lwc:if={debt.showCustomerExcludedDebt}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Customer Excluded Debt"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.customerStatedClosedValue}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Withheld From Pay -->
+                      <template lwc:if={debt.showWithheldFromPay}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Withheld From Pay"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={debt.hecsWithheldPaymentValue}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Debt Changes Evidence -->
+                      <template lwc:if={debt.showDebtChangeEvidence}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Debt Changes Evidence"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value="Provided"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Debt Source -->
+                      <lightning-layout-item
+                        size="8"
+                        class="slds-p-top_x-small labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Debt Source"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={debt.readableSourceType}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <template lwc:if={debt.showDebtSourceMessage}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small fieldMessage"
+                        >
+                          <lightning-formatted-text
+                            value="This has also been added to savings"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+                    </lightning-layout>
+                  </lightning-layout-item>
+
+                  <!-- Last Modified Date -->
+                  <lightning-layout-item
+                    class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
+                    size="12"
+                  >
+                    <lightning-formatted-text
+                      value="Last Modified"
+                    ></lightning-formatted-text>
+                    <lightning-formatted-text
+                      value={debt.lastModified}
+                      class="slds-p-left_xx-small"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+                </lightning-layout>
+              </lightning-layout-item>
+            </template>
+          </lightning-layout>
+        </div>
+      </template>
+    </template>
+  </lightning-card>
+</template>

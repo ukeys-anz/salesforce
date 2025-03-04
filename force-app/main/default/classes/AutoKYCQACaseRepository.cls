@@ -4,11 +4,10 @@
  * @description  AutoKYCQACaseRepository is the repository class for KYC QA Case Actions.
  */
 public with sharing class AutoKYCQACaseRepository {
-  static final Set<String> FA_CODES = new Set<String>{
-    'TRANSACT01',
-    'SAVING01',
-    'SAVING02'
-  };
+  static final List<String> FA_CODES = Label.CustomerRestraintFaCodes.split(
+    ','
+  );
+
   /**
    * @description Get list of COBs By persona Ids
    * @param personaIds set of persona Ids
@@ -115,9 +114,15 @@ public with sharing class AutoKYCQACaseRepository {
         FinServ__KYCStatus__c,
         KYC_Verification_Level__c,
         (
-          SELECT Id, FinServ__FinancialAccountNumber__c, Product_Type__c
-          FROM FinServ__ClientFinancialAccounts__r
-          WHERE Marketing_Code__c IN :FA_CODES AND FinServ__Status__c = 'Active'
+          SELECT
+            Id,
+            FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+            FinServ__FinancialAccount__r.Product_Type__c
+          FROM FinServ__FinancialAccountRoles__r
+          WHERE
+            FinServ__Active__c = TRUE
+            AND FinServ__FinancialAccount__r.Marketing_Code__c IN :FA_CODES
+            AND FinServ__FinancialAccount__r.FinServ__Status__c = 'Active'
         )
       FROM Account
       WHERE Id IN :accountIds

@@ -11,6 +11,8 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
   private static final String MOCK_ERROR = 'Mock Error'; // This is to force an exception to increase unit test coverage as current mock framework only returns positive response. A PDR will be raised to extend the mock framework if similar instances arise.
   @TestVisible
   private static final String FAILED_PRECONDITION_CODE = 'failed_precondition';
+  @TestVisible
+  private static final String FAILURE_MESSAGE = 'Failed to perform account closure.';
 
   /**
    * Internal stage
@@ -61,6 +63,9 @@ public with sharing class StravinskyAPIRepository extends RepositoryBase {
         throw CommonUtil.logException(objException);
       }
     } else {
+      if (response.statusCode == 500) {
+        Logger.error(FAILURE_MESSAGE, response.error, Logger.Severity.HIGH);
+      }
       throw CommonUtil.logException(response);
     }
   }

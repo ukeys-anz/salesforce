@@ -69,6 +69,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>LogAResponseControllerRepository</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CCRMTestDataFactory</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -696,7 +700,7 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
+        <editable>false</editable>
         <field>Contact.Email</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -743,6 +747,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Contact.Suffix__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.OtherPhone</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -817,12 +826,22 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ContactPointEmail.UsageType</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ContactPointPhone.Customer_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>ContactPointPhone.Occurrence_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ContactPointPhone.ParentId</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1023,6 +1042,16 @@ CC-6187 - read only to fields for ML Field Team users</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Customer_Relationship__c.Email__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Relationship__c.Last_Interaction_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Relationship__c.Next_Interaction_Date__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1977,6 +2006,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.Primary_Contact_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead.PreferredName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -2852,6 +2886,16 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>OpportunityContactRole.Email_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>OpportunityContactRole.Mobile_Classic__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Other_Limits_and_Liabilities__x.Account_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3273,6 +3317,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Territory__c.Territory_Code__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Territory__c.Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

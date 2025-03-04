@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Relationship_Start_Date_Cannot_Be_Future</fullName>
+    <active>true</active>
+    <description>This validation rule is used to ensure Relationship Start Date cannot be set to a future date</description>
+    <errorConditionFormula>AND(
+$Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+NOT($Profile.Name = &quot;System Administrator&quot;),
+Date_Relationship_Commenced__c &gt; today()
+)</errorConditionFormula>
+    <errorDisplayField>Date_Relationship_Commenced__c</errorDisplayField>
+    <errorMessage>Relationship Start Date cannot be in future</errorMessage>
+</ValidationRule>
