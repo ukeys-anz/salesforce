@@ -86,7 +86,9 @@ public with sharing class CCRMFinancialAccountActions {
       if (
         !String.isBlank(record.FinServ__FinancialAccountType__c) &&
         !String.isBlank(record.FinServ__FinancialAccountNumber__c) &&
-        !GetHelpConstants.anzxMarketingCodes.contains(record.Marketing_Code__c)
+        !GetHelpConstants.ANZX_MARKETING_CODES.contains(
+          record.Marketing_Code__c
+        )
       ) {
         record.Name =
           (record.FinServ__FinancialAccountType__c.contains(':')
