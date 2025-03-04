@@ -20,7 +20,7 @@ public with sharing class BrokerDataContactCEBuilder {
   private static final String FIELD_PARENT = 'Parent';
   private static final String FIELD_BROKER_NAME = 'Broker_Name__r';
   private static final String FIELD_LOAN_APP_ACCOUNTID = 'AccountId';
-  
+
   /**
    * @description Build the account node for the cloud event
    * @param record the new contact record in trigger context
@@ -37,7 +37,7 @@ public with sharing class BrokerDataContactCEBuilder {
     };
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
-  
+
   /**
    * @description Build the contact node for the cloud event
    * @param record the new contact record in trigger context
@@ -58,7 +58,7 @@ public with sharing class BrokerDataContactCEBuilder {
     };
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
-  
+
   /**
    * @description Build the contact info node for the cloud event
    * @param record the new contact record in trigger context
@@ -67,7 +67,7 @@ public with sharing class BrokerDataContactCEBuilder {
    */
   public static BrokerCloudEventModel.MasterNode buildContactInfoNode(
     Contact record,
-  String contactInfoObjectName
+    String contactInfoObjectName
   ) {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectName' => contactInfoObjectName,
@@ -83,7 +83,7 @@ public with sharing class BrokerDataContactCEBuilder {
     };
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
-  
+
   /**
    * @description Build the broker code node for the cloud event
    * @param record the new contact record in trigger context
@@ -105,7 +105,7 @@ public with sharing class BrokerDataContactCEBuilder {
     };
     return BrokerCloudEventModel.buildMasterNode(dataContractMap);
   }
-  
+
   /**
    * @description method used for building the cloud event structure using the loan app details
    * @author Deepro De | 05-30-2024

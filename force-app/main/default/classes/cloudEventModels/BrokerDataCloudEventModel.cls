@@ -6,13 +6,13 @@
  * @LastUpdated on 26 Feb 2025 By Ajay Mishra Replaced External_Id__c with New_External_Id__c.
  */
 @SuppressWarnings(
-'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.PropertyNamingConventions, PMD.NcssConstructorCount'
-  )
+  'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.PropertyNamingConventions, PMD.NcssConstructorCount'
+)
 public virtual with sharing class BrokerDataCloudEventModel extends BrokerCloudEventModel {
   public BrokerDataCloudEventModel(
     Contact contact,
-  List<BrokerDataCloudEventModel.MasterNode> payload,
-  String action
+    List<BrokerDataCloudEventModel.MasterNode> payload,
+    String action
   ) {
     super();
     this.ce_type = System.Label.ANZX_Broker_event_ce_type + action;
