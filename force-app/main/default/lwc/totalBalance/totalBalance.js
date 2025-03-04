@@ -135,7 +135,7 @@ export default class TotalBalance extends LightningElement {
       return `${productNameList[0]}`;
     } else if (productNamesLength === 2) {
       return `${productNameList[0]} and ${productNameList[1]}`;
-    } else {
+    } else if (productNamesLength > 2) {
       return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNamesLength - 1]}`;
     }
   }
