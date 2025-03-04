@@ -130,13 +130,15 @@ export default class TotalBalance extends LightningElement {
   }
 
   formatProductName(productNameList) {
-    let productNamesLength = productNameList.length;
-    if (productNamesLength === 1) {
-      return `${productNameList[0]}`;
-    } else if (productNamesLength === 2) {
-      return `${productNameList[0]} and ${productNameList[1]}`;
-    } else if (productNamesLength > 2) {
-      return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNamesLength - 1]}`;
+    switch (productNameList.length) {
+      case 0:
+        return "";
+      case 1:
+        return `${productNameList[0]}`;
+      case 2:
+        return `${productNameList[0]} and ${productNameList[1]}`;
+      default:
+        return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNamesLength - 1]}`;
     }
   }
 }
