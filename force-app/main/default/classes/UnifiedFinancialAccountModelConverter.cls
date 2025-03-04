@@ -28,18 +28,9 @@ public with sharing class UnifiedFinancialAccountModelConverter {
       finAccountDetail.account_name = finAccount.Name;
       finAccountDetail.account_number = finAccount.FinServ__FinancialAccountNumber__c;
       finAccountDetail.finserv_status = finAccount.FinServ__Status__c;
-      finAccountDetail.finserv_product_name = finAccount.FinServ__ProductName__c !=
-        null
-        ? finAccount.FinServ__ProductName__c
-        : null;
-      finAccountDetail.finserv_opendate = finAccount.FinServ__OpenDate__c !=
-        null
-        ? finAccount.FinServ__OpenDate__c
-        : null;
-      finAccountDetail.finserv_closedate = finAccount.FinServ__CloseDate__c !=
-        null
-        ? finAccount.FinServ__CloseDate__c
-        : null;
+      finAccountDetail.finserv_product_name = finAccount.FinServ__ProductName__c;
+      finAccountDetail.finserv_opendate = finAccount.FinServ__OpenDate__c;
+      finAccountDetail.finserv_closedate = finAccount.FinServ__CloseDate__c;
       finAccountDetail.finserv_ownership = finAccount.Ownership__c;
       finAccountDetail.balances = convertBalances(
         finAccount.FinServ__Balance__c,
@@ -73,7 +64,6 @@ public with sharing class UnifiedFinancialAccountModelConverter {
     Decimal balanceValue
   ) {
     UnifiedFinancialAccountModel.Balance finAccountBalance = new UnifiedFinancialAccountModel.Balance();
-    finAccountBalance.units = String.valueOf(balanceValue);
     finAccountBalance.units = String.valueOf(balanceValue);
     finAccountBalance.nanos = 0;
     return finAccountBalance;

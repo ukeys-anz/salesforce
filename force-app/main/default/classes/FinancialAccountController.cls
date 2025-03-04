@@ -167,14 +167,10 @@ public with sharing class FinancialAccountController {
     Map<String, FinancialAccountUIConfiguration__mdt> financialAccountConfigMap
   ) {
     finAccount.Id = finAccountFromDatabase?.Id;
-    finAccount.finserv_product_name = (finAccountFromDatabase != null &&
-      finAccountFromDatabase.FinServ__ProductName__c != null)
-      ? finAccountFromDatabase.FinServ__ProductName__c
-      : null;
-    finAccount.finserv_product_display_name = (finAccountFromDatabase != null &&
-      finAccountFromDatabase.Product_Name_Display__c != null)
-      ? finAccountFromDatabase.Product_Name_Display__c
-      : null;
+    finAccount.finserv_product_name = finAccountFromDatabase
+      ?.FinServ__ProductName__c;
+    finAccount.finserv_product_display_name = finAccountFromDatabase
+      ?.Product_Name_Display__c;
     finAccount.finserv_opendate = finAccount.open_date == null
       ? null
       : Date.valueOf(finAccount.open_date.value);
@@ -274,24 +270,14 @@ public with sharing class FinancialAccountController {
       );
 
       if (
-        homeLoanAccountDetailsCache != null &&
-        !homeLoanAccountDetailsCache.isEmpty()
-      ) {
-        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
-      }
-      if (
-        financialAccountsFromDatabase != null &&
-        !financialAccountsFromDatabase.isEmpty()
-      ) {
-        combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
-      }
-
-      if (
-        combinedFinancialAccountList == null ||
-        combinedFinancialAccountList.isEmpty()
+        homeLoanAccountDetailsCache.isEmpty() &&
+        financialAccountsFromDatabase.isEmpty()
       ) {
         return new Map<String, Object>();
       }
+
+      combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
+      combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
 
       List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         combinedFinancialAccountList
@@ -320,8 +306,6 @@ public with sharing class FinancialAccountController {
       FinancialAccountUIConfiguration__mdt.Product_Code__c
     );
 
-    //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
-    //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
     List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
       marketingCodes
@@ -336,10 +320,6 @@ public with sharing class FinancialAccountController {
       ownerId,
       new List<String>(allRelatedAccountNumbers)
     );
-
-    if (financialAccount == null || financialAccount.isEmpty()) {
-      return new List<UnifiedFinancialAccountModel.AccountList>();
-    }
 
     return UnifiedFinancialAccountModelConverter.convertToUnifiedFinancialAccountModel(
       financialAccount
