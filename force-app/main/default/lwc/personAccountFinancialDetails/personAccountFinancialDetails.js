@@ -96,6 +96,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       });
 
       this.processedAccounts = structuredClone(this.fetchedAccounts);
+      this.updateProductName();
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -119,6 +120,22 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         })
       );
     }
+  }
+
+  updateProductName() {
+    this.processedAccounts = {
+      ...this.processedAccounts,
+      groupedAccounts: this.processedAccounts.groupedAccounts.map((group) => {
+        const productName =
+          group.accounts?.length > 0
+            ? group.accounts[0]?.finserv_product_display_name
+            : group.productNameTitle;
+        return {
+          ...group,
+          productNameTitle: productName
+        };
+      })
+    };
   }
 
   async getOffsetHomeLoanResponse() {
