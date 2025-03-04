@@ -168,7 +168,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
     try {
       let goalData = await getAccountBuckets({
         ocvId: this.ocvId,
-        pageSize: 10,
+        pageSize: 100,
         nextPageToken: "",
         accountNumber: ""
       });
