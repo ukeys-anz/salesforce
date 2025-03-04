@@ -226,5 +226,7 @@ export function fetchTooltipContent(resourceName, productName) {
 }
 
 function populateProductName(toolTipContent, productName) {
-  return toolTipContent.replace("{productName}", productName);
+  return toolTipContent
+    ? toolTipContent.replace("{productName}", productName)
+    : "";
 }

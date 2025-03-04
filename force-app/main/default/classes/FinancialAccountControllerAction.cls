@@ -48,9 +48,7 @@ public with sharing class FinancialAccountControllerAction {
     for (FinancialAccountUIConfiguration__mdt config : uiConfigDetails) {
       productCodeExistsMap.put(config.Product_Code__c, true);
 
-      if (config.Is_Active__c == true) {
-        uiConfigMap.put(config.Product_Code__c, config);
-      }
+      uiConfigMap.put(config.Product_Code__c, config);
     }
   }
 
@@ -91,12 +89,7 @@ public with sharing class FinancialAccountControllerAction {
         productCode
       );
 
-      Boolean isActive = (uiConfig != null &&
-        uiConfig.Is_Active__c != null)
-        ? uiConfig.Is_Active__c
-        : true;
-
-      if (!isActive && uiConfig != null) {
+      if (uiConfig != null && !uiConfig.Is_Active__c) {
         continue;
       }
 
@@ -125,14 +118,6 @@ public with sharing class FinancialAccountControllerAction {
       FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
         productCode
       );
-
-      Boolean isActive = (uiConfig != null &&
-        uiConfig.Is_Active__c != null)
-        ? uiConfig.Is_Active__c
-        : true;
-      if (!isActive && uiConfig != null) {
-        continue;
-      }
 
       Integer tileSortOrder = tileSortOrderMap.containsKey(productCode)
         ? tileSortOrderMap.get(productCode)
@@ -170,8 +155,6 @@ public with sharing class FinancialAccountControllerAction {
       'accountType' => uiConfig != null
         ? uiConfig.Account_Type__c
         : 'Non Savings',
-      'balanceTitle' => uiConfig != null ? uiConfig.Balance_Title__c : '',
-      'productNameTitle' => uiConfig != null ? uiConfig.Product_Name__c : '',
       'balanceTitle' => uiConfig != null ? uiConfig.Balance_Title__c : '',
       'sectionHeaderTitle' => uiConfig != null
         ? uiConfig.Section_Header_Title__c

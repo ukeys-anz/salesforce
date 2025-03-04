@@ -98,7 +98,7 @@ export default class FinancialGoalsPersonAccount extends NavigationMixin(
       }
 
       // Handle the buckets
-      if (record.buckets.length >= this.onLoadGoalDisplayCount) {
+      if (record.buckets.length > this.onLoadGoalDisplayCount) {
         record.goalsLeftToView = this.pendingGoalssTobeViewed(
           record.buckets.length
         );

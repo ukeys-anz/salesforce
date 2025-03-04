@@ -28,7 +28,7 @@
     </values>
     <values>
         <field>Product_Name__c</field>
-        <value xsi:type="xsd:string">ANZ Plus Flex Saver</value>
+        <value xsi:type="xsd:string">ANZ Plus Flex Saver From metadata</value>
     </values>
     <values>
         <field>Section_Header_Title__c</field>

@@ -30,6 +30,8 @@ import {
   getImageMap,
   handleGoalData,
   handleTransactionGoals,
+  updateProductName,
+  getAccountByAccountNumber,
   handleComponentTitle
 } from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
@@ -244,23 +246,15 @@ export default class FinancialAccountParent extends LightningElement {
         ocvId: this.ocvId,
         accountNumbers: [this.accountNumber]
       });
-
       this.financialAccount = structuredClone(this.fetchedAccounts);
-      this.financialAccount = this.getAccountByAccountNumber(
-        this.accountNumber
+      this.financialAccount = updateProductName(this.financialAccount);
+      this.financialAccount = getAccountByAccountNumber(
+        this.accountNumber,
+        this.financialAccount
       );
     } catch (error) {
-      this.fetchedAccounts = await getFinancialAccountDB({
-        ocvId: this.ocvId,
-        ownerId: this.recordId
-      });
-
       this.accountError =
         "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator";
-      this.financialAccount = structuredClone(this.fetchedAccounts);
-      this.financialAccount = this.getAccountByAccountNumber(
-        this.accountNumber
-      );
       handleErrorShowToast(
         this,
         "Failed To Retrieve Account Details",
@@ -268,27 +262,17 @@ export default class FinancialAccountParent extends LightningElement {
         this.accountError,
         "pester"
       );
-    }
-  }
-
-  getAccountByAccountNumber(accountNumber) {
-    const orignalData = this.financialAccount;
-    let filteredData = { groupedAccounts: [] };
-    orignalData.groupedAccounts.forEach((group) => {
-      const filteredAccounts = group.accounts.filter(
-        (account) => account.account_number === accountNumber
+      this.fetchedAccounts = await getFinancialAccountDB({
+        ocvId: this.ocvId,
+        ownerId: this.recordId
+      });
+      this.financialAccount = structuredClone(this.fetchedAccounts);
+      this.financialAccount = updateProductName(this.financialAccount);
+      this.financialAccount = getAccountByAccountNumber(
+        this.accountNumber,
+        this.financialAccount
       );
-      if (filteredAccounts.length > 0) {
-        filteredData.groupedAccounts.push({
-          ...group,
-          accounts: filteredAccounts
-        });
-      }
-    });
-    if (filteredData.groupedAccounts.length === 0) {
-      return { noAccountFound: true };
     }
-    return filteredData.groupedAccounts[0];
   }
 
   async getGoalData(paramUrl = "") {

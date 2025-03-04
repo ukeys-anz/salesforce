@@ -22,13 +22,19 @@ public with sharing class AccountClosureWizardControllerTest {
   private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
+  private static final Id FAKER_FIN_ACC_ID = Lib_FakeIdGenerator.getMockId(
+    FinServ__FinancialAccount__c.getSObjectType()
+  );
+
   static Lib_MockProvider accountClosureRepoMock;
+  static Lib_MockProvider finAccRepoMock;
   static Lib_MockProvider dmlRepoMock;
 
   static void registerMocks() {
     accountClosureRepoMock = Lib_MockProvider.forType(
       AccountClosureRepository.class
     );
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
@@ -86,20 +92,72 @@ public with sharing class AccountClosureWizardControllerTest {
       'Expected an empty result list for empty CaseInputWrapper'
     );
   }
+  @isTest
+  public static void testGetFilteredFinancialAccountsPositive() {
+    System.runAs(thisUser) {
+      registerMocks();
+      finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
 
-  // @isTest
-  // static void testGetFilteredFinancialAccountsWithEmptyData() {
-  //   System.runAs(thisUser) {
-  //     String ocvId = '12345';
-  //     Test.startTest();
-  //     // Call the method under test
-  //     List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-  //       ocvId
-  //     );
-  //     System.assert(response.isEmpty(), 'No financial accounts returned');
-  //     Test.stopTest();
-  //   }
-  // }
+      finAccRepoMock.mock(
+        'fetchFinancialAccountUIConfigInfo',
+        mockfinAccountUiConfig()
+      );
+
+      accountClosureRepoMock.mock(
+        'getCasesByFinancialAccountIds',
+        new List<Case>()
+      );
+
+      accountClosureRepoMock.mock(
+        'fetchFilteredFinancialAccountsDetails',
+        mockFinancialAccounts()
+      );
+
+      Test.startTest();
+      List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
+        '12345'
+      );
+      Test.stopTest();
+
+      Assert.areEqual(
+        response[0].Id,
+        FAKER_FIN_ACC_ID,
+        'Financial account id should be same'
+      );
+    }
+  }
+
+  @isTest
+  public static void testGetFinancialAccountIdsFromFabricResponseNegative() {
+    System.runAs(thisUser) {
+      registerMocks();
+      finAccRepoMock.mock(
+        'getFinAccountList',
+        new List<FinServ__FinancialAccount__c>()
+      );
+
+      finAccRepoMock.mock(
+        'fetchFinancialAccountUIConfigInfo',
+        mockfinAccountUiConfig()
+      );
+
+      Test.startTest();
+      Map<String, Object> groupedFinAccounts = FinancialAccountController.getFinancialAccountFabric(
+        '12345',
+        new List<String>()
+      );
+      Set<Id> finAccountId = AccountClosureWizardController.getFinancialAccountIdsFromFabricResponse(
+        groupedFinAccounts
+      );
+      Test.stopTest();
+
+      Assert.areEqual(
+        finAccountId.size(),
+        0,
+        'Financial account record Id should not be stored from the grouped financial accounts'
+      );
+    }
+  }
 
   private static List<Case> mockListOfCases() {
     List<Case> listOfExistingCases = new List<Case>();
@@ -135,7 +193,7 @@ public with sharing class AccountClosureWizardControllerTest {
     List<FinServ__FinancialAccount__c> accounts = new List<FinServ__FinancialAccount__c>();
     accounts.add(
       new FinServ__FinancialAccount__c(
-        Id = 'a0FAD000002THXN2A4',
+        Id = FAKER_FIN_ACC_ID,
         FinServ__FinancialAccountNumber__c = '111111111',
         FinServ__Balance__c = 1.99,
         FinServ__CurrentPostedBalance__c = 1.99,
@@ -149,5 +207,32 @@ public with sharing class AccountClosureWizardControllerTest {
       )
     );
     return accounts;
+  }
+
+  private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
+    List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
+    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
+      Product_Code__c = 'HOMELOAN1',
+      Account_Type__c = 'Loan',
+      Balance_Title__c = 'Loan Balance',
+      Section_Header_Title__c = 'Loan',
+      Sort_Order__c = 1,
+      Ownership_Type__c = 'Single',
+      Show_Goals__c = false
+    );
+    mockMetaData.add(dummyRecord1);
+
+    FinancialAccountUIConfiguration__mdt dummyRecord2 = new FinancialAccountUIConfiguration__mdt(
+      Product_Code__c = 'SAVING01',
+      Account_Type__c = 'Savings',
+      Balance_Title__c = 'Total Saved',
+      Section_Header_Title__c = 'Savings',
+      Sort_Order__c = 2,
+      Ownership_Type__c = 'Single',
+      Show_Goals__c = true
+    );
+    mockMetaData.add(dummyRecord2);
+
+    return mockMetaData;
   }
 }

@@ -5,11 +5,9 @@
  */
 @isTest
 public with sharing class AccountBucketsControllerTest {
-  static Lib_MockProvider finAccRepoMock;
   static Lib_MockProvider userMock;
 
   static void registerMocks() {
-    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
     userMock = Lib_MockProvider.forType(UserInfoRepository.class)
       .mock('checkCustomPermission', true);
   }

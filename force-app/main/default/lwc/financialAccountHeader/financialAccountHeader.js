@@ -60,24 +60,29 @@ export default class FinancialAccount extends NavigationMixin(
 
   handleAccountInformation(finAccounts) {
     // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence, changing the badge class
-    //console.log('from child lwc : '+ JSON.stringify(finAccounts));
-
-    const updatedFinAccounts = finAccounts.map((account) => {
-      let finAccount = { ...account };
-      // Set badgeClass based on finserv_status
-      finAccount.badgeClass =
-        finAccount.finserv_status === "Active" ||
-        finAccount.finserv_status === "Open"
-          ? "slds-badge slds-theme_success"
-          : finAccount.finserv_status === "Closed"
-            ? "slds-badge closedBadgeClass"
-            : finAccount.finserv_status === "Dormant"
-              ? "slds-badge dormantBadgeClass"
-              : "slds-badge";
-
-      // Only show Savings Jar when finserv_status is not "CLOSED"
-      finAccount.showSavingsJar = finAccount.finserv_status !== "Closed";
-      // Only show showMultipartyBadge when the ownership type is "Multi-party"
+    if (!finAccounts) {
+      return null;
+    }
+    return finAccounts.map((account) => {
+      const finAccount = { ...account };
+      switch (finAccount.finserv_status) {
+        case "Active":
+        case "Open":
+          finAccount.badgeClass = "slds-badge slds-theme_success";
+          break;
+        case "Closed":
+          finAccount.badgeClass = "slds-badge closedBadgeClass";
+          break;
+        case "Dormant":
+          finAccount.badgeClass = "slds-badge dormantBadgeClass";
+          break;
+        default:
+          finAccount.badgeClass = "slds-badge";
+      }
+      finAccount.showSavingsJar =
+        this.savingsJar &&
+        Object.keys(this.savingsJar).length > 0 &&
+        finAccount.finserv_status !== "Closed";
       if (
         finAccount.finserv_status !== "Closed" &&
         finAccount.finserv_ownership === "Multi-party"
@@ -87,7 +92,6 @@ export default class FinancialAccount extends NavigationMixin(
       }
       return finAccount;
     });
-    return updatedFinAccounts;
   }
 
   navigateToRecordViewPage(event) {
