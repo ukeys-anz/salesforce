@@ -76,7 +76,10 @@ export default class FinancialAccount extends NavigationMixin(
               : "slds-badge";
 
       // Only show Savings Jar when finserv_status is not "CLOSED"
-      finAccount.showSavingsJar = finAccount.finserv_status !== "Closed";
+      finAccount.showSavingsJar =
+        this.savingsJar &&
+        Object.keys(this.savingsJar).length > 0 &&
+        finAccount.finserv_status !== "Closed";
       // Only show showMultipartyBadge when the ownership type is "Multi-party"
       if (
         finAccount.finserv_status !== "Closed" &&

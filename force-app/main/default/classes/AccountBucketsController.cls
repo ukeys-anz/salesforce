@@ -4,7 +4,6 @@
  * @description AccountBucketsController is the controller for the Buckets LWC
  */
 public with sharing class AccountBucketsController {
-  
   /**
    * @description  The getAccountBuckets(ocvId) is the method to make the Http callout to Mulesoft to fetch the accounts and goals details from Fabric.
    * @param ocvId Ocv id for which buckets needs to be fetched
