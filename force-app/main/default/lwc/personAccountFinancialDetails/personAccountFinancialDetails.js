@@ -7,6 +7,7 @@ import {
   groupGoalsByAccountNumber,
   addFinAccountAndMetaDataToGoals
 } from "./helper/helper-goalsDetails";
+import { updateProductName } from "./helper/helper-accountDetails";
 
 /* IMPORT APEX METHODS */
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
@@ -94,9 +95,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ocvId: this.ocvId,
         accountNumbers: []
       });
-
       this.processedAccounts = structuredClone(this.fetchedAccounts);
-      this.updateProductName();
+      this.processedAccounts = updateProductName(this.processedAccounts);
     } catch (error) {
       handleErrorShowToast(
         this,
@@ -112,6 +112,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ownerId: this.recordId
       });
       this.processedAccounts = structuredClone(this.fetchedAccounts);
+      this.processedAccounts = updateProductName(this.processedAccounts);
     } finally {
       //Raise this event to call initiate fetching of total balance
       window.dispatchEvent(
@@ -120,22 +121,6 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         })
       );
     }
-  }
-
-  updateProductName() {
-    this.processedAccounts = {
-      ...this.processedAccounts,
-      groupedAccounts: this.processedAccounts.groupedAccounts.map((group) => {
-        const productName =
-          group.accounts?.length > 0
-            ? group.accounts[0]?.finserv_product_display_name
-            : "";
-        return {
-          ...group,
-          productNameTitle: productName
-        };
-      })
-    };
   }
 
   async getOffsetHomeLoanResponse() {
