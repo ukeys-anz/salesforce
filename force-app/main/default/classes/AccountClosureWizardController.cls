@@ -133,27 +133,46 @@ public with sharing class AccountClosureWizardController {
    * @param groupedFinancialAccounts grouped financial accounts based on the marketing code eg: TRANSACT01,SAVING01
    * @return Id of the financial account
    */
+  @TestVisible
   private static Set<Id> getFinancialAccountIdsFromFabricResponse(
     Map<String, object> groupedFinancialAccounts
   ) {
-    Set<Id> finaccountIds = new Set<Id>();
     List<Map<String, Object>> groupedFinancialAccountsList = (List<Map<String, Object>>) groupedFinancialAccounts.get(
       'groupedAccounts'
     );
 
+    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts = collectAllFinancialAccounts(
+      groupedFinancialAccountsList
+    );
+
+    return addFinancialAccountIds(allFinAccounts);
+  }
+
+  private static List<UnifiedFinancialAccountModel.AccountList> collectAllFinancialAccounts(
+    List<Map<String, Object>> groupedFinancialAccountsList
+  ) {
+    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
     for (Map<String, Object> finAccountGroup : groupedFinancialAccountsList) {
       List<UnifiedFinancialAccountModel.AccountList> finAccountList = (List<UnifiedFinancialAccountModel.AccountList>) finAccountGroup.get(
         'accounts'
       );
-      for (
-        UnifiedFinancialAccountModel.AccountList finAccountRecord : finAccountList
-      ) {
-        if (String.isNotBlank(finAccountRecord.id)) {
-          finaccountIds.add(finAccountRecord.id);
-        }
-      }
+      allFinAccounts.addAll(finAccountList);
     }
 
+    return allFinAccounts;
+  }
+
+  private static Set<Id> addFinancialAccountIds(
+    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts
+  ) {
+    Set<Id> finaccountIds = new Set<Id>();
+    for (
+      UnifiedFinancialAccountModel.AccountList finAccountRecord : allFinAccounts
+    ) {
+      if (String.isNotBlank(finAccountRecord.id)) {
+        finaccountIds.add(finAccountRecord.id);
+      }
+    }
     return finaccountIds;
   }
 }

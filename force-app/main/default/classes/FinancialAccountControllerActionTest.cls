@@ -28,7 +28,7 @@ public with sharing class FinancialAccountControllerActionTest {
     Test.stopTest();
 
     Assert.areEqual(
-      (Boolean) mapOfProductodeAndFinAccounts[0].get('isOthers'),
+      (Boolean) mapOfProductodeAndFinAccounts[0].get('isSaving'),
       true,
       'Financial Accounts should be grouped by Product Code'
     );
@@ -85,54 +85,37 @@ public with sharing class FinancialAccountControllerActionTest {
       Product_Code__c = 'HOMELOAN1',
       Account_Type__c = 'Loan',
       Balance_Title__c = 'Loan Balance',
-      Product_Name__c = 'ANZ Plus fixed Rate Home Loan',
       Section_Header_Title__c = 'Loan',
       Sort_Order__c = 1,
+      Is_Active__c = true,
       Ownership_Type__c = 'Single'
     );
+
     mockMetaData.add(dummyRecord1);
 
     FinancialAccountUIConfiguration__mdt dummyRecord2 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'SAVING01',
       Account_Type__c = 'Savings',
       Balance_Title__c = 'Total Saved',
-      Product_Name__c = 'ANZ Save',
       Section_Header_Title__c = 'Savings',
       Sort_Order__c = 3,
-      Ownership_Type__c = 'Multi-Party'
+      Ownership_Type__c = 'Multi-Party',
+      Is_Active__c = true
     );
+
     mockMetaData.add(dummyRecord2);
 
     FinancialAccountUIConfiguration__mdt dummyRecord3 = new FinancialAccountUIConfiguration__mdt(
       Product_Code__c = 'SAVING01',
       Account_Type__c = 'Savings',
       Balance_Title__c = 'Total Saved',
-      Product_Name__c = 'ANZ Save',
       Section_Header_Title__c = 'Savings',
       Sort_Order__c = 2,
-      Ownership_Type__c = 'Single'
+      Ownership_Type__c = 'Single',
+      Is_Active__c = true
     );
     mockMetaData.add(dummyRecord3);
 
     return mockMetaData;
-  }
-
-  private static Map<String, Integer> mockProductTileSortOrderMap() {
-    return new Map<String, Integer>{ 'HOMELOAN1' => 3, 'SAVING01' => 1 };
-  }
-
-  private static Map<String, Map<String, Integer>> mockProductOwnershipOrderMap() {
-    Map<String, Map<String, Integer>> productOwnershipOrderMap = new Map<String, Map<String, Integer>>();
-
-    productOwnershipOrderMap.put(
-      'HOMELOAN1',
-      new Map<String, Integer>{ 'Single' => 3 }
-    );
-    productOwnershipOrderMap.put(
-      'SAVING01',
-      new Map<String, Integer>{ 'Multi-Party' => 2, 'Single' => 1 }
-    );
-
-    return productOwnershipOrderMap;
   }
 }

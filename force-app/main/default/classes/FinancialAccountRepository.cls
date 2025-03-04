@@ -181,7 +181,6 @@ public with sharing class FinancialAccountRepository {
         Sort_Order__c,
         Account_Type__c,
         Balance_Title__c,
-        Product_Name__c,
         Section_Header_Title__c,
         Is_Active__c,
         Include_In_Total_Financial_Position__c
@@ -288,7 +287,6 @@ public with sharing class FinancialAccountRepository {
         Sort_Order__c,
         Account_Type__c,
         Balance_Title__c,
-        Product_Name__c,
         Section_Header_Title__c,
         Is_Active__c,
         Include_In_Total_Financial_Position__c

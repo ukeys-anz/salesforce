@@ -23,8 +23,6 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   @AuraEnabled
   public String balanceTitle;
   @AuraEnabled
-  public String productNameTitle;
-  @AuraEnabled
   public String sectionHeaderTitle;
   @AuraEnabled
   public String isSaving;
