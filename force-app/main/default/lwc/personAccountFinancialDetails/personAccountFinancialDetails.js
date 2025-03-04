@@ -129,7 +129,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         const productName =
           group.accounts?.length > 0
             ? group.accounts[0]?.finserv_product_display_name
-            : group.productNameTitle;
+            : "";
         return {
           ...group,
           productNameTitle: productName
