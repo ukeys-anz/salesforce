@@ -6348,9 +6348,9 @@
                 <propertySetConfig>{
   &quot;disOnTplt&quot; : false,
   &quot;enableCaption&quot; : true,
-  &quot;imageCountInRow&quot; : 3.0,
-  &quot;optionHeight&quot; : 100.0,
-  &quot;optionWidth&quot; : 100.0,
+  &quot;imageCountInRow&quot; : 3,
+  &quot;optionHeight&quot; : 100,
+  &quot;optionWidth&quot; : 100,
   &quot;hide&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
@@ -6390,7 +6390,7 @@
   &quot;repeat&quot; : false,
   &quot;required&quot; : true,
   &quot;label&quot; : &quot;Are any of the issues possibly systemic?&quot;,
-  &quot;controlWidth&quot; : 4.0
+  &quot;controlWidth&quot; : 4
 }</propertySetConfig>
                 <sequenceNumber>71.0</sequenceNumber>
                 <type>Radio</type>
@@ -6910,7 +6910,7 @@
     }, {
       &quot;realFormRequired&quot; : &quot;Is a REaL form required?&quot;
     }, {
-      &quot;systemicIssue&quot; : &quot;Is this a possible systemic issue?&quot;
+      &quot;systemicIssue&quot; : &quot;Are any of the issues possibly systemic?&quot;
     } ],
     &quot;realMap&quot; : [ {
       &quot;realFormMAXId&quot; : &quot;REaL Form / Event ID&quot;
@@ -6962,5 +6962,5 @@
     <type>Case</type>
     <uniqueName>Case_Creation_English_26</uniqueName>
     <versionNumber>26.0</versionNumber>
-    <webComponentKey>df020e9e-18e6-a7f4-dbde-3120cbd39509</webComponentKey>
+    <webComponentKey>eda7b3e1-4bbe-bd0d-392d-21a3334d7564</webComponentKey>
 </OmniScript>
