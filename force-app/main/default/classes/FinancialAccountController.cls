@@ -270,14 +270,24 @@ public with sharing class FinancialAccountController {
       );
 
       if (
-        homeLoanAccountDetailsCache.isEmpty() &&
-        financialAccountsFromDatabase.isEmpty()
+        homeLoanAccountDetailsCache != null &&
+        !homeLoanAccountDetailsCache.isEmpty()
+      ) {
+        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
+      }
+      if (
+        financialAccountsFromDatabase != null &&
+        !financialAccountsFromDatabase.isEmpty()
+      ) {
+        combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
+      }
+
+      if (
+        combinedFinancialAccountList == null ||
+        combinedFinancialAccountList.isEmpty()
       ) {
         return new Map<String, Object>();
       }
-
-      combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
-      combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
 
       List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         combinedFinancialAccountList
