@@ -75,7 +75,6 @@ public with sharing class FinancialAccountController {
     } catch (DmlException dmlExp) {
       throw CommonUtil.logAuraException(FAILED_FIN_ACCOUNT_UPDATE);
     } catch (Exception e) {
-      CommonUtil.logException(e);
       throw new AuraHandledException(MISSING_FIN_ACCOUNT);
     }
   }
