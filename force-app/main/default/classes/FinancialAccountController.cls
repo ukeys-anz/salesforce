@@ -264,30 +264,20 @@ public with sharing class FinancialAccountController {
     try {
       List<UnifiedFinancialAccountModel.AccountList> homeLoanAccountDetailsCache = DataPartitionUtil.getH1AccountDetailsCache(
         ocvId
-      );
+      ) ?? new List<UnifiedFinancialAccountModel.AccountList>();
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
         ownerId
-      );
+      ) ?? new List<UnifiedFinancialAccountModel.AccountList>();
 
       if (
-        homeLoanAccountDetailsCache != null &&
-        !homeLoanAccountDetailsCache.isEmpty()
-      ) {
-        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
-      }
-      if (
-        financialAccountsFromDatabase != null &&
-        !financialAccountsFromDatabase.isEmpty()
-      ) {
-        combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
-      }
-
-      if (
-        combinedFinancialAccountList == null ||
-        combinedFinancialAccountList.isEmpty()
+        homeLoanAccountDetailsCache.isEmpty() &&
+        financialAccountsFromDatabase.isEmpty()
       ) {
         return new Map<String, Object>();
       }
+
+      combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
+      combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
 
       List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         combinedFinancialAccountList
