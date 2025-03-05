@@ -18,7 +18,11 @@ public with sharing class TotalBalanceControllerTest {
    */
   @testSetup
   static void setup() {
-    createFinancialAccount();
+     TestUtil.addPermissionSets(
+      new List<String>{
+        'Accounts_Goals_Read_Only'
+      }
+    );
   }
 
   /**
@@ -27,6 +31,7 @@ public with sharing class TotalBalanceControllerTest {
   @isTest
   public static void testBalanceRetrieval() {
     registerMocks();
+    createFinancialAccount();
     Account accnt = [
       SELECT Id
       FROM Account
@@ -53,13 +58,16 @@ public with sharing class TotalBalanceControllerTest {
    */
   @isTest
   public static void testTotalSavedRetrieval() {
-    Test.startTest();
+    registerMocks();
+    createFinancialAccount();
     Account accnt = [
       SELECT Id
       FROM Account
       WHERE OCV_ID__c = '1111'
       LIMIT 1
     ];
+    Test.startTest();
+      
     TotalBalanceController.FinancialSummaryWrapper result = TotalBalanceController.getTotalSaved(
       accnt.Id
     );
