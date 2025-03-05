@@ -73,10 +73,34 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Gender__pc</fieldItem>
+                <identifier>RecordGender_pcField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Gender__pc</fieldItem>
                 <identifier>RecordGender_pcField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Prospect</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -265,13 +289,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__KYCStatus__c</fieldItem>
                 <identifier>RecordFinServ_KYCStatus_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -282,13 +299,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.KYC_Verification_Level__c</fieldItem>
                 <identifier>RecordKYC_Verification_Level_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -299,13 +309,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.TFN_Verification__c</fieldItem>
                 <identifier>RecordTFN_Verification_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -316,33 +319,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Tax_Exemption_Type__c</fieldItem>
                 <identifier>RecordTax_Exemption_Type_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.VOI_Expiry_Date_Classic__c</fieldItem>
-                <identifier>RecordVOI_Expiry_Date_Classic_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.VOI_Status_Classic__c</fieldItem>
-                <identifier>RecordVOI_Status_Classic_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c7422b5e-2f2f-4c3b-adba-ac149d3183a8</name>
@@ -357,13 +333,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Employee_Indicator__c</fieldItem>
                 <identifier>RecordEmployee_Indicator_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -374,13 +343,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.ANZx_Customer__c</fieldItem>
                 <identifier>RecordANZx_Customer_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -391,13 +353,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Collections__c</fieldItem>
                 <identifier>RecordCollections_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -408,13 +363,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Hardship__c</fieldItem>
                 <identifier>RecordHardship_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -425,13 +373,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Bankrupt_Date__c</fieldItem>
                 <identifier>RecordBankrupt_Date_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -442,13 +383,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Deceased_Date__c</fieldItem>
                 <identifier>RecordDeceased_Date_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c558cd01-7a10-43bc-bcf7-03401ad27d3a</name>
@@ -563,13 +497,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.FinServ__Status__c</fieldItem>
                 <identifier>RecordFinServ_Status_cField</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -900,66 +827,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Account.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Diary_Comments__r</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>ADVGRID</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer3</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-67cf57ad-16c1-47dc-b489-57405c02ab54</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>Account.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>Histories</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>NONE</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer5</identifier>
-            </componentInstance>
-        </itemInstances>
-        <name>Facet-20c89ae0-d50f-446c-8a8e-df18c3c6d5e2</name>
-        <type>Facet</type>
-    </flexiPageRegions>
-    <flexiPageRegions>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>actionNames</name>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -1049,9 +916,6 @@
                     <valueList>
                         <valueListItems>
                             <value>FinServ__RelatedAccount__c</value>
-                        </valueListItems>
-                        <valueListItems>
-                            <value>Customer_SourceSystemId__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>Relationship__c</value>
@@ -1327,6 +1191,112 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>New</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>adminFilters</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Role_Type__c|EQUALS|[&quot;AUV&quot;,&quot;AUN&quot;,&quot;AD1&quot;,&quot;AD2&quot;,&quot;AD3&quot;,&quot;BCH&quot;,&quot;BCG&quot;,&quot;BEN&quot;,&quot;ITF&quot;,&quot;ITO&quot;,&quot;PAE&quot;,&quot;PCH&quot;,&quot;POA&quot;,&quot;TPS&quot;]</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>FinServ__Active__c|EQUALS|true</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>FinServ__FinancialAccountRoles__pr</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListFieldAliases</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>Account_Name__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Product_Name_Display__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Product_Code_Display__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Sub_product_Code_Display__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Status__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Role_Type__c</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Other Related Accounts</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>Status__c</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Ascending</value>
+                </componentInstanceProperties>
+                <componentName>lst:dynamicRelatedList</componentName>
+                <identifier>lst_dynamicRelatedList5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>A_Z_Reviews__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer12</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
                     <name>parentFieldApiName</name>
                     <value>Account.Id</value>
                 </componentInstanceProperties>
@@ -1560,6 +1530,66 @@
             </componentInstance>
         </itemInstances>
         <name>Facet-b6c92c8f-7cc1-4baf-9f9c-f82b2f17d152</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Diary_Comments__r</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer3</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-67cf57ad-16c1-47dc-b489-57405c02ab54</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Histories</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListComponentOverride</name>
+                    <value>NONE</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>rowsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentName>force:relatedListSingleContainer</componentName>
+                <identifier>force_relatedListSingleContainer5</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-20c89ae0-d50f-446c-8a8e-df18c3c6d5e2</name>
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
@@ -1835,16 +1865,10 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Collections__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1862,16 +1886,10 @@
                 <componentName>flexipage:richText</componentName>
                 <identifier>flexipage_richText2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Hardship__c}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>true</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.FinServ__Status__c}</leftValue>
-                        <operator>NE</operator>
-                        <rightValue>Prospect</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1889,7 +1907,7 @@
         <name>sidebar</name>
         <type>Region</type>
     </flexiPageRegions>
-    <masterLabel>MLCRM Account Record Page</masterLabel>
+    <masterLabel>ANZ Individual Account Record Page</masterLabel>
     <sobjectType>Account</sobjectType>
     <template>
         <name>flexipage:recordHomeTemplateDesktop</name>
