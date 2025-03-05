@@ -127,38 +127,6 @@ public with sharing class AccountClosureWizardControllerTest {
     }
   }
 
-  @isTest
-  public static void testGetFinancialAccountIdsFromFabricResponseNegative() {
-    System.runAs(thisUser) {
-      registerMocks();
-      finAccRepoMock.mock(
-        'getFinAccountList',
-        new List<FinServ__FinancialAccount__c>()
-      );
-
-      finAccRepoMock.mock(
-        'fetchFinancialAccountUIConfigInfo',
-        mockfinAccountUiConfig()
-      );
-
-      Test.startTest();
-      Map<String, Object> groupedFinAccounts = FinancialAccountController.getFinancialAccountFabric(
-        '12345',
-        new List<String>()
-      );
-      Set<Id> finAccountId = AccountClosureWizardController.getFinancialAccountIdsFromFabricResponse(
-        groupedFinAccounts
-      );
-      Test.stopTest();
-
-      Assert.areEqual(
-        finAccountId.size(),
-        0,
-        'Financial account record Id should not be stored from the grouped financial accounts'
-      );
-    }
-  }
-
   private static List<Case> mockListOfCases() {
     List<Case> listOfExistingCases = new List<Case>();
     Case caseRecord = new Case();

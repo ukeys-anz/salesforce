@@ -223,6 +223,8 @@ public with sharing class AccountClosureRepository {
 
   /**
    * @description Inserted or Updated Case data which is requried to show on LWC
+   * Reason: Sharing recalculation not completed by the time SOQL running hence inserted records not available with user mode query
+   * Use Case for Sytem mode: When case record owner is different than Logged in user
    * @param setOfCaseIdsToQuery set of case Ids to query
    * @return List<Case> list of case records
    */

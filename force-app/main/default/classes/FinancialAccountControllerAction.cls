@@ -18,9 +18,12 @@ public with sharing class FinancialAccountControllerAction {
   public static List<Map<String, Object>> processFinancialAccounts(
     List<UnifiedFinancialAccountModel.AccountList> finAccounts
   ) {
-    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
-    Map<String, Boolean> productCodeExistsMap = new Map<String, Boolean>();
-    processUIConfigurations(uiConfigMap, productCodeExistsMap);
+    List<FinancialAccountUIConfiguration__mdt> uiConfigDetails = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+
+    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
+      uiConfigDetails,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
 
     Map<String, Integer> tileSortOrderMap = new Map<String, Integer>();
     Map<String, Map<String, Integer>> ownershipSortOrderMap = new Map<String, Map<String, Integer>>();
@@ -39,29 +42,15 @@ public with sharing class FinancialAccountControllerAction {
     );
   }
 
-  private static void processUIConfigurations(
-    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap,
-    Map<String, Boolean> productCodeExistsMap
-  ) {
-    List<FinancialAccountUIConfiguration__mdt> uiConfigDetails = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
-
-    for (FinancialAccountUIConfiguration__mdt config : uiConfigDetails) {
-      productCodeExistsMap.put(config.Product_Code__c, true);
-
-      uiConfigMap.put(config.Product_Code__c, config);
-    }
-  }
-
   private static void fetchSortingRules(
     Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap,
     Map<String, Integer> tileSortOrderMap,
     Map<String, Map<String, Integer>> ownershipSortOrderMap
   ) {
     for (FinancialAccountUIConfiguration__mdt config : uiConfigMap.values()) {
-      tileSortOrderMap.put(
-        config.Product_Code__c,
-        config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER
-      );
+      Integer sortOrder = config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER;
+
+      tileSortOrderMap.put(config.Product_Code__c, sortOrder);
 
       if (!ownershipSortOrderMap.containsKey(config.Product_Code__c)) {
         ownershipSortOrderMap.put(
@@ -70,10 +59,7 @@ public with sharing class FinancialAccountControllerAction {
         );
       }
       ownershipSortOrderMap.get(config.Product_Code__c)
-        .put(
-          config.Ownership_Type__c,
-          config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER
-        );
+        .put(config.Ownership_Type__c, sortOrder);
     }
   }
 
@@ -205,13 +191,12 @@ public with sharing class FinancialAccountControllerAction {
       Integer orderA = (ownMap != null &&
         ownMap.containsKey(firstFinAcc.finserv_ownership))
         ? ownMap.get(firstFinAcc.finserv_ownership)
-        : 999;
+        : DEFAULT_SORT_ORDER;
       Integer orderB = (ownMap != null &&
         ownMap.containsKey(secondFinAcc.finserv_ownership))
         ? ownMap.get(secondFinAcc.finserv_ownership)
-        : 999;
-      return (tileSortOrder * 1000 + orderA) -
-        ((tileSortOrder * 1000) + orderB);
+        : DEFAULT_SORT_ORDER;
+      return (tileSortOrder * 1000 + orderA) - (tileSortOrder * 1000 + orderB);
     }
   }
 

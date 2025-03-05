@@ -15,6 +15,7 @@ describe("c-dynamic-tooltip-util", () => {
     });
     element.headerTitle = "Total Financial Position*";
     element.resourceName = "totalFinancialPosition";
+    element.productName = "ANZ Plus , ANZ Save and ANZ Plus Flex Saver";
     document.body.appendChild(element);
 
     let tooltipContent = element.shadowRoot.querySelector(
@@ -33,6 +34,7 @@ describe("c-dynamic-tooltip-util", () => {
     });
     element.headerTitle = "Total Saved";
     element.resourceName = "totalSavedFinancialPosition";
+    element.productName = "ANZ Save";
     document.body.appendChild(element);
 
     let tooltipContent = element.shadowRoot.querySelector(

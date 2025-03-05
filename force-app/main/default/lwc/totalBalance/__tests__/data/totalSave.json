@@ -1,3 +1,9 @@
 {
-  "totalSaved": "23.21"
+  "productNames" : [ "wgczTBWgjiRtOTJYfzRv", "XxREJFpzrnwYIqVvAKbu" ],
+  "aggregateResult" : {
+    "attributes" : {
+      "type" : "AggregateResult"
+    },
+    "totalBalance" : 23.21
+  }
 }

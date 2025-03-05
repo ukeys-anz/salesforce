@@ -28,9 +28,15 @@ public with sharing class AccountClosureWizardController {
       new List<String>()
     );
 
-    Set<Id> finAccountIds = getFinancialAccountIdsFromFabricResponse(
-      groupedFinAccounts
+    List<Map<String, Object>> groupedFinancialAccountsList = (List<Map<String, Object>>) groupedFinAccounts.get(
+      'groupedAccounts'
     );
+
+    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts = collectAllFinancialAccounts(
+      groupedFinancialAccountsList
+    );
+
+    Set<Id> finAccountIds = addFinancialAccountIds(allFinAccounts);
 
     List<Case> existingCasesForFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.getCasesByFinancialAccountIds(
       finAccountIds
@@ -126,26 +132,6 @@ public with sharing class AccountClosureWizardController {
     caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
     caseObj.ProductId = caseInput.productId;
     caseObj.RecordTypeId = RTCase.accountClosure;
-  }
-
-  /**
-   * @description Get the Id of Financial Account records received from Fabric api
-   * @param groupedFinancialAccounts grouped financial accounts based on the marketing code eg: TRANSACT01,SAVING01
-   * @return Id of the financial account
-   */
-  @TestVisible
-  private static Set<Id> getFinancialAccountIdsFromFabricResponse(
-    Map<String, object> groupedFinancialAccounts
-  ) {
-    List<Map<String, Object>> groupedFinancialAccountsList = (List<Map<String, Object>>) groupedFinancialAccounts.get(
-      'groupedAccounts'
-    );
-
-    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts = collectAllFinancialAccounts(
-      groupedFinancialAccountsList
-    );
-
-    return addFinancialAccountIds(allFinAccounts);
   }
 
   private static List<UnifiedFinancialAccountModel.AccountList> collectAllFinancialAccounts(

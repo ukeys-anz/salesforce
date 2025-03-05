@@ -1,3 +1,9 @@
 {
-  "totalBalance": "123.21"
+  "productNames" : [ "wgczTBWgjiRtOTJYfzRv", "XxREJFpzrnwYIqVvAKbu" ],
+  "aggregateResult" : {
+    "attributes" : {
+      "type" : "AggregateResult"
+    },
+    "totalBalance" : 123.21
+  }
 }

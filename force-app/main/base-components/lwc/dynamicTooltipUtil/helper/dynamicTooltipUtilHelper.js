@@ -7,7 +7,7 @@ const totalFinancialPosition = `<span>
                     The amount shown is indicative of the amount a customer may be
                     able to use in their
                     <strong>
-                    ANZ Plus , ANZ Save and ANZ Plus Flex Saver accounts added together</strong
+                    {productName} accounts added together</strong
                     >. The amount shown may not be what should be available or is actually available.
                     <br />
                     <br />
@@ -44,7 +44,7 @@ const totalSavedFinancialPosition = `<span>
                     </p>
                     <br />
                     The amount shown is indicative of the amount you may be
-                    able to use in your ANZ Save account. This amount, when
+                    able to use in your {productName} account. This amount, when
                     shown at an ATM or on a receipt, may have a different
                     label such as 'Funds' or 'Balance'. Regardless, the amount
                     shown may not be what is actually available because:
