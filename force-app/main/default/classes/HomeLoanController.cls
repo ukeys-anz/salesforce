@@ -11,28 +11,6 @@ public with sharing class HomeLoanController {
   );
 
   /**
-   * @description The Person Account Home Loan component uses this to fetch the records to display.
-   * This makes the callout to mule to fetch home loan data
-   * @param ocvId Ocv id
-   * @param accountNumbers param to filter by account numbers
-   * @return
-   */
-  @AuraEnabled
-  public static HomeLoanModel getHomeLoanAccount(
-    String ocvId,
-    List<String> accountNumbers
-  ) {
-    try {
-      HomeLoanAPIRepository hloanapi = (HomeLoanAPIRepository) Lib_InstanceProvider.forType(
-        HomeLoanAPIRepository.class
-      );
-      return hloanapi.getHomeLoanAccounts(ocvId, accountNumbers);
-    } catch (Exception exp) {
-      throw new AuraHandledException(exp.getMessage());
-    }
-  }
-
-  /**
    * @description return the id(s) of the financial account owners
    * @param financialAccountId financial account record id
    * @return  `Id` home loan account id
