@@ -2,6 +2,7 @@
  * @author Zhiren Jason Guan
  * @since  04/03/2024
  * @description Test class for RetailBrokerEventActions
+ * @LastUpdated getBrokerContactsByIds() on 23 Feb 2025 By Ajay Mishra added New External Id field.
  */
 
 @IsTest
@@ -17,6 +18,7 @@ private class RetailBrokerEventActionsTest {
       brokerContact.FirstName = 'TestFirst';
       brokerContact.LastName = 'TestLast';
       brokerContact.External_Id__c = '123456';
+      brokerContact.New_External_Id__c = '123456';
       brokerContact.OCV_Event_Version__c = 1;
       brokerContact.RecordTypeId = recordTypeId;
       contacts.add(brokerContact);

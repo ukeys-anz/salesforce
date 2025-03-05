@@ -3,6 +3,7 @@
  * @since  19/02/2024
  * @description Builder class to build the GCP Event contracts for the broker contact
  * @runTests  BrokerDataCloudEventTest
+ * @LastUpdated buildContactNode() on 26 Feb 2025 By Ajay Mishra added New External Id field.
  */
 
 public with sharing class BrokerDataContactCEBuilder {
@@ -12,6 +13,7 @@ public with sharing class BrokerDataContactCEBuilder {
   private static final String OBJECT_RESIDENTIAL_LOAN_APP = 'ResidentialLoanApplication';
   private static final String OBJECT_BROKER_CODE = 'Broker_Code__c';
   private static final String FIELD_EXTERNAL_ID = 'External_Id__c';
+  private static final String FIELD_NEW_EXTERNAL_ID = 'New_External_Id__c';
   private static final String FIELD_ACCOUNT_ID = 'Account';
   private static final String FIELD_CUSTOMER_NAME_EXTERNAL_ID = 'Customer_Name__r.External_Id__c';
   private static final String FIELD_BROKER_NAME_EXTERNAL_ID = 'Broker_Name__r.External_Id__c';
@@ -46,8 +48,8 @@ public with sharing class BrokerDataContactCEBuilder {
   ) {
     Map<String, String> dataContractMap = new Map<String, String>{
       'sourceObjectName' => OBJECT_CONTACT,
-      'sourceObjectExtId' => record.External_Id__c,
-      'targetObjects_extIdField' => FIELD_EXTERNAL_ID,
+      'sourceObjectExtId' => record.New_External_Id__c,
+      'targetObjects_extIdField' => FIELD_NEW_EXTERNAL_ID,
       'targetObjects_extObjectName' => OBJECT_CONTACT,
       'targetObjects_parent_objectName' => OBJECT_ACCOUNT,
       'targetObjects_parent_extIdField' => FIELD_EXTERNAL_ID,
