@@ -66,7 +66,6 @@ public with sharing class UnifiedFinancialAccountModelConverter {
     UnifiedFinancialAccountModel.Balance finAccountBalance = new UnifiedFinancialAccountModel.Balance();
     finAccountBalance.units = String.valueOf(balanceValue);
     finAccountBalance.nanos = 0;
-    finAccountBalance.currency_code = 0;
     return finAccountBalance;
   }
 
