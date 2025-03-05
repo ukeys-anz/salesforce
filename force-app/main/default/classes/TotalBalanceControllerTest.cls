@@ -18,11 +18,7 @@ public with sharing class TotalBalanceControllerTest {
    */
   @testSetup
   static void setup() {
-     TestUtil.addPermissionSets(
-      new List<String>{
-        'Accounts_Goals_Read_Only'
-      }
-    );
+    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
   }
 
   /**
@@ -72,7 +68,7 @@ public with sharing class TotalBalanceControllerTest {
     User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
     System.runAs(thisUser) {
       Test.startTest();
-        
+
       TotalBalanceController.FinancialSummaryWrapper result = TotalBalanceController.getTotalSaved(
         accnt.Id
       );
