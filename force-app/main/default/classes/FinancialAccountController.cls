@@ -73,7 +73,7 @@ public with sharing class FinancialAccountController {
 
       return new Map<String, Object>{ 'groupedAccounts' => processedAccounts };
     } catch (DmlException dmlExp) {
-      throw CommonUtil.logAuraException(FAILED_FIN_ACCOUNT_UPDATE);
+      throw new AuraHandledException(FAILED_FIN_ACCOUNT_UPDATE);
     } catch (Exception e) {
       throw new AuraHandledException(MISSING_FIN_ACCOUNT);
     }

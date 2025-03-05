@@ -53,7 +53,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       accountNumbers
     );
 
-    response = handleResponse(response, 'FabricService - getAccounts');
+    response = handleResponse(response, 'Fabric Service - Fetching Accounts');
 
     return UnifiedFinancialAccountModel.parse(response.body);
   }
@@ -283,7 +283,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       paramUrl
     );
 
-    response = handleResponse(response, 'FabricService - GetAccountBuckets');
+    response = handleResponse(response, 'Fabric Service - Fetch Saving Goals');
 
     return AccountBucketsModel.parse(response.body);
   }
@@ -376,7 +376,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from Service' + serviceName,
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -398,7 +398,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service' + serviceName,
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -420,10 +420,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       String serviceName
     ) {
       this(response.error.getMessage());
-      Logger.error(
-          'UnhandledException from Service: ' + serviceName,
-          response.error
-        )
+      Logger.error('UnhandledException from: ' + serviceName, response.error)
         .save();
     }
   }

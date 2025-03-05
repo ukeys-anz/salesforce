@@ -141,6 +141,9 @@ public with sharing class FinancialAccountRepository {
     Id ownerId,
     List<String> allRelatedAccountNumbers
   ) {
+    if (ownerId == null) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
     return [
       SELECT
         Id,

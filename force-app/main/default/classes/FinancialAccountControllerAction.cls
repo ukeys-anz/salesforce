@@ -26,8 +26,7 @@ public with sharing class FinancialAccountControllerAction {
     );
 
     Map<String, Integer> tileSortOrderMap = new Map<String, Integer>();
-    Map<String, Map<String, Integer>> ownershipSortOrderMap = new Map<String, Map<String, Integer>>();
-    fetchSortingRules(uiConfigMap, tileSortOrderMap, ownershipSortOrderMap);
+    fetchSortingRules(uiConfigMap, tileSortOrderMap);
 
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = groupAccounts(
       finAccounts,
@@ -37,29 +36,18 @@ public with sharing class FinancialAccountControllerAction {
     return sortAndFormatResponse(
       groupedAccounts,
       tileSortOrderMap,
-      ownershipSortOrderMap,
       uiConfigMap
     );
   }
 
   private static void fetchSortingRules(
     Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap,
-    Map<String, Integer> tileSortOrderMap,
-    Map<String, Map<String, Integer>> ownershipSortOrderMap
+    Map<String, Integer> tileSortOrderMap
   ) {
     for (FinancialAccountUIConfiguration__mdt config : uiConfigMap.values()) {
       Integer sortOrder = config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER;
 
       tileSortOrderMap.put(config.Product_Code__c, sortOrder);
-
-      if (!ownershipSortOrderMap.containsKey(config.Product_Code__c)) {
-        ownershipSortOrderMap.put(
-          config.Product_Code__c,
-          new Map<String, Integer>()
-        );
-      }
-      ownershipSortOrderMap.get(config.Product_Code__c)
-        .put(config.Ownership_Type__c, sortOrder);
     }
   }
 
@@ -92,10 +80,10 @@ public with sharing class FinancialAccountControllerAction {
     return groupedAccounts;
   }
 
+  @TestVisible
   private static List<Map<String, Object>> sortAndFormatResponse(
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts,
     Map<String, Integer> tileSortOrderMap,
-    Map<String, Map<String, Integer>> ownershipSortOrderMap,
     Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap
   ) {
     List<Map<String, Object>> sortedGroups = new List<Map<String, Object>>();
@@ -108,20 +96,14 @@ public with sharing class FinancialAccountControllerAction {
       Integer tileSortOrder = tileSortOrderMap.containsKey(productCode)
         ? tileSortOrderMap.get(productCode)
         : DEFAULT_SORT_ORDER;
-      List<UnifiedFinancialAccountModel.AccountList> accounts = groupedAccounts.get(
-        productCode
-      );
-
-      accounts.sort(
-        new compositeComparator(
-          productCode,
-          tileSortOrder,
-          ownershipSortOrderMap
-        )
-      );
 
       sortedGroups.add(
-        prepareUIResponse(productCode, tileSortOrder, uiConfig, accounts)
+        prepareUIResponse(
+          productCode,
+          tileSortOrder,
+          uiConfig,
+          groupedAccounts.get(productCode)
+        )
       );
     }
 
@@ -154,50 +136,6 @@ public with sharing class FinancialAccountControllerAction {
       'isHomeLoan' => uiConfig != null &&
       uiConfig.Account_Type__c == 'Loan'
     };
-  }
-
-  private class CompositeComparator implements System.Comparator<UnifiedFinancialAccountModel.AccountList> {
-    private String prodCode;
-    private Integer tileSortOrder;
-    private Map<String, Map<String, Integer>> productOwnershipOrderMap;
-
-    /**
-     * @description Comparator for sorting financial accounts based on product ownership order and tile sort order.
-     * @param prodCode product code used to fetch ownership order map
-     * @param tileSortOrder integer representing the sort order at the tile level
-     * @param productOwnershipOrderMap a map containing ownership order for each product code
-     */
-    public CompositeComparator(
-      String prodCode,
-      Integer tileSortOrder,
-      Map<String, Map<String, Integer>> productOwnershipOrderMap
-    ) {
-      this.prodCode = prodCode;
-      this.tileSortOrder = tileSortOrder;
-      this.productOwnershipOrderMap = productOwnershipOrderMap;
-    }
-
-    /**
-     * @description Compares two financial account lists based on ownership order and tile sort order for sorting purposes.
-     * @param firstFinAcc first financial account list to compare
-     * @param secondFinAcc second financial account list to compare
-     * @return a negative integer, zero, or a positive integer as the first list is less than, equal to, or greater than the second list, based on sort order
-     */
-    public Integer compare(
-      UnifiedFinancialAccountModel.AccountList firstFinAcc,
-      UnifiedFinancialAccountModel.AccountList secondFinAcc
-    ) {
-      Map<String, Integer> ownMap = productOwnershipOrderMap.get(prodCode);
-      Integer orderA = (ownMap != null &&
-        ownMap.containsKey(firstFinAcc.finserv_ownership))
-        ? ownMap.get(firstFinAcc.finserv_ownership)
-        : DEFAULT_SORT_ORDER;
-      Integer orderB = (ownMap != null &&
-        ownMap.containsKey(secondFinAcc.finserv_ownership))
-        ? ownMap.get(secondFinAcc.finserv_ownership)
-        : DEFAULT_SORT_ORDER;
-      return (tileSortOrder * 1000 + orderA) - (tileSortOrder * 1000 + orderB);
-    }
   }
 
   /**

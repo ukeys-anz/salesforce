@@ -6,6 +6,7 @@
  */
 @isTest
 public with sharing class FinancialAccountControllerActionTest {
+  private static final Integer DEFAULT_SORT_ORDER = 999;
   static Lib_MockProvider finAccRepoMock;
 
   static void registerMocks() {
@@ -56,6 +57,33 @@ public with sharing class FinancialAccountControllerActionTest {
     );
   }
 
+  @isTest
+  public static void testSortAndFormatResponsePositive() {
+    Test.startTest();
+    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.sortAndFormatResponse(
+      mockGroupedAccounts(),
+      mockProductTileSortOrderMap(),
+      mockUiConfigMap()
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      (Integer) mapOfProductodeAndFinAccounts[0].get('sortOrder'),
+      1,
+      'Saving account should be first in the grouped Accounts'
+    );
+    Assert.areEqual(
+      (Integer) mapOfProductodeAndFinAccounts[1].get('sortOrder'),
+      3,
+      'Home Loan account should be second in the grouped Accounts'
+    );
+    Assert.areEqual(
+      (Integer) mapOfProductodeAndFinAccounts[2].get('sortOrder'),
+      DEFAULT_SORT_ORDER,
+      'Everyday account should be third in the grouped Accounts'
+    );
+  }
+
   /**
    * @description This method helps in providing the mock response from Fabric
    * @return Fabric financial accounts
@@ -73,6 +101,26 @@ public with sharing class FinancialAccountControllerActionTest {
         )
         .accounts;
     }
+  }
+
+  /**
+   * @description This method helps in providing the mock response from Fabric
+   * @return Fabric financial accounts
+   */
+  private static Map<String, List<UnifiedFinancialAccountModel.AccountList>> mockGroupedAccounts() {
+    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mockgroupedFinAccount = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
+    List<UnifiedFinancialAccountModel.AccountList> finAccountList = mockFabricFinancialAccounts;
+    List<UnifiedFinancialAccountModel.AccountList> savingFinAccount = new List<UnifiedFinancialAccountModel.AccountList>();
+    savingFinAccount.add(finAccountList[0]);
+    List<UnifiedFinancialAccountModel.AccountList> everydayFinAccount = new List<UnifiedFinancialAccountModel.AccountList>();
+    everydayFinAccount.add(finAccountList[1]);
+    List<UnifiedFinancialAccountModel.AccountList> homeLoanFinAccount = new List<UnifiedFinancialAccountModel.AccountList>();
+    homeLoanFinAccount.add(finAccountList[2]);
+
+    mockgroupedFinAccount.put('SAVING01', savingFinAccount);
+    mockgroupedFinAccount.put('TRANSACT01', everydayFinAccount);
+    mockgroupedFinAccount.put('HOMELOAN1', homeLoanFinAccount);
+    return mockgroupedFinAccount;
   }
 
   /**
@@ -117,5 +165,21 @@ public with sharing class FinancialAccountControllerActionTest {
     mockMetaData.add(dummyRecord3);
 
     return mockMetaData;
+  }
+
+  private static Map<String, Integer> mockProductTileSortOrderMap() {
+    return new Map<String, Integer>{ 'HOMELOAN1' => 3, 'SAVING01' => 1 };
+  }
+
+  private static Map<String, FinancialAccountUIConfiguration__mdt> mockUiConfigMap() {
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+    for (
+      FinancialAccountUIConfiguration__mdt finUIConfig : mockfinAccountUiConfig()
+    ) {
+      {
+        productCodeToFinAccMap.put(finUIConfig.Product_Code__c, finUIConfig);
+      }
+    }
+    return productCodeToFinAccMap;
   }
 }
