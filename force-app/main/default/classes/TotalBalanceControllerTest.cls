@@ -18,7 +18,11 @@ public with sharing class TotalBalanceControllerTest {
    */
   @testSetup
   static void setup() {
-    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
+     TestUtil.addPermissionSets(
+      new List<String>{
+        'Accounts_Goals_Read_Only'
+      }
+    );
   }
 
   /**
@@ -34,19 +38,22 @@ public with sharing class TotalBalanceControllerTest {
       WHERE OCV_ID__c = '1111'
       LIMIT 1
     ];
-    Test.startTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
 
-    TotalBalanceController.FinancialSummaryWrapper result = TotalBalanceController.getTotalBalance(
-      accnt.Id
-    );
+      TotalBalanceController.FinancialSummaryWrapper result = TotalBalanceController.getTotalBalance(
+        accnt.Id
+      );
 
-    Test.stopTest();
+      Test.stopTest();
 
-    Assert.areEqual(
-      400,
-      result.aggregateResult.get('totalBalance'),
-      'Total Balance should be summation of both the accounts balance'
-    );
+      Assert.areEqual(
+        400,
+        result.aggregateResult.get('totalBalance'),
+        'Total Balance should be summation of both the accounts balance'
+      );
+    }
   }
 
   /**
@@ -62,19 +69,22 @@ public with sharing class TotalBalanceControllerTest {
       WHERE OCV_ID__c = '1111'
       LIMIT 1
     ];
-    Test.startTest();
+    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
+    System.runAs(thisUser) {
+      Test.startTest();
+        
+      TotalBalanceController.FinancialSummaryWrapper result = TotalBalanceController.getTotalSaved(
+        accnt.Id
+      );
 
-    TotalBalanceController.FinancialSummaryWrapper result = TotalBalanceController.getTotalSaved(
-      accnt.Id
-    );
+      Test.stopTest();
 
-    Test.stopTest();
-
-    Assert.areEqual(
-      200,
-      result.aggregateResult.get('totalBalance'),
-      'Total Balance should be only the saving account balance'
-    );
+      Assert.areEqual(
+        200,
+        result.aggregateResult.get('totalBalance'),
+        'Total Balance should be only the saving account balance'
+      );
+    }
   }
 
   private static void createFinancialAccount() {
