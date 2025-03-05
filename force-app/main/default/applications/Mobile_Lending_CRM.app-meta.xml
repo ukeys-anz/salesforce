@@ -210,7 +210,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>MLCRM_Account_Record_Page</content>
+        <content>ANZ_Individual_Account_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.PersonAccount</recordType>
@@ -219,7 +219,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>MLCRM_Account_Record_Page</content>
+        <content>ANZ_Individual_Account_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.PersonAccount</recordType>
@@ -228,7 +228,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>MLCRM_Account_Record_Page</content>
+        <content>ANZ_Individual_Account_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.PersonAccount</recordType>
@@ -237,7 +237,7 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
-        <content>MLCRM_Account_Record_Page</content>
+        <content>ANZ_Individual_Account_Record_Page</content>
         <formFactor>Large</formFactor>
         <pageOrSobjectType>Account</pageOrSobjectType>
         <recordType>PersonAccount.PersonAccount</recordType>
