@@ -57,12 +57,7 @@ public with sharing class AccountBucketsAPIRepositoryTest {
     Test.startTest();
     AccountBucketsAPIRepository accountBucketApi = new AccountBucketsAPIRepository();
     try {
-      AccountBucketsModel accountBucketsModel = accountBucketApi.getAccountBuckets(
-        '1111',
-        4,
-        '',
-        ''
-      );
+      accountBucketApi.getAccountBuckets('1111', 4, '', '');
     } catch (Exception e) {
       resultException = e;
     }
