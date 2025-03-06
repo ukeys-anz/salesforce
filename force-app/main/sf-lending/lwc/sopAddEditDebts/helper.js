@@ -336,6 +336,7 @@ const DEBT_TYPES = {
       showMonthlyRepayment: isActionAdd(actionType)
         ? false
         : isActionEdit(actionType) &&
+            !debt.customerStatedClosed &&
             debt.institutionalLiability?.paidInFull === false
           ? true
           : false,
@@ -603,7 +604,9 @@ const EDIT_DEBT_TYPES = {
           limitValue: debt.institutionalLiability?.limitAmount,
           paidInFull:
             debt.sourceType !== SOURCE_ANZ
-              ? debt.institutionalLiability?.paidInFull
+              ? debt.institutionalLiability?.paidInFull === true
+                ? true
+                : false
               : null,
           repaymentAmountValue: debt.institutionalLiability?.repaymentAmount,
           repaymentFrequency: debt.institutionalLiability?.repaymentFrequency,
@@ -721,11 +724,16 @@ const EDIT_DEBT_TYPES = {
             : null,
         outstandingBalanceValue: debt.outstandingBalance,
         paidOffAndClosed: debt.paidOffAndClosed,
+        customerStatedClosed:
+          debt.sourceType === SOURCE_CREDIT_BUREAU
+            ? debt.customerStatedClosed
+            : null,
         institutionalLiability: {
           financialInstitution:
             debt.institutionalLiability?.financialInstitution,
           limitValue: debt.institutionalLiability?.limitAmount,
-          paidInFull: debt.institutionalLiability?.paidInFull,
+          paidInFull:
+            debt.institutionalLiability?.paidInFull === true ? true : false,
           repaymentAmountValue: debt.institutionalLiability?.repaymentAmount,
           repaymentFrequency: debt.institutionalLiability?.repaymentFrequency,
           validatedLimit:
@@ -758,11 +766,14 @@ const EDIT_DEBT_TYPES = {
         outstandingBalanceValue: debt.outstandingBalance,
         paidOffAndClosed: debt.paidOffAndClosed,
         evidenceProvided: debt.evidenceProvided,
+        customerStatedClosed:
+          debt.sourceType === SOURCE_CREDIT_BUREAU
+            ? debt.customerStatedClosed
+            : null,
         institutionalLiability: {
           financialInstitution:
             debt.institutionalLiability?.financialInstitution,
           limitValue: debt.institutionalLiability?.limitAmount,
-          paidInFull: debt.institutionalLiability?.paidInFull,
           repaymentAmountValue: debt.institutionalLiability?.repaymentAmount,
           repaymentFrequency: debt.institutionalLiability.repaymentFrequency,
           principalInterestRemainingTerm:

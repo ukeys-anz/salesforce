@@ -171,6 +171,8 @@
         <fields>Mobile__c</fields>
         <fields>Territory__c</fields>
         <fields>Relationship_Owner__c</fields>
+        <fields>Last_Interaction_Date__c</fields>
+        <fields>Next_Interaction_Date__c</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
     <searchLayouts>

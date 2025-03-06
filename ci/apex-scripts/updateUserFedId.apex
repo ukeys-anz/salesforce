@@ -11,7 +11,10 @@ List<user> newUsers = new List<user>();
 
 for (user u : usrs) {
   string fed = u.FederationIdentifier;
-  u.FederationIdentifier = fed.replace('anz.com', 'anznp.com');
+  if (fed != null) {
+    u.FederationIdentifier = fed.replace('anz.com', 'anznp.com');
+  }
+
   newUsers.add(u);
   usrLId.add(u.id);
 }

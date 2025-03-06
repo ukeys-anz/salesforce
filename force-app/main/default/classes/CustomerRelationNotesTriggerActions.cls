@@ -256,10 +256,7 @@ public with sharing class CustomerRelationNotesTriggerActions {
       .anyChanged(CUSTOMER_FIELDS)
       .toList();
 
-    Set<id> setOfAccountIds = ListUtil.getIds(
-      listOfSobjects,
-      Customer_Relationship__c.Customer__r.Id
-    );
+    Set<id> setOfAccountIds = ListUtil.getIds(listOfSobjects, Account.Id);
     if (setOfAccountIds.isEmpty()) {
       return;
     }
