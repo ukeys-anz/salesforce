@@ -430,6 +430,7 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
+        "RecordTypeId",
         "Reason__c",
         "Reference_Number__c",
         "Requestor__c",
@@ -565,7 +566,13 @@
       ]
     },
     "Additional_Fund__c": {
-      "IA-2415840": [],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
     },
@@ -577,7 +584,15 @@
         "Application_Status__c",
         "Name"
       ],
-      "IA-2468715": ["OwnerId"]
+      "IA-2468715": [
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "ApplicationFormProduct": {
       "IA-2434298": [
@@ -599,7 +614,15 @@
         "Lost_reason__c",
         "Lost_Reason_Detail__c"
       ],
-      "IA-2468715": ["OwnerId"]
+      "IA-2468715": [
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -2245,6 +2268,7 @@
         "Action__c",
         "Authentication_Method__c",
         "Completed_Date__c",
+        "Date_Case_on_Hold_From__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
         "IDR_COR_ID__c",
@@ -2256,8 +2280,11 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
         "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
+        "Product_Manufacturer__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
@@ -2273,6 +2300,7 @@
         "Cases_Related_To_Team__c",
         "Lead_Quality__c",
         "Lead__c",
+        "ML_DataMigration_Key__c",
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
@@ -2695,7 +2723,17 @@
       ]
     },
     "InteractionAttendee": {
-      "IA-2468715": ["AttendeeType", "UserId", "Time__c"],
+      "IA-2468715": [
+        "AttendeeType",
+        "UserId",
+        "Time__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2415984": [
         "Attendee_Phone__c",
         "Attendee_Name__c",
@@ -2867,6 +2905,7 @@
         "Is_Valid_Address__c",
         "LeadSource",
         "Lead_Auto_Number__c",
+        "Lead_Created_Date__c",
         "Lead_Id__c",
         "Lead_Originator__c",
         "Lead_Owner_Link__c",
@@ -2884,6 +2923,9 @@
         "Privacy_Consent__c",
         "Prospect_Id__c",
         "Record_Id__c",
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
         "Skip_Validations__c",
         "Soft_Delete__c",
         "Status",
@@ -2933,13 +2975,7 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"],
-      "IA-3254438": [
-        "Referral_Status__c",
-        "Referrer_Lead__c",
-        "Referral_Acknowledged_Date__c",
-        "Lead_Created_Date__c"
-      ]
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -3514,7 +3550,7 @@
         "LastModifiedDate"
       ]
     },
-    "Pricebook2": {
+    "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
       "IA-2415860": [
         "CreatedById",
@@ -3524,7 +3560,7 @@
         "LastModifiedDate"
       ]
     },
-    "PricebookEntry": {
+    "PriceBookEntry": {
       "IA-2415987": [
         "IsActive",
         "Pricebook2Id",
@@ -4284,6 +4320,7 @@
         "CompletedDateTime",
         "Description",
         "Due_in_Days__c",
+        "Date_Case_on_Hold_From__c",
         "IDR_COR_ID__c",
         "IDR_Collection_Number__c",
         "IDR_Internal_or_External_Party__c",
@@ -4295,6 +4332,9 @@
         "IDR_Team__c",
         "IDR_Tribe__c",
         "Last_Assigned_Owner__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
+        "Product_Manufacturer__c",
         "PSI_or_DSI__c",
         "Priority",
         "Queue__c",
@@ -4334,6 +4374,7 @@
         "Response_Status__c",
         "Response_Type__c",
         "Skip_Validations__c",
+        "ML_DataMigration_Key__c",
         "Team_Manager__c",
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
@@ -4557,7 +4598,15 @@
         "Loan_Application_Property__c",
         "Residential_Loan_Application__c"
       ],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "User": {
       "IA-2460507": [
@@ -5375,7 +5424,11 @@
         "Sub_Product_Code__c",
         "Term__c"
       ],
-      "IA-2468715": ["Account_Number__c", "OLL_Account_Number__c", "Customer__c"]
+      "IA-2468715": [
+        "Account_Number__c",
+        "OLL_Account_Number__c",
+        "Customer__c"
+      ]
     }
   },
   "lineageInformation": {
