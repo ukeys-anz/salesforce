@@ -382,21 +382,12 @@ public with sharing class GetHelpConstants {
     get {
       if (anzxMarketingCodes == null) {
         anzxMarketingCodes = new Set<String>();
-        anzxMarketingCodes = fetchANZXMarketingCodes();
+        anzxMarketingCodes.addAll(
+          QueryFinancialAccountUIConfig.getAllProductCodes()
+        );
       }
       return anzxMarketingCodes;
     }
     private set;
-  }
-
-  private static Set<String> fetchANZXMarketingCodes() {
-    List<FinancialAccountUIConfiguration__mdt> listOfFinAccConfig = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
-
-    Set<String> marketingCodes = ListUtil.getStrings(
-      listOfFinAccConfig,
-      FinancialAccountUIConfiguration__mdt.Product_Code__c
-    );
-
-    return marketingCodes;
   }
 }

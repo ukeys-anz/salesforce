@@ -5,9 +5,6 @@
  * @description FinancialAccountControllerAction groups and sort the financial accounts
  */
 public with sharing class FinancialAccountControllerAction {
-  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
-    FinancialAccountRepository.class
-  );
   private static final Integer DEFAULT_SORT_ORDER = 999;
 
   /**
@@ -15,40 +12,22 @@ public with sharing class FinancialAccountControllerAction {
    * @param finAccounts list of financial accounts received from fabric or database.
    * @return map of product code and list of financial accounts associated with that product code.
    */
-  public static List<Map<String, Object>> processFinancialAccounts(
+  public static List<UnifiedFinancialAccountModel> processFinancialAccounts(
     List<UnifiedFinancialAccountModel.AccountList> finAccounts
   ) {
-    List<FinancialAccountUIConfiguration__mdt> uiConfigDetails = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+    List<FinancialAccountUIConfiguration__mdt> uiConfigDetails = QueryFinancialAccountUIConfig.getAllConfigs();
 
     Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
       uiConfigDetails,
       FinancialAccountUIConfiguration__mdt.Product_Code__c
     );
 
-    Map<String, Integer> tileSortOrderMap = new Map<String, Integer>();
-    fetchSortingRules(uiConfigMap, tileSortOrderMap);
-
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = groupAccounts(
       finAccounts,
       uiConfigMap
     );
 
-    return sortAndFormatResponse(
-      groupedAccounts,
-      tileSortOrderMap,
-      uiConfigMap
-    );
-  }
-
-  private static void fetchSortingRules(
-    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap,
-    Map<String, Integer> tileSortOrderMap
-  ) {
-    for (FinancialAccountUIConfiguration__mdt config : uiConfigMap.values()) {
-      Integer sortOrder = config.Sort_Order__c.intValue() ?? DEFAULT_SORT_ORDER;
-
-      tileSortOrderMap.put(config.Product_Code__c, sortOrder);
-    }
+    return prepareFinalUIResponse(groupedAccounts, uiConfigMap);
   }
 
   private static Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupAccounts(
@@ -59,6 +38,7 @@ public with sharing class FinancialAccountControllerAction {
 
     for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
       String productCode = account.product_details.marketing_code;
+
       FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
         productCode
       );
@@ -81,79 +61,55 @@ public with sharing class FinancialAccountControllerAction {
   }
 
   @TestVisible
-  private static List<Map<String, Object>> sortAndFormatResponse(
+  private static List<UnifiedFinancialAccountModel> prepareFinalUIResponse(
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts,
-    Map<String, Integer> tileSortOrderMap,
     Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap
   ) {
-    List<Map<String, Object>> sortedGroups = new List<Map<String, Object>>();
+    List<UnifiedFinancialAccountModel> groupedByProductCode = new List<UnifiedFinancialAccountModel>();
 
     for (String productCode : groupedAccounts.keySet()) {
       FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
         productCode
       );
 
-      Integer tileSortOrder = tileSortOrderMap.containsKey(productCode)
-        ? tileSortOrderMap.get(productCode)
-        : DEFAULT_SORT_ORDER;
-
-      sortedGroups.add(
+      groupedByProductCode.add(
         prepareUIResponse(
           productCode,
-          tileSortOrder,
           uiConfig,
           groupedAccounts.get(productCode)
         )
       );
     }
 
-    sortedGroups.sort(new TileComparator());
-    return sortedGroups;
+    return groupedByProductCode;
   }
 
-  private static Map<String, Object> prepareUIResponse(
+  private static UnifiedFinancialAccountModel prepareUIResponse(
     String productCode,
-    Integer tileSortOrder,
     FinancialAccountUIConfiguration__mdt uiConfig,
     List<UnifiedFinancialAccountModel.AccountList> accounts
   ) {
-    return new Map<String, Object>{
-      'productCode' => productCode,
-      'sortOrder' => tileSortOrder,
-      'accountType' => uiConfig != null
-        ? uiConfig.Account_Type__c
-        : 'Non Savings',
-      'balanceTitle' => uiConfig != null ? uiConfig.Balance_Title__c : '',
-      'sectionHeaderTitle' => uiConfig != null
-        ? uiConfig.Section_Header_Title__c
-        : '',
-      'accounts' => accounts,
-      'isSaving' => uiConfig != null &&
-      uiConfig.Account_Type__c == 'Savings',
-      'isOthers' => uiConfig == null ||
-      !(uiConfig.Account_Type__c == 'Savings' ||
-      uiConfig.Account_Type__c == 'Loan'),
-      'isHomeLoan' => uiConfig != null &&
-      uiConfig.Account_Type__c == 'Loan'
-    };
-  }
+    UnifiedFinancialAccountModel modelUpateForEachProductGroup = new UnifiedFinancialAccountModel(
+      accounts
+    );
+    modelUpateForEachProductGroup.productCode = productCode;
+    modelUpateForEachProductGroup.sortOrder = uiConfig?.Sort_Order__c ??
+      DEFAULT_SORT_ORDER;
+    modelUpateForEachProductGroup.accountType = uiConfig?.Account_Type__c ??
+      'Non Savings';
+    modelUpateForEachProductGroup.balanceTitle = uiConfig?.Balance_Title__c ??
+      '';
+    modelUpateForEachProductGroup.sectionHeaderTitle = uiConfig
+      ?.Section_Header_Title__c ?? '';
+    modelUpateForEachProductGroup.isSaving =
+      uiConfig?.Account_Type__c == 'Savings';
+    modelUpateForEachProductGroup.isOthers =
+      uiConfig == null ||
+      uiConfig?.Account_Type__c == 'Non Savings';
+    modelUpateForEachProductGroup.isHomeLoan =
+      uiConfig?.Account_Type__c == 'Loan';
+    modelUpateForEachProductGroup.accounts = accounts;
 
-  /**
-   * @description This class implements the System.Comparator interface for sorting purposes.
-   */
-  public class TileComparator implements System.Comparator<Map<String, Object>> {
-    /**
-     * @description Compares two maps based on their "sortOrder" values.
-     * @param firstMap the first map to compare
-     * @param secondMap the second map to compare
-     * @return a negative integer, zero, or a positive integer based on the "sortOrder" comparison
-     */
-    public Integer compare(
-      Map<String, Object> firstMap,
-      Map<String, Object> secondMap
-    ) {
-      return ((Integer) firstMap.get('sortOrder')) -
-        ((Integer) secondMap.get('sortOrder'));
-    }
+    return modelUpateForEachProductGroup;
   }
 }

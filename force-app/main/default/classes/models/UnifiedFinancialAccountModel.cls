@@ -25,17 +25,17 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   @AuraEnabled
   public String sectionHeaderTitle;
   @AuraEnabled
-  public String isSaving;
+  public Boolean isSaving;
   @AuraEnabled
-  public String isHomeLoan;
+  public Boolean isHomeLoan;
   @AuraEnabled
-  public String isOthers;
+  public Boolean isOthers;
   @AuraEnabled
   public String productCode;
   @AuraEnabled
   public String label;
   @AuraEnabled
-  public Integer sortOrder;
+  public Decimal sortOrder;
   @AuraEnabled
   public String accountType;
 

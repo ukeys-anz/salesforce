@@ -23,20 +23,12 @@ public with sharing class AccountClosureWizardController {
   public static List<FinServ__FinancialAccount__c> getFilteredFinancialAccounts(
     String ocvId
   ) {
-    Map<String, Object> groupedFinAccounts = FinancialAccountController.getFinancialAccountFabric(
+    List<UnifiedFinancialAccountModel.AccountList> financialAccountsList = FinancialAccountController.getFinancialAccountsFromFabric(
       ocvId,
       new List<String>()
     );
 
-    List<Map<String, Object>> groupedFinancialAccountsList = (List<Map<String, Object>>) groupedFinAccounts.get(
-      'groupedAccounts'
-    );
-
-    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts = collectAllFinancialAccounts(
-      groupedFinancialAccountsList
-    );
-
-    Set<Id> finAccountIds = addFinancialAccountIds(allFinAccounts);
+    Set<Id> finAccountIds = addFinancialAccountIds(financialAccountsList);
 
     List<Case> existingCasesForFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.getCasesByFinancialAccountIds(
       finAccountIds
@@ -132,20 +124,6 @@ public with sharing class AccountClosureWizardController {
     caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
     caseObj.ProductId = caseInput.productId;
     caseObj.RecordTypeId = RTCase.accountClosure;
-  }
-
-  private static List<UnifiedFinancialAccountModel.AccountList> collectAllFinancialAccounts(
-    List<Map<String, Object>> groupedFinancialAccountsList
-  ) {
-    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
-    for (Map<String, Object> finAccountGroup : groupedFinancialAccountsList) {
-      List<UnifiedFinancialAccountModel.AccountList> finAccountList = (List<UnifiedFinancialAccountModel.AccountList>) finAccountGroup.get(
-        'accounts'
-      );
-      allFinAccounts.addAll(finAccountList);
-    }
-
-    return allFinAccounts;
   }
 
   private static Set<Id> addFinancialAccountIds(

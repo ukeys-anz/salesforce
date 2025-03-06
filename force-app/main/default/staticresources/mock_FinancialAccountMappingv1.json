@@ -218,7 +218,7 @@
       "account_name": "Myron Rempel Raheem",
       "state": "ACCOUNT_STATE_OPEN",
       "product_details": {
-        "marketing_code": "HOMELOAN1",
+        "marketing_code": "HLVAR01",
         "name": "ANZ Plus Standard Variable Rate Home Loan",
         "transact_options": ["DIRECT_CREDIT", "TRANSFER_TO"],
         "product_code": "CAP-CIS:ILS",

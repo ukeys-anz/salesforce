@@ -6,46 +6,25 @@
  */
 @isTest
 public with sharing class FinancialAccountControllerActionTest {
-  private static final Integer DEFAULT_SORT_ORDER = 999;
-  static Lib_MockProvider finAccRepoMock;
-
-  static void registerMocks() {
-    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
-  }
-
   @isTest
-  public static void testProcessFinancialAccountsPositive() {
-    registerMocks();
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
-
+  public static void testGroupByProductCodePositive() {
     Test.startTest();
-    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
       mockFabricFinancialAccounts
     );
     Test.stopTest();
 
     Assert.areEqual(
-      (Boolean) mapOfProductodeAndFinAccounts[1].get('isSaving'),
+      mapOfProductodeAndFinAccounts[0].isSaving,
       true,
       'Financial Accounts should be grouped by Product Code'
     );
   }
 
   @isTest
-  public static void testProcessFinancialAccountsNegative() {
-    registerMocks();
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
-
+  public static void testGroupByProductCodeNegative() {
     Test.startTest();
-    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
       new List<UnifiedFinancialAccountModel.AccountList>()
     );
     Test.stopTest();
@@ -58,29 +37,18 @@ public with sharing class FinancialAccountControllerActionTest {
   }
 
   @isTest
-  public static void testSortAndFormatResponsePositive() {
+  public static void testPrepareFinalUIResponsePositive() {
     Test.startTest();
-    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.sortAndFormatResponse(
+    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.prepareFinalUIResponse(
       mockGroupedAccounts(),
-      mockProductTileSortOrderMap(),
       mockUiConfigMap()
     );
     Test.stopTest();
 
     Assert.areEqual(
-      (Integer) mapOfProductodeAndFinAccounts[0].get('sortOrder'),
-      1,
-      'Saving account should be first in the grouped Accounts'
-    );
-    Assert.areEqual(
-      (Integer) mapOfProductodeAndFinAccounts[1].get('sortOrder'),
-      3,
-      'Home Loan account should be second in the grouped Accounts'
-    );
-    Assert.areEqual(
-      (Integer) mapOfProductodeAndFinAccounts[2].get('sortOrder'),
-      DEFAULT_SORT_ORDER,
-      'Everyday account should be third in the grouped Accounts'
+      mapOfProductodeAndFinAccounts[0].isSaving,
+      true,
+      'Saving account should be set to true in the grouped Accounts'
     );
   }
 
@@ -130,7 +98,7 @@ public with sharing class FinancialAccountControllerActionTest {
   private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
     List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
     FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'HOMELOAN1',
+      Product_Code__c = 'HLVAR01',
       Account_Type__c = 'Loan',
       Balance_Title__c = 'Loan Balance',
       Section_Header_Title__c = 'Loan',
@@ -165,10 +133,6 @@ public with sharing class FinancialAccountControllerActionTest {
     mockMetaData.add(dummyRecord3);
 
     return mockMetaData;
-  }
-
-  private static Map<String, Integer> mockProductTileSortOrderMap() {
-    return new Map<String, Integer>{ 'HOMELOAN1' => 3, 'SAVING01' => 1 };
   }
 
   private static Map<String, FinancialAccountUIConfiguration__mdt> mockUiConfigMap() {

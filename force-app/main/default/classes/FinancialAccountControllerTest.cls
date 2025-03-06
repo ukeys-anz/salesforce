@@ -11,6 +11,7 @@ public with sharing class FinancialAccountControllerTest {
   );
 
   static Lib_MockProvider finAccRepoMock;
+
   static Lib_MockProvider dmlRepoMock;
 
   static void registerMocks() {
@@ -39,21 +40,16 @@ public with sharing class FinancialAccountControllerTest {
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
 
-      finAccRepoMock.mock(
-        'fetchFinancialAccountUIConfigInfo',
-        mockfinAccountUiConfig()
-      );
-
       Test.startTest();
-      Map<String, Object> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+      List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
         '12345',
         null
       );
       Test.stopTest();
 
-      Assert.isNotNull(
-        processedfinancialAccounts.get('groupedAccounts'),
-        'Financial Accounts are grouped and sorted'
+      Assert.isTrue(
+        processedfinancialAccounts.size() > 0,
+        'Fabric financial accounts should be grouped'
       );
     }
   }
@@ -129,11 +125,6 @@ public with sharing class FinancialAccountControllerTest {
   public static void testFilterOutNonHomeLoanAccountsPositive() {
     registerMocks();
 
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
-
     Test.startTest();
     List<UnifiedFinancialAccountModel.AccountList> homeloanAccountList = FinancialAccountController.filterOutNonHomeLoanAccounts(
       mockFabricFinancialAccounts
@@ -155,15 +146,10 @@ public with sharing class FinancialAccountControllerTest {
       mockFinancialAccountRoles()
     );
 
-    finAccRepoMock.mock('getFinacialAccounts', createMockFinancialAccount());
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
+    finAccRepoMock.mock('getFinancialAccounts', createMockFinancialAccount());
 
     Test.startTest();
-    Map<String, Object> processedfinancialAccountsDB = FinancialAccountController.getFinancialAccountDB(
+    List<UnifiedFinancialAccountModel> processedfinancialAccountsDB = FinancialAccountController.getFinancialAccountDB(
       '12345',
       FAKER_ACCOUNT_ID
     );
@@ -171,7 +157,7 @@ public with sharing class FinancialAccountControllerTest {
 
     Assert.isTrue(
       processedfinancialAccountsDB.size() > 0,
-      'Financial Accounts are grouped and sorted based on Database data'
+      'Financial Accounts are grouped based on Database data'
     );
   }
 
@@ -185,17 +171,12 @@ public with sharing class FinancialAccountControllerTest {
     );
 
     finAccRepoMock.mock(
-      'getFinacialAccounts',
+      'getFinancialAccounts',
       new List<FinServ__FinancialAccount__c>()
     );
 
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
-
     Test.startTest();
-    Map<String, Object> processedfinancialAccountsDB = FinancialAccountController.getFinancialAccountDB(
+    List<UnifiedFinancialAccountModel> processedfinancialAccountsDB = FinancialAccountController.getFinancialAccountDB(
       '12345',
       FAKER_ACCOUNT_ID
     );
@@ -216,12 +197,7 @@ public with sharing class FinancialAccountControllerTest {
       mockFinancialAccountRoles()
     );
 
-    finAccRepoMock.mock('getFinacialAccounts', createMockFinancialAccount());
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
+    finAccRepoMock.mock('getFinancialAccounts', createMockFinancialAccount());
 
     Test.startTest();
     List<UnifiedFinancialAccountModel.AccountList> convertedFinancialAccountsToJson = FinancialAccountController.fetchAllFinancialAccountsDB(
@@ -245,13 +221,8 @@ public with sharing class FinancialAccountControllerTest {
     );
 
     finAccRepoMock.mock(
-      'getFinacialAccounts',
+      'getFinancialAccounts',
       new List<FinServ__FinancialAccount__c>()
-    );
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
     );
 
     Test.startTest();
@@ -302,7 +273,7 @@ public with sharing class FinancialAccountControllerTest {
   private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
     List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
     FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'HOMELOAN1',
+      Product_Code__c = 'HLVAR01',
       Account_Type__c = 'Loan',
       Balance_Title__c = 'Loan Balance',
       Section_Header_Title__c = 'Loan',

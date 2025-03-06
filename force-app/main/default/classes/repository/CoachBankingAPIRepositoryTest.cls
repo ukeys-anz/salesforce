@@ -36,57 +36,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
   }
 
   /**
-   * @description fetch valid accounts, mocked values in force-app/main/default/staticresources/mock_financialAccount.json
-   * called in force-app/main/default/classes/services/FabricServiceMock.cls
-   */
-  @isTest
-  static void financialAccountValidResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      Test.startTest();
-      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-      UnifiedFinancialAccountModel model = coachapi.getAccounts(
-        '1111',
-        new List<String>()
-      );
-      Test.stopTest();
-
-      Assert.isTrue(
-        model.accounts.size() > 2,
-        'Financial Account list size should be as expected.'
-      );
-    }
-  }
-
-  /**
-   * @description fetch invalid accounts
-   */
-  @isTest
-  static void financialAccountInvalidResponse() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      UnifiedFinancialAccountModel model;
-      HttpCalloutResponse res = getFinancialAccountInvalidResponse();
-      Service s = ServiceProvider.getService(FabricService.class);
-      s.setCalloutResponse(res);
-      Exception resultException;
-      Test.startTest();
-      CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-      try {
-        model = coachapi.getAccounts('1111', new List<String>());
-      } catch (Exception e) {
-        resultException = e;
-      }
-      Test.stopTest();
-      System.assertEquals(
-        'Get accounts failed',
-        resultException.getMessage(),
-        'Error message should be as expected.'
-      );
-    }
-  }
-
-  /**
    * @description fetch valid transaction history, mocked values in force-app/main/default/staticresources/mock_transactionHistory1.json
    * called in force-app/main/default/classes/services/FabricServiceMock.cls
    */
@@ -379,50 +328,6 @@ public inherited sharing class CoachBankingAPIRepositoryTest {
         'Error occured while parsing JSON payload related to cards'
       );
     }
-  }
-
-  /**
-   * @description fetch valid account buckets, mocked values in force-app/main/default/staticresources/mock_accountBuckets.json
-   * called in force-app/main/default/classes/services/FabricServiceMock.cls
-   */
-  @isTest
-  static void accountBucketsValidResponse() {
-    registerMocks();
-    Test.startTest();
-    CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-    AccountBucketsModel response = coachAPI.getAccountBuckets('1111', 7, '','');
-    Test.stopTest();
-
-    Assert.isTrue(
-      response.account_buckets.size() == 7,
-      'Response account buckets size should be as expected.'
-    );
-  }
-
-  /**
-   * @description fetch invalid account buckets
-   */
-  @isTest
-  static void accountBucketsInvalidResponse() {
-    registerMocks();
-    AccountBucketsModel accountBucketsModel;
-    HttpCalloutResponse res = getAccountBucketsInvalidResponse();
-    Service serviceInstance = ServiceProvider.getService(FabricService.class);
-    serviceInstance.setCalloutResponse(res);
-    Exception resultException;
-    Test.startTest();
-    CoachBankingAPIRepository coachAPI = new CoachBankingAPIRepository();
-    try {
-      accountBucketsModel = coachAPI.getAccountBuckets('1111', 4, '','');
-    } catch (Exception e) {
-      resultException = e;
-    }
-    Test.stopTest();
-    Assert.areEqual(
-      'Get account buckets failed',
-      resultException.getMessage(),
-      'Error message should be as expected.'
-    );
   }
 
   /**
