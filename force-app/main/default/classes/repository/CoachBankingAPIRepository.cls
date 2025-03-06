@@ -6,7 +6,6 @@
  */
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   private static final String VIEW_CARD_PERMISSION_ERROR = 'User does not have the view cards permission';
-  private static final String ACCOUNTS_AND_GOALS_PERMISSION_ERROR = 'User does not have the ANZx Accounts and Goals permission';
   private static final String VIEW_TRANSACTION_HISTORY_ERROR = 'User does not have the transaction history permission';
 
   //Static error code defined
@@ -28,35 +27,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
     UserInfoRepository.class
   );
-
-  /**
-   * @param ocvId customer id
-   * @param accountNumbers contains account numbers to provide as parameters for account filtering
-   * @return `UnifiedFinancialAccountModel` model class constructed from api response
-   * @description fetches financial accounts from fabric, deserialized to a model
-   */
-  public UnifiedFinancialAccountModel getAccounts(
-    String ocvId,
-    List<String> accountNumbers
-  ) {
-    if (!USER_INFO.checkCustomPermission('ANZx_Accounts_and_Goals')) {
-      throw CommonUtil.logExceptionInfo(
-        new CoachBankingAPIRepository.PermissionException(
-          ACCOUNTS_AND_GOALS_PERMISSION_ERROR
-        )
-      );
-    }
-
-    Service s = ServiceProvider.getService(FabricService.class);
-    HttpCalloutResponse response = s.getFinancialAccounts(
-      ocvId,
-      accountNumbers
-    );
-
-    response = handleResponse(response, 'FabricService - getAccounts');
-
-    return UnifiedFinancialAccountModel.parse(response.body);
-  }
 
   /**
    * @author Lance
@@ -252,44 +222,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
 
   /**
    * @param ocvId customer id
-   * @param pageSize amount of goals to return
-   * @param nextPageToken token used to retrieve next page of data
-   * @param accountNumber accountnumber for which goals needs to fetch
-   * @return `AccountBucketsModel` model class constructed from api response
-   * @description fetches account buckets from fabric, deserialized to a model
-   */
-  public AccountBucketsModel getAccountBuckets(
-    String ocvId,
-    Integer pageSize,
-    String nextPageToken,
-    String accountNumber
-  ) {
-    if (!USER_INFO.checkCustomPermission('ANZx_Accounts_and_Goals')) {
-      throw CommonUtil.logExceptionInfo(
-        new CoachBankingAPIRepository.PermissionException(
-          ACCOUNTS_AND_GOALS_PERMISSION_ERROR
-        )
-      );
-    }
-
-    Service serviceInstance = ServiceProvider.getService(FabricService.class);
-    String paramUrl = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
-      pageSize,
-      nextPageToken,
-      accountNumber
-    );
-    HttpCalloutResponse response = serviceInstance.getAccountBuckets(
-      ocvId,
-      paramUrl
-    );
-
-    response = handleResponse(response, 'FabricService - GetAccountBuckets');
-
-    return AccountBucketsModel.parse(response.body);
-  }
-
-  /**
-   * @param ocvId customer id
    * @return `CardControlModel` card controls constructed from ListControlsResponse
    * @description getCardControlsList retrieves the list of controls for all the customers cards
    */
@@ -376,7 +308,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from Service' + serviceName,
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -398,7 +330,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
     ) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service' + serviceName,
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
           response.error
         )
         .save();
@@ -420,10 +352,7 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       String serviceName
     ) {
       this(response.error.getMessage());
-      Logger.error(
-          'UnhandledException from Service: ' + serviceName,
-          response.error
-        )
+      Logger.error('UnhandledException from: ' + serviceName, response.error)
         .save();
     }
   }

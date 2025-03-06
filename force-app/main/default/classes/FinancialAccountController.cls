@@ -12,7 +12,7 @@ public with sharing class FinancialAccountController {
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  public static final String MISSING_FIN_ACCOUNT = 'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator';
+  public static final String FAILED_TO_RETRIEVE = 'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator';
   public static final String FAILED_FIN_ACCOUNT_UPDATE = 'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator';
   private static final Integer DEFAULT_SORT_ORDER = 999;
 
@@ -47,7 +47,7 @@ public with sharing class FinancialAccountController {
    * @return Grouped Financial Accounts based on product code.
    */
   @AuraEnabled
-  public static Map<String, Object> getFinancialAccountFabric(
+  public static List<UnifiedFinancialAccountModel> getFinancialAccountFabric(
     String ocvId,
     List<String> accountNumbers
   ) {
@@ -58,7 +58,7 @@ public with sharing class FinancialAccountController {
       );
 
       if (fabricAccountList.isEmpty()) {
-        return new Map<String, Object>();
+        return new List<UnifiedFinancialAccountModel>();
       }
 
       List<UnifiedFinancialAccountModel.AccountList> homeloanaccounts = filterOutNonHomeLoanAccounts(
@@ -67,15 +67,15 @@ public with sharing class FinancialAccountController {
 
       DataPartitionUtil.storeH1AccountDetailsCache(ocvId, homeloanaccounts);
 
-      List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+      List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         fabricAccountList
       );
 
-      return new Map<String, Object>{ 'groupedAccounts' => processedAccounts };
+      return processedAccounts;
     } catch (DmlException dmlExp) {
-      throw CommonUtil.logAuraException(FAILED_FIN_ACCOUNT_UPDATE);
+      throw new AuraHandledException(FAILED_FIN_ACCOUNT_UPDATE);
     } catch (Exception e) {
-      throw new AuraHandledException(MISSING_FIN_ACCOUNT);
+      throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
   }
 
@@ -87,15 +87,16 @@ public with sharing class FinancialAccountController {
    * @param accountNumbers contains account numbers to provide as parameters for account filtering
    * @return list of financial accounts received from fabric
    */
-  private static List<UnifiedFinancialAccountModel.AccountList> getFinancialAccountsFromFabric(
+  public static List<UnifiedFinancialAccountModel.AccountList> getFinancialAccountsFromFabric(
     String ocvId,
     List<String> accountNumbers
   ) {
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    UnifiedFinancialAccountModel result = coachapi.getAccounts(
+    FinancialAccountAPIRepository financiAccountApi = new FinancialAccountAPIRepository();
+    UnifiedFinancialAccountModel result = financiAccountApi.getAccounts(
       ocvId,
       accountNumbers
     );
+
     if (result.accounts == null) {
       return new List<UnifiedFinancialAccountModel.AccountList>();
     }
@@ -115,7 +116,7 @@ public with sharing class FinancialAccountController {
       FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
     );
 
-    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = QueryFinancialAccountUIConfig.getAllConfigs();
     Map<String, FinancialAccountUIConfiguration__mdt> financialAccountConfigMap = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
       financialAccountConfigRecords,
       FinancialAccountUIConfiguration__mdt.DeveloperName
@@ -228,12 +229,14 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> filterOutNonHomeLoanAccounts(
     List<UnifiedFinancialAccountModel.AccountList> financialAccountFabric
   ) {
-    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
+    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = QueryFinancialAccountUIConfig.getAllConfigs();
     Map<String, FinancialAccountUIConfiguration__mdt> mapOfProductCodeWithFinUIConfig = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
       financialAccountConfigRecords,
       FinancialAccountUIConfiguration__mdt.Product_Code__c
     );
+
     List<UnifiedFinancialAccountModel.AccountList> homeLoanAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
+
     for (
       UnifiedFinancialAccountModel.AccountList acc : financialAccountFabric
     ) {
@@ -255,7 +258,7 @@ public with sharing class FinancialAccountController {
    * @return Grouped Financial Accounts based on product code.
    */
   @AuraEnabled
-  public static Map<String, Object> getFinancialAccountDB(
+  public static List<UnifiedFinancialAccountModel> getFinancialAccountDB(
     String ocvId,
     Id ownerId
   ) {
@@ -272,20 +275,20 @@ public with sharing class FinancialAccountController {
         homeLoanAccountDetailsCache.isEmpty() &&
         financialAccountsFromDatabase.isEmpty()
       ) {
-        return new Map<String, Object>();
+        return new List<UnifiedFinancialAccountModel>();
       }
 
       combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
       combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
 
-      List<Map<String, Object>> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+      List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         combinedFinancialAccountList
       );
 
-      return new Map<String, Object>{ 'groupedAccounts' => processedAccounts };
+      return processedAccounts;
     } catch (Exception objException) {
       CommonUtil.logException(objException);
-      throw new AuraHandledException(MISSING_FIN_ACCOUNT);
+      throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
   }
 
@@ -298,12 +301,7 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
     Id ownerId
   ) {
-    List<FinancialAccountUIConfiguration__mdt> listOfFinAccConfig = FINANCIAL_ACCOUNT_REPOSITORY.fetchFinancialAccountUIConfigInfo();
-
-    Set<String> marketingCodes = ListUtil.getStrings(
-      listOfFinAccConfig,
-      FinancialAccountUIConfiguration__mdt.Product_Code__c
-    );
+    Set<String> marketingCodes = QueryFinancialAccountUIConfig.getAllProductCodes();
 
     List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
@@ -315,7 +313,7 @@ public with sharing class FinancialAccountController {
       FinServ__FinancialAccountRole__c.Account_Number__c
     );
 
-    List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinacialAccounts(
+    List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinancialAccounts(
       ownerId,
       new List<String>(allRelatedAccountNumbers)
     );

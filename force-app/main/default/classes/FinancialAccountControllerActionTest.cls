@@ -6,45 +6,25 @@
  */
 @isTest
 public with sharing class FinancialAccountControllerActionTest {
-  static Lib_MockProvider finAccRepoMock;
-
-  static void registerMocks() {
-    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
-  }
-
   @isTest
-  public static void testProcessFinancialAccountsPositive() {
-    registerMocks();
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
-
+  public static void testGroupByProductCodePositive() {
     Test.startTest();
-    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
       mockFabricFinancialAccounts
     );
     Test.stopTest();
 
     Assert.areEqual(
-      (Boolean) mapOfProductodeAndFinAccounts[1].get('isSaving'),
+      mapOfProductodeAndFinAccounts[0].isSaving,
       true,
       'Financial Accounts should be grouped by Product Code'
     );
   }
 
   @isTest
-  public static void testProcessFinancialAccountsNegative() {
-    registerMocks();
-
-    finAccRepoMock.mock(
-      'fetchFinancialAccountUIConfigInfo',
-      mockfinAccountUiConfig()
-    );
-
+  public static void testGroupByProductCodeNegative() {
     Test.startTest();
-    List<Map<String, Object>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
       new List<UnifiedFinancialAccountModel.AccountList>()
     );
     Test.stopTest();
@@ -53,6 +33,22 @@ public with sharing class FinancialAccountControllerActionTest {
       mapOfProductodeAndFinAccounts.size(),
       0,
       'Financial Accounts are grouped and sorted'
+    );
+  }
+
+  @isTest
+  public static void testPrepareFinalUIResponsePositive() {
+    Test.startTest();
+    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.prepareFinalUIResponse(
+      mockGroupedAccounts(),
+      mockUiConfigMap()
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      mapOfProductodeAndFinAccounts[0].isSaving,
+      true,
+      'Saving account should be set to true in the grouped Accounts'
     );
   }
 
@@ -76,13 +72,33 @@ public with sharing class FinancialAccountControllerActionTest {
   }
 
   /**
+   * @description This method helps in providing the mock response from Fabric
+   * @return Fabric financial accounts
+   */
+  private static Map<String, List<UnifiedFinancialAccountModel.AccountList>> mockGroupedAccounts() {
+    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mockgroupedFinAccount = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
+    List<UnifiedFinancialAccountModel.AccountList> finAccountList = mockFabricFinancialAccounts;
+    List<UnifiedFinancialAccountModel.AccountList> savingFinAccount = new List<UnifiedFinancialAccountModel.AccountList>();
+    savingFinAccount.add(finAccountList[0]);
+    List<UnifiedFinancialAccountModel.AccountList> everydayFinAccount = new List<UnifiedFinancialAccountModel.AccountList>();
+    everydayFinAccount.add(finAccountList[1]);
+    List<UnifiedFinancialAccountModel.AccountList> homeLoanFinAccount = new List<UnifiedFinancialAccountModel.AccountList>();
+    homeLoanFinAccount.add(finAccountList[2]);
+
+    mockgroupedFinAccount.put('SAVING01', savingFinAccount);
+    mockgroupedFinAccount.put('TRANSACT01', everydayFinAccount);
+    mockgroupedFinAccount.put('HOMELOAN1', homeLoanFinAccount);
+    return mockgroupedFinAccount;
+  }
+
+  /**
    * @description helper method to create mock metadata records in map format
    * @return map of product code and FinancialAccountUIConfiguration__mdt record
    */
   private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
     List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
     FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'HOMELOAN1',
+      Product_Code__c = 'HLVAR01',
       Account_Type__c = 'Loan',
       Balance_Title__c = 'Loan Balance',
       Section_Header_Title__c = 'Loan',
@@ -117,5 +133,17 @@ public with sharing class FinancialAccountControllerActionTest {
     mockMetaData.add(dummyRecord3);
 
     return mockMetaData;
+  }
+
+  private static Map<String, FinancialAccountUIConfiguration__mdt> mockUiConfigMap() {
+    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
+    for (
+      FinancialAccountUIConfiguration__mdt finUIConfig : mockfinAccountUiConfig()
+    ) {
+      {
+        productCodeToFinAccMap.put(finUIConfig.Product_Code__c, finUIConfig);
+      }
+    }
+    return productCodeToFinAccMap;
   }
 }

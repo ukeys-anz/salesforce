@@ -137,7 +137,7 @@ public with sharing class FinancialAccountRepository {
    * @param allRelatedAccountNumbers all the rekated financial account numbers
    * @return list of FinServ__FinancialAccount__c
    */
-  public List<FinServ__FinancialAccount__c> getFinacialAccounts(
+  public List<FinServ__FinancialAccount__c> getFinancialAccounts(
     Id ownerId,
     List<String> allRelatedAccountNumbers
   ) {
@@ -165,30 +165,6 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__Status__c != 'Closed'
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
-    ];
-  }
-
-  /**
-   * @description This method returns eligible financial account UI config details from metadata for Financial Position Calculation
-   * @return List of eligible financial account UI config data
-   */
-  public List<FinancialAccountUIConfiguration__mdt> fetchEligibleProductCodesForTotal() {
-    return [
-      SELECT
-        Product_Code__c,
-        Ownership_Type__c,
-        Show_Goals__c,
-        Sort_Order__c,
-        Account_Type__c,
-        Balance_Title__c,
-        Section_Header_Title__c,
-        Is_Active__c,
-        Include_In_Total_Financial_Position__c
-      FROM FinancialAccountUIConfiguration__mdt
-      WHERE
-        Include_In_Total_Financial_Position__c = TRUE
-        AND Is_Active__c = TRUE
-      WITH USER_MODE
     ];
   }
 
@@ -249,13 +225,11 @@ public with sharing class FinancialAccountRepository {
    * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
    * @param customerRecordPrimaryOwnerId customer id receive from the UI
    * @param marketingCodes ANZX marketing codes
-   * @param savingRTId saving record type id
    * @return List<FinServ__FinancialAccountRole__c> list of the financial account roles
    */
   public List<FinServ__FinancialAccountRole__c> getAllSavingsAccountNumberPerOwner(
     Id customerRecordPrimaryOwnerId,
-    Set<String> marketingCodes,
-    Id savingRTId
+    Set<String> marketingCodes
   ) {
     if (customerRecordPrimaryOwnerId == null) {
       return new List<FinServ__FinancialAccountRole__c>();
@@ -268,29 +242,7 @@ public with sharing class FinancialAccountRepository {
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
-        AND FinServ__FinancialAccount__r.RecordType.Id = :savingRTId
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description This method returns financial account UI config details from metadata
-   * @return List of financial account UI config data
-   */
-  public List<FinancialAccountUIConfiguration__mdt> fetchFinancialAccountUIConfigInfo() {
-    return [
-      SELECT
-        DeveloperName,
-        Product_Code__c,
-        Ownership_Type__c,
-        Show_Goals__c,
-        Sort_Order__c,
-        Account_Type__c,
-        Balance_Title__c,
-        Section_Header_Title__c,
-        Is_Active__c,
-        Include_In_Total_Financial_Position__c
-      FROM FinancialAccountUIConfiguration__mdt
+        AND FinServ__FinancialAccount__r.RecordType.Id = :RTFinancialAccount.savingAccount
       WITH USER_MODE
     ];
   }

@@ -27,7 +27,7 @@ export function addFinAccountAndMetaDataToGoals(processedAccounts, goalData) {
   const accountMap = new Map();
   const goalCopy = structuredClone(goalData);
 
-  Object.values(processedAccount.groupedAccounts).forEach((product) => {
+  Object.values(processedAccount).forEach((product) => {
     Object.values(product.accounts).forEach((acc) => {
       accountMap.set(acc.account_number, {
         financial_account_name: acc.account_name,

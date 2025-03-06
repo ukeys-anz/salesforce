@@ -4,7 +4,6 @@ import { NavigationMixin } from "lightning/navigation";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
 import FinancialAccountStatusForSorting from "@salesforce/label/c.FinancialAccountStatusForSorting";
-import FinancialAccountOwnershipForSorting from "@salesforce/label/c.FinancialAccountOwnershipForSorting";
 
 export default class FinancialAccount extends NavigationMixin(
   LightningElement
@@ -89,24 +88,15 @@ export default class FinancialAccount extends NavigationMixin(
   }
 
   sortFinancialAccounts(arrOfAccounts) {
-    // Create a shallow copy of the array to avoid mutating the original array
-
     const accounts = [...arrOfAccounts];
     return accounts.sort((firstAccount, otherAccount) => {
       const statusOrder = FinancialAccountStatusForSorting.split(",");
-      const ownershipOrder = FinancialAccountOwnershipForSorting.split(",");
-
-      //Sort by Ownership keeping single party account at top to multi-party By Shivam, Oct'23
-      if (firstAccount.finserv_ownership !== otherAccount.finserv_ownership) {
-        return (
-          ownershipOrder.indexOf(otherAccount.finserv_ownership) -
-          ownershipOrder.indexOf(firstAccount.finserv_ownership)
-        );
+      if (firstAccount.finserv_sortorder !== otherAccount.finserv_sortorder) {
+        return firstAccount.finserv_sortorder - otherAccount.finserv_sortorder;
       }
-
       // Sort by status first
       if (
-        firstAccount.finserv_ownership === otherAccount.finserv_ownership &&
+        firstAccount.finserv_sortorder === otherAccount.finserv_sortorder &&
         firstAccount.finserv_status !== otherAccount.finserv_status
       ) {
         return (

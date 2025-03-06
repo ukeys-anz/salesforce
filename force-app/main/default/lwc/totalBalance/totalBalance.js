@@ -79,18 +79,13 @@ export default class TotalBalance extends LightningElement {
       let totalBalance = await getFinancialTotalBalance({
         ownerId: this.recordId
       });
-      this.totalBalance = totalBalance.aggregateResult.totalBalance
-        ? totalBalance.aggregateResult.totalBalance
-        : 0;
+      this.totalBalance = totalBalance?.aggregateResult?.totalBalance ?? 0;
       this.allProductNames = this.formatProductName(totalBalance.productNames);
 
       let totalSaved = await getFinancialTotalSaved({
         ownerId: this.recordId
       });
-
-      this.totalSaved = totalSaved.aggregateResult.totalBalance
-        ? totalSaved.aggregateResult.totalBalance
-        : 0;
+      this.totalSaved = totalSaved?.aggregateResult?.totalBalance ?? 0;
       this.savingProductNames = this.formatProductName(totalSaved.productNames);
 
       if (this.isFinancesTab) {
@@ -138,7 +133,7 @@ export default class TotalBalance extends LightningElement {
       case 2:
         return `${productNameList[0]} and ${productNameList[1]}`;
       default:
-        return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNamesLength - 1]}`;
+        return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNameList.length - 1]}`;
     }
   }
 }

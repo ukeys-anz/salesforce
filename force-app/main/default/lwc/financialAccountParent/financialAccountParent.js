@@ -4,7 +4,6 @@ import { handleErrorShowToast } from "c/utils";
 import { EnclosingTabId, getTabInfo } from "lightning/platformWorkspaceApi";
 
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
-import getFinancialAccountDB from "@salesforce/apex/FinancialAccountController.getFinancialAccountDB";
 import getAccountBuckets from "@salesforce/apex/AccountBucketsController.getAccountBuckets";
 import getTransactionHistoryAura from "@salesforce/apex/CoachBankingAPIRepository.getTransactionHistoryAura";
 import fetchOCVIdFromAccount from "@salesforce/apex/FinancialAccountController.fetchOCVIdFromAccount";
@@ -30,8 +29,6 @@ import {
   getImageMap,
   handleGoalData,
   handleTransactionGoals,
-  updateProductName,
-  getAccountByAccountNumber,
   handleComponentTitle
 } from "./helpers/utils";
 import { CurrentPageReference } from "lightning/navigation";
@@ -103,8 +100,9 @@ export default class FinancialAccountParent extends LightningElement {
   wiredMethodCalled = false;
   accountOwners = [];
   goalExist = false;
-  financialAccount = {};
+  financialAccount = [];
   fetchedAccounts;
+  componentSubTitle;
 
   get isSoleAccount() {
     return `${this.accountOwnershipType}` === "Single";
@@ -246,12 +244,9 @@ export default class FinancialAccountParent extends LightningElement {
         ocvId: this.ocvId,
         accountNumbers: [this.accountNumber]
       });
-      this.financialAccount = structuredClone(this.fetchedAccounts);
-      this.financialAccount = updateProductName(this.financialAccount);
-      this.financialAccount = getAccountByAccountNumber(
-        this.accountNumber,
-        this.financialAccount
-      );
+      this.financialAccount = this.fetchedAccounts[0];
+      this.componentSubTitle =
+        this.financialAccount.accounts[0].finserv_product_display_name;
     } catch (error) {
       this.accountError =
         "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator";
@@ -261,16 +256,6 @@ export default class FinancialAccountParent extends LightningElement {
         error,
         this.accountError,
         "pester"
-      );
-      this.fetchedAccounts = await getFinancialAccountDB({
-        ocvId: this.ocvId,
-        ownerId: this.recordId
-      });
-      this.financialAccount = structuredClone(this.fetchedAccounts);
-      this.financialAccount = updateProductName(this.financialAccount);
-      this.financialAccount = getAccountByAccountNumber(
-        this.accountNumber,
-        this.financialAccount
       );
     }
   }
