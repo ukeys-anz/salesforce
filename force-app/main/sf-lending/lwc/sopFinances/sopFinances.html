@@ -1,0 +1,179 @@
+<template>
+  <template lwc:if={sop}>
+    <lightning-layout multiple-rows>
+      <lightning-layout-item
+        size="2"
+        flexibility="shrink"
+        alignment-bump="left"
+        class="slds-p-top_medium slds-p-bottom_small"
+      >
+        <!-- Refresh All Amounts -->
+        <lightning-button
+          variant="brand-outline"
+          label="Refresh All Amounts"
+          onclick={refreshAmounts}
+        >
+        </lightning-button>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" flexibility="auto">
+        <!-- OVERVIEW -->
+        <lightning-card>
+          <h2 slot="title" class="headerStyling">Overview</h2>
+          <lightning-layout>
+            <lightning-layout-item size="12">
+              <lightning-accordion allow-multiple-sections-open>
+                <!-- Finance Progress Section -->
+                <lightning-accordion-section
+                  class="accordianSection"
+                  name="financeProgress"
+                  label="Finances Progress"
+                >
+                  <c-sop-finance-progress-new
+                    finance-summary-data={sop.sopSummaryViewModel}
+                  ></c-sop-finance-progress-new>
+                </lightning-accordion-section>
+
+                <!-- Credit Bureau Check Section -->
+                <lightning-accordion-section
+                  class="accordianSection"
+                  name="creditBureauCheck"
+                  label="Credit Bureau Check"
+                >
+                  <c-sop-credit-bureau-check
+                    credit-bureau-data={sop.creditBureauSummaryViewModel}
+                    party-consent={hasPartiesConsentAndliabilitySources}
+                  ></c-sop-credit-bureau-check>
+                </lightning-accordion-section>
+              </lightning-accordion>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-card>
+      </lightning-layout-item>
+      <lightning-layout-item size="12" flexibility="auto">
+        <!-- FINANCES -->
+        <lightning-card>
+          <h2 slot="title" class="headerStyling">Finances</h2>
+          <template lwc:if={hasPartiesConsentAndliabilitySources}>
+            <lightning-layout class="slds-p-bottom_medium">
+              <lightning-formatted-text
+                value="Some details are pre-filled from the customer's account and they will need to review and confirm each section."
+                class="textStyle slds-p-top_medium slds-p-bottom_medium"
+              >
+              </lightning-formatted-text>
+            </lightning-layout>
+            <lightning-layout>
+              <lightning-layout-item size="12">
+                <lightning-accordion
+                  allow-multiple-sections-open
+                  active-section-name={activeSections}
+                  onsectiontoggle={handleSectionToggle}
+                >
+                  <!--Savings -->
+                  <lightning-accordion-section
+                    class="accordianSection"
+                    name="savings"
+                    label="Savings"
+                  >
+                    <c-sop-finance-savings
+                      sop-savings-data={sop.savingsSummaryViewModel}
+                    ></c-sop-finance-savings>
+                  </lightning-accordion-section>
+
+                  <!-- Assets -->
+                  <lightning-accordion-section
+                    class="accordianSection"
+                    name="assets"
+                    label="Assets"
+                  >
+                    <c-sop-finance-assets
+                      sop-assets-data={sop.assetsSummaryViewModel}
+                    ></c-sop-finance-assets>
+                  </lightning-accordion-section>
+
+                  <!-- Debts -->
+                  <lightning-accordion-section
+                    class="accordianSection"
+                    name="debts"
+                    label="Debts"
+                  >
+                    <c-sop-finance-debts
+                      sop-debts-data={sop.debtsSummaryViewModel}
+                      sop-parties-data={sop.sopSummaryViewModel.parties}
+                      record-id={recordId}
+                    ></c-sop-finance-debts>
+                  </lightning-accordion-section>
+
+                  <!-- Income -->
+                  <lightning-accordion-section
+                    class="accordianSection"
+                    name="income"
+                    label="Income"
+                  >
+                    <c-sop-finance-incomes
+                      sop-income-data={sop.incomesSummaryViewModel}
+                      record-id={recordId}
+                    ></c-sop-finance-incomes>
+                  </lightning-accordion-section>
+
+                  <!-- Spending -->
+                  <lightning-accordion-section
+                    class="accordianSection"
+                    name="spending"
+                    label="Spending"
+                  >
+                    <c-sop-finance-spendings
+                      sop-spendings-data={sop.expenseSummaryViewModel}
+                      record-id={recordId}
+                    ></c-sop-finance-spendings>
+                  </lightning-accordion-section>
+                </lightning-accordion>
+              </lightning-layout-item>
+            </lightning-layout>
+          </template>
+
+          <!-- No Consent -->
+          <template lwc:else>
+            <lightning-layout>
+              <lightning-layout-item
+                size="1"
+                flexibility="shrink"
+                alignment-bump="left"
+              >
+                <img src={sopAppImage} class="childCardLogo" />
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="11"
+                flexibility="shrink"
+                alignment-bump="left"
+                class="financeFalse slds-p-bottom_medium"
+              >
+                <lightning-formatted-text
+                  value="Finance details for savings, assets, debts, income and spending will only be shown after the customer(s) provide their confirmations. See Connect Data tab for status of these confirmations."
+                >
+                </lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+          </template>
+        </lightning-card>
+      </lightning-layout-item>
+    </lightning-layout>
+  </template>
+
+  <!-- ERROR -->
+  <template lwc:elseif={errorMessage}>
+    <c-error message={errorMsg}></c-error>
+  </template>
+
+  <!-- SPINNER -->
+  <template lwc:else>
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-1 spinnerHolder">
+        <lightning-spinner
+          alternative-text="Loading"
+          size="medium"
+          variant="brand"
+        ></lightning-spinner>
+      </div>
+    </div>
+  </template>
+</template>

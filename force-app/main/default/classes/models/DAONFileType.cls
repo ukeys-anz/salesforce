@@ -1,5 +1,6 @@
 public enum DAONFileType {
-  DAON_FILE_TYPE_SELFIE,
+  DAON_FILE_TYPE_SELFIE_ENROLLED,
+  DAON_FILE_TYPE_SELFIE_TO_BE_ENROLLED,
   // Processed Front Image of the ID Document
   DAON_FILE_TYPE_FRONT_PROCESSED,
   // Unprocessed Front Image of the ID Document

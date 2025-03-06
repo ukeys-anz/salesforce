@@ -15,6 +15,23 @@ public class CCRMContentDocumentLinkActionsTest {
     );
   }
 
+  /**
+ * @description Create and Return EmailMessage record with incoming as false and given From/ToAddress
+ * @param givenFromAddr FromAddress for EmailMessage
+ * @param givenToAddr toAddress for EmailMessage
+ * @return EmailMessage New EmailMessage record
+ */
+  private static EmailMessage createAndRetEmailMessage(
+    String givenFromAddr,
+    String givenToAddr
+  ) {
+    return new EmailMessage(
+      Incoming = false,
+      FromAddress = givenFromAddr,
+      ToAddress = givenToAddr
+    );
+  }
+
   private static ContentDocumentLink createMockData(Id emId) {
     ContentDocumentLink cdlRecord = new ContentDocumentLink(
       Id = Lib_FakeIdGenerator.getMockId(ContentDocumentLink.getSobjectType()),
@@ -280,6 +297,96 @@ public class CCRMContentDocumentLinkActionsTest {
       1,
       emList.size(),
       '1 Email Message should be updated in Integration test.'
+    );
+  }
+
+  @isTest
+  static void testIsContentDocumentDeleteAllowed() {
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        createAndRetEmailMessage('test123@anz.com', 'test123@AnZ.Com')
+      ),
+      'isContentDocumentDeleteAllowed is returning wrong value when toAddress is not exact match but matching with ignore-case'
+    );
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        createAndRetEmailMessage('test123@anz.com', 'test123@anz.com')
+      ),
+      'isContentDocumentDeleteAllowed is returning wrong value when toAddress is exact match'
+    );
+    Assert.isFalse(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        createAndRetEmailMessage('test123@anz.com', 'test1234@anz.com')
+      ),
+      'isContentDocumentDeleteAllowed is returning wrong value when toAddress is different from FromAddress'
+    );
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        createAndRetEmailMessage(
+          'test123@anz.com',
+          'test1234@anz.com; test123@anz.com'
+        )
+      ),
+      'isContentDocumentDeleteAllowed is returning wrong value when fromAddress is in ToAddress'
+    );
+    Assert.isFalse(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        createAndRetEmailMessage(
+          'test123@anz.com',
+          'test1234@anz.com; test12@anz.com'
+        )
+      ),
+      'isContentDocumentDeleteAllowed is returning wrong value when fromAddress not in ToAddress'
+    );
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        new Emailmessage(Incoming = true)
+      ),
+      'isContentDocumentDeleteAllowed is not returing correct value when Incoming = true'
+    );
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.isContentDocumentDeleteAllowed(
+        new Emailmessage(
+          Incoming = false,
+          FromAddress = 'test123@anz.com',
+          ToAddress = 'test1234@anz.com',
+          CcAddress = 'test1234@anz.com;test123@anz.com'
+        )
+      ),
+      'isContentDocumentDeleteAllowed is not returing correct value when FromAddress is in CCAddress'
+    );
+  }
+
+  /**
+  * @description test method for checkFromAddressExists
+  */
+  @isTest
+  static void testCheckFromAddressExists() {
+    Assert.isFalse(
+      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', null),
+      'checkFromAddressExists not returning correct result when AddressToCheck is Null'
+    );
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', 'test@ANZ.com'),
+      'checkFromAddressExists not returning correct result when AddressToCheck is same as FromAddress'
+    );
+    Assert.isTrue(
+      CCRMContentDocumentLinkActions.checkFromAddressExists(
+        'test@anz.com',
+        'test1@anz.com; Test@anz.com'
+      ),
+      'checkFromAddressExists not returning correct result when AddressToCheck is contains FromAddress'
+    );
+    Assert.isFalse(
+      CCRMContentDocumentLinkActions.checkFromAddressExists(
+        'test@anz.com',
+        'test1@anz.com; Test2@anz.com'
+      ),
+      'checkFromAddressExists not returning correct result when AddressToCheck not contains FromAddress'
+    );
+    Assert.isFalse(
+      CCRMContentDocumentLinkActions.checkFromAddressExists('test@anz.com', 'test3@anz.com'),
+      'checkFromAddressExists not returning correct result when AddressToCheck is not equal to FromAddress '
     );
   }
 }

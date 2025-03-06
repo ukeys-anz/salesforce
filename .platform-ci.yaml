@@ -1,0 +1,4 @@
+blackduck:
+  ignore:
+    - ci/xml_linter.js
+version: 1

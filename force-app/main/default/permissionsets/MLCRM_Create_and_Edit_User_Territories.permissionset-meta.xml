@@ -36,6 +36,11 @@
         <field>User_Territory__c.User__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Territory__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Create and Edit User Territories</label>
     <license>Salesforce</license>

@@ -1,0 +1,79 @@
+{
+  "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/incomes/62fa55af-8d60-49dd-829d-0436713e1f20",
+  "uid": "62fa55af-8d60-49dd-829d-0436713e1f20",
+  "incomeItemDetails": [
+    {
+      "id": "f114d68f-5abe-4d81-b4a3-7e251390c023",
+      "type": "INCOME_TYPE_BASE_SALARY",
+      "frequency": "INCOME_FREQUENCY_MONTHLY",
+      "amount": {
+        "currencyCode": "AUD",
+        "units": "600000",
+        "nanos": 600000000
+      },
+      "amountType": "INCOME_AMOUNT_TYPE_GROSS",
+      "superAllocation": null,
+      "bonusPayments": 0
+    },
+    {
+      "id": "d7541d963-e71d-464e-8395-7753fe1d3344",
+      "type": "INCOME_TYPE_OVERTIME",
+      "frequency": "INCOME_FREQUENCY_WEEKLY",
+      "amount": {
+        "currencyCode": "AUD",
+        "units": "600000",
+        "nanos": 10000000
+      },
+      "amountType": "INCOME_AMOUNT_TYPE_GROSS",
+      "superAllocation": null,
+      "bonusPayments": 0
+    },
+    {
+      "id": "d7541d963-e71d-464e-8395-7753fe1d3345",
+      "type": "INCOME_TYPE_COMMISSION",
+      "frequency": "INCOME_FREQUENCY_ANNUALLY",
+      "amount": {
+        "currencyCode": "AUD",
+        "units": "3000",
+        "nanos": 0
+      },
+      "amountType": "INCOME_AMOUNT_TYPE_GROSS",
+      "superAllocation": null,
+      "bonusPayments": 0
+    }
+  ],
+  "employment": {
+    "partyId": "1000991493",
+    "businessName": "ANZ Bank Ltd",
+    "basis": "EMPLOYMENT_BASIS_PART_TIME",
+    "businessLogo": null,
+    "startDate": { "year": 2015, "month": 5, "day": 13 },
+    "updatedBy": "1000991493",
+    "type": "EMPLOYMENT_TYPE_PAYG"
+  },
+  "stream": null,
+  "verification": {
+    "id": "",
+    "incomeId": "b1dc2bbb-9a5f-42a5-85c9-16234f514cd8",
+    "createTime": "2023-05-04T07:31:38.700353Z",
+    "method": "VERIFICATION_METHOD_TRANSACTIONS",
+    "documentIds": [""],
+    "createdBy": ""
+  },
+  "createTime": "2023-07-08T01:02:00.380501Z",
+  "updateTime": "2023-07-08T01:02:00.380501Z",
+  "updatedBy": "1000991493",
+  "etag": "1688778120380501000",
+  "partyIdToFirstNameMap": [
+    [
+      "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "firstName": "first"
+    ],
+    [
+      "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+      "firstName": "second"
+    ]
+  ],
+  "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+  "startDate": { "year": 2015, "month": 5, "day": 13 }
+}

@@ -12,6 +12,10 @@ public with sharing class AuthTokenCacheUtil {
   private final static Non_Prod_Settings__c NON_PROD_SETTINGS = Non_Prod_Settings__c.getInstance(
     UserInfo.getUserId()
   );
+  private static final Set<String> VALID_PROFILES_SET = new Set<String>{
+    'ANZx Standard User',
+    'ANZ ML Standard User'
+  };
 
   /**
    * @description move the tokens for the current user from org to session cache
@@ -51,18 +55,20 @@ public with sharing class AuthTokenCacheUtil {
     String refreshToken,
     String idToken
   ) {
-    if (u.Profile.Name == 'ANZx Standard User') {
-      //Storing refreshtoken to custom field
-      storeRefreshTokenField(u, refreshToken);
-      //Caching idToken
-      Cache.Org.put(
-        AuthTokenCacheUtil.ORGPART + 'idToken' + u.Id,
-        idToken,
-        300,
-        Cache.Visibility.NAMESPACE,
-        false
-      );
+    if (!VALID_PROFILES_SET.contains(u.Profile.Name)) {
+      return;
     }
+
+    //Storing refreshtoken to custom field
+    storeRefreshTokenField(u, refreshToken);
+    //Caching idToken
+    Cache.Org.put(
+      AuthTokenCacheUtil.ORGPART + 'idToken' + u.Id,
+      idToken,
+      300,
+      Cache.Visibility.NAMESPACE,
+      false
+    );
   }
 
   /**
@@ -72,30 +78,32 @@ public with sharing class AuthTokenCacheUtil {
    */
   @TestVisible
   private static void storeAzureSessionTokens(Id userId, String profileName) {
-    if (profileName == 'ANZx Standard User') {
-      String idToken = (String) Cache.Org.get(
-        AuthTokenCacheUtil.ORGPART + 'idToken' + userId
-      );
-      if (idToken != null) {
-        // move tokens to session cache
-        Cache.Session.put(
-          AuthTokenCacheUtil.SESSIONPART + 'idToken' + userId,
-          idToken,
-          3420,
-          Cache.Visibility.NAMESPACE,
-          true
-        );
+    if (!VALID_PROFILES_SET.contains(profileName)) {
+      return;
+    }
 
-        // remove org cache tokens
-        Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
-      } else {
-        Logger.error(
-          'Login Flow Invocable method did not receive Azure Id Token for user: ' +
-          userId,
-          Logger.Severity.LOW
-        );
-        Logger.saveLog();
-      }
+    String idToken = (String) Cache.Org.get(
+      AuthTokenCacheUtil.ORGPART + 'idToken' + userId
+    );
+    if (idToken != null) {
+      // move tokens to session cache
+      Cache.Session.put(
+        AuthTokenCacheUtil.SESSIONPART + 'idToken' + userId,
+        idToken,
+        3420,
+        Cache.Visibility.NAMESPACE,
+        true
+      );
+
+      // remove org cache tokens
+      Cache.Org.remove(AuthTokenCacheUtil.ORGPART + 'idToken' + userId);
+    } else {
+      Logger.error(
+        'Login Flow Invocable method did not receive Azure Id Token for user: ' +
+        userId,
+        Logger.Severity.LOW
+      );
+      Logger.saveLog();
     }
   }
 

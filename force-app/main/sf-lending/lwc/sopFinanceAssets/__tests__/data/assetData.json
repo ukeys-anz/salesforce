@@ -1,0 +1,57 @@
+{
+  "assets": [
+    {
+      "assetName": "My Car",
+      "estimatedValue": 55000,
+      "ownerName": "Tony",
+      "subType": "Truck",
+      "type": "ASSET_TYPE_VEHICLE",
+      "updateTime": "2023-05-04T09:02:19.105Z"
+    },
+    {
+      "assetName": "Family Car",
+      "estimatedValue": 4000,
+      "ownerName": "Tony",
+      "subType": "Van",
+      "type": "ASSET_TYPE_VEHICLE",
+      "updateTime": "2023-05-04T11:25:31.268Z"
+    },
+    {
+      "assetName": "463 Tooronga Road, HAWTHORN EAST  VIC  3123",
+      "estimatedValue": 850000.6,
+      "ownerName": "Tony",
+      "type": "ASSET_TYPE_PROPERTY",
+      "updateTime": "2023-04-05T03:57:57.766Z"
+    },
+    {
+      "assetName": "Asset Super",
+      "estimatedValue": 3000,
+      "ownerName": "John",
+      "type": "ASSET_TYPE_SUPER",
+      "updateTime": "2023-05-04T08:51:14.878Z"
+    },
+    {
+      "assetName": "Asset Other",
+      "estimatedValue": 345000.85,
+      "ownerName": "Tony",
+      "type": "ASSET_TYPE_OTHER",
+      "updateTime": "2023-05-04T08:51:14.878Z"
+    },
+    {
+      "assetName": "Home Contents",
+      "estimatedValue": 125000.85,
+      "ownerName": "John",
+      "type": "ASSET_TYPE_HOME_CONTENTS",
+      "updateTime": "2023-05-04T08:51:14.878Z"
+    },
+    {
+      "assetName": "Asset Investment",
+      "estimatedValue": 55000,
+      "ownerName": "Tony",
+      "type": "ASSET_TYPE_SHARES",
+      "updateTime": "2023-05-04T09:02:19.105Z"
+    }
+  ],
+  "assetsTotalAmount": 72000.7,
+  "currencyCode": "AUD"
+}

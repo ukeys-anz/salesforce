@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates if the document submitted by the customer is of the approved list of documents by the bank</description>
+    <inlineHelpText>Check that the customer has provided a current Australian identity document, and it is one of the following: 1) Passport, 2) Driver&apos;s License, 3) Birth Certificate, 4) Marriage Certificate, 5) Change of Name Certificate. Also ensure that the document is an original (not a certified copy), and it shows no signs of tampering or malicious altering. For samples of accepted documents refer to the procedural guide.</inlineHelpText>
     <label>Acceptable Document Type?</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

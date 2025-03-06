@@ -96,7 +96,6 @@ public class FinancialAccountActions {
         null;
 
       if (String.isBlank(newMarketingCode)) {
-        record.FinServ__ProductName__c = null;
         continue;
       }
       if (
@@ -107,9 +106,7 @@ public class FinancialAccountActions {
               newMarketingCode
             )
             ?.Id;
-          continue;
         }
-        record.FinServ__ProductName__c = null;
       }
     }
   }

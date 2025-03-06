@@ -1,0 +1,63 @@
+<template>
+  <template lwc:if={sopSpendingsData}>
+    <lightning-card>
+      <div class="slds-p-horizontal_x-large">
+        <!-- Spending Container -->
+        <template lwc:if={spendingsContainer}>
+          <lightning-layout>
+            <lightning-layout-item size="1" flexibility="shrink">
+              <img src={expenseCalculator} class="childCardLogo" />
+            </lightning-layout-item>
+
+            <!-- Description -->
+            <lightning-layout-item
+              size="7"
+              flexibility="shrink"
+              class="textStyle"
+            >
+              <lightning-formatted-text
+                value="This is the average monthly spending across essentials, lifestyle and other categories. It will be used to estimate regular expenses. It may also include any payments and withdrawals in the categories below."
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+
+            <!-- Total Spending -->
+            <lightning-layout-item size="4" flexibility="shrink">
+              <lightning-layout
+                class="slds-grid slds-grid_vertical totalAndAmountStyle"
+              >
+                <lightning-layout-item>
+                  <lightning-formatted-text
+                    value="Total Spending"
+                    class="totalStyle slds-p-right_medium"
+                  >
+                  </lightning-formatted-text>
+                </lightning-layout-item>
+                <lightning-layout-item>
+                  <lightning-formatted-number
+                    value={sopSpendingsData.totalSpending}
+                    format-style="currency"
+                    currency-code="AUD"
+                    currency-display-as="symbol"
+                    class="amountStyle slds-p-right_medium"
+                  >
+                  </lightning-formatted-number>
+                </lightning-layout-item>
+              </lightning-layout>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
+
+        <!-- L1 Items -->
+        <lightning-layout-item size="12">
+          <!-- pass array for easy rerendering between L1 & L2 -->
+          <c-sop-spendings-l1-item
+            onexpenseselect={hideSpendingsContainer}
+            expense-data-l1={sopSpendingsTree}
+            record-id={recordId}
+            sop={sopSpendingsData.sop}
+          ></c-sop-spendings-l1-item>
+        </lightning-layout-item>
+      </div>
+    </lightning-card>
+  </template>
+</template>

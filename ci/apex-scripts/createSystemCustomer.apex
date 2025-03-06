@@ -1,5 +1,15 @@
 Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
-if (String.isBlank(faSettings.System_Customer_Id__c)) {
+List<Account> acclist = [
+  SELECT Id
+  FROM ACCOUNT
+  WHERE Name = 'System Customer'
+  LIMIT 1
+];
+if (
+  String.isBlank(faSettings.System_Customer_Id__c) ||
+  acclist.isEmpty() ||
+  acclist[0].Id != faSettings.System_Customer_Id__c
+) {
   Faker faker = new Faker('AU');
   Account acc = new Account(
     Name = 'System Customer',

@@ -1,0 +1,108 @@
+:root {
+  --accordion-summary-height: 32px;
+  --refresh-button-width: 155px;
+  --text-font-size: 12px;
+  --text-line-height: 18px;
+  --total-and-finance-section-color: #3e3e3c;
+  --text-color: #080707;
+  --amount-and-header-text-size: 16px;
+  --amount-and-header-font-weight: 590;
+  --amount-and-header-line-height: 22px;
+  --child-card-image-dimensions: 60px;
+  --amount-color: #027e46;
+  --paid-off-closed-color: #c23934;
+  --paid-off-closed-font-size: 13px;
+}
+
+/*Added to set the styling of the accordion Borders*/
+.slds-accordion__summary {
+  height: var(--accordion-summary-height);
+  border-radius: var(--lwc-borderRadiusMedium);
+  font-weight: var(--lwc-fontWeightRegular);
+}
+
+/*Added to set the height of the background of the accordion*/
+.slds-accordion__summary-action {
+  height: var(--accordion-summary-height);
+}
+
+/*Added to set the margin for each accordion item*/
+.slds-accordion__list-item {
+  border: none;
+  margin-bottom: var(--lwc-spacingSmall);
+}
+
+/*Added to set margin for the contents of the accordion*/
+.slds-accordion__content {
+  margin-top: var(--lwc-spacingXSmall);
+}
+
+/*Styling of the texts on the parent and child components*/
+.textStyle {
+  font-size: var(--text-font-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+  text-align: left;
+  margin-top: var(--lwc-spacingXSmall);
+}
+
+/*Added to set the dimensions of the images on the child components*/
+.childCardLogo {
+  height: var(--child-card-image-dimensions);
+  width: var(--child-card-image-dimensions);
+}
+
+/*Added to add alignment to the totals of each child components*/
+.totalAndAmountStyle {
+  float: right;
+}
+
+/*Added to set the styling of static Text "Total" for each child component*/
+.totalStyle {
+  font-size: var(--text-font-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+  color: var(--total-and-finance-section-color);
+}
+
+/*Added to set the styling of the amount to be displayed for child components*/
+.amountStyle {
+  font-size: var(--amount-and-header-text-size);
+  font-weight: var(--amount-and-header-font-weight);
+  line-height: var(--amount-and-header-line-height);
+  text-align: right;
+  color: var(--amount-color);
+  float: right;
+}
+
+.accordianSection .slds-button__icon {
+  margin-left: var(--lwc-spacingXSmall);
+}
+
+/*To add the spacing between the radio options in Add Debts section*/
+.radioButtonSpacing .slds-radio {
+  margin-bottom: var(--lwc-spacingSmall);
+  color: var(--total-and-finance-section-color);
+  height: var(--amount-and-header-text-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  font-size: var(--paid-off-closed-font-size);
+}
+
+.addDebtStyle .slds-modal__header {
+  background: #014486;
+  height: 56px;
+}
+
+/*Style the radio_faux for Add Debt Modal*/
+.radioButtonSpacing .slds-radio_faux {
+  border: 1px solid #dddbda;
+}
+
+/*Style the radio_spacing for Add Debt Modal*/
+.radioButtonSpacing .slds-form-element__legend {
+  margin-bottom: var(--amount-and-header-text-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  font-size: var(--text-font-size);
+  line-height: var(--text-line-height);
+  color: #000000;
+}

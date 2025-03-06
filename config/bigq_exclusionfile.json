@@ -237,7 +237,13 @@
     "StateOfIssueOCRServer__c",
     "SubmittedAt__c"
   ],
-  "Case": ["MilestoneStatusIcon"],
+  "Case": [
+    "CertificateIdentifier__c",
+    "LicenceCardNumber__c",
+    "LicenceNumber__c",
+    "MilestoneStatusIcon",
+    "PassportNumber__c"
+  ],
   "Contact": [
     "AssetFinanceTPMISAO__c",
     "Accreditation_CompactLayout__c",

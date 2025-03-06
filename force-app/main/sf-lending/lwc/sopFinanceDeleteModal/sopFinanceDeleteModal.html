@@ -1,0 +1,46 @@
+<template>
+  <lightning-modal-header class="slds-p-vertical_x-small" label={sopLabel}>
+  </lightning-modal-header>
+  <lightning-modal-body class="slds-text-align_center">
+    <lightning-layout
+      class="slds-p-vertical_large"
+      horizontal-align="center"
+      multiple-rows
+    >
+      <lightning-layout-item class="slds-text-align_left" size="8">
+        <lightning-formatted-text
+          class="slds-text-align_left deleteConfirmStyle"
+          value={msg}
+        >
+        </lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item
+        class="slds-text-align_left slds-p-top_medium"
+        size="8"
+      >
+        <lightning-formatted-text
+          class="slds-text-align_left deleteConfirmStyle"
+          value={msgDetails}
+          data-id="deleteDetails"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-modal-body>
+  <lightning-modal-footer>
+    <lightning-button
+      variant="neutral"
+      label={cancel}
+      onclick={handleClose}
+    ></lightning-button>
+    <template lwc:if={isDeletionAllowed}>
+      <lightning-button
+        variant="destructive"
+        class="slds-p-left_medium"
+        label={sopLabel}
+        type="submit"
+        onclick={handleDelete}
+        data-id="submitBtn"
+      ></lightning-button>
+    </template>
+  </lightning-modal-footer>
+</template>

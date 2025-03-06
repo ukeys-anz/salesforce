@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>SOP_Omni</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Allow viewing SOP Omni component on Residential Loan Application record. also disable SOP LWC component.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View SOP Omni Component</label>
+</PermissionSet>

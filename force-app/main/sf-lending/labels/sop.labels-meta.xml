@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomLabels xmlns="http://soap.sforce.com/2006/04/metadata">
+    <labels>
+        <fullName>SOP_Expense_Config</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>SOP_Expense_Config</shortDescription>
+        <value>1695597985652695,1701819944151648,1714356391121987</value>
+    </labels>
+</CustomLabels>

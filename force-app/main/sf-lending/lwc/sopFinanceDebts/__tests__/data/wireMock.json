@@ -1,0 +1,19 @@
+{
+  "apiName": "ResidentialLoanApplication",
+  "childRelationships": {},
+  "fields": {
+    "Status": { "displayValue": "Referred", "value": "STATE_REFERRED" }
+  },
+  "id": "0cdBm0000001bdRIAQ",
+  "lastModifiedById": "0055m000000IglMAAS",
+  "lastModifiedDate": "2024-11-21T01:06:16.000Z",
+  "recordTypeId": "012Oa000000T3iUIAS",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Loan Application",
+    "recordTypeId": "012Oa000000T3iUIAS"
+  },
+  "systemModstamp": "2024-11-21T01:06:16.000Z"
+}

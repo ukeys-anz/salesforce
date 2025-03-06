@@ -497,7 +497,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Company</fieldItem>
                 <identifier>RecordCompanyField2</identifier>
@@ -514,7 +514,7 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>required</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Registered_Company__c</fieldItem>
                 <identifier>RecordRegistered_Company_cField2</identifier>

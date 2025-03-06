@@ -29,7 +29,7 @@ public with sharing class AccountClosureStravinskyController {
     try {
       Set<String> ocvIds = new Set<String>();
       Case caseRecord = ACCOUNT_CLOSURE_REPOSITORY.queryCaseDetails(recordId);
-
+      List<String> customerOCVIds = new List<String>{};
       Set<String> accountNumbersToBeClosed = new Set<String>{
         'accounts/' +
         caseRecord.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
@@ -42,8 +42,8 @@ public with sharing class AccountClosureStravinskyController {
       ) {
         ocvIds.add(finAccountRole.FinServ__RelatedAccount__r.OCV_ID__c);
       }
-
-      List<String> customerOCVIds = new List<String>(ocvIds);
+      ocvIds.remove(null);
+      customerOCVIds.addAll(ocvIds);
 
       StravinskyAPIRepository stravinskyApi = new StravinskyAPIRepository();
 
