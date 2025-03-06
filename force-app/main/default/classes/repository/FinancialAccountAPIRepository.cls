@@ -34,7 +34,7 @@ public with sharing class FinancialAccountAPIRepository extends RepositoryBase {
   ) {
     if (!USER_INFO.checkCustomPermission('ANZx_Accounts_and_Goals')) {
       throw CommonUtil.logExceptionInfo(
-        new CoachBankingAPIRepository.PermissionException(
+        new FinancialAccountAPIRepository.PermissionException(
           ACCOUNTS_AND_GOALS_PERMISSION_ERROR
         )
       );

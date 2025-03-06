@@ -38,7 +38,7 @@ public with sharing class AccountBucketsAPIRepository {
   ) {
     if (!USER_INFO.checkCustomPermission('ANZx_Accounts_and_Goals')) {
       throw CommonUtil.logExceptionInfo(
-        new CoachBankingAPIRepository.PermissionException(
+        new AccountBucketsAPIRepository.PermissionException(
           ACCOUNTS_AND_GOALS_PERMISSION_ERROR
         )
       );

@@ -6,6 +6,12 @@
  */
 @isTest
 public with sharing class AccountBucketsAPIRepositoryTest {
+  static Lib_MockProvider userMock;
+
+  static void registerMocks() {
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
+  }
   /**
    * @description Add required PermissionSet
    */
@@ -27,6 +33,7 @@ public with sharing class AccountBucketsAPIRepositoryTest {
    */
   @isTest
   static void accountBucketsValidResponse() {
+    registerMocks();
     Test.startTest();
     AccountBucketsAPIRepository accountBucketApi = new AccountBucketsAPIRepository();
     AccountBucketsModel response = accountBucketApi.getAccountBuckets(
@@ -48,6 +55,7 @@ public with sharing class AccountBucketsAPIRepositoryTest {
    */
   @isTest
   static void accountBucketsInvalidResponse() {
+    registerMocks();
     HttpCalloutResponse res = getAccountBucketsInvalidResponse(
       'Get account buckets failed'
     );
