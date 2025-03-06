@@ -35,7 +35,7 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   accountToOwnership = new Map();
   isS2AccountExist = false;
   fetchedAccounts;
-  processedAccounts = {};
+  processedAccounts = [];
   savingAccountExist = false;
 
   connectedCallback() {
@@ -44,24 +44,19 @@ export default class PersonAccountFinancialDetails extends LightningElement {
       this.handleRefreshFinances.bind(this)
     );
   }
-
-  get accountData() {
-    return this.processedAccounts;
-  }
-
   get isSavingAccountExist() {
     return this.savingAccountExist;
   }
 
   get hasHomeLoan() {
     return (
-      Array.isArray(this.processedAccounts.groupedAccounts) &&
-      this.processedAccounts.groupedAccounts.some((group) => group.isHomeLoan)
+      Array.isArray(this.processedAccounts) &&
+      this.processedAccounts.some((group) => group.isHomeLoan)
     );
   }
 
   get homeLoanAccounts() {
-    return this.processedAccounts.groupedAccounts
+    return this.processedAccounts
       .filter((group) => group.isHomeLoan)
       .flatMap((group) => group.accounts);
   }
@@ -95,7 +90,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ocvId: this.ocvId,
         accountNumbers: []
       });
-      this.processedAccounts = structuredClone(this.fetchedAccounts);
+      this.processedAccounts = this.fetchedAccounts;
+      this.processedAccounts.sort(
+        (firstGroup, secondGroup) =>
+          firstGroup.sortOrder - secondGroup.sortOrder
+      );
       this.processedAccounts = updateProductName(this.processedAccounts);
     } catch (error) {
       handleErrorShowToast(
@@ -111,7 +110,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
         ocvId: this.ocvId,
         ownerId: this.recordId
       });
-      this.processedAccounts = structuredClone(this.fetchedAccounts);
+      this.processedAccounts = this.fetchedAccounts;
+      this.processedAccounts.sort(
+        (firstGroup, secondGroup) =>
+          firstGroup.sortOrder - secondGroup.sortOrder
+      );
       this.processedAccounts = updateProductName(this.processedAccounts);
     } finally {
       //Raise this event to call initiate fetching of total balance
@@ -207,8 +210,8 @@ export default class PersonAccountFinancialDetails extends LightningElement {
 
   handleGoalApiCallout() {
     return (
-      Array.isArray(this.processedAccounts.groupedAccounts) &&
-      this.processedAccounts.groupedAccounts.some((group) => group.isSaving)
+      Array.isArray(this.processedAccounts) &&
+      this.processedAccounts.some((group) => group.isSaving)
     );
   }
 }

@@ -31,43 +31,6 @@ export function getImageMap(goals) {
   return new Map(goals.account_buckets.map((goal) => [goal.id, goal.image]));
 }
 
-export function updateProductName(financialAccount) {
-  let updatedFinancialAccount = {
-    ...financialAccount,
-    groupedAccounts: financialAccount.groupedAccounts.map((group) => {
-      const productName =
-        group.accounts?.length > 0
-          ? group.accounts[0]?.finserv_product_display_name
-          : "";
-      return {
-        ...group,
-        productNameTitle: productName
-      };
-    })
-  };
-  return updatedFinancialAccount;
-}
-
-export function getAccountByAccountNumber(accountNumber, financialAccount) {
-  const orignalData = financialAccount;
-  let filteredData = { groupedAccounts: [] };
-  orignalData.groupedAccounts.forEach((group) => {
-    const filteredAccounts = group.accounts.filter(
-      (account) => account.account_number === accountNumber
-    );
-    if (filteredAccounts.length > 0) {
-      filteredData.groupedAccounts.push({
-        ...group,
-        accounts: filteredAccounts
-      });
-    }
-  });
-  if (filteredData.groupedAccounts.length === 0) {
-    return { noAccountFound: true };
-  }
-  return filteredData.groupedAccounts[0];
-}
-
 export function getEmojiMap(goals) {
   return new Map(goals.account_buckets.map((goal) => [goal.id, goal.emoji]));
 }
