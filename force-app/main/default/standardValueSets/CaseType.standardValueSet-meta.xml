@@ -442,6 +442,11 @@
         <label>Know Your Customer</label>
     </standardValue>
     <standardValue>
+        <fullName>23</fullName>
+        <default>false</default>
+        <label>Customer Migration</label>
+    </standardValue>
+    <standardValue>
         <fullName>My Accounts</fullName>
         <default>false</default>
         <label>My Accounts</label>
