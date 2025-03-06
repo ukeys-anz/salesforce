@@ -20,8 +20,8 @@ public with sharing class AccountBucketsController {
     String nextPageToken,
     String accountNumber
   ) {
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    AccountBucketsModel result = coachapi.getAccountBuckets(
+    AccountBucketsAPIRepository accountBucketApi = new AccountBucketsAPIRepository();
+    AccountBucketsModel result = accountBucketApi.getAccountBuckets(
       ocvId,
       pageSize,
       nextPageToken,
