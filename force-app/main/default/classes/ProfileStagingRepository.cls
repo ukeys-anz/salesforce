@@ -23,6 +23,7 @@ public with sharing class ProfileStagingRepository {
         Case__r.CaseNumber,
         Customer_Name__r.RecordType.DeveloperName,
         Customer_Name__c,
+        Error_Description__c,
         Object_Name__c,
         Occurrence_Number__c,
         Name,

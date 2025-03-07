@@ -177,9 +177,9 @@
                 <label>Seek</label>
             </value>
             <value>
-                <fullName>Snapshat</fullName>
+                <fullName>Snapchat</fullName>
                 <default>false</default>
-                <label>Snapshat</label>
+                <label>Snapchat</label>
             </value>
             <value>
                 <fullName>Stayz</fullName>
@@ -321,7 +321,7 @@
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Social Media</controllingFieldValue>
-            <valueName>Snapshat</valueName>
+            <valueName>Snapchat</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Social Media</controllingFieldValue>

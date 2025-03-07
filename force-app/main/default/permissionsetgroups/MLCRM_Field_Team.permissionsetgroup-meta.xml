@@ -5,7 +5,7 @@
     <label>MLCRM Field Team</label>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
-    <permissionSets>MLCRM_Base_Read_Only</permissionSets>
+    <permissionSets>MLCRM_Base</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Customer_Relationships</permissionSets>
     <permissionSets>MLCRM_Create_and_Edit_Interactions</permissionSets>
     <permissionSets>MLCRM_FieldTeam_OwnerChange</permissionSets>

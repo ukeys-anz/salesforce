@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>My_teams_referrer__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Does the commercial segment and area code or team code matches the running user?
+
+Used in My Teams Referrals Report</description>
+    <formula>AND(
+RecordType.DeveloperName = &apos;Commercial Opportunity&apos;,
+TEXT(Owner.Commercial_Segment__c) = TEXT($User.Commercial_Segment__c),
+OR(
+$User.Area_Code__c == Owner.Area_Code__c,
+$User.Team_Code__c = Owner.Team_Code__c
+)
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>My team&apos;s referrer?</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

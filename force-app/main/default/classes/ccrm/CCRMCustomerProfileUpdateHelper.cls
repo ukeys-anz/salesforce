@@ -5,7 +5,7 @@
  * @runTests CCRMCustomerProfileUpdateHelperTest
  */
 public with sharing class CCRMCustomerProfileUpdateHelper {
-  private static final string PENDING_UPDATE_ERROR = 'Unable to edit this record since it was recently edited and changes are still being processed, please try again later.';
+  private static final string PENDING_UPDATE_ERROR = 'You are unable to edit this record as there has been a recent edit made that is still being processed, please try again later.';
   private static final string DELETE_LAST_CONTACT_ERROR = 'This contact cannot be deleted as at least one contact must be linked to a customer. Please try adding a new contact before deleting this one.';
   private static final String KYC_EDIT_ERROR = 'You are not allowed to edit the KYC fields for active customer.';
   private static final Profile CURRENT_USER_PROFILE = MLCRMCommonUtils.getProfileById(

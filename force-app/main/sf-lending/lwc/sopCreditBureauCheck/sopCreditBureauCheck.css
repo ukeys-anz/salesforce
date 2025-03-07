@@ -1,0 +1,33 @@
+:host {
+  --logo-dimensions: 60px;
+}
+.subHeading {
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+  font-size: 10px;
+  font-style: italic;
+  color: #706e6b;
+}
+.image {
+  height: 24px;
+  width: 24px;
+}
+.cardLogo {
+  height: var(--logo-dimensions);
+  width: var(--logo-dimensions);
+  padding: 10px;
+}
+.slds-box {
+  padding-top: 6px;
+  padding-left: var(--lwc-spacingMedium);
+  padding-right: var(--lwc-spacingLarge);
+  padding-bottom: 14px;
+}
+.sectionWidth {
+  width: var(--logo-dimensions);
+}
+.labelAndValueStyle {
+  font-size: var(--text-font-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+}

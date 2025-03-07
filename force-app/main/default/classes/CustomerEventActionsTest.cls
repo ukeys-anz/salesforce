@@ -131,7 +131,7 @@ public with sharing class CustomerEventActionsTest {
   static BrokerSettings__c createBrokerSettingRecord() {
     BrokerSettings__c brokerCustomSettting = new BrokerSettings__c();
     brokerCustomSettting.Name = 'Default';
-    brokerCustomSettting.BypassCustomerSyncEvents__c = false;
+    brokerCustomSettting.BypassCustomerEvent__c = false;
     brokerCustomSettting.id = Lib_FakeIdGenerator.getMockId(
       BrokerSettings__c.SObjectType
     );

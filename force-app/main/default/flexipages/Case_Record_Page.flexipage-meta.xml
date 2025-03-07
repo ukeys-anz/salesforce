@@ -761,6 +761,9 @@
                         <valueListItems>
                             <value>TriggeredFrom__c</value>
                         </valueListItems>
+                        <valueListItems>
+                            <value>LAST_UPDATE</value>
+                        </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
                 <componentInstanceProperties>

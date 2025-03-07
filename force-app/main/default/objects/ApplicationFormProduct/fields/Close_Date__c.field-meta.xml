@@ -6,7 +6,7 @@
     <description>The actual date of settlement of the product on the application form.</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <label>Close Date</label>
+    <label>Settlement Date</label>
     <required>true</required>
     <securityClassification>Confidential</securityClassification>
     <trackHistory>true</trackHistory>

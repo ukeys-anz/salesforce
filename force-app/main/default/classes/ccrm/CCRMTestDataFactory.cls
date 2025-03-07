@@ -744,6 +744,11 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingPostalCode = '3008';
     accnt.BillingState = 'VIC';
     accnt.BillingCountry = 'Australia';
+    accnt.ShippingStreet = '833 Collins Street';
+    accnt.ShippingCity = 'Docklands';
+    accnt.ShippingPostalCode = '3008';
+    accnt.ShippingState = 'VIC';
+    accnt.ShippingCountry = 'Australia';
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     accnt.FinServ__Status__c = 'Active';

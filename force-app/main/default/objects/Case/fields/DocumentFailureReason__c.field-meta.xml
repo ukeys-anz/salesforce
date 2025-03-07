@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>The reason why customer verification failed during LegalName process</description>
+    <inlineHelpText>When failing the customer&apos;s request, select a failure reason from the list provided. This will help provide clarity for anyone reviewing the case after the fact and assist in monitoring the efficacy of the process. For a more detailed explanation of each failure outcome, please consult the procedural guide.</inlineHelpText>
     <label>Document Failure Reason</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
@@ -12,14 +13,127 @@
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Fraud_Review_Outcome__c</controllingField>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Failed</fullName>
+                <fullName>Incorrect document type</fullName>
                 <default>false</default>
-                <label>Failed</label>
+                <label>Incorrect document type</label>
+            </value>
+            <value>
+                <fullName>Document has been tampered with or altered</fullName>
+                <default>false</default>
+                <label>Document has been tampered with or altered</label>
+            </value>
+            <value>
+                <fullName>Certified copy instead of original</fullName>
+                <default>false</default>
+                <label>Certified copy instead of original</label>
+            </value>
+            <value>
+                <fullName>Document has expired</fullName>
+                <default>false</default>
+                <label>Document has expired</label>
+            </value>
+            <value>
+                <fullName>No match - Selfie/ID comparison</fullName>
+                <default>false</default>
+                <label>No match - Selfie/ID comparison</label>
+            </value>
+            <value>
+                <fullName>No match - New Name</fullName>
+                <default>false</default>
+                <label>No match - New Name</label>
+            </value>
+            <value>
+                <fullName>No match - Previous Name</fullName>
+                <default>false</default>
+                <label>No match - Previous Name</label>
+            </value>
+            <value>
+                <fullName>No match - Date of Birth</fullName>
+                <default>false</default>
+                <label>No match - Date of Birth</label>
+            </value>
+            <value>
+                <fullName>No Match - DVS check failed</fullName>
+                <default>false</default>
+                <label>No Match - DVS check failed</label>
+            </value>
+            <value>
+                <fullName>Text in document illegible/unreadable</fullName>
+                <default>false</default>
+                <label>Text in document illegible/unreadable</label>
+            </value>
+            <value>
+                <fullName>Photo in ID unusable for selfie comparison</fullName>
+                <default>false</default>
+                <label>Photo in ID unusable for selfie comparison</label>
+            </value>
+            <value>
+                <fullName>Key data point obscured/cropped/missing</fullName>
+                <default>false</default>
+                <label>Key data point obscured/cropped/missing</label>
+            </value>
+            <value>
+                <fullName>Picture of a picture of ID doc detected</fullName>
+                <default>false</default>
+                <label>Picture of a picture of ID doc detected</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>Incorrect document type</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>Document has been tampered with or altered</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>Certified copy instead of original</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>Document has expired</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>No match - Selfie/ID comparison</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>No match - New Name</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>No match - Previous Name</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>No match - Date of Birth</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Provided Invalid</controllingFieldValue>
+            <valueName>No Match - DVS check failed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Quality Issue</controllingFieldValue>
+            <valueName>Text in document illegible/unreadable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Quality Issue</controllingFieldValue>
+            <valueName>Photo in ID unusable for selfie comparison</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Quality Issue</controllingFieldValue>
+            <valueName>Key data point obscured/cropped/missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed - Document Quality Issue</controllingFieldValue>
+            <valueName>Picture of a picture of ID doc detected</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

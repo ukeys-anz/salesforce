@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SearchCustomization xmlns="http://soap.sforce.com/2006/04/metadata">
+    <channel>GlobalSearch</channel>
+    <masterLabel>ANZ_CCRM</masterLabel>
+    <objectToAlwaysSearch>FinServ__FinancialAccount__c</objectToAlwaysSearch>
+    <profile>anz ccrm standard user</profile>
+</SearchCustomization>

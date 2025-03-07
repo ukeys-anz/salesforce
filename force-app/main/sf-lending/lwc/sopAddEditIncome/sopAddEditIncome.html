@@ -1,0 +1,433 @@
+<!--Child LWC component for Add/Edit Income Modal-->
+<template>
+  <template lwc:if={isAddModal}>
+    <lightning-modal-header class="slds-p-vertical_x-small" label="Add Income">
+    </lightning-modal-header>
+  </template>
+  <template lwc:else>
+    <lightning-modal-header class="slds-p-vertical_x-small" label="Edit Income">
+    </lightning-modal-header>
+  </template>
+  <lightning-modal-body>
+    <div lwc:if={isLoading} class="spinner-container">
+      <lightning-spinner
+        alternative-text="Loading"
+        size="medium"
+      ></lightning-spinner>
+    </div>
+    <lightning-layout
+      class="slds-box slds-box_x-small"
+      multiple-rows
+      horizontal-align="spread"
+    >
+      <!--Icon for other logo-->
+      <lightning-layout-item
+        size="2"
+        flexibility="shrink"
+        alignment-bump="right"
+      >
+        <img src={logoOtherImage} class="childCardLogo logoPadding" />
+      </lightning-layout-item>
+      <template lwc:if={error}>
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          horizontal-align="center"
+          class="slds-text-align_center incomeErrorStyle"
+        >
+          <lightning-formatted-text value={error}></lightning-formatted-text>
+        </lightning-layout-item>
+      </template>
+      <!--Block to display Employer Details -->
+      <lightning-layout-item
+        size="12"
+        class="title slds-p-vertical_xx-small slds-p-horizontal_x-small"
+        flexibility="shrink"
+      >
+        <lightning-formatted-text
+          value="Employer Details"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+
+      <lightning-layout-item
+        size="6"
+        flexibility="shrink"
+        alignment-bump="right"
+        class="slds-p-top_x-small slds-p-bottom_medium"
+      >
+        <!--Who works here section-->
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          alignment-bump="right"
+        >
+          <lightning-combobox
+            name="belongsTo"
+            label="Who Works Here"
+            value={employment.partyId}
+            data-name="belongsTo"
+            options={belongsToOptions}
+            onchange={handleBelongsToChange}
+            required
+            disabled={isEditModal}
+          ></lightning-combobox>
+        </lightning-layout-item>
+        <!--employer section-->
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          alignment-bump="right"
+        >
+          <lightning-input
+            type="text"
+            variant="label-stacked"
+            label="Employer"
+            value={employment.businessName}
+            data-name="businessName"
+            onchange={handleEmpDetailChange}
+            required
+          ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          alignment-bump="right"
+        >
+          <lightning-combobox
+            label="Employment type"
+            value={employment.basis}
+            variant="label-stacked"
+            options={employmentTypeOptions}
+            data-name="basis"
+            onchange={handleEmpDetailChange}
+            required
+          ></lightning-combobox>
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          alignment-bump="right"
+        >
+          <lightning-input
+            type="date"
+            variant="label-stacked"
+            label="Start Date"
+            data-name="startDateValue"
+            value={employment.startDateValue}
+            onchange={handleEmpDetailChange}
+            required
+          ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          alignment-bump="right"
+        >
+          <lightning-input
+            type="text"
+            variant="label-stacked"
+            label="Income Source"
+            data-name="incomeSource"
+            value="Manual"
+            disabled
+          ></lightning-input>
+        </lightning-layout-item>
+      </lightning-layout-item>
+
+      <!--Income details section start here-->
+      <lightning-layout-item
+        size="12"
+        class="title slds-p-vertical_xx-small slds-p-horizontal_x-small"
+        flexibility="shrink"
+      >
+        <lightning-formatted-text
+          value="Income Details"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+
+      <lightning-layout-item
+        size="4"
+        alignment-bump="left"
+        class="slds-text-align_right"
+      >
+        <lightning-button-menu
+          icon-name="utility:add"
+          variant="border-filled"
+          label="Add Income Type"
+          onselect={handleActionsMenuSelect}
+        >
+          <template for:each={incomeTypeOptions} for:item="incomeType">
+            <lightning-menu-item
+              key={incomeType.label}
+              value={incomeType.value}
+              label={incomeType.label}
+            >
+            </lightning-menu-item>
+          </template>
+        </lightning-button-menu>
+      </lightning-layout-item>
+
+      <template lwc:if={showIncomeDetailError}>
+        <lightning-layout-item
+          size="12"
+          flexibility="shrink"
+          horizontal-align="center"
+          class="slds-text-align_center incomeErrorStyle"
+        >
+          <lightning-formatted-text
+            value="This income type already exists."
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+      </template>
+      <lightning-layout-item size="12" flexibility="shrink">
+        <template for:each={incomeTypesDetail} for:item="incomeDetail">
+          <lightning-layout multiple-rows key={incomeDetail.type}>
+            <template lwc:if={incomeDetail.isBase}>
+              <lightning-layout-item
+                size="12"
+                flexibility="shrink"
+                class="incomeTypeStyle"
+              >
+                <lightning-formatted-text
+                  value="Base Salary"
+                  data-jest-id="baseSalary"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="12"
+                flexibility="shrink"
+                class="textStyle slds-p-vertical_x-small"
+              >
+                <lightning-formatted-text
+                  value="Please exclude any overtime, bonus, etc."
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </template>
+            <!--base end-->
+            <!--isBonuses start-->
+            <template lwc:if={incomeDetail.isBonuses}>
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="incomeTypeStyle"
+              >
+                <lightning-formatted-text
+                  value="Bonus"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="6"
+                class="slds-text-align_right"
+                flexibility="shrink"
+              >
+                <lightning-icon
+                  icon-name="utility:delete"
+                  size="small"
+                  data-name="isBonuses"
+                  onclick={onTypeDelete}
+                  alternative-text="delete!"
+                  title="delete"
+                ></lightning-icon>
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="12"
+                flexibility="shrink"
+                class="textStyle slds-p-vertical_x-small"
+              >
+                <lightning-formatted-text
+                  value="You can delete this income if it's not applicable."
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </template>
+            <!--isBonuses end-->
+
+            <!--isCommission start-->
+            <template lwc:if={incomeDetail.isCommission}>
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="incomeTypeStyle"
+              >
+                <lightning-formatted-text
+                  value="Comission"
+                  data-jest-id="commission"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="6"
+                class="slds-text-align_right"
+                flexibility="shrink"
+              >
+                <lightning-icon
+                  icon-name="utility:delete"
+                  size="small"
+                  data-name="isCommission"
+                  onclick={onTypeDelete}
+                  alternative-text="delete!"
+                  title="delete"
+                ></lightning-icon>
+              </lightning-layout-item>
+
+              <lightning-layout-item
+                size="12"
+                flexibility="shrink"
+                class="textStyle slds-p-vertical_x-small"
+              >
+                <lightning-formatted-text
+                  value="You can delete this income if it's not applicable."
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </template>
+            <!--iscommission end-->
+
+            <!--isOverTime start-->
+            <template lwc:if={incomeDetail.isOverTime}>
+              <lightning-layout-item
+                size="6"
+                flexibility="shrink"
+                class="incomeTypeStyle"
+              >
+                <lightning-formatted-text
+                  value="Overtime"
+                  data-jest-id="overtime"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="6"
+                class="slds-text-align_right"
+                flexibility="shrink"
+              >
+                <lightning-icon
+                  icon-name="utility:delete"
+                  size="small"
+                  data-name="isOverTime"
+                  onclick={onTypeDelete}
+                  alternative-text="delete!"
+                  title="delete"
+                ></lightning-icon>
+              </lightning-layout-item>
+
+              <lightning-layout-item
+                size="12"
+                flexibility="shrink"
+                class="textStyle slds-p-vertical_x-small"
+              >
+                <lightning-formatted-text
+                  value="You can delete this income if it's not applicable."
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+            </template>
+            <!--overtime ends-->
+            <lightning-layout-item size="6" flexibility="shrink">
+              <lightning-combobox
+                label="Income Tax"
+                value={incomeDetail.amountType}
+                variant="label-inline"
+                options={incomeTaxOptions}
+                data-name="amountType"
+                data-id={incomeDetail.type}
+                onchange={handleDetailsChanges}
+                required
+              ></lightning-combobox>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" flexibility="shrink">
+              <template lwc:if={incomeDetail.isBonuses}>
+                <lightning-input
+                  type="number"
+                  variant="label-inline"
+                  label="Payments per year"
+                  value={incomeDetail.bonusPayments}
+                  data-name="bonusPayments"
+                  data-id={incomeDetail.type}
+                  onchange={handleDetailsChanges}
+                  required
+                ></lightning-input>
+              </template>
+              <template lwc:else>
+                <lightning-combobox
+                  label="Frequency"
+                  value={incomeDetail.frequency}
+                  variant="label-inline"
+                  options={frequencyOptions}
+                  data-name="frequency"
+                  data-id={incomeDetail.type}
+                  onchange={handleDetailsChanges}
+                  required
+                ></lightning-combobox>
+              </template>
+            </lightning-layout-item>
+            <lightning-layout-item size="6" flexibility="shrink">
+              <lightning-input
+                type="number"
+                variant="label-inline"
+                label="Amount"
+                value={incomeDetail.amountValue}
+                formatter="currency"
+                data-name="amountValue"
+                step="0.01"
+                data-id={incomeDetail.type}
+                onchange={handleDetailsChanges}
+                required
+              ></lightning-input>
+            </lightning-layout-item>
+          </lightning-layout>
+        </template>
+      </lightning-layout-item>
+    </lightning-layout>
+
+    <!--Income verification section start here-->
+    <lightning-layout
+      multiple-rows
+      horizontal-align="spread"
+      class="slds-m-top_small slds-box slds-box_x-small"
+    >
+      <lightning-layout-item
+        size="12"
+        class="title slds-p-vertical_xx-small slds-p-horizontal_x-small"
+        flexibility="shrink"
+      >
+        <lightning-formatted-text
+          value={incomeVerification}
+        ></lightning-formatted-text>
+      </lightning-layout-item>
+      <lightning-layout-item size="12">
+        <lightning-layout>
+          <lightning-layout-item size="1">
+            <img src={logoOtherImage} class="childCardLogo logoPadding" />
+          </lightning-layout-item>
+          <lightning-layout-item size="4" class="slds-p-top_large">
+            <lightning-input
+              type="checkbox"
+              label="* Income Verified"
+              data-name="incomeVerified"
+              onchange={handleIncomeVerify}
+              checked={incomeVerified}
+            ></lightning-input>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-modal-body>
+  <lightning-modal-footer class="slds-text-align_center">
+    <lightning-layout horizontal-align="center">
+      <!-- Modal footer-->
+      <lightning-layout-item
+        size="4"
+        class="slds-p-vertical_x-small slds-grid slds-grid_align-center"
+      >
+        <lightning-button
+          variant="neutral"
+          label="Cancel"
+          onclick={handleClose}
+        ></lightning-button>
+        <lightning-button
+          variant="brand"
+          class="slds-p-left_medium"
+          label="Save"
+          type="submit"
+          onclick={handleSubmit}
+        ></lightning-button>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-modal-footer>
+</template>

@@ -129,6 +129,29 @@ public class GenericFilterBuilder {
    * @param fields The fields to filter on.
    * @return The updated GenericFilterBuilder instance.
    */
+  public GenericFilterBuilder anyNotNull(Set<String> fields) {
+    List<Object> output = this.handler.emptyList;
+    for (Object record : this.records) {
+      Boolean isValid = false;
+      for (String field : fields) {
+        if (this.handler.get(record, field) != null) {
+          isValid = true;
+          break;
+        }
+      }
+      if (isValid) {
+        output.add(record);
+      }
+    }
+    this.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with all specified fields have values.
+   * @param fields The fields to filter on.
+   * @return The updated GenericFilterBuilder instance.
+   */
   public GenericFilterBuilder allNotNull(Set<String> fields) {
     List<Object> output = this.handler.emptyList;
     for (Object record : this.records) {
@@ -189,6 +212,35 @@ public class GenericFilterBuilder {
       for (String field : fields) {
         Object fieldValue = this.handler.get(record, field);
         if (newValues.contains(fieldValue) == false) {
+          isValid = false;
+          break;
+        }
+      }
+      if (isValid) {
+        output.add(record);
+      }
+    }
+    this.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with all fields not equal to a given value or list/set of values
+   * @param fields The fields to compare against.
+   * @param valueOrCollection The values to compare with the fields.
+   * @return The updated GenericFilterBuilder instance.
+   */
+  public GenericFilterBuilder allNotEqual(
+    Set<String> fields,
+    Object valueOrCollection
+  ) {
+    Set<Object> newValues = ListUtil.toSet(valueOrCollection);
+    List<Object> output = this.handler.emptyList;
+    for (Object record : this.records) {
+      Boolean isValid = true;
+      for (String field : fields) {
+        Object fieldValue = this.handler.get(record, field);
+        if (newValues.contains(fieldValue)) {
           isValid = false;
           break;
         }

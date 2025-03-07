@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Is the Legal Name Update a Name Correction or Name Update?</description>
+    <inlineHelpText>Select &apos;Name Correction&apos; = &apos;Yes&apos; when you have made a correction to an error in the customer&apos;s provided NEW name (1-2 characters), or to enrich the quality of their middle name (from an initial to a full name). For more details refer to the procedural guide.</inlineHelpText>
     <label>Name Correction?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

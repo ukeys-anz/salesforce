@@ -461,6 +461,21 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
           body: "Lead cannot be converted until business name is registered."
         });
       }
+      //ABN or ACN should be there if is Business registed = true
+      if (
+        this.leadConvertData.leadRecord.Registered_Company__c === "Yes" &&
+        !this.isIndividual &&
+        (this.leadConvertData.leadRecord.ABN__c === undefined ||
+          this.leadConvertData.leadRecord.ABN__c === null) &&
+        (this.leadConvertData.leadRecord.ACN__c === undefined ||
+          this.leadConvertData.leadRecord.ACN__c === null)
+      ) {
+        this.setInvalidLead();
+        this.validationMessage.push({
+          id: this.validationMessage.length + 1,
+          body: "Capture valid ABN / ACN details for business registered."
+        });
+      }
       //# Criteria #8
       if (
         this.leadConvertData.leadRecord.Registered_Company__c === "Yes" &&
