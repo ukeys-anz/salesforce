@@ -4,15 +4,12 @@
  * @description Holds Cached Financial Account UI Config Data
  */
 public with sharing class QueryFinancialAccountUIConfig {
-  @TestVisible
-  private static List<FinancialAccountUIConfiguration__mdt> allConfigs = new List<FinancialAccountUIConfiguration__mdt>();
-  @TestVisible
-  private static Set<String> productCodesIncludedInTotalPosition = new Set<String>();
-  @TestVisible
-  private static Set<String> allProductCodes = new Set<String>();
+  public static Map<String, FinancialAccountUIConfiguration__mdt> configByProductCode = new Map<String, FinancialAccountUIConfiguration__mdt>();
+
+  public static Map<String, FinancialAccountUIConfiguration__mdt> configByDeveloperName = new Map<String, FinancialAccountUIConfiguration__mdt>();
 
   static {
-    allConfigs = [
+    List<FinancialAccountUIConfiguration__mdt> allConfig = [
       SELECT
         DeveloperName,
         Product_Code__c,
@@ -25,41 +22,34 @@ public with sharing class QueryFinancialAccountUIConfig {
         Is_Active__c,
         Include_In_Total_Financial_Position__c
       FROM FinancialAccountUIConfiguration__mdt
+      WITH USER_MODE
     ];
 
-    for (FinancialAccountUIConfiguration__mdt config : allConfigs) {
-      allProductCodes.add(config.Product_Code__c);
-
-      if (
-        config.Is_Active__c == true &&
-        config.Include_In_Total_Financial_Position__c == true
-      ) {
-        productCodesIncludedInTotalPosition.add(config.Product_Code__c);
-      }
+    for (FinancialAccountUIConfiguration__mdt config : allConfig) {
+      configByProductCode.put(config.Product_Code__c, config);
+      configByDeveloperName.put(config.DeveloperName, config);
     }
   }
 
   /**
-   * @description Returns Financial ACcount UI config data from Metadata.
-   * @return UI config records.
+   * @description Returns SEt of product codes from Financial Account UI config data.
+   * @param developerName Name of the Financial Account UI config record
+   * @return Product set of all config data.
    */
-  public static List<FinancialAccountUIConfiguration__mdt> getAllConfigs() {
-    return allConfigs;
-  }
-
-  /**
-   * @description Returns SEt of product codes eligibel to include in total  from Financial ACcount UI config data.
-   * @return Product set of eligible product codes.
-   */
-  public static Set<String> getProductCodesIncludedInTotalPosition() {
-    return productCodesIncludedInTotalPosition;
+  public static FinancialAccountUIConfiguration__mdt getByDeveloperName(
+    String developerName
+  ) {
+    return configByDeveloperName.get(developerName);
   }
 
   /**
    * @description Returns SEt of product codes from Financial ACcount UI config data.
+   * @param productCode field of Financial Account UI config record
    * @return Product set of all config data.
    */
-  public static Set<String> getAllProductCodes() {
-    return allProductCodes;
+  public static FinancialAccountUIConfiguration__mdt getByProductCode(
+    String productCode
+  ) {
+    return configByProductCode.get(productCode);
   }
 }

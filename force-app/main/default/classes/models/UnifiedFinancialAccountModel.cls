@@ -42,7 +42,7 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
   /**
    * @description Accounts information related to the account
    */
-  public class AccountList {
+  public class AccountList implements GenericObject {
     @AuraEnabled
     public String finserv_product_name;
     @AuraEnabled
@@ -62,7 +62,7 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     @AuraEnabled
     public String account_number;
     @AuraEnabled
-    public String id;
+    public Id id;
     @AuraEnabled
     public String bsb;
     @AuraEnabled
@@ -87,6 +87,25 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public Deposit_details deposit_details;
     @AuraEnabled
     public Ownership ownership;
+
+    /**
+     * @description Returns the value of the specified field.
+     * @param fieldName The name of the field to retrieve the value for.
+     * @return The value of the specified field.
+     */
+    public Object get(String fieldName) {
+      switch on fieldName {
+        when 'id' {
+          return this.id;
+        }
+        when 'account_number' {
+          return this.account_number;
+        }
+      }
+      throw new IllegalArgumentException(
+        'Field not yet supported: ' + fieldName
+      );
+    }
 
     /**
      * @description returns the calculated paid off value

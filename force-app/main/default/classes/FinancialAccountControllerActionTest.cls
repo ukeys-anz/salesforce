@@ -7,32 +7,62 @@
 @isTest
 public with sharing class FinancialAccountControllerActionTest {
   @isTest
-  public static void testGroupByProductCodePositive() {
+  public static void testProcessFinancialAccountsPositive() {
     Test.startTest();
-    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+    List<UnifiedFinancialAccountModel> groupedFinAccountList = FinancialAccountControllerAction.processFinancialAccounts(
       mockFabricFinancialAccounts
     );
     Test.stopTest();
 
     Assert.areEqual(
-      mapOfProductodeAndFinAccounts[0].isSaving,
+      groupedFinAccountList[0].isSaving,
       true,
       'Financial Accounts should be grouped by Product Code'
     );
   }
 
   @isTest
-  public static void testGroupByProductCodeNegative() {
+  public static void testProcessFinancialAccountsNegative() {
     Test.startTest();
-    List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+    List<UnifiedFinancialAccountModel> groupedFinAccountList = FinancialAccountControllerAction.processFinancialAccounts(
       new List<UnifiedFinancialAccountModel.AccountList>()
     );
     Test.stopTest();
 
     Assert.areEqual(
-      mapOfProductodeAndFinAccounts.size(),
+      groupedFinAccountList.size(),
       0,
       'Financial Accounts are grouped and sorted'
+    );
+  }
+
+  @isTest
+  public static void testGroupAccountsPositive() {
+    Test.startTest();
+    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.groupAccounts(
+      mockFabricFinancialAccounts
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      mapOfProductodeAndFinAccounts.containsKey('SAVING01'),
+      true,
+      'Financial Accounts should be grouped by SAVING01 Product Code'
+    );
+  }
+
+  @isTest
+  public static void testGroupAccountsNegative() {
+    Test.startTest();
+    Map<String, List<UnifiedFinancialAccountModel.AccountList>> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.groupAccounts(
+      mockFabricFinancialAccounts
+    );
+    Test.stopTest();
+
+    Assert.areEqual(
+      mapOfProductodeAndFinAccounts.containsKey('SAVING02'),
+      false,
+      'Financial Accounts should not be grouped by SAVING02 Product Code'
     );
   }
 
@@ -40,8 +70,7 @@ public with sharing class FinancialAccountControllerActionTest {
   public static void testPrepareFinalUIResponsePositive() {
     Test.startTest();
     List<UnifiedFinancialAccountModel> mapOfProductodeAndFinAccounts = FinancialAccountControllerAction.prepareFinalUIResponse(
-      mockGroupedAccounts(),
-      mockUiConfigMap()
+      mockGroupedAccounts()
     );
     Test.stopTest();
 
@@ -89,61 +118,5 @@ public with sharing class FinancialAccountControllerActionTest {
     mockgroupedFinAccount.put('TRANSACT01', everydayFinAccount);
     mockgroupedFinAccount.put('HOMELOAN1', homeLoanFinAccount);
     return mockgroupedFinAccount;
-  }
-
-  /**
-   * @description helper method to create mock metadata records in map format
-   * @return map of product code and FinancialAccountUIConfiguration__mdt record
-   */
-  private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
-    List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
-    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'HLVAR01',
-      Account_Type__c = 'Loan',
-      Balance_Title__c = 'Loan Balance',
-      Section_Header_Title__c = 'Loan',
-      Sort_Order__c = 1,
-      Is_Active__c = true,
-      Ownership_Type__c = 'Single'
-    );
-
-    mockMetaData.add(dummyRecord1);
-
-    FinancialAccountUIConfiguration__mdt dummyRecord2 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'SAVING01',
-      Account_Type__c = 'Savings',
-      Balance_Title__c = 'Total Saved',
-      Section_Header_Title__c = 'Savings',
-      Sort_Order__c = 3,
-      Ownership_Type__c = 'Multi-Party',
-      Is_Active__c = true
-    );
-
-    mockMetaData.add(dummyRecord2);
-
-    FinancialAccountUIConfiguration__mdt dummyRecord3 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'SAVING01',
-      Account_Type__c = 'Savings',
-      Balance_Title__c = 'Total Saved',
-      Section_Header_Title__c = 'Savings',
-      Sort_Order__c = 2,
-      Ownership_Type__c = 'Single',
-      Is_Active__c = true
-    );
-    mockMetaData.add(dummyRecord3);
-
-    return mockMetaData;
-  }
-
-  private static Map<String, FinancialAccountUIConfiguration__mdt> mockUiConfigMap() {
-    Map<String, FinancialAccountUIConfiguration__mdt> productCodeToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
-    for (
-      FinancialAccountUIConfiguration__mdt finUIConfig : mockfinAccountUiConfig()
-    ) {
-      {
-        productCodeToFinAccMap.put(finUIConfig.Product_Code__c, finUIConfig);
-      }
-    }
-    return productCodeToFinAccMap;
   }
 }

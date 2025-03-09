@@ -2,7 +2,6 @@ import { createElement } from "lwc";
 import PersonAccountFinancialDetails from "c/personAccountFinancialDetails";
 import { getRecord } from "lightning/uiRecordApi";
 import getFinancialAccountFabric from "@salesforce/apex/FinancialAccountController.getFinancialAccountFabric";
-import { json } from "stream/consumers";
 const getWiredRecord = require("./data/getWiredData.json");
 const accountData = require("./data/accountData.json");
 global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));

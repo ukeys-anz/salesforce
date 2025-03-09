@@ -65,7 +65,7 @@ public with sharing class FinancialAccountController {
         fabricAccountList
       );
 
-      DataPartitionUtil.storeH1AccountDetailsCache(ocvId, homeloanaccounts);
+      DataPartitionUtil.storeLoanAccountDetailsCache(ocvId, homeloanaccounts);
 
       List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
         fabricAccountList
@@ -101,25 +101,19 @@ public with sharing class FinancialAccountController {
       return new List<UnifiedFinancialAccountModel.AccountList>();
     }
 
-    Set<String> financialAccountNumbers = new Set<String>();
-    for (
-      UnifiedFinancialAccountModel.AccountList finAccount : result.accounts
-    ) {
-      financialAccountNumbers.add(finAccount.account_number);
-    }
+    List<String> financialAccountNumbers = (List<String>) ListUtil.getValues(
+      result.accounts,
+      'account_number',
+      String.class
+    );
 
     List<FinServ__FinancialAccount__c> financialAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getFinAccountList(
-      new List<String>(financialAccountNumbers)
+      financialAccountNumbers
     );
+
     Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = (Map<String, FinServ__FinancialAccount__c>) ListUtil.mapBy(
       financialAccountList,
       FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
-    );
-
-    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = QueryFinancialAccountUIConfig.getAllConfigs();
-    Map<String, FinancialAccountUIConfiguration__mdt> financialAccountConfigMap = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
-      financialAccountConfigRecords,
-      FinancialAccountUIConfiguration__mdt.DeveloperName
     );
 
     List<UnifiedFinancialAccountModel.AccountList> processedFinancialAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
@@ -133,8 +127,7 @@ public with sharing class FinancialAccountController {
       );
       UnifiedFinancialAccountModel.AccountList finAccountRecord = getFinancialAccountInstance(
         finAccount,
-        finAccountFromDatabase,
-        financialAccountConfigMap
+        finAccountFromDatabase
       );
       processedFinancialAccounts.add(finAccountRecord);
 
@@ -157,15 +150,21 @@ public with sharing class FinancialAccountController {
    * Creates a instance of Financial Account Record to display it on UI
    * @param finAccount Financial Account from Fabric
    * @param finAccountFromDatabase Financial Account from Salesforce Database
-   * @param financialAccountConfigMap map of productcode-ownership as key and financial account ui configurations
    * @return financial account to be displayed on UI
    */
   @TestVisible
   private static UnifiedFinancialAccountModel.AccountList getFinancialAccountInstance(
     UnifiedFinancialAccountModel.AccountList finAccount,
-    FinServ__FinancialAccount__c finAccountFromDatabase,
-    Map<String, FinancialAccountUIConfiguration__mdt> financialAccountConfigMap
+    FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
+    String finAccountKey =
+      finAccount.product_details.marketing_code +
+      '_' +
+      FABRIC_OWNERSHIP_UI.get(finAccount.finserv_ownership);
+    FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
+      finAccountKey
+    );
+
     finAccount.Id = finAccountFromDatabase?.Id;
     finAccount.finserv_product_name = finAccountFromDatabase
       ?.FinServ__ProductName__c;
@@ -181,16 +180,11 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_ownership = finAccountFromDatabase == null
       ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
-    String key =
-      finAccount.product_details.marketing_code +
-      '_' +
-      FABRIC_OWNERSHIP_UI.get(finAccount.finserv_ownership);
-    finAccount.finserv_sortorder = financialAccountConfigMap.containsKey(key)
-      ? financialAccountConfigMap.get(key).Sort_Order__c
-      : DEFAULT_SORT_ORDER;
-    finAccount.finserv_showgoal = financialAccountConfigMap.containsKey(key)
-      ? financialAccountConfigMap.get(key)?.Show_Goals__c
-      : true;
+
+    finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
+      DEFAULT_SORT_ORDER;
+    finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? true;
+
     return finAccount;
   }
 
@@ -229,19 +223,15 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> filterOutNonHomeLoanAccounts(
     List<UnifiedFinancialAccountModel.AccountList> financialAccountFabric
   ) {
-    List<FinancialAccountUIConfiguration__mdt> financialAccountConfigRecords = QueryFinancialAccountUIConfig.getAllConfigs();
-    Map<String, FinancialAccountUIConfiguration__mdt> mapOfProductCodeWithFinUIConfig = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
-      financialAccountConfigRecords,
-      FinancialAccountUIConfiguration__mdt.Product_Code__c
-    );
-
     List<UnifiedFinancialAccountModel.AccountList> homeLoanAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
 
     for (
       UnifiedFinancialAccountModel.AccountList acc : financialAccountFabric
     ) {
       if (
-        mapOfProductCodeWithFinUIConfig.get(acc.product_details?.marketing_code)
+        QueryFinancialAccountUIConfig.configByProductCode.get(
+            acc.product_details?.marketing_code
+          )
           ?.Account_Type__c == 'Loan'
       ) {
         homeLoanAccounts.add(acc);
@@ -263,30 +253,34 @@ public with sharing class FinancialAccountController {
     Id ownerId
   ) {
     List<UnifiedFinancialAccountModel.AccountList> combinedFinancialAccountList = new List<UnifiedFinancialAccountModel.AccountList>();
+
     try {
-      List<UnifiedFinancialAccountModel.AccountList> homeLoanAccountDetailsCache = DataPartitionUtil.getH1AccountDetailsCache(
+      List<UnifiedFinancialAccountModel.AccountList> homeLoanAccountDetailsCache = DataPartitionUtil.getLoanAccountDetailsCache(
         ocvId
-      ) ?? new List<UnifiedFinancialAccountModel.AccountList>();
+      );
+
       List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
         ownerId
-      ) ?? new List<UnifiedFinancialAccountModel.AccountList>();
+      );
 
       if (
-        homeLoanAccountDetailsCache.isEmpty() &&
+        homeLoanAccountDetailsCache == null &&
         financialAccountsFromDatabase.isEmpty()
       ) {
         return new List<UnifiedFinancialAccountModel>();
       }
 
-      combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
+      if (homeLoanAccountDetailsCache != null) {
+        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
+      }
+
       combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
 
-      List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+      return FinancialAccountControllerAction.processFinancialAccounts(
         combinedFinancialAccountList
       );
-
-      return processedAccounts;
     } catch (Exception objException) {
+      System.debug('Error ' + objException);
       CommonUtil.logException(objException);
       throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
@@ -301,11 +295,9 @@ public with sharing class FinancialAccountController {
   private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
     Id ownerId
   ) {
-    Set<String> marketingCodes = QueryFinancialAccountUIConfig.getAllProductCodes();
-
     List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
-      marketingCodes
+      QueryFinancialAccountUIConfig.configByProductCode.keySet()
     );
 
     Set<String> allRelatedAccountNumbers = ListUtil.getStrings(
