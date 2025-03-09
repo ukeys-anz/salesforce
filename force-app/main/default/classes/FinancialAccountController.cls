@@ -280,7 +280,6 @@ public with sharing class FinancialAccountController {
         combinedFinancialAccountList
       );
     } catch (Exception objException) {
-      System.debug('Error ' + objException);
       CommonUtil.logException(objException);
       throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
