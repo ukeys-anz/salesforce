@@ -41,10 +41,6 @@ public with sharing class GetHelpConstants {
     .get('ANZx_Complaint')
     .getRecordTypeId();
 
-  public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
-    .getRecordTypeId();
-
   //Case - ANZx Fraud Case RT Ids
   public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Fraud')
@@ -192,6 +188,11 @@ public with sharing class GetHelpConstants {
     .get('Account_Closure')
     .getRecordTypeId();
 
+  // Case - Case Group
+  public static final Id CASE_GROUP_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Case_Group')
+    .getRecordTypeId();
+
   // Case - Credit Referral
   public static final Id CREDIT_REFERRAL_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Credit_Referral')
@@ -208,6 +209,10 @@ public with sharing class GetHelpConstants {
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
+    .getRecordTypeId();
+  // Customer Action - Pending Financial Account Updates
+  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
+    .get('Pending_Financial_Account_Updates')
     .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
@@ -383,7 +388,7 @@ public with sharing class GetHelpConstants {
       if (anzxMarketingCodes == null) {
         anzxMarketingCodes = new Set<String>();
         anzxMarketingCodes.addAll(
-          QueryFinancialAccountUIConfig.getAllProductCodes()
+          QueryFinancialAccountUIConfig.configByProductCode.keySet()
         );
       }
       return anzxMarketingCodes;

@@ -25,7 +25,19 @@ public with sharing class TotalBalanceController {
       return null;
     }
 
-    Set<String> marketingCodes = QueryFinancialAccountUIConfig.getProductCodesIncludedInTotalPosition();
+    List<FinancialAccountUIConfiguration__mdt> finAccUIConfig = ListUtil.filter(
+        QueryFinancialAccountUIConfig.configByProductCode.values()
+      )
+      .equals(
+        FinancialAccountUIConfiguration__mdt.Include_In_Total_Financial_Position__c,
+        true
+      )
+      .toList();
+
+    Set<String> marketingCodes = ListUtil.getStrings(
+      finAccUIConfig,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
 
     List<FinServ__FinancialAccountRole__c> financialAccountAllRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
       ownerId,
@@ -65,12 +77,25 @@ public with sharing class TotalBalanceController {
       return null;
     }
 
-    Set<String> marketingCodes = QueryFinancialAccountUIConfig.getProductCodesIncludedInTotalPosition();
+    List<FinancialAccountUIConfiguration__mdt> finAccUIConfig = ListUtil.filter(
+        QueryFinancialAccountUIConfig.configByProductCode.values()
+      )
+      .equals(
+        FinancialAccountUIConfiguration__mdt.Include_In_Total_Financial_Position__c,
+        true
+      )
+      .toList();
+
+    Set<String> marketingCodes = ListUtil.getStrings(
+      finAccUIConfig,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
 
     List<FinServ__FinancialAccountRole__c> financialAccountSavingsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllSavingsAccountNumberPerOwner(
       ownerId,
       marketingCodes
     );
+
     Set<String> savingAccountNumbers = ListUtil.getStrings(
       financialAccountSavingsRoles,
       FinServ__FinancialAccountRole__c.Account_Number__c

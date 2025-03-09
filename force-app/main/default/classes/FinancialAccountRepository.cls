@@ -242,7 +242,7 @@ public with sharing class FinancialAccountRepository {
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
-        AND FinServ__FinancialAccount__r.RecordType.Id = :RTFinancialAccount.savingAccount
+        AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.savingAccount
       WITH USER_MODE
     ];
   }

@@ -60,8 +60,7 @@ public with sharing class FinancialAccountControllerTest {
     Test.startTest();
     UnifiedFinancialAccountModel.AccountList finAccountRecord = FinancialAccountController.getFinancialAccountInstance(
       mockFabricFinancialAccounts[0],
-      mockfinAccountFromDatabase,
-      mockProductCodeOwnershipToFinAccount()
+      mockfinAccountFromDatabase
     );
     Test.stopTest();
 
@@ -77,8 +76,7 @@ public with sharing class FinancialAccountControllerTest {
     Test.startTest();
     UnifiedFinancialAccountModel.AccountList finAccountRecord = FinancialAccountController.getFinancialAccountInstance(
       mockFabricFinancialAccounts[0],
-      null,
-      mockProductCodeOwnershipToFinAccount()
+      null
     );
     Test.stopTest();
 
@@ -268,49 +266,6 @@ public with sharing class FinancialAccountControllerTest {
         )
         .accounts;
     }
-  }
-
-  private static List<FinancialAccountUIConfiguration__mdt> mockfinAccountUiConfig() {
-    List<FinancialAccountUIConfiguration__mdt> mockMetaData = new List<FinancialAccountUIConfiguration__mdt>();
-    FinancialAccountUIConfiguration__mdt dummyRecord1 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'HLVAR01',
-      Account_Type__c = 'Loan',
-      Balance_Title__c = 'Loan Balance',
-      Section_Header_Title__c = 'Loan',
-      Sort_Order__c = 1,
-      Ownership_Type__c = 'Single',
-      Show_Goals__c = false
-    );
-    mockMetaData.add(dummyRecord1);
-
-    FinancialAccountUIConfiguration__mdt dummyRecord2 = new FinancialAccountUIConfiguration__mdt(
-      Product_Code__c = 'SAVING01',
-      Account_Type__c = 'Savings',
-      Balance_Title__c = 'Total Saved',
-      Section_Header_Title__c = 'Savings',
-      Sort_Order__c = 2,
-      Ownership_Type__c = 'Single',
-      Show_Goals__c = true
-    );
-    mockMetaData.add(dummyRecord2);
-
-    return mockMetaData;
-  }
-
-  private static Map<String, FinancialAccountUIConfiguration__mdt> mockProductCodeOwnershipToFinAccount() {
-    Map<String, FinancialAccountUIConfiguration__mdt> productCodeOwnershipToFinAccMap = new Map<String, FinancialAccountUIConfiguration__mdt>();
-    for (
-      FinancialAccountUIConfiguration__mdt finUIConfig : mockfinAccountUiConfig()
-    ) {
-      String key =
-        finUIConfig.Product_Code__c +
-        '-' +
-        finUIConfig.Ownership_Type__c;
-      if (!productCodeOwnershipToFinAccMap.containsKey(key)) {
-        productCodeOwnershipToFinAccMap.put(key, finUIConfig);
-      }
-    }
-    return productCodeOwnershipToFinAccMap;
   }
 
   private static List<FinServ__FinancialAccount__c> createMockFinancialAccount() {

@@ -55,7 +55,7 @@ describe("c-home-loan-account", () => {
     });
 
     element.objectApiName = "Account";
-    element.accountDetails = Loan_Data;
+    element.accountDetails = JSON.stringify(Loan_Data);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -74,7 +74,7 @@ describe("c-home-loan-account", () => {
     });
 
     element.objectApiName = "FinServ__FinancialAccount__c";
-    element.accountDetails = Loan_Data;
+    element.accountDetails = JSON.stringify(Loan_Data);
     document.body.appendChild(element);
 
     return flushPromises().then(() => {
@@ -93,7 +93,7 @@ describe("c-home-loan-account", () => {
     });
 
     element.objectApiName = "Account";
-    element.accountDetails = Loan_Data;
+    element.accountDetails = JSON.stringify(Loan_Data);
     element.offsetDetails = Offset_Data;
     document.body.appendChild(element);
 
@@ -113,7 +113,7 @@ describe("c-home-loan-account", () => {
     });
 
     element.objectApiName = "FinServ__FinancialAccount__c";
-    element.accountDetails = Loan_Data;
+    element.accountDetails = JSON.stringify(Loan_Data);
     element.offsetDetails = Offset_Data;
     document.body.appendChild(element);
 

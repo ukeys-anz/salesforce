@@ -28,7 +28,13 @@ public with sharing class AccountClosureWizardController {
       new List<String>()
     );
 
-    Set<Id> finAccountIds = addFinancialAccountIds(financialAccountsList);
+    List<Id> finAccountId = (List<Id>) ListUtil.getValues(
+      financialAccountsList,
+      'id',
+      String.class
+    );
+
+    Set<Id> finAccountIds = new Set<Id>(finAccountId);
 
     List<Case> existingCasesForFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.getCasesByFinancialAccountIds(
       finAccountIds
@@ -124,19 +130,5 @@ public with sharing class AccountClosureWizardController {
     caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
     caseObj.ProductId = caseInput.productId;
     caseObj.RecordTypeId = RTCase.accountClosure;
-  }
-
-  private static Set<Id> addFinancialAccountIds(
-    List<UnifiedFinancialAccountModel.AccountList> allFinAccounts
-  ) {
-    Set<Id> finaccountIds = new Set<Id>();
-    for (
-      UnifiedFinancialAccountModel.AccountList finAccountRecord : allFinAccounts
-    ) {
-      if (String.isNotBlank(finAccountRecord.id)) {
-        finaccountIds.add(finAccountRecord.id);
-      }
-    }
-    return finaccountIds;
   }
 }

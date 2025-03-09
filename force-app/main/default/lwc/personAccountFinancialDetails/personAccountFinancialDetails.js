@@ -56,9 +56,11 @@ export default class PersonAccountFinancialDetails extends LightningElement {
   }
 
   get homeLoanAccounts() {
-    return this.processedAccounts
-      .filter((group) => group.isHomeLoan)
-      .flatMap((group) => group.accounts);
+    return JSON.stringify(
+      this.processedAccounts
+        .filter((group) => group.isHomeLoan)
+        .flatMap((group) => group.accounts)
+    );
   }
 
   @wire(getRecord, {

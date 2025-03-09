@@ -15,31 +15,23 @@ public with sharing class FinancialAccountControllerAction {
   public static List<UnifiedFinancialAccountModel> processFinancialAccounts(
     List<UnifiedFinancialAccountModel.AccountList> finAccounts
   ) {
-    List<FinancialAccountUIConfiguration__mdt> uiConfigDetails = QueryFinancialAccountUIConfig.getAllConfigs();
-
-    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap = (Map<String, FinancialAccountUIConfiguration__mdt>) ListUtil.mapBy(
-      uiConfigDetails,
-      FinancialAccountUIConfiguration__mdt.Product_Code__c
-    );
-
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = groupAccounts(
-      finAccounts,
-      uiConfigMap
+      finAccounts
     );
 
-    return prepareFinalUIResponse(groupedAccounts, uiConfigMap);
+    return prepareFinalUIResponse(groupedAccounts);
   }
 
+  @TestVisible
   private static Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupAccounts(
-    List<UnifiedFinancialAccountModel.AccountList> finAccounts,
-    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap
+    List<UnifiedFinancialAccountModel.AccountList> finAccounts
   ) {
     Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts = new Map<String, List<UnifiedFinancialAccountModel.AccountList>>();
 
     for (UnifiedFinancialAccountModel.AccountList account : finAccounts) {
       String productCode = account.product_details.marketing_code;
 
-      FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
+      FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
 
@@ -62,54 +54,35 @@ public with sharing class FinancialAccountControllerAction {
 
   @TestVisible
   private static List<UnifiedFinancialAccountModel> prepareFinalUIResponse(
-    Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts,
-    Map<String, FinancialAccountUIConfiguration__mdt> uiConfigMap
+    Map<String, List<UnifiedFinancialAccountModel.AccountList>> groupedAccounts
   ) {
     List<UnifiedFinancialAccountModel> groupedByProductCode = new List<UnifiedFinancialAccountModel>();
 
     for (String productCode : groupedAccounts.keySet()) {
-      FinancialAccountUIConfiguration__mdt uiConfig = uiConfigMap.get(
+      FinancialAccountUIConfiguration__mdt uiConfig = QueryFinancialAccountUIConfig.configByProductCode.get(
         productCode
       );
 
-      groupedByProductCode.add(
-        prepareUIResponse(
-          productCode,
-          uiConfig,
-          groupedAccounts.get(productCode)
-        )
+      UnifiedFinancialAccountModel uiModelUpdate = new UnifiedFinancialAccountModel(
+        groupedAccounts.get(productCode)
       );
+
+      uiModelUpdate.productCode = productCode;
+      uiModelUpdate.sortOrder = uiConfig?.Sort_Order__c ?? DEFAULT_SORT_ORDER;
+      uiModelUpdate.accountType = uiConfig?.Account_Type__c ?? 'Non Savings';
+      uiModelUpdate.balanceTitle = uiConfig?.Balance_Title__c ?? '';
+      uiModelUpdate.sectionHeaderTitle = uiConfig?.Section_Header_Title__c ??
+        '';
+      uiModelUpdate.isSaving = uiConfig?.Account_Type__c == 'Savings';
+      uiModelUpdate.isOthers =
+        uiConfig == null ||
+        uiConfig?.Account_Type__c == 'Non Savings';
+      uiModelUpdate.isHomeLoan = uiConfig?.Account_Type__c == 'Loan';
+      uiModelUpdate.accounts = groupedAccounts.get(productCode);
+
+      groupedByProductCode.add(uiModelUpdate);
     }
 
     return groupedByProductCode;
-  }
-
-  private static UnifiedFinancialAccountModel prepareUIResponse(
-    String productCode,
-    FinancialAccountUIConfiguration__mdt uiConfig,
-    List<UnifiedFinancialAccountModel.AccountList> accounts
-  ) {
-    UnifiedFinancialAccountModel modelUpateForEachProductGroup = new UnifiedFinancialAccountModel(
-      accounts
-    );
-    modelUpateForEachProductGroup.productCode = productCode;
-    modelUpateForEachProductGroup.sortOrder = uiConfig?.Sort_Order__c ??
-      DEFAULT_SORT_ORDER;
-    modelUpateForEachProductGroup.accountType = uiConfig?.Account_Type__c ??
-      'Non Savings';
-    modelUpateForEachProductGroup.balanceTitle = uiConfig?.Balance_Title__c ??
-      '';
-    modelUpateForEachProductGroup.sectionHeaderTitle = uiConfig
-      ?.Section_Header_Title__c ?? '';
-    modelUpateForEachProductGroup.isSaving =
-      uiConfig?.Account_Type__c == 'Savings';
-    modelUpateForEachProductGroup.isOthers =
-      uiConfig == null ||
-      uiConfig?.Account_Type__c == 'Non Savings';
-    modelUpateForEachProductGroup.isHomeLoan =
-      uiConfig?.Account_Type__c == 'Loan';
-    modelUpateForEachProductGroup.accounts = accounts;
-
-    return modelUpateForEachProductGroup;
   }
 }

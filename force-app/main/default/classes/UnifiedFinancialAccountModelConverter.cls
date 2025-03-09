@@ -11,6 +11,14 @@ public with sharing class UnifiedFinancialAccountModelConverter {
     'Single' => 'OWNERSHIP_TYPE_SINGLEPARTY' // its an individual account
   };
 
+  //Map of fabric ownership and user friendly names for UI
+  private static final Map<String, String> FABRIC_OWNERSHIP_UI = new Map<String, String>{
+    'Multi-party' => 'Joint',
+    'Single' => 'Single'
+  };
+
+  private static final Integer DEFAULT_SORT_ORDER = 999;
+
   /**
    * @description convert the financial accounts from database to UnifiedFinancialAccountModel
    * @param finAccounts list of financial accounts from the database
@@ -23,6 +31,13 @@ public with sharing class UnifiedFinancialAccountModelConverter {
 
     for (FinServ__FinancialAccount__c finAccount : finAccounts) {
       UnifiedFinancialAccountModel.AccountList finAccountDetail = new UnifiedFinancialAccountModel.AccountList();
+      String finAccountKey =
+        finAccount.Marketing_Code__c +
+        '_' +
+        FABRIC_OWNERSHIP_UI.get(finAccount.Ownership__c);
+      FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
+        finAccountKey
+      );
 
       finAccountDetail.id = finAccount.Id;
       finAccountDetail.account_name = finAccount.Name;
@@ -40,10 +55,12 @@ public with sharing class UnifiedFinancialAccountModelConverter {
         finAccount.Marketing_Code__c
       );
       finAccountDetail.Ownership = convertOwnership(finAccount.Ownership__c);
+      finAccountDetail.finserv_sortorder = finAccConfig?.Sort_Order__c ??
+        DEFAULT_SORT_ORDER;
+      finAccountDetail.finserv_showgoal = finAccConfig?.Show_Goals__c ?? true;
 
       finAccountList.add(finAccountDetail);
     }
-
     UnifiedFinancialAccountModel model = new UnifiedFinancialAccountModel(
       finAccountList
     );

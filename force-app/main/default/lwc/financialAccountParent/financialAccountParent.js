@@ -230,6 +230,14 @@ export default class FinancialAccountParent extends LightningElement {
     }
   }
 
+  get homeLoanAccounts() {
+    return JSON.stringify(
+      this.fetchedAccounts
+        .filter((group) => group.isHomeLoan)
+        .flatMap((group) => group.accounts)
+    );
+  }
+
   get displayLoan() {
     return this.financialAccount.isHomeLoan;
   }
