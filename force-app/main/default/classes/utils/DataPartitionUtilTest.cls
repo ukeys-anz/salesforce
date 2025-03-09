@@ -24,6 +24,10 @@ public with sharing class DataPartitionUtilTest {
     //The session cache storage is called
     Test.startTest();
     DataPartitionUtil.storeH1AccountDetailsCache(SESSION_KEY, setupModel());
+    DataPartitionUtil.storeLoanAccountDetailsCache(
+      SESSION_KEY,
+      setupLoanModel()
+    );
     DataPartitionUtil.storeSOPDetailsCache(SOP_SESSION_KEY, setupSOPModel());
     Test.stopTest();
 
@@ -51,10 +55,10 @@ public with sharing class DataPartitionUtilTest {
 
     //WHEN
     Test.startTest();
-    List<UnifiedFinancialAccountModel.AccountList> cachedData = DataPartitionUtil.getH1AccountDetailsCache(
+    HomeLoanModel cachedData = DataPartitionUtil.getH1AccountDetailsCache(
       SESSION_KEY
     );
-    String cachedAcc = cachedData[0].account_number;
+    String cachedAcc = cachedData.accounts.get(0)?.account_number;
 
     /** SOP */
     SOPModel cachedSOPData = DataPartitionUtil.getSOPDetailsCache(
@@ -65,10 +69,10 @@ public with sharing class DataPartitionUtilTest {
 
     //THEN
     //Check if value retriving from getH1AccountDetailsCache matahes with inserted data
-    List<UnifiedFinancialAccountModel.AccountList> retrievedData = (List<UnifiedFinancialAccountModel.AccountList>) dataPartition.get(
+    HomeLoanModel retrievedData = (HomeLoanModel) dataPartition.get(
       SESSION_KEY
     );
-    String retrievedAcc = retrievedData[0].account_number;
+    String retrievedAcc = retrievedData.accounts.get(0)?.account_number;
 
     System.assertEquals(
       cachedAcc,
@@ -86,19 +90,66 @@ public with sharing class DataPartitionUtilTest {
     );
   }
 
+  @isTest
+  static void testGetLoanAccountDetailsCache() {
+    //GIVEN
+    //The h1details stored in the session cache
+    Cache.SessionPartition dataPartition = Cache.Session.getPartition(
+      DATAPARTITION_CACHE
+    );
+    dataPartition.put(SESSION_KEY, setupLoanModel());
+
+    //WHEN
+    Test.startTest();
+    List<UnifiedFinancialAccountModel.AccountList> cachedData = DataPartitionUtil.getLoanAccountDetailsCache(
+      SESSION_KEY
+    );
+    String cachedAcc = cachedData[0].account_number;
+
+    Test.stopTest();
+
+    //THEN
+    //Check if value retriving from getH1AccountDetailsCache matahes with inserted data
+    List<UnifiedFinancialAccountModel.AccountList> retrievedData = (List<UnifiedFinancialAccountModel.AccountList>) dataPartition.get(
+      SESSION_KEY
+    );
+    String retrievedAcc = retrievedData[0].account_number;
+
+    System.assertEquals(
+      cachedAcc,
+      retrievedAcc,
+      'The cached and retrieved account number should be identical.'
+    );
+  }
+
   /**
    * @return `HomeLoanModel` mock response
    * @description returns mock response from the static resources
    */
-  private static List<UnifiedFinancialAccountModel.AccountList> setupModel() {
+  private static HomeLoanModel setupModel() {
     StaticResource mockH1 = [
       SELECT body
       FROM StaticResource
       WHERE Name = 'mock_homeloanaccounts'
     ];
 
+    HomeLoanModel testModel = HomeLoanModel.parse(mockH1.body.toString());
+    return testModel;
+  }
+
+  /**
+   * @return `HomeLoanModel` mock response
+   * @description returns mock response from the static resources
+   */
+  private static List<UnifiedFinancialAccountModel.AccountList> setupLoanModel() {
+    StaticResource mockLoan = [
+      SELECT body
+      FROM StaticResource
+      WHERE Name = 'mock_homeloanaccounts'
+    ];
+
     UnifiedFinancialAccountModel testModel = UnifiedFinancialAccountModel.parse(
-      mockH1.body.toString()
+      mockLoan.body.toString()
     );
     return testModel.accounts;
   }
