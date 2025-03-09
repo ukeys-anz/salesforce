@@ -42,7 +42,9 @@ public with sharing class DataPartitionUtilTest {
       'No data stored under provided key'
     );
   }
-
+  /**
+   * @description test session cache retrieval
+   */
   @isTest
   static void testGetH1AccountDetailsCache() {
     //GIVEN
@@ -89,7 +91,9 @@ public with sharing class DataPartitionUtilTest {
       'The cached and retrieved account number should be identical.'
     );
   }
-
+  /**
+   * @description test session cache retrieval
+   */
   @isTest
   static void testGetLoanAccountDetailsCache() {
     //GIVEN
@@ -138,7 +142,7 @@ public with sharing class DataPartitionUtilTest {
   }
 
   /**
-   * @return `HomeLoanModel` mock response
+   * @return `UnifiedFinancialAccountModel` mock response
    * @description returns mock response from the static resources
    */
   private static List<UnifiedFinancialAccountModel.AccountList> setupLoanModel() {
