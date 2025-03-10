@@ -8,7 +8,8 @@
   <img
     lwc:if={url}
     src={imgSrc}
-    oncontextmenu={disableRightClick}
+    oncontextmenu={disableClick}
+    ondragstart={disableClick}
     class={imgClass}
     onload={handler.onLoad}
     onerror={handler.onError}
