@@ -211,6 +211,11 @@ public with sharing class IDRCaseAssignmentRules {
       return QueryQueue.get('CCR_Complaints').Id;
     }
 
+    //IDR Migration
+    if(rec.Type == '23'){
+      return QueryQueue.get('IDR_Migration').Id;
+    }
+
     // IDR ANZ Plus Rule #5 needs to be applied before Early Resolution Rule #7
     if (
       String.isNotBlank(productWorkbasketName) &&
