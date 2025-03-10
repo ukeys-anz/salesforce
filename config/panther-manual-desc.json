@@ -2110,7 +2110,8 @@
         "EquifaxAECResult__c",
         "EquifaxCRAResult__c",
         "EquifaxOverallResult__c",
-        "EquifaxESDResult__c"
+        "EquifaxESDResult__c",
+        "IDVFailReason__c"
       ],
       "IA-2530753": [
         "OwnerId",
