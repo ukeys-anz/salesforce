@@ -4,30 +4,24 @@ import { NavigationMixin } from "lightning/navigation";
 import { openTab, EnclosingTabId } from "lightning/platformWorkspaceApi";
 
 import hasAccountsGoalsPermission from "@salesforce/customPermission/ANZx_Accounts_and_Goals";
-import { handleAccountHeaderData } from "c/utils";
-
-const ACCOUNT_TYPES = {
-  checking: "Everyday - ANZ Plus Account",
-  savings: "Savings - ANZ Save Account",
-  savingss2: "Savings - ANZ Plus Flex Saver Account"
-};
 
 export default class FinancialAccount extends NavigationMixin(
   LightningElement
 ) {
   @api recordId;
-  @api accountType;
   //Account details, savings jar & error received through financialAccountParent LWC
   @api accountDetails;
   @api savingsJar;
   @api error;
   @api accountOwnersList;
-  componentTitle;
-  balanceTitle;
+  @api componentTitle;
+  @api componentSubTitle;
+  @api balanceTitle;
+  @api titleIcon;
+  @api iconColor;
+  @api productCode;
   showInfoModal = false;
   productTitle;
-  titleIcon;
-  iconColor;
 
   @wire(EnclosingTabId) tabId;
 
@@ -60,16 +54,44 @@ export default class FinancialAccount extends NavigationMixin(
 
     return lastUpdated;
   }
+  get processedFinAccounts() {
+    return this.handleAccountInformation(this.accountDetails);
+  }
 
-  connectedCallback() {
-    if (this.accountType) {
-      this.componentTitle = ACCOUNT_TYPES[this.accountType.toLowerCase()];
-      let accountHeaderData = handleAccountHeaderData(this.accountType);
-      this.balanceTitle = accountHeaderData.balanceTitle;
-      this.productTitle = accountHeaderData.productTitle;
-      this.iconColor = accountHeaderData.iconColor;
-      this.titleIcon = accountHeaderData.titleIcon;
+  handleAccountInformation(finAccounts) {
+    // As per story ANZX-113310 Colour of status “Active”, “Dormant“, “Closed” is changed .Hence, changing the badge class
+    if (!finAccounts) {
+      return null;
     }
+    return finAccounts.map((account) => {
+      const finAccount = { ...account };
+      switch (finAccount.finserv_status) {
+        case "Active":
+        case "Open":
+          finAccount.badgeClass = "slds-badge slds-theme_success";
+          break;
+        case "Closed":
+          finAccount.badgeClass = "slds-badge closedBadgeClass";
+          break;
+        case "Dormant":
+          finAccount.badgeClass = "slds-badge dormantBadgeClass";
+          break;
+        default:
+          finAccount.badgeClass = "slds-badge";
+      }
+      finAccount.showSavingsJar =
+        this.savingsJar &&
+        Object.keys(this.savingsJar).length > 0 &&
+        finAccount.finserv_status !== "Closed";
+      if (
+        finAccount.finserv_status !== "Closed" &&
+        finAccount.finserv_ownership === "Multi-party"
+      ) {
+        finAccount.showMultipartyBadge = true;
+        finAccount.finserv_ownership = "Joint";
+      }
+      return finAccount;
+    });
   }
 
   navigateToRecordViewPage(event) {

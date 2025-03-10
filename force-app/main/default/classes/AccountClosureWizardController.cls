@@ -23,15 +23,18 @@ public with sharing class AccountClosureWizardController {
   public static List<FinServ__FinancialAccount__c> getFilteredFinancialAccounts(
     String ocvId
   ) {
-    List<FinServ__FinancialAccount__c> listOfFinAccounts = FinancialAccountController.getFinancialAccountFabric(
+    List<UnifiedFinancialAccountModel.AccountList> financialAccountsList = FinancialAccountController.getFinancialAccountsFromFabric(
       ocvId,
       new List<String>()
     );
 
-    Set<Id> finAccountIds = ListUtil.getIds(
-      listOfFinAccounts,
-      FinServ__FinancialAccount__c.Id
+    List<Id> finAccountId = (List<Id>) ListUtil.getValues(
+      financialAccountsList,
+      'id',
+      String.class
     );
+
+    Set<Id> finAccountIds = new Set<Id>(finAccountId);
 
     List<Case> existingCasesForFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.getCasesByFinancialAccountIds(
       finAccountIds

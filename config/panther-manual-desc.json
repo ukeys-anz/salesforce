@@ -2591,6 +2591,19 @@
         "LastModifiedDate"
       ]
     },
+    "FinancialAccountUIConfiguration__mdt": {
+      "IA-2468715": [
+        "Account_Type__c",
+        "Balance_Title__c",
+        "Ownership_Type__c",
+        "Product_Code__c",
+        "Section_Header_Title__c",
+        "Show_Goals__c",
+        "Sort_Order__c",
+        "Include_In_Total_Financial_Position__c",
+        "Is_Active__c"
+      ]
+    },
     "Group": {
       "IA-2468715": [
         "CreatedById",

@@ -276,7 +276,8 @@ public with sharing class CCRMTestDataFactory {
       new List<String>{
         'CCRM_Marketing_Integration_User',
         'Read_Write_Customer_Details',
-        'CCRM_User_Base'
+        'CCRM_User_Base',
+        'Accounts_Goals_Read_Only'
       },
       new List<User>{ ccrmIntegrationUser }
     );
@@ -1766,13 +1767,9 @@ public with sharing class CCRMTestDataFactory {
       HtmlBody = 'Hello World',
       Incoming = false,
       Attachment_Notes__c = 'This email has no attachments',
-      CreatedBy = (User)TestUtil.setFields(
-        new User (
-            Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType())
-        ),
-        new Map<String, Object> {
-            'Profile_Name__c' => 'ANZ CCRM Standard User'
-        }
+      CreatedBy = (User) TestUtil.setFields(
+        new User(Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType())),
+        new Map<String, Object>{ 'Profile_Name__c' => 'ANZ CCRM Standard User' }
       )
     );
     return emRecord;

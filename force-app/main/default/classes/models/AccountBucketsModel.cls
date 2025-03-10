@@ -56,6 +56,22 @@ public with sharing class AccountBucketsModel extends CalloutModel {
     @AuraEnabled
     public String account_number;
     @AuraEnabled
+    public String financial_account_name;
+    @AuraEnabled
+    public String financial_account_id;
+    @AuraEnabled
+    public String ownershipType;
+    @AuraEnabled
+    public Double sortOrder;
+    @AuraEnabled
+    public String product_name;
+    @AuraEnabled
+    public String header_title;
+    @AuraEnabled
+    public String product_code;
+    @AuraEnabled
+    public String balance_title;
+    @AuraEnabled
     public String created_at;
     @AuraEnabled
     public Boolean is_default;
@@ -67,6 +83,8 @@ public with sharing class AccountBucketsModel extends CalloutModel {
     public Boolean is_balance_current;
     @AuraEnabled
     public Goal goal;
+    @AuraEnabled
+    public Boolean showGoal;
   }
 
   /**

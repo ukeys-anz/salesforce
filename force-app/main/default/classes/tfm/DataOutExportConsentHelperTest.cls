@@ -142,9 +142,20 @@ public with sharing class DataOutExportConsentHelperTest {
     String formattedDatetime = System.now()
       .format('dd MMM yyy HH:mm:ss', 'Australia/Sydney');
     Test.stopTest();
-     String expectedFormat = 'Report Generated At ' +formattedDatetime +' GMT+1000 (Australian Eastern Standard Time)';
-    Assert.areEqual(expectedFormat, response[0][0], 'csv content not generated');
-    Assert.areEqual('Consent Data Sharing History for:', response[2][0], 'csv content not generated');
+    String expectedFormat =
+      'Report Generated At ' +
+      formattedDatetime +
+      ' GMT+1000 (Australian Eastern Standard Time)';
+    Assert.areEqual(
+      expectedFormat,
+      response[0][0],
+      'csv content not generated'
+    );
+    Assert.areEqual(
+      'Consent Data Sharing History for:',
+      response[2][0],
+      'csv content not generated'
+    );
   }
 
   @IsTest
@@ -153,18 +164,20 @@ public with sharing class DataOutExportConsentHelperTest {
     String response = DataOutExportConsentHelper.buildCSVTitle('test');
     Test.stopTest();
     Assert.areEqual(
-      'ANZPlus_DataSharingHistory_test_' + System.now().format('dd-MM-yyyy') +'.csv',
+      'ANZPlus_DataSharingHistory_test_' +
+        System.now().format('dd-MM-yyyy') +
+        '.csv',
       response,
       'format of csv title is not correct'
     );
   }
 
   @IsTest
-  static void testGetReportHeader() {  
+  static void testGetReportHeader() {
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getReportHeader();
     Test.stopTest();
-    Assert.isNotNull(response[0], 'Report header is not generated');  
+    Assert.isNotNull(response[0], 'Report header is not generated');
   }
 
   @IsTest
@@ -423,11 +436,7 @@ public with sharing class DataOutExportConsentHelperTest {
     Test.startTest();
     List<String> response = DataOutExportConsentHelper.getDataSharingHistoryHeaders();
     Test.stopTest();
-    Assert.areEqual(
-      'Account',
-      response[0],
-      'data sharing header is incorrect'
-    );
+    Assert.areEqual('Account', response[0], 'data sharing header is incorrect');
     Assert.areEqual(
       'Sharing Date',
       response[1],
