@@ -123,6 +123,8 @@ public with sharing class IDRCaseAssignmentRules {
   @SuppressWarnings('PMD.NcssMethodCount')
   @TestVisible
   private static Id getOwnerIdForEscalatedCases(Case rec, Case oldCase) {
+    Set<String> originCeoBasket = new Set<String>{ '9', '10', '22' };
+
     if (rec.Status != IDRConstants.ESCALATED_STATUS) {
       return rec.OwnerId;
     }
@@ -130,15 +132,18 @@ public with sharing class IDRCaseAssignmentRules {
     if (
       oldCase != null &&
       oldcaseStatus.contains(oldCase.Status) &&
-      (oldCase.Status != rec.Status || oldCase.RecordTypeId == rec.RecordTypeId)
+      (oldCase.Status != rec.Status ||
+      oldCase.RecordTypeId == rec.RecordTypeId)
     ) {
       return rec.OwnerId;
     }
-      
-    if(oldCase != null && 
-       oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS &&
-       rec.Status == IDRConstants.ESCALATED_STATUS &&
-       rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED){
+
+    if (
+      oldCase != null &&
+      oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS &&
+      rec.Status == IDRConstants.ESCALATED_STATUS &&
+      rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED
+    ) {
       return rec.OwnerId;
     }
 
@@ -153,8 +158,8 @@ public with sharing class IDRCaseAssignmentRules {
 
     //rules to run only on escalation
 
-    //CEO or Board
-    if (rec.Origin == '9' || rec.Origin == '10') {
+    //CEO or Board or Other EDR Schemes or Tribunal
+    if (originCeoBasket.contains(rec.Origin)) {
       return QueryQueue.get('IDR_CEO').Id;
     }
 
@@ -193,7 +198,7 @@ public with sharing class IDRCaseAssignmentRules {
       }
       if (rec.Type == 'Scam') {
         return QueryQueue.get('EDR_CM_Everyday_Banking_Wealth').Id; // EDR Scams
-    }
+      }
       return QueryQueue.get('EDR_Early_Resolution').Id;
     }
 

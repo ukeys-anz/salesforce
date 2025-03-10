@@ -251,4 +251,9 @@
         <default>false</default>
         <label>OFI – from FRX</label>
     </standardValue>
+    <standardValue>
+        <fullName>22</fullName>
+        <default>false</default>
+        <label>Other EDR Schemes or Tribunal</label>
+    </standardValue>
 </StandardValueSet>

@@ -79,6 +79,11 @@
                 <default>false</default>
                 <label>ANZ Plus App</label>
             </value>
+            <value>
+                <fullName>22</fullName>
+                <default>false</default>
+                <label>Other EDR Schemes or Tribunal</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>
