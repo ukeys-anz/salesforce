@@ -1385,6 +1385,13 @@
                 </componentInstanceProperties>
                 <componentName>lst:dynamicRelatedList</componentName>
                 <identifier>lst_dynamicRelatedList4</identifier>
+				<visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ Standard User</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-f33c58c7-c9fe-4ac5-9089-23dde52655e1</name>
@@ -1798,6 +1805,98 @@
         <name>Facet-20c89ae0-d50f-446c-8a8e-df18c3c6d5e2</name>
         <type>Facet</type>
     </flexiPageRegions>
+	<flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>actionNames</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>NewCase</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>adminFilters</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>maxRecordsToDisplay</name>
+                    <value>10</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>parentFieldApiName</name>
+                    <value>Account.Id</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListApiName</name>
+                    <value>Cases</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListDisplayType</name>
+                    <value>ADVGRID</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListFieldAliases</name>
+                    <valueList>
+                        <valueListItems>
+                            <value>CASES.CASE_NUMBER</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>IDR_Date_Received__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>OWNER_NAME</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CASES.STATUS</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>CASES.TYPE</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>IDR_Subsequent_Issue__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>IDR_Complaint_Outcome__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>IDR_Complaint_Remedy__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>IDR_Total_Financial_Compensation__c</value>
+                        </valueListItems>
+                    </valueList>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>relatedListLabel</name>
+                    <value>Cases</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>showActionBar</name>
+                    <value>true</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldAlias</name>
+                    <value>__DEFAULT__</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>sortFieldOrder</name>
+                    <value>Default</value>
+                </componentInstanceProperties>
+                <componentName>lst:dynamicRelatedList</componentName>
+                <identifier>lst_dynamicRelatedList6</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ Standard User</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-0e353bcf-4080-478d-8634-0d557accb598</name>
+        <type>Facet</type>
+    </flexiPageRegions>
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
@@ -1909,6 +2008,27 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab10</identifier>
+            </componentInstance>
+        </itemInstances>
+		<itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-0e353bcf-4080-478d-8634-0d557accb598</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Standard.Tab.cases</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:tab</componentName>
+                <identifier>flexipage_tab12</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!$User.Profile.Name}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ANZ Standard User</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <name>Facet-24d33d16-0290-4d28-8e9a-6ab838fa4f68</name>
