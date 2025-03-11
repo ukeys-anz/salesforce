@@ -129,41 +129,21 @@ public with sharing class RetailBrokerFinancialAccountAction {
     List<FinServ__FinancialAccount__c> records,
     Map<Id, FinServ__FinancialAccount__c> oldMap
   ) {
-    List<FinServ__FinancialAccount__c> recordsToUpdate = getRecordsToUpdateAssistedBroker(
-      records,
-      oldMap
-    );
+    Set<SObjectField> brokerFieldsNotNull = new Set<SObjectField>{
+      FinServ__FinancialAccount__c.Assisted_Broker__c,
+      FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c
+    };
+
+    List<FinServ__FinancialAccount__c> recordsToUpdate = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .isNotNull(FinServ__FinancialAccount__c.Account_Key__c)
+      .changed(FinServ__FinancialAccount__c.Assisted_Broker_TPMI_SAO__c)
+      .anyNotNull(brokerFieldsNotNull)
+      .toList();
+
     return processAssistedBrokerPopulation(recordsToUpdate, 'Retail');
-  }
-
-  /**
-   * @description populate Assisted Broker for Retail Residential Loan Applications
-   * @param records records to update
-   * @param oldMap old records
-   * @return List<FinServ__FinancialAccount__c> updated records
-   */
-  @TestVisible
-  private static List<FinServ__FinancialAccount__c> getRecordsToUpdateAssistedBroker(
-    List<FinServ__FinancialAccount__c> records,
-    Map<Id, FinServ__FinancialAccount__c> oldMap
-  ) {
-    List<FinServ__FinancialAccount__c> recordsToUpdate = new List<FinServ__FinancialAccount__c>();
-    for (FinServ__FinancialAccount__c record : records) {
-      FinServ__FinancialAccount__c oldRecord = oldMap.get(record.Id);
-      if (record.Assisted_Broker_TPMI_SAO__c == null) {
-        continue;
-      }
-
-      if (
-        oldRecord != null &&
-        record.Assisted_Broker_TPMI_SAO__c ==
-        oldRecord.Assisted_Broker_TPMI_SAO__c
-      ) {
-        continue;
-      }
-      recordsToUpdate.add(record);
-    }
-    return recordsToUpdate;
   }
 
   /**
@@ -185,19 +165,24 @@ public with sharing class RetailBrokerFinancialAccountAction {
     Set<String> brokerIdentifiers = new Set<String>(
       extIdToBrokerIdMap.values()
     );
-    Map<String, Broker_Code__c> brokerCodeToContactMap = (Map<String, Broker_Code__c>) Listutil.mapBy(
+
+    Map<String, Broker_Code__c> externalIdVsBrokerCodeMap = (Map<String, Broker_Code__c>) Listutil.mapBy(
       BROKER_CODE_REPOSITORY.getBrokerIdentifiers(brokerIdentifiers),
       Broker_Code__c.External_Id__c
     );
+
     // Populate the Assisted_Broker__c field for each record
     for (FinServ__FinancialAccount__c record : records) {
       String brokerIdentifier = extIdToBrokerIdMap.get(record.Account_Key__c);
       if (brokerIdentifier == null) {
         continue;
       }
-      record.Assisted_Broker__c = brokerCodeToContactMap.get(brokerIdentifier)
+      record.Assisted_Broker__c = externalIdVsBrokerCodeMap.get(
+          brokerIdentifier
+        )
         ?.Broker_Name__c;
     }
+
     return records;
   }
   /**

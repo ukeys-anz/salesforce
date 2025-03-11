@@ -6,7 +6,7 @@
     <description>Ineligibility Group Code Description</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>Ineligibility Reason Type</label>
+    <label>Reason Type</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

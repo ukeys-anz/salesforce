@@ -29,6 +29,7 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
    */
   public override void onBeforeInsert() {
     CommercialLeadActions.restrictImagesInRichTextFields(records, null);
+    CommercialLeadActions.populateCLG(records, null);
   }
 
   /**
@@ -38,6 +39,10 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     CommercialLeadActions.restrictImagesInRichTextFields(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
+    CommercialLeadActions.populateCLG(
       (List<Lead>) records,
       (Map<Id, Lead>) oldMap
     );

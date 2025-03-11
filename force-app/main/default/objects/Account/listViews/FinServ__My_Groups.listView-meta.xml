@@ -20,7 +20,6 @@
     <filterScope>Mine</filterScope>
     <label>My Groups</label>
     <sharedTo>
-        <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
         <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
         <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
         <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>

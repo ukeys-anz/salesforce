@@ -35,8 +35,8 @@ public with sharing class FinancialAccountController {
 
   //Map of fabric ownership and user friendly names for UI
   private static final Map<String, String> FABRIC_OWNERSHIP_UI = new Map<String, String>{
-    'Multi-party' => 'Joint',
-    'Single' => 'Single'
+    'OWNERSHIP_TYPE_MULTIPARTY' => 'Joint',
+    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
 
   /**
@@ -160,11 +160,10 @@ public with sharing class FinancialAccountController {
     String finAccountKey =
       finAccount.product_details.marketing_code +
       '_' +
-      FABRIC_OWNERSHIP_UI.get(finAccount.finserv_ownership);
+      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
     FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
       finAccountKey
     );
-
     finAccount.Id = finAccountFromDatabase?.Id;
     finAccount.finserv_product_name = finAccountFromDatabase
       ?.FinServ__ProductName__c;

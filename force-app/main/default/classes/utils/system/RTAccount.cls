@@ -8,4 +8,5 @@ public class RTAccount {
 
   public static Id businessAccount = base.getId('Business_Account');
   public static Id personAccount = base.getId('PersonAccount');
+  public static Id clgAccount = base.getId('CLG');
 }

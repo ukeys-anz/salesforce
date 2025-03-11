@@ -255,6 +255,7 @@ export default class FinancialAccountParent extends LightningElement {
       this.componentSubTitle =
         this.financialAccount.accounts[0].finserv_product_display_name;
     } catch (error) {
+      this.financialAccount = [{ no_account: true }];
       this.accountError =
         "Failed to retrieve latest account details. Please refresh and try again. If issue persists please contact your System Administrator";
       handleErrorShowToast(

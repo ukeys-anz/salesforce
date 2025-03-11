@@ -1,106 +1,121 @@
 <template>
   <lightning-layout multiple-rows>
-    <template lwc:if={allPartiesAndBurueaConsented}>
+    <!-- Credit Bureau screen for Broker Applications -->
+    <template lwc:if={isApplicationBroker}>
       <lightning-layout-item size="12" class="textStyle slds-p-bottom_small">
         <lightning-formatted-text
-          value="This is who we did the credit check with for the customer(s) to find their debts and if it was successful. It may include their existing home loan."
+          value="There is no Bureau check information to display for a broker originated application"
         ></lightning-formatted-text>
       </lightning-layout-item>
-      <template for:each={creditBureauCheck} for:item="check">
-        <lightning-layout-item
-          size="6"
-          key={check.subType}
-          data-id="bureauCheck"
-        >
-          <lightning-layout class="slds-box slds-m-left_small slds-m-top_small">
-            <lightning-layout-item size="1" class="sectionWidth">
-              <img src={dollarSign} class="cardLogo" />
-            </lightning-layout-item>
-            <lightning-layout-item
-              size="11"
-              class="slds-p-left_small slds-p-top_x-small"
+    </template>
+    <!-- Crtedit Bureau Screen For Non Broker Applications -->
+    <template lwc:else>
+      <template lwc:if={allPartiesAndBurueaConsented}>
+        <lightning-layout-item size="12" class="textStyle slds-p-bottom_small">
+          <lightning-formatted-text
+            value="This is who we did the credit check with for the customer(s) to find their debts and if it was successful. It may include their existing home loan."
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+        <template for:each={creditBureauCheck} for:item="check">
+          <lightning-layout-item
+            size="6"
+            key={check.subType}
+            data-id="bureauCheck"
+          >
+            <lightning-layout
+              class="slds-box slds-m-left_small slds-m-top_small"
             >
-              <!-- Belongs To -->
-              <lightning-layout multiple-rows class="slds-p-right_large">
-                <lightning-layout-item size="8" class="labelAndValueStyle">
-                  <lightning-formatted-text
-                    value="Belongs To"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <lightning-layout-item
-                  size="4"
-                  flexibility="shrink"
-                  alignment-bump="right"
-                  class="slds-text-align_right labelAndValueStyle"
-                >
-                  <lightning-formatted-text
-                    value={check.ownerName}
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-
-                <!-- Liability Sources -->
-                <template
-                  for:each={check.liabilitySources}
-                  for:item="liabilitySource"
-                >
-                  <lightning-layout-item
-                    size="12"
-                    class="slds-p-top_medium"
-                    key={liabilitySource.id}
-                  >
-                    <lightning-layout multiple-rows>
-                      <lightning-layout-item
-                        size="10"
-                        class="labelAndValueStyle"
-                      >
-                        <lightning-formatted-text
-                          value={liabilitySource.subType}
-                        >
-                        </lightning-formatted-text>
-                      </lightning-layout-item>
-                      <lightning-layout-item
-                        size="2"
-                        class="slds-text-align_right"
-                      >
-                        <template lwc:if={liabilitySource.isLiabilityCompleted}>
-                          <img src={tickSign} class="image" />
-                        </template>
-                        <template lwc:else>
-                          <img src={crossSign} class="image" />
-                        </template>
-                      </lightning-layout-item>
-                      <lightning-layout-item size="10">
-                        <lightning-formatted-text
-                          class="subHeading"
-                          value={liabilitySource.retrievedTime}
-                        >
-                        </lightning-formatted-text>
-                      </lightning-layout-item>
-                    </lightning-layout>
+              <lightning-layout-item size="1" class="sectionWidth">
+                <img src={dollarSign} class="cardLogo" />
+              </lightning-layout-item>
+              <lightning-layout-item
+                size="11"
+                class="slds-p-left_small slds-p-top_x-small"
+              >
+                <!-- Belongs To -->
+                <lightning-layout multiple-rows class="slds-p-right_large">
+                  <lightning-layout-item size="8" class="labelAndValueStyle">
+                    <lightning-formatted-text
+                      value="Belongs To"
+                    ></lightning-formatted-text>
                   </lightning-layout-item>
-                </template>
-              </lightning-layout>
-            </lightning-layout-item>
-          </lightning-layout>
+                  <lightning-layout-item
+                    size="4"
+                    flexibility="shrink"
+                    alignment-bump="right"
+                    class="slds-text-align_right labelAndValueStyle"
+                  >
+                    <lightning-formatted-text
+                      value={check.ownerName}
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+
+                  <!-- Liability Sources -->
+                  <template
+                    for:each={check.liabilitySources}
+                    for:item="liabilitySource"
+                  >
+                    <lightning-layout-item
+                      size="12"
+                      class="slds-p-top_medium"
+                      key={liabilitySource.id}
+                    >
+                      <lightning-layout multiple-rows>
+                        <lightning-layout-item
+                          size="10"
+                          class="labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value={liabilitySource.subType}
+                          >
+                          </lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="2"
+                          class="slds-text-align_right"
+                        >
+                          <template
+                            lwc:if={liabilitySource.isLiabilityCompleted}
+                          >
+                            <img src={tickSign} class="image" />
+                          </template>
+                          <template lwc:else>
+                            <img src={crossSign} class="image" />
+                          </template>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="10">
+                          <lightning-formatted-text
+                            class="subHeading"
+                            value={liabilitySource.retrievedTime}
+                          >
+                          </lightning-formatted-text>
+                        </lightning-layout-item>
+                      </lightning-layout>
+                    </lightning-layout-item>
+                  </template>
+                </lightning-layout>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+        </template>
+      </template>
+
+      <template lwc:else>
+        <lightning-layout-item size="12" class="textStyle slds-p-bottom_small">
+          <template lwc:if={hasLiabilitySourceConsent}>
+            <lightning-formatted-text
+              value="Bureau check information will be shown as customer(s) confirm the bureau check in the app."
+              data-id="noConsentMessage"
+            ></lightning-formatted-text>
+          </template>
+          <template lwc:else>
+            <lightning-formatted-text
+              value="The attempt to connect to the Bureau(s) was unsuccessful.  There is no bureau check information to display."
+              data-id="connectErrorMessage"
+            ></lightning-formatted-text>
+          </template>
         </lightning-layout-item>
       </template>
-    </template>
-
-    <template lwc:else>
-      <lightning-layout-item size="12" class="textStyle slds-p-bottom_small">
-        <template lwc:if={hasLiabilitySourceConsent}>
-          <lightning-formatted-text
-            value="Bureau check information will be shown as customer(s) confirm the bureau check in the app."
-            data-id="noConsentMessage"
-          ></lightning-formatted-text>
-        </template>
-        <template lwc:else>
-          <lightning-formatted-text
-            value="The attempt to connect to the Bureau(s) was unsuccessful.  There is no bureau check information to display."
-            data-id="connectErrorMessage"
-          ></lightning-formatted-text>
-        </template>
-      </lightning-layout-item>
     </template>
   </lightning-layout>
 </template>
