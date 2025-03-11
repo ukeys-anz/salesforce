@@ -493,6 +493,33 @@ private with sharing class IDRCaseAssignmentRulesTest {
    * @description : This is the test method to get assign respective owner Id to Case.
    */
   @isTest
+  private static void testOwnerisIDRMigration(){
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Type = '23';
+
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_Migration').Id,
+      'Owner should be IDR_Migration'
+    );
+    Assert.arenotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @isTest
   private static void testOwnerisIDRANZPlus() {
     Case oldcase = caseRecord1;
 
