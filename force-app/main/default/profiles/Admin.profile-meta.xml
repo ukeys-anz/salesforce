@@ -4997,6 +4997,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.Is_Beta_Broker__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Complaint_Resolution__c.IDR_Complaint_Sub_Remedy__c</field>
         <readable>true</readable>

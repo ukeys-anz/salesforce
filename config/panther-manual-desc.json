@@ -1780,6 +1780,7 @@
         "Active_From__c",
         "Active_To__c",
         "External_Id__c",
+        "Is_Beta_Broker__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",

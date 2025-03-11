@@ -162,6 +162,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Broker_code__c.Broker_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Broker_code__c.External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Case.ANZx_Product__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -1173,6 +1183,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Coaching_Summary__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Contact.Is_Beta_Broker__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

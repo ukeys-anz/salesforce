@@ -71,6 +71,16 @@
                 <identifier>RecordNotes_Interests_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Is_Beta_Broker__c</fieldItem>
+                <identifier>RecordIs_Beta_Broker_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-df46ab70-f7c2-4f77-9dfa-c90bfa6913d5</name>
         <type>Facet</type>
     </flexiPageRegions>
