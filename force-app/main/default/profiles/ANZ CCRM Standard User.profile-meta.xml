@@ -24285,6 +24285,9 @@
         <layout>ApplicationForm-Commercial Application Form Layout</layout>
         <recordType>ApplicationForm.Internal_Application</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Account_Registration__x-Account Registration Layout</layout>
+    </layoutAssignments>
     <loginFlows>
         <flow>Remove_Concurrent_Sessions</flow>
         <flowType>UI</flowType>

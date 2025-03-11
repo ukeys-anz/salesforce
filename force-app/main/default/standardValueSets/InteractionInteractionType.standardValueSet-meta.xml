@@ -56,4 +56,94 @@
         <default>false</default>
         <label>Other</label>
     </standardValue>
+    <standardValue>
+        <fullName>Call-Outbound</fullName>
+        <default>false</default>
+        <label>Call-Outbound</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Call-Inbound</fullName>
+        <default>false</default>
+        <label>Call-Inbound</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Email-Inbound</fullName>
+        <default>false</default>
+        <label>Email-Inbound</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Email-Outbound</fullName>
+        <default>false</default>
+        <label>Email-Outbound</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Face-to-Face</fullName>
+        <default>false</default>
+        <label>Face-to-Face</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Diary Note</fullName>
+        <default>false</default>
+        <label>Diary Note</label>
+    </standardValue>
+    <standardValue>
+        <fullName>To Do</fullName>
+        <default>false</default>
+        <label>To Do</label>
+    </standardValue>
+    <standardValue>
+        <fullName>A-Z Review</fullName>
+        <default>false</default>
+        <label>A-Z Review</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Annual Review</fullName>
+        <default>false</default>
+        <label>Annual Review</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Credit Risk Review</fullName>
+        <default>false</default>
+        <label>Credit Risk Review</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Online Enquiry</fullName>
+        <default>false</default>
+        <label>Online Enquiry</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Calling Day</fullName>
+        <default>false</default>
+        <label>Calling Day</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Field Day</fullName>
+        <default>false</default>
+        <label>Field Day</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Seminar</fullName>
+        <default>false</default>
+        <label>Seminar</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Client Entertainment</fullName>
+        <default>false</default>
+        <label>Client Entertainment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Indicative Term Sheet issued</fullName>
+        <default>false</default>
+        <label>Indicative Term Sheet issued</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Tender issued</fullName>
+        <default>false</default>
+        <label>Tender issued</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Appointment</fullName>
+        <default>false</default>
+        <label>Appointment</label>
+    </standardValue>
 </StandardValueSet>
