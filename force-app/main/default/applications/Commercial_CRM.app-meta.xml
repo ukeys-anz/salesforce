@@ -490,6 +490,7 @@
     <tabs>standard-Dashboard</tabs>
     <tabs>standard-report</tabs>
     <tabs>Circle_Of_Influence__c</tabs>
+    <tabs>standard-Product2</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Commercial_CRM_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -507,6 +508,9 @@
         </mappings>
         <mappings>
             <tab>standard-Opportunity</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Product2</tab>
         </mappings>
         <mappings>
             <tab>standard-home</tab>

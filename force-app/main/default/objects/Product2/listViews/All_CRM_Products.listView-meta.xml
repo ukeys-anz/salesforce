@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>All_CRM_Products</fullName>
+    <columns>PRODUCT2.NAME</columns>
+    <columns>PRODUCT2.CUSTOMER_PRODUCT_ID</columns>
+    <columns>Sub_Product_Code__c</columns>
+    <columns>Commercial_Product_Category__c</columns>
+    <columns>Business_area__c</columns>
+    <columns>PRODUCT2.ACTIVE</columns>
+    <columns>Product_Origination_System__c</columns>
+    <filterScope>Everything</filterScope>
+    <filters>
+        <field>PRODUCT2.RECORD_TYPE</field>
+        <operation>equals</operation>
+        <value>Product2.CRM_ANZ_Product</value>
+    </filters>
+    <label>All CRM Products</label>
+</ListView>
