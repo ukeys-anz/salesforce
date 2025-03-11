@@ -6,51 +6,27 @@
  */
 public with sharing class CoachBankingAPIRepository extends RepositoryBase {
   private static final String VIEW_CARD_PERMISSION_ERROR = 'User does not have the view cards permission';
-  private static final String ACCOUNTS_AND_GOALS_PERMISSION_ERROR = 'User does not have the ANZx Accounts and Goals permission';
   private static final String VIEW_TRANSACTION_HISTORY_ERROR = 'User does not have the transaction history permission';
+
+  //Static error code defined
+  private static final Set<Integer> SUCCESS_CODES = new Set<Integer>{
+    200,
+    206
+  };
+  private static final Set<Integer> SERVER_ERROR_CODES = new Set<Integer>{
+    500
+  };
+  private static final Set<Integer> ACCESS_ERROR_CODES = new Set<Integer>{
+    401,
+    403
+  };
+
   private static final FinancialAccountRepository FINACC_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
     FinancialAccountRepository.class
   );
-
-  /**
-   * @param ocvId customer id
-   * @param accountNumbers contains account numbers to provide as parameters for account filtering
-   * @return `FinancialAccountModel` model class constructed from api response
-   * @description fetches financial accounts from fabric, deserialized to a model
-   */
-  public FinancialAccountModel getAccounts(
-    String ocvId,
-    List<String> accountNumbers
-  ) {
-    FinancialAccountModel result;
-    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
-      Service s = ServiceProvider.getService(FabricService.class);
-      HttpCalloutResponse response = s.getFinancialAccounts(
-        ocvId,
-        accountNumbers
-      );
-      if (response.successful) {
-        try {
-          if (GetHelpConstants.isAccountV1()) {
-            result = FinancialAccountModelV1.parse(response.body);
-          } else {
-            result = FinancialAccountModel.parse(response.body);
-          }
-        } catch (Exception e) {
-          handleErrors(null, e, CoachBankingAPIRepository.class);
-        }
-      } else {
-        handleErrors(response, null, CoachBankingAPIRepository.class);
-      }
-    } else {
-      handleErrorAsInfo(
-        null,
-        new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
-        CoachBankingAPIRepository.class
-      );
-    }
-    return result;
-  }
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
 
   /**
    * @author Lance
@@ -246,47 +222,6 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
 
   /**
    * @param ocvId customer id
-   * @param pageSize amount of goals to return
-   * @param nextPageToken token used to retrieve next page of data
-   * @return `AccountBucketsModel` model class constructed from api response
-   * @description fetches account buckets from fabric, deserialized to a model
-   */
-  public AccountBucketsModel getAccountBuckets(
-    String ocvId,
-    Integer pageSize,
-    String nextPageToken
-  ) {
-    AccountBucketsModel result;
-    if (FeatureManagement.checkPermission('ANZx_Accounts_and_Goals')) {
-      Service s = ServiceProvider.getService(FabricService.class);
-
-      String paramUrl = CoachBankingAPIRepositoryHelper.constructGetAccountsBucketParamUrl(
-        pageSize,
-        nextPageToken
-      );
-
-      HttpCalloutResponse response = s.getAccountBuckets(ocvId, paramUrl);
-      if (response.successful) {
-        try {
-          result = AccountBucketsModel.parse(response.body);
-        } catch (Exception e) {
-          handleErrors(null, e, CoachBankingAPIRepository.class);
-        }
-      } else {
-        handleErrors(response, null, CoachBankingAPIRepository.class);
-      }
-    } else {
-      handleErrorAsInfo(
-        null,
-        new PermissionException(ACCOUNTS_AND_GOALS_PERMISSION_ERROR),
-        CoachBankingAPIRepository.class
-      );
-    }
-    return result;
-  }
-
-  /**
-   * @param ocvId customer id
    * @return `CardControlModel` card controls constructed from ListControlsResponse
    * @description getCardControlsList retrieves the list of controls for all the customers cards
    */
@@ -340,5 +275,85 @@ public with sharing class CoachBankingAPIRepository extends RepositoryBase {
       );
     }
     return mapOfAccountNumberAndOwnership;
+  }
+
+  private static HttpCalloutResponse handleResponse(
+    HttpCalloutResponse response,
+    String serviceName
+  ) {
+    if (SERVER_ERROR_CODES.contains(response.statusCode)) {
+      throw new ServerErrorException(response, serviceName);
+    }
+    if (ACCESS_ERROR_CODES.contains(response.statusCode)) {
+      throw new AccessErrorException(response, serviceName);
+    }
+    if (response.successful == false) {
+      throw new UnhandledException(response, serviceName);
+    }
+    return response;
+  }
+
+  /**
+   * @description ServerErrorException custom exception
+   */
+  public class ServerErrorException extends Exception {
+    /**
+     * @description ServerErrorException custom exception
+     * @param response
+     * @param serviceName
+     */
+    public ServerErrorException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
+      this(response.error.getMessage());
+      Logger.error(
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          response.error
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description AccessErrorException custom exception
+   */
+  public class AccessErrorException extends Exception {
+    /**
+     * @description AccessErrorException custom exception
+     * @param response
+     * @param serviceName
+     */
+    public AccessErrorException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
+      this(response.error.getMessage());
+      Logger.info(
+          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          response.error
+        )
+        .save();
+    }
+  }
+
+  /**
+   * @description UnhandledException custom exception
+   */
+
+  public class UnhandledException extends Exception {
+    /**
+     * @description AccessErrorException custom exception
+     * @param response
+     * @param serviceName
+     */
+    public UnhandledException(
+      HttpCalloutResponse response,
+      String serviceName
+    ) {
+      this(response.error.getMessage());
+      Logger.error('UnhandledException from: ' + serviceName, response.error)
+        .save();
+    }
   }
 }

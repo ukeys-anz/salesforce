@@ -70,9 +70,9 @@ describe("c-totalBalance", () => {
     );
 
     expect(balance).toBeTruthy();
-    expect(balance).toHaveProperty("value", "123.21");
+    expect(balance).toHaveProperty("value", 123.21);
     expect(totalSaved).toBeTruthy();
-    expect(totalSaved).toHaveProperty("value", "23.21");
+    expect(totalSaved).toHaveProperty("value", 23.21);
   });
 
   it("test error is displayed", async () => {

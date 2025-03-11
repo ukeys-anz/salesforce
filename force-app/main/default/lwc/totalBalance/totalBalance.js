@@ -20,6 +20,8 @@ export default class TotalBalance extends LightningElement {
   totalSavedColumn =
     "slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small";
   totalSavedAlignment = "header-column slds-float_right";
+  allProductNames;
+  savingProductNames;
 
   @wire(getRecord, {
     recordId: "$recordId",
@@ -74,14 +76,19 @@ export default class TotalBalance extends LightningElement {
 
   async fetchFinancialDataFromDB() {
     try {
-      let { totalBalance } = await getFinancialTotalBalance({
+      let totalBalance = await getFinancialTotalBalance({
         ownerId: this.recordId
       });
-      this.totalBalance = totalBalance ? totalBalance : 0;
-      let { totalSaved } = await getFinancialTotalSaved({
+
+      this.totalBalance = totalBalance?.aggregateResult?.totalBalance ?? 0;
+      this.allProductNames = this.formatProductName(totalBalance.productNames);
+
+      let totalSaved = await getFinancialTotalSaved({
         ownerId: this.recordId
       });
-      this.totalSaved = totalSaved ? totalSaved : 0;
+
+      this.totalSaved = totalSaved?.aggregateResult?.totalBalance ?? 0;
+      this.savingProductNames = this.formatProductName(totalSaved.productNames);
 
       if (this.isFinancesTab) {
         this.totalSavedColumn =
@@ -117,5 +124,18 @@ export default class TotalBalance extends LightningElement {
 
   closeModal() {
     this.showInfoModal = false;
+  }
+
+  formatProductName(productNameList) {
+    switch (productNameList.length) {
+      case 0:
+        return "";
+      case 1:
+        return `${productNameList[0]}`;
+      case 2:
+        return `${productNameList[0]} and ${productNameList[1]}`;
+      default:
+        return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNameList.length - 1]}`;
+    }
   }
 }

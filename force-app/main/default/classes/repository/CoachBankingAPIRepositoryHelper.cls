@@ -19,11 +19,13 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
    * @description constructGetAccountsBucketParamUrl sets the params on getAccountsBucket api call
    * @param pageSize amount of goals to return
    * @param nextPageToken token used to retrieve next page of data
+   * @param accountNumber account number for which need to fetch goals
    * @return String paramUrl url with parameters to be used in call to api
    */
   public static String constructGetAccountsBucketParamUrl(
     Integer pageSize,
-    String nextPageToken
+    String nextPageToken,
+    String accountNumber
   ) {
     ParameterBuilder builder = new ParameterBuilder();
     builder.append('status_filter', 'BUCKET_STATUS_FILTER_OPEN');
@@ -34,9 +36,11 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
       builder.append('page_token', nextPageToken);
     }
 
-    String paramUrl = builder.get();
+    if (String.isNotBlank(accountNumber)) {
+      builder.append('account_numbers', accountNumber);
+    }
 
-    return paramUrl;
+    return builder.get();
   }
 
   /**
