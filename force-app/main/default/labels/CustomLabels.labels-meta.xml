@@ -2733,7 +2733,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
-        <value>false</value>
+        <value>true</value>
     </labels>
     <labels>
         <fullName>MLCRM_NoOpportunityModalHeader</fullName>
