@@ -293,6 +293,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ApplicationFormProduct.Last_Updated_Stage_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationFormProduct.Lost_Reason_Detail__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -309,6 +314,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Stage</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Stage_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

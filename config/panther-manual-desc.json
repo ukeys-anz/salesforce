@@ -614,7 +614,9 @@
       "IA-2423227": [
         "Won_from_Lost_to__c",
         "Lost_reason__c",
-        "Lost_Reason_Detail__c"
+        "Lost_Reason_Detail__c",
+        "Stage_Duration__c",
+        "Last_Updated_Stage_Date__c"
       ],
       "IA-2468715": [
         "OwnerId",
@@ -2964,6 +2966,7 @@
       ],
       "IA-2415720": [
         "Account_Number__c",
+        "My_Referrals__c",
         "Customer_Status__c",
         "Referral_for_an_existing_customer__c"
       ],

@@ -1645,6 +1645,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Referrals__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Opportunity.Circle_Of_Influence__c</field>
         <readable>true</readable>
@@ -6741,6 +6746,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>ApplicationFormProduct.Last_Updated_Stage_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Stage_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Opportunity.AccountId</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -9001,6 +9016,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>qualtrics__Survey_Response__c.Commercial_A_Z_Review_Survey_Response</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Lead.Referral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

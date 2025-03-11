@@ -5774,6 +5774,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Referrals__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>LegalEntity.CompanyName</field>
         <readable>true</readable>
@@ -6541,6 +6546,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>ApplicationFormProduct.Won_from_Lost_to__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ApplicationFormProduct.Last_Updated_Stage_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Stage_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8630,6 +8645,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>Product2.CRM_ANZ_Product</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Lead.Referral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>

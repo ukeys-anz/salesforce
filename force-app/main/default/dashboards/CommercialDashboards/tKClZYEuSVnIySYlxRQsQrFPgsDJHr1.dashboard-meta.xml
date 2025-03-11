@@ -31,7 +31,7 @@
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -56,7 +56,7 @@
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -81,7 +81,7 @@
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -95,7 +95,7 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>Opportunities to Action</header>
+                <header>Opportunities To Action</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
@@ -106,7 +106,7 @@
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -114,25 +114,24 @@
             <dashboardComponent>
                 <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
                 <chartSummary>
-                    <aggregate>Average</aggregate>
-                    <column>AMOUNT</column>
+                    <column>RowCount</column>
                 </chartSummary>
                 <componentType>Metric</componentType>
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>FYTD Average Opportunity Size</header>
+                <header>Slow Moving Opportunities</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
-                <metricLabel>FYTD Avg Oppty Amt Closed Won</metricLabel>
-                <report>CommercialReports/Average_Opportunity_Size_Knm</report>
+                <metricLabel>In Needs Analysis for more than 2 weeks</metricLabel>
+                <report>CommercialReports/Slow_Moving_Opportunities_WGG</report>
                 <showRange>false</showRange>
             </dashboardComponent>
-            <rowIndex>5</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>6</rowIndex>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -146,18 +145,18 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>A-Z Review Completed</header>
+                <header>A-Z Reviews Completed</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>A-Z Reviews completed this week</metricLabel>
-                <report>CommercialReports/AZ_Review_Completed_5iw</report>
+                <report>CommercialReports/AZ_Reviews_Completed_rCa</report>
                 <showRange>false</showRange>
             </dashboardComponent>
-            <rowIndex>5</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>6</rowIndex>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -177,12 +176,12 @@
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
-                <metricLabel>Interaction this week</metricLabel>
-                <report>CommercialReports/Customer_Interaction_zx6</report>
+                <metricLabel>Interactions this week</metricLabel>
+                <report>CommercialReports/Customer_Interaction_lYt</report>
                 <showRange>false</showRange>
             </dashboardComponent>
-            <rowIndex>5</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>6</rowIndex>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>3</colSpan>
@@ -206,8 +205,8 @@
                 <report>CommercialReports/Referrals_this_week_PoO</report>
                 <showRange>false</showRange>
             </dashboardComponent>
-            <rowIndex>5</rowIndex>
-            <rowSpan>5</rowSpan>
+            <rowIndex>6</rowIndex>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <dashboardGridComponents>
             <colSpan>12</colSpan>
@@ -243,87 +242,14 @@
                 <title>Next 10 weeks</title>
                 <useReportChart>false</useReportChart>
             </dashboardComponent>
-            <rowIndex>10</rowIndex>
-            <rowSpan>8</rowSpan>
-        </dashboardGridComponents>
-        <dashboardGridComponents>
-            <colSpan>6</colSpan>
-            <columnIndex>0</columnIndex>
-            <dashboardComponent>
-                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>Auto</chartAxisRange>
-                <chartSummary>
-                    <axisBinding>y</axisBinding>
-                    <column>FORMULA1</column>
-                </chartSummary>
-                <componentType>Funnel</componentType>
-                <decimalPrecision>-1</decimalPrecision>
-                <displayUnits>Auto</displayUnits>
-                <drillEnabled>false</drillEnabled>
-                <drillToDetailEnabled>false</drillToDetailEnabled>
-                <enableHover>false</enableHover>
-                <expandOthers>true</expandOthers>
-                <groupingColumn>ApplicationForm.ApplicationFormProduct$Stage</groupingColumn>
-                <groupingSortProperties>
-                    <groupingSorts>
-                        <groupingLevel>g1</groupingLevel>
-                        <sortOrder>a</sortOrder>
-                    </groupingSorts>
-                </groupingSortProperties>
-                <header>FYTD Opportunity Pipeline</header>
-                <legendPosition>Right</legendPosition>
-                <maxValuesDisplayed>6</maxValuesDisplayed>
-                <report>CommercialReports/FYTD_Opportunity_Pipeline_iQo</report>
-                <showPercentage>false</showPercentage>
-                <showValues>true</showValues>
-                <sortBy>RowLabelAscending</sortBy>
-                <title>FYTD Open Opptys by Stages by Close Date</title>
-                <useReportChart>false</useReportChart>
-            </dashboardComponent>
-            <rowIndex>18</rowIndex>
-            <rowSpan>8</rowSpan>
-        </dashboardGridComponents>
-        <dashboardGridComponents>
-            <colSpan>6</colSpan>
-            <columnIndex>6</columnIndex>
-            <dashboardComponent>
-                <autoselectColumnsFromReport>false</autoselectColumnsFromReport>
-                <chartAxisRange>Auto</chartAxisRange>
-                <chartSummary>
-                    <axisBinding>y</axisBinding>
-                    <column>RowCount</column>
-                </chartSummary>
-                <componentType>Funnel</componentType>
-                <decimalPrecision>-1</decimalPrecision>
-                <displayUnits>Auto</displayUnits>
-                <drillEnabled>false</drillEnabled>
-                <drillToDetailEnabled>false</drillToDetailEnabled>
-                <enableHover>false</enableHover>
-                <expandOthers>true</expandOthers>
-                <groupingColumn>ApplicationForm.ApplicationFormProduct$Stage</groupingColumn>
-                <groupingSortProperties>
-                    <groupingSorts>
-                        <groupingLevel>g1</groupingLevel>
-                        <sortOrder>a</sortOrder>
-                    </groupingSorts>
-                </groupingSortProperties>
-                <header>Active Opportunities by Stage</header>
-                <legendPosition>Right</legendPosition>
-                <maxValuesDisplayed>6</maxValuesDisplayed>
-                <report>CommercialReports/Active_Opportunities_by_Stage_f9A</report>
-                <showPercentage>false</showPercentage>
-                <showValues>true</showValues>
-                <sortBy>RowLabelAscending</sortBy>
-                <title>Financial Year to Date</title>
-                <useReportChart>false</useReportChart>
-            </dashboardComponent>
-            <rowIndex>18</rowIndex>
-            <rowSpan>8</rowSpan>
+            <rowIndex>12</rowIndex>
+            <rowSpan>6</rowSpan>
         </dashboardGridComponents>
         <numberOfColumns>12</numberOfColumns>
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
     <dashboardType>LoggedInUser</dashboardType>
+    <description>Commercial Dashboard for Banker</description>
     <isGridLayout>true</isGridLayout>
     <textColor>#000000</textColor>
     <title>Commercial Dashboard</title>
