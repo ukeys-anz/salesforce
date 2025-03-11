@@ -6147,6 +6147,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Circle_Of_Influence__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.Broker_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>

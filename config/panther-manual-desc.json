@@ -3403,6 +3403,7 @@
     },
     "Opportunity": {
       "IA-2423278": ["My_teams_referrer__c"],
+      "IA-2415828": ["Circle_Of_Influence__c"],
       "IA-2415840": [
         "AccountId",
         "CampaignId",
