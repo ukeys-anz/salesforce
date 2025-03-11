@@ -3,6 +3,7 @@
  * @since  07/August/2023
  * @description Wrapper class for OCV Request creationwrapper to call maintain party api
  */
+@SuppressWarnings('PMD.ExcessivePublicCount,PMD.TooManyFields')
 public class OCVRequestPayloadWrapper {
   @AuraEnabled
   public Id strOwnerId;
@@ -42,4 +43,33 @@ public class OCVRequestPayloadWrapper {
   public String strRecordId;
   @AuraEnabled
   public String strDateOfBirth;
+
+  // added as a part of OCV Org Repointing CC-11990
+  @AuraEnabled
+  public Boolean isIndividual;
+
+  @AuraEnabled
+  public String strOrganisationType;
+  @AuraEnabled
+  public String strIndustryCode;
+  @AuraEnabled
+  public String strName;
+  @AuraEnabled
+  public String strStartDate;
+  @AuraEnabled
+  public String strCommercialContactsPhone;
+  @AuraEnabled
+  public String strCommercialContactsMobile;
+  @AuraEnabled
+  public String strCommercialContactsName;
+  @AuraEnabled
+  public String strCommercialContactsTitle;
+  @AuraEnabled
+  public String strABNIdentifier;
+  @AuraEnabled
+  public String strACNIdentifier;
+  @AuraEnabled
+  public String strIdentifiersStartDate;
+  @AuraEnabled
+  public String strIdentifiersExpiryDate;
 }
