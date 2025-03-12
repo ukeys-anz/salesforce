@@ -113,9 +113,7 @@ public with sharing class CommercialAppFormProductActions {
       );
       for (OpportunityLineItem oppLineItem : fetchOpportunityLineItems) {
         oppLineItemsMap.put(
-          oppLineItem.OpportunityId +
-          '-' +
-          oppLineItem.Product2Id,
+          oppLineItem.OpportunityId + '-' + oppLineItem.Product2Id,
           oppLineItem
         );
       }
@@ -125,6 +123,29 @@ public with sharing class CommercialAppFormProductActions {
       );
     } catch (Exception e) {
       Logger.error('Error while populating close date on AFP', e).save();
+    }
+  }
+
+  /**
+   * @description populateStageUpdatedDate This is to populate stage updated date on AFP
+   * @param records applicationFormProduct records list
+   * @param oldMap old applicationFormProduct map
+   */
+  public static void populateStageUpdatedDate(
+    List<ApplicationFormProduct> records,
+    Map<Id, ApplicationFormProduct> oldMap
+  ) {
+    List<String> stages = new List<String>{
+      'Opportunity Identified',
+      'Needs Analysis',
+      'Solution Development',
+      'Approved & Offered',
+      'Customer Acceptance'
+    };
+    for (ApplicationFormProduct afp : records) {
+      if (stages.contains(afp.Stage) && afp.Stage != oldMap.get(afp.Id).Stage) {
+        afp.Last_Updated_Stage_Date__c = System.today();
+      }
     }
   }
 }

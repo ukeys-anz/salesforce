@@ -6,9 +6,7 @@
  */
 
 public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerHandler {
-  private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Broker')
-    .recordTypeId;
+  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
   private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
     CustomSettingsRepository.class
   );

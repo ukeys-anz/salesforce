@@ -344,6 +344,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>ApplicationFormProduct.Last_Updated_Stage_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationFormProduct.Lost_reason__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -365,6 +370,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Stage</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Stage_Duration__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -4039,6 +4049,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>CustomerOnboardingApplication__c.IDVFailReason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>CustomerOnboardingApplication__c.OCVId__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6019,6 +6034,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.My_Referrals__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead_Flex_Field__c.FlexFieldName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6639,6 +6659,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Opportunity.Circle_Of_Influence__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Opportunity.AIP_Requested__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7244,6 +7269,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Product2.Business_area__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.Commercial_Product_Category__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Product2.Description</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7320,6 +7355,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Product2.Product_End_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Product2.Product_Origination_System__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

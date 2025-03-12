@@ -199,6 +199,7 @@
         <relatedList>RelatedCompetitorList</relatedList>
     </relatedLists>
     <relatedLists>
+        <excludeButtons>AddDefaultTeam</excludeButtons>
         <fields>MemberName</fields>
         <fields>OppAccessLevel</fields>
         <fields>TeamMemberRole</fields>

@@ -8,12 +8,8 @@ private class RetailBrokerContactTriggerHandlerTest {
   public static Lib_MockProvider retailBrokerRepo = Lib_MockProvider.forType(
     RetailBrokerRepository.class
   );
-  private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Broker')
-    .recordTypeId;
-  private static final Id RECORD_TYPE_ID_STAFF = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Staff')
-    .recordTypeId;
+  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
+  private static final Id RECORD_TYPE_ID_STAFF = RTContact.staff;
   static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
     CustomSettingsRepository.class
   );
