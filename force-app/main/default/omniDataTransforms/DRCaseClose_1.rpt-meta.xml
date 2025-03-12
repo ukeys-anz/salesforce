@@ -76,8 +76,8 @@
         <name>DRCaseClose</name>
         <disabled>false</disabled>
         <filterGroup>0.0</filterGroup>
-        <formulaConverted>| var:Case:realFormRequired &quot;Yes&quot; == var:Case:REALFormMAXID &apos;$Vlocity.NULL&apos; IF</formulaConverted>
-        <formulaExpression>IF(Case:realFormRequired==&quot;Yes&quot;,%Case:REALFormMAXID%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
+        <formulaConverted>| var:Case:realFormRequired &quot;Y_EXI&quot; == var:Case:REALFormMAXID &apos;$Vlocity.NULL&apos; IF</formulaConverted>
+        <formulaExpression>IF(Case:realFormRequired==&quot;Y_EXI&quot;,%Case:REALFormMAXID%,&apos;$Vlocity.NULL&apos;)</formulaExpression>
         <formulaResultPath>Case:REALFormMAXID</formulaResultPath>
         <formulaSequence>11.0</formulaSequence>
         <globalKey>DRCaseCloseCustom6281</globalKey>

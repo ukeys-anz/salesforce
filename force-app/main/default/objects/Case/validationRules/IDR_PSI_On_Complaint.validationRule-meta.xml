@@ -6,11 +6,18 @@
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 OR(
-    RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
-    RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
+RecordType.DeveloperName = &apos;Customer_Complaint&apos;,
+RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 ),
+OR(
+AND(
 ISPICKVAL(IDR_Is_Common__c,&apos;Yes&apos;),
-ISBLANK(IDR_Systemic_Issue_Description__c)
+ISBLANK(IDR_Systemic_Issue_Description__c)),
+
+AND(NOT(ISPICKVAL(IDR_Is_Common__c,&apos;Yes&apos;)),
+NOT(ISBLANK(IDR_Systemic_Issue_Description__c)),IDR_Systemic_Issue_Description__c != &apos;None&apos;,IDR_Systemic_Issue_Description__c !=&apos;none&apos;, NOT(CONTAINS(IDR_Systemic_Issue_Description__c,&apos;decription&apos;)))
+  
+)
 )</errorConditionFormula>
-    <errorMessage>Please select &apos;Why is this a possible systemic issue&apos; if YES to &apos;Are any of the issues possibly systemic?&apos;</errorMessage>
+    <errorMessage>To record a possible systemic issue the &apos;Are any of the issues possibly systemic?&apos; field must be marked as YES and comments must be included in the &apos;Why is this a possible systemic issue?&apos; field.</errorMessage>
 </ValidationRule>
