@@ -3,11 +3,12 @@
     <fullName>IDR_Real_Form_Req__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Is a REAL form required? Yes or No response required. 
+    <description>Is a REaL form required? Yes or No response required. 
 Checkbox for: &quot;Does this complaint relate/create a COR event/Compliance Incident&quot;</description>
     <externalId>false</externalId>
-    <inlineHelpText>A REAL form must be completed in the event of: a failure of internal process, people (e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search ‘REAL Form’, or on the MAX homepage go to the Quick Links section &apos;Operational Risk Events - REAL&apos;.</inlineHelpText>
-    <label>Is a REAL form required?</label>
+    <inlineHelpText>A REaL Form must be completed for failures in internal processes, people (e.g., human error), or systems causing compliance, financial or reputational impacts to ANZ or our customers. To record REaL Form details in CMOS, click &apos;Link REaL Form&apos; on the top right corner of your complaint. 
+If you need to record a new REaL Form, select &apos;Yes, I need to record a new REaL Form.&apos; If you have already recorded a REaL form and need to link the REaL Form ID, select &apos;Yes, I have already recorded a REaL Form&apos;.</inlineHelpText>
+    <label>Is a REaL form required?</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -18,14 +19,19 @@ Checkbox for: &quot;Does this complaint relate/create a COR event/Compliance Inc
         <valueSetDefinition>
             <sorted>false</sorted>
             <value>
-                <fullName>Yes</fullName>
-                <default>false</default>
-                <label>Yes</label>
-            </value>
-            <value>
                 <fullName>No</fullName>
                 <default>false</default>
                 <label>No</label>
+            </value>
+            <value>
+                <fullName>Y_EXI</fullName>
+                <default>false</default>
+                <label>Yes, I have already recorded a REaL Form</label>
+            </value>
+            <value>
+                <fullName>Y_NEW</fullName>
+                <default>false</default>
+                <label>Yes, I need to record a new REaL Form</label>
             </value>
         </valueSetDefinition>
     </valueSet>
