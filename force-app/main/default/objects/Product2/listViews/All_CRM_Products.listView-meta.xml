@@ -8,11 +8,11 @@
     <columns>Business_area__c</columns>
     <columns>PRODUCT2.ACTIVE</columns>
     <columns>Product_Origination_System__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>PRODUCT2.RECORD_TYPE</field>
         <operation>equals</operation>
         <value>Product2.CRM_ANZ_Product</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All CRM Products</label>
 </ListView>

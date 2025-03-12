@@ -10,7 +10,6 @@
     <columns>ACCOUNT.ADDRESS2_ZIP</columns>
     <columns>ACCOUNT.RECORDTYPE</columns>
     <columns>FinServ__Status__c</columns>
-    <filterScope>Everything</filterScope>
     <filters>
         <field>FinServ__Status__c</field>
         <operation>equals</operation>
@@ -21,6 +20,7 @@
         <operation>equals</operation>
         <value>Account.FinServ__IndustriesIndividual</value>
     </filters>
+    <filterScope>Everything</filterScope>
     <label>All Customers</label>
     <sharedTo>
         <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
