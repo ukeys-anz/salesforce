@@ -239,30 +239,6 @@ public with sharing class CustomerRelationNotesTriggerActions {
     }
   }
   /**
-   * @description get set of updated customer's id's who specific fields got updated
-   * @name getUpdatedCustomersIds
-   * @param oldMap A Map of AccountId and Account.
-   * @param records list of updated Account records.
-   */
-  public static void getUpdatedCustomersIds(
-    Map<Id, Account> oldMap,
-    List<Account> records
-  ) {
-    if (System.isFuture() || System.isBatch()) {
-      return;
-    }
-    List<Account> listOfSobjects = ListUtil.filter(records, oldMap)
-      .equals(Account.RecordTypeId, RTAccount.personAccount)
-      .anyChanged(CUSTOMER_FIELDS)
-      .toList();
-
-    Set<id> setOfAccountIds = ListUtil.getIds(listOfSobjects, Account.Id);
-    if (setOfAccountIds.isEmpty()) {
-      return;
-    }
-    updateCustomerNameOnCustomerRelationship(setOfAccountIds);
-  }
-  /**
    * @description Executes asynchronously to update Customer_Name__c field on Customer_Relationship__c object
    * @name updateCustomerNameOnCustomerRelationship
    * @param setOfAccountIds set of accountIds.

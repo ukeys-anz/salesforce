@@ -306,7 +306,7 @@ public with sharing class CommercialLeadConversionHelper {
     }
     account.FinServ__Status__c = CCRMConstants.PROSPECT;
     account.OCV_Event_Version__c = Integer.valueOf(
-      System.Label.DCRM_ShellProspectOCVEventVersion
+      System.Label.ShellProspectOCVEventVersion
     );
     account.External_Id__c =
       shellProspectInfo.sourceSystemName +
