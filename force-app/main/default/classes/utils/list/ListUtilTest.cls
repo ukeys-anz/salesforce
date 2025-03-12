@@ -240,7 +240,6 @@ private class ListUtilTest {
   }
   //#endregion
 
-
   //#region Generic Utilities Tests
   @IsTest
   static void testGenericGetValues() {
@@ -525,7 +524,7 @@ private class ListUtilTest {
   }
 
   @IsTest
-  static void testAnychangedWithNewValueNull() {
+  static void testAnychangedTo() {
     accounts[0].Name = FAKER.randomString(6);
     accounts[0].NumberOfEmployees = FAKER.randomInteger(1);
     accounts[0].Disclosure_Indicator__c = null;
@@ -535,8 +534,9 @@ private class ListUtilTest {
         new List<Account>{ accounts[0], accounts[1] },
         oldMap
       )
-      .anychangedWithNewValueNull(
-        new Set<SObjectField>{ Account.Disclosure_Indicator__c }
+      .anyChangedTo(
+        new Set<SObjectField>{ Account.Disclosure_Indicator__c },
+        null
       )
       .toList();
     Test.stopTest();
@@ -949,7 +949,6 @@ private class ListUtilTest {
       results.size(),
       'Expected 2 accounts without the specified Name'
     );
-
   }
   //#endregion
 }

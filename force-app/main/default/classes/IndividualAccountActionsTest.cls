@@ -5,9 +5,22 @@
  */
 @isTest
 public class IndividualAccountActionsTest {
+  private static final String CUSTOMER_RELATIONSHIP_JSON = '{"Newsletter__c":true, "Status__c":"Active", "Relationship_To_Franchise__c":"Primary", "Customer__r":{"Id":"accountId", "Name":"TestName","Salutation":"Dr"}, "Territory__r":{"Id":"idTerritory"}, "Primary_Franchise_Owner__r":{"Id":"franchiseOwnerId"}}';
+  static Customer_Relationship__c createTestCustomerRelationship() {
+    return (Customer_Relationship__c) JSON.deserialize(
+      CUSTOMER_RELATIONSHIP_JSON,
+      Customer_Relationship__c.class
+    );
+  }
+  static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider accountRepoMock;
+  static Lib_MockProvider customerRelationshipRepoMock;
   static void registerMocks() {
     accountRepoMock = Lib_MockProvider.forType(AccountActionsRepository.class);
+    dmlRepoMock = Lib_MockProvider.forType(DMLRepository.class);
+    customerRelationshipRepoMock = Lib_MockProvider.forType(
+      CustomerRelationshipsRepository.class
+    );
   }
 
   /**
@@ -22,7 +35,7 @@ public class IndividualAccountActionsTest {
     record.BillingPostalCode = '3000';
     record.BillingCountry = 'AUS';
     record.OCV_Event_Version__c = Integer.valueOf(
-      Label.DCRM_ShellProspectOCVEventVersion
+      Label.ShellProspectOCVEventVersion
     );
     record.RecordTypeId = RTAccount.personAccount;
     record.FinServ__Status__c = 'Prospect';
@@ -74,7 +87,7 @@ public class IndividualAccountActionsTest {
     record.BillingPostalCode = '3000';
     record.BillingCountry = 'AUS';
     record.OCV_Event_Version__c = Integer.valueOf(
-      Label.DCRM_ShellProspectOCVEventVersion
+      Label.ShellProspectOCVEventVersion
     );
     record.RecordTypeId = RTAccount.personAccount;
     record.FinServ__Status__c = 'Prospect';
@@ -91,69 +104,6 @@ public class IndividualAccountActionsTest {
       record.BillingStreet,
       'Billing Address is not blanked out'
     );
-  }
-
-  /**
-   * @description test method for setErrorAndRetNonOrgMlRec for ML User
-   */
-  @isTest
-  static void testSetErrorAndRetNonOrgMlRecForMLUser() {
-    ID accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    ID accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    //GIVEN a Opportunity record
-    Map<Id, Account> accMap = new Map<Id, Account>{
-      accountId1 => (new Account(
-        Id = accountId1,
-        recordTypeId = RTAccount.businessAccount
-      )),
-      accountId2 => (new Account(
-        Id = accountId2,
-        recordTypeId = RTAccount.personAccount
-      ))
-    };
-    Test.startTest();
-    // Running as ML user -> Orgnastion Records will be removed\
-    Assert.areEqual(
-      IndividualAccountActions.setErrorAndRetNonOrgMlRec(
-          accMap.values(),
-          accMap
-        )
-        .size(),
-      2,
-      'setErrorAndRetNonOrgMlRec is not returing correct result for ml user'
-    );
-    Test.stopTest();
-  }
-  /**
-   * @description test method for setErrorAndRetNonOrgMlRec for non ml user
-   */
-  @isTest
-  static void testSetErrorAndRetNonOrgMlRecForCCRMUser() {
-    ID accountId1 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    ID accountId2 = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    //GIVEN a Opportunity record
-    Map<Id, Account> accMap = new Map<Id, Account>{
-      accountId1 => (new Account(
-        Id = accountId1,
-        recordTypeId = RTAccount.businessAccount
-      )),
-      accountId2 => (new Account(
-        Id = accountId2,
-        recordTypeId = RTAccount.personAccount
-      ))
-    };
-    Test.startTest();
-    // Running as non-ML user -> Orgnastion Records will be kept\
-    Assert.areEqual(
-      IndividualAccountActions.setErrorAndRetNonOrgMlRec(
-          accMap.values(),
-          accMap
-        )
-        .size(),
-      2,
-      'setErrorAndRetNonOrgMlRec is not returing correct result for non-ml user'
-    );
-    Test.stopTest();
   }
 
   @isTest
@@ -192,6 +142,51 @@ public class IndividualAccountActionsTest {
       null,
       records[0].Self_Employed__c,
       'Self Employed field is not changed to null'
+    );
+  }
+
+  @isTest
+  public static void testGetUpdatedCustomersIds() {
+    registerMocks();
+    String accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    Account objAccount = new Account(
+      Id = accountId,
+      Salutation = 'Dr',
+      FirstName = 'TestName',
+      LastName = 'TestName',
+      RecordTypeId = RTAccount.personAccount
+    );
+
+    Map<Id, Account> mapOfOldAcc = new Map<Id, Account>();
+    Account objAcc = new Account(
+      Id = accountId,
+      Salutation = 'Dr',
+      FirstName = 'Test',
+      LastName = 'Name',
+      RecordTypeId = RTAccount.personAccount
+    );
+    mapOfOldAcc.put(accountId, objAcc);
+
+    Test.StartTest();
+    Customer_Relationship__c testCustomerRelationship = createTestCustomerRelationship();
+    customerRelationshipRepoMock.mock(
+      'getCustomerRelationshipByAccountIds',
+      new List<Customer_Relationship__c>{ testCustomerRelationship }
+    );
+    IndividualAccountActions.getUpdatedCustomersIds(
+      mapOfOldAcc,
+      new List<Account>{ objAccount }
+    );
+    Test.StopTest();
+
+    List<Customer_Relationship__c> crUpdatedList = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      'Dr TestName',
+      crUpdatedList[0].Customer_Name__c,
+      'On updation of Account object the Customer_Name__c field on Customer_Relationship__c object is not updating successfully'
     );
   }
 }

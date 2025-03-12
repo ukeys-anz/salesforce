@@ -37,7 +37,7 @@ public with sharing class CommercialLeadConversionRepository {
     return [
       SELECT Id
       FROM USER
-      WHERE Username = :System.Label.CCRM_OCVIntegrationUsername
+      WHERE Username = :System.Label.OCVIntegrationUsername
       WITH USER_MODE
       LIMIT 1
     ] ?? null;

@@ -1476,11 +1476,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Opportunity Identified</value>
     </labels>
     <labels>
-        <fullName>CCRM_OCVIntegrationUsername</fullName>
+        <fullName>OCVIntegrationUsername</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>CCRM_OCVIntegrationUsername</shortDescription>
+        <shortDescription>OCVIntegrationUsername</shortDescription>
         <value>ocvintegration.user@anzx.com</value>
     </labels>
     <labels>
@@ -1700,11 +1700,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This Customer is currently being managed by the hardship team</value>
     </labels>
     <labels>
-        <fullName>DCRM_ShellProspectOCVEventVersion</fullName>
+        <fullName>ShellProspectOCVEventVersion</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DCRM_ShellProspectOCVEventVersion</shortDescription>
+        <shortDescription>ShellProspectOCVEventVersion</shortDescription>
         <value>0</value>
     </labels>
     <labels>
@@ -1982,11 +1982,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This is a shell prospect record.</value>
     </labels>
     <labels>
-        <fullName>ML_OCV_ID_Update_ErrorMessage</fullName>
+        <fullName>OCV_ID_Update_ErrorMessage</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ML_OCV_ID_Update_ErrorMessage</shortDescription>
+        <shortDescription>OCV_ID_Update_ErrorMessage</shortDescription>
         <value>OCV Id cannot be changed.</value>
     </labels>
     <labels>

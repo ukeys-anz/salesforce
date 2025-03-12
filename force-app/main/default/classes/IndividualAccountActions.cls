@@ -1,7 +1,7 @@
 /**
  * @author Ankit Garg
  * @since  12/2023
- * @description IndividualAccountActions is class to handle the Account Actions
+ * @description IndividualAccountActions is class to handle the Individual Account Actions
  * @runTests IndividualAccountActionsTest
  */
 public with sharing class IndividualAccountActions {
@@ -21,6 +21,13 @@ public with sharing class IndividualAccountActions {
     Account.BillingCountry,
     Account.BillingPostalCode
   };
+  private static final Set<SObjectField> CUSTOMER_FIELDS = new Set<SObjectField>{
+    Account.FirstName,
+    Account.MiddleName,
+    Account.LastName,
+    Account.Salutation,
+    Account.Suffix
+  };
 
   private static final AccountActionsRepository ACC_REPOSITORY = (AccountActionsRepository) Lib_InstanceProvider.forType(
     AccountActionsRepository.class
@@ -34,7 +41,6 @@ public with sharing class IndividualAccountActions {
   public static void validateDateOfBirth(List<Account> records) {
     for (Account rec : records) {
       if (
-        rec.RecordTypeId == RTAccount.personAccount &&
         rec.PersonBirthdate != null &&
         rec.PersonBirthdate >= System.TODAY()
       ) {
@@ -49,20 +55,17 @@ public with sharing class IndividualAccountActions {
    * @param records The Account records passed from Trigger.new()
    */
   public static void revertShellProspectBillingAddress(List<Account> records) {
-    if (UserInfo.getUserName().startsWith(Label.CCRM_OCVIntegrationUsername)) {
-      return;
-    }
-    if (!CCRMLeadConversionActions.manualLeadConversionInitiated) {
-      return;
-    }
-    if (String.isBlank(System.Label.DCRM_ShellProspectOCVEventVersion)) {
+    if (
+      !CCRMLeadConversionActions.manualLeadConversionInitiated ||
+      String.isBlank(System.Label.ShellProspectOCVEventVersion)
+    ) {
       return;
     }
     List<Account> accountsToRevert = ListUtil.filter(records)
       .equals(Account.FinServ__Status__c, PROSPECT)
       .equals(
         Account.OCV_Event_Version__c,
-        Integer.valueOf(System.Label.DCRM_ShellProspectOCVEventVersion)
+        Integer.valueOf(System.Label.ShellProspectOCVEventVersion)
       )
       .anyNotNull(BILLING_ADDRESS_FIELDS)
       .toList();
@@ -101,42 +104,12 @@ public with sharing class IndividualAccountActions {
       return;
     }
     List<sObject> lstOfInvalidRecords = ListUtil.filter(records, oldMap)
-      .anyChangedWithNewValueNull(CUSTOMER_ATTRIBUTE_FIELDS)
+      .anyChangedTo(CUSTOMER_ATTRIBUTE_FIELDS, null)
       .toList();
     CommonUtil.raiseSobjectError(
       lstOfInvalidRecords,
       CUSTOMER_ATTRIBUTE_NONE_SELECTION_ERROR
     );
-  }
-
-  /**
-   * @description CC-7202 Organisation RT fields should be read-only. Add Error to Orgnisation Records when OCV id is changed and Running User having ML Profile. Return Non-Organisation Records from OldMap
-   * @name setErrorAndRetNonOrgMlRec
-   * @param updatedRecords List of Account Records from Trigger.New
-   * @param oldMap The Account records passed from Trigger
-   * @return Map<Id, User> Map of Non-Organisation Records for ML Users, return old map if user is not having ML Profile
-   */
-  public static Map<Id, Account> setErrorAndRetNonOrgMlRec(
-    List<Account> updatedRecords,
-    Map<Id, Account> oldMap
-  ) {
-    // If user is not ML User then do nothing and return OldMap
-    if (!ACC_REPOSITORY.isCurrentUserML()) {
-      return oldMap;
-    }
-    Map<Id, Account> orgRecords = new Map<Id, Account>();
-    Map<Id, Account> nonOrgRecords = new Map<Id, Account>();
-
-    for (String key : oldMap.keySet()) {
-      Account record = oldMap.get(key);
-      if (record.RecordTypeId == RTAccount.businessAccount) {
-        orgRecords.put(key, record);
-        continue;
-      }
-      nonOrgRecords.put(key, record);
-    }
-    CCRMAccountActions.preventEditOcvId(updatedRecords, orgRecords);
-    return nonOrgRecords;
   }
 
   /**
@@ -159,12 +132,37 @@ public with sharing class IndividualAccountActions {
       'Unemployed'
     };
     List<Account> filteredRecords = ListUtil.filter(records, oldMap)
-      .equals(Account.RecordTypeId, RTAccount.personAccount)
       .changedTo(Account.Employment_Type__c, applicableEmpTypeSet)
       .toList();
     for (Account record : filteredRecords) {
       record.Employer_Name__c = null;
       record.Self_Employed__c = null;
     }
+  }
+
+  /**
+   * @description get set of updated customer's id's who specific fields got updated
+   * @name getUpdatedCustomersIds
+   * @param oldMap A Map of AccountId and Account.
+   * @param records list of updated Account records.
+   */
+  public static void getUpdatedCustomersIds(
+    Map<Id, Account> oldMap,
+    List<Account> records
+  ) {
+    if (System.isFuture() || System.isBatch()) {
+      return;
+    }
+    List<Account> listOfSobjects = ListUtil.filter(records, oldMap)
+      .anyChanged(CUSTOMER_FIELDS)
+      .toList();
+
+    Set<id> setOfAccountIds = ListUtil.getIds(listOfSobjects, Account.Id);
+    if (setOfAccountIds.isEmpty()) {
+      return;
+    }
+    CustomerRelationNotesTriggerActions.updateCustomerNameOnCustomerRelationship(
+      setOfAccountIds
+    );
   }
 }
