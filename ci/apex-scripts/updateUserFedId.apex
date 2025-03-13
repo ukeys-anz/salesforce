@@ -2,8 +2,7 @@ List<Id> usrLId = new List<Id>();
 
 List<user> usrs = [
   SELECT Id, FederationIdentifier
-  FROM User
-  WHERE FederationIdentifier LIKE '%@anz.com' AND IsActive = TRUE
+  FROM User WHERE IsActive = TRUE
   LIMIT 2000
 ];
 
