@@ -67,11 +67,8 @@ export default class FinancialAccount extends NavigationMixin(
 
   handleAccountDetails(accountDetails) {
     if (accountDetails) {
-      // Shallow copy the account array to avoid mutating the original array
       accountDetails = accountDetails.map((account) => {
         let finAccount = { ...account };
-
-        // Only show showMultipartyBadge when the ownership type is "Multi-party"
         if (
           finAccount.finserv_status !== "Closed" &&
           finAccount.finserv_ownership === "Multi-party"
@@ -81,10 +78,11 @@ export default class FinancialAccount extends NavigationMixin(
         }
         return finAccount;
       });
-      // Sorting the accounts after modification
       accountDetails = this.sortFinancialAccounts(accountDetails);
     }
-    return accountDetails;
+    return accountDetails.filter(
+      (account) => account.finserv_status !== "Closed"
+    );
   }
 
   sortFinancialAccounts(arrOfAccounts) {

@@ -168,7 +168,7 @@ public with sharing class FinancialAccountController {
     finAccount.finserv_product_name = finAccountFromDatabase
       ?.FinServ__ProductName__c;
     finAccount.finserv_product_display_name = finAccountFromDatabase
-      ?.Product_Name_Display__c;
+      ?.Product_Name_Display__c ?? finAccount.product_details?.name;
     finAccount.finserv_opendate = finAccount.open_date == null
       ? null
       : Date.valueOf(finAccount.open_date.value);
