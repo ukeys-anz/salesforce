@@ -10,7 +10,7 @@
       <p class="sub-title">{componentSubTitle}</p>
     </h1>
     <template lwc:if={displayContent}>
-      <template lwc:if={hasAccountDetails}>
+      <template lwc:if={processedFinAccounts.length}>
         <template for:each={processedFinAccounts} for:item="finAccount">
           <div class="dividerTop" key={finAccount.Id}></div>
           <div

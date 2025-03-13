@@ -30,10 +30,6 @@ export default class FinancialAccount extends NavigationMixin(
     return this.handleAccountDetails(this.accountDetails);
   }
 
-  get hasAccountDetails() {
-    return this.accountDetails && this.accountDetails.length > 0;
-  }
-
   get timestamp() {
     //Create timestamp for last updated
     //Use last modified date if the data is fetched from SF, otherwise,

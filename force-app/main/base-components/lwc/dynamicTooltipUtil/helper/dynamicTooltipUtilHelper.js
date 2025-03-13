@@ -50,7 +50,7 @@ const totalSavedFinancialPosition = `<span>
                     </p>
                     <br />
                     The amount shown is indicative of the amount a customer may be
-                    able to use in your {productName} account. This amount, when
+                    able to use in their {productName} accounts. This amount, when
                     shown at an ATM or on a receipt, may have a different
                     label such as 'Funds' or 'Balance'. Regardless, the amount
                     shown may not be what is actually available because:
