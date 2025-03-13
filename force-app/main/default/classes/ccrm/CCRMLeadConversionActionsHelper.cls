@@ -279,7 +279,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
         return [
           SELECT Id
           FROM USER
-          WHERE Username = :System.Label.CCRM_OCVIntegrationUsername
+          WHERE Username = :System.Label.OCVIntegrationUsername
         ];
       }
       return null;
@@ -333,7 +333,7 @@ public with sharing class CCRMLeadConversionActionsHelper {
       shellProspectToInsert.FinServ__Status__c = CCRMConstants.PROSPECT;
       shellProspectToInsert.RecordTypeId = recordTypeId;
       shellProspectToInsert.OCV_Event_Version__c = Integer.valueOf(
-        System.Label.DCRM_ShellProspectOCVEventVersion
+        System.Label.ShellProspectOCVEventVersion
       );
       shellProspectToInsert.External_Id__c =
         shellProspectInfoInstance.sourceSystemName +

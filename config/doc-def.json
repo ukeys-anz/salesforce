@@ -738,6 +738,18 @@
       "type": "system"
     },
     {
+      "name": "ServiceNow API User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Password_Never_Expires",
+        "Case_Read_Write_SNow_Integration"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Settlement Officer",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Settlement_Officer"],

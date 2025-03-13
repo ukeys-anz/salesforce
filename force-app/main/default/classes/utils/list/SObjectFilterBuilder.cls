@@ -294,21 +294,23 @@ public class SObjectFilterBuilder {
   }
 
   /**
-   * @description Filter records with specified field changed and is null.
+   * @description Filter records with any field changed to a given value or list/set of values
    * @param fields The set of fields to check for changes and is null.
+   * @param valueOrCollection The set of values to filter for. Can be any `primitive` type, `List`, or `Set`.
    * @return The updated SObjectFilterBuilder instance.
    */
-  public SObjectFilterBuilder anyChangedWithNewValueNull(
-    Set<SObjectField> fields
+  public SObjectFilterBuilder anyChangedTo(
+    Set<SObjectField> fields,
+    Object valueOrCollection
   ) {
     List<Object> output = base.handler.emptyList;
+    Set<Object> newValues = ListUtil.toSet(valueOrCollection);
     for (SObject record : this.toList()) {
       SObject oldRecord = this.oldMap.get(record.Id);
       for (SObjectField field : fields) {
-        if (
-          record.get(field) != oldRecord.get(field) &&
-          record.get(field) == null
-        ) {
+        Object value = record.get(field);
+        Boolean isChanged = oldRecord == null || value != oldRecord.get(field);
+        if (isChanged && newValues.contains(value)) {
           output.add(record);
           break;
         }

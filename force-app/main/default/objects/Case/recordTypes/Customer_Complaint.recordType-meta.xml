@@ -6599,6 +6599,21 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>IDR_Real_Form_Req__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y_EXI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y_NEW</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>

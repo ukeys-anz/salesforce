@@ -780,13 +780,11 @@ export default class CreateComplaintLWC extends NavigationMixin(
         this.isRealFormNeeded === null)
     ) {
       isFieldValid = false;
-      this.missingDataFields +=
-        /*inputCmp.label + ", "*/ " Is Real form required, ";
+      this.missingDataFields += " Is REaL form required, ";
     }
     if (this.isRealFormNeeded === "Yes" && !this.realFormRefNo) {
       isFieldValid = false;
-      this.missingDataFields +=
-        /*inputCmp.label + ", "*/ " REAL Form MAX ID/ServiceNow ID, ";
+      this.missingDataFields += "REaL Form / Event ID, ";
     }
     let isRadioGroupValid = [
       ...this.template.querySelectorAll("lightning-radio-group")
@@ -796,8 +794,7 @@ export default class CreateComplaintLWC extends NavigationMixin(
       if (getId[0].includes("realFormRequiredGroup")) {
         if (typeof inputCmp.value === "undefined") {
           isValidSoFar = false;
-          this.missingDataFields +=
-            /*inputCmp.label + ", "*/ " Is Real form required, ";
+          this.missingDataFields += " Is Real form required, ";
         }
       }
       return isValidSoFar;
