@@ -403,6 +403,19 @@ private class ListUtilTest {
       'Should return 1 group with 2 records'
     );
   }
+
+  @IsTest
+  static void testAddError() {
+    List<Case> cases = new List<Case>{ new Case(), new Case() };
+
+    Test.startTest();
+    ListUtil.addError(cases, 'Error Message');
+    Test.stopTest();
+
+    for (Case updatedCase : cases) {
+      Assert.isTrue(updatedCase.hasErrors(), 'Should add error message');
+    }
+  }
   //#endregion
 
   //#region `ListUtil.toSet`

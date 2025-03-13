@@ -26,6 +26,27 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
     ProfileUpdateCaseActions.setOwnerToIDOpsQueue(records);
+    ProfileUpdateCaseActions.setDocumentCountryCode(
+      records,
+      new Map<Id, Case>()
+    );
+    Logger.saveLog();
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Before_Update started: ' + System.now());
+    ProfileUpdateCaseActions.validateStagingProgress(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    ProfileUpdateCaseActions.setDocumentCountryCode(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     Logger.saveLog();
   }
 

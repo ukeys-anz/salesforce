@@ -412,4 +412,15 @@ public inherited sharing class ListUtil {
     }
     return records;
   }
+
+  /**
+   * @description Adds an error message to each SObject in the list.
+   * @param records The list of SObjects.
+   * @param message The error message to add.
+   */
+  public static void addError(List<SObject> records, String message) {
+    for (SObject record : records) {
+      record.addError(message);
+    }
+  }
 }
