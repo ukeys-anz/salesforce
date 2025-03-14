@@ -108,4 +108,118 @@ private class ProfileUpdateCaseActionsTest {
       'ProfileStagingHandler.process should have been called.'
     );
   }
+
+  @IsTest
+  static void testSetDocumentCountryCodeToAU() {
+    Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Map<Id, Case> oldMap = new Map<Id, Case>{
+      caseId => new Case(Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME)
+    };
+    List<Case> cases = new List<Case>{
+      new Case(
+        Id = caseId,
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        DocumentType__c = 'DOCUMENT_TYPE_AUSTRALIAN_BIRTH_CERTIFICATE'
+      )
+    };
+    Test.startTest();
+    ProfileUpdateCaseActions.setDocumentCountryCode(cases, oldMap);
+    Test.stopTest();
+    Assert.areEqual(
+      'AUS',
+      cases[0].CountryCode__c,
+      'Country code should be AUS when document type is updated to an Australian document type'
+    );
+  }
+
+  @IsTest
+  static void testSetDocumentCountryCodeToNonAU() {
+    Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Map<Id, Case> oldMap = new Map<Id, Case>{
+      caseId => new Case(
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        CountryCode__c = 'AUS',
+        DocumentType__c = 'DOCUMENT_TYPE_AUSTRALIAN_BIRTH_CERTIFICATE'
+      )
+    };
+    List<Case> cases = new List<Case>{
+      new Case(
+        Id = caseId,
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME
+      )
+    };
+    Test.startTest();
+    ProfileUpdateCaseActions.setDocumentCountryCode(cases, oldMap);
+    Test.stopTest();
+    Assert.isNull(
+      cases[0].CountryCode__c,
+      'Country code should be reset when document type is updated to a non-Australian document type'
+    );
+  }
+
+  @IsTest
+  static void testValidateStagingProgress() {
+    registerMocks();
+    Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Map<Id, Case> oldMap = new Map<Id, Case>{
+      caseId => new Case(
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        Fraud_Review_Outcome__c = ProfileUpdateCaseActions.PASS,
+        Status = 'Open'
+      )
+    };
+    List<Case> cases = new List<Case>{
+      new Case(
+        Id = caseId,
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        Fraud_Review_Outcome__c = ProfileUpdateCaseActions.PASS,
+        Status = 'Closed'
+      )
+    };
+    profileUpdateCaseRepoMock.mock(
+      'getPendingStagingRecordsByCaseIds',
+      new List<Customer_Profile_Updates__c>{
+        new Customer_Profile_Updates__c(Case__c = caseId)
+      }
+    );
+    Test.startTest();
+    ProfileUpdateCaseActions.validateStagingProgress(cases, oldMap);
+    Test.stopTest();
+    Assert.isTrue(
+      cases[0].hasErrors(),
+      'Case should be prevented from closing if there are pending staging records'
+    );
+  }
+
+  @IsTest
+  static void testValidateStagingProgressNoPending() {
+    registerMocks();
+    Id caseId = Lib_FakeIdGenerator.getMockId(Case.SObjectType);
+    Map<Id, Case> oldMap = new Map<Id, Case>{
+      caseId => new Case(
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        Fraud_Review_Outcome__c = 'PASS',
+        Status = 'Open'
+      )
+    };
+    List<Case> cases = new List<Case>{
+      new Case(
+        Id = caseId,
+        Type = ProfileUpdateCaseActions.CASE_TYPE_LEGAL_NAME,
+        Fraud_Review_Outcome__c = 'PASS',
+        Status = 'Closed'
+      )
+    };
+    profileUpdateCaseRepoMock.mock(
+      'getPendingStagingRecordsByCaseIds',
+      new List<Customer_Profile_Updates__c>()
+    );
+    Test.startTest();
+    ProfileUpdateCaseActions.validateStagingProgress(cases, oldMap);
+    Test.stopTest();
+    Assert.isFalse(
+      cases[0].hasErrors(),
+      'Case should be allowed to be closed if there are no pending staging records'
+    );
+  }
 }
