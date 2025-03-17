@@ -607,26 +607,6 @@
                 <label>Partial or incorrect information captured or provided</label>
             </value>
              <value>
-                <fullName>122</fullName>
-                <default>false</default>
-                <label>Customer does not want to move to ANZ Plus</label>
-            </value>
-            <value>
-                <fullName>123</fullName>
-                <default>false</default>
-                <label>Technical issue preventing move to ANZ Plus</label>
-            </value>
-            <value>
-                <fullName>124</fullName>
-                <default>false</default>
-                <label>Unclear / confusing customer communication</label>
-            </value>
-            <value>
-                <fullName>125</fullName>
-                <default>false</default>
-                <label>Issue with account set up at Migration</label>
-            </value>
-            <value>
                 <fullName>115</fullName>
                 <default>false</default>
                 <label>Default judgement obtained</label>
@@ -661,19 +641,67 @@
                 <default>false</default>
                 <label>Impacts to broader banking experience</label>
             </value>
+             <value>
+                <fullName>122</fullName>
+                <default>false</default>
+                <label>Customer does not want to move to ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>123</fullName>
+                <default>false</default>
+                <label>Technical issue preventing move to ANZ Plus</label>
+            </value>
+            <value>
+                <fullName>124</fullName>
+                <default>false</default>
+                <label>Unclear / confusing customer communication</label>
+            </value>
+            <value>
+                <fullName>125</fullName>
+                <default>false</default>
+                <label>Issue with account set up at Migration</label>
+            </value>
+            <value>
+                <fullName>126</fullName>
+                <default>false</default>
+                <label>Customer waiting for response or update</label>
+            </value>
+            <value>
+                <fullName>127</fullName>
+                <default>false</default>
+                <label>Dissatisfied with process/policy</label>
+            </value>
+            <value>
+                <fullName>128</fullName>
+                <default>false</default>
+                <label>Incorrect information provided to customer about process or timeframes</label>
+            </value>
+            <value>
+                <fullName>129</fullName>
+                <default>false</default>
+                <label>Outcome not in the customer&apos;s favour</label>
+            </value>
+            <value>
+                <fullName>130</fullName>
+                <default>false</default>
+                <label>Task not actioned by ANZ as agreed</label>
+            </value>
+            <value>
+                <fullName>131</fullName>
+                <default>false</default>
+                <label>Chargebacks - declined by ANZ</label>
+            </value>
+            <value>
+                <fullName>132</fullName>
+                <default>false</default>
+                <label>Chargebacks - delayed by ANZ</label>
+            </value>
+            <value>
+                <fullName>133</fullName>
+                <default>false</default>
+                <label>Unauthorised transaction</label>
+            </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>19</controllingFieldValue>
-            <valueName>42</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>19</controllingFieldValue>
-            <valueName>43</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>19</controllingFieldValue>
-            <valueName>81</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Fraud</controllingFieldValue>
             <controllingFieldValue>Scam</controllingFieldValue>
@@ -718,6 +746,30 @@
             <valueName>87</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Scam</controllingFieldValue>
+            <valueName>108</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>110</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>111</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>112</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>113</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Know Your Customer</controllingFieldValue>
+            <valueName>114</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>22</controllingFieldValue>
             <valueName>116</valueName>
         </valueSettings>
@@ -742,6 +794,82 @@
             <valueName>121</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>23</controllingFieldValue>
+            <valueName>122</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>23</controllingFieldValue>
+            <valueName>123</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>23</controllingFieldValue>
+            <valueName>124</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>23</controllingFieldValue>
+            <valueName>125</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>126</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>127</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>128</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>129</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>130</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>131</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>132</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>24</controllingFieldValue>
+            <valueName>133</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>38</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>39</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>40</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>5</controllingFieldValue>
+            <valueName>41</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>42</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>43</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>19</controllingFieldValue>
+            <valueName>81</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <controllingFieldValue>6</controllingFieldValue>
             <valueName>36</valueName>
@@ -753,10 +881,6 @@
         <valueSettings>
             <controllingFieldValue>21</controllingFieldValue>
             <valueName>94</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Scam</controllingFieldValue>
-            <valueName>108</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>10</controllingFieldValue>
@@ -787,24 +911,20 @@
             <valueName>47</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Know Your Customer</controllingFieldValue>
-            <valueName>110</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>82</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Know Your Customer</controllingFieldValue>
-            <valueName>111</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>83</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Know Your Customer</controllingFieldValue>
-            <valueName>112</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>85</valueName>
         </valueSettings>
         <valueSettings>
-            <controllingFieldValue>Know Your Customer</controllingFieldValue>
-            <valueName>113</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Know Your Customer</controllingFieldValue>
-            <valueName>114</valueName>
+            <controllingFieldValue>14</controllingFieldValue>
+            <valueName>84</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>20</controllingFieldValue>
@@ -1139,38 +1259,6 @@
             <controllingFieldValue>12</controllingFieldValue>
             <controllingFieldValue>11</controllingFieldValue>
             <valueName>10</valueName>
-        </valueSettings>
-         <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>122</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>123</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>124</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>23</controllingFieldValue>
-            <valueName>125</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>5</controllingFieldValue>
-            <valueName>38</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>5</controllingFieldValue>
-            <valueName>39</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>5</controllingFieldValue>
-            <valueName>40</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>5</controllingFieldValue>
-            <valueName>41</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
