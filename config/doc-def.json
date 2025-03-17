@@ -1248,6 +1248,21 @@
       "permissionsetgroups": [],
       "permissionsets": ["CFaaSFileCleanup", "Query_All_Files", "API_Only"],
       "type": "system"
+    },
+    {
+      "name": "Broker Enquiry GCP Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Mortgage",
+        "API_Only",
+        "Broker_Details_Integration",
+        "Case_View_All",
+        "Case_Read_Write_Broker_Enquiry",
+        "Disable_MFA",
+        "Enforce_mTLS"
+      ],
+      "type": "system"
     }
   ]
 }
