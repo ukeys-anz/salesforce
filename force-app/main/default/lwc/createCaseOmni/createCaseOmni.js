@@ -67,7 +67,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     } else if (
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId &&
-      this.omniJsonData.Case.ResolutionInformation.realFormRequired === "Y_EXI"
+      this.omniJsonData.Case.ResolutionInformation.realFormRequired === "Yes"
     ) {
       handleErrorShowToast(
         this,
@@ -122,8 +122,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     if (
       this.omniJsonData.Case.ResolutionInformation.ComplaintStatus ===
         "Closed" &&
-      this.omniJsonData.Case.ResolutionInformation.realFormRequired ===
-        "Y_EXI" &&
+      this.omniJsonData.Case.ResolutionInformation.realFormRequired === "Yes" &&
       (this.omniJsonData.Case.ResolutionInformation.realFormMAXId !==
         undefined ||
         this.omniJsonData.Case.ResolutionInformation.realFormMAXId !== null) &&

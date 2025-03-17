@@ -136,15 +136,6 @@ public with sharing class IDRCaseAssignmentRules {
       return rec.OwnerId;
     }
 
-    if (
-      oldCase != null &&
-      oldCase.Status == IDRConstants.PROVISIONALLY_CLOSED_STATUS &&
-      rec.Status == IDRConstants.ESCALATED_STATUS &&
-      rec.Origin == IDRConstants.CHANNEL_RECEIVED_AFCA_REFERRED
-    ) {
-      return rec.OwnerId;
-    }
-
     Product2 oProduct = QueryProducts.getById(rec.Product__c);
     String productCode = oProduct?.ANZ_Product_Code__c;
 

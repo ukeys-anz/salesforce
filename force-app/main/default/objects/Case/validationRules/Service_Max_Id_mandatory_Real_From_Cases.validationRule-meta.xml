@@ -12,10 +12,10 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 AND(
 NOT( ISNEW() ),
 AND(
-ISPICKVAL(IDR_Real_Form_Req__c,&apos;Y_EXI&apos;),
+ISPICKVAL(IDR_Real_Form_Req__c,'Yes'),
 ISBLANK( IDR_Real_Form_Ref_No__c )
 )
 )
 )</errorConditionFormula>
-    <errorMessage>&apos;REaL Form / Event ID&apos; must be completed when &apos;Is a REaL form required?&apos; is Yes, I have already recorded a REaL Form.</errorMessage>
+    <errorMessage>REAL Form MAX ID/Service ID&apos; must be completed when &apos;Is a REAL form required?&apos; is ticked Yes.</errorMessage>
 </ValidationRule>

@@ -16,7 +16,6 @@ public with sharing class SandboxSetupRepository {
         Email LIKE '%anz.com'
         AND (NOT Name LIKE '%system%')
         AND IsActive = TRUE
-        AND UserRole.Name = 'Engineer'
       WITH SECURITY_ENFORCED
       LIMIT 1
     ];

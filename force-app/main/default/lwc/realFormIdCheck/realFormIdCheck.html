@@ -10,36 +10,21 @@
       >
       </label>
     </div>
-    <template lwc:if={_showCreate}>
-      <div class="slds-col slds-p-top_x-small">
-        <lightning-button
-          class="slds-p-left_xx-small"
-          id="create-button-id"
-          variant="brand"
-          label="Create REaL Form"
-          title="Create REaL Form"
-          onclick={redirectToForm}
-        >
-        </lightning-button>
-      </div>
-    </template>
-    <template lwc:else>
-      <div class="slds-col slds-p-top_x-small">
-        <lightning-icon
-          icon-name={iconName}
-          size="xx-small"
-          if:true={apiRun}
-        ></lightning-icon>
-        <lightning-button
-          class="slds-p-left_xx-small"
-          id="unique-button-id"
-          variant="brand"
-          label="Validate REaL Form ID"
-          title="Validate REaL Form ID"
-          onclick={startValidation}
-        >
-        </lightning-button>
-      </div>
-    </template>
+    <div class="slds-col slds-p-top_x-small">
+      <lightning-icon
+        icon-name={iconName}
+        size="xx-small"
+        if:true={apiRun}
+      ></lightning-icon>
+      <lightning-button
+        class="slds-p-left_xx-small"
+        id="unique-button-id"
+        variant="brand"
+        label="Validate Event ID"
+        title="Validate Event ID"
+        onclick={startValidation}
+      >
+      </lightning-button>
+    </div>
   </div>
 </template>

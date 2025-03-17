@@ -972,7 +972,7 @@ public with sharing class IDRCaseActions {
    * @param newCaseIDRCommon  is Actual Systemic Issue field value
    * @return Datetime value to populate on record
    */
-  @TestVisible
+
   private static DateTime populatePSITicked(String newCaseIDRCommon) {
     if (newCaseIDRCommon == IDRConstants.SYSTEMIC_ISSUE_YES) {
       return Datetime.now();

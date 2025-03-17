@@ -452,12 +452,12 @@
               required
               aria-required="true"
               name="realFormRequiredGroup"
-              label="Is a REaL form required?"
+              label="Is a REAL form required?"
               onchange={handleRealFormNeeded}
               options={realFormReqOptions}
               value={realFormRequiredValue}
               data-id="realFormRequiredGroup-id"
-              field-level-help="A REaL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REaL Form. To locate and complete the REaL form, access MAX and search 'REaL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REaL'."
+              field-level-help="A REAL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search 'REAL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
             ></lightning-combobox>
           </template>
           <template lwc:else>
@@ -465,7 +465,7 @@
               required
               aria-required="true"
               name="realFormRequiredGroup"
-              label="Is a REaL form required?"
+              label="Is a REAL form required?"
               onchange={handleRealFormNeeded}
               options={realFormReqOptions}
               value={realFormRequiredValue}
@@ -473,7 +473,7 @@
               data-id="realFormRequiredGroup-id"
             ></lightning-radio-group>
             <lightning-helptext
-              content="A REaL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REaL Form. To locate and complete the REaL form, access MAX and search 'REaL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REaL'."
+              content="A REAL form must be completed in the event: a failure of internal process, people(e.g. Human error) and/or systems causing a compliance, financial or reputational impact to ANZ or our customers. Ticking this box does not automatically generate a REAL Form. To locate and complete the REAL form, access MAX and search 'REAL Form' or on the MAX homepage go to the Quick Links section 'Operational Risk Events - REAL'."
             >
             </lightning-helptext>
           </template>
@@ -485,13 +485,13 @@
           <div class={elementStyle}>
             <lightning-input
               type="text"
-              label="REaL Form / Event ID"
+              label="REAL Form MAX ID/ServiceNow ID"
               value={realFormRefNo}
               required={isRealFormNeededBooleanValue}
               max-length="50"
               onchange={handleRealFormRefNoChange}
               data-id="realFormRefNoGroup-id"
-              field-level-help="Once a REaL form has been submitted via MAX, an auto-generated REaL form 'MAX ID/ServiceNow ID' will be displayed. Record this 'MAX ID/ServiceNow ID' into this field."
+              field-level-help="Once a REAL form has been submitted via MAX, an auto-generated REAL form 'MAX ID/ServiceNow ID' will be displayed. Record this 'MAX ID/ServiceNow ID' into this field."
             ></lightning-input>
           </div>
         </template>

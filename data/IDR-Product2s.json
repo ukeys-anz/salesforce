@@ -117,7 +117,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref9"
       },
-      "Name": "AGRI Finance Loan (No Longer sold)",
+      "Name": "AGRI Finance Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "9",
       "IDR_Product_or_Service_Line__c": "1",
@@ -159,7 +159,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref12"
       },
-      "Name": "ANZ Business Mortgage Loan (BML) (No Longer sold)",
+      "Name": "ANZ Business Mortgage Loan (BML)",
       "IsActive": true,
       "ANZ_Product_Code__c": "12",
       "IDR_Product_or_Service_Line__c": "1",
@@ -173,7 +173,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref13"
       },
-      "Name": "ANZ Business Saver Loan (No Longer sold)",
+      "Name": "ANZ Business Saver Loan",
       "IsActive": true,
       "ANZ_Product_Code__c": "13",
       "IDR_Product_or_Service_Line__c": "1",
@@ -327,7 +327,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref24"
       },
-      "Name": "Novated Lease (No Longer sold)",
+      "Name": "Novated Lease",
       "IsActive": true,
       "ANZ_Product_Code__c": "24",
       "IDR_Product_or_Service_Line__c": "1",
@@ -369,7 +369,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref27"
       },
-      "Name": "ANZ Revolving AGRI Line overdraft (No Longer sold)",
+      "Name": "ANZ Revolving AGRI Line overdraft",
       "IsActive": true,
       "ANZ_Product_Code__c": "27",
       "IDR_Product_or_Service_Line__c": "1",
@@ -383,7 +383,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref28"
       },
-      "Name": "Business Credit Facility (No Longer sold)",
+      "Name": "Business Credit Facility (Commercial Overdraft)",
       "IsActive": true,
       "ANZ_Product_Code__c": "28",
       "IDR_Product_or_Service_Line__c": "1",
@@ -397,7 +397,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref29"
       },
-      "Name": "Business Advantage Overdraft (No Longer sold)",
+      "Name": "Business Advantage Overdraft",
       "IsActive": true,
       "ANZ_Product_Code__c": "29",
       "IDR_Product_or_Service_Line__c": "1",
@@ -523,7 +523,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref38"
       },
-      "Name": "ANZ Rewards Travel Adventures Credit Card (No Longer sold)",
+      "Name": "ANZ Rewards Travel Adventures Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "38",
       "IDR_Product_or_Service_Line__c": "1",
@@ -551,7 +551,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref40"
       },
-      "Name": "ANZ Rewards (No Longer sold)",
+      "Name": "ANZ Rewards Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "40",
       "IDR_Product_or_Service_Line__c": "1",
@@ -565,7 +565,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref41"
       },
-      "Name": "ANZ Frequent Flyer (No Longer sold)",
+      "Name": "ANZ Frequent Flyer Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "41",
       "IDR_Product_or_Service_Line__c": "1",
@@ -985,7 +985,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref71"
       },
-      "Name": "ANZ Everyday Visa Debit (No Longer sold)",
+      "Name": "ANZ Everyday Visa Debit",
       "IsActive": true,
       "ANZ_Product_Code__c": "71",
       "IDR_Product_or_Service_Line__c": "2",
@@ -1811,7 +1811,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref130"
       },
-      "Name": "ANZ Low Rate Platinum Credit Card (No Longer sold)",
+      "Name": "ANZ Low Rate Platinum Credit Card",
       "IsActive": true,
       "ANZ_Product_Code__c": "132",
       "IDR_Product_or_Service_Line__c": "1",
@@ -2427,7 +2427,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref175"
       },
-      "Name": "Business Select Package (No Longer sold)",
+      "Name": "Business Select Package",
       "IsActive": true,
       "ANZ_Product_Code__c": "181",
       "IDR_Product_or_Service_Line__c": "1",
@@ -2609,7 +2609,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref188"
       },
-      "Name": "ANZ Frequent Flyer Visa Gold (No Longer sold)",
+      "Name": "ANZ Frequent Flyer Visa Gold",
       "IsActive": true,
       "ANZ_Product_Code__c": "194",
       "IDR_Product_or_Service_Line__c": "1",
@@ -2637,7 +2637,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref190"
       },
-      "Name": "ANZ Rewards Visa Gold (No Longer sold)",
+      "Name": "ANZ Rewards Visa Gold",
       "IsActive": true,
       "ANZ_Product_Code__c": "196",
       "IDR_Product_or_Service_Line__c": "1",
@@ -2651,7 +2651,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref191"
       },
-      "Name": "Aussie Mastercard (No Longer sold)",
+      "Name": "Aussie Mastercard",
       "IsActive": true,
       "ANZ_Product_Code__c": "197",
       "IDR_Product_or_Service_Line__c": "1",
@@ -2665,7 +2665,7 @@
         "type": "Product2",
         "referenceId": "Product2Ref192"
       },
-      "Name": "ANZ Balance Visa (No Longer sold)",
+      "Name": "ANZ Balance Visa",
       "IsActive": true,
       "ANZ_Product_Code__c": "198",
       "IDR_Product_or_Service_Line__c": "1",

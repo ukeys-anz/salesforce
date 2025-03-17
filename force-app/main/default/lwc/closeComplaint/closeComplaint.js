@@ -453,12 +453,12 @@ export default class closeComplaint extends NavigationMixin(LightningElement) {
       this.isRealFormNeeded === null
     ) {
       validToSave = false;
-      this.errMsg += " Is REaL form required, ";
+      this.errMsg += " Is Real form required, ";
     }
 
     if (this.isRealFormNeeded === "Yes" && !this.realFormRefNo) {
       validToSave = false;
-      this.errMsg += "REaL Form / Event ID, ";
+      this.errMsg += " REAL Form MAX ID/ServiceNow ID, ";
     }
 
     if (

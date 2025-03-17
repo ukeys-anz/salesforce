@@ -1,13 +1,10 @@
 import { LightningElement, api } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
-import { NavigationMixin } from "lightning/navigation";
 import getSNOWEventInfoLWC from "@salesforce/apex/IDRAPIRepository.getSNOWEventInfoLWC";
 import { handleErrorShowToast, showToast } from "c/utils";
 import { CloseActionScreenEvent } from "lightning/actions";
-import SNOW_URL from "@salesforce/label/c.IDR_ServiceNow_env_url";
-
 export default class RealFormIdCheck extends OmniscriptBaseMixin(
-  NavigationMixin(LightningElement)
+  LightningElement
 ) {
   loading = false;
   iconName;
@@ -19,11 +16,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
   realFormId;
   callFromOmni = false;
   realFormRequired;
-  _showCreate = false;
-  showValidate = false;
-  _selectedOption;
-  snowUrlJson = JSON.parse(SNOW_URL);
-
   showError() {
     handleErrorShowToast(
       this,
@@ -32,15 +24,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       "Please enter a valid Risk Event ID to continue."
     );
   }
-
-  @api set selectedOption(value) {
-    this._showCreate = value === "Y_NEW" ? true : false;
-    this._selectedOption = value;
-  }
-  get selectedOption() {
-    return this._selectedOption;
-  }
-
   closeAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
   }
@@ -59,7 +42,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       if (
         this.omniJsonData.Case.ResolutionInformation &&
         this.omniJsonData.Case.ResolutionInformation.realFormRequired ===
-          "Y_EXI" &&
+          "Yes" &&
         !(
           this.omniJsonData.Case.ResolutionInformation.realFormMAXId === null ||
           this.omniJsonData.Case.ResolutionInformation.realFormMAXId ===
@@ -84,7 +67,7 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       }
     } else if (
       this.omniJsonData.EditRealFormID &&
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
       !(
         this.omniJsonData.EditRealFormID.RealFormID === null ||
         this.omniJsonData.EditRealFormID.RealFormID === undefined
@@ -139,28 +122,6 @@ export default class RealFormIdCheck extends OmniscriptBaseMixin(
       this.omniApplyCallResp(data);
     } else {
       this.closeAction();
-    }
-  }
-
-  redirectToForm() {
-    let domainName = window.location.host.split(".")[0];
-    let snowInstanceUrl = this.snowUrlJson[domainName] ?? "";
-    if (!snowInstanceUrl) {
-      handleErrorShowToast(
-        this,
-        "Unable to fetch a valid url",
-        undefined,
-        "Please contact your system administrator to set the required redirection url."
-      );
-    } else {
-      let redirectionUrl = snowInstanceUrl + this.omniJsonData.recordId;
-
-      this[NavigationMixin.Navigate]({
-        type: "standard__webPage",
-        attributes: {
-          url: redirectionUrl
-        }
-      });
     }
   }
   callAPI(riskEventId) {

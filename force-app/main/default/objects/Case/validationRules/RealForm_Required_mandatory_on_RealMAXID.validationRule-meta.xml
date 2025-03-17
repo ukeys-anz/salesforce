@@ -2,7 +2,7 @@
 <ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>RealForm_Required_mandatory_on_RealMAXID</fullName>
     <active>true</active>
-    <description>Mandating &apos;Is Real Form Required?&apos; when REaL Form / Event ID is entered.</description>
+    <description>Mandating &apos;Is Real Form Required?&apos; when REAL Form Max ID/Service ID is entered.</description>
     <errorConditionFormula>AND(
 $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
 OR(
@@ -20,5 +20,5 @@ ISBLANK(TEXT(IDR_Real_Form_Req__c))
 )
 )
 )</errorConditionFormula>
-    <errorMessage>You must tick &apos;Is a REaL form required?&apos; when entering a REaL Form / Event ID.</errorMessage>
+    <errorMessage>You must tick &apos;Is a REAL form required?&apos; when entering a REAL Form MAX ID/Service ID.</errorMessage>
 </ValidationRule>

@@ -44,7 +44,7 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       return;
     }
     if (
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.EditRealFormID.RealFormID
     ) {
@@ -63,9 +63,9 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
     ) {
       handleErrorShowToast(
         this,
-        "Is a REaL Form Required - Mandatory",
+        "Is a REAL Form Required - Mandatory",
         undefined,
-        "Please select a value for this field - Is a REaL Form Required"
+        "Please select a value for this field - Is a REAL Form Required"
       );
       this.loading = false;
       return;
@@ -101,7 +101,7 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
 
   validateRealFormID() {
     if (
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
       (this.omniJsonData.EditRealFormID.RealFormID !== undefined ||
         this.omniJsonData.EditRealFormID.RealFormID !== null) &&
       this.omniJsonData.EditRealFormID.RealFormID !==
