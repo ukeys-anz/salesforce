@@ -12,5 +12,6 @@ trigger CaseTrigger on Case(
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
   AccountClosureCaseTriggerHandler accountClosureHandler = new AccountClosureCaseTriggerHandler();
   CaseGroupTriggerHandler caseGroupHandler = new CaseGroupTriggerHandler();
+  ConfirmationOfPayeeCaseTriggerHandler copHandler = new ConfirmationOfPayeeCaseTriggerHandler();
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
 }

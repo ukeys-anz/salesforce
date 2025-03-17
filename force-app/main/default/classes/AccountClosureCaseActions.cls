@@ -12,50 +12,6 @@ public with sharing class AccountClosureCaseActions {
     DmlRepository.class
   );
 
-  public static Group accountClosureQueue = QueryQueue.get(
-    'Account_Closure_Queue'
-  );
-
-  public static final String DUPLICATE_CASEGROUP_ERROR = 'Error occurred while creating CaseGroup Case. A CaseGroup Case already exists for this customer. Case number: ';
-
-  public static final String CASEGROUP_CLOSURE_ERROR_MESSAGE = 'Cannot close this Case as all related cases are not in closed status. Please ensure all related cases are closed.';
-
-  /**
-   * @description This Method fetch all the child case records records linked to the case group(Parent case)
-   * then set the field value of the child cases same as parent case
-   * @param parentCases holds all the case group(Parent case) records whose owner is changed.
-   */
-  public static void cascadeParentFieldChangesToChildCases(
-    List<Case> parentCases
-  ) {
-    Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(parentCases);
-
-    List<Case> childCaseRecords = ACCOUNT_CLOSURE_REPOSITORY.queryRelatedChildCasesPerParent(
-      parentIdAndCaseDetailsMap.keySet()
-    );
-
-    for (Case childCase : childCaseRecords) {
-      Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
-      childCase.OwnerId = parentCase.OwnerId;
-      if (childCase.Status != GetHelpConstants.CLOSED_STATUS) {
-        childCase.Status = parentCase.Status;
-      }
-      childCase.Circumstance__c = parentCase.Circumstance__c;
-    }
-
-    DML_REPOSITORY.doUpdate(childCaseRecords);
-  }
-
-  /**
-   * @description Change Owner as Account Closure Queue for escalated cases
-   * @param escalatedCases List of Cases with record type as Case Group.
-   */
-  public static void assignEscalatedCasesToQueue(List<Case> escalatedCases) {
-    for (Case escalatedCase : escalatedCases) {
-      escalatedCase.OwnerId = accountClosureQueue.Id;
-    }
-  }
-
   /**
    * @description Populate the case Subject
    * @param cases List of Cases.
@@ -74,69 +30,6 @@ public with sharing class AccountClosureCaseActions {
         ' - ' +
         accountIdToAccountInfoMap.get(caserecord.AccountId).Name;
     }
-  }
-
-  /**
-   * @description Prevent Duplicate Case Group Against a Customer (Account)
-   * @param parentCases List of Cases
-   */
-  public static void validateDuplicateParentCasePerAccount(
-    List<Case> parentCases
-  ) {
-    Map<Id, Case> accountIdAndCaseMap = (Map<Id, Case>) ListUtil.mapBy(
-      parentCases,
-      Case.AccountId
-    );
-
-    for (
-      Case existingCaseGroupRecord : ACCOUNT_CLOSURE_REPOSITORY.queryExistingParentCases(
-        accountIdAndCaseMap.keySet()
-      )
-    ) {
-      Case caseRecord = accountIdAndCaseMap.get(
-        existingCaseGroupRecord.AccountId
-      );
-      CommonUtil.addInfoToRecordAndLog(
-        caseRecord,
-        DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber
-      );
-    }
-  }
-
-  /**
-   * @description Validate case group closure . Change status to closed when all related cases are in closed status.
-   * @param parentCases List of Cases.
-   */
-  public static void validateParentClosureIfChildCasesOpen(
-    List<Case> parentCases
-  ) {
-    Set<Id> caseIds = ListUtil.getIds(parentCases, Case.Id);
-
-    Set<Id> parentCaseIdsWithOpenChildCases = fetchParentCaseIdOfOpenChildCases(
-      caseIds
-    );
-
-    for (Case caseGroupRecord : parentCases) {
-      if (parentCaseIdsWithOpenChildCases.contains(caseGroupRecord.Id)) {
-        CommonUtil.addInfoToRecordAndLog(
-          caseGroupRecord,
-          CASEGROUP_CLOSURE_ERROR_MESSAGE
-        );
-      }
-    }
-  }
-
-  @TestVisible
-  private static Set<Id> fetchParentCaseIdOfOpenChildCases(Set<Id> caseIds) {
-    Set<Id> parentCaseIdsWithOpenChildCases = new Set<Id>();
-    for (
-      Case childCaseRecord : ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedChildCases(
-        caseIds
-      )
-    ) {
-      parentCaseIdsWithOpenChildCases.add(childCaseRecord.ParentId);
-    }
-    return parentCaseIdsWithOpenChildCases;
   }
 
   /**
