@@ -70,14 +70,10 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       this.loading = false;
       return;
     }
-    let drToUpdateCase =
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_NEW"
-        ? "DRCaseRealFormRequiredUpdate"
-        : "DRCaseRealFormIdUpdate2";
     let request_data = {
       type: "DataRaptor",
       value: {
-        bundleName: drToUpdateCase,
+        bundleName: "DRCaseRealFormIdUpdate2",
         inputMap: "{}",
         optionsMap: "{}"
       }
