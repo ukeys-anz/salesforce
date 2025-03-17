@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>Query All Files For Odaseva User to Backup Salesforce File for CMOS (PDR037)</description>
     <hasActivationRequired>false</hasActivationRequired>
     <label>Query All Files</label>
