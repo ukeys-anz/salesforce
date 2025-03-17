@@ -471,4 +471,9 @@
         <default>false</default>
         <label>Legal Name QA</label>
     </standardValue>
+	<standardValue>
+        <fullName>24</fullName>
+        <default>false</default>
+        <label>Card Scheme Disputes</label>
+    </standardValue>
 </StandardValueSet>

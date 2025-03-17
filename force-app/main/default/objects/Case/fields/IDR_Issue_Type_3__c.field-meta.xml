@@ -137,14 +137,19 @@
                 <label>Know Your Customer</label>
             </value>
             <value>
+                <fullName>22</fullName>
+                <default>false</default>
+                <label>Simplification/Decommissioning</label>
+            </value>
+            <value>
                 <fullName>23</fullName>
                 <default>false</default>
                 <label>Customer Migration</label>
             </value>
             <value>
-                <fullName>22</fullName>
+                <fullName>24</fullName>
                 <default>false</default>
-                <label>Simplification/Decommissioning</label>
+                <label>Card Scheme Disputes</label>
             </value>
         </valueSetDefinition>
     </valueSet>
