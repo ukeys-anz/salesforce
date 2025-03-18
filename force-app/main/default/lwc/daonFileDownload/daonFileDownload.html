@@ -23,8 +23,22 @@
           lwc:if={file.fileType}
           class="file-card slds-card slds-card_boundary"
         >
-          <div class="slds-card__header slds-grid" lwc:if={file.title}>
-            <h2 class="slds-card__header-title">{file.title}</h2>
+          <div
+            class="slds-card__header slds-grid slds-grid_vertical-align-center"
+            lwc:if={file.title}
+          >
+            <div class="slds-media__body">
+              <h2 class="slds-card__header-title">{file.title}</h2>
+            </div>
+            <div class="slds-no-flex" lwc:if={file.url}>
+              <lightning-button-icon
+                icon-name="utility:zoomin"
+                onclick={handler.openImage}
+                size="small"
+                data-url={file.url}
+                data-label={file.title}
+              ></lightning-button-icon>
+            </div>
           </div>
           <div class="slds-card__body slds-p-horizontal_small">
             <c-daon-file-image

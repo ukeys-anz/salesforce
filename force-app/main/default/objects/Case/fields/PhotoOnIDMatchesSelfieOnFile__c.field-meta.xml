@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates Photo ID provided as part of the Passport / Driver&apos;s Licence matches the Selfie of the customer</description>
+    <inlineHelpText>The customer&apos;s photo on identity document must match the selfie we have on file for the customer. Please refer to the procedural guide for acceptable exceptions or allowable variations in the customer&apos;s name.</inlineHelpText>
     <label>Photo on ID matches Selfie on File</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

@@ -22,13 +22,19 @@ public with sharing class AccountClosureWizardControllerTest {
   private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
     Account.getSObjectType()
   );
+  private static final Id FAKER_FIN_ACC_ID = Lib_FakeIdGenerator.getMockId(
+    FinServ__FinancialAccount__c.getSObjectType()
+  );
+
   static Lib_MockProvider accountClosureRepoMock;
+  static Lib_MockProvider finAccRepoMock;
   static Lib_MockProvider dmlRepoMock;
 
   static void registerMocks() {
     accountClosureRepoMock = Lib_MockProvider.forType(
       AccountClosureRepository.class
     );
+    finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
   }
 
@@ -86,18 +92,33 @@ public with sharing class AccountClosureWizardControllerTest {
       'Expected an empty result list for empty CaseInputWrapper'
     );
   }
-
   @isTest
-  static void testGetFilteredFinancialAccountsWithEmptyData() {
+  public static void testGetFilteredFinancialAccountsPositive() {
     System.runAs(thisUser) {
-      String ocvId = '12345';
-      Test.startTest();
-      // Call the method under test
-      List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-        ocvId
+      registerMocks();
+      finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
+
+      accountClosureRepoMock.mock(
+        'getCasesByFinancialAccountIds',
+        new List<Case>()
       );
-      System.assert(response.isEmpty(), 'No financial accounts returned');
+
+      accountClosureRepoMock.mock(
+        'fetchFilteredFinancialAccountsDetails',
+        mockFinancialAccounts()
+      );
+
+      Test.startTest();
+      List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
+        '12345'
+      );
       Test.stopTest();
+
+      Assert.areEqual(
+        response[0].Id,
+        FAKER_FIN_ACC_ID,
+        'Financial account id should be same'
+      );
     }
   }
 
@@ -135,7 +156,7 @@ public with sharing class AccountClosureWizardControllerTest {
     List<FinServ__FinancialAccount__c> accounts = new List<FinServ__FinancialAccount__c>();
     accounts.add(
       new FinServ__FinancialAccount__c(
-        Id = 'a0FAD000002THXN2A4',
+        Id = FAKER_FIN_ACC_ID,
         FinServ__FinancialAccountNumber__c = '111111111',
         FinServ__Balance__c = 1.99,
         FinServ__CurrentPostedBalance__c = 1.99,

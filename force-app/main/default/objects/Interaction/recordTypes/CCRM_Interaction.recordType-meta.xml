@@ -55,7 +55,27 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Compliance</fullName>
+            <fullName>COI Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COI Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>COI Relationship Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Existing Relationship Building</fullName>
             <default>false</default>
         </values>
         <values>
@@ -63,11 +83,27 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Needs Conversation</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Relationship building</fullName>
+            <fullName>New Proactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Reactive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>New Relationship Building</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Service %26 Maintenance</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -100,19 +136,75 @@
     <picklistValues>
         <picklist>InteractionType</picklist>
         <values>
-            <fullName>Call</fullName>
-            <default>true</default>
-        </values>
-        <values>
-            <fullName>Email</fullName>
+            <fullName>A-Z Review</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Face to Face</fullName>
+            <fullName>Annual Review</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
+            <fullName>Appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call-Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Call-Outbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Calling Day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Client Entertainment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Credit Risk Review</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diary Note</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email-Inbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email-Outbound</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Face-to-Face</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Field Day</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Indicative Term Sheet issued</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Online Enquiry</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Seminar</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tender issued</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>To Do</fullName>
             <default>false</default>
         </values>
     </picklistValues>

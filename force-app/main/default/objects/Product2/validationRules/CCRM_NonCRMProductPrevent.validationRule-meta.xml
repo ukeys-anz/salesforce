@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>CCRM_NonCRMProductPrevent</fullName>
+    <active>true</active>
+    <description>Restrict CRM Business Admin user to modify other record type</description>
+    <errorConditionFormula>AND(
+RecordType.DeveloperName != &apos;CRM_ANZ_Product&apos;,
+$UserRole.DeveloperName = &apos;Commercial_Admin&apos;
+)</errorConditionFormula>
+    <errorMessage>Business Admin is allowed to update only CRM Products</errorMessage>
+</ValidationRule>

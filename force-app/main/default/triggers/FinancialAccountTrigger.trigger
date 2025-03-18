@@ -4,6 +4,6 @@ trigger FinancialAccountTrigger on FinServ__FinancialAccount__c(
   after insert,
   after update
 ) {
-  new FinancialAccountTriggerHandler();
-  new RetailBrokerFinAccountTriggerHandler();
+  FinancialAccountTriggerHandler financialAccountTriggerHandler = new FinancialAccountTriggerHandler();
+  RetailBrokerFinAccountTriggerHandler retailBrokerFinAccountTriggerHandler = new RetailBrokerFinAccountTriggerHandler();
 }

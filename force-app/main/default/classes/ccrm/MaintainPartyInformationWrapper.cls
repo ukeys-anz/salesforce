@@ -26,6 +26,12 @@ public with sharing class MaintainPartyInformationWrapper {
     public String clgId;
     @AuraEnabled
     public String address;
+
+    //Added as Part of OCV repointing Story
+    @AuraEnabled
+    public string suburb;
+    @AuraEnabled
+    public string postCode;
   }
 
   /**
