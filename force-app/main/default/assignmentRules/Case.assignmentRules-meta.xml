@@ -201,6 +201,16 @@
                     ISPICKVAL(Origin, &quot;ANZ Plus App&quot;) 
                 )
             </formula>
+        </ruleEntry>        
+        <ruleEntry>
+            <formula>
+                AND(
+                    NOT( ISNEW() ),
+                    OR(RecordType.DeveloperName = &quot;Customer_Complaint&quot;,RecordType.DeveloperName = &quot;Non_Customer_Complaint&quot;),
+                    PRIORVALUE( IDR_Real_Form_Ref_No__c ) &lt;&gt; IDR_Real_Form_Ref_No__c,
+                    $Profile.Name = &quot;Minimum Access - External Apps&quot;
+                )
+            </formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

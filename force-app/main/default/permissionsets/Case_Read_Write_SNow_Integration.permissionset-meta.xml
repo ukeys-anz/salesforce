@@ -24,5 +24,9 @@
     <recordTypeVisibilities>
         <recordType>Case.Non_Customer_Complaint</recordType>
         <visible>true</visible>
-    </recordTypeVisibilities>
+    </recordTypeVisibilities>  
+    <userPermissions>
+        <name>ViewAllUsers</name>
+        <enabled>true</enabled>
+    </userPermissions>
 </PermissionSet>
