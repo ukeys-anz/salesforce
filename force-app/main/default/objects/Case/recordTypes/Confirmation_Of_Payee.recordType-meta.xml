@@ -2,7 +2,8 @@
 <RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Confirmation_Of_Payee</fullName>
     <active>true</active>
-    <businessProcess>ANZx Account Closure</businessProcess>
+    <businessProcess>ANZx Confirmation Of Payee</businessProcess>
+    <compactLayoutAssignment>Account_Closure_Compact_Layout</compactLayoutAssignment>
     <description>Specific to Confirmation Of Payee Cases</description>
     <label>Confirmation Of Payee</label>
     <picklistValues>

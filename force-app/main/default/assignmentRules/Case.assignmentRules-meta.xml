@@ -203,7 +203,7 @@
             </formula>
         </ruleEntry>
         <ruleEntry>
-            <formula>AND(NOT(ISNEW()), OR(RecordType.DeveloperName = &quot;Account_Closure&quot;,AND(RecordType.DeveloperName = &quot;Case_Group&quot;, ISPICKVAL(Type, &quot;Account Closure&quot;))))</formula>
+            <formula>AND(NOT(ISNEW()), OR(RecordType.DeveloperName = &quot;Account_Closure&quot;,RecordType.DeveloperName = &quot;Confirmation_Of_Payee&quot;,AND(RecordType.DeveloperName = &quot;Case_Group&quot;, OR(ISPICKVAL(Type, &quot;Account Closure&quot;),ISPICKVAL(Type, &quot;Confirmation of Payee Opt-In&quot;),ISPICKVAL(Type, &quot;Confirmation of Payee Opt-Out&quot;)))))</formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
