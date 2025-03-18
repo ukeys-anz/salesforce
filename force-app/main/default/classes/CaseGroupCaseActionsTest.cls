@@ -146,16 +146,13 @@ public with sharing class CaseGroupCaseActionsTest {
     List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
 
     Test.startTest();
-    CaseGroupCaseActions.populateParentCaseSubject(
-      currentParentRecord,
-      'Case Group'
-    );
+    CaseGroupCaseActions.populateParentCaseSubject(currentParentRecord);
     Test.stopTest();
 
     Assert.isTrue(
       currentParentRecord[0].Subject ==
-      'Case Group - Account Closure - Sample Name',
-      'Subject of the case is updated to Case Group - Account Closure - Sample Name'
+      'Account Closure Case Group - Sample Name',
+      'Subject of the case is updated to Account Closure Case Group - Sample Name'
     );
   }
 

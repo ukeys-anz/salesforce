@@ -52,7 +52,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
 
     Assert.isTrue(
       caseRecordsUpdated[0].Show_Account_Closure__c == true,
-      'Show Account Closure flag should be true as the child case has sub status as Success'
+      'Show Account Closure flag should be true as their are no child cases with Closed status'
     );
   }
 
@@ -83,24 +83,37 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
   @isTest
   private static void testPopulateChildCaseSubjectPositive() {
     registerMocks();
-    accountClosureRepoMock.mock(
-      'queryFinancialAccountNumber',
-      mockFinancialAccounts()
-    );
     List<Case> childCaseRecord = mockQueryChildCaseRecords(
       FAKER_PARENT_CASE_ID
     );
 
     Test.startTest();
-    ConfirmationOfPayeeCaseActions.populateChildCaseSubject(
-      childCaseRecord,
-      'Confirmation Of Payee'
-    );
+    ConfirmationOfPayeeCaseActions.populateChildCaseSubject(childCaseRecord);
     Test.stopTest();
 
     Assert.isTrue(
-      childCaseRecord[0].Subject == 'Confirmation Of Payee - 111111111',
-      'Subject of the case is updated to Confirmation Of Payee - 111111111'
+      childCaseRecord[0].Subject == 'Confirmation of Payee Opt-In - 111111111',
+      'Subject of the case is updated to Confirmation of Payee Opt-In - 111111111'
+    );
+  }
+
+  @isTest
+  private static void testModifyCopStatusButtonVisibilityPostive() {
+    registerMocks();
+
+    List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
+    Test.startTest();
+    ConfirmationOfPayeeCaseActions.modifyCopStatusButtonVisibility(
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+    );
+    Test.stopTest();
+
+    caseRecordsUpdated = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isTrue(
+      caseRecordsUpdated[0].Show_Account_Closure__c == true,
+      'Show Account Closure flag should be true during insert option'
     );
   }
 
@@ -114,9 +127,13 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = parentId;
     caseRecord.RecordTypeId = RTCase.confirmationOfPayee;
+    caseRecord.Type = GetHelpConstants.COP_OPT_IN;
     caseRecord.FinServ__FinancialAccount__c = FAKER_FINANCIAL_ACCOUNT_ID;
-
-    childcases.add(caseRecord);
+    Case caseRecordWithAccountNumber = (Case) TestUtil.setFields(
+      caseRecord,
+      new Map<String, Object>{ 'Customer_Account_Number__c' => '111111111' }
+    );
+    childcases.add(caseRecordWithAccountNumber);
     return childcases;
   }
 
@@ -131,7 +148,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     caseRecord.Status = statusValue;
     caseRecord.RecordTypeId = RTCase.caseGroup;
     caseRecord.OwnerId = UserInfo.getUserId();
-    caseRecord.Type = GetHelpConstants.COP;
+    caseRecord.Type = GetHelpConstants.COP_OPT_IN;
 
     parentCases.add(caseRecord);
     return parentCases;

@@ -85,10 +85,7 @@ public with sharing class AccountClosureCaseActionsTest {
     List<Case> currentParentRecord = mockParentCaseRecord('Escalated', null);
 
     Test.startTest();
-    AccountClosureCaseActions.populateCaseSubject(
-      currentParentRecord,
-      'Account Closure'
-    );
+    AccountClosureCaseActions.populateCaseSubject(currentParentRecord);
     Test.stopTest();
 
     Assert.isTrue(
@@ -165,17 +162,41 @@ public with sharing class AccountClosureCaseActionsTest {
     );
   }
 
+  @isTest
+  private static void testInitiatePrecheckButtonVisibilityPostive() {
+    registerMocks();
+
+    List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
+
+    Test.startTest();
+    AccountClosureCaseActions.initiatePrecheckButtonVisibility(
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+    );
+    Test.stopTest();
+
+    caseRecordsUpdated = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isTrue(
+      caseRecordsUpdated[0].Show_Initiate_Account_Closure__c == true,
+      'Show intiate pre check should be true on insertion of account closure child case records'
+    );
+  }
+
   private static List<Case> mockQueryChildCaseRecords(Id parentId) {
     List<Case> childcases = new List<Case>();
 
     Case caseRecord = new Case();
     caseRecord.Id = FAKER_CHILD_CASE_ID;
     caseRecord.AccountId = FAKER_ACCOUNT_ID;
-    caseRecord.Status = 'Open';
+    caseRecord.Status = 'Escalated';
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = parentId;
     caseRecord.RecordTypeId = RTCase.accountClosure;
     caseRecord.Sub_Status__c = 'Success';
+    caseRecord.FinServ__FinancialAccount__c = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccount__c.getSObjectType()
+    );
 
     childcases.add(caseRecord);
     return childcases;

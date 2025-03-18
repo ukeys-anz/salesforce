@@ -40,6 +40,7 @@ public with sharing class CaseGroupCaseActions {
         childCase.Status = parentCase.Status;
       }
       childCase.Circumstance__c = parentCase.Circumstance__c;
+      childCase.Type = parentCase.Type;
     }
 
     DML_REPOSITORY.doUpdate(childCaseRecords);
@@ -96,12 +97,8 @@ public with sharing class CaseGroupCaseActions {
   /**
    * @description Populate the case Subject
    * @param cases List of case group/parent cases
-   * @param recordType Name of the record Type
    */
-  public static void populateParentCaseSubject(
-    List<Case> cases,
-    String recordType
-  ) {
+  public static void populateParentCaseSubject(List<Case> cases) {
     Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
 
     Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
@@ -109,9 +106,9 @@ public with sharing class CaseGroupCaseActions {
     );
     for (Case caserecord : cases) {
       caserecord.Subject =
-        recordType +
-        ' - ' +
         caserecord.Type +
+        ' ' +
+        GetHelpConstants.CASE_GROUP +
         ' - ' +
         accountIdToAccountInfoMap.get(caserecord.AccountId).Name;
     }
@@ -123,10 +120,11 @@ public with sharing class CaseGroupCaseActions {
    */
   public static void assignEscalatedCasesToQueue(List<Case> escalatedCases) {
     for (Case escalatedCase : escalatedCases) {
-      escalatedCase.OwnerId = (escalatedCase.Type ==
-        GetHelpConstants.ACCOUNT_CLOSURE)
-        ? accountClosureQueue.Id
-        : copQueue.Id;
+      if (escalatedCase.Type == GetHelpConstants.ACCOUNT_CLOSURE) {
+        escalatedCase.OwnerId = accountClosureQueue.Id;
+      } else {
+        escalatedCase.OwnerId = copQueue.Id;
+      }
     }
   }
 
@@ -138,9 +136,12 @@ public with sharing class CaseGroupCaseActions {
     List<Case> parentCases
   ) {
     Set<Id> caseIds = ListUtil.getIds(parentCases, Case.Id);
-
-    Set<Id> parentCaseIdsWithOpenChildCases = fetchParentCaseIdOfOpenChildCases(
+    List<Case> notClosedChildcases = ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedChildCases(
       caseIds
+    );
+    Set<Id> parentCaseIdsWithOpenChildCases = ListUtil.getIds(
+      notClosedChildcases,
+      Case.ParentId
     );
 
     for (Case caseGroupRecord : parentCases) {
@@ -151,18 +152,5 @@ public with sharing class CaseGroupCaseActions {
         );
       }
     }
-  }
-
-  @TestVisible
-  private static Set<Id> fetchParentCaseIdOfOpenChildCases(Set<Id> caseIds) {
-    Set<Id> parentCaseIdsWithOpenChildCases = new Set<Id>();
-    for (
-      Case childCaseRecord : ACCOUNT_CLOSURE_REPOSITORY.queryNotClosedChildCases(
-        caseIds
-      )
-    ) {
-      parentCaseIdsWithOpenChildCases.add(childCaseRecord.ParentId);
-    }
-    return parentCaseIdsWithOpenChildCases;
   }
 }

@@ -15,9 +15,8 @@ public with sharing class AccountClosureCaseActions {
   /**
    * @description Populate the case Subject
    * @param cases List of Cases.
-   * @param recordType Name of the record Type
    */
-  public static void populateCaseSubject(List<Case> cases, String recordType) {
+  public static void populateCaseSubject(List<Case> cases) {
     Set<Id> accountIds = ListUtil.getIds(cases, Case.AccountId);
 
     Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
@@ -26,7 +25,7 @@ public with sharing class AccountClosureCaseActions {
 
     for (Case caserecord : cases) {
       caserecord.Subject =
-        recordType +
+        GetHelpConstants.ACCOUNT_CLOSURE +
         ' - ' +
         accountIdToAccountInfoMap.get(caserecord.AccountId).Name;
     }
@@ -38,10 +37,6 @@ public with sharing class AccountClosureCaseActions {
    */
   public static void handleButtonVisibiltyFlags(List<Case> childCases) {
     Set<Id> parentCaseIds = ListUtil.getIds(childCases, Case.ParentId);
-
-    if (parentCaseIds.isEmpty()) {
-      return;
-    }
 
     Set<Id> parentIdsForInitiatingPrecheck = ListUtil.getIds(
       ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForPrecheck(

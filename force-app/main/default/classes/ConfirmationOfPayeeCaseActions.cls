@@ -18,10 +18,6 @@ public with sharing class ConfirmationOfPayeeCaseActions {
   public static void handleModifyCopAction(List<Case> childCases) {
     Set<Id> parentCaseIds = ListUtil.getIds(childCases, Case.ParentId);
 
-    if (parentCaseIds.isEmpty()) {
-      return;
-    }
-
     Set<Id> parentIdsForModifyCopStatus = ListUtil.getIds(
       ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForCop(parentCaseIds),
       Case.ParentId
@@ -45,33 +41,38 @@ public with sharing class ConfirmationOfPayeeCaseActions {
   /**
    * @description Populate the case Subject
    * @param cases List of Cases.
-   * @param recordType Name of the record Type
    */
-  public static void populateChildCaseSubject(
-    List<Case> cases,
-    String recordType
-  ) {
-    Set<Id> financialAccountIds = ListUtil.getIds(
-      cases,
-      Case.FinServ__FinancialAccount__c
-    );
-
-    Map<Id, FinServ__FinancialAccount__c> finAccountIdToFinAccountDetailsMap = new Map<Id, FinServ__FinancialAccount__c>(
-      ACCOUNT_CLOSURE_REPOSITORY.queryFinancialAccountNumber(
-        financialAccountIds
-      )
-    );
+  public static void populateChildCaseSubject(List<Case> cases) {
     for (Case caserecord : cases) {
-      String finAccountNumber = finAccountIdToFinAccountDetailsMap.containsKey(
-          caserecord.FinServ__FinancialAccount__c
-        )
-        ? finAccountIdToFinAccountDetailsMap.get(
-              caserecord.FinServ__FinancialAccount__c
-            )
-            .FinServ__FinancialAccountNumber__c
-        : '';
-
-      caserecord.Subject = recordType + ' - ' + finAccountNumber;
+      caserecord.Subject =
+        (caserecord.Type ?? '') +
+        ' - ' +
+        (caserecord.Customer_Account_Number__c ?? '');
     }
+  }
+
+  /**
+   * @description Update the flag for showing modify cop status button on insert operation
+   * @param childCases List of Cases
+   */
+  public static void modifyCopStatusButtonVisibility(List<Case> childCases) {
+    List<Case> validCases = ListUtil.filter(childCases)
+      .isNotNull(Case.FinServ__FinancialAccount__c)
+      .isNotNull(Case.ParentId)
+      .notEquals(Case.Status, GetHelpConstants.CLOSED_STATUS)
+      .toList();
+
+    Set<Id> parentIdsForModifyCopStatus = ListUtil.getIds(
+      validCases,
+      Case.ParentId
+    );
+
+    List<Case> parentCasesToUpdate = new List<Case>();
+    for (Id parentId : parentIdsForModifyCopStatus) {
+      parentCasestoUpdate.add(
+        new Case(Id = parentId, Show_Account_Closure__c = true)
+      );
+    }
+    DML_REPOSITORY.doUpdate(parentCasesToUpdate);
   }
 }

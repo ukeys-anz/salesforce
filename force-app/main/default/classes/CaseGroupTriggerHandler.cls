@@ -25,8 +25,7 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
       filteredParentCaseByIssueType
     );
     CaseGroupCaseActions.populateParentCaseSubject(
-      filteredParentCaseByIssueType,
-      GetHelpConstants.CASE_GROUP
+      filteredParentCaseByIssueType
     );
   }
 
@@ -59,8 +58,7 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
       parentCasesWithChangedFields
     );
     CaseGroupCaseActions.populateParentCaseSubject(
-      parentCasesWithChangedFields,
-      GetHelpConstants.CASE_GROUP
+      parentCasesWithChangedFields
     );
     CaseGroupCaseActions.assignEscalatedCasesToQueue(
       parentCasesWithStatusEscalated
@@ -77,7 +75,8 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
     Set<Schema.SObjectField> fieldsToTrackForChanges = new Set<Schema.SObjectField>{
       Case.OwnerId,
       Case.Status,
-      Case.Circumstance__c
+      Case.Circumstance__c,
+      Case.Type
     };
     List<Case> parentCasesWithFieldChanges = RecordComparisonUtil.getRecordsWithChangedFields(
       filteredParentCaseByIssueType,

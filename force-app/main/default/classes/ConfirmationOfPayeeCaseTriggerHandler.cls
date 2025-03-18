@@ -18,14 +18,20 @@ public with sharing class ConfirmationOfPayeeCaseTriggerHandler extends Lib_Trig
   }
 
   public override void onBeforeInsert() {
-    ConfirmationOfPayeeCaseActions.populateChildCaseSubject(
-      records,
-      GetHelpConstants.COP
-    );
+    ConfirmationOfPayeeCaseActions.populateChildCaseSubject(records);
   }
 
   public override void onAfterInsert() {
-    ConfirmationOfPayeeCaseActions.handleModifyCopAction(records);
+    ConfirmationOfPayeeCaseActions.modifyCopStatusButtonVisibility(records);
+  }
+
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    List<Case> childCasesWhereTypeChanged = ListUtil.filter(records, oldMap)
+      .changed(case.Type)
+      .toList();
+    ConfirmationOfPayeeCaseActions.populateChildCaseSubject(
+      childCasesWhereTypeChanged
+    );
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
