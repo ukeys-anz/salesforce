@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates Name on the Certificate provided matches with the New Name Update  requested by the Customer</description>
+    <inlineHelpText>The identity document must show that the customer&apos;s requested last name is derived from last names of the married parties (e.g., the spouse&apos;s last name, a combination of both last names, or the customer&apos;s maiden name). There should be no change in the First and Middle name. Please refer to the procedural guide for acceptable exceptions or allowable variations in the customer&apos;s name.</inlineHelpText>
     <label>Names certificate support Name requested</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

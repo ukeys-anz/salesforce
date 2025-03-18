@@ -1,7 +1,10 @@
 import { createElement } from "lwc";
 import FinancialGoalsPersonAccount from "c/financialGoalsPersonAccount";
 
-const GOAL_DATA = require("./data/goalData.json").account_buckets;
+const GOAL_DATA = require("./data/goalData.json");
+
+global.structuredClone = jest.fn((obj) => JSON.parse(JSON.stringify(obj)));
+
 describe("c-financial-goals-person-account", () => {
   afterEach(() => {
     // The jsdom instance is shared across test cases in a single file so reset the DOM
@@ -51,7 +54,7 @@ describe("c-financial-goals-person-account", () => {
 
     return Promise.resolve().then(() => {
       let totalSavedModal = element.shadowRoot.querySelector(
-        "section[data-id='total-info-modal']"
+        "c-dynamic-tooltip-util[data-id='total-info-modal']"
       );
       expect(totalSavedModal).toBeTruthy();
     });

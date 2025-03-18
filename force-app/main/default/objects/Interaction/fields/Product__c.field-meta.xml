@@ -61,6 +61,16 @@
                 <default>false</default>
                 <label>Non Product Related</label>
             </value>
+            <value>
+                <fullName>Sole ANZ Plus Online Saver</fullName>
+                <default>false</default>
+                <label>Sole ANZ Plus Online Saver</label>
+            </value>
+            <value>
+                <fullName>Joint ANZ Plus Online Saver</fullName>
+                <default>false</default>
+                <label>Joint ANZ Plus Online Saver</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

@@ -1,0 +1,12 @@
+<template>
+  <lightning-modal-header label={label}></lightning-modal-header>
+  <lightning-modal-body>
+    <img
+      src={url}
+      oncontextmenu={disableClick}
+      ondragstart={disableClick}
+      style="width: 100%"
+      alt={label}
+    />
+  </lightning-modal-body>
+</template>

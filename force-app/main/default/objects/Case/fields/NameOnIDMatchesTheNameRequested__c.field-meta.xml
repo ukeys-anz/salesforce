@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates Name on the ID provided matches with the New Name Update  requested by the Customer</description>
+    <inlineHelpText>The identity document must show the customer&apos;s requested name as their current name. Please refer to the procedural guide for acceptable exceptions or allowable variations in the customer&apos;s name.</inlineHelpText>
     <label>Name on ID matches the Name requested</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

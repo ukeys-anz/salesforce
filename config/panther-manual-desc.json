@@ -413,7 +413,9 @@
         "RecordTypeId"
       ],
       "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
-      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"]
+      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
+      "IA-2453595": ["Migration_Status__c"],
+      "IA-2530753": ["Migration_Status_Date__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
@@ -430,6 +432,7 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
+        "RecordTypeId",
         "Reason__c",
         "Reference_Number__c",
         "Requestor__c",
@@ -565,7 +568,13 @@
       ]
     },
     "Additional_Fund__c": {
-      "IA-2415840": [],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
     },
@@ -577,7 +586,15 @@
         "Application_Status__c",
         "Name"
       ],
-      "IA-2468715": ["OwnerId"]
+      "IA-2468715": [
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "ApplicationFormProduct": {
       "IA-2434298": [
@@ -597,9 +614,19 @@
       "IA-2423227": [
         "Won_from_Lost_to__c",
         "Lost_reason__c",
-        "Lost_Reason_Detail__c"
+        "Lost_Reason_Detail__c",
+        "Stage_Duration__c",
+        "Last_Updated_Stage_Date__c"
       ],
-      "IA-2468715": ["OwnerId"]
+      "IA-2468715": [
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -1753,6 +1780,7 @@
         "Active_From__c",
         "Active_To__c",
         "External_Id__c",
+        "Is_Beta_Broker__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
@@ -2085,7 +2113,8 @@
         "EquifaxAECResult__c",
         "EquifaxCRAResult__c",
         "EquifaxOverallResult__c",
-        "EquifaxESDResult__c"
+        "EquifaxESDResult__c",
+        "IDVFailReason__c"
       ],
       "IA-2530753": [
         "OwnerId",
@@ -2245,6 +2274,7 @@
         "Action__c",
         "Authentication_Method__c",
         "Completed_Date__c",
+        "Date_Case_on_Hold_From__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
         "IDR_COR_ID__c",
@@ -2256,8 +2286,11 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
         "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
+        "Product_Manufacturer__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
@@ -2273,6 +2306,7 @@
         "Cases_Related_To_Team__c",
         "Lead_Quality__c",
         "Lead__c",
+        "ML_DataMigration_Key__c",
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
@@ -2488,7 +2522,9 @@
         "Additional_Owner_Count__c",
         "Ownership__c"
       ],
-      "IA-2594111": ["FinServ__JointOwner__c"]
+      "IA-2594111": ["FinServ__JointOwner__c"],
+      "IA-2453595": ["Migration_Status__c"],
+      "IA-2530753": ["Migration_Status_Date__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -2557,6 +2593,19 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "FinancialAccountUIConfiguration__mdt": {
+      "IA-2468715": [
+        "Account_Type__c",
+        "Balance_Title__c",
+        "Ownership_Type__c",
+        "Product_Code__c",
+        "Section_Header_Title__c",
+        "Show_Goals__c",
+        "Sort_Order__c",
+        "Include_In_Total_Financial_Position__c",
+        "Is_Active__c"
       ]
     },
     "Group": {
@@ -2695,7 +2744,17 @@
       ]
     },
     "InteractionAttendee": {
-      "IA-2468715": ["AttendeeType", "UserId", "Time__c"],
+      "IA-2468715": [
+        "AttendeeType",
+        "UserId",
+        "Time__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2415984": [
         "Attendee_Phone__c",
         "Attendee_Name__c",
@@ -2867,6 +2926,7 @@
         "Is_Valid_Address__c",
         "LeadSource",
         "Lead_Auto_Number__c",
+        "Lead_Created_Date__c",
         "Lead_Id__c",
         "Lead_Originator__c",
         "Lead_Owner_Link__c",
@@ -2884,6 +2944,9 @@
         "Privacy_Consent__c",
         "Prospect_Id__c",
         "Record_Id__c",
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
         "Skip_Validations__c",
         "Soft_Delete__c",
         "Status",
@@ -2904,6 +2967,7 @@
       ],
       "IA-2415720": [
         "Account_Number__c",
+        "My_Referrals__c",
         "Customer_Status__c",
         "Referral_for_an_existing_customer__c"
       ],
@@ -2933,13 +2997,7 @@
       "IA-2431669": ["Primary_Franchise_Owner__c"],
       "IA-2453350": ["Customer_Pre_Exist__c"],
       "IA-2415790": ["Broker_Name__c"],
-      "IA-2415828": ["Circle_Of_Influence__c"],
-      "IA-3254438": [
-        "Referral_Status__c",
-        "Referrer_Lead__c",
-        "Referral_Acknowledged_Date__c",
-        "Lead_Created_Date__c"
-      ]
+      "IA-2415828": ["Circle_Of_Influence__c"]
     },
     "Lead_Response_Event__e": {
       "IA-2415860": ["Campaign_Code__c"]
@@ -3349,6 +3407,7 @@
     },
     "Opportunity": {
       "IA-2423278": ["My_teams_referrer__c"],
+      "IA-2415828": ["Circle_Of_Influence__c"],
       "IA-2415840": [
         "AccountId",
         "CampaignId",
@@ -3514,7 +3573,7 @@
         "LastModifiedDate"
       ]
     },
-    "Pricebook2": {
+    "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
       "IA-2415860": [
         "CreatedById",
@@ -3524,7 +3583,7 @@
         "LastModifiedDate"
       ]
     },
-    "PricebookEntry": {
+    "PriceBookEntry": {
       "IA-2415987": [
         "IsActive",
         "Pricebook2Id",
@@ -3658,7 +3717,13 @@
         "IDR_Allow_Account_Policy_Number__c",
         "Family"
       ],
-      "IA-2415860": ["Sub_Product_Code__c", "OCV_Sub_Product_Key__c"],
+      "IA-2415860": [
+        "Sub_Product_Code__c",
+        "OCV_Sub_Product_Key__c",
+        "Business_area__c",
+        "Product_Origination_System__c",
+        "Commercial_Product_Category__c"
+      ],
       "IA-2415840": ["ExternalId"],
       "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
     },
@@ -4284,6 +4349,7 @@
         "CompletedDateTime",
         "Description",
         "Due_in_Days__c",
+        "Date_Case_on_Hold_From__c",
         "IDR_COR_ID__c",
         "IDR_Collection_Number__c",
         "IDR_Internal_or_External_Party__c",
@@ -4295,6 +4361,9 @@
         "IDR_Team__c",
         "IDR_Tribe__c",
         "Last_Assigned_Owner__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
+        "Product_Manufacturer__c",
         "PSI_or_DSI__c",
         "Priority",
         "Queue__c",
@@ -4334,6 +4403,7 @@
         "Response_Status__c",
         "Response_Type__c",
         "Skip_Validations__c",
+        "ML_DataMigration_Key__c",
         "Team_Manager__c",
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
@@ -4557,7 +4627,15 @@
         "Loan_Application_Property__c",
         "Residential_Loan_Application__c"
       ],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "User": {
       "IA-2460507": [
@@ -4618,7 +4696,8 @@
         "LastModifiedDate",
         "Status__c"
       ],
-      "IA-2415790": ["TPMI__c"]
+      "IA-2415790": ["TPMI__c"],
+      "IA-2415840": ["ABN_ACN__c","Business_Name__c"]
     },
     "User_Territory__c": {
       "IA-2415860": [
@@ -5375,7 +5454,11 @@
         "Sub_Product_Code__c",
         "Term__c"
       ],
-      "IA-2468715": ["Account_Number__c", "OLL_Account_Number__c", "Customer__c"]
+      "IA-2468715": [
+        "Account_Number__c",
+        "OLL_Account_Number__c",
+        "Customer__c"
+      ]
     }
   },
   "lineageInformation": {

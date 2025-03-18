@@ -170,4 +170,31 @@ private class CommercialAppFormProductActionsTest {
       'Close date not updated on Application form product'
     );
   }
+
+  @isTest
+  static void testPopulateStageUpdatedDate() {
+    Id appFormProductId = Lib_FakeIdGenerator.getMockId(
+      ApplicationFormProduct.SObjectType
+    );
+    ApplicationFormProduct afp = new ApplicationFormProduct(
+      Id = appFormProductId,
+      Stage = CCRMConstants.OPP_IDENTIFIED,
+      Last_Updated_Stage_Date__c = System.Today() - 3
+    );
+
+    Map<Id, ApplicationFormProduct> oldMap = new Map<Id, ApplicationFormProduct>();
+    oldMap.put(afp.Id, new ApplicationFormProduct(Stage = 'Needs Analysis'));
+
+    Test.startTest();
+    CommercialAppFormProductActions.populateStageUpdatedDate(
+      new List<ApplicationFormProduct>{ afp },
+      oldMap
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      System.Today(),
+      afp.Last_Updated_Stage_Date__c,
+      'Last updated stage date is not equal to today'
+    );
+  }
 }

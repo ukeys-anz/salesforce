@@ -415,7 +415,7 @@ private class CCRMAccountActionsTest {
         CCRMAccountActions.preventEditOcvId(accList, accMap);
       } catch (Exception ex) {
         Boolean expectedExceptionThrown = ex.getMessage()
-            .contains(Label.ML_OCV_ID_Update_ErrorMessage)
+            .contains(Label.OCV_ID_Update_ErrorMessage)
           ? true
           : false;
         system.assertEquals(
@@ -429,7 +429,7 @@ private class CCRMAccountActionsTest {
         CCRMAccountActions.preventEditOcvId(accMap.values(), accMap);
       } catch (Exception ex) {
         Boolean expectedExceptionThrown = ex.getMessage()
-            .contains(Label.ML_OCV_ID_Update_ErrorMessage)
+            .contains(Label.OCV_ID_Update_ErrorMessage)
           ? true
           : false;
         system.assertEquals(
@@ -454,7 +454,7 @@ private class CCRMAccountActionsTest {
       );
     }
     User ocvIntegrationUser = MLCRMTestDataFactory.createMLCRMIntegrationUser(
-      Label.CCRM_OCVIntegrationUsername + '.test123'
+      Label.OCVIntegrationUsername + '.test123'
     );
     System.runAs(ocvIntegrationUser) {
       system.assertEquals(

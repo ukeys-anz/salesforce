@@ -6,9 +6,7 @@
 
 @IsTest
 private class RetailBrokerEventActionsTest {
-  private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Broker')
-    .recordTypeId;
+  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
 
   public static Lib_MockProvider retailBrokerRepo = Lib_MockProvider.forType(
     RetailBrokerRepository.class

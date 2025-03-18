@@ -42,7 +42,7 @@ It is not recommended to run Salesforce on WLAN, as most features do not work. Y
 2. Setup Salesforce CLI, Typescript (used for WebdriverIO) & Prettier by running
 
 ```bash
-npm i -g sfdx-cli prettier prettier-plugin-apex typescript
+npm i -g @salesforce/cli prettier prettier-plugin-apex typescript
 ```
 
 #### Pre-commit tooling
@@ -50,7 +50,7 @@ npm i -g sfdx-cli prettier prettier-plugin-apex typescript
 (Recommended) To ensure that your npm tools are installed, please run
 
 ```bash
-npm install -- force
+npm install --force
 ```
 
 This will install all the dev dependacies on your local machines, and it will also install a pre-commit hook which runs a script found in `.git-hooks/pre-commit`.

@@ -14,100 +14,168 @@
       </template>
       <template lwc:else>
         <template lwc:if={hasGoals}>
-          <div class="slds-m-top_small">
-            <template for:each={goalDetails} for:item="goal">
-              <div data-id="goal-body" key={goal.id}>
-                <div class="slds-grid slds-wrap slds-size_1-of-1">
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-p-left_small"
-                  >
-                    <template lwc:if={goal.image}>
-                      <img src={goal.image} width="60%" />
-                    </template>
-                    <template lwc:else>
-                      <div class="emoji">
-                        <span>{goal.emoji}</span>
-                      </div>
-                    </template>
-                  </div>
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
-                  >
-                    <div class="slds-text-align_center">
-                      <p class="ellipsis card-heading-bold">
+          <template for:each={goalDetails} for:item="finAccount">
+            <template lwc:if={finAccount.haveGoals}>
+              <div class="dividerTop" key={finAccount.account_id}></div>
+              <div
+                class="slds-card__body slds-card__body_inner"
+                key={finAccount.account_id}
+                data-id="fin-account"
+              >
+                <article class="slds-card">
+                  <div class="slds-grid slds-p-around_xx-small">
+                    <header class="slds-has-flexi-truncate">
+                      <h2 class="card-heading-bold">
                         <a
-                          onclick={navigateToRecordViewPageFilter}
+                          onclick={navigateToFinancialAccountViewPage}
+                          data-id={finAccount.account_id}
                           class="slds-truncate"
-                          data-id={goal.id}
+                          title={finAccount.account_name}
                         >
-                          {goal.goal.name}
+                          <span>{finAccount.account_name}</span>
                         </a>
-                      </p>
-                      <div class="description-tooltip">{goal.goal.name}</div>
-                    </div>
-                  </div>
-                  <div
-                    class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
-                  >
-                    <p class="card-heading-font">
-                      Total Saved
-                      <lightning-icon
-                        icon-name="utility:info"
-                        size="xx-small"
-                        class="tooltip-modal"
-                        onclick={handleInfoModal}
-                        data-id="total-info"
-                      ></lightning-icon>
-                    </p>
-                    <div class="slds-grid slds-gutters">
-                      <div
-                        class="slds-col slds-size_2-of-3"
-                        data-test-id="total-saved"
-                      >
-                        <lightning-formatted-number
-                          value={goal.balance.value}
-                          format-style="currency"
-                          data-id="amount"
-                          class="fontstyle"
-                        ></lightning-formatted-number>
-                        <div class="description-tooltip slds-text-align_center">
-                          <lightning-formatted-number
-                            value={goal.balance.value}
-                            format-style="currency"
-                            data-id="amount"
+                        <template lwc:if={finAccount.showMultipartyBadge}>
+                          <span
+                            class="slds-badge dormantBadgeClass slds-m-left_x-small"
+                            >{finAccount.ownershipType}</span
                           >
-                          </lightning-formatted-number>
-                        </div>
-                      </div>
-                      <div class="slds-col slds-size_1-of-3">
-                        <lightning-progress-ring
-                          class="progress-ring"
-                          value={goal.fillPercentValue}
-                          size="large"
+                        </template>
+                      </h2>
+                    </header>
+                  </div>
+                  <div class="slds-grid slds-wrap">
+                    <div class="slds-col slds-grid slds-size_1-of-1">
+                      <div class="slds-grid slds-wrap slds-size_1-of-1">
+                        <div
+                          class="slds-col slds-size_1-of-1 slds-large-size_1-of-2 slds-var-p-around_small"
                         >
-                        </lightning-progress-ring>
-                        <div class="progress-tooltip slds-text-align_center">
-                          {goal.fillPercent}%
+                          <div class="header-column slds-var-p-bottom_small">
+                            <p class="card-heading-font">Account Number</p>
+                            <p class="card-heading-bold">
+                              {finAccount.account_number}
+                            </p>
+                          </div>
+                        </div>
+                        <div class="dividerTop">
+                          <template
+                            for:each={finAccount.buckets}
+                            for:item="goal"
+                          >
+                            <div data-id="goal-body" key={goal.id}>
+                              <div
+                                class="slds-grid slds-wrap slds-size_1-of-1 slds-m-top_small"
+                              >
+                                <div
+                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-p-left_small"
+                                >
+                                  <template lwc:if={goal.image}>
+                                    <img src={goal.image} width="60%" />
+                                  </template>
+                                  <template lwc:else>
+                                    <div class="emoji">
+                                      <span>{goal.emoji}</span>
+                                    </div>
+                                  </template>
+                                </div>
+                                <div
+                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                                >
+                                  <div class="slds-text-align_center">
+                                    <p class="ellipsis card-heading-bold">
+                                      <a
+                                        onclick={navigateToRecordViewPageFilter}
+                                        class="slds-truncate"
+                                        data-id={goal.id}
+                                        data-finid={finAccount.account_id}
+                                      >
+                                        {goal.goal.name}
+                                      </a>
+                                    </p>
+                                    <div class="description-tooltip">
+                                      {goal.goal.name}
+                                    </div>
+                                  </div>
+                                </div>
+                                <div
+                                  class="slds-col slds-size_1-of-1 slds-large-size_1-of-3 slds-var-p-around_small"
+                                >
+                                  <p class="card-heading-font custom-padding">
+                                    {finAccount.balance_title}
+                                    <lightning-icon
+                                      icon-name="utility:info"
+                                      size="xx-small"
+                                      class="tooltip-modal"
+                                      onclick={handleInfoModal}
+                                      data-productname={finAccount.product_name}
+                                      data-balancetitle={finAccount.balance_title}
+                                      data-id="total-info"
+                                    ></lightning-icon>
+                                  </p>
+                                  <div class="slds-grid slds-gutters">
+                                    <div
+                                      class="slds-col slds-size_1-of-3"
+                                      data-test-id="total-saved"
+                                    >
+                                      <lightning-progress-ring
+                                        class="progress-ring"
+                                        value={goal.fillPercentValue}
+                                        size="large"
+                                      >
+                                      </lightning-progress-ring>
+                                      <div
+                                        class="progress-tooltip slds-text-align_center"
+                                      >
+                                        {goal.fillPercent}%
+                                      </div>
+                                    </div>
+                                    <div
+                                      class="slds-col slds-size_2-of-3"
+                                      data-test-id="total-saved"
+                                    >
+                                      <lightning-formatted-number
+                                        value={goal.balance.value}
+                                        format-style="currency"
+                                        data-id="amount"
+                                        class="fontstyle"
+                                      ></lightning-formatted-number>
+                                      <div
+                                        class="description-tooltip slds-text-align_center"
+                                      >
+                                        <lightning-formatted-number
+                                          value={goal.balance.value}
+                                          format-style="currency"
+                                          data-id="amount"
+                                        >
+                                        </lightning-formatted-number>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </template>
+                          <template lwc:if={finAccount.viewAll}>
+                            <footer
+                              class="slds-card__footer slds-align_absolute-center"
+                            >
+                              <a
+                                onclick={navigateToFinancialAccountViewPage}
+                                data-id={finAccount.account_id}
+                                class="slds-truncate"
+                                title="View All"
+                                label="View All"
+                              >
+                                View All ({finAccount.goalsLeftToView})
+                              </a>
+                            </footer>
+                          </template>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                </article>
               </div>
             </template>
-          </div>
-          <template lwc:if={viewAll}>
-            <div
-              class="slds-border_top slds-text-align_center slds-p-around_small"
-            >
-              <a
-                onclick={navigateToRecordViewPage}
-                class="slds-truncate"
-                title="View All"
-              >
-                View All
-              </a>
-            </div>
           </template>
         </template>
         <template lwc:else>
@@ -115,7 +183,7 @@
             class="slds-card__body slds-card__body_inner emptyCardGoal slds-text-align_center"
           >
             <span class="no-goals" data-id="no-goals"
-              >There are no savings goals.</span
+              >This customer has no savings goals.</span
             >
           </h1>
         </template>
@@ -134,62 +202,12 @@
     </div>
   </article>
   <template lwc:if={showInfoModal}>
-    <section
-      role="dialog"
-      class="slds-modal slds-fade-in-open"
+    <c-dynamic-tooltip-util
       data-id="total-info-modal"
-    >
-      <div class="slds-modal__container">
-        <header class="slds-modal__header modal-header">
-          <lightning-icon
-            icon-name="utility:close"
-            onclick={handleInfoModal}
-            class="slds-button slds-button_icon slds-modal__close close-modal"
-          ></lightning-icon>
-          <h2 class="slds-modal__title slds-hyphenate">
-            What does Total Saved mean?
-          </h2>
-        </header>
-        <div class="slds-modal__content slds-p-around_medium">
-          <span>
-            <p class="slds-text-title_bold">
-              The amount shown is indicative of the amount you may be able to
-              use but may not be what is actually available.
-            </p>
-            <br />
-            The amount shown is indicative of the amount you may be able to use
-            in your ANZ Save account
-            <strong> for this goal</strong>. The amount shown may not be what is
-            actually available because:
-            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
-              <li>
-                some transactions may not have updated the amount shown (e.g.
-                reversals)
-              </li>
-              <li>
-                some transactions may have updated the amount shown but are not
-                yet fully processed (e.g. pending transactions), and/or
-              </li>
-              <li>
-                we may not process transactions at the time, on the day or in
-                the order that they are made.
-              </li>
-            </ul>
-            If you proceed with a transaction when there may be insufficient
-            funds, your account may go overdrawn or the transaction may be
-            declined.
-          </span>
-        </div>
-        <footer class="slds-modal__footer">
-          <button
-            class="slds-button slds-button_neutral"
-            onclick={handleInfoModal}
-          >
-            Close
-          </button>
-        </footer>
-      </div>
-    </section>
-    <div class="slds-backdrop slds-backdrop_open"></div>
+      header-title={balanceTitle}
+      resource-name="savingGoals"
+      product-name={productName}
+      onclosemodal={closeModal}
+    ></c-dynamic-tooltip-util>
   </template>
 </template>
