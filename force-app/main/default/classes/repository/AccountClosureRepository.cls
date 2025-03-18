@@ -194,6 +194,7 @@ public with sharing class AccountClosureRepository {
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.confirmationOfPayee
         AND Status != :GetHelpConstants.CLOSED_STATUS
+        AND Status != :GetHelpConstants.WITHDRAWN_STATUS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
     ];
