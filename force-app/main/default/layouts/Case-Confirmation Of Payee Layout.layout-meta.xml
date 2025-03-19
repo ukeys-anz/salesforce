@@ -48,8 +48,8 @@
         <label>Account Details</label>
         <layoutColumns>
             <layoutItems>
-                <behavior>Readonly</behavior>
-                <field>FinServ_Product_Name__c</field>
+                <behavior>Edit</behavior>
+                <field>ProductId</field>
             </layoutItems>
             <layoutItems>
                 <behavior>Readonly</behavior>

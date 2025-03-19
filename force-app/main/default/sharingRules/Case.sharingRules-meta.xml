@@ -710,7 +710,7 @@
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6) OR (7 AND 8)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6) OR (7 AND 8) OR 9</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -750,6 +750,11 @@
             <field>Type</field>
             <operation>equals</operation>
             <value>Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
