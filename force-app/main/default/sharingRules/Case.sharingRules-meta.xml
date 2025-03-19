@@ -714,7 +714,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,PayTo,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery,Confirmation Of Payee</value>
+            <value>Direct Debit,Recipient/Mule,Direct Entry,ATM,Fraud,General Enquiry,KYC QA,Scam,Identity,Card,NPP,PayTo,Customer Feedback,BPAY,ID Ops Assistance,Fraud Check,False Customer Profile,Profile Update,PIN Recovery,Selfie Recovery</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
