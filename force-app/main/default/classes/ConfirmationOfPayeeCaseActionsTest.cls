@@ -117,6 +117,27 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     );
   }
 
+  @isTest
+  private static void testCascadeParentFieldsToChildCasesPostive() {
+    registerMocks();
+    accountClosureRepoMock.mock(
+      'queryParentCaseDetails',
+      mockParentCaseRecord('Escalated', null)
+    );
+
+    List<Case> childCases = mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID);
+
+    Assert.isTrue(ChildCases[0].Status == 'Open', 'Child Case status is Open');
+    Test.startTest();
+    ConfirmationOfPayeeCaseActions.cascadeParentFieldsToChildCases(childCases);
+    Test.stopTest();
+
+    Assert.isTrue(
+      childCases[0].Status == 'Escalated',
+      'Child Case status should be updated to Escalated'
+    );
+  }
+
   private static List<Case> mockQueryChildCaseRecords(Id parentId) {
     List<Case> childcases = new List<Case>();
 

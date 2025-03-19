@@ -24,6 +24,7 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
     AccountClosureCaseActions.linkChildCasesWithParent(
       accountClosureChildCasesWithoutParent
     );
+    AccountClosureCaseActions.cascadeParentFieldsToChildCases(records);
     AccountClosureCaseActions.populateCaseSubject(records);
   }
 

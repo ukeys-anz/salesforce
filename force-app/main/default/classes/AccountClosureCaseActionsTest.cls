@@ -183,6 +183,30 @@ public with sharing class AccountClosureCaseActionsTest {
     );
   }
 
+  @isTest
+  private static void testCascadeParentFieldsToChildCasesPostive() {
+    registerMocks();
+    accountClosureRepoMock.mock(
+      'queryParentCaseDetails',
+      mockParentCaseRecord('Closed', null)
+    );
+
+    List<Case> childCases = mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID);
+
+    Assert.isTrue(
+      ChildCases[0].Status == 'Escalated',
+      'Child Case status is Escalated'
+    );
+    Test.startTest();
+    AccountClosureCaseActions.cascadeParentFieldsToChildCases(childCases);
+    Test.stopTest();
+
+    Assert.isTrue(
+      childCases[0].Status == 'Closed',
+      'Child Case status should be updated to Closed'
+    );
+  }
+
   private static List<Case> mockQueryChildCaseRecords(Id parentId) {
     List<Case> childcases = new List<Case>();
 

@@ -151,4 +151,22 @@ public with sharing class AccountClosureCaseActions {
     }
     DML_REPOSITORY.doUpdate(parentCasesToUpdate);
   }
+
+  /**
+   * @description This method set the field value of the child cases same as parent case
+   * @param childCases holds all the child case records that are inserted
+   */
+  public static void cascadeParentFieldsToChildCases(List<Case> childCases) {
+    Set<Id> parentIds = ListUtil.getIds(childCases, Case.ParentId);
+    Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
+      ACCOUNT_CLOSURE_REPOSITORY.queryParentCaseDetails(parentIds)
+    );
+    for (Case childCase : childCases) {
+      Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
+      childCase.OwnerId = parentCase.OwnerId;
+      childCase.Status = parentCase.Status;
+      childCase.Circumstance__c = parentCase.Circumstance__c;
+      childCase.Type = parentCase.Type;
+    }
+  }
 }

@@ -18,6 +18,7 @@ public with sharing class ConfirmationOfPayeeCaseTriggerHandler extends Lib_Trig
   }
 
   public override void onBeforeInsert() {
+    ConfirmationOfPayeeCaseActions.cascadeParentFieldsToChildCases(records);
     ConfirmationOfPayeeCaseActions.populateChildCaseSubject(records);
   }
 

@@ -442,4 +442,22 @@ public with sharing class AccountClosureRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description Get details of Parent / Case Group cases linked to the inserted child cases
+   * @param parentIds set of Parent Ids associated to the child case
+   * @return List<Case> list of parent/Case Group cases
+   */
+  public List<Case> queryParentCaseDetails(Set<Id> parentIds) {
+    if (parentIds.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, OwnerId, Status, Circumstance__c, Type
+      FROM Case
+      WHERE Type IN :GetHelpConstants.caseIssueTypes AND Id IN :parentIds
+      WITH USER_MODE
+    ];
+  }
 }

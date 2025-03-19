@@ -75,4 +75,24 @@ public with sharing class ConfirmationOfPayeeCaseActions {
     }
     DML_REPOSITORY.doUpdate(parentCasesToUpdate);
   }
+
+  /**
+   * @description This Method fetch all the child case records records linked to the case group(Parent case)
+   * then set the field value of the child cases same as parent case
+   * @param childCases holds all the case group(Parent case) records whose owner is changed.
+   */
+  public static void cascadeParentFieldsToChildCases(List<Case> childCases) {
+    Set<Id> parentIds = ListUtil.getIds(childCases, Case.ParentId);
+
+    Map<Id, Case> parentIdAndCaseDetailsMap = new Map<Id, Case>(
+      ACCOUNT_CLOSURE_REPOSITORY.queryParentCaseDetails(parentIds)
+    );
+
+    for (Case childCase : childCases) {
+      Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
+      childCase.OwnerId = parentCase.OwnerId;
+      childCase.Status = parentCase.Status;
+      childCase.Type = parentCase.Type;
+    }
+  }
 }
