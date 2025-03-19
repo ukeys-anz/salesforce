@@ -9213,6 +9213,25 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Opt_Out_Reason__c</picklist>
+        <values>
+            <fullName>Change to relationship partner</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Profession requiring discretion</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transition gender</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Victim %2F survivor of abuse</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Origin</picklist>
         <values>
             <fullName>Appointment</fullName>
@@ -11613,6 +11632,10 @@
             <fullName>Warning</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Warning 2</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>SRE_Team__c</picklist>
@@ -11876,6 +11899,14 @@
         <picklist>Type</picklist>
         <values>
             <fullName>Account Closure</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmation of Payee Opt-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Confirmation of Payee Opt-Out</fullName>
             <default>false</default>
         </values>
     </picklistValues>

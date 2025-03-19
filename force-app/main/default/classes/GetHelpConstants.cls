@@ -41,10 +41,6 @@ public with sharing class GetHelpConstants {
     .get('ANZx_Complaint')
     .getRecordTypeId();
 
-  public static final Id CUSTOMER_COMPLAINT_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
-    .get('Customer_Complaint')
-    .getRecordTypeId();
-
   //Case - ANZx Fraud Case RT Ids
   public static final Id FRAUD_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Fraud')
@@ -192,6 +188,11 @@ public with sharing class GetHelpConstants {
     .get('Account_Closure')
     .getRecordTypeId();
 
+  // Case - Case Group
+  public static final Id CASE_GROUP_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
+    .get('Case_Group')
+    .getRecordTypeId();
+
   // Case - Credit Referral
   public static final Id CREDIT_REFERRAL_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('Credit_Referral')
@@ -208,6 +209,10 @@ public with sharing class GetHelpConstants {
   // Contact Relationship (FinServ__ContactContactRelation__c )
   public static final Id BROKER_STAFF_RT_ID = Schema.SObjectType.FinServ__ContactContactRelation__c.getRecordTypeInfosByDeveloperName()
     .get('Broker_Staff')
+    .getRecordTypeId();
+  // Customer Action - Pending Financial Account Updates
+  public static final Id CUSTOMER_ACTION_FIN_ACCOUNT_UPDATE_RT_ID = Schema.SObjectType.Customer_Action__c.getRecordTypeInfosByDeveloperName()
+    .get('Pending_Financial_Account_Updates')
     .getRecordTypeId();
 
   public static final String CARD_DISPUTE_FRAUD_QUEUE = 'Card_Dispute_Fraud_Queue';
@@ -277,6 +282,9 @@ public with sharing class GetHelpConstants {
   public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
   public static final String ACCOUNT_CLOSURE = 'Account Closure';
   public static final String CASE_GROUP = 'Case Group';
+  public static final String COP = 'Confirmation Of Payee';
+  public static final String COP_OPT_IN = 'Confirmation of Payee Opt-In';
+  public static final String COP_OPT_OUT = 'Confirmation of Payee Opt-Out';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
@@ -354,6 +362,23 @@ public with sharing class GetHelpConstants {
         taskRecordTypeIds.add(GetHelpConstants.CALLBACK_REQUEST_RT_ID);
       }
       return taskRecordTypeIds;
+    }
+    private set;
+  }
+
+  /**
+   * @description Fetch Coach Nudge and Callback Request record types
+   * @return Set record type Ids
+   */
+  public static final Set<String> caseIssueTypes {
+    get {
+      if (caseIssueTypes == null) {
+        caseIssueTypes = new Set<String>();
+        caseIssueTypes.add(GetHelpConstants.ACCOUNT_CLOSURE);
+        caseIssueTypes.add(GetHelpConstants.COP_OPT_IN);
+        caseIssueTypes.add(GetHelpConstants.COP_OPT_OUT);
+      }
+      return caseIssueTypes;
     }
     private set;
   }

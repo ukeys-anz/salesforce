@@ -131,11 +131,11 @@
         <sharedTo>
             <role>Business_Admin</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6) OR (7 AND 8)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6) OR (7 AND (8 OR 9 OR 10)) OR 11</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,PayTo,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
+            <value>Account Closure,ID Ops Assistance,Direct Entry,Customer Feedback,General Enquiry,Fraud,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,ANZ Plus Complaint,KYC QA,Scam,Identity</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -171,6 +171,21 @@
             <field>Type</field>
             <operation>equals</operation>
             <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -309,7 +324,7 @@
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,PayTo,Customer Feedback,BPAY,Account Closure</value>
+            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -354,9 +369,40 @@
         <criteriaItems>
             <field>Type</field>
             <operation>equals</operation>
-            <value>Account Closure</value>
+            <value>Account Closure,Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>COP_Cases_Read_Only_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This new rule is created to give read only access for COP cases.</description>
+        <label>COP Cases Read Only Access</label>
+        <sharedTo>
+            <group>COP_Cases_Read_Access_Users</group>
+        </sharedTo>
+        <booleanFilter>1 AND (2 AND (3 OR 4))</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_QA_RO</fullName>
@@ -467,7 +513,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8) OR (9 AND 10)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8) OR (9 AND (10 OR 11 OR 12)) OR 13</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -517,6 +563,21 @@
             <field>Type</field>
             <operation>equals</operation>
             <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -649,7 +710,7 @@
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6) OR (7 AND 8) OR 9</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -679,6 +740,21 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

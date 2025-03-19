@@ -19,6 +19,7 @@ public with sharing class GetHelpCaseActions {
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
   public static final String SLA_BREACH = 'Breached';
   public static final String SLA_WARNING = 'Warning';
+  public static final String SLA_WARNING2 = 'Warning 2';
   public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
   public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
 
@@ -592,6 +593,7 @@ public with sharing class GetHelpCaseActions {
         ) {
           Map<String, String> mapStatusAndMessageBody = new Map<String, String>{
             SLA_WARNING => SLA_WARNING_NOTIFICATION_BODY,
+            SLA_WARNING2 => SLA_WARNING_NOTIFICATION_BODY,
             SLA_BREACH => SLA_BREACH_NOTIFICATION_BODY
           };
           String messageBody = mapStatusAndMessageBody.get(

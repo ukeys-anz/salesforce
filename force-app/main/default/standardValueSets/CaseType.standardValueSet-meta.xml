@@ -417,11 +417,6 @@
         <label>Recipient</label>
     </standardValue>
     <standardValue>
-        <fullName>Recovery</fullName>
-        <default>false</default>
-        <label>Recovery</label>
-    </standardValue>
-    <standardValue>
         <fullName>Potential AML</fullName>
         <default>false</default>
         <label>Potential AML</label>
@@ -465,5 +460,15 @@
         <fullName>Legal Name QA</fullName>
         <default>false</default>
         <label>Legal Name QA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmation of Payee Opt-In</fullName>
+        <default>false</default>
+        <label>Confirmation of Payee Opt-In</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmation of Payee Opt-Out</fullName>
+        <default>false</default>
+        <label>Confirmation of Payee Opt-Out</label>
     </standardValue>
 </StandardValueSet>

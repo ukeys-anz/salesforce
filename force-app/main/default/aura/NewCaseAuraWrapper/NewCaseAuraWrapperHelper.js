@@ -262,7 +262,8 @@
             recordTypes.forEach((rt) => {
               rt.elementId = rt.Id + cmpInstanceIdentifier;
               if (rt.DeveloperName == "Case_Group") {
-                rt.Name = "Case Group (Account Closure)";
+                rt.Name =
+                  "Case Group (Account Closure and Confirmation Of Payee)";
               }
             });
             // Sort record types alphabetically

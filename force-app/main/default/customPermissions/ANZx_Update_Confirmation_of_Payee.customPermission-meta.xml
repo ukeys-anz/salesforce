@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomPermission xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Gives access to button to call the API</description>
+    <isLicensed>false</isLicensed>
+    <label>ANZx Update Confirmation of Payee</label>
+</CustomPermission>
