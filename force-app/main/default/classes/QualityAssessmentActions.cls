@@ -114,10 +114,6 @@ public with sharing class QualityAssessmentActions {
       qaRecordsWithRelatedCase
     );
 
-    if (recordsToUpdate.isEmpty()) {
-      return;
-    }
-
     DML.doUpdate(
       recordsToUpdate,
       new DmlConfig().allowPartial().withoutSharing()
@@ -134,9 +130,6 @@ public with sharing class QualityAssessmentActions {
     List<Quality_Assessment__c> qaRecordsWithRelatedCase
   ) {
     List<Quality_Assessment__c> recordsToUpdate = new List<Quality_Assessment__c>();
-    if (qaRecordsWithRelatedCase.isEmpty()) {
-      return recordsToUpdate;
-    }
 
     Map<Id, Quality_Assessment__c> qaMap = new Map<Id, Quality_Assessment__c>(
       qaRecordsWithRelatedCase
