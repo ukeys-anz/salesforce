@@ -1,6 +1,6 @@
 <template>
   <!--Modal Header-->
-  <lightning-modal-header label="Add Accounts to Close">
+  <lightning-modal-header label="Select Accounts to Update COP Status">
   </lightning-modal-header>
   <!--Modal Body-->
   <lightning-modal-body class="modalbody">
@@ -21,7 +21,7 @@
     </template>
     <div class="slds-box slds-var-m-around_large">
       <template lwc:if={showFinDataTable}>
-        <template lwc:if={accountDetails.length}>
+        <template lwc:if={finAccData.length}>
           <!--Conditional rendering When user selects account from datatable-->
           <template lwc:if={selectedRows.length}>
             <div class="slds-grid slds-grid_align-end">
@@ -38,8 +38,8 @@
           <div
             class="slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
           >
-            Tick the accounts to close and a child case will be created for each
-            account.
+            Tick the accounts to update the status of Confirmation Of Payee(COP)
+            and a child case will be created for each account.
           </div>
           <div class="slds-modal__content slds-var-p-top_medium">
             <!--Data table for Financial accounts-->
@@ -62,7 +62,7 @@
         >
           <!--User Message when no Financial Account data present-->
           <h1 data-id="noaccounts" class="slds-text-color_weak">
-            No Financial Accounts to Close
+            No Financial Accounts to Modify COP status.
           </h1>
         </div>
       </template>
@@ -77,6 +77,7 @@
           show-checkbox={showCheckbox}
           oncancel={handleCancelAction}
           onerrorvisibilty={handleErrorVisibilty}
+          issue-type={issueType}
         >
         </c-account-closure-wizard-child>
       </template>

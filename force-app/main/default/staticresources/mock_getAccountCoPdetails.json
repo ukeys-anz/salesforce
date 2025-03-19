@@ -1,0 +1,61 @@
+{
+  "accountList": [
+    {
+      "accountIdentification": "123456000000000",
+      "status": "OPT-OUT",
+      "statusUpdateDate": "2024-02-20T12:34:56Z",
+      "requestedBy": [
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001074642"
+        },
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001297679"
+        }
+      ],
+      "modifiedBy": {
+        "modifierIdType": "Fed Id",
+        "modifierId": "Arorar3"
+      }
+    },
+    {
+      "accountIdentification": "654321390992614",
+      "status": "OPT-OUT",
+      "statusUpdateDate": "2024-02-21T14:45:30Z",
+      "requestedBy": [
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001074642"
+        },
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001297679"
+        }
+      ],
+      "modifiedBy": {
+        "modifierIdType": "Lan Id",
+        "modifierId": "Arorar3"
+      }
+    },
+    {
+      "accountIdentification": "654321111111111",
+      "status": "OPT-OUT",
+      "statusUpdateDate": "2024-02-21T14:45:30Z",
+      "requestedBy": [
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001074642"
+        },
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001297679"
+        }
+      ],
+      "modifiedBy": {
+        "modifierIdType": "Lan Id",
+        "modifierId": "Arorar3"
+      }
+    }
+  ]
+}

@@ -4,7 +4,7 @@
  * @description Controller for Account Closure Wizard
  */
 
-public with sharing class AccountClosureWizardController {
+public with sharing class AccountClosureWizardController extends CaseGroupWizard {
   private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
@@ -12,19 +12,25 @@ public with sharing class AccountClosureWizardController {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
+  private static final Map<String, String> FIN_ACCOUNT_TYPE = new Map<String, String>{
+    'Single' => 'Individual',
+    'Multi-Party' => 'Joint'
+  };
+  private static final Map<String, String> FIN_ACCOUNT_TYPE_FOR_UI = new Map<String, String>{
+    'Single' => 'Sole',
+    'Multi-Party' => 'Joint'
+  };
   /**
    * @description The Financial Account component uses this to fetch the records to display.
    * This makes the callout to fabric to fetch data
-   * @param ocvId the ocv id of the customer
-   * @return List<FinServ__FinancialAccount__c>
+   * @param params the params to fetch the records
+   * @return List<CaseGroupFinancialAccountModel>
    */
-  @AuraEnabled
-  public static List<FinServ__FinancialAccount__c> getFilteredFinancialAccounts(
-    String ocvId
+  public override List<CaseGroupFinancialAccountModel> getData(
+    Map<String, String> params
   ) {
     List<UnifiedFinancialAccountModel.AccountList> financialAccountsList = FinancialAccountController.getFinancialAccountsFromFabric(
-      ocvId,
+      params.get('ocvId'),
       new List<String>()
     );
 
@@ -47,88 +53,44 @@ public with sharing class AccountClosureWizardController {
       )
     );
 
-    return ACCOUNT_CLOSURE_REPOSITORY.fetchFilteredFinancialAccountsDetails(
+    List<FinServ__FinancialAccount__c> listOfFinancialAccounts = ACCOUNT_CLOSURE_REPOSITORY.fetchFilteredFinancialAccountsDetails(
       finAccountIds
     );
+    return prepareCaseGroupFinancialAccountModel(listOfFinancialAccounts);
   }
 
   /**
-   * @description This method is used to create child cases for the Financial Accounts
-   * @param parentCaseId Id of the parent case
-   * @param childCaseInputs list of case data from wizard
-   * @return List<Case> list of case inserted/updated case records
+   * @description prepares CaseGroupFinancialAccountModel in order to show data on UI
+   * @param listOfFinancialAccounts list of Financial Accounts
+   * @return List<CaseGroupFinancialAccountModel>
    */
-  @AuraEnabled
-  public static List<Case> createChildCasesForFinAccounts(
-    Id parentCaseId,
-    List<CaseInputWrapper> childCaseInputs
+
+  private static List<CaseGroupFinancialAccountModel> prepareCaseGroupFinancialAccountModel(
+    List<FinServ__FinancialAccount__c> listOfFinancialAccounts
   ) {
-    if (String.isBlank(parentCaseId) || childCaseInputs.isEmpty()) {
-      return new List<Case>();
+    List<CaseGroupFinancialAccountModel> listOfCaseGroupFinAccountModel = new List<CaseGroupFinancialAccountModel>();
+    for (
+      FinServ__FinancialAccount__c eachFinAccount : listOfFinancialAccounts
+    ) {
+      CaseGroupFinancialAccountModel caseGroupFinAccountModel = new CaseGroupFinancialAccountModel();
+      caseGroupFinAccountModel.id = eachFinAccount.Id;
+      caseGroupFinAccountModel.productId = eachFinAccount.FinServ__ProductName__c;
+      caseGroupFinAccountModel.productName = eachFinAccount.FinServ__ProductName__r.Name;
+      caseGroupFinAccountModel.accountNumber = eachFinAccount.FinServ__FinancialAccountNumber__c;
+      caseGroupFinAccountModel.finAccountType = FIN_ACCOUNT_TYPE_FOR_UI.get(
+        eachFinAccount.Ownership__c
+      );
+      caseGroupFinAccountModel.signingAuthority = (eachFinAccount.Ownership__c ==
+        'Multi-party' &&
+        eachFinAccount.Number_Of_Signatures__c == 'All to sign')
+        ? eachFinAccount.Number_Of_Signatures__c
+        : '';
+      caseGroupFinAccountModel.balance = eachFinAccount.FinServ__Balance__c;
+      caseGroupFinAccountModel.apiFinAccountType = FIN_ACCOUNT_TYPE.get(
+        eachFinAccount.Ownership__c
+      );
+      listOfCaseGroupFinAccountModel.add(caseGroupFinAccountModel);
     }
-    List<Case> casesToUpdate = new List<Case>();
-    List<Case> casesToInsert = new List<Case>();
-    List<Case> listOfExistingUnUsedCases = ACCOUNT_CLOSURE_REPOSITORY.getUnusedChildCasesByParentId(
-      parentCaseId
-    );
-
-    processCaseInputs(
-      childCaseInputs,
-      listOfExistingUnUsedCases,
-      casesToUpdate,
-      casesToInsert
-    );
-
-    DML_REPOSITORY.doUpdate(casesToUpdate);
-    DML_REPOSITORY.doInsert(casesToInsert);
-
-    Set<Id> caseIds = new Set<Id>();
-    caseIds.addAll(ListUtil.getIds(casesToUpdate, Case.Id));
-    caseIds.addAll(ListUtil.getIds(casesToInsert, Case.Id));
-
-    return ACCOUNT_CLOSURE_REPOSITORY.getInsertedOrUpdatedCaseDetails(caseIds);
-  }
-
-  /**
-   * @description proccess case inputs and update or create cases
-   * @param childCaseInputs case inputs from wizard
-   * @param listOfExistingUnUsedCases case record to be updated
-   * @param casesToUpdate list of case to be updated
-   * @param casesToInsert list of case to be inserted
-   */
-  private static void processCaseInputs(
-    List<CaseInputWrapper> childCaseInputs,
-    List<Case> listOfExistingUnUsedCases,
-    List<Case> casesToUpdate,
-    List<Case> casesToInsert
-  ) {
-    for (CaseInputWrapper eachInput : childCaseInputs) {
-      if (!listOfExistingUnUsedCases.isEmpty()) {
-        Case existingCase = listOfExistingUnUsedCases.remove(0);
-        mapCaseFields(existingCase, eachInput);
-        casesToUpdate.add(existingCase);
-      } else {
-        Case newCase = new Case();
-        mapCaseFields(newCase, eachInput);
-        casesToInsert.add(newCase);
-      }
-    }
-  }
-
-  /**
-   * @description map case fields from CaseInputWrapper to Case
-   * @param caseObj case object record to be inserted or updated
-   * @param caseInput from LWC
-   */
-  private static void mapCaseFields(Case caseObj, CaseInputWrapper caseInput) {
-    caseObj.Intended_Account_Name__c = caseInput.intendedAccountName;
-    caseObj.Intended_Account_BSB__c = caseInput.intendedAccountBsb;
-    caseObj.Intended_Account_Number__c = caseInput.intendedAccountNumber;
-    caseObj.Closure_Reason__c = caseInput.closureReason;
-    caseObj.Account_Type__c = caseInput.accountType;
-    caseObj.AccountId = caseInput.accountId;
-    caseObj.FinServ__FinancialAccount__c = caseInput.financialAccountId;
-    caseObj.ProductId = caseInput.productId;
-    caseObj.RecordTypeId = RTCase.accountClosure;
+    return listOfCaseGroupFinAccountModel;
   }
 }

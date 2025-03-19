@@ -7,7 +7,7 @@
         <shortDescription>Brokerdata cloud event type</shortDescription>
         <value>anzx.salesforce.broker.v1alpha1.brokerdata.</value>
     </labels>
-        <labels>
+    <labels>
         <fullName>ANZx_Broker_Contract_Event_ce_type</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -472,6 +472,20 @@
         <protected>false</protected>
         <shortDescription>MS_Account_Table</shortDescription>
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
+    </labels>
+    <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</shortDescription>
+        <value>TEST_VALUE</value>
+    </labels>
+    <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</shortDescription>
+        <value>TEST_VALUE</value>
     </labels>
     <labels>
         <fullName>MS_Cancel_Loan_Application</fullName>
