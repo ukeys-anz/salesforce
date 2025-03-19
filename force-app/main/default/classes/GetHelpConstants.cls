@@ -282,6 +282,9 @@ public with sharing class GetHelpConstants {
   public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
   public static final String ACCOUNT_CLOSURE = 'Account Closure';
   public static final String CASE_GROUP = 'Case Group';
+  public static final String COP = 'Confirmation Of Payee';
+  public static final String COP_OPT_IN = 'Confirmation of Payee Opt-In';
+  public static final String COP_OPT_OUT = 'Confirmation of Payee Opt-Out';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
@@ -359,6 +362,23 @@ public with sharing class GetHelpConstants {
         taskRecordTypeIds.add(GetHelpConstants.CALLBACK_REQUEST_RT_ID);
       }
       return taskRecordTypeIds;
+    }
+    private set;
+  }
+
+  /**
+   * @description Fetch Coach Nudge and Callback Request record types
+   * @return Set record type Ids
+   */
+  public static final Set<String> caseIssueTypes {
+    get {
+      if (caseIssueTypes == null) {
+        caseIssueTypes = new Set<String>();
+        caseIssueTypes.add(GetHelpConstants.ACCOUNT_CLOSURE);
+        caseIssueTypes.add(GetHelpConstants.COP_OPT_IN);
+        caseIssueTypes.add(GetHelpConstants.COP_OPT_OUT);
+      }
+      return caseIssueTypes;
     }
     private set;
   }

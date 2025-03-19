@@ -168,12 +168,6 @@
                 <identifier>RecordFinancial_Account_Number__cField</identifier>
             </fieldInstance>
         </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldItem>Record.FinServ__FinancialAccount__r.Name</fieldItem>
-                <identifier>RecordFinServ_FinancialAccount_rNameField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <name>Facet-b41f8f51-7653-4fbf-b7a5-48b60d3bcd5a</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -186,6 +180,16 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Opt_Out_Reason__c</fieldItem>
                 <identifier>RecordOpt_Out_Reason_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Financial_Account_Name__c</fieldItem>
+                <identifier>RecordFinancial_Account_Name__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-80287c6a-c3ff-4a78-ad23-821f80e410cf</name>

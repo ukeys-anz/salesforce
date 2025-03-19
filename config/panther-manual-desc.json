@@ -1431,7 +1431,11 @@
         "RegistrationDate__c",
         "StateCode__c"
       ],
-      "IA-2426363" : ["Process_SLA_Status__c", "Opt_Out_Reason__c"]
+      "IA-2426363": [
+        "Process_SLA_Status__c",
+        "Financial_Account_Name__c",
+        "Opt_Out_Reason__c"
+      ]
     },
     "Case_Reporting_Field__c": {
       "IA-2453595": [

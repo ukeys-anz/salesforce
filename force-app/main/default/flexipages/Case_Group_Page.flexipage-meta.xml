@@ -257,8 +257,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.SLA_Status__c</fieldItem>
-                <identifier>RecordSLA_Status_cField</identifier>
+                <fieldItem>Record.Process_SLA_Status__c</fieldItem>
+                <identifier>RecordProcess_SLA_Status_cField</identifier>
                 <visibilityRule>
                     <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
@@ -539,6 +539,9 @@
                         </valueListItems>
                         <valueListItems>
                             <value>Financial_Account_Number__c</value>
+                        </valueListItems>
+                        <valueListItems>
+                            <value>Financial_Account_Name__c</value>
                         </valueListItems>
                         <valueListItems>
                             <value>CASES.STATUS</value>
