@@ -1,0 +1,165 @@
+<template>
+  <!--Header Part-->
+  <div class="slds-modal__header">
+    <h2 class="slds-text-heading_medium">
+      <strong>Modify COP Status</strong>
+    </h2>
+  </div>
+  <!--Error Handling Part-->
+  <template lwc:if={hasError}>
+    <div class="customPaddingForErrorMessage">
+      <c-error
+        custom-class-from-parent="slds-theme--error"
+        message={errorMsg}
+      ></c-error>
+    </div>
+  </template>
+  <!--Loading Icon Section-->
+  <template lwc:if={showLoading}>
+    <article
+      class="slds-card slds-var-m-around_xx-large slds-var-m-bottom_large"
+    >
+      <div class="slds-align_absolute-center">
+        <div role="status" class="slds-spinner_inline spinnerPadding">
+          <lightning-spinner
+            alternative-text="Loading"
+            size="small"
+          ></lightning-spinner>
+        </div>
+      </div>
+      <div
+        class="slds-align_absolute-center slds-text-heading_small center-justify"
+        lwc:if={loading}
+      >
+        Initiating modify COP status for all selected accounts is being
+        processed.<br />
+        Please don't close this modal until it's complete.
+      </div>
+    </article>
+  </template>
+  <template lwc:else>
+    <div class="slds-var-m-around_xx-large slds-var-m-bottom_large">
+      <!--Showing Initial Data Table Section If Precheck Button Not Clicked-->
+      <template lwc:if={showNoDataMessage}>
+        <div
+          class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
+        >
+          <!--User Message when no cases data present-->
+          <h1 class="slds-text-color_weak">No Cases to Modify COP Status.</h1>
+        </div>
+      </template>
+      <template lwc:else>
+        <template lwc:if={showPreviewSection}>
+          <div
+            class="slds-var-m-top_xx-large slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            <b>Are you ready to modify COP status?</b>
+          </div>
+          <div
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+          >
+            This modal will only show accounts which are in Escalated status,
+            these accounts will be available for modifying COP status. Any other
+            accounts won’t appear in this modal. <br /><br />
+            Ensure to check any CAP restraints placed on the accounts before
+            proceeding with modifying the COP account status. 
+          </div>
+          <lightning-datatable
+            key-field="id"
+            data={casesData}
+            columns={caseColumns}
+            hide-checkbox-column="true"
+            data-id="datatable"
+          ></lightning-datatable>
+        </template>
+      </template>
+      <!--Showing Post Precheck Done Section-->
+      <template lwc:if={showSuccessSection}>
+        <lightning-icon
+          class="slds-icon-utility-success slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+          icon-name="utility:success"
+          alternative-text="success"
+          variant="success"
+          size="large"
+          title="success"
+          data-id="success"
+        ></lightning-icon>
+        <div
+          class="slds-var-m-top_xx-large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+        >
+          The modify COP status on the following accounts below was successful.
+        </div>
+        <lightning-datatable
+          key-field="id"
+          data={successData}
+          columns={responseColumns}
+          hide-checkbox-column="true"
+          data-id="datatable"
+        ></lightning-datatable>
+      </template>
+
+      <template lwc:if={showFailureSection}>
+        <lightning-icon
+          class="slds-icon-utility-warning slds-icon_container slds-align_absolute-center slds-var-m-top_large"
+          icon-name="utility:warning"
+          alternative-text="warning"
+          variant="warning"
+          size="large"
+          title="warning"
+          data-id="failure"
+        ></lightning-icon>
+        <div
+          class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_medium"
+        >
+          <div>
+            <b
+              >The modify COP status on the following accounts below was
+              failed.</b
+            >
+          </div>
+        </div>
+        <div
+          class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_small slds-var-m-bottom_xx-large"
+        ></div>
+        <lightning-datatable
+          key-field="id"
+          data={failureData}
+          columns={responseColumns}
+          hide-checkbox-column="true"
+          data-id="datatable"
+        ></lightning-datatable>
+      </template>
+    </div>
+
+    <!--Footer Part-->
+    <lightning-modal-footer class="slds-var-m-top_large">
+      <div>
+        <template lwc:if={isModificationNotDone}>
+          <lightning-button
+            class="slds-button"
+            variant="neutral"
+            label="Cancel"
+            onclick={handleCancel}
+            data-id="cancel"
+          ></lightning-button>
+          <lightning-button
+            class="slds-button"
+            variant="brand"
+            label="Modify COP Status"
+            onclick={handleModifyCOPStatus}
+            data-id="initiateModification"
+          ></lightning-button>
+        </template>
+        <template lwc:else>
+          <lightning-button
+            class="slds-button"
+            variant="neutral"
+            label="Close"
+            onclick={handleCancel}
+            data-id="close"
+          ></lightning-button>
+        </template>
+      </div>
+    </lightning-modal-footer>
+  </template>
+</template>

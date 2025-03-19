@@ -80,4 +80,39 @@ public with sharing class CaseInputWrapper {
    */
   @AuraEnabled
   public String message { get; set; }
+  /**
+   * @description ParentId for the Case
+   */
+  @AuraEnabled
+  public String parentCaseId { get; set; }
+  /**
+   * @description COP Reason for the Case
+   */
+  @AuraEnabled
+  public String copReason { get; set; }
+  /**
+   * @description COP Reason for the Case
+   */
+  @AuraEnabled
+  public String issueType { get; set; }
+  /**
+   * @description Record Type for the Case
+   */
+  @AuraEnabled
+  public String recordTypeId {
+    get {
+      switch on issueType {
+        when 'Account Closure' {
+          return RTCase.accountClosure;
+        }
+        when 'Confirmation of Payee Opt-In', 'Confirmation of Payee Opt-Out' {
+          return RTCase.confirmationOfPayee;
+        }
+        when else {
+          return null;
+        }
+      }
+    }
+    set;
+  }
 }

@@ -461,6 +461,20 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</shortDescription>
+        <value>TEST_VALUE</value>
+    </labels>
+    <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</shortDescription>
+        <value>TEST_VALUE</value>
+    </labels>
+    <labels>
         <fullName>MS_Cancel_Loan_Application</fullName>
         <language>en_US</language>
         <protected>false</protected>

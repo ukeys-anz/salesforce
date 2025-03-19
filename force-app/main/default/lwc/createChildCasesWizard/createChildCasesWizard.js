@@ -1,30 +1,42 @@
-import { LightningElement, api, wire } from "lwc";
+import { LightningElement, api, wire, track } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord } from "lightning/uiRecordApi";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
-import getFilteredFinancialAccounts from "@salesforce/apex/AccountClosureWizardController.getFilteredFinancialAccounts";
 import { handleErrorShowToast } from "c/utils";
-
-const fields = ["Case.Account.OCV_ID__c", "Case.AccountId"];
+import confirmationOfPayeeDOM from "./confirmationOfPayeeDOM.html";
+import accountClosureDOM from "./accountClosureDOM.html";
+import defaultSpinnerDOM from "./defaultSpinnerDOM.html";
+import getDataForDatatable from "@salesforce/apex/CaseGroupController.getDataForDatatable";
+const fields = ["Case.Account.OCV_ID__c", "Case.AccountId", "Case.Type"];
 const columns = [
   { label: "Product", fieldName: "productName" },
   { label: "Account Number", fieldName: "accountNumber" },
-  { label: "Account Type", fieldName: "finAccountType" },
+  { label: "Account Type", fieldName: "finAccountType" }
+];
+const accountClosureColumns = [
   { label: "Signing Authority", fieldName: "signingAuthority" },
   { label: "Available Balance", fieldName: "balance", type: "currency" }
+];
+const confirmationOfPayeeColumns = [
+  { label: "COP Status", fieldName: "accountStatusCOP" }
 ];
 
 const ERROR_MESSAGE =
   "Please try again. Raise a fault through TechAssist if the problem persists.";
+const ISSUE_TYPE_ACCOUNT_CLOSURE = "Account Closure";
+const ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_IN = "Confirmation of Payee Opt-In";
+const ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT =
+  "Confirmation of Payee Opt-Out";
 
-export default class FinancialAccountsListWizard extends LightningElement {
+export default class CreateChildCasesWizard extends LightningElement {
   @api recordId;
+  data = [];
   finAccData = [];
   selectedRowsData = [];
   accountDetails = [];
   loading = false;
   hasFetchedAccounts = false;
-  columns = columns;
+  @track columns = columns;
   showCheckbox = false;
   hasError = false;
   isFinAccountsAvailable = false;
@@ -32,7 +44,20 @@ export default class FinancialAccountsListWizard extends LightningElement {
   _showNoDataMessage = false;
   customerOcvId;
   accountId;
+  issueType;
   errorMsg;
+  templateMap = {
+    [ISSUE_TYPE_ACCOUNT_CLOSURE]: accountClosureDOM,
+    [ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_IN]: confirmationOfPayeeDOM,
+    [ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT]: confirmationOfPayeeDOM
+  };
+
+  render() {
+    if (this.issueType) {
+      return this.templateMap[this.issueType];
+    }
+    return defaultSpinnerDOM;
+  }
 
   ownershipMap = {
     Single: { displayValue: "Sole", apiValue: "Individual" },
@@ -63,9 +88,12 @@ export default class FinancialAccountsListWizard extends LightningElement {
         this.customerOcvId =
           data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
         this.accountId = data.fields?.AccountId?.value;
+        this.issueType = data.fields?.Type?.value;
+        this.render();
         if (this.customerOcvId) {
           this.hasFetchedAccounts = true;
-          this.getFinancialAccount();
+          this.initialiseIssueType();
+          this.getData();
         }
       }
     } catch (error) {
@@ -73,18 +101,23 @@ export default class FinancialAccountsListWizard extends LightningElement {
     }
   }
 
-  async getFinancialAccount() {
+  async getData() {
     this.loading = true;
     try {
-      this.accountDetails = await getFilteredFinancialAccounts({
+      const params = {
+        issueType: this.issueType,
+        parentCaseId: this.recordId,
         ocvId: this.customerOcvId
+      };
+      this.data = await getDataForDatatable({
+        params
       });
-      this.showNoDataMessage = this.accountDetails;
-      // Map account details to financial account data
-      this.finAccData = this.mapAccountDetailsToFinAccData(this.accountDetails);
+      this.finAccData = this.fetchSuccessRecords(this.data);
+      this.handleErrorRecords(this.data);
+      this.showNoDataMessage = this.finAccData;
     } catch (error) {
       this.handleError(error);
-      this.showNoDataMessage = this.accountDetails;
+      this.showNoDataMessage = this.finAccData;
       handleErrorShowToast(
         this,
         "Failed To Retrieve Account Details",
@@ -95,29 +128,6 @@ export default class FinancialAccountsListWizard extends LightningElement {
     } finally {
       this.loading = false;
     }
-  }
-
-  /**
-   * Helper method to map account details to financial account data.
-   */
-  mapAccountDetailsToFinAccData(accountDetails) {
-    return accountDetails.map((record) => {
-      const ownershipInfo = this.ownershipMap[record.Ownership__c] || {};
-      return {
-        id: record.Id,
-        productId: record?.FinServ__ProductName__c || null,
-        productName: record?.FinServ__ProductName__r?.Name || null,
-        accountNumber: record?.FinServ__FinancialAccountNumber__c || null,
-        finAccountType: ownershipInfo.displayValue || "",
-        signingAuthority:
-          record.Ownership__c === "Multi-party" &&
-          record.Number_Of_Signatures__c === "All to sign"
-            ? record.Number_Of_Signatures__c
-            : "",
-        balance: record?.FinServ__Balance__c,
-        apiFinAccountType: ownershipInfo.apiValue || ""
-      };
-    });
   }
 
   handleRowSelection(event) {
@@ -142,11 +152,42 @@ export default class FinancialAccountsListWizard extends LightningElement {
     this.hasError = true;
     this.errorMsg = ERROR_MESSAGE;
   }
+  // handle error records
+  handleErrorRecords(records) {
+    let errorAccountNumbers = records
+      .filter((record) => record.isError)
+      .map((record) => record.accountNumber);
+    if (errorAccountNumbers.length > 0) {
+      handleErrorShowToast(
+        this,
+        "Failed To Retrieve COP status for Account Numbers - " +
+          errorAccountNumbers.join(", "),
+        null,
+        "Failed to retrieve latest account details. Please refresh and try again. If the issue persists, please contact your System Administrator",
+        "pester"
+      );
+    }
+  }
+
+  fetchSuccessRecords(records) {
+    return records.filter((record) => !record.isError);
+  }
 
   async refreshTab() {
     const { tabId } = await getFocusedTabInfo();
     await refreshTab(tabId, {
       includeAllSubtabs: false
     });
+  }
+
+  initialiseIssueType() {
+    if (this.issueType === ISSUE_TYPE_ACCOUNT_CLOSURE) {
+      this.columns = this.columns.concat(accountClosureColumns);
+    } else if (
+      this.issueType === ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_IN ||
+      this.issueType === ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT
+    ) {
+      this.columns = this.columns.concat(confirmationOfPayeeColumns);
+    }
   }
 }

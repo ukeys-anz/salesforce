@@ -3,7 +3,7 @@
   "childRelationships": {},
   "fields": {
     "Account": {
-      "displayValue": "Nilesh Jaiswal",
+      "displayValue": "Shivam Jaiswal",
       "value": {
         "apiName": "Account",
         "childRelationships": {},
@@ -26,13 +26,9 @@
         },
         "systemModstamp": "2024-12-06T07:52:26.000Z"
       }
-    },
-    "AccountId": {
-      "displayValue": null,
-      "value": "001AD00000beyc1YAA"
     }
   },
-  "id": "500AD00000K5jtqYAB",
+  "id": "500AD00000K7EyoYAF",
   "lastModifiedById": "005AD000009zALRYA2",
   "lastModifiedDate": "2025-01-16T05:31:30.000Z",
   "recordTypeId": "012AD000001Zv9JYAS",
