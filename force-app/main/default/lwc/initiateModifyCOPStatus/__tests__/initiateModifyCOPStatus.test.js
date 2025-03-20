@@ -6,7 +6,7 @@ import fetchChildCasesCoP from "@salesforce/apex/ConfirmationOfPayeeController.f
 const getWiredRecord = require("./data/getWiredRecord.json");
 const MOCK_FIN_ACCOUNTS = require("./data/mockFinancialAccount.json");
 
-const RECORD_ID = "500AD00000LMCeMYAX";
+const RECORD_ID = "500AD00000Lk5iKYAR";
 
 jest.mock(
   "@salesforce/apex/ConfirmationOfPayeeController.fetchChildCasesCoP",
@@ -53,6 +53,8 @@ describe("c-initiate-modify-cop-status", () => {
     const dataTable = element.shadowRoot.querySelector(
       "lightning-datatable[data-id=datatable]"
     );
-    // expect(cancelButton).toBeTruthy();
+    expect(cancelButton).toBeTruthy();
+    expect(initiateModificationButton).toBeTruthy();
+    expect(dataTable.data.length).toBe(2);
   });
 });
