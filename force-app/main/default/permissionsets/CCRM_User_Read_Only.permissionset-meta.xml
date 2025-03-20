@@ -324,6 +324,10 @@
         <name>DCRM_StateMapping__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customPermissions>
         <name>CCRM_Read_Only_User_Access</name>
         <enabled>true</enabled>

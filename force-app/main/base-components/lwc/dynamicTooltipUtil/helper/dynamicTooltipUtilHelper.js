@@ -35,16 +35,22 @@ const totalFinancialPosition = `<span>
                     If a customer proceeds with a transaction when there may be
                     insufficient funds, their account may go overdrawn or the
                     transaction may be declined.
+                    <br/>
+                    <br/>
+                    <p class="slds-text-title_bold">
+                    *This amount is only viewable by coaches 
+                    and not available to the customer in the app.
+                    </p>
                 </span>`;
 
 const totalSavedFinancialPosition = `<span>
                     <p class="slds-text-title_bold">
-                    The amount shown is indicative of the amount you may be
+                    The amount shown is indicative of the amount a customer may be
                     able to use but may not be what is actually available.
                     </p>
                     <br />
-                    The amount shown is indicative of the amount you may be
-                    able to use in your {productName} account. This amount, when
+                    The amount shown is indicative of the amount a customer may be
+                    able to use in their {productName} accounts. This amount, when
                     shown at an ATM or on a receipt, may have a different
                     label such as 'Funds' or 'Balance'. Regardless, the amount
                     shown may not be what is actually available because:
@@ -69,8 +75,8 @@ const totalSavedFinancialPosition = `<span>
                         the amount shown, but are later adjusted.
                     </li>
                     </ul>
-                    If you proceed with a transaction when there may be
-                    insufficient funds, your account may go overdrawn or the
+                    If a customer proceeds with a transaction when there may be
+                    insufficient funds, their account may go overdrawn or the
                     transaction may be declined.
                 </span>`;
 
@@ -145,7 +151,7 @@ const TRANSACT01 = `<span>
 const SAVING02 = `<span>
                     <p class="slds-text-title_bold">
                     The amount shown is indicative of the amount a customer may be able to
-                    use but may not be what should be avaialble or is actually available.
+                    use but may not be what should be available or is actually available.
                     </p>
                     <br />
                     The amount shown is indicative of the amount a customer may be able to use
@@ -178,6 +184,80 @@ const SAVING02 = `<span>
                     funds, their account may go overdrawn or the transaction may be
                     declined.
                 </span>`;
+
+const SAVING03PGS = `<span>
+                <p class="slds-text-title_bold">
+                The amount shown is indicative of the amount a customer may be able to
+                use but may not be what should be available or is actually available.
+                </p>
+                <br />
+                The amount shown is indicative of the amount a customer may be able to use
+                in their {productName} account. This amount, when shown at an ATM or
+                on a receipt, may have a different label such as 'Funds' or
+                'Balance'. Regardless, the amount shown may not be what should be available or is actually
+                available.
+                <br/>
+                <br/>
+                This can be because, for example:
+                <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+                <li>
+                    some transactions may not have updated the amount shown (e.g.
+                    reversals)
+                </li>
+                <li>
+                    some transactions may have updated the amount shown but are not
+                    yet fully processed (e.g. pending transactions)
+                </li>
+                <li>
+                    we may not process transactions at the time, on the day or in
+                    the order that they are made, or
+                </li>
+                <li>
+                    some transactions may have been processed and updated the amount
+                    shown, but are later adjusted.
+                </li>
+                </ul>
+                If a customer proceeds with a transaction when there may be insufficient
+                funds, their account may go overdrawn or the transaction may be
+                declined.
+            </span>`;
+
+const SAVING04OLS = `<span>
+            <p class="slds-text-title_bold">
+            The amount shown is indicative of the amount a customer may be able to
+            use but may not be what should be available or is actually available.
+            </p>
+            <br />
+            The amount shown is indicative of the amount a customer may be able to use
+            in their {productName} account. This amount, when shown at an ATM or
+            on a receipt, may have a different label such as 'Funds' or
+            'Balance'. Regardless, the amount shown may not be what should be available or is actually
+            available.
+            <br/>
+            <br/>
+            This can be because, for example:
+            <ul class="slds-list_dotted slds-m-top_medium slds-m-bottom_medium">
+            <li>
+                some transactions may not have updated the amount shown (e.g.
+                reversals)
+            </li>
+            <li>
+                some transactions may have updated the amount shown but are not
+                yet fully processed (e.g. pending transactions)
+            </li>
+            <li>
+                we may not process transactions at the time, on the day or in
+                the order that they are made, or
+            </li>
+            <li>
+                some transactions may have been processed and updated the amount
+                shown, but are later adjusted.
+            </li>
+            </ul>
+            If a customer proceeds with a transaction when there may be insufficient
+            funds, their account may go overdrawn or the transaction may be
+            declined.
+        </span>`;
 
 const savingGoals = `<span>
                     <p class="slds-text-title_bold">
@@ -215,6 +295,8 @@ const TOOLTIP_MAP = {
   SAVING01: SAVING01,
   TRANSACT01: TRANSACT01,
   SAVING02: SAVING02,
+  SAVING03PGS: SAVING03PGS,
+  SAVING04OLS: SAVING04OLS,
   savingGoals: savingGoals
 };
 

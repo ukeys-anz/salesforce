@@ -300,6 +300,10 @@
         <name>Financial_Summary_Setting__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customPermissions>
         <name>View_C360_Financial_Summary</name>
         <enabled>true</enabled>
@@ -3013,6 +3017,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Territory__c.Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Territory__c.ABN_ACN__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Territory__c.Business_Name__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

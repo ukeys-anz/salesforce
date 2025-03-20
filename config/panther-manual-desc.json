@@ -384,7 +384,8 @@
         "CPID__c",
         "IsSkeleton__c",
         "IsSnapshotError__c",
-        "IsSnapshotInProgress__c"
+        "IsSnapshotInProgress__c",
+        "Migration_Status_Date__c"
       ],
       "IA-2415860": [
         "Deleted_in_OCV__c",
@@ -414,8 +415,7 @@
       ],
       "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
-      "IA-2453595": ["Migration_Status__c"],
-      "IA-2530753": ["Migration_Status_Date__c"]
+      "IA-2453595": ["Migration_Status__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
@@ -2514,7 +2514,8 @@
         "Product_SubCode__c",
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
-        "System_Record_Status__c"
+        "System_Record_Status__c",
+        "Migration_Status_Date__c"
       ],
       "IA-2415860": [
         "Product_Code_Display__c",
@@ -2524,8 +2525,7 @@
         "Ownership__c"
       ],
       "IA-2594111": ["FinServ__JointOwner__c"],
-      "IA-2453595": ["Migration_Status__c"],
-      "IA-2530753": ["Migration_Status_Date__c"]
+      "IA-2453595": ["Migration_Status__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -4697,7 +4697,8 @@
         "LastModifiedDate",
         "Status__c"
       ],
-      "IA-2415790": ["TPMI__c"]
+      "IA-2415790": ["TPMI__c"],
+      "IA-2415840": ["ABN_ACN__c", "Business_Name__c"]
     },
     "User_Territory__c": {
       "IA-2415860": [

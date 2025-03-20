@@ -448,6 +448,10 @@
         <apexClass>TransactionHistoryExternalQuery</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <description>View C360 external financial account records</description>
     <fieldPermissions>
         <editable>false</editable>

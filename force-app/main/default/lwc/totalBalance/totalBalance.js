@@ -127,15 +127,9 @@ export default class TotalBalance extends LightningElement {
   }
 
   formatProductName(productNameList) {
-    switch (productNameList.length) {
-      case 0:
-        return "";
-      case 1:
-        return `${productNameList[0]}`;
-      case 2:
-        return `${productNameList[0]} and ${productNameList[1]}`;
-      default:
-        return `${productNameList.slice(0, -1).join(",")} and ${productNameList[productNameList.length - 1]}`;
-    }
+    const lastProduct = productNameList.pop();
+    return productNameList.length > 0
+      ? productNameList.join(", ") + " and " + lastProduct
+      : lastProduct;
   }
 }

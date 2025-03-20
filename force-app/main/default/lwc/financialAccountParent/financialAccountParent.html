@@ -24,6 +24,7 @@
           ownership-type={accountOwnershipType}
           account-owners-list={accountOwners}
           offset-details={offsetData}
+          component-title={financialAccount.sectionHeaderTitle}
         ></c-home-loan-account>
       </template>
       <template lwc:else>
@@ -53,7 +54,7 @@
       </template>
     </template>
     <div class="slds-m-top_small"></div>
-    <template lwc:if={isSavings}>
+    <template lwc:if={showGoals}>
       <c-financial-goals
         record-id={recordId}
         goal-data={goalData}
