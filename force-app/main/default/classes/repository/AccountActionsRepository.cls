@@ -24,6 +24,31 @@ public with sharing class AccountActionsRepository {
   }
 
   /**
+   * @description getCurrentAccountById method return account associated to the given ids of the account
+   * @param idOfAcc Id of the Account
+   * @return Account account record
+   */
+  public Account getCurrentAccountById(Id idOfAcc) {
+    if (String.isEmpty(idOfAcc)) {
+      return new Account();
+    }
+    return [
+      SELECT
+        Id,
+        IsPersonAccount,
+        Name,
+        Salutation,
+        Source_System_ID__c,
+        Source_System_Name__c,
+        OCV_ID__c,
+        OwnerId
+      FROM Account
+      WHERE Id = :idOfAcc
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description check current user is ML User or not
    * @name isCurrentUserML
    * @return Boolean is Current User ML or Not

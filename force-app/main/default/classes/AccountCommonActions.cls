@@ -16,13 +16,6 @@ public with sharing class AccountCommonActions {
   @TestVisible
   public static Boolean forceDMLError = false; // This is to force a DML error to increase unit test coverage
 
-  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
-    DmlRepository.class
-  );
-  private static final LeadConversionActionsRepository LEADCONV_REPOSITORY = (LeadConversionActionsRepository) Lib_InstanceProvider.forType(
-    LeadConversionActionsRepository.class
-  );
-
   /**
    * @description checkForAccountDeletion is called to check if the Deleted_In_OCV__c flag is updated for deletion
    * @param records The Account records passed from Trigger.new()
@@ -215,40 +208,6 @@ public with sharing class AccountCommonActions {
   }
 
   /**
-   * @description findAndConvertCCRMLead find CCRM leads with matching details and convert them
-   * @param accId get account id created/matched for lead conversion
-   * @param leadRec The Lead records created/matched for lead conversion
-   * @return string  opportunity id created/matched for lead conversion
-   */
-  @AuraEnabled(cacheable=false)
-  public static String findAndConvertCCRMLead(String accId, Lead leadRec) {
-    Map<Id, List<Lead>> matchingLeadsByAccIdMap = new Map<Id, List<Lead>>();
-    Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
-    // Find matching CCRM leads
-    if (!String.isBlank(accId)) {
-      matchingLeadsByAccIdMap.put(accId, new List<Lead>{ leadRec });
-    } else {
-      return Label.MLCRM_AccountBlank_LeadConversionError;
-    }
-
-    // Convert matching leads into accounts
-    if (!matchingLeadsByAccIdMap.isEmpty()) {
-      LeadDMLOperator dmlOperator = new LeadDMLOperator();
-      CCRMLeadPlatformEventHelper.leadTask = [
-        SELECT Response_Type__r.Unica_Lead_SubStatus__c, WhoId, CreatedDate
-        FROM Task
-        WHERE WhoId = :leadRec.Id
-        WITH SECURITY_ENFORCED
-        ORDER BY CreatedDate DESC
-      ];
-      mapOfOpportunityId = dmlOperator.convertLeads(matchingLeadsByAccIdMap);
-    }
-    return mapOfOpportunityId.containsKey(leadRec.Id)
-      ? mapOfOpportunityId.get(leadRec.Id)
-      : 'Error occured while Opportunity creation during lead conversion.';
-  }
-
-  /**
    * @description revertAccountChanges revert any changes on the account that are not from OCV Integration User
    * @param records The Account records passed from Trigger.new()
    * @param oldMap old trigger values
@@ -291,35 +250,17 @@ public with sharing class AccountCommonActions {
         WHERE IsConverted = TRUE
         LIMIT 1
       ];
-      //Added as per CC-4230
-      CCRMLeadConversionActions.leadConverionFlow = true;
-      mapOfOpportunityId = divCRMPreLeadConversionActions(
-        matchingLeadsByAccIdMap
-      );
       for (String accountId : matchingLeadsByAccIdMap.keySet()) {
         for (Lead l : matchingLeadsByAccIdMap.get(accountId)) {
           Database.LeadConvert convert = new Database.LeadConvert();
           convert.setLeadId(l.Id);
           convert.setAccountId(accountId);
           convert.setConvertedStatus(convertedStatus.MasterLabel);
-          /* CC-4230 to createOpportunity before lead convert and linked during lead converion */
-          if (
-            CCRMLeadUtil.isCCRMLeadType(l) || CCRMLeadUtil.isMLCRMLeadType(l)
-          ) {
-            convert.setOpportunityId(mapOfOpportunityId.get(l.Id));
-          } else {
-            convert.setDoNotCreateOpportunity(true);
-          }
+          convert.setDoNotCreateOpportunity(true);
           converts.add(convert);
         }
       }
       lcResults = Database.convertLead(converts);
-      //Added as per CC-4230
-      divCRMPostLeadConversionActions(
-        matchingLeadsByAccIdMap,
-        lcResults,
-        mapOfOpportunityId
-      );
       for (Database.LeadConvertResult lcr : lcResults) {
         if (!lcr.isSuccess()) {
           Logger.error(
@@ -335,209 +276,7 @@ public with sharing class AccountCommonActions {
       Logger.saveLog();
       return mapOfOpportunityId;
     }
-
-    /**
-     * @description Post lead conversion actions for CCRM leads
-     * @param leadMap map of leads from lead conversion
-     * @param mapOfAccountId map of lead and account id
-     * @return mapOf lead and OpportunityId
-     */
-    private Map<Id, Id> createOpportunities(
-      Map<Id, Lead> leadMap,
-      Map<Id, Id> mapOfAccountId
-    ) {
-      Map<Id, Id> mapOfOpportunityId = new Map<Id, Id>();
-      if (leadMap.isEmpty()) {
-        return mapOfOpportunityId;
-      }
-      Map<Id, Opportunity> mapOfLeadsWithOpportunities = new CCRMLeadMappingEngine()
-        .mapLeadToOpportunityFields(leadMap, mapOfAccountId);
-      if (mapOfLeadsWithOpportunities.isEmpty()) {
-        return mapOfOpportunityId;
-      }
-      insert mapOfLeadsWithOpportunities.values();
-      for (Id leadId : leadMap.keySet()) {
-        mapOfOpportunityId.put(
-          leadId,
-          mapOfLeadsWithOpportunities.get(leadId).Id
-        );
-      }
-      return mapOfOpportunityId;
-    }
-
-    /**
-     * @description divCRMPreLeadConversionActions Pre lead conversion actions for DivCRM leads
-     * @param matchingLeadsByAccIdMap account and lead records map from lead conversion
-     * @return mapOf lead and OpportunityId
-     */
-    private Map<Id, Id> divCRMPreLeadConversionActions(
-      Map<Id, List<Lead>> matchingLeadsByAccIdMap
-    ) {
-      Map<Id, Lead> leadMap = new Map<Id, Lead>();
-      List<Lead> leadList = new List<Lead>();
-      Map<Id, Id> mapOfAccountId = new Map<Id, Id>();
-      for (String accountId : matchingLeadsByAccIdMap.keySet()) {
-        for (Lead l : matchingLeadsByAccIdMap.get(accountId)) {
-          if (
-            CCRMLeadUtil.isCCRMLeadType(l) || CCRMLeadUtil.isMLCRMLeadType(l)
-          ) {
-            leadMap.put(l.Id, l);
-            leadList.add(l);
-            mapOfAccountId.put(l.Id, accountId);
-          }
-        }
-      }
-      //Added skip_validation check as per CC-4248
-      CCRMLeadConversion.checkSkipValidation(leadList);
-      Map<Id, Id> mapOfOpportunityId = createOpportunities(
-        leadMap,
-        mapOfAccountId
-      );
-      return mapOfOpportunityId;
-    }
-
-    /**
-     * @description divCRMPostLeadConversionActions Pre lead conversion actions for DivCRM leads
-     * @param matchingLeadsByAccIdMap account and lead records map from lead conversion
-     * @param lcResults Lead conversion result
-     * @param mapOfOpportunityId map of opportunity id with lead id
-     */
-    @TestVisible
-    private void divCRMPostLeadConversionActions(
-      Map<Id, List<Lead>> matchingLeadsByAccIdMap,
-      List<Database.LeadConvertResult> lcResults,
-      Map<Id, Id> mapOfOpportunityId
-    ) {
-      if (mapOfOpportunityId.isEmpty()) {
-        return;
-      }
-      LeadConversionActions objHelperClass = new LeadConversionActions();
-      List<Database.LeadConvertResult> lcSuccessResults = objHelperClass.getSuccessConvertedLeads(
-        lcResults
-      );
-      List<Lead> convertedLeads = objHelperClass.getConvertedLeads(
-        lcSuccessResults,
-        matchingLeadsByAccIdMap
-      );
-      Set<Id> leadIds = objHelperClass.getLeadListForUnicaAdobeOnLC(
-        convertedLeads
-      );
-      Boolean autoMisMatchTaskRequired = objHelperClass.isAutoMisMatchTaskRequired(
-        convertedLeads
-      );
-      Map<Id, Lead> mapCCRMLeads = objHelperClass.getCCRMLeadsMap(
-        convertedLeads
-      );
-      Map<Id, Lead> mapDCRMLeads = objHelperClass.getDCRMLeadsMap(
-        convertedLeads
-      );
-      Set<ID> contactIds = objHelperClass.getContactsToDelete(
-        lcSuccessResults,
-        mapDCRMLeads
-      );
-      Map<Id, Id> mapOfAccountIdWithLead = objHelperClass.getMapOfAccountIdWithCCRMLead(
-        lcSuccessResults,
-        mapCCRMLeads
-      );
-      if (!leadIds.isEmpty()) {
-        CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
-          leadIds,
-          mapOfOpportunityId
-        );
-        transferTasksToOpportunity(mapOfOpportunityId);
-      }
-      if (autoMisMatchTaskRequired) {
-        System.enqueuejob(
-          new AutoTaskOnLeadConversionQueueable(mapOfOpportunityId)
-        );
-      }
-      transferA2ZReviewToOpportunity(
-        mapOfAccountIdWithLead.keySet(),
-        mapOfOpportunityId,
-        mapOfAccountIdWithLead
-      );
-      deleteAutoCreatedContacts(contactIds);
-    }
-
-    /**
-     * @description transfer tasks from lead to opportunity by updating WhatId
-     * Used System Mode DML as the Reviews can updated only by Owners
-     * @param ccrmLeadIdSet set of ccrm lead ids
-     * @param mapOfOpportunityId map of opportunity id with lead id
-     * @param mapOfAccountIdWithLeadId map of Account id with lead id
-     */
-    @TestVisible
-    private void transferA2ZReviewToOpportunity(
-      Set<Id> ccrmLeadIdSet,
-      Map<Id, Id> mapOfOpportunityId,
-      Map<Id, Id> mapOfAccountIdWithLeadId
-    ) {
-      List<A_Z_Review__c> listOfA2ZReviews = CCRMA2ZReviewActionHelper.fetchReviewsByLead(
-        ccrmLeadIdSet
-      );
-      CCRMA2ZReviewActionHelper.associateReviewsToOpportunity(
-        listOfA2ZReviews,
-        mapOfOpportunityId
-      );
-      CCRMA2ZReviewActionHelper.associateReviewsToCustomer(
-        listOfA2ZReviews,
-        mapOfAccountIdWithLeadId
-      );
-      CCRMA2ZReviewActionHelper.updateReviews(listOfA2ZReviews);
-    }
-
-    /**
-     * @description transfer tasks from lead to opportunity by updating WhatId
-     * @param mapOfOpportunityId map of opportunity id with lead id
-     */
-    private void transferTasksToOpportunity(Map<Id, Id> mapOfOpportunityId) {
-      for (Task taskRecord : CCRMLeadPlatformEventHelper.leadTask) {
-        if (!mapOfOpportunityId.containsKey(taskRecord.WhoId)) {
-          continue;
-        }
-        taskRecord.WhatId = mapOfOpportunityId.get(taskRecord.WhoId);
-        taskRecord.WhoId = null;
-        taskRecord.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
-      }
-      DML_REPOSITORY.updateRecords(
-        CCRMLeadPlatformEventHelper.leadTask,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.SYSTEM_MODE
-      );
-    }
-    /**
-     * @description delete auto created contacts post lead conversion
-     * @param contactIds contacts from lead conversion
-     */
-    private void deleteAutoCreatedContacts(Set<ID> contactIds) {
-      //Separate contactList into org contacts vs person accounts
-      List<Contact> orgContactList = new List<Contact>();
-      Set<Id> personContactsIdSet = new Set<Id>();
-      for (
-        Contact contactRec : LEADCONV_REPOSITORY.getContactList(contactIds)
-      ) {
-        if (contactRec.isPersonAccount) {
-          personContactsIdSet.add(contactRec.id);
-        } else {
-          orgContactList.add(contactRec);
-        }
-      }
-      DML_REPOSITORY.deleteRecords(
-        orgContactList,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.SYSTEM_MODE
-      );
-      List<OpportunityContactRole> personOpportunityContactRoleList = LEADCONV_REPOSITORY.getOpportunityContactRole(
-        personContactsIdSet
-      );
-      DML_REPOSITORY.deleteRecords(
-        personOpportunityContactRoleList,
-        DmlRepository.ALLOW_PARTIAL,
-        DmlRepository.SYSTEM_MODE
-      );
-    }
   }
-
   /**
    * @description populateFieldsValue to update field values
    * exp: if Bankrupt_Date__c is not null, it will make BankruptCheckBox__c to be true

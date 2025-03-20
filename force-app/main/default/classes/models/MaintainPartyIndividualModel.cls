@@ -1,10 +1,10 @@
 /**
  * @author Ankit Garg
- * @since June 2023
- * @description extended service class for OCV maintain party api
- * @group Service
+ * @since Jan 2025
+ * @description model for OCV Maintain Party API for Individual Customers
+ * @group Models
  */
-public with sharing class DCRMMaintainPartyService extends Service {
+public with sharing class MaintainPartyIndividualModel {
   private static final String CRM = 'CRM';
   private static final String STATUS_PROSPECT = 'Prospect';
   private static final String PARTY_TYPE = 'P';
@@ -16,55 +16,9 @@ public with sharing class DCRMMaintainPartyService extends Service {
   private static final String PRIMARY_RESIDENTAIL = 'Primary Residential';
   private static final String ADVERTISING_INDICATOR = 'Advertising Indicator';
   /**
-   * @param record OCVRequestPayloadWrapper payload from the lwc component
-   * @return HttpCalloutResponse
-   * @description gathers all the parameters required for callout
+   * @description Constructor
    */
-  public override HttpCalloutResponse maintainParty(
-    OCVRequestPayloadWrapper record
-  ) {
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    Map<String, String> headers = new Map<String, String>();
-    Lead objLead = new Lead(OwnerId = record.strOwnerId);
-    Map<Id, User> mapOfLanId = CCRMUserActions.getMapOfLanIds(
-      new List<Lead>{ objLead },
-      false
-    );
-    String operatorId = mapOfLanId.containsKey(record.strOwnerId)
-      ? mapOfLanId.get(record.strOwnerId).Lan_Id__c
-      : '';
-    String requestTime = String.valueOf(System.now()) + '.00'; // appended with ms as required by API mesh
-
-    headers.put('Content-Type', 'application/json');
-    headers.put('client_id', '{!$Credential.Username}');
-    headers.put('client_secret', '{!$Credential.Password}');
-    headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
-    headers.put('Channel', 'CRM');
-    headers.put(
-      'Authorization',
-      'Bearer ' + CCRMARNCService.generateJWTToken()
-    );
-    headers.put('request-time', requestTime);
-    if (!String.isBlank(operatorId)) {
-      headers.put('user-id', operatorId);
-    } else {
-      // Throw custom exception
-      throw new CustomException(Label.MLCRM_User_LAN_Id_Error);
-    }
-    String body = getBody(record);
-    String endPoint = Label.MS_Maintain_Party;
-    return calloutService.makeRestCallout(
-      endPoint,
-      HTTP_METHOD.HTTP_POST,
-      headers,
-      body
-    );
-  }
-
-  /**
-   * @description Define custom exceptions
-   */
-  public class CustomException extends Exception {
+  public MaintainPartyIndividualModel() {
   }
 
   /**
@@ -139,7 +93,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
       maintainPartyReq.emails.add(email);
     }
 
-    //Add Preferences as part of CC-6745
+    //Add Preferences
     if (String.isNotBlank(record.strAdvertisingIndicator)) {
       Preferences pref = new Preferences();
       pref.source = CRM;
@@ -186,7 +140,7 @@ public with sharing class DCRMMaintainPartyService extends Service {
     private List<Phones> phones = new List<Phones>();
     private List<Emails> emails = new List<Emails>();
     private List<Addresses> addresses = new List<Addresses>();
-    private List<Preferences> preferences = new List<Preferences>(); //Added as part of CC-6745
+    private List<Preferences> preferences = new List<Preferences>();
   }
 
   /**
