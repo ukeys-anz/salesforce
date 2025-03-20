@@ -5,10 +5,12 @@ private class AutoKYCQARestraintTest {
   static Account acc = (Account) TestUtil.setFields(
     new Account(),
     new Map<String, Object>{
-      'FinServ__ClientFinancialAccounts__r' => new List<FinServ__FinancialAccount__c>{
-        new FinServ__FinancialAccount__c(
-          FinServ__FinancialAccountNumber__c = FAKER.randomString(5),
-          Product_Type__c = 'CAP_CIS:DDA'
+      'FinServ__FinancialAccountRoles__r' => new List<FinServ__FinancialAccountRole__c>{
+        new FinServ__FinancialAccountRole__c(
+          FinServ__FinancialAccount__r = new FinServ__FinancialAccount__c(
+            FinServ__FinancialAccountNumber__c = FAKER.randomString(5),
+            Product_Type__c = 'CAP_CIS:DDA'
+          )
         )
       }
     }
@@ -56,7 +58,8 @@ private class AutoKYCQARestraintTest {
 
   @IsTest
   static void testGenerateUpdate() {
-    FinServ__FinancialAccount__c fa = acc.FinServ__ClientFinancialAccounts__r[0];
+    FinServ__FinancialAccount__c fa = acc.FinServ__FinancialAccountRoles__r[0]
+      .FinServ__FinancialAccount__r;
     Test.startTest();
     Customer_Profile_Updates__c cpu = handler.generateUpdate(fa, kycQaCase, 60);
     Test.stopTest();
@@ -70,7 +73,8 @@ private class AutoKYCQARestraintTest {
 
   @IsTest
   static void testCreateRestraintPayload() {
-    FinServ__FinancialAccount__c fa = acc.FinServ__ClientFinancialAccounts__r[0];
+    FinServ__FinancialAccount__c fa = acc.FinServ__FinancialAccountRoles__r[0]
+      .FinServ__FinancialAccount__r;
     Test.startTest();
     String record = handler.createRestraintPayload(fa, 60);
     Test.stopTest();

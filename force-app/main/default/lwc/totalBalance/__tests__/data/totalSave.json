@@ -1,9 +1,9 @@
 {
-  "productNames" : [ "wgczTBWgjiRtOTJYfzRv", "XxREJFpzrnwYIqVvAKbu" ],
-  "aggregateResult" : {
-    "attributes" : {
-      "type" : "AggregateResult"
+  "productNames": ["wgczTBWgjiRtOTJYfzRv", "XxREJFpzrnwYIqVvAKbu"],
+  "aggregateResult": {
+    "attributes": {
+      "type": "AggregateResult"
     },
-    "totalBalance" : 23.21
+    "totalBalance": 23.21
   }
 }

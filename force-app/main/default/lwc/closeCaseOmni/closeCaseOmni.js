@@ -40,7 +40,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       );
       return;
     }
-    if (this.omniJsonData.Case.ComplaintStatus_OLD === "On Hold") {
+    if (this.omniJsonData.Case.ComplaintStatus_OLD === "Case - On Hold") {
       handleErrorShowToast(
         this,
         "Invalid stage in complaint process",
@@ -50,7 +50,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
       return;
     }
     if (
-      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      this.omniJsonData.Case.realFormRequired === "Y_EXI" &&
       this.omniJsonData.Case.REALFormMAXID !==
         this.omniJsonData.Case.REALFormMAXID_OLD &&
       this.omniJsonData.validatedEventNumber !==
@@ -475,7 +475,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
         this.missingFields.push("Payment Amount 3 Offered");
     }
 
-    if (details.realFormRequired === "Yes")
+    if (details.realFormRequired === "Y_EXI")
       this.checkFields(details, this.omniJsonData.realFormMap);
     if (details.isSystemicIssue === "Yes")
       this.checkFields(details, this.omniJsonData.sysIssueMap);
@@ -502,7 +502,7 @@ export default class CloseCaseOmni extends OmniscriptBaseMixin(
   validateRealFormID() {
     if (
       this.omniJsonData.Case.ComplaintStatus === "Closed" &&
-      this.omniJsonData.Case.realFormRequired === "Yes" &&
+      this.omniJsonData.Case.realFormRequired === "Y_EXI" &&
       (this.omniJsonData.Case.REALFormMAXID !== undefined ||
         this.omniJsonData.Case.REALFormMAXID !== null) &&
       this.omniJsonData.Case.REALFormMAXID !==

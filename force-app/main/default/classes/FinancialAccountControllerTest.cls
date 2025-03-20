@@ -11,12 +11,14 @@ public with sharing class FinancialAccountControllerTest {
   );
 
   static Lib_MockProvider finAccRepoMock;
-
+  static Lib_MockProvider userMock;
   static Lib_MockProvider dmlRepoMock;
 
   static void registerMocks() {
     finAccRepoMock = Lib_MockProvider.forType(FinancialAccountRepository.class);
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('checkCustomPermission', true);
   }
 
   /**
@@ -24,34 +26,25 @@ public with sharing class FinancialAccountControllerTest {
    */
   @testSetup
   public static void setup() {
-    TestUtil.addPermissionSets(
-      new List<String>{
-        'Accounts_Goals_Read_Only',
-        'View_Card_Details',
-        'View_Transaction_History'
-      }
-    );
+    TestUtil.addPermissionSets(new List<String>{ 'Accounts_Goals_Read_Only' });
   }
 
   @isTest
   public static void testGetFinancialAccountFabricPositive() {
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      registerMocks();
-      finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
+    registerMocks();
+    finAccRepoMock.mock('getFinAccountList', createMockFinancialAccount());
 
-      Test.startTest();
-      List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
-        '12345',
-        null
-      );
-      Test.stopTest();
+    Test.startTest();
+    List<UnifiedFinancialAccountModel> processedfinancialAccounts = FinancialAccountController.getFinancialAccountFabric(
+      '12345',
+      null
+    );
+    Test.stopTest();
 
-      Assert.isTrue(
-        processedfinancialAccounts.size() > 0,
-        'Fabric financial accounts should be grouped'
-      );
-    }
+    Assert.isTrue(
+      processedfinancialAccounts.size() > 0,
+      'Fabric financial accounts should be grouped'
+    );
   }
 
   @isTest

@@ -48,7 +48,6 @@ public with sharing class DataPartitionUtil {
     }
     return accountDetails;
   }
-
   /**
    * @description storing the first call out of `sop` from `ResidentialLoanApplicationAPIRepository`
    * @param sessionCacheKey the key is the sopId. Therefore the session cache stores sop details based on sopId

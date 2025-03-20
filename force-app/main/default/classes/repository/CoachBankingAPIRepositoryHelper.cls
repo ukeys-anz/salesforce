@@ -29,12 +29,19 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
   ) {
     ParameterBuilder builder = new ParameterBuilder();
     builder.append('status_filter', 'BUCKET_STATUS_FILTER_OPEN')
-    .append(String.isBlank(nextPageToken) ? 'page_size' : 'page_token', String.isBlank(nextPageToken) ? String.valueOf(pageSize) : nextPageToken);
+      .append(
+        String.isBlank(nextPageToken) ? 'page_size' : 'page_token',
+        String.isBlank(nextPageToken) ? String.valueOf(pageSize) : nextPageToken
+      );
 
     if (String.isNotBlank(accountNumber)) {
       builder.append('account_numbers', accountNumber);
     }
-    
+
+    if (String.isNotBlank(accountNumber)) {
+      builder.append('account_numbers', accountNumber);
+    }
+
     return builder.get();
   }
 

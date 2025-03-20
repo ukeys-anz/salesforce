@@ -1,5 +1,9 @@
 import { LightningElement, api, track } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import { handleErrorShowToast, showToast, handleErrors } from "c/utils";
+import WARNING_ICON from "@salesforce/resourceUrl/Warning_Icon"; //CC-857
+
+// Import Methords
 import searchPartyInfo from "@salesforce/apex/CCRMLeadConversionActions.searchPartyInfoLWC";
 import createParty from "@salesforce/apex/CCRMLeadConversionActions.createPartyLWC";
 import maintainParty from "@salesforce/apex/CCRMLeadConversionActions.maintainPartyLWC";
@@ -7,24 +11,26 @@ import isLeadMisMatchCustomer from "@salesforce/apex/CCRMLeadConversionActions.i
 import getLeadRecordForConversion from "@salesforce/apex/CCRMLeadConversion.getLeadRecordForConversion";
 import convertCCRMLead from "@salesforce/apex/CCRMLeadConversionActions.convertCCRMLead";
 import convertLeadWithMatchedParty from "@salesforce/apex/CCRMLeadConversionActions.convertLeadWithMatchedParty";
-import { handleErrorShowToast, showToast, handleErrors } from "c/utils";
-import WARNING_ICON from "@salesforce/resourceUrl/Warning_Icon"; //CC-857
+import convertOrganizationLead from "@salesforce/apex/CommercialLeadConversionController.convertOrganizationLead";
+import convertOrganizationMatchedLead from "@salesforce/apex/CommercialLeadConversionController.convertOrganizationMatchedLead";
 
-// import labels
+// Import Labels CCRM
 import CCRM_LeadConversionValidationSubText from "@salesforce/label/c.CCRM_LeadConversionValidationSubText";
 import CCRM_LeadConversionValidationHeading from "@salesforce/label/c.CCRM_LeadConversionValidationHeading";
 import CCRM_LeadConversionSearchPartySubText from "@salesforce/label/c.CCRM_LeadConversionSearchPartySubText";
-import MLCRM_LeadConversionMaintainPartySubText from "@salesforce/label/c.MLCRM_LeadConversionMaintainPartySubText";
 import CCRM_LeadDetailsSubText from "@salesforce/label/c.CCRM_LeadDetailsSubText";
+import CCRM_AddressError from "@salesforce/label/c.CCRM_AddressError";
+import CCRM_RegisteredCompanyError from "@salesforce/label/c.CCRM_RegisteredCompanyError";
+import CCRM_ExistingCustomerError from "@salesforce/label/c.CCRM_ExistingCustomerError";
+import CCRM_CustomerNeedsError from "@salesforce/label/c.CCRM_CustomerNeedsError";
+
+// Import Labels MLCRM
+import MLCRM_LeadConversionMaintainPartySubText from "@salesforce/label/c.MLCRM_LeadConversionMaintainPartySubText";
 import MLCRM_LeadDetailsSubText from "@salesforce/label/c.MLCRM_LeadDetailsSubText";
 import MLCRM_AmountValidationError from "@salesforce/label/c.MLCRM_AmountValidationError";
 import MLCRM_CustomerNeedsError from "@salesforce/label/c.MLCRM_CustomerNeedsError";
 import MLCRM_LeadSourceError from "@salesforce/label/c.MLCRM_LeadSourceError";
 import MLCRM_ConversionStatusValidationError from "@salesforce/label/c.MLCRM_ConversionStatusValidationError";
-import CCRM_AddressError from "@salesforce/label/c.CCRM_AddressError";
-import CCRM_RegisteredCompanyError from "@salesforce/label/c.CCRM_RegisteredCompanyError";
-import CCRM_ExistingCustomerError from "@salesforce/label/c.CCRM_ExistingCustomerError";
-import CCRM_CustomerNeedsError from "@salesforce/label/c.CCRM_CustomerNeedsError";
 import MLCRM_Lead_MisMatch_Warning_Message from "@salesforce/label/c.MLCRM_Lead_MisMatch_Warning_Message"; //CC-857
 
 const columns = [
@@ -50,10 +56,6 @@ const columns = [
   {
     label: "KYC status",
     fieldName: "kycStatus"
-  },
-  {
-    label: "Match",
-    fieldName: "match"
   }
 ];
 const columnsIndividual = [
@@ -165,9 +167,16 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   accountId = "";
   warningSignUrl = WARNING_ICON; //CC-857
   warningMsgConstant = warningMsgConstant; //CC-857
+  setContainerStyle = false;
 
   get noMatchOption() {
     return [{ label: "No Match Available", value: "createParty" }];
+  }
+
+  get containerStyle() {
+    return this.setContainerStyle
+      ? ".resultTable3 .slds-table_header-fixed_container {background: white;}"
+      : "";
   }
 
   label = {
@@ -591,6 +600,153 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
 
   convertLeadIndividualCCRM() {
     this.maintainPartyAction();
+  }
+
+  convertLeadOrganizationCCRM() {
+    this.maintainPartyActionOrganization();
+  }
+
+  maintainPartyActionOrganization() {
+    this.searchParty = false;
+    this.maintainPartyExist = false;
+    this.isConvertLead = true;
+    this.isModalOpen = true;
+    this.progress = 0;
+    this.leadDetails = false;
+    this.leadTitle =
+      "Converting Lead " +
+      this.leadConvertData.leadRecord.Name +
+      " into an Opportunity.";
+
+    convertOrganizationLead({
+      record: this.leadConvertData.leadRecord
+    })
+      .then((result) => {
+        this.isLoading = false;
+        this.leadDetails = false;
+        if (!result.isNewCustomer) {
+          this.handleExistingOrgCustomer(result);
+        } else {
+          this.handleNewOrgCustomer(result);
+        }
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        this.handleError(error);
+      });
+  }
+
+  handleExistingOrgCustomer(result) {
+    // Existing customer found - Use result to populate search results
+    this.maintainPartyExist = true;
+    this.isConvertLead = false;
+    this.progress = 0;
+
+    if (result.matchedResults.length === 0) {
+      this.noDataFound = true;
+      this.setTableHeight = "";
+    } else {
+      result.matchedResults.forEach((record) => {
+        let tempRec = Object.assign({}, record);
+        tempRec.accountName = "/" + tempRec.id;
+        this.accountId = tempRec.id;
+        this.cpId = tempRec.cpid;
+        this.searchResults.push(tempRec);
+      });
+      this.setContainerStyle = true;
+    }
+
+    this.leadTitle = "Lead Conversion - Add a Customer to this Lead";
+    this.modalBodySubText = this.label.MLCRM_LeadConversionMaintainPartySubText;
+  }
+
+  handleNewOrgCustomer(result) {
+    // New customer - Proceed with creation of party
+    this.isLoading = false;
+    this.isConverted = true;
+    this.progress = 98;
+    this.closeAction();
+
+    if (!result.oppID) {
+      handleErrorShowToast(
+        this,
+        "ERROR!",
+        "",
+        "Empty result. Lead Conversion Failed!",
+        "pester"
+      );
+    } else {
+      showToast(
+        this,
+        "SUCCESS!",
+        "Lead Conversion Completed successfully.",
+        "",
+        "Success",
+        ""
+      );
+      this[NavigationMixin.Navigate]({
+        type: "standard__recordPage",
+        attributes: {
+          recordId: result.oppID,
+          objectApiName: "Opportunity",
+          actionName: "view"
+        }
+      });
+    }
+  }
+
+  convertOrganizationMatchedLeadAction() {
+    this.isLoading = true;
+    this.maintainPartyExist = false;
+    this.isConvertLead = true;
+    this.isModalOpen = true;
+    this.progress = 0;
+    this.leadDetails = false;
+    this.leadTitle =
+      "Converting Lead " +
+      this.leadConvertData.leadRecord.Name +
+      " into an Opportunity.";
+    convertOrganizationMatchedLead({
+      accId: this.accountId,
+      cpId: this.cpId,
+      record: this.leadConvertData.leadRecord
+    })
+      .then((result) => {
+        this.isLoading = false;
+        this.isConverted = true;
+        this.progress = 98;
+        this.closeAction();
+        if (!result) {
+          handleErrorShowToast(
+            this,
+            "ERROR!",
+            "",
+            "Empty result. Lead Conversion Failed!",
+            "pester"
+          );
+        } else {
+          showToast(
+            this,
+            "SUCCESS!",
+            "Lead Conversion Completed successfully.",
+            "",
+            "Success",
+            ""
+          );
+          this[NavigationMixin.Navigate]({
+            type: "standard__recordPage",
+            attributes: {
+              recordId: result,
+              objectApiName: "Opportunity",
+              actionName: "view"
+            }
+          });
+        }
+      })
+      .catch((error) => {
+        this.isLoading = false;
+        this.handleError(error);
+      });
   }
 
   maintainPartyAction() {

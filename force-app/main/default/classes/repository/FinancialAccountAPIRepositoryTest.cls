@@ -60,7 +60,10 @@ public with sharing class FinancialAccountAPIRepositoryTest {
       Test.startTest();
       FinancialAccountAPIRepository financialaccountapi = new FinancialAccountAPIRepository();
       try {
-        financialaccountapi.getAccounts('1111', new List<String>());
+        UnifiedFinancialAccountModel model = financialaccountapi.getAccounts(
+          '1111',
+          new List<String>()
+        );
       } catch (Exception e) {
         resultException = e;
       }

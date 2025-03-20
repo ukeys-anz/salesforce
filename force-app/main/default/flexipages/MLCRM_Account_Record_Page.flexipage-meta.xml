@@ -41,8 +41,49 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Mobile__c</fieldItem>
+                <identifier>RecordMobile_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.PersonEmail</fieldItem>
+                <identifier>RecordPersonEmailField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.PersonOtherPhone</fieldItem>
                 <identifier>RecordPersonOtherPhoneField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -53,6 +94,13 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Other_Email__c</fieldItem>
                 <identifier>RecordOther_Email_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>

@@ -4,6 +4,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import MAX_RETRY_COUNT from "@salesforce/label/c.DAONImageReloadMaxRetryCount";
 import IMG_DOC from "@salesforce/resourceUrl/onboardingDocumentImage";
 import IMG_SELFIE from "@salesforce/resourceUrl/onboardingSelfieImage";
+import DaonImageModal from "c/daonImageModal";
 
 //Default group configuration
 const GROUP_DEFAULTS = {
@@ -110,6 +111,12 @@ export default class DaonFileDownload extends LightningElement {
           }
         })
       );
+    },
+    openImage(e) {
+      DaonImageModal.open({
+        size: "full",
+        ...e.target.dataset
+      });
     }
   };
 

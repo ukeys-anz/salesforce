@@ -13,7 +13,7 @@
     <length>255</length>
     <referenceTargetField>Account.External_Id__c</referenceTargetField>
     <referenceTo>Account</referenceTo>
-    <relationshipLabel>Asset Finances (ELS)</relationshipLabel>
+    <relationshipLabel>Asset Finance (ELS)</relationshipLabel>
     <relationshipName>Asset_Finances_ELS</relationshipName>
     <securityClassification>Internal</securityClassification>
     <type>IndirectLookup</type>

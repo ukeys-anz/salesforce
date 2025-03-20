@@ -7,7 +7,7 @@
             <assignedTo>Digital_Fraud_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-            AND(                  
+            AND(
                 OR(
                     ISNEW(),
                     ISCHANGED(Submitted__c)
@@ -16,10 +16,10 @@
                 OR(
                     RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
                     RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
-                ),              
+                ),
                 ISPICKVAL(
                     Dispute_Reason__c, &quot;Unauthorised Transaction&quot;
-                )                 
+                )
             )
             </formula>
         </ruleEntry>
@@ -36,7 +36,7 @@
                 OR(
                     RecordType.DeveloperName = &quot;NPP_Dispute&quot;,
                     RecordType.DeveloperName = &quot;BPAY_Dispute&quot;
-                ),             
+                ),
                 NOT(
                     ISPICKVAL(Dispute_Reason__c, &quot;Unauthorised Transaction&quot;)
                 )
@@ -47,7 +47,7 @@
             <assignedTo>Support_Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-            AND(                     
+            AND(
                 OR(
                     ISNEW(),
                     ISCHANGED(Submitted__c)
@@ -69,7 +69,6 @@
                     RecordType.DeveloperName = &quot;General_Inquiry&quot;,
                     OR (
                         AND (
-                            
                             ISPICKVAL(Type, &quot;Cards&quot;),
                             OR(
                                 INCLUDES(Sub_Type__c, &quot;VAU Opt-In&quot;),
@@ -145,7 +144,7 @@
             <formula>
                 AND(
                     ISNEW(),
-                    RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,   
+                    RecordType.DeveloperName = &quot;General_Inquiry_CMOS&quot;,
                     ISPICKVAL(Origin, &quot;ANZ Plus Web&quot;)
                 )
             </formula>
@@ -167,7 +166,12 @@
         <ruleEntry>
             <assignedTo>COB_ID_Ops_Assistance_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
-            <formula>AND( ISNEW(), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot; )</formula>
+            <formula>AND( ISNEW(), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;, NOT(CONTAINS(Subject, &quot;WATCHLIST_HIT&quot;)  ))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <assignedTo>ID_Ops_Watchlist_Hits_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND( ISNEW(), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;, CONTAINS(Subject, &quot;WATCHLIST_HIT&quot;) )</formula>
         </ruleEntry>
         <ruleEntry>
             <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;ID_Ops_Assistance&quot;)</formula>
@@ -195,15 +199,25 @@
             <assignedTo>Coach_Queue</assignedTo>
             <assignedToType>Queue</assignedToType>
             <formula>
-                AND( 
-                    ISNEW(), 
+                AND(
+                    ISNEW(),
                     RecordType.DeveloperName = &quot;Customer_Complaint&quot;,
-                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;) 
+                    ISPICKVAL(Origin, &quot;ANZ Plus App&quot;)
                 )
             </formula>
         </ruleEntry>
         <ruleEntry>
             <formula>AND(NOT(ISNEW()), OR(RecordType.DeveloperName = &quot;Account_Closure&quot;,RecordType.DeveloperName = &quot;Confirmation_Of_Payee&quot;,AND(RecordType.DeveloperName = &quot;Case_Group&quot;, OR(ISPICKVAL(Type, &quot;Account Closure&quot;),ISPICKVAL(Type, &quot;Confirmation of Payee Opt-In&quot;),ISPICKVAL(Type, &quot;Confirmation of Payee Opt-Out&quot;)))))</formula>
+        </ruleEntry>
+        <ruleEntry>
+            <formula>
+                AND(
+                    NOT( ISNEW() ),
+                    OR(RecordType.DeveloperName = &quot;Customer_Complaint&quot;,RecordType.DeveloperName = &quot;Non_Customer_Complaint&quot;),
+                    PRIORVALUE( IDR_Real_Form_Ref_No__c ) &lt;&gt; IDR_Real_Form_Ref_No__c,
+                    $Profile.Name = &quot;Minimum Access - External Apps&quot;
+                )
+            </formula>
         </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

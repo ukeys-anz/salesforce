@@ -74,6 +74,24 @@ public with sharing class ProfileUpdateCaseRepository {
   }
 
   /**
+   * @description Get list of pending staging records by Case Ids
+   * @param caseIds set of Case Ids
+   * @return List<Customer_Profile_Updates__c> list of pending staging records
+   */
+  public List<Customer_Profile_Updates__c> getPendingStagingRecordsByCaseIds(
+    Set<Id> caseIds
+  ) {
+    if (caseIds.isEmpty()) {
+      return new List<Customer_Profile_Updates__c>();
+    }
+    return [
+      SELECT Case__c
+      FROM Customer_Profile_Updates__c
+      WHERE Case__c IN :caseIds AND Status__c != 'Completed'
+    ];
+  }
+
+  /**
    * @description Get list of Accounts by account Ids
    * @param accountIds set of Case Ids
    * @return List<Account> list of Account records

@@ -12,6 +12,10 @@
         <apexClass>FarOwnersRemovalService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customPermissions>
         <name>CCRM_System_Role_Access</name>
         <enabled>true</enabled>
@@ -240,6 +244,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Mailing_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Migration_Status_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Migration_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -305,7 +305,7 @@ public with sharing class CCRMAccountActions {
         oldMap.containsKey(rec.Id) &&
         rec.OCV_ID__c != oldMap.get(rec.id)?.OCV_ID__c
       ) {
-        rec.addError(Label.ML_OCV_ID_Update_ErrorMessage);
+        rec.addError(Label.OCV_ID_Update_ErrorMessage);
       }
     }
   }
@@ -497,7 +497,7 @@ public with sharing class CCRMAccountActions {
    */
   public static Boolean bypassPreventEditRecords() {
     String currUsername = UserInfo.getUserName();
-    return (currUsername.startsWith(Label.CCRM_OCVIntegrationUsername) ||
+    return (currUsername.startsWith(Label.OCVIntegrationUsername) ||
     CCRMLeadConversionActions.manualLeadConversionInitiated ||
     UserInfo.getProfileId() ==
     CommonUtil.getProfileByName(MLCRMConstants.ADMIN_PROFILE_NAME).Id);

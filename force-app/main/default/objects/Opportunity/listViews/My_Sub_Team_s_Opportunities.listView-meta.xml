@@ -26,7 +26,6 @@
     <label>My Pod&apos;s Opportunities</label>
     <sharedTo>
         <roleAndSubordinates>AF_Regional_Manager</roleAndSubordinates>
-        <roleAndSubordinates>DSI_Head_of_Teams</roleAndSubordinates>
         <roleAndSubordinates>SME_Head_of_NBC</roleAndSubordinates>
     </sharedTo>
 </ListView>

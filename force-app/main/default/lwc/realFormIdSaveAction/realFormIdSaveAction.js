@@ -44,7 +44,7 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
       return;
     }
     if (
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
       this.omniJsonData.validatedEventNumber !==
         this.omniJsonData.EditRealFormID.RealFormID
     ) {
@@ -63,17 +63,21 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
     ) {
       handleErrorShowToast(
         this,
-        "Is a REAL Form Required - Mandatory",
+        "Is a REaL Form Required - Mandatory",
         undefined,
-        "Please select a value for this field - Is a REAL Form Required"
+        "Please select a value for this field - Is a REaL Form Required"
       );
       this.loading = false;
       return;
     }
+    let drToUpdateCase =
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_NEW"
+        ? "DRCaseRealFormRequiredUpdate"
+        : "DRCaseRealFormIdUpdate2";
     let request_data = {
       type: "DataRaptor",
       value: {
-        bundleName: "DRCaseRealFormIdUpdate2",
+        bundleName: drToUpdateCase,
         inputMap: "{}",
         optionsMap: "{}"
       }
@@ -101,7 +105,7 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
 
   validateRealFormID() {
     if (
-      this.omniJsonData.EditRealFormID.RealFormRequired === "Yes" &&
+      this.omniJsonData.EditRealFormID.RealFormRequired === "Y_EXI" &&
       (this.omniJsonData.EditRealFormID.RealFormID !== undefined ||
         this.omniJsonData.EditRealFormID.RealFormID !== null) &&
       this.omniJsonData.EditRealFormID.RealFormID !==

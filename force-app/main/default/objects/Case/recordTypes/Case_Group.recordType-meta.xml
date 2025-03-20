@@ -7776,7 +7776,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Y_EXI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y_NEW</fullName>
             <default>false</default>
         </values>
     </picklistValues>

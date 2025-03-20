@@ -42,7 +42,7 @@ describe("c-dynamic-tooltip-util", () => {
     );
 
     expect(tooltipContent).toBeTruthy();
-    expect(tooltipContent.textContent).toContain("your ANZ Save account");
+    expect(tooltipContent.textContent).toContain("their ANZ Save account");
   });
 
   it("3, Test if tooltip content for total saved of S1 Financial Account visible", () => {
