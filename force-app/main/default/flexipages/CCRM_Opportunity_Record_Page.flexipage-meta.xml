@@ -454,16 +454,6 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.My_Notes__c</fieldItem>
-                <identifier>RecordMy_Notes_cField</identifier>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
                 <fieldItem>Record.Broker_Name__c</fieldItem>
                 <identifier>RecordBroker_Name_cField2</identifier>
             </fieldInstance>
@@ -472,17 +462,10 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
-                    <value>readonly</value>
+                    <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Lead_Id__c</fieldItem>
-                <identifier>RecordLead_Id_cField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.Circle_Of_Influence__c</fieldItem>
+                <identifier>RecordCircle_Of_Influence_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-21c6b061-2704-4690-9044-61bb42372b00</name>
@@ -517,6 +500,30 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Lead_Id__c</fieldItem>
                 <identifier>RecordLead_Id_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Lead_Id__c</fieldItem>
+                <identifier>RecordLead_Id_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -537,6 +544,40 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.New_to_Bank__c</fieldItem>
                 <identifier>RecordNew_to_Bank_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Description</fieldItem>
+                <identifier>RecordDescriptionField3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Description</fieldItem>
+                <identifier>RecordDescriptionField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>true</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-82eb138f-4f94-46b9-a0a6-98fdca5ff3c8</name>
@@ -573,32 +614,8 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
-                <fieldItem>Record.Description</fieldItem>
-                <identifier>RecordDescriptionField3</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
-                    </criteria>
-                </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Description</fieldItem>
-                <identifier>RecordDescriptionField2</identifier>
-                <visibilityRule>
-                    <criteria>
-                        <leftValue>{!Record.Lead_Converted__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
-                    </criteria>
-                </visibilityRule>
+                <fieldItem>Record.My_Notes__c</fieldItem>
+                <identifier>RecordMy_Notes_cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-33530b2d-a95f-4c69-9c25-a8c866fba3cc</name>
@@ -783,7 +800,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Description</value>
+                    <value>Additional Information</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection5</identifier>

@@ -8,7 +8,7 @@ on:
         required: true
         default: "artifact"
         type: choice
-        option:
+        options:
           - "artifact"
           - "destructive"
       NAME:

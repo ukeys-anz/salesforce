@@ -118,9 +118,9 @@
     <enableStreamingApi>true</enableStreamingApi>
     <label>Circle Of Influence</label>
     <nameField>
-        <displayFormat>COI-{0000}</displayFormat>
+        <encryptionScheme>None</encryptionScheme>
         <label>Circle Of Influence Name</label>
-        <type>AutoNumber</type>
+        <type>Text</type>
     </nameField>
     <pluralLabel>Circle Of Influences</pluralLabel>
     <searchLayouts/>

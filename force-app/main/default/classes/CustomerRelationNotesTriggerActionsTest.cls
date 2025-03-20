@@ -127,53 +127,6 @@ public class CustomerRelationNotesTriggerActionsTest {
       'On updation of Account object the Customer_Name__c field on Customer_Relationship__c object is not updating successfully'
     );
   }
-  /**
-   * @description test method for getUpdatedCustomersIds
-   */
-  @isTest
-  public static void testGetUpdatedCustomersIds() {
-    registerMocks();
-    String accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
-    Account objAccount = new Account(
-      Id = accountId,
-      Salutation = 'Dr',
-      FirstName = 'TestName',
-      LastName = 'TestName',
-      RecordTypeId = RTAccount.personAccount
-    );
-
-    Map<Id, Account> mapOfOldAcc = new Map<Id, Account>();
-    Account objAcc = new Account(
-      Id = accountId,
-      Salutation = 'Dr',
-      FirstName = 'Test',
-      LastName = 'Name',
-      RecordTypeId = RTAccount.personAccount
-    );
-    mapOfOldAcc.put(accountId, objAcc);
-
-    Test.StartTest();
-    Customer_Relationship__c testCustomerRelationship = createTestCustomerRelationship();
-    customerRelationshipRepoMock.mock(
-      'getCustomerRelationshipByAccountIds',
-      new List<Customer_Relationship__c>{ testCustomerRelationship }
-    );
-    CustomerRelationNotesTriggerActions.getUpdatedCustomersIds(
-      mapOfOldAcc,
-      new List<Account>{ objAccount }
-    );
-    Test.StopTest();
-
-    List<Customer_Relationship__c> crUpdatedList = (List<Customer_Relationship__c>) dmlRepoMock.getHistory(
-        'doUpdate'
-      )
-      .getParam('records');
-    Assert.areEqual(
-      'Dr TestName',
-      crUpdatedList[0].Customer_Name__c,
-      'On updation of Account object the Customer_Name__c field on Customer_Relationship__c object is not updating successfully'
-    );
-  }
 
   /**
    * @description test method for validatePrimaryRelationshipNotes

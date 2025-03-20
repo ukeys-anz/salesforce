@@ -8,6 +8,7 @@ import {
   deployRequiredFiles,
   runLoggingRecordsPurgeScheduler,
   runSandboxConfigSetupApex,
+  addPAMApproversIntoQueue,
   updateOmniStudioRemoteSetting,
   updatePamApproversCustomSetting,
   updateUserFedId
@@ -27,6 +28,7 @@ const runSetupConfigAndSettings = (orgAlias) => {
   deployContentAssets(orgAlias);
   updateOmniStudioRemoteSetting(orgAlias);
   runSandboxConfigSetupApex(orgAlias);
+  addPAMApproversIntoQueue(orgAlias);
   updatePamApproversCustomSetting(orgAlias);
   deployRequiredFiles(orgAlias);
   updateUserFedId(orgAlias);

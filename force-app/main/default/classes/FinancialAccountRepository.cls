@@ -75,7 +75,8 @@ public with sharing class FinancialAccountRepository {
         Id,
         FinServ__FinancialAccountNumber__c,
         Ownership__c,
-        FinServ__ProductName__c
+        FinServ__ProductName__c,
+        Product_Name_Display__c
       FROM FinServ__FinancialAccount__c
       WHERE FinServ__FinancialAccountNumber__c IN :finAccountNumbers
       WITH USER_MODE
@@ -134,13 +135,11 @@ public with sharing class FinancialAccountRepository {
    * @description gets all the finanacial account which needds to be displayed on UI
    * @param ownerId owner of fin account
    * @param allRelatedAccountNumbers all the rekated financial account numbers
-   * @param recordTypeDeveloperNames record type developer names
    * @return list of FinServ__FinancialAccount__c
    */
-  public List<FinServ__FinancialAccount__c> getFinacialAccounts(
+  public List<FinServ__FinancialAccount__c> getFinancialAccounts(
     Id ownerId,
-    List<String> allRelatedAccountNumbers,
-    List<String> recordTypeDeveloperNames
+    List<String> allRelatedAccountNumbers
   ) {
     return [
       SELECT
@@ -162,10 +161,89 @@ public with sharing class FinancialAccountRepository {
       WHERE
         (FinServ__PrimaryOwner__c = :ownerId
         OR FinServ__FinancialAccountNumber__c IN :allRelatedAccountNumbers)
-        AND RecordType.DeveloperName IN :recordTypeDeveloperNames
+        AND RecordTypeId != :RTFinancialAccount.bankAccount
         AND FinServ__Status__c != 'Closed'
       WITH USER_MODE
       ORDER BY FinServ__Status__c DESC, FinServ__OpenDate__c DESC
+    ];
+  }
+
+  /**
+   * @description Aggregates the total balance for all checking and saving account for eligible marketing codes
+   * @param accountNumbers list of account numbers received from FAR query for the given OCVId
+   * @param marketingCodes eligible marketing codes to be included in balance total
+   * @return SUM of the balance for the eligible marketing codes
+   */
+  public AggregateResult getTotalBalance(
+    Set<String> accountNumbers,
+    Set<String> marketingCodes
+  ) {
+    if (accountNumbers.isEmpty() || marketingCodes.isEmpty()) {
+      return null;
+    }
+
+    return [
+      SELECT SUM(FinServ__Balance__c) totalBalance
+      FROM FinServ__FinancialAccount__c
+      WHERE
+        FinServ__Balance__c != NULL
+        AND FinServ__FinancialAccountNumber__c = :accountNumbers
+        AND Marketing_Code__c IN :marketingCodes
+        AND FinServ__Status__c IN ('Active', 'Open')
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description builds a list of financial account roles for the customer sent from the UI
+   * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+   * @param customerRecordPrimaryOwnerId customer id receive from the UI
+   * @param marketingCodes ANZX marketing codes
+   * @return List<String> list of the financial account roles
+   */
+  public List<FinServ__FinancialAccountRole__c> getAllAccountNumberPerOwner(
+    Id customerRecordPrimaryOwnerId,
+    Set<String> marketingCodes
+  ) {
+    if (customerRecordPrimaryOwnerId == null) {
+      return new List<FinServ__FinancialAccountRole__c>();
+    }
+
+    return [
+      SELECT Account_Number__c, Product_Name_Display__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
+        AND FinServ__Active__c = TRUE
+        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description builds a list of financial account roles for the customer sent from the UI
+   * Account_Number__c (formula field) = FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+   * @param customerRecordPrimaryOwnerId customer id receive from the UI
+   * @param marketingCodes ANZX marketing codes
+   * @return List<FinServ__FinancialAccountRole__c> list of the financial account roles
+   */
+  public List<FinServ__FinancialAccountRole__c> getAllSavingsAccountNumberPerOwner(
+    Id customerRecordPrimaryOwnerId,
+    Set<String> marketingCodes
+  ) {
+    if (customerRecordPrimaryOwnerId == null) {
+      return new List<FinServ__FinancialAccountRole__c>();
+    }
+
+    return [
+      SELECT Account_Number__c, Product_Name_Display__c
+      FROM FinServ__FinancialAccountRole__c
+      WHERE
+        FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
+        AND FinServ__Active__c = TRUE
+        AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
+        AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.savingAccount
+      WITH USER_MODE
     ];
   }
 }

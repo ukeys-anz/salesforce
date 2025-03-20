@@ -492,6 +492,14 @@
         <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/individuals</value>
     </labels>
     <labels>
+        <fullName>MS_Maintain_Party_Organisation</fullName>
+        <categories>CCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_Maintain_Party_Organisation</shortDescription>
+        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
+    </labels>
+    <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
         <categories>MS card-management</categories>
         <language>en_US</language>
@@ -844,9 +852,9 @@
         <value>{
 &quot;anz--cmosadev25&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
 &quot;anz--cmosa&quot;: &quot;https://anzbankdev.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
-&quot;anz--anzxbau25&quot;: &quot;https://anzbankuat.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
-&quot;anz--test25&quot;: &quot;https://anztechtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
-&quot;anz&quot;: &quot;&quot;
+&quot;anz--anzxbau25&quot;: &quot;https://anztechtest.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz--test25&quot;: &quot;https://anzbankuat.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;,
+&quot;anz&quot;: &quot;https://anztech.service-now.com/servicehub?id=sc_cat_item&amp;table=sc_cat_item&amp;sys_id=56da77771b8a1514b53a99b8b04bcbbf&amp;sysparm_case_id=&quot;
 }</value>
     </labels>
     <labels>
@@ -1468,11 +1476,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Opportunity Identified</value>
     </labels>
     <labels>
-        <fullName>CCRM_OCVIntegrationUsername</fullName>
+        <fullName>OCVIntegrationUsername</fullName>
         <categories>CCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>CCRM_OCVIntegrationUsername</shortDescription>
+        <shortDescription>OCVIntegrationUsername</shortDescription>
         <value>ocvintegration.user@anzx.com</value>
     </labels>
     <labels>
@@ -1692,11 +1700,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This Customer is currently being managed by the hardship team</value>
     </labels>
     <labels>
-        <fullName>DCRM_ShellProspectOCVEventVersion</fullName>
+        <fullName>ShellProspectOCVEventVersion</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>DCRM_ShellProspectOCVEventVersion</shortDescription>
+        <shortDescription>ShellProspectOCVEventVersion</shortDescription>
         <value>0</value>
     </labels>
     <labels>
@@ -1974,11 +1982,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>This is a shell prospect record.</value>
     </labels>
     <labels>
-        <fullName>ML_OCV_ID_Update_ErrorMessage</fullName>
+        <fullName>OCV_ID_Update_ErrorMessage</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>ML_OCV_ID_Update_ErrorMessage</shortDescription>
+        <shortDescription>OCV_ID_Update_ErrorMessage</shortDescription>
         <value>OCV Id cannot be changed.</value>
     </labels>
     <labels>
@@ -2656,13 +2664,6 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Commercial Lending:CMOS_CS_CL,Unsecured Lending:CMOS_CS_UL,Business Lending:CMOS_CS_BL,Home Lending:CMOS_CS_HL</value>
     </labels>
     <labels>
-        <fullName>EDRM_Desktop_Params</fullName>
-        <language>en_US</language>
-        <protected>false</protected>
-        <shortDescription>EDRM Desktop Params</shortDescription>
-        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagementUL,CMOS_CS_BL:desktop=ComplaintManagementBL,CMOS_CS_HL:desktop=ComplaintManagementHL</value>
-    </labels>
-    <labels>
         <fullName>EDRM_URL_DEV</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -2675,6 +2676,13 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>EDRM_URL_PROD</shortDescription>
         <value>https://fnedrmicn-ui.service.anz/navigator/?</value>
+    </labels>
+    <labels>
+        <fullName>EDRM_Desktop_Params</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>EDRM Desktop Params</shortDescription>
+        <value>CMOS_CS_CL:desktop=ComplaintManagement,CMOS_CS_UL:desktop=ComplaintManagementUL,CMOS_CS_BL:desktop=ComplaintManagementBL,CMOS_CS_HL:desktop=ComplaintManagementHL</value>
     </labels>
     <labels>
         <fullName>MS_Get_Linked_Offset</fullName>
@@ -2732,7 +2740,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>BlockManualStatusUpdateIdOpsCase</shortDescription>
-        <value>false</value>
+        <value>true</value>
     </labels>
     <labels>
         <fullName>MLCRM_NoOpportunityModalHeader</fullName>

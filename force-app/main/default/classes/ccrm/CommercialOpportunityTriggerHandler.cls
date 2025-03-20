@@ -30,6 +30,7 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
    */
   public override void onBeforeInsert() {
     CommercialOpportunityActions.restrictImagesInRichTextFields(records, null);
+    CommercialOpportunityActions.populateCLG(records, null);
   }
 
   /**
@@ -43,6 +44,10 @@ public with sharing class CommercialOpportunityTriggerHandler extends Lib_Trigge
       (Map<Id, Opportunity>) oldMap
     );
     CCRMOpportunityActions.transferOpportunityOwnership(
+      (List<Opportunity>) records,
+      (Map<Id, Opportunity>) oldMap
+    );
+    CommercialOpportunityActions.populateCLG(
       (List<Opportunity>) records,
       (Map<Id, Opportunity>) oldMap
     );

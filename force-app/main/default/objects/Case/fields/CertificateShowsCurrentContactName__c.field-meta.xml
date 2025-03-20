@@ -4,6 +4,7 @@
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Indicates the Name on the Certificate provided by the customer matches with the Current Customer Name in the Profile</description>
+    <inlineHelpText>Birth &amp; Change of Name certificate - the ID must show the customer&apos;s current profile name as a previous name. Marriage Certificate - the ID must show the customer&apos;s current profile name as either: 1) one of the married parties to change to the married name; or 2) the first/middle name/s of one of the married parties AND that the last name is derived from the married parties&apos; to return to their former name. Please refer to the procedural guide for more information.</inlineHelpText>
     <label>Certificate shows current Contact Name</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

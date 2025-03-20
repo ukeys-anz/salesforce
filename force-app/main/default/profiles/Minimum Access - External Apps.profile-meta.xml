@@ -1013,6 +1013,36 @@
         <endAddress>149.96.88.85</endAddress>
         <startAddress>149.96.88.85</startAddress>
     </loginIpRanges>
+    <loginIpRanges>
+        <description>SNOW VPN</description>
+        <endAddress>103.23.65.157</endAddress>
+        <startAddress>103.23.65.155</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>SNOW No VPN Mel</description>
+        <endAddress>103.23.65.15</endAddress>
+        <startAddress>103.23.65.9</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>SNOW No VPN Syd </description>
+        <endAddress>103.23.64.15</endAddress>
+        <startAddress>103.23.64.9</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>SNOW VPN Syd</description>
+        <endAddress>103.23.64.157</endAddress>
+        <startAddress>103.23.64.155</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>SNOW VPN IPV4 Mel</description>
+        <endAddress>149.96.92.85</endAddress>
+        <startAddress>149.96.92.85</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>SNOW VPN IPV4 Syd</description>
+        <endAddress>149.96.88.85</endAddress>
+        <startAddress>149.96.88.85</startAddress>
+    </loginIpRanges>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>

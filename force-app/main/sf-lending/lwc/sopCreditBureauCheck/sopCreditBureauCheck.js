@@ -1,7 +1,9 @@
 import DOLLAR_SIGN_INCOME from "@salesforce/resourceUrl/Dollar_sign_income";
 import TICK_SIGN from "@salesforce/resourceUrl/SOP_tick_img";
 import CROSS_SIGN from "@salesforce/resourceUrl/SOP_cross_img";
-import { api, LightningElement } from "lwc";
+import RLA_BROKER_CODE from "@salesforce/schema/ResidentialLoanApplication.Assisted_Broker_TPMI_SAO__c";
+import { api, LightningElement, wire } from "lwc";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { setTimestamp } from "c/utils";
 
 export default class SopCreditBureauCheck extends LightningElement {
@@ -10,8 +12,10 @@ export default class SopCreditBureauCheck extends LightningElement {
   crossSign = CROSS_SIGN;
 
   creditBureauCheck;
+  isApplicationBroker;
 
   @api partyConsent;
+  @api recordId;
 
   @api
   get creditBureauData() {
@@ -21,6 +25,18 @@ export default class SopCreditBureauCheck extends LightningElement {
   set creditBureauData(value) {
     this._creditBureauData = value;
     this.loadCreditBureauData();
+  }
+
+  //wired method to get residential loan data
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: [RLA_BROKER_CODE]
+  })
+  wiredAccount({ data }) {
+    if (data) {
+      this.isApplicationBroker =
+        getFieldValue(data, RLA_BROKER_CODE) != null ?? false;
+    }
   }
 
   _creditBureauData;

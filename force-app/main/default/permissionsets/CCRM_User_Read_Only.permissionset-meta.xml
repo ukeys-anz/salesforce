@@ -141,6 +141,10 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>CommercialLeadConversionController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>CampaignDocumentTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -304,6 +308,10 @@
         <apexClass>GenericObject</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>CommercialCOIActions</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <customMetadataTypeAccesses>
         <name>CCRM_Log_Interaction_Comment__mdt</name>
         <enabled>true</enabled>
@@ -314,6 +322,10 @@
     </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>DCRM_StateMapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <customPermissions>
@@ -5363,6 +5375,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.My_Referrals__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead_Flex_Field__c.FlexFieldName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6139,6 +6156,21 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ApplicationFormProduct.Won_from_Lost_to__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Last_Updated_Stage_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ApplicationFormProduct.Stage_Duration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Circle_Of_Influence__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -8635,6 +8667,15 @@
         <object>Circle_Of_Influence__c</object>
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
+    <objectPermissions>
+        <allowCreate>false</allowCreate>
+        <allowDelete>false</allowDelete>
+        <allowEdit>false</allowEdit>
+        <allowRead>true</allowRead>
+        <modifyAllRecords>false</modifyAllRecords>
+        <object>FinServ__AccountAccountRelation__c</object>
+        <viewAllRecords>false</viewAllRecords>
+    </objectPermissions>
     <recordTypeVisibilities>
         <recordType>Circle_Of_Influence__c.Company_Member</recordType>
         <visible>true</visible>
@@ -8813,6 +8854,10 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <recordType>qualtrics__Survey_Response__c.Commercial_A_Z_Review_Survey_Response</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <recordType>Lead.Referral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
