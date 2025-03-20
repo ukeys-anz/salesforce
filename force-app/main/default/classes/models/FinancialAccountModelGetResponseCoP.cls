@@ -12,6 +12,7 @@ public class FinancialAccountModelGetResponseCoP {
    */
   public class AccountList {
     public String accountIdentification;
+    public String accountingSystem;
     public String status;
     public String statusReason;
     public String statusUpdateDate;

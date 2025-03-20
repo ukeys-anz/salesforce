@@ -3,6 +3,7 @@ import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord } from "lightning/uiRecordApi";
 import { getFocusedTabInfo, refreshTab } from "lightning/platformWorkspaceApi";
 import { handleErrorShowToast } from "c/utils";
+import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import confirmationOfPayeeDOM from "./confirmationOfPayeeDOM.html";
 import accountClosureDOM from "./accountClosureDOM.html";
 import defaultSpinnerDOM from "./defaultSpinnerDOM.html";
@@ -18,7 +19,7 @@ const accountClosureColumns = [
   { label: "Available Balance", fieldName: "balance", type: "currency" }
 ];
 const confirmationOfPayeeColumns = [
-  { label: "COP Status", fieldName: "accountStatusCOP" }
+  { label: "CoP Status", fieldName: "accountStatusCOP" }
 ];
 
 const ERROR_MESSAGE =
@@ -158,13 +159,11 @@ export default class CreateChildCasesWizard extends LightningElement {
       .filter((record) => record.isError)
       .map((record) => record.accountNumber);
     if (errorAccountNumbers.length > 0) {
-      handleErrorShowToast(
-        this,
+      this.showOnlyToast(
         "Failed To Retrieve COP status for Account Numbers - " +
           errorAccountNumbers.join(", "),
-        null,
         "Failed to retrieve latest account details. Please refresh and try again. If the issue persists, please contact your System Administrator",
-        "pester"
+        "warning"
       );
     }
   }
@@ -189,5 +188,14 @@ export default class CreateChildCasesWizard extends LightningElement {
     ) {
       this.columns = this.columns.concat(confirmationOfPayeeColumns);
     }
+  }
+
+  showOnlyToast(title, msg, variant) {
+    const evt = new ShowToastEvent({
+      title: title,
+      message: msg,
+      variant: variant
+    });
+    this.dispatchEvent(evt);
   }
 }

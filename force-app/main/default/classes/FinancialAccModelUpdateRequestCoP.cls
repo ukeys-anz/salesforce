@@ -5,10 +5,18 @@
  * @group Models
  */
 public class FinancialAccModelUpdateRequestCoP {
-  public String accountIdentification;
-  public String accountCoPStatus;
-  public String copStatusReason;
-  public RequestedBy[] requestedBy;
+  public List<AccountList> accountList;
+
+  /**
+   * @description Account Details Container class
+   */
+  public class AccountList {
+    public String accountIdentification;
+    public String accountingSystem;
+    public String accountCoPStatus;
+    public String copStatusReason;
+    public RequestedBy[] requestedBy;
+  }
 
   /**
    * @description Represents details of the user who requested the CoP status update.

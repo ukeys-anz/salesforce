@@ -75,4 +75,9 @@ public with sharing class CaseGroupFinancialAccountModel {
    */
   @AuraEnabled
   public Boolean isError = false;
+  /**
+   * @description accountingSystem of Financial Account
+   */
+  @AuraEnabled
+    public String accountingSystem;
 }

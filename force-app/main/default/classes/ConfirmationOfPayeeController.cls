@@ -3,7 +3,7 @@
  * @since 03/2025
  * @description  ConfirmationOfPayeeController is the controller class for Confirmation of Payee Issue Type Actions.
  */
-public with sharing class ConfirmationOfPayeeController extends CaseGroupWizard {
+public with sharing class ConfirmationOfPayeeController implements CaseGroupWizard {
   private static final ConfirmationOfPayeeRepository CONFIRMATION_OF_PAYEE_REPO = (ConfirmationOfPayeeRepository) Lib_InstanceProvider.forType(
     ConfirmationOfPayeeRepository.class
   );
@@ -18,7 +18,7 @@ public with sharing class ConfirmationOfPayeeController extends CaseGroupWizard 
    * @param params A map containing request parameters, including 'ocvId' and 'parentCaseId'.
    * @return A list of financial account models with their respective CoP statuses.
    */
-  public override List<CaseGroupFinancialAccountModel> getData(
+  public List<CaseGroupFinancialAccountModel> getData(
     Map<String, String> params
   ) {
     List<FinServ__FinancialAccount__c> listOfFinAccounts = CONFIRMATION_OF_PAYEE_REPO.fetchFinancialAccountsByOCVId(
@@ -53,7 +53,6 @@ public with sharing class ConfirmationOfPayeeController extends CaseGroupWizard 
     Map<String, Account> requestedByNames = COP_HELPER.populateRequestedByMap(
       response
     );
-
     Map<String, User> modfiedByUsers = COP_HELPER.populateModifiedByMap(
       response
     );
@@ -90,10 +89,9 @@ public with sharing class ConfirmationOfPayeeController extends CaseGroupWizard 
     String ocvId,
     List<Case> eligibleCases
   ) {
-    List<FinancialAccModelUpdateRequestCoP> updateCOPStatusRequest = COP_HELPER.getUpdateCOPRequest(
+    FinancialAccModelUpdateRequestCoP updateCOPStatusRequest = COP_HELPER.getUpdateCOPRequest(
       eligibleCases
     );
-
     Map<String, Case> financialAccNumAndCaseMap = (Map<String, Case>) ListUtil.mapBy(
       eligibleCases,
       Case.Customer_Account_Number__c

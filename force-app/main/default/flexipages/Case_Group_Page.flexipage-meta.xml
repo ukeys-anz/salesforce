@@ -90,7 +90,7 @@
                         <valueListItems>
                             <value>Case.Modify_COP_Status</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2 ) AND 3 AND 4 AND 5</booleanFilter>
+                                <booleanFilter>(1 OR 2 ) AND 3 AND 4 AND 5 AND 6</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Type}</leftValue>
                                     <operator>EQUAL</operator>
@@ -113,6 +113,11 @@
                                 </criteria>
                                 <criteria>
                                     <leftValue>{!$Permission.CustomPermission.ANZx_Account_Closure}</leftValue>
+                                    <operator>EQUAL</operator>
+                                    <rightValue>true</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Show_Account_Closure__c}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>true</rightValue>
                                 </criteria>

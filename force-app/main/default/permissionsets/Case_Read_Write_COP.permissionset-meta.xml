@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <classAccesses>
+        <apexClass>CaseGroupController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>ConfirmationOfPayeeController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Gives read / write only access to Case</description>
     <fieldPermissions>
         <editable>true</editable>

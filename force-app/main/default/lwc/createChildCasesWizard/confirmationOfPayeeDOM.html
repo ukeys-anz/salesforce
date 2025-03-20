@@ -1,6 +1,6 @@
 <template>
   <!--Modal Header-->
-  <lightning-modal-header label="Select Accounts to Update COP Status">
+  <lightning-modal-header label="Select Accounts to Modify CoP Status">
   </lightning-modal-header>
   <!--Modal Body-->
   <lightning-modal-body class="modalbody">
@@ -33,13 +33,13 @@
           <h1
             class="slds-text-heading_small slds-p-around_xx-small slds-theme_shade"
           >
-            Available Accounts
+            <b> Available Accounts </b>
           </h1>
           <div
-            class="slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
+            class="slds-m-left_small slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
           >
-            Tick the accounts to update the status of Confirmation Of Payee(COP)
-            and a child case will be created for each account.
+            Tick the accounts to modify the status of Confirmation of Payee
+            (CoP) and child case will be created for each account.
           </div>
           <div class="slds-modal__content slds-var-p-top_medium">
             <!--Data table for Financial accounts-->
@@ -61,9 +61,9 @@
           class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
         >
           <!--User Message when no Financial Account data present-->
-          <h1 data-id="noaccounts" class="slds-text-color_weak">
-            No Financial Accounts to Modify COP status.
-          </h1>
+          <h2 data-id="noaccounts" class="slds-text-color_weak">
+            No Financial Accounts to Modify CoP status.
+          </h2>
         </div>
       </template>
 

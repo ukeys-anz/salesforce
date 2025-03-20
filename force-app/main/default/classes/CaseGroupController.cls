@@ -112,5 +112,6 @@ public with sharing class CaseGroupController {
     caseObj.RecordTypeId = caseInput.recordTypeId;
     caseObj.Opt_Out_Reason__c = caseInput.copReason;
     caseObj.ParentId = caseInput.parentCaseId;
+    caseObj.SI_PSI_Source_Other__c = caseInput.accountingSystem;
   }
 }

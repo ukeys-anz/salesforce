@@ -4,7 +4,7 @@
  * @description Controller for Account Closure Wizard
  */
 
-public with sharing class AccountClosureWizardController extends CaseGroupWizard {
+public with sharing class AccountClosureWizardController implements CaseGroupWizard {
   private static final AccountClosureRepository ACCOUNT_CLOSURE_REPOSITORY = (AccountClosureRepository) Lib_InstanceProvider.forType(
     AccountClosureRepository.class
   );
@@ -26,7 +26,7 @@ public with sharing class AccountClosureWizardController extends CaseGroupWizard
    * @param params the params to fetch the records
    * @return List<CaseGroupFinancialAccountModel>
    */
-  public override List<CaseGroupFinancialAccountModel> getData(
+  public List<CaseGroupFinancialAccountModel> getData(
     Map<String, String> params
   ) {
     List<UnifiedFinancialAccountModel.AccountList> financialAccountsList = FinancialAccountController.getFinancialAccountsFromFabric(

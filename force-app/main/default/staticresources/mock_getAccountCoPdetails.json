@@ -2,6 +2,7 @@
   "accountList": [
     {
       "accountIdentification": "123456000000000",
+      "accountingSystem": "CAP",
       "status": "OPT-OUT",
       "statusUpdateDate": "2024-02-20T12:34:56Z",
       "requestedBy": [
@@ -21,6 +22,7 @@
     },
     {
       "accountIdentification": "654321390992614",
+      "accountingSystem": "CAP",
       "status": "OPT-OUT",
       "statusUpdateDate": "2024-02-21T14:45:30Z",
       "requestedBy": [
@@ -40,21 +42,10 @@
     },
     {
       "accountIdentification": "654321111111111",
-      "status": "OPT-OUT",
-      "statusUpdateDate": "2024-02-21T14:45:30Z",
-      "requestedBy": [
-        {
-          "requestorIdType": "CRN",
-          "requestorId": "1001074642"
-        },
-        {
-          "requestorIdType": "CRN",
-          "requestorId": "1001297679"
-        }
-      ],
-      "modifiedBy": {
-        "modifierIdType": "Lan Id",
-        "modifierId": "Arorar3"
+      "accountingSystem": "CAP",
+      "error": {
+        "code": "<Error Code Received from COP Service>",
+        "message": "<Error Message Received from COP Service>"
       }
     }
   ]

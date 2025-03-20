@@ -11,22 +11,24 @@
       ></lightning-icon>
 
       <div
-        class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
+        class="slds-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
       >
-        Child Cases have been successfully created to close the following
-        accounts.
+        Child Cases have been successfully created to modify CoP Status to the
+        following accounts.
       </div>
-      <lightning-datatable
-        data-id="casesDataTable"
-        key-field="id"
-        data={casesData}
-        columns={caseColumns}
-        hide-checkbox-column
-      >
-      </lightning-datatable>
+      <div class="slds-m-top_large">
+        <lightning-datatable
+          data-id="casesDataTable"
+          key-field="id"
+          data={casesData}
+          columns={caseColumns}
+          hide-checkbox-column
+        >
+        </lightning-datatable>
+      </div>
     </div>
 
-    <div class="modal-footer">
+    <div class="slds-m-top_large modal-footer">
       <lightning-modal-footer>
         <lightning-button
           class="slds-button"
@@ -51,7 +53,7 @@
         <h2
           class="slds-text-heading_small slds-p-around_xx-small slds-theme_shade"
         >
-          Forwarding Account Details
+          Modify CoP Account Status
         </h2>
 
         <template lwc:if={showCheckbox}>
@@ -71,10 +73,14 @@
 
         <template for:each={_selectedRows} for:item="row">
           <div key={row.id} class="slds-var-m-top_medium">
-            <h3 class="bold-heading slds-var-p-top_medium">
-              For {row.productName} {row.accountType} Account
-              ({row.accountNumber})
-            </h3>
+            <b>
+              <h3
+                class="bold-heading slds-m-left_x-small slds-var-p-top_medium"
+              >
+                For {row.productName} {row.accountType} Account
+                ({row.accountNumber})
+              </h3>
+            </b>
 
             <!-- Wrapper for 2 fields per row -->
             <div class="slds-grid slds-gutters slds-var-m-top_medium">
@@ -83,9 +89,8 @@
                   <c-editable-field
                     row-id={row.id}
                     name="updateAccountStatusCOP"
-                    label="Update COP Status"
+                    label="Modify CoP Status To"
                     value={row.updateAccountStatusCOP}
-                    help-text="Updated COP Status."
                     type="input"
                     read-only="true"
                   >
@@ -99,9 +104,10 @@
                     row-id={row.id}
                     name="copReason"
                     is-invalid={row.iscopReasonInvalid}
-                    label="COP Reason"
+                    label="CoP Reason"
                     value={row.copReason}
                     type="combobox"
+                    help-text="Updated COP Status."
                     options={copResonValues}
                     onfieldchange={handleFieldChange}
                   >

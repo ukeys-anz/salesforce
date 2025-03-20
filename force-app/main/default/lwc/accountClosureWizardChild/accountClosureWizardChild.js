@@ -273,7 +273,8 @@ export default class AccountClosureWizardChild extends LightningElement {
       productId: row.productId,
       copReason: row.copReason,
       issueType: this.issueType,
-      parentCaseId: this.recordId
+      parentCaseId: this.recordId,
+      accountingSystem: row.accountingSystem
     }));
     try {
       let result = await createCasesForAccounts({
@@ -284,7 +285,7 @@ export default class AccountClosureWizardChild extends LightningElement {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
           childCaseNumberUrl: "/" + row.Id,
-          childCaseNumber: row?.CaseNumber || null,
+          childCaseNumber: "#" + row?.CaseNumber || null,
           product: row?.Product?.Name || null,
           accountNumber:
             row?.FinServ__FinancialAccount__r

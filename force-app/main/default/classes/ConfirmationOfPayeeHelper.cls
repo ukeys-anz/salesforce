@@ -230,12 +230,12 @@ public with sharing class ConfirmationOfPayeeHelper {
       account.updateAccountStatusCOP = updateCopStatusMap.get(acc.status);
       account.requestedByName = requestorNamesMap.get(accNumber);
       account.modifiedByName = modifiedByUsers.containsKey(
-          acc.modifiedBy.modifierId
+          acc?.modifiedBy?.modifierId
         )
-        ? modifiedByUsers.get(acc.modifiedBy.modifierId).Name
+        ? modifiedByUsers.get(acc?.modifiedBy?.modifierId).Name
         : '';
       account.statusChangeDateTime = acc.statusUpdateDate;
-
+      account.accountingSystem = acc.accountingSystem;
       caseGroupFinAccModel.add(account);
     }
 
@@ -246,21 +246,21 @@ public with sharing class ConfirmationOfPayeeHelper {
   /**
    * @description Constructs a list of CoP update requests from eligible cases.
    * @param eligibleCases List of case records eligible for CoP updates.
-   * @return List of `FinancialAccModelUpdateRequestCoP` objects.
+   * @return FinancialAccModelUpdateRequestCoP objects.
    */
-  public List<FinancialAccModelUpdateRequestCoP> getUpdateCOPRequest(
+  public FinancialAccModelUpdateRequestCoP getUpdateCOPRequest(
     List<Case> eligibleCases
   ) {
-    List<FinancialAccModelUpdateRequestCoP> updateRequestList = new List<FinancialAccModelUpdateRequestCoP>();
-
+    FinancialAccModelUpdateRequestCoP updateRequestList = new FinancialAccModelUpdateRequestCoP();
+    updateRequestList.accountList = new List<FinancialAccModelUpdateRequestCoP.AccountList>();
     for (Case caseObj : eligibleCases) {
-      FinancialAccModelUpdateRequestCoP model = new FinancialAccModelUpdateRequestCoP();
+      FinancialAccModelUpdateRequestCoP.AccountList model = new FinancialAccModelUpdateRequestCoP.AccountList();
       model.accountCoPStatus = caseObj.Parent.Type;
       model.accountIdentification =
         caseObj.FinServ__FinancialAccount__r.BSB__c +
         caseObj.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
       model.copStatusReason = caseObj.Opt_Out_Reason__c;
-
+      model.accountingSystem = caseObj.SI_PSI_Source_Other__c;
       FinancialAccModelUpdateRequestCoP.RequestedBy requestor = new FinancialAccModelUpdateRequestCoP.RequestedBy();
       requestor.requestorIdType = 'OCVID';
       requestor.requestorId = caseObj.Account.OCV_Id__c;
@@ -268,7 +268,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       model.requestedBy = new List<FinancialAccModelUpdateRequestCoP.RequestedBy>{
         requestor
       };
-      updateRequestList.add(model);
+      updateRequestList.accountList.add(model);
     }
     return updateRequestList;
   }
@@ -357,23 +357,26 @@ public with sharing class ConfirmationOfPayeeHelper {
         successFinancialAccNumbers
       )
     ) {
-      if (successFinancialAccNumbers.contains(finAccRole.Account_Number__c)) {
+      String accountNumber = finAccRole.Account_Number__c;
+      String financialAccountNumber = finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
+      String relatedAccount = finAccRole.FinServ__RelatedAccount__c;
+
+      if (successFinancialAccNumbers.contains(accountNumber)) {
         continue;
       }
+
       if (
         !successFinancialAccNumberVsCustomerList.containsKey(
-          finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
+          financialAccountNumber
         )
       ) {
         successFinancialAccNumberVsCustomerList.put(
-          finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+          financialAccountNumber,
           new List<String>()
         );
       }
-      successFinancialAccNumberVsCustomerList.get(
-          finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c
-        )
-        .add(finAccRole.FinServ__RelatedAccount__c);
+      successFinancialAccNumberVsCustomerList.get(financialAccountNumber)
+        .add(relatedAccount);
     }
     return successFinancialAccNumberVsCustomerList;
   }
@@ -437,6 +440,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       Case caseObj = financialAccNumAndCaseMap.get(accNumber);
       CaseDetailsContainer.CaseDetailsWithCoPStatus caseDetail = new CaseDetailsContainer.CaseDetailsWithCoPStatus();
       caseDetail.accountNumber = account.accountIdentification?.substring(6);
+      caseDetail.accountingSystem = caseObj.SI_PSI_Source_Other__c;
       caseDetail.productName = caseObj.FinServ__FinancialAccount__r.Product_Name__c;
       caseDetail.accountType = caseObj.FinServ__FinancialAccount__r.Ownership__c;
       caseDetail.caseId = caseObj.Id;

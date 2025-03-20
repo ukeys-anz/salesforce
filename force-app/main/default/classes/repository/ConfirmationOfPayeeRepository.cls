@@ -14,6 +14,9 @@ public with sharing class ConfirmationOfPayeeRepository {
     Set<String> finAccNumbers,
     String parentCaseId
   ) {
+    if(parentCaseId == null || finAccNumbers.isEmpty()){
+      return new List<Case>();
+    }
     return [
       SELECT
         FinServ__FinancialAccount__c,
@@ -33,6 +36,9 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return List<Case> A list of cases linked to the given parent case ID.
    */
   public List<Case> getCasesByParentId(String parentCaseId) {
+    if(parentCaseId == null){
+      return new List<Case>();
+    }
     return [
       SELECT
         FinServ__FinancialAccount__c,
@@ -45,7 +51,8 @@ public with sharing class ConfirmationOfPayeeRepository {
         Parent.Type,
         Account.OCV_Id__c,
         Opt_Out_Reason__c,
-        CaseNumber
+        CaseNumber,
+        SI_PSI_Source_Other__c
       FROM Case
       WHERE
         ParentId = :parentCaseId
@@ -95,6 +102,9 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return FinServ__FinancialAccount__c The financial account record matching the given ID.
    */
   public FinServ__FinancialAccount__c getFinancialAccountById(Id recordId) {
+    if(recordId == null){
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -117,6 +127,9 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return List<User> A list of User records that match the given LAN IDs.
    */
   public List<User> getUsersByLANId(Set<String> lanIds) {
+    if(lanIds.isEmpty()){
+      return new List<User>();
+    }
     return [
       SELECT Id, Name, Lan_Id__c
       FROM User
@@ -131,6 +144,9 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return List<Account> A list of Account records that match the provided OCV IDs.
    */
   public List<Account> getAccountsByOcvIds(List<String> ocvIds) {
+    if(ocvIds.isEmpty()){
+      return new List<Account>();
+    }
     return [
       SELECT Id, Name, OCV_Id__c
       FROM Account
@@ -147,6 +163,9 @@ public with sharing class ConfirmationOfPayeeRepository {
   public List<FinServ__FinancialAccountRole__c> getFinAccountRolesByAccountNum(
     Set<String> accountNumbers
   ) {
+    if(accountNumbers.isEmpty()){
+      return new List<FinServ__FinancialAccountRole__c>();
+    }
     return [
       SELECT
         Id,

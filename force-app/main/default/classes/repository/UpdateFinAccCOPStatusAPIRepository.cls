@@ -28,7 +28,7 @@ public with sharing class UpdateFinAccCOPStatusAPIRepository {
    * @return FinancialAccModelUpdateResponseCoP Parsed response containing the updated CoP status details.
    */
   public FinancialAccModelUpdateResponseCoP updateAccountCoPdetails(
-    List<FinancialAccModelUpdateRequestCoP> request,
+    FinancialAccModelUpdateRequestCoP request,
     String ocvId
   ) {
     HttpCalloutResponse response = SERVICE.updateAccountCoPdetails(

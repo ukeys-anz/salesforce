@@ -65,18 +65,13 @@ public with sharing class CaseGroupCaseActions {
     ) {
       String accountIdAndCaseTypeKey =
         existingCaseGroupRecord.AccountId + existingCaseGroupRecord.Type;
-      Case caseRecord = accountIdAndTypeCaseMap.containsKey(
-          accountIdAndCaseTypeKey
-        )
-        ? accountIdAndTypeCaseMap.get(accountIdAndCaseTypeKey)
-        : null;
-      if (caseRecord == null) {
-        continue;
+      Case caseRecord = accountIdAndTypeCaseMap.get(accountIdAndCaseTypeKey);
+      if (caseRecord != null) {
+        CommonUtil.addInfoToRecordAndLog(
+          caseRecord,
+          DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber
+        );
       }
-      CommonUtil.addInfoToRecordAndLog(
-        caseRecord,
-        DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber
-      );
     }
   }
 

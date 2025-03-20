@@ -4,12 +4,11 @@
   padding-right: 5.25rem;
   padding-bottom: 1rem;
 }
-
 .spinnerPadding {
+  /* padding for spinner */
   padding-top: 1rem;
   padding-bottom: 2rem;
 }
-
 .center-justify {
   text-align: center;
   justify-content: center;

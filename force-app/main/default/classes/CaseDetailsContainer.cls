@@ -43,6 +43,8 @@ public class CaseDetailsContainer {
     public String modifiedByName;
     @AuraEnabled
     public String statusChangeDateTime;
+    @AuraEnabled
+    public String accountingSystem;
     public List<String> linkedCustomers;
   }
 }

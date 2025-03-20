@@ -96,6 +96,11 @@ public with sharing class CaseInputWrapper {
   @AuraEnabled
   public String issueType { get; set; }
   /**
+   * @description Accounting System for the Account
+   */
+  @AuraEnabled
+  public String accountingSystem { get; set; }
+  /**
    * @description Record Type for the Case
    */
   @AuraEnabled
