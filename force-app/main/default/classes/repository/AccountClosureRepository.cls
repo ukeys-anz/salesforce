@@ -43,7 +43,7 @@ public with sharing class AccountClosureRepository {
         RecordTypeId = :RTCase.caseGroup
         AND Status != :GetHelpConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
-        AND Type IN :GetHelpConstants.caseIssueTypes
+        AND Type IN :CaseGroupCaseConstants.caseIssueTypes
       WITH USER_MODE
     ];
   }
@@ -456,7 +456,7 @@ public with sharing class AccountClosureRepository {
     return [
       SELECT Id, OwnerId, Status, Circumstance__c, Type
       FROM Case
-      WHERE Type IN :GetHelpConstants.caseIssueTypes AND Id IN :parentIds
+      WHERE Type IN :CaseGroupCaseConstants.caseIssueTypes AND Id IN :parentIds
       WITH USER_MODE
     ];
   }

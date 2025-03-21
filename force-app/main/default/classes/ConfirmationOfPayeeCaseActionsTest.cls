@@ -37,13 +37,13 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     registerMocks();
     accountClosureRepoMock.mock(
       'queryEligibleChildCasesForCop',
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
     );
 
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
     ConfirmationOfPayeeCaseActions.handleModifyCopAction(
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
     );
     Test.stopTest();
 
@@ -67,7 +67,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
     ConfirmationOfPayeeCaseActions.handleModifyCopAction(
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
     );
     Test.stopTest();
 
@@ -84,7 +84,8 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
   private static void testPopulateChildCaseSubjectPositive() {
     registerMocks();
     List<Case> childCaseRecord = mockQueryChildCaseRecords(
-      FAKER_PARENT_CASE_ID
+      FAKER_PARENT_CASE_ID,
+      'Open'
     );
 
     Test.startTest();
@@ -104,7 +105,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
     ConfirmationOfPayeeCaseActions.modifyCopStatusButtonVisibility(
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID)
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
     );
     Test.stopTest();
 
@@ -118,6 +119,50 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
   }
 
   @isTest
+  private static void testUpdateParentCaseStatusToClosedPostive() {
+    registerMocks();
+    accountClosureRepoMock.mock(
+      'queryEligibleChildCasesForCop',
+      new List<Case>()
+    );
+
+    List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
+    Test.startTest();
+    ConfirmationOfPayeeCaseActions.updateParentCaseStatusToClosed(
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Closed')
+    );
+    Test.stopTest();
+
+    caseRecordsUpdated = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isTrue(
+      caseRecordsUpdated[0].Status == 'Closed',
+      'Status of the parent record should update to Closed'
+    );
+  }
+
+  @isTest
+  private static void testUpdateParentCaseStatusToClosedNegative() {
+    registerMocks();
+    accountClosureRepoMock.mock(
+      'queryEligibleChildCasesForCop',
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
+    );
+
+    Test.startTest();
+    ConfirmationOfPayeeCaseActions.updateParentCaseStatusToClosed(
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Closed')
+    );
+    Test.stopTest();
+
+    List<Case> caseUpdated = (List<Case>) dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+
+    Assert.isFalse(caseUpdated.size() > 0, 'Case should not Update');
+  }
+
+  @isTest
   private static void testCascadeParentFieldsToChildCasesPostive() {
     registerMocks();
     accountClosureRepoMock.mock(
@@ -125,7 +170,10 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
       mockParentCaseRecord('Escalated', null)
     );
 
-    List<Case> childCases = mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID);
+    List<Case> childCases = mockQueryChildCaseRecords(
+      FAKER_PARENT_CASE_ID,
+      'Open'
+    );
 
     Assert.isTrue(ChildCases[0].Status == 'Open', 'Child Case status is Open');
     Test.startTest();
@@ -138,17 +186,20 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     );
   }
 
-  private static List<Case> mockQueryChildCaseRecords(Id parentId) {
+  private static List<Case> mockQueryChildCaseRecords(
+    Id parentId,
+    String statusValue
+  ) {
     List<Case> childcases = new List<Case>();
 
     Case caseRecord = new Case();
     caseRecord.Id = FAKER_CHILD_CASE_ID;
     caseRecord.AccountId = FAKER_ACCOUNT_ID;
-    caseRecord.Status = 'Open';
+    caseRecord.Status = statusValue;
     caseRecord.OwnerId = UserInfo.getUserId();
     caseRecord.ParentId = parentId;
     caseRecord.RecordTypeId = RTCase.confirmationOfPayee;
-    caseRecord.Type = GetHelpConstants.COP_OPT_IN;
+    caseRecord.Type = CaseGroupCaseConstants.COP_OPT_IN;
     caseRecord.FinServ__FinancialAccount__c = FAKER_FINANCIAL_ACCOUNT_ID;
     Case caseRecordWithAccountNumber = (Case) TestUtil.setFields(
       caseRecord,
@@ -169,7 +220,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     caseRecord.Status = statusValue;
     caseRecord.RecordTypeId = RTCase.caseGroup;
     caseRecord.OwnerId = UserInfo.getUserId();
-    caseRecord.Type = GetHelpConstants.COP_OPT_IN;
+    caseRecord.Type = CaseGroupCaseConstants.COP_OPT_IN;
 
     parentCases.add(caseRecord);
     return parentCases;

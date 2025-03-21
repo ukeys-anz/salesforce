@@ -95,4 +95,31 @@ public with sharing class ConfirmationOfPayeeCaseActions {
       childCase.Type = parentCase.Type;
     }
   }
+
+  /**
+   * @description Automatically close the parent case if all child cases are closed
+   * @param childCases List of Cases
+   */
+  public static void updateParentCaseStatusToClosed(List<Case> childCases) {
+    Set<Id> parentCaseIds = ListUtil.getIds(childCases, Case.ParentId);
+
+    Set<Id> eligibleChidCases = ListUtil.getIds(
+      ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForCop(parentCaseIds),
+      Case.ParentId
+    );
+
+    List<Case> parentCasesToUpdate = new List<Case>();
+
+    for (Id parentId : parentCaseIds) {
+      if (eligibleChidCases.contains(parentId)) {
+        continue;
+      }
+
+      parentCasestoUpdate.add(
+        new Case(Id = parentId, Status = GetHelpConstants.CLOSED_STATUS)
+      );
+    }
+
+    DML_REPOSITORY.doUpdate(parentCasesToUpdate);
+  }
 }
