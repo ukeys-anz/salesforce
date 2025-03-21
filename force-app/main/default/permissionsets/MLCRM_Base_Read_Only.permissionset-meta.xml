@@ -248,6 +248,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.CLG_Credit_Rating__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.CPID_Link__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -414,6 +419,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.PPID__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Primary_Residential_Address__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
