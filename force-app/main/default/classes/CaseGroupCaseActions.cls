@@ -12,11 +12,6 @@ public with sharing class CaseGroupCaseActions {
   );
   public static final String DUPLICATE_CASEGROUP_ERROR = 'Error occurred while creating CaseGroup Case. A CaseGroup Case already exists for this customer. Case number: ';
 
-  public static Group accountClosureQueue = QueryQueue.get(
-    'Account_Closure_Queue'
-  );
-  public static Group copQueue = QueryQueue.get('Confirmation_of_Payee_Queue');
-
   public static final String CASEGROUP_CLOSURE_ERROR_MESSAGE = 'Cannot close this Case as all related cases are not in closed status. Please ensure all related cases are closed.';
 
   /**
@@ -66,13 +61,15 @@ public with sharing class CaseGroupCaseActions {
       String accountIdAndCaseTypeKey =
         existingCaseGroupRecord.AccountId + existingCaseGroupRecord.Type;
       Case caseRecord = accountIdAndTypeCaseMap.get(accountIdAndCaseTypeKey);
-      if (caseRecord != null) {
-        CommonUtil.addInfoToRecordAndLog(
-          caseRecord,
-          DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber
-        );
+      if (caseRecord == null) {
+        continue;
       }
+      String errorMessage =
+        DUPLICATE_CASEGROUP_ERROR + existingCaseGroupRecord.CaseNumber;
+      Logger.info(errorMessage);
+      caseRecord.addError(errorMessage);
     }
+    Logger.saveLog();
   }
 
   @TestVisible
@@ -116,9 +113,9 @@ public with sharing class CaseGroupCaseActions {
   public static void assignEscalatedCasesToQueue(List<Case> escalatedCases) {
     for (Case escalatedCase : escalatedCases) {
       if (escalatedCase.Type == GetHelpConstants.ACCOUNT_CLOSURE) {
-        escalatedCase.OwnerId = accountClosureQueue.Id;
+        escalatedCase.OwnerId = QueryQueue.accountClosureQueue.Id;
       } else {
-        escalatedCase.OwnerId = copQueue.Id;
+        escalatedCase.OwnerId = QueryQueue.copQueue.Id;
       }
     }
   }
@@ -141,11 +138,10 @@ public with sharing class CaseGroupCaseActions {
 
     for (Case caseGroupRecord : parentCases) {
       if (parentCaseIdsWithOpenChildCases.contains(caseGroupRecord.Id)) {
-        CommonUtil.addInfoToRecordAndLog(
-          caseGroupRecord,
-          CASEGROUP_CLOSURE_ERROR_MESSAGE
-        );
+        Logger.info(CASEGROUP_CLOSURE_ERROR_MESSAGE);
+        caseGroupRecord.addError(CASEGROUP_CLOSURE_ERROR_MESSAGE);
       }
     }
+    Logger.saveLog();
   }
 }

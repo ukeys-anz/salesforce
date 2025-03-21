@@ -165,8 +165,7 @@ public with sharing class CaseGroupCaseActionsTest {
     Test.stopTest();
 
     Assert.isTrue(
-      currentParentRecord[0].OwnerId ==
-      CaseGroupCaseActions.accountClosureQueue.Id,
+      currentParentRecord[0].OwnerId == QueryQueue.accountClosureQueue.Id,
       'OwnerId of the case is updated to accountClosureQueue'
     );
   }

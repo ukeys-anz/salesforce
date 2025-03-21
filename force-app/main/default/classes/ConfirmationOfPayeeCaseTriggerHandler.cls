@@ -42,6 +42,9 @@ public with sharing class ConfirmationOfPayeeCaseTriggerHandler extends Lib_Trig
     ConfirmationOfPayeeCaseActions.handleModifyCopAction(
       childCasesWhereStatusChanged
     );
+    ConfirmationOfPayeeCaseActions.updateParentCaseStatusToClosed(
+      childCasesWhereStatusChanged
+    );
   }
 
   public override void onAfterDelete() {
