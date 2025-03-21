@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>RBM/Coaches Broker Enquiry</name>
+    <name>New Broker Call Back Requests</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueMembers>
-        <users>
-            <user>lee.hams@anzx.com</user>
-        </users>
+        <roles>
+            <role>Residential_Broker_Manager</role>
+        </roles>
     </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
