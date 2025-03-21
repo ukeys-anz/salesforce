@@ -1,86 +1,89 @@
 <template>
-  <!--Modal Header-->
-  <lightning-modal-header label="Select Accounts to Modify CoP Status">
-  </lightning-modal-header>
-  <!--Modal Body-->
-  <lightning-modal-body class="modalbody">
-    <template lwc:if={loading}>
-      <lightning-spinner
-        data-id="loading"
-        alternative-text="Loading"
-        size="small"
-      ></lightning-spinner>
-    </template>
-    <template lwc:if={hasError}>
-      <div class="error-width">
-        <c-error
-          custom-class-from-parent="slds-theme--error"
-          message={errorMsg}
-        ></c-error>
-      </div>
-    </template>
-    <div class="slds-box slds-var-m-around_large">
-      <template lwc:if={showFinDataTable}>
-        <template lwc:if={finAccData.length}>
-          <!--Conditional rendering When user selects account from datatable-->
-          <template lwc:if={selectedRows.length}>
-            <div class="slds-grid slds-grid_align-end">
-              <div class="slds-text-color_weak slds-p-around_xx-small">
-                <abbr class="slds-required">*</abbr> = Required Information
+  <template lwc:if={loading}>
+    <lightning-spinner
+      data-id="loading"
+      alternative-text="Loading"
+      size="small"
+    ></lightning-spinner>
+  </template>
+
+  <template lwc:else>
+    <!--Modal Header-->
+    <lightning-modal-header label="Select Accounts to Modify CoP Status">
+    </lightning-modal-header>
+    <!--Modal Body-->
+    <lightning-modal-body class="modalbody">
+      <template lwc:if={hasError}>
+        <div class="error-width">
+          <c-error
+            custom-class-from-parent="slds-theme--error"
+            message={errorMsg}
+          ></c-error>
+        </div>
+      </template>
+      <div class="slds-box slds-var-m-around_large">
+        <template lwc:if={showFinDataTable}>
+          <template lwc:if={finAccData.length}>
+            <!--Conditional rendering When user selects account from datatable-->
+            <template lwc:if={selectedRows.length}>
+              <div class="slds-grid slds-grid_align-end">
+                <div class="slds-text-color_weak slds-p-around_xx-small">
+                  <abbr class="slds-required">*</abbr> = Required Information
+                </div>
+              </div>
+            </template>
+            <h1
+              class="slds-text-heading_small slds-p-around_xx-small slds-theme_shade"
+            >
+              <b> Available Accounts </b>
+            </h1>
+            <div
+              class="slds-m-left_small slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
+            >
+              Tick the accounts to modify the status of Confirmation of Payee
+              (CoP) and child case will be created for each account.
+            </div>
+            <div class="slds-modal__content slds-var-p-top_medium">
+              <!--Data table for Financial accounts-->
+              <div class="datatable-container slds-var-m-around_small">
+                <lightning-datatable
+                  key-field="id"
+                  data={finAccData}
+                  columns={columns}
+                  onrowselection={handleRowSelection}
+                >
+                </lightning-datatable>
               </div>
             </div>
           </template>
-          <h1
-            class="slds-text-heading_small slds-p-around_xx-small slds-theme_shade"
-          >
-            <b> Available Accounts </b>
-          </h1>
+        </template>
+
+        <template lwc:if={showNoDataMessage}>
           <div
-            class="slds-m-left_small slds-text-body_regular slds-var-m-bottom_small slds-var-p-top_medium"
+            class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
           >
-            Tick the accounts to modify the status of Confirmation of Payee
-            (CoP) and child case will be created for each account.
-          </div>
-          <div class="slds-modal__content slds-var-p-top_medium">
-            <!--Data table for Financial accounts-->
-            <div class="datatable-container slds-var-m-around_small">
-              <lightning-datatable
-                key-field="id"
-                data={finAccData}
-                columns={columns}
-                onrowselection={handleRowSelection}
-              >
-              </lightning-datatable>
-            </div>
+            <!--User Message when no Financial Account data present-->
+            <h2 data-id="noaccounts" class="slds-text-color_weak">
+              No Financial Accounts to Modify CoP status.
+            </h2>
           </div>
         </template>
-      </template>
 
-      <template lwc:if={showNoDataMessage}>
-        <div
-          class="slds-var-m-top_large slds-align_absolute-center slds-text-heading_medium slds-var-m-bottom_medium"
-        >
-          <!--User Message when no Financial Account data present-->
-          <h2 data-id="noaccounts" class="slds-text-color_weak">
-            No Financial Accounts to Modify CoP status.
-          </h2>
-        </div>
-      </template>
-
-      <template lwc:if={selectedRows.length}>
-        <!--Call child lwc for dynamic rendering for fields based on the selection of accounts from datatable-->
-        <c-account-closure-wizard-child
-          record-id={recordId}
-          selected-rows={selectedRows}
-          oncasescreated={handleCasesCreated}
-          account-id={accountId}
-          show-checkbox={showCheckbox}
-          oncancel={handleCancelAction}
-          onerrorvisibilty={handleErrorVisibilty}
-          issue-type={issueType}
-        >
-        </c-account-closure-wizard-child>
-      </template>
-    </div>
-  </lightning-modal-body>
+        <template lwc:if={selectedRows.length}>
+          <!--Call child lwc for dynamic rendering for fields based on the selection of accounts from datatable-->
+          <c-account-closure-wizard-child
+            record-id={recordId}
+            selected-rows={selectedRows}
+            oncasescreated={handleCasesCreated}
+            account-id={accountId}
+            show-checkbox={showCheckbox}
+            oncancel={handleCancelAction}
+            onerrorvisibilty={handleErrorVisibilty}
+            issue-type={issueType}
+          >
+          </c-account-closure-wizard-child>
+        </template>
+      </div>
+    </lightning-modal-body>
+  </template>
 </template>

@@ -26,7 +26,7 @@
       </lightning-datatable>
     </div>
 
-    <div class="modal-footer">
+    <div class="slds-m-top_large">
       <lightning-modal-footer>
         <lightning-button
           class="slds-button"
@@ -71,7 +71,7 @@
 
         <template for:each={_selectedRows} for:item="row">
           <div key={row.id} class="slds-var-m-top_medium">
-            <h3 class="bold-heading slds-var-p-top_medium">
+            <h3 class="slds-text-title_bold slds-var-p-top_medium">
               For {row.productName} {row.accountType} Account
               ({row.accountNumber})
             </h3>
@@ -143,7 +143,7 @@
         </template>
       </div>
     </template>
-    <div class="modal-footer">
+    <div class="slds-m-top_large">
       <lightning-modal-footer>
         <template lwc:if={_selectedRows.length}>
           <div class="slds-align_absolute-center">

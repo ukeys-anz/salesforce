@@ -28,7 +28,7 @@
       </div>
     </div>
 
-    <div class="slds-m-top_large modal-footer">
+    <div class="slds-m-top_large">
       <lightning-modal-footer>
         <lightning-button
           class="slds-button"
@@ -73,14 +73,12 @@
 
         <template for:each={_selectedRows} for:item="row">
           <div key={row.id} class="slds-var-m-top_medium">
-            <b>
-              <h3
-                class="bold-heading slds-m-left_x-small slds-var-p-top_medium"
-              >
-                For {row.productName} {row.accountType} Account
-                ({row.accountNumber})
-              </h3>
-            </b>
+            <h3
+              class="slds-text-title_bold slds-m-left_x-small slds-var-p-top_medium"
+            >
+              For {row.productName} {row.accountType} Account
+              ({row.accountNumber})
+            </h3>
 
             <!-- Wrapper for 2 fields per row -->
             <div class="slds-grid slds-gutters slds-var-m-top_medium">
@@ -119,7 +117,7 @@
         </template>
       </div>
     </template>
-    <div class="modal-footer">
+    <div class="slds-m-top_large">
       <lightning-modal-footer>
         <template lwc:if={_selectedRows.length}>
           <div class="slds-align_absolute-center">

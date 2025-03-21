@@ -204,7 +204,7 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   handleCreateChildCases() {
     this.errorMsg =
-      "Child cases could not be created. Please enter forwarding account details for all accounts";
+      "Child cases could not be created. Please fill in all required fields.";
     const { validRows, isFieldIsBlank } = this.validateRows(this._selectedRows);
     this._selectedRows = validRows;
     this.setErrorVisibility(isFieldIsBlank, this.errorMsg);

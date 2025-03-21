@@ -90,7 +90,6 @@ export default class CreateChildCasesWizard extends LightningElement {
           data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
         this.accountId = data.fields?.AccountId?.value;
         this.issueType = data.fields?.Type?.value;
-        this.render();
         if (this.customerOcvId) {
           this.hasFetchedAccounts = true;
           this.initialiseIssueType();
@@ -153,7 +152,7 @@ export default class CreateChildCasesWizard extends LightningElement {
     this.hasError = true;
     this.errorMsg = ERROR_MESSAGE;
   }
-  // handle error records
+
   handleErrorRecords(records) {
     let errorAccountNumbers = records
       .filter((record) => record.isError)
