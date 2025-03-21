@@ -11465,6 +11465,10 @@
         <recordType>Case.BPAY_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Broker Enquiry Layout</layout>
+        <recordType>Case.Broker_Enquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Card Dispute Layout</layout>
         <recordType>Case.Card_Dispute</recordType>
     </layoutAssignments>
