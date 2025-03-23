@@ -1,7 +1,7 @@
 /**
  * @author Hitesh Wasdani
  * @since 07/2024
- * @description This class provide SOQL and DML helper for class related to CCRMLeadConversionActions and CCRMLeadConversionActionsHelper.
+ * @description This class provide SOQL and DML helper for class related to LeadConversionController and LeadConversionHelper.
  * Sharing has been removed since getAccount method needs to run in without sharing as per design
  */
 public class OpportunityActionsRepository {

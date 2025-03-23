@@ -4,7 +4,7 @@
  * @description model for OCV Maintain Party API
  * @group Models
  */
-public with sharing class DCRMMaintainPartyModel extends CalloutModel {
+public with sharing class MaintainPartyModel extends CalloutModel {
   public SourceSystems[] sourceSystems;
   public String ocvId;
   public String[] profileIds;
@@ -21,18 +21,18 @@ public with sharing class DCRMMaintainPartyModel extends CalloutModel {
   /**
    * @description Constructor
    */
-  public DCRMMaintainPartyModel() {
+  public MaintainPartyModel() {
     //newCustomer = 'false';
   }
   /**
    * @param json input string to deserialize
-   * @return DCRMMaintainPartyModel
+   * @return MaintainPartyModel
    * @description deserializes the input string into the model
    */
-  public static DCRMMaintainPartyModel parse(String json) {
-    return (DCRMMaintainPartyModel) System.JSON.deserialize(
+  public static MaintainPartyModel parse(String json) {
+    return (MaintainPartyModel) System.JSON.deserialize(
       json,
-      DCRMMaintainPartyModel.class
+      MaintainPartyModel.class
     );
   }
 }

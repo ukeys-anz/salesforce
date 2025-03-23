@@ -105,8 +105,8 @@ public with sharing class CommercialLeadConversionHelperTest {
 
   @isTest
   static void getShellProspectInfoWrapperTest() {
-    // GIVEN DCRMMaintainPartyModel & OCVRequestPayloadWrapper
-    DCRMMaintainPartyModel response = DCRMMaintainPartyModel.parse(
+    // GIVEN MaintainPartyModel & OCVRequestPayloadWrapper
+    MaintainPartyModel response = MaintainPartyModel.parse(
       new MaintainPartyServiceMock()
         .maintainPartyOrganisation(null)
         .body.toString()
@@ -137,7 +137,7 @@ public with sharing class CommercialLeadConversionHelperTest {
 
     OCVRequestPayloadWrapper reqRecord = new CommercialLeadConversionHelper()
       .getRequestRecordOrganization(leadRecord);
-    DCRMMaintainPartyModel response = DCRMMaintainPartyModel.parse(
+    MaintainPartyModel response = MaintainPartyModel.parse(
       new MaintainPartyServiceMock()
         .maintainPartyOrganisation(null)
         .body.toString()
@@ -159,7 +159,7 @@ public with sharing class CommercialLeadConversionHelperTest {
 
     // WHEN
     Test.startTest();
-    MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyWrapper = new CommercialLeadConversionHelper()
+    MaintainPartyInformationWrapper.MaintainPartyResult maintainPartyWrapper = new CommercialLeadConversionHelper()
       .setMaintainPartyInfoWrapper(externalId, shellProspectWrapper, reqRecord);
     Test.stopTest();
 
