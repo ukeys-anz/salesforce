@@ -13,16 +13,6 @@ public with sharing class ConfirmationOfPayeeHelper {
     DmlRepository.class
   );
 
-  private static Map<String, String> finAccTypeMap = new Map<String, String>{
-    'Single' => 'Individual',
-    'Multi-Party' => 'Joint'
-  };
-
-  private static Map<String, String> updateCopStatusMap = new Map<String, String>{
-    'OPT-OUT' => 'OPT-IN',
-    'OPT-IN' => 'OPT-OUT'
-  };
-
   private static final String ERROR_LOG_MESSAGE_GET_COP = 'Error while fetching COP details from API';
   private static final String ERROR_LOG_MESSAGE_MODIFY_COP = 'Error while updating COP details on API';
   private static final String ACCOUNT_TYPE_MULTI_PARTY = 'Multi-party';
@@ -143,7 +133,10 @@ public with sharing class ConfirmationOfPayeeHelper {
         financialAccounts.containsKey(accNumber) &&
         (issueType == null ||
         acc.status == null ||
-        !issueType.toUpperCase().contains(acc?.status))
+        !issueType.toUpperCase().contains(acc?.status?.toUpperCase()) ||
+        financialAccounts.get(accNumber).Ownership__c ==
+        ACCOUNT_TYPE_MULTI_PARTY &&
+        issueType == CaseGroupCaseConstants.COP_OPT_OUT)
       ) {
         validFinAccounts.put(accNumber, financialAccounts.get(accNumber));
       }
@@ -223,11 +216,17 @@ public with sharing class ConfirmationOfPayeeHelper {
 
       account.id = finAccount.Id;
       account.productName = finAccount.Product_Name__c;
-      account.finAccountType = finAccount.Ownership__c;
+      account.finAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE_FOR_UI.get(
+        finAccount.Ownership__c
+      );
       account.productId = finAccount.FinServ__ProductName__c;
-      account.apiFinAccountType = finAccTypeMap.get(finAccount.Ownership__c);
+      account.apiFinAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE.get(
+        finAccount.Ownership__c
+      );
       account.accountStatusCOP = acc.status;
-      account.updateAccountStatusCOP = updateCopStatusMap.get(acc.status);
+      account.updateAccountStatusCOP = CaseGroupCaseConstants.COP_STATUS.get(
+        acc.status
+      );
       account.requestedByName = requestorNamesMap.get(accNumber);
       account.modifiedByName = modifiedByUsers.containsKey(
           acc?.modifiedBy?.modifierId
@@ -357,13 +356,8 @@ public with sharing class ConfirmationOfPayeeHelper {
         successFinancialAccNumbers
       )
     ) {
-      String accountNumber = finAccRole.Account_Number__c;
       String financialAccountNumber = finAccRole.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
       String relatedAccount = finAccRole.FinServ__RelatedAccount__c;
-
-      if (successFinancialAccNumbers.contains(accountNumber)) {
-        continue;
-      }
 
       if (
         !successFinancialAccNumberVsCustomerList.containsKey(
@@ -442,7 +436,9 @@ public with sharing class ConfirmationOfPayeeHelper {
       caseDetail.accountNumber = account.accountIdentification?.substring(6);
       caseDetail.accountingSystem = caseObj.SI_PSI_Source_Other__c;
       caseDetail.productName = caseObj.FinServ__FinancialAccount__r.Product_Name__c;
-      caseDetail.accountType = caseObj.FinServ__FinancialAccount__r.Ownership__c;
+      caseDetail.accountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE_FOR_UI.get(
+        caseObj.FinServ__FinancialAccount__r.Ownership__c
+      );
       caseDetail.caseId = caseObj.Id;
       caseDetail.caseNumber = caseObj.CaseNumber;
       caseDetail.childCaseNumberUrl = '/' + caseObj.Id;
@@ -481,7 +477,8 @@ public with sharing class ConfirmationOfPayeeHelper {
       casesToUpdate.add(
         new Case(
           Id = caseDetails.caseId,
-          Status = GetHelpConstants.CLOSED_STATUS
+          Status = GetHelpConstants.CLOSED_STATUS,
+          Sub_Status__c = TFMConstants.EMPTY
         )
       );
     }
@@ -537,6 +534,9 @@ public with sharing class ConfirmationOfPayeeHelper {
       '<p><b>Confirmation of Payee - ' +
       caseDetails.caseCoPStatus +
       '</b> </p>' +
+      '<p><b>Account Number(last 4 digit): </b>' +
+      TextUtils.maskData(caseDetails.accountNumber) +
+      '</p>' +
       '<p><b>Date: </b>' +
       dateString +
       '</p>' +

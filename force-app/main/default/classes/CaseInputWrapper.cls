@@ -101,22 +101,21 @@ public with sharing class CaseInputWrapper {
   @AuraEnabled
   public String accountingSystem { get; set; }
   /**
-   * @description Record Type for the Case
+   * @description Accounting System for the Account
    */
   @AuraEnabled
+  public String copStatus { get; set; }
+  /**
+   * @description Record Type for the Case
+   */
   public String recordTypeId {
     get {
-      switch on issueType {
-        when 'Account Closure' {
-          return RTCase.accountClosure;
-        }
-        when 'Confirmation of Payee Opt-In', 'Confirmation of Payee Opt-Out' {
-          return RTCase.confirmationOfPayee;
-        }
-        when else {
-          return null;
-        }
-      }
+      Map<String, String> issueTypeToRecordTypeIdMap = new Map<String, String>{
+        'Account Closure' => RTCase.accountClosure,
+        'Confirmation of Payee Opt-In' => RTCase.confirmationOfPayee,
+        'Confirmation of Payee Opt-Out' => RTCase.confirmationOfPayee
+      };
+      return issueTypeToRecordTypeIdMap.get(issueType);
     }
     set;
   }

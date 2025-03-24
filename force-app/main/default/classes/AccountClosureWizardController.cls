@@ -12,14 +12,7 @@ public with sharing class AccountClosureWizardController implements CaseGroupWiz
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final Map<String, String> FIN_ACCOUNT_TYPE = new Map<String, String>{
-    'Single' => 'Individual',
-    'Multi-Party' => 'Joint'
-  };
-  private static final Map<String, String> FIN_ACCOUNT_TYPE_FOR_UI = new Map<String, String>{
-    'Single' => 'Sole',
-    'Multi-Party' => 'Joint'
-  };
+
   /**
    * @description The Financial Account component uses this to fetch the records to display.
    * This makes the callout to fabric to fetch data
@@ -77,7 +70,7 @@ public with sharing class AccountClosureWizardController implements CaseGroupWiz
       caseGroupFinAccountModel.productId = eachFinAccount.FinServ__ProductName__c;
       caseGroupFinAccountModel.productName = eachFinAccount.FinServ__ProductName__r.Name;
       caseGroupFinAccountModel.accountNumber = eachFinAccount.FinServ__FinancialAccountNumber__c;
-      caseGroupFinAccountModel.finAccountType = FIN_ACCOUNT_TYPE_FOR_UI.get(
+      caseGroupFinAccountModel.finAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE_FOR_UI.get(
         eachFinAccount.Ownership__c
       );
       caseGroupFinAccountModel.signingAuthority = (eachFinAccount.Ownership__c ==
@@ -86,7 +79,7 @@ public with sharing class AccountClosureWizardController implements CaseGroupWiz
         ? eachFinAccount.Number_Of_Signatures__c
         : '';
       caseGroupFinAccountModel.balance = eachFinAccount.FinServ__Balance__c;
-      caseGroupFinAccountModel.apiFinAccountType = FIN_ACCOUNT_TYPE.get(
+      caseGroupFinAccountModel.apiFinAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE.get(
         eachFinAccount.Ownership__c
       );
       listOfCaseGroupFinAccountModel.add(caseGroupFinAccountModel);

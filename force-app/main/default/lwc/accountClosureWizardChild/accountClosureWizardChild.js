@@ -128,7 +128,7 @@ export default class AccountClosureWizardChild extends LightningElement {
       isaccountBsbInvalid: existingRow.isaccountBsbInvalid,
       isAccountNumberInvalid: existingRow.isAccountNumberInvalid,
       copReason: existingRow.copReason,
-      copStatus: existingRow.copStatus,
+      copStatus: existingRow.accountStatusCOP,
       updateAccountStatusCOP: existingRow.updateAccountStatusCOP
     };
   }
@@ -274,7 +274,8 @@ export default class AccountClosureWizardChild extends LightningElement {
       copReason: row.copReason,
       issueType: this.issueType,
       parentCaseId: this.recordId,
-      accountingSystem: row.accountingSystem
+      accountingSystem: row.accountingSystem,
+      copStatus: row.accountStatusCOP
     }));
     try {
       let result = await createCasesForAccounts({

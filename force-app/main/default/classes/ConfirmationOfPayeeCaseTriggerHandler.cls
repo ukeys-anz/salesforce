@@ -30,9 +30,13 @@ public with sharing class ConfirmationOfPayeeCaseTriggerHandler extends Lib_Trig
     List<Case> childCasesWhereTypeChanged = ListUtil.filter(records, oldMap)
       .changed(case.Type)
       .toList();
+    List<Case> childWithdrawnCases = ListUtil.filter(records, oldMap)
+      .changedTo(case.Status, 'Withdrawn')
+      .toList();
     ConfirmationOfPayeeCaseActions.populateChildCaseSubject(
       childCasesWhereTypeChanged
     );
+    ConfirmationOfPayeeCaseActions.updateFieldsOnWithdrawn(childWithdrawnCases);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {

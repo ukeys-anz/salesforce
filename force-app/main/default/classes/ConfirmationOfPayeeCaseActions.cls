@@ -1,5 +1,5 @@
 /**
- * @author Kopal Goswami
+ * @author Shivam Swaraj
  * @since 03/2025
  * @description ConfirmationOfPayeeCaseAction class is to handle all the ConfirmationOfPayee Case Actions
  */
@@ -48,6 +48,16 @@ public with sharing class ConfirmationOfPayeeCaseActions {
         (caserecord.Type ?? '') +
         ' - ' +
         (caserecord.Customer_Account_Number__c ?? '');
+    }
+  }
+
+  /**
+   * @description Updte field on case withdrawn
+   * @param cases List of Cases.
+   */
+  public static void updateFieldsOnWithdrawn(List<Case> cases) {
+    for (Case caserecord : cases) {
+      caserecord.Sub_Status__c = TFMConstants.EMPTY;
     }
   }
 

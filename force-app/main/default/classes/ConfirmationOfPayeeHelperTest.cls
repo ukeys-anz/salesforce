@@ -234,28 +234,6 @@ public with sharing class ConfirmationOfPayeeHelperTest {
   }
 
   @isTest
-  private static void testPopulateSuccessFinancialAccNumberVsCustomerListNegative() {
-    registerMocks();
-    copRepoMock.mock(
-      'getFinAccountRolesByAccountNum',
-      mockFinancialAccountRoles('000000000')
-    );
-    ConfirmationOfPayeeHelper copHelper = new ConfirmationOfPayeeHelper();
-
-    Test.startTest();
-    Map<String, List<String>> finaccountNumberandCustomerMap = copHelper.populateSuccessFinancialAccNumberVsCustomerList(
-      mockUpdateAccountCoPdetails
-    );
-
-    Assert.areEqual(
-      finaccountNumberandCustomerMap.size(),
-      0,
-      'A map of financial account numbers to a list of related customer IDs is not populated'
-    );
-    Test.stopTest();
-  }
-
-  @isTest
   private static void testMapUpdateCOPStatusResponsePositive() {
     registerMocks();
 

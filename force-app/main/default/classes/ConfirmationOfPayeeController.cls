@@ -12,7 +12,9 @@ public with sharing class ConfirmationOfPayeeController implements CaseGroupWiza
     DmlRepository.class
   );
 
-  private static final ConfirmationOfPayeeHelper COP_HELPER = new ConfirmationOfPayeeHelper();
+  private static final ConfirmationOfPayeeHelper COP_HELPER = (ConfirmationOfPayeeHelper) Lib_InstanceProvider.forType(
+    ConfirmationOfPayeeHelper.class
+  );
   /**
    * @description Fetches financial account data and filters existing cases before calling the CoP service.
    * @param params A map containing request parameters, including 'ocvId' and 'parentCaseId'.

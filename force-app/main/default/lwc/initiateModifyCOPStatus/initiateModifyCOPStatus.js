@@ -11,8 +11,8 @@ const caseColumns = [
   { label: "Product", fieldName: "product" },
   { label: "Account Number", fieldName: "accountNumber" },
   { label: "Account Type", fieldName: "accountType" },
-  { label: "Current CoP Status", fieldName: "currCOPStatus" },
-  { label: "Requested CoP Status", fieldName: "reqCOPStatus" },
+  { label: "CoP Status", fieldName: "currCOPStatus" },
+  { label: "Modify CoP Status To", fieldName: "reqCOPStatus" },
   {
     label: "Child Case Number",
     fieldName: "childCaseNumberUrl",
@@ -55,12 +55,10 @@ export default class InitiateModifyCOPStatus extends LightningElement {
 
   issueTypeCOPMap = {
     "Confirmation of Payee Opt-Out": {
-      currentValue: "OPT-IN",
-      requestedValue: "OPT-OUT"
+      requestedValue: "Opt-Out"
     },
     "Confirmation of Payee Opt-In": {
-      currentValue: "OPT-OUT",
-      requestedValue: "OPT-IN"
+      requestedValue: "Opt-In"
     }
   };
 
@@ -186,7 +184,7 @@ export default class InitiateModifyCOPStatus extends LightningElement {
           : caseRecord?.FinServ__FinancialAccount__r.Ownership__c,
       childCaseNumberUrl: "/" + caseRecord.Id,
       childCaseNumber: "#" + caseRecord.CaseNumber,
-      currCOPStatus: this.issueTypeCOPMap[caseRecord.Parent.Type].currentValue,
+      currCOPStatus: caseRecord.Sub_Status__c,
       reqCOPStatus: this.issueTypeCOPMap[caseRecord.Parent.Type].requestedValue
     }));
   }

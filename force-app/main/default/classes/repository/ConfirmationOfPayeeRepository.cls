@@ -14,7 +14,7 @@ public with sharing class ConfirmationOfPayeeRepository {
     Set<String> finAccNumbers,
     String parentCaseId
   ) {
-    if(parentCaseId == null || finAccNumbers.isEmpty()){
+    if (parentCaseId == null || finAccNumbers.isEmpty()) {
       return new List<Case>();
     }
     return [
@@ -36,7 +36,7 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return List<Case> A list of cases linked to the given parent case ID.
    */
   public List<Case> getCasesByParentId(String parentCaseId) {
-    if(parentCaseId == null){
+    if (parentCaseId == null) {
       return new List<Case>();
     }
     return [
@@ -52,12 +52,12 @@ public with sharing class ConfirmationOfPayeeRepository {
         Account.OCV_Id__c,
         Opt_Out_Reason__c,
         CaseNumber,
-        SI_PSI_Source_Other__c
+        SI_PSI_Source_Other__c,
+        Sub_Status__c
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND (Status = :GetHelpConstants.ESCALATED_STATUS
-        OR Status = :GetHelpConstants.OPEN_STATUS)
+        AND Status = :GetHelpConstants.ESCALATED_STATUS
         AND RecordTypeId = :RTCase.confirmationOfPayee
       WITH USER_MODE
     ];
@@ -102,9 +102,6 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return FinServ__FinancialAccount__c The financial account record matching the given ID.
    */
   public FinServ__FinancialAccount__c getFinancialAccountById(Id recordId) {
-    if(recordId == null){
-      return null;
-    }
     return [
       SELECT
         Id,
@@ -118,7 +115,7 @@ public with sharing class ConfirmationOfPayeeRepository {
       WHERE Id = :recordId
       WITH USER_MODE
       LIMIT 1
-    ];
+    ] ?? null;
   }
 
   /**
@@ -127,7 +124,7 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return List<User> A list of User records that match the given LAN IDs.
    */
   public List<User> getUsersByLANId(Set<String> lanIds) {
-    if(lanIds.isEmpty()){
+    if (lanIds.isEmpty()) {
       return new List<User>();
     }
     return [
@@ -144,7 +141,7 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return List<Account> A list of Account records that match the provided OCV IDs.
    */
   public List<Account> getAccountsByOcvIds(List<String> ocvIds) {
-    if(ocvIds.isEmpty()){
+    if (ocvIds.isEmpty()) {
       return new List<Account>();
     }
     return [
@@ -163,7 +160,7 @@ public with sharing class ConfirmationOfPayeeRepository {
   public List<FinServ__FinancialAccountRole__c> getFinAccountRolesByAccountNum(
     Set<String> accountNumbers
   ) {
-    if(accountNumbers.isEmpty()){
+    if (accountNumbers.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
     return [
