@@ -395,7 +395,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CustomerRestraintEnabled</shortDescription>
-        <value>False</value>
+        <value>true</value>
     </labels>
     <labels>
         <fullName>CustomerRestraintFaCodes</fullName>
