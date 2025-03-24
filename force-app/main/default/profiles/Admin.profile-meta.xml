@@ -1483,6 +1483,16 @@
         <enabled>true</enabled>
     </customMetadataTypeAccesses>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.TestedDate__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.SLATesting__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Broker_Code__c.Accreditation_End_Date__c</field>
         <readable>true</readable>
@@ -11415,6 +11425,61 @@
         <field>OpportunityContactRole.Source_System_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Evaluation_State__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Client_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+     <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Evaluation_Complete_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Process_Definition_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Process_Definition_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Process_Definition_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Unique_External_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Evaluation_Create_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Evaluation_Id__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Evaluation_Last_Update_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Case.Evaluation_Reason__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
     <layoutAssignments>
         <layout>A_Z_Review__c-Commercial A-Z Review Page Layout</layout>
         <recordType>A_Z_Review__c.Commercial_A_Z_Review</recordType>
@@ -11908,6 +11973,14 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Term_Deposit__x-Term Deposit Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV QA Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_QA_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_Case</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>true</allowCreate>
@@ -13360,6 +13433,11 @@
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Task.MLCRM_Task</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.DAON_TrustX_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

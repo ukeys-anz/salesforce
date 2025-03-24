@@ -13,4 +13,5 @@ trigger CaseTrigger on Case(
   AccountClosureCaseTriggerHandler accountClosureHandler = new AccountClosureCaseTriggerHandler();
   CaseGroupTriggerHandler caseGroupHandler = new CaseGroupTriggerHandler();
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
+  TrustMeCaseTriggerHandler trustMeHandler = new TrustMeCaseTriggerHandler();
 }

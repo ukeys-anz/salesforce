@@ -1440,7 +1440,19 @@
         "System_Action__c",
         "VerificationOutcome__c",
         "VerificationRequest__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Client_Id__c",
+        "Evaluation_Id__c",
+        "Evaluation_State__c",
+        "Evaluation_Reason__c",
+        "Evaluation_Create_Time__c",
+        "Evaluation_Last_Update_Time__c",
+        "Evaluation_Complete_Time__c",
+        "Process_Definition_Id__c",
+        "Process_Definition_Name__c",
+        "Process_Definition_Version__c",
+        "Unique_External_Id__c",
+        "SecondaryVerificationFailedReason__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",

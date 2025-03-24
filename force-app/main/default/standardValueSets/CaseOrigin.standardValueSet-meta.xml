@@ -251,4 +251,9 @@
         <default>false</default>
         <label>OFI – from FRX</label>
     </standardValue>
+    <standardValue>
+        <fullName>TrustMe</fullName>
+        <default>false</default>
+        <label>TrustMe</label>
+    </standardValue>
 </StandardValueSet>

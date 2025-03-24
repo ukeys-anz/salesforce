@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>OnboardingVerificationFailedReason__c</fullName>
+    <fullName>SecondaryVerificationFailedReason__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>The reason why customer verification failed during the Onboarding/ TrustMe process</description>
-    <externalId>false</externalId>
-    <label>Verification Failed Reason</label>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>The reason why customer verification failed during the onboarding process</description>
+    <label>Secondary Verification Failed Reason</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -84,6 +83,12 @@
                 <label>Doc fail - doc details are outside of fixable threshold</label>
             </value>
             <value>
+                <fullName>EV Fail - DVS system error response</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EV Fail - DVS system error response</label>
+            </value>
+            <value>
                 <fullName>EV fail - retries exhausted on customer name variations</fullName>
                 <default>false</default>
                 <isActive>false</isActive>
@@ -102,14 +107,6 @@
                 <label>Selfie fail - suspected fraud, based on selfie</label>
             </value>
         </valueSetDefinition>
-        <valueSettings>
-            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
-            <valueName>Confirmed Fraud - Selfie Watchlist</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
-            <valueName>Confirmed Fraud</valueName>
-        </valueSettings>
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>Selfie fail - selfie image is not clear enough to match</valueName>
@@ -149,6 +146,14 @@
         <valueSettings>
             <controllingFieldValue>Failed</controllingFieldValue>
             <valueName>EV Fail - DVS Data error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
+            <valueName>Confirmed Fraud - Selfie Watchlist</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
+            <valueName>Confirmed Fraud</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>
