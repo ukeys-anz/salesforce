@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Facility_Limit_Fee_Amount__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - CAPS</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - EBD</complianceGroup>
     <description>Facility Limit Fee Amount</description>
     <externalDeveloperName>FacilityLimitFeeAmount</externalDeveloperName>
     <externalId>false</externalId>

@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Loan_Term_Months__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - CAPS</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - EBD</complianceGroup>
     <description>Loan Term (Months)</description>
     <externalDeveloperName>LoanTermMonths</externalDeveloperName>
     <externalId>false</externalId>

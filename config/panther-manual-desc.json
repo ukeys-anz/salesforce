@@ -5151,7 +5151,10 @@
       "IA-2415720": [
         "Amount__c",
         "Contract__c",
+        "Frequency__c",
         "Repayment_Account_Number__c",
+        "Repayment_Type__c",
+        "Start_Date__c",
         "Total_Number_Of_Repayments__c"
       ]
     },

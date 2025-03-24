@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Facility_Limit__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - CAPS</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - EBD</complianceGroup>
     <description>Facility Limit</description>
     <externalDeveloperName>FacilityLimit</externalDeveloperName>
     <externalId>false</externalId>

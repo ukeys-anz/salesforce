@@ -20,7 +20,7 @@ public with sharing class CCRMSearchPartyService extends Service {
     headers.put('channel', 'CCRM');
     headers.put(
       'Authorization',
-      'Bearer ' + CCRMARNCService.generateJWTToken()
+      'Bearer ' + ARNCService.generateJWTToken()
     );
     String body = getBody(record);
     String endPoint = Label.MS_Search_Party + Label.MS_Search_Party_Params;

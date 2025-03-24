@@ -8,7 +8,7 @@ public with sharing class FavoureeExternalQuery extends FinancialAccountQueryBas
   /**
    * @description Favouree Model class
    */
-  public class FavoureeModel extends CCRMFinancialAccountModelBase {
+  public class FavoureeModel extends FinancialAccountModelBase {
     public String compositeGuaranteesFavoureesId;
     public String name;
     public String abn;

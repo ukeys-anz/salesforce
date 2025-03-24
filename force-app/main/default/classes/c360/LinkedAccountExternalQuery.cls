@@ -8,7 +8,7 @@ public with sharing class LinkedAccountExternalQuery extends FinancialAccountQue
   /**
    * @description LinkedAccount Model class
    */
-  public class LinkedAccountModel extends CCRMFinancialAccountModelBase {
+  public class LinkedAccountModel extends FinancialAccountModelBase {
     public String relateCode;
     public String accountNumber;
     public String productCode;
