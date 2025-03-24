@@ -649,7 +649,7 @@
             <value>
                 <fullName>123</fullName>
                 <default>false</default>
-                <label>Technical issue preventing move to ANZ Plus</label>
+                <label>Technical issue preventing move to ANZ Plus (pre-move)</label>
             </value>
             <value>
                 <fullName>124</fullName>
@@ -659,7 +659,7 @@
             <value>
                 <fullName>125</fullName>
                 <default>false</default>
-                <label>Issue with account set up at Migration</label>
+                <label>Issue with account set up at Migration (post-move)</label>
             </value>
             <value>
                 <fullName>126</fullName>
