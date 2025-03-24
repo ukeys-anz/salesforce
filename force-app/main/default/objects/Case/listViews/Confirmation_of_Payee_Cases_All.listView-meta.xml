@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>All_COP_Cases</fullName>
-    <booleanFilter>(1 AND 2) OR (3 AND 4)</booleanFilter>
+    <fullName>Confirmation_of_Payee_Cases_All</fullName>
+    <booleanFilter>1 AND 2 AND 3</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
@@ -14,16 +14,6 @@
     <filters>
         <field>CASES.RECORDTYPE</field>
         <operation>equals</operation>
-        <value>Case.Confirmation_Of_Payee</value>
-    </filters>
-    <filters>
-        <field>PARENT.CASE_NUMBER</field>
-        <operation>lessOrEqual</operation>
-        <value>0</value>
-    </filters>
-    <filters>
-        <field>CASES.RECORDTYPE</field>
-        <operation>equals</operation>
         <value>Case.Case_Group</value>
     </filters>
     <filters>
@@ -31,16 +21,23 @@
         <operation>equals</operation>
         <value>Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
     </filters>
+    <filters>
+        <field>CORE.USERS.ALIAS</field>
+        <operation>notEqual</operation>
+        <value>Confirmation of Payee Queue</value>
+    </filters>
     <filterScope>Everything</filterScope>
-    <label>All COP Cases</label>
+    <label>Confirmation of Payee Cases - All</label>
     <sharedTo>
-        <role>ANZ_Plus_Operations_Read_Only</role>
         <role>BOH_Coach</role>
+        <role>Business_Admin</role>
+        <role>Coach</role>
         <role>Coach_Lead</role>
-        <role>Credit_Assessment_Officer</role>
-        <role>Credit_Assessor_Lead</role>
         <role>FinCrime_Agent</role>
         <role>FraudX_Agent</role>
+        <role>Join_Lead</role>
+        <role>Quality_Analyst</role>
+        <role>Quality_Capability_Lead</role>
         <role>Support_Coach</role>
     </sharedTo>
 </ListView>
