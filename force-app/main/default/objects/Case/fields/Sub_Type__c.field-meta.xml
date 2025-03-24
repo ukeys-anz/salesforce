@@ -644,14 +644,14 @@
                 <label>Open Banking</label>
             </value>
             <value>
-                <fullName>Letter of Authority</fullName>
-                <default>false</default>
-                <label>Letter of Authority</label>
-            </value>
-            <value>
                 <fullName>Title Search</fullName>
                 <default>false</default>
                 <label>Title Search</label>
+            </value>
+            <value>
+                <fullName>Letter of Authority</fullName>
+                <default>false</default>
+                <label>Letter of Authority</label>
             </value>
             <value>
                 <fullName>Manual Valuation Request</fullName>
