@@ -19,7 +19,7 @@ public with sharing class ConfirmationOfPayeeCaseActions {
     Set<Id> parentCaseIds = ListUtil.getIds(childCases, Case.ParentId);
 
     Set<Id> parentIdsForModifyCopStatus = ListUtil.getIds(
-      ACCOUNT_CLOSURE_REPOSITORY.queryEligibleChildCasesForCop(parentCaseIds),
+      ACCOUNT_CLOSURE_REPOSITORY.queryEscalatedCopCases(parentCaseIds),
       Case.ParentId
     );
 
@@ -59,7 +59,7 @@ public with sharing class ConfirmationOfPayeeCaseActions {
     List<Case> validCases = ListUtil.filter(childCases)
       .isNotNull(Case.FinServ__FinancialAccount__c)
       .isNotNull(Case.ParentId)
-      .notEquals(Case.Status, GetHelpConstants.CLOSED_STATUS)
+      .equals(Case.Status, GetHelpConstants.ESCALATED_STATUS)
       .toList();
 
     Set<Id> parentIdsForModifyCopStatus = ListUtil.getIds(

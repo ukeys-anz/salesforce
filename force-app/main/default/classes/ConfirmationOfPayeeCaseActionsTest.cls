@@ -36,7 +36,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
   private static void testHandleModifyCopActionPostive() {
     registerMocks();
     accountClosureRepoMock.mock(
-      'queryEligibleChildCasesForCop',
+      'queryEscalatedCopCases',
       mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
     );
 
@@ -59,10 +59,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
   @isTest
   private static void testHandleModifyCopActionNegative() {
     registerMocks();
-    accountClosureRepoMock.mock(
-      'queryEligibleChildCasesForCop',
-      new List<Case>()
-    );
+    accountClosureRepoMock.mock('queryEscalatedCopCases', new List<Case>());
 
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
@@ -105,7 +102,7 @@ public with sharing class ConfirmationOfPayeeCaseActionsTest {
     List<Case> caseRecordsUpdated = mockParentCaseRecord('Escalated', null);
     Test.startTest();
     ConfirmationOfPayeeCaseActions.modifyCopStatusButtonVisibility(
-      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Open')
+      mockQueryChildCaseRecords(FAKER_PARENT_CASE_ID, 'Escalated')
     );
     Test.stopTest();
 

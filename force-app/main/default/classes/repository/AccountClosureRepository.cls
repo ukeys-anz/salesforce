@@ -201,6 +201,28 @@ public with sharing class AccountClosureRepository {
   }
 
   /**
+   * @description Queries all the related cases (child cases) to the parent case having  Escalated status
+   * @param parentCaseId set of Case Group (Parent Case) Id
+   * @return List<Case> List of child cases associated to the parent case.
+   */
+  public List<Case> queryEscalatedCopCases(Set<Id> parentCaseId) {
+    if (parentCaseId == null) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, ParentId, CaseNumber
+      FROM Case
+      WHERE
+        ParentId = :parentCaseId
+        AND RecordTypeId = :RTCase.confirmationOfPayee
+        AND Status = :GetHelpConstants.ESCALATED_STATUS
+        AND FinServ__FinancialAccount__c != NULL
+      WITH USER_MODE
+    ];
+  }
+
+  /**
    * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus Success or Failed post precheck
    * @param caseIds set of Case Group (Parent Case) Id
    * @return List<Case> List of child cases associated to the parent case.
