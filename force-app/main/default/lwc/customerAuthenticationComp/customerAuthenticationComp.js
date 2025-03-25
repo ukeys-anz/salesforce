@@ -1,4 +1,4 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import getSecurityCode from "@salesforce/apex/CustomerAuthController.getSecurityCode";
 import createDiaryComment from "@salesforce/apex/CustomerAuthController.createDiaryComment";
 import updateSecurityCode from "@salesforce/apex/CustomerAuthController.updateSecurityCode";
@@ -7,8 +7,12 @@ import Customer_Existing_BTL_Comment from "@salesforce/label/c.Customer_Existing
 import Customer_Id_Fraud_Comment from "@salesforce/label/c.Customer_Id_Fraud_Comment";
 import MLCRM_AUTH_BTL_Code from "@salesforce/label/c.MLCRM_AUTH_BTL_Code";
 import Customer_Reference_Guide_URL from "@salesforce/label/c.Customer_Reference_Guide_URL";
+import CCRM_Customer_Reference_Guide_URL from "@salesforce/label/c.CCRM_Customer_Reference_Guide_URL";
 import ConfirmationModal from "c/confirmationModal";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import currentUserId from "@salesforce/user/Id";
+import CURRENT_USER_PROFILE from "@salesforce/schema/User.Profile.Name";
 
 export default class CustomerAuthenticationComp extends LightningElement {
   securityCode;
@@ -18,12 +22,33 @@ export default class CustomerAuthenticationComp extends LightningElement {
     customerExistingBTLComment: Customer_Existing_BTL_Comment,
     customerIdFraudComment: Customer_Id_Fraud_Comment,
     authBTLCode: MLCRM_AUTH_BTL_Code,
-    customerReferenceGuideURL: Customer_Reference_Guide_URL
+    customerReferenceGuideURL: Customer_Reference_Guide_URL,
+    ccrmCustomerReferenceGuideURL: CCRM_Customer_Reference_Guide_URL
   };
+  currentUserProfilename;
   @api recordId;
   showAuthenticateBtn = true;
   showSecurityCode = false;
   toastHeader = "Diary comment submitted";
+
+  @wire(getRecord, { recordId: currentUserId, fields: [CURRENT_USER_PROFILE] })
+  userDetails({ error, data }) {
+    if (error) {
+      this.loading = false;
+      this.showToast("Error!", "Something went wrong!", "error");
+    }
+    if (data) {
+      this.currentUserProfileName = getFieldValue(data, CURRENT_USER_PROFILE);
+    }
+  }
+
+  get customerReferenceGuideURL() {
+    return {
+      "ANZ CCRM Standard User": CCRM_Customer_Reference_Guide_URL,
+      "ANZ ML Standard User": Customer_Reference_Guide_URL
+    }[this.currentUserProfileName];
+  }
+
   handleAuth() {
     this.loading = true;
     getSecurityCode({ customerId: this.recordId })

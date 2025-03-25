@@ -8,6 +8,7 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CloseActionScreenEvent } from "lightning/actions";
 import createProspectFromOpportunity from "@salesforce/apex/OpportunityActions.createProspectFromOpportunity";
 import createProspectForCustomer from "@salesforce/apex/OpportunityActions.createOppContactRoleForCustomer";
+import retrieveParty from "@salesforce/apex/LeadConversionController.retrieveParty";
 
 //labels
 import MLCRM_CreateProspect_Header from "@salesforce/label/c.MLCRM_CreateProspect_Header";
@@ -34,6 +35,7 @@ export default class CreateProspectAndContactRole extends LightningElement {
   isExistingCustomer = false;
   existingCustomerId;
   isCreatingProspect = false;
+  retrievePartyRequired = false;
   @api recordId;
   recordTypeId;
 
@@ -212,6 +214,7 @@ export default class CreateProspectAndContactRole extends LightningElement {
             tempRec.strEmail = this.createProspectPayload.strEmail;
             this.searchResults.push(tempRec);
           });
+          this.retrievePartyRequired = result.retrievePartyRequired;
         } else {
           this.showProgressScreen = false;
           this.closeAction();
@@ -308,6 +311,47 @@ export default class CreateProspectAndContactRole extends LightningElement {
           "Dismissable"
         );
         this.isCreatingProspect = false;
+        if (this.retrievePartyRequired) {
+          retrieveParty({ accId: this.existingCustomerId })
+            .then(() => {
+              this.closeAction();
+              showToast(
+                this,
+                "SUCCESS!",
+                "Lead Conversion Completed successfully.",
+                "",
+                "Success",
+                ""
+              );
+              this[NavigationMixin.Navigate]({
+                type: "standard__recordPage",
+                attributes: {
+                  recordId: this.recordId,
+                  objectApiName: "Opportunity",
+                  actionName: "view"
+                }
+              });
+            })
+            .catch(() => {
+              this.closeAction();
+              showToast(
+                this,
+                "Warning!",
+                "Lead Conversion Completed successfully but retrieve party call failed",
+                "",
+                "Warning",
+                ""
+              );
+              this[NavigationMixin.Navigate]({
+                type: "standard__recordPage",
+                attributes: {
+                  recordId: this.recordId,
+                  objectApiName: "Opportunity",
+                  actionName: "view"
+                }
+              });
+            });
+        }
       })
       .catch(() => {
         this.isCreatingProspect = false;

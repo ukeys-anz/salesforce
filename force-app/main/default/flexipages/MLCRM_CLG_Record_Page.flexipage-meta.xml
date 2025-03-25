@@ -77,6 +77,16 @@
                 <identifier>RecordCLG_cField2</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CLG_Credit_Rating__c</fieldItem>
+                <identifier>RecordCLG_Credit_Rating_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-89f07af4-4836-45fa-a67e-39746d50a2a3</name>
         <type>Facet</type>
     </flexiPageRegions>

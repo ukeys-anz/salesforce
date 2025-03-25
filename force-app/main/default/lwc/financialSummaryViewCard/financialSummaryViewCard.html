@@ -8,6 +8,13 @@
       padding="around-small"
     ></lightning-formatted-text>
   </template>
+  <template lwc:elseif={showHeaderValueText}>
+    <lightning-formatted-text
+      class="slds-p-left_x-large slds-text-heading_x-small slds-text-title_bold"
+      value={headerValue}
+      padding="around-small"
+    ></lightning-formatted-text>
+  </template>
   <template lwc:else>
     <lightning-formatted-number
       padding="around-small"

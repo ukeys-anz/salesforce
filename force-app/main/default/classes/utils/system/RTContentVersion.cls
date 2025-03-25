@@ -12,4 +12,5 @@ public class RTContentVersion {
   public static Id idrFile = base.getId('IDR_File');
   public static Id systemicIssueFile = base.getId('Systemic_Issue_File');
   public static Id daonFile = base.getId('DAON_File');
+  public static Id daonTrustXFile = base.getId('DAON_TrustX_File');
 }

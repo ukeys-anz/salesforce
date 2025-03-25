@@ -452,6 +452,21 @@
         <label>Simplification/Decommissioning</label>
     </standardValue>
     <standardValue>
+        <fullName>Submission</fullName>
+        <default>false</default>
+        <label>Submission</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Assessment</fullName>
+        <default>false</default>
+        <label>Assessment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Settlement</fullName>
+        <default>false</default>
+        <label>Settlement</label>
+    </standardValue>
+    <standardValue>
         <fullName>Intended Recipient</fullName>
         <default>false</default>
         <label>Intended Recipient</label>

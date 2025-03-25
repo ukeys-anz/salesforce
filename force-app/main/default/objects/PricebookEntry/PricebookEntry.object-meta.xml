@@ -118,7 +118,7 @@
         <fields>PRODUCT.NAME</fields>
         <fields>PRODUCT.CUSTOMER_PRODUCT_ID</fields>
         <fields>PRODUCT2.Sub_Product_Code__c</fields>
-        <fields>PRODUCT2.Commercial_Product_Category__c</fields>
+        <fields>PRODUCT2.Category__c</fields>
         <fields>PRODUCT2.Business_area__c</fields>
         <profileName>ANZ CCRM Standard User</profileName>
     </profileSearchLayouts>

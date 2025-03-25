@@ -2,7 +2,7 @@ import { LightningElement, track, api, wire } from "lwc";
 import { CloseActionScreenEvent } from "lightning/actions";
 import { getRecord } from "lightning/uiRecordApi";
 // import controller method
-import isLeadMisMatchCustomer from "@salesforce/apex/CCRMLeadConversionActions.isLeadMisMatchCustomer";
+import isLeadMisMatchCustomer from "@salesforce/apex/LeadConversionController.isLeadMisMatchCustomer";
 // import static resource
 import WARNING_ICON from "@salesforce/resourceUrl/Warning_Icon";
 // import custom labels

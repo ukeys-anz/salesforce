@@ -8,7 +8,7 @@ public with sharing class LinkedBillExternalQuery extends FinancialAccountQueryB
   /**
    * @description Linked Bill Model class
    */
-  public class LinkedBillModel extends CCRMFinancialAccountModelBase {
+  public class LinkedBillModel extends FinancialAccountModelBase {
     public String compositeBillId;
     public String billReferenceNo;
     public String billType;

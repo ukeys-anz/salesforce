@@ -1,10 +1,12 @@
-import { LightningElement, api } from "lwc";
+import { LightningElement, api, wire } from "lwc";
 import getSummariesByResponseId from "@salesforce/apex/FinancialSummaryController.getSummariesByResponseId";
 import getDataFromCallout from "@salesforce/apex/FinancialSummaryController.getDataFromCallout";
 import insertDataInCache from "@salesforce/apex/FinancialSummaryController.insertDataInCache";
 import getFinSummaryMetadata from "@salesforce/apex/FinancialSummaryController.getFinSummaryMetadata";
 import { subscribe, unsubscribe } from "lightning/empApi";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
+import { getRecord, getFieldValue } from "lightning/uiRecordApi";
+import ACCOUNT_WORLDLINE_MERCHANT_FIELD from "@salesforce/schema/Account.Worldline_Merchant__c";
 
 const CALCULATION_IN_PROGRESS = "Calculation is in progress";
 const NO_AVAILABLE_BALANCE = "No available balance";
@@ -17,6 +19,7 @@ const TOTAL_CREDIT_BALANCE = "TOTAL_CREDIT_BALANCE";
 const TOTAL_CUSTOMER_LIMIT = "TOTAL_CUSTOMER_LIMIT";
 const CLG_CREDIT_RISK = "CLG_CREDIT_RISK";
 const TOTAL_MORTAGE_LIMIT = "TOTAL_MORTAGE_LIMIT";
+const WORLDLINE_MERCHANT = "WORLDLINE_MERCHANT";
 const CCRM_PROFILE = "ANZ CCRM Standard User";
 
 export default class financialSummaryViewAsync extends LightningElement {
@@ -76,6 +79,7 @@ export default class financialSummaryViewAsync extends LightningElement {
   showCreditBalanceInfo = false;
   showDebitBalanceInfo = false;
   showMortageLimitInfo = false;
+  showWorldlineMerchantInfo = false;
 
   async connectedCallback() {
     this.handleSubscribe();
@@ -200,6 +204,19 @@ export default class financialSummaryViewAsync extends LightningElement {
     } else {
       this.handleNoAvailableBalance(this.financialSummaryData);
     }
+  }
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields: ACCOUNT_WORLDLINE_MERCHANT_FIELD
+  })
+  accountRecord;
+
+  get worldlineMerchantValue() {
+    return getFieldValue(
+      this.accountRecord.data,
+      ACCOUNT_WORLDLINE_MERCHANT_FIELD
+    );
   }
 
   handleSubscribe() {
@@ -478,6 +495,9 @@ export default class financialSummaryViewAsync extends LightningElement {
     if (this.summaryValuesToDisplay.includes(TOTAL_MORTAGE_LIMIT)) {
       this.showMortageLimitInfo = true;
       this.callMorageLimitApi = true;
+    }
+    if (this.summaryValuesToDisplay.includes(WORLDLINE_MERCHANT)) {
+      this.showWorldlineMerchantInfo = true;
     }
   }
 

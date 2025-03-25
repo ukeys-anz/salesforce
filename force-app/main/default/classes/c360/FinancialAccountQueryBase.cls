@@ -118,6 +118,8 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     HttpCalloutResponse response;
 
     String payload = getPayload(queryContext);
+    queryParams.offSet = String.valueOf(queryContext.offSet);
+    queryParams.pageSize = String.valueOf(queryContext.maxResults);
     response = getCAPSummaryAccounts(service, queryParams, payload);
     response = getEBDSummaryAccounts(
       service,

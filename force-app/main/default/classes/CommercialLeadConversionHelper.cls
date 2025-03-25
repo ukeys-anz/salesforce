@@ -37,7 +37,7 @@ public with sharing class CommercialLeadConversionHelper {
    */
   public static String updateLeadWithCapcisId(
     Lead record,
-    DCRMMaintainPartyModel response,
+    MaintainPartyModel response,
     Account accountInstance
   ) {
     if (!LEADCONV_REPOSITORY.isLeadCAPCISUpdatable()) {
@@ -45,9 +45,8 @@ public with sharing class CommercialLeadConversionHelper {
       throw new CustomException(INSUFFICIANT_PERMISSION_ERROR);
     }
     try {
-      String opportunityId;
       if (accountInstance == null || accountInstance.Id == null) {
-        return opportunityId;
+        return null;
       }
       record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
       record.FinServ__RelatedAccount__c = (accountInstance.recordTypeId ==
@@ -55,13 +54,15 @@ public with sharing class CommercialLeadConversionHelper {
         ? null
         : accountInstance.id;
       record.CAPCIS_ID__c = response.sourceSystems[0].sourceSystemId;
-      CCRMLeadConversionActions.leadConverionFlow = true;
+      LeadConversionController.leadConverionFlow = true;
       DML_REPOSITORY.doUpdate(record, new DmlConfig().withoutSharing());
-      opportunityId = AccountCommonActions.findAndConvertCCRMLead(
+      Map<Id, Id> mapLeadwithOpportunityId = LeadConversionOperations.convertLead(
         accountInstance.Id,
         record
       );
-      return opportunityId;
+      return mapLeadwithOpportunityId.containsKey(record.Id)
+        ? mapLeadwithOpportunityId.get(record.Id)
+        : 'Error occured while Opportunity creation during lead conversion.';
     } catch (DmlException ex) {
       throw new CustomException(CAPCIS_LEAD_UPDATE_ERROR);
     } catch (Exception ex) {
@@ -84,7 +85,6 @@ public with sharing class CommercialLeadConversionHelper {
     String cpId,
     Lead record
   ) {
-    string opportunityId;
     if (!LEADCONV_REPOSITORY.isLeadCAPCISUpdatable()) {
       Logger.error(INSUFFICIANT_PERMISSION_ERROR, record.Id).save();
       throw new CustomException(INSUFFICIANT_PERMISSION_ERROR);
@@ -93,13 +93,15 @@ public with sharing class CommercialLeadConversionHelper {
       record.Skip_Validations__c = CCRMConstants.CONVERT_LEAD;
       record.CAPCIS_ID__c = cpId;
       record.FinServ__RelatedAccount__c = accId;
-      CCRMLeadConversionActions.leadConverionFlow = true;
+      LeadConversionController.leadConverionFlow = true;
       DML_REPOSITORY.doUpdate(record, new DmlConfig().withoutSharing());
-      opportunityId = AccountCommonActions.findAndConvertCCRMLead(
-        accId,
+      Map<Id, Id> mapLeadwithOpportunityId = LeadConversionOperations.convertLead(
+        ID.valueOf(accId),
         record
       );
-      return opportunityId;
+      return mapLeadwithOpportunityId.containsKey(record.Id)
+        ? mapLeadwithOpportunityId.get(record.Id)
+        : 'Error occured while Opportunity creation during lead conversion.';
     } catch (DmlException ex) {
       throw new CustomException(CAPCIS_LEAD_UPDATE_ERROR);
     } catch (Exception ex) {
@@ -116,13 +118,13 @@ public with sharing class CommercialLeadConversionHelper {
    * @param record lead record
    * @return MaintainPartyInfoWrapper for lwc
    */
-  public MaintainPartyInformationWrapper.MaintainPartyInfoWrapper setMaintainPartyInfoWrapper(
+  public MaintainPartyInformationWrapper.MaintainPartyResult setMaintainPartyInfoWrapper(
     String externalId,
     ShellProspectInfoWrapper response,
     OCVRequestPayloadWrapper record
   ) {
     try {
-      MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
+      MaintainPartyInformationWrapper.MaintainPartyResult maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyResult();
       maintainPartyWrapper.matchedResults = new List<MaintainPartyInformationWrapper.MaintainPartyInfo>();
       Account acc = LEADCONV_REPOSITORY.getAccountUsingExternalId(externalId);
       if (acc == null) {
@@ -175,7 +177,7 @@ public with sharing class CommercialLeadConversionHelper {
    **/
   @TestVisible
   private ShellProspectInfoWrapper getShellProspectInfoWrapper(
-    DCRMMaintainPartyModel response,
+    MaintainPartyModel response,
     OCVRequestPayloadWrapper reqRecord
   ) {
     ShellProspectInfoWrapper shellProspectInfoInstance = new ShellProspectInfoWrapper();
@@ -203,7 +205,7 @@ public with sharing class CommercialLeadConversionHelper {
    */
   public static Account autoCreateShellProspect(
     OCVRequestPayloadWrapper reqRecord,
-    DCRMMaintainPartyModel response
+    MaintainPartyModel response
   ) {
     try {
       Account accountInstance;
@@ -219,7 +221,7 @@ public with sharing class CommercialLeadConversionHelper {
         shellProspectInfoInstance,
         reqRecord
       );
-      CCRMLeadConversionActions.manualLeadConversionInitiated = true;
+      LeadConversionController.manualLeadConversionInitiated = true;
       DML_REPOSITORY.doInsert(
         accountInstance,
         new DmlConfig().withoutSharing()
@@ -243,12 +245,12 @@ public with sharing class CommercialLeadConversionHelper {
    * @param response result from cap api response
    * @return MaintainPartyInfoWrapper
    */
-  public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper getExistingCustomerDetails(
+  public static MaintainPartyInformationWrapper.MaintainPartyResult getExistingCustomerDetails(
     OCVRequestPayloadWrapper reqRecord,
-    DCRMMaintainPartyModel response
+    MaintainPartyModel response
   ) {
     try {
-      MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
+      MaintainPartyInformationWrapper.MaintainPartyResult maintainPartyWrapper = new MaintainPartyInformationWrapper.MaintainPartyResult();
       ShellProspectInfoWrapper shellProspectInfoInstance = COMMERCIAL_LEAD_CONVERSION_HELPER.getShellProspectInfoWrapper(
         response,
         reqRecord

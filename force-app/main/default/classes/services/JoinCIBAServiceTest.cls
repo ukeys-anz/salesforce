@@ -7,7 +7,7 @@
 
 @IsTest
 private class JoinCIBAServiceTest {
-  public static final String AUTH_SUCCESS_RESPONSE = CCRMARNCService.generateJWTToken();
+  public static final String AUTH_SUCCESS_RESPONSE = ARNCService.generateJWTToken();
 
   @IsTest
   static void getRealService() {

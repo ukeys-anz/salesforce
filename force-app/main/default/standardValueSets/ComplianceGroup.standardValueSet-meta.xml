@@ -186,4 +186,9 @@
         <default>false</default>
         <label>Source - GCP</label>
     </standardValue>
+    <standardValue>
+        <fullName>Source_TrustMe</fullName>
+        <default>false</default>
+        <label>Source - TrustMe</label>
+    </standardValue>
 </StandardValueSet>

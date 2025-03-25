@@ -18,10 +18,10 @@ public class OpportunityActionsTest {
   private static final String STATUS_NEW = 'New';
 
   /**
-   * @description test method for ValidateMLCRMOpportunity
+   * @description test method for validateClosedOpportunity
    */
   @isTest
-  static void testValidateMLCRMOpportunity() {
+  static void testvalidateClosedOpportunity() {
     Map<Id, Opportunity> oldMap = new Map<Id, Opportunity>();
     Id accId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType());
     String exceptionMsg = '';
@@ -45,7 +45,7 @@ public class OpportunityActionsTest {
 
     Test.startTest();
     try {
-      OpportunityActions.validateMLCRMOpportunity(
+      OpportunityActions.validateClosedOpportunity(
         new List<Opportunity>{ updatedOpp },
         oldMap
       );
@@ -53,10 +53,10 @@ public class OpportunityActionsTest {
       exceptionMsg = ex.getMessage();
     }
     Test.stopTest();
-    system.assertEquals(
+    Assert.areEqual(
       '',
       exceptionMsg,
-      'validateMLCRMOpportunity is not returning correct output for ML Lead'
+      'validateClosedOpportunity is not returning correct output for ML Lead'
     );
   }
 
@@ -74,7 +74,7 @@ public class OpportunityActionsTest {
     Test.startTest();
     OpportunityActions.createOppContactRoleForCustomer(acc.Id, oppId, strRole);
     Test.stopTest();
-    system.assertEquals(
+    Assert.areEqual(
       false,
       dmlRepoMock.getHistories('doInsert').isEmpty(),
       'CreateOppContactRoleForCustomer is not working properly'
@@ -95,7 +95,7 @@ public class OpportunityActionsTest {
       new Set<Id>{ opp.Id }
     );
     Test.stopTest();
-    system.assertEquals(
+    Assert.areEqual(
       1,
       oppList.size(),
       'getOpportunity is not working properly'
@@ -114,12 +114,12 @@ public class OpportunityActionsTest {
       record
     );
     Test.stopTest();
-    system.assertEquals(
+    Assert.areEqual(
       '',
       result.strCity,
       'setRemainingRequestValues is not assigning values correctly'
     );
-    system.assertEquals(
+    Assert.areEqual(
       '',
       result.strCountry,
       'setRemainingRequestValues is not assigning values correctly'
@@ -145,10 +145,7 @@ public class OpportunityActionsTest {
     objAcc.put('OwnerId', idOwner);
     objAcc.put('Disclosure_Indicator__c', null);
     objAcc.put('Id', accountId);
-    objAcc.put(
-      'RecordTypeId',
-      QueryRT.of(Account.SObjectType).getId('PersonAccount')
-    );
+    objAcc.put('RecordTypeId', RTAccount.personAccount);
     mapOfAcc.put(accountId, objAcc);
 
     OpportunityContactRole objOppRole = new OpportunityContactRole();
@@ -162,7 +159,7 @@ public class OpportunityActionsTest {
       null
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       1,
       lstOfOppRole.size(),
       'Failed to create opportunity contact role'
@@ -188,10 +185,7 @@ public class OpportunityActionsTest {
     objAcc.put('OwnerId', idOwner);
     objAcc.put('Disclosure_Indicator__c', null);
     objAcc.put('Id', accountId);
-    objAcc.put(
-      'RecordTypeId',
-      QueryRT.of(Account.SObjectType).getId('PersonAccount')
-    );
+    objAcc.put('RecordTypeId', RTAccount.personAccount);
 
     OpportunityContactRole objOppRole = new OpportunityContactRole();
     objOppRole.put('Role', 'Guarantor');
@@ -206,7 +200,7 @@ public class OpportunityActionsTest {
       mapOfOppContactRole
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       'Applicant',
       lstOfOppRole[0].Role,
       'Failed to update opportunity contact role'
@@ -231,10 +225,7 @@ public class OpportunityActionsTest {
     objAcc.put('OwnerId', idOwner);
     objAcc.put('Disclosure_Indicator__c', null);
     objAcc.put('Id', accountId);
-    objAcc.put(
-      'RecordTypeId',
-      QueryRT.of(Account.SObjectType).getId('PersonAccount')
-    );
+    objAcc.put('RecordTypeId', RTAccount.personAccount);
 
     Contact contactRecord = new Contact(
       Id = contactId,
@@ -259,7 +250,7 @@ public class OpportunityActionsTest {
       newOppContactRoleList
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       'Guarantor',
       mapOfOppContactRole.get(
           String.valueOf(oppRecord.Id) + String.valueOf(objAcc.Id)

@@ -96,7 +96,8 @@ public with sharing class CCRMLeadActions {
       );
       if (
         ((CCRMLeadUtil.isCCRMLeadType(record) &&
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) ||
+        (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA)) ||
         CCRMLeadUtil.isMLCRMLeadType(record)) &&
         record.OwnerID.getsobjecttype() == User.sobjecttype &&
         (isAdobeNewLead || isLeadOwnerUpdated)

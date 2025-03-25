@@ -7,16 +7,16 @@ public with sharing class CommercialLeadConversionController {
   /**
    * @description Converts ETB/NTB Organization Leads using Maintain Party Api.Used by lwc leadConvertToOpportunity.cmp
    * @param record Lead Record
-   * @return MaintainPartyInformationWrapper.MaintainPartyInfoWrapper
+   * @return MaintainPartyInformationWrapper.MaintainPartyResult
    **/
   @AuraEnabled
-  public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper convertOrganizationLead(
+  public static MaintainPartyInformationWrapper.MaintainPartyResult convertOrganizationLead(
     Lead record
   ) {
     try {
-      MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainResult = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
+      MaintainPartyInformationWrapper.MaintainPartyResult maintainResult = new MaintainPartyInformationWrapper.MaintainPartyResult();
       CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-      DCRMMaintainPartyModel result;
+      MaintainPartyModel result;
       CommercialLeadConversionHelper leadConvHelper = new CommercialLeadConversionHelper();
       OCVRequestPayloadWrapper requestRecord = leadConvHelper.getRequestRecordOrganization(
         record
