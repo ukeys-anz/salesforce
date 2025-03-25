@@ -15,7 +15,7 @@ public with sharing class ConfirmationOfPayeeHelper {
 
   private static final String ERROR_LOG_MESSAGE_GET_COP = 'Error while fetching COP details from API';
   private static final String ERROR_LOG_MESSAGE_MODIFY_COP = 'Error while updating COP details on API';
-  private static final String ACCOUNT_TYPE_MULTI_PARTY = 'Multi-party';
+  private static final String ACCOUNT_TYPE_MULTI_PARTY = 'Joint';
 
   /**
    * @description Creates a request model for financial accounts' CoP status.
@@ -134,14 +134,20 @@ public with sharing class ConfirmationOfPayeeHelper {
       if (!financialAccounts.containsKey(accNumber)) {
         continue;
       }
-      if (
-        (issueType == null ||
+
+      //When this is called from FA Detail Page Comp or Case Group Opt In Scenario
+      Boolean isStatusMismatch =
+        issueType == null ||
         acc.status == null ||
-        !issueType.toUpperCase().contains(acc?.status?.toUpperCase()) ||
-        (financialAccounts.get(accNumber).Ownership__c ==
+        !issueType.toUpperCase().contains(acc?.status?.toUpperCase());
+
+      //When this is called from Case Group Opt Out Scenario For Joint Accounts Only
+      Boolean isMultiPartyOptOut =
+        financialAccounts.get(accNumber).Ownership__c ==
         ACCOUNT_TYPE_MULTI_PARTY &&
-        issueType == CaseGroupCaseConstants.COP_OPT_OUT))
-      ) {
+        issueType == CaseGroupCaseConstants.COP_OPT_OUT;
+
+      if (isStatusMismatch || isMultiPartyOptOut) {
         validFinAccounts.put(accNumber, financialAccounts.get(accNumber));
       }
     }
@@ -219,7 +225,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       }
 
       account.id = finAccount.Id;
-      account.productName = finAccount.Product_Name__c;
+      account.productName = finAccount.FinServ__ProductName__r.Name;
       account.finAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE_FOR_UI.get(
         finAccount.Ownership__c
       );
@@ -443,7 +449,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       CaseDetailsContainer.CaseDetailsWithCoPStatus caseDetail = new CaseDetailsContainer.CaseDetailsWithCoPStatus();
       caseDetail.accountNumber = account.accountIdentification?.substring(6);
       caseDetail.accountingSystem = caseObj.SI_PSI_Source_Other__c;
-      caseDetail.productName = caseObj.FinServ__FinancialAccount__r.Product_Name__c;
+      caseDetail.productName = caseObj.Product.Name;
       caseDetail.accountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE_FOR_UI.get(
         caseObj.FinServ__FinancialAccount__r.Ownership__c
       );
@@ -505,19 +511,23 @@ public with sharing class ConfirmationOfPayeeHelper {
     for (
       CaseDetailsContainer.CaseDetailsWithCoPStatus caseDetails : containerWrapper.successList
     ) {
+      //Always post a chatter to Case
       ChatterUtils.makeAPost(
         caseDetails.caseId,
         getChatterMessageRichText(caseDetails),
         ChatterUtils.POST_TYPE_RICH_TEXT
       );
+
+      //Only continue to all customers & Joint customers if account is Multi party
       if (caseDetails.accountType != ACCOUNT_TYPE_MULTI_PARTY) {
         continue;
       }
-      for (
-        String customerId : successFinancialAccNumberVsCustomerList.get(
-          caseDetails.accountNumber
-        )
-      ) {
+
+      List<String> customerIds = successFinancialAccNumberVsCustomerList.get(
+        caseDetails.accountNumber
+      );
+
+      for (String customerId : customerIds) {
         ChatterUtils.makeAPost(
           customerId,
           getChatterMessageRichText(caseDetails),

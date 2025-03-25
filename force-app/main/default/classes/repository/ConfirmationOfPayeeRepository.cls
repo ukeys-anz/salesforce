@@ -45,6 +45,7 @@ public with sharing class ConfirmationOfPayeeRepository {
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
         FinServ__FinancialAccount__r.FinServ__ProductName__c,
         FinServ__FinancialAccount__r.Product_Name__c,
+        Product.Name,
         FinServ__FinancialAccount__r.Ownership__c,
         FinServ__FinancialAccount__r.BSB__c,
         Customer_Account_Number__c,
@@ -81,7 +82,8 @@ public with sharing class ConfirmationOfPayeeRepository {
         BSB__c,
         FinServ__ProductName__c,
         Product_Name__c,
-        Ownership__c
+        Ownership__c,
+        FinServ__ProductName__r.Name
       FROM FinServ__FinancialAccount__c
       WHERE
         RecordTypeId != :RTFinancialAccount.bankAccount

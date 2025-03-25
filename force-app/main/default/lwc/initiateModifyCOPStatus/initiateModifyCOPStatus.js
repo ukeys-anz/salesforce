@@ -173,15 +173,14 @@ export default class InitiateModifyCOPStatus extends LightningElement {
   generateData(caseRecords) {
     return caseRecords.map((caseRecord) => ({
       id: caseRecord.Id,
-      product:
-        caseRecord?.FinServ__FinancialAccount__r?.Product_Name__c || null,
+      product: caseRecord?.Product?.Name || null,
       accountNumber:
         caseRecord?.FinServ__FinancialAccount__r
           ?.FinServ__FinancialAccountNumber__c || null,
       accountType:
-        caseRecord?.FinServ__FinancialAccount__r.Ownership__c === "Individual"
+        caseRecord?.FinServ__FinancialAccount__r.Ownership__c === "Single"
           ? "Sole"
-          : caseRecord?.FinServ__FinancialAccount__r.Ownership__c,
+          : "Joint",
       childCaseNumberUrl: "/" + caseRecord.Id,
       childCaseNumber: "#" + caseRecord.CaseNumber,
       currCOPStatus: caseRecord.Sub_Status__c,
