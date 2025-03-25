@@ -53,4 +53,23 @@ public with sharing class CaseGroupCaseConstants {
     COP_OPT_IN,
     COP_OPT_OUT
   };
+
+  public static final Set<Id> ENTITLEMENT_RT_IDS = new Set<Id>{
+    RTCase.caseGroup
+  };
+
+  public static final Set<String> ENTITLEMENT_CASE_ISSUE_TYPES = new Set<String>{
+    COP_OPT_IN,
+    COP_OPT_OUT
+  };
+
+  /**
+   * @description Check if a case is entitled to have entitlment
+   * @param record The case record to check
+   * @return if the case have entitlement enabled
+   */
+  public static Boolean isEntitlementEnabled(Case record) {
+    return ENTITLEMENT_RT_IDS.contains(record.RecordTypeId) &&
+      ENTITLEMENT_CASE_ISSUE_TYPES.contains(record.Type);
+  }
 }

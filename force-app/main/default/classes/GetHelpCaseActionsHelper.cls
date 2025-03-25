@@ -201,18 +201,16 @@ public with sharing class GetHelpCaseActionsHelper {
   public static Set<Id> getEntitlementAccountIds(List<Case> caseList) {
     Set<Id> accountIds = new Set<Id>();
 
-    for (Case c : caseList) {
+    List<Case> eligibleCases = ListUtil.filter(caseList)
+      .isNotNull(Case.AccountId)
+      .toList();
+
+    for (Case caseRec : eligibleCases) {
       if (
-        (c.RecordTypeId == RTCase.generalInquiry ||
-        c.RecordTypeId == RTCase.customerFeedback ||
-        c.RecordTypeId == RTCase.kycQa ||
-        CheckCaseRecordType.isDispute(c) ||
-        c.RecordTypeId == RTCase.confirmationOfPayee ||
-        (c.RecordTypeId == RTCase.caseGroup &&
-        (c.Type == 'Confirmation of Payee Opt-In' ||
-        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
+        CheckCaseRecordType.isEntitlementEnabled(caseRec) ||
+        CaseGroupCaseConstants.isEntitlementEnabled(caseRec)
       ) {
-        accountIds.add(c.AccountId);
+        accountIds.add(caseRec.AccountId);
       }
     }
     return accountIds;
@@ -252,34 +250,34 @@ public with sharing class GetHelpCaseActionsHelper {
     List<Case> caseList,
     Map<Id, Id> entMap
   ) {
-    for (Case c : caseList) {
+    for (Case caseRec : caseList) {
       if (
-        (c.RecordTypeId == RTCase.generalInquiry ||
-        c.RecordTypeId == RTCase.customerFeedback ||
-        CheckCaseRecordType.isDispute(c) ||
-        c.RecordTypeId == RTCase.confirmationOfPayee ||
-        (c.RecordTypeId == RTCase.caseGroup &&
-        (c.Type == 'Confirmation of Payee Opt-In' ||
-        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
+        (CheckCaseRecordType.isEntitlementEnabled(caseRec) ||
+        CaseGroupCaseConstants.isEntitlementEnabled(caseRec)) &&
+        caseRec.AccountId != null
       ) {
-        if (!entMap.containsKey(c.AccountId)) {
-          c.addError(NO_ENTITLEMENT_ERROR_MSG);
+        if (!entMap.containsKey(caseRec.AccountId)) {
+          caseRec.addError(NO_ENTITLEMENT_ERROR_MSG);
         } else {
-          c.EntitlementId = entMap.get(c.AccountId);
+          caseRec.EntitlementId = entMap.get(caseRec.AccountId);
         }
-      } else if (
-        (c.RecordTypeId == RTCase.nonCustomerComplaint &&
-        c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN)
-      ) {
-        c.EntitlementId = IDRCaseActions.getEntitlement();
-        c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
-      } else if (c.RecordTypeId == RTCase.anzxComplaint) {
-        c.EntitlementId = IDRCaseActions.getEntitlement();
-        c.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
-          c.Status,
-          c.IDR_Date_Received__c,
-          c.BusinessHoursId
+      }
+
+      if (caseRec.RecordTypeId == RTCase.anzxComplaint) {
+        caseRec.EntitlementId = IDRCaseActions.getEntitlement();
+        caseRec.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
+          caseRec.Status,
+          caseRec.IDR_Date_Received__c,
+          caseRec.BusinessHoursId
         );
+      }
+
+      if (
+        caseRec.RecordTypeId == RTCase.nonCustomerComplaint &&
+        caseRec.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
+      ) {
+        caseRec.EntitlementId = IDRCaseActions.getEntitlement();
+        caseRec.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
       }
     }
   }
