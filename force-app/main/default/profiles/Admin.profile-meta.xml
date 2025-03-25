@@ -1968,6 +1968,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Worldline_Merchant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>false</editable>
         <field>Activity.Cases_Related_To_Team__c</field>
         <readable>true</readable>
@@ -10877,6 +10882,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>User.Is_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>User_Provisioning_Request__c.Business_Function__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -11435,7 +11445,7 @@
         <field>Case.Client_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
-     <fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Case.Evaluation_Complete_Time__c</field>
         <readable>true</readable>

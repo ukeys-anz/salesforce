@@ -21353,6 +21353,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.Is_Manager__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>User.qualtrics__QualtricsURL__c</field>
         <readable>false</readable>
     </fieldPermissions>

@@ -8001,6 +8001,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>User.Is_Manager__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>WorkType.BlockTimeAfterAppointment</field>
         <readable>true</readable>
     </fieldPermissions>

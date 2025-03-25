@@ -4702,7 +4702,8 @@
         "ML_Role__c",
         "ML_Territories__c",
         "ML_Territories_Virtual__c"
-      ]
+      ],
+      "IA-2425790": ["Is_Manager__c"]
     },
     "Territory__c": {
       "IA-2415860": [
