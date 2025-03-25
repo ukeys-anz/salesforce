@@ -7974,17 +7974,6 @@
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Real_Form_Req__c</picklist>
-        <values>
-            <fullName>No</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Yes</fullName>
-            <default>false</default>
-        </values>
-    </picklistValues>
-    <picklistValues>
         <picklist>IDR_Reason_for_re_opening__c</picklist>
         <values>
             <fullName>1</fullName>
@@ -15012,6 +15001,14 @@
         </values>
         <values>
             <fullName>No Longer Required</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opt-In</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Opt-Out</fullName>
             <default>false</default>
         </values>
         <values>

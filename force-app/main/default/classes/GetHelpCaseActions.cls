@@ -17,11 +17,11 @@ public with sharing class GetHelpCaseActions {
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
   private static List<Case> notificationCaseList = new List<Case>();
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
-  public static final String SLA_BREACH = 'Breached';
-  public static final String SLA_WARNING = 'Warning';
-  public static final String SLA_WARNING2 = 'Warning 2';
-  public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
-  public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+  public static Map<String, String> mapStatusAndMessageBody = new Map<String, String>{
+    'Warning' => 'Please review and action this case.',
+    'Warning 2' => 'Please review and action this case.',
+    'Breached' => 'Please review and ensure case is being managed by Customer Resolution Centre.'
+  };
 
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
@@ -580,29 +580,20 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    if (!oldMap.isEmpty()) {
-      Id notificationTypeId = CommonUtil.getCustomNotificationTypeByName(
-          'Case_SLA'
-        )
-        .Id;
+    List<Case> eligibleCases = ListUtil.filter(records, oldMap)
+      .isNotNull(Case.SLA_Status__c)
+      .changed(Case.SLA_Status__c)
+      .toList();
 
-      for (Case newCase : records) {
-        if (
-          newCase.SLA_Status__c != null &&
-          !newCase.SLA_Status__c.Equals(oldMap.get(newCase.Id).SLA_Status__c)
-        ) {
-          Map<String, String> mapStatusAndMessageBody = new Map<String, String>{
-            SLA_WARNING => SLA_WARNING_NOTIFICATION_BODY,
-            SLA_WARNING2 => SLA_WARNING_NOTIFICATION_BODY,
-            SLA_BREACH => SLA_BREACH_NOTIFICATION_BODY
-          };
-          String messageBody = mapStatusAndMessageBody.get(
-            newCase.SLA_Status__c
-          );
+    Id notificationTypeId = CommonUtil.getCustomNotificationTypeByName(
+        'Case_SLA'
+      )
+      .Id;
 
-          sendSLANotificationMessage(newCase, messageBody, notificationTypeId);
-        }
-      }
+    for (Case newCase : eligibleCases) {
+      String messageBody = mapStatusAndMessageBody.get(newCase.SLA_Status__c);
+
+      sendSLANotificationMessage(newCase, messageBody, notificationTypeId);
     }
   }
 
