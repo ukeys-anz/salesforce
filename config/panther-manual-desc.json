@@ -808,6 +808,7 @@
       "IA-253075": [
         "BypassApplicationEvent__c",
         "BypassBrokerEvent__c",
+        "BypassCaseEvent__c",
         "BypassContractEvent__c",
         "BypassCustomerEvent__c",
         "BypassSettlementAccountEvent__c"
@@ -1367,7 +1368,8 @@
         "SI_Date_Event_Created__c",
         "SI_Category_Other__c",
         "SuppliedEmail",
-        "Tactical_Fix__c"
+        "Tactical_Fix__c",
+        "Broker_Call_Back_Number__c"
       ],
       "IA-2415855": [
         "SI_PSI_Ranking__c",
@@ -1462,6 +1464,7 @@
         "Fraud_PersonID__c"
       ],
       "IA-2468710": ["SLATesting__c", "CardScamType__c"],
+      "IA-2594109": ["Sync_Status__c"],
       "IA-2594116": [
         "AcceptableDocumentType__c",
         "CertificateShowsCurrentContactName__c",

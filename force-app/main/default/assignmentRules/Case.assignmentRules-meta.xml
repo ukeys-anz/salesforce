@@ -219,5 +219,10 @@
                 )
             </formula>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>New_Broker_Call_Back_Requests</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND(ISNEW(),RecordType.DeveloperName = &quot;Broker_Enquiry&quot;)</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>
