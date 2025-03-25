@@ -28,27 +28,6 @@
                             </visibilityRule>
                         </valueListItems>
                         <valueListItems>
-                            <value>Share</value>
-                            <visibilityRule>
-                                <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>
-                                <criteria>
-                                    <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>ANZ CCRM Standard User</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$Permission.CustomPermission.CCRM_Read_Only_User_Access}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>false</rightValue>
-                                </criteria>
-                                <criteria>
-                                    <leftValue>{!$User.Profile.Name}</leftValue>
-                                    <operator>EQUAL</operator>
-                                    <rightValue>System Administrator</rightValue>
-                                </criteria>
-                            </visibilityRule>
-                        </valueListItems>
-                        <valueListItems>
                             <value>Opportunity.Log_Interaction_CCRM</value>
                             <visibilityRule>
                                 <booleanFilter>(1 OR 3 ) AND 2</booleanFilter>

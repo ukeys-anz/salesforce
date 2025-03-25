@@ -480,6 +480,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Mobile__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.Advertising_Indicator__c</field>
         <readable>true</readable>
@@ -751,6 +756,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Worldline_Merchant__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ApplicationForm.App_Amount__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -930,7 +940,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.Email</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -945,7 +955,7 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>false</editable>
+        <editable>true</editable>
         <field>Contact.MobilePhone</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -7056,7 +7066,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product2.Commercial_Product_Category__c</field>
+        <field>Product2.Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -9052,6 +9062,10 @@
     <tabSettings>
         <tab>standard-Opportunity</tab>
         <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
+        <tab>FinServ__FinancialAccount__c</tab>
+        <visibility>Available</visibility>
     </tabSettings>
     <userPermissions>
         <enabled>false</enabled>

@@ -3444,7 +3444,7 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
-        <field>Product2.Commercial_Product_Category__c</field>
+        <field>Product2.Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -1823,6 +1823,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>www.google.com</value>
     </labels>
     <labels>
+        <fullName>CCRM_Customer_Reference_Guide_URL</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Reference Guide URL</shortDescription>
+        <value>https://portal.knowhow.service.anz/Content/Content/Menu/y5I2Hw56Ee-RLABQVpUToA?fromMenu=y5I2Hw56Ee-RLABQVpUToA</value>
+    </labels>
+    <labels>
         <fullName>MLCRM_MaintainParty_NewCustomerError</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>

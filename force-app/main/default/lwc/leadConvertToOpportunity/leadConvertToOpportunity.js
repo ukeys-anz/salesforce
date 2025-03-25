@@ -1096,13 +1096,17 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   }
 
   get isIndividual() {
-    return this.leadConvertData.leadRecord.Entity_Type__c === "Individual"
+    return this.leadConvertData.leadRecord.RecordType.DeveloperName ===
+      "MLCRM_Lead" ||
+      this.leadConvertData.leadRecord.Entity_Type__c === "Individual"
       ? true
       : false;
   }
 
   get isOrgCustomer() {
-    return this.leadConvertData.leadRecord.Entity_Type__c !== "Individual"
+    return this.leadConvertData.leadRecord.RecordType.DeveloperName ===
+      "CCRM_Lead" &&
+      this.leadConvertData.leadRecord.Entity_Type__c !== "Individual"
       ? true
       : false;
   }
