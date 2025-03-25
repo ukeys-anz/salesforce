@@ -113,9 +113,9 @@ public with sharing class CaseGroupCaseActions {
   public static void assignEscalatedCasesToQueue(List<Case> escalatedCases) {
     for (Case escalatedCase : escalatedCases) {
       if (escalatedCase.Type == CaseGroupCaseConstants.ACCOUNT_CLOSURE) {
-        escalatedCase.OwnerId = QueryQueue.accountClosureQueue.Id;
+        escalatedCase.OwnerId = QueryQueue.accountClosure.Id;
       } else {
-        escalatedCase.OwnerId = QueryQueue.copQueue.Id;
+        escalatedCase.OwnerId = QueryQueue.confirmationOfPayee.Id;
       }
     }
   }

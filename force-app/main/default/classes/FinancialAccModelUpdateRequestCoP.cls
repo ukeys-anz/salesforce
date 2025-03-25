@@ -15,7 +15,7 @@ public class FinancialAccModelUpdateRequestCoP {
     public String accountingSystem;
     public String accountCoPStatus;
     public String copStatusReason;
-    public RequestedBy[] requestedBy;
+    public List<RequestedBy> requestedBy;
   }
 
   /**

@@ -5,7 +5,7 @@
  * @group Models
  */
 public with sharing class AccountCoPStatusRequestModel {
-  public AccountList[] accountList;
+  public List<AccountList> accountList;
 
   /**
    * @description Represents an account identification number.

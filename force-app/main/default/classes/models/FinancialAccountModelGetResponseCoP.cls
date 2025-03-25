@@ -5,7 +5,7 @@
  * @group Models
  */
 public class FinancialAccountModelGetResponseCoP {
-  public AccountList[] accountList;
+  public List<AccountList> accountList;
 
   /**
    * @description Represents account-related details.
@@ -16,7 +16,7 @@ public class FinancialAccountModelGetResponseCoP {
     public String status;
     public String statusReason;
     public String statusUpdateDate;
-    public RequestedBy[] requestedBy;
+    public List<RequestedBy> requestedBy;
     public ModifiedBy modifiedBy;
     public Error error;
   }

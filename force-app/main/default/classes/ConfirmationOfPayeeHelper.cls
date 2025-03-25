@@ -76,11 +76,11 @@ public with sharing class ConfirmationOfPayeeHelper {
         requestedByIds.add(requestor?.requestorId);
       }
     }
-
+    List<Account> accountList = CONFIRMATION_OF_PAYEE_REPO.getAccountsByOcvIds(
+      new List<String>(requestedByIds)
+    );
     Map<String, Account> mapRequestedByNames = (Map<String, Account>) ListUtil.mapBy(
-      CONFIRMATION_OF_PAYEE_REPO.getAccountsByOcvIds(
-        new List<String>(requestedByIds)
-      ),
+      accountList,
       Account.OCV_Id__c
     );
 
@@ -102,9 +102,11 @@ public with sharing class ConfirmationOfPayeeHelper {
     ) {
       modifiedByIds.add(acc?.modifiedBy?.modifierId);
     }
-
+    List<User> userList = CONFIRMATION_OF_PAYEE_REPO.getUsersByLANId(
+      modifiedByIds
+    );
     Map<String, User> modifiedByMap = (Map<String, User>) ListUtil.mapBy(
-      CONFIRMATION_OF_PAYEE_REPO.getUsersByLANId(modifiedByIds),
+      userList,
       User.Lan_Id__c
     );
 
@@ -129,14 +131,16 @@ public with sharing class ConfirmationOfPayeeHelper {
       FinancialAccountModelGetResponseCoP.AccountList acc : response.accountList
     ) {
       String accNumber = acc?.accountIdentification?.substring(6);
+      if (!financialAccounts.containsKey(accNumber)) {
+        continue;
+      }
       if (
-        financialAccounts.containsKey(accNumber) &&
         (issueType == null ||
         acc.status == null ||
         !issueType.toUpperCase().contains(acc?.status?.toUpperCase()) ||
-        financialAccounts.get(accNumber).Ownership__c ==
+        (financialAccounts.get(accNumber).Ownership__c ==
         ACCOUNT_TYPE_MULTI_PARTY &&
-        issueType == CaseGroupCaseConstants.COP_OPT_OUT)
+        issueType == CaseGroupCaseConstants.COP_OPT_OUT))
       ) {
         validFinAccounts.put(accNumber, financialAccounts.get(accNumber));
       }
@@ -295,10 +299,12 @@ public with sharing class ConfirmationOfPayeeHelper {
       }
     }
 
+    List<Account> accountsByOcvId = CONFIRMATION_OF_PAYEE_REPO.getAccountsByOcvIds(
+      new List<String>(requestedByIds)
+    );
+
     Map<String, Account> mapRequestedByNames = (Map<String, Account>) ListUtil.mapBy(
-      CONFIRMATION_OF_PAYEE_REPO.getAccountsByOcvIds(
-        new List<String>(requestedByIds)
-      ),
+      accountsByOcvId,
       Account.OCV_Id__c
     );
 
@@ -320,9 +326,11 @@ public with sharing class ConfirmationOfPayeeHelper {
     ) {
       modifiedByIds.add(acc?.modifiedBy?.modifierId);
     }
-
+    List<User> userList = CONFIRMATION_OF_PAYEE_REPO.getUsersByLANId(
+      modifiedByIds
+    );
     Map<String, User> modifiedByMap = (Map<String, User>) ListUtil.mapBy(
-      CONFIRMATION_OF_PAYEE_REPO.getUsersByLANId(modifiedByIds),
+      userList,
       User.Lan_Id__c
     );
 
@@ -502,18 +510,19 @@ public with sharing class ConfirmationOfPayeeHelper {
         getChatterMessageRichText(caseDetails),
         ChatterUtils.POST_TYPE_RICH_TEXT
       );
-      if (caseDetails.accountType == ACCOUNT_TYPE_MULTI_PARTY) {
-        for (
-          String customerId : successFinancialAccNumberVsCustomerList.get(
-            caseDetails.accountNumber
-          )
-        ) {
-          ChatterUtils.makeAPost(
-            customerId,
-            getChatterMessageRichText(caseDetails),
-            ChatterUtils.POST_TYPE_RICH_TEXT
-          );
-        }
+      if (caseDetails.accountType != ACCOUNT_TYPE_MULTI_PARTY) {
+        continue;
+      }
+      for (
+        String customerId : successFinancialAccNumberVsCustomerList.get(
+          caseDetails.accountNumber
+        )
+      ) {
+        ChatterUtils.makeAPost(
+          customerId,
+          getChatterMessageRichText(caseDetails),
+          ChatterUtils.POST_TYPE_RICH_TEXT
+        );
       }
     }
   }

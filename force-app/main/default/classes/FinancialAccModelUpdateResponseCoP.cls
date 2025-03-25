@@ -6,7 +6,7 @@
  * @note ExcessivePublicCount suppressed: FinancialAccModelUpdateResponseCoP consolidates all public methods and attributes.
  */
 public class FinancialAccModelUpdateResponseCoP {
-  public AccountList[] accountList;
+  public List<AccountList> accountList;
 
   /**
    * @description Represents account details for CoP status updates.
@@ -16,7 +16,7 @@ public class FinancialAccModelUpdateResponseCoP {
     public String copStatusUpdateDate;
     public String accountCoPStatus;
     public String copStatusReason;
-    public RequestedBy[] requestedBy;
+    public List<RequestedBy> requestedBy;
     public ModifiedBy modifiedBy;
     public Error error;
   }

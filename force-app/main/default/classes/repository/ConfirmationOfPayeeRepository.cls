@@ -12,7 +12,7 @@ public with sharing class ConfirmationOfPayeeRepository {
    */
   public List<Case> getCasesByFinancialAccountIds(
     Set<String> finAccNumbers,
-    String parentCaseId
+    Id parentCaseId
   ) {
     if (parentCaseId == null || finAccNumbers.isEmpty()) {
       return new List<Case>();
@@ -35,7 +35,7 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @param parentCaseId The ID of the parent case.
    * @return List<Case> A list of cases linked to the given parent case ID.
    */
-  public List<Case> getCasesByParentId(String parentCaseId) {
+  public List<Case> getCasesByParentId(Id parentCaseId) {
     if (parentCaseId == null) {
       return new List<Case>();
     }

@@ -43,7 +43,7 @@ public with sharing class AccountClosureRepository {
         RecordTypeId = :RTCase.caseGroup
         AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
-        AND Type IN :CaseGroupCaseConstants.caseIssueTypes
+        AND Type IN :CaseGroupCaseConstants.CASE_ISSUE_TYPES
       WITH USER_MODE
     ];
   }
@@ -147,7 +147,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEligibleChildCasesForClosure(Set<Id> parentCaseId) {
-    if (parentCaseId == null) {
+    if (parentCaseId.isEmpty()) {
       return new List<Case>();
     }
 
@@ -176,7 +176,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEligibleChildCasesForCop(Set<Id> parentCaseId) {
-    if (parentCaseId == null) {
+    if (parentCaseId.isEmpty()) {
       return new List<Case>();
     }
 
@@ -206,7 +206,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEscalatedCopCases(Set<Id> parentCaseId) {
-    if (parentCaseId == null) {
+    if (parentCaseId.isEmpty()) {
       return new List<Case>();
     }
 
@@ -254,6 +254,9 @@ public with sharing class AccountClosureRepository {
    * @return Case record with the details
    */
   public Case queryCaseDetails(Id recordId) {
+    if (recordId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -269,7 +272,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE Id = :recordId
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**
@@ -296,6 +299,9 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of child cases
    */
   public List<Case> getUnusedChildCasesByParentId(Id parentCaseId) {
+    if (parentCaseId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -327,6 +333,9 @@ public with sharing class AccountClosureRepository {
   public List<Case> getInsertedOrUpdatedCaseDetails(
     Set<Id> setOfCaseIdsToQuery
   ) {
+    if (setOfCaseIdsToQuery.isEmpty()) {
+      return new List<Case>();
+    }
     SystemModeActions systemAction = new SystemModeActions(
       'AccountClosureRepository',
       'getInsertedOrUpdatedCaseDetails'
@@ -345,6 +354,9 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of account closure case linked with FA
    */
   public List<Case> getCasesByFinancialAccountIds(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new List<Case>();
+    }
     return [
       SELECT FinServ__FinancialAccount__c
       FROM Case
@@ -478,7 +490,9 @@ public with sharing class AccountClosureRepository {
     return [
       SELECT Id, OwnerId, Status, Circumstance__c, Type
       FROM Case
-      WHERE Type IN :CaseGroupCaseConstants.caseIssueTypes AND Id IN :parentIds
+      WHERE
+        Type IN :CaseGroupCaseConstants.CASE_ISSUE_TYPES
+        AND Id IN :parentIds
       WITH USER_MODE
     ];
   }

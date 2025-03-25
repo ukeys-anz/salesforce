@@ -18,7 +18,7 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
 
   public override void onBeforeInsert() {
     List<Case> filteredParentCaseByIssueType = ListUtil.filter(records)
-      .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .toList();
 
     CaseGroupCaseActions.validateDuplicateParentCasePerAccount(
@@ -32,7 +32,7 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     List<Case> parentCasesWithChangedFields = new List<Case>();
     List<Case> filteredParentCaseByIssueType = ListUtil.filter(records, oldMap)
-      .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .toList();
     parentCasesWithChangedFields.addAll(
       (List<Case>) ListUtil.filter(filteredParentCaseByIssueType, oldMap)
@@ -46,11 +46,11 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
     );
 
     List<Case> parentCasesWithStatusEscalated = ListUtil.filter(records, oldMap)
-      .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .changedTo(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
       .toList();
     List<Case> parentCasesWithStatusClosed = ListUtil.filter(records, oldMap)
-      .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
       .toList();
 
@@ -70,7 +70,7 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     List<Case> filteredParentCaseByIssueType = ListUtil.filter(records)
-      .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .toList();
     Set<Schema.SObjectField> fieldsToTrackForChanges = new Set<Schema.SObjectField>{
       Case.OwnerId,

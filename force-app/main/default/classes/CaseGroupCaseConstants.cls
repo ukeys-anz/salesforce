@@ -47,20 +47,10 @@ public with sharing class CaseGroupCaseConstants {
     'Multi-party' => 'Joint'
   };
 
-  /**
-   * @description Fetch cases issue type and store in variable
-   * @return variable with account closure and cop issue types
-   */
-  public static final Set<String> caseIssueTypes {
-    get {
-      if (caseIssueTypes == null) {
-        caseIssueTypes = new Set<String>();
-        caseIssueTypes.add(ACCOUNT_CLOSURE);
-        caseIssueTypes.add(COP_OPT_IN);
-        caseIssueTypes.add(COP_OPT_OUT);
-      }
-      return caseIssueTypes;
-    }
-    private set;
-  }
+  //Set of Case  issue type for account closure, cop opt in  and cop opr out
+  public static final Set<String> CASE_ISSUE_TYPES = new Set<String>{
+    ACCOUNT_CLOSURE,
+    COP_OPT_IN,
+    COP_OPT_OUT
+  };
 }
