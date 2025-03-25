@@ -559,6 +559,8 @@
     <tabs>standard-Lead</tabs>
     <tabs>standard-Opportunity</tabs>
     <tabs>standard-Task</tabs>
+    <tabs>standard-report</tabs>
+    <tabs>standard-Dashboard</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Mobile_Lending_CRM_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -567,6 +569,9 @@
         </mappings>
         <mappings>
             <tab>standard-Account</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Dashboard</tab>
         </mappings>
         <mappings>
             <tab>standard-Lead</tab>
@@ -579,6 +584,9 @@
         </mappings>
         <mappings>
             <tab>standard-home</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-report</tab>
         </mappings>
     </workspaceConfig>
 </CustomApplication>

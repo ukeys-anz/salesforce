@@ -10,11 +10,12 @@
     <language>English</language>
     <name>RealFormId</name>
     <omniProcessElements>
+        <name>EditRealFormID</name>
         <childElements>
+            <name>CreateREalForm</name>
             <isActive>false</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CreateREalForm</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -55,10 +56,10 @@
             <type>Navigate Action</type>
         </childElements>
         <childElements>
+            <name>CustomLWC1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : null,
@@ -93,10 +94,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>CustomLWC2</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>CustomLWC2</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 12,
@@ -112,10 +113,10 @@
             <type>Custom Lightning Web Component</type>
         </childElements>
         <childElements>
+            <name>LineBreak1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>LineBreak1</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;label&quot; : &quot;LineBreak1&quot;,
@@ -127,10 +128,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <name>RealFormID</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>RealFormID</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 3,
@@ -174,10 +175,10 @@
             <type>Text</type>
         </childElements>
         <childElements>
+            <name>RealFormRequired</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>RealFormRequired</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;controlWidth&quot; : 5,
@@ -228,7 +229,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>EditRealFormID</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;label&quot; : &quot;Edit Real Form ID&quot;,
@@ -278,10 +278,10 @@
         <type>Step</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getRealFormIdDetails</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>getRealFormIdDetails</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;controlWidth&quot; : 12,

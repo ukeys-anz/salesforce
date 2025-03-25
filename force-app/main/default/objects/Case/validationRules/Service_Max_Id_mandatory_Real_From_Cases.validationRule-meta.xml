@@ -12,7 +12,7 @@ RecordType.DeveloperName = &apos;Non_Customer_Complaint&apos;
 AND(
 NOT( ISNEW() ),
 AND(
-ISPICKVAL(IDR_Real_Form_Req__c,'Y_EXI'),
+ISPICKVAL(IDR_Real_Form_Req__c,&apos;Y_EXI&apos;),
 ISBLANK( IDR_Real_Form_Ref_No__c )
 )
 )

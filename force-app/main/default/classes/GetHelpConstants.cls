@@ -4,6 +4,10 @@
  * @description  GetHelpConstants consists of all the GetHelp constants
  */
 public with sharing class GetHelpConstants {
+  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
+
   //Case - ANZx Dispute Case RT Ids
   public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
@@ -102,15 +106,6 @@ public with sharing class GetHelpConstants {
     .getRecordTypeId();
 
   public static final String S2_ACCOUNT_MARKETING_CODE = 'SAVING02';
-
-  //Financial Account marketing code values
-  public static final List<String> ANZX_MARKETING_CODES = new List<String>{
-    'TRANSACT01',
-    'SAVING01',
-    'SAVING02',
-    'HLVAR01',
-    'HLFXD01'
-  };
 
   public static final List<String> HOME_LOAN_MARKETING_CODES = new List<String>{
     'HLVAR01',
@@ -375,6 +370,23 @@ public with sharing class GetHelpConstants {
         anzxFinancialAccountRecordTypes.add(CHECKING_ACCOUNT_RT_APINAME);
       }
       return anzxFinancialAccountRecordTypes;
+    }
+    private set;
+  }
+
+  /**
+   * @description fetch ANZx financial account record types
+   * @return Set<String> financial account record types developer name
+   */
+  public static Set<String> anzxMarketingCodes {
+    get {
+      if (anzxMarketingCodes == null) {
+        anzxMarketingCodes = new Set<String>();
+        anzxMarketingCodes.addAll(
+          QueryFinancialAccountUIConfig.configByProductCode.keySet()
+        );
+      }
+      return anzxMarketingCodes;
     }
     private set;
   }

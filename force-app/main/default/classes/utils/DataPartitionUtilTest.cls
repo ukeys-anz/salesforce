@@ -24,6 +24,10 @@ public with sharing class DataPartitionUtilTest {
     //The session cache storage is called
     Test.startTest();
     DataPartitionUtil.storeH1AccountDetailsCache(SESSION_KEY, setupModel());
+    DataPartitionUtil.storeLoanAccountDetailsCache(
+      SESSION_KEY,
+      setupLoanModel()
+    );
     DataPartitionUtil.storeSOPDetailsCache(SOP_SESSION_KEY, setupSOPModel());
     Test.stopTest();
 
@@ -38,7 +42,9 @@ public with sharing class DataPartitionUtilTest {
       'No data stored under provided key'
     );
   }
-
+  /**
+   * @description test session cache retrieval
+   */
   @isTest
   static void testGetH1AccountDetailsCache() {
     //GIVEN
@@ -85,6 +91,40 @@ public with sharing class DataPartitionUtilTest {
       'The cached and retrieved account number should be identical.'
     );
   }
+  /**
+   * @description test session cache retrieval
+   */
+  @isTest
+  static void testGetLoanAccountDetailsCache() {
+    //GIVEN
+    //The h1details stored in the session cache
+    Cache.SessionPartition dataPartition = Cache.Session.getPartition(
+      DATAPARTITION_CACHE
+    );
+    dataPartition.put(SESSION_KEY, setupLoanModel());
+
+    //WHEN
+    Test.startTest();
+    List<UnifiedFinancialAccountModel.AccountList> cachedData = DataPartitionUtil.getLoanAccountDetailsCache(
+      SESSION_KEY
+    );
+    String cachedAcc = cachedData[0].account_number;
+
+    Test.stopTest();
+
+    //THEN
+    //Check if value retriving from getH1AccountDetailsCache matahes with inserted data
+    List<UnifiedFinancialAccountModel.AccountList> retrievedData = (List<UnifiedFinancialAccountModel.AccountList>) dataPartition.get(
+      SESSION_KEY
+    );
+    String retrievedAcc = retrievedData[0].account_number;
+
+    System.assertEquals(
+      cachedAcc,
+      retrievedAcc,
+      'The cached and retrieved account number should be identical.'
+    );
+  }
 
   /**
    * @return `HomeLoanModel` mock response
@@ -99,6 +139,23 @@ public with sharing class DataPartitionUtilTest {
 
     HomeLoanModel testModel = HomeLoanModel.parse(mockH1.body.toString());
     return testModel;
+  }
+
+  /**
+   * @return `UnifiedFinancialAccountModel` mock response
+   * @description returns mock response from the static resources
+   */
+  private static List<UnifiedFinancialAccountModel.AccountList> setupLoanModel() {
+    StaticResource mockLoan = [
+      SELECT body
+      FROM StaticResource
+      WHERE Name = 'mock_homeloanaccounts'
+    ];
+
+    UnifiedFinancialAccountModel testModel = UnifiedFinancialAccountModel.parse(
+      mockLoan.body.toString()
+    );
+    return testModel.accounts;
   }
 
   /**

@@ -3,9 +3,9 @@
     <contactEmail>anzx-salesforce-test@anz.com</contactEmail>
     <label>ServiceNow Integration</label>
     <oauthConfig>
-        <callbackUrl>https://anzbankdev.service-now.com</callbackUrl>
-        <isAdminApproved>false</isAdminApproved>
-        <isClientCredentialEnabled>false</isClientCredentialEnabled>
+        <callbackUrl>https://anztech.service-now.com/oauth_redirect.do</callbackUrl>
+        <isAdminApproved>true</isAdminApproved>
+        <isClientCredentialEnabled>true</isClientCredentialEnabled>
         <isCodeCredentialEnabled>false</isCodeCredentialEnabled>
         <isCodeCredentialPostOnly>false</isCodeCredentialPostOnly>
         <isConsumerSecretOptional>false</isConsumerSecretOptional>
@@ -20,8 +20,10 @@
         <scopes>RefreshToken</scopes>
     </oauthConfig>
     <oauthPolicy>
-        <ipRelaxation>BYPASS</ipRelaxation>
+        <ipRelaxation>ENFORCE</ipRelaxation>
         <isTokenExchangeFlowEnabled>false</isTokenExchangeFlowEnabled>
         <refreshTokenPolicy>infinite</refreshTokenPolicy>
     </oauthPolicy>
+    <permissionSetName>Case Read/Write - SNow Integration</permissionSetName>
+    <profileName>Minimum Access - External Apps</profileName>
 </ConnectedApp>

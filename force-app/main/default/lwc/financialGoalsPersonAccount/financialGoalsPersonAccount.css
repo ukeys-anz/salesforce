@@ -17,10 +17,13 @@
 
 .progress-ring {
   position: relative;
-  bottom: 0.94rem;
-  right: 0.63rem;
+  bottom: 0.5rem;
+  left: 1rem;
 }
 
+.custom-padding {
+  margin-left: 3.5rem;
+}
 .description-tooltip {
   visibility: hidden;
   width: 30%;
@@ -95,4 +98,15 @@
 .emptyCardGoal {
   margin-bottom: 5rem;
   margin-top: 5rem;
+}
+
+.dormantBadgeClass {
+  --slds-c-badge-color-background: white;
+  --slds-c-badge-color-border: green;
+  --slds-c-badge-text-color: green;
+}
+
+.dividerTop {
+  border-top: 1px solid rgb(201, 201, 201);
+  border-bottom: none;
 }

@@ -7,4 +7,5 @@ public class RTFinancialAccount {
   static QueryRT base = QueryRT.of(FinServ__FinancialAccount__c.SObjectType);
 
   public static Id bankAccount = base.getId('BankingAccount');
+  public static Id savingAccount = base.getId('SavingsAccount');
 }

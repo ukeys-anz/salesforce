@@ -18,6 +18,14 @@ const runSandboxConfigSetupApex = (orgAlias) => {
     `);
 };
 
+const addPAMApproversIntoQueue = (orgAlias) => {
+  console.log("--- addPAMApproversIntoQueue ---");
+  nonProdChangeValidation(orgAlias);
+  return runCommand(`
+      sf apex run -f ./ci/apex-scripts/addPAMApproversIntoQueue.apex -o "${orgAlias}"
+    `);
+};
+
 const updateOmniStudioRemoteSetting = (
   orgAlias,
   filepath = "ci/sandbox-service/Config/RemoteSiteSettingsPackage.xml"
@@ -129,6 +137,7 @@ const updatePamApproversCustomSetting = (orgAlias) => {
 
 export {
   runSandboxConfigSetupApex,
+  addPAMApproversIntoQueue,
   updateOmniStudioRemoteSetting,
   deployAllOmnistudioComponents,
   deployContentAssets,

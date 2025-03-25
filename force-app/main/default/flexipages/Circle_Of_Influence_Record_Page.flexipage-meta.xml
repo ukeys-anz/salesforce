@@ -53,6 +53,88 @@
                     <value>required</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.COI_Type__c</fieldItem>
+                <identifier>RecordCOI_Type_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.COI_Company__c</fieldItem>
+                <identifier>RecordCOI_Company_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Job_Title__c</fieldItem>
+                <identifier>RecordJob_Title_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-62e1f908-566d-4a35-a997-3e2e6a262f60</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.First_Name__c</fieldItem>
+                <identifier>RecordFirst_Name_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Last_Name__c</fieldItem>
+                <identifier>RecordLast_Name_cField2</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <name>Facet-ba610600-c62a-4a7f-a3c7-7790f062461c</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-62e1f908-566d-4a35-a997-3e2e6a262f60</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column9</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>body</name>
+                    <value>Facet-ba610600-c62a-4a7f-a3c7-7790f062461c</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:column</componentName>
+                <identifier>flexipage_column10</identifier>
+            </componentInstance>
+        </itemInstances>
+        <name>Facet-28b3f80e-4473-465c-8d70-3467de9dfa78</name>
+        <type>Facet</type>
+    </flexiPageRegions>
+    <flexiPageRegions>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.COI_Type__c</fieldItem>
                 <identifier>RecordCOI_Type_cField</identifier>
             </fieldInstance>
         </itemInstances>
@@ -432,6 +514,30 @@
             <componentInstance>
                 <componentInstanceProperties>
                     <name>columns</name>
+                    <value>Facet-28b3f80e-4473-465c-8d70-3467de9dfa78</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>horizontalAlignment</name>
+                    <value>false</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>label</name>
+                    <value>COI Details</value>
+                </componentInstanceProperties>
+                <componentName>flexipage:fieldSection</componentName>
+                <identifier>flexipage_fieldSection5</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Last_Name__c}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>columns</name>
                     <value>Facet-5e828777-2437-4dc0-8666-c474ecb70343</value>
                 </componentInstanceProperties>
                 <componentInstanceProperties>
@@ -444,6 +550,12 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection3</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.Last_Name__c}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
@@ -619,6 +731,9 @@
                 <componentInstanceProperties>
                     <name>relatedListFieldAliases</name>
                     <valueList>
+                        <valueListItems>
+                            <value>Name</value>
+                        </valueListItems>
                         <valueListItems>
                             <value>Category__c</value>
                         </valueListItems>

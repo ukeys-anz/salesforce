@@ -6,6 +6,11 @@
 public with sharing class ProfileUpdateCaseActions {
   @TestVisible
   private static Group idOpsQueue = QueryQueue.get('ID_Ops_Queue');
+  @TestVisible
+  private static final String AU_DOC_PREFIX = 'DOCUMENT_TYPE_AUSTRALIAN_';
+  @TestVisible
+  private static final String ERROR_STAGING_PENDING = 'Cannot close case until the legal name is updated in OCV.';
+  private static final String AU_COUNTRY_CODE = 'AUS';
   public static final string CASE_TYPE_LEGAL_NAME = 'Legal Name QA';
   public static final string PASS = 'Pass';
   public static final string FAILED_DOCUMENT_INVALID = 'Failed - Document Provided Invalid';
@@ -52,6 +57,60 @@ public with sharing class ProfileUpdateCaseActions {
       cloudEventModels.add(new LegalNameCaseCloudEventModel(theCase));
     }
     CloudEventController.publishCloudEvents(cloudEventModels);
+  }
+
+  /**
+   * @description Validates the staging progress for legal name cases on close.
+   * @param records Case records being updated by trigger
+   * @param oldMap old instances of Case records being updated by trigger
+   */
+  public static void validateStagingProgress(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> legalNameCases = ListUtil.filter(records, oldMap)
+      .equals(Case.Type, CASE_TYPE_LEGAL_NAME)
+      .equals(Case.Fraud_Review_Outcome__c, PASS)
+      .changedTo(Case.Status, 'Closed')
+      .toList();
+    Set<Id> caseIds = new Map<Id, Case>(legalNameCases).keySet();
+    List<Customer_Profile_Updates__c> pendingStagings = REPOSITORY.getPendingStagingRecordsByCaseIds(
+      caseIds
+    );
+    Set<Id> pendingCaseIds = ListUtil.getIds(
+      pendingStagings,
+      Customer_Profile_Updates__c.Case__c
+    );
+    List<Case> pendingCases = ListUtil.filter(legalNameCases)
+      .equals(Case.Id, pendingCaseIds)
+      .toList();
+    ListUtil.addError(pendingCases, ERROR_STAGING_PENDING);
+  }
+
+  /**
+   * @description Sets the document country code for legal name cases based on the document type.
+   * @param records Case records being updated by trigger
+   * @param oldMap old instances of Case records being updated by trigger
+   */
+  public static void setDocumentCountryCode(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> legalNameCases = ListUtil.filter(records, oldMap)
+      .equals(Case.Type, CASE_TYPE_LEGAL_NAME)
+      .changed(Case.DocumentType__c)
+      .toList();
+
+    List<Case> auDocCases = ListUtil.filter(legalNameCases, oldMap)
+      .contains(Case.DocumentType__c, AU_DOC_PREFIX)
+      .toList();
+    ListUtil.setField(auDocCases, Case.CountryCode__c, 'AUS');
+
+    List<Case> nonAuDocCases = ListUtil.filter(legalNameCases)
+      .notContains(Case.DocumentType__c, AU_DOC_PREFIX)
+      .equals(Case.CountryCode__c, AU_COUNTRY_CODE)
+      .toList();
+    ListUtil.setField(nonAuDocCases, Case.CountryCode__c, null);
   }
 
   /**

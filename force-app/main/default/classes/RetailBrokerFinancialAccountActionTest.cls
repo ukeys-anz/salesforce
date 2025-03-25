@@ -152,6 +152,10 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     Test.stopTest();
 
     Assert.areEqual(1, recordsToUpdate.size(), 'record should be updated');
+    Assert.isNotNull(
+      recordsToUpdate[0].Assisted_Broker__c,
+      'Assisted_Broker should be updated'
+    );
   }
 
   /**
@@ -159,7 +163,7 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
    * When Assisted_TPMi_Saoisupdated/chnaged and Assistd_brker is null
    */
   @IsTest
-  static void testGetRecordsToUpdateAssistedBroker() {
+  static void testpopulateFinancialAccountAssistedBrokerWhenTPMIIsChangedl() {
     Id newRecordId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
 
     FinServ__FinancialAccount__c newRecord = createFinancialAccounts(
@@ -169,9 +173,11 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     newRecord.Assisted_Broker_TPMI_SAO__c = 'Broker-TPMISAO-1';
     newRecord.Assisted_Broker__c = null;
 
-    FinServ__FinancialAccount__c oldRecord = createFinancialAccounts(
-      RTFinancialAccount.bankAccount,
-      newRecordId
+    FinServ__FinancialAccount__c oldRecord = newRecord.Clone(
+      true,
+      true,
+      true,
+      true
     );
     oldRecord.Assisted_Broker_TPMI_SAO__c = 'oldBroker-TPMISAO-1';
     oldRecord.Assisted_Broker__c = null;
@@ -179,19 +185,26 @@ public with sharing class RetailBrokerFinancialAccountActionTest {
     Map<Id, FinServ__FinancialAccount__c> oldMap = new Map<Id, FinServ__FinancialAccount__c>();
     oldMap.put(oldRecord.Id, oldRecord);
 
+    Broker_Code__c mockBrokerCode = createMockBrokerCode(
+      'Broker-TPMISAO-1_Retail',
+      newRecord.Id
+    );
+    brokerCodeRepoMock.mock(
+      'getBrokerIdentifiers',
+      new List<Broker_Code__c>{ mockBrokerCode }
+    );
     Test.startTest();
 
-    List<FinServ__FinancialAccount__c> recordsToUpdate = RetailBrokerFinancialAccountAction.getRecordsToUpdateAssistedBroker(
+    List<FinServ__FinancialAccount__c> recordsToUpdate = RetailBrokerFinancialAccountAction.populateFinancialAccountAssistedBroker(
       new List<FinServ__FinancialAccount__c>{ newRecord },
       oldMap
     );
     Test.stopTest();
 
     Assert.areEqual(1, recordsToUpdate.size(), 'One record should be updated');
-    Assert.areEqual(
-      'Broker-TPMISAO-1',
-      recordsToUpdate[0].Assisted_Broker_TPMI_SAO__c,
-      'Assisted_Broker_TPMI_SAO__c should be updated'
+    Assert.isNotNull(
+      recordsToUpdate[0].Assisted_Broker__c,
+      'Assisted_Broker should be updated'
     );
   }
 

@@ -245,16 +245,18 @@ private with sharing class IDRCaseActionsTest {
   @isTest
   static void testUpdateDateTimePsiTicked() {
     DateTime dateTimePSIChanged = IDRCaseActions.populatePSITicked('Yes');
-    Assert.isNotNull(dateTimePSIChanged,
-    'Date/Time flag should have been populated');
+    Assert.isNotNull(
+      dateTimePSIChanged,
+      'Date/Time flag should have been populated'
+    );
   }
   @isTest
-  static void testUpdateDateTimePsiNotTicked(){
+  static void testUpdateDateTimePsiNotTicked() {
     DateTime dateTimePSIChanged = IDRCaseActions.populatePSITicked('No');
-    Assert.isNull(dateTimePSIChanged,
-   'Date/Time flag should have been cleared'
-   );
-
+    Assert.isNull(
+      dateTimePSIChanged,
+      'Date/Time flag should have been cleared'
+    );
   }
   @isTest
   static void testUpdateKnowledgeKeyWordCaseFieldsonInsert() {
