@@ -5,6 +5,20 @@
  * @group Utils
  */
 public with sharing class CheckCaseRecordType {
+
+  public static final Set<Id> ENTITLEMENT_RT_IDS = new Set<Id>{
+    RTCase.generalInquiry,
+    RTCase.customerFeedback,
+    RTCase.kycQa,
+    RTCase.confirmationOfPayee,
+    RTCase.atmDispute,
+    RTCase.cardDispute,
+    RTCase.directDebitDispute,
+    RTCase.directEntryDispute,
+    RTCase.nppDispute,
+    RTCase.bpayDispute
+  };
+
   public static final Set<Id> FRAUD_RT_IDS = new Set<Id>{
     RTCase.fraud,
     RTCase.identity,
@@ -106,6 +120,14 @@ public with sharing class CheckCaseRecordType {
     return DISPUTE_RT_IDS.contains(record.RecordTypeId);
   }
 
+  /**
+   * @description Check if an entitlement is applicable
+   * @param record The case record to check
+   * @return if the case is eligible for entitlement
+   */
+  public static Boolean isEntitlementEnabled(Case record) {
+    return ENTITLEMENT_RT_IDS.contains(record.RecordTypeId);
+  }
   /**
    * @description Check if a case is Unauthenticated Enquiry Case
    * @param record The case record to check
