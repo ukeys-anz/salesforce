@@ -543,17 +543,17 @@ public with sharing class ConfirmationOfPayeeHelper {
       '<p><b>Confirmation of Payee - ' +
       caseDetails.caseCoPStatus +
       '</b> </p>' +
-      '<p><b>Account Number(last 4 digit): </b>' +
+      '<p><b>Account Ending: </b>' +
       TextUtils.maskData(caseDetails.accountNumber) +
       '</p>' +
-      '<p><b>Date: </b>' +
-      dateString +
-      '</p>' +
-      '<p><b>Requested By: </b>' +
+      '<p><b>Requested by: </b>' +
       caseDetails.requestedByName +
       '</p>' +
       '<p><b>Actioned By: </b>' +
       caseDetails.modifiedByName +
+      '</p>' +
+      '<p><b>Date of request: </b>' +
+      dateString +
       '</p>';
 
     return message;
