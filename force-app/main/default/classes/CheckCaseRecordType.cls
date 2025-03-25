@@ -5,7 +5,6 @@
  * @group Utils
  */
 public with sharing class CheckCaseRecordType {
-
   public static final Set<Id> ENTITLEMENT_RT_IDS = new Set<Id>{
     RTCase.generalInquiry,
     RTCase.customerFeedback,

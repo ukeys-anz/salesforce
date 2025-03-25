@@ -12,7 +12,7 @@
 public with sharing class GetHelpCaseActionsHelper {
   public static final String YES = 'Yes';
   public static final String FRAUD_GENERIC_CUSTOMER_NAME = 'Fraud Entitlement Account';
-    // Set of record type Ids that will be sent to PEGA
+  // Set of record type Ids that will be sent to PEGA
   public static final Set<Id> DISPUTE_PEGA_RT_IDS = new Set<Id>{
     RTCase.atmDispute,
     RTCase.cardDispute,
@@ -206,9 +206,10 @@ public with sharing class GetHelpCaseActionsHelper {
       .toList();
 
     for (Case caseRec : eligibleCases) {
-      if (CheckCaseRecordType.isEntitlementEnabled(caseRec) 
-          || CaseGroupCaseConstants.isEntitlementEnabled(caseRec)) 
-      {
+      if (
+        CheckCaseRecordType.isEntitlementEnabled(caseRec) ||
+        CaseGroupCaseConstants.isEntitlementEnabled(caseRec)
+      ) {
         accountIds.add(caseRec.AccountId);
       }
     }
@@ -250,31 +251,31 @@ public with sharing class GetHelpCaseActionsHelper {
     Map<Id, Id> entMap
   ) {
     for (Case caseRec : caseList) {
-
-      if((CheckCaseRecordType.isEntitlementEnabled(caseRec) || CaseGroupCaseConstants.isEntitlementEnabled(caseRec))
-      && caseRec.AccountId != null)
-      {
-        if(!entMap.containsKey(caseRec.AccountId))
-        {
+      if (
+        (CheckCaseRecordType.isEntitlementEnabled(caseRec) ||
+        CaseGroupCaseConstants.isEntitlementEnabled(caseRec)) &&
+        caseRec.AccountId != null
+      ) {
+        if (!entMap.containsKey(caseRec.AccountId)) {
           caseRec.addError(NO_ENTITLEMENT_ERROR_MSG);
-        }
-        else 
-        {
+        } else {
           caseRec.EntitlementId = entMap.get(caseRec.AccountId);
         }
       }
 
-      if(caseRec.RecordTypeId == RTCase.anzxComplaint)
-      {
+      if (caseRec.RecordTypeId == RTCase.anzxComplaint) {
         caseRec.EntitlementId = IDRCaseActions.getEntitlement();
         caseRec.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
           caseRec.Status,
           caseRec.IDR_Date_Received__c,
-          caseRec.BusinessHoursId);
+          caseRec.BusinessHoursId
+        );
       }
 
-      if(caseRec.RecordTypeId == RTCase.nonCustomerComplaint && caseRec.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN)
-      {
+      if (
+        caseRec.RecordTypeId == RTCase.nonCustomerComplaint &&
+        caseRec.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
+      ) {
         caseRec.EntitlementId = IDRCaseActions.getEntitlement();
         caseRec.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
       }
