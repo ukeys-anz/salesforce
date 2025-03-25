@@ -18,7 +18,7 @@ jobs:
   Quick-Deployment:
     if: ${{ github.event.pull_request.merged == true }}
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.5"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
       options: --user root
     runs-on: anzx-default-np
     steps:
