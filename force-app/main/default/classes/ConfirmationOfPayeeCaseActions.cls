@@ -69,7 +69,7 @@ public with sharing class ConfirmationOfPayeeCaseActions {
     List<Case> validCases = ListUtil.filter(childCases)
       .isNotNull(Case.FinServ__FinancialAccount__c)
       .isNotNull(Case.ParentId)
-      .equals(Case.Status, GetHelpConstants.ESCALATED_STATUS)
+      .equals(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
       .toList();
 
     Set<Id> parentIdsForModifyCopStatus = ListUtil.getIds(
@@ -126,7 +126,7 @@ public with sharing class ConfirmationOfPayeeCaseActions {
       }
 
       parentCasestoUpdate.add(
-        new Case(Id = parentId, Status = GetHelpConstants.CLOSED_STATUS)
+        new Case(Id = parentId, Status = CaseGroupCaseConstants.CLOSED_STATUS)
       );
     }
 

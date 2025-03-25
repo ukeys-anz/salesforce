@@ -228,7 +228,7 @@ public with sharing class CaseGroupCaseActionsTest {
     Test.stopTest();
     Assert.isTrue(
       accountIdAndTypeCaseMap.containsKey(
-        FAKER_ACCOUNT_ID + GetHelpConstants.ACCOUNT_CLOSURE
+        FAKER_ACCOUNT_ID + CaseGroupCaseConstants.ACCOUNT_CLOSURE
       ),
       'Map with key accountid and case issue type is formed'
     );
@@ -261,7 +261,7 @@ public with sharing class CaseGroupCaseActionsTest {
     caseRecord.Status = statusValue;
     caseRecord.RecordTypeId = RTCase.caseGroup;
     caseRecord.OwnerId = UserInfo.getUserId();
-    caseRecord.Type = GetHelpConstants.ACCOUNT_CLOSURE;
+    caseRecord.Type = CaseGroupCaseConstants.ACCOUNT_CLOSURE;
     caseRecord.Circumstance__c = circumstanceValue;
 
     parentCases.add(caseRecord);

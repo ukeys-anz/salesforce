@@ -31,7 +31,7 @@ public with sharing class CaseGroupCaseActions {
     for (Case childCase : childCaseRecords) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
-      if (childCase.Status != GetHelpConstants.CLOSED_STATUS) {
+      if (childCase.Status != CaseGroupCaseConstants.CLOSED_STATUS) {
         childCase.Status = parentCase.Status;
       }
       childCase.Circumstance__c = parentCase.Circumstance__c;
@@ -100,7 +100,7 @@ public with sharing class CaseGroupCaseActions {
       caserecord.Subject =
         caserecord.Type +
         ' ' +
-        GetHelpConstants.CASE_GROUP +
+        CaseGroupCaseConstants.CASE_GROUP +
         ' - ' +
         accountIdToAccountInfoMap.get(caserecord.AccountId).Name;
     }
@@ -112,7 +112,7 @@ public with sharing class CaseGroupCaseActions {
    */
   public static void assignEscalatedCasesToQueue(List<Case> escalatedCases) {
     for (Case escalatedCase : escalatedCases) {
-      if (escalatedCase.Type == GetHelpConstants.ACCOUNT_CLOSURE) {
+      if (escalatedCase.Type == CaseGroupCaseConstants.ACCOUNT_CLOSURE) {
         escalatedCase.OwnerId = QueryQueue.accountClosureQueue.Id;
       } else {
         escalatedCase.OwnerId = QueryQueue.copQueue.Id;

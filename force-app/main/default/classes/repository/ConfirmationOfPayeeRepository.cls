@@ -57,7 +57,7 @@ public with sharing class ConfirmationOfPayeeRepository {
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND Status = :GetHelpConstants.ESCALATED_STATUS
+        AND Status = :CaseGroupCaseConstants.ESCALATED_STATUS
         AND RecordTypeId = :RTCase.confirmationOfPayee
       WITH USER_MODE
     ];
@@ -102,6 +102,9 @@ public with sharing class ConfirmationOfPayeeRepository {
    * @return FinServ__FinancialAccount__c The financial account record matching the given ID.
    */
   public FinServ__FinancialAccount__c getFinancialAccountById(Id recordId) {
+    if (recordId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,

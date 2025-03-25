@@ -6,9 +6,31 @@
 
 public with sharing class CaseGroupCaseConstants {
   public static final String ACCOUNT_CLOSURE = 'Account Closure';
+  public static final String CASE_GROUP = 'Case Group';
   public static final String COP = 'Confirmation Of Payee';
   public static final String COP_OPT_IN = 'Confirmation of Payee Opt-In';
   public static final String COP_OPT_OUT = 'Confirmation of Payee Opt-Out';
+
+  //Hold the multi-party account's ownership value
+  public static final String MULTI_PARTY = 'Multi-party';
+
+  //Hold the joint account's ownership value
+  public static final String JOINT = 'Joint';
+
+  //Hold the single account's ownership value
+  public static final String SINGLE = 'Single';
+
+  //ANZx Case Group Statuses
+  public static final String OPEN_STATUS = 'Open';
+  public static final String CLOSED_STATUS = 'Closed';
+  public static final String WITHDRAWN_STATUS = 'Withdrawn';
+  public static final String ESCALATED_STATUS = 'Escalated';
+  public static final String ONHOLD_STATUS = 'On-Hold';
+
+  //ANZx Case Sub Status
+  public static final String PROCESSING = 'Processing';
+  public static final String FAILED = 'Failed';
+  public static final String SUCCESS = 'Success';
 
   public static final Map<String, String> FIN_ACCOUNT_TYPE = new Map<String, String>{
     'Single' => 'Individual',

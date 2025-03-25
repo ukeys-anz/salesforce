@@ -19,9 +19,9 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         RecordTypeId = :RTCase.caseGroup
-        AND Status != :GetHelpConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
-        AND Type = :GetHelpConstants.ACCOUNT_CLOSURE
+        AND Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
       WITH USER_MODE
     ];
   }
@@ -41,7 +41,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         RecordTypeId = :RTCase.caseGroup
-        AND Status != :GetHelpConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
         AND Type IN :CaseGroupCaseConstants.caseIssueTypes
       WITH USER_MODE
@@ -134,8 +134,8 @@ public with sharing class AccountClosureRepository {
         ParentId IN :parentCaseIds
         AND RecordTypeId = :RTCase.accountClosure
         AND FinServ__FinancialAccount__c != NULL
-        AND Status = :GetHelpConstants.ESCALATED_STATUS
-        AND (Sub_Status__c = :GetHelpConstants.FAILED
+        AND Status = :CaseGroupCaseConstants.ESCALATED_STATUS
+        AND (Sub_Status__c = :CaseGroupCaseConstants.FAILED
         OR Sub_Status__c = NULL)
       WITH USER_MODE
     ];
@@ -164,7 +164,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
-        AND Sub_Status__c = :GetHelpConstants.SUCCESS
+        AND Sub_Status__c = :CaseGroupCaseConstants.SUCCESS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
     ];
@@ -193,8 +193,8 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.confirmationOfPayee
-        AND Status != :GetHelpConstants.CLOSED_STATUS
-        AND Status != :GetHelpConstants.WITHDRAWN_STATUS
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
     ];
@@ -216,7 +216,7 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.confirmationOfPayee
-        AND Status = :GetHelpConstants.ESCALATED_STATUS
+        AND Status = :CaseGroupCaseConstants.ESCALATED_STATUS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
     ];
@@ -310,7 +310,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND Status != :GetHelpConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
@@ -378,7 +378,7 @@ public with sharing class AccountClosureRepository {
       FROM FinServ__FinancialAccount__c
       WHERE
         Id IN :accountIds
-        AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+        AND FinServ__Status__c != :CaseGroupCaseConstants.CLOSED_STATUS
         AND RecordTypeId != :RTFinancialAccount.bankAccount
       WITH USER_MODE
     ];
@@ -435,7 +435,7 @@ public with sharing class AccountClosureRepository {
       SELECT Id, Status, ParentId
       FROM Case
       WHERE
-        Status != :GetHelpConstants.CLOSED_STATUS
+        Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND ParentId IN :caseIds
         AND (RecordTypeId = :RTCase.accountClosure
         OR RecordTypeId = :RTCase.confirmationOfPayee)

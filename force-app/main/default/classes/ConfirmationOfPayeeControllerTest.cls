@@ -169,7 +169,7 @@ public with sharing class ConfirmationOfPayeeControllerTest {
     testAccount.Id = FAKER_ACCOUNT_ID;
     List<FinServ__FinancialAccount__c> financialAccountsList = new List<FinServ__FinancialAccount__c>();
     FinServ__FinancialAccount__c finAccount1 = TestDataFactory.createFinancialAccountRecord(
-      GetHelpConstants.SAVINGS_ACCOUNT_RT_ID,
+      RTFinancialAccount.savingAccount,
       FAKER_ACCOUNT_ID,
       false
     );

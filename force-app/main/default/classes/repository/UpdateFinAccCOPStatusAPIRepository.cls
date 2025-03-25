@@ -35,25 +35,21 @@ public with sharing class UpdateFinAccCOPStatusAPIRepository {
       JSON.serialize(request),
       ocvId
     );
-    response = handleResponse(
-      response,
-      'Confirmation of Payee Service - Updating COP status of Accounts'
-    );
+    response = handleResponse(response);
     return FinancialAccModelUpdateResponseCoP.parse(response.body);
   }
 
   private static HttpCalloutResponse handleResponse(
-    HttpCalloutResponse response,
-    String serviceName
+    HttpCalloutResponse response
   ) {
     if (SERVER_ERROR_CODES.contains(response.statusCode)) {
-      throw new ServerErrorException(response, serviceName);
+      throw new ServerErrorException(response);
     }
     if (ACCESS_ERROR_CODES.contains(response.statusCode)) {
-      throw new AccessErrorException(response, serviceName);
+      throw new AccessErrorException(response);
     }
     if (response.successful == false) {
-      throw new UnhandledException(response, serviceName);
+      throw new UnhandledException(response);
     }
     return response;
   }
@@ -65,15 +61,13 @@ public with sharing class UpdateFinAccCOPStatusAPIRepository {
     /**
      * @description ServerErrorException custom exception
      * @param response
-     * @param serviceName
      */
-    public ServerErrorException(
-      HttpCalloutResponse response,
-      String serviceName
-    ) {
+    public ServerErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          'HTTP ' +
+            response.statusCode +
+            ' Error from Confirmation of Payee Service - Updating COP status of Accounts',
           response.error
         )
         .save();
@@ -87,15 +81,13 @@ public with sharing class UpdateFinAccCOPStatusAPIRepository {
     /**
      * @description AccessErrorException custom exception
      * @param response
-     * @param serviceName
      */
-    public AccessErrorException(
-      HttpCalloutResponse response,
-      String serviceName
-    ) {
+    public AccessErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          'HTTP ' +
+            response.statusCode +
+            ' Error from Confirmation of Payee Service - Updating COP status of Accounts',
           response.error
         )
         .save();
@@ -110,14 +102,15 @@ public with sharing class UpdateFinAccCOPStatusAPIRepository {
     /**
      * @description AccessErrorException custom exception
      * @param response
-     * @param serviceName
      */
-    public UnhandledException(
-      HttpCalloutResponse response,
-      String serviceName
-    ) {
+    public UnhandledException(HttpCalloutResponse response) {
       this(response.error.getMessage());
-      Logger.error('UnhandledException from: ' + serviceName, response.error)
+      Logger.error(
+          'UnhandledException with: ' +
+            response.statusCode +
+            ' From Confirmation of Payee Service - Updating COP status of Accounts',
+          response.error
+        )
         .save();
     }
   }

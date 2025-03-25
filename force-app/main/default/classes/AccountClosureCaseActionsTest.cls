@@ -237,7 +237,7 @@ public with sharing class AccountClosureCaseActionsTest {
     caseRecord.Status = statusValue;
     caseRecord.RecordTypeId = RTCase.caseGroup;
     caseRecord.OwnerId = UserInfo.getUserId();
-    caseRecord.Type = GetHelpConstants.ACCOUNT_CLOSURE;
+    caseRecord.Type = CaseGroupCaseConstants.ACCOUNT_CLOSURE;
     caseRecord.Circumstance__c = circumstanceValue;
 
     parentCases.add(caseRecord);

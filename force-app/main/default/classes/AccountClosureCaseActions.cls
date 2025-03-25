@@ -25,7 +25,7 @@ public with sharing class AccountClosureCaseActions {
 
     for (Case caserecord : cases) {
       caserecord.Subject =
-        GetHelpConstants.ACCOUNT_CLOSURE +
+        CaseGroupCaseConstants.ACCOUNT_CLOSURE +
         ' - ' +
         accountIdToAccountInfoMap.get(caserecord.AccountId).Name;
     }
@@ -119,7 +119,7 @@ public with sharing class AccountClosureCaseActions {
       Case newParentCase = new Case(
         RecordTypeId = RTCase.caseGroup,
         AccountId = closureCase.AccountId,
-        Type = GetHelpConstants.ACCOUNT_CLOSURE
+        Type = CaseGroupCaseConstants.ACCOUNT_CLOSURE
       );
       newParentCases.add(newParentCase);
     }
@@ -135,7 +135,7 @@ public with sharing class AccountClosureCaseActions {
     List<Case> validCases = ListUtil.filter(childCases)
       .isNotNull(Case.FinServ__FinancialAccount__c)
       .isNotNull(Case.ParentId)
-      .equals(Case.Status, GetHelpConstants.ESCALATED_STATUS)
+      .equals(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
       .toList();
 
     Set<Id> parentIdsForInitiatingPrecheck = ListUtil.getIds(

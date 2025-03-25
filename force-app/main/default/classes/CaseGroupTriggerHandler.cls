@@ -47,11 +47,11 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
 
     List<Case> parentCasesWithStatusEscalated = ListUtil.filter(records, oldMap)
       .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
-      .changedTo(Case.Status, GetHelpConstants.ESCALATED_STATUS)
+      .changedTo(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
       .toList();
     List<Case> parentCasesWithStatusClosed = ListUtil.filter(records, oldMap)
       .equals(Case.Type, CaseGroupCaseConstants.caseIssueTypes)
-      .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
+      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
       .toList();
 
     CaseGroupCaseActions.validateDuplicateParentCasePerAccount(

@@ -477,7 +477,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       casesToUpdate.add(
         new Case(
           Id = caseDetails.caseId,
-          Status = GetHelpConstants.CLOSED_STATUS,
+          Status = CaseGroupCaseConstants.CLOSED_STATUS,
           Sub_Status__c = TFMConstants.EMPTY
         )
       );
