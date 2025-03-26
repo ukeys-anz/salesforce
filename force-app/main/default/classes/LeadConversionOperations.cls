@@ -36,7 +36,7 @@ public without sharing class LeadConversionOperations {
       leadRec.Id,
       mapOfOpportunityId.get(leadRec.id)
     );
-    if (lcResult != null && !lcResult.isSuccess()) {
+    if (lcResult == null || !lcResult.isSuccess()) {
       generateLoggerErrors(lcResult);
       return new Map<Id, Id>();
     }

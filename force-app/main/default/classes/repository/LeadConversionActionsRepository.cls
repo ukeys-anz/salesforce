@@ -260,12 +260,11 @@ public without sharing class LeadConversionActionsRepository {
   ) {
     try {
       Database.LeadConvertResult result = Database.convertLead(record);
-      return result;
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     }
-    Logger.saveLog();
-    return null;
+    return result;
   }
 
   /**
