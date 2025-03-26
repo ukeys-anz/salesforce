@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-    <label>340216</label>
-    <protected>false</protected>
-    <values>
-        <field>Message__c</field>
-        <value xsi:type="xsd:string">The changes to loan term could not be saved because it is not within the allowable range. Please review and try again.</value>
-    </values>
-</CustomMetadata>

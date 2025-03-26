@@ -47,7 +47,7 @@ public class PicklistUtil {
   /**
    * @description cacheable PicklistEntry class
    */
-  public class PicklistEntryCacheable {
+  class PicklistEntryCacheable {
     public String label;
     public String value;
 
@@ -141,12 +141,14 @@ public class PicklistUtil {
      * @return `Map<String, List<String>>` a map of dependent picklist value, to a list of controlling values
      */
     public PicklistCache doLoad(String picklistKey) {
+      System.debug('doLoad');
       String objectName = picklistKey.split('-')[0];
       String picklistName = picklistKey.split('-')[1];
       mpChild2Parent = PicklistUtil.getPicklistDependencyMap(
         objectName,
         picklistName
       );
+      System.debug('this: ' + JSON.serialize(this));
       return this;
     }
   }
@@ -263,43 +265,5 @@ public class PicklistUtil {
     String newValue
   ) {
     return addMultiPicklistValues(existingValues, new List<String>{ newValue });
-  }
-
-  /**
-   * @description To get the picklist entry values for a given object and field
-   * @param objectName String value of the object api name
-   * @param fieldName String value of the field api name
-   * @return List<Schema.PicklistEntry> picklist value in list
-   */
-  public static List<Schema.PicklistEntry> getPicklistEntries(
-    String objectName,
-    String fieldName
-  ) {
-    Schema.SObjectType objectType = Schema.getGlobalDescribe().get(objectName);
-    Schema.DescribeSObjectResult objectDescribe = objectType.getDescribe();
-    Schema.DescribeFieldResult purposeField = objectDescribe.fields.getMap()
-      .get(fieldName)
-      .getDescribe();
-    return purposeField.getPicklistValues();
-  }
-
-  /**
-   * @description Create a map of picklist entries vs API name for active values only
-   * @param picklistEntryList List of PicklistEntry
-   * @return Map<String, Schema.PicklistEntry> Map of picklist api value to picklistentry
-   */
-  public static Map<String, Schema.PicklistEntry> getPicklistValueToEntryMap(
-    List<Schema.PicklistEntry> picklistEntryList
-  ) {
-    Map<String, Schema.PicklistEntry> picklistValueToPicklistEntryMap = new Map<String, Schema.PicklistEntry>();
-    for (Schema.PicklistEntry entry : picklistEntryList) {
-      if (
-        !picklistValueToPicklistEntryMap.containsKey(entry.getValue()) &&
-        entry.isActive()
-      ) {
-        picklistValueToPicklistEntryMap.put(entry.getValue(), entry);
-      }
-    }
-    return picklistValueToPicklistEntryMap;
   }
 }

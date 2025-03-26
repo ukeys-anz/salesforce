@@ -1,8 +1,0 @@
-{
-  "initialAmount": {
-    "currencyCode": "AUD",
-    "units": "132",
-    "nanos": 150000000
-  },
-  "interestRate": 545
-}

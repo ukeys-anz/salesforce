@@ -145,38 +145,10 @@ public class PicklistUtilTest {
     Assert.areEqual(
       expected,
       result,
-      'expected result should be: ' + expected + ' but got: ' + result
-    );
-  }
-
-  @isTest
-  public static void testGetPicklistEntries() {
-    Test.startTest();
-    List<Schema.PicklistEntry> picklistValueList = PicklistUtil.getPicklistEntries(
-      'Release__c',
-      'Controlling_Picklist__c'
-    );
-    Test.stopTest();
-    Assert.isTrue(
-      picklistValueList.size() > 0,
-      'It should return a picklist entries list'
-    );
-  }
-
-  @isTest
-  public static void testGetPicklistValueToEntryMap() {
-    List<Schema.PicklistEntry> picklistValueList = PicklistUtil.getPicklistEntries(
-      'Release__c',
-      'Controlling_Picklist__c'
-    );
-    Test.startTest();
-    Map<String, Schema.PicklistEntry> picklistValueToPicklistEntryMap = PicklistUtil.getPicklistValueToEntryMap(
-      picklistValueList
-    );
-    Test.stopTest();
-    Assert.isTrue(
-      picklistValueToPicklistEntryMap.keySet().size() > 0,
-      'It should return a map with values'
+      'expected result should be: ' +
+      expected +
+      ' but got: ' +
+      result
     );
   }
 }

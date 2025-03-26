@@ -57,12 +57,12 @@
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS</fullName>
                 <default>false</default>
-                <label>Household items</label>
+                <label>Household and personal goods</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL</fullName>
                 <default>false</default>
-                <label>Travel</label>
+                <label>Travel and holidays</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT</fullName>
@@ -72,7 +72,7 @@
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION</fullName>
                 <default>false</default>
-                <label>Education</label>
+                <label>Education expenses</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_WEDDING</fullName>
@@ -82,17 +82,17 @@
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_LEGAL</fullName>
                 <default>false</default>
-                <label>Legal fees</label>
+                <label>Legal expenses</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL</fullName>
                 <default>false</default>
-                <label>Health</label>
+                <label>Medical expenses</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES</fullName>
                 <default>false</default>
-                <label>Vehicle costs</label>
+                <label>Motor vehicle expenses</label>
             </value>
             <value>
                 <fullName>LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE</fullName>
