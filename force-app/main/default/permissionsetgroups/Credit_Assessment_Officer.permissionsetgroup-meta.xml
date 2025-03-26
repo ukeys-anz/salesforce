@@ -26,6 +26,9 @@
     <permissionSets>InteractionOmniClasses</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
+    <permissionSets>Loan_Preference_Add</permissionSets>
+    <permissionSets>Loan_Preference_Delete</permissionSets>
+    <permissionSets>Loan_Preference_Edit</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
     <permissionSets>PayTo_View_Agreements</permissionSets>

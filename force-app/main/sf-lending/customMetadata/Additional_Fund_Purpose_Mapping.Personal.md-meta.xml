@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Personal</label>
+    <protected>false</protected>
+    <values>
+        <field>Purpose__c</field>
+        <value xsi:type="xsd:string">LENDING_PURPOSE_PERSONAL_HOUSEHOLD_GOODS;LENDING_PURPOSE_PERSONAL_HOLIDAY_TRAVEL;LENDING_PURPOSE_PERSONAL_OTHER_EDUCATION;LENDING_PURPOSE_PERSONAL_OTHER_WEDDING;LENDING_PURPOSE_PERSONAL_OTHER_LEGAL;LENDING_PURPOSE_PERSONAL_OTHER_MEDICAL;LENDING_PURPOSE_PERSONAL_OTHER_INVESTMENT;LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES;LENDING_PURPOSE_PERSONAL_OTHER</value>
+    </values>
+    <values>
+        <field>Sorting_Order__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+</CustomMetadata>

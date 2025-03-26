@@ -1,0 +1,191 @@
+<!-- Component to display Addition Funds section -->
+<template>
+  <!-- SPINNER -->
+  <template lwc:if={isLoading}>
+    <lightning-spinner
+      alternative-text="Loading"
+      varient="brand"
+      size="large"
+      class="slds-align_absolute-center"
+    ></lightning-spinner>
+  </template>
+  <template lwc:else>
+    <lightning-card>
+      <template lwc:if={checkIfAddFundExist}>
+        <!-- Accodion for Addition Funds Details -->
+        <lightning-accordion
+          allow-multiple-sections-open
+          active-section-name="additionalFundsAndPurpose"
+        >
+          <lightning-accordion-section
+            class="accordianSection"
+            name="additionalFundsAndPurpose"
+            label="Additional Funds and Purpose"
+          >
+            <lightning-layout class="slds-text-align_right slds-p-bottom_large">
+              <!-- Add New button -->
+              <lightning-layout-item size="12">
+                <template lwc:if={showAddButton}>
+                  <lightning-button
+                    variant="neutral"
+                    label="Add New"
+                    onclick={handleAddNewAction}
+                  ></lightning-button>
+                </template>
+              </lightning-layout-item>
+            </lightning-layout>
+            <template
+              for:each={categoryWithAssociatedPurposeMap}
+              for:item="fundRecord"
+            >
+              <lightning-layout
+                key={fundRecord.name}
+                class="slds-m-bottom_small"
+              >
+                <lightning-layout-item
+                  class="slds-box slds-p-bottom_medium"
+                  size="12"
+                >
+                  <!-- Category Details -->
+                  <lightning-layout multiple-rows>
+                    <lightning-layout-item size="1" class="imgStyle">
+                      <!-- Image logo based on Category -->
+                      <img src={fundRecord.imgSrc} class="slds-m-left_large" />
+                    </lightning-layout-item>
+                    <lightning-layout-item
+                      size="8"
+                      alignment-bump="right"
+                      class="slds-p-top_small slds-text-align_left textStyle"
+                    >
+                      <lightning-layout
+                        multiple-rows
+                        horizontal-align="spread"
+                        class="slds-p-left_small"
+                      >
+                        <lightning-layout-item
+                          class="slds-m-top_small slds-p-left_medium"
+                          size="12"
+                        >
+                          <!-- Category Name -->
+                          <lightning-formatted-text
+                            value={fundRecord.name}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          class="helpTextStyle slds-text-align_left slds-p-left_medium"
+                          size="12"
+                        >
+                          <!-- Help Text for Category -->
+                          <lightning-formatted-text
+                            value={fundRecord.helpText}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </lightning-layout>
+                    </lightning-layout-item>
+                    <lightning-layout-item
+                      size="3"
+                      class="slds-p-top_small slds-text-align_right slds-p-right_small buttonSpacing"
+                    >
+                      <!-- Delete and Edit buttons on category -->
+                      <!--Delete Changes start-->
+                      <template lwc:if={showDeleteButton}>
+                        <lightning-button
+                          variant="neutral"
+                          label="Delete"
+                          onclick={handleDeleteAction}
+                          data-name={fundRecord.name}
+                        ></lightning-button>
+                      </template>
+                      <!--Delete Changes End-->
+                      <template lwc:if={showEditButton}>
+                        <lightning-button
+                          variant="neutral"
+                          label="Edit"
+                          onclick={handleEditAction}
+                          data-name={fundRecord.name}
+                        ></lightning-button>
+                      </template>
+                    </lightning-layout-item>
+                  </lightning-layout>
+                  <lightning-layout
+                    multiple-rows
+                    class="slds-p-left_x-large slds-m-right_x-large"
+                  >
+                    <lightning-layout-item
+                      size="12"
+                      class="slds-text-align_right slds-p-top_medium"
+                    >
+                      <!-- Amount label  -->
+                      <lightning-formatted-text
+                        value="Amount"
+                        class="amountStyle"
+                      >
+                      </lightning-formatted-text>
+                    </lightning-layout-item>
+                    <lightning-layout-item
+                      size="12"
+                      class="slds-p-bottom_medium slds-p-top_small"
+                    >
+                      <!-- Loop to iterate Purpose for each category -->
+                      <template
+                        for:each={fundRecord.value}
+                        for:item="fundDetails"
+                      >
+                        <lightning-layout
+                          key={fundDetails}
+                          class="slds-p-bottom_large"
+                        >
+                          <lightning-layout-item
+                            size="8"
+                            class="slds-text-align_left"
+                          >
+                            <lightning-layout multiple-rows>
+                              <lightning-layout-item>
+                                <!-- Display Purpose associated with Category -->
+                                <lightning-formatted-text
+                                  size="12"
+                                  value={fundDetails.PurposeLabel}
+                                  class="purposeStyle"
+                                ></lightning-formatted-text>
+                              </lightning-layout-item>
+                              <template lwc:if={fundDetails.OtherReason}>
+                                <lightning-layout-item
+                                  size="12"
+                                  class="otherReasonStyle"
+                                >
+                                  <lightning-formatted-text
+                                    value="Other Reason: "
+                                  ></lightning-formatted-text>
+                                  <lightning-formatted-text
+                                    value={fundDetails.OtherReason}
+                                  ></lightning-formatted-text>
+                                </lightning-layout-item>
+                              </template>
+                            </lightning-layout>
+                          </lightning-layout-item>
+                          <lightning-layout-item
+                            size="4"
+                            class="slds-text-align_right"
+                          >
+                            <!-- Display Amount associated with Purpose -->
+                            <lightning-formatted-number
+                              value={fundDetails.Amount}
+                              format-style="currency"
+                              currency-code="AUD"
+                              currency-display-as="symbol"
+                              class="amountValueStyle"
+                            ></lightning-formatted-number>
+                          </lightning-layout-item>
+                        </lightning-layout>
+                      </template>
+                    </lightning-layout-item>
+                  </lightning-layout>
+                </lightning-layout-item>
+              </lightning-layout>
+            </template>
+          </lightning-accordion-section>
+        </lightning-accordion>
+      </template>
+    </lightning-card>
+  </template>
+</template>

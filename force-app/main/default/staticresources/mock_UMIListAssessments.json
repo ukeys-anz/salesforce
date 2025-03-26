@@ -7,6 +7,11 @@
     "units": "6241",
     "nanos": 0
   },
+  "maxBorrowingLimitUmi": {
+    "currencyCode": "AUD",
+    "units": "15051",
+    "nanos": 0
+  },
   "assessments": [
     {
       "sopId": "13561fa3",

@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>AdditionalFundsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>FinancialAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -21,11 +25,27 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>SOPService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HttpCalloutResponse</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>Lib_HttpCallout</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LoanPreferenceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistCache</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistUtil</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -40,6 +60,18 @@
         <apexClass>SOPController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>BOHController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>Additional_Fund_Purpose_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>ErrorCode_Message_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>

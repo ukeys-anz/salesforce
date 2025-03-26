@@ -518,12 +518,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>flexcardName</name>
-                    <value>SOP_About_You_Container</value>
-                </componentInstanceProperties>
-                <componentName>runtime_omnistudio:flexcard</componentName>
-                <identifier>runtime_omnistudio_flexcard3</identifier>
+                <componentName>aboutYouViewDetails</componentName>
+                <identifier>c_aboutYouViewDetails</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-86631e2f-b31e-4f19-a61d-dcd7e9ee124f</name>
@@ -562,28 +558,8 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentInstanceProperties>
-                    <name>parentFieldApiName</name>
-                    <value>ResidentialLoanApplication.Id</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListApiName</name>
-                    <value>LoanApplicationFinancials</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>relatedListComponentOverride</name>
-                    <value>ADVGRID</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>rowsToDisplay</name>
-                    <value>10</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showActionBar</name>
-                    <value>false</value>
-                </componentInstanceProperties>
-                <componentName>force:relatedListSingleContainer</componentName>
-                <identifier>force_relatedListSingleContainer5</identifier>
+                <componentName>loanPreferenceDetailsDisplay</componentName>
+                <identifier>c_loanPreferenceDetailsDisplay</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-454d52e1-a8dd-493e-9168-d1c1c6fc8242</name>

@@ -62,6 +62,7 @@ const salesforceSecretNames = {
   "epic/go4bmain-rbm": "sf-platform-np-go4bmain",
   "epic/coachcollab": "sf-platform-np-coachcoll",
   "epic/legal-name": "sf-platform-np-legalname",
+  "epic/updateloan": "sf-platform-np-updateloan",
   "epic/adhocmarv": "sf-platform-np-adhocmarv"
 };
 
