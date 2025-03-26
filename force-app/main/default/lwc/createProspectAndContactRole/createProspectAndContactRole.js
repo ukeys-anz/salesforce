@@ -318,7 +318,7 @@ export default class CreateProspectAndContactRole extends LightningElement {
               showToast(
                 this,
                 "SUCCESS!",
-                "Lead Conversion Completed successfully.",
+                this.label.ML_CreateProspectSuccessMessage,
                 "",
                 "Success",
                 ""
@@ -337,7 +337,7 @@ export default class CreateProspectAndContactRole extends LightningElement {
               showToast(
                 this,
                 "Warning!",
-                "Lead Conversion Completed successfully but retrieve party call failed",
+                "New Contact Role has been successfully created. but retrieve party call failed",
                 "",
                 "Warning",
                 ""

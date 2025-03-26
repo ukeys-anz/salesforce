@@ -44,7 +44,8 @@ public without sharing class LeadConversionOperations {
     ID leadId = getLeadIdForUnicaAdobeOnLC(leadRec);
     CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
       leadId,
-      mapOfOpportunityId
+      mapOfOpportunityId,
+      leadTasksList
     );
     //auto create mismatch task
     Boolean autoMisMatchTaskRequired = isAutoMisMatchTaskRequired(leadRec);

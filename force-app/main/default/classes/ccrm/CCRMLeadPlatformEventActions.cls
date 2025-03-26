@@ -61,13 +61,17 @@ public with sharing class CCRMLeadPlatformEventActions {
   /**
    * @description Publish CCRM/UNICA/ADOBE leads to UNICA or ADOBE via MuleSoft.
    * @param listOfLeads List of leads
+   * @param taskList list Of Tasks
    */
-  public static void publishLeadUpdateToUnicaOrAdobe(List<Lead> listOfLeads) {
+  public static void publishLeadUpdateToUnicaOrAdobe(
+    List<Lead> listOfLeads,
+    List<Task> taskList
+  ) {
     if (listOfLeads.size() > 0) {
       List<Lead_Event__e> leadEventsList;
       originator = CCRMConstants.ORIGINATOR_UNICA_OR_ADOBE_OR_CCRM;
       // Get a list of platform events
-      leadEventsList = getLeadUpdatePlatformEvents(listOfLeads);
+      leadEventsList = getLeadUpdatePlatformEvents(listOfLeads, taskList);
 
       // Publish platform events
       if (leadEventsList.size() > 0) {
@@ -80,10 +84,12 @@ public with sharing class CCRMLeadPlatformEventActions {
    * @description This method returns List of lead platform events
    * @name getLeadUpdatePlatformEvents
    * @param records List of leads
+   * @param taskList list Of Tasks
    * @return List<Lead_Event__e> List of Lead platform events
    */
   private static List<Lead_Event__e> getLeadUpdatePlatformEvents(
-    List<Lead> records
+    List<Lead> records,
+    List<Task> taskList
   ) {
     List<Lead_Event__e> leadEventList = new List<Lead_Event__e>();
 
@@ -115,7 +121,8 @@ public with sharing class CCRMLeadPlatformEventActions {
     mapOfLastModifiedUserLanIds = CCRMUserActions.getMapOfLanIds(records, true);
     mapOfResponseLogLeadSubStatus = CCRMLeadPlatformEventHelper.getMapOfResponseLogLeadSubStatus(
       records,
-      mapOfOpportunityId
+      mapOfOpportunityId,
+      taskList
     );
 
     for (Lead record : records) {
@@ -401,17 +408,20 @@ public with sharing class CCRMLeadPlatformEventActions {
    * @name sendUpdateToUnicaOrAdobeOnLeadConversion
    * @param leadId lead id against which we do lead conversion
    * @param mapOppId Map of Oppotunities ids
+   * @param taskList list Of Tasks
    */
   public static void sendUpdateToUnicaOrAdobeOnLeadConversion(
     Id leadId,
-    Map<Id, Id> mapOppId
+    Map<Id, Id> mapOppId,
+    List<Task> taskList
   ) {
     if (leadId == null || mapOppId.isEmpty()) {
       return;
     }
     mapOfOpportunityId = mapOppId;
     publishLeadUpdateToUnicaOrAdobe(
-      CCRMLeadPlatformEventHelper.getLeadData(new Set<Id>{ leadId })
+      CCRMLeadPlatformEventHelper.getLeadData(new Set<Id>{ leadId }),
+      taskList
     );
   }
 
