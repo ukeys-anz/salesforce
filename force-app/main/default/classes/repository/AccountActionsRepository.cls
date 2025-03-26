@@ -30,7 +30,7 @@ public with sharing class AccountActionsRepository {
    */
   public Account getCurrentAccountById(Id idOfAcc) {
     if (idOfAcc == null) {
-      return new Account();
+      return null;
     }
     return [
       SELECT
