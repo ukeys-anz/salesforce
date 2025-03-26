@@ -32,7 +32,7 @@ public with sharing virtual class ConfirmationOfPayeeService extends Service {
     headers.put('Content-Type', 'application/json');
     headers.put('traceparent', CommonUtil.generateTraceParent());
     HttpCalloutResponse response = CALLOUT.makeRestCallout(
-      Label.MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS,
+      Label.MS_CONFIRMATION_OF_PAYEE,
       HTTP_METHOD.HTTP_POST,
       headers,
       request
@@ -57,8 +57,8 @@ public with sharing virtual class ConfirmationOfPayeeService extends Service {
     headers.put('userId', USER_INFO.getUser().Lan_Id__c);
     headers.put('traceparent', CommonUtil.generateTraceParent());
     HttpCalloutResponse response = CALLOUT.makeRestCallout(
-      Label.MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS,
-      HTTP_METHOD.HTTP_POST,
+      Label.MS_CONFIRMATION_OF_PAYEE,
+      HTTP_METHOD.HTTP_PATCH,
       headers,
       request
     );

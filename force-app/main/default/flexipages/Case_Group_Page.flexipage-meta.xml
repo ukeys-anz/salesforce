@@ -33,7 +33,7 @@
                         <valueListItems>
                             <value>Case.Select_Accounts</value>
                             <visibilityRule>
-                                <booleanFilter>(1 OR 2) AND 3 AND 4</booleanFilter>
+                                <booleanFilter>(1 OR 2) AND 3 AND 4 AND 5 AND 6</booleanFilter>
                                 <criteria>
                                     <leftValue>{!Record.Type}</leftValue>
                                     <operator>EQUAL</operator>
@@ -53,6 +53,16 @@
                                     <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
                                     <operator>EQUAL</operator>
                                     <rightValue>Case_Group</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Closed</rightValue>
+                                </criteria>
+                                <criteria>
+                                    <leftValue>{!Record.Status}</leftValue>
+                                    <operator>NE</operator>
+                                    <rightValue>Withdrawn</rightValue>
                                 </criteria>
                             </visibilityRule>
                         </valueListItems>

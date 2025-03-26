@@ -86,7 +86,7 @@ public with sharing class ConfirmationOfPayeeRepository {
         FinServ__ProductName__r.Name
       FROM FinServ__FinancialAccount__c
       WHERE
-        RecordTypeId != :RTFinancialAccount.bankAccount
+        Marketing_Code__c IN :QueryFinancialAccountUIConfig.configByProductCode.keySet()
         AND Id IN (
           SELECT FinServ__FinancialAccount__c
           FROM FinServ__FinancialAccountRole__c
@@ -115,7 +115,8 @@ public with sharing class ConfirmationOfPayeeRepository {
         FinServ__PrimaryOwner__r.OCV_ID__c,
         FinServ__ProductName__c,
         Product_Name__c,
-        Ownership__c
+        Ownership__c,
+        FinServ__ProductName__r.Name
       FROM FinServ__FinancialAccount__c
       WHERE Id = :recordId
       WITH USER_MODE

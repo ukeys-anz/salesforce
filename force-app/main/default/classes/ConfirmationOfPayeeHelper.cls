@@ -15,7 +15,6 @@ public with sharing class ConfirmationOfPayeeHelper {
 
   private static final String ERROR_LOG_MESSAGE_GET_COP = 'Error while fetching COP details from API';
   private static final String ERROR_LOG_MESSAGE_MODIFY_COP = 'Error while updating COP details on API';
-  private static final String ACCOUNT_TYPE_MULTI_PARTY = 'Joint';
 
   /**
    * @description Creates a request model for financial accounts' CoP status.
@@ -144,7 +143,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       //When this is called from Case Group Opt Out Scenario For Joint Accounts Only
       Boolean isMultiPartyOptOut =
         financialAccounts.get(accNumber).Ownership__c ==
-        ACCOUNT_TYPE_MULTI_PARTY &&
+        CaseGroupCaseConstants.MULTI_PARTY &&
         issueType == CaseGroupCaseConstants.COP_OPT_OUT;
 
       if (isStatusMismatch || isMultiPartyOptOut) {
@@ -519,7 +518,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       );
 
       //Only continue to all customers & Joint customers if account is Multi party
-      if (caseDetails.accountType != ACCOUNT_TYPE_MULTI_PARTY) {
+      if (caseDetails.accountType != CaseGroupCaseConstants.JOINT) {
         continue;
       }
 
