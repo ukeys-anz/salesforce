@@ -17,7 +17,7 @@ public with sharing class RetrievePartyService extends Service {
    * @return HttpCalloutResponse
    * @description gathers all the parameters required for callout
    */
-  public override HttpCalloutResponse retrieveParty(
+  public virtual HttpCalloutResponse retrieveParty(
     OCVRetrievePartyPayloadWrapper record
   ) {
     User leadOwner = USER_REPOSITORY.getUserFromUserIds(UserInfo.getUserId());
