@@ -727,7 +727,7 @@ public with sharing class GetHelpCaseActionsHelper {
   private static Boolean isSpecialistLender(Case newCase) {
     return CommonUtil.userPermissionCheck(
       newCase.OwnerId,
-      new Set<String>{ 'ANZx_Specialist_Lender' }
+      new Set<String>{ 'Specialist_Lender' }
     );
   }
 
