@@ -303,7 +303,6 @@ export default class CreateProspectAndContactRole extends LightningElement {
       strRole: this.createProspectPayload.strRole
     })
       .then(() => {
-        this.closeAction();
         this.showToast(
           "Success",
           "Success",
@@ -323,17 +322,8 @@ export default class CreateProspectAndContactRole extends LightningElement {
                 "Success",
                 ""
               );
-              this[NavigationMixin.Navigate]({
-                type: "standard__recordPage",
-                attributes: {
-                  recordId: this.recordId,
-                  objectApiName: "Opportunity",
-                  actionName: "view"
-                }
-              });
             })
             .catch(() => {
-              this.closeAction();
               showToast(
                 this,
                 "Warning!",
@@ -342,6 +332,9 @@ export default class CreateProspectAndContactRole extends LightningElement {
                 "Warning",
                 ""
               );
+            })
+            .finally(() => {
+              this.closeAction();
               this[NavigationMixin.Navigate]({
                 type: "standard__recordPage",
                 attributes: {

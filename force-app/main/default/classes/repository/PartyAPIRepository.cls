@@ -40,10 +40,10 @@ public with sharing class PartyAPIRepository extends RepositoryBase {
 
   /**
    * @param response HttpCalloutResponse model to be handled
-   * @return MaintainPartyModel response
+   * @return HttpCalloutResponse response
    * @description handle received response and either return the response or throw exception
    */
-  private static MaintainPartyModel handleMaintainPartyResponse(
+  private static HttpCalloutResponse handleResponse(
     HttpCalloutResponse response
   ) {
     if (response.statusCode == 500) {
@@ -55,6 +55,18 @@ public with sharing class PartyAPIRepository extends RepositoryBase {
     if (response.successful == false) {
       throw new UnhandledException(response);
     }
+    return response;
+  }
+
+  /**
+   * @param response HttpCalloutResponse model to be handled
+   * @return MaintainPartyModel response
+   * @description handle received response and either return the response or throw exception
+   */
+  private static MaintainPartyModel handleMaintainPartyResponse(
+    HttpCalloutResponse response
+  ) {
+    HttpCalloutResponse response = handleResponse(response);
     return MaintainPartyModel.parse(response.body);
   }
 
@@ -66,15 +78,7 @@ public with sharing class PartyAPIRepository extends RepositoryBase {
   private static String handleRetrievePartyResponse(
     HttpCalloutResponse response
   ) {
-    if (response.statusCode == 500) {
-      throw new ServerErrorException(response);
-    }
-    if (response.statusCode == 400) {
-      throw new UserErrorException(response);
-    }
-    if (response.successful == false) {
-      throw new UnhandledException(response);
-    }
+    HttpCalloutResponse response = handleResponse(response);
     return response.body;
   }
 

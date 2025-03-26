@@ -29,7 +29,7 @@ public with sharing class AccountActionsRepository {
    * @return Account account record
    */
   public Account getCurrentAccountById(Id idOfAcc) {
-    if (String.isEmpty(idOfAcc)) {
+    if (idOfAcc == null) {
       return new Account();
     }
     return [
@@ -45,7 +45,7 @@ public with sharing class AccountActionsRepository {
       FROM Account
       WHERE Id = :idOfAcc
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**
