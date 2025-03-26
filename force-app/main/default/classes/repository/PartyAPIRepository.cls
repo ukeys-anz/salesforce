@@ -66,7 +66,7 @@ public with sharing class PartyAPIRepository extends RepositoryBase {
   private static MaintainPartyModel handleMaintainPartyResponse(
     HttpCalloutResponse response
   ) {
-    HttpCalloutResponse response = handleResponse(response);
+    response = handleResponse(response);
     return MaintainPartyModel.parse(response.body);
   }
 
@@ -78,7 +78,7 @@ public with sharing class PartyAPIRepository extends RepositoryBase {
   private static String handleRetrievePartyResponse(
     HttpCalloutResponse response
   ) {
-    HttpCalloutResponse response = handleResponse(response);
+    response = handleResponse(response);
     return response.body;
   }
 
