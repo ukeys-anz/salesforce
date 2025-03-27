@@ -997,6 +997,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Broker_Call_Back_Number__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.CAC_Sub_Category__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3318,6 +3323,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Case.Survey_Response__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Case.Sync_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
