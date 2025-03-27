@@ -81,6 +81,19 @@
                       multiple-rows
                       horizontal-align="spread"
                     >
+                      <!-- Secured Asset -->
+                      <template lwc:if={asset.collateralAssessmentId}>
+                        <lightning-layout-item
+                          size="12"
+                          class="slds-text-align_right slds-p-bottom_x-small slds-m-bottom_x-small slds-border_bottom securityAsset"
+                          alignment-bump="left"
+                        >
+                          <lightning-formatted-text
+                            value="Asset being refinanced"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
                       <!-- Belongs To -->
                       <lightning-layout-item
                         size="8"
@@ -98,7 +111,28 @@
                       >
                         <lightning-formatted-text
                           class="labelAndValueStyle"
-                          value={asset.ownerName}
+                          value={asset.ownership}
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+
+                      <!-- Ownership Split -->
+                      <lightning-layout-item
+                        size="8"
+                        class="slds-p-top_small labelAndValueStyle"
+                      >
+                        <lightning-formatted-text
+                          value="Ownership Split"
+                        ></lightning-formatted-text>
+                      </lightning-layout-item>
+                      <lightning-layout-item
+                        size="4"
+                        flexibility="shrink"
+                        alignment-bump="right"
+                        class="slds-p-top_x-small slds-text-align_right"
+                      >
+                        <lightning-formatted-text
+                          class="labelAndValueStyle"
+                          value={asset.ownershipSplit}
                         ></lightning-formatted-text>
                       </lightning-layout-item>
 
@@ -122,6 +156,29 @@
                           value={asset.readableType}
                         ></lightning-formatted-text>
                       </lightning-layout-item>
+
+                      <!-- Property Type -->
+                      <template lwc:if={asset.showPropertyType}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Property Type"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={asset.propertyCategory}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
 
                       <!-- Vehicle Type -->
                       <template lwc:if={asset.showVehicleType}>
@@ -192,9 +249,78 @@
                           <lightning-formatted-number
                             format-style="currency"
                             currency-code={currenyCode}
-                            value={asset.propertyValue}
+                            value={asset.calculatedValue}
                             currency-display-as="symbol"
                           ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- ANZ Price Estimate -->
+                      <template lwc:if={asset.showANZEstimate}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <span>ANZ Price Estimate </span>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={asset.calculatedValue}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Customer Price Estimate -->
+                      <template lwc:if={asset.showCustomerEstimate}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <span>Customer Price Estimate </span>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
+                        >
+                          <lightning-formatted-number
+                            format-style="currency"
+                            currency-code={currenyCode}
+                            value={asset.estimatedValue}
+                            currency-display-as="symbol"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Source -->
+                      <template lwc:if={asset.showSource}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Source"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={asset.source}
+                          ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
 

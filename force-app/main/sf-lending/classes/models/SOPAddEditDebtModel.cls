@@ -169,11 +169,42 @@ public with sharing class SOPAddEditDebtModel extends CalloutModel {
      */
     @AuraEnabled
     public String termType { get; set; }
+
+    /**
+     * @description List of assets
+     */
+    @AuraEnabled
+    public List<String> assets { get; set; }
+
+    /**
+     * @description Undrawn amount of debt
+     */
+    @AuraEnabled
+    public FabricType.Fabric_money undrawnAmount { get; set; }
+
+    /**
+     * @description Undrawn amount of debt value
+     */
+    @AuraEnabled
+    public Decimal undrawnAmountValue {
+      get;
+      set {
+        if (value != null) {
+          this.undrawnAmountValue = value;
+          this.undrawnAmount = new FabricType.Fabric_money(
+            'AUD',
+            this.undrawnAmountValue
+          );
+        }
+        this.undrawnAmountValue = null;
+      }
+    }
   }
 
   /**
    * @description InstitutionalLiability model
    */
+  @SuppressWarnings('PMD.ExcessivePublicCount')
   public class InstitutionalLiability {
     /**
      * @description Limit amount
@@ -333,6 +364,18 @@ public with sharing class SOPAddEditDebtModel extends CalloutModel {
      */
     @AuraEnabled
     public Boolean validatedPrincipalInterestRemainingTerm { get; set; }
+
+    /**
+     * @description Tax deductible
+     */
+    @AuraEnabled
+    public Decimal taxDeductiblePercentage { get; set; }
+
+    /**
+     * @description Interest Rate Validated
+     */
+    @AuraEnabled
+    public Boolean interestRateValidated { get; set; }
   }
 
   /**

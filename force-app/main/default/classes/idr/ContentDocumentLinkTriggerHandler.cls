@@ -36,19 +36,27 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
    * @description Assesses whether or not to generate a log (generate only for CMOS complaint and enquiry) and creates a log entry.
    * @param records ContentDocumentLink records in current trigger context
    */
-   public void onlogFileDelete(List<ContentDocumentLink> records) {
-    Map<Id, ContentDocumentLink> cdlMap = new Map<Id, ContentDocumentLink>(records);
-    Set<Id> linkedEntityIds = ListUtil.getIds(records, ContentDocumentLink.LinkedEntityId);
- 
-    List<ContentDocumentLink> docList = CDL_REPOSITORY.queryContentDocumentLink(linkedEntityIds, cdlMap.keySet());
+  public void onlogFileDelete(List<ContentDocumentLink> records) {
+    Map<Id, ContentDocumentLink> cdlMap = new Map<Id, ContentDocumentLink>(
+      records
+    );
+    Set<Id> linkedEntityIds = ListUtil.getIds(
+      records,
+      ContentDocumentLink.LinkedEntityId
+    );
+
+    List<ContentDocumentLink> docList = CDL_REPOSITORY.queryContentDocumentLink(
+      linkedEntityIds,
+      cdlMap.keySet()
+    );
     logFileDelete(docList);
     updateCases(docList);
   }
-    /**
+  /**
    * @description Build Log message to return and add in Log entry for file deletion
    * @param docList ContentDocumentLink Records from query
    */
-    private static void logFileDelete(List<ContentDocumentLink> docList) {
+  private static void logFileDelete(List<ContentDocumentLink> docList) {
     for (ContentDocumentLink record : docList) {
       String strDate = String.valueOf(Date.today());
       String strUserName = UserInfo.getName();
@@ -71,14 +79,14 @@ public without sharing class ContentDocumentLinkTriggerHandler extends Lib_Trigg
     }
     Logger.saveLog();
   }
-    /**
+  /**
    * @description Update Cases to update LastModifiedDate on Cases
    * @param docList ContentDocumentLink records in current trigger context
    */
-    private static void updateCases(List<ContentDocumentLink> docList) {
+  private static void updateCases(List<ContentDocumentLink> docList) {
     List<Case> cases = new List<Case>();
     for (ContentDocumentLink record : docList) {
-      cases.add(new Case(Id=record.LinkedEntityId));
+      cases.add(new Case(Id = record.LinkedEntityId));
     }
     DML.doUpdate(cases, new DMLConfig().systemMode());
   }

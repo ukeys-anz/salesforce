@@ -52,14 +52,22 @@ public with sharing class SOPExpenseViewModel {
   @AuraEnabled
   public String hemState;
 
+  @AuraEnabled
+  public String propertyId;
+
+  @AuraEnabled
+  public String singleLineAddress;
+
   /**
    * @description constructor to map from sop expense api model to expenseSummary view model
    * @param sourceData expenseSummary api model
    * @param mapCodeToReason map of justification code to expense control
+   * @param assetPropertyLookup map of address lookup
    */
   public SOPExpenseViewModel(
     SOPGetConsolidatedModel.MonthlyExpenses sourceData,
-    Map<String, Expense_Control__c> mapCodeToReason
+    Map<String, Expense_Control__c> mapCodeToReason,
+    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup
   ) {
     this.name = sourceData.categoryName;
     this.monthlySpend = SOPHelper.convertAmountToDecimal(
@@ -82,5 +90,8 @@ public with sharing class SOPExpenseViewModel {
     this.leafNode = sourceData.leafNode;
     this.etag = sourceData.etag;
     this.hemState = sourceData.hemState;
+    this.propertyId = sourceData.propertyId;
+    this.singleLineAddress = assetPropertyLookup.get(sourceData.propertyId)
+      ?.address.singleLineAddress;
   }
 }
