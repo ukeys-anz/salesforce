@@ -339,7 +339,7 @@ public with sharing class LeadConversionController {
         ID.valueOf(accId),
         leadRec
       );
-      return mapLeadwithOpportunityId.get(record.Id) ?? null;
+      return mapLeadwithOpportunityId.get(leadRec.Id) ?? null;
     } catch (Exception ex) {
       Logger.error('Error occured during lead conversion', leadRec.Id, ex);
       Logger.saveLog();
@@ -397,7 +397,7 @@ public with sharing class LeadConversionController {
         ID.valueOf(accId),
         leadRec
       );
-      return mapLeadwithOpportunityId.get(record.Id) ?? null;
+      return mapLeadwithOpportunityId.get(leadRec.Id) ?? null;
     } catch (Exception ex) {
       Logger.error(eX.getMessage() + leadRec.Id);
       Logger.saveLog();
