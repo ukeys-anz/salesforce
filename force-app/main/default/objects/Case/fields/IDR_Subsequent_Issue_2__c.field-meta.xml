@@ -669,37 +669,22 @@
             <value>
                 <fullName>127</fullName>
                 <default>false</default>
-                <label>Dissatisfied with process/policy</label>
+                <label>Chargeback raised but outcome not in customer favour</label>
             </value>
             <value>
                 <fullName>128</fullName>
                 <default>false</default>
-                <label>Incorrect information provided to customer about process or timeframes</label>
+                <label>No Chargeback rights- declined by ANZ</label>
             </value>
             <value>
                 <fullName>129</fullName>
                 <default>false</default>
-                <label>Outcome not in the customer&apos;s favour</label>
+                <label>Task not actioned or delayed by ANZ</label>
             </value>
             <value>
                 <fullName>130</fullName>
                 <default>false</default>
-                <label>Task not actioned by ANZ as agreed</label>
-            </value>
-            <value>
-                <fullName>131</fullName>
-                <default>false</default>
-                <label>Chargebacks - declined by ANZ</label>
-            </value>
-            <value>
-                <fullName>132</fullName>
-                <default>false</default>
-                <label>Chargebacks - delayed by ANZ</label>
-            </value>
-            <value>
-                <fullName>133</fullName>
-                <default>false</default>
-                <label>Unauthorised transaction</label>
+                <label>Dissatisfied with process/policy</label>
             </value>
         </valueSetDefinition>
         <valueSettings>
@@ -828,18 +813,6 @@
         <valueSettings>
             <controllingFieldValue>24</controllingFieldValue>
             <valueName>130</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>24</controllingFieldValue>
-            <valueName>131</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>24</controllingFieldValue>
-            <valueName>132</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>24</controllingFieldValue>
-            <valueName>133</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>5</controllingFieldValue>
