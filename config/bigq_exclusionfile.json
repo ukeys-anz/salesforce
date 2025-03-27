@@ -238,6 +238,9 @@
     "MilestoneStatusIcon",
     "PassportNumber__c"
   ],
+  "CaseComment": [
+    "CommentBodyRichtext"
+  ],
   "Contact": [
     "AssetFinanceTPMISAO__c",
     "Accreditation_CompactLayout__c",
