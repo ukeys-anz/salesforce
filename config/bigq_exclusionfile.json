@@ -240,6 +240,7 @@
   ],
   "Case": [
     "CertificateIdentifier__c",
+    "CommentBodyRichtext",
     "LicenceCardNumber__c",
     "LicenceNumber__c",
     "MilestoneStatusIcon",
