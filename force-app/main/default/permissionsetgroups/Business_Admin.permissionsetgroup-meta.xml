@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
-    <description>Permission Set Group related to all Business Admin role functions.</description>
+    <description>Permission Set Group related to all Business Admin role functions for Commercial.</description>
     <hasActivationRequired>false</hasActivationRequired>
-    <label>Business_Admin</label>
+    <label>Business Admin Commercial</label>
     <permissionSets>Action_Plan_Template_Edit</permissionSets>
     <permissionSets>ANZx_COP_View</permissionSets>
     <permissionSets>ANZx_Update_Confirmation_of_Payee</permissionSets>

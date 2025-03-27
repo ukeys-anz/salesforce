@@ -2,9 +2,9 @@
 <Role xmlns="http://soap.sforce.com/2006/04/metadata">
     <caseAccessLevel>Edit</caseAccessLevel>
     <contactAccessLevel>Read</contactAccessLevel>
-    <description>Commercial Business Admin</description>
+    <description>Retail Business Admin</description>
     <mayForecastManagerShare>false</mayForecastManagerShare>
-    <name>Commercial Business Admin</name>
+    <name>Retail Business Admin</name>
     <opportunityAccessLevel>Read</opportunityAccessLevel>
     <parentRole>ANZx</parentRole>
 </Role>
