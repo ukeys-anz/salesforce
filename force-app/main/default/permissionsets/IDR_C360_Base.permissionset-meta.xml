@@ -8,6 +8,10 @@
         <apexClass>GetCustomerInformationRepo</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customPermissions>
+        <name>View_C360_Financial_Summary</name>
+        <enabled>true</enabled>
+    </customPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Account.ABN__c</field>
