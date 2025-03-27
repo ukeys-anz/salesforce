@@ -18,7 +18,7 @@ public with sharing class RetrievePartyServiceMock extends Service {
    * @return HttpCalloutResponse
    * @description fetches party information for lead conversion
    */
-  public override HttpCalloutResponse retrieveParty(
+  public virtual HttpCalloutResponse retrieveParty(
     OCVRetrievePartyPayloadWrapper record
   ) {
     response.body = 'Success';

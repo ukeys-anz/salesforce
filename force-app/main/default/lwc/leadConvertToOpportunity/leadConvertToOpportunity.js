@@ -1096,19 +1096,19 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
   }
 
   get isIndividual() {
-    return this.leadConvertData.leadRecord.RecordType.DeveloperName ===
-      "MLCRM_Lead" ||
+    return (
+      this.leadConvertData.leadRecord.RecordType.DeveloperName ===
+        "MLCRM_Lead" ||
       this.leadConvertData.leadRecord.Entity_Type__c === "Individual"
-      ? true
-      : false;
+    );
   }
 
   get isOrgCustomer() {
-    return this.leadConvertData.leadRecord.RecordType.DeveloperName ===
-      "CCRM_Lead" &&
+    return (
+      this.leadConvertData.leadRecord.RecordType.DeveloperName ===
+        "CCRM_Lead" &&
       this.leadConvertData.leadRecord.Entity_Type__c !== "Individual"
-      ? true
-      : false;
+    );
   }
 
   //get list of field Lead summary page
@@ -1140,6 +1140,6 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
 
   get invalidLead() {
     // If this.validLead is false, return a value of true
-    return this.validLead ? false : true;
+    return !this.validLead;
   }
 }

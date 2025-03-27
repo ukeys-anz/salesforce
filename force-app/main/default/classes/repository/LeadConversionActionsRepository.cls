@@ -258,14 +258,14 @@ public without sharing class LeadConversionActionsRepository {
   public Database.LeadConvertResult convertLeadRecord(
     Database.LeadConvert record
   ) {
+    Database.LeadConvertResult result;
     try {
-      Database.LeadConvertResult result = Database.convertLead(record);
-      return result;
+      result = Database.convertLead(record);
     } catch (Exception e) {
       Logger.error(e.getMessage(), e);
+      Logger.saveLog();
     }
-    Logger.saveLog();
-    return null;
+    return result;
   }
 
   /**

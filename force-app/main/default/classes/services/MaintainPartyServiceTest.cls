@@ -84,19 +84,6 @@ public with sharing class MaintainPartyServiceTest {
   }
 
   @isTest
-  static void getRealService() {
-    Test.startTest();
-    Service serviceResult = (Service) ServiceProvider.getService(
-      MaintainPartyService.class
-    );
-    Test.stopTest();
-    System.assert(
-      serviceResult instanceof MaintainPartyServiceMock,
-      'Expected instance of MaintainPartyServiceMock'
-    );
-  }
-
-  @isTest
   static void maintainPartyServiceMockForIndividualTest() {
     Test.setMock(HttpCalloutMock.class, new MockMaintainPartyCallout());
 

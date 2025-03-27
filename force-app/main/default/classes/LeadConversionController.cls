@@ -62,16 +62,9 @@ public with sharing class LeadConversionController {
     if (leadRecord.FinServ__RelatedAccount__c == null) {
       return '';
     }
-    if (
-      RELATED_ACCOUNT_MAP.containsKey(
-        leadRecord.FinServ__RelatedAccount__r.RecordType.DeveloperName
-      )
-    ) {
-      return RELATED_ACCOUNT_MAP.get(
-        leadRecord.FinServ__RelatedAccount__r.RecordType.DeveloperName
-      );
-    }
-    return IS_INVALID;
+    return RELATED_ACCOUNT_MAP.get(
+      leadRecord.FinServ__RelatedAccount__r.RecordType.DeveloperName
+    ) ?? IS_INVALID;
   }
 
   /**
