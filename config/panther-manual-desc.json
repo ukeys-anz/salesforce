@@ -26,7 +26,8 @@
       "Fraud_Analytics_Date_Complete__c": "Completed review date for Fraud Analytics Investigation"
     },
     "Contact": {
-      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs."
+      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs.",
+      "Is_Beta_Broker__c": "Identify if a broker is a beta broker"
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -5604,6 +5605,9 @@
       "TaxIdentificationNumberTransform__c": "",
       "TaxIdentificationNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency%2Eoneof_disclosure :: tax_identification_number_token"
     },
+    "Contact": {
+      "Is_Beta_Broker__c": "ANZx::Salesforce"
+    },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
       "CXOnboardingAction__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: cx_onboarding_action",
@@ -5778,6 +5782,9 @@
       "SubmittedAt__c": "1:1 Transformation",
       "TaxIdentificationNumberTransform__c": "Always set to 'fpe.personal-identifier'",
       "TaxIdentificationNumber__c": "1:1 Transformation"
+    },
+    "Contact": {
+      "Is_Beta_Broker__c": "Checkbox field"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",
