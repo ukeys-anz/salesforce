@@ -240,11 +240,13 @@
   ],
   "Case": [
     "CertificateIdentifier__c",
-    "CommentBodyRichtext",
     "LicenceCardNumber__c",
     "LicenceNumber__c",
     "MilestoneStatusIcon",
     "PassportNumber__c"
+  ],
+  "CaseComment": [
+    "CommentBodyRichtext"
   ],
   "Contact": [
     "AssetFinanceTPMISAO__c",
