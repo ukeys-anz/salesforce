@@ -158,6 +158,8 @@ export default class CustomerInformation extends LightningElement {
           ocvId: "",
           cpId: "",
           dob: "",
+          migrationStatusDate: "",
+          migrationStatusType: "",
           isRmPresent: false,
           accounts: [],
           rmData: { name: "", phone: "", officeAddress: "" }
@@ -184,6 +186,9 @@ export default class CustomerInformation extends LightningElement {
         customerData.ocvId = responseData.ocvId;
         customerData.cpId = responseData.cpId;
         customerData.dob = responseData.dob;
+        customerData.migrationStatusDate = responseData.migrationStatusDate;
+        customerData.migrationStatusType = responseData.migrationStatusType;
+
         customerData.accounts = JSON.parse(JSON.stringify(accountsData));
         if (
           !relationshipData &&
