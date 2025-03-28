@@ -228,13 +228,13 @@ public with sharing class IDRCaseAssignmentRules {
       (IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type) &&
       rec.IDR_Subsequent_Issue__c == '109') ||
       (rec.Type == '24' &&
-      rec.IDR_Subsequent_Issue__c != '133')
+      rec.IDR_Subsequent_Issue__c != '128')
     ) {
       return QueryQueue.get('IDR_Authorised_Transactions').Id; // IDR Authorised Transactions
     }
 
     // Card Scheme Disputes #9
-    if (rec.Type == '24' && rec.IDR_Subsequent_Issue__c == '133') {
+    if (rec.Type == '24' && rec.IDR_Subsequent_Issue__c == '128') {
       return QueryQueue.get('IDR_Unauthorised_Transactions').Id; // IDR Unauthorised Transactions
     }
 

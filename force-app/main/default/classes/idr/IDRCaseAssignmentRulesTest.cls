@@ -622,7 +622,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
     Case oldCase = caseRecord1;
     Case newCase = caseRecord2;
     newCase.Type = '24';
-    newCase.IDR_Subsequent_Issue__c = '133';
+    newCase.IDR_Subsequent_Issue__c = '128';
     Test.startTest();
     Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
       newCase,
