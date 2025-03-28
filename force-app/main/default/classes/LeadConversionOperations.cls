@@ -36,7 +36,7 @@ public without sharing class LeadConversionOperations {
       leadRec.Id,
       mapOfOpportunityId.get(leadRec.id)
     );
-    if (lcResult != null && !lcResult.isSuccess()) {
+    if (lcResult == null || !lcResult.isSuccess()) {
       generateLoggerErrors(lcResult);
       return new Map<Id, Id>();
     }
@@ -44,7 +44,8 @@ public without sharing class LeadConversionOperations {
     ID leadId = getLeadIdForUnicaAdobeOnLC(leadRec);
     CCRMLeadPlatformEventActions.sendUpdateToUnicaOrAdobeOnLeadConversion(
       leadId,
-      mapOfOpportunityId
+      mapOfOpportunityId,
+      leadTasksList
     );
     //auto create mismatch task
     Boolean autoMisMatchTaskRequired = isAutoMisMatchTaskRequired(leadRec);

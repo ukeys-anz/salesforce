@@ -5,7 +5,7 @@
  * @description CCRMLeadActions is class to handle all the CCRM (Commercial CRM) Actions
  */
 @SuppressWarnings(
-  'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity,PMD.ExcessivePublicCount'
+  'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity,PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class CCRMLeadActions {
   @TestVisible
@@ -650,7 +650,10 @@ public with sharing class CCRMLeadActions {
       }
     }
     if (listOfLeads.size() > 0) {
-      CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(listOfLeads);
+      CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(
+        listOfLeads,
+        new List<Task>()
+      );
     }
   }
   /**

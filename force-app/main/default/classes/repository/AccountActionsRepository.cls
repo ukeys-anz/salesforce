@@ -29,8 +29,8 @@ public with sharing class AccountActionsRepository {
    * @return Account account record
    */
   public Account getCurrentAccountById(Id idOfAcc) {
-    if (String.isEmpty(idOfAcc)) {
-      return new Account();
+    if (idOfAcc == null) {
+      return null;
     }
     return [
       SELECT
@@ -45,7 +45,7 @@ public with sharing class AccountActionsRepository {
       FROM Account
       WHERE Id = :idOfAcc
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**

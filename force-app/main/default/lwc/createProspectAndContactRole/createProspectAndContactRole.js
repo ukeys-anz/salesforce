@@ -303,7 +303,6 @@ export default class CreateProspectAndContactRole extends LightningElement {
       strRole: this.createProspectPayload.strRole
     })
       .then(() => {
-        this.closeAction();
         this.showToast(
           "Success",
           "Success",
@@ -318,30 +317,24 @@ export default class CreateProspectAndContactRole extends LightningElement {
               showToast(
                 this,
                 "SUCCESS!",
-                "Lead Conversion Completed successfully.",
+                this.label.ML_CreateProspectSuccessMessage,
                 "",
                 "Success",
                 ""
               );
-              this[NavigationMixin.Navigate]({
-                type: "standard__recordPage",
-                attributes: {
-                  recordId: this.recordId,
-                  objectApiName: "Opportunity",
-                  actionName: "view"
-                }
-              });
             })
             .catch(() => {
-              this.closeAction();
               showToast(
                 this,
                 "Warning!",
-                "Lead Conversion Completed successfully but retrieve party call failed",
+                "New Contact Role has been successfully created. but retrieve party call failed",
                 "",
                 "Warning",
                 ""
               );
+            })
+            .finally(() => {
+              this.closeAction();
               this[NavigationMixin.Navigate]({
                 type: "standard__recordPage",
                 attributes: {

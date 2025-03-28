@@ -27,7 +27,7 @@ public with sharing virtual class MaintainPartyService extends Service {
     User leadOwner = COMMERCIAL_LEAD_CONVERSION_REPOSITORY.getLeadOwnerLanId(
       record.strOwnerId
     );
-    if (leadOwner == null || String.isBlank(leadOwner?.Lan_Id__c)) {
+    if (String.isBlank(leadOwner?.Lan_Id__c)) {
       throw new CustomException(Label.User_LAN_Id_Error);
     }
     String body = MaintainPartyOrganisationModel.getBody(record);
@@ -67,11 +67,11 @@ public with sharing virtual class MaintainPartyService extends Service {
    * @return HttpCalloutResponse
    * @description gathers all the parameters required for callout
    */
-  public virtual override HttpCalloutResponse maintainPartyForIndividual(
+  public virtual HttpCalloutResponse maintainPartyForIndividual(
     OCVRequestPayloadWrapper record
   ) {
     User leadOwner = USER_REPOSITORY.getUserFromUserIds(record.strOwnerId);
-    if (leadOwner == null || String.isBlank(leadOwner?.Lan_Id__c)) {
+    if (String.isBlank(leadOwner?.Lan_Id__c)) {
       throw new CustomException(Label.User_LAN_Id_Error);
     }
     String requestTime = String.valueOf(System.now()) + '.00'; // appended with ms as required by API mesh

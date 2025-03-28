@@ -17,10 +17,10 @@ public with sharing class RetrievePartyService extends Service {
    * @return HttpCalloutResponse
    * @description gathers all the parameters required for callout
    */
-  public override HttpCalloutResponse retrieveParty(
+  public virtual HttpCalloutResponse retrieveParty(
     OCVRetrievePartyPayloadWrapper record
   ) {
-    User leadOwner = USER_REPOSITORY.getUserFromUserIds(record.ownerId);
+    User leadOwner = USER_REPOSITORY.getUserFromUserIds(UserInfo.getUserId());
     if (leadOwner == null || String.isBlank(leadOwner?.Lan_Id__c)) {
       throw new CustomException(Label.User_LAN_Id_Error);
     }

@@ -93,7 +93,7 @@ export default class AuthenticateCustomers extends LightningElement {
     ]
   })
   wiredRecord({ data, error }) {
-    if (error) {
+    if (error && this.status === STATUSMAP.LOADING) {
       this.status = STATUSMAP.ERROR;
     }
     if (!data) {
@@ -253,8 +253,14 @@ export default class AuthenticateCustomers extends LightningElement {
         authHistoryId: this.authHistoryId,
         ocvId: this.ocvId
       });
+      //if user has initiated another action during the background apex call then stop processing the response.
+      if (authrequestId !== this.authrequestId) {
+        return;
+      }
     } catch (error) {
-      this.status = STATUSMAP.ERROR;
+      if (authrequestId === this.authrequestId) {
+        this.status = STATUSMAP.ERROR;
+      }
       return;
     }
     if (
