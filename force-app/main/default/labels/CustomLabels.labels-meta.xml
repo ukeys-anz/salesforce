@@ -2799,7 +2799,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LoanappPrerequisiteLabel</shortDescription>
-        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender.</value>
+        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender. Expected Settlement Date must be in the future and must fall on a weekday.</value>
     </labels>
     <labels>
         <fullName>LoanappFriendlyErrorMessage</fullName>
