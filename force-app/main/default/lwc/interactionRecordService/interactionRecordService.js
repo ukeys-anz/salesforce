@@ -25,7 +25,11 @@ export default class InteractionRecordService extends NavigationMixin(
   @api storeRecord;
   @api appointmentRecord;
   @api showOpenMessageOnly;
-
+  rolesToShowViewTranscriptOnCop = [
+    "Quality_Analyst",
+    "Join_Lead",
+    "Quality_Capability_Lead"
+  ];
   chatOrCallSid;
   showInteractionRecords = false;
   totalInteractionRecords = 0;
@@ -214,11 +218,7 @@ export default class InteractionRecordService extends NavigationMixin(
     interactionRecords.forEach((record) => {
       if (
         !record?.actualTopic?.includes("Confirmation of Payee") ||
-        this.userRole.includes(
-          "Quality_Analyst",
-          "Join_Lead",
-          "Quality_Capability_Lead"
-        )
+        rolesToShowViewTranscriptOnCop.includes(this.userRole)
       ) {
         record.enableViewTranscript = true;
       } else {

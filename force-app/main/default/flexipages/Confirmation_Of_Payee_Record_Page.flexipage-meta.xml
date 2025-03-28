@@ -168,6 +168,16 @@
                 <identifier>RecordFinancial_Account_Number__cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Financial_Account_Name__c</fieldItem>
+                <identifier>RecordFinancial_Account_Name__cField</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-b41f8f51-7653-4fbf-b7a5-48b60d3bcd5a</name>
         <type>Facet</type>
     </flexiPageRegions>
@@ -178,10 +188,20 @@
                     <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
+                <fieldItem>Record.Account_Type__c</fieldItem>
+                <identifier>RecordAccount_Type_cField</identifier>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>none</value>
+                </fieldInstanceProperties>
                 <fieldItem>Record.Opt_Out_Reason__c</fieldItem>
                 <identifier>RecordOpt_Out_Reason_cField</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3</booleanFilter>
                     <criteria>
                         <leftValue>{!Record.Status}</leftValue>
                         <operator>NE</operator>
@@ -192,17 +212,12 @@
                         <operator>NE</operator>
                         <rightValue>Closed</rightValue>
                     </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Confirmation of Payee Opt-Out</rightValue>
+                    </criteria>
                 </visibilityRule>
-            </fieldInstance>
-        </itemInstances>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>none</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.Financial_Account_Name__c</fieldItem>
-                <identifier>RecordFinancial_Account_Name__cField</identifier>
             </fieldInstance>
         </itemInstances>
         <name>Facet-80287c6a-c3ff-4a78-ad23-821f80e410cf</name>

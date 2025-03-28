@@ -47,6 +47,11 @@ public with sharing class CaseGroupCaseConstants {
     'Multi-party' => 'Joint'
   };
 
+  public static final Map<String, String> CAPS_COP_STATUS = new Map<String, String>{
+    'OPT-OUT' => 'Opt-Out',
+    'OPT-IN' => 'Opt-In'
+  };
+
   //Set of Case  issue type for account closure, cop opt in  and cop opr out
   public static final Set<String> CASE_ISSUE_TYPES = new Set<String>{
     ACCOUNT_CLOSURE,

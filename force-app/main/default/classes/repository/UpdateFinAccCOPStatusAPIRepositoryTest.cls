@@ -35,7 +35,6 @@ public with sharing class UpdateFinAccCOPStatusAPIRepositoryTest {
     response.successful = true;
     response.statusCode = 200;
     response.body = ConfirmationOfPayeeServiceMock.UPDATE_ACCOUNT_COP_DETAILS;
-    response.error = new CalloutException('Error');
     Lib_MockProvider.forType(ConfirmationOfPayeeService.class)
       .mock('updateAccountCoPdetails', response);
     Exception ex = null;

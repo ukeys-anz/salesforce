@@ -461,10 +461,17 @@
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
     </labels>
     <labels>
-        <fullName>MS_CONFIRMATION_OF_PAYEE</fullName>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</fullName>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MS_CONFIRMATION_OF_PAYEE</shortDescription>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</shortDescription>
+        <value>allout:SF_MS_CH2/v1/accounts/cop/status</value>
+    </labels>
+    <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</shortDescription>
         <value>callout:SF_MS_CH2/v1/accounts/cop/status</value>
     </labels>
     <labels>

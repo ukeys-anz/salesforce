@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Confirmation_of_Payee_Cases_All</fullName>
-    <booleanFilter>1 AND 2 AND 3</booleanFilter>
+    <booleanFilter>1 AND 2</booleanFilter>
     <columns>CASES.CASE_NUMBER</columns>
     <columns>ACCOUNT.NAME</columns>
     <columns>CASES.SUBJECT</columns>
@@ -20,11 +20,6 @@
         <field>CASES.TYPE</field>
         <operation>equals</operation>
         <value>Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
-    </filters>
-    <filters>
-        <field>CORE.USERS.ALIAS</field>
-        <operation>notEqual</operation>
-        <value>Confirmation of Payee Queue</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>Confirmation of Payee Cases - All</label>

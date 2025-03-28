@@ -27,12 +27,16 @@ public with sharing virtual class ConfirmationOfPayeeService extends Service {
     String request,
     String ocvId
   ) {
+    StaffTokenRequestModel staffModel = getStaffRequestModelByOcvId(ocvId);
+
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers = setCalloutCommonHeaders(staffModel);
     headers.put('Content-Type', 'application/json');
     headers.put('traceparent', CommonUtil.generateTraceParent());
+    headers.put('version', '1.0');
+    headers.put('channelCode', 'AX1');
     HttpCalloutResponse response = CALLOUT.makeRestCallout(
-      Label.MS_CONFIRMATION_OF_PAYEE,
+      Label.MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS,
       HTTP_METHOD.HTTP_POST,
       headers,
       request
@@ -50,18 +54,36 @@ public with sharing virtual class ConfirmationOfPayeeService extends Service {
     String request,
     String ocvId
   ) {
+    StaffTokenRequestModel staffModel = getStaffRequestModelByOcvId(ocvId);
+
     Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvID, headers);
+    headers = setCalloutCommonHeaders(staffModel);
     headers.put('Content-Type', 'application/json');
+    headers.put('version', '1.0');
+    headers.put('channelCode', 'AX1');
     headers.put('userIdType', LANID);
     headers.put('userId', USER_INFO.getUser().Lan_Id__c);
     headers.put('traceparent', CommonUtil.generateTraceParent());
     HttpCalloutResponse response = CALLOUT.makeRestCallout(
-      Label.MS_CONFIRMATION_OF_PAYEE,
-      HTTP_METHOD.HTTP_PATCH,
+      Label.MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS,
+      HTTP_METHOD.HTTP_POST,
       headers,
       request
     );
     return response;
+  }
+
+  /**
+   * @description returns the StaffTokenRequestModel.
+   * @param ocvId the ocv id of the customer
+   * @return `StaffTokenRequestModel`
+   */
+  public StaffTokenRequestModel getStaffRequestModelByOcvId(String ocvId) {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    staffModel.idType = Service.IdType.OCVID;
+    staffModel.idValue = ocvId;
+    staffModel.anzTokenType = 'staffRqfCustomer';
+    staffModel.apiScopesRequested = 'ConfirmationOfPayee';
+    return staffModel;
   }
 }

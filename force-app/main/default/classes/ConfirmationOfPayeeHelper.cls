@@ -232,9 +232,11 @@ public with sharing class ConfirmationOfPayeeHelper {
       account.apiFinAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE.get(
         finAccount.Ownership__c
       );
-      account.accountStatusCOP = acc.status;
-      account.updateAccountStatusCOP = CaseGroupCaseConstants.COP_STATUS.get(
+      account.accountStatusCOP = CaseGroupCaseConstants.CAPS_COP_STATUS.get(
         acc.status
+      );
+      account.updateAccountStatusCOP = CaseGroupCaseConstants.COP_STATUS.get(
+        account.accountStatusCOP
       );
       account.requestedByName = requestorNamesMap.get(accNumber);
       account.modifiedByName = modifiedByUsers.containsKey(
