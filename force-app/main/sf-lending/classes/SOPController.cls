@@ -21,6 +21,8 @@ public with sharing class SOPController {
   private static final String ADD_INCOME_ERROR = 'The income record couldn\'t be added. Please review and try again. Raise a fault through TechAssist if the problem persists.';
   private static final String EDIT_INCOME_ERROR = 'The income record didn\'t save all the changes. Please review and try again. Raise a fault through TechAssist if the problem persists.';
   private static final String DELETE_INCOME_ERROR = 'The income record couldn\'t be deleted. Please review and try again. Raise a fault through TechAssist if the problem persists.';
+  private static final String EDIT_EXPENSE_ERROR = 'The changes to the spend category didn\'t save. Please review and try again.';
+  private static final String LIST_EXPENSE_ERROR = 'The monthly spend total didn\'t update. Click \'Refresh All Amounts\' or refresh the page to see the updated total.';
 
   /**
    * @description call getConsolidatedSOP API, query related records in salesforce, return the get consolidated sop view model
@@ -175,8 +177,11 @@ public with sharing class SOPController {
       Logger.error('Failure on edit expenses', e);
       Logger.saveLog();
 
-      AuraHandledException err = new AuraHandledException(ERROR_MSG);
-      throw err;
+      if (e.getMessage().contains('listExpense')) {
+        throw new AuraHandledException(LIST_EXPENSE_ERROR);
+      } else {
+        throw new AuraHandledException(EDIT_EXPENSE_ERROR);
+      }
     }
   }
 
@@ -301,30 +306,9 @@ public with sharing class SOPController {
 
       for (LoanApplicant applicant : applicantList) {
         Map<String, String> tempMap = new Map<String, String>();
-        tempMap.put('label', applicant.Account__r.FirstName);
-        tempMap.put('partyId1', partyIdMap.get(applicant.Party_ID__c));
-        tempMap.put('proportion', '100');
+        tempMap.put('label', applicant.Account__r.Name);
+        tempMap.put('partyId', partyIdMap.get(applicant.Party_ID__c));
         uiOptions.add(tempMap);
-
-        //Create map for loan applicant + someone else
-        Map<String, String> tempMap2 = new Map<String, String>();
-        tempMap2.put(
-          'label',
-          applicant.Account__r.FirstName + ' & Someone Else'
-        );
-        tempMap2.put('partyId1', partyIdMap.get(applicant.Party_ID__c));
-        tempMap2.put('proportion', '50');
-        uiOptions.add(tempMap2);
-      }
-
-      //If we have more than one applicant, then add joint option
-      if (applicantList.size() > 1) {
-        Map<String, String> jointMap = new Map<String, String>();
-        jointMap.put('label', 'Joint');
-        jointMap.put('partyId1', partyIdMap.get(ocvIds[0]));
-        jointMap.put('partyId2', partyIdMap.get(ocvIds[1]));
-        jointMap.put('proportion', '50');
-        uiOptions.add(jointMap);
       }
     } catch (Exception e) {
       Logger.error('Failed to generate belongs to', e.getMessage());
