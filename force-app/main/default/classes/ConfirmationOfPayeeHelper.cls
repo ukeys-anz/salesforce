@@ -134,11 +134,13 @@ public with sharing class ConfirmationOfPayeeHelper {
         continue;
       }
 
+      String copStatus = CaseGroupCaseConstants.COP_STATUS_MAP.get(acc?.status);
+
       //When this is called from FA Detail Page Comp or Case Group Opt In Scenario
       Boolean isStatusMismatch =
         issueType == null ||
         acc.status == null ||
-        !issueType.toUpperCase().contains(acc?.status?.toUpperCase());
+        !issueType.toUpperCase().contains(copStatus.toUpperCase());
 
       //When this is called from Case Group Opt Out Scenario For Joint Accounts Only
       Boolean isMultiPartyOptOut =
@@ -232,7 +234,7 @@ public with sharing class ConfirmationOfPayeeHelper {
       account.apiFinAccountType = CaseGroupCaseConstants.FIN_ACCOUNT_TYPE.get(
         finAccount.Ownership__c
       );
-      account.accountStatusCOP = CaseGroupCaseConstants.CAPS_COP_STATUS.get(
+      account.accountStatusCOP = CaseGroupCaseConstants.COP_STATUS_MAP.get(
         acc.status
       );
       account.updateAccountStatusCOP = CaseGroupCaseConstants.COP_STATUS.get(
@@ -265,11 +267,15 @@ public with sharing class ConfirmationOfPayeeHelper {
     updateRequestList.accountList = new List<FinancialAccModelUpdateRequestCoP.AccountList>();
     for (Case caseObj : eligibleCases) {
       FinancialAccModelUpdateRequestCoP.AccountList model = new FinancialAccModelUpdateRequestCoP.AccountList();
-      model.accountCoPStatus = caseObj.Parent.Type;
+      model.accountCoPStatus = CaseGroupCaseConstants.COP_STATUS_UPDATE_MAP.get(
+        caseObj.Parent.Type
+      );
       model.accountIdentification =
         caseObj.FinServ__FinancialAccount__r.BSB__c +
         caseObj.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
-      model.copStatusReason = caseObj.Opt_Out_Reason__c;
+      model.copStatusReason = CaseGroupCaseConstants.OPTOUT_REASON_MAP.get(
+        caseObj.Opt_Out_Reason__c
+      );
       model.accountingSystem = caseObj.SI_PSI_Source_Other__c;
       FinancialAccModelUpdateRequestCoP.RequestedBy requestor = new FinancialAccModelUpdateRequestCoP.RequestedBy();
       requestor.requestorIdType = 'OCVID';
@@ -466,7 +472,9 @@ public with sharing class ConfirmationOfPayeeHelper {
         ? modfiedByUsers.get(account?.modifiedBy?.modifierId).Name
         : '';
       if (account.error == null) {
-        caseDetail.caseCoPStatus = account?.accountCoPStatus;
+        caseDetail.caseCoPStatus = CaseGroupCaseConstants.COP_STATUS_MAP.get(
+          account?.accountCoPStatus
+        );
         caseDetail.statusChangeDateTime = account?.copStatusUpdateDate;
         caseDetailsContainer.successList.add(caseDetail);
         continue;
@@ -546,10 +554,13 @@ public with sharing class ConfirmationOfPayeeHelper {
   private String getChatterMessageRichText(
     CaseDetailsContainer.CaseDetailsWithCoPStatus caseDetails
   ) {
-    DateTime dt = Datetime.valueOf(
-      caseDetails?.statusChangeDateTime?.replace('T', ' ')?.replace('Z', '')
-    );
-    String dateString = dt.format('dd/MM/yyyy');
+    String dateString = '';
+    if (caseDetails?.statusChangeDateTime != null) {
+      DateTime dt = Datetime.valueOf(
+        caseDetails.statusChangeDateTime?.replace('T', ' ')?.replace('Z', '')
+      );
+      dateString = dt.format('dd/MM/yyyy');
+    }
     String message =
       '<p><b>Confirmation of Payee - ' +
       caseDetails.caseCoPStatus +

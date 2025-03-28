@@ -97,7 +97,6 @@ export default class InitiateModifyCOPStatus extends LightningElement {
   @wire(getRecord, { recordId: "$recordId", fields })
   wiredData({ data }) {
     try {
-      console.log("getRecord data " + JSON.stringify(data));
       if (data && !this.hasFetchedCases) {
         this.customerOcvId =
           data.fields?.Account?.value?.fields?.OCV_ID__c?.value;
@@ -116,16 +115,9 @@ export default class InitiateModifyCOPStatus extends LightningElement {
       const caseDetails = await fetchChildCasesCoP({
         parentCaseId: this.recordId
       });
-      console.log("caseDetails " + JSON.stringify(caseDetails));
       if (caseDetails && caseDetails.length > 0) {
         this.eligibleChildCases = caseDetails;
-        console.log(
-          "eligibleChildCases " + JSON.stringify(this.eligibleChildCases)
-        );
         this.casesData = this.generateData(caseDetails);
-        console.log(
-          "this.casesData for datattable " + JSON.stringify(this.casesData)
-        );
         this.showPreviewMessage = true;
       } else {
         this.showNoDataMessage = true;
@@ -141,7 +133,7 @@ export default class InitiateModifyCOPStatus extends LightningElement {
     this.hasError = false;
     try {
       const response = await initiateModifyConfirmationOfPayee({
-        customerOcvId: this.customerOcvId,
+        ocvId: this.customerOcvId,
         eligibleCases: this.eligibleChildCases
       });
       if (response?.successList?.length > 0) {

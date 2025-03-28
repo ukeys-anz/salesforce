@@ -1,18 +1,17 @@
 <template>
-  <template lwc:if={loading}>
-    <lightning-spinner
-      data-id="loading"
-      alternative-text="Loading"
-      size="small"
-    ></lightning-spinner>
-  </template>
-
-  <template lwc:else>
-    <!--Modal Header-->
-    <lightning-modal-header label="Select Accounts to Modify CoP Status">
-    </lightning-modal-header>
-    <!--Modal Body-->
-    <lightning-modal-body class="modalbody">
+  <!--Modal Header-->
+  <lightning-modal-header label="Select Accounts to Modify CoP Status">
+  </lightning-modal-header>
+  <!--Modal Body-->
+  <lightning-modal-body class="modalbody">
+    <template lwc:if={loading}>
+      <lightning-spinner
+        data-id="loading"
+        alternative-text="Loading"
+        size="small"
+      ></lightning-spinner>
+    </template>
+    <template lwc:else>
       <template lwc:if={hasError}>
         <div class="error-width">
           <c-error
@@ -84,6 +83,6 @@
           </c-account-closure-wizard-child>
         </template>
       </div>
-    </lightning-modal-body>
-  </template>
+    </template>
+  </lightning-modal-body>
 </template>

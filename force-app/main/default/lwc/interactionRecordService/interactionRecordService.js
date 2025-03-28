@@ -218,7 +218,7 @@ export default class InteractionRecordService extends NavigationMixin(
     interactionRecords.forEach((record) => {
       if (
         !record?.actualTopic?.includes("Confirmation of Payee") ||
-        rolesToShowViewTranscriptOnCop.includes(this.userRole)
+        this.rolesToShowViewTranscriptOnCop.includes(this.userRole)
       ) {
         record.enableViewTranscript = true;
       } else {

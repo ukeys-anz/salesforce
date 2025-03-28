@@ -29,7 +29,7 @@
     <filters>
         <field>CASES.STATUS</field>
         <operation>equals</operation>
-        <value>On Hold,Escalated,Open</value>
+        <value>Escalated,Open</value>
     </filters>
     <filterScope>Everything</filterScope>
     <label>Confirmation of Payee Cases -In Progress</label>

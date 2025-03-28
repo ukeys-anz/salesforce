@@ -4,7 +4,7 @@
     <active>true</active>
     <businessProcess>ANZx Case Group Support Process</businessProcess>
     <compactLayoutAssignment>Case_Group_Compact_Layout</compactLayoutAssignment>
-    <description>Record Type To Create A Group Of Cases</description>
+    <description>Record type to create a group of cases</description>
     <label>Case Group</label>
     <picklistValues>
         <picklist>AFCA_Stage__c</picklist>

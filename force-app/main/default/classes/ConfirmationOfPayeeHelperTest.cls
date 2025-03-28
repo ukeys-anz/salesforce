@@ -308,25 +308,6 @@ public with sharing class ConfirmationOfPayeeHelperTest {
     Assert.isNull(thrownException, 'An exception should not be thrown');
   }
 
-  @isTest
-  private static void testPostResponseMessageToChatterNegative() {
-    registerMocks();
-    Exception thrownException;
-    ConfirmationOfPayeeHelper copHelper = new ConfirmationOfPayeeHelper();
-
-    Test.startTest();
-    try {
-      copHelper.postResponseMessageToChatter(
-        mockCaseDetailsContainer(null),
-        new Map<String, List<String>>()
-      );
-    } catch (Exception e) {
-      thrownException = e;
-    }
-    Test.stopTest();
-    Assert.isNotNull(thrownException, 'An exception must have been thrown');
-  }
-
   private static List<FinServ__FinancialAccount__c> mockFetchFinancialAccountsByOCVId() {
     Account testAccount = TestDataFactory.createPersonAccount(
       '1001297679',
