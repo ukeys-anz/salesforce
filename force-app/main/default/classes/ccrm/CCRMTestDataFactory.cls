@@ -1459,7 +1459,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMDepositAccountTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1467,7 +1467,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'DepositAccount'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1484,7 +1484,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMCreditCardQueryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1492,7 +1492,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'CreditCard'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1648,6 +1648,7 @@ public with sharing class CCRMTestDataFactory {
     }
     return finAccountRole;
   }
+ 
   /**
    * @description creates and/or returns list of CCRMA2ZReview records for testing purpose
    * note that the lookup on these records are not populated
@@ -1786,7 +1787,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMAccountRelationshipQueryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1794,7 +1795,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'AccountRelationship'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1808,7 +1809,7 @@ public with sharing class CCRMTestDataFactory {
    */
   public static DataSource.QueryContext createAccountRelationshipContextForSOQL() {
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1895,7 +1896,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMTermDepositTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1903,7 +1904,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'TermDeposit'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1938,7 +1939,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMBalanceHistoryQueryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1946,7 +1947,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'BalanceHistory'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);

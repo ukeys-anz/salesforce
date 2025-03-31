@@ -499,12 +499,14 @@ export default class SopAddEditDebts extends LightningModal {
     ) {
       this.fieldVisibility.showBalanceOwing = true;
       this.fieldVisibility.showLimit = true;
+      this.fieldVisibility.showUMICheckbox = true;
     } else if (
       this.debtType === "LIABILITY_TYPE_OVERDRAFT" &&
       event.detail.value === "true"
     ) {
       this.fieldVisibility.showBalanceOwing = false;
       this.fieldVisibility.showLimit = false;
+      this.fieldVisibility.showUMICheckbox = false;
     }
   }
 

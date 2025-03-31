@@ -38,6 +38,8 @@ public with sharing class HomeLoanAPIRepository extends RepositoryBase {
       Logger.debug('Home Loan API hit:')
         .setPayload(json.serialize(h1AccountDetails));
       Logger.saveLog();
+    } catch (HomeLoanController.NotFoundException ex) {
+      handleErrorAsInfo(response, ex, HomeLoanAPIRepository.class);
     } catch (Exception e) {
       handleErrors(response, e, HomeLoanAPIRepository.class);
     }

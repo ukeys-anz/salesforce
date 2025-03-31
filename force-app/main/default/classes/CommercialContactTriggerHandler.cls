@@ -29,7 +29,7 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
     Contact contactRecord = (Contact) record;
     return contactRecord.RecordTypeId == RTContact.organisation &&
       curentUserProfileId != anzMLStandardUserProfileId &&
-      !CCRMLeadConversionActions.leadConverionFlow;
+      !LeadConversionController.leadConverionFlow;
   }
 
   /**

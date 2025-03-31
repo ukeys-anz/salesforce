@@ -316,7 +316,8 @@
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
         "Mobile__c",
-        "Was_ANZx_Customer__c"
+        "Was_ANZx_Customer__c",
+        "Worldline_Merchant__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2415997": ["PI_Score__c"],
@@ -384,7 +385,8 @@
         "CPID__c",
         "IsSkeleton__c",
         "IsSnapshotError__c",
-        "IsSnapshotInProgress__c"
+        "IsSnapshotInProgress__c",
+        "Migration_Status_Date__c"
       ],
       "IA-2415860": [
         "Deleted_in_OCV__c",
@@ -412,10 +414,13 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
+      "IA-2415855": [
+        "CustomerExitDate__c",
+        "CustomerExitFlag__c",
+        "CLG_Credit_Rating__c"
+      ],
       "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
-      "IA-2453595": ["Migration_Status__c"],
-      "IA-2530753": ["Migration_Status_Date__c"]
+      "IA-2453595": ["Migration_Status__c"]
     },
     "AccountClosureErrorMetadata__mdt": {
       "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
@@ -804,6 +809,7 @@
       "IA-253075": [
         "BypassApplicationEvent__c",
         "BypassBrokerEvent__c",
+        "BypassCaseEvent__c",
         "BypassContractEvent__c",
         "BypassCustomerEvent__c",
         "BypassSettlementAccountEvent__c"
@@ -1363,7 +1369,8 @@
         "SI_Date_Event_Created__c",
         "SI_Category_Other__c",
         "SuppliedEmail",
-        "Tactical_Fix__c"
+        "Tactical_Fix__c",
+        "Broker_Call_Back_Number__c"
       ],
       "IA-2415855": [
         "SI_PSI_Ranking__c",
@@ -1436,7 +1443,19 @@
         "System_Action__c",
         "VerificationOutcome__c",
         "VerificationRequest__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Client_Id__c",
+        "Evaluation_Id__c",
+        "Evaluation_State__c",
+        "Evaluation_Reason__c",
+        "Evaluation_Create_Time__c",
+        "Evaluation_Last_Update_Time__c",
+        "Evaluation_Complete_Time__c",
+        "Process_Definition_Id__c",
+        "Process_Definition_Name__c",
+        "Process_Definition_Version__c",
+        "Unique_External_Id__c",
+        "SecondaryVerificationFailedReason__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1446,6 +1465,7 @@
         "Fraud_PersonID__c"
       ],
       "IA-2468710": ["SLATesting__c", "CardScamType__c"],
+      "IA-2594109": ["Sync_Status__c"],
       "IA-2594116": [
         "AcceptableDocumentType__c",
         "CertificateShowsCurrentContactName__c",
@@ -2514,7 +2534,8 @@
         "Product_SubCode__c",
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
-        "System_Record_Status__c"
+        "System_Record_Status__c",
+        "Migration_Status_Date__c"
       ],
       "IA-2415860": [
         "Product_Code_Display__c",
@@ -2524,8 +2545,7 @@
         "Ownership__c"
       ],
       "IA-2594111": ["FinServ__JointOwner__c"],
-      "IA-2453595": ["Migration_Status__c"],
-      "IA-2530753": ["Migration_Status_Date__c"]
+      "IA-2453595": ["Migration_Status__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -3723,7 +3743,7 @@
         "OCV_Sub_Product_Key__c",
         "Business_area__c",
         "Product_Origination_System__c",
-        "Commercial_Product_Category__c"
+        "Category__c"
       ],
       "IA-2415840": ["ExternalId"],
       "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
@@ -4682,7 +4702,8 @@
         "ML_Role__c",
         "ML_Territories__c",
         "ML_Territories_Virtual__c"
-      ]
+      ],
+      "IA-2425790": ["Is_Manager__c"]
     },
     "Territory__c": {
       "IA-2415860": [
@@ -4698,7 +4719,7 @@
         "Status__c"
       ],
       "IA-2415790": ["TPMI__c"],
-      "IA-2415840": ["ABN_ACN__c","Business_Name__c"]
+      "IA-2415840": ["ABN_ACN__c", "Business_Name__c"]
     },
     "User_Territory__c": {
       "IA-2415860": [
@@ -5147,7 +5168,10 @@
       "IA-2415720": [
         "Amount__c",
         "Contract__c",
+        "Frequency__c",
         "Repayment_Account_Number__c",
+        "Repayment_Type__c",
+        "Start_Date__c",
         "Total_Number_Of_Repayments__c"
       ]
     },

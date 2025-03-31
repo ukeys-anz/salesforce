@@ -1,0 +1,396 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RecordType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>TrustMe_eIDV_QA_Case</fullName>
+    <active>true</active>
+    <businessProcess>TrustMe QA Case Support Process</businessProcess>
+    <description>TrustMe eIDV QA Case Record Type</description>
+    <label>TrustMe QA Case</label>
+    <picklistValues>
+        <picklist>Origin</picklist>
+        <values>
+            <fullName>1</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>10</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>11</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>12</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>14</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>15</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>16</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>17</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>18</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>19</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>20</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>21</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>3</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>4</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>5</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>6</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>8</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>9</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus App</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ANZ Plus Web</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>App</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Appointment</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Chat</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>ConnectID</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Email</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Falcon</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FalconX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>FalconX %E2%80%93 Auto Suspend</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Fraud Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>KYC QA</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Law Enforcement</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OFI</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>OFI %E2%80%93 from FRX</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Origination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other ANZ Plus Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other ANZx Staff</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other AR%26C Profile</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Phone</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Ribbon Failed Task</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie Watchlist Match</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Splunk Alert</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Store</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Survey</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>TrustMe</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Video Call</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Voice Call</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>OnboardingVerificationFailedReason__c</picklist>
+        <values>
+            <fullName>Doc fail - document details unreadable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is a picture of a picture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is ineligible type</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - suspected fraud%2C based on document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - document image is not clear enough to match</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - selfie image is clear%2C but not the same person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>SecondaryVerificationFailedReason__c</picklist>
+        <values>
+            <fullName>Doc fail - document details unreadable</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is a picture of a picture</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is expired</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - document is ineligible type</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Doc fail - suspected fraud%2C based on document</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - document image is not clear enough to match</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - selfie image is clear%2C but not the same person</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Address_Valid__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_MiddleNameCheck__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Selfie_Comparison_Match__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_ID_Legible__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+     <picklistValues>
+        <picklist>Fraud_ID_Not_Picture__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Customer_Details__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Customer_Photo_Modified__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Fraud_Security_Features__c</picklist>
+        <values>
+            <fullName>No</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Yes</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Priority</picklist>
+        <values>
+            <fullName>Critical</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Customer in Collections</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Financial Hardship</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>High</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Low</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Medium</fullName>
+            <default>true</default>
+        </values>
+        <values>
+            <fullName>Standard</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vulnerable Customer</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+</RecordType>

@@ -586,15 +586,11 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMLeadConversion</apexClass>
+        <apexClass>LeadConversionController</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>CCRMLeadConversionActions</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>CCRMLeadConversionActionsHelper</apexClass>
+        <apexClass>LeadConversionHelper</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -1282,15 +1278,15 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DCRMMaintainPartyModel</apexClass>
+        <apexClass>MaintainPartyModel</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DCRMMaintainPartyService</apexClass>
+        <apexClass>MaintainPartyService</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>DCRMMaintainPartyServiceMock</apexClass>
+        <apexClass>MaintainPartyServiceMock</apexClass>
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
@@ -21353,6 +21349,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>User.Team_Code__c</field>
+        <readable>false</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>User.Is_Manager__c</field>
         <readable>false</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -2,11 +2,10 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Business_Details__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Non-Sensitive Personal Information;Source - Salesforce</complianceGroup>
     <description>Describe customer&apos;s business.</description>
     <encryptionScheme>None</encryptionScheme>
-    <externalId>false</externalId>
-    <inlineHelpText>How does the business work and what challenges do they face?  i.e  works / owner goals / their business background / Future plans / Customers / Staff / Suppliers / Challenges / Competition / Industry / Annual turnover</inlineHelpText>
+    <inlineHelpText>How does the business work and what challenges do they face?  i.e  works / owner goals / their business background / Future plans / Customers / Staff / Suppliers / Challenges / Competition / Industry</inlineHelpText>
     <label>Business Details</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>

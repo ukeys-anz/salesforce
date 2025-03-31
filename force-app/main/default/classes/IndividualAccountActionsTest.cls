@@ -40,7 +40,7 @@ public class IndividualAccountActionsTest {
     record.RecordTypeId = RTAccount.personAccount;
     record.FinServ__Status__c = 'Prospect';
     Test.startTest();
-    CCRMLeadConversionActions.manualLeadConversionInitiated = true;
+    LeadConversionController.manualLeadConversionInitiated = true;
     IndividualAccountActions.revertShellProspectBillingAddress(
       new List<Account>{ record }
     );

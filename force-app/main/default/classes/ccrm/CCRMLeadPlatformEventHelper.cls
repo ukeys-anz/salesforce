@@ -228,11 +228,13 @@ public with sharing class CCRMLeadPlatformEventHelper {
    * @name getMapOfResponseLogLeadSubStatus
    * @param leadList List of leads
    * @param mapOfOpportunityId Map of map of lead Ids with Opportunity Ids
+   * @param taskList list Of Tasks
    * @return Map<String, String> Map of map of lead with Unica Lead SubStatus
    */
   public static Map<String, String> getMapOfResponseLogLeadSubStatus(
     List<Lead> leadList,
-    Map<Id, Id> mapOfOpportunityId
+    Map<Id, Id> mapOfOpportunityId,
+    List<Task> taskList
   ) {
     Set<Id> leadIds = new Set<Id>();
     Map<String, String> mapLeadSubStatus = new Map<String, String>();
@@ -248,7 +250,7 @@ public with sharing class CCRMLeadPlatformEventHelper {
     //For lead conversion tasks are fetched for leads in LeadConversion class and assigned to leadTask
     if (!mapOfOpportunityId.isEmpty()) {
       Datetime maxCreatedDate = Date.newInstance(1901, 1, 1);
-      for (Task leadTask : leadTask) {
+      for (Task leadTask : taskList) {
         if (
           leadTask.Response_Type__c != null &&
           leadTask.CreatedDate > maxCreatedDate

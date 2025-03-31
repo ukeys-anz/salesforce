@@ -1,14 +1,16 @@
 <template>
   <div class="authenticateCustomers">
     <lightning-card>
-      <h1 class="card-title">
-        <lightning-icon
-          icon-name="standard:person_name"
-          size="small"
-          class="slds-var-m-right_large"
-        ></lightning-icon>
-        Authenticate Customer
-      </h1>
+      <div class="card-header">
+        <h1 class="card-title">
+          <lightning-icon
+            icon-name="standard:person_name"
+            size="small"
+            class="slds-var-m-right_large"
+          ></lightning-icon>
+          Authenticate Customer
+        </h1>
+      </div>
       <!--Show Icons-->
       <template if:true={showIcon}>
         <div class="slds-var-m-around_small slds-align_absolute-center">

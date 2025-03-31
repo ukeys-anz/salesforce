@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Expires__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Source_EBD;Privacy_Personal_Information</complianceGroup>
     <description>Expiry Date</description>
     <externalDeveloperName>Expires</externalDeveloperName>
     <externalId>false</externalId>

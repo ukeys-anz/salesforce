@@ -110,7 +110,7 @@ export default class ManageOpsWorkflowReject extends LightningModal {
     if (!this.failedReasonValue) {
       this.template
         .querySelector(".failedReasonCls")
-        .setCustomValidity("Onboarding Verification Failed Reason is required");
+        .setCustomValidity("Verification Failed Reason is required");
     } else {
       this.template.querySelector(".failedReasonCls").setCustomValidity("");
     }
@@ -184,7 +184,7 @@ export default class ManageOpsWorkflowReject extends LightningModal {
     if (this.statusValue === "Failed" && !this.failedReasonValue) {
       let failedReasonCmp = this.template.querySelector(".failedReasonCls");
       failedReasonCmp.setCustomValidity(
-        "Onboarding Verification Failed Reason is required"
+        "Verification Failed Reason is required"
       );
       failedReasonCmp.reportValidity();
       this.showSpinner = false;

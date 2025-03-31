@@ -83,6 +83,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>Account.CLG_Credit_Rating__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>Account.CPID__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -414,6 +419,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Was_ANZx_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Worldline_Merchant__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
