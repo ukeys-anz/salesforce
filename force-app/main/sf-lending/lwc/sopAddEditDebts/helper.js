@@ -1095,7 +1095,7 @@ const EDIT_DEBT_TYPES = {
               ? debt.institutionalLiability.originalInterestRateValue
               : null,
           taxDeductiblePercentage:
-            debt.institutionalLiability.taxDeductiblePercentage
+            debt.institutionalLiability.taxDeductiblePercentageOriginal
         },
         account: {
           id: debt.accountId,
