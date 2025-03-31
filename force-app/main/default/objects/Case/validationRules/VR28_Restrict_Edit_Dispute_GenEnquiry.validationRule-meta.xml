@@ -14,7 +14,10 @@
         RecordType.DeveloperName = &apos;Direct_Debit_Dispute&apos;,
         RecordType.DeveloperName = &apos;Direct_Entry_Dispute&apos;,
         RecordType.DeveloperName = &apos;NPP_Dispute&apos;,
-        RecordType.DeveloperName = &apos;PayTo_Dispute&apos;
+        RecordType.DeveloperName = &apos;PayTo_Dispute&apos;,
+        RecordType.DeveloperName = &apos;General_Inquiry&apos;,
+        RecordType.DeveloperName = &apos;Customer_Feedback&apos;,
+        RecordType.DeveloperName = &apos;Case_Group&apos;
     ) 
 )</errorConditionFormula>
     <errorMessage>You cannot edit this record.</errorMessage>

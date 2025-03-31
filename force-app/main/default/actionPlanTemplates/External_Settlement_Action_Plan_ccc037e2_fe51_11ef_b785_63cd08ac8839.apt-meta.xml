@@ -317,7 +317,7 @@
         <actionPlanTemplateItemValue>
             <name>Description__c</name>
             <itemEntityType>Task</itemEntityType>
-            <valueLiteral>Update source funds on the PEXA workspace, ensure mortgage is created with the correct T&amp;Cs and complete signing. Ensure PEXA reflects as Ready in the Lodgement and Financial Settlement sections</valueLiteral>
+            <valueLiteral>Update source funds on the PEXA workspace, ensure mortgage is created with the correct T&amp;Cs and complete signing. Ensure PEXA reflects as Ready in the Lodgement and Financial Settlement sections.</valueLiteral>
         </actionPlanTemplateItemValue>
         <actionPlanTemplateItemValue>
             <name>IsReminderSet</name>
@@ -500,7 +500,7 @@
             <valueFormula>StartDate + 0</valueFormula>
         </actionPlanTemplateItemValue>
         <actionPlanTemplateItemValue>
-            <name>Description</name>
+            <name>Description__c</name>
             <itemEntityType>Task</itemEntityType>
             <valueLiteral>Verify all applicants KYC to ensure it is valid</valueLiteral>
         </actionPlanTemplateItemValue>

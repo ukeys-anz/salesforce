@@ -30,6 +30,7 @@ public without sharing class LeadConversionOperations {
     setTaskSkipValidation(leadTasksList); //as per CC-4248
     //create Opportunity
     Map<Id, Id> mapOfOpportunityId = createOpportunity(leadRec, accountId);
+    AccountCommonActions.convertedAccountIds.add(accountId);
     //Lead conversion
     Database.LeadConvertResult lcResult = dmlConvertLeadRecord(
       accountId,

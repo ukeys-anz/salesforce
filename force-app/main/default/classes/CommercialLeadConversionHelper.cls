@@ -60,9 +60,7 @@ public with sharing class CommercialLeadConversionHelper {
         accountInstance.Id,
         record
       );
-      return mapLeadwithOpportunityId.containsKey(record.Id)
-        ? mapLeadwithOpportunityId.get(record.Id)
-        : 'Error occured while Opportunity creation during lead conversion.';
+      return mapLeadwithOpportunityId.get(record.Id) ?? null;
     } catch (DmlException ex) {
       throw new CustomException(CAPCIS_LEAD_UPDATE_ERROR);
     } catch (Exception ex) {
@@ -99,9 +97,7 @@ public with sharing class CommercialLeadConversionHelper {
         ID.valueOf(accId),
         record
       );
-      return mapLeadwithOpportunityId.containsKey(record.Id)
-        ? mapLeadwithOpportunityId.get(record.Id)
-        : 'Error occured while Opportunity creation during lead conversion.';
+      return mapLeadwithOpportunityId.get(record.Id) ?? null;
     } catch (DmlException ex) {
       throw new CustomException(CAPCIS_LEAD_UPDATE_ERROR);
     } catch (Exception ex) {

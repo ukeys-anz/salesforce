@@ -671,8 +671,10 @@ public with sharing class GetHelpCaseActionsHelper {
       newCase.OwnerId == UserInfo.getUserId() &&
       ((UserInfo.getUserRoleId() != creditAssessmentOfficerRole.Id &&
       UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
-      UserInfo.getUserRoleId() != bohCoachRole.Id) ||
-      (UserInfo.getUserRoleId() == bohCoachRole.Id &&
+      UserInfo.getUserRoleId() != bohCoachRole.Id &&
+      !USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case')) ||
+      ((UserInfo.getUserRoleId() == bohCoachRole.Id ||
+      USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case')) &&
       newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'))
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_ERROR_ONE);
@@ -683,16 +685,19 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description Check if credit assessor lead is assigning credit ref case to users without authority to resolve it
    * @param newCase New values of the case
    * @param oldCase Old values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
    */
   public static void isInvalidCreditLeadNoAuthorityAssignment(
     Case newCase,
-    Case oldCase
+    Case oldCase,
+    Set<Id> isOwnerSpecialistLender
   ) {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
       isCreditAssessLeadOrCoachLead() &&
       newCase.OwnerId.getSObjectType() != Group.SObjectType &&
-      (checkOwnerRoleAndAuthLevel(newCase) || isValidOwner(newCase))
+      (checkOwnerRoleAndAuthLevel(newCase, isOwnerSpecialistLender) ||
+      isValidOwner(newCase, isOwnerSpecialistLender))
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_ERROR_TWO);
     }
@@ -712,10 +717,14 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description Check if owner role is BohCoach or is Specialist Lender and Authority Level is No CAD
    * @return `Boolean`
    * @param newCase New values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
    */
-  private static Boolean checkOwnerRoleAndAuthLevel(Case newCase) {
+  private static Boolean checkOwnerRoleAndAuthLevel(
+    Case newCase,
+    Set<Id> isOwnerSpecialistLender
+  ) {
     return ((newCase.Owner_Role__c == bohCoachRole.Id ||
-    isSpecialistLender(newCase)) &&
+    isSpecialistLender(newCase, isOwnerSpecialistLender)) &&
     newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD');
   }
 
@@ -723,22 +732,27 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description Check if user is Specialist Lender
    * @return `Boolean`
    * @param newCase New values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
    */
-  private static Boolean isSpecialistLender(Case newCase) {
-    return CommonUtil.userPermissionCheck(
-      newCase.OwnerId,
-      new Set<String>{ 'Specialist_Lender' }
-    );
+  private static Boolean isSpecialistLender(
+    Case newCase,
+    Set<Id> isOwnerSpecialistLender
+  ) {
+    return isOwnerSpecialistLender.contains(newCase.OwnerId);
   }
 
   /**
    * @description Check if user is not bohCoach/specilaist lender/creditassessmentoffice/credit assessor lead
    * @return `Boolean`
    * @param newCase New values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
    */
-  private static Boolean isValidOwner(Case newCase) {
+  private static Boolean isValidOwner(
+    Case newCase,
+    Set<Id> isOwnerSpecialistLender
+  ) {
     return (newCase.Owner_Role__c != bohCoachRole.Id &&
-    !isSpecialistLender(newCase) &&
+    !isSpecialistLender(newCase, isOwnerSpecialistLender) &&
     newCase.Owner_Role__c != creditAssessmentOfficerRole.Id &&
     newCase.Owner_Role__c != creditAssessorLeadRole.Id);
   }

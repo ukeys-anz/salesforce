@@ -224,5 +224,8 @@
             <assignedToType>Queue</assignedToType>
             <formula>AND(ISNEW(),RecordType.DeveloperName = &quot;Broker_Enquiry&quot;)</formula>
         </ruleEntry>
+        <ruleEntry>
+            <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;Broker_Enquiry&quot;)</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

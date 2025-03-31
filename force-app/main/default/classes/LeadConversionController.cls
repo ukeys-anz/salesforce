@@ -339,9 +339,7 @@ public with sharing class LeadConversionController {
         ID.valueOf(accId),
         leadRec
       );
-      return mapLeadwithOpportunityId.containsKey(leadRec.Id)
-        ? mapLeadwithOpportunityId.get(leadRec.Id)
-        : 'Error occured while Opportunity creation during lead conversion.';
+      return mapLeadwithOpportunityId.get(leadRec.Id) ?? null;
     } catch (Exception ex) {
       Logger.error('Error occured during lead conversion', leadRec.Id, ex);
       Logger.saveLog();
@@ -399,10 +397,7 @@ public with sharing class LeadConversionController {
         ID.valueOf(accId),
         leadRec
       );
-      String opptID = mapLeadwithOpportunityId.containsKey(leadRec.Id)
-        ? mapLeadwithOpportunityId.get(leadRec.Id)
-        : 'Error occured while Opportunity creation during lead conversion.';
-      return opptID;
+      return mapLeadwithOpportunityId.get(leadRec.Id) ?? null;
     } catch (Exception ex) {
       Logger.error(eX.getMessage() + leadRec.Id);
       Logger.saveLog();
