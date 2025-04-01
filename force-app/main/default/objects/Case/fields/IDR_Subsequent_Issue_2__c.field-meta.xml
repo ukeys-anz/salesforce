@@ -477,11 +477,6 @@
                 <label>Outcome not in customer&apos;s favour</label>
             </value>
             <value>
-                <fullName>89</fullName>
-                <default>false</default>
-                <label>Card Scheme Disputes</label>
-            </value>
-            <value>
                 <fullName>90</fullName>
                 <default>false</default>
                 <label>ATM Disputes</label>
@@ -898,10 +893,6 @@
         <valueSettings>
             <controllingFieldValue>14</controllingFieldValue>
             <valueName>84</valueName>
-        </valueSettings>
-        <valueSettings>
-            <controllingFieldValue>20</controllingFieldValue>
-            <valueName>89</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>20</controllingFieldValue>
