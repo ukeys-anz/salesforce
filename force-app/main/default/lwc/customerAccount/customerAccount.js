@@ -1,9 +1,15 @@
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { LightningElement, track, api } from "lwc";
+import getFinancialAccounts from "@salesforce/apex/GetCustomerInformation.fetchCustomerFinancialAccounts";
 import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
+const POLICY_NUM = [
+  "AccountPolicyNumber",
+  "AccountPolicyNumber2",
+  "AccountPolicyNumber3"
+];
 
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
@@ -12,6 +18,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   @track _omniData;
   @track value;
   @track allValues = [];
+  @track issueTypes = [];
   @track allSelected = false;
   @api set omniJsonData(data) {
     this._omniData = data;
@@ -25,7 +32,6 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   get omniJsonData() {
     return this._omniData;
   }
-
   render() {
     return tmp;
   }
@@ -57,36 +63,40 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
   }
 
-  populateAccountNumbers(data) {
+  async populateAccountNumbers(data) {
+    let cmpDet = data.Case.ComplaintDetails;
+    let accountId = data.Case.AccountId;
+    this.issueTypes = [cmpDet.IssueType, cmpDet.IssueType2, cmpDet.IssueType3];
     this.options = [];
-    if (data && data.Response && data.Response.accounts) {
-      let accounts = data.Response.accounts;
-      let cmpDet = data.Case.ComplaintDetails;
-      if (
-        ((cmpDet.IssueType === COLLECTIONS ||
-          cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
-          this.omniJsonDef.name === "AccountPolicyNumber") ||
-        ((cmpDet.IssueType2 === COLLECTIONS ||
-          cmpDet.IssueType2 === FINANCIAL_DIFFICULTY) &&
-          this.omniJsonDef.name === "AccountPolicyNumber2") ||
-        ((cmpDet.IssueType3 === COLLECTIONS ||
-          cmpDet.IssueType3 === FINANCIAL_DIFFICULTY) &&
-          this.omniJsonDef.name === "AccountPolicyNumber3")
-      ) {
-        accounts.forEach((acc) => {
-          if (!EXCL_ACC.includes(acc.productCode)) {
-            this.options.push({
-              label: acc.accountNumber,
-              value: acc.accountNumber
-            });
-          }
-        });
+    let issueTypeChange = this.checkIssueTypeChange(this.issueTypes);
+    if (accountId && this.checkCustomerIdentifier(data)) {
+      let result = await getFinancialAccounts({
+        accId: accountId
+      });
+      if (!result) {
+        return;
+      }
+      if (issueTypeChange) {
+        this.options = this.getAccountNumbers(result, true);
       } else {
-        accounts.forEach((acc) => {
-          this.options.push({
-            label: acc.accountNumber,
-            value: acc.accountNumber
-          });
+        this.options = result.map((i) => {
+          let accNum = i?.Account_Key__c.substring(
+            0,
+            i?.Account_Key__c.indexOf("_")
+          );
+          return { label: accNum, value: accNum };
+        });
+      }
+      this.validateNAoption(data);
+    }
+
+    if (this.checkForCacheCustomer(data)) {
+      let accounts = data.Response.accounts;
+      if (issueTypeChange) {
+        this.options = this.getAccountNumbers(accounts, false);
+      } else {
+        this.options = accounts.map((i) => {
+          return { label: i.accountNumber, value: i.accountNumber };
         });
       }
     }
@@ -101,14 +111,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.value = "N/A";
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
-    if (
-      (cmpDetails.IssueType === FINANCIAL_DIFFICULTY &&
-        this.omniJsonDef.name === "AccountPolicyNumber") ||
-      (cmpDetails.IssueType2 === FINANCIAL_DIFFICULTY &&
-        this.omniJsonDef.name === "AccountPolicyNumber2") ||
-      (cmpDetails.IssueType3 === FINANCIAL_DIFFICULTY &&
-        this.omniJsonDef.name === "AccountPolicyNumber3")
-    ) {
+    if (this.checkIssueTypeFDH(this.issueTypes)) {
       this.allValues = [];
       this.options.forEach((acc) => {
         this.allValues.push(acc.value);
@@ -132,6 +135,59 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     }
   }
 
+  getAccountNumbers(data, isCustomer) {
+    if (isCustomer) {
+      return data
+        .filter((i) => !EXCL_ACC.includes(i.FinServ__FinancialAccountType__c))
+        .map((i) => {
+          let accNum = i?.Account_Key__c.substring(
+            0,
+            i?.Account_Key__c.indexOf("_")
+          );
+          return {
+            label: accNum,
+            value: accNum
+          };
+        });
+    }
+    return data
+      .filter((i) => !EXCL_ACC.includes(i.productCode))
+      .map((i) => {
+        return {
+          label: i.accountNumber,
+          value: i.accountNumber
+        };
+      });
+  }
+  checkCustomerIdentifier(data) {
+    return (
+      data.Case.CustomerDetails.CustomerIdentifier ===
+        "Customer/Business CAP ID" && data.enableAccountLookUp === true
+    );
+  }
+  checkIssueTypeFDH(issueTypes) {
+    return (
+      issueTypes.includes(FINANCIAL_DIFFICULTY) &&
+      POLICY_NUM.includes(this.omniJsonDef.name)
+    );
+  }
+  checkForCacheCustomer(data) {
+    return (
+      data?.Response?.accounts &&
+      (data.Case.CustomerDetails.CustomerIdentifier === "CACHE ID" ||
+        (data.Case.CustomerDetails.CustomerIdentifier ===
+          "Customer/Business CAP ID" &&
+          data.enableAccountLookUp === false))
+    );
+  }
+  checkIssueTypeChange(issueTypes) {
+    let financialIssues = [COLLECTIONS, FINANCIAL_DIFFICULTY];
+    return (
+      financialIssues.some((el) => issueTypes.includes(el)) &&
+      POLICY_NUM.includes(this.omniJsonDef.name)
+    );
+  }
+
   handleChange(event) {
     this.value = event.target.value;
     if (!this.allValues.includes(this.value)) this.allValues.push(this.value);
@@ -139,6 +195,9 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   }
 
   handleRemove(event) {
+    if (this.checkIssueTypeFDH(this.issueTypes)) {
+      return;
+    }
     this.value = "";
     const valueRemoved = event.target.name;
     this.allValues.splice(this.allValues.indexOf(valueRemoved), 1);

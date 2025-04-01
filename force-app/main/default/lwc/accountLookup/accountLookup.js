@@ -1,9 +1,37 @@
-import { LightningElement } from "lwc";
+import { LightningElement, wire } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
+import { getRecord } from "lightning/uiRecordApi";
+
+const FIELDS = [
+  "Account.Source_System_ID__c",
+  "Account.RecordTypeId",
+  "Account.FirstName",
+  "Account.LastName",
+  "Account.MiddleName",
+  "Account.Gender__pc",
+  "Account.FinServ__Age__pc",
+  "Account.CPID__c",
+  "Account.OCV_ID__c",
+  "Account.PersonBirthdate",
+  "Account.Other_Email__c",
+  "Account.PersonOtherPhone",
+  "Account.BillingStreet",
+  "Account.BillingCity",
+  "Account.BillingState",
+  "Account.BillingPostalCode",
+  "Account.BillingCountry",
+  "Account.RecordType.Name",
+  "Account.Controlling_Post__c",
+  "Account.Controlling_Post__r.Responsible_Employee_Name__c",
+  "Account.Controlling_Post__r.CPID_Phone__c",
+  "Account.Controlling_Post__r.CPID_Address__c"
+];
 export default class AccountLookup extends OmniscriptBaseMixin(
   LightningElement
 ) {
   recId;
+  account;
+  custNo;
   isDisabled = false;
 
   get accountIdStr() {
@@ -46,5 +74,17 @@ export default class AccountLookup extends OmniscriptBaseMixin(
     if (!results) return null;
     if (!results[2]) return "";
     return decodeURIComponent(results[2].replace(/\+/g, " "));
+  }
+
+  @wire(getRecord, { recordId: "$recId", fields: FIELDS })
+  wiredAccount({ error, data }) {
+    if (data) {
+      this.account = data.fields;
+      this.error = null;
+    } else if (error) {
+      this.account = null;
+      this.error = error.body.message;
+    }
+    this.omniApplyCallResp({ data });
   }
 }

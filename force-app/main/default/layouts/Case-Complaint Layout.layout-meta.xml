@@ -16,6 +16,10 @@
                 <field>IDR_Customer_Number__c</field>
             </layoutItems>
             <layoutItems>
+                <behavior>Readonly</behavior>
+                <field>AccountId</field>
+            </layoutItems>
+            <layoutItems>
                 <behavior>Required</behavior>
                 <field>IDR_Customer_Identifier__c</field>
             </layoutItems>

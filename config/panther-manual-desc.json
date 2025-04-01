@@ -2764,6 +2764,9 @@
       "IA-2415860": ["Attendee_Name_Formula__c"],
       "IA-2530753": ["Conversation_Sid__c"]
     },
+    "IDR_Omni_Settings_CMOS__mdt": {
+      "IA-2453595": ["EnableAccountLookUpforCMOS__c"]
+    },
     "JSONWebTokenAttributes__mdt": {
       "IA-2415860": [
         "Algorithm__c",
