@@ -141,6 +141,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   validateCustomerNumber() {
     let compare = /^[0-9]{10}$/;
     if (
+      this.omniJsonData.enableAccountLookUp === false &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       this.omniJsonData.Case.CustomerDetails.Customer &&
       (this.omniJsonData.Case.CustomerDetails.Customer !==
@@ -176,7 +177,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     let details = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     let customerNumber = JSON.stringify(this.omniJsonData.CustomerNumber);
     if (
-      (details.isThisCustomerComplaint === "Yes" &&
+      (this.omniJsonData.enableAccountLookUp === false &&
+        details.isThisCustomerComplaint === "Yes" &&
         details.CustomerDetails.Customer &&
         details.CustomerDetails.Customer !== customerNumber) ||
       (details.CustomerDetails.Customer1 &&

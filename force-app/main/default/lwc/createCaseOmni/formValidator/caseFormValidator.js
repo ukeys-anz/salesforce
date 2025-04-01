@@ -32,6 +32,7 @@ export async function getCustomerNumberValidationMsg(
   let modalMsg =
     "Please complete all required fields: " + missingFields.join(", ");
   if (
+    omniJsonData.enableAccountLookUp === false &&
     omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
     !omniJsonData.Case.CustomerDetails.Customer &&
     omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID" &&
@@ -77,7 +78,8 @@ function checkCustomerIdentifier(customerDetails) {
   }
   if (
     customerDetails.CustomerIdentifier !== "CACHE ID" &&
-    !customerDetails.Customer
+    !customerDetails.Customer &&
+    !omniData.enableAccountLookUp
   ) {
     missingFields.push("Customer Number");
   }
@@ -85,9 +87,13 @@ function checkCustomerIdentifier(customerDetails) {
 //Validate Account Lookup
 function checkAccountLookup(omniJsonData) {
   debugger;
-  console.log("TESTING-->" + caseDetails.AccountId);
   debugger;
-  if (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) {
+  if (
+    (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) ||
+    (!omniJsonData.isEligibleAppForLookUp &&
+      !caseDetails.AccountId &&
+      omniJsonData.enableAccountLookUp)
+  ) {
     missingFields.push("Customer Name");
   }
 }
