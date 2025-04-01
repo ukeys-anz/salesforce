@@ -481,4 +481,14 @@
         <default>false</default>
         <label>Legal Name QA</label>
     </standardValue>
+    <standardValue>
+        <fullName>Confirmation of Payee Opt-In</fullName>
+        <default>false</default>
+        <label>Confirmation of Payee Opt-In</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmation of Payee Opt-Out</fullName>
+        <default>false</default>
+        <label>Confirmation of Payee Opt-Out</label>
+    </standardValue>
 </StandardValueSet>

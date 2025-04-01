@@ -201,7 +201,11 @@ public with sharing class GetHelpCaseActionsHelper {
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
         c.RecordTypeId == RTCase.kycQa ||
-        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c) ||
+        c.RecordTypeId == RTCase.confirmationOfPayee ||
+        (c.RecordTypeId == RTCase.caseGroup &&
+        (c.Type == 'Confirmation of Payee Opt-In' ||
+        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
       }
@@ -247,7 +251,11 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
-        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c) ||
+        c.RecordTypeId == RTCase.confirmationOfPayee ||
+        (c.RecordTypeId == RTCase.caseGroup &&
+        (c.Type == 'Confirmation of Payee Opt-In' ||
+        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError(NO_ENTITLEMENT_ERROR_MSG);

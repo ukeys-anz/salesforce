@@ -47,6 +47,16 @@
                 <default>false</default>
                 <label>Failed</label>
             </value>
+            <value>
+                <fullName>Opt-In</fullName>
+                <default>false</default>
+                <label>Opt-In</label>
+            </value>
+            <value>
+                <fullName>Opt-Out</fullName>
+                <default>false</default>
+                <label>Opt-Out</label>
+            </value>
         </valueSetDefinition>
         <valueSettings>
             <controllingFieldValue>Closed</controllingFieldValue>
@@ -74,6 +84,16 @@
             <controllingFieldValue>Closed</controllingFieldValue>
             <controllingFieldValue>Escalated</controllingFieldValue>
             <valueName>Failed</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Escalated</controllingFieldValue>
+            <controllingFieldValue>Open</controllingFieldValue>
+            <valueName>Opt-In</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Escalated</controllingFieldValue>
+            <controllingFieldValue>Open</controllingFieldValue>
+            <valueName>Opt-Out</valueName>
         </valueSettings>
     </valueSet>
 </CustomField>

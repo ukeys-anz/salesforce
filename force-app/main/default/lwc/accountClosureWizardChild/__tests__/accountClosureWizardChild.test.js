@@ -1,9 +1,9 @@
 import { createElement } from "lwc";
 import AccountClosureWizardChild from "c/accountClosureWizardChild";
-import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts";
+import createCasesForAccounts from "@salesforce/apex/CaseGroupController.createChildCasesForFinAccounts";
 
 jest.mock(
-  "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts",
+  "@salesforce/apex/CaseGroupController.createChildCasesForFinAccounts",
   () => {
     return {
       default: jest.fn()
@@ -53,6 +53,7 @@ describe("c-account-closure-wizard-child", () => {
     const element = createElement("c-account-closure-wizard-child", {
       is: AccountClosureWizardChild
     });
+    element.issueType = "Account Closure";
     document.body.appendChild(element);
     element.showCheckbox = true;
     await flushPromises();
@@ -70,8 +71,8 @@ describe("c-account-closure-wizard-child", () => {
     const element = createElement("c-account-closure-wizard-child", {
       is: AccountClosureWizardChild
     });
+    element.issueType = "Account Closure";
     document.body.appendChild(element);
-
     element.recordId = "0015g00000HJXYZ";
     element.accountId = "0015g00000HJACB";
     element.selectedRows = mockSelectedRows;
@@ -89,8 +90,8 @@ describe("c-account-closure-wizard-child", () => {
     const element = createElement("c-account-closure-wizard-child", {
       is: AccountClosureWizardChild
     });
+    element.issueType = "Account Closure";
     document.body.appendChild(element);
-
     element.recordId = "0015g00000HJXYZ";
     element.accountId = "0015g00000HJACB";
     element.selectedRows = mockSelectedRows;
@@ -121,6 +122,7 @@ describe("c-account-closure-wizard-child", () => {
     const element = createElement("c-account-closure-wizard-child", {
       is: AccountClosureWizardChild
     });
+    element.issueType = "Account Closure";
     document.body.appendChild(element);
     element.recordId = "0015g00000HJXYZ";
     element.accountId = "0015g00000HJACB";
