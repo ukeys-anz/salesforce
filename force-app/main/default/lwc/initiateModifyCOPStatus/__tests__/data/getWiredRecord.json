@@ -1,0 +1,40 @@
+{
+  "apiName": "Case",
+  "childRelationships": {},
+  "fields": {
+    "Account": {
+      "displayValue": "Jane Doe",
+      "value": {
+        "apiName": "Account",
+        "childRelationships": {},
+        "fields": {
+          "OCV_ID__c": { "displayValue": null, "value": "1001297679" }
+        },
+        "id": "001AD00000beyc1YAA",
+        "lastModifiedById": "005AD000009zALRYA2",
+        "lastModifiedDate": "2025-02-13T18:28:08.000Z",
+        "recordTypeId": "0125m0000004HloAAE",
+        "recordTypeInfo": {
+          "available": true,
+          "defaultRecordTypeMapping": false,
+          "master": false,
+          "name": "Individual",
+          "recordTypeId": "0125m0000004HloAAE"
+        },
+        "systemModstamp": "2025-02-13T18:28:08.000Z"
+      }
+    }
+  },
+  "id": "500AD00000Lk5iKYAR",
+  "lastModifiedById": "0052P000001BfonQAC",
+  "lastModifiedDate": "2025-03-20T10:18:14.000Z",
+  "recordTypeId": "012AD000001Zv9JYAS",
+  "recordTypeInfo": {
+    "available": true,
+    "defaultRecordTypeMapping": false,
+    "master": false,
+    "name": "Case Group",
+    "recordTypeId": "012AD000001Zv9JYAS"
+  },
+  "systemModstamp": "2025-03-20T10:18:14.000Z"
+}

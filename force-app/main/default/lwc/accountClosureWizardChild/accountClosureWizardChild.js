@@ -1,7 +1,11 @@
 import { LightningElement, track, wire, api } from "lwc";
 import { getPicklistValues } from "lightning/uiObjectInfoApi";
+import { getRecord } from "lightning/uiRecordApi";
+import COP_REASON from "@salesforce/schema/Case.Opt_Out_Reason__c";
 import CLOSURE_REASON from "@salesforce/schema/Case.Closure_Reason__c";
-import createCasesForAccounts from "@salesforce/apex/AccountClosureWizardController.createChildCasesForFinAccounts";
+import createCasesForAccounts from "@salesforce/apex/CaseGroupController.createChildCasesForFinAccounts";
+import confirmationOfPayeeDOM from "./confirmationOfPayeeDOM.html";
+import accountClosureDOM from "./accountClosureDOM.html";
 
 const caseColumns = [
   { label: "Product", fieldName: "product" },
@@ -15,10 +19,18 @@ const caseColumns = [
   }
 ];
 
+const fields = ["Case.RecordTypeId"];
+
+const ISSUE_TYPE_ACCOUNT_CLOSURE = "Account Closure";
+const ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_IN = "Confirmation of Payee Opt-In";
+const ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT =
+  "Confirmation of Payee Opt-Out";
+
 export default class AccountClosureWizardChild extends LightningElement {
   @api recordId;
   @api accountId;
   @api showCheckbox;
+  @api issueType;
   @track _selectedRows = [];
   @api
   set selectedRows(value) {
@@ -30,21 +42,47 @@ export default class AccountClosureWizardChild extends LightningElement {
     return this._selectedRows || [];
   }
 
+  get isOptOut() {
+    return this.issueType === "Confirmation of Payee Opt-Out" ? true : false;
+  }
+
   @track caseData = [];
   @track closureReasonOptions = [];
+  @track copReasonOptions = [];
   caseColumns = caseColumns;
   copyToAll = false;
   loading = false;
   isCasesCreated = false;
   hasError = false;
   errorMsg;
+  recordTypeId;
+
+  templateMap = {
+    [ISSUE_TYPE_ACCOUNT_CLOSURE]: accountClosureDOM,
+    [ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_IN]: confirmationOfPayeeDOM,
+    [ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT]: confirmationOfPayeeDOM
+  };
+
+  render() {
+    return this.templateMap[this.issueType];
+  }
+
+  @wire(getRecord, {
+    recordId: "$recordId",
+    fields
+  })
+  copCaseRecord({ data }) {
+    if (data) {
+      this.recordTypeId = data.recordTypeId;
+    }
+  }
 
   // Get Closure Reason Options
   @wire(getPicklistValues, {
     recordTypeId: "0122P0000004SC2QAM",
     fieldApiName: CLOSURE_REASON
   })
-  wiredPicklist({ data }) {
+  wiredPicklistClosure({ data }) {
     if (data) {
       const picklistValues = data.values.map((object) => {
         return { label: object.label, value: object.value };
@@ -53,10 +91,30 @@ export default class AccountClosureWizardChild extends LightningElement {
     }
   }
 
+  // Get Closure Reason Options
+  @wire(getPicklistValues, {
+    recordTypeId: "$recordTypeId",
+    fieldApiName: COP_REASON
+  })
+  wiredPicklistCOP({ data }) {
+    if (data) {
+      const picklistValues = data.values.map((object) => {
+        return { label: object.label, value: object.value };
+      });
+      this.copReasonOptions = picklistValues;
+    }
+  }
+
   get closureResonValues() {
     return this.closureReasonOptions.length === 0
       ? [{ label: "--None--", value: "--None--" }]
       : [...this.closureReasonOptions];
+  }
+
+  get copResonValues() {
+    return this.copReasonOptions.length === 0
+      ? [{ label: "--None--", value: "--None--" }]
+      : [...this.copReasonOptions];
   }
 
   mergeRowData(existingRow) {
@@ -68,7 +126,10 @@ export default class AccountClosureWizardChild extends LightningElement {
       isClosureReasonInvalid: existingRow.isClosureReasonInvalid,
       isAccountNameInvalid: existingRow.isAccountNameInvalid,
       isaccountBsbInvalid: existingRow.isaccountBsbInvalid,
-      isAccountNumberInvalid: existingRow.isAccountNumberInvalid
+      isAccountNumberInvalid: existingRow.isAccountNumberInvalid,
+      copReason: existingRow.copReason,
+      copStatus: existingRow.accountStatusCOP,
+      updateAccountStatusCOP: existingRow.updateAccountStatusCOP
     };
   }
 
@@ -123,7 +184,8 @@ export default class AccountClosureWizardChild extends LightningElement {
         "closureReason",
         "intendedAccountName",
         "intendedAccountBsb",
-        "intendedAccountNumber"
+        "intendedAccountNumber",
+        "copReason"
       ].forEach((field) => {
         this.cascadeFields(field, firstRow[field]);
       });
@@ -142,7 +204,7 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   handleCreateChildCases() {
     this.errorMsg =
-      "Child cases could not be created. Please enter forwarding account details for all accounts";
+      "Child cases could not be created. Please fill in all required fields.";
     const { validRows, isFieldIsBlank } = this.validateRows(this._selectedRows);
     this._selectedRows = validRows;
     this.setErrorVisibility(isFieldIsBlank, this.errorMsg);
@@ -175,12 +237,23 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   // Method to check the validity of each row's fields
   validateRowFields(row) {
-    return {
-      isClosureReasonInvalid: !row.closureReason,
-      isAccountNameInvalid: !row.intendedAccountName,
-      isaccountBsbInvalid: !row.intendedAccountBsb,
-      isAccountNumberInvalid: !row.intendedAccountNumber
-    };
+    switch (this.issueType) {
+      case ISSUE_TYPE_ACCOUNT_CLOSURE:
+        return {
+          isClosureReasonInvalid: !row.closureReason,
+          isAccountNameInvalid: !row.intendedAccountName,
+          isaccountBsbInvalid: !row.intendedAccountBsb,
+          isAccountNumberInvalid: !row.intendedAccountNumber
+        };
+
+      case ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT:
+        return {
+          iscopReasonInvalid: !row.copReason
+        };
+
+      default:
+        return row;
+    }
   }
 
   // Method to call Apex and create cases
@@ -197,7 +270,12 @@ export default class AccountClosureWizardChild extends LightningElement {
       accountType: row.apiFinAccountType,
       productName: row.productName,
       financialAccountId: row.id,
-      productId: row.productId
+      productId: row.productId,
+      copReason: row.copReason,
+      issueType: this.issueType,
+      parentCaseId: this.recordId,
+      accountingSystem: row.accountingSystem,
+      copStatus: row.accountStatusCOP
     }));
     try {
       let result = await createCasesForAccounts({
@@ -208,7 +286,7 @@ export default class AccountClosureWizardChild extends LightningElement {
         this.isCasesCreated = true;
         this.casesData = result.map((row) => ({
           childCaseNumberUrl: "/" + row.Id,
-          childCaseNumber: row?.CaseNumber || null,
+          childCaseNumber: "#" + row?.CaseNumber || null,
           product: row?.Product?.Name || null,
           accountNumber:
             row?.FinServ__FinancialAccount__r

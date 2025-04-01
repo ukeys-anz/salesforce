@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ANZx_Update_Confirmation_of_Payee</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Gives access to button to call the API</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>ANZx Update Confirmation of Payee</label>
+    <tabSettings>
+        <tab>standard-SemanticModel</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+</PermissionSet>
