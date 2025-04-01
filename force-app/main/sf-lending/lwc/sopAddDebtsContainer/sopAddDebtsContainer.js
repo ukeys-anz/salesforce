@@ -6,9 +6,11 @@ import { handleErrorShowToast } from "c/utils";
 
 const TYPE_MAP = {
   LIABILITY_TYPE_CREDIT_CARD: "Credit Card",
+  LIABILITY_TYPE_HOME_LOAN: "Home Loan",
   LIABILITY_TYPE_LEASE_HIRE_PURCHASE: "Vehicle Lease/Hire Purchase",
   LIABILITY_TYPE_PERSONAL_LOAN: "Personal Loan",
   LIABILITY_TYPE_STUDENT_LOAN: "HECS-HELP",
+  LIABILITY_TYPE_LINE_OF_CREDIT: "Line of Credit",
   LIABILITY_TYPE_VEHICLE_LOAN: "Vehicle Loan",
   LIABILITY_TYPE_OVERDRAFT: "Overdraft",
   LIABILITY_TYPE_MARGIN_LOAN: "Margin Loan",
@@ -19,6 +21,8 @@ const TYPE_MAP = {
 export default class SopAddDebtsContainer extends LightningModal {
   @api recordId;
   @api parties;
+  @api refinancedAssets;
+  @api propertyAssets;
   logoImage = SOP_DEBTS;
   selectedDebtType;
   noSelectedDebtError = false;
@@ -28,12 +32,14 @@ export default class SopAddDebtsContainer extends LightningModal {
   showNextButton = true;
   showBackButton = false;
   showSaveButton = false;
+  showCancelButton = true;
   modalTitle = "Add Debt";
   belongsToOptions;
   hasBelongsToError;
   belongsToErrorMessage =
     "Failed to retrieve party list. Please refresh and try again. Raise a fault through TechAssist if the problem persists";
   debtOptions = [
+    { label: "Home Loan", value: "LIABILITY_TYPE_HOME_LOAN" },
     { label: "Credit Card", value: "LIABILITY_TYPE_CREDIT_CARD" },
     { label: "Personal Loan", value: "LIABILITY_TYPE_PERSONAL_LOAN" },
     { label: "Vehicle Loan", value: "LIABILITY_TYPE_VEHICLE_LOAN" },
@@ -43,6 +49,7 @@ export default class SopAddDebtsContainer extends LightningModal {
       value: "LIABILITY_TYPE_LEASE_HIRE_PURCHASE"
     },
     { label: "HECS - HELP", value: "LIABILITY_TYPE_STUDENT_LOAN" },
+    { label: "Line of Credit", value: "LIABILITY_TYPE_LINE_OF_CREDIT" },
     { label: "Overdraft", value: "LIABILITY_TYPE_OVERDRAFT" },
     { label: "Margin Loan", value: "LIABILITY_TYPE_MARGIN_LOAN" },
     { label: "Other Loan", value: "LIABILITY_TYPE_OTHER_LOAN" }
@@ -127,6 +134,9 @@ export default class SopAddDebtsContainer extends LightningModal {
   }
 
   async handleSave() {
+    this.showSaveButton = false;
+    this.showCancelButton = false;
+    this.showBackButton = false;
     if (
       await this.template
         .querySelector("c-sop-add-edit-debts")
@@ -134,6 +144,10 @@ export default class SopAddDebtsContainer extends LightningModal {
     ) {
       this.showAddForm = false;
       this.close();
+    } else {
+      this.showSaveButton = true;
+      this.showCancelButton = true;
+      this.showBackButton = true;
     }
   }
 }

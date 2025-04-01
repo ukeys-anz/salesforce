@@ -3,6 +3,8 @@ import SopEditDebtsContainer from "c/sopEditDebtsContainer";
 
 const DEBT_DATA = require("./data/debtData.json");
 const PARTIES = require("./data/parties.json");
+const PROPERTIES = require("./data/propertyData.json");
+const REFINANCE_DATA = require("./data/refinanceData.json");
 
 describe("c-sop-edit-debts-container", () => {
   afterEach(() => {
@@ -21,8 +23,10 @@ describe("c-sop-edit-debts-container", () => {
       is: SopEditDebtsContainer
     });
     element.debtData = DEBT_DATA;
-    element.debtType = "LIABILITY_TYPE_CREDIT_CARD";
+    element.debtType = "LIABILITY_TYPE_LINE_OF_CREDIT";
     element.parties = PARTIES;
+    element.propertyAssets = PROPERTIES;
+    element.refinancedAssets = REFINANCE_DATA;
     document.body.appendChild(element);
     await flushPromises();
     let debt = element.shadowRoot.querySelector(

@@ -10,6 +10,12 @@ const TYPE_MAP = {
   ASSET_TYPE_CASH: "Cash"
 };
 
+const SOURCE_MAP = {
+  ASSET_SOURCE_MANUAL: "Manual",
+  ASSET_SOURCE_OPENBANKING: "Credit Bureau",
+  ASSET_SOURCE_ANZ: "ANZ"
+};
+
 export const ACCOUNT_STATUS = {
   ACCOUNT_STATE_UNSPECIFIED: "Unspecified", // there is no info about what status the account is in
   ACCOUNT_STATE_OPEN: "Open", // the account is open
@@ -56,6 +62,7 @@ export default class SopFinanceSavings extends LightningElement {
       //Loop through savings data and sort into the savings sections
       this.savingsData.savings.forEach((saving) => {
         saving.readableType = TYPE_MAP[saving.type];
+        saving.readableSource = SOURCE_MAP[saving.source];
         saving.readableStatus =
           saving.accountStatus !== null
             ? ACCOUNT_STATUS[saving.accountStatus]
@@ -137,7 +144,7 @@ export default class SopFinanceSavings extends LightningElement {
         saving.image = ANZ_PLUS_IMG;
         break;
       case "ANZ":
-        saving.showProductName = false;
+        saving.showProductName = saving.productName ? true : false;
         saving.showInstitution = true;
         saving.showBalance = true;
         saving.showAmount = false;
