@@ -54,7 +54,9 @@ public with sharing class CaseGroupCaseConstants {
 
   public static final Map<String, String> COP_STATUS_MAP = new Map<String, String>{
     'ACCOUNT_COP_STATUS_OPT_IN' => 'Opt-In',
-    'ACCOUNT_COP_STATUS_OPT_OUT' => 'Opt-Out'
+    'ACCOUNT_COP_STATUS_OPT_OUT' => 'Opt-Out',
+    'OPT-IN' => 'Opt-In',
+    'OPT-OUT' => 'Opt-Out'
   };
 
   public static final Map<String, String> COP_STATUS_UPDATE_MAP = new Map<String, String>{
@@ -63,10 +65,11 @@ public with sharing class CaseGroupCaseConstants {
   };
 
   public static final Map<String, String> OPTOUT_REASON_MAP = new Map<String, String>{
-    'Victim / survivor of abuse' => 'COP_STATUS_REASON_VICTIM_OR_OSURVIVOR_OF_ABUSE',
+    'Victim / survivor of abuse' => 'COP_STATUS_REASON_VICTIM_OR_SURVIVOR_OF_ABUSE',
     'Profession requiring discretion' => 'COP_STATUS_REASON_PROFESSION_REQUIRING_DISCRETION',
     'Transition gender' => 'COP_STATUS_REASON_TRANSITION_GENDER',
-    'Change to relationship partner' => 'COP_STATUS_REASON_CHANGE_TOR_ELATIONSHIP_PARTNER'
+    'Change to relationship partner' => 'COP_STATUS_REASON_CHANGE_TO_RELATIONSHIP_PARTNER',
+    'UnSpecified' => 'COP_STATUS_REASON_UNSPECIFIED'
   };
 
   //Set of Case  issue type for account closure, cop opt in  and cop opr out

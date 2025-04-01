@@ -273,9 +273,11 @@ public with sharing class ConfirmationOfPayeeHelper {
       model.accountIdentification =
         caseObj.FinServ__FinancialAccount__r.BSB__c +
         caseObj.FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c;
-      model.copStatusReason = CaseGroupCaseConstants.OPTOUT_REASON_MAP.get(
-        caseObj.Opt_Out_Reason__c
-      );
+      model.copStatusReason = caseObj.Opt_Out_Reason__c == null
+        ? CaseGroupCaseConstants.OPTOUT_REASON_MAP.get('UnSpecified')
+        : CaseGroupCaseConstants.OPTOUT_REASON_MAP.get(
+            caseObj.Opt_Out_Reason__c
+          );
       model.accountingSystem = caseObj.SI_PSI_Source_Other__c;
       FinancialAccModelUpdateRequestCoP.RequestedBy requestor = new FinancialAccModelUpdateRequestCoP.RequestedBy();
       requestor.requestorIdType = 'OCVID';
