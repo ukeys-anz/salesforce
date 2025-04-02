@@ -21,6 +21,8 @@ const FIELDS = [
   "Account.BillingPostalCode",
   "Account.BillingCountry",
   "Account.RecordType.Name",
+  "Account.Migration_Status__c",
+  "Account.Migration_Status_Date__c",
   "Account.Controlling_Post__c",
   "Account.Controlling_Post__r.Responsible_Employee_Name__c",
   "Account.Controlling_Post__r.CPID_Phone__c",

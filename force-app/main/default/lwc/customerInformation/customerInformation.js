@@ -46,6 +46,8 @@ const FIELDS = [
   "Case.Account.FinServ__Age__pc",
   "Case.Account.Gender__pc",
   "Case.Account.RecordType.Name",
+  "Case.Account.Migration_Status__c",
+  "Case.Account.Migration_Status_Date__c",
   "Case.Account.Controlling_Post__r.Responsible_Employee_Name__c",
   "Case.Account.Controlling_Post__r.CPID_Phone__c",
   "Case.Account.Controlling_Post__r.CPID_Address__c"
@@ -139,6 +141,8 @@ export default class CustomerInformation extends LightningElement {
       state: "",
       postcode: "",
       country: "",
+      migrationStatusType: "",
+      migrationStatusDate: "",
       rmData: { name: "", phone: "", officeAddress: "" },
       accounts: []
     };
@@ -162,6 +166,10 @@ export default class CustomerInformation extends LightningElement {
     customerAccountData.state = accountData.BillingState?.value;
     customerAccountData.postcode = accountData.BillingPostalCode?.value;
     customerAccountData.country = accountData.BillingCountry?.value;
+    customerAccountData.migrationStatusType =
+      accountData.Migration_Status__c?.value;
+    customerAccountData.migrationStatusDate =
+      accountData.Migration_Status_Date__c?.value;
     customerAccountData.complainant_type =
       accountData.RecordType.value.fields.Name?.value;
     customerAccountData.rmData.name =

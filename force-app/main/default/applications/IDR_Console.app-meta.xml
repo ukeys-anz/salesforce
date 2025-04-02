@@ -217,6 +217,7 @@
     <tabs>standard-Product2</tabs>
     <tabs>Known_Issues__c</tabs>
     <tabs>standard-Feed</tabs>
+    <tabs>standard-Account</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>IDR_Console_UtilityBar</utilityBar>
     <workspaceConfig>
@@ -225,6 +226,9 @@
         </mappings>
         <mappings>
             <tab>Restricted_Cases</tab>
+        </mappings>
+        <mappings>
+            <tab>standard-Account</tab>
         </mappings>
         <mappings>
             <tab>standard-Case</tab>

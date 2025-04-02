@@ -166,7 +166,11 @@
                   Email(ANZ Plus) : {customerInfo.emailanzplus}
                 </li>
               </template>
-              <template lwc:else> Email : {customerInfo.email} </template>
+              <template lwc:else>
+                <li class="slds-list__item" title="Email">
+                  Email : {customerInfo.email}
+                </li>
+              </template>
               <template lwc:if={customerInfo.accId}>
                 <li class="slds-list__item" title="Mobile">
                   Mobile(Classic) : {customerInfo.mobileclassic}
