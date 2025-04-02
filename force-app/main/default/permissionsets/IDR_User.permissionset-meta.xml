@@ -28,6 +28,10 @@
         <apexClass>omnistudio__ComponentController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>IDR_Omni_Settings_CMOS__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customSettingAccesses>
         <name>IDR_Notification_Hours__c</name>
         <enabled>true</enabled>

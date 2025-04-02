@@ -32,7 +32,7 @@ export async function getCustomerNumberValidationMsg(
   let modalMsg =
     "Please complete all required fields: " + missingFields.join(", ");
   if (
-    omniJsonData.enableAccountLookUp === false &&
+    !omniJsonData.enableAccountLookUp &&
     omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
     !omniJsonData.Case.CustomerDetails.Customer &&
     omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID" &&
@@ -92,7 +92,8 @@ function checkAccountLookup(omniJsonData) {
     (omniJsonData.isEligibleAppForLookUp && !caseDetails.AccountId) ||
     (!omniJsonData.isEligibleAppForLookUp &&
       !caseDetails.AccountId &&
-      omniJsonData.enableAccountLookUp)
+      omniJsonData.enableAccountLookUp &&
+      omniJsonData.Case.CustomerDetails.CustomerIdentifier !== "CACHE ID")
   ) {
     missingFields.push("Customer Name");
   }

@@ -48,7 +48,8 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       (this.omniJsonData.Response === false ||
         !Object.prototype.hasOwnProperty.call(this.omniJsonData, "Response")) &&
-      !this.omniJsonData.isEligibleAppForLookUp
+      !this.omniJsonData.isEligibleAppForLookUp &&
+      !this.omniJsonData.enableAccountLookUp
     ) {
       this.modalMsg +=
         "Please complete all required fields: Customer number is not valid or has not been validated, check the number and try again.";
@@ -141,7 +142,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
   validateCustomerNumber() {
     let compare = /^[0-9]{10}$/;
     if (
-      this.omniJsonData.enableAccountLookUp === false &&
+      !this.omniJsonData.enableAccountLookUp &&
       this.omniJsonData.Case.isThisCustomerComplaint === "Yes" &&
       this.omniJsonData.Case.CustomerDetails.Customer &&
       (this.omniJsonData.Case.CustomerDetails.Customer !==
@@ -177,7 +178,7 @@ export default class CreateCaseOmni extends OmniscriptBaseMixin(
     let details = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     let customerNumber = JSON.stringify(this.omniJsonData.CustomerNumber);
     if (
-      (this.omniJsonData.enableAccountLookUp === false &&
+      (!this.omniJsonData.enableAccountLookUp &&
         details.isThisCustomerComplaint === "Yes" &&
         details.CustomerDetails.Customer &&
         details.CustomerDetails.Customer !== customerNumber) ||
