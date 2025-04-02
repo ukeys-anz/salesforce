@@ -866,7 +866,7 @@
                             <value>IDR_Complaint_Remedy__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>IDR_Total_Financial_Compensation__c</value>
+                            <value>IDR_Total_Financial_Amount__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
