@@ -1577,7 +1577,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>16.0</sequenceNumber>
+                <sequenceNumber>17.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1632,7 +1632,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>15.0</sequenceNumber>
+                <sequenceNumber>16.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -1687,7 +1687,7 @@
   &quot;textKey&quot; : &quot;&quot;,
   &quot;sanitize&quot; : false
 }</propertySetConfig>
-                <sequenceNumber>14.0</sequenceNumber>
+                <sequenceNumber>15.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>
@@ -2960,7 +2960,7 @@
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
-                <sequenceNumber>17.0</sequenceNumber>
+                <sequenceNumber>18.0</sequenceNumber>
                 <type>Text Block</type>
             </childElements>
             <childElements>

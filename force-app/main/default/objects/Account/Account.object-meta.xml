@@ -243,7 +243,7 @@
         <fields>PC_BIRTHDATE</fields>
         <fields>Primary_Residential_Address__c</fields>
         <fields>PC_PHONE5</fields>
-        <fields>PC_PHONE3</fields>
+        <fields>Mobile__c</fields>
         <fields>Other_Email__c</fields>
         <fields>PC_EMAIL</fields>
         <profileName>ANZ Standard User</profileName>
