@@ -123,7 +123,7 @@ public with sharing class IDRCaseAssignmentRules {
   @SuppressWarnings('PMD.NcssMethodCount')
   @TestVisible
   private static Id getOwnerIdForEscalatedCases(Case rec, Case oldCase) {
-    Set<String> originCeoBasket = new Set<String>{ '9', '10', '22' };
+    Set<String> originCeoBasket = new Set<String>{ '9', '10', '22', '23' };
 
     if (rec.Status != IDRConstants.ESCALATED_STATUS) {
       return rec.OwnerId;

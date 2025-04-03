@@ -254,6 +254,11 @@
     <standardValue>
         <fullName>22</fullName>
         <default>false</default>
-        <label>Other EDR Schemes or Tribunal</label>
+        <label>Other EDR Schemes or Tribunal (IDR Referral)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>23</fullName>
+        <default>false</default>
+        <label>Other EDR Schemes or Tribunal (Post IDR Referral)</label>
     </standardValue>
 </StandardValueSet>
