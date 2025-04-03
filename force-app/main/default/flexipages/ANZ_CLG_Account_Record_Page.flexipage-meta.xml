@@ -866,7 +866,7 @@
                             <value>IDR_Complaint_Remedy__c</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>IDR_Total_Financial_Compensation__c</value>
+                            <value>IDR_Total_Financial_Amount__c</value>
                         </valueListItems>
                     </valueList>
                 </componentInstanceProperties>
@@ -983,6 +983,13 @@
                 </componentInstanceProperties>
                 <componentName>flexipage:tab</componentName>
                 <identifier>flexipage_tab8</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.ANZx_Customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>false</rightValue>
+                    </criteria>
+                </visibilityRule>
             </componentInstance>
         </itemInstances>
         <itemInstances>
