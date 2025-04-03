@@ -87,7 +87,7 @@
             <value>
                 <fullName>23</fullName>
                 <default>false</default>
-                <label>Other EDR Schemes or Tribunal (Post IDR Referral)</label>
+                <label>Other EDR Schemes or Tribunal (Post IDR)</label>
             </value>
         </valueSetDefinition>
     </valueSet>
