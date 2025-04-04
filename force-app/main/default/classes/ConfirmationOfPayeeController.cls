@@ -151,7 +151,7 @@ public with sharing class ConfirmationOfPayeeController implements CaseGroupWiza
    * @param financialAccountId Id of Financial Account
    * @return CaseGroupFinancialAccountModel financial account information related to COP
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static List<CaseGroupFinancialAccountModel> fetchCOPInformation(
     Id financialAccountId
   ) {

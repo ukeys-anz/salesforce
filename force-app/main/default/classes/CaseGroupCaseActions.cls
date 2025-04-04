@@ -31,7 +31,10 @@ public with sharing class CaseGroupCaseActions {
     for (Case childCase : childCaseRecords) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
-      if (childCase.Status != CaseGroupCaseConstants.CLOSED_STATUS) {
+      if (
+        childCase.Status != CaseGroupCaseConstants.CLOSED_STATUS &&
+        childCase.Status != CaseGroupCaseConstants.WITHDRAWN_STATUS
+      ) {
         childCase.Status = parentCase.Status;
       }
       childCase.Circumstance__c = parentCase.Circumstance__c;
