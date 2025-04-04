@@ -4687,7 +4687,8 @@
         "Sub_Team_Code__c",
         "Manager_Email__c",
         "Manager_Lan_Id__c",
-        "Commercial_Segment__c"
+        "Commercial_Segment__c",
+        "Is_Manager__c"
       ],
       "IA-2468715": [
         "Active_Directory_ID__c",
@@ -4707,8 +4708,7 @@
         "ML_Role__c",
         "ML_Territories__c",
         "ML_Territories_Virtual__c"
-      ],
-      "IA-2425790": ["Is_Manager__c"]
+      ]
     },
     "Territory__c": {
       "IA-2415860": [
