@@ -1023,6 +1023,26 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Customer_NonCustomer_ComplaintAccess</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read/Write access to Customer and Non-Customer Complaint Cases.</description>
+        <label>Customer_NonCustomer_ComplaintAccess</label>
+        <sharedTo>
+            <group>Customer_Non_Customer_Complaint_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Disputes_Readonly</fullName>
         <accessLevel>Read</accessLevel>
         <description>All ATM and Card Dispute cases shared to GCP Integration User</description>
