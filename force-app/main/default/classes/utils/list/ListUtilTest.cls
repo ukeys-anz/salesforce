@@ -760,6 +760,27 @@ private class ListUtilTest {
       'Expected accounts with specified Name'
     );
   }
+
+  @IsTest
+  static void testFilterAllNotChanged() {
+    accounts[0].Name = FAKER.randomString(5);
+    accounts[0].NumberOfEmployees = FAKER.randomInteger(2);
+    Test.startTest();
+    List<Account> results = ListUtil.filter(
+        new List<Account>{ accounts[0], accounts[1] },
+        oldMap
+      )
+      .allNotChanged(
+        new Set<SObjectField>{ Account.Name, Account.NumberOfEmployees }
+      )
+      .toList();
+    Test.stopTest();
+    Assert.areEqual(
+      new List<Account>{ accounts[1] },
+      results,
+      'Expected accounts where Name and NumberOfEmployees has not changed'
+    );
+  }
   //#endregion
 
   //#region Generic Filter tests

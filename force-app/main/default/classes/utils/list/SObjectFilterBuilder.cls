@@ -342,4 +342,31 @@ public class SObjectFilterBuilder {
     base.records = output;
     return this;
   }
+
+  /**
+   * @description Filter records with all fields have not changed.
+   * @param fields The set of fields to check for not changed.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder allNotChanged(Set<SObjectField> fields) {
+    if (this.oldMap.isEmpty()) {
+      return this;
+    }
+    List<Object> output = base.handler.emptyList;
+    for (SObject record : this.toList()) {
+      Boolean isChanged = false;
+      SObject oldRecord = this.oldMap.get(record.Id);
+      for (SObjectField field : fields) {
+        if (oldRecord == null || record.get(field) != oldRecord.get(field)) {
+          isChanged = true;
+          break;
+        }
+      }
+      if (!isChanged) {
+        output.add(record);
+      }
+    }
+    base.records = output;
+    return this;
+  }
 }
