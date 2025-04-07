@@ -159,7 +159,7 @@ export default class CreateChildCasesWizard extends LightningElement {
       .map((record) => record.accountNumber);
     if (errorAccountNumbers.length > 0) {
       this.showOnlyToast(
-        "Failed To Retrieve COP status for Account Numbers - " +
+        "Failed To Retrieve CoP status for Account Numbers - " +
           errorAccountNumbers.join(", "),
         "Failed to retrieve latest account details. Please refresh and try again. If the issue persists, please contact your System Administrator",
         "warning"

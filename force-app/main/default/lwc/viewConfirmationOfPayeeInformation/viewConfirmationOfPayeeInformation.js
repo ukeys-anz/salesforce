@@ -29,7 +29,7 @@ export default class ViewConfirmationOfPayeeInformation extends LightningElement
         this.error = error;
         this.showData = false;
         this.isLoading = false;
-        console.error("Error fetching COP information:", error);
+        console.error("Error fetching CoP information:", error);
       });
   }
 }
