@@ -31,6 +31,10 @@ export default class AccountClosureWizardChild extends LightningElement {
   @api accountId;
   @api showCheckbox;
   @api issueType;
+  errorMessageForValidAccountName;
+  errorMessageForValidBsb;
+  errorMessageForValidAccountNumber;
+  errorMessageForValidClosureReason;
   @track _selectedRows = [];
   @api
   set selectedRows(value) {
@@ -204,12 +208,11 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   handleCreateChildCases() {
     this.errorMsg =
-      "Child cases could not be created. Please fill in all required fields.";
-    const { validRows, isFieldIsBlank } = this.validateRows(this._selectedRows);
+      "Child case could not be created. Please complete all required fields and meet the specified criteria.";
+    const { validRows, isFieldIsValid } = this.validateRows(this._selectedRows);
     this._selectedRows = validRows;
-    this.setErrorVisibility(isFieldIsBlank, this.errorMsg);
-
-    if (!isFieldIsBlank) {
+    this.setErrorVisibility(isFieldIsValid, this.errorMsg);
+    if (!isFieldIsValid) {
       this.createChildCases(validRows);
     }
   }
@@ -224,15 +227,35 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   // Method to validate all rows
   validateRows(rows) {
-    let isFieldIsBlank = false;
+    let isFieldIsValid = false;
     const validRows = rows.map((row) => {
       const invalidFields = this.validateRowFields(row);
       if (Object.values(invalidFields).includes(true)) {
-        isFieldIsBlank = true;
+        isFieldIsValid = true;
       }
+      if (invalidFields.isClosureReasonInvalid) {
+        this.errorMessageForValidClosureReason = "This field is required.";
+      }
+      if (invalidFields.isAccountNameInvalid) {
+        this.errorMessageForValidAccountName = row.intendedAccountName
+          ? "Forwarding Account Name must be less than 255 characters long"
+          : "This field is required.";
+      }
+      if (invalidFields.isaccountBsbInvalid) {
+        this.errorMessageForValidBsb = row.intendedAccountBsb
+          ? "Forwarding Account BSB must be 4-6 numerical characters long"
+          : "This field is required.";
+      }
+      if (invalidFields.isAccountNumberInvalid) {
+        this.errorMessageForValidAccountNumber = row.intendedAccountNumber
+          ? "Forwarding Account Number must be between 6-23 numerical characters long"
+          : "This field is required.";
+      }
+
       return { ...row, ...invalidFields };
     });
-    return { validRows, isFieldIsBlank };
+
+    return { validRows, isFieldIsValid };
   }
 
   // Method to check the validity of each row's fields
@@ -241,9 +264,14 @@ export default class AccountClosureWizardChild extends LightningElement {
       case ISSUE_TYPE_ACCOUNT_CLOSURE:
         return {
           isClosureReasonInvalid: !row.closureReason,
-          isAccountNameInvalid: !row.intendedAccountName,
-          isaccountBsbInvalid: !row.intendedAccountBsb,
-          isAccountNumberInvalid: !row.intendedAccountNumber
+          isAccountNameInvalid:
+            !row.intendedAccountName || row.intendedAccountName.length > 255,
+          isaccountBsbInvalid:
+            !row.intendedAccountBsb ||
+            !/^\d{4,6}$/.test(row.intendedAccountBsb),
+          isAccountNumberInvalid:
+            !row.intendedAccountNumber ||
+            !/^\d{6,23}$/.test(row.intendedAccountNumber)
         };
 
       case ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT:
