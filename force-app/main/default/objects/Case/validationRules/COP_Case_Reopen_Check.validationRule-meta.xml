@@ -4,14 +4,23 @@
     <active>true</active>
     <description>This validation rule will restrict the user from changing the status of the closed case.</description>
     <errorConditionFormula>AND(
-NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
-$UserRole.DeveloperName &lt;&gt; &quot;Business_Admin&quot;,
-RecordType.DeveloperName = &quot;Case_Group&quot;,
-OR (ISPICKVAL( Type , &quot;Confirmation of Payee Opt-In&quot;) ,
-ISPICKVAL( Type , &quot;Confirmation of Payee Opt-Out&quot;)
-),
-ISCHANGED(Status),
-ISPICKVAL( PRIORVALUE( Status ), &quot;Closed&quot;)
+ NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),
+ $UserRole.DeveloperName &lt;&gt; &quot;Business_Admin&quot;, 
+ OR(
+   RecordType.DeveloperName = &quot;Confirmation_Of_Payee&quot;,
+   AND(
+     RecordType.DeveloperName = &quot;Case_Group&quot;,
+     OR(
+        ISPICKVAL( Type , &quot;Confirmation of Payee Opt-In&quot;) ,
+        ISPICKVAL( Type , &quot;Confirmation of Payee Opt-Out&quot;)
+     )
+   )
+ ),
+ ISCHANGED(Status),
+ OR(
+  ISPICKVAL( PRIORVALUE( Status ), &quot;Closed&quot;),
+  ISPICKVAL( PRIORVALUE( Status ), &quot;Withdrawn&quot;)
+) 
 )</errorConditionFormula>
-    <errorMessage>Cannot change the status of case that are already closed</errorMessage>
+    <errorMessage>Cannot change the status of case that are already closed or withdrawn.</errorMessage>
 </ValidationRule>
