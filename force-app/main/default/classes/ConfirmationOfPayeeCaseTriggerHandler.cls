@@ -38,22 +38,9 @@ public with sharing class ConfirmationOfPayeeCaseTriggerHandler extends Lib_Trig
     );
     ConfirmationOfPayeeCaseActions.updateFieldsOnWithdrawn(childWithdrawnCases);
 
-    List<Case> validCasesforMilestoneCompletion = ListUtil.filter(
-        records,
-        oldMap
-      )
-      .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
-      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUSES)
-      .toList();
-
-    Set<Id> validCaseIds = ListUtil.getIds(
-      validCasesforMilestoneCompletion,
-      Case.Id
-    );
-    MilestoneUtils.completeMilestones(
-      validCaseIds,
-      CaseGroupCaseConstants.MILESTONES_APPLICABLE,
-      System.now()
+    ConfirmationOfPayeeCaseActions.completeMilestones(
+      records, 
+      oldMap
     );
   }
 

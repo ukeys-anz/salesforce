@@ -66,23 +66,10 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
     CaseGroupCaseActions.validateParentClosureIfChildCasesOpen(
       parentCasesWithStatusClosed
     );
-
-    List<Case> validCasesforMilestoneCompletion = ListUtil.filter(
-        records,
-        oldMap
-      )
-      .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
-      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
-      .toList();
-
-    Set<Id> validCaseIds = ListUtil.getIds(
-      validCasesforMilestoneCompletion,
-      Case.Id
-    );
-    MilestoneUtils.completeMilestones(
-      validCaseIds,
-      CaseGroupCaseConstants.MILESTONES_APPLICABLE,
-      System.now()
+    
+    CaseGroupCaseActions.completeMilestones(
+      records, 
+      oldMap
     );
   }
 

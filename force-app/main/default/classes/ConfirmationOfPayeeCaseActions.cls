@@ -132,4 +132,32 @@ public with sharing class ConfirmationOfPayeeCaseActions {
 
     DML_REPOSITORY.doUpdate(parentCasesToUpdate);
   }
+
+   /**
+   * @description update Milestone Completed if the case is closed.
+   * @param records List<Case> caseList: New record instances to process
+   * @param oldMap Map<Id, Case> oldMap: Map of the old values of the records to process
+   */
+  public static void completeMilestones(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+      List<Case> validCasesforMilestoneCompletion = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
+      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUSES)
+      .toList();
+
+      Set<Id> validCaseIds = ListUtil.getIds(
+        validCasesforMilestoneCompletion,
+        Case.Id
+      );
+      MilestoneUtils.completeMilestones(
+        validCaseIds,
+        CaseGroupCaseConstants.MILESTONES_APPLICABLE,
+        System.now()
+      );
+    }
 }
