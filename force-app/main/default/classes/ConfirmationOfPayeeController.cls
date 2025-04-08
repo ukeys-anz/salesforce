@@ -45,7 +45,9 @@ public with sharing class ConfirmationOfPayeeController implements CaseGroupWiza
     AccountCoPStatusRequestModel request = COP_HELPER.getCOPStatusRequest(
       mapOfFinAccNumToFinAccounts.values()
     );
-
+    if (request.accountList.isEmpty()) {
+      return new List<CaseGroupFinancialAccountModel>();
+    }
     FetchFinAccCOPStatusAPIRepository apiRepo = new FetchFinAccCOPStatusAPIRepository();
     FinancialAccountModelGetResponseCoP response = apiRepo.getAccountCoPdetails(
       request,
