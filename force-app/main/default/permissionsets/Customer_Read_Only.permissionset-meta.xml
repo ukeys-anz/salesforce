@@ -112,6 +112,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Account.Migration_Status_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Migration_Status__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.Mobile__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -468,6 +478,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>FinServ__ContactContactRelation__c.Role_Description__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Migration_Status_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>FinServ__FinancialAccount__c.Migration_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -24,10 +24,8 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
     AccountClosureCaseActions.linkChildCasesWithParent(
       accountClosureChildCasesWithoutParent
     );
-    AccountClosureCaseActions.populateCaseSubject(
-      records,
-      GetHelpConstants.ACCOUNT_CLOSURE
-    );
+    AccountClosureCaseActions.cascadeParentFieldsToChildCases(records);
+    AccountClosureCaseActions.populateCaseSubject(records);
   }
 
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
@@ -38,8 +36,7 @@ public with sharing class AccountClosureCaseTriggerHandler extends Lib_TriggerHa
       .changed(case.AccountId)
       .toList();
     AccountClosureCaseActions.populateCaseSubject(
-      parentCasesWhereCustomerChanged,
-      GetHelpConstants.ACCOUNT_CLOSURE
+      parentCasesWhereCustomerChanged
     );
   }
 

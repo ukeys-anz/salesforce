@@ -157,7 +157,7 @@ public with sharing class ResidentialLoanApplicationRepository {
 
     //LoanApplicant stores OCV Ids in Party Id field
     return [
-      SELECT Id, Account__r.FirstName, Party_ID__c
+      SELECT Id, Account__r.Name, Party_ID__c
       FROM LoanApplicant
       WHERE Party_ID__c IN :ocvIds AND LoanApplicationId = :loanAppId
       WITH USER_MODE

@@ -1,0 +1,68 @@
+<template>
+  <lightning-card
+    title="Confirmation of Payee"
+    icon-name="standard:portal_roles"
+  >
+    <div slot="actions">
+      <lightning-button
+        label="View Details"
+        onclick={handleButtonClick}
+      ></lightning-button>
+    </div>
+    <template if:true={isLoading}>
+      <lightning-spinner
+        alternative-text="Loading..."
+        size="medium"
+      ></lightning-spinner>
+    </template>
+
+    <template if:true={showData}>
+      <lightning-layout multiple-rows class="slds-p-horizontal_medium">
+        <lightning-layout-item
+          class="slds-size_12-of-12 slds-border_bottom slds-p-top_small"
+        >
+          <lightning-input
+            label="Status"
+            value={status}
+            readonly
+          ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item
+          class="slds-size_12-of-12 slds-border_bottom slds-p-top_small"
+        >
+          <lightning-input
+            label="Requested By"
+            value={requestedBy}
+            readonly
+          ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item
+          class="slds-size_12-of-12 slds-border_bottom slds-p-top_small"
+        >
+          <lightning-input
+            label="Modified By"
+            value={modifiedBy}
+            readonly
+          ></lightning-input>
+        </lightning-layout-item>
+        <lightning-layout-item
+          class="slds-size_12-of-12 slds-border_bottom slds-p-vertical_small"
+        >
+          <div class="slds-form-element">
+            <label class="slds-form-element__label">Date and Time</label>
+            <div class="slds-form-element__control slds-p-top_x-small">
+              <lightning-formatted-date-time
+                value={dateTimeValue}
+                year="numeric"
+                month="numeric"
+                day="numeric"
+                hour="2-digit"
+                minute="2-digit"
+              ></lightning-formatted-date-time>
+            </div>
+          </div>
+        </lightning-layout-item>
+      </lightning-layout>
+    </template>
+  </lightning-card>
+</template>

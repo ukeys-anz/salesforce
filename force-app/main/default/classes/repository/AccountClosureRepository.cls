@@ -15,13 +15,35 @@ public with sharing class AccountClosureRepository {
     }
 
     return [
-      SELECT Id, AccountId, OwnerId, CaseNumber, Status, Circumstance__c
+      SELECT Id, AccountId, OwnerId, CaseNumber, Status, Circumstance__c, Type
       FROM Case
       WHERE
         RecordTypeId = :RTCase.caseGroup
-        AND Status != :GetHelpConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND AccountId IN :accountIds
-        AND Type = :GetHelpConstants.ACCOUNT_CLOSURE
+        AND Type = :CaseGroupCaseConstants.ACCOUNT_CLOSURE
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Get list of Case Group cases associated with the account Ids and status as not closed.
+   * @param accountIds set of Account Ids associated to the case
+   * @return List<Case> list of Case Group cases
+   */
+  public List<Case> queryExistingParentCasesWithIssueType(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, AccountId, OwnerId, CaseNumber, Status, Circumstance__c, Type
+      FROM Case
+      WHERE
+        RecordTypeId = :RTCase.caseGroup
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
+        AND AccountId IN :accountIds
+        AND Type IN :CaseGroupCaseConstants.CASE_ISSUE_TYPES
       WITH USER_MODE
     ];
   }
@@ -38,7 +60,10 @@ public with sharing class AccountClosureRepository {
     return [
       SELECT Id, ParentId, Status
       FROM Case
-      WHERE ParentId IN :parentIds AND RecordTypeId = :RTCase.accountClosure
+      WHERE
+        ParentId IN :parentIds
+        AND (RecordTypeId = :RTCase.accountClosure
+        OR RecordTypeId = :RTCase.confirmationOfPayee)
       WITH USER_MODE
     ];
   }
@@ -56,6 +81,25 @@ public with sharing class AccountClosureRepository {
       SELECT Id, Name
       FROM Account
       WHERE Id IN :accountIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Query Financial Account Number of the financial account
+   * @param financialAccountIds set of fin account Ids
+   * @return List of financial account with their account number
+   */
+  public List<FinServ__FinancialAccount__c> queryFinancialAccountNumber(
+    Set<Id> financialAccountIds
+  ) {
+    if (financialAccountIds.isEmpty()) {
+      return new List<FinServ__FinancialAccount__c>();
+    }
+    return [
+      SELECT Id, FinServ__FinancialAccountNumber__c
+      FROM FinServ__FinancialAccount__c
+      WHERE Id IN :financialAccountIds
       WITH USER_MODE
     ];
   }
@@ -90,8 +134,8 @@ public with sharing class AccountClosureRepository {
         ParentId IN :parentCaseIds
         AND RecordTypeId = :RTCase.accountClosure
         AND FinServ__FinancialAccount__c != NULL
-        AND Status = :GetHelpConstants.ESCALATED_STATUS
-        AND (Sub_Status__c = :GetHelpConstants.FAILED
+        AND Status = :CaseGroupCaseConstants.ESCALATED_STATUS
+        AND (Sub_Status__c = :CaseGroupCaseConstants.FAILED
         OR Sub_Status__c = NULL)
       WITH USER_MODE
     ];
@@ -103,7 +147,7 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> List of child cases associated to the parent case.
    */
   public List<Case> queryEligibleChildCasesForClosure(Set<Id> parentCaseId) {
-    if (parentCaseId == null) {
+    if (parentCaseId.isEmpty()) {
       return new List<Case>();
     }
 
@@ -120,7 +164,59 @@ public with sharing class AccountClosureRepository {
       WHERE
         ParentId = :parentCaseId
         AND RecordTypeId = :RTCase.accountClosure
-        AND Sub_Status__c = :GetHelpConstants.SUCCESS
+        AND Sub_Status__c = :CaseGroupCaseConstants.SUCCESS
+        AND FinServ__FinancialAccount__c != NULL
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Queries all the related cases (child cases) to the parent case having status as Escalated and Substatus as Success
+   * @param parentCaseId set of Case Group (Parent Case) Id
+   * @return List<Case> List of child cases associated to the parent case.
+   */
+  public List<Case> queryEligibleChildCasesForCop(Set<Id> parentCaseId) {
+    if (parentCaseId.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT
+        Id,
+        CaseNumber,
+        ParentId,
+        Product.Name,
+        FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c,
+        Account_Type__c,
+        Account_Product__c
+      FROM Case
+      WHERE
+        ParentId = :parentCaseId
+        AND RecordTypeId = :RTCase.confirmationOfPayee
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
+        AND FinServ__FinancialAccount__c != NULL
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Queries all the related cases (child cases) to the parent case having  Escalated status
+   * @param parentCaseId set of Case Group (Parent Case) Id
+   * @return List<Case> List of child cases associated to the parent case.
+   */
+  public List<Case> queryEscalatedCopCases(Set<Id> parentCaseId) {
+    if (parentCaseId.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, ParentId, CaseNumber
+      FROM Case
+      WHERE
+        ParentId = :parentCaseId
+        AND RecordTypeId = :RTCase.confirmationOfPayee
+        AND Status = :CaseGroupCaseConstants.ESCALATED_STATUS
         AND FinServ__FinancialAccount__c != NULL
       WITH USER_MODE
     ];
@@ -158,6 +254,9 @@ public with sharing class AccountClosureRepository {
    * @return Case record with the details
    */
   public Case queryCaseDetails(Id recordId) {
+    if (recordId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -173,7 +272,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE Id = :recordId
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**
@@ -200,6 +299,9 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of child cases
    */
   public List<Case> getUnusedChildCasesByParentId(Id parentCaseId) {
+    if (parentCaseId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -214,7 +316,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         ParentId = :parentCaseId
-        AND Status != :GetHelpConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND FinServ__FinancialAccount__c = NULL
         AND RecordTypeId = :RTCase.accountClosure
       WITH USER_MODE
@@ -223,12 +325,17 @@ public with sharing class AccountClosureRepository {
 
   /**
    * @description Inserted or Updated Case data which is requried to show on LWC
+   * Reason: Sharing recalculation not completed by the time SOQL running hence inserted records not available with user mode query
+   * Use Case for Sytem mode: When case record owner is different than Logged in user
    * @param setOfCaseIdsToQuery set of case Ids to query
    * @return List<Case> list of case records
    */
   public List<Case> getInsertedOrUpdatedCaseDetails(
     Set<Id> setOfCaseIdsToQuery
   ) {
+    if (setOfCaseIdsToQuery.isEmpty()) {
+      return new List<Case>();
+    }
     SystemModeActions systemAction = new SystemModeActions(
       'AccountClosureRepository',
       'getInsertedOrUpdatedCaseDetails'
@@ -247,6 +354,9 @@ public with sharing class AccountClosureRepository {
    * @return List<Case> list of account closure case linked with FA
    */
   public List<Case> getCasesByFinancialAccountIds(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new List<Case>();
+    }
     return [
       SELECT FinServ__FinancialAccount__c
       FROM Case
@@ -280,7 +390,7 @@ public with sharing class AccountClosureRepository {
       FROM FinServ__FinancialAccount__c
       WHERE
         Id IN :accountIds
-        AND FinServ__Status__c != :GetHelpConstants.CLOSED_STATUS
+        AND FinServ__Status__c != :CaseGroupCaseConstants.CLOSED_STATUS
         AND RecordTypeId != :RTFinancialAccount.bankAccount
       WITH USER_MODE
     ];
@@ -337,9 +447,10 @@ public with sharing class AccountClosureRepository {
       SELECT Id, Status, ParentId
       FROM Case
       WHERE
-        Status != :GetHelpConstants.CLOSED_STATUS
+        Status != :CaseGroupCaseConstants.CLOSED_STATUS
         AND ParentId IN :caseIds
-        AND RecordTypeId = :RTCase.accountClosure
+        AND (RecordTypeId = :RTCase.accountClosure
+        OR RecordTypeId = :RTCase.confirmationOfPayee)
       WITH USER_MODE
     ];
   }
@@ -362,6 +473,26 @@ public with sharing class AccountClosureRepository {
       WHERE
         FinServ__FinancialAccount__r.FinServ__FinancialAccountNumber__c = :finAccountValue
         AND FinServ__Active__c = TRUE
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Get details of Parent / Case Group cases linked to the inserted child cases
+   * @param parentIds set of Parent Ids associated to the child case
+   * @return List<Case> list of parent/Case Group cases
+   */
+  public List<Case> queryParentCaseDetails(Set<Id> parentIds) {
+    if (parentIds.isEmpty()) {
+      return new List<Case>();
+    }
+
+    return [
+      SELECT Id, OwnerId, Status, Circumstance__c, Type
+      FROM Case
+      WHERE
+        Type IN :CaseGroupCaseConstants.CASE_ISSUE_TYPES
+        AND Id IN :parentIds
       WITH USER_MODE
     ];
   }

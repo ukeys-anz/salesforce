@@ -7956,6 +7956,10 @@
         <recordType>Case.Case_Group</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Confirmation Of Payee Layout</layout>
+        <recordType>Case.Confirmation_Of_Payee</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
