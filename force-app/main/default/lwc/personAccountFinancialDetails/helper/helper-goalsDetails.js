@@ -2,7 +2,7 @@ export function groupGoalsByAccountNumber(accountGoals) {
   const accountMap = new Map();
   accountGoals.forEach((bucket) => {
     const key = `${bucket.account_number}`;
-    if (!accountMap.has(key)) {
+    if (!accountMap.has(key) && bucket.showGoal) {
       accountMap.set(key, {
         account_number: bucket.account_number,
         account_name: bucket.financial_account_name,
@@ -17,7 +17,9 @@ export function groupGoalsByAccountNumber(accountGoals) {
         buckets: []
       });
     }
-    accountMap.get(key).buckets.push(bucket);
+    if (!bucket.is_default) {
+      accountMap?.get(key)?.buckets.push(bucket);
+    }
   });
   return Array.from(accountMap.values());
 }
