@@ -51,10 +51,13 @@ public with sharing class IDREmailServiceHelper {
       // Return newCase without an Id
       return newCase;
     }
-    if (fromEmail == System.Label.ANZ_com_Sender_Address) {
+    Set<String> senderAddresses = new Set<String>{
+      System.Label.ANZ_com_Sender_Address,
+      System.Label.Complaints_Anz_Com_Sender_Address
+    };
+    if (senderAddresses.contains(fromEmail)) {
       IDREmailToCase.parseWebFormEmail(newCase);
     }
-
     AccessCheckUtil.AccessCheckWrapper acw = AccessCheckUtil.checkAccess(
       'Case',
       AccessType.CREATABLE,

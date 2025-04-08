@@ -2787,6 +2787,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender.</value>
     </labels>
     <labels>
+        <fullName>Complaints_Anz_Com_Sender_Address</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Anz.com email address to send complaint on complaints@anz.com inbox</shortDescription>
+        <value>complaints@anz.com</value>
+    </labels>
+    <labels>
         <fullName>LoanappFriendlyErrorMessage</fullName>
         <language>en_US</language>
         <protected>false</protected>
