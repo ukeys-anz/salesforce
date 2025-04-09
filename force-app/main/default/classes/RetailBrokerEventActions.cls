@@ -3,7 +3,6 @@
  * @since  04/03/2024
  * @description Service layer for GCP event related actions for broker event
  * @runTests  RetailBrokerEventActionsTest
- * @LastUpdated getBrokerContactsByIds() on 23 Feb 2025 By Ajay Mishra added New External Id field.
  */
 
 public with sharing class RetailBrokerEventActions {
@@ -57,7 +56,6 @@ public with sharing class RetailBrokerEventActions {
         Id,
         Name,
         External_Id__c,
-        New_External_Id__c,
         Broker_Customer_Profile__r.External_Id__c,
         OCV_Event_Version__c,
         Sync_Status__c

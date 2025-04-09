@@ -3,7 +3,6 @@
  * @since  08/Feb
  * @description Wrapper Class for Inserting brokerdata into Broker ORG
  * @runTests  BrokerDataCloudEventTest
- * @LastUpdated on 26 Feb 2025 By Ajay Mishra Replaced External_Id__c with New_External_Id__c.
  */
 @SuppressWarnings(
   'PMD.ApexDoc, PMD.ExcessivePublicCount, PMD.PropertyNamingConventions, PMD.NcssConstructorCount'
@@ -18,11 +17,11 @@ public virtual with sharing class BrokerDataCloudEventModel extends BrokerCloudE
     this.ce_type = System.Label.ANZX_Broker_event_ce_type + action;
     this.ce_source = 'broker.salesforce.anzx';
     this.ce_subject = 'Contact/' + contact.Name;
-    this.ce_partitionkey = 'New_External_Id__c/' + contact.New_External_Id__c;
+    this.ce_partitionkey = 'External_Id__c/' + contact.External_Id__c;
     this.ce_sequence = contact.OCV_Event_Version__c;
     this.ce_dataschema =
       System.Label.ANZX_Broker_Event_Proto_Data_Schema + '#brokerdata';
-    this.ce_xtargets = 'Broker/' + contact.New_External_Id__c;
+    this.ce_xtargets = 'Broker/' + contact.External_Id__c;
     this.ce_traceparent = '';
     this.ce_data = new BrokerCloudEventDataModel(payload);
   }
