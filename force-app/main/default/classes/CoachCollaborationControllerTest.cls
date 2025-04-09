@@ -70,6 +70,7 @@ public with sharing class CoachCollaborationControllerTest {
   private static void fetchJWETokenFromFrigTest() {
     registerMocks();
     String result = '';
+    String expectedCoachCollabDeeplink = System.Label.Coach_Collaboration_Deeplink;
     User anzxTestUser = TestUtil.getUserByFirstName('ANZx_Test_User');
     Test.startTest();
     System.runAs(anzxTestUser) {
@@ -82,7 +83,7 @@ public with sharing class CoachCollaborationControllerTest {
     Task taskRecord = (Task) dmlRepoMock.getHistory('doInsert')
       .getParam('record');
     Assert.isTrue(
-      result.startsWith('https'),
+      result.contains(expectedCoachCollabDeeplink),
       'The accessToken should be as expected.'
     );
     Assert.isTrue(taskRecord != null, 'One Task Record Should be Created');

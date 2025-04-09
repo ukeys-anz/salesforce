@@ -240,7 +240,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Coach_Collaboration_Deeplink</shortDescription>
-        <value>https://plus.anz/auth/coach/delegated#token=</value>
+        <value>anz-cc86d708-a3c2-486e-b542-ebeb602a0740://auth/coach/delegated#token=</value>
     </labels>
     <labels>
         <fullName>CCRM_ChatterPostMessageBody</fullName>

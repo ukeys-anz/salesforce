@@ -69,7 +69,7 @@ public with sharing class CaseGroupCaseConstants {
     'Profession requiring discretion' => 'COP_STATUS_REASON_PROFESSION_REQUIRING_DISCRETION',
     'Transition gender' => 'COP_STATUS_REASON_TRANSITION_GENDER',
     'Change to relationship partner' => 'COP_STATUS_REASON_CHANGE_TO_RELATIONSHIP_PARTNER',
-    'UnSpecified' => 'COP_STATUS_REASON_UNSPECIFIED'
+    'UnSpecified' => 'COP_STATUS_REASON_NO_REASON'
   };
 
   //Set of Case  issue type for account closure, cop opt in  and cop opr out

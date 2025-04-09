@@ -8882,6 +8882,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
+        <tab>FinServ__FinancialAccount__c</tab>
+        <visibility>Available</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Circle_Of_Influence__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
