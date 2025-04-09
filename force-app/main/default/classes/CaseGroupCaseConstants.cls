@@ -10,6 +10,8 @@ public with sharing class CaseGroupCaseConstants {
   public static final String COP = 'Confirmation Of Payee';
   public static final String COP_OPT_IN = 'Confirmation of Payee Opt-In';
   public static final String COP_OPT_OUT = 'Confirmation of Payee Opt-Out';
+  public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
+  public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
 
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
@@ -97,4 +99,14 @@ public with sharing class CaseGroupCaseConstants {
     return ENTITLEMENT_RT_IDS.contains(record.RecordTypeId) &&
       ENTITLEMENT_CASE_ISSUE_TYPES.contains(record.Type);
   }
+
+  public static final List<String> MILESTONES_APPLICABLE = new List<String>{
+    RESOLUTION_TIME_MILESTONE,
+    INVESTIGATION_TIME_MILESTONE
+  };
+
+  public static final List<String> CLOSED_STATUSES = new List<String>{
+    CLOSED_STATUS,
+    WITHDRAWN_STATUS
+  };
 }
