@@ -146,7 +146,6 @@ public with sharing class ConfirmationOfPayeeCaseActions {
         records,
         oldMap
       )
-      .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
       .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUSES)
       .toList();
 

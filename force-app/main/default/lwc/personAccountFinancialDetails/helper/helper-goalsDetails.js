@@ -31,17 +31,19 @@ export function addFinAccountAndMetaDataToGoals(processedAccounts, goalData) {
 
   Object.values(processedAccount).forEach((product) => {
     Object.values(product.accounts).forEach((acc) => {
-      accountMap.set(acc.account_number, {
-        financial_account_name: acc.account_name,
-        ownershipType: acc.finserv_ownership,
-        financial_account_id: acc.id,
-        sortorder: acc.finserv_sortorder,
-        productName: product.productNameTitle,
-        headerTitle: product.sectionHeaderTitle,
-        balanceTitle: product.balanceTitle,
-        productCode: product.productCode,
-        showGoal: acc.finserv_showgoal
-      });
+      if (acc?.finserv_status != "Closed") {
+        accountMap.set(acc.account_number, {
+          financial_account_name: acc.account_name,
+          ownershipType: acc.finserv_ownership,
+          financial_account_id: acc.id,
+          sortorder: acc.finserv_sortorder,
+          productName: product.productNameTitle,
+          headerTitle: product.sectionHeaderTitle,
+          balanceTitle: product.balanceTitle,
+          productCode: product.productCode,
+          showGoal: acc.finserv_showgoal
+        });
+      }
     });
   });
 
