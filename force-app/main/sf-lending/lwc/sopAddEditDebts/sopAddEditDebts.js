@@ -680,7 +680,7 @@ export default class SopAddEditDebts extends LightningModal {
 
         this.propertyDetails[index] = {
           property: propDetails.name,
-          isNotFirst: index !== 0 && !this.preventAllOwnerDelete
+          isNotFirst: index !== 0
         };
         this.payload.liability.assets[index] = propDetails.name;
       });

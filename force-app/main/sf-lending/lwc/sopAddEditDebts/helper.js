@@ -240,13 +240,15 @@ const DEBT_TYPES = {
         (isActionEdit(actionType) &&
           !debt.customerStatedClosed &&
           debt.homeLoanType !== VARIABLE_IO_LOAN &&
-          debt.homeLoanType !== FIXED_IO_LOAN),
+          debt.homeLoanType !== FIXED_IO_LOAN &&
+          debt.homeLoanType !== CONSTRUCTION_LOAN),
       showRepaymentAmount:
         isActionAdd(actionType) ||
         (isActionEdit(actionType) &&
           !debt.customerStatedClosed &&
           debt.homeLoanType !== VARIABLE_IO_LOAN &&
-          debt.homeLoanType !== FIXED_IO_LOAN),
+          debt.homeLoanType !== FIXED_IO_LOAN &&
+          debt.homeLoanType !== CONSTRUCTION_LOAN),
       showTaxDeductible:
         isActionAdd(actionType) ||
         (isActionEdit(actionType) && !debt.customerStatedClosed),
@@ -787,7 +789,8 @@ const EDIT_DEBT_TYPES = {
           repaymentAmountValue: debt.institutionalLiability?.repaymentAmount,
           repaymentFrequency: debt.institutionalLiability?.repaymentFrequency,
           interestRateValidated:
-            debt.institutionalLiability?.interestRateValidated
+            debt.institutionalLiability?.interestRateValidated,
+          paymentMethod: debt.institutionalLiability?.paymentMethod
         },
         account: {
           id: debt.accountId,

@@ -376,6 +376,12 @@ public with sharing class SOPAddEditDebtModel extends CalloutModel {
      */
     @AuraEnabled
     public Boolean interestRateValidated { get; set; }
+
+    /**
+     * @description Payment Method (repayment type)
+     */
+    @AuraEnabled
+    public String paymentMethod { get; set; }
   }
 
   /**

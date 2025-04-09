@@ -353,6 +353,7 @@ const DEBT_TYPES = {
         debt.type === BPL_LOAN && !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
+      showOwnershipSplit: true,
       image: BUY_NOW_IMG
     }
   },
@@ -361,6 +362,7 @@ const DEBT_TYPES = {
       ...COMMON_FIELDS,
       showBalanceOwing: true,
       showWithheldFromPay: true,
+      showOwnershipSplit: true,
       image: HECS_HELP_IMG
     }
   },
