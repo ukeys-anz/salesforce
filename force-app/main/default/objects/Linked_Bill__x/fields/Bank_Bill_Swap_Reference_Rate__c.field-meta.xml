@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Bank_Bill_Swap_Reference_Rate__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Source_Salesforce;Privacy_Personal_Information</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Source_EBD;Privacy_Personal_Information</complianceGroup>
     <description>Bank Bill Swap reference Rate</description>
     <externalDeveloperName>BankBillSwapReferenceRate</externalDeveloperName>
     <externalId>false</externalId>

@@ -88,11 +88,6 @@ export default class InitiateInteraction extends LightningElement {
           this.fields.accountId = data.fields.AccountId.value;
           this.fields.caseId = this.recordId;
           this.fields.reason = "Customer";
-          //If we have a number, set to true and show contact tab
-          if (this.callPhoneNumber) {
-            this.contactCustomer = true;
-            this.handleShowContactTab();
-          }
           break;
         case "Coaching_Summary__c":
           this.fields.accountId = data.fields.Account__c.value;
@@ -160,6 +155,11 @@ export default class InitiateInteraction extends LightningElement {
           this.contactCustomer = false;
           this.handleShowDialTab();
         }
+      }
+      //If we have a number, set to true and show contact tab
+      if (this.objectApiName === "Case" && this.callPhoneNumber) {
+        this.contactCustomer = true;
+        this.handleShowContactTab();
       }
     });
   }

@@ -11,7 +11,7 @@ public with sharing class CustomerAuthController {
    */
   @AuraEnabled
   public static String getSecurityCode(Id customerId) {
-    CCRMARNCService service = new CCRMARNCService();
+    ARNCService service = new ARNCService();
     return service.getSecurityCode(customerId);
   }
 
@@ -28,7 +28,7 @@ public with sharing class CustomerAuthController {
     String comment,
     String event
   ) {
-    CCRMARNCService service = new CCRMARNCService();
+    ARNCService service = new ARNCService();
     return service.createDiaryComment(customerId, comment, event);
   }
   /**
@@ -39,7 +39,7 @@ public with sharing class CustomerAuthController {
    */
   @AuraEnabled
   public static Boolean updateSecurityCode(Id customerId, String securityCode) {
-    CCRMARNCService service = new CCRMARNCService();
+    ARNCService service = new ARNCService();
     return service.updateSecurityCode(customerId, securityCode);
   }
 }

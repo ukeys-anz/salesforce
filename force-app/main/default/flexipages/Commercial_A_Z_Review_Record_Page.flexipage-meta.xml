@@ -380,7 +380,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Describe customer’s business, challenges &amp; future plans</value>
+                    <value>Describe what the business does  (Goals, Strategies, Challenges, Risks)</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection6</identifier>
@@ -398,7 +398,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Describe customer’s personal banking needs &amp; future goals</value>
+                    <value>What are the Business &amp; Transaction banking needs? (Include any OFI)</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection2</identifier>
@@ -416,7 +416,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>How does cash flow in and out of the business? (Transaction banking)</value>
+                    <value>What are the customer’s Personal banking needs? (Include any OFI)</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection5</identifier>
@@ -434,7 +434,7 @@
                 </componentInstanceProperties>
                 <componentInstanceProperties>
                     <name>label</name>
-                    <value>Does customer have current lending or relationship with OFI?</value>
+                    <value>What are the solutions offered &amp; next steps for the customer?</value>
                 </componentInstanceProperties>
                 <componentName>flexipage:fieldSection</componentName>
                 <identifier>flexipage_fieldSection4</identifier>

@@ -4,7 +4,7 @@ import anzxViewCibaAuthorisationAal4 from "@salesforce/customPermission/ANZx_Vie
 import initiateAuthenticationRequest from "@salesforce/apex/AuthenticateCustomerController.initiateAuthenticationRequest";
 import authenticationPollingResponse from "@salesforce/apex/AuthenticateCustomerController.authenticationPollingResponse";
 import updateAuthenticationHistory from "@salesforce/apex/AuthenticateCustomerController.updateAuthenticationHistory";
-import { updateRecord } from "lightning/uiRecordApi";
+import { notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 
 import FIELD_ACCOUNT_ID from "@salesforce/schema/Interaction.AccountId";
 import FIELD_ACCOUNT_FIRSTNAME from "@salesforce/schema/Interaction.Account.FirstName";
@@ -65,19 +65,19 @@ const USERMESSAGE = {
 };
 
 export default class AuthenticateCustomers extends LightningElement {
-  accountId;
-  accountNameMessage;
+  //customer info
+  accountName;
+  kycCustomer;
+  ocvId;
+  //auth info
   authrequestId;
   authHistoryId;
+
   buttonName;
   expirationMessage;
   enableAal4 = anzxViewCibaAuthorisationAal4;
-  kycCustomer;
-  ocvId;
-  receivedPollingResponse = false;
-  authenticateAgainClicked = false;
-
-  _status = STATUSMAP.LOADING;
+  pollInstance;
+  status = STATUSMAP.LOADING;
 
   @api recordId;
 
@@ -93,219 +93,194 @@ export default class AuthenticateCustomers extends LightningElement {
     ]
   })
   wiredRecord({ data, error }) {
-    if (error) {
-      this._status = STATUSMAP.ERROR;
+    if (error && this.status === STATUSMAP.LOADING) {
+      this.status = STATUSMAP.ERROR;
     }
     if (!data) {
       return;
     }
-    this._status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
-    this.accountId = getFieldValue(data, FIELD_ACCOUNT_ID);
-    if (!this.accountId) {
+    if (!getFieldValue(data, FIELD_ACCOUNT_ID)) {
       return;
     }
     this.ocvId = getFieldValue(data, FIELD_ACCOUNT_OCVID);
-    this.accountNameMessage =
+    this.accountName =
       getFieldValue(data, FIELD_ACCOUNT_FIRSTNAME) ||
       getFieldValue(data, FIELD_ACCOUNT_LASTNAME);
     this.kycCustomer =
       getFieldValue(data, FIELD_ACCOUNT_KYCSTATUS) === "CO" &&
       getFieldValue(data, FIELD_ACCOUNT_KYCLEVEL) === "VE";
+    if (this.status === STATUSMAP.LOADING) {
+      this.status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
+    }
   }
 
   get IconName() {
-    return this._status === STATUSMAP.VERIFIED
+    return this.status === STATUSMAP.VERIFIED
       ? ICONNAME.APPROVAL
       : ICONNAME.CLOSE;
   }
 
   get showAuthenticateButton() {
-    return this._status === STATUSMAP.SHOWAUTHENTICATEBUTTON ? true : false;
+    return this.status === STATUSMAP.SHOWAUTHENTICATEBUTTON;
   }
 
   get userMessage() {
-    if (
-      this._status === STATUSMAP.SHOWAUTHENTICATEBUTTON ||
-      this._status === STATUSMAP.LOADING
-    ) {
-      return USERMESSAGE.LOADING_MESSAGE;
-    } else if (this._status === STATUSMAP.VERIFIED) {
-      return `${this.accountNameMessage} has successfully completed the ${this.buttonName} verification request.`;
-    } else if (this._status === STATUSMAP.ACCESS_DENIED) {
-      return `${this.accountNameMessage} has declined the ${this.buttonName} verification request.`;
-    } else if (this._status === STATUSMAP.EXPIRED) {
-      return `The ${this.buttonName} verification request has expired.`;
-    } else if (
-      this._status === STATUSMAP.ERROR ||
-      this._status === STATUSMAP.TOKEN_VERIFICATION_FAILED
-    ) {
-      return USERMESSAGE.ERROR;
-    } else if (
-      this._status === STATUSMAP.START_POLLING ||
-      this._status === STATUSMAP.POLLING
-    ) {
-      return `${this.accountNameMessage} been asked to accept ${this.buttonName} verification request.`;
-    } else if (this._status === STATUSMAP.KYCCHECK) {
-      return USERMESSAGE.KYCERROR;
-    }
-    return "";
+    const pollingMsg = `${this.accountName} has been asked to accept ${this.buttonName} verification request.`;
+    return (
+      {
+        [STATUSMAP.SHOWAUTHENTICATEBUTTON]: USERMESSAGE.LOADING_MESSAGE,
+        [STATUSMAP.LOADING]: USERMESSAGE.LOADING_MESSAGE,
+        [STATUSMAP.TOKEN_VERIFICATION_FAILED]: USERMESSAGE.ERROR,
+        [STATUSMAP.ERROR]: USERMESSAGE.ERROR,
+        [STATUSMAP.KYCCHECK]: USERMESSAGE.KYCERROR,
+        [STATUSMAP.VERIFIED]: `${this.accountName} has successfully completed the ${this.buttonName} verification request.`,
+        [STATUSMAP.ACCESS_DENIED]: `${this.accountName} has declined the ${this.buttonName} verification request.`,
+        [STATUSMAP.EXPIRED]: `The ${this.buttonName} verification request has expired.`,
+        [STATUSMAP.START_POLLING]: pollingMsg,
+        [STATUSMAP.POLLING]: pollingMsg
+      }[this.status] ?? ""
+    );
   }
 
   get showSpinner() {
-    return this._status === STATUSMAP.LOADING ||
-      this._status === STATUSMAP.POLLING ||
-      this._status === STATUSMAP.START_POLLING
-      ? true
-      : false;
+    return [
+      STATUSMAP.LOADING,
+      STATUSMAP.START_POLLING,
+      STATUSMAP.POLLING
+    ].includes(this.status);
   }
 
   get showTimer() {
-    return this._status === STATUSMAP.POLLING ? this.expirationMessage : null;
+    return this.status === STATUSMAP.POLLING ? this.expirationMessage : null;
   }
 
   get showAuthenticateAgainButton() {
-    return this._status === STATUSMAP.POLLING ||
-      this._status === STATUSMAP.VERIFIED ||
-      this._status === STATUSMAP.ACCESS_DENIED ||
-      this._status === STATUSMAP.EXPIRED ||
-      this._status === STATUSMAP.ERROR ||
-      this._status === STATUSMAP.KYCCHECK ||
-      this._status === STATUSMAP.TOKEN_VERIFICATION_FAILED
-      ? true
-      : false;
+    return [
+      STATUSMAP.POLLING,
+      STATUSMAP.VERIFIED,
+      STATUSMAP.ACCESS_DENIED,
+      STATUSMAP.EXPIRED,
+      STATUSMAP.ERROR,
+      STATUSMAP.KYCCHECK,
+      STATUSMAP.TOKEN_VERIFICATION_FAILED
+    ].includes(this.status);
   }
 
   get showIcon() {
-    return this._status === STATUSMAP.VERIFIED ||
-      this._status === STATUSMAP.ACCESS_DENIED ||
-      this._status === STATUSMAP.EXPIRED ||
-      this._status === STATUSMAP.ERROR ||
-      this._status === STATUSMAP.KYCCHECK ||
-      this._status === STATUSMAP.TOKEN_VERIFICATION_FAILED
-      ? true
-      : false;
+    return [
+      STATUSMAP.VERIFIED,
+      STATUSMAP.ACCESS_DENIED,
+      STATUSMAP.EXPIRED,
+      STATUSMAP.ERROR,
+      STATUSMAP.KYCCHECK,
+      STATUSMAP.TOKEN_VERIFICATION_FAILED
+    ].includes(this.status);
   }
 
   get iconClass() {
-    return this._status === STATUSMAP.VERIFIED
+    return this.status === STATUSMAP.VERIFIED
       ? ICONCLASS.APPROVAL
       : ICONCLASS.CLOSE;
   }
 
   get userMessageStyle() {
-    return this._status === STATUSMAP.SHOWAUTHENTICATEBUTTON ||
-      this._status === STATUSMAP.LOADING
+    return this.status === STATUSMAP.SHOWAUTHENTICATEBUTTON ||
+      this.status === STATUSMAP.LOADING
       ? MESSAGECLASS.OPTIONSELECTION
       : MESSAGECLASS.USERMESSAGE;
   }
-  //This Method initiates the authentication request.
-  handleAuthentication(event) {
-    this._status = STATUSMAP.START_POLLING;
-    this.authenticateAgainClicked = false;
-    this.buttonName = event.target.dataset.id;
-    //This method assists in determining whether the customer record is linked to an interaction record and whether the client is a KYC customer.
-    let verifyCustomer = this.validateCustomerKYC(
-      this.accountId,
-      this.kycCustomer
-    );
 
-    //This Method initiates the authentication request when the button is clicked and the customer is KYC customer.
-    // Account Id associated to interaction and the name of the button (AAL3 - Pin or Local Biometrics OR  AAL4 - Selfie ID) are passed to initiateAuthenticationRequest apex method.
-    if (verifyCustomer) {
-      let buttonApiName =
-        this.buttonName === ACRBUTTONNAME.PIN
-          ? ACRVALUES.PIN
-          : ACRVALUES.SELFIE;
-      initiateAuthenticationRequest({
+  /**
+   * This method initiates the authentication request based on the button clicked by the user.
+   * If the authentication request is successful, it sets the authentication request ID and history ID,
+   * calculates the expiration time, and starts polling for the authentication status.
+   * If the request fails or the response does not contain an authorization ID, it sets the status to error.
+   */
+  async handleAuthentication(event) {
+    if (!this.kycCustomer) {
+      this.status = STATUSMAP.KYCCHECK;
+      return;
+    }
+    this.buttonName = event.target.dataset.id;
+    let buttonApiName =
+      this.buttonName === ACRBUTTONNAME.PIN ? ACRVALUES.PIN : ACRVALUES.SELFIE;
+
+    this.status = STATUSMAP.START_POLLING;
+    const startTime = Date.now();
+    let result;
+    try {
+      result = await initiateAuthenticationRequest({
         ocvId: this.ocvId,
         acrValue: buttonApiName,
         interactionId: this.recordId
-      })
-        .then((result) => {
-          if (result && result.auth_req_id) {
-            this.authrequestId = result.auth_req_id;
-            this.authHistoryId = result.authHistoryId;
-            this._status = STATUSMAP.START_POLLING;
-
-            // This method calculates the request time out in hh:mm am/pm format. The request will display user expiration time after polling will start.
-            this.calculateExpirationTime(result.expires_in);
-
-            // This is apex call after receiving authorisationzation id . This method helps in getting status of the authorization request.
-            this.handlePolling(
-              this.authrequestId,
-              result.expires_in,
-              result.interval
-            );
-          } else {
-            // If the user will not get the authorisation id then user will see the error message
-            this._status = STATUSMAP.ERROR;
-          }
-        })
-        .catch(() => {
-          this._status = STATUSMAP.ERROR;
-        });
+      });
+    } catch {
+      this.status = STATUSMAP.ERROR;
+      return;
     }
-    // This will help in showing the user messsage when the user is not a KYCed customer.
-    else {
-      this._status = STATUSMAP.KYCCHECK;
+    // If the user will not get the authorisation id then user will see the error message
+    if (!result?.auth_req_id) {
+      this.status = STATUSMAP.ERROR;
+      return;
     }
+    this.authrequestId = result.auth_req_id;
+    this.authHistoryId = result.authHistoryId;
+    this.calculateExpirationTime(result.expires_in);
+    this.handlePolling(
+      this.authrequestId,
+      result.expires_in,
+      result.interval,
+      startTime
+    );
   }
 
-  // This is a Polling method . It will run till expireIn seconds and call the apex method in every interval seconds . If the user will receive the response then loop will end.
-  // If the user will not receive the response within that time then error message will dispaly.
-  handlePolling(authrequestId, expireIn, interval) {
-    const startTime = Date.now();
-
-    const poll = () => {
-      if (
-        Date.now() - startTime < expireIn * 1000 &&
-        this.receivedPollingResponse === false &&
-        this.authenticateAgainClicked === false
-      ) {
-        this._status = STATUSMAP.POLLING;
-        authenticationPollingResponse({
-          authrequestId,
-          authHistoryId: this.authHistoryId,
-          ocvId: this.ocvId
-        })
-          .then((authresult) => {
-            if (
-              authresult &&
-              authresult !== STATUSMAP.AUTHORIZATION_PENDING &&
-              authresult !== STATUSMAP.SLOW_DOWN &&
-              this.authenticateAgainClicked === false
-            ) {
-              this.receivedPollingResponse = true;
-              this._status = authresult;
-              if (
-                authresult === STATUSMAP.VERIFIED ||
-                authresult === STATUSMAP.ACCESS_DENIED
-              ) {
-                // Refresh Interaction Detail Page
-                updateRecord({ fields: { Id: this.recordId } });
-              }
-            } else {
-              // eslint-disable-next-line @lwc/lwc/no-async-operation
-              setTimeout(poll, interval * 1000);
-            }
-          })
-          .catch(() => {
-            this._status = STATUSMAP.EXPIRED;
-            this.updateAuthenticationHistoryStatus(REQUEST_EXPIRED);
-          });
-      } else {
-        this.receivedPollingResponse = false;
-        this._status =
-          this.authenticateAgainClicked === true
-            ? STATUSMAP.SHOWAUTHENTICATEBUTTON
-            : STATUSMAP.EXPIRED;
-
-        if (this._status === STATUSMAP.EXPIRED) {
-          this.updateAuthenticationHistoryStatus(REQUEST_EXPIRED);
-        }
+  /**
+   * This method will run immediately to check status of an auth request.
+   * If the customer hasn't responded to the request then it will poll the status of the request.
+   * If the user does not receive the response within given time then error message will dispaly.
+   */
+  async handlePolling(authrequestId, expireIn, interval, startTime) {
+    if (Date.now() - startTime >= expireIn * 1000) {
+      this.status = STATUSMAP.EXPIRED;
+      this.updateAuthenticationHistoryStatus(REQUEST_EXPIRED);
+      return;
+    }
+    this.status = STATUSMAP.POLLING;
+    let authresult;
+    try {
+      authresult = await authenticationPollingResponse({
+        authrequestId,
+        authHistoryId: this.authHistoryId,
+        ocvId: this.ocvId
+      });
+      //if user has initiated another action during the background apex call then stop processing the response.
+      if (authrequestId !== this.authrequestId) {
+        return;
       }
-    };
-    poll();
+    } catch (error) {
+      if (authrequestId === this.authrequestId) {
+        this.status = STATUSMAP.ERROR;
+      }
+      return;
+    }
+    if (
+      !authresult ||
+      authresult === STATUSMAP.AUTHORIZATION_PENDING ||
+      authresult === STATUSMAP.SLOW_DOWN
+    ) {
+      // eslint-disable-next-line @lwc/lwc/no-async-operation
+      this.pollInstance = setTimeout(() => {
+        this.handlePolling(authrequestId, expireIn, interval, startTime);
+      }, interval * 1000);
+      return;
+    }
+    if (
+      authresult === STATUSMAP.VERIFIED ||
+      authresult === STATUSMAP.ACCESS_DENIED
+    ) {
+      notifyRecordUpdateAvailable([this.recordId]);
+    }
+    this.status = authresult;
   }
 
   // This method calculates the request time out in hh:mm am/pm format. The request will display user expiration time after polling will start.
@@ -322,12 +297,16 @@ export default class AuthenticateCustomers extends LightningElement {
   }
 
   authenticateAgain() {
-    if (this.authHistoryId && this._status === STATUSMAP.POLLING) {
+    if (this.authHistoryId && this.status === STATUSMAP.POLLING) {
       this.updateAuthenticationHistoryStatus(CANCELLED);
     }
-    this._status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
-    this.receivedPollingResponse = false;
-    this.authenticateAgainClicked = true;
+    if (this.pollInstance) {
+      clearTimeout(this.pollInstance);
+    }
+    this.status = STATUSMAP.SHOWAUTHENTICATEBUTTON;
+    this.expirationMessage = null;
+    this.authHistoryId = null;
+    this.authrequestId = null;
   }
 
   updateAuthenticationHistoryStatus(status) {
@@ -335,10 +314,5 @@ export default class AuthenticateCustomers extends LightningElement {
       authHistoryId: this.authHistoryId,
       status: status
     });
-  }
-
-  //This method assists in determining whether the customer record is linked to an interaction record and whether the client is a KYC customer.
-  validateCustomerKYC(accountId, KYCcustomer) {
-    return accountId && KYCcustomer ? true : false;
   }
 }

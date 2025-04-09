@@ -1,6 +1,6 @@
 <template>
   <div class="slds-grid slds-gutters slds-var-m-top_medium">
-    <div class="slds-col slds-size_1-of-2">
+    <div class="slds-col slds-size_1-of-2 slds-m-top_x-small">
       <!-- Label with dynamic width based on content -->
       <label
         class="slds-form-element__control slds-grid slds-grid_vertical-align-center slds-m-top_medium"
@@ -25,6 +25,7 @@
             data-id={rowId}
             name={name}
             onchange={handleInputChange}
+            read-only={readOnly}
           >
           </lightning-input>
         </template>

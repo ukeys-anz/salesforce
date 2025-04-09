@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Undrawn_Balance__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - CAPS</complianceGroup>
+    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - EBD</complianceGroup>
     <description>Undrawn Balance</description>
     <externalDeveloperName>UndrawnBalance</externalDeveloperName>
     <externalId>false</externalId>

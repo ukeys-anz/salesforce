@@ -27,7 +27,7 @@ public with sharing class AccountTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onAfterInsert() {
     AccountCommonActions.createEntitlement(records);
-    if (!CCRMLeadConversionActions.manualLeadConversionInitiated) {
+    if (!LeadConversionController.manualLeadConversionInitiated) {
       AccountCommonActions.findAndConvertLead(records);
     }
     AccountCommonActions.linkKYCQACasesToAccount(records);

@@ -22,6 +22,13 @@
         <value>proto://buf.anz/anz/salesforceapis/salesforce.service.brokerdata.v1alpha1</value>
     </labels>
     <labels>
+        <fullName>ANZX_Case_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ANZX Case Event ce type</shortDescription>
+        <value>anzx.salesforce.broker.v1alpha1.brokerenquiry.</value>
+    </labels>
+    <labels>
         <fullName>ANZX_ResidentialLoanApplication_event_ce_type</fullName>
         <language>en_US</language>
         <protected>false</protected>
@@ -233,7 +240,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Coach_Collaboration_Deeplink</shortDescription>
-        <value>https://plus.anz/auth/coach/delegated#token=</value>
+        <value>anz-cc86d708-a3c2-486e-b542-ebeb602a0740://auth/coach/delegated#token=</value>
     </labels>
     <labels>
         <fullName>CCRM_ChatterPostMessageBody</fullName>
@@ -395,7 +402,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>CustomerRestraintEnabled</shortDescription>
-        <value>False</value>
+        <value>true</value>
     </labels>
     <labels>
         <fullName>CustomerRestraintFaCodes</fullName>
@@ -459,6 +466,20 @@
         <protected>false</protected>
         <shortDescription>MS_Account_Table</shortDescription>
         <value>/account-details-api-sandbox/api/accountbalance?ocvid=</value>
+    </labels>
+    <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_GET_ACCOUNTS</shortDescription>
+        <value>callout:SF_MS_CH2/v1/accounts/cop/status/search-results</value>
+    </labels>
+    <labels>
+        <fullName>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_CONFIRMATION_OF_PAYEE_UPDATE_ACCOUNTS</shortDescription>
+        <value>callout:SF_MS_CH2/v1/accounts/cop/status</value>
     </labels>
     <labels>
         <fullName>MS_Cancel_Loan_Application</fullName>
@@ -1708,11 +1729,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>0</value>
     </labels>
     <labels>
-        <fullName>MLCRM_User_LAN_Id_Error</fullName>
+        <fullName>User_LAN_Id_Error</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
         <protected>false</protected>
-        <shortDescription>MLCRM_User_LAN_Id_Error</shortDescription>
+        <shortDescription>User_LAN_Id_Error</shortDescription>
         <value>User Lan Id is blank</value>
     </labels>
     <labels>
@@ -1814,6 +1835,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>Customer Reference Guide URL</shortDescription>
         <value>www.google.com</value>
+    </labels>
+    <labels>
+        <fullName>CCRM_Customer_Reference_Guide_URL</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Reference Guide URL</shortDescription>
+        <value>https://portal.knowhow.service.anz/Content/Content/Menu/y5I2Hw56Ee-RLABQVpUToA?fromMenu=y5I2Hw56Ee-RLABQVpUToA</value>
     </labels>
     <labels>
         <fullName>MLCRM_MaintainParty_NewCustomerError</fullName>
@@ -2784,7 +2813,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>LoanappPrerequisiteLabel</shortDescription>
-        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender.</value>
+        <value>Information missing. To Create Loanapp, please fill in the Amount, Customer Needs (Home Loans options only), Servicing Branch, Expected Settlement Date and ensure all customers have a DOB and gender. Expected Settlement Date must be in the future and must fall on a weekday.</value>
     </labels>
     <labels>
         <fullName>Complaints_Anz_Com_Sender_Address</fullName>
@@ -2816,5 +2845,27 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <protected>false</protected>
         <shortDescription>ExistingContactPointPhoneError</shortDescription>
         <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
+    </labels>
+    <labels>
+        <fullName>ExistingContactPointPhoneError</fullName>
+        <categories>MLCRM</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>ExistingContactPointPhoneError</shortDescription>
+        <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
+    </labels>
+    <labels>
+        <fullName>MS_Retrieve_Party_Individual</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Retrieve Party Individual</shortDescription>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/individuals</value>
+    </labels>
+    <labels>
+        <fullName>MS_Retrieve_Party_Organization</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Retrieve Party Organization</shortDescription>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organizations</value>
     </labels>
 </CustomLabels>

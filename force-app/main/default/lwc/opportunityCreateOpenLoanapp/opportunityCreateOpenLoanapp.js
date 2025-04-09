@@ -91,6 +91,9 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
         (ocr) =>
           ocr.Contact[BIRTHDATE_FIELD.fieldApiName] &&
           ocr.Contact[GENDER_FIELD.fieldApiName]
+      ) &&
+      this.isWeekdayAndFuture(
+        this.oppDetails[EXPECTED_SETTLEMENT_DT_FIELD.fieldApiName]
       )
     );
   }
@@ -207,6 +210,16 @@ export default class OpportunityCreateOpenLoanapp extends LightningElement {
       createOpenResult === undefined
     );
   }
+
+  isWeekdayAndFuture(date) {
+    const esDate = new Date(date);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+    esDate.setHours(0, 0, 0, 0);
+    const dayOfWeek = esDate.getDay();
+    return esDate > today && dayOfWeek >= 1 && dayOfWeek <= 5;
+  }
+
   closeQuickAction() {
     this.dispatchEvent(new CloseActionScreenEvent());
   }

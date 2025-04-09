@@ -37,12 +37,14 @@ public with sharing class MaintainPartyInformationWrapper {
   /**
    * @description Wrapper class to send matched maintain party results seperately.
    */
-  public class MaintainPartyInfoWrapper {
+  public class MaintainPartyResult {
     @AuraEnabled
     public List<MaintainPartyInfo> matchedResults;
     @AuraEnabled
     public Boolean isNewCustomer;
     @AuraEnabled
     public String oppID;
+    @AuraEnabled
+    public Boolean retrievePartyRequired;
   }
 }

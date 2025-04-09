@@ -98,6 +98,9 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
   private static LoanappModel.Expected_settlement_date getExpectedSettlementDate(
     Opportunity opp
   ) {
+    if (opp.Expected_Settlement_Date__c == null) {
+      return null;
+    }
     LoanappModel.Expected_settlement_date esd = new LoanappModel.Expected_settlement_date();
     LoanappModel.Year year = new LoanappModel.Year();
     LoanappModel.Month month = new LoanappModel.Month();

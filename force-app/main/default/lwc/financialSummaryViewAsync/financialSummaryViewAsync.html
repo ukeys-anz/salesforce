@@ -112,6 +112,15 @@
           ></c-financial-summary-view-card>
         </lightning-layout-item>
       </template>
+      <template if:true={showWorldlineMerchantInfo}>
+        <lightning-layout-item size="4" padding="around-small">
+          <c-financial-summary-view-card
+            header-name="Worldline Merchant"
+            header-value={worldlineMerchantValue}
+            show-header-value-text="true"
+          ></c-financial-summary-view-card>
+        </lightning-layout-item>
+      </template>
     </lightning-layout>
   </div>
 </template>

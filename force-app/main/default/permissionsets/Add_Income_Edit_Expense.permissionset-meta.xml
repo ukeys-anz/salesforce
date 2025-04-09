@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ANZx_Add_Income_And_Edit_Expense</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>To display add income and edit expense button</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Add Income &amp; Edit Expense</label>
+</PermissionSet>

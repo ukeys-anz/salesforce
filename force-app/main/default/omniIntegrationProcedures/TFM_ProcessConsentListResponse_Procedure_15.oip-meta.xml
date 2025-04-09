@@ -13,10 +13,10 @@
     <language>Procedure</language>
     <name>TFMProcessConsentListResponse</name>
     <omniProcessElements>
+        <name>DRSortActiveConsents</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DRSortActiveConsents</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;IF(%SVCheckNullList:isActiveNull% == false, true, false)&quot;,
@@ -45,10 +45,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>DRSortArchivedConsents</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>DRSortArchivedConsents</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;IF(%SVCheckNullList:isArchivedNull% == false, true, false)&quot;,
@@ -77,10 +77,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getDataFromPersonDigitalIdentity</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>getDataFromPersonDigitalIdentity</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -112,10 +112,10 @@
         <type>DataRaptor Extract Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>getJointAccountConsentList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>getJointAccountConsentList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -148,10 +148,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>mergeListsIsCreatorWithActiveConsent</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>mergeListsIsCreatorWithActiveConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -191,10 +191,10 @@
         <type>List Merge Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>mergeListsIsCreatorWithArchiveConsent</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>mergeListsIsCreatorWithArchiveConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -234,10 +234,10 @@
         <type>List Merge Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>ResponseAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -267,11 +267,12 @@
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetIsCreatorActiveConsentList</name>
         <childElements>
+            <name>SetIsCreatorValue</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>SetIsCreatorValue</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -295,7 +296,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetIsCreatorActiveConsentList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;DRSortActiveConsents&quot;,
@@ -312,11 +312,12 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SetIsCreatorArchiveConsentList</name>
         <childElements>
+            <name>setIsCreatorValue</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>setIsCreatorValue</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -340,7 +341,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SetIsCreatorArchiveConsentList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;DRSortArchivedConsents&quot;,
@@ -357,10 +357,10 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SVCheckNullList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SVCheckNullList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -382,10 +382,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>SVConsentListFilter</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>SVConsentListFilter</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -407,11 +407,12 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>TransformedActiveConsentsList</name>
         <childElements>
+            <name>DRTransformActiveConsent</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DRTransformActiveConsent</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -444,7 +445,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>TransformedActiveConsentsList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;mergeListsIsCreatorWithActiveConsent&quot;,
@@ -477,11 +477,12 @@
         <type>Loop Block</type>
     </omniProcessElements>
     <omniProcessElements>
+        <name>TransformedArchivedConsentsList</name>
         <childElements>
+            <name>DRTransformArchivedConsent</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
-            <name>DRTransformArchivedConsent</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -514,7 +515,6 @@
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
-        <name>TransformedArchivedConsentsList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;loopList&quot; : &quot;mergeListsIsCreatorWithArchiveConsent&quot;,

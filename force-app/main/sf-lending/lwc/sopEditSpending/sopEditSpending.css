@@ -8,6 +8,7 @@
   --slds-c-modal-heading-line-height: 30px;
   --logo-dimensions: 60px;
   --slds-c-modal-color-border: var(--slds-g-color-neutral-base-100, #ffffff);
+  --font-bold: 700;
 }
 .alignRight {
   text-align: right;
@@ -25,7 +26,11 @@
 }
 .nameStyling {
   font-size: 1.25em;
-  font-weight: 700;
+  font-weight: var(--font-bold);
+}
+.propertyLabelStyling {
+  font-size: 1em;
+  font-weight: var(--font-bold);
 }
 .spinnerOverlay {
   position: absolute;

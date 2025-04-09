@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <businessStatus>Active</businessStatus>
+    <fullName>Process_Definition_Name__c</fullName>
+    <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_TrustMe</complianceGroup>
+    <description>This field contains the Process Definition Name of the temporal process populated by the Cloud Function during case creation.</description>
+    <encryptionScheme>None</encryptionScheme>
+    <externalId>false</externalId>
+    <label>Process Definition Name</label>
+    <length>255</length>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Text</type>
+    <unique>false</unique>
+</CustomField>

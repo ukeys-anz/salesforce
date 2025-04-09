@@ -94,6 +94,10 @@ force-app/main/default/classes/GetAccountsAndGoals.cls
 force-app/main/default/classes/utils/CommonUtils.cls
 force-app/main/default/classes/IDRCaseActionsHelper.cls
 force-app/main/default/classes/IDRCaseActionsHelperTest.cls
+force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceProvider.cls
+force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceProvider.cls-meta.xml
+force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceConnection.cls
+force-app/main/default/classes/ccrm/CCRMCoreBankingDataSourceConnection.cls-meta.xml
 
 #Ignore Knowledge validation status field as it is not supported in metadata API
 KnowledgeValidationStatus
@@ -110,6 +114,8 @@ force-app/main/default/permissionsets/SFDX_Deploy.permissionset-meta.xml
 #as metadata API does not support deleting record type, to avoid destructive change error
 force-app/main/default/objects/Case/recordTypes/Urgent_Dishonour_Request_Dispute.recordType-meta.xml
 force-app/main/default/objects/Case/recordTypes/Bug_Enquiry.recordType-meta.xml
+force-app/main/default/flexipages/Commercial_Application_Form_Record_Page.flexipage-meta.xml
+force-app/main/default/applications/Commercial_CRM.app-meta.xml
 
 #Temporarily ignoring deleted Process/Flow 'Case_SLA_Notification' until it's removed form source code and prod.
 # Below line can be removed once it's removed from prod.
@@ -190,6 +196,7 @@ force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
 
 #PR-8811 Skip field destruction in merge
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
-
 #added for merge to cmos-a, please do not merge to other envs
 force-app/main/default/aura/QuickActionAuraContainer
+force-app/main/default/classes/ccrm/CCRMExternalObjectQueryBase.cls
+force-app/main/default/classes/ccrm/CCRMExternalObjectQueryBase.cls-meta.xml

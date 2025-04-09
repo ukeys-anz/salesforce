@@ -11,6 +11,9 @@ public with sharing virtual class MaintainPartyService extends Service {
   private static final CommercialLeadConversionRepository COMMERCIAL_LEAD_CONVERSION_REPOSITORY = (CommercialLeadConversionRepository) Lib_InstanceProvider.forType(
     CommercialLeadConversionRepository.class
   );
+  private static final UserActionsRepository USER_REPOSITORY = (UserActionsRepository) Lib_InstanceProvider.forType(
+    UserActionsRepository.class
+  );
 
   /**
    * @param record OCVRequestPayloadWrapper payload from the lwc component
@@ -24,8 +27,8 @@ public with sharing virtual class MaintainPartyService extends Service {
     User leadOwner = COMMERCIAL_LEAD_CONVERSION_REPOSITORY.getLeadOwnerLanId(
       record.strOwnerId
     );
-    if (leadOwner == null || String.isBlank(leadOwner?.Lan_Id__c)) {
-      throw new CustomException(Label.MLCRM_User_LAN_Id_Error);
+    if (String.isBlank(leadOwner?.Lan_Id__c)) {
+      throw new CustomException(Label.User_LAN_Id_Error);
     }
     String body = MaintainPartyOrganisationModel.getBody(record);
     String operatorId = leadOwner.Lan_Id__c;
@@ -36,10 +39,7 @@ public with sharing virtual class MaintainPartyService extends Service {
     headers.put('client_secret', '{!$Credential.Password}');
     headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     headers.put('Channel', 'CRM');
-    headers.put(
-      'Authorization',
-      'Bearer ' + CCRMARNCService.generateJWTToken()
-    );
+    headers.put('Authorization', 'Bearer ' + ARNCService.generateJWTToken());
     headers.put('request-time', requestTime);
     headers.put('user-id', operatorId);
     headers.put('X-Operator-Id', operatorId);
@@ -56,6 +56,39 @@ public with sharing virtual class MaintainPartyService extends Service {
 
     return CALLOUT.makeRestCallout(
       Label.MS_Maintain_Party_Organisation,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      body
+    );
+  }
+
+  /**
+   * @param record OCVRequestPayloadWrapper payload from the lwc component
+   * @return HttpCalloutResponse
+   * @description gathers all the parameters required for callout
+   */
+  public virtual HttpCalloutResponse maintainPartyForIndividual(
+    OCVRequestPayloadWrapper record
+  ) {
+    User leadOwner = USER_REPOSITORY.getUserFromUserIds(record.strOwnerId);
+    if (String.isBlank(leadOwner?.Lan_Id__c)) {
+      throw new CustomException(Label.User_LAN_Id_Error);
+    }
+    String requestTime = String.valueOf(System.now()) + '.00'; // appended with ms as required by API mesh
+    Map<String, String> headers = new Map<String, String>{
+      'Content-Type' => 'application/json',
+      'client_id' => '{!$Credential.Username}',
+      'client_secret' => '{!$Credential.Password}',
+      'x-correlation-id' => UniqueIdUtil.getTraceId(),
+      'Channel' => 'CRM',
+      'Authorization' => 'Bearer ' + ARNCService.generateJWTToken(),
+      'request-time' => requestTime,
+      'user-id' => leadOwner.Lan_Id__c
+    };
+    String body = MaintainPartyIndividualModel.getBody(record);
+    String endPoint = Label.MS_Maintain_Party;
+    return CALLOUT.makeRestCallout(
+      endPoint,
       HTTP_METHOD.HTTP_POST,
       headers,
       body

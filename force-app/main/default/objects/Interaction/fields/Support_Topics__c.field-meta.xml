@@ -142,6 +142,11 @@
                 <label>Collections</label>
             </value>
             <value>
+                <fullName>Confirmation of Payee</fullName>
+                <default>false</default>
+                <label>Confirmation of Payee</label>
+            </value>
+            <value>
                 <fullName>Create or Manage PayID</fullName>
                 <default>false</default>
                 <label>Create or Manage PayID</label>

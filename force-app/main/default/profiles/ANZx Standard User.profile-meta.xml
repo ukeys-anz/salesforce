@@ -7956,8 +7956,20 @@
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Case Group Layout</layout>
+        <recordType>Case.Case_Group</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Confirmation Of Payee Layout</layout>
+        <recordType>Case.Confirmation_Of_Payee</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-ANZx Complaint Layout</layout>
         <recordType>Case.ANZx_Complaint</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Broker Enquiry Layout</layout>
+        <recordType>Case.Broker_Enquiry</recordType>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Case-Credit Referral</layout>
@@ -8196,6 +8208,14 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV QA Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_QA_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_Case</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
@@ -9153,6 +9173,16 @@
     </recordTypeVisibilities>
     <recordTypeVisibilities>
         <default>false</default>
+        <recordType>Case.Case_Group</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>Case.Confirmation_Of_Payee</recordType>
+        <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
         <recordType>Case.Customer_Complaint</recordType>
         <visible>false</visible>
     </recordTypeVisibilities>
@@ -9375,6 +9405,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>ContentVersion.File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.DAON_TrustX_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

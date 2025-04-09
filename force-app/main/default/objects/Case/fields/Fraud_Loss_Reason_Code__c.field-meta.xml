@@ -15,7 +15,7 @@
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
-            <sorted>false</sorted>
+            <sorted>true</sorted>
             <value>
                 <fullName>Awaiting Recovery</fullName>
                 <default>false</default>
@@ -35,6 +35,11 @@
                 <fullName>Delayed Detection</fullName>
                 <default>false</default>
                 <label>Delayed Detection</label>
+            </value>
+            <value>
+                <fullName>Falcon Alerted Only</fullName>
+                <default>false</default>
+                <label>Falcon Alerted Only</label>
             </value>
             <value>
                 <fullName>Fraud Agent Delay</fullName>
@@ -57,14 +62,9 @@
                 <label>Funds never left</label>
             </value>
             <value>
-                <fullName>OFI Delay</fullName>
+                <fullName>Funds never Received</fullName>
                 <default>false</default>
-                <label>OFI Delay</label>
-            </value>
-            <value>
-                <fullName>Undetected</fullName>
-                <default>false</default>
-                <label>Undetected</label>
+                <label>Funds never Received</label>
             </value>
             <value>
                 <fullName>Merchant Liable</fullName>
@@ -72,19 +72,29 @@
                 <label>Merchant Liable</label>
             </value>
             <value>
-                <fullName>Falcon Alerted Only</fullName>
+                <fullName>OFI Delay</fullName>
                 <default>false</default>
-                <label>Falcon Alerted Only</label>
+                <label>OFI Delay</label>
             </value>
             <value>
-                <fullName>Funds never Received</fullName>
+                <fullName>Partial Recovery</fullName>
                 <default>false</default>
-                <label>Funds never Received</label>
+                <label>Partial Recovery</label>
             </value>
             <value>
                 <fullName>System Outage</fullName>
                 <default>false</default>
                 <label>System Outage</label>
+            </value>
+            <value>
+                <fullName>Undetected</fullName>
+                <default>false</default>
+                <label>Undetected</label>
+            </value>
+            <value>
+                <fullName>Updated Decision - New Evidence</fullName>
+                <default>false</default>
+                <label>Updated Decision - New Evidence</label>
             </value>
         </valueSetDefinition>
     </valueSet>

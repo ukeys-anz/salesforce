@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "sfdx-git-delta": "^5.43.0"
+    "sfdx-git-delta": "^6.5.0"
   }
 }

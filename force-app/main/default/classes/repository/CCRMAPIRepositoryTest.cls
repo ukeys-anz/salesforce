@@ -94,22 +94,6 @@ public with sharing class CCRMAPIRepositoryTest {
   }
 
   @isTest
-  static void testMaintainParty() {
-    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
-    OCVRequestPayloadWrapper ocvRequest = new OCVRequestPayloadWrapper();
-    DCRMMaintainPartyModel maintainPartyResponse = apiRepo.maintainParty(
-      ocvRequest
-    );
-
-    // Verify response received contains fake values from mock_dcrmMaintainPartyModel
-    System.assertEquals(
-      '8019989879',
-      maintainPartyResponse.ocvId,
-      'The returned ocvId does not match'
-    );
-  }
-
-  @isTest
   static void testGetAddressesLWCV3Test() {
     CCRMValidateAddressModelV3 getAddressesLWC = CCRMAPIRepository.getAddressesLwcV3(
       '005357522'
@@ -197,7 +181,7 @@ public with sharing class CCRMAPIRepositoryTest {
     maintainPartyService.mock('maintainPartyOrganisation', response);
 
     //WHEN calling a method
-    DCRMMaintainPartyModel result = new CCRMAPIRepository()
+    MaintainPartyModel result = new CCRMAPIRepository()
       .maintainPartyOrganisation(ocvRequest);
 
     //THEN assert should return true

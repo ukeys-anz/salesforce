@@ -2,7 +2,8 @@
   --warning-text-height: 20px;
 }
 
-c-sop-spendings-l3-item {
+c-sop-spendings-l3-item,
+c-sop-spendings-address-item {
   width: 100%;
 }
 

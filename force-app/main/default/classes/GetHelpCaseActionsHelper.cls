@@ -19,6 +19,10 @@ public with sharing class GetHelpCaseActionsHelper {
     RTCase.nppDispute
   };
 
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
   // Parent Case validation error message
   private static final String PARENT_CASE_ERROR = 'You cannot add parent case. This case is associated with child cases';
 
@@ -43,28 +47,19 @@ public with sharing class GetHelpCaseActionsHelper {
     private set;
   }
 
-  public static UserRole bohCoachRole = CommonUtil.getUserRoleByDevName(
-    'BOH_Coach'
-  );
-  public static UserRole creditAssessmentOfficerRole = CommonUtil.getUserRoleByDevName(
+  public static UserRole bohCoachRole = QueryRole.get('BOH_Coach');
+  public static UserRole creditAssessmentOfficerRole = QueryRole.get(
     'Credit_Assessment_Officer'
   );
-  public static UserRole creditAssessorLeadRole = CommonUtil.getUserRoleByDevName(
+  public static UserRole creditAssessorLeadRole = QueryRole.get(
     'Credit_Assessor_Lead'
   );
-  public static UserRole coachLeadRole = CommonUtil.getUserRoleByDevName(
-    'Coach_Lead'
-  );
 
-  public static Group cadReferralQueue = CommonUtil.getQueueByName(
+  public static Group cadReferralQueue = QueryQueue.get(
     'CAD_Credit_Referral_Case_Queue'
   );
-  public static Group coachRefQueue = CommonUtil.getQueueByName(
+  public static Group coachRefQueue = QueryQueue.get(
     'No_CAD_Credit_Referral_Case_Queue'
-  );
-
-  public static Profile integrationUserProfile = CommonUtil.getProfileByName(
-    'Minimum Access - External Apps'
   );
 
   public static final String CREDIT_REF_ASSIGN_ERROR_ONE = 'You can\'t assign a credit referral case that you do not have authority to resolve. Please select another case.';
@@ -206,7 +201,11 @@ public with sharing class GetHelpCaseActionsHelper {
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
         c.RecordTypeId == RTCase.kycQa ||
-        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c) ||
+        c.RecordTypeId == RTCase.confirmationOfPayee ||
+        (c.RecordTypeId == RTCase.caseGroup &&
+        (c.Type == 'Confirmation of Payee Opt-In' ||
+        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
       }
@@ -252,7 +251,11 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
-        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c) ||
+        c.RecordTypeId == RTCase.confirmationOfPayee ||
+        (c.RecordTypeId == RTCase.caseGroup &&
+        (c.Type == 'Confirmation of Payee Opt-In' ||
+        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError(NO_ENTITLEMENT_ERROR_MSG);
@@ -676,8 +679,10 @@ public with sharing class GetHelpCaseActionsHelper {
       newCase.OwnerId == UserInfo.getUserId() &&
       ((UserInfo.getUserRoleId() != creditAssessmentOfficerRole.Id &&
       UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
-      UserInfo.getUserRoleId() != bohCoachRole.Id) ||
-      (UserInfo.getUserRoleId() == bohCoachRole.Id &&
+      UserInfo.getUserRoleId() != bohCoachRole.Id &&
+      !USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case')) ||
+      ((UserInfo.getUserRoleId() == bohCoachRole.Id ||
+      USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case')) &&
       newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'))
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_ERROR_ONE);
@@ -688,24 +693,76 @@ public with sharing class GetHelpCaseActionsHelper {
    * @description Check if credit assessor lead is assigning credit ref case to users without authority to resolve it
    * @param newCase New values of the case
    * @param oldCase Old values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
    */
   public static void isInvalidCreditLeadNoAuthorityAssignment(
     Case newCase,
-    Case oldCase
+    Case oldCase,
+    Set<Id> isOwnerSpecialistLender
   ) {
     if (
       oldCase.OwnerId != newCase.OwnerId &&
-      (UserInfo.getUserRoleId() == creditAssessorLeadRole.Id ||
-      UserInfo.getUserRoleId() == coachLeadRole.Id) &&
+      isCreditAssessLeadOrCoachLead() &&
       newCase.OwnerId.getSObjectType() != Group.SObjectType &&
-      ((newCase.Owner_Role__c == bohCoachRole.Id &&
-      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD') ||
-      (newCase.Owner_Role__c != bohCoachRole.Id &&
-      newCase.Owner_Role__c != creditAssessmentOfficerRole.Id &&
-      newCase.Owner_Role__c != creditAssessorLeadRole.Id))
+      (checkOwnerRoleAndAuthLevel(newCase, isOwnerSpecialistLender) ||
+      isValidOwner(newCase, isOwnerSpecialistLender))
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_ERROR_TWO);
     }
+  }
+
+  /**
+   * @description Check if user is Credit_Assessor_Lead or Coach_Lead
+   * @return `Boolean`
+   */
+  private static Boolean isCreditAssessLeadOrCoachLead() {
+    return USER_INFO.checkAnyRoles(
+      new Set<String>{ 'Credit_Assessor_Lead', 'Coach_Lead' }
+    );
+  }
+
+  /**
+   * @description Check if owner role is BohCoach or is Specialist Lender and Authority Level is No CAD
+   * @return `Boolean`
+   * @param newCase New values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
+   */
+  private static Boolean checkOwnerRoleAndAuthLevel(
+    Case newCase,
+    Set<Id> isOwnerSpecialistLender
+  ) {
+    return ((newCase.Owner_Role__c == bohCoachRole.Id ||
+    isSpecialistLender(newCase, isOwnerSpecialistLender)) &&
+    newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD');
+  }
+
+  /**
+   * @description Check if user is Specialist Lender
+   * @return `Boolean`
+   * @param newCase New values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
+   */
+  private static Boolean isSpecialistLender(
+    Case newCase,
+    Set<Id> isOwnerSpecialistLender
+  ) {
+    return isOwnerSpecialistLender.contains(newCase.OwnerId);
+  }
+
+  /**
+   * @description Check if user is not bohCoach/specilaist lender/creditassessmentoffice/credit assessor lead
+   * @return `Boolean`
+   * @param newCase New values of the case
+   * @param isOwnerSpecialistLender if owner is avaialble in set then they are specialist lender
+   */
+  private static Boolean isValidOwner(
+    Case newCase,
+    Set<Id> isOwnerSpecialistLender
+  ) {
+    return (newCase.Owner_Role__c != bohCoachRole.Id &&
+    !isSpecialistLender(newCase, isOwnerSpecialistLender) &&
+    newCase.Owner_Role__c != creditAssessmentOfficerRole.Id &&
+    newCase.Owner_Role__c != creditAssessorLeadRole.Id);
   }
 
   /**
@@ -715,20 +772,68 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static void isInvalidCreditRefAssignment(Case newCase, Case oldCase) {
     if (
-      oldCase.OwnerId != newCase.OwnerId &&
-      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
-      UserInfo.getUserRoleId() != coachLeadRole.Id &&
-      ((oldCase.OwnerId == UserInfo.getUserId() &&
-      (newCase.OwnerId != coachRefQueue.Id &&
-      newCase.OwnerId != cadReferralQueue.Id)) ||
-      ((oldCase.OwnerId == coachRefQueue.Id ||
-      oldCase.OwnerId == cadReferralQueue.Id) &&
-      newCase.OwnerId != UserInfo.getUserId()) ||
-      (oldCase.OwnerId.getSobjectType() == User.getSObjectType() &&
-      oldCase.OwnerId != UserInfo.getUserId()))
+      isNotOwnerAndLeadRole(newCase, oldCase) &&
+      isOwnerAndNotAssignedToQueue(newCase, oldCase)
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_ERROR_THREE);
     }
+
+    if (
+      isNotOwnerAndLeadRole(newCase, oldCase) &&
+      isNotOwnerAndAssignedToQueue(newCase, oldCase)
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_THREE);
+    }
+
+    if (
+      isNotOwnerAndLeadRole(newCase, oldCase) &&
+      (oldCase.OwnerId.getSobjectType() == User.getSObjectType() &&
+      oldCase.OwnerId != UserInfo.getUserId())
+    ) {
+      newCase.addError(CREDIT_REF_ASSIGN_ERROR_THREE);
+    }
+  }
+
+  /**
+   * @description Check if there is a change in owner and new owner is not creditassessorlead/coachlead
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   * @return `Boolean`
+   */
+  private static Boolean isNotOwnerAndLeadRole(Case newCase, Case oldCase) {
+    return oldCase.OwnerId != newCase.OwnerId &&
+      !USER_INFO.checkRole('Credit_Assessor_Lead') &&
+      !USER_INFO.checkRole('Coach_Lead');
+  }
+
+  /**
+   * @description Check if new owner is not creditassessorlead/coachlead and old owner is current user
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   * @return `Boolean`
+   */
+  private static Boolean isOwnerAndNotAssignedToQueue(
+    Case newCase,
+    Case oldCase
+  ) {
+    return (oldCase.OwnerId == UserInfo.getUserId() &&
+    (newCase.OwnerId != coachRefQueue.Id &&
+    newCase.OwnerId != cadReferralQueue.Id));
+  }
+
+  /**
+   * @description Check if old owner is queue and new owner is not current user
+   * @param newCase New values of the case
+   * @param oldCase Old values of the case
+   * @return `Boolean`
+   */
+  private static Boolean isNotOwnerAndAssignedToQueue(
+    Case newCase,
+    Case oldCase
+  ) {
+    return ((oldCase.OwnerId == coachRefQueue.Id ||
+    oldCase.OwnerId == cadReferralQueue.Id) &&
+    newCase.OwnerId != UserInfo.getUserId());
   }
 
   /**
@@ -739,7 +844,7 @@ public with sharing class GetHelpCaseActionsHelper {
   public static void isInvalidCreditRefEdit(Case newCase, Case oldCase) {
     //Allow integration user to be able to edit cases
     if (
-      UserInfo.getProfileId() != integrationUserProfile.Id &&
+      UserInfo.getProfileId() != QueryProfile.minimumAccessExternalApps.Id &&
       ((newCase.OwnerId == oldCase.OwnerId &&
       newCase.OwnerId != UserInfo.getUserId() &&
       UserInfo.getUserRoleId() != creditAssessorLeadRole.Id) ||

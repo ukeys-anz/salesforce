@@ -2,6 +2,7 @@ import { createElement } from "lwc";
 import SopAddDebtsContainer from "c/sopAddDebtsContainer";
 
 const DEBT_OPTIONS = [
+  { label: "Home Loan", value: "LIABILITY_TYPE_HOME_LOAN" },
   { label: "Credit Card", value: "LIABILITY_TYPE_CREDIT_CARD" },
   { label: "Personal Loan", value: "LIABILITY_TYPE_PERSONAL_LOAN" },
   { label: "Vehicle Loan", value: "LIABILITY_TYPE_VEHICLE_LOAN" },
@@ -11,6 +12,7 @@ const DEBT_OPTIONS = [
     value: "LIABILITY_TYPE_LEASE_HIRE_PURCHASE"
   },
   { label: "HECS - HELP", value: "LIABILITY_TYPE_STUDENT_LOAN" },
+  { label: "Line of Credit", value: "LIABILITY_TYPE_LINE_OF_CREDIT" },
   { label: "Overdraft", value: "LIABILITY_TYPE_OVERDRAFT" },
   { label: "Margin Loan", value: "LIABILITY_TYPE_MARGIN_LOAN" },
   { label: "Other Loan", value: "LIABILITY_TYPE_OTHER_LOAN" }

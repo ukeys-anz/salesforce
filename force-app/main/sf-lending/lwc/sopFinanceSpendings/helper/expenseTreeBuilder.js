@@ -3,7 +3,8 @@ import {
   CATEGORIES_ICONS_SPENDINGS_PARENT,
   CATEGORIES_DESCRIPTION_SPENDINGS,
   CATEGORIES_DESCRIPTION_SPENDINGS_PARENT,
-  EXPENSES_WITH_PROMPTS
+  EXPENSES_WITH_PROMPTS,
+  EXPENSES_WITH_PROPERTIES
 } from "./import-sf-const";
 import { setTimestamp } from "c/utils";
 
@@ -135,5 +136,39 @@ export const ExpenseTreeBuilder = {
         order.findIndex((name) => name.toLowerCase() === y.name.toLowerCase())
       );
     });
+  },
+
+  createAddressItems(expenses) {
+    const householdExpense = expenses.find(
+      (exp) => exp.name === "Household Costs"
+    );
+
+    if (!householdExpense) {
+      return expenses;
+    }
+
+    const householdSopName = householdExpense.sopName;
+    const addressItems = [];
+    const updatedExpenses = expenses.map((exp) => {
+      if (EXPENSES_WITH_PROPERTIES.includes(exp.name)) {
+        const addressItem = {
+          ...householdExpense,
+          isPropertyAsParentExpense: true,
+          sopName: exp.propertyId,
+          singleLineAddress: exp.singleLineAddress,
+          expenseParent: householdSopName,
+          children: []
+        };
+        if (
+          !addressItems.some((item) => item.sopName === addressItem.sopName)
+        ) {
+          addressItems.push(addressItem);
+        }
+        return { ...exp, expenseParent: addressItem.sopName, householdSopName };
+      }
+      return exp;
+    });
+
+    return [...updatedExpenses, ...addressItems];
   }
 };

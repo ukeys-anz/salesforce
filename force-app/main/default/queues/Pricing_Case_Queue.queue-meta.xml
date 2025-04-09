@@ -3,6 +3,9 @@
     <name>Pricing Case Queue</name>
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <queueMembers>
+        <publicGroups>
+            <publicGroup>Specialist_Lender_Group</publicGroup>
+        </publicGroups>
         <roles>
             <role>BOH_Coach</role>
             <role>Coach_Lead</role>
