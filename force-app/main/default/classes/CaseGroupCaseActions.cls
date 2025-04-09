@@ -148,7 +148,6 @@ public with sharing class CaseGroupCaseActions {
     Logger.saveLog();
   }
 
-
   /**
    * @description update Milestone Completed if the case is closed.
    * @param records List<Case> caseList: New record instances to process
@@ -158,23 +157,23 @@ public with sharing class CaseGroupCaseActions {
     List<Case> records,
     Map<Id, SObject> oldMap
   ) {
-      List<Case> validCasesforMilestoneCompletion = ListUtil.filter(
-          records,
-          oldMap
-        )
-        .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
-        .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
-        .toList();
+    List<Case> validCasesforMilestoneCompletion = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
+      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
+      .toList();
 
-      Set<Id> validCaseIds = ListUtil.getIds(
-        validCasesforMilestoneCompletion,
-        Case.Id
-      );
+    Set<Id> validCaseIds = ListUtil.getIds(
+      validCasesforMilestoneCompletion,
+      Case.Id
+    );
 
-      MilestoneUtils.completeMilestones(
-        validCaseIds,
-        CaseGroupCaseConstants.MILESTONES_APPLICABLE,
-        System.now()
-      );
-    }
+    MilestoneUtils.completeMilestones(
+      validCaseIds,
+      CaseGroupCaseConstants.MILESTONES_APPLICABLE,
+      System.now()
+    );
+  }
 }
