@@ -11,7 +11,6 @@ public with sharing class CaseGroupCaseConstants {
   public static final String COP_OPT_IN = 'Confirmation of Payee Opt-In';
   public static final String COP_OPT_OUT = 'Confirmation of Payee Opt-Out';
   public static final String RESOLUTION_TIME_MILESTONE = 'Resolution Time';
-  public static final String INVESTIGATION_TIME_MILESTONE = 'Investigation Time';
 
   //Hold the multi-party account's ownership value
   public static final String MULTI_PARTY = 'Multi-party';
@@ -27,7 +26,7 @@ public with sharing class CaseGroupCaseConstants {
   public static final String CLOSED_STATUS = 'Closed';
   public static final String WITHDRAWN_STATUS = 'Withdrawn';
   public static final String ESCALATED_STATUS = 'Escalated';
-  public static final String ONHOLD_STATUS = 'On-Hold';
+  public static final String ONHOLD_STATUS = 'On Hold';
 
   //ANZx Case Sub Status
   public static final String PROCESSING = 'Processing';
@@ -81,6 +80,13 @@ public with sharing class CaseGroupCaseConstants {
     COP_OPT_OUT
   };
 
+  //Set of Case Status not allowed for the update
+  public static final Set<String> STATUSES_NOT_ALLOWED_FOR_UPDATE = new Set<String>{
+    CLOSED_STATUS,
+    WITHDRAWN_STATUS,
+    ONHOLD_STATUS
+  };
+
   public static final Set<Id> ENTITLEMENT_RT_IDS = new Set<Id>{
     RTCase.caseGroup
   };
@@ -99,11 +105,6 @@ public with sharing class CaseGroupCaseConstants {
     return ENTITLEMENT_RT_IDS.contains(record.RecordTypeId) &&
       ENTITLEMENT_CASE_ISSUE_TYPES.contains(record.Type);
   }
-
-  public static final List<String> MILESTONES_APPLICABLE = new List<String>{
-    RESOLUTION_TIME_MILESTONE,
-    INVESTIGATION_TIME_MILESTONE
-  };
 
   public static final List<String> CLOSED_STATUSES = new List<String>{
     CLOSED_STATUS,

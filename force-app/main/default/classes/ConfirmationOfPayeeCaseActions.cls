@@ -154,9 +154,10 @@ public with sharing class ConfirmationOfPayeeCaseActions {
       validCasesforMilestoneCompletion,
       Case.Id
     );
-    MilestoneUtils.completeMilestones(
-      validCaseIds,
-      CaseGroupCaseConstants.MILESTONES_APPLICABLE,
+
+    MilestoneUtils.completeMilestone(
+      new List<Id>(validCaseIds),
+      CaseGroupCaseConstants.RESOLUTION_TIME_MILESTONE,
       System.now()
     );
   }

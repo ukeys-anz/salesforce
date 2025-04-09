@@ -32,8 +32,9 @@ public with sharing class CaseGroupCaseActions {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
       if (
-        childCase.Status != CaseGroupCaseConstants.CLOSED_STATUS &&
-        childCase.Status != CaseGroupCaseConstants.WITHDRAWN_STATUS
+        !CaseGroupCaseConstants.STATUSES_NOT_ALLOWED_FOR_UPDATE.contains(
+          childCase.Status
+        )
       ) {
         childCase.Status = parentCase.Status;
       }
@@ -170,9 +171,9 @@ public with sharing class CaseGroupCaseActions {
       Case.Id
     );
 
-    MilestoneUtils.completeMilestones(
-      validCaseIds,
-      CaseGroupCaseConstants.MILESTONES_APPLICABLE,
+    MilestoneUtils.completeMilestone(
+      new List<Id>(validCaseIds),
+      CaseGroupCaseConstants.RESOLUTION_TIME_MILESTONE,
       System.now()
     );
   }
