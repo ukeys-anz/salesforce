@@ -2,12 +2,6 @@
 <Queue xmlns="http://soap.sforce.com/2006/04/metadata">
     <doesSendEmailToMembers>false</doesSendEmailToMembers>
     <name>IDR Authorised Transactions</name>
-    <queueMembers>
-        <users>
-            <user>maria.makris-asmanis@anzx.com</user>
-            <user>stephanie.sander@anzx.com</user>
-        </users>
-    </queueMembers>
     <queueSobject>
         <sobjectType>Case</sobjectType>
     </queueSobject>
