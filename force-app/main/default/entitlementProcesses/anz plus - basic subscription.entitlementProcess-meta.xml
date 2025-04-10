@@ -587,62 +587,6 @@
     </milestones>
     <milestones>
         <businessHours>ANZx Case Business Hours</businessHours>
-        <criteriaBooleanFilter>(1 OR (2 AND (3 OR 4))) AND 5</criteriaBooleanFilter>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Confirmation Of Payee</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.RecordTypeId</field>
-            <operation>equals</operation>
-            <value>Case Group</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Confirmation of Payee Opt-In</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Type</field>
-            <operation>equals</operation>
-            <value>Confirmation of Payee Opt-Out</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneCriteriaFilterItems>
-            <field>Case.Status</field>
-            <operation>equals</operation>
-            <value>Open</value>
-        </milestoneCriteriaFilterItems>
-        <milestoneName>Investigation Time</milestoneName>
-        <minutesToComplete>1440</minutesToComplete>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Violation_Update_COP</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>0</timeLength>
-            <workflowTimeTriggerUnit>Minutes</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Warning_Update1</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-12</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <timeTriggers>
-            <actions>
-                <name>SLA_Status_Warning_Update2</name>
-                <type>FieldUpdate</type>
-            </actions>
-            <timeLength>-6</timeLength>
-            <workflowTimeTriggerUnit>Hours</workflowTimeTriggerUnit>
-        </timeTriggers>
-        <useCriteriaStartTime>false</useCriteriaStartTime>
-    </milestones>
-    <milestones>
-        <businessHours>ANZx Case Business Hours</businessHours>
         <criteriaBooleanFilter>1 OR ( 2 AND (3 OR 4))</criteriaBooleanFilter>
         <milestoneCriteriaFilterItems>
             <field>Case.RecordTypeId</field>

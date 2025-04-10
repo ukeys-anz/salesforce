@@ -66,6 +66,8 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
     CaseGroupCaseActions.validateParentClosureIfChildCasesOpen(
       parentCasesWithStatusClosed
     );
+
+    CaseGroupCaseActions.completeMilestones(records, oldMap);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
