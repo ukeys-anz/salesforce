@@ -42,34 +42,35 @@ public with sharing class IDRCaseAccessActions {
       mapOfL2L3Users.keySet()
     );
 
-    List<Case> excludedL2L3Cases = getExcludedL2L3Cases(
-      casesToBeValidated,
-      oldMap,
-      mapOfL2L3Users.keySet()
-    ); 
+    List<Case> excludedCases = getExcludedCases(casesToBeValidated, oldMap);
 
     List<Case> statusChangedCases = getStatusChangedCases(
-      excludedL2L3Cases,
+      excludedCases,
       oldMap
-    ); 
+    );
     ListUtil.addError(statusChangedCases, ERROR_MSG_RESTRICT_L2_L3_USERS);
-    List<Case> nonStatusChangedCases = ListUtil.filter(excludedL2L3Cases)
+    List<Case> nonStatusChangedCases = ListUtil.filter(excludedCases)
       .noError()
       .toList();
 
-    List<Case> ownerChangedCases = getOwnerChangedCases(
+    List<Case> notOwnedByL2L3Users = getNotOwnedByL2L3Users(
       nonStatusChangedCases,
+      mapOfL2L3Users.keySet()
+    );
+
+    List<Case> ownerChangedCases = getOwnerChangedCases(
+      notOwnedByL2L3Users,
       oldMap
-    ); 
+    );
     ListUtil.addError(ownerChangedCases, ERROR_MSG_RESTRICT_L2_L3_USERS);
-    List<Case> nonOwnerChangedCases = ListUtil.filter(nonStatusChangedCases)
+    List<Case> nonOwnerChangedCases = ListUtil.filter(notOwnedByL2L3Users)
       .noError()
       .toList();
 
     List<Case> nonAnzUserCases = getNonAnzxStandardUserCases(
       nonOwnerChangedCases,
       oldMap
-    ); 
+    );
     ListUtil.addError(nonAnzUserCases, ERROR_MSG_RESTRICT_L2_L3_USERS);
     List<Case> anzxUserCases = ListUtil.filter(nonOwnerChangedCases)
       .noError()
@@ -82,17 +83,29 @@ public with sharing class IDRCaseAccessActions {
     ListUtil.addError(nonBankerRelatedCases, ERROR_MSG_RESTRICT_L2_L3_USERS);
   }
   /**
-   * @description To get all those cases where IDR_Complaint_Resolution_Count__c, IDR_Additional_Correspondence_reviewed__c, IDR_Document_Count__c data are not changed && new owner is not a L2/L3 user.
+   * @description To get all the cases where owner is not IDR_Level_2 nor IDR_Level_3 users.
+   * @param newCases List of new cases.
+   * @param l2l3UsersIds Set of users id which are having either IDR_Level_2 or IDR_Level_3 PSG.
+   * @return `List<Case>` return list of cases which full fill the criteria.
+   */
+  private static List<Case> getNotOwnedByL2L3Users(
+    List<Case> newCases,
+    Set<Id> l2l3UsersIds
+  ) {
+    return ListUtil.filter(newCases)
+      .notEquals(Case.OwnerId, l2l3UsersIds)
+      .toList();
+  }
+  /**
+   * @description To get all those cases where IDR_Complaint_Resolution_Count__c, IDR_Additional_Correspondence_reviewed__c, IDR_Document_Count__c data are not changed.
    * @param newCases List of new cases.
    * @param oldMap Map of old cases.
-   * @param l2l3UsersIds List of users id which are having either IDR_Level_2 or IDR_Level_3 PSG.
    * @return `List<Case>` return list of cases which full fill the criteria.
    */
   @TestVisible
-  private static List<Case> getExcludedL2L3Cases( 
+  private static List<Case> getExcludedCases(
     List<Case> newCases,
-    Map<Id, Case> oldMap,
-    Set<Id> l2l3UsersIds
+    Map<Id, Case> oldMap
   ) {
     Set<SObjectField> excludedFields = new Set<SObjectField>{
       Case.IDR_Complaint_Resolution_Count__c,
@@ -102,7 +115,6 @@ public with sharing class IDRCaseAccessActions {
 
     return ListUtil.filter(newCases, oldMap)
       .allNotChanged(excludedFields)
-      .notEquals(Case.OwnerId, l2l3UsersIds)
       .toList();
   }
   /**

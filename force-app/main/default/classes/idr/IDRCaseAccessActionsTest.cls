@@ -401,7 +401,7 @@ private with sharing class IDRCaseAccessActionsTest {
    * @description Test when new owner is L2/L3 user and IDR_Complaint_Resolution_Count__c,IDR_Additional_Correspondence_reviewed__c, IDR_Document_Count__c data are not changed.
    */
   @isTest
-  static void testgetExcludedL2L3Cases() {
+  static void testgetExcludedCases() {
     registerMocks();
     userMock.mock('getUser', l2User).mock('getUser', l2User);
     Case oldCase = oldCaseRecord;
@@ -409,15 +409,15 @@ private with sharing class IDRCaseAccessActionsTest {
     Case newCase = newCaseRecord;
     newCase.OwnerId = l2User.Id;
     Test.startTest();
-    List<Case> result = IDRCaseAccessActions.getExcludedL2L3Cases(
+    List<Case> result = IDRCaseAccessActions.getExcludedCases(
       new List<Case>{ newCase },
-      new Map<Id, Case>{ oldCase.Id => oldCase },
-      new Set<Id>{ l2User.Id }
+      new Map<Id, Case>{ oldCase.Id => oldCase }
     );
     Test.stopTest();
-    Assert.isTrue(
-      result.isEmpty(),
-      'Result should be empty as case owner is not L2 user'
+    Assert.areEqual(
+      result,
+      new List<Case>{ newCase },
+      'Contains new case as data not changed for IDR_Complaint_Resolution_Count__c,IDR_Additional_Correspondence_reviewed__c && IDR_Document_Count__c'
     );
   }
 }
