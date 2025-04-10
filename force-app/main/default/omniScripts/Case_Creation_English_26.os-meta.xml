@@ -3066,7 +3066,7 @@
       } ]
     }
   },
-  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_3-of-3 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Country: %Response:profile:country%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Migration Status: %Response:profile:migrationStatusType%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Migration Date: %Response:profile:migrationStatusDate%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_3-of-3 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Country: %Response:profile:country%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Move Status: %Response:profile:migrationStatusType%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_1-of-3\&quot;&gt;Move Date: %Response:profile:migrationStatusDate%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 9.0
 }</propertySetConfig>
@@ -3082,7 +3082,7 @@
               <propertySetConfig>{
 &quot;controlWidth&quot; : 12,
 &quot;label&quot; : &quot;TextBlock6&quot;,
-&quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Migration Status: %data:fields:Migration_Status__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Migration Date: %data:fields:Migration_Status_Date__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+&quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Status: %data:fields:Migration_Status__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Date: %data:fields:Migration_Status_Date__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
 &quot;show&quot; : {
   &quot;group&quot; : {
     &quot;operator&quot; : &quot;AND&quot;,
