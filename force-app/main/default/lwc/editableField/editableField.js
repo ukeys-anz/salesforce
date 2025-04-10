@@ -8,6 +8,7 @@ export default class EditableField extends LightningElement {
   @api helpText;
   @api isInvalid = false;
   @api readOnly = false;
+  @api isRequired;
   @api validationErrorForAccountClosureReason;
   @api validationErrorForAccountName;
   @api validationErrorForAccountBsb;
