@@ -31,10 +31,6 @@ export default class AccountClosureWizardChild extends LightningElement {
   @api accountId;
   @api showCheckbox;
   @api issueType;
-  errorMessageForValidAccountName;
-  errorMessageForValidBsb;
-  errorMessageForValidAccountNumber;
-  errorMessageForValidClosureReason;
   @track _selectedRows = [];
   @api
   set selectedRows(value) {
@@ -230,29 +226,19 @@ export default class AccountClosureWizardChild extends LightningElement {
     let isFieldIsValid = false;
     const validRows = rows.map((row) => {
       const invalidFields = this.validateRowFields(row);
-      if (Object.values(invalidFields).includes(true)) {
+      // Only check boolean flags (starting with "is")
+      const hasInvalidField = Object.entries(invalidFields).some(
+        ([key, val]) => key.startsWith("is") && val === true
+      );
+
+      if (hasInvalidField) {
         isFieldIsValid = true;
       }
-      if (invalidFields.isClosureReasonInvalid) {
-        this.errorMessageForValidClosureReason = "This field is required.";
-      }
-      if (invalidFields.isAccountNameInvalid) {
-        this.errorMessageForValidAccountName = row.intendedAccountName
-          ? "Forwarding Account Name must be less than 255 characters long"
-          : "This field is required.";
-      }
-      if (invalidFields.isaccountBsbInvalid) {
-        this.errorMessageForValidBsb = row.intendedAccountBsb
-          ? "Forwarding Account BSB must be 4-6 numerical characters long"
-          : "This field is required.";
-      }
-      if (invalidFields.isAccountNumberInvalid) {
-        this.errorMessageForValidAccountNumber = row.intendedAccountNumber
-          ? "Forwarding Account Number must be between 6-23 numerical characters long"
-          : "This field is required.";
-      }
 
-      return { ...row, ...invalidFields };
+      return {
+        ...row,
+        ...invalidFields
+      };
     });
 
     return { validRows, isFieldIsValid };
@@ -264,14 +250,31 @@ export default class AccountClosureWizardChild extends LightningElement {
       case ISSUE_TYPE_ACCOUNT_CLOSURE:
         return {
           isClosureReasonInvalid: !row.closureReason,
+          closureReasonError: !row.closureReason
+            ? "This field is required."
+            : null,
+
           isAccountNameInvalid:
             !row.intendedAccountName || row.intendedAccountName.length > 255,
+          accountNameError: !row.intendedAccountName
+            ? "This field is required."
+            : row.intendedAccountName.length > 255
+              ? "Forwarding Account Name must be less than 255 characters long"
+              : null,
+
           isaccountBsbInvalid:
             !row.intendedAccountBsb ||
             !/^\d{4,6}$/.test(row.intendedAccountBsb),
+          accountBsbError: !row.intendedAccountBsb
+            ? "This field is required."
+            : "Forwarding Account BSB must be 4-6 numerical characters long",
+
           isAccountNumberInvalid:
             !row.intendedAccountNumber ||
-            !/^\d{6,23}$/.test(row.intendedAccountNumber)
+            !/^\d{6,23}$/.test(row.intendedAccountNumber),
+          accountNumberError: !row.intendedAccountNumber
+            ? "This field is required."
+            : "Forwarding Account Number must be between 6-23 numerical characters long"
         };
 
       case ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT:
