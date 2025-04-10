@@ -5784,7 +5784,7 @@
       "TaxIdentificationNumber__c": "1:1 Transformation"
     },
     "Contact": {
-      "Is_Beta_Broker__c": "Checkbox field"
+      "Is_Beta_Broker__c": "1:1 Transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",
