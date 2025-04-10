@@ -42,11 +42,9 @@ public with sharing class AccountClosureControllerHelper {
         when else {
           handleLogResponse(response);
           caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
-          if(response.message.contains(ACCOUNT_NOT_FOUND_ERROR))
-          {
+          if (response.message.contains(ACCOUNT_NOT_FOUND_ERROR)) {
             postFailureMessage(caseId, new Set<String>{ 'accountNotFound' });
-          }
-          else{
+          } else {
             postFailureMessage(caseId, new Set<String>{ 'techError' });
           }
         }
@@ -134,8 +132,7 @@ public with sharing class AccountClosureControllerHelper {
    * @description log failure message as per the code received
    * @param response instance of CaseInputWrapper having each case details
    */
-  private static void handleLogResponse(CaseInputWrapper response)
-  {
+  private static void handleLogResponse(CaseInputWrapper response) {
     if (ACCESS_ERROR_CODES.contains(response.code)) {
       Logger.info(
         response.salesforceCaseNumber +

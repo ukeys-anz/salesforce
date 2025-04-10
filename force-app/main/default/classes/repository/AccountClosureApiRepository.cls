@@ -4,7 +4,6 @@
  * @description Account Closure Api Repository for all the callouts to Fabric Seal via Mulesoft and GCP
  */
 public with sharing class AccountClosureApiRepository {
-
   private static final AccountClosureService SERVICE = (AccountClosureService) Lib_InstanceProvider.forType(
     AccountClosureService.class
   );
@@ -35,19 +34,21 @@ public with sharing class AccountClosureApiRepository {
     );
 
     List<AccountClosurePrecheckResponseModel> responseFinal = new List<AccountClosurePrecheckResponseModel>();
-    
-    if (!response.successful)
-    {
-      try{
-         responseFinal = AccountClosurePrecheckResponseModel.parse(response?.error.getMessage());
+
+    if (!response.successful) {
+      try {
+        responseFinal = AccountClosurePrecheckResponseModel.parse(
+          response?.error.getMessage()
+        );
+      } catch (Exception objException) {
+        handleErrorResponse(
+          response,
+          'Fabric Seal Service - Fetch Precheck for Accounts'
+        );
       }
-     catch (Exception objException){
-      handleErrorResponse(response, 'Fabric Seal Service - Fetch Precheck for Accounts');
-     }
     }
-    
-    if(response.successful)
-    {
+
+    if (response.successful) {
       responseFinal = AccountClosurePrecheckResponseModel.parse(response.body);
     }
 

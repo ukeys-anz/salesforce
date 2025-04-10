@@ -6,17 +6,17 @@
  */
 @isTest
 public with sharing class AccountClosureApiRepositoryTest {
-    private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
-        Case.getSObjectType()
-        );
-
-    private static final Id FAKER_CHILD_CASE_ID = Lib_FakeIdGenerator.getMockId(
+  private static final Id FAKER_PARENT_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
-    );
+  );
 
-    private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
-        Account.getSObjectType()
-        );
+  private static final Id FAKER_CHILD_CASE_ID = Lib_FakeIdGenerator.getMockId(
+    Case.getSObjectType()
+  );
+
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
   /**
    * @description Add required PermissionSet
    */
@@ -46,16 +46,14 @@ public with sharing class AccountClosureApiRepositoryTest {
     Exception ex = null;
     try {
       new AccountClosureApiRepository()
-        .initiateAccountClosurePreChecks(
-          '1111', mockCaseRecords()
-        );
+        .initiateAccountClosurePreChecks('1111', mockCaseRecords());
     } catch (Exception e) {
       ex = e;
     }
     Assert.isNull(ex, 'Exception should not be thrown');
   }
 
-   /**
+  /**
    * @description initiatePrecheck Invalid response
    */
   @isTest
@@ -66,19 +64,17 @@ public with sharing class AccountClosureApiRepositoryTest {
     response.error = new CalloutException('Error');
     Lib_MockProvider.forType(AccountClosureService.class)
       .mock('initiateAccountClosurePreChecks', response);
-      Exception ex;
-      try {
-        new AccountClosureApiRepository()
-        .initiateAccountClosurePreChecks(
-          '1111', mockCaseRecords()
-        );
-      } catch (Exception e) {
-        ex = e;
-      }
-      Assert.isTrue(
-        ex instanceof AccountClosureApiRepository.ServerErrorException,
-        'Server Exception should be thrown.'
-      );
+    Exception ex;
+    try {
+      new AccountClosureApiRepository()
+        .initiateAccountClosurePreChecks('1111', mockCaseRecords());
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isTrue(
+      ex instanceof AccountClosureApiRepository.ServerErrorException,
+      'Server Exception should be thrown.'
+    );
   }
 
   /**
@@ -92,19 +88,17 @@ public with sharing class AccountClosureApiRepositoryTest {
     response.error = new CalloutException('Error');
     Lib_MockProvider.forType(AccountClosureService.class)
       .mock('initiateAccountClosurePreChecks', response);
-      Exception ex;
-      try {
-        new AccountClosureApiRepository()
-        .initiateAccountClosurePreChecks(
-          '1111', mockCaseRecords()
-        );
-      } catch (Exception e) {
-        ex = e;
-      }
-      Assert.isTrue(
-        ex instanceof AccountClosureApiRepository.AccessErrorException,
-        'Access Exception should be thrown.'
-      );
+    Exception ex;
+    try {
+      new AccountClosureApiRepository()
+        .initiateAccountClosurePreChecks('1111', mockCaseRecords());
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isTrue(
+      ex instanceof AccountClosureApiRepository.AccessErrorException,
+      'Access Exception should be thrown.'
+    );
   }
 
   /**
@@ -118,22 +112,18 @@ public with sharing class AccountClosureApiRepositoryTest {
     response.error = new CalloutException('Error');
     Lib_MockProvider.forType(AccountClosureService.class)
       .mock('initiateAccountClosurePreChecks', response);
-      Exception ex;
-      try {
-        new AccountClosureApiRepository()
-        .initiateAccountClosurePreChecks(
-          '1111', mockCaseRecords()
-        );
-      } catch (Exception e) {
-        ex = e;
-      }
-      Assert.isTrue(
-        ex instanceof AccountClosureApiRepository.AccessErrorException,
-        'Access Exception should be thrown.'
-      );
+    Exception ex;
+    try {
+      new AccountClosureApiRepository()
+        .initiateAccountClosurePreChecks('1111', mockCaseRecords());
+    } catch (Exception e) {
+      ex = e;
+    }
+    Assert.isTrue(
+      ex instanceof AccountClosureApiRepository.AccessErrorException,
+      'Access Exception should be thrown.'
+    );
   }
-  
- 
 
   private static List<Case> mockCaseRecords() {
     Case caseRecord = (Case) TestUtil.setFields(
@@ -151,7 +141,6 @@ public with sharing class AccountClosureApiRepositoryTest {
       ),
       new Map<String, Object>{ 'CaseNumber' => '03771916' }
     );
-    return new List<Case>{caseRecord};
+    return new List<Case>{ caseRecord };
   }
-
 }

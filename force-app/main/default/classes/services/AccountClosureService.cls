@@ -5,10 +5,9 @@
  * @group Services
  */
 public with sharing virtual class AccountClosureService extends Service {
-
   private static final Lib_HttpCallout CALLOUT = (Lib_HttpCallout) Lib_InstanceProvider.forType(
-    Lib_HttpCallout.class);
-
+    Lib_HttpCallout.class
+  );
 
   /**
    * @param ocvId ocvId of the customer to generate jwt token
