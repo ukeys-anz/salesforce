@@ -8,7 +8,13 @@ public with sharing class AccountClosureControllerHelper {
     AccountClosureRepository.class
   );
 
-  private static final String TECHNICAL_ERROR = 'techError';
+  private static final String ACCOUNT_NOT_FOUND_ERROR = 'No account with given number found or it is not at closable status';
+
+  private static final Set<String> ACCESS_ERROR_CODES = new Set<String>{
+    '400',
+    '403',
+    '404'
+  };
 
   /**
    * @description method to prepare list of cases to update
@@ -34,21 +40,15 @@ public with sharing class AccountClosureControllerHelper {
           postFailureMessage(caseId, new Set<String>(response.failedReasons));
         }
         when else {
-          if (response.code == '403' || response.code == '400') {
-            Logger.info(
-              response.salesforceCaseNumber +
-                ' - Precheck Failure Reason for Account Closure Process: ' +
-                response.message
-            );
-          } else {
-            Logger.error(
-              response.salesforceCaseNumber +
-                ' - Precheck Failure Reason from Account Closure Service: ' +
-                response.message
-            );
-          }
+          handleLogResponse(response);
           caseRecord.Sub_Status__c = GetHelpConstants.FAILED;
-          postFailureMessage(caseId, new Set<String>{ TECHNICAL_ERROR });
+          if(response.message.contains(ACCOUNT_NOT_FOUND_ERROR))
+          {
+            postFailureMessage(caseId, new Set<String>{ 'accountNotFound' });
+          }
+          else{
+            postFailureMessage(caseId, new Set<String>{ 'techError' });
+          }
         }
       }
       casesToUpdate.add(caseRecord);
@@ -128,5 +128,26 @@ public with sharing class AccountClosureControllerHelper {
     }
 
     return String.join(messageParts, '\n\n').trim();
+  }
+
+  /**
+   * @description log failure message as per the code received
+   * @param response instance of CaseInputWrapper having each case details
+   */
+  private static void handleLogResponse(CaseInputWrapper response)
+  {
+    if (ACCESS_ERROR_CODES.contains(response.code)) {
+      Logger.info(
+        response.salesforceCaseNumber +
+          ' - Precheck Failure Reason for Account Closure Process: ' +
+          response.message
+      );
+    } else {
+      Logger.error(
+        response.salesforceCaseNumber +
+          ' - Precheck Failure Reason from Account Closure Service: ' +
+          response.message
+      );
+    }
   }
 }
