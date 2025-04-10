@@ -120,8 +120,8 @@ public with sharing class AccountClosureApiRepositoryTest {
       ex = e;
     }
     Assert.isTrue(
-      ex instanceof AccountClosureApiRepository.AccessErrorException,
-      'Access Exception should be thrown.'
+      ex instanceof AccountClosureApiRepository.UnhandledException,
+      'Unhandled Exception should be thrown.'
     );
   }
 
