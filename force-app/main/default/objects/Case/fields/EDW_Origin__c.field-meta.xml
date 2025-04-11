@@ -20,6 +20,8 @@
 &apos;14&apos;,&apos;8&apos;,
 &apos;15&apos;,&apos;8&apos;,
 &apos;Other&apos;,&apos;8&apos;,
+&apos;22&apos;,&apos;8&apos;,
+&apos;23&apos;,&apos;8&apos;,
 TEXT(Origin))</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Channel Received (EDW)</label>

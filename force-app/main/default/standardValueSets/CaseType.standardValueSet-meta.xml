@@ -442,6 +442,11 @@
         <label>Know Your Customer</label>
     </standardValue>
     <standardValue>
+        <fullName>23</fullName>
+        <default>false</default>
+        <label>Customer Migration</label>
+    </standardValue>
+    <standardValue>
         <fullName>My Accounts</fullName>
         <default>false</default>
         <label>My Accounts</label>
@@ -495,5 +500,10 @@
         <fullName>Confirmation of Payee Opt-Out</fullName>
         <default>false</default>
         <label>Confirmation of Payee Opt-Out</label>
+    </standardValue>
+    <standardValue>
+        <fullName>24</fullName>
+        <default>false</default>
+        <label>Card Scheme Disputes</label>
     </standardValue>
 </StandardValueSet>

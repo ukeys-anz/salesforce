@@ -123,5 +123,5 @@
     <externalName>TradeFinance</externalName>
     <label>Trade Finance</label>
     <pluralLabel>Trade Finance</pluralLabel>
-    <searchLayouts></searchLayouts>
+    <searchLayouts/>
 </CustomObject>
