@@ -61,7 +61,6 @@ public with sharing class UnifiedFinancialAccountModelConverter {
 
       finAccountList.add(finAccountDetail);
     }
-
     UnifiedFinancialAccountModel model = new UnifiedFinancialAccountModel(
       finAccountList
     );

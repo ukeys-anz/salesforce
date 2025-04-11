@@ -6,12 +6,31 @@ export default class EditableField extends LightningElement {
   @api label;
   @api value;
   @api helpText;
-  @api isRequired;
   @api isInvalid = false;
   @api readOnly = false;
-  errorText = "This field is required.";
+  @api isRequired;
+  @api validationErrorForAccountClosureReason;
+  @api validationErrorForAccountName;
+  @api validationErrorForAccountBsb;
+  @api validationErrorForAccountNumber;
 
   @api options = [];
+
+  get isClosureReasonInvalid() {
+    return this.isInvalid && this.validationErrorForAccountClosureReason;
+  }
+
+  get isAccountNameInvalid() {
+    return this.isInvalid && this.validationErrorForAccountName;
+  }
+
+  get isAccountBsbInvalid() {
+    return this.isInvalid && this.validationErrorForAccountBsb;
+  }
+
+  get isAccountNumberInvalid() {
+    return this.isInvalid && this.validationErrorForAccountNumber;
+  }
 
   get isInputField() {
     return this.type === "input";
