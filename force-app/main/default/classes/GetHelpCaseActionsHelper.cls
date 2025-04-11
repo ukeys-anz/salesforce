@@ -207,7 +207,7 @@ public with sharing class GetHelpCaseActionsHelper {
         (c.Type == 'Confirmation of Payee Opt-In' ||
         c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
-        accountIds.add(caseRec.AccountId);
+        accountIds.add(c.AccountId);
       }
     }
     return accountIds;
@@ -247,7 +247,7 @@ public with sharing class GetHelpCaseActionsHelper {
     List<Case> caseList,
     Map<Id, Id> entMap
   ) {
-    for (Case caseRec : caseList) {
+    for (Case c : caseList) {
       if (
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
@@ -257,28 +257,24 @@ public with sharing class GetHelpCaseActionsHelper {
         (c.Type == 'Confirmation of Payee Opt-In' ||
         c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
-        if (!entMap.containsKey(caseRec.AccountId)) {
-          caseRec.addError(NO_ENTITLEMENT_ERROR_MSG);
+        if (!entMap.containsKey(c.AccountId)) {
+          c.addError(NO_ENTITLEMENT_ERROR_MSG);
         } else {
-          caseRec.EntitlementId = entMap.get(caseRec.AccountId);
+          c.EntitlementId = entMap.get(c.AccountId);
         }
-      }
-
-      if (caseRec.RecordTypeId == RTCase.anzxComplaint) {
-        caseRec.EntitlementId = IDRCaseActions.getEntitlement();
-        caseRec.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
-          caseRec.Status,
-          caseRec.IDR_Date_Received__c,
-          caseRec.BusinessHoursId
-        );
-      }
-
-      if (
-        caseRec.RecordTypeId == RTCase.nonCustomerComplaint &&
-        caseRec.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN
+      } else if (
+        (c.RecordTypeId == RTCase.nonCustomerComplaint &&
+        c.Origin == GetHelpConstants.ANZ_PLUS_WEB_ORIGIN)
       ) {
-        caseRec.EntitlementId = IDRCaseActions.getEntitlement();
-        caseRec.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+        c.EntitlementId = IDRCaseActions.getEntitlement();
+        c.IDR_Milestone_Sla__c = IDRConstants.MILESTONE_SLA_NORMAL;
+      } else if (c.RecordTypeId == RTCase.anzxComplaint) {
+        c.EntitlementId = IDRCaseActions.getEntitlement();
+        c.IDR_Milestone_Sla__c = IDRCaseActions.getMilestoneSla(
+          c.Status,
+          c.IDR_Date_Received__c,
+          c.BusinessHoursId
+        );
       }
     }
   }
