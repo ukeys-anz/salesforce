@@ -102,53 +102,9 @@
                       >
                         <lightning-formatted-text
                           class="labelAndValueStyle"
-                          value={saving.belongsTo}
+                          value={saving.ownerName}
                         ></lightning-formatted-text>
                       </lightning-layout-item>
-
-                      <!-- owndership split -->
-                      <lightning-layout-item
-                        size="8"
-                        class="slds-p-top_small labelAndValueStyle"
-                      >
-                        <lightning-formatted-text
-                          value="Ownership Split"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-                      <lightning-layout-item
-                        size="4"
-                        flexibility="shrink"
-                        alignment-bump="right"
-                        class="slds-p-top_x-small slds-text-align_right"
-                      >
-                        <lightning-formatted-text
-                          class="labelAndValueStyle"
-                          value={saving.ownershipSplit}
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-
-                      <!-- Institution -->
-                      <template lwc:if={saving.showInstitution}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Institution"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={saving.financialInstitution}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
 
                       <!-- Product Name -->
                       <template lwc:if={saving.showProductName}>
@@ -169,6 +125,29 @@
                           <lightning-formatted-text
                             class="labelAndValueStyle"
                             value={saving.productName}
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                      </template>
+
+                      <!-- Institution -->
+                      <template lwc:if={saving.showInstitution}>
+                        <lightning-layout-item
+                          size="8"
+                          class="slds-p-top_x-small labelAndValueStyle"
+                        >
+                          <lightning-formatted-text
+                            value="Institution"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="4"
+                          flexibility="shrink"
+                          alignment-bump="right"
+                          class="slds-p-top_x-small slds-text-align_right"
+                        >
+                          <lightning-formatted-text
+                            class="labelAndValueStyle"
+                            value={saving.financialInstitution}
                           ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
@@ -312,27 +291,6 @@
                           ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
-
-                      <!-- Saving Source -->
-                      <lightning-layout-item
-                        size="8"
-                        class="slds-p-top_x-small labelAndValueStyle"
-                      >
-                        <lightning-formatted-text
-                          value="Source"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-                      <lightning-layout-item
-                        size="4"
-                        flexibility="shrink"
-                        alignment-bump="right"
-                        class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                      >
-                        <lightning-formatted-text
-                          class="labelAndValueStyle"
-                          value={saving.readableSource}
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
                     </lightning-layout>
                   </lightning-layout-item>
 

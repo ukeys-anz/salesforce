@@ -10,12 +10,6 @@ const SOURCE_CREDIT_BUREAU = "LIABILITY_SOURCE_TYPE_BUREAU";
 const SOURCE_MANUAL = "LIABILITY_SOURCE_TYPE_MANUAL";
 const ACTION_EDIT = "Edit";
 const ACTION_ADD = "Add";
-const CONSTRUCTION_LOAN = "Construction";
-const VARIABLE_PI_LOAN = "Variable P&I";
-const VARIABLE_IO_LOAN = "Variable IO";
-const FIXED_IO_LOAN = "Fixed IO";
-//Variables for home loan types currently unused
-// const FIXED_PI_LOAN = "Fixed P&I";
 
 export const TYPE_MAP = {
   LIABILITY_TYPE_CREDIT_CARD: {
@@ -145,8 +139,7 @@ const PERSONAL_VEHICLE_OTHER_LOAN = {
     showRemainingTermCheckbox:
       isActionEdit(actionType) &&
       debt.sourceType === SOURCE_CREDIT_BUREAU &&
-      !debt.customerStatedClosed,
-    disableInterestRate: true
+      !debt.customerStatedClosed
   })
 };
 
@@ -177,107 +170,9 @@ const VEHICLE_OTHER_LOAN = {
 
 const DEBT_TYPES = {
   LIABILITY_TYPE_HOME_LOAN: {
-    fields: (actionType, debt) => ({
-      ...COMMON_FIELDS.fields(actionType, debt),
-      showInstitution: true,
-      showProductName:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showBSB: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showAccountNumber:
-        isActionEdit(actionType) &&
-        (debt.sourceType === SOURCE_ANZ ||
-          debt.sourceType === SOURCE_CREDIT_BUREAU),
-      showAccountStatus:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showBalanceTitle: true,
-      showBalanceOwingSplit: true,
-      showBalanceOwing:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showAvailableRedraw:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showCustomerExcludedDebt:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_CREDIT_BUREAU,
-      showCustomerExcludedDebtMessage:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        debt.customerStatedClosed,
-      disableCustomerStatedClosed:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        !debt.customerStatedClosed,
-      showCreditBureauBalanceOwing:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_CREDIT_BUREAU,
-      showUndrawnAmount:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) &&
-          ((debt.sourceType === SOURCE_ANZ &&
-            debt.homeLoanType === CONSTRUCTION_LOAN) ||
-            debt.sourceType === SOURCE_MANUAL)),
-      showUndrawnAmountSplit:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        !debt.customerStatedClosed,
-      showRemainingTermTitle: true,
-      showYears:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showMonths:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showCreditBureauRemainingTerm:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_CREDIT_BUREAU,
-      showOtherLoanDetailsTitle: true,
-      showRateType: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showRepaymentType:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      showInterestRateOther:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showRepaymentFrequency:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) &&
-          !debt.customerStatedClosed &&
-          debt.homeLoanType !== VARIABLE_IO_LOAN &&
-          debt.homeLoanType !== FIXED_IO_LOAN &&
-          debt.homeLoanType !== CONSTRUCTION_LOAN),
-      showRepaymentAmount:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) &&
-          !debt.customerStatedClosed &&
-          debt.homeLoanType !== VARIABLE_IO_LOAN &&
-          debt.homeLoanType !== FIXED_IO_LOAN &&
-          debt.homeLoanType !== CONSTRUCTION_LOAN),
-      showTaxDeductible:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showLinkedProperty:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) && !debt.customerStatedClosed),
-      showDebtEvidence: true,
-      disableInterestRate:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      requireUndrawnAmount: false,
-      showInterestRateUMICheckbox:
-        isActionAdd(actionType) ||
-        (isActionEdit(actionType) &&
-          (debt.sourceType === SOURCE_MANUAL ||
-            (debt.sourceType === SOURCE_CREDIT_BUREAU &&
-              !debt.customerStatedClosed))),
-      showBalanceOwingCheckbox:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        !debt.customerStatedClosed,
-      showRemainingTermCheckbox:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        !debt.customerStatedClosed,
-      showSubsequentInterestRate:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_ANZ &&
-        debt.homeLoanType !== VARIABLE_PI_LOAN
-    })
+    //Ignore rule as no home loan add/edit yet
+    //eslint-disable-next-line no-unused-vars
+    fields: (actionType, debt) => ({})
   },
   LIABILITY_TYPE_CREDIT_CARD: {
     fields: (actionType, debt) => ({
@@ -339,7 +234,6 @@ const DEBT_TYPES = {
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showInterestRate:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      disableInterestRate: true,
       showDebtEvidence:
         isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL,
       disableBelongsTo:
@@ -447,10 +341,7 @@ const DEBT_TYPES = {
           ? true
           : false,
       showDebtEvidence:
-        isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL,
-      disableOwnershipSplit: isActionEdit(actionType),
-      disableBelongsTo: isActionEdit(actionType),
-      disableInterestRate: true
+        isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL
     })
   },
   //Fixed Amount
@@ -512,10 +403,7 @@ const DEBT_TYPES = {
           ? true
           : false,
       showDebtEvidence:
-        isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL,
-      disableOwnershipSplit: isActionEdit(actionType),
-      disableBelongsTo: isActionEdit(actionType),
-      disableInterestRate: true
+        isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL
     })
   },
   LIABILITY_TYPE_STUDENT_LOAN: {
@@ -523,73 +411,29 @@ const DEBT_TYPES = {
     //eslint-disable-next-line no-unused-vars
     fields: (actionType, debt) => ({
       showBalanceOwing: true,
-      showWithheldFromPay: true,
-      disableOwnershipSplit: isActionEdit(actionType),
-      disableBelongsTo: isActionEdit(actionType),
-      disableInterestRate: true
+      showWithheldFromPay: true
     })
   },
+  //No LOC for add yet
   LIABILITY_TYPE_LINE_OF_CREDIT: {
     fields: (actionType, debt) => ({
       ...COMMON_FIELDS.fields(actionType, debt),
       showInstitution: true,
-      showLimitTitle: true,
-      showLimit: isActionAdd(actionType)
-        ? true
-        : isActionEdit(actionType) && !debt.customerStatedClosed
-          ? true
-          : false,
-      showOtherDetailsTitle: true,
-      showBalanceOwing: isActionAdd(actionType)
-        ? true
-        : isActionEdit(actionType) && !debt.customerStatedClosed
-          ? true
-          : false,
-      showTaxDeductible: isActionAdd(actionType)
-        ? true
-        : isActionEdit(actionType) && !debt.customerStatedClosed
-          ? true
-          : false,
-      showLinkedProperty: isActionAdd(actionType)
-        ? true
-        : isActionEdit(actionType) && !debt.customerStatedClosed
-          ? true
-          : false,
-      showAccountStatus:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showBSB: isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showAccountNumber:
-        isActionEdit(actionType) &&
-        (debt.sourceType === SOURCE_ANZ ||
-          debt.sourceType === SOURCE_CREDIT_BUREAU),
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      showAccountStatusMessage:
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      showLimitTitle: isActionEdit(actionType),
+      showLimit: isActionEdit(actionType),
+      showOtherDetailsTitle:
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      showBalanceOwing:
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showInterestRate:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showDebtEvidence:
-        isActionEdit(actionType) &&
-        (debt.sourceType === SOURCE_ANZ ||
-          debt.sourceType === SOURCE_CREDIT_BUREAU),
-      showCreditBureauLimit:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_CREDIT_BUREAU,
-      showCustomerExcludedDebt:
-        isActionEdit(actionType) && debt.sourceType === SOURCE_CREDIT_BUREAU,
-      showCustomerExcludedDebtMessage:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        debt.customerStatedClosed,
-      disableCustomerStatedClosed:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        !debt.customerStatedClosed,
-      disableBelongsTo:
-        isActionEdit(actionType) &&
-        (debt.sourceType === SOURCE_ANZ ||
-          debt.sourceType === SOURCE_CREDIT_BUREAU),
-      disableInstitution:
-        isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL,
-      showUMICheckbox:
-        isActionEdit(actionType) &&
-        debt.sourceType === SOURCE_CREDIT_BUREAU &&
-        !debt.customerStatedClosed
+        isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL
     })
   },
   LIABILITY_TYPE_OVERDRAFT: {
@@ -629,7 +473,6 @@ const DEBT_TYPES = {
           : false,
       showInterestRate:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      disableInterestRate: true,
       showDebtEvidence:
         isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL
     })
@@ -651,7 +494,6 @@ const DEBT_TYPES = {
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showInterestRate:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
-      disableInterestRate: true,
       showDebtEvidence:
         isActionEdit(actionType) && debt.sourceType !== SOURCE_MANUAL
     })
@@ -671,7 +513,6 @@ const DEBT_TYPES = {
       showOtherOverdraftDetailsTitle: true,
       showBalanceOwing: true,
       showInterestRate: true,
-      disableInterestRate: true,
       showDebtEvidence: true
     })
   }
@@ -746,68 +587,9 @@ const COMMON_EDIT_PAYLOADS = {
 
 const EDIT_DEBT_TYPES = {
   LIABILITY_TYPE_HOME_LOAN: {
-    liability: (debt) => ({
-      liability: {
-        etag: debt.etag,
-        uid: debt.uid,
-        sources: [debt.sourceType],
-        type: debt.type,
-        name: debt.name,
-        verifiedOutstandingBalanceValue:
-          debt.sourceType === SOURCE_CREDIT_BUREAU
-            ? debt.verifiedOutstandingBalance
-            : null,
-        outstandingBalanceValue: !debt.customerStatedClosed
-          ? debt.outstandingBalance
-          : null,
-        validatedOutstandingBalance:
-          debt.sourceType === SOURCE_CREDIT_BUREAU
-            ? debt.validatedOutstandingBalance
-            : null,
-        termType: debt.sourceType !== SOURCE_MANUAL ? debt.termType : null,
-        institutionalLiability: {
-          financialInstitution:
-            debt.institutionalLiability?.financialInstitution,
-          principalInterestRemainingTerm:
-            debt.sourceType === SOURCE_CREDIT_BUREAU
-              ? debt.institutionalLiability?.principalInterestRemainingTerm
-              : null,
-          verifiedPrincipalInterestRemainingTerm:
-            debt.sourceType === SOURCE_CREDIT_BUREAU
-              ? debt.institutionalLiability
-                  ?.verifiedPrincipalInterestRemainingTerm
-              : null,
-          validatedPrincipalInterestRemainingTerm:
-            debt.sourceType === SOURCE_CREDIT_BUREAU
-              ? debt.institutionalLiability
-                  ?.validatedPrincipalInterestRemainingTerm
-              : null,
-          interestRate: debt.institutionalLiability?.originalInterestRateValue,
-          taxDeductiblePercentage:
-            debt.institutionalLiability.taxDeductiblePercentageOriginal,
-          redrawAmountValue: debt.institutionalLiability?.redrawAmount,
-          repaymentAmountValue: debt.institutionalLiability?.repaymentAmount,
-          repaymentFrequency: debt.institutionalLiability?.repaymentFrequency,
-          interestRateValidated:
-            debt.institutionalLiability?.interestRateValidated,
-          paymentMethod: debt.institutionalLiability?.paymentMethod
-        },
-        account: {
-          id: debt.accountId,
-          accountNumber: debt.accountNumber,
-          status: debt.status,
-          bsb: debt.bsb
-        },
-        undrawnAmountValue: debt.undrawnAmount,
-        paidOffAndClosed: debt.paidOffAndClosed,
-        evidenceProvided: debt.evidenceProvided,
-        customerStatedClosed:
-          debt.sourceType === SOURCE_CREDIT_BUREAU
-            ? debt.customerStatedClosed
-            : null,
-        assets: debt.assets
-      }
-    })
+    //Ignore rule as no home loan add/edit yet
+    //eslint-disable-next-line no-unused-vars
+    liability: (debt) => ({})
   },
   LIABILITY_TYPE_CREDIT_CARD: {
     liability: (debt) => ({
@@ -1069,13 +851,6 @@ const EDIT_DEBT_TYPES = {
         sources: [debt.sourceType],
         type: debt.type,
         name: debt.name,
-        verifiedOutstandingBalanceValue:
-          debt.sourceType === SOURCE_CREDIT_BUREAU
-            ? debt.verifiedOutstandingBalance
-            : null,
-        outstandingBalanceValue: !debt.customerStatedClosed
-          ? debt.outstandingBalance
-          : null,
         institutionalLiability: {
           financialInstitution:
             debt.institutionalLiability?.financialInstitution,
@@ -1092,13 +867,7 @@ const EDIT_DEBT_TYPES = {
           validatedLimit:
             debt.sourceType === SOURCE_CREDIT_BUREAU
               ? debt.institutionalLiability.validatedLimit
-              : null,
-          interestRate:
-            debt.sourceType === SOURCE_ANZ
-              ? debt.institutionalLiability.originalInterestRateValue
-              : null,
-          taxDeductiblePercentage:
-            debt.institutionalLiability.taxDeductiblePercentageOriginal
+              : null
         },
         account: {
           id: debt.accountId,
@@ -1111,8 +880,7 @@ const EDIT_DEBT_TYPES = {
         customerStatedClosed:
           debt.sourceType === SOURCE_CREDIT_BUREAU
             ? debt.customerStatedClosed
-            : null,
-        assets: debt.assets
+            : null
       }
     })
   },
@@ -1242,7 +1010,7 @@ export function handleAddDefaults() {
         status: null
       },
       sources: [],
-      ownership: [{ partyId: null, proportion: { value: null } }],
+      ownership: "",
       studentLoan: {
         hecsWithheldPayment: null
       },
@@ -1250,95 +1018,10 @@ export function handleAddDefaults() {
       paidOffAndClosed: false,
       evidenceProvided: null,
       customerStatedClosed: null,
-      verifiedOutstandingBalanceValue: null,
-      assets: []
+      verifiedOutstandingBalanceValue: null
     },
     uid: null,
     name: null,
     etag: null
   };
-}
-
-export function handleExcludedDebtChangeVisibility(
-  debtType,
-  value,
-  fieldVisibility,
-  payload
-) {
-  //convert value from string
-  let boolValue = value === "true" ? true : false;
-
-  if (
-    debtType === "LIABILITY_TYPE_BPL_FACILITY" ||
-    debtType === "LIABILITY_TYPE_CREDIT_CARD"
-  ) {
-    fieldVisibility.showLimit = !boolValue;
-    if (debtType === "LIABILITY_TYPE_BPL_FACILITY") {
-      fieldVisibility.showBalanceOwingOtherDetails = !boolValue;
-    } else {
-      fieldVisibility.showBalanceOwing = !boolValue;
-    }
-    fieldVisibility.showPaidInFull = !boolValue;
-    fieldVisibility.showUMICheckbox = !boolValue;
-
-    if (boolValue) {
-      fieldVisibility.showMonthlyRepayment = false;
-    } else {
-      fieldVisibility.showMonthlyRepayment =
-        payload.liability.institutionalLiability.paidInFull === false
-          ? true
-          : false;
-    }
-  }
-
-  let debtTypesList = [
-    "LIABILITY_TYPE_OTHER_LOAN",
-    "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
-    "LIABILITY_TYPE_VEHICLE_LOAN",
-    "LIABILITY_TYPE_BPL_LOAN",
-    "LIABILITY_TYPE_PERSONAL_LOAN"
-  ];
-
-  if (debtTypesList.includes(debtType)) {
-    fieldVisibility.showBalanceOwing = !boolValue;
-    fieldVisibility.showRemainingTermTitle = !boolValue;
-    fieldVisibility.showYears = !boolValue;
-    fieldVisibility.showMonths = !boolValue;
-    fieldVisibility.showRepaymentAmount = !boolValue;
-    fieldVisibility.showRepaymentFrequency = !boolValue;
-    fieldVisibility.showRemainingTermCheckbox = !boolValue;
-    fieldVisibility.showBalanceOwingCheckbox = !boolValue;
-  }
-
-  if (debtType === "LIABILITY_TYPE_OVERDRAFT") {
-    fieldVisibility.showBalanceOwing = !boolValue;
-    fieldVisibility.showLimit = !boolValue;
-    fieldVisibility.showUMICheckbox = !boolValue;
-  }
-
-  if (debtType === "LIABILITY_TYPE_LINE_OF_CREDIT") {
-    fieldVisibility.showBalanceOwing = !boolValue;
-    fieldVisibility.showLimit = !boolValue;
-    fieldVisibility.showTaxDeductible = !boolValue;
-    fieldVisibility.showLinkedProperty = !boolValue;
-    fieldVisibility.showUMICheckbox = !boolValue;
-  }
-
-  if (debtType === "LIABILITY_TYPE_HOME_LOAN") {
-    fieldVisibility.showBalanceOwingCheckbox = !boolValue;
-    fieldVisibility.showBalanceOwing = !boolValue;
-    fieldVisibility.showAvailableRedraw = !boolValue;
-    fieldVisibility.showUndrawnAmount = !boolValue;
-    fieldVisibility.showRemainingTermCheckbox = !boolValue;
-    fieldVisibility.showYears = !boolValue;
-    fieldVisibility.showMonths = !boolValue;
-    fieldVisibility.showInterestRateUMICheckbox = !boolValue;
-    fieldVisibility.showInterestRateOther = !boolValue;
-    fieldVisibility.showRepaymentFrequency = !boolValue;
-    fieldVisibility.showRepaymentAmount = !boolValue;
-    fieldVisibility.showTaxDeductible = !boolValue;
-    fieldVisibility.showLinkedProperty = !boolValue;
-  }
-
-  return fieldVisibility;
 }

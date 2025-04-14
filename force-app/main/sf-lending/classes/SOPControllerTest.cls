@@ -26,10 +26,7 @@ public class SOPControllerTest {
         'getLoanApplicationLiability',
         new List<LoanApplicationLiability>{ loanAppLiabilities }
       )
-      .mock(
-        'getLoanApplicants',
-        new List<LoanApplicant>{ applicants, applicantB }
-      );
+      .mock('getLoanApplicants', new List<LoanApplicant>{ applicants });
   }
   static Id lapIds = Lib_FakeIdGenerator.getMockId(
     LoanApplicationProperty.SObjectType
@@ -119,18 +116,6 @@ public class SOPControllerTest {
     }
   }
 
-  static LoanApplicant applicantB {
-    get {
-      Faker faker = new Faker('AU');
-      return new LoanApplicant(
-        Id = Lib_FakeIdGenerator.getMockId(LoanApplicant.SObjectType),
-        Name = faker.person.name(),
-        LoanApplicationId = rlaIds,
-        Account__c = relatedCustomers[1].Id
-      );
-    }
-  }
-
   @testSetup
   static void setup() {
     Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
@@ -190,12 +175,6 @@ public class SOPControllerTest {
           'partyId' => faker.randomString(10)
         }
       );
-      parties.add(
-        new Map<String, String>{
-          'ocvId' => '276543221',
-          'partyId' => faker.randomString(10)
-        }
-      );
       List<Map<String, String>> uiOptions = new List<Map<String, String>>();
 
       Test.startTest();
@@ -224,6 +203,7 @@ public class SOPControllerTest {
   @isTest
   static void testEditDebt() {
     registerMocks();
+
     User coachUser = [SELECT Id FROM User WHERE FirstName = 'TestCoachUser'];
     System.runAs(coachUser) {
       SOPAddEditDebtModel debtDetails = new SOPAddEditDebtModel();
@@ -239,6 +219,7 @@ public class SOPControllerTest {
   @isTest
   static void testAddIncome() {
     registerMocks();
+
     User coachUser = [SELECT Id FROM User WHERE FirstName = 'TestCoachUser'];
     System.runAs(coachUser) {
       SOPAddEditIncomeModel incomeDetails = new SOPAddEditIncomeModel();

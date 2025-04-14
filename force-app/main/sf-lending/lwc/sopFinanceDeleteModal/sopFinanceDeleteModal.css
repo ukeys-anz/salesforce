@@ -2,6 +2,7 @@
   --slds-c-modal-header-color-background: #014486;
   --slds-c-modal-header-text-color: #ffffff;
   --slds-c-modal-heading-font-size: 20px;
+  --slds-c-modal-heading-font-weight: var(--lwc-fontWeightBold);
   --slds-c-modal-heading-line-height: 30px;
 }
 .deleteConfirmStyle {

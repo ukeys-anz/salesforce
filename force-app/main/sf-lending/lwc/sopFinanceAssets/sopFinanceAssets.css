@@ -56,11 +56,3 @@
 .tooltip:hover {
   --sds-c-icon-color-foreground-default: #014486;
 }
-
-.securityAsset {
-  border-color: #dddbda;
-  color: #706e6b;
-  font-size: 12pt;
-  line-height: var(--text-line-height);
-  font-weight: var(--slds-g-font-weight-7);
-}

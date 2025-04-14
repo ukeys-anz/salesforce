@@ -107,11 +107,5 @@ public with sharing class SOPExpenseEditModel {
      */
     @AuraEnabled
     public String justificationCode { get; set; }
-
-    /**
-     * @description property Id for the expense
-     */
-    @AuraEnabled
-    public String propertyId { get; set; }
   }
 }

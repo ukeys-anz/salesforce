@@ -161,22 +161,18 @@
         </lightning-layout-item>
 
         <!-- Edit Button -->
-        <template lwc:if={expense.isHousehold}></template
-        ><!-- if:false is deprecated; cant isolate the expense in a getter because of loop -->
-        <template lwc:else>
-          <template lwc:if={hasAddEditPermission}>
-            <lightning-layout-item
-              size="12"
-              class="slds-text-align_right slds-p-top_small"
-            >
-              <lightning-button
-                label="Edit"
-                onclick={handleClick}
-                aria-haspopup="dialog"
-                data-expense={expense.serializedExpense}
-              ></lightning-button>
-            </lightning-layout-item>
-          </template>
+        <template lwc:if={hasAddEditPermission}>
+          <lightning-layout-item
+            size="12"
+            class="slds-text-align_right slds-p-top_small"
+          >
+            <lightning-button
+              label="Edit"
+              onclick={handleClick}
+              aria-haspopup="dialog"
+              data-expense={expense.serializedExpense}
+            ></lightning-button>
+          </lightning-layout-item>
         </template>
 
         <!-- Description -->
@@ -212,85 +208,66 @@
           </lightning-layout>
         </lightning-layout-item>
 
-        <!-- `Household Cost` Expense -->
-        <template lwc:if={expense.isHousehold}>
-          <!-- Address Section -->
-          <template lwc:if={expense.children.length}>
-            <template for:each={expense.children} for:item="addressItem">
-              <c-sop-spendings-address-item
-                key={addressItem.name}
-                address-item={addressItem}
-                has-add-edit-permission={hasAddEditPermission}
-                record-id={recordId}
-                sop={sop}
-              ></c-sop-spendings-address-item>
-            </template>
+        <!-- L3 Items -->
+        <template lwc:if={expense.children.length}>
+          <template for:each={expense.children} for:item="expenseL3">
+            <c-sop-spendings-l3-item
+              key={expenseL3.sopName}
+              expense-data-l3={expenseL3}
+            ></c-sop-spendings-l3-item>
           </template>
         </template>
 
-        <!-- All other Expenses -->
+        <!-- No Grandchild -->
         <template lwc:else>
-          <!-- L3 Items -->
-          <template lwc:if={expense.children.length}>
-            <template for:each={expense.children} for:item="expenseL3">
-              <c-sop-spendings-l3-item
-                key={expenseL3.sopName}
-                expense-data-l3={expenseL3}
-              ></c-sop-spendings-l3-item>
-            </template>
-          </template>
+          <!-- Warning & Message-->
 
-          <!-- No Grandchild -->
-          <template lwc:else>
-            <!-- Warning & Message-->
-
-            <template lwc:if={expense.isMandatoryExpense}>
-              <lightning-layout-item
-                size="12"
-                flexibility="shrink"
-                class="warningTextStyle slds-p-top_small slds-text-align_right"
-              >
-                <template lwc:if={expense.hasWarning}>
-                  <lightning-icon
-                    icon-name="utility:warning"
-                    size="small"
-                    class="slds-p-right_x-small"
-                  ></lightning-icon>
-                </template>
-                <lightning-formatted-text
-                  value={expense.warningMessage}
-                  class="slds-rich-text-editor__output"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-            </template>
-
-            <!-- Reasons -->
-            <template lwc:if={expense.hasReason}>
-              <lightning-layout-item
-                size="12"
-                flexibility="shrink"
-                class="slds-p-top_small"
-              >
-                <c-sop-spendings-reasons
-                  expense-reasons-data={expense}
-                ></c-sop-spendings-reasons>
-              </lightning-layout-item>
-            </template>
-
-            <!--Last Modified Date -->
+          <template lwc:if={expense.isMandatoryExpense}>
             <lightning-layout-item
-              class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
-              size="11"
-              alignment-bump="left"
-              ><lightning-formatted-text
-                value="Last Modified"
-              ></lightning-formatted-text>
+              size="12"
+              flexibility="shrink"
+              class="warningTextStyle slds-p-top_small slds-text-align_right"
+            >
+              <template lwc:if={expense.hasWarning}>
+                <lightning-icon
+                  icon-name="utility:warning"
+                  size="small"
+                  class="slds-p-right_x-small"
+                ></lightning-icon>
+              </template>
               <lightning-formatted-text
-                value={expense.updateTime}
-                class="slds-p-left_xx-small"
+                value={expense.warningMessage}
+                class="slds-rich-text-editor__output"
               ></lightning-formatted-text>
             </lightning-layout-item>
           </template>
+
+          <!-- Reasons -->
+          <template lwc:if={expense.hasReason}>
+            <lightning-layout-item
+              size="12"
+              flexibility="shrink"
+              class="slds-p-top_small"
+            >
+              <c-sop-spendings-reasons
+                expense-reasons-data={expense}
+              ></c-sop-spendings-reasons>
+            </lightning-layout-item>
+          </template>
+
+          <!--Last Modified Date -->
+          <lightning-layout-item
+            class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
+            size="11"
+            alignment-bump="left"
+            ><lightning-formatted-text
+              value="Last Modified"
+            ></lightning-formatted-text>
+            <lightning-formatted-text
+              value={expense.updateTime}
+              class="slds-p-left_xx-small"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
         </template>
       </lightning-layout>
     </template>

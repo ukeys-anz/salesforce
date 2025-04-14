@@ -33,7 +33,8 @@ export default class SopModalUtils extends LightningModal {
   comissionMsg = "You can delete this income if it's not applicable.";
   incomeDetailError = "This income type already exists.";
   //Delete modal constants
-  incomeDelConfirmation = "Are you sure you want to delete this income record?";
+  incomeDelConfirmation =
+    "Are you sure you want to delete this income record and all its related income types?";
   incomeDelErrorMsg =
     "You can't delete this income record, as there must be at least one income record for this application.";
   incomeDelErrorMsgDetails =

@@ -20,11 +20,12 @@ export default class SopFinances extends LightningElement {
   componentSpinner = false;
   errorMsg =
     "Failed to retrieve SOP details. Please refresh and try again. Raise a fault through TechAssist if the problem persists.";
-
   get hasPartiesConsentAndliabilitySources() {
-    return this.sop?.sopSummaryViewModel?.allPartiesConsented;
+    return (
+      this.sop?.sopSummaryViewModel?.allPartiesConsented &&
+      this.sop?.debtsSummaryViewModel?.sourcesSize > 0
+    );
   }
-
   @wire(MessageContext)
   messageContext;
   subscription;

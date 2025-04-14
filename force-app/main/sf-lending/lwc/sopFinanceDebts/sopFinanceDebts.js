@@ -34,6 +34,7 @@ export default class SopFinanceDebts extends LightningElement {
   allowEdit;
   allowAdd;
   allowDelete;
+  allowHomeloanDelete;
 
   get totalDebtAmount() {
     return -this.sopDebtsData.debtsTotalAmount;
@@ -77,24 +78,19 @@ export default class SopFinanceDebts extends LightningElement {
       );
     });
 
-    let homeLoanCount = this.debtsData.debts.filter(
-      (debt) => debt.type === "LIABILITY_TYPE_HOME_LOAN"
-    ).length;
-
     //Loop through savings data and sort into the savings sections
     this.debtsData.debts.forEach((debt) => {
       debt.readableSourceType = SOURCE_MAP[debt.sourceType];
       debt.readableType = TYPE_MAP[debt.type];
       debt.showDeleteBtn = debt.readableSourceType === "Manual";
-
       if (
-        (debt.readableType === "Home Loan" ||
-          debt.readableType === "Line of Credit") &&
-        debt.hasRefinance
+        debt.readableType === "Home Loan" ||
+        debt.readableType === "Line of Credit"
       ) {
-        debt.showDeleteBtn = false;
+        if (debt.hasRefinance) {
+          debt.showDeleteBtn = false;
+        }
       }
-
       debt.readableFrequency = debt.institutionalLiability?.repaymentFrequency
         ? FREQUENCY_MAP[debt.institutionalLiability.repaymentFrequency]
         : "";
@@ -113,19 +109,20 @@ export default class SopFinanceDebts extends LightningElement {
         debt.status !== null ? ACCOUNT_STATUS[debt.status] : "";
       //Set debt to be editable by default
       debt.debtEditable = true;
+      let homeloanCount = 0;
+      this.allowHomeloanDelete = false;
       let foundDebt; //Declare here as lint rules prevent declaration of variables in switch case
       switch (debt.readableType) {
         case "Home Loan":
-          debt.debtEditable = debt.hasRefinance ? false : true;
+          //Prevent edit of home loan
+          debt.debtEditable = false;
           if (debt.readableSourceType !== "ANZ") {
             debt.redrawLabel = "Available Redraw"; //Label is different specific on manual home loan
           }
           foundDebt = this.debts.find((d) => d.title === debt.readableType);
           handleFieldConditions(debt);
           foundDebt.debts.push(debt);
-          if (homeLoanCount === 1) {
-            debt.showDeleteBtn = false;
-          }
+          homeloanCount++;
           break;
         case "Credit Card":
           //Label is different specific on ANZ credit card
@@ -178,7 +175,7 @@ export default class SopFinanceDebts extends LightningElement {
           foundDebt.debts.push(debt);
           break;
         case "Line of Credit":
-          debt.debtEditable = debt.hasRefinance ? false : true;
+          debt.debtEditable = false;
           debt.limitLabel = "Credit Limit";
           debt.bureauLimitLabel = "Credit Bureau Credit Limit";
           foundDebt = this.debts.find((d) => d.title === debt.readableType);
@@ -211,50 +208,13 @@ export default class SopFinanceDebts extends LightningElement {
         default:
           break;
       }
+      if (homeloanCount >= 2) {
+        this.allowHomeloanDelete = true;
+      }
     });
 
     //Remove any section that doesnt have any debts so we dont loop through
     this.debts = this.debts.filter((el) => el.debts.length > 0);
-
-    // Sort Home Loans and Line of Credit
-    ["Home Loan", "Line of Credit"].forEach((title) => {
-      const liability = this.debts.find((d) => d.title === title);
-      if (liability?.debts?.length) {
-        liability.debts = this._sortHomeLoC(liability.debts);
-      }
-    });
-  }
-
-  _sortHomeLoC(debts) {
-    return debts.sort((a, b) => {
-      //refinanced loans first
-      if (a.hasRefinance !== b.hasRefinance) {
-        return a.hasRefinance ? -1 : 1;
-      }
-
-      //sort by linkedProperty existence
-      const hasPropertyA = a.linkedProperty?.length > 0 && a.showLinkedProperty;
-      const hasPropertyB = b.linkedProperty?.length > 0 && b.showLinkedProperty;
-      if (hasPropertyA !== hasPropertyB) {
-        return hasPropertyA ? -1 : 1;
-      }
-      if (!hasPropertyA || !hasPropertyB) {
-        return 0;
-      }
-
-      //sort by property name
-      const aLinkedProperty = a.linkedProperty?.[0] || "";
-      const bLinkedProperty = b.linkedProperty?.[0] || "";
-      const propertyComparison = aLinkedProperty.localeCompare(bLinkedProperty);
-      if (propertyComparison !== 0) {
-        return propertyComparison;
-      }
-
-      //sort by property array size
-      const sizeA = a.linkedProperty?.length || 0;
-      const sizeB = b.linkedProperty?.length || 0;
-      return sizeB - sizeA;
-    });
   }
 
   setTimestamp(timestamp) {
@@ -281,9 +241,7 @@ export default class SopFinanceDebts extends LightningElement {
     SopAddDebtsContainer.open({
       size: "medium",
       recordId: this.recordId,
-      parties: this.sopPartiesData,
-      refinancedAssets: this.debtsData.refinancedAssets,
-      propertyAssets: this.debtsData.propertyAssets
+      parties: this.sopPartiesData
     });
   }
 
@@ -295,9 +253,7 @@ export default class SopFinanceDebts extends LightningElement {
       recordId: this.recordId,
       debtData: debtData,
       debtType: debtData.type,
-      parties: this.sopPartiesData,
-      refinancedAssets: this.debtsData.refinancedAssets,
-      propertyAssets: this.debtsData.propertyAssets
+      parties: this.sopPartiesData
     });
   }
 
@@ -305,7 +261,12 @@ export default class SopFinanceDebts extends LightningElement {
     let debtId = e.target.dataset.id;
     let debtData = this.debtsData.debts.find((debt) => debt.uid === debtId);
     let allowDeleteRecord = true;
-
+    if (
+      debtData.readableType === "Home Loan" &&
+      this.allowHomeloanDelete == false
+    ) {
+      allowDeleteRecord = false;
+    }
     SopFinanceDeleteModal.open({
       size: "small",
       recordDetails: debtData,

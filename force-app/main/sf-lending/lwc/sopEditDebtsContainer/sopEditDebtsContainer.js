@@ -26,16 +26,16 @@ export default class SopEditDebtsContainer extends LightningModal {
   @api debtData;
   @api debtType;
   @api parties;
-  @api refinancedAssets;
-  @api propertyAssets;
   modalTitle = "Edit Debt";
   belongsToOptions;
   loading;
   hasBelongsToError;
   belongsToErrorMessage =
     "Failed to retrieve party list. Please refresh and try again. Raise a fault through TechAssist if the problem persists";
-  showCancelButton = true;
-  showSaveButton = false;
+
+  get showSaveButton() {
+    return !this.hasBelongsToError;
+  }
 
   async connectedCallback() {
     try {
@@ -45,10 +45,8 @@ export default class SopEditDebtsContainer extends LightningModal {
         parties: this.parties,
         loanAppId: this.recordId
       });
-      this.showSaveButton = true;
     } catch (error) {
       this.hasBelongsToError = true;
-      this.showSaveButton = false;
       handleErrorShowToast(
         this,
         "Edit Debt",
@@ -66,17 +64,12 @@ export default class SopEditDebtsContainer extends LightningModal {
   }
 
   async handleSave() {
-    this.showSaveButton = false;
-    this.showCancelButton = false;
     if (
       await this.template
         .querySelector("c-sop-add-edit-debts")
         .handleAddEditDebt()
     ) {
       this.close();
-    } else {
-      this.showSaveButton = true;
-      this.showCancelButton = true;
     }
   }
 }

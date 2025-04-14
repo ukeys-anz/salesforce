@@ -22,12 +22,6 @@ public with sharing class SOPSavingsViewModel {
   public String accountNumber;
   @AuraEnabled
   public String accountStatus;
-  @AuraEnabled
-  public string belongsTo;
-  @AuraEnabled
-  public string ownershipSplit;
-  @AuraEnabled
-  public string source;
 
   /**
    * @description Constructor for Savings view model
@@ -49,14 +43,5 @@ public with sharing class SOPSavingsViewModel {
       ? partyIdToFirstNameMap.get(sourceData.ownership?.get(0).partyId)
       : 'Joint';
     this.accountStatus = sourceData.account?.status;
-
-    Map<String, String> ownershipMap = SOPHelper.buildOwnershipStrings(
-      sourceData.ownership,
-      partyIdToFirstNameMap
-    );
-
-    this.belongsTo = ownershipMap.get('belongs-to');
-    this.ownershipSplit = ownershipMap.get('ownership-split');
-    this.source = sourceData?.source[0];
   }
 }
