@@ -559,6 +559,16 @@
         <startAddress>13.211.114.146</startAddress>
     </loginIpRanges>
     <loginIpRanges>
+        <description>AEM - DEV15 Author</description>
+        <endAddress>13.54.137.193</endAddress>
+        <startAddress>13.54.137.193</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
+        <description>AEM - DEV15 Publisher</description>
+        <endAddress>54.253.112.58</endAddress>
+        <startAddress>54.253.112.58</startAddress>
+    </loginIpRanges>
+    <loginIpRanges>
         <description>AEM - DEV8 Author</description>
         <endAddress>13.54.19.154</endAddress>
         <startAddress>13.54.19.154</startAddress>

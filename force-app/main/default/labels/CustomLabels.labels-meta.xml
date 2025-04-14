@@ -2839,6 +2839,14 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <value>A phone record of this type is already available for this customer. Please edit the existing phone record for the customer.</value>
     </labels>
     <labels>
+        <fullName>Complaints_Anz_Com_Sender_Address</fullName>
+        <categories>IDR</categories>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Anz.com email address to send complaint on complaints@anz.com inbox</shortDescription>
+        <value>complaints@anz.com</value>
+    </labels>
+    <labels>
         <fullName>ExistingContactPointPhoneError</fullName>
         <categories>MLCRM</categories>
         <language>en_US</language>
