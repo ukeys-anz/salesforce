@@ -16,18 +16,6 @@ const TYPE_MAP = {
   ASSET_TYPE_OTHER: "Other"
 };
 
-const SOURCE_MAP = {
-  ASSET_SOURCE_ANZ: "ANZ",
-  ASSET_SOURCE_MANUAL: "Manual",
-  ASSET_SOURCE_BUREAU: "Bureau"
-};
-
-const PROPERTY_CAT_MAP = {
-  PROPERTY_CATEGORY_UNSPECIFIED: "Unspecified",
-  PROPERTY_CATEGORY_RESIDENTIAL: "Residential",
-  PROPERTY_CATEGORY_COMMERCIAL: "Commercial"
-};
-
 export default class SopFinanceAssets extends LightningElement {
   @api sopAssetsData;
   noDataAvailable = false;
@@ -77,11 +65,6 @@ export default class SopFinanceAssets extends LightningElement {
 
       //Loop through assets data and sort into the assets sections
       this.assetsData.assets.forEach((asset) => {
-        asset.source = SOURCE_MAP[asset.source];
-        asset.propertyCategory = PROPERTY_CAT_MAP[asset.propertyCategory];
-        asset.ownership = asset.belongsTo;
-        asset.ownershipSplit = asset.ownershipSplit;
-
         asset.readableType = TYPE_MAP[asset.type];
         asset.lastModified = this.setTimestamp(asset.updateTime);
         if (this.isPropertyAssetItem(asset)) {
@@ -89,11 +72,7 @@ export default class SopFinanceAssets extends LightningElement {
             (assetData) => assetData.title === "Property"
           );
           this.handleFieldConditions("Property", asset);
-          if (asset.collateralAssessmentId) {
-            property.assets.unshift(asset);
-          } else {
-            property.assets.push(asset);
-          }
+          property.assets.push(asset);
         } else if (this.isInvestmentAssetItem(asset)) {
           let investment = this.assets.find(
             (assetData) => assetData.title === "Investment"
@@ -168,19 +147,11 @@ export default class SopFinanceAssets extends LightningElement {
   handleFieldConditions(type, asset) {
     switch (type) {
       case "Property":
-        if (asset.collateralAssessmentId) {
-          asset.showPropertyValuation = true;
-        } else {
-          asset.showANZEstimate = true;
-          asset.showCustomerEstimate = true;
-          asset.showPropertyValuation = false;
-        }
-        asset.showPropertyType = true;
         asset.showAddress = true;
+        asset.showPropertyValuation = true;
         asset.showName = false;
         asset.showValue = false;
         asset.showVehicleType = false;
-        asset.showSource = true;
         asset.image = PROPERTY_IMG;
         break;
       case "Investment":
@@ -189,7 +160,6 @@ export default class SopFinanceAssets extends LightningElement {
         asset.showName = true;
         asset.showValue = true;
         asset.showVehicleType = false;
-        asset.showSource = false;
         asset.image = INVESTMENT_IMG;
         break;
       case "Super":
@@ -198,7 +168,6 @@ export default class SopFinanceAssets extends LightningElement {
         asset.showName = true;
         asset.showValue = true;
         asset.showVehicleType = false;
-        asset.showSource = false;
         asset.image = SUPER_IMG;
         break;
       case "Vehicle":
@@ -207,7 +176,6 @@ export default class SopFinanceAssets extends LightningElement {
         asset.showName = true;
         asset.showValue = true;
         asset.showVehicleType = true;
-        asset.showSource = false;
         asset.image = VEHICLE_IMG;
         break;
       case "Contents":
@@ -216,7 +184,6 @@ export default class SopFinanceAssets extends LightningElement {
         asset.showName = false;
         asset.showValue = true;
         asset.showVehicleType = false;
-        asset.showSource = false;
         asset.image = CONTENTS_IMG;
         break;
       case "Other":
@@ -225,7 +192,6 @@ export default class SopFinanceAssets extends LightningElement {
         asset.showName = true;
         asset.showValue = true;
         asset.showVehicleType = false;
-        asset.showSource = false;
         asset.image = OTHER_ASSET_IMG;
         break;
       default:

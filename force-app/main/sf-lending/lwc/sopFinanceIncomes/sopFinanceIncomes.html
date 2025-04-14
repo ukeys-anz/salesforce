@@ -67,463 +67,386 @@
           ></lightning-button>
         </template>
       </lightning-layout-item>
+      <lightning-layout-item size="12">
+        <lightning-formatted-text
+          value="Salary and Wages"
+          class="headerStyling slds-p-top_medium"
+        ></lightning-formatted-text>
+      </lightning-layout-item>
     </lightning-layout>
-    <template for:each={sortedIncomes} for:item="incomeGroup">
-      <lightning-layout key={incomeGroup.header}>
-        <lightning-layout-item size="12" class="slds-p-top_medium">
+
+    <!--Looping for Income details records-->
+    <template for:each={incomes} for:item="income">
+      <lightning-layout
+        key={income.uid}
+        multiple-rows
+        class="slds-box borderStyling slds-box_x-small slds-m-top_medium"
+      >
+        <lightning-layout-item
+          size="12"
+          class="slds-p-top_x-small slds-p-horizontal_small"
+        >
+          <!--Icon for ANZ Plus records-->
+          <img src={income.logo} class="logoTransStyle" />
           <lightning-formatted-text
-            value={incomeGroup.header}
-            class="headerStyling"
+            value={income.employer}
+            class="headerStyling slds-p-left_x-small"
           ></lightning-formatted-text>
         </lightning-layout-item>
-      </lightning-layout>
-      <!--Looping for Income details records-->
-      <template for:each={incomeGroup.incomes} for:item="income">
-        <lightning-layout
-          key={income.uid}
-          multiple-rows
-          class="slds-box borderStyling slds-box_x-small slds-m-top_medium"
+
+        <lightning-layout-item
+          size="4"
+          alignment-bump="left"
+          class="slds-p-horizontal_small slds-text-align_right"
         >
-          <lightning-layout-item
-            size="12"
-            class="slds-p-top_x-small slds-p-horizontal_small"
+          <template lwc:if={allowDelete}>
+            <lightning-button
+              data-id={income.index}
+              data-jest-id="deleteBtn"
+              label="Delete"
+              onclick={handleDeleteClick}
+            ></lightning-button>
+          </template>
+          <template lwc:if={allowEdit}>
+            <lightning-button
+              lwc:if={income.isManual}
+              data-id={income.index}
+              data-jest-id="editBtn"
+              class="slds-p-left_medium"
+              label="Edit"
+              variant="brand-outline"
+              onclick={handleEditClick}
+            ></lightning-button>
+          </template>
+        </lightning-layout-item>
+        <lightning-layout-item size="12" class="slds-p-around_small">
+          <!--Block to display Information of income -->
+          <lightning-layout
+            class="boxstyle slds-wrap slds-box slds-box_x-small"
+            multiple-rows
+            horizontal-align="spread"
           >
-            <!--Icon for ANZ Plus records-->
-            <img src={income.logo} class="logoTransStyle" />
-            <lightning-formatted-text
-              lwc:if={income.isSalary}
-              value={income.employer}
-              class="headerStyling slds-p-left_x-small"
-            ></lightning-formatted-text>
-            <lightning-formatted-text
-              lwc:else
-              value={income.singleLineAddress}
-              class="headerStyling slds-p-left_x-small"
-            ></lightning-formatted-text>
-          </lightning-layout-item>
-
-          <lightning-layout-item
-            size="4"
-            alignment-bump="left"
-            class="slds-p-horizontal_small slds-text-align_right"
-          >
-            <template lwc:if={allowDelete}>
-              <lightning-button
-                data-id={income.uid}
-                data-jest-id="deleteBtn"
-                label="Delete"
-                onclick={handleDeleteClick}
-              ></lightning-button>
-            </template>
-            <template lwc:if={allowEdit}>
-              <lightning-button
-                lwc:if={income.isManual}
-                data-id={income.uid}
-                data-jest-id="editBtn"
-                class="slds-p-left_medium"
-                label="Edit"
-                variant="brand-outline"
-                onclick={handleEditClick}
-              ></lightning-button>
-            </template>
-          </lightning-layout-item>
-          <lightning-layout-item size="12" class="slds-p-around_small">
-            <!--Block to display Information of income -->
-            <lightning-layout
-              class="boxstyle slds-wrap slds-box slds-box_x-small"
-              multiple-rows
-              horizontal-align="spread"
+            <!--Who Works Here-->
+            <lightning-layout-item size="6" class="slds-p-bottom_x-small">
+              <lightning-formatted-text
+                value="Who Works Here"
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-bottom_x-small slds-text-align_right"
             >
-              <!--Who Works Here-->
-              <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                <lightning-formatted-text
-                  lwc:if={income.isSalary}
-                  value="Who Works Here"
-                  class="labelStyle"
-                ></lightning-formatted-text>
-                <lightning-formatted-text
-                  lwc:else
-                  value="Belongs To"
-                  class="labelStyle"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-              <lightning-layout-item
-                size="6"
-                class="slds-p-bottom_x-small slds-text-align_right"
+              <lightning-formatted-text
+                value={income.ownerName}
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+
+            <!--Employer-->
+            <lightning-layout-item size="6" class="slds-p-bottom_x-small">
+              <lightning-formatted-text
+                value="Employer"
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-bottom_x-small slds-text-align_right"
+            >
+              <lightning-formatted-text
+                value={income.employer}
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+
+            <!--Employment type-->
+            <lightning-layout-item size="6" class="slds-p-bottom_x-small">
+              <lightning-formatted-text
+                value="Employment Type"
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-bottom_x-small slds-text-align_right"
+            >
+              <lightning-formatted-text
+                value={income.readableEmpType}
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+
+            <!--Start date-->
+            <lightning-layout-item size="6" class="slds-p-bottom_x-small">
+              <lightning-formatted-text
+                value="Start Date"
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-bottom_x-small slds-text-align_right"
+            >
+              <lightning-formatted-text
+                value={income.readableStartDate}
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+
+            <!--Income source-->
+            <lightning-layout-item size="6" class="slds-p-bottom_x-small">
+              <lightning-formatted-text
+                value="Income Source"
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              class="slds-p-bottom_x-small slds-text-align_right"
+            >
+              <lightning-formatted-text
+                value={income.incomeSource}
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+
+            <!--Block for income source is  manual or transaction-->
+            <lightning-layout-item size="12" class="slds-p-bottom_x-small">
+              <!--Condition for income source = manual-->
+
+              <template
+                for:each={income.incomeItemDetails}
+                for:item="incomeDetail"
               >
-                <lightning-formatted-text
-                  value={income.ownerName}
-                  class="labelStyle"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
+                <!-- Income item details section-->
+                <lightning-layout key={incomeDetail.type} multiple-rows>
+                  <lightning-layout-item
+                    size="12"
+                    class="slds-p-bottom_x-small slds-text-align_left"
+                  >
+                    <lightning-formatted-text
+                      value={incomeDetail.itemHeading}
+                      class="headerStyling"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
 
-              <!--Employer-->
-              <template lwc:if={income.isSalary}>
-                <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                  <lightning-formatted-text
-                    value="Employer"
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <lightning-layout-item
-                  size="6"
-                  class="slds-p-bottom_x-small slds-text-align_right"
-                >
-                  <lightning-formatted-text
-                    value={income.employer}
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-              </template>
+                  <!-- IncomeItem Income tax-->
+                  <lightning-layout-item
+                    size="1"
+                    class="slds-p-bottom_x-small slds-text-align_left"
+                  >
+                    <lightning-formatted-text
+                      value="Income Tax:"
+                      class="labelStyle"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
+                  <lightning-layout-item
+                    size="1"
+                    class="slds-p-bottom_x-small slds-text-align_left"
+                  >
+                    <lightning-formatted-text
+                      value={incomeDetail.categoryOfIncome}
+                      class="labelStyle"
+                    ></lightning-formatted-text>
+                  </lightning-layout-item>
 
-              <!--Employment type-->
-              <template lwc:if={income.isSalary}>
-                <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                  <lightning-formatted-text
-                    value="Employment Type"
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <lightning-layout-item
-                  size="6"
-                  class="slds-p-bottom_x-small slds-text-align_right"
-                >
-                  <lightning-formatted-text
-                    value={income.readableEmpType}
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <!--Start date-->
-                <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                  <lightning-formatted-text
-                    value="Start Date"
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <lightning-layout-item
-                  size="6"
-                  class="slds-p-bottom_x-small slds-text-align_right"
-                >
-                  <lightning-formatted-text
-                    value={income.readableStartDate}
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-              </template>
-
-              <!--agreement type-->
-              <template lwc:if={income.isRental}>
-                <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                  <lightning-formatted-text
-                    value="Agreement Type"
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <lightning-layout-item
-                  size="6"
-                  class="slds-p-bottom_x-small slds-text-align_right"
-                >
-                  <lightning-formatted-text
-                    value={income.agreementType}
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-              </template>
-
-              <!--Income source-->
-              <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                <lightning-formatted-text
-                  value="Income Source"
-                  class="labelStyle"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-              <lightning-layout-item
-                size="6"
-                class="slds-p-bottom_x-small slds-text-align_right"
-              >
-                <lightning-formatted-text
-                  value={income.incomeSource}
-                  class="labelStyle"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-
-              <!--Rental Income Details-->
-              <lightning-layout-item
-                size="12"
-                class="slds-p-bottom_x-small slds-text-align_left"
-                lwc:if={income.isRental}
-              >
-                <lightning-formatted-text
-                  value="Rental Income Details"
-                  class="headerStyling"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-
-              <!--Block for income details-->
-              <lightning-layout-item size="12" class="slds-p-bottom_x-small">
-                <template
-                  for:each={income.incomeItemDetails}
-                  for:item="incomeDetail"
-                >
-                  <!-- Income item details section-->
-                  <lightning-layout key={incomeDetail.type} multiple-rows>
+                  <!--Bonuses section Payment Per Year-->
+                  <template lwc:if={incomeDetail.isBonuses}>
                     <lightning-layout-item
-                      size="12"
-                      class="slds-p-bottom_x-small slds-text-align_left"
-                      lwc:if={income.isSalary}
-                    >
-                      <lightning-formatted-text
-                        value={incomeDetail.itemHeading}
-                        class="headerStyling"
-                      ></lightning-formatted-text>
-                    </lightning-layout-item>
-
-                    <!-- IncomeItem Income tax-->
-                    <lightning-layout-item
-                      size="1"
-                      class="slds-p-bottom_x-small slds-text-align_left"
-                    >
-                      <lightning-formatted-text
-                        value="Income Tax:"
-                        class="labelStyle"
-                      ></lightning-formatted-text>
-                    </lightning-layout-item>
-                    <lightning-layout-item
-                      size="1"
-                      class="slds-p-bottom_x-small slds-text-align_left"
-                    >
-                      <lightning-formatted-text
-                        value={incomeDetail.categoryOfIncome}
-                        class="labelStyle"
-                      ></lightning-formatted-text>
-                    </lightning-layout-item>
-
-                    <!--Bonuses section Payment Per Year-->
-                    <template lwc:if={incomeDetail.isBonuses}>
-                      <lightning-layout-item
-                        size="4"
-                        class="slds-p-bottom_x-small slds-text-align_right"
-                      >
-                        <lightning-formatted-text
-                          value="Payments Per Year:"
-                          class="labelStyle"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-                      <lightning-layout-item
-                        size="2"
-                        class="slds-p-bottom_x-small slds-p-horizontal_small slds-text-align_left"
-                      >
-                        <lightning-formatted-number
-                          value={incomeDetail.bonusPayments}
-                          class="labelStyle"
-                        ></lightning-formatted-number>
-                      </lightning-layout-item>
-                    </template>
-                    <template lwc:else>
-                      <!-- Income Item Frequency-->
-                      <lightning-layout-item
-                        size="4"
-                        class="slds-p-bottom_x-small slds-text-align_right"
-                      >
-                        <lightning-formatted-text
-                          value="Frequency:"
-                          class="labelStyle"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-                      <lightning-layout-item
-                        size="2"
-                        class="slds-p-bottom_x-small slds-p-horizontal_small slds-text-align_left"
-                      >
-                        <lightning-formatted-text
-                          value={incomeDetail.readableFrequency}
-                          class="labelStyle"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-                    </template>
-                    <!-- Income Item Amount-->
-                    <lightning-layout-item
-                      size="3"
+                      size="4"
                       class="slds-p-bottom_x-small slds-text-align_right"
                     >
                       <lightning-formatted-text
-                        value="Amount:"
+                        value="Payments Per Year:"
                         class="labelStyle"
                       ></lightning-formatted-text>
                     </lightning-layout-item>
                     <lightning-layout-item
-                      size="1"
-                      class="slds-p-bottom_x-small slds-text-align_right"
+                      size="2"
+                      class="slds-p-bottom_x-small slds-p-horizontal_small slds-text-align_left"
                     >
                       <lightning-formatted-number
+                        value={incomeDetail.bonusPayments}
                         class="labelStyle"
-                        value={incomeDetail.amountValue}
-                        format-style="currency"
-                        currency-code="AUD"
                       ></lightning-formatted-number>
                     </lightning-layout-item>
-                  </lightning-layout>
-                </template>
-
-                <!-- Income source = transaction only section condition-->
-                <template lwc:if={income.isTransaction}>
-                  <lightning-layout-item size="12">
-                    <lightning-layout
-                      class="slds-p-around_small slds-wrap borderstyling transBlockStyle"
-                      multiple-rows
-                      horizontal-align="spread"
+                  </template>
+                  <template lwc:else>
+                    <!-- Income Item Frequency-->
+                    <lightning-layout-item
+                      size="4"
+                      class="slds-p-bottom_x-small slds-text-align_right"
                     >
-                      <!--Transaction logo-->
-                      <lightning-layout-item
-                        size="1"
-                        class="slds-p-bottom_x-small"
-                      >
-                        <img src={logoTransaction} class="logoTransStyle" />
-                      </lightning-layout-item>
-                      <!--Transaction Message>-->
-                      <lightning-layout-item size="11">
-                        <lightning-layout multiple-rows>
-                          <lightning-layout-item
-                            size="12"
-                            class="slds-p-bottom_x-small"
-                          >
-                            <lightning-formatted-text
-                              value="System calculated income"
-                              class="headerStyling"
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-                          <lightning-layout-item
-                            size="12"
-                            class="slds-p-bottom_medium"
-                          >
-                            <lightning-formatted-text
-                              value="The income below is system calculated based on a minimum of 3 months (and up to 12 months) of salary and wages transactions into the customer's account."
-                              class="transMsgStyle"
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-
-                          <!--Transaction Item Frequency-->
-                          <lightning-layout-item size="1">
-                            <lightning-formatted-text
-                              value="Frequency:"
-                              class="labelStyle"
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-                          <lightning-layout-item size="2">
-                            <lightning-formatted-text
-                              value={income.transactionIncomeItem.readableFrequency}
-                              class="labelStyle"
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-
-                          <!--Transaction Item Amount-->
-                          <lightning-layout-item size="1">
-                            <lightning-formatted-text
-                              value="Amount:"
-                              class="labelStyle"
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-                          <lightning-layout-item
-                            size="3"
-                            class="slds-text-align_left"
-                          >
-                            <lightning-formatted-number
-                              class="label"
-                              value={income.transactionIncomeItem.amountValue}
-                              format-style="currency"
-                              currency-code="AUD"
-                            ></lightning-formatted-number>
-                          </lightning-layout-item>
-                        </lightning-layout>
-                      </lightning-layout-item>
-                    </lightning-layout>
+                      <lightning-formatted-text
+                        value="Frequency:"
+                        class="labelStyle"
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+                    <lightning-layout-item
+                      size="2"
+                      class="slds-p-bottom_x-small slds-p-horizontal_small slds-text-align_left"
+                    >
+                      <lightning-formatted-text
+                        value={incomeDetail.readableFrequency}
+                        class="labelStyle"
+                      ></lightning-formatted-text>
+                    </lightning-layout-item>
+                  </template>
+                  <!-- Income Item Amount-->
+                  <lightning-layout-item
+                    size="3"
+                    class="slds-p-bottom_x-small slds-text-align_right"
+                  >
+                    <lightning-formatted-text
+                      value="Amount:"
+                      class="labelStyle"
+                    ></lightning-formatted-text>
                   </lightning-layout-item>
-                </template>
-              </lightning-layout-item>
-
-              <!--Linked Property-->
-              <template lwc:if={income.isRental}>
-                <lightning-layout-item
-                  size="12"
-                  class="slds-p-bottom_x-small slds-text-align_left"
-                >
-                  <lightning-formatted-text
-                    value="Linked Property"
-                    class="headerStyling"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <!--property address-->
-                <lightning-layout-item size="6" class="slds-p-bottom_x-small">
-                  <lightning-formatted-text
-                    value="Property Address"
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
-                <lightning-layout-item
-                  size="6"
-                  class="slds-p-bottom_x-small slds-text-align_right"
-                >
-                  <lightning-formatted-text
-                    value={income.singleLineAddress}
-                    class="labelStyle"
-                  ></lightning-formatted-text>
-                </lightning-layout-item>
+                  <lightning-layout-item
+                    size="1"
+                    class="slds-p-bottom_x-small slds-text-align_right"
+                  >
+                    <lightning-formatted-number
+                      class="labelStyle"
+                      value={incomeDetail.amountValue}
+                      format-style="currency"
+                      currency-code="AUD"
+                    ></lightning-formatted-number>
+                  </lightning-layout-item>
+                </lightning-layout>
               </template>
 
-              <!--Last modifed date section-->
-              <lightning-layout-item
-                class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
-                size="12"
-              >
-                <lightning-formatted-text
-                  value="Last Modified"
-                ></lightning-formatted-text>
-                <lightning-formatted-text
-                  value={income.lastModified}
-                  class="slds-p-left_xx-small"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-            </lightning-layout>
-          </lightning-layout-item>
+              <!-- Income source = transaction only section condition-->
+              <template lwc:if={income.isTransaction}>
+                <lightning-layout-item size="12">
+                  <lightning-layout
+                    class="slds-p-around_small slds-wrap borderstyling transBlockStyle"
+                    multiple-rows
+                    horizontal-align="spread"
+                  >
+                    <!--Transaction logo-->
+                    <lightning-layout-item
+                      size="1"
+                      class="slds-p-bottom_x-small"
+                    >
+                      <img src={logoTransaction} class="logoTransStyle" />
+                    </lightning-layout-item>
+                    <!--Transaction Message>-->
+                    <lightning-layout-item size="11">
+                      <lightning-layout multiple-rows>
+                        <lightning-layout-item
+                          size="12"
+                          class="slds-p-bottom_x-small"
+                        >
+                          <lightning-formatted-text
+                            value="System calculated income"
+                            class="headerStyling"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="12"
+                          class="slds-p-bottom_medium"
+                        >
+                          <lightning-formatted-text
+                            value="The income below is system calculated based on a minimum of 3 months (and up to 12 months) of salary and wages transactions into the customer's account."
+                            class="transMsgStyle"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
 
-          <lightning-layout-item
-            size="12"
-            class="slds-p-horizontal_small verticalSpaceStyle"
-          >
-            <!--Income verified section-->
-            <lightning-layout
+                        <!--Transaction Item Frequency-->
+                        <lightning-layout-item size="1">
+                          <lightning-formatted-text
+                            value="Frequency:"
+                            class="labelStyle"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item size="2">
+                          <lightning-formatted-text
+                            value={income.transactionIncomeItem.readableFrequency}
+                            class="labelStyle"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+
+                        <!--Transaction Item Amount-->
+                        <lightning-layout-item size="1">
+                          <lightning-formatted-text
+                            value="Amount:"
+                            class="labelStyle"
+                          ></lightning-formatted-text>
+                        </lightning-layout-item>
+                        <lightning-layout-item
+                          size="3"
+                          class="slds-text-align_left"
+                        >
+                          <lightning-formatted-number
+                            class="label"
+                            value={income.transactionIncomeItem.amountValue}
+                            format-style="currency"
+                            currency-code="AUD"
+                          ></lightning-formatted-number>
+                        </lightning-layout-item>
+                      </lightning-layout>
+                    </lightning-layout-item>
+                  </lightning-layout>
+                </lightning-layout-item>
+              </template>
+            </lightning-layout-item>
+
+            <!--Last modifed date section-->
+            <lightning-layout-item
+              class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
               size="12"
-              horizontal-align="spread"
-              class="slds-box slds-box_x-small boxstyle"
             >
-              <lightning-layout-item
-                size="1"
-                class="slds-p-top_x-small slds-p-left_x-small"
-              >
-                <img src={logoDollarSign} class="logoDollarDimension" />
-              </lightning-layout-item>
-              <lightning-layout-item
-                size="2"
-                class="labelStyle slds-p-top_x-small"
-              >
-                <lightning-formatted-text
-                  value="Income Verified"
-                  class="labelStyle"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-              <lightning-layout-item
-                size="2"
-                class="labelStyle slds-p-top_x-small"
-              >
-                <lightning-formatted-text
-                  value={income.readableIncomeVerified}
-                  class="labelStyle"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-              <lightning-layout-item size="7"> </lightning-layout-item>
-            </lightning-layout>
-          </lightning-layout-item>
-        </lightning-layout>
-      </template>
+              <lightning-formatted-text
+                value="Last Modified"
+              ></lightning-formatted-text>
+              <lightning-formatted-text
+                value={income.lastModified}
+                class="slds-p-left_xx-small"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+
+        <lightning-layout-item
+          size="12"
+          class="slds-p-horizontal_small verticalSpaceStyle"
+        >
+          <!--Income verified section-->
+          <lightning-layout
+            size="12"
+            horizontal-align="spread"
+            class="slds-box slds-box_x-small boxstyle"
+          >
+            <lightning-layout-item
+              size="1"
+              class="slds-p-top_x-small slds-p-left_x-small"
+            >
+              <img src={logoDollarSign} class="logoDollarDimension" />
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="2"
+              class="labelStyle slds-p-top_x-small"
+            >
+              <lightning-formatted-text
+                value="Income Verified"
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="2"
+              class="labelStyle slds-p-top_x-small"
+            >
+              <lightning-formatted-text
+                value={income.readableIncomeVerified}
+                class="labelStyle"
+              ></lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item size="7"> </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </lightning-layout>
     </template>
   </lightning-card>
 </template>

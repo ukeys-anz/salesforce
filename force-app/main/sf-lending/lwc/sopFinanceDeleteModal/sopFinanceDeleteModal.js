@@ -15,8 +15,6 @@ export default class SopFinanceDeleteModal extends SopModalUtils {
   @wire(MessageContext)
   messageContext;
 
-  componentSpinner;
-
   handleClose() {
     this.close("okay");
   }
@@ -79,13 +77,13 @@ export default class SopFinanceDeleteModal extends SopModalUtils {
       return { msg, msgDetails, label: this.deleteIncomeLabel };
     }
     if (this.isDeletionAllowed) {
-      msg = `Are you sure you want to delete this ${this.recordDetails.readableType} debt from the application?`;
+      msg = this.debtDelConfirmation;
     } else {
       msg = this.debtDelErrorMsg;
       msgDetails = this.debtDelErrorMsgDetails;
     }
     return {
-      msg: msg,
+      msg: this.debtDelConfirmation,
       msgDetails,
       label: this.deleteDebtLabel
     };

@@ -68,41 +68,6 @@
           </lightning-layout-item>
         </lightning-layout>
 
-        <!-- Address Section -->
-        <template lwc:if={expense.isPropertyAsParentExpense}>
-          <div class="slds-p-top_medium slds-p-bottom-small">
-            <lightning-layout>
-              <!-- Name -->
-              <lightning-layout-item size="6">
-                <lightning-formatted-text
-                  value="Linked Property"
-                  class="propertyLabelStyling"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-              <lightning-layout-item size="6" class="slds-text-align_right">
-              </lightning-layout-item>
-            </lightning-layout>
-
-            <lightning-layout class="slds-p-top_xx-small">
-              <!-- Property Address Label -->
-              <lightning-layout-item size="6">
-                <lightning-formatted-text
-                  value="Property Address"
-                ></lightning-formatted-text>
-              </lightning-layout-item>
-
-              <!-- Single Line Address -->
-              <lightning-layout-item size="6" class="slds-text-align_right">
-                <lightning-formatted-text
-                  value={expense.singleLineAddress}
-                  data-jest-id="singleLineAddress"
-                >
-                </lightning-formatted-text>
-              </lightning-layout-item>
-            </lightning-layout>
-          </div>
-        </template>
-
         <!-- Expense Item -->
         <template for:each={expenses} for:item="exp">
           <c-sop-edit-spending-items

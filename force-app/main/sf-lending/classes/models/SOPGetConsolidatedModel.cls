@@ -3,7 +3,6 @@
  * @author @fangl6
  * @since 08/08/2024
  */
-@SuppressWarnings('PMD.TooManyFields')
 public with sharing class SOPGetConsolidatedModel extends CalloutModel {
   public Sop sop;
   public IncomesSummary incomesSummary;
@@ -11,32 +10,6 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
   public AssetsSummary assetsSummary;
   public MonthlyExpensesSummary monthlyExpensesSummary;
   public String etag;
-
-  /**
-   * @description Address model
-   */
-  public class Address {
-    @AuraEnabled
-    public String singleLineAddress;
-    public String buildingNumber;
-    public String street;
-    public String streetName;
-    public String streetType;
-    public String locality;
-    public String state;
-    public String postalCode;
-    public String country;
-    public String countryCode;
-    public String latitude;
-    public String longitude;
-    public String deliveryPointId;
-    public String householdIdentificationNumber;
-    public String deliveryPointBarcode;
-    public String sortPlanNumber;
-    public String council;
-    public String councilCode;
-    public String sa2Code;
-  }
 
   /**
    * @description IncomesSummary model
@@ -144,16 +117,12 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
     public String updatedBy;
     public String etag;
     public Amount verifiedOutstandingBalance;
-    // The liability term type (fixed/variable)
     public String termType;
     public Boolean validatedOutstandingBalance;
     public Boolean paidOffAndClosed;
     public Boolean evidenceProvided;
     public Boolean customerStatedClosed;
     public StudentLoan studentLoan;
-    public Amount undrawnAmount;
-    public Boolean fullyDrawn;
-    public List<String> assets;
   }
   /**
    * @description InstitutionalLiability model
@@ -166,23 +135,12 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
     public String repaymentFrequency;
     public Integer principalInterestRemainingTerm;
     public Amount redrawAmount;
-    //Payment method as to whether P&I, Interest-only etc (repayment type)
     public String paymentMethod;
     public String financialInstitution;
     public Boolean paidInFull;
     public Integer verifiedPrincipalInterestRemainingTerm;
     public Boolean validatedLimit;
     public Boolean validatedPrincipalInterestRemainingTerm;
-    public Double taxDeductiblePercentage;
-    public Boolean interestRateValidated;
-    public Integer initialMargin;
-    public Integer initialIndexRate;
-    public String initialIndexCode;
-    public Integer subsequentMargin;
-    public Integer subsequentIndexRate;
-    public String subsequentIndexCode;
-    public Integer subsequentInterestRate;
-    public String loanPurposeCode;
   }
   /**
    * @description Amount model
@@ -215,16 +173,13 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
    * @description Ownership model
    */
   public class Ownership {
-    @AuraEnabled
     public String partyId;
-    @AuraEnabled
     public Proportion proportion;
   }
   /**
    * @description Proportion model
    */
   public class Proportion {
-    @AuraEnabled
     public String value;
   }
   /**
@@ -256,7 +211,6 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
     public Datetime createTime;
     public Datetime updateTime; //Datetime
     public String updatedBy;
-    public String asset;
     public String etag;
   }
   /**
@@ -360,7 +314,6 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
     public String etag;
     public String hemState;
     public String asset; // Only applicable for household expenses as they need to be linked to a property
-    public String propertyId;
   }
   /**
    * @description AssetsSummary model
@@ -377,17 +330,14 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
    * @description Assets model
    */
   public class Assets {
-    @AuraEnabled
     public String name;
     public String uid;
-    @AuraEnabled
     public String type;
     public String subType;
     public String assetName;
     public Amount estimatedValue;
     //public List<IneligibleReasons> liabilities;
     public SOPAccount account;
-    @AuraEnabled
     public List<Ownership> ownership;
     public List<String> source;
     public Datetime createTime; //updateTime
@@ -395,11 +345,6 @@ public with sharing class SOPGetConsolidatedModel extends CalloutModel {
     public String updatedBy;
     public String etag;
     public String propertyId;
-    public String collateralAssessmentId;
-    public Amount calculatedValue;
-    public String propertyCategory;
-    @AuraEnabled
-    public Address address;
   }
   /**
    * @description SOPGetConsolidatedModel parse

@@ -3,8 +3,6 @@ import SopAddEditDebts from "c/sopAddEditDebts";
 
 const DEBT_DATA = require("./data/debtData.json");
 const PARTIES = require("./data/parties.json");
-const PROPERTIES = require("./data/propertyData.json");
-const REFINANCE_DATA = require("./data/refinanceData.json");
 
 describe("c-sop-add-edit-debts", () => {
   afterEach(() => {
@@ -23,10 +21,8 @@ describe("c-sop-add-edit-debts", () => {
       is: SopAddEditDebts
     });
     element.actionType = "Add";
-    element.debtType = "LIABILITY_TYPE_LINE_OF_CREDIT";
+    element.debtType = "LIABILITY_TYPE_CREDIT_CARD";
     element.parties = PARTIES;
-    element.propertyAssets = PROPERTIES;
-    element.refinancedAssets = REFINANCE_DATA;
     document.body.appendChild(element);
     await flushPromises();
     let debtSection = element.shadowRoot.querySelector(
@@ -50,11 +46,9 @@ describe("c-sop-add-edit-debts", () => {
       is: SopAddEditDebts
     });
     element.actionType = "Edit";
-    element.debtType = "LIABILITY_TYPE_LINE_OF_CREDIT";
+    element.debtType = "LIABILITY_TYPE_CREDIT_CARD";
     element.debtData = DEBT_DATA;
     element.parties = PARTIES;
-    element.propertyAssets = PROPERTIES;
-    element.refinancedAssets = REFINANCE_DATA;
     document.body.appendChild(element);
     await flushPromises();
     let debtSection = element.shadowRoot.querySelector(

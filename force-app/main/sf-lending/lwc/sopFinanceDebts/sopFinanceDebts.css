@@ -18,10 +18,6 @@
   color: var(--text-color);
 }
 
-.subHeadingStyle {
-  font-weight: var(--lwc-fontWeightBold);
-}
-
 .logoStyle {
   width: var(--logo-dimensions);
   height: var(--logo-dimensions);
