@@ -27,13 +27,10 @@ public with sharing class IDRCaseAccessActions {
       return;
     }
 
-    Set<Id> newCaseOwnerIds = ListUtil.getIds(listOfnewCases, Case.OwnerId);
     Set<Id> oldCaseOwnerIds = ListUtil.getIds(oldMap.values(), Case.OwnerId);
-    Set<Id> caseOwnerIds = new Set<Id>(newCaseOwnerIds);
-    caseOwnerIds.addAll(oldCaseOwnerIds);
 
     Map<Id, User> mapOfL2L3Users = new Map<Id, User>(
-      CASE_REPOSITORY.queryL2L3User(caseOwnerIds)
+      CASE_REPOSITORY.queryL2L3User(oldCaseOwnerIds)
     );
 
     List<Case> casesToBeValidated = getNonEscalatedCasesforL2L3users(
@@ -55,6 +52,7 @@ public with sharing class IDRCaseAccessActions {
 
     List<Case> notOwnedByL2L3Users = getNotOwnedByL2L3Users(
       nonStatusChangedCases,
+      oldMap,
       mapOfL2L3Users.keySet()
     );
 
@@ -83,17 +81,19 @@ public with sharing class IDRCaseAccessActions {
     ListUtil.addError(nonBankerRelatedCases, ERROR_MSG_RESTRICT_L2_L3_USERS);
   }
   /**
-   * @description To get all the cases where owner is not IDR_Level_2 nor IDR_Level_3 users.
+   * @description To get all the cases where old owner is not IDR_Level_2 nor IDR_Level_3 users.
    * @param newCases List of new cases.
+   * @param oldMap Map of old cases.
    * @param l2l3UsersIds Set of users id which are having either IDR_Level_2 or IDR_Level_3 PSG.
    * @return `List<Case>` return list of cases which full fill the criteria.
    */
   private static List<Case> getNotOwnedByL2L3Users(
     List<Case> newCases,
+    Map<Id, Case> oldMap,
     Set<Id> l2l3UsersIds
   ) {
-    return ListUtil.filter(newCases)
-      .notEquals(Case.OwnerId, l2l3UsersIds)
+    return ListUtil.filter(newCases, oldMap)
+      .oldNotEquals(Case.OwnerId, l2l3UsersIds)
       .toList();
   }
   /**
