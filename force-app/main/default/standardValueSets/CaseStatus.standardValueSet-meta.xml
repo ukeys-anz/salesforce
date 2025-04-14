@@ -224,12 +224,6 @@
         <closed>true</closed>
     </standardValue>
     <standardValue>
-        <fullName>Failed</fullName>
-        <default>false</default>
-        <label>Failed</label>
-        <closed>true</closed>
-    </standardValue>
-    <standardValue>
         <fullName>Closed - Declined</fullName>
         <default>false</default>
         <label>Closed - Declined</label>
@@ -317,6 +311,42 @@
         <fullName>Closed - Expired</fullName>
         <default>false</default>
         <label>Closed - Expired</label>
+        <closed>true</closed>
+    </standardValue>
+     <standardValue>
+        <fullName>Evaluation Failed</fullName>
+        <default>false</default>
+        <label>Evaluation Failed</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>ID and Selfie Check Passed</fullName>
+        <default>false</default>
+        <label>ID and Selfie Check Passed</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>No Defect</fullName>
+        <default>false</default>
+        <label>No Defect</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Defect Identified</fullName>
+        <default>false</default>
+        <label>Defect Identified</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Fraud Suspected</fullName>
+        <default>false</default>
+        <label>Fraud Suspected</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>Failed</fullName>
+        <default>false</default>
+        <label>Failed</label>
         <closed>true</closed>
     </standardValue>
 </StandardValueSet>

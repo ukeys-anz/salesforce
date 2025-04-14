@@ -57,12 +57,15 @@ public with sharing class CaseGroupController {
     if (String.isBlank(parentCaseId) || childCaseInputs.isEmpty()) {
       return new List<Case>();
     }
-    List<Case> casesToUpsert = new List<Case>();
+
     List<Case> existingUnusedCases = ACCOUNT_CLOSURE_REPOSITORY.getUnusedChildCasesByParentId(
       parentCaseId
     );
 
-    processCaseInputs(childCaseInputs, existingUnusedCases, casesToUpsert);
+    List<Case> casesToUpsert = processCaseInputs(
+      childCaseInputs,
+      existingUnusedCases
+    );
 
     //Reason for System Mode: No create access provided to users it will be just read and edit and for this reason we are using without sharing mode
     DML_REPOSITORY.doUpsert(casesToUpsert, new DmlConfig().withoutSharing());
@@ -75,13 +78,13 @@ public with sharing class CaseGroupController {
    * @description Processes case input data to determine whether to update existing cases or insert new ones.
    * @param childCaseInputs A list of case input wrappers from the wizard.
    * @param existingUnusedCases A list of unused case records to be updated.
-   * @param casesToUpsert A list to collect cases that need upsert.
+   * @return List<Case>  list of case records
    */
-  private static void processCaseInputs(
+  private static List<Case> processCaseInputs(
     List<CaseInputWrapper> childCaseInputs,
-    List<Case> existingUnusedCases,
-    List<Case> casesToUpsert
+    List<Case> existingUnusedCases
   ) {
+    List<Case> casesToUpsert = new List<Case>();
     for (CaseInputWrapper input : childCaseInputs) {
       if (!existingUnusedCases.isEmpty()) {
         Case existingCase = existingUnusedCases.remove(0);
@@ -93,6 +96,7 @@ public with sharing class CaseGroupController {
         casesToUpsert.add(newCase);
       }
     }
+    return casesToUpsert;
   }
 
   /**

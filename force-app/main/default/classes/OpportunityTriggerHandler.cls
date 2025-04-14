@@ -39,7 +39,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
     //CC-12479 prevent duplicate Loanapp_Reference_Number__c records on Opportunity
     OpportunityActions.preventDuplicateLoanappReferenceNumber(records, null);
     //CC-4528 validate Opportunity for MLCRM
-    OpportunityActions.validateMLCRMOpportunity(records, null);
+    OpportunityActions.validateClosedOpportunity(records, null);
     //CC-1159 to set the territory for ML Records based on matching user territory default record.
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     //CC-1058 This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
@@ -97,7 +97,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       records,
       (Map<Id, Opportunity>) oldMap
     );
-    if (!CCRMLeadConversionActions.leadConverionFlow) {
+    if (!LeadConversionController.leadConverionFlow) {
       CCRMOpportunityActions.validateCloseDate(
         records,
         (Map<Id, Opportunity>) oldMap
@@ -128,7 +128,7 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Opportunity>) oldMap
     );
     //CC-4528 validate Opportunity for MLCRM
-    OpportunityActions.validateMLCRMOpportunity(
+    OpportunityActions.validateClosedOpportunity(
       records,
       (Map<Id, Opportunity>) oldMap
     );

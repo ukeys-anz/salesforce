@@ -15,9 +15,9 @@
                 <identifier>desktopDashboards_embeddedDashboard</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!$Permission.CustomPermission.View_Commercial_Banker_Manager_Dashboard}</leftValue>
+                        <leftValue>{!$User.Is_Manager__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>true</rightValue>
+                        <rightValue>Y</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -36,9 +36,9 @@
                 <identifier>desktopDashboards_embeddedDashboard2</identifier>
                 <visibilityRule>
                     <criteria>
-                        <leftValue>{!$Permission.CustomPermission.View_Commercial_Banker_Manager_Dashboard}</leftValue>
+                        <leftValue>{!$User.Is_Manager__c}</leftValue>
                         <operator>EQUAL</operator>
-                        <rightValue>false</rightValue>
+                        <rightValue>N</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

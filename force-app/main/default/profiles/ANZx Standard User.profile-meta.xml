@@ -7968,6 +7968,10 @@
         <recordType>Case.ANZx_Complaint</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Broker Enquiry Layout</layout>
+        <recordType>Case.Broker_Enquiry</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Credit Referral</layout>
         <recordType>Case.Credit_Referral</recordType>
     </layoutAssignments>
@@ -8204,6 +8208,14 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>WorkTypeGroup-ANZ Work type Group Layout</layout>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV QA Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_QA_Case</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-TrustMe eIDV Case Layout</layout>
+        <recordType>Case.TrustMe_eIDV_Case</recordType>
     </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
@@ -9393,6 +9405,11 @@
     <recordTypeVisibilities>
         <default>true</default>
         <recordType>ContentVersion.File</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>false</default>
+        <recordType>ContentVersion.DAON_TrustX_File</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>

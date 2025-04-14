@@ -887,7 +887,7 @@ public without sharing class TestDataFactory {
       new TestDataFactory.CCRMLoanAccountSummaryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -895,7 +895,7 @@ public without sharing class TestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'LoanAccount'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -913,7 +913,7 @@ public without sharing class TestDataFactory {
       new TestDataFactory.CCRMLoanAccountDetailTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -921,7 +921,7 @@ public without sharing class TestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContextWithExternalId(
       'LoanAccount'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);

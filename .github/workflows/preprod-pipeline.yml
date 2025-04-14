@@ -8,7 +8,7 @@ on:
         required: true
         default: "artifact"
         type: choice
-        option:
+        options:
           - "artifact"
           - "destructive"
       NAME:
@@ -28,7 +28,7 @@ permissions:
 jobs:
   preprod-deployment:
     container:
-      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.5"
+      image: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
       options: --user root
       volumes:
         - ${{ github.workspace }}/preprod-deployment:/opt/harness-delegate/preprod-deployment

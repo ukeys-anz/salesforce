@@ -295,6 +295,21 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Specialist_Lender_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule shares all Interaction records with Read/Write access to Specialist Lenders</description>
+        <label>Specialist Lender Read Write</label>
+        <sharedTo>
+            <group>Specialist_Lender_Group</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
     <sharingOwnerRules>
         <fullName>ANZ_Plus_Operations_Interactions_RO</fullName>
         <accessLevel>Read</accessLevel>

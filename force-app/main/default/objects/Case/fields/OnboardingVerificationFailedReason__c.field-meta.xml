@@ -3,9 +3,9 @@
     <fullName>OnboardingVerificationFailedReason__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Accurate;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>The reason why customer verification failed during the onboarding process</description>
+    <description>The reason why customer verification failed during the Onboarding/ TrustMe process</description>
     <externalId>false</externalId>
-    <label>Onboarding Verification Failed Reason</label>
+    <label>Verification Failed Reason</label>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
@@ -35,12 +35,12 @@
             <value>
                 <fullName>Doc fail - document is a picture of a picture</fullName>
                 <default>false</default>
-                <label>ID Document - Picture of Picture (MV Only)</label>
+                <label>ID Document - Picture of Picture</label>
             </value>
             <value>
                 <fullName>Doc fail - document is expired</fullName>
                 <default>false</default>
-                <label>ID Document - Expired (MV Only)</label>
+                <label>ID Document - Expired</label>
             </value>
             <value>
                 <fullName>Doc fail - document is ineligible type</fullName>

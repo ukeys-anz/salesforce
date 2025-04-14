@@ -639,19 +639,134 @@
                 <label>Pricing Request</label>
             </value>
             <value>
+                <fullName>Credit policy enquiry</fullName>
+                <default>false</default>
+                <label>Credit policy enquiry</label>
+            </value>
+            <value>
+                <fullName>Pricing enquiry</fullName>
+                <default>false</default>
+                <label>Pricing enquiry</label>
+            </value>
+            <value>
+                <fullName>Process enquiry</fullName>
+                <default>false</default>
+                <label>Process enquiry</label>
+            </value>
+            <value>
+                <fullName>Workshop this deal</fullName>
+                <default>false</default>
+                <label>Workshop this deal</label>
+            </value>
+            <value>
+                <fullName>KYC &amp; Onboarding</fullName>
+                <default>false</default>
+                <label>KYC &amp; Onboarding</label>
+            </value>
+            <value>
+                <fullName>Documentation preparation query</fullName>
+                <default>false</default>
+                <label>Documentation preparation query</label>
+            </value>
+            <value>
+                <fullName>Challenge decision</fullName>
+                <default>false</default>
+                <label>Challenge decision</label>
+            </value>
+            <value>
+                <fullName>Documentation</fullName>
+                <default>false</default>
+                <label>Documentation</label>
+            </value>
+            <value>
+                <fullName>Disbursement</fullName>
+                <default>false</default>
+                <label>Disbursement</label>
+            </value>
+            <value>
+                <fullName>Funds</fullName>
+                <default>false</default>
+                <label>Funds</label>
+            </value>
+            <value>
+                <fullName>IT issue</fullName>
+                <default>false</default>
+                <label>IT issue</label>
+            </value>
+            <value>
+                <fullName>Other</fullName>
+                <default>false</default>
+                <label>Other</label>
+            </value>
+            <value>
                 <fullName>Open Banking</fullName>
                 <default>false</default>
                 <label>Open Banking</label>
             </value>
             <value>
-                <fullName>Letter of Authority</fullName>
+                <fullName>Statement history missing</fullName>
                 <default>false</default>
-                <label>Letter of Authority</label>
+                <label>Statement history missing</label>
+            </value>
+            <value>
+                <fullName>Transaction history missing</fullName>
+                <default>false</default>
+                <label>Transaction history missing</label>
+            </value>
+            <value>
+                <fullName>Accounts not visible</fullName>
+                <default>false</default>
+                <label>Accounts not visible</label>
+            </value>
+            <value>
+                <fullName>Card missing</fullName>
+                <default>false</default>
+                <label>Card missing</label>
+            </value>
+            <value>
+                <fullName>Payee missing</fullName>
+                <default>false</default>
+                <label>Payee missing</label>
+            </value>
+            <value>
+                <fullName>Personal details missing</fullName>
+                <default>false</default>
+                <label>Personal details missing</label>
+            </value>
+            <value>
+                <fullName>Recurring payments missing</fullName>
+                <default>false</default>
+                <label>Recurring payments missing</label>
+            </value>
+            <value>
+                <fullName>Mobile phone mismatch</fullName>
+                <default>false</default>
+                <label>Mobile phone mismatch</label>
+            </value>
+            <value>
+                <fullName>Split profile issue</fullName>
+                <default>false</default>
+                <label>Split profile issue</label>
+            </value>
+            <value>
+                <fullName>Interest rates</fullName>
+                <default>false</default>
+                <label>Interest rates</label>
+            </value>
+            <value>
+                <fullName>Other migration issue</fullName>
+                <default>false</default>
+                <label>Other migration issue</label>
             </value>
             <value>
                 <fullName>Title Search</fullName>
                 <default>false</default>
                 <label>Title Search</label>
+            </value>
+            <value>
+                <fullName>Letter of Authority</fullName>
+                <default>false</default>
+                <label>Letter of Authority</label>
             </value>
             <value>
                 <fullName>Manual Valuation Request</fullName>
@@ -696,6 +811,50 @@
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
             <valueName>Product Info</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Statement history missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Transaction history missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Accounts not visible</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Payee missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Personal details missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Recurring payments missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Mobile phone mismatch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Split profile issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Interest rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Card missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Other migration issue</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
@@ -1198,6 +1357,54 @@
         <valueSettings>
             <controllingFieldValue>My Security</controllingFieldValue>
             <valueName>Hoax Email/SMS</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Credit policy enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Pricing enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Process enquiry</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>Workshop this deal</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Submission</controllingFieldValue>
+            <valueName>KYC &amp; Onboarding</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Assessment</controllingFieldValue>
+            <valueName>Documentation preparation query</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Assessment</controllingFieldValue>
+            <valueName>Challenge decision</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Settlement</controllingFieldValue>
+            <valueName>Documentation</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Settlement</controllingFieldValue>
+            <valueName>Disbursement</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Settlement</controllingFieldValue>
+            <valueName>Funds</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>IT issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>11</controllingFieldValue>
+            <valueName>Other</valueName>
         </valueSettings>
     </valueSet>
     <visibleLines>4</visibleLines>

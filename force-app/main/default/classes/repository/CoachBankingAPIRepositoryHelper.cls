@@ -37,7 +37,7 @@ public with sharing class CoachBankingAPIRepositoryHelper extends RepositoryBase
     if (String.isNotBlank(accountNumber)) {
       builder.append('account_numbers', accountNumber);
     }
-    
+
     return builder.get();
   }
 

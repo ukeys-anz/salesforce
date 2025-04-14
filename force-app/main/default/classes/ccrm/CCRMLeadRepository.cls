@@ -24,7 +24,13 @@ public with sharing class CCRMLeadRepository {
       return new List<Account>();
     }
     return [
-      SELECT Id, Source_System_ID__c, Source_System_Name__c, Name, RecordTypeId
+      SELECT
+        Id,
+        Source_System_ID__c,
+        Source_System_Name__c,
+        Name,
+        FinServ__CustomerType__c,
+        RecordTypeId
       FROM Account
       WHERE
         Source_System_Name__c = :System.Label.CCRM_Source_System_Name

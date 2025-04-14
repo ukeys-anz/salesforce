@@ -22,7 +22,7 @@ public with sharing class BusinessAccountActions {
     // applicable only for ML users and not applicable during lead conversion.
     if (
       !ACC_REPOSITORY.isCurrentUserML() ||
-      CCRMLeadConversionActions.manualLeadConversionInitiated
+      LeadConversionController.manualLeadConversionInitiated
     ) {
       return;
     }

@@ -4,7 +4,8 @@ import {
   TYPE_MAP,
   handleFieldVisibility,
   handleAddDefaults,
-  handleEditPayload
+  handleEditPayload,
+  handleExcludedDebtChangeVisibility
 } from "./helper";
 import DOLLAR_ICON from "@salesforce/resourceUrl/Dollar_sign_income";
 import DOCUMENT_ICON from "@salesforce/resourceUrl/SOP_document_BW";
@@ -20,6 +21,8 @@ export default class SopAddEditDebts extends LightningModal {
   @api actionType; //Determine if its add or edit
   @api parties;
   @api debtData;
+  @api refinancedAssets;
+  @api propertyAssets;
   closedDebtImage = DOLLAR_ICON;
   evidenceProvidedImage = DOCUMENT_ICON;
   readableType;
@@ -29,7 +32,8 @@ export default class SopAddEditDebts extends LightningModal {
     "Debt Details",
     "Debt Amounts",
     "Close Debt",
-    "Debt Evidenced"
+    "Debt Evidenced",
+    "Linked Property"
   ];
   yesNoOptions = [
     {
@@ -70,7 +74,6 @@ export default class SopAddEditDebts extends LightningModal {
   limitLabel = "Limit";
   umiLimitLabel = "Use updated Limit for UMI";
   creditBureauLimitLabel = "Credit Bureau Credit Limit";
-  belongsToValue = "";
   arrangementType = "";
   belongsToOptions = [];
   //Set default source to Manual for Add
@@ -82,6 +85,16 @@ export default class SopAddEditDebts extends LightningModal {
   _months = null;
   showConnectedDataMessage = false;
   _limit = null;
+  @track ownerDetails = [
+    { owner: null, split: null, isNotFirst: false, key: Math.random() }
+  ];
+  @track propertyDetails = [
+    { property: null, isNotFirst: false, partyId: null, key: Math.random() }
+  ];
+  propertyOptions = [];
+  disableAddOwner = false;
+  mustBeFullOwner = false;
+  disableAddProperty = false;
 
   get institutionValue() {
     return this.debtData?.institutionalLiability?.financialInstitution;
@@ -121,6 +134,10 @@ export default class SopAddEditDebts extends LightningModal {
 
   set paidInFull(value) {
     this._paidInFull = value;
+  }
+
+  get interestRateValidated() {
+    return this.debtData?.institutionalLiability?.interestRateValidated;
   }
 
   get monthlyRepayment() {
@@ -270,6 +287,67 @@ export default class SopAddEditDebts extends LightningModal {
     return this.debtData?.institutionalLiability?.validatedLimit;
   }
 
+  get showAddOwnerButton() {
+    return (
+      this.actionType === "Add" ||
+      this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_MANUAL"
+    );
+  }
+
+  get interestRate() {
+    if (this.debtData?.institutionalLiability?.originalInterestRateValue) {
+      return (
+        parseFloat(
+          this.debtData.institutionalLiability.originalInterestRateValue
+        ) / 100
+      ).toFixed(2);
+    }
+
+    return null;
+  }
+
+  //Used to hide the delete owner icon (mostly during edit)
+  get preventAllOwnerDelete() {
+    return (
+      this.actionType === "Edit" &&
+      this.debtData?.sourceType !== "LIABILITY_SOURCE_TYPE_MANUAL"
+    );
+  }
+
+  get taxDeductiblePercentage() {
+    return (
+      this.debtData?.institutionalLiability?.taxDeductiblePercentageOriginal ??
+      null
+    );
+  }
+
+  get undrawnAmount() {
+    return this.debtData?.undrawnAmount;
+  }
+
+  get subsequentInterestRate() {
+    return this.debtData?.institutionalLiability?.subsequentInterestRate;
+  }
+
+  get redrawLabel() {
+    return this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ"
+      ? "Redraw Amount"
+      : "Available Redraw";
+  }
+
+  get productName() {
+    return this.debtData?.productName;
+  }
+
+  get rateType() {
+    return this.debtData?.rateType ? this.debtData.rateType : "Unspecified";
+  }
+
+  get repaymentType() {
+    return this.debtData?.repaymentType
+      ? this.debtData.repaymentType
+      : "Unspecified";
+  }
   @track fieldVisibility;
 
   @wire(MessageContext)
@@ -277,7 +355,7 @@ export default class SopAddEditDebts extends LightningModal {
 
   connectedCallback() {
     if (this.actionType === "Edit") {
-      if (this.debtData.sourceType !== "LIABILITY_SOURCE_TYPE_MANUAL") {
+      if (this.debtData?.sourceType !== "LIABILITY_SOURCE_TYPE_MANUAL") {
         this.showConnectedDataMessage = true;
       }
       this.debtSource = this.debtData.readableSourceType;
@@ -289,21 +367,45 @@ export default class SopAddEditDebts extends LightningModal {
     if (this.actionType === "Add") {
       this.payload.liability.institutionalLiability.debtType = this.debtType;
     }
+    this.handlePropertyOptions(this.propertyAssets);
     if (this.parties && this.parties.length > 0) {
       this.handleBelongsToOptions(this.parties);
     }
     this.readableType = TYPE_MAP[this.debtType].title;
     this.debtImage = TYPE_MAP[this.debtType].image;
-    if (this.actionType === "Edit") {
-      if (this.debtData.sourceType === "LIABILITY_SOURCE_TYPE_ANZ") {
-        this.debtImage = ANZ_IMG;
-      }
+    if (
+      this.actionType === "Edit" &&
+      this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ"
+    ) {
+      this.debtImage = ANZ_IMG;
     }
+
+    //Below debts can only have a single owner
+    if (
+      this.debtType === "LIABILITY_TYPE_STUDENT_LOAN" ||
+      this.debtType === "LIABILITY_TYPE_BPL_FACILITY" ||
+      this.debtType === "LIABILITY_TYPE_BPL_LOAN"
+    ) {
+      this.disableAddOwner = true;
+      this.mustBeFullOwner = true;
+    }
+
     this.fieldVisibility = handleFieldVisibility(
       this.debtType,
       this.debtData,
       this.actionType
     );
+
+    //Options will equal 2 if there is a single option ("Please Select" is an option)
+    //disable ownership split if its not joint
+    if (
+      this.belongsToOptions.length === 2 &&
+      this.actionType === "Edit" &&
+      (this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ" ||
+        this.debtData?.sourceType === "LIABILITY_SOURCE_CREDIT_BUREAU")
+    ) {
+      this.fieldVisibility.disableOwnershipSplit = true;
+    }
 
     this.arrangementType =
       this.debtType === "LIABILITY_TYPE_BPL_FACILITY"
@@ -340,26 +442,66 @@ export default class SopAddEditDebts extends LightningModal {
     this.payload = handleAddDefaults();
   }
 
+  handleAddOwner() {
+    this.ownerDetails.push({
+      owner: null,
+      split: null,
+      isNotFirst: true,
+      key: Math.random()
+    });
+    this.payload.liability.ownership.push({
+      partyId: null,
+      proportion: { value: null }
+    });
+    //Minus 1 on belongs to options to not cater for "Please Select" option
+    if (this.ownerDetails.length === this.belongsToOptions.length - 1) {
+      this.disableAddOwner = true;
+    }
+  }
+
+  handleDeleteOwner(event) {
+    let index = event.target.dataset.id;
+    this.ownerDetails.splice(index, 1);
+    this.payload.liability.ownership.splice(index, 1);
+    //Minus 1 on belongs to options to not cater for "Please Select" option
+    if (this.ownerDetails.length < this.belongsToOptions.length - 1) {
+      this.disableAddOwner = false;
+    }
+    let splitFields = this.template.querySelectorAll(
+      "lightning-input[data-name='ownershipSplit']"
+    );
+    //Check if ownership split total is valid after removing an owner
+    splitFields.forEach((field) => {
+      this.checkOwnershipSplitValidity(field);
+    });
+    this.checkDuplicateSelections("belongsTo", index, true);
+  }
+
   handleBelongsToChange(event) {
     if (event.detail.value) {
-      this.belongsToValue = this.belongsToOptions[event.detail.value].value;
-
-      let partyDetails = this.parties[event.detail.value];
-      this.payload.liability.ownership = [
-        {
-          partyId: partyDetails.partyId1,
-          proportion: { value: partyDetails.proportion }
-        }
-      ];
-      if (partyDetails.partyId2) {
-        this.payload.liability.ownership.push({
-          partyId: partyDetails.partyId2,
-          proportion: { value: partyDetails.proportion }
-        });
-      }
+      let index = event.target.dataset.id;
+      this.ownerDetails[index].owner = event.detail.value;
+      this.payload.liability.ownership[index].partyId = event.detail.value;
+      this.checkDuplicateSelections("belongsTo", index, false);
     } else {
-      this.belongsToValue = "";
+      this.ownerDetails[event.target.dataset.id].owner = null;
+      this.payload.liability.ownership[event.target.dataset.id].partyId = null;
     }
+  }
+
+  handleOwnershipSplit(event) {
+    let index = event.target.dataset.id;
+    this.ownerDetails[index].split = this.payload.liability.ownership[
+      index
+    ].proportion.value = parseInt(event.detail.value);
+
+    let splitFields = this.template.querySelectorAll(
+      "lightning-input[data-name='ownershipSplit']"
+    );
+    //Check if the total ownership split is valid
+    splitFields.forEach((field) => {
+      this.checkOwnershipSplitValidity(field);
+    });
   }
 
   handleInstitutionChange(event) {
@@ -427,85 +569,16 @@ export default class SopAddEditDebts extends LightningModal {
 
   handleCustomerExcludedDebt(event) {
     this.customerStatedClosed = event.detail.value;
-
     //Need to convert string back to boolean
     this.payload.liability.customerStatedClosed =
       event.detail.value === "true" ? true : false;
     //handle visibility based on value of excluded debt
-    if (
-      (this.debtType === "LIABILITY_TYPE_BPL_FACILITY" ||
-        this.debtType === "LIABILITY_TYPE_CREDIT_CARD") &&
-      event.detail.value === "false"
-    ) {
-      this.fieldVisibility.showLimit = true;
-      if (this.debtType === "LIABILITY_TYPE_BPL_FACILITY") {
-        this.fieldVisibility.showBalanceOwingOtherDetails = true;
-      } else {
-        this.fieldVisibility.showBalanceOwing = true;
-      }
-      this.fieldVisibility.showPaidInFull = true;
-      this.fieldVisibility.showMonthlyRepayment =
-        this.payload.liability.institutionalLiability.paidInFull === false
-          ? true
-          : false;
-      this.fieldVisibility.showUMICheckbox = true;
-    } else if (
-      (this.debtType === "LIABILITY_TYPE_BPL_FACILITY" ||
-        this.debtType === "LIABILITY_TYPE_CREDIT_CARD") &&
-      event.detail.value === "true"
-    ) {
-      this.fieldVisibility.showLimit = false;
-      this.fieldVisibility.showBalanceOwing = false;
-      this.fieldVisibility.showBalanceOwingOtherDetails = false;
-      this.fieldVisibility.showPaidInFull = false;
-      this.fieldVisibility.showMonthlyRepayment = false;
-      this.fieldVisibility.showUMICheckbox = false;
-    }
-
-    let debtTypes = [
-      "LIABILITY_TYPE_OTHER_LOAN",
-      "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
-      "LIABILITY_TYPE_VEHICLE_LOAN",
-      "LIABILITY_TYPE_BPL_LOAN",
-      "LIABILITY_TYPE_PERSONAL_LOAN"
-    ];
-
-    if (debtTypes.includes(this.debtType) && event.detail.value === "false") {
-      this.fieldVisibility.showBalanceOwing = true;
-      this.fieldVisibility.showRemainingTermTitle = true;
-      this.fieldVisibility.showYears = true;
-      this.fieldVisibility.showMonths = true;
-      this.fieldVisibility.showRepaymentAmount = true;
-      this.fieldVisibility.showRepaymentFrequency = true;
-      this.fieldVisibility.showRemainingTermCheckbox = true;
-      this.fieldVisibility.showBalanceOwingCheckbox = true;
-    } else if (
-      debtTypes.includes(this.debtType) &&
-      event.detail.value === "true"
-    ) {
-      this.fieldVisibility.showBalanceOwing = false;
-      this.fieldVisibility.showRemainingTermTitle = false;
-      this.fieldVisibility.showYears = false;
-      this.fieldVisibility.showMonths = false;
-      this.fieldVisibility.showRepaymentAmount = false;
-      this.fieldVisibility.showRepaymentFrequency = false;
-      this.fieldVisibility.showRemainingTermCheckbox = false;
-      this.fieldVisibility.showBalanceOwingCheckbox = false;
-    }
-
-    if (
-      this.debtType === "LIABILITY_TYPE_OVERDRAFT" &&
-      event.detail.value === "false"
-    ) {
-      this.fieldVisibility.showBalanceOwing = true;
-      this.fieldVisibility.showLimit = true;
-    } else if (
-      this.debtType === "LIABILITY_TYPE_OVERDRAFT" &&
-      event.detail.value === "true"
-    ) {
-      this.fieldVisibility.showBalanceOwing = false;
-      this.fieldVisibility.showLimit = false;
-    }
+    this.fieldVisibility = handleExcludedDebtChangeVisibility(
+      this.debtType,
+      event.detail.value,
+      this.fieldVisibility,
+      this.payload
+    );
   }
 
   handleUMICheckbox(event) {
@@ -537,35 +610,142 @@ export default class SopAddEditDebts extends LightningModal {
       event.detail.checked;
   }
 
+  handleTaxDeductible(event) {
+    this.payload.liability.institutionalLiability.taxDeductiblePercentage =
+      event.detail.value;
+  }
+
+  handlePropertyAddressChange(event) {
+    let index = parseInt(event.target.dataset.id);
+    if (event.detail.value) {
+      this.propertyDetails[index].property = event.detail.value;
+      this.payload.liability.assets[index] = event.detail.value;
+      this.checkDuplicateSelections("propertyAddress", index, false);
+    } else {
+      this.propertyDetails[index].property = null;
+      this.payload.liability.assets.splice(index, 1);
+    }
+  }
+
+  handleAddProperty() {
+    this.propertyDetails.push({
+      property: null,
+      isNotFirst: true,
+      partyId: null,
+      key: Math.random()
+    });
+    //Minus 1 on belongs to options to not cater for "Please Select" option
+    if (this.propertyDetails.length === this.propertyOptions.length - 1) {
+      this.disableAddProperty = true;
+    }
+  }
+
+  handleDeleteProperty(event) {
+    let index = parseInt(event.target.dataset.id);
+    this.propertyDetails.splice(index, 1);
+    this.payload.liability.assets.splice(index, 1);
+    this.checkDuplicateSelections("propertyAddress", index, true);
+    //Minus 1 on belongs to options to not cater for "Please Select" option
+    if (this.propertyDetails.length < this.propertyOptions.length - 1) {
+      this.disableAddProperty = false;
+    }
+  }
+
+  handlePropertyOptions(propertyList) {
+    this.propertyOptions.push({ label: "--Please Select--", value: "" });
+    if (propertyList.length === 0) {
+      return;
+    }
+    let propertyValues = Object.values(propertyList);
+    //Remove duplicate values (data has duplicates uses 'name' and 'propertyId' as keys)
+    propertyValues = propertyValues.filter(
+      (value, index, self) =>
+        index === self.findIndex((t) => t.name === value.name)
+    );
+    propertyValues.forEach((property) => {
+      //Remove refinanced assets from the list
+      if (this.refinancedAssets.includes(property.name)) {
+        return;
+      }
+      this.propertyOptions.push({
+        label: property.address.singleLineAddress,
+        value: property.name
+      });
+    });
+
+    if (this.actionType === "Edit") {
+      this.payload.liability.assets = [];
+      this.debtData.assets.forEach((asset, index) => {
+        let propDetails = propertyList[asset];
+
+        this.propertyDetails[index] = {
+          property: propDetails.name,
+          isNotFirst: index !== 0
+        };
+        this.payload.liability.assets[index] = propDetails.name;
+      });
+    }
+
+    //Options will equal 2 if there is a single option ("Please Select" is an option)
+    if (this.propertyOptions.length === 2) {
+      this.disableAddProperty = true;
+    }
+  }
+
   handleBelongsToOptions(parties) {
     parties.forEach((party, key) => {
       //If disabled is true, then value is "Please Select", and assign no value for validation
       this.belongsToOptions[key] = {
         label: party.label,
-        value: party.disabled ? "" : key,
+        value: party.disabled ? "" : party.partyId,
         disabled: party.disabled
       };
     });
-    if (this.actionType === "Edit") {
-      //Set default for edit scenarios
-      this.belongsToValue = this.belongsToOptions.find(
-        (p) => p.label === this.debtData.ownerName
-      ).value;
-      let partyDetails = this.parties[this.belongsToValue];
 
-      this.payload.liability.ownership = [
-        {
-          partyId: partyDetails.partyId1,
-          proportion: { value: partyDetails.proportion }
-        }
-      ];
-      if (partyDetails.partyId2) {
-        this.payload.liability.ownership.push({
-          partyId: partyDetails.partyId2,
-          proportion: { value: partyDetails.proportion }
-        });
+    //Options will equal 2 if there is a single option ("Please Select" is an option)
+    if (this.belongsToOptions.length === 2) {
+      this.disableAddOwner = true;
+    }
+
+    if (this.actionType === "Edit") {
+      this.payload.liability.ownership = [];
+      this.debtData.ownership.forEach((owner, index) => {
+        let name = parties.find((p) => p.partyId === owner.partyId).label;
+        let ownerValue = this.belongsToOptions.find((o) => {
+          return o.label === name;
+        }).value;
+
+        this.ownerDetails[index] = {
+          owner: ownerValue,
+          split: parseInt(owner.proportion),
+          isNotFirst: index !== 0 && !this.preventAllOwnerDelete
+        };
+        this.payload.liability.ownership[index] = {
+          partyId: owner.partyId,
+          proportion: { value: owner.proportion }
+        };
+      });
+
+      //Minus 1 on belongs to options to not cater for "Please Select" option
+      if (this.ownerDetails.length === this.belongsToOptions.length - 1) {
+        this.disableAddOwner = true;
       }
     }
+  }
+
+  handleInterestRateChange(event) {
+    //Interest rate sent as basis value, 5.5% -> 550
+    this.payload.liability.institutionalLiability.interestRate =
+      parseFloat(event.detail.value) * 100;
+  }
+
+  handleInterestRateUMICheckbox(event) {
+    this.payload.liability.institutionalLiability.interestRateValidated =
+      event.detail.checked;
+  }
+
+  handleUndrawnAmount(event) {
+    this.payload.liability.undrawnAmountValue = Math.abs(event.detail.value);
   }
 
   @api
@@ -592,7 +772,7 @@ export default class SopAddEditDebts extends LightningModal {
       if (
         this.payload?.liability?.institutionalLiability?.paidInFull &&
         ((this.actionType === "Edit" &&
-          this.debtData.sourceType !== "LIABILITY_SOURCE_TYPE_ANZ") ||
+          this.debtData?.sourceType !== "LIABILITY_SOURCE_TYPE_ANZ") ||
           this.actionType === "Add")
       ) {
         this.payload.liability.institutionalLiability.repaymentAmountValue =
@@ -662,14 +842,106 @@ export default class SopAddEditDebts extends LightningModal {
     return true;
   }
 
+  //Check if all fields are valid
   areFieldsValid() {
     let allValid = [
-      ...this.template.querySelectorAll("lightning-input, lightning-combobox")
+      ...this.template.querySelectorAll(
+        "lightning-input, lightning-combobox, lightning-input[data-name='ownershipSplit']"
+      )
     ].reduce((validSoFar, inputCmp) => {
+      this.checkOwnershipSplitValidity(inputCmp);
       inputCmp.reportValidity();
       return validSoFar && inputCmp.checkValidity();
     }, true);
 
     return allValid;
+  }
+
+  //Check if the total ownership split is valid
+  checkOwnershipSplitValidity(field) {
+    if (field.getAttribute("data-name") !== "ownershipSplit") {
+      return;
+    }
+    let ownerSplitSum = parseInt(
+      this.ownerDetails.reduce((a, b) => a + b.split, 0)
+    );
+
+    //Full owner must have 100% ownership on HECS and BNPL
+    if (ownerSplitSum !== 100 && this.mustBeFullOwner) {
+      field.setCustomValidity(
+        "100% of this debt type must be allocated to the owner."
+      );
+      field.reportValidity();
+      return;
+    }
+
+    if (parseInt(field.value) === 0) {
+      //Owners must have an ownership split greater than 0%
+      field.setCustomValidity("Cannot have an owner with 0% ownership.");
+      field.reportValidity();
+      return;
+    }
+    if (ownerSplitSum > 100) {
+      //Only add error message if field is not empty
+      if (field.value !== "") {
+        field.setCustomValidity("The total ownership split exceeds 100%.");
+      }
+    } else if (ownerSplitSum === 0) {
+      //Only add error message if field is not empty
+      if (field.value !== "") {
+        field.setCustomValidity(
+          "The total ownership split must be greater than 0%."
+        );
+      }
+    } else {
+      field.setCustomValidity("");
+    }
+    field.reportValidity();
+  }
+
+  //Handle duplicate selections
+  checkDuplicateSelections(dataName, index, isDelete) {
+    let fieldType = dataName === "belongsTo" ? "owner" : "propertyAddress";
+
+    //Use as Array to be able to filter if its delete
+    let fieldList = Array.from(
+      this.template.querySelectorAll(
+        `lightning-combobox[data-name='${dataName}']`
+      )
+    );
+
+    //remove from the field list based on data id index when delete
+    if (isDelete) {
+      fieldList = fieldList.filter(
+        (field) => parseInt(field.dataset.id) !== parseInt(index)
+      );
+    }
+
+    let message =
+      fieldType === "owner"
+        ? "This applicant has already been selected. Please select another applicant on this application."
+        : "This property has already been selected. Please select another property on this application.";
+
+    const dataSet = new Set();
+    const duplicates = new Set();
+    fieldList.forEach((field) => {
+      if (!field.value) {
+        return;
+      }
+      if (dataSet.has(field.value)) {
+        duplicates.add(field.value);
+      } else {
+        dataSet.add(field.value);
+      }
+    });
+
+    fieldList.forEach((field) => {
+      if (duplicates.has(field.value)) {
+        field.setCustomValidity(message);
+      } else {
+        field.setCustomValidity("");
+      }
+      field.reportValidity();
+    });
   }
 }

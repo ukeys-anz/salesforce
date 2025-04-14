@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Account_Name__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Caps</complianceGroup>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_EBD</complianceGroup>
     <description>Name attached to the product instance on CAP</description>
     <externalDeveloperName>AccountName</externalDeveloperName>
     <externalId>false</externalId>

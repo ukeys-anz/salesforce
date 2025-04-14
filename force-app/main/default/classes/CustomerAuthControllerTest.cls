@@ -173,7 +173,7 @@ public class CustomerAuthControllerTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'get-security-code');
-      res.setBody(new CCRMARNCServiceMock().getSecurityCode().body);
+      res.setBody(new ARNCServiceMock().getSecurityCode().body);
       res.setStatusCode(200);
       return res;
     }
@@ -190,7 +190,7 @@ public class CustomerAuthControllerTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'create-diary-comment');
-      res.setBody(new CCRMARNCServiceMock().createDiaryComment().body);
+      res.setBody(new ARNCServiceMock().createDiaryComment().body);
       res.setStatusCode(200);
       return res;
     }
@@ -208,7 +208,7 @@ public class CustomerAuthControllerTest {
     public HTTPResponse respond(HTTPRequest req) {
       HTTPResponse res = new HTTPResponse();
       res.setHeader('ms2-example', 'update-security-code');
-      res.setBody(new CCRMARNCServiceMock().updateSecurityCode().body);
+      res.setBody(new ARNCServiceMock().updateSecurityCode().body);
       res.setStatusCode(200);
       return res;
     }

@@ -108,6 +108,7 @@ public with sharing class CaseInputWrapper {
   /**
    * @description Record Type for the Case
    */
+  @AuraEnabled
   public String recordTypeId {
     get {
       Map<String, String> issueTypeToRecordTypeIdMap = new Map<String, String>{
