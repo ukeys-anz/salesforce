@@ -2,6 +2,7 @@ import { LightningElement } from "lwc";
 import { updateRecord } from "lightning/uiRecordApi";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { handleErrorShowToast } from "c/utils";
+import { showToast } from "c/utils";
 import REALFORMREQ_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Req__c";
 import REALEVENTID_FIELD from "@salesforce/schema/Case.IDR_Real_Form_Ref_No__c";
 import CASEID_FIELD from "@salesforce/schema/Case.Id";
@@ -94,12 +95,19 @@ export default class realFormIdSaveAction extends OmniscriptBaseMixin(
         window.open(url, "_self");
       })
       .catch((err) => {
-        handleErrorShowToast(
-          this,
-          "Error Updating Real Form ID",
-          err,
-          "System Exception: Error Updating Real Form Id"
-        );
+        let msg = err?.body?.output?.errors[0]?.message;
+        if (
+          msg.includes("You are not authorized to make updates to this field.")
+        ) {
+          showToast(this, "Error Updating Real Form ID", msg, "", "error");
+        } else {
+          handleErrorShowToast(
+            this,
+            "Error Updating Real Form ID",
+            err,
+            "System Exception: Error Updating Real Form Id"
+          );
+        }
         this.loading = false;
       });
   }
