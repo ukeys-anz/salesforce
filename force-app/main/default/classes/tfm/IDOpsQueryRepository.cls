@@ -62,7 +62,7 @@ public with sharing class IDOpsQueryRepository {
       FROM ContentVersion
       WHERE
         IsLatest = TRUE
-        AND RecordTypeId = :TFMConstants.DAON_FILE_RT_ID
+        AND RecordTypeId = :RTContentVersion.daonFile
         AND UUID__c IN :uuidIdentifiers
       WITH USER_MODE
     ];
@@ -131,7 +131,7 @@ public with sharing class IDOpsQueryRepository {
           SELECT ContentDocumentId
           FROM ContentVersion
           WHERE
-            RecordTypeId = :TFMConstants.DAON_FILE_RT_ID
+            (RecordTypeId = :RTContentVersion.daonFile OR RecordTypeId = :RTContentVersion.daonTrustXFile)
             AND CreatedDate < :elapsedDatetime
         )
       WITH USER_MODE

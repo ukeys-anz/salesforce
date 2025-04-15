@@ -563,6 +563,9 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
+      ],
+      "IA-2453350": [
+        "External_Id__c"
       ]
     },
     "ActivityFieldHistory__c": {
@@ -3452,7 +3455,8 @@
         "TotalOpportunityQuantity",
         "Opp_Id__c",
         "Type",
-        "Territory__c"
+        "Territory__c",
+        "Version__c"
       ],
       "IA-2415860": [
         "Associated_Source_Detail__c",
