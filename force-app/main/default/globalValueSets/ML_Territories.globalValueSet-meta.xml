@@ -976,6 +976,21 @@
         <label>Wollongong (NSW)</label>
     </customValue>
     <customValue>
+        <fullName>Ellenbrook (WA)</fullName>
+        <default>false</default>
+        <label>Ellenbrook (WA)</label>
+    </customValue>
+    <customValue>
+        <fullName>Menai (NSW)</fullName>
+        <default>false</default>
+        <label>Menai (NSW)</label>
+    </customValue>
+    <customValue>
+        <fullName>Oakleigh (VIC)</fullName>
+        <default>false</default>
+        <label>Oakleigh (VIC)</label>
+    </customValue>
+    <customValue>
         <fullName>Coffs Harbour (QLD)</fullName>
         <default>false</default>
         <isActive>false</isActive>
