@@ -2868,4 +2868,25 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>MS Retrieve Party Organization</shortDescription>
         <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organizations</value>
     </labels>
+    <labels>
+        <fullName>MS_TrustMe_CaseUpdate</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_TrustMe_CaseUpdate</shortDescription>
+        <value>callout:SF_MS_CH2/customer-identification/v1/case-status</value>
+    </labels>
+    <labels>
+        <fullName>MS_TrustMe_GetEvaluationDetails</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_TrustMe_GetEvaluationDetails</shortDescription>
+        <value>callout:SF_MS_CH2/customer-identification/v1/evaluation-data</value>
+    </labels>
+    <labels>
+        <fullName>MS_TrustMe_UploadAttachments</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_TrustMe_UploadAttachments</shortDescription>
+        <value>callout:SF_MS_CH2/customer-identification/v1/case-attachments</value>
+    </labels>
 </CustomLabels>

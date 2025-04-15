@@ -4,6 +4,10 @@
         <apexClass>TrustMeCaseActions</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <classAccesses>
+        <apexClass>TrustMeCaseStatusPathController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
     <description>Provides read/write access to the TrustMe eIDV QA Cases</description>
     <fieldPermissions>
         <editable>false</editable>
