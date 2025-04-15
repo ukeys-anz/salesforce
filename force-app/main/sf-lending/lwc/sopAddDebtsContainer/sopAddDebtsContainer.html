@@ -83,8 +83,6 @@
           debt-type={selectedDebtType}
           parties={belongsToOptions}
           action-type="Add"
-          refinanced-assets={refinancedAssets}
-          property-assets={propertyAssets}
         ></c-sop-add-edit-debts>
       </template>
     </template>
@@ -96,7 +94,6 @@
           variant="neutral"
           label="Cancel"
           onclick={handleClose}
-          lwc:if={showCancelButton}
         ></lightning-button>
       </lightning-layout-item>
       <lightning-layout-item

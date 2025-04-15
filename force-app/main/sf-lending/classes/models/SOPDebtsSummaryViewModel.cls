@@ -3,7 +3,6 @@
  * @since Thu Oct 03 2024
  * @description View model for debts finance section of getConsolidatedSOP API call
  */
-@SuppressWarnings('PMD.ExcessiveParameterList')
 public with sharing class SOPDebtsSummaryViewModel {
   //List of statuses to hide from front end
   private static final List<String> HIDE_STATUSES = new List<String>{
@@ -21,31 +20,22 @@ public with sharing class SOPDebtsSummaryViewModel {
   public List<SOPDebtsViewModel> debts;
   @AuraEnabled
   public Integer sourcesSize = 0;
-  @AuraEnabled
-  public List<String> refinancedAssets;
-  @AuraEnabled
-  public Map<String, SOPGetConsolidatedModel.Assets> propertyAssets;
 
   /**
    * @description Constructor for Debts view model
    * @param sourceData liabilitiesSummary api data
    * @param partyIdToFirstNameMap party id to first name map
    * @param loanId loan id
-   * @param assetPropertyLookup map of address lookup
    */
-  //Suppress warning as params needed for model data
-  @SuppressWarnings('PMD.NcssConstructorCount')
   public SOPDebtsSummaryViewModel(
     SOPGetConsolidatedModel.liabilitiesSummary sourceData,
     Map<String, String> partyIdToFirstNameMap,
-    String loanId,
-    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup
+    String loanId
   ) {
     this.currencyCode = 'AUD';
     this.debtsTotalAmount = SOPHelper.convertAmountToDecimal(
       sourceData.liabilitiesTotalAmount
     );
-    this.propertyAssets = assetPropertyLookup;
 
     Set<String> refinanceSet = new Set<String>();
     for (
@@ -59,32 +49,17 @@ public with sharing class SOPDebtsSummaryViewModel {
     }
 
     this.debts = new List<SOPDebtsViewModel>();
-    //Create set to avoid duplicate assets, Set not supported for AuraEnabled attribute
-    Set<String> refinancedAssetsSet = new Set<String>();
     this.sourcesSize = sourceData.sources?.size();
+
     for (
       SOPGetConsolidatedModel.liabilities liability : sourceData.liabilities
     ) {
       if (HIDE_STATUSES.contains(liability.account?.status)) {
         continue;
       }
-
-      if (refinanceSet.contains(liability.name)) {
-        if (liability.assets != null && !liability.assets.isEmpty()) {
-          refinancedAssetsSet.addAll(liability.assets);
-        }
-      }
       this.debts.add(
-        new SOPDebtsViewModel(
-          liability,
-          partyIdToFirstNameMap,
-          refinanceSet,
-          assetPropertyLookup
-        )
+        new SOPDebtsViewModel(liability, partyIdToFirstNameMap, refinanceSet)
       );
     }
-
-    //Assign assets being refinanced
-    this.refinancedAssets = new List<String>(refinancedAssetsSet);
   }
 }

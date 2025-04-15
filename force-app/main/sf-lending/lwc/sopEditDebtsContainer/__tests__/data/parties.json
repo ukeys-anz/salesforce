@@ -1,5 +1,31 @@
-[
-  { "label": "--Please Select--", "value": "", "disabled": "true" },
-  { "label": "Tony Stark", "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4" },
-  { "label": "John Cena", "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067" }
-]
+{
+  "party": [
+    { "label": "--Please Select--", "value": "", "disabled": "true" },
+    {
+      "label": "Tony",
+      "partyId1": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "proportion": "100"
+    },
+    {
+      "label": "Tony & Someone Else",
+      "partyId1": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "proportion": "50"
+    },
+    {
+      "label": "John",
+      "partyId1": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+      "proportion": "100"
+    },
+    {
+      "label": "John & Someone Else",
+      "partyId1": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+      "proportion": "50"
+    },
+    {
+      "label": "Joint",
+      "partyId1": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+      "partyId2": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+      "proportion": "50"
+    }
+  ]
+}

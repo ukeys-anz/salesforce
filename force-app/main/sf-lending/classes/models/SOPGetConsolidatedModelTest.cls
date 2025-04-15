@@ -21,14 +21,12 @@ public class SOPGetConsolidatedModelTest {
     );
 
     for (SOPGetConsolidatedModel.Incomes income : obj.incomesSummary.incomes) {
-      if (income.employment != null) {
-        SOPGetConsolidatedModel.StartDate sd = income.employment.startDate;
-        System.assertEquals(
-          sd.getStartDateStr(),
-          sd.year + '/' + sd.month + '/' + sd.day,
-          'The date format should be correct'
-        );
-      }
+      SOPGetConsolidatedModel.StartDate sd = income.employment.startDate;
+      System.assertEquals(
+        sd.getStartDateStr(),
+        sd.year + '/' + sd.month + '/' + sd.day,
+        'The date format should be correct'
+      );
     }
 
     for (SOPGetConsolidatedModel.Parties party : obj.sop.parties) {

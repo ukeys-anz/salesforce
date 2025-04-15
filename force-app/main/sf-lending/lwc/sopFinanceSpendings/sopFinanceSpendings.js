@@ -33,9 +33,7 @@ export default class SopFinanceSpendings extends LightningElement {
 
   loadSOPSpendingsData() {
     this.sortedExpenses = ExpenseTreeBuilder.sortExpenses(
-      ExpenseTreeBuilder.createAddressItems([
-        ...this.sopSpendingsData.monthlyExpenses
-      ]),
+      [...this.sopSpendingsData.monthlyExpenses],
       this.sortOrderFromMaps
     );
     this.sopSpendingsTree = ExpenseTreeBuilder.buildTree(this);

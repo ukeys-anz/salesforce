@@ -170,17 +170,6 @@
                       multiple-rows
                       horizontal-align="spread"
                     >
-                      <!-- Debt Details -->
-                      <lightning-layout-item
-                        size="12"
-                        class="labelAndValueStyle slds-text-title_bold slds-p-bottom_medium"
-                        lwc:if={debt.showDebtDetailsTitle}
-                      >
-                        <lightning-formatted-text
-                          value="Debt Details"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
-
                       <!-- Belongs To -->
                       <lightning-layout-item
                         size="8"
@@ -198,32 +187,9 @@
                       >
                         <lightning-formatted-text
                           class="labelAndValueStyle"
-                          value={debt.belongsTo}
+                          value={debt.ownerName}
                         ></lightning-formatted-text>
                       </lightning-layout-item>
-
-                      <!-- Ownership Split -->
-                      <template lwc:if={debt.showOwnershipSplit}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Ownership Split"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.ownershipSplit}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
 
                       <!-- Debt Type -->
                       <lightning-layout-item
@@ -288,29 +254,6 @@
                           <lightning-formatted-text
                             class="labelAndValueStyle"
                             value={debt.institutionalLiability.financialInstitution}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
-
-                      <!-- Product Name -->
-                      <template lwc:if={debt.showProductName}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Product Name"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.productName}
                           ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
@@ -406,17 +349,6 @@
                           ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
-
-                      <!-- Debt Amounts -->
-                      <lightning-layout-item
-                        size="12"
-                        class="labelAndValueStyle slds-text-title_bold slds-p-top_small slds-p-bottom_xx-small"
-                        lwc:if={debt.showDebtAmountsTitle}
-                      >
-                        <lightning-formatted-text
-                          value="Debt Amounts"
-                        ></lightning-formatted-text>
-                      </lightning-layout-item>
 
                       <!-- Limit -->
                       <template lwc:if={debt.showLimit}>
@@ -598,31 +530,6 @@
                         </lightning-layout-item>
                       </template>
 
-                      <!-- Undrawn Amount -->
-                      <template lwc:if={debt.showUndrawnAmount}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Undrawn Amount"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                        >
-                          <lightning-formatted-number
-                            format-style="currency"
-                            currency-code={currenyCode}
-                            value={debt.undrawnAmount}
-                            currency-display-as="symbol"
-                          ></lightning-formatted-number>
-                        </lightning-layout-item>
-                      </template>
-
                       <!-- Loan Type -->
                       <template lwc:if={debt.showLoanType}>
                         <lightning-layout-item
@@ -646,52 +553,6 @@
                         </lightning-layout-item>
                       </template>
 
-                      <!-- Rate Type -->
-                      <template lwc:if={debt.showRateType}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Rate Type"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.readableTermType}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
-
-                      <!-- Repayment Type -->
-                      <template lwc:if={debt.showRepaymentType}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Repayment Type"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.repaymentType}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
-
                       <!-- Interest Rate -->
                       <template lwc:if={debt.showInterestRate}>
                         <lightning-layout-item
@@ -711,52 +572,6 @@
                           <lightning-formatted-text
                             class="labelAndValueStyle"
                             value={debt.institutionalLiability.interestRate}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
-
-                      <!-- Subsequent Interest Rate -->
-                      <template lwc:if={debt.showSubsequentInterestRate}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Subsequent Interest Rate"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.institutionalLiability.subsequentInterestRate}
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                      </template>
-
-                      <!-- Tax Deductable -->
-                      <template lwc:if={debt.showTaxDeductible}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_x-small labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value="Tax Deductible"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="4"
-                          flexibility="shrink"
-                          alignment-bump="right"
-                          class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                        >
-                          <lightning-formatted-text
-                            class="labelAndValueStyle"
-                            value={debt.institutionalLiability.taxDeductiblePercentage}
                           ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
@@ -989,52 +804,12 @@
                           ></lightning-formatted-text>
                         </lightning-layout-item>
                       </template>
-
-                      <!-- Linked Property -->
-                      <template lwc:if={debt.showLinkedProperty}>
-                        <lightning-layout-item
-                          size="8"
-                          class="slds-p-top_medium labelAndValueStyle slds-text-title_bold"
-                        >
-                          <lightning-formatted-text
-                            value="Linked Property"
-                          ></lightning-formatted-text>
-                        </lightning-layout-item>
-
-                        <!-- Property Address -->
-                        <template
-                          for:each={debt.linkedProperty}
-                          for:item="property"
-                        >
-                          <lightning-layout-item
-                            key={property}
-                            size="6"
-                            class="slds-p-top_xx-small labelAndValueStyle"
-                          >
-                            <lightning-formatted-text
-                              value="Property Address"
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-                          <lightning-layout-item
-                            key={property}
-                            size="6"
-                            flexibility="shrink"
-                            alignment-bump="right"
-                            class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
-                          >
-                            <lightning-formatted-text
-                              class="labelAndValueStyle"
-                              value={property}
-                            ></lightning-formatted-text>
-                          </lightning-layout-item>
-                        </template>
-                      </template>
                     </lightning-layout>
                   </lightning-layout-item>
 
                   <!-- Last Modified Date -->
                   <lightning-layout-item
-                    class="slds-p-top_medium slds-text-align_right lastModifiedStyle"
+                    class="slds-p-top_x-small slds-text-align_right lastModifiedStyle"
                     size="12"
                   >
                     <lightning-formatted-text

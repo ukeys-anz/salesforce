@@ -22,13 +22,6 @@ export const ACCOUNT_STATUS = {
   ACCOUNT_STATE_CLOSED: "Closed" // the account is closed
 };
 
-const CONSTRUCTION_LOAN = "Construction";
-const VARIABLE_PI_LOAN = "Variable P&I";
-const VARIABLE_IO_LOAN = "Variable IO";
-const FIXED_IO_LOAN = "Fixed IO";
-//Variables for home loan types currently unused
-// const FIXED_PI_LOAN = "Fixed P&I";
-
 export const DEBTS_MAP = [
   {
     title: "Home Loan",
@@ -119,10 +112,7 @@ const COMMON_FIELDS = {
   showCustomerExcludedDebtMessage: (debt) =>
     !debt.paidOffAndClosed && debt.customerStatedClosed && !debt.hasRefinance,
   showDebtChangeEvidence: (debt) =>
-    debt.evidenceProvided &&
-    (debt.readableType === "Home Loan" ||
-      (debt.readableType !== "Home Loan" &&
-        debt.readableSourceType !== SOURCE_MANUAL))
+    debt.readableSourceType !== SOURCE_MANUAL && debt.evidenceProvided
 };
 
 //Fields for Vehicle Loan, Vehicle Lease/Hire Purchase and Other Loan
@@ -149,10 +139,7 @@ const VEHICLE_OTHER_LOAN = {
   showRepaymentAmount: (debt) => !debt.customerStatedClosed,
   showRepaymentFrequency: (debt) => !debt.customerStatedClosed,
   showCustomerExcludedDebt: (debt) =>
-    debt.readableSourceType === SOURCE_CREDIT_BUREAU && !debt.hasRefinance,
-  showOwnershipSplit: true,
-  showProductName: (debt) =>
-    debt.readableSourceType === SOURCE_ANZ && debt.productName,
+    debt.readableSourceType === SOURCE_CREDIT_BUREAU,
   // prettier-ignore
   image: (debt) =>
     (debt.readableSourceType === SOURCE_ANZ ? ANZ_IMG : DEBT_LOAN)
@@ -161,63 +148,23 @@ const VEHICLE_OTHER_LOAN = {
 const DEBT_TYPES = {
   "Home Loan": {
     fields: {
-      ...COMMON_FIELDS,
-      showDebtAmountsTitle: true,
-      showDebtDetailsTitle: true,
       showInstitution: true,
       showBsb: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showAccountNumber: (debt) =>
         [SOURCE_ANZ, SOURCE_CREDIT_BUREAU].includes(debt.readableSourceType),
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ &&
-        debt.productName !== null &&
-        debt.productName !== undefined &&
-        debt.productName !== "",
+      showBalanceOwing: true,
       showBureauBalanceOwing: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       showBureauBalanceMessage: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
+      showRemainingTerm: true,
       showBureauRemainingTerm: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       showAccountStatus: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showOwnershipSplit: true,
-      showTaxDeductible: (debt) => !debt.customerStatedClosed,
-      showUndrawnAmount: (debt) =>
-        !debt.customerStatedClosed &&
-        !debt.fullyDrawn &&
-        debt.undrawnAmount > 0 &&
-        ((debt.readableSourceType === SOURCE_ANZ &&
-          debt.homeLoanType === CONSTRUCTION_LOAN) ||
-          debt.readableSourceType !== SOURCE_ANZ),
-      showLinkedProperty: (debt) =>
-        debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
-      showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU &&
-        (!debt.hasRefinance || debt.customerStatedClosed),
-      showRepaymentFrequency: (debt) =>
-        !debt.customerStatedClosed &&
-        debt.homeLoanType !== CONSTRUCTION_LOAN &&
-        debt.homeLoanType !== VARIABLE_IO_LOAN &&
-        debt.homeLoanType !== FIXED_IO_LOAN,
-      showRedraw: (debt) => !debt.customerStatedClosed,
-      showInterestRate: (debt) => !debt.customerStatedClosed,
-      showBalanceOwing: (debt) => !debt.customerStatedClosed,
-      showBalanceOwingMessage: (debt) =>
-        debt.validatedOutstandingBalance && !debt.customerStatedClosed,
-      showRemainingTerm: (debt) => !debt.customerStatedClosed,
-      showRemainingTermMessage: (debt) =>
-        debt.institutionalLiability?.validatedPrincipalInterestRemainingTerm &&
-        !debt.customerStatedClosed,
-      showRepaymentAmount: (debt) =>
-        !debt.customerStatedClosed &&
-        debt.homeLoanType !== CONSTRUCTION_LOAN &&
-        debt.homeLoanType !== VARIABLE_IO_LOAN &&
-        debt.homeLoanType !== FIXED_IO_LOAN,
-      showSubsequentInterestRate: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ &&
-        debt.homeLoanType !== VARIABLE_PI_LOAN,
-      showRateType: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showRepaymentType: (debt) => debt.readableSourceType === SOURCE_ANZ,
+      showRepaymentAmount: true,
+      showRepaymentFrequency: true,
+      showRedraw: true,
+      showInterestRate: true,
       // prettier-ignore
       image: (debt) =>
         (debt.readableSourceType === SOURCE_ANZ ? ANZ_IMG : HOME_IMG)
@@ -249,9 +196,6 @@ const DEBT_TYPES = {
       showAccountStatus: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showCustomerExcludedDebt: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
-      showOwnershipSplit: true,
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ && debt.productName,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
           ? ANZ_IMG
@@ -286,9 +230,8 @@ const DEBT_TYPES = {
       showRepaymentFrequency: (debt) => !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
-      showOwnershipSplit: true,
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ && debt.productName,
+      showDebtChangeEvidence: (debt) =>
+        debt.readableSourceType !== SOURCE_MANUAL && debt.evidenceProvided,
       // prettier-ignore
       image: (debt) =>
         (debt.readableSourceType === SOURCE_ANZ ? ANZ_IMG : DEBT_LOAN)
@@ -353,7 +296,8 @@ const DEBT_TYPES = {
         debt.type === BPL_LOAN && !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
-      showOwnershipSplit: true,
+      showDebtChangeEvidence: (debt) =>
+        debt.readableSourceType !== SOURCE_MANUAL && debt.evidenceProvided,
       image: BUY_NOW_IMG
     }
   },
@@ -375,27 +319,11 @@ const DEBT_TYPES = {
         debt.readableSourceType === SOURCE_ANZ ||
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
       showAccountStatus: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showLimit: (debt) =>
-        !debt.hasRefinance ||
-        !debt.customerStatedClosed ||
-        debt.readableSourceType !== SOURCE_CREDIT_BUREAU,
+      showLimit: true,
       showBureauLimit: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
-      showBalanceOwing: (debt) => !debt.customerStatedClosed,
-      showBalanceOwingMessage: (debt) =>
-        debt.validatedOutstandingBalance && !debt.customerStatedClosed,
-      showInterestRate: (debt) =>
-        [SOURCE_ANZ, SOURCE_CREDIT_BUREAU].includes(debt.readableSourceType) &&
-        !debt.customerStatedClosed,
-      showLinkedProperty: (debt) =>
-        debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
-      showOwnershipSplit: true,
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ && debt.productName,
-      showTaxDeductible: (debt) => !debt.customerStatedClosed,
-      showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU &&
-        (!debt.hasRefinance || debt.customerStatedClosed),
+      showBalanceOwing: true,
+      showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
           ? ANZ_IMG
@@ -422,9 +350,6 @@ const DEBT_TYPES = {
       showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showCustomerExcludedDebt: (debt) =>
         debt.readableSourceType === SOURCE_CREDIT_BUREAU,
-      showOwnershipSplit: true,
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ && debt.productName,
       showDebtSourceMessage: (debt) => debt.readableSourceType === SOURCE_ANZ,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
@@ -443,9 +368,6 @@ const DEBT_TYPES = {
       showLimit: true,
       showBalanceOwing: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
-      showOwnershipSplit: true,
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ && debt.productName,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
           ? ANZ_IMG
@@ -461,9 +383,6 @@ const DEBT_TYPES = {
       showAccountNumber: true,
       showLimit: true,
       showInterestRate: true,
-      showOwnershipSplit: true,
-      showProductName: (debt) =>
-        debt.readableSourceType === SOURCE_ANZ && debt.productName,
       image: DEBT_LOAN
     }
   }

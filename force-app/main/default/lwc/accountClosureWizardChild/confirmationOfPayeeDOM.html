@@ -83,7 +83,7 @@
             <!-- Wrapper for 2 fields per row -->
             <div class="slds-grid slds-gutters slds-var-m-top_medium">
               <div>
-                <div class="slds-col slds-size_1-of-1">
+                <div class="slds-col slds-size_1-of-1 slds-m-left_medium">
                   <c-editable-field
                     row-id={row.id}
                     name="updateAccountStatusCOP"
@@ -105,9 +105,10 @@
                     label="CoP Reason"
                     value={row.copReason}
                     type="combobox"
-                    help-text="Updated CoP Status."
+                    help-text="A customer's reason to opt-out must be one of four confirmed eligibility reasons listed and the customer must not be prompted."
                     options={copResonValues}
                     onfieldchange={handleFieldChange}
+                    is-required="true"
                   >
                   </c-editable-field>
                 </div>
