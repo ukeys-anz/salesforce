@@ -18,6 +18,7 @@ export default class CustomerIdentifier extends OmniscriptBaseMixin(
 
   @api set omniJsonData(data) {
     this._omniData = data;
+
     if (data && data.Case) {
       this.isReadOnly = this.setisReadOnly(this._omniData);
 
@@ -33,11 +34,14 @@ export default class CustomerIdentifier extends OmniscriptBaseMixin(
   }
 
   setisReadOnly(data) {
-    return (
-      !data.isEligibleAppForLookUp &&
+    if (!data.enableAccountLookUp) {
+      return false;
+    }
+    return !data.isEligibleAppForLookUp &&
       data.Case.isThisCustomerComplaint === "Yes" &&
-      (data.Case?.AccountId || !data.enableAccountLookUp)
-    );
+      data.Case?.AccountId
+      ? true
+      : false;
   }
 
   handleChange(event) {
