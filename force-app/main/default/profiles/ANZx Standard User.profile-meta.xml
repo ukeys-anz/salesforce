@@ -8217,6 +8217,10 @@
         <layout>Case-TrustMe eIDV Case Layout</layout>
         <recordType>Case.TrustMe_eIDV_Case</recordType>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Customer Nudge Layout</layout>
+        <recordType>Task.Customer_Nudge</recordType>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
