@@ -79,5 +79,5 @@ public with sharing class CaseGroupFinancialAccountModel {
    * @description accountingSystem of Financial Account
    */
   @AuraEnabled
-    public String accountingSystem;
+  public String accountingSystem;
 }

@@ -56,7 +56,7 @@ public with sharing class IndividualAccountActions {
    */
   public static void revertShellProspectBillingAddress(List<Account> records) {
     if (
-      !CCRMLeadConversionActions.manualLeadConversionInitiated ||
+      !LeadConversionController.manualLeadConversionInitiated ||
       String.isBlank(System.Label.ShellProspectOCVEventVersion)
     ) {
       return;

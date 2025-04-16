@@ -41,9 +41,8 @@ const printAllChangedAndIgnoredFiles = (folderName) => {
 
 const printAllDestructiveChangesAndIgnoredFiles = (folderName) => {
   const allDestructiveChanges = salesforceDestructiveChanges(folderName);
-  const allIgnoredDestructiveChanges = salesforceIgnoredDestructiveChanges(
-    folderName
-  );
+  const allIgnoredDestructiveChanges =
+    salesforceIgnoredDestructiveChanges(folderName);
 
   loggerInStep(
     `All Destructive Changes\n${
@@ -65,14 +64,14 @@ const printAllChangesAndIgnoredFiles = (folderName) => {
 const findAllChangedFileOnValidate = (folderName, tagRef) => {
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to HEAD --from ${tagRef} --output ${folderName}/ --generate-delta`
+    `npx sf sgd source delta --to HEAD --from ${tagRef} --output-dir ${folderName}/ --generate-delta`
   ).toString("utf8");
 };
 
 const findAllChangedFileOnDeploy = (folderName, baseRef, tagRef) => {
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${baseRef} --from ${tagRef} --output ${folderName}/ --generate-delta`
+    `npx sf sgd source delta --to origin/${baseRef} --from ${tagRef} --output-dir ${folderName}/ --generate-delta`
   ).toString("utf8");
 };
 
@@ -80,7 +79,7 @@ const buildArtifactOnValidate = (folderName, tagRef) => {
   renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to HEAD --from ${tagRef} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sf sgd source delta --to HEAD --from ${tagRef} --output-dir ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
 };
 
@@ -88,7 +87,7 @@ const buildArtifactOnDeploy = (folderName, baseRef, tagRef) => {
   renameForceignore();
   createArtifactFolder(folderName);
   execSync(
-    `npx sfdx sgd:source:delta --to origin/${baseRef} --from ${tagRef} --output ${folderName}/ --generate-delta -i .forceignore`
+    `npx sf sgd source delta --to origin/${baseRef} --from ${tagRef} --output-dir ${folderName}/ --generate-delta -i .forceignore`
   ).toString("utf8");
 };
 

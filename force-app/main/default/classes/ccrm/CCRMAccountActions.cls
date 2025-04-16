@@ -498,7 +498,7 @@ public with sharing class CCRMAccountActions {
   public static Boolean bypassPreventEditRecords() {
     String currUsername = UserInfo.getUserName();
     return (currUsername.startsWith(Label.OCVIntegrationUsername) ||
-    CCRMLeadConversionActions.manualLeadConversionInitiated ||
+    LeadConversionController.manualLeadConversionInitiated ||
     UserInfo.getProfileId() ==
     CommonUtil.getProfileByName(MLCRMConstants.ADMIN_PROFILE_NAME).Id);
   }

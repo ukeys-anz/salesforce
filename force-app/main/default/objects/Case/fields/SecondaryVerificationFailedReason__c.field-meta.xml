@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>SecondaryVerificationFailedReason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <description>The reason why customer verification failed during the onboarding process</description>
+    <label>Secondary Verification Failed Reason</label>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <controllingField>Status</controllingField>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Selfie fail - selfie image is not clear enough to match</fullName>
+                <default>false</default>
+                <label>Selfie - Unusable for matching</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - document image is not clear enough to match</fullName>
+                <default>false</default>
+                <label>ID Document - Poor quality document photo</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - selfie image is clear, but not the same person</fullName>
+                <default>false</default>
+                <label>Selfie - Facial comparison failed</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is a picture of a picture</fullName>
+                <default>false</default>
+                <label>ID Document - Picture of Picture</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is expired</fullName>
+                <default>false</default>
+                <label>ID Document - Expired</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document is ineligible type</fullName>
+                <default>false</default>
+                <label>ID Document - Type not acceptable</label>
+            </value>
+            <value>
+                <fullName>Doc fail - suspected fraud, based on document</fullName>
+                <default>false</default>
+                <label>ID Document - Suspect fraud</label>
+            </value>
+            <value>
+                <fullName>Doc fail - document details unreadable</fullName>
+                <default>false</default>
+                <label>ID Document - Data unreadable</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS has given fail response</fullName>
+                <default>false</default>
+                <label>DVS - Fail response</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS Data error</fullName>
+                <default>false</default>
+                <label>DVS - Data error</label>
+            </value>
+            <value>
+                <fullName>Confirmed Fraud - Selfie Watchlist</fullName>
+                <default>false</default>
+                <label>Confirmed Fraud - Selfie Watchlist</label>
+            </value>
+            <value>
+                <fullName>Confirmed Fraud</fullName>
+                <default>false</default>
+                <label>Confirmed Fraud</label>
+            </value>
+            <value>
+                <fullName>Doc fail - doc details are outside of fixable threshold</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Doc fail - doc details are outside of fixable threshold</label>
+            </value>
+            <value>
+                <fullName>EV Fail - DVS system error response</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EV Fail - DVS system error response</label>
+            </value>
+            <value>
+                <fullName>EV fail - retries exhausted on customer name variations</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>EV fail - retries exhausted on customer name variations</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - selfie image is clear, but a picture of a picture</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Selfie fail - selfie image is clear, but a picture of a picture</label>
+            </value>
+            <value>
+                <fullName>Selfie fail - suspected fraud, based on selfie</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>Selfie fail - suspected fraud, based on selfie</label>
+            </value>
+        </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Selfie fail - selfie image is not clear enough to match</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Selfie fail - document image is not clear enough to match</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Selfie fail - selfie image is clear, but not the same person</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Doc fail - document is a picture of a picture</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Doc fail - document is expired</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Doc fail - document is ineligible type</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Doc fail - suspected fraud, based on document</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>Doc fail - document details unreadable</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>EV Fail - DVS has given fail response</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Failed</controllingFieldValue>
+            <valueName>EV Fail - DVS Data error</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
+            <valueName>Confirmed Fraud - Selfie Watchlist</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Confirmed Fraud</controllingFieldValue>
+            <valueName>Confirmed Fraud</valueName>
+        </valueSettings>
+    </valueSet>
+</CustomField>

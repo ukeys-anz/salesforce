@@ -129,6 +129,11 @@ public with sharing class ResidentialLoanApplicationControllerTest {
     coach.UserRoleId = coachRole.Id;
     insert coach;
 
+    Testutil.assignPermissionSets(
+      new List<String>{ 'Add_Income_Edit_Expense' },
+      new List<User>{ coach }
+    );
+
     System.runAs(coach) {
       ResidentialLoanApplicationController.setUamForBtns(sopAssets, rla);
       Assert.isTrue(

@@ -16,7 +16,7 @@ public with sharing class FabricService extends Service {
     List<String> accountNumbers
   ) {
     String financialAccountApiEndpoint;
-    String urlParam = '';
+    String urlParam = 'filter.exclude_legacy=true&';
     if (!accountNumbers.isEmpty()) {
       for (String accountNumber : accountNumbers) {
         if (GetHelpConstants.isAccountV1()) {

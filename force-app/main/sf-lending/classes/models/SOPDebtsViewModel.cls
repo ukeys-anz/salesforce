@@ -3,8 +3,24 @@
  * @since 10/2024
  * @description View model for debt finance section of getConsolidatedSOP API call
  */
-@SuppressWarnings('PMD.ExcessivePublicCount,PMD.TooManyFields')
+@SuppressWarnings(
+  'PMD.ExcessivePublicCount,PMD.TooManyFields,PMD.NcssConstructorCount,PMD.ExcessiveParameterList'
+)
 public with sharing class SOPDebtsViewModel {
+  private static final Map<String, String> TERM_TYPE = new Map<String, String>{
+    'LIABILITY_TERM_TYPE_UNSPECIFIED' => 'Unspecified',
+    'LIABILITY_TERM_TYPE_FIXED' => 'Fixed',
+    'LIABILITY_TERM_TYPE_VARIABLE' => 'Variable'
+  };
+
+  private static final Map<String, String> PAYMENT_TYPE = new Map<String, String>{
+    'PAYMENT_METHOD_UNSPECIFIED' => 'Unspecified',
+    'PAYMENT_METHOD_PRINCIPAL_INTEREST' => 'Principal & Interest',
+    'PAYMENT_METHOD_INTEREST_ONLY' => 'Interest Only',
+    'PAYMENT_METHOD_METHOD_R' => 'Principal and Interest',
+    'PAYMENT_METHOD_METHOD_N' => 'Not Applicable'
+  };
+
   @AuraEnabled
   public String ownerName;
   @AuraEnabled
@@ -59,6 +75,28 @@ public with sharing class SOPDebtsViewModel {
   public String etag;
   @AuraEnabled
   public String accountId;
+  @AuraEnabled
+  public Decimal undrawnAmount;
+  @AuraEnabled
+  public Boolean fullyDrawn;
+  @AuraEnabled
+  public List<String> linkedProperty;
+  @AuraEnabled
+  public String belongsTo;
+  @AuraEnabled
+  public String ownershipSplit;
+  @AuraEnabled
+  public String productName;
+  @AuraEnabled
+  public List<Map<String, String>> ownership;
+  @AuraEnabled
+  public List<String> assets;
+  @AuraEnabled
+  public String homeLoanType;
+  @AuraEnabled
+  public String rateType;
+  @AuraEnabled
+  public String repaymentType;
 
   /**
    * @description Institutional Liability model
@@ -100,6 +138,28 @@ public with sharing class SOPDebtsViewModel {
     public Decimal limitAmount;
     @AuraEnabled
     public Decimal limitAmountNegative;
+    @AuraEnabled
+    public String taxDeductiblePercentage;
+    @AuraEnabled
+    public Double taxDeductiblePercentageOriginal;
+    @AuraEnabled
+    public Boolean interestRateValidated;
+    @AuraEnabled
+    public String initialMargin;
+    @AuraEnabled
+    public String initialIndexRate;
+    @AuraEnabled
+    public String initialIndexCode;
+    @AuraEnabled
+    public String subsequentMargin;
+    @AuraEnabled
+    public String subsequentIndexRate;
+    @AuraEnabled
+    public String subsequentIndexCode;
+    @AuraEnabled
+    public String subsequentInterestRate;
+    @AuraEnabled
+    public String loanPurposeCode;
 
     /**
      * @description Constructor for InstitutionalLiability
@@ -124,7 +184,8 @@ public with sharing class SOPDebtsViewModel {
       }
       this.paidInFull = sourceData?.paidInFull;
       this.paymentMethod = sourceData?.paymentMethod;
-      this.interestRate = setInterestRate(sourceData.interestRate);
+      //Interest rate is returned as basis points (5.5% -> 550), so we need to convert it
+      this.interestRate = setPercentage(sourceData.interestRate, false);
       this.originalInterestRateValue = sourceData.interestRate;
       this.interestOnlyRemainingTerm = sourceData?.interestOnlyRemainingTerm;
       this.validatedLimit = sourceData?.validatedLimit;
@@ -148,6 +209,26 @@ public with sharing class SOPDebtsViewModel {
           sourceData.limitAmount
         );
       }
+
+      this.taxDeductiblePercentage = sourceData.taxDeductiblePercentage == null
+        ? '0%'
+        : sourceData.taxDeductiblePercentage + '%';
+      this.interestRateValidated = sourceData.interestRateValidated;
+      this.taxDeductiblePercentageOriginal = sourceData.taxDeductiblePercentage;
+      this.initialMargin = setPercentage(sourceData.initialMargin, true);
+      this.initialIndexRate = setPercentage(sourceData.initialIndexRate, true);
+      this.initialIndexCode = sourceData.initialIndexCode;
+      this.subsequentMargin = setPercentage(sourceData.subsequentMargin, true);
+      this.subsequentIndexRate = setPercentage(
+        sourceData.subsequentIndexRate,
+        true
+      );
+      this.subsequentIndexCode = sourceData.subsequentIndexCode;
+      this.subsequentInterestRate = setPercentage(
+        sourceData.subsequentInterestRate,
+        true
+      );
+      this.loanPurposeCode = sourceData.loanPurposeCode;
     }
   }
 
@@ -171,17 +252,29 @@ public with sharing class SOPDebtsViewModel {
    * @param sourceData liabilities api data
    * @param partyIdToFirstNameMap party id to first name map
    * @param refinanceSet debts being refinanced
+   * @param assetPropertyLookup map of address lookup
    */
   public SOPDebtsViewModel(
     SOPGetConsolidatedModel.Liabilities sourceData,
     Map<String, String> partyIdToFirstNameMap,
-    Set<String> refinanceSet
+    Set<String> refinanceSet,
+    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup
   ) {
     this.ownerName = setOwnerName(
       sourceData.ownership,
       sourceData.type,
       partyIdToFirstNameMap
     );
+
+    Map<String, String> ownershipMap = SOPHelper.buildOwnershipStrings(
+      sourceData.ownership,
+      partyIdToFirstNameMap
+    );
+
+    this.belongsTo = ownershipMap.get('belongs-to');
+    this.ownershipSplit = ownershipMap.get('ownership-split');
+    this.ownership = SOPHelper.setOwnership(sourceData.ownership);
+
     this.updateTime = sourceData.updateTime;
     this.type = sourceData.type;
     this.termType = sourceData?.termType;
@@ -234,6 +327,50 @@ public with sharing class SOPDebtsViewModel {
     this.uid = sourceData.uid;
     this.name = sourceData.name;
     this.etag = sourceData.etag;
+    this.undrawnAmount = SOPHelper.convertAmountToDecimal(
+      sourceData.undrawnAmount
+    );
+    this.fullyDrawn = sourceData.fullyDrawn;
+    this.linkedProperty = SOPHelper.getAssetsFromassetPropertyLookup(
+      sourceData?.assets,
+      assetPropertyLookup
+    );
+    this.productName = sourceData?.account?.productDetails?.marketingName;
+    this.assets = sourceData.assets;
+
+    //Determine the home loan type based on the source data
+    if (
+      sourceData.type == 'LIABILITY_TYPE_HOME_LOAN' &&
+      sourceData.sources[0] == 'LIABILITY_SOURCE_TYPE_ANZ'
+    ) {
+      this.rateType = TERM_TYPE.get(sourceData.termType);
+      this.repaymentType = PAYMENT_TYPE.get(
+        sourceData.institutionalLiability?.paymentMethod
+      );
+      if (!sourceData.fullyDrawn) {
+        this.homeLoanType = 'Construction';
+      } else if (
+        sourceData.termType == 'LIABILITY_TERM_TYPE_VARIABLE' &&
+        sourceData.institutionalLiability?.paymentMethod ==
+        'PAYMENT_METHOD_INTEREST_ONLY'
+      ) {
+        this.homeLoanType = 'Variable IO';
+      } else if (
+        sourceData.termType == 'LIABILITY_TERM_TYPE_FIXED' &&
+        sourceData.institutionalLiability?.paymentMethod ==
+        'PAYMENT_METHOD_PRINCIPAL_INTEREST'
+      ) {
+        this.homeLoanType = 'Fixed P&I';
+      } else if (
+        sourceData.termType == 'LIABILITY_TERM_TYPE_FIXED' &&
+        sourceData.institutionalLiability?.paymentMethod ==
+        'PAYMENT_METHOD_INTEREST_ONLY'
+      ) {
+        this.homeLoanType = 'Fixed IO';
+      } else {
+        this.homeLoanType = 'Variable P&I';
+      }
+    }
   }
   /**
    * @description Set owner name
@@ -278,15 +415,24 @@ public with sharing class SOPDebtsViewModel {
   }
 
   /**
-   * @description Set readable interest rate
-   * @param interest interest rate
-   * @return readable interest rate
+   * @description Set readable percentage
+   * @param percentage percentage to set
+   * @param noPercentSign append % sign only on strings
+   * @return readable percentage
    */
-  public static String setInterestRate(Integer interest) {
-    if (interest == null) {
+  public static String setPercentage(
+    Integer percentage,
+    Boolean noPercentSign
+  ) {
+    if (percentage == null) {
       return '';
     }
-    return (Decimal.valueOf(interest) / 100).setScale(2) + '%';
+
+    if (noPercentSign) {
+      return String.valueOf((Decimal.valueOf(percentage) / 100).setScale(2));
+    }
+
+    return (Decimal.valueOf(percentage) / 100).setScale(2) + '%';
   }
 
   /**

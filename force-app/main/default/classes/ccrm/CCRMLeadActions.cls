@@ -5,7 +5,7 @@
  * @description CCRMLeadActions is class to handle all the CCRM (Commercial CRM) Actions
  */
 @SuppressWarnings(
-  'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity,PMD.ExcessivePublicCount'
+  'PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity,PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class CCRMLeadActions {
   @TestVisible
@@ -96,7 +96,8 @@ public with sharing class CCRMLeadActions {
       );
       if (
         ((CCRMLeadUtil.isCCRMLeadType(record) &&
-        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE) ||
+        (record.Lead_Originator__c == CCRMConstants.ORIGINATOR_ADOBE ||
+        record.Lead_Originator__c == CCRMConstants.ORIGINATOR_UNICA)) ||
         CCRMLeadUtil.isMLCRMLeadType(record)) &&
         record.OwnerID.getsobjecttype() == User.sobjecttype &&
         (isAdobeNewLead || isLeadOwnerUpdated)
@@ -649,7 +650,10 @@ public with sharing class CCRMLeadActions {
       }
     }
     if (listOfLeads.size() > 0) {
-      CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(listOfLeads);
+      CCRMLeadPlatformEventActions.publishLeadUpdateToUnicaOrAdobe(
+        listOfLeads,
+        new List<Task>()
+      );
     }
   }
   /**

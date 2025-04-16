@@ -1,0 +1,9 @@
+.headerStyling {
+  font-size: var(--header-text-font-size);
+  font-weight: var(--lwc-fontWeightBold);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+c-sop-spendings-l3-item {
+  width: 100%;
+}

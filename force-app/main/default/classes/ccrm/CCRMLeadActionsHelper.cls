@@ -136,7 +136,7 @@ public with sharing class CCRMLeadActionsHelper {
             .Id;
           record.Entity_Type__c = LEAD_FIELDS_WITH_ENTITY_TYPE_MAP.get(
             fieldName
-          ) ?? null;
+          ) ?? mapAccountRecord.get(fieldValue).FinServ__CustomerType__c;
         } else if (record.Lead_Originator__c == ORIGINATOR_UNICA) {
           record.addError(LEAD_FIELDS_WITH_ERROR_MSG_MAP.get(fieldName));
         }

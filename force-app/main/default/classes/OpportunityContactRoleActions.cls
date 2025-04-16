@@ -103,6 +103,7 @@ public with sharing class OpportunityContactRoleActions {
     List<OpportunityContactRole> lstOfContactRole = new List<OpportunityContactRole>();
     for (OpportunityContactRole objContactRole : oldRecords) {
       if (
+        mapOfOpp.containsKey(objContactRole.opportunityId) &&
         objContactRole.contactId ==
         mapOfOpp.get(objContactRole.opportunityId).Account.personcontactId &&
         mapofOpp.get(objContactRole.opportunityId).recordTypeId ==

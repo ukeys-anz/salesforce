@@ -251,4 +251,14 @@
         <default>false</default>
         <label>OFI – from FRX</label>
     </standardValue>
+    <standardValue>
+        <fullName>Broker Portal</fullName>
+        <default>false</default>
+        <label>Broker Portal</label>
+    </standardValue>
+    <standardValue>
+        <fullName>TrustMe</fullName>
+        <default>false</default>
+        <label>TrustMe</label>
+    </standardValue>
 </StandardValueSet>

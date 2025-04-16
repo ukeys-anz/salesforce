@@ -75,7 +75,7 @@ public with sharing class HomeLoanController {
     } catch (Exception ex) {
       OffsetAccountModel offsetError = new OffsetAccountModel();
       offsetError.hasError = true;
-      Logger.error(ex.getMessage(), ex);
+      Logger.error('Failure on Get List Offset', ex);
       Logger.saveLog();
       return offsetError;
     }

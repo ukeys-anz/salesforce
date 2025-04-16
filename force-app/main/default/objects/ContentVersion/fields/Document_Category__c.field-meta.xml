@@ -88,6 +88,11 @@
                 <default>false</default>
                 <label>DAON File</label>
             </value>
+            <value>
+                <fullName>DAON TrustX File</fullName>
+                <default>false</default>
+                <label>DAON TrustX File</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

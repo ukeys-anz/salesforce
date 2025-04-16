@@ -15,7 +15,7 @@ public with sharing class LoanappService extends Service {
       return null;
     }
     String createApplicationEndpoint = Label.CreateApplicationEndpoint;
-    String payLoad = JSON.serialize(model);
+    String payLoad = JSON.serialize(model, true);
     ARNCService service = new ARNCService();
     HttpCalloutResponse response = service.makeLoanappCallout(
       createApplicationEndpoint,

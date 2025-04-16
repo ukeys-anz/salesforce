@@ -758,31 +758,40 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    for (Case creditRefCase : records) {
+    List<Case> creditReferalCases = ListUtil.filter(records)
+      .equals(Case.RecordTypeId, RTCase.creditReferral)
+      .toList();
+
+    Set<Id> caseOwnerIds = ListUtil.getIds(creditReferalCases, Case.OwnerId);
+
+    Set<Id> isOwnerSpecialistLender = PermissionUtils.hasAnyPermissionSets(
+      caseOwnerIds,
+      new Set<String>{ 'Specialist_Lender' }
+    );
+
+    for (Case creditRefCase : creditReferalCases) {
       Case oldCase = oldMap.get(creditRefCase.Id);
-      if (creditRefCase.RecordTypeId == RTCase.creditReferral) {
-        GetHelpCaseActionsHelper.isNoAuthorityAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCreditLeadNoAuthorityAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCreditRefAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCreditRefEdit(creditRefCase, oldCase);
-        GetHelpCaseActionsHelper.isInvalidCADQueueAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCoachQueueAssignment(
-          creditRefCase,
-          oldCase
-        );
-      }
+
+      GetHelpCaseActionsHelper.isNoAuthorityAssignment(creditRefCase, oldCase);
+
+      GetHelpCaseActionsHelper.isInvalidCreditLeadNoAuthorityAssignment(
+        creditRefCase,
+        oldCase,
+        isOwnerSpecialistLender
+      );
+      GetHelpCaseActionsHelper.isInvalidCreditRefAssignment(
+        creditRefCase,
+        oldCase
+      );
+      GetHelpCaseActionsHelper.isInvalidCreditRefEdit(creditRefCase, oldCase);
+      GetHelpCaseActionsHelper.isInvalidCADQueueAssignment(
+        creditRefCase,
+        oldCase
+      );
+      GetHelpCaseActionsHelper.isInvalidCoachQueueAssignment(
+        creditRefCase,
+        oldCase
+      );
     }
   }
 

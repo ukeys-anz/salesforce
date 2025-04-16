@@ -447,6 +447,21 @@
         <label>Simplification/Decommissioning</label>
     </standardValue>
     <standardValue>
+        <fullName>Submission</fullName>
+        <default>false</default>
+        <label>Submission</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Assessment</fullName>
+        <default>false</default>
+        <label>Assessment</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Settlement</fullName>
+        <default>false</default>
+        <label>Settlement</label>
+    </standardValue>
+    <standardValue>
         <fullName>Intended Recipient</fullName>
         <default>false</default>
         <label>Intended Recipient</label>
@@ -460,6 +475,11 @@
         <fullName>Legal Name QA</fullName>
         <default>false</default>
         <label>Legal Name QA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Move/Migration - ANZ</fullName>
+        <default>false</default>
+        <label>Move/Migration - ANZ</label>
     </standardValue>
     <standardValue>
         <fullName>Confirmation of Payee Opt-In</fullName>

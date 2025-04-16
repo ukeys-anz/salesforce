@@ -710,7 +710,7 @@
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6) OR (7 AND 8) OR 9</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6) OR 7 OR (8 AND 9) OR 10</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -740,6 +740,11 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>TrustMe Manual Review Case,TrustMe QA Case</value>
         </criteriaItems>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -1016,6 +1021,26 @@
             <value>KYC QA</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Customer_NonCustomer_ComplaintAccess</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read/Write access to Customer and Non-Customer Complaint Cases.</description>
+        <label>Customer_NonCustomer_ComplaintAccess</label>
+        <sharedTo>
+            <group>Customer_Non_Customer_Complaint_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>Disputes_Readonly</fullName>

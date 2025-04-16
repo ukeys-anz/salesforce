@@ -49,6 +49,6 @@
     "typescript": "^3.9.7"
   },
   "overrides": {
-    "axios": "1.8.1"
+    "axios": "1.8.4"
   }
 }
