@@ -24,6 +24,8 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     migratedRts.add(RTCase.fraudCheck);
     migratedRts.add(RTCase.falseCustomerProfile);
     migratedRts.add(RTCase.profileUpdate);
+    migratedRts.add(RTCase.trustMeQA);
+    migratedRts.add(RTCase.trustMeManualReview);
   }
 
   /**
