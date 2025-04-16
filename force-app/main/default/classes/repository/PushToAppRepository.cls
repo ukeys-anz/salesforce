@@ -34,7 +34,6 @@ public with sharing class PushToAppRepository {
    * @return Name of the record Type
    */
   public String getRecordTypeName(Id recordId, String sObjectName) {
-    String recordTypeName;
     String sObjectRecordTypeQuery =
       'SELECT RecordType.DeveloperName FROM ' +
       sObjectName +
