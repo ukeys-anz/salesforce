@@ -71,4 +71,9 @@
         <default>false</default>
         <label>BOH Web Explore call back request</label>
     </standardValue>
+    <standardValue>
+        <fullName>Push To App</fullName>
+        <default>false</default>
+        <label>Push To App</label>
+    </standardValue>
 </StandardValueSet>

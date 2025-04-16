@@ -5,6 +5,8 @@
  */
 public with sharing class QueryRole {
   private static Map<String, UserRole> userRoles = new Map<String, UserRole>();
+  private static Map<Id, String> mapOfRoleIdAndRoleDeveloperName = new Map<Id, String>();
+
   static {
     for (UserRole ur : [
       SELECT Id, DeveloperName
@@ -12,6 +14,7 @@ public with sharing class QueryRole {
       WITH SYSTEM_MODE
     ]) {
       userRoles.put(ur.DeveloperName, ur);
+      mapOfRoleIdAndRoleDeveloperName.put(ur.Id, ur.DeveloperName);
     }
   }
 
@@ -25,5 +28,14 @@ public with sharing class QueryRole {
    */
   public static UserRole get(String developerName) {
     return userRoles.get(developerName);
+  }
+
+  /**
+   * @description Get UserRole by User Role Id
+   * @param roleId user role id
+   * @return user role details
+   */
+  public static UserRole get(Id roleId) {
+    return userRoles.get(mapOfRoleIdAndRoleDeveloperName.get(roleId));
   }
 }

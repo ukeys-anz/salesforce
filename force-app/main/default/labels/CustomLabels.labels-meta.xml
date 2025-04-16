@@ -2860,4 +2860,32 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>MS Retrieve Party Organization</shortDescription>
         <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organizations</value>
     </labels>
+    <labels>
+        <fullName>ANZX_Customer_Nudge_Event_Proto_Data_Schema</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Data schema url for proto files for customer nudge event</shortDescription>
+        <value>proto://buf.anz/anz/salesforceapis/salesforce.service.notification.v1alpha1#CustomerNudge</value>
+    </labels>
+    <labels>
+        <fullName>ANZX_Customer_Nudge_event_ce_type</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Customer Nudge Task event type</shortDescription>
+        <value>com.anzx.salesforce.notification.v1alpha1.notification.customernudge.</value>
+    </labels>
+    <labels>
+        <fullName>Push_Task_To_App_Endpoint</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Push Task To App Endpoint</shortDescription>
+        <value>callout:AEM_Content_URL/content/anzplus/au/en/api.graphql.coach-push-to-app.</value>
+    </labels>
+    <labels>
+        <fullName>Push_Task_To_App_Endpoint_Format</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Push Task To App Endpoint Foramt</shortDescription>
+        <value>.model.json</value>
+    </labels>
 </CustomLabels>

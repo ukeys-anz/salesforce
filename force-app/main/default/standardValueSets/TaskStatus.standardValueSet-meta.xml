@@ -61,4 +61,34 @@
         <label>Not required</label>
         <closed>false</closed>
     </standardValue>
+    <standardValue>
+        <fullName>STATUS_SENT</fullName>
+        <default>false</default>
+        <label>Sent</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>STATUS_READ_BY_CUSTOMER</fullName>
+        <default>false</default>
+        <label>Read By Customer</label>
+        <closed>false</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>STATUS_CUSTOMER_ARCHIVED</fullName>
+        <default>false</default>
+        <label>Customer Archived</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>STATUS_COACH_ARCHIVED</fullName>
+        <default>false</default>
+        <label>Coach Archived</label>
+        <closed>true</closed>
+    </standardValue>
+    <standardValue>
+        <fullName>STATUS_AUTO_ARCHIVED</fullName>
+        <default>false</default>
+        <label>Auto Archived</label>
+        <closed>true</closed>
+    </standardValue>
 </StandardValueSet>

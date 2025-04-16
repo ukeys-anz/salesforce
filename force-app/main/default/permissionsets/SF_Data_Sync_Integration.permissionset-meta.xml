@@ -473,6 +473,31 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Activity.Action_Taken__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Action_Taken_Date_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Call_To_Action__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Customer_Task_Configuration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Activity.Customer_Task_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>ActivityFieldHistory__c.New_Value__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -3903,6 +3928,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Customer_Task_Configuration__c.Expire_After_Days__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Customer_Task_Data__c.AEM_Content_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>EmailMessage.Attachment_Notes__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6308,12 +6343,27 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Task.Action_Taken_Date_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Action_Taken__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Task.ActivityDate</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Authentication_Method__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Call_To_Action__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6354,6 +6404,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Completed_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Customer_Task_Configuration__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Customer_Task_Data__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -6579,6 +6639,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Task.Task_Sub_Type__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.TaskNumber__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
