@@ -23,26 +23,7 @@
         &quot;openid&quot;,
         &quot;profile&quot;
     ],
-    &quot;accounts&quot;: [
-        {
-            &quot;bsb&quot;: &quot;014111&quot;,
-            &quot;accountNumber&quot;: &quot;391077004&quot;
-        },
-        {
-            &quot;bsb&quot;: &quot;014111&quot;,
-            &quot;accountNumber&quot;: &quot;391077012&quot;
-        },
-        {
-            &quot;jointAccount&quot;: true,
-            &quot;bsb&quot;: &quot;014111&quot;,
-            &quot;accountNumber&quot;: &quot;391077071&quot;
-        },
-        {
-            &quot;jointAccount&quot;: true,
-            &quot;bsb&quot;: &quot;014111&quot;,
-            &quot;accountNumber&quot;: &quot;391077098&quot;
-        }
-    ],
+   &quot;accounts&quot;: &quot;&quot;,
     &quot;updateTime&quot;: &quot;&quot;,
     &quot;expires&quot;: &quot;31/01/2024&quot;,
     &quot;from&quot;: &quot;30/01/2024&quot;,
@@ -61,10 +42,10 @@
     <language>Procedure</language>
     <name>TFMConsentAccDetails</name>
     <omniProcessElements>
-        <name>checkIfAccOpenORClosed</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>checkIfAccOpenORClosed</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -86,10 +67,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>checkIfAccountListIsBlank</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>checkIfAccountListIsBlank</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -110,10 +91,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>getConsentAccDetails</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>getConsentAccDetails</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -148,10 +129,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>getTransformedDataScopes</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>getTransformedDataScopes</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -184,10 +165,10 @@
         <type>Remote Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>ResponseAction</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>ResponseAction</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -210,10 +191,10 @@
         <type>Response Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SetAllAccStatusValue</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SetAllAccStatusValue</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -234,10 +215,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>setValuesToSerialize</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>setValuesToSerialize</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -259,10 +240,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>SortingConsent</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>SortingConsent</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -285,10 +266,10 @@
         <type>Set Values</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>TFMTransformDataForSorting</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>TFMTransformDataForSorting</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -317,10 +298,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>transformConsentAccountList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>transformConsentAccountList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -350,7 +331,7 @@
     &quot;expireTime&quot; : &quot;%expireTime%&quot;,
     &quot;openAccList&quot; : &quot;%SortingConsent:openAccList%&quot;,
     &quot;closeAccList&quot; : &quot;%SortingConsent:closeAccList%&quot;,
-    &quot;baseAccListDetails&quot; : &quot;%accounts%&quot;
+    &quot;baseAccListDetails&quot; : &quot;=IF(ISBLANK(%accounts%),NULL,%accounts%)&quot;
   },
   &quot;additionalOutput&quot; : { },
   &quot;failureResponse&quot; : { },
@@ -373,10 +354,10 @@
         <type>DataRaptor Transform Action</type>
     </omniProcessElements>
     <omniProcessElements>
-        <name>updateConsentAccList</name>
         <isActive>true</isActive>
         <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
         <level>0.0</level>
+        <name>updateConsentAccList</name>
         <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
         <propertySetConfig>{
   &quot;executionConditionalFormula&quot; : &quot;&quot;,
@@ -449,7 +430,7 @@
 }</propertySetConfig>
     <subType>ConsentAccountDetails</subType>
     <type>TFM</type>
-    <uniqueName>TFM_ConsentAccountDetails_Procedure_24</uniqueName>
-    <versionNumber>24.0</versionNumber>
-    <webComponentKey>f1c32b35-f246-7295-faba-cd8009ff7d8e</webComponentKey>
+    <uniqueName>TFM_ConsentAccountDetails_Procedure_25</uniqueName>
+    <versionNumber>25.0</versionNumber>
+    <webComponentKey>7bdb58ca-7b30-4fc1-7d90-57a6b79faabc</webComponentKey>
 </OmniIntegrationProcedure>
