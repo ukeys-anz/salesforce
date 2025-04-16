@@ -1,23 +1,23 @@
 /**
- * @author Mani
- * @since 12/2024
- * @description This acts as a tigger handler for profile update case types and orchestrates the business process and automations
+ * @author Batya Aisman Sufrin
+ * @since 03/2024
+ * @description FalseCustomerProfileCaseTriggerHandler is the handler class for False Customer Profile Case Trigger.
  */
-public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHandler {
+public with sharing class FalseCustomerProfileCaseTriggerHandler extends Lib_TriggerHandler {
   /**
    * @description Constructor to initialise Trigger Handler library
    */
-  public ProfileUpdateCaseTriggerHandler() {
+  public FalseCustomerProfileCaseTriggerHandler() {
     super();
   }
 
   /**
-   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of KYC QA Case records
+   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of False Customer Profile Case records
    * @param record record to check if relevant to the execution context
    * @return `Boolean` returns true if record is relevant, false if record is not relevant
    */
   public override Boolean isValidRecord(SObject record) {
-    return ((Case) record).RecordTypeId == RTCase.profileUpdate;
+    return ((Case) record).RecordTypeId == RTCase.falseCustomerProfile;
   }
 
   /**
@@ -25,18 +25,24 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
+    FalseCustomerProfileCaseActions.populateFalseCustomerProfileCaseSubject(
+      records
+    );
     CommonCaseTriggerActions.populateContactLookupForANZPlus(
       records,
       new Map<Id, Case>()
     );
     CommonCaseTriggerActions.maskTaxNumbers(records, new Map<Id, Case>());
     CommonCaseTriggerActions.setBusinessHours(records);
-    ProfileUpdateCaseActions.setOwnerToIDOpsQueue(records);
-    ProfileUpdateCaseActions.setDocumentCountryCode(
+    FalseCustomerProfileCaseActions.populateFalseCustomerProfileCaseBasedOnCOB(
       records,
       new Map<Id, Case>()
     );
-    Logger.saveLog();
+    FalseCustomerProfileCaseActions.populateFalseCustomerProfileCaseBasedOnAccount(
+      records,
+      new Map<Id, Case>()
+    );
+    Logger.debug('On_Before_Insert finished: ' + System.now()).save();
   }
 
   /**
@@ -45,6 +51,9 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     Logger.debug('On_Before_Update started: ' + System.now());
+    FalseCustomerProfileCaseActions.populateFalseCustomerProfileCaseSubject(
+      records
+    );
     CommonCaseTriggerActions.populateContactLookupForANZPlus(
       records,
       (Map<Id, Case>) oldMap
@@ -54,32 +63,14 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
       records,
       (Map<Id, Case>) oldMap
     );
-    ProfileUpdateCaseActions.validateStagingProgress(
+    FalseCustomerProfileCaseActions.populateFalseCustomerProfileCaseBasedOnCOB(
       records,
       (Map<Id, Case>) oldMap
     );
-    ProfileUpdateCaseActions.setDocumentCountryCode(
+    FalseCustomerProfileCaseActions.populateFalseCustomerProfileCaseBasedOnAccount(
       records,
       (Map<Id, Case>) oldMap
     );
-    Logger.saveLog();
-  }
-
-  /**
-   * @description onAfterUpdate to handle after update trigger actions.
-   * @param oldMap old trigger values
-   */
-  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    Logger.debug('On_After_Update started: ' + System.now());
-    ProfileUpdateCaseActions.legalNameNotifications(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-    ProfileUpdateCaseActions.sendLegalNameUpdateToOCV(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-    Logger.debug('On_After_Update finished: ' + System.now());
-    Logger.saveLog();
+    Logger.debug('On_Before_Update finished: ' + System.now()).save();
   }
 }

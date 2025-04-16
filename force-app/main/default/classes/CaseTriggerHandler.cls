@@ -15,6 +15,27 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
     super();
   }
 
+  static Set<Id> migratedRts = new Set<Id>();
+  static {
+    //JOIN record Types
+    migratedRts.addall(CheckCaseRecordType.FRAUD_RT_IDS);
+    migratedRts.add(RTCase.kycQa);
+    migratedRts.add(RTCase.idOpsAssistance);
+    migratedRts.add(RTCase.fraudCheck);
+    migratedRts.add(RTCase.falseCustomerProfile);
+    migratedRts.add(RTCase.profileUpdate);
+  }
+
+  /**
+   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns a list of Case records that are not migrated to its own SCOPED trigger handler.
+   * @param record record to check if relevant to the execution context
+   * @return `Boolean` returns true if record is relevant, false if record is not relevant
+   */
+  public override Boolean isValidRecord(SObject record) {
+    Case c = (Case) record;
+    return migratedRts.contains(c.RecordTypeId) == false;
+  }
+
   /**
    * @description onApplyDefaults method is called before onBeforeInsert to set the default values for the records.
    */
@@ -32,21 +53,20 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
+    CommonCaseTriggerActions.orchestrateANZPlusAction(
+      records,
+      new Map<Id, Case>()
+    );
     GetHelpCaseActions.validateAdditionalTypes(records, null);
     GetHelpCaseActions.handleBOHFraudCaseCreation(records);
     GetHelpCaseActions.populateFieldsOfPayToDispute(records);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     GetHelpCaseActions.setPriority(records);
     GetHelpCaseActions.updateEntitlement(records);
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(records, null);
     GetHelpCaseActions.checkOpenDisputeOnTransaction(records);
     GetHelpCaseActions.validateFinancialAccByAccId(records);
     GetHelpCaseActions.populateCustomerDetailsOnComplaint(records);
     GetHelpCaseActions.handleProvisionallyClosedDateTimeField(null, records);
-    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
-      (List<Case>) records,
-      null
-    );
     CustomerDisputeManagementService.restrictDisputeCreationIfLimitReached(
       records
     );
@@ -96,6 +116,10 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     Logger.debug('On_Before_Update started: ' + System.now());
+    CommonCaseTriggerActions.orchestrateANZPlusAction(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     GetHelpCaseActions.beforeUpdateCaseToCMOS(records);
     IDRCaseActions.beforeUpdate(oldMap, records);
     GetHelpCaseActions.beforeUpdate(oldMap, records);
@@ -104,20 +128,9 @@ public with sharing class CaseTriggerHandler extends Lib_TriggerHandler {
       (Map<Id, Case>) oldMap,
       (List<Case>) records
     );
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(
-      records,
-      (Map<Id, Case>) oldMap
-    );
-    GetHelpCaseActionsHelper.setFraudCustomerProfileCase(
-      (List<Case>) records,
-      (Map<Id, Case>) oldMap
-    );
     SICaseActions.beforeUpdate((List<Case>) records, (Map<Id, Case>) oldMap);
     GetHelpCaseActions.handlePopulateCaseSubject(records, null);
     for (Case record : (List<Case>) records) {
-      if (CheckCaseRecordType.isANZPlusCaseType(record)) {
-        GetHelpCaseActions.maskTaxNumbers(record);
-      }
       Case oldrecord = (Case) oldMap.get(record.Id);
       if (
         !oldRecord.IDR_Additional_Correspondence_reviewed__c &&
