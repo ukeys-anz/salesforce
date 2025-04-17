@@ -67,7 +67,7 @@ public with sharing class CoachCollaborationController {
   public static void createTask(String ocvId, String recordId) {
     Account objAccount = INTERACTION_REPOSITORY.findAccountByOCVId(ocvId);
     Task newTask = new Task(
-      Subject = 'Launched Coach Connect',
+      Subject = 'Customer App Launched',
       Priority = 'Normal',
       WhatId = recordId,
       WhoId = objAccount.PersonContactId,
