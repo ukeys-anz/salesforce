@@ -2,6 +2,10 @@
  * @description Wrapper class to store Interaction Context Request parameters
  */
 global class InteractionContextRequest {
+
+  private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
+    InteractionRepository.class
+  );
   /**
    * @description chatOrCallId to identify the Twilio details
    */
@@ -42,12 +46,54 @@ global class InteractionContextRequest {
    * @description chatOrCallStatus from Twilio
    */
   public String chatOrCallStatus { get; set; }
+   /**
+   * @description pubSubEventId from Twilio
+   */
+  public String pubSubEventId { get; set; }
   /**
    * @description isAuthenticated from Twilio, if the connection is authenticated or not
    */
   public Boolean isAuthenticated {
     get {
       return isAuthenticated ?? false;
+    }
+    set;
+  }
+
+  /**
+  * @description fetch account id based on ocvId
+  */
+  public Account existingAccount { 
+    get {
+      List<Account> accountExisting = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
+        ocvId);
+      if(accountExisting != null && !accountExisting.isEmpty()){
+        return accountExisting[0];
+      }
+      else{
+        return null;
+      }
+    }
+    set;
+  }
+   /**
+  * @description fetch account id based on ocvId
+  */
+  public Task pushToAppTask { 
+    get { 
+      List<Task> taskList =  INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
+        pubSubEventId);
+      if(taskList != null && !taskList.isEmpty()){
+        return taskList[0];
+      }
+      else{
+        Logger.info(
+            ' No Customer Nudge Task Found having pubSubEventId :-' +
+            pubSubEventId + ' For Chat or Call SID :- ' + chatOrCallId
+        );
+        Logger.saveLog();
+        return null;
+      }
     }
     set;
   }

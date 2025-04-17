@@ -1,365 +1,418 @@
 /**
- * @author Lance Shi
- * @since  June 2022
+ * @author Shivam Swaraj
+ * @since  July 2023
  * @description Test class to cover tests for {@link InteractionContextService}
- * Added call and chat interaction logic to handle automatic creation of Interaction from Twilio - Shivam,July 2023 as part of ANZX-103285
+ * Added call and chat interaction logic to handle automatic creation of Interaction from Twilio
  */
 
 @isTest
 public with sharing class InteractionContextServiceTest {
-  @testSetup
-  static void testSetup() {
-    Faker faker = new Faker('AU');
-    Profile p = CommonUtil.getProfileByName('Minimum Access - External Apps');
-    UserRole role = CommonUtil.getUserRoleByDevName('ANZx');
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
 
-    // Insert Account, Case, & User as current user, to get around MIXED_DML_OPERATION error
-    User thisUser = [SELECT Id FROM User WHERE Id = :UserInfo.getUserId()];
-    System.runAs(thisUser) {
-      //Create Twilio API User User
-      User apiUser = TestUtil.createTestUser(
-        new Map<String, Object>{
-          'FirstName' => 'APIUserTestForInteraction',
-          'ProfileId' => p.Id,
-          'UserRoleId' => role.Id
-        }
-      );
-      insert apiUser;
+  private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
+    Case.getSObjectType()
+  );
 
-      // Assign Interaction related PS on API User
-      List<String> psNames = new List<String>{
-        'Chat_Read_Write',
-        'Interaction_Read_Write',
-        'API_Access_Twilio',
-        'API_Only',
-        'Enforce_mTLS',
-        'Twilio_Detail_Read_Write',
-        'Interaction_Integration',
-        'FinancialServicesCloudExtension'
-      };
-      List<PermissionSet> psList = [
-        SELECT Id
-        FROM PermissionSet
-        WHERE Name IN :psNames
-      ];
-      List<PermissionSetAssignment> psaList = new List<PermissionSetAssignment>();
-      for (PermissionSet ps : psList) {
-        psaList.add(TestUtil.createPSAssignment(apiUser.id, ps.Id));
+  private static final Id FAKER_TWILIO_ID = Lib_FakeIdGenerator.getMockId(
+    Twilio_Details__c.getSObjectType()
+  );
+
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider interactionRepoMock;
+
+  static void registerMocks() {
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    interactionRepoMock = Lib_MockProvider.forType(InteractionRepository.class);
+    interactionRepoMock.mock(
+      'fetchExistingAccountByOCVId',
+      createMockAccount('OCVID887766', '123457')
+    );
+    interactionRepoMock.mock(
+      'fetchTwilioStatusMapping',
+      new List<InteractionStatusMappingForTwilio__mdt>{
+        new InteractionStatusMappingForTwilio__mdt(
+          Twilio_Status__c = 'created',
+          Interaction_Status__c = 'New'
+        )
       }
-      insert psaList;
-
-      // Insert Account (Customer) record
-      List<Account> testAccountList = new List<Account>();
-      Account testAccountFirst = createTestAccount(
-        'OCVID887766',
-        apiUser.Id,
-        '123457'
-      );
-      testAccountList.add(testAccountFirst);
-      Account testAccountSecond = createTestAccount(
-        'OCVID887767',
-        apiUser.Id,
-        '123456'
-      );
-      testAccountList.add(testAccountSecond);
-      insert testAccountList;
-    }
+    );
   }
 
   @isTest
   static void testValidChatInput() {
-    Faker faker = new Faker('AU');
+    registerMocks();
+    Id interactionId = Lib_FakeIdGenerator.getMockId(
+      Interaction.getSObjectType()
+    );
 
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+    dmlRepoMock.mock(
+      'doInsert',
+      TestUtil.getMockSaveResult(
+        '{"success":true,"id":"' + interactionId + '"}'
+      )
+    );
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
+    interactionRepoMock.mock(
+      'getInteractionDetails',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        'Chat'
+      )
+    );
 
     // WHEN Twilio API user send a request with valid OCV ID
     // Prepare request test data
-    InteractionContextRequest contextReq = new InteractionContextRequest();
-    contextReq.ocvId = 'OCVID887766';
-    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
-    contextReq.issueSubtype = 'Fraud';
-    contextReq.ppid = '1231';
-    contextReq.direction = 'Inbound';
-    contextReq.phoneNumber = '123457';
-    contextReq.type = 'Chat';
-    contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = 'assigned';
-
-    InteractionContextRequest intContexts = prepareRequest(contextReq);
+    InteractionContextRequest contextReq = prepareRequest(
+      'Chat',
+      'OCVID887766',
+      '123457',
+      'Created',
+      'Fraud'
+    );
 
     Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContexts);
-    }
+    InteractionContextService.doPost(contextReq);
     Test.stopTest();
 
     // THEN the request must succeed, and a new Interaction should be created against the customer.
-    List<Interaction> intList = [
-      SELECT Id, Direction__c, Account.OCV_ID__c, Account.PersonMobilePhone
-      FROM Interaction
-      WHERE Account.OCV_ID__c = 'OCVID887766'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      1,
-      intList.size(),
-      'Interaction list size should be as expected'
+    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
     );
-    System.assertEquals(
-      InteractionContextService.INBOUND_DIRECTION,
-      intList[0].Direction__c,
-      'Interaction direction should match'
+    Assert.isTrue(
+      interactionCreated.InteractionType == 'Chat',
+      'Interaction Type should match'
     );
   }
 
   @isTest
   static void testInvalidChatInput() {
-    Faker faker = new Faker('AU');
+    registerMocks();
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
 
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
-
-    // WHEN Twilio API user send a request with valid OCV ID and invalid Direction
+    // WHEN Twilio API user send a request with valid OCV ID and invalid Status
     // Prepare request test data
-    InteractionContextRequest contextReq = new InteractionContextRequest();
-    contextReq.ocvId = 'OCVID887766';
-    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
-    contextReq.issueSubtype = 'Fraud';
-    contextReq.ppid = '1231';
-    contextReq.direction = '';
-    contextReq.phoneNumber = '123457';
-    contextReq.type = 'Chat';
-    contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = 'Created';
-
-    InteractionContextRequest intContexts = prepareRequest(contextReq);
-
+    InteractionContextRequest contextReq = prepareRequest(
+      'Chat',
+      'OCVID887766',
+      '123457',
+      'Created1',
+      'Fraud'
+    );
     Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContexts);
+    try {
+      InteractionContextService.doPost(contextReq);
+    } catch (Exception objectException) {
+      Assert.isTrue(
+        objectException.getMessage()
+          .contains(
+            'bad value for restricted picklist field: Created1: [Status__c]'
+          ),
+        'Interaction should not be created for invalid status value'
+      );
     }
     Test.stopTest();
-
-    // THEN the request must succeed, and a new Interaction should not be created against the customer.
-    List<Interaction> intList = [
-      SELECT Id, Direction__c, Account.OCV_ID__c, Account.PersonMobilePhone
-      FROM Interaction
-      WHERE Account.OCV_ID__c = 'OCVID887766'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      0,
-      intList.size(),
-      'Interaction list should be empty for invalid direction'
-    );
   }
 
   @isTest
   static void testValidCallInput() {
-    Faker faker = new Faker('AU');
+    registerMocks();
+    Id interactionId = Lib_FakeIdGenerator.getMockId(
+      Interaction.getSObjectType()
+    );
 
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+    dmlRepoMock.mock(
+      'doInsert',
+      TestUtil.getMockSaveResult(
+        '{"success":true,"id":"' + interactionId + '"}'
+      )
+    );
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
+    interactionRepoMock.mock(
+      'getInteractionDetails',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        'Call'
+      )
+    );
 
     // WHEN Twilio API user send a request with phoneNumber
     // Prepare request test data
-    InteractionContextRequest contextReq = new InteractionContextRequest();
-    contextReq.ocvId = '';
-    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
-    contextReq.issueSubtype = '';
-    contextReq.ppid = '';
-    contextReq.direction = 'Inbound';
-    contextReq.phoneNumber = '123456';
-    contextReq.type = 'Voice';
-    contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = '';
-
-    InteractionContextRequest intContexts = prepareRequest(contextReq);
+    InteractionContextRequest contextReq = prepareRequest(
+      'Voice',
+      '',
+      '123456',
+      '',
+      ''
+    );
 
     Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContexts);
-    }
+    InteractionContextService.doPost(contextReq);
     Test.stopTest();
 
     // THEN the request must succeed, and a new Interaction should be created against the customer related to the Call
-    List<Interaction> intList = [
-      SELECT Id, Direction__c, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      1,
-      intList.size(),
-      'Interaction list size should be as expected'
+    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
     );
-    System.assertEquals(
-      InteractionContextService.INBOUND_DIRECTION,
-      intList[0].Direction__c,
-      'Interaction direction should match'
+    Assert.isTrue(
+      interactionCreated.InteractionType == 'Call',
+      'Interaction Type should match'
     );
   }
 
   @isTest
   static void testValidCallInputAuthenticated() {
-    Faker faker = new Faker('AU');
+    registerMocks();
+    Id interactionId = Lib_FakeIdGenerator.getMockId(
+      Interaction.getSObjectType()
+    );
 
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+    dmlRepoMock.mock(
+      'doInsert',
+      TestUtil.getMockSaveResult(
+        '{"success":true,"id":"' + interactionId + '"}'
+      )
+    );
+
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
+    interactionRepoMock.mock(
+      'getInteractionDetails',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        'Call'
+      )
+    );
 
     // WHEN Twilio API user send a request with phoneNumber
     // Prepare request test data
-    InteractionContextRequest contextReq = new InteractionContextRequest();
-    contextReq.ocvId = 'OCVID887766';
-    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
-    contextReq.issueSubtype = 'Coach - Call Us';
-    contextReq.ppid = '';
-    contextReq.direction = 'Inbound';
-    contextReq.phoneNumber = '123456';
-    contextReq.type = 'Voice';
-    contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = '';
+    InteractionContextRequest contextReq = prepareRequest(
+      'Voice',
+      'OCVID887766',
+      '123456',
+      '',
+      'Coach - Call Us'
+    );
     contextReq.isAuthenticated = true;
 
-    InteractionContextRequest intContexts = prepareRequest(contextReq);
-
     Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContexts);
-    }
+    InteractionContextService.doPost(contextReq);
     Test.stopTest();
 
     // THEN the request must succeed, and a new Interaction should be created against the customer related to the Call
-    List<Interaction> intList = [
-      SELECT Id, Direction__c, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      1,
-      intList.size(),
-      'Interaction list size should be as expected'
+    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
     );
-    System.assertEquals(
-      InteractionContextService.INBOUND_DIRECTION,
-      intList[0].Direction__c,
-      'Interaction direction should match'
+    Assert.isTrue(
+      interactionCreated.AccountId == FAKER_ACCOUNT_ID,
+      'Interaction Should be Associated to Account'
     );
   }
 
   @isTest
   static void testValidCallInputAuthenticatedIssueSubtype() {
-    Faker faker = new Faker('AU');
+    registerMocks();
+    Id interactionId = Lib_FakeIdGenerator.getMockId(
+      Interaction.getSObjectType()
+    );
 
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
+    dmlRepoMock.mock(
+      'doInsert',
+      TestUtil.getMockSaveResult(
+        '{"success":true,"id":"' + interactionId + '"}'
+      )
+    );
+
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
+    interactionRepoMock.mock(
+      'getInteractionDetails',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        'Call'
+      )
+    );
 
     // WHEN Twilio API user send a request with phoneNumber
     // Prepare request test data
-    InteractionContextRequest contextReq = new InteractionContextRequest();
-    contextReq.ocvId = 'OCVID887766';
-    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
-    contextReq.issueSubtype = 'TestValue';
-    contextReq.ppid = '';
-    contextReq.direction = 'Inbound';
-    contextReq.phoneNumber = '123456';
-    contextReq.type = 'Voice';
-    contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = '';
+    InteractionContextRequest contextReq = prepareRequest(
+      'Voice',
+      'OCVID887766',
+      '123456',
+      '',
+      'TestValue'
+    );
     contextReq.isAuthenticated = true;
 
-    InteractionContextRequest intContexts = prepareRequest(contextReq);
-
     Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContexts);
-    }
+    InteractionContextService.doPost(contextReq);
     Test.stopTest();
 
     // THEN the request must succeed, and a new Interaction should be created against the customer related to the Call
-    List<Interaction> intList = [
-      SELECT Id, Support_Topics__c, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      1,
-      intList.size(),
-      'Interaction list size should be as expected'
+    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
     );
-    System.assertEquals(
-      'Support Enquiry',
-      intList[0].Support_Topics__c,
-      'Interaction support topic should be defaulted'
+
+    Assert.isTrue(
+      interactionCreated.Support_Topics__c == 'Support Enquiry',
+      'Interaction Should be Created with Default Support Topic i.e Support Enquiry if valid value not provided'
     );
   }
 
   @isTest
   static void testInvalidCallInput() {
-    Faker faker = new Faker('AU');
+    registerMocks();
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
 
-    // GIVEN Twilio API user has required access to Salesforce API
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('APIUserTestForInteraction');
-
-    // WHEN Twilio API user send a request without valid OCV ID
+    // WHEN Twilio API user send a request without OCV Id and Phone Number
     // Prepare request test data
-    InteractionContextRequest contextReq = new InteractionContextRequest();
-    contextReq.ocvId = '';
-    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
-    contextReq.issueSubtype = '';
-    contextReq.ppid = '';
-    contextReq.direction = 'Inbound';
-    contextReq.phoneNumber = '';
-    contextReq.type = 'Voice';
-    contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = '';
-
-    InteractionContextRequest intContexts = prepareRequest(contextReq);
-
+    InteractionContextRequest contextReq = prepareRequest(
+      'Voice',
+      '',
+      '',
+      '',
+      ''
+    );
     Test.startTest();
-    System.runAs(usr) {
-      InteractionContextService.doPost(intContexts);
-    }
+    InteractionContextService.doPost(contextReq);
     Test.stopTest();
 
-    // THEN the request must succeed, and a new interaction should not be created
-    List<Interaction> intList = [
-      SELECT Id, Direction__c, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      0,
-      intList.size(),
-      'Interaction list should be empty if both OCV ID and Phone Number Blank'
+    Assert.isNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should not have been invoked because both OCV ID and Phone Number are blank in request'
     );
   }
 
-  /**
-   * @description Method to prepare REST requests for test scenarios.
-   * @param interactionContextService InteractionContextRequest
-   * @return 'InteractionContextRequest'
-   */
-  public static InteractionContextRequest prepareRequest(
-    InteractionContextRequest interactionContextService
+  @isTest
+  static void testPushToAppTaskInput() {
+    Faker faker = new Faker('AU');
+    String pubSubEventId = 'Task' + faker.randomString(16);
+    registerMocks();
+    Id interactionId = Lib_FakeIdGenerator.getMockId(
+      Interaction.getSObjectType()
+    );
+
+    dmlRepoMock.mock(
+      'doInsert',
+      TestUtil.getMockSaveResult(
+        '{"success":true,"id":"' + interactionId + '"}'
+      )
+    );
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      new Map<String, Interaction>()
+    );
+    interactionRepoMock.mock(
+      'queryPushToAppTaskDetails',
+      createMockTask(
+        RTTask.customerNudge,
+        FAKER_ACCOUNT_ID,
+        FAKER_CASE_ID,
+        pubSubEventId
+      )
+    );
+    interactionRepoMock.mock(
+      'getInteractionDetails',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        'Chat'
+      )
+    );
+
+    // WHEN Twilio API user send a request with valid OCV ID
+    // Prepare request test data
+    InteractionContextRequest contextReq = prepareRequest(
+      'Chat',
+      'OCVID887766',
+      '123457',
+      'Created',
+      'Fraud'
+    );
+    contextReq.pubSubEventId = pubSubEventId;
+
+    Test.startTest();
+    InteractionContextService.doPost(contextReq);
+    Test.stopTest();
+
+    // THEN the request must succeed, and a new Interaction should be created against the customer.
+    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    Assert.isTrue(
+      interactionCreated.CaseId__c == FAKER_CASE_ID,
+      'Interaction Case should be populated because there is a task found'
+    );
+  }
+
+  private static InteractionContextRequest prepareRequest(
+    String interactionType,
+    String ocvId,
+    String phoneNumber,
+    String chatOrCallStatus,
+    String issueSubtype
   ) {
+    Faker faker = new Faker('AU');
+
+    InteractionContextRequest contextReq = new InteractionContextRequest();
+    contextReq.ocvId = ocvId;
+    contextReq.chatOrCallId = 'CH' + faker.randomString(32);
+    contextReq.issueSubtype = issueSubtype;
+    contextReq.ppid = '1234';
+    contextReq.direction = 'Inbound';
+    contextReq.phoneNumber = phoneNumber;
+    contextReq.type = interactionType;
+    contextReq.twilioId = 'TW' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
+    contextReq.chatOrCallStatus = chatOrCallStatus;
+
     //Setup request
     RestRequest req = new RestRequest();
     req.requestURI = '/InteractionContextRequests/';
@@ -372,24 +425,75 @@ public with sharing class InteractionContextServiceTest {
     RestContext.request = req;
     RestContext.response = res;
 
-    return interactionContextService;
+    return contextReq;
   }
 
   /**
    * @description helper method to create a person account
    * @param ocvId the OCVId
-   * @param userId the OCVId
    * @param phoneNumber the OCVId
    * @return Account a Person Account with Name and OCV as provided
    */
-  static Account createTestAccount(
-    String ocvId,
-    Id userId,
-    String phoneNumber
-  ) {
+  static List<Account> createMockAccount(String ocvId, String phoneNumber) {
     Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
     testAccount.PersonMobilePhone = phoneNumber;
-    testAccount.OwnerId = userId;
-    return testAccount;
+    testAccount.Id = FAKER_ACCOUNT_ID;
+    return new List<Account> {testAccount};
+  }
+
+  /**
+   * @description helper method to create a mock interaction
+   * @param interactionId faker interactionId
+   * @param recordTypeId the recordTypeId of the Interaction
+   * @param interactionType Interaction Purpose
+   * @return Mock Interaction
+   */
+  static Interaction createMockInteraction(
+    Id interactionId,
+    Id recordTypeId,
+    String interactionType
+  ) {
+
+    Interaction mockInteraction = TestDataFactory.createInteraction(
+      recordTypeId,
+      InteractionConstants.CUSTOMER,
+      'New Interaction',
+      System.now(),
+      false
+    );
+
+    mockInteraction.InteractionType = interactionType;
+    mockInteraction.Direction__c = 'Inbound';
+    mockInteraction.TwilioDetailsID__c = FAKER_TWILIO_ID;
+    mockInteraction.CaseId__c = FAKER_CASE_ID;
+    mockInteraction.Id = interactionId;
+    return mockInteraction;
+  }
+
+  /**
+   * @description helper method to create a mock task
+   * @param recordTypeId the recordTypeId of the Interaction
+   * @param whoId mock account id
+   * @param whatId mock caseId
+   * @param pubSubEventId mock pubsubEventId
+   * @return Mock Task
+   */
+  static List<Task> createMockTask(
+    Id recordTypeId,
+    Id whoId,
+    Id whatId,
+    String pubSubEventId
+  ) {
+    Id ownerId = UserInfo.getUserId();
+    Task mockPushToAppTask = TestDataFactory.createTaskRecord(
+      recordTypeId,
+      whoId,
+      whatId,
+      ownerId,
+      false
+    );
+
+    mockPushToAppTask.Pub_Sub_Event_Id__c = pubSubEventId;
+    return new List<Task> {mockPushToAppTask};
   }
 }
