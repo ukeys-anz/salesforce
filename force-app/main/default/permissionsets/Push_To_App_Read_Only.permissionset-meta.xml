@@ -330,10 +330,6 @@
         <viewAllRecords>false</viewAllRecords>
     </objectPermissions>
     <recordTypeVisibilities>
-        <recordType>Customer_Action__c.Customer_Notification_Action</recordType>
-        <visible>true</visible>
-    </recordTypeVisibilities>
-    <recordTypeVisibilities>
         <recordType>Task.Customer_Nudge</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
