@@ -1,0 +1,36 @@
+<!--
+  @description       : 
+  @author            : Anuj Jain
+  @group             : 
+  @last modified on  : 04-14-2025
+-->
+<template>
+  <template lwc:if={fields}>
+    <div class="slds-grid slds-wrap">
+      <template for:each={fields} for:item="field">
+        <div
+          key={field.label}
+          class="slds-grid slds-gutters slds-col slds-size_1-of-2 slds-p-xx-small slds-p-top_small"
+        >
+          <div class="slds-grid slds-col">
+            <span
+              class="slds-col slds-size_5-of-12 slds-border_bottom slds-p-bottom--xxx-small"
+              >{field.label}</span
+            >
+            <span
+              class="slds-col slds-size_6-of-12 slds-form-element__static slds-text-color_default slds-border_bottom slds-p-bottom--xx-small"
+              >{field.fieldName}</span
+            >
+          </div>
+        </div>
+      </template>
+    </div>
+  </template>
+  <template lwc:else>
+    <p
+      class="slds-text-align--center slds-text-heading--small slds-p-around--large"
+    >
+      No fields available
+    </p>
+  </template>
+</template>

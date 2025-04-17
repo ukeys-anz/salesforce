@@ -41,7 +41,38 @@ public with sharing class TrustMeServiceMock extends TrustMeService {
     }
     return response;
   }
-  
+
+  /**
+   * @param  staffModel StaffTokenRequestModel
+   * @param requestModel requestModel
+   * @return HttpCalloutResponse response
+   * @description send parameter to update status
+   */
+  public override HttpCalloutResponse getTrustMeDocuments(
+    StaffTokenRequestModel staffModel,
+    TrustMeDocumentRequestModel requestModel
+  ) {
+    if (!preset) {
+      response.body = ONBOARDING_DOCUMENTS_LIST;
+    }
+    return response;
+  }
+  /**
+   * @param  staffModel StaffTokenRequestModel
+   * @param evaluationId evaluationId
+   * @return HttpCalloutResponse response
+   * @description send parameter to update status
+   */
+  public override HttpCalloutResponse getEvaluationDetails(
+    StaffTokenRequestModel staffModel,
+    String evaluationId
+  ) {
+    if (!preset) {
+      response.body = EVALUATION_RESPONSE;
+    }
+    return response;
+  }
+
   /**
    * @description mock response for callout
    * @param statusCode statusCode

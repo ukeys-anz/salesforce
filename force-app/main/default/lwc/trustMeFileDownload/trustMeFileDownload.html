@@ -1,0 +1,51 @@
+<!--
+  @description       : 
+  @author            : Anuj Jain
+  @group             : 
+  @last modified on  : 04-14-2025
+-->
+<template>
+  <lightning-card
+    lwc:if={viewModel}
+    for:each={viewModel}
+    for:item="group"
+    key={group.verticalAlign}
+    class="group-card slds-card_boundary slds-m-bottom_small"
+  >
+    <lightning-layout
+      vertical-align={group.verticalAlign}
+      horizontal-align={group.horizontalAlign}
+      multiple-rows
+    >
+      <lightning-layout-item
+        class="slds-p-around_small slds-size_1-of-2"
+        for:each={group.files}
+        for:item="file"
+        padding="around-small"
+        key={file.title}
+        size={file.size}
+      >
+        <article
+          lwc:if={file.fileType}
+          class="file-card slds-card slds-card_boundary"
+        >
+          <div class="slds-card__header slds-grid" lwc:if={file.title}>
+            <h2 class="slds-card__header-title">{file.title}</h2>
+          </div>
+          <div class="slds-card__body slds-p-horizontal_small">
+            <c-daon-file-image
+              placeholder={file.placeholder}
+              url={file.url}
+              is-loading={isLoading}
+              error={file.error}
+            ></c-daon-file-image>
+          </div>
+          <div
+            lwc:if={file.url}
+            class="slds-card__footer slds-p-around_x-small"
+          ></div>
+        </article>
+      </lightning-layout-item>
+    </lightning-layout>
+  </lightning-card>
+</template>

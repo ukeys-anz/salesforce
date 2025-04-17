@@ -25,6 +25,39 @@ public with sharing class TrustMeAPIRepository extends RepositoryBase {
   }
 
   /**
+   * @param requestModel requestModel
+   * @description making callout to get Documents for Document tab
+   */
+  public void getTrustMeDocuments(TrustMeDocumentRequestModel requestModel) {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    staffModel.anzTokenType = TFMConstants.ANZ_STAFF_TOKEN_TYPE;
+    staffModel.realm = TFMConstants.ANZ_REALM_SYSTEM_VALUE;
+
+    HttpCalloutResponse response = TRUSTME_SERVICE.getTrustMeDocuments(
+      staffModel,
+      requestModel
+    );
+    handleResponse(response);
+  }
+
+  /**
+   * @param evaluationId evaluationId
+   * @description making callout to get Evaluation Details
+   * @return  HttpCalloutResponse
+   */
+  public TrustMeDocumentDetailsModel getEvaluationDetails(String evaluationId) {
+    StaffTokenRequestModel staffModel = new StaffTokenRequestModel();
+    staffModel.anzTokenType = TFMConstants.ANZ_STAFF_TOKEN_TYPE;
+    staffModel.realm = TFMConstants.ANZ_REALM_SYSTEM_VALUE;
+
+    HttpCalloutResponse response = TRUSTME_SERVICE.getEvaluationDetails(
+      staffModel,
+      evaluationId
+    );
+    return handleResponseEvaluationDetails(response);
+  }
+
+  /**
    * @param response HttpCalloutResponse model to be handled
    * @description handle received response and either return the response or throw exception
    */
@@ -39,6 +72,28 @@ public with sharing class TrustMeAPIRepository extends RepositoryBase {
   }
 
   /**
+   * @param response HttpCalloutResponse model to be handled
+   * @description handle received response and either return the response or throw exception
+   * @return  TrustMeDocumentDetailsModel
+
+   */
+  public TrustMeDocumentDetailsModel handleResponseEvaluationDetails(
+    HttpCalloutResponse response
+  ) {
+    List<Integer> insufficientAccessCodes = new List<Integer>{ 401, 403, 405 };
+    if (insufficientAccessCodes.contains(response.statusCode)) {
+      throw new InsufficientAccessException(response.error);
+    }
+    if (response.successful == false) {
+      throw new ServerErrorException(response.error);
+    }
+    TrustMeDocumentDetailsModel trustMeDocDetails = TrustMeDocumentDetailsModel.parse(
+      response.body
+    );
+    return trustMeDocDetails;
+  }
+
+  /**
    * @description custom exception
    */
   public class InsufficientAccessException extends Exception {
@@ -49,7 +104,7 @@ public with sharing class TrustMeAPIRepository extends RepositoryBase {
     public InsufficientAccessException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' + response.statusCode + ' Error from TrustMe Service',
           response.error
         )
         .save();
@@ -66,7 +121,7 @@ public with sharing class TrustMeAPIRepository extends RepositoryBase {
     public ServerErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from Service',
+          'HTTP ' + response.statusCode + ' Error from TrustMe Service',
           response.error
         )
         .save();

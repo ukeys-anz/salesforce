@@ -65,6 +65,84 @@ public with sharing class TrustMeServiceTest {
     );
   }
 
+  @isTest
+  static void testGetTrustMeDocuments() {
+    StaffTokenRequestModel staffModel = setStaffModel();
+    Test.setMock(HttpCalloutMock.class, new MockTrustMeResponse());
+
+    TrustMeDocumentRequestModel requestModel = new TrustMeDocumentRequestModel();
+
+    Test.startTest();
+    TrustMeService service = new TrustMeService();
+    HttpCalloutResponse response = service.getTrustMeDocuments(
+      staffModel,
+      requestModel
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      200,
+      response.statusCode,
+      'Callout is unsuccessful, expecting status code:200'
+    );
+  }
+
+  @isTest
+  static void testGetTrustMeDocumentsError() {
+    StaffTokenRequestModel staffModel = setStaffModel();
+    Test.setMock(HttpCalloutMock.class, new MockTrustMeResponseError());
+
+    TrustMeDocumentRequestModel requestModel = new TrustMeDocumentRequestModel();
+
+    Test.startTest();
+    TrustMeService service = new TrustMeService();
+    HttpCalloutResponse response = service.getTrustMeDocuments(
+      staffModel,
+      requestModel
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      404,
+      response.statusCode,
+      'Callout is successful, expecting status code:404'
+    );
+  }
+
+  @isTest
+  static void testGetEvaluationDetails() {
+    StaffTokenRequestModel staffModel = setStaffModel();
+    Test.setMock(HttpCalloutMock.class, new MockTrustMeResponse());
+    Test.startTest();
+    TrustMeService service = new TrustMeService();
+    HttpCalloutResponse response = service.getEvaluationDetails(
+      staffModel,
+      'evalId'
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      200,
+      response.statusCode,
+      'Callout is unsuccessful, expecting status code:200'
+    );
+  }
+
+  @isTest
+  static void testGetEvaluationDetailsError() {
+    StaffTokenRequestModel staffModel = setStaffModel();
+    Test.setMock(HttpCalloutMock.class, new MockTrustMeResponseError());
+    Test.startTest();
+    TrustMeService service = new TrustMeService();
+    HttpCalloutResponse response = service.getEvaluationDetails(
+      staffModel,
+      'evalId'
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      404,
+      response.statusCode,
+      'Callout is successful, expecting status code:404'
+    );
+  }
+
   private static StaffTokenRequestModel setStaffModel() {
     Id userId = UserInfo.getUserId();
     Cache.Session.put(

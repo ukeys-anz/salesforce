@@ -37,4 +37,57 @@ public with sharing virtual class TrustMeService extends Service {
     );
     return response;
   }
+
+  /**
+   * @description Retrieves documents
+   * @param  staffModel StaffTokenRequestModel 
+   * @param requestModel requestModel
+   * @return HttpCalloutResponse response
+   */
+  public virtual HttpCalloutResponse getTrustMeDocuments(
+    StaffTokenRequestModel staffModel,
+    TrustMeDocumentRequestModel requestModel
+  ) {
+    String actionUrl = System.Label.MS_TrustMe_UploadAttachments;
+    Map<String, String> headers = new Map<String, String>();
+    headers = commonFuncs.setCommonHeadersInMap(staffModel);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      actionUrl,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      JSON.serialize(requestModel)
+    );
+    return response;
+  }
+
+  /**
+   * @description Retrieves Evaluation Details
+   * @param  staffModel StaffTokenRequestModel 
+   * @param evaluationId evaluationId
+   * @return HttpCalloutResponse response
+   */
+  public virtual HttpCalloutResponse getEvaluationDetails(
+    StaffTokenRequestModel staffModel,
+    String evaluationId
+  ) {
+    String actionUrl = System.Label.MS_TrustMe_GetEvaluationDetails;
+    Map<String, String> headers = new Map<String, String>();
+    headers = commonFuncs.setCommonHeadersInMap(staffModel);
+    Lib_HttpCallout calloutService = new Lib_HttpCallout();
+    String body = createRequestBody(evaluationId);
+    HttpCalloutResponse response = calloutService.makeRestCallout(
+      actionUrl,
+      HTTP_METHOD.HTTP_POST,
+      headers,
+      body
+    );
+    return response;
+  }
+
+  private static String createRequestBody(String evaluationId) {
+    Map<String,String> requestBody = new Map<String,String>();
+    requestBody.put('id',evaluationId);
+    return JSON.serialize(requestBody);
+  }
 }

@@ -1,0 +1,190 @@
+<!--
+  @description       : 
+  @author            : Anuj Jain
+  @group             : 
+  @last modified on  : 04-15-2025
+
+-->
+<template>
+  <lightning-card>
+    <template lwc:if={showSpinner}>
+      <lightning-spinner variant="brand" size="large"> </lightning-spinner>
+    </template>
+    <template lwc:else>
+      <template lwc:if={showError}>
+        <p
+          class="slds-text-color_error slds-text-align--center slds-text-heading--small slds-p-around--large"
+        >
+          Error occurred: {errorMessage}
+        </p>
+      </template>
+      <template lwc:else>
+        <!-- Rest of your component markup -->
+        <!-- Accordion for Document Details and Documents -->
+        <lightning-accordion allow-multiple-sections-open>
+          <!-- Document Details Section -->
+          <lightning-accordion-section
+            name="evaluationOutcomes"
+            label="Evaluation Outcomes"
+          >
+            <c-trust-me-document-details-child
+              fields={evaluationOutcomes}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="evProviderOutcomes"
+            label="EV Provider Outcomes"
+          >
+            <c-trust-me-document-details-child
+              fields={evProviderOutcomes.evOutcomeNode}
+            ></c-trust-me-document-details-child>
+            <template lwc:if={evProviderOutcomes.records}>
+              <div class="slds-p-top_medium">
+                <lightning-card title="EV Providers">
+                  <div
+                    class="slds-border--left slds-border--right slds-border--top slds-table--col-bordered"
+                  >
+                    <lightning-datatable
+                      key-field="id"
+                      data={evProviderOutcomes.records}
+                      columns={evProviderOutcomes.column}
+                      hide-checkbox-column
+                    >
+                    </lightning-datatable>
+                  </div>
+                </lightning-card>
+              </div>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="selfieEvaluationOutcome"
+            label="Selfie Evaluation Outcome"
+          >
+            <c-trust-me-document-details-child
+              fields={selfieEvaluationOutcome}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="qualityReportSelfieAndPrimaryDocument"
+            label="Quality Report - Selfie & Primary Document"
+          >
+            <c-trust-me-document-details-child
+              fields={qualityReportSelfieAndPrimaryDocument}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="primaryDocAndSelfie"
+            label="Primary Document & Selfie Details"
+          >
+            <c-trust-me-document-details-child
+              fields={primaryDocAndSelfie}
+            ></c-trust-me-document-details-child>
+            <template lwc:if={mdtReqBodyForPrimaryDoc}>
+              <div class="slds-p-top_medium">
+                <c-trust-me-file-download
+                  layout={primaryLayout}
+                  metadata={mdtReqBodyForPrimaryDoc}
+                ></c-trust-me-file-download>
+              </div>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="secondaryDocuments"
+            label="Secondary Document Details"
+          >
+            <c-trust-me-document-details-child
+              fields={secondaryDocuments}
+            ></c-trust-me-document-details-child>
+            <template lwc:if={mdtReqBodyForSecDoc}>
+              <div class="slds-p-top_medium">
+                <c-trust-me-file-download
+                  layout={secondaryLayout}
+                  metadata={mdtReqBodyForSecDoc}
+                ></c-trust-me-file-download>
+              </div>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="qualityReportSecDocuments"
+            label="Quality Report - Secondary Document"
+          >
+            <c-trust-me-document-details-child
+              fields={qualityReportSecDocuments}
+            ></c-trust-me-document-details-child>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="addressDetails"
+            label="Address Details"
+          >
+            <template lwc:if={addressDetails}>
+              <div class="slds-grid slds-wrap slds-gutters">
+                <template for:each={addressDetails} for:item="address">
+                  <div
+                    key={address.type}
+                    class="slds-col slds-size_4-of-12 slds-p-bottom_small"
+                  >
+                    <c-address-map-view
+                      address-details={address}
+                    ></c-address-map-view>
+                  </div>
+                </template>
+              </div>
+            </template>
+            <template lwc:else>
+              <p
+                class="slds-text-align--center slds-text-heading--small slds-p-around--large"
+              >
+                No data available
+              </p>
+            </template>
+          </lightning-accordion-section>
+
+          <lightning-accordion-section
+            name="imageMetadataDetails"
+            label="Image Metadata Details"
+          >
+            <template lwc:if={imageMetadata}>
+              <div class="slds-grid slds-wrap slds-gutters">
+                <template for:each={imageMetadata} for:item="imgMetadata">
+                  <div
+                    key={imgMetadata.type}
+                    class="slds-col slds-size_12-of-12 slds-p-bottom_small slds-p-around_medium slds-table--col-bordered"
+                  >
+                    <lightning-card title={imgMetadata.type}>
+                      <div
+                        class="slds-border--left slds-border--right slds-border--top"
+                      >
+                        <lightning-datatable
+                          key-field="id"
+                          data={imgMetadata.records}
+                          columns={imgMetadata.column}
+                          hide-checkbox-column
+                        >
+                        </lightning-datatable>
+                      </div>
+                    </lightning-card>
+                  </div>
+                </template>
+              </div>
+            </template>
+
+            <template lwc:else>
+              <p
+                class="slds-text-align--center slds-text-heading--small slds-p-around--large"
+              >
+                No data available
+              </p>
+            </template>
+          </lightning-accordion-section>
+        </lightning-accordion>
+      </template>
+    </template>
+  </lightning-card>
+</template>

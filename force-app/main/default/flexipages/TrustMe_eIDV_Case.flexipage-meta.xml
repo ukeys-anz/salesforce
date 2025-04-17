@@ -550,8 +550,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
-                <componentName>trustMeCaseStatusPath</componentName>
-                <identifier>c_trustMeCaseStatusPath1</identifier>
+                <componentInstanceProperties>
+                    <name>recordId</name>
+                    <value>{recordId}</value>
+                </componentInstanceProperties>
+                <componentName>trustMeDocumentDetails</componentName>
+                <identifier>c_trustMeDocumentDetails</identifier>
             </componentInstance>
         </itemInstances>
         <name>Facet-1ddec0b1-652d-4aaa-b64b-8edfb809b50f</name>
