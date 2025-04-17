@@ -1236,6 +1236,14 @@
             <fullName>ANZ Plus App</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>22</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>23</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Priority</picklist>
@@ -1304,6 +1312,10 @@
         </values>
         <values>
             <fullName>23</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>24</fullName>
             <default>false</default>
         </values>
     </picklistValues>
