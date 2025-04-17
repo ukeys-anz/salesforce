@@ -8856,6 +8856,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>ApplicationForm.ACM</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Lead.Referral</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>

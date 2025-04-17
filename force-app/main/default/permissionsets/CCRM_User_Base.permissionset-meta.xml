@@ -9081,6 +9081,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
+        <recordType>ApplicationForm.ACM</recordType>
+        <visible>true</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
         <recordType>Product2.CRM_ANZ_Product</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
