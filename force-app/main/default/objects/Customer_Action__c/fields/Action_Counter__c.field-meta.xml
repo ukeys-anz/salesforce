@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Action_Counter__c</fullName>
+    <complianceGroup>Accurate;Privacy_Non_Personal_Information;Mobile</complianceGroup>
+    <defaultValue>0</defaultValue>
+    <description>Tracks how many times customer has clicked an action on Mobile</description>
+    <externalId>false</externalId>
+    <label>Action Counter</label>
+    <precision>10</precision>
+    <required>false</required>
+    <scale>0</scale>
+    <securityClassification>Internal</securityClassification>
+    <trackTrending>false</trackTrending>
+    <type>Number</type>
+    <unique>false</unique>
+</CustomField>

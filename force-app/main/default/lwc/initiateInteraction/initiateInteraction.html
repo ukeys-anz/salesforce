@@ -39,70 +39,82 @@
           </li>
         </ul>
         <template lwc:if={showContactTab}>
-          <div>
-            <div class="slds-m-around_small">
-              <template lwc:if={showMessageCustomer}>
-                <template lwc:if={displayOutboundChat}>
-                  <div class="slds-align_absolute-center">
-                    <lightning-button
-                      data-id="message-customer"
-                      data-test-id="message-customer-button"
-                      variant="brand-outline"
-                      label="Message Customer"
-                      title="Message"
-                      onclick={handleShowChatWindow}
-                      icon-name="utility:chat"
-                      class="slds-p-around_x-small button-display"
-                    >
-                    </lightning-button>
-                  </div>
-                </template>
-                <template lwc:else>
-                  <div class="slds-align_absolute-center">
-                    <lightning-button
-                      data-id="message-customer"
-                      data-test-id="message-customer-button"
-                      variant="brand-outline"
-                      label="Message Customer"
-                      title="Message"
-                      icon-name="utility:chat"
-                      class="slds-p-around_x-small button-display"
-                      disabled
-                    >
-                    </lightning-button>
-                  </div>
-                </template>
-              </template>
-              <div class="slds-align_absolute-center">
-                <template lwc:if={callPhoneNumber}>
-                  <template lwc:if={displayOutboundDial}>
-                    <lightning-button
-                      data-id="call-customer"
-                      data-test-id="call-customer-button"
-                      variant="brand-outline"
-                      label={callPhoneNumber}
-                      title="Call"
-                      onclick={handleCallCustomer}
-                      icon-name="utility:call"
-                      class="slds-p-around_x-small button-display"
-                    >
-                    </lightning-button>
+          <div class="slds-m-around_small">
+            <template lwc:if={templateOptions.length}>
+              <c-push-to-app
+                onpushtaskbuttonclick={handleHideParent}
+                oncancelclick={handleShowParent}
+                record-id={recordId}
+                template-options={templateOptions}
+              ></c-push-to-app>
+            </template>
+            <div>
+              <template if:true={showParentContent}>
+                <template lwc:if={showMessageCustomer}>
+                  <template lwc:if={displayOutboundChat}>
+                    <div class="slds-align_absolute-center">
+                      <lightning-button
+                        data-id="message-customer"
+                        data-test-id="message-customer-button"
+                        variant="brand-outline"
+                        label="Message Customer"
+                        title="Message"
+                        onclick={handleShowChatWindow}
+                        icon-name="utility:chat"
+                        class="slds-p-around_x-small button-display"
+                      >
+                      </lightning-button>
+                    </div>
                   </template>
                   <template lwc:else>
-                    <lightning-button
-                      data-id="call-customer"
-                      data-test-id="call-customer-button"
-                      variant="brand-outline"
-                      label={callPhoneNumber}
-                      title="Call"
-                      icon-name="utility:call"
-                      class="slds-p-around_x-small button-display"
-                      disabled
-                    >
-                    </lightning-button>
+                    <div class="slds-align_absolute-center">
+                      <lightning-button
+                        data-id="message-customer"
+                        data-test-id="message-customer-button"
+                        variant="brand-outline"
+                        label="Message Customer"
+                        title="Message"
+                        icon-name="utility:chat"
+                        class="slds-p-around_x-small button-display"
+                        disabled
+                      >
+                      </lightning-button>
+                    </div>
                   </template>
                 </template>
-              </div>
+                <div class="slds-align_absolute-center">
+                  <template lwc:if={callPhoneNumber}>
+                    <template lwc:if={displayOutboundDial}>
+                      <lightning-button
+                        data-id="call-customer"
+                        data-test-id="call-customer-button"
+                        variant="brand-outline"
+                        label={callPhoneNumber}
+                        title="Call"
+                        onclick={handleCallCustomer}
+                        icon-name="utility:call"
+                        class="slds-p-around_x-small button-display"
+                      >
+                      </lightning-button>
+                    </template>
+                    <template lwc:else>
+                      <lightning-button
+                        data-id="call-customer"
+                        data-test-id="call-customer-button"
+                        variant="brand-outline"
+                        label={callPhoneNumber}
+                        title="Call"
+                        icon-name="utility:call"
+                        class="slds-p-around_x-small button-display"
+                        disabled
+                      >
+                      </lightning-button>
+                    </template>
+                  </template>
+                </div>
+              </template>
+            </div>
+            <template if:true={showParentContent}>
               <div
                 class="slds-m-top_x-small slds-p-bottom_small slds-align_absolute-center"
               >
@@ -113,7 +125,7 @@
                   <b> record all our calls*</b></span
                 >
               </div>
-            </div>
+            </template>
           </div>
         </template>
         <template lwc:if={showDialTab}>

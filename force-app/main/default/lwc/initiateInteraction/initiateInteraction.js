@@ -5,6 +5,7 @@ import createInteraction from "@salesforce/apex/InitiateInteractionController.cr
 import getPhoneNumber from "@salesforce/apex/InitiateInteractionController.getPhoneNumber";
 import initiateChat from "@salesforce/apex/InitiateInteractionController.initiateChat";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
+import getTemplateDetails from "@salesforce/apex/PushToAppController.getTemplateDetails";
 import voiceChannel from "@salesforce/messageChannel/InitiateOutboundCall__c";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import hasOutboundDialPermission from "@salesforce/customPermission/ANZx_Outbound_Dialling";
@@ -26,6 +27,7 @@ const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 export default class InitiateInteraction extends LightningElement {
   showContactTab;
   showDialTab = true;
+  showParentContent = true;
   showChatWindow;
   contactTab = NORMAL_TAB;
   dialTab = ACTIVE_TAB;
@@ -57,6 +59,7 @@ export default class InitiateInteraction extends LightningElement {
   conversationSid; //Populated as part of the initiate chat response
   executionSid; //Populated as part of the reinitiate chat response
   showMessageCustomer = false;
+  _templateOptions = [];
 
   get displayOutboundChat() {
     return hasOutboundChatPermission;
@@ -64,6 +67,19 @@ export default class InitiateInteraction extends LightningElement {
 
   get displayOutboundDial() {
     return hasOutboundDialPermission;
+  }
+
+  get templateOptions() {
+    return this._templateOptions ? this._templateOptions : [];
+  }
+
+  @wire(getTemplateDetails, { recordId: "$recordId" })
+  getTemplateDetailsData({ data }) {
+    if (data) {
+      this._templateOptions = data.map((template) => {
+        return { label: template.Name, value: template.AEM_Content_Id__c };
+      });
+    }
   }
 
   @wire(MessageContext)
@@ -166,6 +182,7 @@ export default class InitiateInteraction extends LightningElement {
 
   handleShowContactTab() {
     this.showContactTab = true;
+    this.showParentContent = true;
     this.showDialTab = false;
     this.showChatWindow = false;
     this.contactTab = ACTIVE_TAB;
@@ -186,6 +203,14 @@ export default class InitiateInteraction extends LightningElement {
     this.showChatWindow = true;
     this.showMessageDialog = true;
     this.showMessageToast = false;
+  }
+
+  handleHideParent() {
+    this.showParentContent = false;
+  }
+
+  handleShowParent() {
+    this.showParentContent = true;
   }
 
   async handleCallCustomer() {

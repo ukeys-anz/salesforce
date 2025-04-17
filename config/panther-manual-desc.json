@@ -2055,7 +2055,15 @@
         "Accepted_Date__c",
         "Mortgage_Contract__c"
       ],
-      "IA-2530753": ["Created__c", "Completed__c", "Completed_By__c"],
+      "IA-2530753": [
+        "Created__c",
+        "Completed__c",
+        "Completed_By__c",
+        "Action_UUID__c",
+        "Action_Name__c",
+        "Action_Counter__c",
+        "Customer_Task_Data__c"
+      ],
       "IA-2415998": ["Eligible_to_Complete__c", "Accepted_By__c"],
       "IA-2415720": [
         "Action__c",
