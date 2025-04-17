@@ -27,6 +27,7 @@
     </columns>
     <description>This report is used to display leads which can be converted and expiring in next 3 days.</description>
     <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND 5 AND 6 AND (7 OR 8)</booleanFilter>
         <criteriaItems>
             <column>RECORDTYPE</column>
             <columnToColumn>false</columnToColumn>
@@ -68,6 +69,20 @@
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>Lead.My_Reportees_Lead__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>OWNER</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>$USER</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>

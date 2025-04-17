@@ -426,6 +426,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>A_Z_Review__c.My_Team_A2Z_Review__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Account.ABN__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -5396,6 +5401,16 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Lead.My_Team_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Lead.My_Reportees_Lead__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Lead_Flex_Field__c.FlexFieldName__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -6392,6 +6407,16 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Opportunity.Secondary_Customer_Needs__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.My_Team_Segment__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.My_Reportees_Opps__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

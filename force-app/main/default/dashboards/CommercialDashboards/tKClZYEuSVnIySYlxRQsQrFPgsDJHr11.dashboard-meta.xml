@@ -27,7 +27,7 @@
                 <indicatorLowColor>#16325C</indicatorLowColor>
                 <indicatorMiddleColor>#16325C</indicatorMiddleColor>
                 <metricLabel>Move these Leads to Opportunity</metricLabel>
-                <report>CommercialReports/Expiring_Leads_to_Convert_MlU</report>
+                <report>CommercialReports/Expiring_Leads_to_Convert_SW9</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -52,7 +52,7 @@
                 <indicatorLowColor>#16325C</indicatorLowColor>
                 <indicatorMiddleColor>#16325C</indicatorMiddleColor>
                 <metricLabel>Action these Expiring Leads</metricLabel>
-                <report>CommercialReports/Leads_Expiring_Next_5_Days_qGe</report>
+                <report>CommercialReports/Leads_Expiring_Next_5_Days_ftR</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -77,7 +77,7 @@
                 <indicatorLowColor>#16325C</indicatorLowColor>
                 <indicatorMiddleColor>#16325C</indicatorMiddleColor>
                 <metricLabel>Prepare for Your Weekly Sales Call</metricLabel>
-                <report>CommercialReports/Opportunities_Closing_this_Week_czZ</report>
+                <report>CommercialReports/Opportunities_Closing_this_Week_axB</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -102,7 +102,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>No Activity for 2 weeks - Reach Out Now</metricLabel>
-                <report>CommercialReports/Opportunities_To_Action_p4D</report>
+                <report>CommercialReports/Opportunities_To_Action_2hT</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>0</rowIndex>
@@ -127,7 +127,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>In Needs Analysis for more than 2 weeks</metricLabel>
-                <report>CommercialReports/Slow_Moving_Opportunities_WGG</report>
+                <report>CommercialReports/Slow_Moving_Opportunities_OXP</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>6</rowIndex>
@@ -145,14 +145,14 @@
                 <decimalPrecision>-1</decimalPrecision>
                 <displayUnits>Auto</displayUnits>
                 <groupingSortProperties/>
-                <header>A-Z Reviews Completed</header>
+                <header>A-Z Review Completed</header>
                 <indicatorBreakpoint1>33.0</indicatorBreakpoint1>
                 <indicatorBreakpoint2>67.0</indicatorBreakpoint2>
                 <indicatorHighColor>#00716B</indicatorHighColor>
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>A-Z Reviews completed this week</metricLabel>
-                <report>CommercialReports/AZ_Review_Completed_5iw</report>
+                <report>CommercialReports/AZ_Reviews_Completed_rCa</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>6</rowIndex>
@@ -235,7 +235,7 @@
                 </groupingSortProperties>
                 <header>Active Opportunites by Close Date</header>
                 <legendPosition>Bottom</legendPosition>
-                <report>CommercialReports/Active_Opportunites_by_Close_Date_VDf</report>
+                <report>CommercialReports/Active_Opportunites_by_Close_Date_Q5s</report>
                 <showPercentage>false</showPercentage>
                 <showValues>false</showValues>
                 <sortBy>RowLabelAscending</sortBy>
@@ -249,7 +249,6 @@
         <rowHeight>36</rowHeight>
     </dashboardGridLayout>
     <dashboardType>LoggedInUser</dashboardType>
-    <description>Commercial Dashboard for Banker</description>
     <isGridLayout>true</isGridLayout>
     <textColor>#000000</textColor>
     <title>Commercial Dashboard</title>

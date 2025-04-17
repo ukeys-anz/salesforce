@@ -39,7 +39,7 @@
             <value>Opportunity Won</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Opportunity.My_Region_Flag__c</column>
+            <column>Opportunity.My_Team_Segment__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>

@@ -564,9 +564,7 @@
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
       ],
-      "IA-2453350": [
-        "External_Id__c"
-      ]
+      "IA-2453350": ["External_Id__c"]
     },
     "ActivityFieldHistory__c": {
       "IA-2530753": [
@@ -807,7 +805,8 @@
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
-      "IA-2415790": ["Broker_Name__c"]
+      "IA-2415790": ["Broker_Name__c"],
+      "IA-2460507": ["My_Team_A2Z_Review__c"]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -3014,7 +3013,9 @@
         "Referrer_Name__c",
         "My_Sub_Team__c",
         "My_Team__c",
-        "Lead_Owner_Teamcode__c"
+        "Lead_Owner_Teamcode__c",
+        "My_Team_Segment__c",
+        "My_Reportees_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -3546,7 +3547,9 @@
         "My_Team__c",
         "Opportunity_Owner_Teamcode__c",
         "FinServ__ReferredByContact__c",
-        "FinServ__ReferredByUser__c"
+        "FinServ__ReferredByUser__c",
+        "My_Team_Segment__c",
+        "My_Reportees_Opps__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],

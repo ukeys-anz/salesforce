@@ -1,93 +1,85 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Expiring Leads to Convert</name>
+    <name>Slow Moving Opportunities</name>
     <columns>
-        <field>FIRST_NAME</field>
+        <field>ApplicationForm$Opportunity.Name</field>
     </columns>
     <columns>
-        <field>MIDDLE_NAME</field>
+        <field>ApplicationForm$Opportunity.Account</field>
     </columns>
     <columns>
-        <field>LAST_NAME</field>
+        <field>ApplicationForm.ApplicationFormProduct$Product</field>
     </columns>
     <columns>
-        <field>COMPANY</field>
+        <aggregateTypes>Sum</aggregateTypes>
+        <field>ApplicationForm.ApplicationFormProduct$Amount__c</field>
     </columns>
     <columns>
-        <field>Lead.Priority__c</field>
+        <field>ApplicationForm.ApplicationFormProduct$Close_Date__c</field>
     </columns>
-    <columns>
-        <field>LEAD_SOURCE</field>
-    </columns>
-    <columns>
-        <field>Lead.Lead_Outcome__c</field>
-    </columns>
-    <columns>
-        <field>Lead.Expiry_Date__c</field>
-    </columns>
-    <description>This report is used to display leads which can be converted and expiring in next 3 days.</description>
     <filter>
+        <booleanFilter>1 AND 2 AND 3 AND 4 AND (5 OR 6)</booleanFilter>
         <criteriaItems>
-            <column>RECORDTYPE</column>
+            <column>ApplicationForm.ApplicationFormProduct$ApplicationForm.Opportunity.RecordType.DeveloperName</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Lead.CCRM_Lead</value>
+            <value>Commercial_Opportunity</value>
         </criteriaItems>
         <criteriaItems>
-            <column>STATUS</column>
+            <column>ApplicationForm.ApplicationFormProduct$Stage</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
-            <value>Outcome</value>
+            <value>Needs Analysis</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Lead.Lead_Outcome__c</column>
+            <column>ApplicationForm.ApplicationFormProduct$Stage_Duration__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
-            <operator>equals</operator>
-            <value>Opportunity Identified</value>
+            <operator>greaterThan</operator>
+            <value>14</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Lead.Expiry_Date__c</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>greaterOrEqual</operator>
-            <value>TODAY</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>Lead.Expiry_Date__c</column>
-            <columnToColumn>false</columnToColumn>
-            <isUnlocked>true</isUnlocked>
-            <operator>lessOrEqual</operator>
-            <value>NEXT_N_DAYS:2</value>
-        </criteriaItems>
-        <criteriaItems>
-            <column>Lead.My_Team_Segment__c</column>
+            <column>ApplicationForm$Opportunity.My_Team_Segment__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
             <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ApplicationForm$Opportunity.My_Reportees_Opps__c</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>1</value>
+        </criteriaItems>
+        <criteriaItems>
+            <column>ApplicationForm$Opportunity.Owner</column>
+            <columnToColumn>false</columnToColumn>
+            <isUnlocked>true</isUnlocked>
+            <operator>equals</operator>
+            <value>$USER</value>
         </criteriaItems>
         <language>en_US</language>
     </filter>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>
-        <field>STATUS</field>
+        <field>ApplicationForm.ApplicationFormProduct$Stage</field>
         <sortOrder>Asc</sortOrder>
     </groupingsDown>
     <params>
         <name>co</name>
         <value>1</value>
     </params>
-    <reportType>LeadList</reportType>
+    <reportType>App_Forms_with_App_Forms_Products__c</reportType>
     <scope>team</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>
     <timeFrameFilter>
-        <dateColumn>CREATED_DATE</dateColumn>
+        <dateColumn>ApplicationForm$CreatedDate</dateColumn>
         <interval>INTERVAL_CUSTOM</interval>
     </timeFrameFilter>
 </Report>
