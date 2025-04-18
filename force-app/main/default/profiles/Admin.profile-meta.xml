@@ -11754,13 +11754,7 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Action__c-Customer Action Layout</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Customer_Action__c-Customer Action Layout</layout>
         <recordType>Customer_Action__c.Customer_Action</recordType>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Customer_Action__c-Customer Notification Action</layout>
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Action__c-Customer Notification Action</layout>
