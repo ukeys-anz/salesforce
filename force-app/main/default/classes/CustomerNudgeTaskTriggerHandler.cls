@@ -32,9 +32,10 @@ public with sharing class CustomerNudgeTaskTriggerHandler extends Lib_TriggerHan
   }
 
   /**
-   * @description onAfterInsert update the task subject by appending the task number generated
+   * @description onAfterInsert to handle after update trigger actions.d
    */
   public override void onAfterInsert() {
+    PushToAppAction.updateCustomerNudgeTask(records);
     PushToAppAction.createTaskCloudEvent(records);
   }
 }

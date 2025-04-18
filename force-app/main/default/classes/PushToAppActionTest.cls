@@ -5,108 +5,137 @@
  */
 @isTest
 public with sharing class PushToAppActionTest {
-  private static final Id FAKER_TASK_ID = Lib_FakeIdGenerator.getMockId(
-    Task.getSObjectType()
-  );
-
-  static Lib_MockProvider pushToAppRepoMock;
-
-  static void registerMocks() {
-    pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
-  }
-
-  @isTest
-  static void testCreateTaskCloudEventPositive() {
-    registerMocks();
-    pushToAppRepoMock.mock(
+    private static final Id FAKER_TASK_ID = Lib_FakeIdGenerator.getMockId(
+        Task.getSObjectType()
+      );
+  
+    static Lib_MockProvider dmlRepoMock;
+    static Lib_MockProvider pushToAppRepoMock;
+  
+    static void registerMocks() {
+      dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+      pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
+    }
+  
+    @isTest
+    static void testUpdateCustomerNudgeTask() {
+      registerMocks();
+      List<Task> taskRecords = mockTaskRecordsList('Transfer Funds Out');
+  
+      Test.startTest();
+      PushToAppAction.updateCustomerNudgeTask(taskRecords);
+      Test.stopTest();
+  
+       List<Task> taskRecordsUpdated = (List<Task>)dmlRepoMock.getHistory('doUpdate')
+      .getParam('records');
+  
+      Assert.isNotNull(
+        dmlRepoMock.getHistory('doUpdate'),
+        'doUpdate should have been invoked'
+      );
+      Assert.isTrue(
+        taskRecordsUpdated[0].Subject.contains('TSK-00000001'),
+          'Task Subject should show TaskNumber generated'
+      );
+      Assert.isTrue(
+        taskRecordsUpdated[0].Pub_Sub_Event_Id__c.contains(FAKER_TASK_ID),
+          'Task Subject should show TaskNumber generated'
+      );
+  
+    }
+  
+    @isTest
+    static void testCreateTaskCloudEventPositive() {
+      registerMocks();
+          pushToAppRepoMock.mock(
       'queryCustomerNudgeTaskDetails',
       new Customer_Task_Configuration__c()
     );
-    pushToAppRepoMock.mock(
+          pushToAppRepoMock.mock(
       'queryCustomerTaskDataDetails',
       new Customer_Task_Data__c()
     );
-
-    Test.startTest();
-    PushToAppAction.createTaskCloudEvent(
+  
+      Test.startTest();
+      PushToAppAction.createTaskCloudEvent(
       mockTaskRecordsList('Transfer Funds Out')
     );
-    Test.stopTest();
-
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-
-    CustomerNudgeTaskCloudEventModel customerNudgeTaskModel = (CustomerNudgeTaskCloudEventModel) JSON.deserialize(
+      Test.stopTest();
+  
+      String payload = CloudEventController.cloudEvents[0].Data_1__c;
+  
+      CustomerNudgeTaskCloudEventModel customerNudgeTaskModel = (CustomerNudgeTaskCloudEventModel) JSON.deserialize(
       payload,
       CustomerNudgeTaskCloudEventModel.class
     );
-
-    Assert.areEqual(
+  
+      Assert.areEqual(
       System.Label.ANZX_Customer_Nudge_event_ce_type + 'status_sent',
       customerNudgeTaskModel.ce_type,
       'ce_type is set correctly.'
     );
-    Assert.isTrue(
+      Assert.isTrue(
       payload.contains('actionTaken'),
       'Action Taken Node should be present in the payload'
     );
-  }
-
-  @isTest
-  static void testCreateTaskCloudEventNegative() {
-    registerMocks();
-    pushToAppRepoMock.mock(
+    }
+  
+    @isTest
+    static void testCreateTaskCloudEventNegative() {
+      registerMocks();
+          pushToAppRepoMock.mock(
       'queryCustomerNudgeTaskDetails',
       new Customer_Task_Configuration__c()
     );
-    pushToAppRepoMock.mock(
+          pushToAppRepoMock.mock(
       'queryCustomerTaskDataDetails',
       new Customer_Task_Data__c()
     );
-
-    Test.startTest();
-    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null));
-    Test.stopTest();
-
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-
-    Assert.isFalse(
+  
+      Test.startTest();
+      PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null));
+      Test.stopTest();
+  
+      String payload = CloudEventController.cloudEvents[0].Data_1__c;
+  
+      Assert.isFalse(
       payload.contains('actionTaken'),
       'Action Taken Node should not be present in the payload'
     );
-  }
-
-  private static List<Task> mockTaskRecordsList(String actiontakenvalue) {
-    List<Task> tasklist = new List<Task>();
-    tasklist.add(mockTaskRecord(actiontakenvalue));
-    return tasklist;
-  }
-
-  /**
-   * @description helper method to create a mock task
-   * @param actiontakenvalue actionTakenValue
-   * @return Mock Task
-   */
-  static Task mockTaskRecord(String actiontakenvalue) {
-    Id ownerId = UserInfo.getUserId();
-    Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
-    Id caseId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
-
-    Task mockPushToAppTask = TestDataFactory.createTaskRecord(
-      RTTask.customerNudge,
-      accountId,
-      caseId,
-      ownerId,
-      false
-    );
-
-    mockPushToAppTask.Id = FAKER_TASK_ID;
-    mockPushToAppTask.Action_Taken__c = actiontakenvalue;
-    mockPushToAppTask.Status = 'STATUS_SENT';
-
-    Task taskRecord = (Task) TestUtil.setFields(
-      mockPushToAppTask,
-      new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
-    );
-    return taskRecord;
-  }
+    }
+  
+    private static List<Task> mockTaskRecordsList(String actiontakenvalue) {
+        List<Task> tasklist = new List<Task>();
+        tasklist.add(mockTaskRecord(actiontakenvalue));
+        return tasklist;
+    }
+        
+    /**
+     * @description helper method to create a mock task
+     * @param actiontakenvalue actionTakenValue
+     * @return Mock Task
+     */
+    static Task mockTaskRecord(String actiontakenvalue) {
+      Id ownerId = UserInfo.getUserId();
+      Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
+      Id caseId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
+  
+      Task mockPushToAppTask = TestDataFactory.createTaskRecord(
+        RTTask.customerNudge,
+        accountId,
+        caseId,
+        ownerId,
+        false
+      );
+  
+      mockPushToAppTask.Id = FAKER_TASK_ID;
+      mockPushToAppTask.Action_Taken__c = actiontakenvalue;
+      mockPushToAppTask.Status = 'STATUS_SENT';
+  
+      Task taskRecord = (Task) TestUtil.setFields(
+        mockPushToAppTask,
+        new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
+      );
+      return taskRecord;
+    }
 }
