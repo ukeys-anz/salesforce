@@ -138,7 +138,7 @@ public with sharing class InteractionRepository {
       return new List<Account>();
     }
     return [
-      SELECT Id, External_Id__c, OCV_ID__c, PPID__c
+      SELECT Id, OCV_ID__c, PPID__c
       FROM Account
       WHERE OCV_ID__c = :ocvIdFromTwilio AND ANZx_Customer__c = TRUE
       WITH USER_MODE
@@ -172,9 +172,6 @@ public with sharing class InteractionRepository {
    */
   public List<Task> queryPushToAppTaskDetails(String pubSubEventId)
   {
-    if (String.isBlank(pubSubEventId)) {
-      return new List<Task>();
-    }
     return [SELECT Id , Pub_Sub_Event_Id__c,
     WhatId
     FROM Task

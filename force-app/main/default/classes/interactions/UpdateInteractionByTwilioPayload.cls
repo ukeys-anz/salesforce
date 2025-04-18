@@ -65,8 +65,14 @@ global class UpdateInteractionByTwilioPayload {
   */
   public Id agentUserId { 
     get {
-      return INTERACTION_REPOSITORY.fetchAgentUserId(
-        agentEmail)?.Id;
+      if(agentUserId == null)
+      {
+        User agentUserRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
+        agentEmail);
+
+        agentUserId = agentUserRecord?.Id;
+      }
+      return agentUserId;
     }
      set;
   }

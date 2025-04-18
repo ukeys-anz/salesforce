@@ -76,26 +76,8 @@ global with sharing class InteractionContextService {
 
     interactionToBeCreated = createInteractionInstance(contextRequest);
 
-    try {
-      Database.SaveResult interactionCreated = DML_REPOSITORY.doInsert(
-        interactionToBeCreated
-      );
-      // Twilio Record Upsert With Context Detail
-      upsertTwilioRecordAfterInteractionCreation(
-        interactionCreated,
-        contextRequest
-      );
-    } catch (Exception objException) {
-      //Creating the json response to be send to Twilio
-      sendRestContextToTwilio(
-        generateErrorResponse(
-          contextRequest.ocvId,
-          objException.getMessage(),
-          contextRequest.issueSubType
-        )
-      );
-      return;
-    }
+    createInteractionAndUpsertTwilioDetails(interactionToBeCreated,contextRequest);
+
   }
 
   /**
@@ -139,6 +121,14 @@ global with sharing class InteractionContextService {
       );
     }
 
+    if(validateContextRequest.existingAccount == null)
+    {
+      String errorMessage =
+      'Could not find a matching ANZx customer record based on OCV ID: ' +
+      validateContextRequest.ocvId;
+      return generateErrorResponse(validateContextRequest.ocvId, errorMessage, '');
+    }
+
     return null;
   }
 
@@ -153,14 +143,6 @@ global with sharing class InteractionContextService {
   ) {
     try {
       Account existingAccount = contextRequest.existingAccount;
-      if(existingAccount == null)
-      {
-        String errorMessage =
-        'Could not find a matching ANZx customer record based on OCV ID: ' +
-        contextRequest.ocvId;
-        return generateErrorResponse(contextRequest.ocvId, errorMessage, '');
-      }
-
       // Only update PPID once or if its changed
       if (
         String.isNotBlank(contextRequest.ppid) &&
@@ -221,6 +203,34 @@ global with sharing class InteractionContextService {
     return intToInsert;
   }
 
+   /**
+   * @description Method to insert and upsert the Twilio Details record for the Interaction Created
+   * @param interactionToBeCreated Interaction instance for Interaction Creation
+   * @param contextRequest Interaction Context Request From Twilio
+   */
+  private static void createInteractionAndUpsertTwilioDetails(Interaction interactionToBeCreated,
+  InteractionContextRequest contextRequest )
+  {
+    try {
+      Database.SaveResult interactionCreated = DML_REPOSITORY.doInsert(
+        interactionToBeCreated
+      );
+      // Twilio Record Upsert With Context Detail
+      upsertTwilioRecordAfterInteractionCreation(
+        interactionCreated,
+        contextRequest
+      );
+    } catch (Exception objException) {
+      //Creating the json response to be send to Twilio
+      sendRestContextToTwilio(
+        generateErrorResponse(
+          contextRequest.ocvId,
+          objException.getMessage(),
+          contextRequest.issueSubType
+        )
+      );
+    }
+  }
   /**
    * @description Method to upsert the Twilio Details record for the Interaction Created
    * @param interactionCreated Database.SaveResult for Interaction Created
@@ -332,9 +342,6 @@ global with sharing class InteractionContextService {
     switch on sobjectName {
       when 'Case' {
         interactionToInsert.CaseId__c = whatId;
-      }
-      when 'Coaching_Summary__c' {
-        interactionToInsert.Coaching_Summary__c = whatId;
       }
       when 'Loan_Application__c' {
         interactionToInsert.Loan_Application__c = whatId;

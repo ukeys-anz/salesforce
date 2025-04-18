@@ -65,14 +65,16 @@ global class InteractionContextRequest {
   */
   public Account existingAccount { 
     get {
-      List<Account> accountExisting = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
+      if (existingAccount == null) {
+        List<Account> accountExisting = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
         ocvId);
-      if(accountExisting != null && !accountExisting.isEmpty()){
-        return accountExisting[0];
+        if(accountExisting.isEmpty())
+        {
+          return null;
+        }
+        existingAccount = accountExisting[0];
       }
-      else{
-        return null;
-      }
+      return existingAccount;
     }
     set;
   }
@@ -81,19 +83,22 @@ global class InteractionContextRequest {
   */
   public Task pushToAppTask { 
     get { 
-      List<Task> taskList =  INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
-        pubSubEventId);
-      if(taskList != null && !taskList.isEmpty()){
-        return taskList[0];
-      }
-      else{
-        Logger.info(
+      if (pushToAppTask == null && String.isNotBlank(pubSubEventId)) {
+        List<Task> taskList =  INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
+          pubSubEventId);
+      
+        if(taskList.isEmpty())
+        {
+          Logger.info(
             ' No Customer Nudge Task Found having pubSubEventId :-' +
             pubSubEventId + ' For Chat or Call SID :- ' + chatOrCallId
-        );
-        Logger.saveLog();
-        return null;
+          );
+          Logger.saveLog();
+          return null;
+        }
+        pushToAppTask = taskList[0];
       }
+      return pushToAppTask;
     }
     set;
   }
