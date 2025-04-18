@@ -5,7 +5,22 @@
  */
 @IsTest
 public with sharing class PushToAppControllerTest {
-    private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
+
+   /**
+   * @description This method helps in providing the mock response from AEM
+   * @return AEM content Data
+   */
+ private static String mockAemData {
+    get {
+          String mockAemContentDataResponse = [
+            SELECT body
+            FROM StaticResource
+            WHERE Name = 'mock_aemContentData'
+            ].body.toString();
+      return mockAemContentDataResponse;
+    }
+  }
+  private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
   );
 
@@ -163,7 +178,7 @@ public with sharing class PushToAppControllerTest {
 
   private static  String mockPushToAppNotifData() {
     Map<String,String> pushToAppNotifDataResponse = new Map<String,String>{
-      'aemContentData' => AemServiceTest.mockAemData
+      'aemContentData' => mockAemData
      };
     String pushToAppNotifData  = JSON.serialize(pushToAppNotifDataResponse);
     return pushToAppNotifData;
