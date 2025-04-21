@@ -475,6 +475,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM1_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM1_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM1_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM1_Q1_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -485,6 +531,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_1__c</fieldItem>
                 <identifier>RecordCMOS_Comment_1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_1__c</fieldItem>
+                <identifier>RecordCMOS_Comment_1_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Was_quick_resolution_offer_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -505,6 +597,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM1_Q3__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM1_Q3_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM1_Q3__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM1_Q3_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -515,6 +653,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_3__c</fieldItem>
                 <identifier>RecordCMOS_Comment_3_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_3__c</fieldItem>
+                <identifier>RecordCMOS_Comment_3_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Loss_offer_correctly_considered__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -535,6 +719,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM1_Q5__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM1_Q5_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM1_Q5__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM1_Q5_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -545,6 +775,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_5__c</fieldItem>
                 <identifier>RecordCMOS_Comment_5_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_5__c</fieldItem>
+                <identifier>RecordCMOS_Comment_5_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issues_addressed_in_final_response__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-039d212d-c12e-4717-aac9-91292f2663b9</name>
@@ -569,6 +845,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM1_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM1_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM1_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM1_Q2_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -579,6 +901,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_2__c</fieldItem>
                 <identifier>RecordCMOS_Comment_2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_2__c</fieldItem>
+                <identifier>RecordCMOS_Comment_2_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Other_practical_options_explored__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -599,6 +967,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM1_Q4__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM1_Q4_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM1_Q4__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM1_Q4_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -609,6 +1023,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_4__c</fieldItem>
                 <identifier>RecordCMOS_Comment_4_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_4__c</fieldItem>
+                <identifier>RecordCMOS_Comment_4_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Appropriately_assessed_information__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -629,6 +1089,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM1_Q6__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM1_Q6_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Accurate_information_in_final_response__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM1_Q6__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM1_Q6_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Accurate_information_in_final_response__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -639,6 +1135,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_6__c</fieldItem>
                 <identifier>RecordCMOS_Comment_6_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Accurate_information_in_final_response__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_6__c</fieldItem>
+                <identifier>RecordCMOS_Comment_6_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Accurate_information_in_final_response__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ff4621e1-8b65-4de8-be80-f59402eb1ed5</name>
@@ -691,6 +1223,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM2_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM2_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM2_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM2_Q1_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -701,6 +1269,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_7__c</fieldItem>
                 <identifier>RecordCMOS_Comment_7_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_7__c</fieldItem>
+                <identifier>RecordCMOS_Comment_7_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.In_phone_resolutions_gave_AFCA_details__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-4685d435-67a9-48c1-be3d-53172bd08640</name>
@@ -749,6 +1353,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM3_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM3_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM3_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM3_Q1_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -759,6 +1409,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_8__c</fieldItem>
                 <identifier>RecordCMOS_Comment_8_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_8__c</fieldItem>
+                <identifier>RecordCMOS_Comment_8_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Gave_extra_care_for_vulnerable_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -779,6 +1475,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM3_Q3__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM3_Q3_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM3_Q3__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM3_Q3_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -789,6 +1531,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_10__c</fieldItem>
                 <identifier>RecordCMOS_Comment_10_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_10__c</fieldItem>
+                <identifier>RecordCMOS_Comment_10_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Identified_additional_assistance_needs__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-4e41d78d-0fbc-4c3d-be16-50fcb1084b5d</name>
@@ -813,6 +1601,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM3_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM3_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM3_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM3_Q2_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -823,6 +1657,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_9__c</fieldItem>
                 <identifier>RecordCMOS_Comment_9_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_9__c</fieldItem>
+                <identifier>RecordCMOS_Comment_9_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Prompt_response_to_customer_in_hardship__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-c18a79ab-6004-4bc2-855d-43386209b238</name>
@@ -871,6 +1751,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM4_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM4_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM4_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM4_Q1_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -881,6 +1807,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_11__c</fieldItem>
                 <identifier>RecordCMOS_Comment_11_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_11__c</fieldItem>
+                <identifier>RecordCMOS_Comment_11_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Issue_products_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-bd66bc96-66c3-4187-afaf-00919c8a05fa</name>
@@ -905,6 +1877,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM4_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM4_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM4_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM4_Q2_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -915,6 +1933,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_12__c</fieldItem>
                 <identifier>RecordCMOS_Comment_12_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_12__c</fieldItem>
+                <identifier>RecordCMOS_Comment_12_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Outcome_details_correctly_recorded__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-a303296a-5b49-466b-9c94-18e497733446</name>
@@ -963,6 +2027,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM5_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM5_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM5_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM5_Q1_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -973,6 +2083,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_13__c</fieldItem>
                 <identifier>RecordCMOS_Comment_13_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_13__c</fieldItem>
+                <identifier>RecordCMOS_Comment_13_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.IDR_delay_decision_notice_appropriate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-ebffe525-c5be-48a5-8064-a6f6659547cc</name>
@@ -997,6 +2153,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM5_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM5_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM5_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM5_Q2_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1007,6 +2209,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_14__c</fieldItem>
                 <identifier>RecordCMOS_Comment_14_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_14__c</fieldItem>
+                <identifier>RecordCMOS_Comment_14_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Credit_reporting_notice_obligations_met__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-09053dd5-8374-409f-80dd-5984d4610f3b</name>
@@ -1055,6 +2303,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM6_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM6_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM6_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM6_Q1_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1065,6 +2359,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_15__c</fieldItem>
                 <identifier>RecordCMOS_Comment_15_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_15__c</fieldItem>
+                <identifier>RecordCMOS_Comment_15_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_call_recording_disclosure_rules__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1085,6 +2425,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM6_Q3__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM6_Q3_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM6_Q3__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM6_Q3_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1095,6 +2481,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_17__c</fieldItem>
                 <identifier>RecordCMOS_Comment_17_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_17__c</fieldItem>
+                <identifier>RecordCMOS_Comment_17_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Customer_authority_obtained_as_required__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-0ae182e3-a5ba-45e1-b434-983eef4afe5f</name>
@@ -1119,6 +2551,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM6_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM6_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM6_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM6_Q2_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1129,6 +2607,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_16__c</fieldItem>
                 <identifier>RecordCMOS_Comment_16_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_16__c</fieldItem>
+                <identifier>RecordCMOS_Comment_16_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Followed_call_authentication_process__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1149,6 +2673,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM6_Q4__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM6_Q4_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM6_Q4__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM6_Q4_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1159,6 +2729,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_18__c</fieldItem>
                 <identifier>RecordCMOS_Comment_18_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_18__c</fieldItem>
+                <identifier>RecordCMOS_Comment_18_cField4</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Met_process_for_handling_restricted_info__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-5555d6fb-9221-4b3c-bb17-fa1358ac9d87</name>
@@ -1207,6 +2823,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM7_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM7_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_what_needed_investigation__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM7_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM7_Q1_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_what_needed_investigation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1217,6 +2869,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_19__c</fieldItem>
                 <identifier>RecordCMOS_Comment_19_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_what_needed_investigation__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_19__c</fieldItem>
+                <identifier>RecordCMOS_Comment_19_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_what_needed_investigation__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1237,6 +2925,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM7_Q3__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM7_Q3_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM7_Q3__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM7_Q3_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1247,6 +2981,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_21__c</fieldItem>
                 <identifier>RecordCMOS_Comment_21_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_21__c</fieldItem>
+                <identifier>RecordCMOS_Comment_21_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_info_obtained_from_customer__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1267,6 +3047,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM7_Q5__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM7_Q5_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM7_Q5__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM7_Q5_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1277,6 +3103,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_23__c</fieldItem>
                 <identifier>RecordCMOS_Comment_23_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_23__c</fieldItem>
+                <identifier>RecordCMOS_Comment_23_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Financial_product_advice_not_provided__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-a451a6b0-a0d8-45fc-aa33-dbbd51128725</name>
@@ -1301,6 +3173,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM7_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM7_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM7_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM7_Q2_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1311,6 +3229,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_20__c</fieldItem>
                 <identifier>RecordCMOS_Comment_20_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_20__c</fieldItem>
+                <identifier>RecordCMOS_Comment_20_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Relevant_internal_information_obtained__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1331,6 +3295,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM7_Q4__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM7_Q4_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_flagged_PSI_where_needed__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM7_Q4__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM7_Q4_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_flagged_PSI_where_needed__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1341,6 +3341,42 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_22__c</fieldItem>
                 <identifier>RecordCMOS_Comment_22_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_flagged_PSI_where_needed__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_22__c</fieldItem>
+                <identifier>RecordCMOS_Comment_22_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Identified_flagged_PSI_where_needed__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-b1041914-8694-40aa-9fb6-f434da61593e</name>
@@ -1389,6 +3425,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM8_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM8_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM8_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM8_Q1_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1399,6 +3481,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_24__c</fieldItem>
                 <identifier>RecordCMOS_Comment_24_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_24__c</fieldItem>
+                <identifier>RecordCMOS_Comment_24_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Written_customer_comms_professional_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-51231b99-eaf7-421c-9759-8ac76ddf8c50</name>
@@ -1423,6 +3551,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM8_Q2__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM8_Q2_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM8_Q2__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM8_Q2_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1433,6 +3607,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_25__c</fieldItem>
                 <identifier>RecordCMOS_Comment_25_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_25__c</fieldItem>
+                <identifier>RecordCMOS_Comment_25_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Verbal_customer_comms_organised_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-6536c53c-abb6-477b-9f0e-6987603e137e</name>
@@ -1485,6 +3705,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM9_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM9_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM9_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM9_Q1_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1495,6 +3761,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_26__c</fieldItem>
                 <identifier>RecordCMOS_Comment_26_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_26__c</fieldItem>
+                <identifier>RecordCMOS_Comment_26_cField2</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Stakeholder_comms_clear_relevant_etc__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-a54d7f79-d8db-4798-a2f3-178200a011f6</name>
@@ -1547,6 +3859,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Reason_C_Q_SM10_Q1__c</fieldItem>
                 <identifier>RecordReason_C_Q_SM10_Q1_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Reason_C_Q_SM10_Q1__c</fieldItem>
+                <identifier>RecordReason_C_Q_SM10_Q1_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -1557,6 +3915,52 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.CMOS_Comment_27__c</fieldItem>
                 <identifier>RecordCMOS_Comment_27_cField</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 AND 2) OR 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.CMOS_Comment_27__c</fieldItem>
+                <identifier>RecordCMOS_Comment_27_cField3</identifier>
+                <visibilityRule>
+                    <booleanFilter>(1 OR 2) AND 3</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Case_records_are_complete_and_accurate__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Not met (outside CM control)</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Status__c}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Complete</rightValue>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-36d8a405-1e85-48e3-ada4-62ebcc69acca</name>
