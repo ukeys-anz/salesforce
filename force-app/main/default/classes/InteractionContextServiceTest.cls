@@ -310,12 +310,7 @@ public with sharing class InteractionContextServiceTest {
 
     // WHEN Twilio API user send a request without OCV Id and Phone Number
     // Prepare request test data
-    InteractionContextRequest contextReq = prepareRequest(
-      'Voice',
-      '',
-      '',
-      ''
-    );
+    InteractionContextRequest contextReq = prepareRequest('Voice', '', '', '');
     Test.startTest();
     InteractionContextService.doPost(contextReq);
     Test.stopTest();
