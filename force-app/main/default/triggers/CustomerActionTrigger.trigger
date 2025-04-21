@@ -1,6 +1,8 @@
 trigger CustomerActionTrigger on Customer_Action__c(
   before insert,
-  before update
+  before update,
+  after update
 ) {
   CustomerActionTriggerHandler handler = new CustomerActionTriggerHandler();
+  CustomerNotificationActionTriggerHandler customerNotificationActionHandler = new CustomerNotificationActionTriggerHandler();
 }

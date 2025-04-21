@@ -121,6 +121,15 @@ public with sharing class PushToAppController {
       pushToAppNotifData,
       new DmlConfig().systemMode()
     );
+    List<Customer_Action__c> listOfCustomerActions = PushToAppUtility.createCustomerActions(
+      pushToAppNotifData,
+      notifDataResult.getId()
+    );
+
+    List<Database.SaveResult> customerActionResult = DML_REPOSITORY.doInsert(
+      listOfCustomerActions,
+      new DmlConfig().systemMode()
+    );
     return notifDataResult.getId();
   }
 
