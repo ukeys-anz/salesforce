@@ -71,18 +71,7 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   get templateOptions() {
-    return this._templateOptions && IsPushToAppEnabled === "true"
-      ? this._templateOptions
-      : [];
-  }
-
-  @wire(getTemplateDetails, { recordId: "$recordId" })
-  getTemplateDetailsData({ data }) {
-    if (data) {
-      this._templateOptions = data.map((template) => {
-        return { label: template.Name, value: template.AEM_Content_Id__c };
-      });
-    }
+    return this._templateOptions ? this._templateOptions : [];
   }
 
   @wire(MessageContext)
@@ -181,6 +170,10 @@ export default class InitiateInteraction extends LightningElement {
         this.handleShowContactTab();
       }
     });
+
+    if (IsPushToAppEnabled === "true") {
+      this.getTemplateDetailsData();
+    }
   }
 
   handleShowContactTab() {
@@ -378,5 +371,15 @@ export default class InitiateInteraction extends LightningElement {
         "Oops, we couldn't connect your call. Please try again."
       );
     }
+  }
+
+  getTemplateDetailsData() {
+    getTemplateDetails({
+      recordId: this.recordId
+    }).then((result) => {
+      this._templateOptions = result.map((template) => {
+        return { label: template.Name, value: template.AEM_Content_Id__c };
+      });
+    });
   }
 }
