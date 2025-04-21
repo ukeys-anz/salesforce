@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Action_UUID__c</fullName>
+    <businessStatus>Active</businessStatus>
     <caseSensitive>true</caseSensitive>
-    <complianceGroup>Trusted;Privacy_Non_Personal_Information;Salesforce</complianceGroup>
+    <complianceGroup>Integrity_Trusted;Privacy_Non_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Generates a UUID unique to each customer action to be taken and passes this to mobile for consuming feedback loop</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>true</externalId>
