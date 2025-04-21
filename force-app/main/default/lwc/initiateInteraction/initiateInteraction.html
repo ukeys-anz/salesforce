@@ -49,7 +49,7 @@
               ></c-push-to-app>
             </template>
             <div>
-              <template if:true={showParentContent}>
+              <template lwc:if={showParentContent}>
                 <template lwc:if={showMessageCustomer}>
                   <template lwc:if={displayOutboundChat}>
                     <div class="slds-align_absolute-center">
@@ -114,7 +114,7 @@
                 </div>
               </template>
             </div>
-            <template if:true={showParentContent}>
+            <template lwc:if={showParentContent}>
               <div
                 class="slds-m-top_x-small slds-p-bottom_small slds-align_absolute-center"
               >

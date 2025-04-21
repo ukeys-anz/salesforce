@@ -20,6 +20,7 @@ import CS_ACC from "@salesforce/schema/Coaching_Summary__c.Account__c";
 import CS_LEAD from "@salesforce/schema/Coaching_Summary__c.Lead__c";
 import LEAD_MP from "@salesforce/schema/Lead.MobilePhone";
 import RESI_LOAN_APPLICATION_ACCOUNTID from "@salesforce/schema/ResidentialLoanApplication.AccountId";
+import IsPushToAppEnabled from "@salesforce/label/c.IsPushToAppEnabled";
 
 const NORMAL_TAB = "slds-tabs_scoped__item";
 const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
@@ -70,7 +71,9 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   get templateOptions() {
-    return this._templateOptions ? this._templateOptions : [];
+    return this._templateOptions && IsPushToAppEnabled === "true"
+      ? this._templateOptions
+      : [];
   }
 
   @wire(getTemplateDetails, { recordId: "$recordId" })
