@@ -44,7 +44,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'assigned',
-      '',
       ''
     );
 
@@ -86,7 +85,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'Created1',
-      '',
       ''
     );
 
@@ -126,7 +124,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'assigned',
-      '',
       'TestAgent@abc.com'
     );
 
@@ -174,7 +171,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'assigned',
-      '',
       'TestAgent@abc.com'
     ); 
     twilioContext.isConference = true;
@@ -227,7 +223,6 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'assigned',
-      '',
       ''
     ); 
     twilioContext.isConference = true;
@@ -270,9 +265,9 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'assigned',
-      'ChatQueue',
       ''
     );
+    twilioContext.queueName = 'ChatQueue';
     twilioContext.transfer = 'To Agent';
 
     Test.startTest();
@@ -317,10 +312,9 @@ public with sharing class InteractionContextServiceUpdateTest {
       interactionId,
       mockChatOrCallId,
       'assigned',
-      'ChatQueue',
       ''
     );
-
+    twilioContext.queueName = 'ChatQueue';
     Test.startTest();
 	  InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
@@ -339,15 +333,13 @@ public with sharing class InteractionContextServiceUpdateTest {
    * @param interactionId InteractionId
    * @param chatOrCallId Twilio Channel SID
    * @param chatOrCallStatus chat or call status from Twilio
-   * @param queueName queueName from Twilio
    * @param agentEmail agentEmail from Twilio
    * @return `List<UpdateInteractionByTwilioPayload>` List of 'UpdateInteractionByTwilioPayload'
    */
-  public static UpdateInteractionByTwilioPayload prepareRequest(
+  private static UpdateInteractionByTwilioPayload prepareRequest(
     String interactionId,
     String chatOrCallId,
     String chatOrCallStatus,
-    String queueName,
     String agentEmail
   ) {
     Faker faker = new Faker('AU');
@@ -357,7 +349,6 @@ public with sharing class InteractionContextServiceUpdateTest {
     contextReq.twilioId = 'TW' + faker.randomString(10);
     contextReq.callRecordingId =  'CR' + faker.randomString(10);
     contextReq.chatOrCallStatus = chatOrCallStatus;
-    contextReq.queueName = queueName;
     contextReq.agentEmail = agentEmail;
 
     //Setup request

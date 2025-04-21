@@ -72,9 +72,10 @@ public with sharing class InteractionContextServiceTest {
       'Chat',
       'OCVID887766',
       '123457',
-      'Created',
       'Fraud'
     );
+
+    contextReq.chatOrCallStatus = 'Created';
 
     Test.startTest();
     InteractionContextService.doPost(contextReq);
@@ -110,9 +111,10 @@ public with sharing class InteractionContextServiceTest {
       'Chat',
       'OCVID887766',
       '123457',
-      'Created1',
       'Fraud'
     );
+
+    contextReq.chatOrCallStatus = 'Created1';
     Test.startTest();
     try {
       InteractionContextService.doPost(contextReq);
@@ -160,7 +162,6 @@ public with sharing class InteractionContextServiceTest {
       'Voice',
       '',
       '123456',
-      '',
       ''
     );
 
@@ -217,7 +218,6 @@ public with sharing class InteractionContextServiceTest {
       'Voice',
       'OCVID887766',
       '123456',
-      '',
       'Coach - Call Us'
     );
     contextReq.isAuthenticated = true;
@@ -275,7 +275,6 @@ public with sharing class InteractionContextServiceTest {
       'Voice',
       'OCVID887766',
       '123456',
-      '',
       'TestValue'
     );
     contextReq.isAuthenticated = true;
@@ -313,7 +312,6 @@ public with sharing class InteractionContextServiceTest {
     // Prepare request test data
     InteractionContextRequest contextReq = prepareRequest(
       'Voice',
-      '',
       '',
       '',
       ''
@@ -371,9 +369,9 @@ public with sharing class InteractionContextServiceTest {
       'Chat',
       'OCVID887766',
       '123457',
-      'Created',
       'Fraud'
     );
+    contextReq.chatOrCallStatus = 'Created';
     contextReq.pubSubEventId = pubSubEventId;
 
     Test.startTest();
@@ -396,7 +394,6 @@ public with sharing class InteractionContextServiceTest {
     String interactionType,
     String ocvId,
     String phoneNumber,
-    String chatOrCallStatus,
     String issueSubtype
   ) {
     Faker faker = new Faker('AU');
@@ -411,7 +408,6 @@ public with sharing class InteractionContextServiceTest {
     contextReq.type = interactionType;
     contextReq.twilioId = 'TW' + faker.randomString(10);
     contextReq.callRecordingId = 'CR' + faker.randomString(10);
-    contextReq.chatOrCallStatus = chatOrCallStatus;
 
     //Setup request
     RestRequest req = new RestRequest();

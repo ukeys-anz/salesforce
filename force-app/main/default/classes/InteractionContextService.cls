@@ -66,9 +66,7 @@ global with sharing class InteractionContextService {
           existingInteractionsBySID.get(contextRequest.chatOrCallId).Id,
           existingInteractionsBySID.get(contextRequest.chatOrCallId)
             .Interaction_External_Id__c,
-          contextRequest.ocvId,
-          contextRequest.issueSubtype,
-          contextRequest.pushToAppTask
+          contextRequest
         )
       );
       return;
@@ -263,9 +261,7 @@ global with sharing class InteractionContextService {
       generateResponse(
         newInteraction.Id,
         newInteraction.Interaction_External_Id__c,
-        contextRequest.ocvId,
-        contextRequest.issueSubtype,
-        contextRequest.pushToAppTask
+        contextRequest
       )
     );
     return;
@@ -359,27 +355,23 @@ global with sharing class InteractionContextService {
    * @description Method to generate a response instance
    * @param recordId interaction ID of the newly generated interaction.
    * @param externalId external id of the newly generated interaction.
-   * @param ocvId ocvId for inbound chat
-   * @param chatLabel chatLabel for inbound chat
-   * @param pushToAppTask PushToApp Task Record Detail
+   * @param contextRequest contextRequest from Twilio
    * @return `InteractionContextResponse`
    */
   private static InteractionContextResponse generateResponse(
     String recordId,
     String externalId,
-    String ocvId,
-    String chatLabel,
-    Task pushToAppTask
+    InteractionContextRequest contextRequest
   ) {
     InteractionContextResponse response = new InteractionContextResponse();
     response.recordId = recordId;
     response.externalId = externalId;
     response.success = true;
     response.statusCode = 200;
-    response.ocvId = ocvId;
-    response.chatLabel = chatLabel;
-    response.relatedRecordId = pushToAppTask?.WhatId;
-    response.taskId = pushToAppTask?.Id;
+    response.ocvId = contextRequest.ocvId;
+    response.chatLabel = contextRequest.issueSubtype;
+    response.relatedRecordId = contextRequest?.pushToAppTask?.WhatId;
+    response.taskId = contextRequest?.pushToAppTask?.Id;
     return response;
   }
 
