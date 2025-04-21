@@ -753,7 +753,7 @@ private class CaseTriggerHandlerTest {
     // GIVEN cases are updated as re-openened
     for (Integer i = 0; i < newCases.size(); i++) {
       newCases[i].Status = 'Re-opened';
-      newCases[i].IDR_Reason_for_re_opening__c = '1';
+      newCases[i].IDR_Reason_for_re_opening__c = '6';
     }
     // WHEN they are updated
     update newCases;

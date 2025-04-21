@@ -17,29 +17,49 @@
       <valueSetDefinition>
          <sorted>false</sorted>
          <value>
+                <fullName>6</fullName>
+                <default>false</default>
+                <label>Re-opened for administrative purposes</label>
+            </value>
+            <value>
+                <fullName>7</fullName>
             <default>false</default>
-            <fullName>1</fullName>
-            <label>Referred back from AFCA</label>
+                <label>Re-opened for further investigation</label>
          </value>
          <value>
+                <fullName>8</fullName>
             <default>false</default>
+                <label>Re-opened due to AFCA/other EDR schemes requests</label>
+            </value>
+            <value>
             <fullName>2</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
             <label>Additional information received/known</label>
          </value>
          <value>
+                <fullName>3</fullName>
             <default>false</default>
-            <fullName>4</fullName>
-            <label>QC - Collections Stop/Re-start Trigger</label>
+                <isActive>false</isActive>
+                <label>Other</label>
          </value>
          <value>
+                <fullName>5</fullName>
             <default>false</default>
-            <fullName>5</fullName>
+                <isActive>false</isActive>
             <label>QAF re-open recommendation</label>
          </value>
          <value>
+                <fullName>4</fullName>
+                <default>false</default>
+                <isActive>false</isActive>
+                <label>QC - Collections Stop/Re-start Trigger</label>
+            </value>
+            <value>
+                <fullName>1</fullName>
             <default>false</default>
-            <fullName>3</fullName>
-            <label>Other</label>
+                <isActive>false</isActive>
+                <label>Referred back from AFCA</label>
          </value>
       </valueSetDefinition>
    </valueSet>
