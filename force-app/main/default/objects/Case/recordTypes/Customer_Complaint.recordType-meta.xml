@@ -3785,10 +3785,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Overturn the IDR resolution</fullName>
             <default>false</default>
         </values>
@@ -5234,7 +5230,7 @@
             <fullName>23</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>
@@ -5337,7 +5333,7 @@
             <fullName>23</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>
@@ -6785,7 +6781,7 @@
             <fullName>125</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>126</fullName>
             <default>false</default>
         </values>
@@ -7324,7 +7320,7 @@
             <fullName>125</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>126</fullName>
             <default>false</default>
         </values>
@@ -7344,7 +7340,7 @@
             <fullName>130</fullName>
             <default>false</default>
         </values>
-         <values>
+        <values>
             <fullName>131</fullName>
             <default>false</default>
         </values>
@@ -7863,7 +7859,7 @@
             <fullName>125</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>126</fullName>
             <default>false</default>
         </values>
@@ -7883,7 +7879,7 @@
             <fullName>130</fullName>
             <default>false</default>
         </values>
-         <values>
+        <values>
             <fullName>131</fullName>
             <default>false</default>
         </values>
@@ -13754,7 +13750,7 @@
             <fullName>23</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>

@@ -3785,10 +3785,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Other</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Overturn the IDR resolution</fullName>
             <default>false</default>
         </values>
@@ -5203,7 +5199,7 @@
             <fullName>23</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>
@@ -5302,11 +5298,11 @@
             <fullName>Know Your Customer</fullName>
             <default>false</default>
         </values>
-         <values>
+        <values>
             <fullName>23</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>
@@ -6738,7 +6734,7 @@
             <fullName>121</fullName>
             <default>false</default>
         </values>
-         <values>
+        <values>
             <fullName>122</fullName>
             <default>false</default>
         </values>
@@ -7146,7 +7142,7 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>126</fullName>
             <default>false</default>
         </values>
@@ -7277,7 +7273,7 @@
             <fullName>121</fullName>
             <default>false</default>
         </values>
-         <values>
+        <values>
             <fullName>122</fullName>
             <default>false</default>
         </values>
@@ -7685,7 +7681,7 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-				<values>
+        <values>
             <fullName>126</fullName>
             <default>false</default>
         </values>
@@ -8224,7 +8220,7 @@
             <fullName>Request won%27t be actioned</fullName>
             <default>false</default>
         </values>
-				<values>
+        <values>
             <fullName>126</fullName>
             <default>false</default>
         </values>
@@ -13708,11 +13704,11 @@
             <fullName>Know Your Customer</fullName>
             <default>false</default>
         </values>
-         <values>
+        <values>
             <fullName>23</fullName>
             <default>false</default>
         </values>
-		<values>
+        <values>
             <fullName>24</fullName>
             <default>false</default>
         </values>
