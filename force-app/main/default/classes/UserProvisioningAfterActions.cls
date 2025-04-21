@@ -629,11 +629,7 @@ public with sharing class UserProvisioningAfterActions {
       member.CollaborationGroupId = groupId;
       collGroupMembers.add(member);
     }
-    DML_REPOSITORY.insertRecords(
-      collGroupMembers,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
-    );
+    DML_REPOSITORY.doInsert(collGroupMembers, new DmlConfig().withoutSharing());
   }
   /**
      * @description Method to remove user to chatter group
@@ -648,10 +644,6 @@ public with sharing class UserProvisioningAfterActions {
       groupId
     );
 
-    DML_REPOSITORY.deleteRecords(
-      collGroupMembers,
-      DmlRepository.ALLOW_PARTIAL,
-      DmlRepository.SYSTEM_MODE
-    );
+    DML_REPOSITORY.doDelete(collGroupMembers, new DmlConfig().withoutSharing());
   }
 }
