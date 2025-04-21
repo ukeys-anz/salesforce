@@ -438,7 +438,7 @@ public with sharing class InteractionContextServiceTest {
     Account testAccount = TestDataFactory.createPersonAccount(ocvId, false);
     testAccount.PersonMobilePhone = phoneNumber;
     testAccount.Id = FAKER_ACCOUNT_ID;
-    return new List<Account> {testAccount};
+    return new List<Account>{ testAccount };
   }
 
   /**
@@ -453,7 +453,6 @@ public with sharing class InteractionContextServiceTest {
     Id recordTypeId,
     String interactionType
   ) {
-
     Interaction mockInteraction = TestDataFactory.createInteraction(
       recordTypeId,
       InteractionConstants.CUSTOMER,
@@ -494,6 +493,6 @@ public with sharing class InteractionContextServiceTest {
     );
 
     mockPushToAppTask.Pub_Sub_Event_Id__c = pubSubEventId;
-    return new List<Task> {mockPushToAppTask};
+    return new List<Task>{ mockPushToAppTask };
   }
 }

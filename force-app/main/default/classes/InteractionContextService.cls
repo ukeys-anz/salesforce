@@ -76,8 +76,10 @@ global with sharing class InteractionContextService {
 
     interactionToBeCreated = createInteractionInstance(contextRequest);
 
-    createInteractionAndUpsertTwilioDetails(interactionToBeCreated,contextRequest);
-
+    createInteractionAndUpsertTwilioDetails(
+      interactionToBeCreated,
+      contextRequest
+    );
   }
 
   /**
@@ -121,12 +123,15 @@ global with sharing class InteractionContextService {
       );
     }
 
-    if(validateContextRequest.existingAccount == null)
-    {
+    if (validateContextRequest.existingAccount == null) {
       String errorMessage =
-      'Could not find a matching ANZx customer record based on OCV ID: ' +
-      validateContextRequest.ocvId;
-      return generateErrorResponse(validateContextRequest.ocvId, errorMessage, '');
+        'Could not find a matching ANZx customer record based on OCV ID: ' +
+        validateContextRequest.ocvId;
+      return generateErrorResponse(
+        validateContextRequest.ocvId,
+        errorMessage,
+        ''
+      );
     }
 
     return null;
@@ -203,14 +208,15 @@ global with sharing class InteractionContextService {
     return intToInsert;
   }
 
-   /**
+  /**
    * @description Method to insert and upsert the Twilio Details record for the Interaction Created
    * @param interactionToBeCreated Interaction instance for Interaction Creation
    * @param contextRequest Interaction Context Request From Twilio
    */
-  private static void createInteractionAndUpsertTwilioDetails(Interaction interactionToBeCreated,
-  InteractionContextRequest contextRequest )
-  {
+  private static void createInteractionAndUpsertTwilioDetails(
+    Interaction interactionToBeCreated,
+    InteractionContextRequest contextRequest
+  ) {
     try {
       Database.SaveResult interactionCreated = DML_REPOSITORY.doInsert(
         interactionToBeCreated

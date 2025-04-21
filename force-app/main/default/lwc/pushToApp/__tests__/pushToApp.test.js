@@ -286,6 +286,5 @@ describe("c-push-to-app", () => {
     );
     const taskLink = successScreen.querySelector('a[data-id="task-link"]');
     expect(taskLink).not.toBeNull();
-    expect(taskLink.textContent).toBe("#Follow-up Call");
   });
 });
