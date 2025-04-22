@@ -8,19 +8,23 @@
           "expiryDate": "2027-19-09",
           "id": "get_in_touch_complaint",
           "reference": "Complaint Ref {!CaseNumber}",
+          "iconLightURI": "path/to/light/icon",
+          "iconDarkURI": "path/to/dark/icon",
           "steps": [
             {
               "actions": [
                 {
                   "deepLink": "anz.com/.../transfer",
                   "description": "Transfer Funds Out",
-                  "icon": "icon",
+                  "iconLightURI": "path/to/light/icon",
+                  "iconDarkURI": "path/to/dark/icon",
                   "type": "singleAction"
                 },
                 {
                   "deepLink": "anz.com/.../transfer",
                   "description": "Call Us",
-                  "icon": "icon",
+                  "iconLightURI": "path/to/light/icon",
+                  "iconDarkURI": "path/to/dark/icon",
                   "type": "singleAction"
                 }
               ],
@@ -31,7 +35,8 @@
                 {
                   "deepLink": "anz.com/.../message",
                   "description": "Message us",
-                  "icon": "icon",
+                  "iconLightURI": "path/to/light/icon",
+                  "iconDarkURI": "path/to/dark/icon",
                   "type": "singleAction"
                 }
               ],

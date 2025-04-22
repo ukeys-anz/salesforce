@@ -66,6 +66,16 @@ public with sharing class AemDataWrapper {
     @AuraEnabled
     public String reference { get; set; }
     /**
+     * @description The iconLightURI of the push notification item
+     */
+    @AuraEnabled
+    public String iconLightURI { get; set; }
+    /**
+     * @description The iconDarkURI of the push notification item
+     */
+    @AuraEnabled
+    public String iconDarkURI { get; set; }
+    /**
      * @description The list of steps of the push notification item
      */
     @AuraEnabled
@@ -174,6 +184,8 @@ public with sharing class AemDataWrapper {
     destItem.subtitle = sourceItem.subtitle;
     destItem.bodyText = sourceItem.bodyText;
     destItem.reference = sourceItem.reference;
+    destItem.iconLightURI = sourceItem.iconLightURI;
+    destItem.iconDarkURI = sourceItem.iconDarkURI;
     if (sourceItem.steps != null) {
       destItem.steps = convertSteps(sourceItem.steps);
     }

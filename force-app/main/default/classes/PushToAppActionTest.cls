@@ -49,12 +49,8 @@ public with sharing class PushToAppActionTest {
   static void testCreateTaskCloudEventPositive() {
     registerMocks();
     pushToAppRepoMock.mock(
-      'queryCustomerNudgeTaskDetails',
-      new Customer_Task_Configuration__c()
-    );
-    pushToAppRepoMock.mock(
       'queryCustomerTaskDataDetails',
-      new Customer_Task_Data__c()
+      mockQueryCustomerTaskDataDetails()
     );
 
     Test.startTest();
@@ -76,18 +72,14 @@ public with sharing class PushToAppActionTest {
       'ce_type is set correctly.'
     );
     Assert.isTrue(
-      payload.contains('actionTaken'),
-      'Action Taken Node should be present in the payload'
+      payload.contains('title'),
+      'Title Node should be present in the payload'
     );
   }
 
   @isTest
   static void testCreateTaskCloudEventNegative() {
     registerMocks();
-    pushToAppRepoMock.mock(
-      'queryCustomerNudgeTaskDetails',
-      new Customer_Task_Configuration__c()
-    );
     pushToAppRepoMock.mock(
       'queryCustomerTaskDataDetails',
       new Customer_Task_Data__c()
@@ -100,8 +92,8 @@ public with sharing class PushToAppActionTest {
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
 
     Assert.isFalse(
-      payload.contains('actionTaken'),
-      'Action Taken Node should not be present in the payload'
+      payload.contains('title'),
+      'Title Node should not be present in the payload'
     );
   }
 
@@ -138,5 +130,12 @@ public with sharing class PushToAppActionTest {
       new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
     );
     return taskRecord;
+  }
+
+  private static Customer_Task_Data__c mockQueryCustomerTaskDataDetails() {
+    Customer_Task_Data__c testCustomerTaskData = new Customer_Task_Data__c(
+      AEM_Content_Data__c = '{\"bodyText\":\"Testing\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\",\"steps\":[{\"actions\":[{\"deepLink\":\"anz.com/.../transfer\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\"}]}],\"subtitle\":\"Hey Jane\",\"title\":\"Get in touch\"}'
+    );
+    return testCustomerTaskData;
   }
 }

@@ -18,10 +18,6 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
   static void testCustomerNudgeTaskCloudEventModel() {
     registerMocks();
     pushToAppRepoMock.mock(
-      'queryCustomerNudgeTaskDetails',
-      mockQueryCustomerNudgeTaskDetails()
-    );
-    pushToAppRepoMock.mock(
       'queryCustomerTaskDataDetails',
       new Customer_Task_Data__c()
     );
@@ -81,20 +77,9 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
 
     // Validate the data model (CustomerNudgeTaskCloudDataModel)
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) model.ce_data;
-    Assert.areEqual(
-      taskRecord.Pub_Sub_Event_Id__c,
-      dataModel.taskExternalId,
-      'TaskExternalId is set correctly in ce_data.'
-    );
-    Assert.areEqual(
-      taskRecord.Status,
-      dataModel.status,
-      'Status is set correctly in ce_data.'
-    );
-    Assert.areEqual(
-      taskRecord.Subject,
-      dataModel.subject,
-      'Subject is set correctly in ce_data'
+    Assert.isNull(
+      dataModel.producer_command_key,
+      'Producer command key should be null'
     );
   }
 
@@ -109,20 +94,5 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
       LastModifiedDate = System.now()
     );
     return testTask;
-  }
-
-  private static Customer_Task_Configuration__c mockQueryCustomerNudgeTaskDetails() {
-    Customer_Task_Configuration__c testCustomerTaskConfig = new Customer_Task_Configuration__c(
-      AEM_Content_Id__c = 'get_in_touch_complaint',
-      Applicable_Record_Types__c = 'Account Closure',
-      Applicable_User_Role__c = 'Coach',
-      SObject_Type__c = 'Case',
-      Name = 'Get In Touch',
-      Expire_After_Days__c = 12,
-      Id = Lib_FakeIdGenerator.getMockId(
-        Customer_Task_Configuration__c.getSObjectType()
-      )
-    );
-    return testCustomerTaskConfig;
   }
 }

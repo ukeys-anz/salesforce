@@ -1,4 +1,8 @@
 /**
+ * Suppressing PMD property naming convention warnings as some fields include underscore in the naming convention.
+ */
+@SuppressWarnings('PMD.PropertyNamingConventions')
+/**
  * @author Kopal Goswami
  * @since  10/2024
  * @description Wrapper Class for sending Customer Nudge Tasks details (Notification) to Mobile
@@ -17,7 +21,7 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
     this.ce_type =
       System.Label.ANZX_Customer_Nudge_event_ce_type +
       theTask.Status.toLowerCase();
-    this.ce_source = 'com.anzx.salesforce.notification.v1alpha1';
+    this.ce_source = 'com.anzx.salesforce.customertask.v1alpha1';
     this.ce_subject = 'TaskExternalId/' + theTask.Pub_Sub_Event_Id__c;
     this.ce_dataschema = System.Label.ANZX_Customer_Nudge_Event_Proto_Data_Schema;
     this.ce_partitionkey = 'TaskExternalId/' + theTask.Pub_Sub_Event_Id__c;
@@ -34,72 +38,65 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
    */
   public virtual class CustomerNudgeTaskCloudDataModel extends TaskCloudEventModel.TaskCloudEventDataModel {
     /**
-     * @description Holds Task External Id
+     * @description Holds producer command key
      */
-    public String taskExternalId { get; set; }
+    public String producer_command_key { get; set; }
     /**
-     * @description Holds status of the task
+     * @description Holds title of the aemcontendata
      */
-    public String status { get; set; }
+    public String title { get; set; }
     /**
-     * @description Holds subject of the task
+     * @description Holds body of the aemcontentdata
      */
-    public String subject { get; set; }
+    public String body { get; set; }
     /**
-     * @description Holds Description of the task
+     * @description Holds subtitle and bodytext of the aemcontentdata
      */
-    public String description { get; set; }
+    public String action_uri { get; set; }
     /**
-     * @description Holds CallToAction of the task
+     * @description Holds iconDarkURI of the aemcontentdata
      */
-    public String callToAction { get; set; }
+    public String iconDarkURI { get; set; }
     /**
-     * @description Holds ActionTaken of the task
+     * @description Holds iconLightURI of the aemcontentdata
      */
-    public String actionTaken { get; set; }
-    /**
-     * @description Holds ActionTakenDateTime of the task
-     */
-    public Datetime actionTakenDateTime { get; set; }
-    /**
-     * @description Holds Type of the task
-     */
-    public String type { get; set; }
-    /**
-     * @description Holds CreatedDate of the task
-     */
-    public Datetime createdDate { get; set; }
-    /**
-     * @description Holds LastModifiedDate of the task
-     */
-    public Datetime lastModifiedDate { get; set; }
-    /**
-     * @description Holds aemContentData of the task
-     */
-    public String aemContentData { get; set; }
+    public String iconLightURI { get; set; }
 
     /**
      * @description Constructor
      * @param theTask The task record
      */
     public CustomerNudgeTaskCloudDataModel(Task theTask) {
-      this.taskExternalId = theTask.Pub_Sub_Event_Id__c;
-      this.status = theTask.Status;
-      this.subject = PUSH_TO_APP_REPOSITORY.queryCustomerNudgeTaskDetails(
-          theTask.Customer_Task_Configuration__c
-        )
-        .Name;
-      this.description = theTask.Description;
-      this.callToAction = theTask.Call_To_Action__c;
-      this.actionTaken = theTask.Action_Taken__c;
-      this.actionTakenDateTime = theTask.Action_Taken_Date_Time__c;
-      this.type = theTask.Type;
-      this.createdDate = theTask.CreatedDate;
-      this.lastModifiedDate = theTask.LastModifiedDate;
-      this.aemContentData = PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(
+      String deeplinkvalue = '';
+      String aemContentData = PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(
           theTask.Customer_Task_Data__c
         )
         .AEM_Content_Data__c;
+
+      if (String.isBlank(aemContentData)) {
+        return;
+      }
+
+      AemDataWrapper.Items itemValue = (AemDataWrapper.Items) JSON.deserialize(
+        aemContentData,
+        AemDataWrapper.Items.class
+      );
+
+      for (AemDataWrapper.Steps stepValue : itemValue.steps) {
+        for (AemDataWrapper.actions actionValue : stepValue.actions) {
+          deeplinkvalue +=
+            actionValue.deepLink +
+            theTask.Pub_Sub_Event_Id__c +
+            ',';
+        }
+      }
+
+      this.producer_command_key = theTask.Pub_Sub_Event_Id__c;
+      this.title = itemValue.title;
+      this.body = itemValue.subtitle + '\n' + itemValue.bodyText;
+      this.action_uri = deeplinkvalue;
+      this.iconDarkURI = itemValue.iconDarkURI;
+      this.iconLightURI = itemValue.iconLightURI;
     }
   }
 }

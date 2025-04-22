@@ -2879,7 +2879,7 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>Customer Nudge Task event type</shortDescription>
-        <value>com.anzx.salesforce.notification.v1alpha1.notification.customernudge.</value>
+        <value>com.anzx.salesforce.task.v1alpha1.customertask.</value>
     </labels>
     <labels>
         <fullName>Push_Task_To_App_Endpoint</fullName>

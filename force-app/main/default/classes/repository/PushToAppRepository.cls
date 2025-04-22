@@ -162,25 +162,6 @@ public with sharing class PushToAppRepository {
   }
 
   /**
-   * @description Retrieves details of the customer nudge task configuration record
-   * @param recordId The Id of the record
-   * @return details of the customer nudge task configuration record
-   */
-  public Customer_Task_Configuration__c queryCustomerNudgeTaskDetails(
-    Id recordId
-  ) {
-    if (recordId == null) {
-      return null;
-    }
-
-    return [
-      SELECT Id, Name
-      FROM Customer_Task_Configuration__c
-      WHERE Id = :recordId
-    ];
-  }
-
-  /**
    * @description Retrieves details of the customer nudge task data record
    * @param recordId The Id of the record
    * @return details of the customer nudge task data record

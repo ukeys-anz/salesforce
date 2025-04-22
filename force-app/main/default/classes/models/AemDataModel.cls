@@ -32,6 +32,8 @@ public with sharing class AemDataModel extends CalloutModel {
     public String subtitle;
     public String bodyText;
     public String reference;
+    public String iconLightURI;
+    public String iconDarkURI;
     public Steps[] steps;
   }
 
