@@ -19,13 +19,11 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
    */
   public override void onBeforeInsert() {
     //Assign home loan applications queue as owner
-    AnzxLoanApplicationActions.assignHomeLoanAppQueue(records);
     ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
       records,
       new Map<Id, ResidentialLoanApplication>()
     );
     ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
-    AnzxLoanApplicationActions.setSunsetTimestamp(records);
   }
 
   /**
@@ -34,14 +32,6 @@ public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_T
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
-      records,
-      (Map<Id, ResidentialLoanApplication>) oldMap
-    );
-    AnzxLoanApplicationActions.setSunsetTimestamp(
-      records,
-      (Map<Id, ResidentialLoanApplication>) oldMap
-    );
-    CommonResidentialLoanApplicationActions.updateApplicationProgressToBlank(
       records,
       (Map<Id, ResidentialLoanApplication>) oldMap
     );
