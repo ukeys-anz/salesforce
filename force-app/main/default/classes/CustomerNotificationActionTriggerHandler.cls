@@ -18,12 +18,6 @@ public with sharing class CustomerNotificationActionTriggerHandler extends Lib_T
   }
 
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<Customer_Action__c> recordsWhereStatusChanged = ListUtil.filter(
-        records,
-        oldMap
-      )
-      .changed(Customer_Action__c.Status__c)
-      .toList();
-    CustomerNotificationActions.updateActionCounter(recordsWhereStatusChanged);
+    CustomerNotificationActions.updateActionCounter(records);
   }
 }

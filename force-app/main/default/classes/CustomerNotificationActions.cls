@@ -9,16 +9,13 @@ public with sharing class CustomerNotificationActions {
   );
   /**
    * @description Update Action Counter if action performed by the customer
-   * @param recordsWhereStatusChanged List of Cases
+   * @param customerActionedRecords List of Cases
    */
   public static void updateActionCounter(
-    List<Customer_Action__c> recordsWhereStatusChanged
+    List<Customer_Action__c> customerActionedRecords
   ) {
-    List<Customer_Action__c> listOfCustomerActionToUpdate = new List<Customer_Action__c>();
-
-    for (Customer_Action__c eachRecord : recordsWhereStatusChanged) {
+    for (Customer_Action__c eachRecord : customerActionedRecords) {
       eachRecord.Action_Counter__c = eachRecord.Action_Counter__c + 1;
-      listOfCustomerActionToUpdate.add(eachRecord);
     }
   }
 }
