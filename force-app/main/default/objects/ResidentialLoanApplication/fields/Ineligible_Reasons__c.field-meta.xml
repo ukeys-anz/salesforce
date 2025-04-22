@@ -65,6 +65,11 @@
                 <default>false</default>
                 <label>Unsupported jurisdiction</label>
             </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_CUSTOMER_EXITED</fullName>
+                <default>false</default>
+                <label>Customer previously exited</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

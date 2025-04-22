@@ -5,16 +5,6 @@
  * @runTests ResidentialLoanAppActionsTest
  */
 public with sharing class ResidentialLoanApplicationActions {
-  private static final String HOME_LOAN_APP_DEV_NAME = 'Home_Loan_Applications_Queue';
-  @TestVisible
-  private static final List<String> SUNSET_STATUSES = new List<String>{
-    'STATE_UNSPECIFIED',
-    'STATE_INELIGIBLE',
-    'STATE_COMPLETED',
-    'STATE_DECLINED',
-    'STATE_CANCELLED',
-    'STATE_EXPIRED'
-  };
 
   @TestVisible
   private static final String ACCREDITATION_RETAIL = 'Retail';
@@ -31,35 +21,6 @@ public with sharing class ResidentialLoanApplicationActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-
-  /**
-   * @description get Home Loan Applications Queue
-   * @return Group homeLoanAppQueue
-   */
-  public static Group homeLoanAppQueue {
-    get {
-      if (homeLoanAppQueue != null) {
-        return homeLoanAppQueue;
-      }
-      homeLoanAppQueue = QueryQueue.get(HOME_LOAN_APP_DEV_NAME);
-      return homeLoanAppQueue;
-    }
-    private set;
-  }
-
-  /**
-   * @description Assign Home Loan Applications Queue as owner
-   * @param rlaRecords records to assign owner
-   */
-  public static void assignHomeLoanAppQueue(
-    List<ResidentialLoanApplication> rlaRecords
-  ) {
-    for (ResidentialLoanApplication rla : rlaRecords) {
-      if (rla.RecordTypeId == GetHelpConstants.LOAN_APPLICATION_RT_ID) {
-        rla.OwnerId = homeLoanAppQueue.Id;
-      }
-    }
-  }
 
   /**
    * @description populate Assisted Broker for Retail Residential Loan Applications
@@ -81,62 +42,9 @@ public with sharing class ResidentialLoanApplicationActions {
     );
   }
 
-  /**
-   * @description Set the sunset timestamp date time value (usually for insert context)
-   * @param records records to update
-   * @return List<ResidentialLoanApplication> updated records
-   */
-  public static List<ResidentialLoanApplication> setSunsetTimestamp(
-    List<ResidentialLoanApplication> records
-  ) {
-    List<ResidentialLoanApplication> recordsEnteringSunset = ListUtil.filter(
-        records
-      )
-      .equals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
-      .toList();
-    for (ResidentialLoanApplication loanApp : recordsEnteringSunset) {
-      loanApp.SunsetTimestamp__c = System.now();
-    }
-    return records;
-  }
+  
 
-  /**
-   * @description Set the sunset timestamp date time value
-   * @param records records to update
-   * @param oldMap old records map
-   * @return List<ResidentialLoanApplication> updated records
-   */
-  public static List<ResidentialLoanApplication> setSunsetTimestamp(
-    List<ResidentialLoanApplication> records,
-    Map<Id, ResidentialLoanApplication> oldMap
-  ) {
-    // Process the records
-    List<ResidentialLoanApplication> recordsEnteringSunset = ListUtil.filter(
-        records,
-        oldMap
-      )
-      .equals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
-      .oldNotEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
-      .toList();
-
-    List<ResidentialLoanApplication> recordsExitingSunset = ListUtil.filter(
-        records,
-        oldMap
-      )
-      .notEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
-      .oldEquals(ResidentialLoanApplication.Status, SUNSET_STATUSES)
-      .toList();
-
-    // Set sunset timestamp
-    for (ResidentialLoanApplication loanApp : recordsEnteringSunset) {
-      loanApp.SunsetTimestamp__c = System.now();
-    }
-    for (ResidentialLoanApplication loanApp : recordsExitingSunset) {
-      loanApp.SunsetTimestamp__c = null;
-    }
-    return records;
-  }
-
+ 
   /**
    * @description populate Assisted Broker for Retail Residential Loan Applications
    * @param records records to update
