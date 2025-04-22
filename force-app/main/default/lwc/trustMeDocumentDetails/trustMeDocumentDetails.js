@@ -1,5 +1,6 @@
 import { LightningElement, api, track } from "lwc";
 import documentDetails from "@salesforce/apex/TrustMeDocumentDetailsController.getEvaluationDetails";
+import trustMeErrorMessage from "@salesforce/label/c.TrustMeDocumentSecErrorMessage";
 import currentUserId from "@salesforce/user/Id";
 import { handleErrors } from "c/utils";
 
@@ -105,6 +106,7 @@ export default class TrustMeDocumentDetails extends LightningElement {
   userId = currentUserId;
   showSpinner = false;
   showError = false;
+  trustMeDocSecErrorMessage = trustMeErrorMessage;
 
   data;
   evaluationOutcomes;
@@ -149,16 +151,16 @@ export default class TrustMeDocumentDetails extends LightningElement {
           );
         this.primaryDocAndSelfie = this.transformResponse(
           this.data.primaryDocumentSelfieDetails,
-          this.data.documentFieldMappingValues.Primary_Document_Selfie_Details
+          this.data.documentFieldMappingValues?.Primary_Document_Selfie_Details
         );
         this.secondaryDocuments = this.transformResponse(
           this.data.secondaryDocumentDetails,
-          this.data.documentFieldMappingValues.Secondary_Document_Details
+          this.data.documentFieldMappingValues?.Secondary_Document_Details
         );
         this.evProviderOutcomes = this.transformResponseForEVProviderOutcome(
           this.data.evProviderOutcomes,
-          this.data.documentFieldMappingValues.EV_Provider_Outcomes,
-          this.data.documentFieldMappingValues.EV_Provider_Table_Columns
+          this.data.documentFieldMappingValues?.EV_Provider_Outcomes,
+          this.data.documentFieldMappingValues?.EV_Provider_Table_Columns
         );
         this.selfieEvaluationOutcome = this.transformResponse(
           this.data.selfieEvaluationOutcome,
@@ -173,12 +175,12 @@ export default class TrustMeDocumentDetails extends LightningElement {
         );
         this.mdtReqBodyForPrimaryDoc = this.formRequestBodyToFetchDocuments(
           this.data.imageMetadataDetails?.primaryDocumentDetails,
-          this.data.evaluationOutcome.id
+          this.data?.evaluationOutcome?.id
         );
         if (this.data.imageMetadataDetails?.secondaryDocumentDetails != null) {
           this.mdtReqBodyForSecDoc = this.formRequestBodyToFetchDocuments(
             this.data.imageMetadataDetails?.secondaryDocumentDetails,
-            this.data.evaluationOutcome.id
+            this.data?.evaluationOutcome?.id
           );
         }
       })
@@ -240,7 +242,7 @@ export default class TrustMeDocumentDetails extends LightningElement {
     }
     return documentFieldMappingValues.map((item) => ({
       label: item.Label,
-      fieldName: reportIdMap.get(item.API_Node__c).outcome
+      fieldName: reportIdMap.get(item.API_Node__c)?.outcome
     }));
   }
 
@@ -266,7 +268,7 @@ export default class TrustMeDocumentDetails extends LightningElement {
   }
 
   transformResponseForDocDetails(response, documentFieldMappingValues) {
-    if (!response) {
+    if (!response || Object.keys(response).length === 0) {
       return null;
     }
     return Object.entries(response).map(([field, value]) => ({

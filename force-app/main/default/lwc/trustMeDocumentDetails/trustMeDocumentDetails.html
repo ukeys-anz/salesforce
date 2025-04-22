@@ -2,7 +2,7 @@
   @description       : 
   @author            : Anuj Jain
   @group             : 
-  @last modified on  : 04-15-2025
+  @last modified on  : 04-21-2025
 
 -->
 <template>
@@ -29,6 +29,7 @@
           >
             <c-trust-me-document-details-child
               fields={evaluationOutcomes}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
           </lightning-accordion-section>
 
@@ -36,25 +37,35 @@
             name="evProviderOutcomes"
             label="EV Provider Outcomes"
           >
-            <c-trust-me-document-details-child
-              fields={evProviderOutcomes.evOutcomeNode}
-            ></c-trust-me-document-details-child>
-            <template lwc:if={evProviderOutcomes.records}>
-              <div class="slds-p-top_medium">
-                <lightning-card title="EV Providers">
-                  <div
-                    class="slds-border--left slds-border--right slds-border--top slds-table--col-bordered"
-                  >
-                    <lightning-datatable
-                      key-field="id"
-                      data={evProviderOutcomes.records}
-                      columns={evProviderOutcomes.column}
-                      hide-checkbox-column
+            <template lwc:if={evProviderOutcomes}>
+              <c-trust-me-document-details-child
+                fields={evProviderOutcomes.evOutcomeNode}
+                trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
+              ></c-trust-me-document-details-child>
+              <template lwc:if={evProviderOutcomes.records}>
+                <div class="slds-p-top_medium">
+                  <lightning-card title="EV Providers">
+                    <div
+                      class="slds-border--left slds-border--right slds-border--top slds-table--col-bordered"
                     >
-                    </lightning-datatable>
-                  </div>
-                </lightning-card>
-              </div>
+                      <lightning-datatable
+                        key-field="id"
+                        data={evProviderOutcomes.records}
+                        columns={evProviderOutcomes.column}
+                        hide-checkbox-column
+                      >
+                      </lightning-datatable>
+                    </div>
+                  </lightning-card>
+                </div>
+              </template>
+            </template>
+            <template lwc:else>
+              <p
+                class="slds-text-align--center slds-text-heading--small slds-p-around--large"
+              >
+                {trustMeDocSecErrorMessage}
+              </p>
             </template>
           </lightning-accordion-section>
 
@@ -64,6 +75,7 @@
           >
             <c-trust-me-document-details-child
               fields={selfieEvaluationOutcome}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
           </lightning-accordion-section>
 
@@ -73,6 +85,7 @@
           >
             <c-trust-me-document-details-child
               fields={qualityReportSelfieAndPrimaryDocument}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
           </lightning-accordion-section>
 
@@ -82,6 +95,7 @@
           >
             <c-trust-me-document-details-child
               fields={primaryDocAndSelfie}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
             <template lwc:if={mdtReqBodyForPrimaryDoc}>
               <div class="slds-p-top_medium">
@@ -99,6 +113,7 @@
           >
             <c-trust-me-document-details-child
               fields={secondaryDocuments}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
             <template lwc:if={mdtReqBodyForSecDoc}>
               <div class="slds-p-top_medium">
@@ -116,6 +131,7 @@
           >
             <c-trust-me-document-details-child
               fields={qualityReportSecDocuments}
+              trust-me-doc-sec-error-message={trustMeDocSecErrorMessage}
             ></c-trust-me-document-details-child>
           </lightning-accordion-section>
 
@@ -141,7 +157,7 @@
               <p
                 class="slds-text-align--center slds-text-heading--small slds-p-around--large"
               >
-                No data available
+                {trustMeDocSecErrorMessage}
               </p>
             </template>
           </lightning-accordion-section>
@@ -179,7 +195,7 @@
               <p
                 class="slds-text-align--center slds-text-heading--small slds-p-around--large"
               >
-                No data available
+                {trustMeDocSecErrorMessage}
               </p>
             </template>
           </lightning-accordion-section>
