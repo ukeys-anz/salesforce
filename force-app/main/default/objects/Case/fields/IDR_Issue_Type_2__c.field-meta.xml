@@ -141,6 +141,16 @@
                 <default>false</default>
                 <label>Simplification/Decommissioning</label>
             </value>
+            <value>
+                <fullName>23</fullName>
+                <default>false</default>
+                <label>Customer Migration</label>
+            </value>
+            <value>
+                <fullName>24</fullName>
+                <default>false</default>
+                <label>Card Scheme Disputes</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -1,0 +1,316 @@
+{
+    "evaluationOutcome": {
+        "id": "5cd2784f-f492-453f-a58e-ea054c5d07e4",
+        "evaluationOutcomeState": "Review",
+        "createTime": "2025-02-20T21:39:18.859533Z",
+        "lastUpdateTime": "2025-02-20T21:39:18.859533Z",
+        "clientId": "customer-due-diligence",
+        "processDefinitionVersion": 45
+    },
+    "evProviderOutcomes": {
+        "evOutcome": "TestEvOutCome",
+        "providers": [
+            {
+                "displayName": "DVS",
+                "matchResult": "No Match"
+            },
+            {
+                "displayName": "Equifax",
+                "matchResult": "No Match"
+            }
+        ]
+    },
+    "selfieEvaluationOutcome": {
+        "selfieOutcome": "Pass"
+    },
+    "qualityReportSelfieAndPrimaryDocument": [
+        {
+            "reportId": "acceptableDocument",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentPhotoSub",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentPortraitSub",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentScreenRep",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentColorCopy",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentQuality",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentBW",
+            "outcome": "Fail"
+        },
+        {
+            "reportId": "front_documentPaperCopy",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "back_documentScreenRep",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "back_documentColorCopy",
+            "outcome": "Fail"
+        },
+        {
+            "reportId": "back_documentQuality",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "back_documentPaperCopy",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "documentProcessing",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "evCheck",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "selfieFailed",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "faceQuality",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "facePlusCaptureLiveness",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "doc2FaceMatch",
+            "outcome": "Pass"
+        }
+    ],
+    "primaryDocumentSelfieDetails": {
+        "documentType": "Driving Licence",
+        "documentOutcome": "OUTCOME_PASS",
+        "documentIssueCountry": "",
+        "confirmedGivenName": "",
+        "confirmedMiddleName": "",
+        "confirmedSurname": "Miller",
+        "confirmedDateofBirth": "01/08/1988",
+        "confirmedPrimaryIdentifier": "",
+        "confirmedSecondaryIdentifier": "99429222134",
+        "confirmedExpireDate": "01/02/2028",
+        "ocrGivenName": "David",
+        "ocrMiddleName": "",
+        "ocrSurname": "",
+        "ocrDateofBirth": "01/08/1988",
+        "ocrPrimaryIdentifier": "012345678",
+        "ocrSecondaryIdentifier": "1222",
+        "ocrExpireDate": "01/02/2028"
+    },
+    "secondaryDocumentDetails": {
+        "documentType": "Medicare",
+        "documentIssueCountry": "",
+        "confirmedExpireDate": "01/09/2030",
+        "confirmedPrimaryIdentifier": "8936721001",
+        "ocrExpireDate": "01/08/2030"
+    },
+    "addressDetails": [
+        {
+            "addressSource": "QAS",
+            "addressType": "Residencial",
+            "buildingName": "Jasminiam",
+            "lobbyName": "kharadi",
+            "residence": "home",
+            "residenceTypeCode": "123",
+            "residenceNumber": "506",
+            "levelNumber": "5",
+            "streetNumber": "12",
+            "streetName": "JLN",
+            "street": "JLN",
+            "streetType": "LOCAL",
+            "streetSuffix": "",
+            "stationInfo": "Floor 3,Torrey Pines, Embassy Golf Links Business Park",
+            "boxId": "Challaghatta, Bengaluru",
+            "city": "PUNE",
+            "suburb": "",
+            "state": "MAHARASTRA",
+            "postalCode": "400108",
+            "countryCode": "IN",
+            "countryCode3Chars": "IN",
+            "ruralDelivery": "",
+            "deliveryIdentifier": "",
+            "latitude": "12.9725",
+            "longitude": "77.6620"
+        },
+        {
+            "addressSource": "QAS",
+            "addressType": "Mailing",
+            "buildingName": "GREENFIELD",
+            "lobbyName": "GREEN",
+            "residence": "HOME",
+            "residenceTypeCode": "H",
+            "residenceNumber": "999",
+            "levelNumber": "9",
+            "streetNumber": "",
+            "streetName": "JLN",
+            "street": "TEST",
+            "streetType": "",
+            "streetSuffix": "",
+            "stationInfo": "",
+            "boxId": "",
+            "city": "banglore",
+            "suburb": "",
+            "state": "karnataka",
+            "postalCode": "400108",
+            "countryCode": "india",
+            "countryCode3Chars": "IN",
+            "ruralDelivery": "",
+            "deliveryIdentifier": "",
+            "latitude": "12.9197",
+            "longitude": "77.6920"
+        },
+        {
+            "addressSource": "Manual",
+            "addressType": "Previous Residencial",
+            "buildingName": "Shobha",
+            "lobbyName": "wing1",
+            "residence": "HOME",
+            "residenceTypeCode": "H",
+            "residenceNumber": "11/22",
+            "levelNumber": "501",
+            "streetNumber": "",
+            "streetName": "JLN",
+            "street": "Bellandur",
+            "streetType": "",
+            "streetSuffix": "",
+            "stationInfo": "",
+            "boxId": "",
+            "city": "banglore",
+            "suburb": "",
+            "state": "karnataka",
+            "postalCode": "400108",
+            "countryCode": "india",
+            "countryCode3Chars": "IN",
+            "ruralDelivery": "",
+            "deliveryIdentifier": ""
+        }
+    ],
+    "imageMetadataDetails": {
+        "primaryDocumentDetails": [
+            {
+                "fileType": "FILE_TYPE_FRONT_PROCESSED",
+                "documentId": "doc1",
+                "type": "TYPE_DRIVERS_LICENCE",
+                "label": "LABEL_FRONT",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/1234"
+            },
+            {
+                "fileType": "FILE_TYPE_FRONT_UNPROCESSED",
+                "documentId": "doc1",
+                "type": "TYPE_DRIVERS_LICENCE",
+                "label": "LABEL_FRONT",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/5678"
+            },
+            {
+                "fileType": "FILE_TYPE_BACK_UNPROCESSED",
+                "documentId": "doc1",
+                "type": "TYPE_DRIVERS_LICENCE",
+                "label": "LABEL_BACK",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/5678"
+            },
+            {
+                "fileType": "FILE_TYPE_BACK_PROCESSED",
+                "documentId": "doc1",
+                "type": "TYPE_DRIVERS_LICENCE",
+                "label": "LABEL_BACK",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/5678"
+            },
+            {
+                "fileType": "FILE_TYPE_SELFIE",
+                "documentId": "doc1",
+                "type": "TYPE_DRIVERS_LICENCE",
+                "label": "LABEL_SELFIE",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/5678"
+            }
+        ],
+        "secondaryDocumentDetails": [
+            {
+                "fileType": "FILE_TYPE_FRONT_PROCESSED",
+                "documentId": "doc2",
+                "type": "TYPE_MEDICARE",
+                "label": "LABEL_FRONT",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/1234"
+            },
+            {
+                "fileType": "FILE_TYPE_FRONT_UNPROCESSED",
+                "documentId": "doc2",
+                "type": "TYPE_MEDICARE",
+                "label": "LABEL_FRONT",
+                "uri": "https://trustme.anz/evaluation/5a88f9ff-d1ae-438b-9ac3-39103268a474/attachment/1234"
+            }
+        ]
+    },
+    "qualityReportSecondaryDoc": [
+        {
+            "reportId": "acceptableDocument",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentPhotoSub",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentPortraitSub",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentScreenRep",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentColorCopy",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentQuality",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "front_documentBW",
+            "outcome": "Fail"
+        },
+        {
+            "reportId": "front_documentPaperCopy",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "back_documentScreenRep",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "back_documentColorCopy",
+            "outcome": "Fail"
+        },
+        {
+            "reportId": "back_documentQuality",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "back_documentPaperCopy",
+            "outcome": "Pass"
+        },
+        {
+            "reportId": "documentProcessing",
+            "outcome": "Pass"
+        }
+    ]
+}

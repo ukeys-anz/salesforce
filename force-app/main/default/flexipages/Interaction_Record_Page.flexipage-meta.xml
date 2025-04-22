@@ -20,7 +20,7 @@
                             <value>FeedItem.TextPost</value>
                         </valueListItems>
                         <valueListItems>
-                            <value>Interaction.Launch_App</value>
+                            <value>Interaction.Launch_Customer_App</value>
                             <visibilityRule>
                                 <booleanFilter>1 AND 2</booleanFilter>
                                 <criteria>

@@ -89,6 +89,7 @@
                   type="combobox"
                   options={closureResonValues}
                   onfieldchange={handleFieldChange}
+                  validation-error-for-account-closure-reason={row.closureReasonError}
                   is-required="true"
                 >
                 </c-editable-field>
@@ -105,6 +106,7 @@
                   help-text="Account name of the recipient where the money was meant to go."
                   type="input"
                   onfieldchange={handleFieldChange}
+                  validation-error-for-account-name={row.accountNameError}
                   is-required="true"
                 >
                 </c-editable-field>
@@ -124,6 +126,7 @@
                   help-text="Branch code of the recipient's bank where the money was meant to go."
                   type="input"
                   onfieldchange={handleFieldChange}
+                  validation-error-for-account-bsb={row.accountBsbError}
                   is-required="true"
                 >
                 </c-editable-field>
@@ -138,6 +141,7 @@
                   value={row.intendedAccountNumber}
                   type="input"
                   onfieldchange={handleFieldChange}
+                  validation-error-for-account-number={row.accountNumberError}
                   is-required="true"
                 >
                 </c-editable-field>

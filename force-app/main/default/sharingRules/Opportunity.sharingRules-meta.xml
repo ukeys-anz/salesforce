@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <SharingRules xmlns="http://soap.sforce.com/2006/04/metadata">
     <sharingCriteriaRules>
-        <fullName>CCRM_Opportunity_CLO_Sharing_Rule</fullName>
+        <fullName>MLCRM_Opportunities_With_Loan_App_GCP_Integration_User</fullName>
         <accessLevel>Edit</accessLevel>
-        <label>CCRM Opportunity CLO Sharing Rule</label>
+        <description>Used to grant read/write access to Mobile Lending Opportunities to Loan App Integration User</description>
+        <label>MLCRM Opportunities With Loan App GCP Integration User</label>
         <sharedTo>
-            <roleAndSubordinates>Commercial_Lending_Operations</roleAndSubordinates>
+            <group>Loan_App_GCP_Integration_User</group>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Commercial Opportunity</value>
+            <value>Mobile Lending Opportunity</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>

@@ -208,6 +208,37 @@ public with sharing class TextUtils {
   }
 
   /**
+   *  @description This method mask and logs keywords specific data. Criteria is
+   *  - It contains card numbers
+   *  - Or contains keywords like TFN or Tax and has more than 8 digits
+   * @param record Record that contains data to check and mask
+   * @param fields iterable collection of fields to mask
+   * calls maskAndLog(record, field) for each field
+   */
+  public static void maskAndLog(SObject record, Iterable<SObjectField> fields) {
+    for (SObjectField field : fields) {
+      maskAndLog(record, field.toString());
+    }
+  }
+
+  /**
+   * @description This method mask and logs keywords specific data. Criteria is
+   *  - It contains card numbers
+   *  - Or contains keywords like TFN or Tax and has more than 8 digits
+   * @param records List of records that contain data to check and mask
+   * @param fields iterable collection of fields to mask
+   * calls maskAndLog(record, fields) for each record
+   */
+  public static void maskAndLog(
+    List<SObject> records,
+    Iterable<SObjectField> fields
+  ) {
+    for (SObject record : records) {
+      maskAndLog(record, fields);
+    }
+  }
+
+  /**
    * @description maskSObjectData(records, fieldApiName) method is used to mask data of a given text field from a list of records.
    * This method utilizes maskData(input)
    * @param records list of records that need to mask data

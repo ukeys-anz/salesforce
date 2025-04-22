@@ -26,6 +26,7 @@ public with sharing class QueryQueue {
   public static Group pendingKYCQA = get('Pending_KYC_QA');
   public static Group accountClosure = get('Account_Closure_Queue');
   public static Group confirmationOfPayee = get('Confirmation_of_Payee_Queue');
+  public static Group cqLeads = get('C_Q_Leads');
 
   /**
    * @description Returns a queue based on the provided name.

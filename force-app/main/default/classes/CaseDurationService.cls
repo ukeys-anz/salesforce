@@ -34,4 +34,18 @@ public with sharing class CaseDurationService {
     );
     return caseDurationObj.caseIdToDurationMap;
   }
+
+  /**
+   * @description The getCaseDurationTime method returns the DurationTime object, which contains an hours and a minutes value
+   * NOTE: This is an "instance" version of the "static" method getCaseDurationTime, ie. to enable mocking.
+   * @param records The Case records
+   * @param oldMap The Case records
+   * @return `Map<Id, CaseDurationObject.DurationTime>`
+   */
+  public Map<Id, CaseDurationObject.DurationTime> fetchCaseDurationTime(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    return getCaseDurationTime(records, oldMap);
+  }
 }

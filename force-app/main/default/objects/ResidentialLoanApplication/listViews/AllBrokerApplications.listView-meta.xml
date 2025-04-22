@@ -4,6 +4,7 @@
     <columns>Name</columns>
     <columns>Account</columns>
     <columns>Status</columns>
+    <columns>Application_Progress__c</columns>
     <columns>CreatedDate</columns>
     <columns>Assisted_Broker__c</columns>
     <columns>Owner_Name__c</columns>

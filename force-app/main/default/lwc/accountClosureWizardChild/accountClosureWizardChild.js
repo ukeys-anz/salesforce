@@ -204,12 +204,11 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   handleCreateChildCases() {
     this.errorMsg =
-      "Child cases could not be created. Please fill in all required fields.";
-    const { validRows, isFieldIsBlank } = this.validateRows(this._selectedRows);
+      "Child case could not be created. Please complete all required fields and meet the specified criteria.";
+    const { validRows, isFieldIsValid } = this.validateRows(this._selectedRows);
     this._selectedRows = validRows;
-    this.setErrorVisibility(isFieldIsBlank, this.errorMsg);
-
-    if (!isFieldIsBlank) {
+    this.setErrorVisibility(isFieldIsValid, this.errorMsg);
+    if (!isFieldIsValid) {
       this.createChildCases(validRows);
     }
   }
@@ -224,15 +223,25 @@ export default class AccountClosureWizardChild extends LightningElement {
 
   // Method to validate all rows
   validateRows(rows) {
-    let isFieldIsBlank = false;
+    let isFieldIsValid = false;
     const validRows = rows.map((row) => {
       const invalidFields = this.validateRowFields(row);
-      if (Object.values(invalidFields).includes(true)) {
-        isFieldIsBlank = true;
+      // Only check boolean flags (starting with "is")
+      const hasInvalidField = Object.entries(invalidFields).some(
+        ([key, val]) => key.startsWith("is") && val === true
+      );
+
+      if (hasInvalidField) {
+        isFieldIsValid = true;
       }
-      return { ...row, ...invalidFields };
+
+      return {
+        ...row,
+        ...invalidFields
+      };
     });
-    return { validRows, isFieldIsBlank };
+
+    return { validRows, isFieldIsValid };
   }
 
   // Method to check the validity of each row's fields
@@ -241,9 +250,31 @@ export default class AccountClosureWizardChild extends LightningElement {
       case ISSUE_TYPE_ACCOUNT_CLOSURE:
         return {
           isClosureReasonInvalid: !row.closureReason,
-          isAccountNameInvalid: !row.intendedAccountName,
-          isaccountBsbInvalid: !row.intendedAccountBsb,
-          isAccountNumberInvalid: !row.intendedAccountNumber
+          closureReasonError: !row.closureReason
+            ? "This field is required."
+            : null,
+
+          isAccountNameInvalid:
+            !row.intendedAccountName || row.intendedAccountName.length > 255,
+          accountNameError: !row.intendedAccountName
+            ? "This field is required."
+            : row.intendedAccountName.length > 255
+              ? "Forwarding Account Name must be less than 255 characters long"
+              : null,
+
+          isaccountBsbInvalid:
+            !row.intendedAccountBsb ||
+            !/^\d{4,6}$/.test(row.intendedAccountBsb),
+          accountBsbError: !row.intendedAccountBsb
+            ? "This field is required."
+            : "Forwarding Account BSB must be 4-6 numerical characters long",
+
+          isAccountNumberInvalid:
+            !row.intendedAccountNumber ||
+            !/^\d{6,23}$/.test(row.intendedAccountNumber),
+          accountNumberError: !row.intendedAccountNumber
+            ? "This field is required."
+            : "Forwarding Account Number must be between 6-23 numerical characters long"
         };
 
       case ISSUE_TYPE_CONFIRMATION_OF_PAYEE_OPT_OUT:

@@ -20,7 +20,7 @@
             <value>Commercial_Opportunity</value>
         </criteriaItems>
         <criteriaItems>
-            <column>ApplicationForm$Opportunity.My_Region_Flag__c</column>
+            <column>ApplicationForm$Opportunity.My_Team_Segment__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>

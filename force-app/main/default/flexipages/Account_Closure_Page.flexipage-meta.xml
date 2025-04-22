@@ -212,6 +212,10 @@
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>
+                    <name>conditionalFormatRuleset</name>
+                    <value>Substatus_Check</value>
+                </fieldInstanceProperties>
+                <fieldInstanceProperties>
                     <name>uiBehavior</name>
                     <value>required</value>
                 </fieldInstanceProperties>
@@ -237,19 +241,6 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.Sub_Status__c</fieldItem>
                 <identifier>RecordSub_Status_cField</identifier>
-                <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Circumstance__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Bankruptcy</rightValue>
-                    </criteria>
-                    <criteria>
-                        <leftValue>{!Record.Parent.Circumstance__c}</leftValue>
-                        <operator>EQUAL</operator>
-                        <rightValue>Deceased Estate</rightValue>
-                    </criteria>
-                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
