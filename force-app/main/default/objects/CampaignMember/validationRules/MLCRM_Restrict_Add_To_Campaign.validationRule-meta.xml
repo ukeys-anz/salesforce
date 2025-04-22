@@ -8,5 +8,5 @@ $Profile.Name = &quot;ANZ ML Standard User&quot;,
 Contact.RecordType.DeveloperName = &apos;Organisation&apos;,
 NOT(ISBLANK(Contact.Id))
 )</errorConditionFormula>
-    <errorMessage>You don't have sufficient privileges to add organisational contact as campaign member. Please contact system administrator.</errorMessage>
+    <errorMessage>You don&apos;t have sufficient privileges to add organisational contact as campaign member. Please contact system administrator.</errorMessage>
 </ValidationRule>

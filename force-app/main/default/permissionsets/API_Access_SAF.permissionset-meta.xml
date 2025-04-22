@@ -2317,316 +2317,252 @@
         <object>qualtrics__Survey__c</object>
         <viewAllRecords>true</viewAllRecords>
     </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__Badge__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__Debug_Log__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__Trail__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__Trailhead_User_Data__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__Trailmix_Assignment__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__Trailmix__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__User_Badge__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
-    <objectPermissions>
-        <allowCreate>true</allowCreate>
-        <allowDelete>true</allowDelete>
-        <allowEdit>true</allowEdit>
-        <allowRead>true</allowRead>
-        <modifyAllRecords>true</modifyAllRecords>
-        <object>trailheadapp__User_Trailmix__c</object>
-        <viewAllRecords>true</viewAllRecords>
-    </objectPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AssignPermissionSets</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>AssignTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ConnectOrgToEnvironmentHub</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ConvertLeads</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateCustomizeDashboards</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateCustomizeFilters</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateCustomizeReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateDashboardFolders</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateReportFolders</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CreateTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>CustomizeApplication</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>DelegatedTwoFactor</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>DeleteTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditBrandTemplates</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditEvent</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditHtmlTemplates</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditMyDashboards</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditMyReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditPublicDocuments</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditPublicFilters</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditPublicTemplates</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTask</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>EditTopics</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
+        <name>FreezeUsers</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>ImportLeads</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>InstallPackaging</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageCategories</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageCustomPermissions</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageDashbdsInPubFolders</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageInternalUsers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageIpAddresses</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageLoginAccessPolicies</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageNetworks</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManagePasswordPolicies</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageProfilesPermissionsets</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageQuotas</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageReportsInPubFolders</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageRoles</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageSharing</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageTranslation</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ManageUsers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ModifyAllData</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ModifyMetadata</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
+        <name>MonitorLoginHistory</name>
+    </userPermissions>
+    <userPermissions>
+        <enabled>true</enabled>
         <name>OverrideForecasts</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ResetPasswords</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>RunReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>SolutionImport</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>TransferAnyEntity</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>TransferAnyLead</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>UseTeamReassignWizards</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewAllData</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewAllForecasts</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewAllUsers</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewDataLeakageEvents</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewEventLogFiles</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewHealthCheck</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewPlatformEvents</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewPublicDashboards</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewPublicReports</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
+        <enabled>true</enabled>
         <name>ViewRoles</name>
-        <enabled>true</enabled>
     </userPermissions>
     <userPermissions>
-        <name>ViewSetup</name>
         <enabled>true</enabled>
+        <name>ViewSetup</name>
     </userPermissions>
 </PermissionSet>

@@ -44,9 +44,24 @@ export default class SopCreditBureauCheck extends LightningElement {
   _creditBureauModel = (ownerName) => ({
     ownerName,
     liabilitySources: [
-      { subType: "Equifax", isLiabilityCompleted: false, retrievedTime: "" },
-      { subType: "Experian", isLiabilityCompleted: false, retrievedTime: "" },
-      { subType: "Illion", isLiabilityCompleted: false, retrievedTime: "" }
+      {
+        subType: "Equifax",
+        isLiabilityCompleted: false,
+        retrievedTime: "",
+        isLiabilityError: false
+      },
+      {
+        subType: "Experian",
+        isLiabilityCompleted: false,
+        retrievedTime: "",
+        isLiabilityError: false
+      },
+      {
+        subType: "Illion",
+        isLiabilityCompleted: false,
+        retrievedTime: "",
+        isLiabilityError: false
+      }
     ],
     consentNotReceived: !this.creditBureauData.consentReceived
   });
@@ -75,6 +90,10 @@ export default class SopCreditBureauCheck extends LightningElement {
           liabilitySource.retrievedTime = liabilitySource.isLiabilityCompleted
             ? `Credit Check completed on ${setTimestamp(check.retrievedTime)}`
             : "Credit check attempted";
+          if (check.subType === "Illion") {
+            liabilitySource.isLiabilityError =
+              !liabilitySource.isLiabilityCompleted;
+          }
         }
       });
       this.creditBureauCheck = [...ownerBureauMap.values()];

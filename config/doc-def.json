@@ -106,14 +106,6 @@
     "Title_Detail__c",
     "Twilio_Details__c",
     "Traced_Application_Log__b",
-    "trailheadapp__Badge__c",
-    "trailheadapp__Debug_Log__c",
-    "trailheadapp__Trail__c",
-    "trailheadapp__Trailhead_User_Data__c",
-    "trailheadapp__Trailmix__c",
-    "trailheadapp__Trailmix_Assignment__c",
-    "trailheadapp__User_Badge__c",
-    "trailheadapp__User_Trailmix__c",
     "User",
     "User_Territory__c"
   ],
@@ -795,24 +787,6 @@
       "permissionsets": [
         "Password_Never_Expires",
         "Splunk_Integration_Tech_Ops",
-        "Disable_MFA"
-      ],
-      "type": "system"
-    },
-    {
-      "name": "Trailblazer",
-      "profile": "ANZx Trailblazer User",
-      "permissionsetgroups": ["MyTrailhead_Learner"],
-      "permissionsets": [],
-      "type": "user"
-    },
-    {
-      "name": "TrailTracker Integration User",
-      "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "API_Only",
-        "trailheadapp__Th_Badge_Admin",
         "Disable_MFA"
       ],
       "type": "system"

@@ -246,4 +246,25 @@ public with sharing class FinancialAccountRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description get FinServ__FinancialAccount__c records with their primary owner
+   * @param recordIds ids of the financial accounts to be retrieved
+   * @return Map<Id, FinServ__FinancialAccount__c>  map of ids vs FinServ__FinancialAccount__c records
+   */
+  public Map<Id, FinServ__FinancialAccount__c> getFinancialAccountsWithPrimaryOwner(
+    Set<Id> recordIds
+  ) {
+    if (recordIds.isEmpty()) {
+      return new Map<Id, FinServ__FinancialAccount__c>();
+    }
+    return new Map<Id, FinServ__FinancialAccount__c>(
+      [
+        SELECT Id, Finserv__PrimaryOwner__c
+        FROM FinServ__FinancialAccount__c
+        WHERE Id IN :recordIds
+        WITH USER_MODE
+      ]
+    );
+  }
 }

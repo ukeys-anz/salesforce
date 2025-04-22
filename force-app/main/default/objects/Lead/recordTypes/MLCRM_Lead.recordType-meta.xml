@@ -212,10 +212,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Home Loan - Refinance %2B Purchase</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Other Loans</fullName>
             <default>false</default>
         </values>

@@ -123,6 +123,8 @@ public with sharing class IDRCaseAssignmentRules {
   @SuppressWarnings('PMD.NcssMethodCount')
   @TestVisible
   private static Id getOwnerIdForEscalatedCases(Case rec, Case oldCase) {
+    Set<String> originCeoBasket = new Set<String>{ '9', '10', '22', '23' };
+
     if (rec.Status != IDRConstants.ESCALATED_STATUS) {
       return rec.OwnerId;
     }
@@ -156,8 +158,8 @@ public with sharing class IDRCaseAssignmentRules {
 
     //rules to run only on escalation
 
-    //CEO or Board
-    if (rec.Origin == '9' || rec.Origin == '10') {
+    //CEO or Board or Other EDR Schemes or Tribunal
+    if (originCeoBasket.contains(rec.Origin)) {
       return QueryQueue.get('IDR_CEO').Id;
     }
 
@@ -209,6 +211,11 @@ public with sharing class IDRCaseAssignmentRules {
       return QueryQueue.get('CCR_Complaints').Id;
     }
 
+    //IDR Migration
+    if (rec.Type == '23') {
+      return QueryQueue.get('IDR_Migration').Id;
+    }
+
     // IDR ANZ Plus Rule #5 needs to be applied before Early Resolution Rule #7
     if (
       String.isNotBlank(productWorkbasketName) &&
@@ -216,13 +223,26 @@ public with sharing class IDRCaseAssignmentRules {
     ) {
       return QueryQueue.get('IDR_ANZ_Plus').Id;
     }
-    // Fraud & Scams
+    // Fraud & Scams when Sub-Issue Type is 'Blocks placed on customer's account/profile’ #8
+    if (
+      (IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type) &&
+      rec.IDR_Subsequent_Issue__c == '109') ||
+      (rec.Type == '24' &&
+      rec.IDR_Subsequent_Issue__c != '128')
+    ) {
+      return QueryQueue.get('IDR_Authorised_Transactions').Id; // IDR Authorised Transactions
+    }
+
+    // Card Scheme Disputes #9
+    if (rec.Type == '24' && rec.IDR_Subsequent_Issue__c == '128') {
+      return QueryQueue.get('IDR_Unauthorised_Transactions').Id; // IDR Unauthorised Transactions
+    }
+
+    // Fraud & Scams when Sub-Issue Type is NOT 'Blocks placed on customer's account/profile’ #10
     if (IDRConstants.FRAUD_SCAM_ISSUE_TYPE_COLLECTIONS.contains(rec.Type)) {
-      if (rec.IDR_Subsequent_Issue__c == '109') {
-        return QueryQueue.get('IDR_Spare').Id; // IDR Disputes
-      }
       return QueryQueue.get('IDR_Scams').Id; // IDR Scams
     }
+
     //Deceased Estates
     if (
       (rec.Type == '16' && rec.IDR_Subsequent_Issue__c == '80') ||

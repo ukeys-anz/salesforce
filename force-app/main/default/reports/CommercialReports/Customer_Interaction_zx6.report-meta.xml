@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Report xmlns="http://soap.sforce.com/2006/04/metadata">
-    <name>Customer Interaction</name>
+    <name>Customer Interactions</name>
     <columns>
         <field>Interaction$Name</field>
     </columns>
-    <description>Customer Interaction for Bank Manager</description>
+    <description>Customer Interactions</description>
     <format>Summary</format>
     <groupingsDown>
         <dateGranularity>Day</dateGranularity>

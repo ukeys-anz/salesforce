@@ -60,37 +60,39 @@
                       class="slds-p-top_medium"
                       key={liabilitySource.id}
                     >
-                      <lightning-layout multiple-rows>
-                        <lightning-layout-item
-                          size="10"
-                          class="labelAndValueStyle"
-                        >
-                          <lightning-formatted-text
-                            value={liabilitySource.subType}
+                      <template if:false={liabilitySource.isLiabilityError}>
+                        <lightning-layout multiple-rows>
+                          <lightning-layout-item
+                            size="10"
+                            class="labelAndValueStyle"
                           >
-                          </lightning-formatted-text>
-                        </lightning-layout-item>
-                        <lightning-layout-item
-                          size="2"
-                          class="slds-text-align_right"
-                        >
-                          <template
-                            lwc:if={liabilitySource.isLiabilityCompleted}
+                            <lightning-formatted-text
+                              value={liabilitySource.subType}
+                            >
+                            </lightning-formatted-text>
+                          </lightning-layout-item>
+                          <lightning-layout-item
+                            size="2"
+                            class="slds-text-align_right"
                           >
-                            <img src={tickSign} class="image" />
-                          </template>
-                          <template lwc:else>
-                            <img src={crossSign} class="image" />
-                          </template>
-                        </lightning-layout-item>
-                        <lightning-layout-item size="10">
-                          <lightning-formatted-text
-                            class="subHeading"
-                            value={liabilitySource.retrievedTime}
-                          >
-                          </lightning-formatted-text>
-                        </lightning-layout-item>
-                      </lightning-layout>
+                            <template
+                              lwc:if={liabilitySource.isLiabilityCompleted}
+                            >
+                              <img src={tickSign} class="image" />
+                            </template>
+                            <template lwc:else>
+                              <img src={crossSign} class="image" />
+                            </template>
+                          </lightning-layout-item>
+                          <lightning-layout-item size="10">
+                            <lightning-formatted-text
+                              class="subHeading"
+                              value={liabilitySource.retrievedTime}
+                            >
+                            </lightning-formatted-text>
+                          </lightning-layout-item>
+                        </lightning-layout>
+                      </template>
                     </lightning-layout-item>
                   </template>
                 </lightning-layout>

@@ -3,11 +3,11 @@
     <fullName>IDR_Channel_Received__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
-    <securityClassification>Confidential</securityClassification>
     <description>What channel did this originate from (In person, Phone, Secure Mail, Social Media, Letter, Email, Internal Referred, anz.com)</description>
     <externalId>false</externalId>
     <label>Channel Received</label>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>
@@ -78,6 +78,16 @@
                 <fullName>ANZ Plus App</fullName>
                 <default>false</default>
                 <label>ANZ Plus App</label>
+            </value>
+            <value>
+                <fullName>22</fullName>
+                <default>false</default>
+                <label>Other EDR Schemes or Tribunal (IDR Referral)</label>
+            </value>
+            <value>
+                <fullName>23</fullName>
+                <default>false</default>
+                <label>Other EDR Schemes or Tribunal (Post IDR)</label>
             </value>
         </valueSetDefinition>
     </valueSet>
