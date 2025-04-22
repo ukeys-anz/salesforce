@@ -113,7 +113,6 @@ changeMetadata "force-app/main/default/profiles/ANZx Standard User.profile-meta.
 changeMetadata force-app/main/default/permissionsets/Manage_Users.permissionset-meta.xml manageUsers
 changeMetadata force-app/main/default/permissionsets/Key_Manager.permissionset-meta.xml keyManager
 changeMetadata force-app/main/default/wave/NLP_Reporting.wapp-meta.xml NLPReporting
-changeMetadata force-app/main/default/permissionsets/myTrailhead_Content_Access.permissionset-meta.xml myTrailheadContentAccess
 changeMetadata "force-app/main/default/objects/Case/businessProcesses/Bug Enquiry.businessProcess-meta.xml" bugEnquiry
 changeMetadata "force-app/main/default/wave/Cases.wdash" DashboardSourceLink
 changeMetadata force-app/main/default/wave/CMOS_Dashboard.wdash DashboardSourceLink

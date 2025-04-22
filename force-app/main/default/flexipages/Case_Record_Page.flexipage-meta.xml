@@ -858,6 +858,94 @@
                 </visibilityRule>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>action</name>
+                    <value>Alert</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>comment</name>
+                    <value>Agent has acknowledged and reviewed potential scam case closure warning.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>condition</name>
+                    <value>[   { &quot;field&quot;: &quot;Case.Type&quot;, &quot;operator&quot;: &quot;equals&quot;, &quot;value&quot;: [&quot;Potential Scam&quot;] },   { &quot;field&quot;: &quot;Case.Status&quot;, &quot;operator&quot;: &quot;changedTo&quot;, &quot;value&quot;: [&quot;Resolved&quot;] } ]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>message</name>
+                    <value>You have elected to close a scam case as being only a potential scam case under issue type. If this is not correct please ensure this value is updated immediately.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>theme</name>
+                    <value>default</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Case Resolved</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastMessages</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>variant</name>
+                    <value>header</value>
+                </componentInstanceProperties>
+                <componentName>caseRecommendationModal</componentName>
+                <identifier>c_caseRecommendationModal2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Scam</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>action</name>
+                    <value>Prompt</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>comment</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>condition</name>
+                    <value>[   {     &quot;field&quot;: &quot;Case.Status&quot;,     &quot;operator&quot;: &quot;changedTo&quot;,     &quot;value&quot;: [&quot;Rectify Defect&quot;, &quot;Pending Documents&quot;, &quot;Refer to Fraud&quot;]   },   {     &quot;field&quot;: &quot;Case.Status&quot;,     &quot;operator&quot;: &quot;oldEquals&quot;,     &quot;value&quot;: [&quot;Open&quot;, &quot;Under Review&quot;, &quot;Closed&quot;]   } ]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>message</name>
+                    <value>Please provide the commentary notes for updating the status.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>theme</name>
+                    <value>default</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Add Case Notes</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastMessages</name>
+                    <value>{   &quot;success&quot;: &quot;Case Notes added successfully.&quot;,   &quot;error&quot;: &quot;Error occurred while adding Case Notes.&quot;,   &quot;warning&quot;: &quot;By proceeding, you acknowledge that you are not submitting a commentary note. You may also add this to the chatterbox below.&quot; }</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>variant</name>
+                    <value>header</value>
+                </componentInstanceProperties>
+                <componentName>caseRecommendationModal</componentName>
+                <identifier>c_caseRecommendationModal</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>KYC_QA</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>sidebar</name>
         <type>Region</type>

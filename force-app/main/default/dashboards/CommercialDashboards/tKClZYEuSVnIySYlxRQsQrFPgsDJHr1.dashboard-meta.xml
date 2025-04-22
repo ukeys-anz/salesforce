@@ -152,7 +152,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>A-Z Reviews completed this week</metricLabel>
-                <report>CommercialReports/AZ_Reviews_Completed_rCa</report>
+                <report>CommercialReports/AZ_Review_Completed_5iw</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>6</rowIndex>
@@ -177,7 +177,7 @@
                 <indicatorLowColor>#C23934</indicatorLowColor>
                 <indicatorMiddleColor>#CA8501</indicatorMiddleColor>
                 <metricLabel>Interactions completed this week</metricLabel>
-                <report>CommercialReports/Customer_Interaction_lYt</report>
+                <report>CommercialReports/Customer_Interaction_zx6</report>
                 <showRange>false</showRange>
             </dashboardComponent>
             <rowIndex>6</rowIndex>

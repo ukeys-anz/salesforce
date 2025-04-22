@@ -210,6 +210,14 @@
           "accountRelationshipType": "SOL"
         }
       ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_NO_PROPERTY_FOUND_FOR_PPOR",
+      "details": [
+        {
+          "ocvId": "123456789"
+        }
+      ]
     }
   ]
 }

@@ -18,7 +18,7 @@ public class OpportunityActionsRepository {
       SELECT PersoncontactId
       FROM Account
       WHERE Id = :accId
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 

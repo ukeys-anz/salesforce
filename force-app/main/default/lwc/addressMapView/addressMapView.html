@@ -1,0 +1,34 @@
+<!--
+  @description       : 
+  @author            : Anuj Jain
+  @group             : 
+  @last modified on  : 04-14-2025
+-->
+<template>
+  <template lwc:if={addressDetails}>
+    <div class="slds-form-element">
+      <label class="slds-form-element__label">{addressDetails.type}</label>
+      <div class="slds-form-element__control">
+        <span
+          class="slds-form-element__static slds-text-color_default slds-border_bottom"
+        >
+          {addressDetails.addressValue}
+        </span>
+      </div>
+    </div>
+    <br /><br />
+    <template lwc:if={showMap}>
+      <div>
+        <lightning-map map-markers={mapMarkers} zoom-level={zoomLevel}>
+        </lightning-map>
+      </div>
+    </template>
+  </template>
+  <template lwc:else>
+    <p
+      class="slds-text-align--center slds-text-heading--small slds-p-around--large"
+    >
+      No Data available
+    </p>
+  </template>
+</template>

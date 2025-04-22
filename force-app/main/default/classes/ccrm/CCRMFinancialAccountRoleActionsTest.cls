@@ -18,7 +18,7 @@ private class CCRMFinancialAccountRoleActionsTest {
 
   @TestSetup
   static void makeData() {
-    User integrationUser = CCRMTestDataFactory.getCCRMIntegrationUser();
+    CCRMTestDataFactory.getCCRMIntegrationUser();
     System.runAs(new User(Id = UserInfo.getUserId())) {
       CCRMTestDataFactory.CreatePersonAccount();
       CCRMTestDataFactory.createBusinessAccount();
@@ -45,10 +45,7 @@ private class CCRMFinancialAccountRoleActionsTest {
       Id = faId,
       Account_Key__c = 'accountkey123'
     );
-    Account acc = new Account(
-        Id = accId,
-      External_Id__c = 'externalid123'
-    );
+    Account acc = new Account(Id = accId, External_Id__c = 'externalid123');
     List<FinServ__FinancialAccountRole__c> farList = new List<FinServ__FinancialAccountRole__c>{
       new FinServ__FinancialAccountRole__c(
         Id = farId,
@@ -103,7 +100,6 @@ private class CCRMFinancialAccountRoleActionsTest {
       'More than one Active Financial Account Roles'
     );
   }
-
 
   @IsTest
   static void testMapRoleTypeToRole() {
@@ -211,59 +207,66 @@ private class CCRMFinancialAccountRoleActionsTest {
   }
 
   @IsTest
-  static void testUpdatePrimaryOwner() {
-    Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
-    Account normalFaOwner = [
-      SELECT Id, Name
-      FROM Account
-      WHERE Name = 'Test Pty Ltd'
-    ];
-
-    //GIVEN a Financial Account initially created without Primary Owner
-    FinServ__FinancialAccount__c fa = new FinServ__FinancialAccount__c();
-    insert fa;
-
-    //WHEN a new FAR with role Primary Owner is created for the above FA
-    FinServ__FinancialAccountRole__c newFar = new FinServ__FinancialAccountRole__c(
-      RecordTypeId = CCRMConstants.FAR_CONTACT_RT_ID,
-      FinServ__FinancialAccount__c = fa.Id,
-      FinServ__RelatedAccount__c = normalFaOwner.Id,
-      // FinServ__Role__c = 'Primary Owner',
-      Role_Type__c = 'SOL',
-      External_Id__c = faker.randomString(10)
+  static void testGetFinancialAccountsToUpdate() {
+    Id accountId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    FinServ__FinancialAccount__c financialAccount = new FinServ__FinancialAccount__c();
+    financialAccount.Id = Lib_FakeIdGenerator.getMockId(
+      FinServ__FinancialAccount__c.SObjectType
     );
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMIntegrationUser()) {
-      insert newFar;
-    }
-    Test.stopTest();
+    financialAccount.FinServ__PrimaryOwner__c = accountId;
 
-    //THEN the FA primary owner will be updated to the new Account specified in the new FAR
-    fa = [
-      SELECT Finserv__PrimaryOwner__r.Name
-      FROM FinServ__FinancialAccount__c
-      WHERE Id = :fa.Id
-    ];
-    Assert.areEqual(
-      normalFaOwner.Name,
-      fa.Finserv__PrimaryOwner__r.Name,
-      'FA primary owner should be updated to the new Account'
+    FinServ__FinancialAccountRole__c testFinAccountRole = new FinServ__FinancialAccountRole__c();
+    testFinAccountRole.FinServ__FinancialAccount__c = financialAccount.Id;
+
+    //Tests when there is no Financial Account exists for the Financial Account Role record
+    Map<Id, FinServ__FinancialAccount__c> financialAccountsMap = new Map<Id, FinServ__FinancialAccount__c>();
+    List<FinServ__FinancialAccount__c> finAccountsToUpdate = CCRMFinancialAccountRoleActions.getFinancialAccountsToUpdate(
+      new List<FinServ__FinancialAccountRole__c>{ testFinAccountRole },
+      financialAccountsMap
     );
-    newFar = [
-      SELECT FinServ__Role__c
-      FROM FinServ__FinancialAccountRole__c
-      WHERE Id = :newFar.Id
-    ];
     Assert.areEqual(
-      'Primary Owner',
-      newFar.FinServ__Role__c,
-      'FAR Role should be updated to Primary Owner'
+      0,
+      finAccountsToUpdate.size(),
+      'Financial Account should not be updated as there is no Financial Account exists for FAR record'
+    );
+
+    //Tests when FAR's related account and FinAccount's Primary Owner are same
+    financialAccountsMap = new Map<Id, FinServ__FinancialAccount__c>{
+      financialAccount.Id => financialAccount
+    };
+    testFinAccountRole.FinServ__RelatedAccount__c = accountId;
+    finAccountsToUpdate = CCRMFinancialAccountRoleActions.getFinancialAccountsToUpdate(
+      new List<FinServ__FinancialAccountRole__c>{ testFinAccountRole },
+      financialAccountsMap
+    );
+    Assert.areEqual(
+      0,
+      finAccountsToUpdate.size(),
+      'Financial Account should not be updated as FAR\'s Related Account already matches the Financial Account\'s primary owner'
+    );
+
+    //Tests when FAR's related account and FinAccount's Primary Owner are different
+    testFinAccountRole.FinServ__RelatedAccount__c = Lib_FakeIdGenerator.getMockId(
+      Account.SObjectType
+    );
+    finAccountsToUpdate = CCRMFinancialAccountRoleActions.getFinancialAccountsToUpdate(
+      new List<FinServ__FinancialAccountRole__c>{ testFinAccountRole },
+      financialAccountsMap
+    );
+    Assert.areEqual(
+      1,
+      finAccountsToUpdate.size(),
+      'FAR record should should be updated'
+    );
+
+    //Below LOC tests an orchestration function
+    CCRMFinancialAccountRoleActions.updateFinancialAccountOwner(
+      new List<FinServ__FinancialAccountRole__c>{ testFinAccountRole }
     );
   }
 
   @IsTest
   static void testDeleteInactiveRecords() {
-    Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
     Account normalFaOwner = [
       SELECT Id, Name
       FROM Account

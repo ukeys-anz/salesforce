@@ -32,4 +32,15 @@ public with sharing class QueryProfile {
   public static Profile get(String profileName) {
     return profiles.get(profileName);
   }
+
+  /**
+   * @description Get Profiles by Profile Names
+   * @param names names of the Profile
+   * @return List<Profile>
+   */
+  public static List<Profile> get(Iterable<String> names) {
+    return ListUtil.filter(profiles.values())
+      .equals(Profile.Name, names)
+      .toList();
+  }
 }
