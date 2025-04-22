@@ -129,7 +129,6 @@
     "NumberOfEmployees",
     "Occupation__c",
     "OperatingHoursId",
-    "Other_Email__c",
     "Ownership",
     "ParentId",
     "PersonContactId",
