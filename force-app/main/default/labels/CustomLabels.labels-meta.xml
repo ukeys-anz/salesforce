@@ -504,7 +504,7 @@
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>MS_Maintain_Party_Organisation</shortDescription>
-        <value>callout:SF_MS_Party/dcrm/customers/v1/customers/organisations</value>
+        <value>callout:SF_MS_CH2/dcrm/customers/v1/customers/organisations</value>
     </labels>
     <labels>
         <fullName>MS_Fraud_Lock_Card</fullName>
