@@ -200,7 +200,8 @@ public with sharing class IDRCaseAccessActions {
   }
   /**
    * @description To get all the cases where owner is changed && old value of status is not equal to 'open' nor 'Under Investigation' &&
-   * current logged in user is having profile as ANZx Standard profile user && role is not equal to 'Banker' or 'Banker Line Manager'.
+   * current logged in user is having profile as ANZx Standard profile user && role is not equal to 'Banker' or 'Banker Line Manager'or 
+   * current logged in user should not have custom permission name as 'Hypercare Migration Permissions').
    * @param newCases List of new cases.
    * @param oldMap Map of old cases.
    * @return `List<Case>` return list of cases which full fill the criteria.
@@ -217,7 +218,10 @@ public with sharing class IDRCaseAccessActions {
       }
     );
 
-    if (isCurrentUserIsBankerOrBankLineManager) {
+    if (
+      isCurrentUserIsBankerOrBankLineManager ||
+      USER_INFO.checkCustomPermission('ANZx_HyperCare_User')
+    ) {
       return new List<Case>();
     }
 
