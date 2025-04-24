@@ -1272,7 +1272,8 @@
         "Enforce_mTLS",
         "Disable_MFA",
         "Case_Read_Write_TrustMe_MV",
-        "Case_Read_Write_TrustMe_QA"
+        "Case_Read_Write_TrustMe_QA",
+        "DAON_File_Integration"
       ],
       "type": "system"
     }
