@@ -7,7 +7,7 @@
     <lightning-button
       data-id="push-task"
       variant="brand-outline"
-      label="Push Task/Action"
+      label="Send Task to App"
       title="Push_Task_Action"
       onclick={handlePushTaskClick}
       icon-name="utility:button_choice"
@@ -25,7 +25,7 @@
       ></c-error>
     </template>
     <div lwc:if={showPushTaskScreen} class="slds-p-around_small">
-      <h1 class="slds-text-heading_large custom-heading">Push a Task</h1>
+      <h1 class="slds-text-heading_large custom-heading">Send a Task</h1>
       <div
         class="slds-text-body_regular slds-var-m-bottom_small slds-m-top_small"
       >
@@ -45,7 +45,7 @@
       <lightning-combobox
         class="slds-p-top_small"
         data-id="select-push-template"
-        label="Select Push Template"
+        label="Select Task Template"
         placeholder="Select option"
         options={templateOptions}
         onchange={handleTemplateSelect}
@@ -141,8 +141,14 @@
       title="success"
     ></lightning-icon>
     <p
+      class="slds-text-body_regular slds-m-top_medium slds-align_absolute-center"
+    >
+      Your task has been sent to the customer.
+    </p>
+
+    <p
+      class="slds-text-body_regular slds-m-top_medium slds-align_absolute-center"
       data-id="success-msg"
-      class="slds-text-body_regular slds-m-top_small slds-align_absolute-center"
     >
       A Task record has been created &nbsp;<a
         data-id="task-link"
