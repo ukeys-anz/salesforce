@@ -2895,4 +2895,11 @@ We&apos;ll send you an email with more information and our contact details. Feel
         <shortDescription>Push Task To App Endpoint Foramt</shortDescription>
         <value>.model.json</value>
     </labels>
+    <labels>
+        <fullName>Push_Task_To_App_Deeplink</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>Push Task To App Deeplink</shortDescription>
+        <value>deeplink</value>
+    </labels>
 </CustomLabels>
