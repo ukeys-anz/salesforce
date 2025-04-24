@@ -62,31 +62,31 @@
         <closed>false</closed>
     </standardValue>
     <standardValue>
-        <fullName>STATUS_SENT</fullName>
+        <fullName>ACTIVITY_STATE_SENT</fullName>
         <default>false</default>
         <label>Sent</label>
         <closed>false</closed>
     </standardValue>
     <standardValue>
-        <fullName>STATUS_READ_BY_CUSTOMER</fullName>
+        <fullName>ACTIVITY_STATE_READ</fullName>
         <default>false</default>
         <label>Read By Customer</label>
         <closed>false</closed>
     </standardValue>
     <standardValue>
-        <fullName>STATUS_CUSTOMER_ARCHIVED</fullName>
+        <fullName>ACTIVITY_STATE_CUSTOMER_ARCHIVED</fullName>
         <default>false</default>
         <label>Customer Archived</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>
-        <fullName>STATUS_COACH_ARCHIVED</fullName>
+        <fullName>ACTIVITY_STATE_COACH_ARCHIVED</fullName>
         <default>false</default>
         <label>Coach Archived</label>
         <closed>true</closed>
     </standardValue>
     <standardValue>
-        <fullName>STATUS_AUTO_ARCHIVED</fullName>
+        <fullName>ACTIVITY_STATE_AUTO_ARCHIVED</fullName>
         <default>false</default>
         <label>Auto Archived</label>
         <closed>true</closed>
