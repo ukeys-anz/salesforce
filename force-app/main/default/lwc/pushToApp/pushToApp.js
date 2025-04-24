@@ -85,7 +85,7 @@ export default class PushToApp extends LightningElement {
         }
         this._showAdditionalFields = true;
         this.isSendNowDisabled = false;
-        this.aemContentData = JSON.stringify(pushToAppData);
+        this.aemContentData = pushToAppData;
         this.notificationConfigTitle = pushToAppData.title;
         this.notificationPreview = pushToAppData.bodyText;
         this.expiryDate = pushToAppData.expiryDate;
@@ -113,8 +113,12 @@ export default class PushToApp extends LightningElement {
 
   async handleSendNow() {
     this.isLoading = true;
+    if (this._hasError) {
+      this._hasError = false;
+    }
     const notifDataWrapperValue = {
-      aemContentData: this.aemContentData
+      aemContentData: JSON.stringify(this.aemContentData),
+      aemContentObject: this.aemContentData
     };
     const taskResponseWrapperValue = {
       subject: this.notificationConfigTitle,
@@ -126,8 +130,8 @@ export default class PushToApp extends LightningElement {
     };
     try {
       let taskData = await createTaskAndNotificationData({
-        pushToAppTaskData: JSON.stringify(taskResponseWrapperValue),
-        notificationData: JSON.stringify(notifDataWrapperValue)
+        pushToAppTaskData: taskResponseWrapperValue,
+        notificationData: notifDataWrapperValue
       });
       this.taskRecordId = taskData.Id;
       this.taskNumber = taskData.TaskNumber__c;

@@ -56,8 +56,8 @@ public with sharing class PushToAppController {
    */
   @AuraEnabled
   public static Task createTaskAndNotificationData(
-    String pushToAppTaskData,
-    String notificationData
+    PushToAppTaskWrapper pushToAppTaskData,
+    CustomerTaskDataWrapper notificationData
   ) {
     try {
       Id notificationDataRecId = createNotificationData(notificationData);
@@ -107,14 +107,11 @@ public with sharing class PushToAppController {
    * @return Notification Data Record Id created
    */
   @TestVisible
-  private static Id createNotificationData(String notificationData) {
-    PushToAppWrapper.NotificationDataWrapper notifDataRespWrapper = (PushToAppWrapper.NotificationDataWrapper) JSON.deserialize(
-      notificationData,
-      PushToAppWrapper.NotificationDataWrapper.class
-    );
-
+  private static Id createNotificationData(
+    CustomerTaskDataWrapper notificationData
+  ) {
     Customer_Task_Data__c pushToAppNotifData = PushToAppUtility.createNotificationData(
-      notifDataRespWrapper
+      notificationData.aemContentData
     );
 
     Database.SaveResult notifDataResult = DML_REPOSITORY.doInsert(
@@ -122,7 +119,7 @@ public with sharing class PushToAppController {
       new DmlConfig().systemMode()
     );
     List<Customer_Action__c> listOfCustomerActions = PushToAppUtility.createCustomerActions(
-      pushToAppNotifData,
+      notificationData.aemContentObject,
       notifDataResult.getId()
     );
 
@@ -141,16 +138,11 @@ public with sharing class PushToAppController {
    */
   @TestVisible
   private static Id createPushToAppTask(
-    String pushToAppTaskData,
+    PushToAppTaskWrapper pushToAppTaskData,
     Id notificationDataRecId
   ) {
-    PushToAppWrapper.PushToAppTaskWrapper taskRespWrapper = (PushToAppWrapper.PushToAppTaskWrapper) JSON.deserialize(
-      pushToAppTaskData,
-      PushToAppWrapper.PushToAppTaskWrapper.class
-    );
-
     Task pushToAppTask = PushToAppUtility.createPushToAppTask(
-      taskRespWrapper,
+      pushToAppTaskData,
       notificationDataRecId
     );
 

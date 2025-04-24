@@ -16,30 +16,22 @@ public with sharing class PushToAppUtility {
    * @param notifData Notification Data Wrapper instance having values from UI
    * @return Customer_Task_Data__c instance to be created
    */
-  public static Customer_Task_Data__c createNotificationData(
-    PushToAppWrapper.NotificationDataWrapper notifData
-  ) {
-    return new Customer_Task_Data__c(
-      AEM_Content_Data__c = notifData.aemContentData
-    );
+  public static Customer_Task_Data__c createNotificationData(String notifData) {
+    return new Customer_Task_Data__c(AEM_Content_Data__c = notifData);
   }
 
   /**
    * @description This method is used to create Notification Data Instance
-   * @param pushToAppNotifData Notification Data Wrapper instance having values from UI
+   * @param customerTaskData Notification Data Wrapper instance having values from UI
    * @param recordId Customer_Task_Data__c record Id
    * @return List<Customer_Action__c>
    */
   public static List<Customer_Action__c> createCustomerActions(
-    Customer_Task_Data__c pushToAppNotifData,
+    CustomerActionWrapper customerTaskData,
     Id recordId
   ) {
-    CustomerActionWrapper customerActionWrapper = (CustomerActionWrapper) JSON.deserialize(
-      pushToAppNotifData.AEM_Content_Data__c,
-      CustomerActionWrapper.class
-    );
     List<Customer_Action__c> actionsToInsert = new List<Customer_Action__c>();
-    for (CustomerActionWrapper.Step step : customerActionWrapper.steps) {
+    for (CustomerActionWrapper.Step step : customerTaskData.steps) {
       if (step.actions != null) {
         for (CustomerActionWrapper.Action action : step.actions) {
           Customer_Action__c customerActionRecord = new Customer_Action__c();
@@ -62,7 +54,7 @@ public with sharing class PushToAppUtility {
    * @return Task Customer Nudge Task record instance to be created
    */
   public static Task createPushToAppTask(
-    PushToAppWrapper.PushToAppTaskWrapper taskData,
+    PushToAppTaskWrapper taskData,
     Id notifDataId
   ) {
     return new Task(
