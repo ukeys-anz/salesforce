@@ -55,7 +55,8 @@ public with sharing class PushToAppActionTest {
 
     Test.startTest();
     PushToAppAction.createTaskCloudEvent(
-      mockTaskRecordsList('Transfer Funds Out')
+      mockTaskRecordsList('Transfer Funds Out'),
+      'created'
     );
     Test.stopTest();
 
@@ -67,7 +68,7 @@ public with sharing class PushToAppActionTest {
     );
 
     Assert.areEqual(
-      System.Label.ANZX_Customer_Nudge_event_ce_type + 'status_sent',
+      System.Label.ANZX_Customer_Nudge_event_ce_type + 'created',
       customerNudgeTaskModel.ce_type,
       'ce_type is set correctly.'
     );
@@ -86,7 +87,7 @@ public with sharing class PushToAppActionTest {
     );
 
     Test.startTest();
-    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null));
+    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null), 'created');
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;

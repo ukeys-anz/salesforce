@@ -25,20 +25,18 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
 
     // Call the constructor for CustomerNudgeTaskCloudEventModel
     CustomerNudgeTaskCloudEventModel model = new CustomerNudgeTaskCloudEventModel(
-      taskRecord
+      taskRecord,
+      'created'
     );
 
     // Validate the ce_type
     String expectedCeType =
-      System.Label.ANZX_Customer_Nudge_event_ce_type +
-      taskRecord.Status.toLowerCase();
+      System.Label.ANZX_Customer_Nudge_event_ce_type + 'created';
     Assert.areEqual(expectedCeType, model.ce_type, 'ce_type is set correctly.');
 
     // Validate the ce_subject
-    String expectedCeSubject =
-      'TaskExternalId/' + taskRecord.Pub_Sub_Event_Id__c;
     Assert.areEqual(
-      expectedCeSubject,
+      'Pub_Sub_Event_Id__c/' + taskRecord.Pub_Sub_Event_Id__c,
       model.ce_subject,
       'ce_subject is set correctly.'
     );
@@ -51,18 +49,15 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     );
 
     // Validate the ce_partitionkey
-    String expectedPartitionKey =
-      'TaskExternalId/' + taskRecord.Pub_Sub_Event_Id__c;
     Assert.areEqual(
-      expectedPartitionKey,
+      'Pub_Sub_Event_Id__c/' + taskRecord.Pub_Sub_Event_Id__c,
       model.ce_partitionkey,
       'ce_partitionkey is set correctly.'
     );
 
     // Validate the ce_xtargets
-    String expectedXtargets = 'Notification/' + taskRecord.Pub_Sub_Event_Id__c;
     Assert.areEqual(
-      expectedXtargets,
+      'Notification/' + taskRecord.Pub_Sub_Event_Id__c,
       model.ce_xtargets,
       'ce_xtargets is set correctly.'
     );
@@ -77,9 +72,11 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
 
     // Validate the data model (CustomerNudgeTaskCloudDataModel)
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) model.ce_data;
-    Assert.isNull(
+    Assert.isNull(dataModel.notification, 'Notification should be null');
+    Assert.areEqual(
+      taskRecord.Pub_Sub_Event_Id__c,
       dataModel.producer_command_key,
-      'Producer command key should be null'
+      'producer_command_key is set correctly.'
     );
   }
 

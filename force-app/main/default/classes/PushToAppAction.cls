@@ -31,12 +31,18 @@ public with sharing class PushToAppAction {
   /**
    * @description create task cloud event
    * @param taskRecords list of Customer Nudge task records
+   * @param operationMode holds created or updated operation
    */
-  public static void createTaskCloudEvent(List<Task> taskRecords) {
+  public static void createTaskCloudEvent(
+    List<Task> taskRecords,
+    String operationMode
+  ) {
     List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
 
     for (Task taskRec : taskRecords) {
-      cloudEventModels.add(new CustomerNudgeTaskCloudEventModel(taskRec));
+      cloudEventModels.add(
+        new CustomerNudgeTaskCloudEventModel(taskRec, operationMode)
+      );
     }
 
     CloudEventController.publishCloudEvents(cloudEventModels);

@@ -12,29 +12,37 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
     PushToAppRepository.class
   );
 
+  private static final String OPERATION_MODE_UPDATED = 'updated';
+
   /**
    * @description Constructor
    * @param theTask The task record
+   * @param operationMode Holds created/updated
    */
-  public CustomerNudgeTaskCloudEventModel(Task theTask) {
+  public CustomerNudgeTaskCloudEventModel(Task theTask, String operationMode) {
     super(theTask, null);
+    String pubsubId = theTask.Pub_Sub_Event_Id__c;
+
     this.ce_type =
-      System.Label.ANZX_Customer_Nudge_event_ce_type +
-      theTask.Status.toLowerCase();
-    this.ce_source = 'com.anzx.salesforce.customertask.v1alpha1';
-    this.ce_subject = 'TaskExternalId/' + theTask.Pub_Sub_Event_Id__c;
+      System.Label.ANZX_Customer_Nudge_event_ce_type + operationMode;
+    this.ce_source = 'anzx.salesforce.appnotification.v1alpha1';
+    this.ce_subject = 'Pub_Sub_Event_Id__c/' + pubsubId;
     this.ce_dataschema = System.Label.ANZX_Customer_Nudge_Event_Proto_Data_Schema;
-    this.ce_partitionkey = 'TaskExternalId/' + theTask.Pub_Sub_Event_Id__c;
-    this.ce_xtargets = 'Notification/' + theTask.Pub_Sub_Event_Id__c;
+    this.ce_partitionkey = 'Pub_Sub_Event_Id__c/' + pubsubId;
+    this.ce_xtargets = 'Notification/' + pubsubId;
     this.systemData = new CloudEventSystemModel(
       theTask.LastModifiedDate,
       theTask.LastModifiedBy
     );
-    this.ce_data = new CustomerNudgeTaskCloudDataModel(theTask);
+    this.ce_data = new CustomerNudgeTaskCloudDataModel(
+      theTask,
+      pubsubId,
+      operationMode
+    );
   }
 
   /**
-   * @description the model for dispute Case cloud event data part
+   * @description this model is for customer nudge cloud event data part
    */
   public virtual class CustomerNudgeTaskCloudDataModel extends TaskCloudEventModel.TaskCloudEventDataModel {
     /**
@@ -42,61 +50,121 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
      */
     public String producer_command_key { get; set; }
     /**
-     * @description Holds title of the aemcontendata
+     * @description Holds idempotency key
      */
-    public String title { get; set; }
+    public String idempotency_key { get; set; }
     /**
-     * @description Holds body of the aemcontentdata
+     * @description Holds notification
      */
-    public String body { get; set; }
-    /**
-     * @description Holds subtitle and bodytext of the aemcontentdata
-     */
-    public String action_uri { get; set; }
-    /**
-     * @description Holds iconDarkURI of the aemcontentdata
-     */
-    public String iconDarkURI { get; set; }
-    /**
-     * @description Holds iconLightURI of the aemcontentdata
-     */
-    public String iconLightURI { get; set; }
+    public Notification notification { get; set; }
 
     /**
      * @description Constructor
      * @param theTask The task record
+     * @param pubsubId The pub sub event id
+     * @param operationMode The operationMode
      */
-    public CustomerNudgeTaskCloudDataModel(Task theTask) {
-      String deeplinkvalue = '';
-      String aemContentData = PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(
-          theTask.Customer_Task_Data__c
-        )
+    public CustomerNudgeTaskCloudDataModel(
+      Task theTask,
+      String pubsubId,
+      String operationMode
+    ) {
+      this.producer_command_key = pubsubId;
+      this.idempotency_key = pubsubId;
+
+      String aemContentData = PUSH_TO_APP_REPOSITORY
+        .queryCustomerTaskDataDetails(theTask.Customer_Task_Data__c)
         .AEM_Content_Data__c;
 
-      if (String.isBlank(aemContentData)) {
+      if (
+        String.isBlank(aemContentData) ||
+        operationMode == OPERATION_MODE_UPDATED
+      ) {
         return;
       }
 
-      AemDataWrapper.Items itemValue = (AemDataWrapper.Items) JSON.deserialize(
+      AemDataWrapper.Items item = (AemDataWrapper.Items) JSON.deserialize(
         aemContentData,
         AemDataWrapper.Items.class
       );
+      this.notification = buildNotification(item, pubsubId);
+    }
 
-      for (AemDataWrapper.Steps stepValue : itemValue.steps) {
-        for (AemDataWrapper.actions actionValue : stepValue.actions) {
-          deeplinkvalue +=
-            actionValue.deepLink +
-            theTask.Pub_Sub_Event_Id__c +
-            ',';
-        }
-      }
+    private Notification buildNotification(
+      AemDataWrapper.Items item,
+      String pubsubId
+    ) {
+      return new Notification(
+        item.title,
+        item.subtitle + '\n' + item.bodyText,
+        pubsubId,
+        new IconUri(item.iconLightURI, item.iconDarkURI)
+      );
+    }
+  }
 
-      this.producer_command_key = theTask.Pub_Sub_Event_Id__c;
-      this.title = itemValue.title;
-      this.body = itemValue.subtitle + '\n' + itemValue.bodyText;
-      this.action_uri = deeplinkvalue;
-      this.iconDarkURI = itemValue.iconDarkURI;
-      this.iconLightURI = itemValue.iconLightURI;
+  /**
+   * @description this model is for holding notification details
+   */
+  public class Notification {
+    /**
+     * @description Holds title
+     */
+    public String title { get; set; }
+    /**
+     * @description Holds body
+     */
+    public String body { get; set; }
+    /**
+     * @description Holds action_uri
+     */
+    public String action_uri { get; set; }
+    /**
+     * @description Holds icon_uri
+     */
+    public IconUri icon_uri { get; set; }
+
+    /**
+     * @description Constructor
+     * @param title The title of aemcontendata
+     * @param body The body of aemcontentdata
+     * @param pubsubId The pubsubeventid of the task
+     * @param iconuri The icon details of aemcontendata
+     */
+    public Notification(
+      String title,
+      String body,
+      String pubsubId,
+      IconUri iconuri
+    ) {
+      this.title = title;
+      this.body = body;
+      this.action_uri = System.Label.Push_Task_To_App_Deeplink + pubsubId;
+      this.icon_uri = iconuri;
+    }
+  }
+
+  /**
+   * @description this model is for holding icon details
+   */
+  public class IconUri {
+    /**
+     * @description Holds light icon
+     */
+    public String icon_light_uri { get; set; }
+    /**
+     * @description Holds dark icon
+     */
+    public String icon_dark_uri { get; set; }
+
+    /**
+        * @description Constructor
+         @param iconLightURI The iconLightURI of aemcontendata
+         @param iconDarkURI The iconDarkURI of aemcontentdata
+        */
+    public IconUri(String iconLightURI, String iconDarkURI) {
+      this.icon_light_uri = iconLightURI;
+      this.icon_dark_uri = iconDarkURI;
     }
   }
 }

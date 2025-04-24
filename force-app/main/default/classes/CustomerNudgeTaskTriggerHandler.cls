@@ -28,14 +28,14 @@ public with sharing class CustomerNudgeTaskTriggerHandler extends Lib_TriggerHan
     List<Task> taskWithChangedStatus = ListUtil.filter(records, oldMap)
       .changed(Task.Status)
       .toList();
-    PushToAppAction.createTaskCloudEvent(taskWithChangedStatus);
+    PushToAppAction.createTaskCloudEvent(taskWithChangedStatus, 'updated');
   }
 
   /**
-   * @description onAfterInsert to handle after update trigger actions.d
+   * @description onAfterInsert to handle after update trigger actions.
    */
   public override void onAfterInsert() {
     PushToAppAction.updateCustomerNudgeTask(records);
-    PushToAppAction.createTaskCloudEvent(records);
+    PushToAppAction.createTaskCloudEvent(records, 'created');
   }
 }
