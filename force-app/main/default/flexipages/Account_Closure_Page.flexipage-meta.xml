@@ -382,10 +382,48 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Intended_Account_Name__c</fieldItem>
+                <identifier>RecordIntended_Account_Name_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.CaseNumber}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Intended_Account_Name__c</fieldItem>
                 <identifier>RecordIntended_Account_Name_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.CaseNumber}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Intended_Account_Number__c</fieldItem>
+                <identifier>RecordIntended_Account_Number_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.CaseNumber}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <itemInstances>
@@ -395,7 +433,13 @@
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Intended_Account_Number__c</fieldItem>
-                <identifier>RecordIntended_Account_Number_cField</identifier>
+                <identifier>RecordIntended_Account_Number_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.CaseNumber}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-270470f3-119d-4ed3-9491-12aee5edf360</name>
@@ -412,10 +456,32 @@
             <fieldInstance>
                 <fieldInstanceProperties>
                     <name>uiBehavior</name>
+                    <value>required</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.Intended_Account_BSB__c</fieldItem>
+                <identifier>RecordIntended_Account_BSB_cField2</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.CaseNumber}</leftValue>
+                        <operator>NE</operator>
+                    </criteria>
+                </visibilityRule>
+            </fieldInstance>
+        </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
                     <value>none</value>
                 </fieldInstanceProperties>
                 <fieldItem>Record.Intended_Account_BSB__c</fieldItem>
                 <identifier>RecordIntended_Account_BSB_cField</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.CaseNumber}</leftValue>
+                        <operator>EQUAL</operator>
+                    </criteria>
+                </visibilityRule>
             </fieldInstance>
         </itemInstances>
         <name>Facet-8e5dd539-7320-445d-a24a-9966bbd31fb0</name>
