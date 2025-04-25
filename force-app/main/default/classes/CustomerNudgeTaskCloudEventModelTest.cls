@@ -84,7 +84,7 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     // Create a Task record to use as test data
     Task testTask = new Task(
       Id = FAKER_TASK_ID,
-      Status = 'STATUS_SENT',
+      Status = 'ACTIVITY_STATE_SENT',
       Subject = 'Get In Touch',
       Pub_Sub_Event_Id__c = '12345',
       LastModifiedById = UserInfo.getUserId(),

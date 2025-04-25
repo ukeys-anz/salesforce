@@ -90,6 +90,9 @@ public with sharing class PushToAppRepository {
       SELECT
         Id,
         Description,
+        Call_To_Action__c,
+        Action_Taken__c,
+        Action_Taken_Date_Time__c,
         Status,
         Subject,
         Type,

@@ -4,7 +4,7 @@
  * @description  Archive All the Customer Nudge Task if due date is reached.
  */
 public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Schedulable {
-  private static final String TASK_AUTO_ARCHIVED = 'STATUS_AUTO_ARCHIVED';
+  private static final String TASK_AUTO_ARCHIVED = 'ACTIVITY_STATE_AUTO_ARCHIVED';
 
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class

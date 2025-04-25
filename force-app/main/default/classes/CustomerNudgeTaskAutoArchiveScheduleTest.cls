@@ -5,7 +5,7 @@
  */
 @isTest
 public with sharing class CustomerNudgeTaskAutoArchiveScheduleTest {
-  private static final String TASK_AUTO_ARCHIVED = 'STATUS_AUTO_ARCHIVED';
+  private static final String TASK_AUTO_ARCHIVED = 'ACTIVITY_STATE_AUTO_ARCHIVED';
 
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider cdmRepoMock;

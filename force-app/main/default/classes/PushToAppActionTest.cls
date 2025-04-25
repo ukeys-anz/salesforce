@@ -116,7 +116,7 @@ public with sharing class PushToAppActionTest {
     );
 
     mockPushToAppTask.Id = FAKER_TASK_ID;
-    mockPushToAppTask.Status = 'STATUS_SENT';
+    mockPushToAppTask.Status = 'ACTIVITY_STATE_SENT';
 
     Task taskRecord = (Task) TestUtil.setFields(
       mockPushToAppTask,

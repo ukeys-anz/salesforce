@@ -2059,23 +2059,23 @@
             <default>true</default>
         </values>
         <values>
-            <fullName>STATUS_AUTO_ARCHIVED</fullName>
+            <fullName>ACTIVITY_STATE_AUTO_ARCHIVED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>STATUS_COACH_ARCHIVED</fullName>
+            <fullName>ACTIVITY_STATE_COACH_ARCHIVED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>STATUS_CUSTOMER_ARCHIVED</fullName>
+            <fullName>ACTIVITY_STATE_CUSTOMER_ARCHIVED</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>STATUS_READ_BY_CUSTOMER</fullName>
+            <fullName>ACTIVITY_STATE_READ</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>STATUS_SENT</fullName>
+            <fullName>ACTIVITY_STATE_SENT</fullName>
             <default>false</default>
         </values>
     </picklistValues>
