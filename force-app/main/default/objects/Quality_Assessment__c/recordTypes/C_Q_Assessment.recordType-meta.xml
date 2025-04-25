@@ -2026,7 +2026,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>When responding to a cust’s request for assistance, we incorrectly weighted their circumstances, hardship reasons, vulnerabilities, financial position, proposed path to return to a serviceable position to ensure a sustainable long or short term solution</fullName>
+            <fullName>When responding to a cust’s request for assistance, we incorrectly weighted their circumstances, hardship reasons, vulnerabilities, financial position, proposed path to return to a serviceable position to ensure a sustainable long or short term solution.</fullName>
             <default>false</default>
         </values>
     </picklistValues>
