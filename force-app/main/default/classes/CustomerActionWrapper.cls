@@ -4,43 +4,85 @@
  * @description Wrapper class customer action creation based on aem content data
  */
 public class CustomerActionWrapper {
-  @AuraEnabled
-  public String bodyText;
-  @AuraEnabled
-  public String expiryDate;
-  @AuraEnabled
-  public String id;
-  @AuraEnabled
-  public String notificationConfigId;
-  @AuraEnabled
-  public String reference;
-  @AuraEnabled
-  public String subtitle;
-  @AuraEnabled
-  public String title;
-  @AuraEnabled
-  public List<Step> steps;
   /**
-   * @description Step to set steps fields
+   * @description bodyText
    */
-
+  @AuraEnabled
+  public String bodyText { get; set; }
+  /**
+   * @description expiryDate
+   */
+  @AuraEnabled
+  public String expiryDate { get; set; }
+  /**
+   * @description id
+   */
+  @AuraEnabled
+  public String id { get; set; }
+  /**
+   * @description notificationConfigId
+   */
+  @AuraEnabled
+  public String notificationConfigId { get; set; }
+  /**
+   * @description reference
+   */
+  @AuraEnabled
+  public String reference { get; set; }
+  /**
+   * @description subtitle
+   */
+  @AuraEnabled
+  public String subtitle { get; set; }
+  /**
+   * @description title
+   */
+  @AuraEnabled
+  public String title { get; set; }
+  /**
+   * @description steps
+   */
+  @AuraEnabled
+  public List<Step> steps { get; set; }
+  /**
+   * @description Step
+   */
   public class Step {
+    /**
+     * @description title
+     */
     @AuraEnabled
-    public String title;
+    public String title { get; set; }
+    /**
+     * @description bodyText
+     */
     @AuraEnabled
-    public List<Action> actions;
+    public List<Action> actions { get; set; }
   }
   /**
    * @description Action to set action fields
    */
+
   public class Action {
+    /**
+     * @description deepLink
+     */
     @AuraEnabled
-    public String deepLink;
+    public String deepLink { get; set; }
+    /**
+     * @description description
+     */
     @AuraEnabled
-    public String description;
+    public String description { get; set; }
     @AuraEnabled
-    public String icon;
+    /**
+     * @description icon
+     */
+    public String icon { get; set; }
+    /**
+     * @description type
+     */
     @AuraEnabled
-    public String type;
+    public String type { get; set; }
   }
 }
