@@ -66,7 +66,6 @@ public with sharing class PushToAppUtility {
       Pub_Sub_Event_Id__c = CommonUtil.generateUUID(),
       Customer_Task_Configuration__c = taskData.notificationConfigId,
       Description = taskData.description,
-      Call_To_Action__c = taskData.callToAction,
       Customer_Task_Data__c = notifDataId,
       RecordTypeId = RTTask.customerNudge,
       OwnerId = UserInfo.getUserId()

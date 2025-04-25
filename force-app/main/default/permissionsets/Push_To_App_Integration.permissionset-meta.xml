@@ -157,16 +157,6 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
-        <editable>true</editable>
-        <field>Event.Action_Taken_Date_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Event.Action_Taken__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
         <editable>false</editable>
         <field>Event.Pub_Sub_Event_Id__c</field>
         <readable>true</readable>
@@ -174,16 +164,6 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>Event.TaskNumber__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.Action_Taken_Date_Time__c</field>
-        <readable>true</readable>
-    </fieldPermissions>
-    <fieldPermissions>
-        <editable>true</editable>
-        <field>Task.Action_Taken__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

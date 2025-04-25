@@ -20,7 +20,7 @@ public with sharing class PushToAppActionTest {
   @isTest
   static void testUpdateCustomerNudgeTask() {
     registerMocks();
-    List<Task> taskRecords = mockTaskRecordsList('Transfer Funds Out');
+    List<Task> taskRecords = mockTaskRecordsList();
 
     Test.startTest();
     PushToAppAction.updateCustomerNudgeTask(taskRecords);
@@ -55,7 +55,7 @@ public with sharing class PushToAppActionTest {
 
     Test.startTest();
     PushToAppAction.createTaskCloudEvent(
-      mockTaskRecordsList('Transfer Funds Out'),
+      mockTaskRecordsList(),
       'created'
     );
     Test.stopTest();
@@ -87,7 +87,7 @@ public with sharing class PushToAppActionTest {
     );
 
     Test.startTest();
-    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null), 'created');
+    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(), 'created');
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
@@ -98,18 +98,11 @@ public with sharing class PushToAppActionTest {
     );
   }
 
-  private static List<Task> mockTaskRecordsList(String actiontakenvalue) {
-    List<Task> tasklist = new List<Task>();
-    tasklist.add(mockTaskRecord(actiontakenvalue));
-    return tasklist;
-  }
-
   /**
    * @description helper method to create a mock task
-   * @param actiontakenvalue actionTakenValue
-   * @return Mock Task
+   * @return Mock Task List
    */
-  static Task mockTaskRecord(String actiontakenvalue) {
+  static List<Task> mockTaskRecordsList() {
     Id ownerId = UserInfo.getUserId();
     Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
     Id caseId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
@@ -123,14 +116,13 @@ public with sharing class PushToAppActionTest {
     );
 
     mockPushToAppTask.Id = FAKER_TASK_ID;
-    mockPushToAppTask.Action_Taken__c = actiontakenvalue;
     mockPushToAppTask.Status = 'STATUS_SENT';
 
     Task taskRecord = (Task) TestUtil.setFields(
       mockPushToAppTask,
       new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
     );
-    return taskRecord;
+    return new List<Task> {taskRecord};
   }
 
   private static Customer_Task_Data__c mockQueryCustomerTaskDataDetails() {
