@@ -19,7 +19,7 @@ public with sharing class PushToAppAction {
         Task taskRecRef = new Task(Id = taskRec.Id);
         taskRecRef.Subject = taskRec.TaskNumber__c + ' - ' + taskRec.Subject;
         taskRecRef.Pub_Sub_Event_Id__c =
-          taskRec.Pub_Sub_Event_Id__c + taskRec.Id;
+          taskRec.Pub_Sub_Event_Id__c + '_' + taskRec.Id;
         tasksToUpdate.add(taskRecRef);
       }
       DML_REPOSITORY.doUpdate(tasksToUpdate);
