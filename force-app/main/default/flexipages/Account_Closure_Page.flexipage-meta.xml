@@ -396,9 +396,16 @@
                 <fieldItem>Record.Intended_Account_Name__c</fieldItem>
                 <identifier>RecordIntended_Account_Name_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.CaseNumber}</leftValue>
-                        <operator>NE</operator>
+                        <leftValue>{!Record.Parent.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Account Closure</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Case_Group</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -412,9 +419,16 @@
                 <fieldItem>Record.Intended_Account_Name__c</fieldItem>
                 <identifier>RecordIntended_Account_Name_cField2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.CaseNumber}</leftValue>
-                        <operator>EQUAL</operator>
+                        <leftValue>{!Record.Parent.Type}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Account Closure</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Case_Group</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -428,9 +442,16 @@
                 <fieldItem>Record.Intended_Account_Number__c</fieldItem>
                 <identifier>RecordIntended_Account_Number_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.CaseNumber}</leftValue>
-                        <operator>NE</operator>
+                        <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Case_Group</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Parent.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Account Closure</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -444,9 +465,16 @@
                 <fieldItem>Record.Intended_Account_Number__c</fieldItem>
                 <identifier>RecordIntended_Account_Number_cField2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.CaseNumber}</leftValue>
-                        <operator>EQUAL</operator>
+                        <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Case_Group</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Parent.Type}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Account Closure</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -470,9 +498,16 @@
                 <fieldItem>Record.Intended_Account_BSB__c</fieldItem>
                 <identifier>RecordIntended_Account_BSB_cField2</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.CaseNumber}</leftValue>
-                        <operator>NE</operator>
+                        <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Case_Group</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Parent.Type}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Account Closure</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
@@ -486,9 +521,16 @@
                 <fieldItem>Record.Intended_Account_BSB__c</fieldItem>
                 <identifier>RecordIntended_Account_BSB_cField</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
-                        <leftValue>{!Record.CaseNumber}</leftValue>
-                        <operator>EQUAL</operator>
+                        <leftValue>{!Record.Parent.RecordType.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Case_Group</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Parent.Type}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>Account Closure</rightValue>
                     </criteria>
                 </visibilityRule>
             </fieldInstance>
