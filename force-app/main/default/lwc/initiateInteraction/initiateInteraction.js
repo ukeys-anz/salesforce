@@ -71,7 +71,7 @@ export default class InitiateInteraction extends LightningElement {
   }
 
   get templateOptions() {
-    return this._templateOptions ? this._templateOptions : [];
+    return this._templateOptions ?? [];
   }
 
   @wire(MessageContext)

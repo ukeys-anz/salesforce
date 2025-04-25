@@ -4,7 +4,7 @@
  * @description This class is used to create Task Instance, Notification Data Instance
  * various activity like fetching Notification Data, WhoId
  */
-public with sharing class PushToAppUtility {
+public with sharing class PushToAppHelper {
   private static final PushToAppRepository PUSH_TO_APP_REPOSITORY = (PushToAppRepository) Lib_InstanceProvider.forType(
     PushToAppRepository.class
   );
@@ -13,20 +13,11 @@ public with sharing class PushToAppUtility {
 
   /**
    * @description This method is used to create Notification Data Instance
-   * @param notifData Notification Data Wrapper instance having values from UI
-   * @return Customer_Task_Data__c instance to be created
-   */
-  public static Customer_Task_Data__c createNotificationData(String notifData) {
-    return new Customer_Task_Data__c(AEM_Content_Data__c = notifData);
-  }
-
-  /**
-   * @description This method is used to create Notification Data Instance
    * @param customerTaskData Notification Data Wrapper instance having values from UI
    * @param recordId Customer_Task_Data__c record Id
    * @return List<Customer_Action__c>
    */
-  public static List<Customer_Action__c> createCustomerActions(
+  public static List<Customer_Action__c> prepareCustomerActions(
     CustomerActionWrapper customerTaskData,
     Id recordId
   ) {
@@ -53,7 +44,7 @@ public with sharing class PushToAppUtility {
    * @param notifDataId notificationData record Id created when click on send now to link the task
    * @return Task Customer Nudge Task record instance to be created
    */
-  public static Task createPushToAppTask(
+  public static Task preparePushToAppTask(
     PushToAppTaskWrapper taskData,
     Id notifDataId
   ) {

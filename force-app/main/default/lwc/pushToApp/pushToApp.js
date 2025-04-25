@@ -7,7 +7,7 @@ import {
 } from "lightning/platformWorkspaceApi";
 import CASE_NUMBER from "@salesforce/schema/Case.CaseNumber";
 import getAemContentData from "@salesforce/apex/PushToAppController.getAemContentData";
-import createTaskAndNotificationData from "@salesforce/apex/PushToAppController.createTaskAndNotificationData";
+import createTaskAndRelatedRecords from "@salesforce/apex/PushToAppController.createTaskAndRelatedRecords";
 const TASK_CREATION_FAILED =
   "Task Creation Failed: We encountered an issue while creating the task. Raise a fault though TechAssist if the issue persist.";
 const TEMPLATE_FETCH_ERROR =
@@ -129,9 +129,9 @@ export default class PushToApp extends LightningElement {
       callToAction: this.callToActionValues
     };
     try {
-      let taskData = await createTaskAndNotificationData({
+      let taskData = await createTaskAndRelatedRecords({
         pushToAppTaskData: taskResponseWrapperValue,
-        notificationData: notifDataWrapperValue
+        customerTaskData: notifDataWrapperValue
       });
       this.taskRecordId = taskData.Id;
       this.taskNumber = taskData.TaskNumber__c;

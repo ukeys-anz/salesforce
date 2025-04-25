@@ -82,7 +82,7 @@ describe("c-push-to-app", () => {
       "lightning-button[data-id='push-task']"
     );
     expect(pushTaskButton).not.toBeNull();
-    expect(pushTaskButton.label).toBe("Push Task/Action");
+    expect(pushTaskButton.label).toBe("Send Task to App");
   });
 
   it("2. renders case number and select push template field on click of button", async () => {
@@ -95,7 +95,7 @@ describe("c-push-to-app", () => {
     let pushTaskButton = element.shadowRoot.querySelector(
       "lightning-button[data-id='push-task']"
     );
-    expect(pushTaskButton.label).toBe("Push Task/Action");
+    expect(pushTaskButton.label).toBe("Send Task to App");
     pushTaskButton.click();
     await flushPromises();
     let caseNumberField = element.shadowRoot.querySelector(

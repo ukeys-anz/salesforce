@@ -54,10 +54,7 @@ public with sharing class PushToAppActionTest {
     );
 
     Test.startTest();
-    PushToAppAction.createTaskCloudEvent(
-      mockTaskRecordsList(),
-      'created'
-    );
+    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(), 'created');
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
@@ -122,7 +119,7 @@ public with sharing class PushToAppActionTest {
       mockPushToAppTask,
       new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
     );
-    return new List<Task> {taskRecord};
+    return new List<Task>{ taskRecord };
   }
 
   private static Customer_Task_Data__c mockQueryCustomerTaskDataDetails() {

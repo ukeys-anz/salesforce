@@ -43,7 +43,7 @@ public with sharing class PushToAppControllerTest {
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
     pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
-    pushToAppUtilRepoMock = Lib_MockProvider.forType(PushToAppUtility.class);
+    pushToAppUtilRepoMock = Lib_MockProvider.forType(PushToAppHelper.class);
   }
 
   @isTest
@@ -100,7 +100,7 @@ public with sharing class PushToAppControllerTest {
   }
 
   @isTest
-  static void testCreateTaskAndNotificationData() {
+  static void testCreateTaskAndRelatedRecords() {
     registerMocks();
     pushToAppRepoMock.mock('queryTaskDetails', mockqueryTaskDetails());
     pushToAppRepoMock.mock(
@@ -118,11 +118,11 @@ public with sharing class PushToAppControllerTest {
       )
     );
 
-    String taskResponseWrapperValue = mockTaskResponseWrapperValue();
-    String notificationData = mockPushToAppNotifData();
+    PushToAppTaskWrapper taskResponseWrapperValue = mockTaskResponseWrapperValue();
+    CustomerTaskDataWrapper notificationData = mockPushToAppNotifData();
 
     Test.startTest();
-    Task taskRecord = PushToAppController.createTaskAndNotificationData(
+    Task taskRecord = PushToAppController.createTaskAndRelatedRecords(
       taskResponseWrapperValue,
       notificationData
     );
@@ -135,7 +135,7 @@ public with sharing class PushToAppControllerTest {
   }
 
   @isTest
-  static void testCreateNotificationData() {
+  static void testCustomerTaskDataAndActions() {
     registerMocks();
     dmlRepoMock.mock(
       'doInsert',
@@ -144,10 +144,10 @@ public with sharing class PushToAppControllerTest {
       )
     );
 
-    String notificationData = mockPushToAppNotifData();
+    CustomerTaskDataWrapper notificationData = mockPushToAppNotifData();
 
     Test.startTest();
-    PushToAppController.createNotificationData(notificationData);
+    PushToAppController.insertCustomerTaskDataAndActions(notificationData);
     Test.stopTest();
 
     Customer_Task_Data__c notifDataRecord = (Customer_Task_Data__c) dmlRepoMock.getHistory(
@@ -181,10 +181,10 @@ public with sharing class PushToAppControllerTest {
       )
     );
 
-    String taskResponseWrapperValue = mockTaskResponseWrapperValue();
+    PushToAppTaskWrapper taskResponseWrapperValue = mockTaskResponseWrapperValue();
 
     Test.startTest();
-    PushToAppController.createPushToAppTask(
+    PushToAppController.insertPushToAppTask(
       taskResponseWrapperValue,
       FAKER_NOTIFICATION_DATA
     );
@@ -199,24 +199,21 @@ public with sharing class PushToAppControllerTest {
     );
   }
 
-  private static String mockTaskResponseWrapperValue() {
-    Map<String, String> taskResponse = new Map<String, String>{
-      'subject' => 'Push To App - Get in touch',
-      'description' => 'Message us',
-      'notificationConfigId' => FAKER_NOTIFICATION_CONFIG_ID,
-      'whatId' => FAKER_CASE_ID,
-      'callToAction' => 'Call us',
-      'activityDate' => '12/10/2024'
-    };
-    String taskResponseWrapperValue = JSON.serialize(taskResponse);
-    return taskResponseWrapperValue;
+  private static PushToAppTaskWrapper mockTaskResponseWrapperValue() {
+    PushToAppTaskWrapper taskResponseWrapper = new PushToAppTaskWrapper();
+    taskResponseWrapper.subject = 'Push To App - Get in touch';
+    taskResponseWrapper.description = 'Message us';
+    taskResponseWrapper.notificationConfigId = FAKER_NOTIFICATION_CONFIG_ID;
+    taskResponseWrapper.whatId = FAKER_CASE_ID;
+    taskResponseWrapper.callToAction = 'Call us';
+    taskResponseWrapper.activityDate = '12/10/2024';
+    return taskResponseWrapper;
   }
 
-  private static String mockPushToAppNotifData() {
-    Map<String, String> pushToAppNotifDataResponse = new Map<String, String>{
-      'aemContentData' => mockAemData
-    };
-    String pushToAppNotifData = JSON.serialize(pushToAppNotifDataResponse);
+  private static CustomerTaskDataWrapper mockPushToAppNotifData() {
+    CustomerTaskDataWrapper pushToAppNotifData = new CustomerTaskDataWrapper();
+    pushToAppNotifData.aemContentData = mockAemData;
+    pushToAppNotifData.aemContentObject = null;
     return pushToAppNotifData;
   }
 

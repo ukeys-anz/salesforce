@@ -48,36 +48,6 @@ public with sharing class PushToAppController {
   }
 
   /**
-   * @description Receive data from AEM and Sobject Record from where this push to app action triggered
-   * to create Task and Notification Data in Salesforce
-   * @param pushToAppTaskData wrapper class to store the values to create task.
-   * @param notificationData wrapper class to store the values to create notification data.
-   * @return Customer Nudge Task record Id post creation
-   */
-  @AuraEnabled
-  public static Task createTaskAndNotificationData(
-    PushToAppTaskWrapper pushToAppTaskData,
-    CustomerTaskDataWrapper notificationData
-  ) {
-    try {
-      Id notificationDataRecId = createNotificationData(notificationData);
-
-      Id pushToAppTaskRecId = createPushToAppTask(
-        pushToAppTaskData,
-        notificationDataRecId
-      );
-
-      Task taskRecord = PUSH_TO_APP_REPOSITORY.queryTaskDetails(
-        pushToAppTaskRecId
-      );
-
-      return taskRecord;
-    } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
-    }
-  }
-
-  /**
    * @description Get AEM Content data based on the user selected AEM Content Id
    * @param aemContentId The user selected template or AEM content Id
    * @param recordId The Id of the record for which notification needs to be sent.
@@ -100,50 +70,79 @@ public with sharing class PushToAppController {
       throw CommonUtil.logException(objException);
     }
   }
+  /**
+   * @description Receive data from AEM and Sobject Record from where this push to app action triggered
+   * to create Task and Notification Data in Salesforce
+   * @param pushToAppTaskData wrapper class to store the values to create task.
+   * @param customerTaskData wrapper class to store the values to create notification data.
+   * @return Customer Nudge Task record Id post creation
+   */
+  @AuraEnabled
+  public static Task createTaskAndRelatedRecords(
+    PushToAppTaskWrapper pushToAppTaskData,
+    CustomerTaskDataWrapper customerTaskData
+  ) {
+    try {
+      Id customerTaskDataRecId = insertCustomerTaskDataAndActions(
+        customerTaskData
+      );
+
+      Id pushToAppTaskRecId = insertPushToAppTask(
+        pushToAppTaskData,
+        customerTaskDataRecId
+      );
+
+      Task taskRecord = PUSH_TO_APP_REPOSITORY.queryTaskDetails(
+        pushToAppTaskRecId
+      );
+
+      return taskRecord;
+    } catch (Exception objException) {
+      throw CommonUtil.logException(objException);
+    }
+  }
 
   /**
    * @description create Notification Data record
-   * @param notificationData notification data from the lwc component
+   * @param customerTaskData notification data from the lwc component
    * @return Notification Data Record Id created
    */
   @TestVisible
-  private static Id createNotificationData(
-    CustomerTaskDataWrapper notificationData
+  private static Id insertCustomerTaskDataAndActions(
+    CustomerTaskDataWrapper customerTaskData
   ) {
-    Customer_Task_Data__c pushToAppNotifData = PushToAppUtility.createNotificationData(
-      notificationData.aemContentData
-    );
-
     Database.SaveResult notifDataResult = DML_REPOSITORY.doInsert(
-      pushToAppNotifData,
+      new Customer_Task_Data__c(
+        AEM_Content_Data__c = customerTaskData.aemContentData
+      ),
       new DmlConfig().systemMode()
     );
-    List<Customer_Action__c> listOfCustomerActions = PushToAppUtility.createCustomerActions(
-      notificationData.aemContentObject,
-      notifDataResult.getId()
+    Id insertedCustomerTaskDataId = notifDataResult.getId();
+    List<Customer_Action__c> listOfCustomerActions = PushToAppHelper.prepareCustomerActions(
+      customerTaskData.aemContentObject,
+      insertedCustomerTaskDataId
     );
-
     List<Database.SaveResult> customerActionResult = DML_REPOSITORY.doInsert(
       listOfCustomerActions,
       new DmlConfig().systemMode()
     );
-    return notifDataResult.getId();
+    return insertedCustomerTaskDataId;
   }
 
   /**
    * @description create push to app task record
    * @param pushToAppTaskData task data from the lwc component
-   * @param notificationDataRecId notification data record id created
+   * @param customerTaskDataRecId notification data record id created
    * @return Task Record Id created
    */
   @TestVisible
-  private static Id createPushToAppTask(
+  private static Id insertPushToAppTask(
     PushToAppTaskWrapper pushToAppTaskData,
-    Id notificationDataRecId
+    Id customerTaskDataRecId
   ) {
-    Task pushToAppTask = PushToAppUtility.createPushToAppTask(
+    Task pushToAppTask = PushToAppHelper.preparePushToAppTask(
       pushToAppTaskData,
-      notificationDataRecId
+      customerTaskDataRecId
     );
 
     Database.SaveResult taskSaveResult = DML_REPOSITORY.doInsert(pushToAppTask);
