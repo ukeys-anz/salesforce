@@ -1261,6 +1261,21 @@
         "MLCRM_Create_and_Edit_User_Territories"
       ],
       "type": "user"
+    },
+    {
+      "name": "TrustMe ReKYC GCP Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Set_Audit_Fields",
+        "API_Only",
+        "Enforce_mTLS",
+        "Disable_MFA",
+        "Case_Read_Write_TrustMe_MV",
+        "Case_Read_Write_TrustMe_QA",
+        "DAON_File_Integration"
+      ],
+      "type": "system"
     }
   ]
 }
