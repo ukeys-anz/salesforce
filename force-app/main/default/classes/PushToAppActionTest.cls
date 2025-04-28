@@ -9,6 +9,10 @@ public with sharing class PushToAppActionTest {
     Task.getSObjectType()
   );
 
+  private static final Id FAKER_CUSTOMER_TASK_DATA_ID = Lib_FakeIdGenerator.getMockId(
+    Customer_Task_Data__c.getSObjectType()
+  );
+
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider pushToAppRepoMock;
 
@@ -20,7 +24,7 @@ public with sharing class PushToAppActionTest {
   @isTest
   static void testUpdateCustomerNudgeTask() {
     registerMocks();
-    List<Task> taskRecords = mockTaskRecordsList();
+    List<Task> taskRecords = mockTaskRecordsList('Transfer Funds Out');
 
     Test.startTest();
     PushToAppAction.updateCustomerNudgeTask(taskRecords);
@@ -52,9 +56,13 @@ public with sharing class PushToAppActionTest {
       'queryCustomerTaskDataDetails',
       mockQueryCustomerTaskDataDetails()
     );
+    pushToAppRepoMock.mock('queryAccountOcvId', new List<Account>());
 
     Test.startTest();
-    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(), 'created');
+    PushToAppAction.createTaskCloudEvent(
+      mockTaskRecordsList('Transfer Funds Out'),
+      'created'
+    );
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
@@ -80,26 +88,38 @@ public with sharing class PushToAppActionTest {
     registerMocks();
     pushToAppRepoMock.mock(
       'queryCustomerTaskDataDetails',
-      new Customer_Task_Data__c()
+      new List<Customer_Task_Data__c>()
     );
+    pushToAppRepoMock.mock('queryAccountOcvId', new List<Account>());
 
     Test.startTest();
-    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(), 'created');
+    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null), 'created');
     Test.stopTest();
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
 
+    CustomerNudgeTaskCloudEventModel customerNudgeTaskModel = (CustomerNudgeTaskCloudEventModel) JSON.deserialize(
+      payload,
+      CustomerNudgeTaskCloudEventModel.class
+    );
     Assert.isFalse(
       payload.contains('title'),
       'Title Node should not be present in the payload'
     );
   }
 
+  private static List<Task> mockTaskRecordsList(String actiontakenvalue) {
+    List<Task> tasklist = new List<Task>();
+    tasklist.add(mockTaskRecord(actiontakenvalue));
+    return tasklist;
+  }
+
   /**
    * @description helper method to create a mock task
-   * @return Mock Task List
+   * @param actiontakenvalue actionTakenValue
+   * @return Mock Task
    */
-  static List<Task> mockTaskRecordsList() {
+  static Task mockTaskRecord(String actiontakenvalue) {
     Id ownerId = UserInfo.getUserId();
     Id accountId = Lib_FakeIdGenerator.getMockId(Account.getSObjectType());
     Id caseId = Lib_FakeIdGenerator.getMockId(Case.getSObjectType());
@@ -113,19 +133,24 @@ public with sharing class PushToAppActionTest {
     );
 
     mockPushToAppTask.Id = FAKER_TASK_ID;
-    mockPushToAppTask.Status = 'ACTIVITY_STATE_SENT';
+    mockPushToAppTask.Action_Taken__c = actiontakenvalue;
+    mockPushToAppTask.Status = 'STATUS_SENT';
+    mockPushToAppTask.Customer_Task_Data__c = FAKER_CUSTOMER_TASK_DATA_ID;
 
     Task taskRecord = (Task) TestUtil.setFields(
       mockPushToAppTask,
       new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
     );
-    return new List<Task>{ taskRecord };
+    return taskRecord;
   }
 
-  private static Customer_Task_Data__c mockQueryCustomerTaskDataDetails() {
+  private static List<Customer_Task_Data__c> mockQueryCustomerTaskDataDetails() {
+    List<Customer_Task_Data__c> customerTaskDataList = new List<Customer_Task_Data__c>();
     Customer_Task_Data__c testCustomerTaskData = new Customer_Task_Data__c(
+      Id = FAKER_CUSTOMER_TASK_DATA_ID,
       AEM_Content_Data__c = '{\"bodyText\":\"Testing\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\",\"steps\":[{\"actions\":[{\"deepLink\":\"anz.com/.../transfer\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\"}]}],\"subtitle\":\"Hey Jane\",\"title\":\"Get in touch\"}'
     );
-    return testCustomerTaskData;
+    customerTaskDataList.add(testCustomerTaskData);
+    return customerTaskDataList;
   }
 }

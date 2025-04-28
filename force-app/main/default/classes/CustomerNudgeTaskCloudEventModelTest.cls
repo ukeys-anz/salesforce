@@ -9,24 +9,15 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     Task.getSObjectType()
   );
 
-  static Lib_MockProvider pushToAppRepoMock;
-  static void registerMocks() {
-    pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
-  }
-
   @isTest
   static void testCustomerNudgeTaskCloudEventModel() {
-    registerMocks();
-    pushToAppRepoMock.mock(
-      'queryCustomerTaskDataDetails',
-      new Customer_Task_Data__c()
-    );
     Task taskRecord = mockTaskRecord();
-
     // Call the constructor for CustomerNudgeTaskCloudEventModel
     CustomerNudgeTaskCloudEventModel model = new CustomerNudgeTaskCloudEventModel(
       taskRecord,
-      'created'
+      'created',
+      '1234',
+      null
     );
 
     // Validate the ce_type
@@ -57,7 +48,7 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
 
     // Validate the ce_xtargets
     Assert.areEqual(
-      'Notification/' + taskRecord.Pub_Sub_Event_Id__c,
+      'ocv/1234',
       model.ce_xtargets,
       'ce_xtargets is set correctly.'
     );

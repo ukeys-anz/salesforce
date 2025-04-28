@@ -24,6 +24,7 @@ public with sharing class PushToAppRepository {
         Applicable_User_Role__c INCLUDES (:userRoleInfo.DeveloperName)
         AND Applicable_Record_Types__c INCLUDES (:recordTypeName)
         AND SObject_Type__c = :sObjectName
+      WITH USER_MODE
     ];
   }
 
@@ -59,6 +60,7 @@ public with sharing class PushToAppRepository {
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
+      WITH USER_MODE
     ];
   }
 
@@ -157,24 +159,45 @@ public with sharing class PushToAppRepository {
       SELECT HasEditAccess, RecordId
       FROM UserRecordAccess
       WHERE UserId = :userId AND RecordId = :recordId
+      WITH USER_MODE
     ];
     return userAccess.HasEditAccess;
   }
 
   /**
-   * @description Retrieves details of the customer nudge task data record
-   * @param recordId The Id of the record
-   * @return details of the customer nudge task data record
+   * @description Retrieves details of the customer task data record
+   * @param customerTaskDataIds The Id of the record
+   * @return details of the customer task data record
    */
-  public Customer_Task_Data__c queryCustomerTaskDataDetails(Id recordId) {
-    if (recordId == null) {
-      return new Customer_Task_Data__c();
+  public List<Customer_Task_Data__c> queryCustomerTaskDataDetails(
+    Set<Id> customerTaskDataIds
+  ) {
+    if (customerTaskDataIds.isEmpty()) {
+      return new List<Customer_Task_Data__c>();
     }
 
     return [
       SELECT Id, AEM_Content_Data__c
       FROM Customer_Task_Data__c
-      WHERE Id = :recordId
+      WHERE Id IN :customerTaskDataIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Query OcvId of the Account
+   * @param accountIds set of account Ids
+   * @return List<Account> List of accounts with their ocvIds
+   */
+  public List<Account> queryAccountOcvId(Set<Id> accountIds) {
+    if (accountIds.isEmpty()) {
+      return new List<Account>();
+    }
+    return [
+      SELECT Id, OCV_ID__c
+      FROM Account
+      WHERE Id IN :accountIds
+      WITH USER_MODE
     ];
   }
 }
