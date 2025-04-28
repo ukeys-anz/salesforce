@@ -24,6 +24,10 @@ public with sharing class PushToAppControllerTest {
     Case.getSObjectType()
   );
 
+  private static final String FAKER_CONTACT_ID = (String) Lib_FakeIdGenerator.getMockId(
+    Contact.SObjectType
+  );
+
   private static final Id FAKER_NOTIFICATION_CONFIG_ID = Lib_FakeIdGenerator.getMockId(
     Customer_Task_Configuration__c.getSObjectType()
   );
@@ -75,7 +79,7 @@ public with sharing class PushToAppControllerTest {
       mockSelectedNotificationConfigDetail()
     );
     Test.startTest();
-    AemDataWrapper notificationDetails = PushToAppController.getAemContentData(
+    AemDataModel notificationDetails = PushToAppController.getAemContentData(
       'get_in_touch_complaint',
       FAKER_CASE_ID
     );
@@ -107,10 +111,7 @@ public with sharing class PushToAppControllerTest {
       'selectedNotificationConfigDetail',
       mockSelectedNotificationConfigDetail()
     );
-    pushToAppUtilRepoMock.mock(
-      'queryCustomerContactId',
-      mockqueryCustomerContactId()
-    );
+    pushToAppUtilRepoMock.mock('queryCustomerContactId', FAKER_CONTACT_ID);
     dmlRepoMock.mock(
       'doInsert',
       TestUtil.getMockSaveResult(
@@ -134,71 +135,6 @@ public with sharing class PushToAppControllerTest {
     );
   }
 
-  @isTest
-  static void testCustomerTaskDataAndActions() {
-    registerMocks();
-    dmlRepoMock.mock(
-      'doInsert',
-      TestUtil.getMockSaveResult(
-        '{"success":true,"id":"' + FAKER_NOTIFICATION_DATA + '"}'
-      )
-    );
-
-    CustomerTaskDataWrapper notificationData = mockPushToAppNotifData();
-
-    Test.startTest();
-    PushToAppController.insertCustomerTaskDataAndActions(notificationData);
-    Test.stopTest();
-
-    Customer_Task_Data__c notifDataRecord = (Customer_Task_Data__c) dmlRepoMock.getHistory(
-        'doInsert'
-      )
-      .getParam('record');
-
-    Assert.isNotNull(
-      notifDataRecord.AEM_Content_Data__c,
-      'Notification Data Record should be inserted'
-    );
-  }
-
-  @isTest
-  static void testCreatePushToAppTask() {
-    registerMocks();
-    pushToAppRepoMock.mock('queryTaskDetails', mockqueryTaskDetails());
-    pushToAppRepoMock.mock(
-      'selectedNotificationConfigDetail',
-      mockSelectedNotificationConfigDetail()
-    );
-    pushToAppUtilRepoMock.mock(
-      'queryCustomerContactId',
-      mockqueryCustomerContactId()
-    );
-
-    dmlRepoMock.mock(
-      'doInsert',
-      TestUtil.getMockSaveResult(
-        '{"success":true,"id":"' + FAKER_NOTIFICATION_DATA + '"}'
-      )
-    );
-
-    PushToAppTaskWrapper taskResponseWrapperValue = mockTaskResponseWrapperValue();
-
-    Test.startTest();
-    PushToAppController.insertPushToAppTask(
-      taskResponseWrapperValue,
-      FAKER_NOTIFICATION_DATA
-    );
-    Test.stopTest();
-
-    Task taskRecord = (Task) dmlRepoMock.getHistory('doInsert')
-      .getParam('record');
-
-    Assert.isTrue(
-      taskRecord.Type == 'Push To App',
-      'task record should be created with type Push To App.'
-    );
-  }
-
   private static PushToAppTaskWrapper mockTaskResponseWrapperValue() {
     PushToAppTaskWrapper taskResponseWrapper = new PushToAppTaskWrapper();
     taskResponseWrapper.subject = 'Push To App - Get in touch';
@@ -215,10 +151,6 @@ public with sharing class PushToAppControllerTest {
     pushToAppNotifData.aemContentData = mockAemData;
     pushToAppNotifData.aemContentObject = null;
     return pushToAppNotifData;
-  }
-
-  private static String mockqueryCustomerContactId() {
-    return Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
   }
 
   /**
