@@ -168,6 +168,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Event.Customer_Task_Data__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Event.Pub_Sub_Event_Id__c</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -184,6 +189,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Task.Action_Taken__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>Task.Customer_Task_Data__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

@@ -79,7 +79,7 @@ public with sharing class PushToAppControllerTest {
       mockSelectedNotificationConfigDetail()
     );
     Test.startTest();
-    AemDataModel notificationDetails = PushToAppController.getAemContentData(
+    AemDataWrapper notificationDetails = PushToAppController.getAemContentData(
       'get_in_touch_complaint',
       FAKER_CASE_ID
     );
