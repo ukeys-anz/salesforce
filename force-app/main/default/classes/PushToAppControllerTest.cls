@@ -36,6 +36,10 @@ public with sharing class PushToAppControllerTest {
     Customer_Task_Data__c.getSObjectType()
   );
 
+  private static final Id FAKER_CUSTOMER_ACTION = Lib_FakeIdGenerator.getMockId(
+    Customer_Task_Data__c.getSObjectType()
+  );
+
   private static final Id FAKER_TASK_DATA = Lib_FakeIdGenerator.getMockId(
     Task.getSObjectType()
   );
@@ -119,6 +123,13 @@ public with sharing class PushToAppControllerTest {
       )
     );
 
+    dmlRepoMock.mock(
+      'doInsert',
+      TestUtil.getMockSaveResult(
+        '{"success":true,"id":"' + FAKER_CUSTOMER_ACTION + '"}'
+      )
+    );
+
     PushToAppTaskWrapper taskResponseWrapperValue = mockTaskResponseWrapperValue();
     CustomerTaskDataWrapper notificationData = mockPushToAppNotifData();
 
@@ -149,8 +160,30 @@ public with sharing class PushToAppControllerTest {
   private static CustomerTaskDataWrapper mockPushToAppNotifData() {
     CustomerTaskDataWrapper pushToAppNotifData = new CustomerTaskDataWrapper();
     pushToAppNotifData.aemContentData = mockAemData;
-    pushToAppNotifData.aemContentObject = null;
+    pushToAppNotifData.aemContentObject = aemContentDataAsObject();
     return pushToAppNotifData;
+  }
+
+  private static CustomerActionWrapper aemContentDataAsObject() {
+    CustomerActionWrapper.Action action = new CustomerActionWrapper.Action();
+    action.deepLink = 'anz.com/.../transfer';
+    action.description = 'Transfer Funds Out';
+    action.icon = 'path/to/dark/icon';
+    action.type = 'singleAction';
+    CustomerActionWrapper.Step step = new CustomerActionWrapper.Step();
+    step.title = 'Step1';
+    step.actions = new List<CustomerActionWrapper.Action>{ action };
+    CustomerActionWrapper customerAction = new CustomerActionWrapper();
+    customerAction.bodyText = 'We called about your Case Reference 03772625 and couldn\'t reach you. Please call us back or send us a message';
+    customerAction.expiryDate = '25/05/2025';
+    customerAction.id = 'get_in_touch_complaint';
+    customerAction.notificationConfigId = 'a36AD000000QbC1YAK';
+    customerAction.reference = 'Complaint Ref 03772625';
+    customerAction.subtitle = 'Hey Jane';
+    customerAction.title = 'Get in touch';
+    customerAction.steps = new List<CustomerActionWrapper.Step>{ step };
+
+    return customerAction;
   }
 
   /**
