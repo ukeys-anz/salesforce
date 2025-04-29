@@ -442,6 +442,11 @@
         <label>Know Your Customer</label>
     </standardValue>
     <standardValue>
+        <fullName>23</fullName>
+        <default>false</default>
+        <label>Customer Migration</label>
+    </standardValue>
+    <standardValue>
         <fullName>My Accounts</fullName>
         <default>false</default>
         <label>My Accounts</label>
@@ -472,8 +477,33 @@
         <label>Intended Recipient</label>
     </standardValue>
     <standardValue>
+        <fullName>Account Closure</fullName>
+        <default>false</default>
+        <label>Account Closure</label>
+    </standardValue>
+    <standardValue>
         <fullName>Legal Name QA</fullName>
         <default>false</default>
         <label>Legal Name QA</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Move/Migration - ANZ</fullName>
+        <default>false</default>
+        <label>Move/Migration - ANZ</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmation of Payee Opt-In</fullName>
+        <default>false</default>
+        <label>Confirmation of Payee Opt-In</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Confirmation of Payee Opt-Out</fullName>
+        <default>false</default>
+        <label>Confirmation of Payee Opt-Out</label>
+    </standardValue>
+    <standardValue>
+        <fullName>24</fullName>
+        <default>false</default>
+        <label>Card Scheme Disputes</label>
     </standardValue>
 </StandardValueSet>

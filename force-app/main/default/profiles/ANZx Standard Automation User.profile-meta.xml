@@ -111,11 +111,6 @@
         <default>false</default>
         <visible>false</visible>
     </applicationVisibilities>
-    <applicationVisibilities>
-        <application>trailheadapp__Trailhead_Tracker</application>
-        <default>false</default>
-        <visible>false</visible>
-    </applicationVisibilities>
     <classAccesses>
         <apexClass>AuthTokenCacheUtil</apexClass>
         <enabled>true</enabled>
@@ -229,10 +224,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinServ__DeployCustomPicklist</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FinServ__DialogLookUpConfig</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -342,10 +333,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FinServ__Mocks</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__ModalController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -893,10 +880,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinServ__ReportService</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FinServ__RevenueTriggerHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -958,14 +941,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FinServ__SampleExtensibleService</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__SegmentationController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__SegmentationService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1033,10 +1008,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinServ__TestDeployCustomPicklist</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FinServ__TestFSCContactService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1073,10 +1044,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinServ__TestModalController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FinServ__TestMoiBasePostInstallHandler</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1102,10 +1069,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FinServ__TestReportController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__TestReportService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1145,18 +1108,6 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>FinServ__TestSegmentationController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__TestSegmentationService</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__TestTodayPageController</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>FinServ__TestTopicService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -1178,10 +1129,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FinServ__TestWMAppPostInstall</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__TestWMBaseService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -1234,10 +1181,6 @@
     </classAccesses>
     <classAccesses>
         <apexClass>FinServ__TestWealthFieldIgnore</apexClass>
-        <enabled>true</enabled>
-    </classAccesses>
-    <classAccesses>
-        <apexClass>FinServ__TodayPageController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -8004,6 +7947,14 @@
         <recordType>Case.ATM_Dispute</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Case Group Layout</layout>
+        <recordType>Case.Case_Group</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
+        <layout>Case-Confirmation Of Payee Layout</layout>
+        <recordType>Case.Confirmation_Of_Payee</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
@@ -9169,10 +9120,6 @@
         <apexPage>FinServ__WealthLabelDependencies</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <pageAccesses>
-        <apexPage>trailheadapp__TrailheadSetup</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Account.Business_Account</recordType>
@@ -9840,10 +9787,6 @@
     <tabVisibilities>
         <tab>standard-report</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>trailheadapp__TrailheadSetup</tab>
-        <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>COBPrimaryIDDocument__c</tab>

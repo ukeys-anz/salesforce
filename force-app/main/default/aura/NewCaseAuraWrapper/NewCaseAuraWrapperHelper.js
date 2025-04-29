@@ -261,6 +261,10 @@
             // if the user has multiple instances of this aura component open
             recordTypes.forEach((rt) => {
               rt.elementId = rt.Id + cmpInstanceIdentifier;
+              if (rt.DeveloperName == "Case_Group") {
+                rt.Name =
+                  "Case Group (Account Closure and Confirmation of Payee)";
+              }
             });
             // Sort record types alphabetically
             recordTypes.sort((a, b) => a.Name.localeCompare(b.Name));

@@ -1,0 +1,46 @@
+[
+  {
+    "FinServ__FinancialAccount__c": "a0FAD00000229qr2AA",
+    "Customer_Account_Number__c": "000000000",
+    "ParentId": "500AD00000Lk5iKYAR",
+    "AccountId": "001AD00000beyc1YAA",
+    "CaseNumber": "03772425",
+    "SI_PSI_Source_Other__c": "CAP",
+    "Id": "500AD00000LlmebYAB",
+    "FinServ__FinancialAccount__r": {
+      "FinServ__FinancialAccountNumber__c": "000000000",
+      "FinServ__ProductName__c": "01tOa0000053TR5IAM",
+      "Product_Name__c": "ANZ Plus",
+      "Ownership__c": "Single",
+      "BSB__c": "123456",
+      "Id": "a0FAD00000229qr2AA"
+    },
+    "Parent": {
+      "Type": "Confirmation of Payee Opt-In",
+      "Id": "500AD00000Lk5iKYAR"
+    },
+    "Account": { "OCV_ID__c": "1001297679", "Id": "001AD00000beyc1YAA" }
+  },
+  {
+    "FinServ__FinancialAccount__c": "a0FAD00000219qr2AA",
+    "Customer_Account_Number__c": "111111111",
+    "ParentId": "500AD00000Lk5iKYAR",
+    "AccountId": "001AD00000beyc1YAA",
+    "CaseNumber": "03772425",
+    "SI_PSI_Source_Other__c": "CAP",
+    "Id": "500AD00000LlmebYAB",
+    "FinServ__FinancialAccount__r": {
+      "FinServ__FinancialAccountNumber__c": "111111111",
+      "FinServ__ProductName__c": "2e4rOa0000053R5IAM",
+      "Product_Name__c": "ANZ Plus",
+      "Ownership__c": "Single",
+      "BSB__c": "123456",
+      "Id": "a0FAD00000229qr2AA"
+    },
+    "Parent": {
+      "Type": "Confirmation of Payee Opt-In",
+      "Id": "500AD00000Lk5iKYAR"
+    },
+    "Account": { "OCV_ID__c": "1001297679", "Id": "001AD00000beyc1YAA" }
+  }
+]

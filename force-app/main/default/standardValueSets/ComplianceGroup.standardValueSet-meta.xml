@@ -92,14 +92,14 @@
         <label>Source - Gearbox</label>
     </standardValue>
     <standardValue>
+        <fullName>Source_iKnow</fullName>
+        <default>false</default>
+        <label>Source - iKnow</label>
+    </standardValue>
+    <standardValue>
         <fullName>Source_LEX</fullName>
         <default>false</default>
         <label>Source - LEX</label>
-    </standardValue>
-    <standardValue>
-        <fullName>Source_myTrailhead</fullName>
-        <default>false</default>
-        <label>Source - myTrailhead</label>
     </standardValue>
     <standardValue>
         <fullName>Source_OCV</fullName>
@@ -180,5 +180,10 @@
         <fullName>Source - GCP</fullName>
         <default>false</default>
         <label>Source - GCP</label>
+    </standardValue>
+    <standardValue>
+        <fullName>Source_TrustMe</fullName>
+        <default>false</default>
+        <label>Source - TrustMe</label>
     </standardValue>
 </StandardValueSet>

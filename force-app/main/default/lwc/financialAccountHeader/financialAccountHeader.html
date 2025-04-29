@@ -1,23 +1,26 @@
 <template>
   <article class="financialAccount slds-card">
-    <h1 class="card-title" data-id="component-title">
-      <lightning-icon
-        icon-name={titleIcon}
-        size="medium"
-        class={iconColor}
-      ></lightning-icon>
-      {componentTitle}
-    </h1>
+    <template lwc:if={componentTitle}>
+      <h1 class="card-title" data-id="component-title">
+        <lightning-icon
+          icon-name={titleIcon}
+          size="medium"
+          class={iconColor}
+        ></lightning-icon>
+        {componentTitle}
+        <p class="sub-title">{componentSubTitle}</p>
+      </h1>
+    </template>
     <template lwc:if={displayContent}>
       <template lwc:if={error}>
         <c-error message={error} data-id="error"></c-error>
       </template>
       <template lwc:else>
-        <template lwc:if={accountDetails}>
-          <template for:each={accountDetails} for:item="finAccount">
+        <template lwc:if={processedFinAccounts}>
+          <template for:each={processedFinAccounts} for:item="finAccount">
             <div
               class="slds-card__body slds-card__body_inner"
-              key={finAccount.Id}
+              key={finAccount.id}
               data-id="fin-account"
             >
               <article class="slds-card">
@@ -44,11 +47,11 @@
                             </template>
                           </template>
                           <span class={finAccount.badgeClass}
-                            >{finAccount.FinServ__Status__c}</span
+                            >{finAccount.finserv_status}</span
                           >
                           <template lwc:if={finAccount.showMultipartyBadge}>
                             <span class="slds-badge dormantBadgeClass"
-                              >{finAccount.multiParty}</span
+                              >{finAccount.finserv_ownership}</span
                             >
                           </template>
                         </h2>
@@ -63,14 +66,11 @@
                             <div class="header-column">
                               <p class="slds-text-color_weak">Account Number</p>
                               <p class="slds-text-heading_medium">
-                                {finAccount.FinServ__FinancialAccountNumber__c}
+                                {finAccount.account_number}
                               </p>
-                              <template
-                                lwc:if={finAccount.FinServ__CloseDate__c}
-                              >
+                              <template lwc:if={finAccount.finserv_closedate}>
                                 <p class="slds-text-color_weak italictext">
-                                  Date Closed :
-                                  {finAccount.FinServ__CloseDate__c}
+                                  Date Closed : {finAccount.finserv_closedate}
                                 </p>
                               </template>
                             </div>
@@ -90,7 +90,7 @@
                               </p>
                               <p class="slds-text-heading_large">
                                 <lightning-formatted-number
-                                  value={finAccount.FinServ__Balance__c}
+                                  value={finAccount.balances.balance.value}
                                   format-style="currency"
                                   data-id="amount"
                                 ></lightning-formatted-number>
@@ -159,7 +159,7 @@
                             </template>
                           </template>
                           <span class={finAccount.badgeClass}
-                            >{finAccount.FinServ__Status__c}</span
+                            >{finAccount.finserv_status}</span
                           >
                           <template lwc:if={finAccount.showMultipartyBadge}>
                             <span class="slds-badge dormantBadgeClass"
@@ -178,7 +178,7 @@
                             <div class="header-column">
                               <p class="slds-text-color_weak">Account Number</p>
                               <p class="slds-text-heading_medium">
-                                {finAccount.FinServ__FinancialAccountNumber__c}
+                                {finAccount.account_number}
                               </p>
                             </div>
                           </div>
@@ -197,7 +197,7 @@
                               </p>
                               <p class="slds-text-heading_large">
                                 <lightning-formatted-number
-                                  value={finAccount.FinServ__Balance__c}
+                                  value={finAccount.balances.balance.value}
                                   format-style="currency"
                                   data-id="amount"
                                 ></lightning-formatted-number>
@@ -232,11 +232,11 @@
                         </template>
 
                         <span class={finAccount.badgeClass}
-                          >{finAccount.FinServ__Status__c}</span
+                          >{finAccount.finserv_status}</span
                         >
                         <template lwc:if={finAccount.showMultipartyBadge}>
                           <span class="slds-badge dormantBadgeClass"
-                            >{finAccount.multiParty}</span
+                            >{finAccount.finserv_ownership}</span
                           >
                         </template>
                       </h2>
@@ -251,7 +251,7 @@
                           <div class="header-column">
                             <p class="slds-text-color_weak">Account Number</p>
                             <p class="slds-text-heading_medium">
-                              {finAccount.FinServ__FinancialAccountNumber__c}
+                              {finAccount.account_number}
                             </p>
                           </div>
                         </div>
@@ -270,7 +270,7 @@
                             </p>
                             <p class="slds-text-heading_large">
                               <lightning-formatted-number
-                                value={finAccount.FinServ__Balance__c}
+                                value={finAccount.balances.balance.value}
                                 format-style="currency"
                                 data-id="amount"
                               ></lightning-formatted-number>
@@ -291,7 +291,7 @@
         <template lwc:else>
           <h1 class="slds-card__header-title slds-text-align_center">
             <span class="not-found" data-id="no-accounts"
-              >No {accountType} Accounts</span
+              >No {productCode} Accounts</span
             >
           </h1>
         </template>
@@ -309,7 +309,8 @@
   <template lwc:if={showInfoModal}>
     <c-dynamic-tooltip-util
       header-title={balanceTitle}
-      resource-name={accountType}
+      resource-name={productCode}
+      product-name={componentSubTitle}
       onclosemodal={closeModal}
     ></c-dynamic-tooltip-util>
   </template>

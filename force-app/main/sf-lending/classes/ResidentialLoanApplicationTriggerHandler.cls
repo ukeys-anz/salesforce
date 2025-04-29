@@ -1,0 +1,76 @@
+/**
+ * @author cruzb
+ * @since July 2023
+ * @description creates `ResidentialLoanApplication`
+ * @group handler
+ * @runTests ResidentialLoanAppTriggerHandlerTest, ResidentialLoanApplicationControllerTest
+ */
+public with sharing class ResidentialLoanApplicationTriggerHandler extends Lib_TriggerHandler {
+  /**
+   * @description Constructor to call the trigger framework
+   * which will call the appropriate methods such as onAfterInsert etc.
+   */
+  public ResidentialLoanApplicationTriggerHandler() {
+    super();
+  }
+
+  /**
+   * @description onBeforeInsert to handle before insert trigger actions
+   */
+  public override void onBeforeInsert() {
+    //Assign home loan applications queue as owner
+    ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      new Map<Id, ResidentialLoanApplication>()
+    );
+    ResidentialLoanApplicationActions.updateApplicationSyncStatus(records);
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    ResidentialLoanApplicationActions.populateRetailLoanAssistedBroker(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+  }
+
+  /**
+   * @description onAfterInsert to handle after insert trigger actions
+   */
+  @TestVisible
+  public override void onAfterInsert() {
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_ADD
+    );
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ToastAlertService.publishRecordMonitoringEvent(
+      ToastAlertService.RLA_MESSAGE,
+      ToastAlertService.checkRLAReassessmentRequirement(
+        records,
+        (Map<Id, ResidentialLoanApplication>) oldMap
+      )
+    );
+    CoachNudgeTaskAction.processCancelledRLARecords(
+      records,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+    ResidentialLoanApplicationActions.publishSyncEvents(
+      records,
+      ApplicationEventActions.APPLICATION_EVENT_UPDATE
+    );
+    ResidentialLoanApplicationActions.cancelRelatedCreditReferralCases(
+      (Map<Id, ResidentialLoanApplication>) Trigger.newMap,
+      (Map<Id, ResidentialLoanApplication>) oldMap
+    );
+  }
+}

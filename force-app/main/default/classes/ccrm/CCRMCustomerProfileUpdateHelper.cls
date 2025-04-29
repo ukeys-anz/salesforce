@@ -5,7 +5,7 @@
  * @runTests CCRMCustomerProfileUpdateHelperTest
  */
 public with sharing class CCRMCustomerProfileUpdateHelper {
-  private static final string PENDING_UPDATE_ERROR = 'Unable to edit this record since it was recently edited and changes are still being processed, please try again later.';
+  private static final string PENDING_UPDATE_ERROR = 'You are unable to edit this record as there has been a recent edit made that is still being processed, please try again later.';
   private static final string DELETE_LAST_CONTACT_ERROR = 'This contact cannot be deleted as at least one contact must be linked to a customer. Please try adding a new contact before deleting this one.';
   private static final String KYC_EDIT_ERROR = 'You are not allowed to edit the KYC fields for active customer.';
   private static final Profile CURRENT_USER_PROFILE = MLCRMCommonUtils.getProfileById(
@@ -259,64 +259,68 @@ public with sharing class CCRMCustomerProfileUpdateHelper {
     List<SObject> records,
     Map<Id, SObject> oldMap
   ) {
-    if (!records.isEmpty()) {
-      //allowedFieldsToUpdateInCustomMetadata - It will store the Object name and the set of Non-KYC fields which user is allow to edit.
-      Map<String, Set<String>> allowedFieldsToUpdateInCustomMetadata = formObjectFieldsMap(
-        records[0]
-      );
+    if (
+      records.isEmpty() ||
+      LeadConversionController.manualLeadConversionInitiated
+    ) {
+      return;
+    }
+    //allowedFieldsToUpdateInCustomMetadata - It will store the Object name and the set of Non-KYC fields which user is allow to edit.
+    Map<String, Set<String>> allowedFieldsToUpdateInCustomMetadata = formObjectFieldsMap(
+      records[0]
+    );
 
-      //allowedFieldsToUpdateInFieldSets - It will store the set of Non-KYC fields that are there in fieldSets of the respective object.
-      Set<String> allowedFieldsToUpdateInFieldSets = MLCRMCustomerProfileUpdateHelper.getFieldsinFieldSets(
-        records[0].getSObjectType().getDescribe().name
-      );
-      Schema.DescribeSObjectResult objectInfo = records[0]
-        .getSObjectType()
-        .getDescribe();
-      Map<Id, Schema.RecordTypeInfo> recordTypeInfoMap = objectInfo
-        .sobjectType.getDescribe()
-        .getRecordTypeInfosById();
-      Set<String> fieldPopulated;
-      for (Sobject record : records) {
-        fieldPopulated = new Set<String>();
+    //allowedFieldsToUpdateInFieldSets - It will store the set of Non-KYC fields that are there in fieldSets of the respective object.
+    Set<String> allowedFieldsToUpdateInFieldSets = MLCRMCustomerProfileUpdateHelper.getFieldsinFieldSets(
+      records[0].getSObjectType().getDescribe().name
+    );
+    Schema.DescribeSObjectResult objectInfo = records[0]
+      .getSObjectType()
+      .getDescribe();
+    Map<Id, Schema.RecordTypeInfo> recordTypeInfoMap = objectInfo
+      .sobjectType.getDescribe()
+      .getRecordTypeInfosById();
+    Set<String> fieldPopulated;
+    for (Sobject record : records) {
+      fieldPopulated = new Set<String>();
 
-        //fieldPopulated - It will store the set of Field API Name for which value are previously present on the record
-        //and also for which the value are currently present after made a change.
-        fieldPopulated.addAll(record.getPopulatedFieldsAsMap().keySet());
-        if (oldMap != null) {
-          fieldPopulated.addAll(
-            oldMap.get((Id) record.get('Id')).getPopulatedFieldsAsMap().keySet()
-          );
-        }
-        String recordTypeName = recordTypeInfoMap
-          .get((Id) record.get('RecordTypeId'))
-          .getDeveloperName();
-        String objectRecordTypeKey = objectInfo.name + '-' + recordTypeName;
+      //fieldPopulated - It will store the set of Field API Name for which value are previously present on the record
+      //and also for which the value are currently present after made a change.
+      fieldPopulated.addAll(record.getPopulatedFieldsAsMap().keySet());
+      if (oldMap != null) {
+        fieldPopulated.addAll(
+          oldMap.get((Id) record.get('Id')).getPopulatedFieldsAsMap().keySet()
+        );
+      }
+      String recordTypeName = recordTypeInfoMap
+        .get((Id) record.get('RecordTypeId'))
+        .getDeveloperName();
+      String objectRecordTypeKey = objectInfo.name + '-' + recordTypeName;
 
-        //It will check that particular field value changes & if that field is present in FieldSet
-        //and not there in objectFieldsMap which means it is a KYC Field then it will throw error.
+      //It will check that particular field value changes & if that field is present in FieldSet
+      //and not there in objectFieldsMap which means it is a KYC Field then it will throw error.
 
-        //It won't throw error in below cases:
-        //If field is present in both FieldSet & objectFieldsMap then it is a Non-KYC field.
-        //If field is present in neither in FieldSet nor in objectFieldsMap then it is a System Field.
-        for (String populatedfieldName : fieldPopulated) {
-          if (
-            allowedFieldsToUpdateInFieldSets.contains(populatedfieldName) &&
-            (!allowedFieldsToUpdateInCustomMetadata.containsKey(
-              objectRecordTypeKey
-            ) ||
-            (allowedFieldsToUpdateInCustomMetadata.containsKey(
-              objectRecordTypeKey
-            ) &&
-            !allowedFieldsToupdateInCustomMetadata.get(objectRecordTypeKey)
-              .contains(populatedfieldName))) &&
-            MLCRMCustomerProfileUpdateHelper.isFieldChanged(
-              record,
-              oldMap,
-              populatedfieldName
-            )
-          ) {
-            record.addError(populatedfieldName, KYC_EDIT_ERROR);
-          }
+      //It won't throw error in below cases:
+      //If field is present in both FieldSet & objectFieldsMap then it is a Non-KYC field.
+      //If field is present in neither in FieldSet nor in objectFieldsMap then it is a System Field.
+      for (String populatedfieldName : fieldPopulated) {
+        if (
+          allowedFieldsToUpdateInFieldSets.contains(populatedfieldName) &&
+          (!allowedFieldsToUpdateInCustomMetadata.containsKey(
+            objectRecordTypeKey
+          ) ||
+          (allowedFieldsToUpdateInCustomMetadata.containsKey(
+            objectRecordTypeKey
+          ) &&
+          !allowedFieldsToupdateInCustomMetadata.get(objectRecordTypeKey)
+            .contains(populatedfieldName))) &&
+          MLCRMCustomerProfileUpdateHelper.isFieldChanged(
+            record,
+            oldMap,
+            populatedfieldName
+          )
+        ) {
+          record.addError(populatedfieldName, KYC_EDIT_ERROR);
         }
       }
     }

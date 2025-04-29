@@ -1,0 +1,25 @@
+.amountStyleParent {
+  font-size: var(--header-text-font-size);
+  font-weight: var(--amount-and-header-font-weight);
+  line-height: var(--amount-line-height);
+  color: var(--amount-font-color);
+}
+
+.amountStyle {
+  font-size: var(--amount-and-header-text-size);
+  font-weight: var(--amount-and-header-font-weight);
+  line-height: var(--amount-and-header-line-height);
+  color: var(--amount-font-color);
+}
+
+.headerStyling {
+  font-size: var(--header-text-font-size);
+  font-weight: var(--lwc-fontWeightBold);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+
+.logoStyle {
+  width: var(--logo-dimensions);
+  height: var(--logo-dimensions);
+}

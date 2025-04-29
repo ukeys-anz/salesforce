@@ -28,6 +28,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Grant_ANZ_user_access_to_GCP_integration_user</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule grants Loan App GCP Integration User read access to users</description>
+        <label>Grant ANZ user access to GCP integration user</label>
+        <sharedTo>
+            <group>Loan_App_GCP_Integration_User</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Grant_Read_Access_on_Engineer_User_Records_for_Engineers</fullName>
         <accessLevel>Read</accessLevel>
         <description>Rule to provide &apos;Read&apos; access to all Engineer User records for Engineers.</description>

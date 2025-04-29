@@ -8,57 +8,74 @@ public with sharing class FinancialAccountController {
   private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
     FinancialAccountRepository.class
   );
+
   private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  public static final String FAILED_TO_RETRIEVE = 'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator';
+  public static final String FAILED_FIN_ACCOUNT_UPDATE = 'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator';
+  private static final Integer DEFAULT_SORT_ORDER = 999;
 
   //Map of fabric statuses and user friendly names to map them to
   private static final Map<String, String> FABRIC_STATUSES = new Map<String, String>{
-    //Status Mapping of v1beta1
-    'ACCOUNT_STATUS_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
-    'ACCOUNT_STATUS_OPEN' => 'Open', // the account is open
-    'ACCOUNT_STATUS_ACTIVE' => 'Active', // the account is active
-    'ACCOUNT_STATUS_SUSPENDED' => 'Suspended', // the account is suspended
-    'ACCOUNT_STATUS_DORMANT' => 'Dormant', // the account is dormant
-    'ACCOUNT_STATUS_CLOSED' => 'Closed', // the account is closed
     //State Mapping for v1
-    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified', // there is no info about what status the account is in
-    'ACCOUNT_STATE_OPEN' => 'Open', // the account is open
-    'ACCOUNT_STATE_ACTIVE' => 'Active', // the account is active
-    'ACCOUNT_STATE_SUSPENDED' => 'Suspended', // the account is suspended
-    'ACCOUNT_STATE_DORMANT' => 'Dormant', // the account is dormant
-    'ACCOUNT_STATE_CLOSED' => 'Closed' // the account is closed
+    'ACCOUNT_STATE_UNSPECIFIED' => 'Unspecified',
+    'ACCOUNT_STATE_OPEN' => 'Open',
+    'ACCOUNT_STATE_ACTIVE' => 'Active',
+    'ACCOUNT_STATE_SUSPENDED' => 'Suspended',
+    'ACCOUNT_STATE_DORMANT' => 'Dormant',
+    'ACCOUNT_STATE_CLOSED' => 'Closed'
   };
 
   //Map of fabric ownership and user friendly names to map them to
   private static final Map<String, String> FABRIC_OWNERSHIP = new Map<String, String>{
-    'OWNERSHIP_TYPE_MULTIPARTY' => 'Multi-party', // its a joint account
-    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single' // its an individual account
+    'OWNERSHIP_TYPE_MULTIPARTY' => 'Multi-party',
+    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
+  };
+
+  //Map of fabric ownership and user friendly names for UI
+  private static final Map<String, String> FABRIC_OWNERSHIP_UI = new Map<String, String>{
+    'OWNERSHIP_TYPE_MULTIPARTY' => 'Joint',
+    'OWNERSHIP_TYPE_SINGLEPARTY' => 'Single'
   };
 
   /**
-   * @description The Financial Account component uses this to fetch the records to display.
-   * This makes the callout to fabric to fetch data
+   * @description This method is an orchestration layer for retrieving financial accounts, grouped accounts , add metadata values and sort grouped records
    *
    * @param ocvId the ocv id of the customer
    * @param accountNumbers contains account numbers to provide as parameters for account filtering
-   * @return List<FinServ__FinancialAccount__c>
+   * @return Grouped Financial Accounts based on product code.
    */
   @AuraEnabled
-  public static List<FinServ__FinancialAccount__c> getFinancialAccountFabric(
+  public static List<UnifiedFinancialAccountModel> getFinancialAccountFabric(
     String ocvId,
     List<String> accountNumbers
   ) {
     try {
-      return getFinancialAccountsFromFabric(ocvId, accountNumbers);
+      List<UnifiedFinancialAccountModel.AccountList> fabricAccountList = getFinancialAccountsFromFabric(
+        ocvId,
+        accountNumbers
+      );
+
+      if (fabricAccountList.isEmpty()) {
+        return new List<UnifiedFinancialAccountModel>();
+      }
+
+      List<UnifiedFinancialAccountModel.AccountList> homeloanaccounts = filterOutNonHomeLoanAccounts(
+        fabricAccountList
+      );
+
+      DataPartitionUtil.storeLoanAccountDetailsCache(ocvId, homeloanaccounts);
+
+      List<UnifiedFinancialAccountModel> processedAccounts = FinancialAccountControllerAction.processFinancialAccounts(
+        fabricAccountList
+      );
+
+      return processedAccounts;
     } catch (DmlException dmlExp) {
-      throw new AuraHandledException(
-        'Failed to update accounts. Please refresh and try again. If issue persists please contact your System Administrator'
-      );
+      throw new AuraHandledException(FAILED_FIN_ACCOUNT_UPDATE);
     } catch (Exception e) {
-      throw new AuraHandledException(
-        'Failed to retrieve latest account information. Please refresh and try again. If issue persists please contact your System Administrator'
-      );
+      throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
   }
 
@@ -68,27 +85,30 @@ public with sharing class FinancialAccountController {
    *
    * @param ocvId the ocv id of the customer
    * @param accountNumbers contains account numbers to provide as parameters for account filtering
-   * @return List<FinServ__FinancialAccount__c>
+   * @return list of financial accounts received from fabric
    */
-  private static List<FinServ__FinancialAccount__c> getFinancialAccountsFromFabric(
+  public static List<UnifiedFinancialAccountModel.AccountList> getFinancialAccountsFromFabric(
     String ocvId,
     List<String> accountNumbers
   ) {
-    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
-    List<FinServ__FinancialAccount__c> financialAccountsUpdate = new List<FinServ__FinancialAccount__c>();
-    Set<String> financialAccountNumbers = new Set<String>();
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    FinancialAccountModel result = coachapi.getAccounts(ocvId, accountNumbers);
+    FinancialAccountAPIRepository financiAccountApi = new FinancialAccountAPIRepository();
+    UnifiedFinancialAccountModel result = financiAccountApi.getAccounts(
+      ocvId,
+      accountNumbers
+    );
 
-    if (result.account_list == null) {
-      return financialAccounts;
+    if (result.accounts == null) {
+      return new List<UnifiedFinancialAccountModel.AccountList>();
     }
 
-    for (FinancialAccountModel.AccountList finAccount : result.account_list) {
-      financialAccountNumbers.add(finAccount.account_number);
-    }
+    List<String> financialAccountNumbers = (List<String>) ListUtil.getValues(
+      result.accounts,
+      'account_number',
+      String.class
+    );
+
     List<FinServ__FinancialAccount__c> financialAccountList = FINANCIAL_ACCOUNT_REPOSITORY.getFinAccountList(
-      new List<String>(financialAccountNumbers)
+      financialAccountNumbers
     );
 
     Map<String, FinServ__FinancialAccount__c> finAccNumberToFinancialAccountMap = (Map<String, FinServ__FinancialAccount__c>) ListUtil.mapBy(
@@ -96,28 +116,33 @@ public with sharing class FinancialAccountController {
       FinServ__FinancialAccount__c.FinServ__FinancialAccountNumber__c
     );
 
-    for (FinancialAccountModel.AccountList finAccount : result.account_list) {
+    List<UnifiedFinancialAccountModel.AccountList> processedFinancialAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
+    List<FinServ__FinancialAccount__c> financialAccountsToUpdate = new List<FinServ__FinancialAccount__c>();
+
+    for (
+      UnifiedFinancialAccountModel.AccountList finAccount : result.accounts
+    ) {
       FinServ__FinancialAccount__c finAccountFromDatabase = finAccNumberToFinancialAccountMap.get(
         finAccount.account_number
       );
-      FinServ__FinancialAccount__c finAccountRecord = getFinancialAccountInstance(
+      UnifiedFinancialAccountModel.AccountList finAccountRecord = getFinancialAccountInstance(
         finAccount,
         finAccountFromDatabase
       );
-      financialAccounts.add(finAccountRecord);
+      processedFinancialAccounts.add(finAccountRecord);
 
       if (finAccountFromDatabase != null) {
         FinServ__FinancialAccount__c finAccountRecordToUpdate = getFinancialAccountInstanceToUpdate(
           finAccount,
           finAccountFromDatabase
         );
-        financialAccountsUpdate.add(finAccountRecordToUpdate);
+        financialAccountsToUpdate.add(finAccountRecordToUpdate);
       }
     }
 
-    DML.doUpdate(financialAccountsUpdate, new DmlConfig().withoutSharing());
+    DML.doUpdate(financialAccountsToUpdate, new DmlConfig().withoutSharing());
 
-    return financialAccounts;
+    return processedFinancialAccounts;
   }
 
   /**
@@ -125,38 +150,41 @@ public with sharing class FinancialAccountController {
    * Creates a instance of Financial Account Record to display it on UI
    * @param finAccount Financial Account from Fabric
    * @param finAccountFromDatabase Financial Account from Salesforce Database
-   * @return FinServ__FinancialAccount__c
+   * @return financial account to be displayed on UI
    */
-  private static FinServ__FinancialAccount__c getFinancialAccountInstance(
-    FinancialAccountModel.AccountList finAccount,
+  @TestVisible
+  private static UnifiedFinancialAccountModel.AccountList getFinancialAccountInstance(
+    UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
-    FinServ__FinancialAccount__c finAccountRecord = new FinServ__FinancialAccount__c();
-    finAccountRecord.Id = finAccountFromDatabase?.Id;
-    finAccountRecord.Name = finAccount.name;
-    finAccountRecord.FinServ__FinancialAccountNumber__c = finAccount.account_number;
-    finAccountRecord.FinServ__Balance__c = finAccount.balance.value;
-    finAccountRecord.FinServ__CurrentPostedBalance__c = finAccount.current_balance.value;
-    finAccountRecord.BSB__c = finAccount.bsb;
-    finAccountRecord.FinServ__OpenDate__c = finAccount.opened_at == null
-      ? null
-      : Date.valueOf(finAccount.opened_at);
-    finAccountRecord.FinServ__CloseDate__c = finAccount.closed_at == null
-      ? null
-      : Date.valueOf(finAccount.closed_at);
-    finAccountRecord.FinServ__Status__c = FABRIC_STATUSES.get(
-      finAccount.status
+    String finAccountKey =
+      finAccount.product_details.marketing_code +
+      '_' +
+      FABRIC_OWNERSHIP_UI.get(finAccount.ownership?.type);
+    FinancialAccountUIConfiguration__mdt finAccConfig = QueryFinancialAccountUIConfig.configByDeveloperName.get(
+      finAccountKey
     );
-    finAccountRecord.Marketing_Code__c = finAccount.marketing_product.code;
-    finAccountRecord.RecordType = getAccountRecordType(
-      finAccount.marketing_product.code
-    );
-    finAccountRecord.FinServ__Ownership__c = finAccountFromDatabase == null
+    finAccount.Id = finAccountFromDatabase?.Id;
+    finAccount.finserv_product_name = finAccountFromDatabase
+      ?.FinServ__ProductName__c;
+    finAccount.finserv_product_display_name = finAccountFromDatabase
+      ?.Product_Name_Display__c ?? finAccount.product_details?.name;
+    finAccount.finserv_opendate = finAccount.open_date == null
+      ? null
+      : Date.valueOf(finAccount.open_date.value);
+    finAccount.finserv_closedate = finAccount.close_date == null
+      ? null
+      : Date.valueOf(finAccount.close_date.value);
+    finAccount.finserv_status = FABRIC_STATUSES.get(finAccount.state);
+    finAccount.finserv_ownership = finAccountFromDatabase == null
       ? FABRIC_OWNERSHIP.get(finAccount.ownership?.type)
       : finAccountFromDatabase.Ownership__c;
-    finAccountRecord.FinServ__ProductName__c = finAccountFromDatabase
-      ?.FinServ__ProductName__c;
-    return finAccountRecord;
+
+    finAccount.finserv_sortorder = finAccConfig?.Sort_Order__c ??
+      DEFAULT_SORT_ORDER;
+    finAccount.finserv_showgoal = finAccConfig?.Show_Goals__c ?? true;
+
+    return finAccount;
   }
 
   /**
@@ -164,61 +192,125 @@ public with sharing class FinancialAccountController {
    * Creates a instance of Financial Account Record to be updated
    * @param finAccount Financial Account from Fabric
    * @param finAccountFromDatabase Financial Account from Salesforce Database
-   * @return FinServ__FinancialAccount__c
+   * @return financial accounts with values to be updated in the database
    */
+  @TestVisible
   private static FinServ__FinancialAccount__c getFinancialAccountInstanceToUpdate(
-    FinancialAccountModel.AccountList finAccount,
+    UnifiedFinancialAccountModel.AccountList finAccount,
     FinServ__FinancialAccount__c finAccountFromDatabase
   ) {
     FinServ__FinancialAccount__c record = new FinServ__FinancialAccount__c();
     record.Id = finAccountFromDatabase.Id;
-    record.Name = finAccount.name;
-    record.FinServ__Balance__c = finAccount.balance.value;
-    record.FinServ__CurrentPostedBalance__c = finAccount.current_balance.value;
-    record.FinServ__CloseDate__c = finAccount.closed_at == null
+    record.Name = finAccount.account_name;
+    record.FinServ__Balance__c = finAccount.balances.balance.value;
+    record.FinServ__CurrentPostedBalance__c = finAccount.balances.current_balance.value;
+    record.FinServ__CloseDate__c = finAccount.close_date == null
       ? null
-      : Date.valueOf(finAccount.closed_at);
-    record.FinServ__OpenDate__c = finAccount.opened_at == null
+      : Date.valueOf(finAccount.close_date.value);
+    record.FinServ__OpenDate__c = finAccount.open_date == null
       ? null
-      : Date.valueOf(finAccount.opened_at);
+      : Date.valueOf(finAccount.open_date.value);
     return record;
   }
 
   /**
-   * @description The Financial Account component uses this as a fallback to fetch the records to display.
-   * If the getFinancialAccountFabric fails, the LWC will use this as a fallback to fetch the existing
-   * records in Salesforce and return them
-   *
-   * @param ownerId the id of the owner of the financial account
-   * @param recordTypeDeveloperNames the account type to retrieve
-   * @return List<FinServ__FinancialAccount__c>
+   * @description Filters and returns only Home Loan accounts based on the product code
+   * @param financialAccountFabric List of all accounts to be filtered.
+   * @return A list of Home Loan accounts.
+   */
+  @TestVisible
+  private static List<UnifiedFinancialAccountModel.AccountList> filterOutNonHomeLoanAccounts(
+    List<UnifiedFinancialAccountModel.AccountList> financialAccountFabric
+  ) {
+    List<UnifiedFinancialAccountModel.AccountList> homeLoanAccounts = new List<UnifiedFinancialAccountModel.AccountList>();
+
+    for (
+      UnifiedFinancialAccountModel.AccountList acc : financialAccountFabric
+    ) {
+      if (
+        QueryFinancialAccountUIConfig.configByProductCode.get(
+            acc.product_details?.marketing_code
+          )
+          ?.Account_Type__c == 'Loan'
+      ) {
+        homeLoanAccounts.add(acc);
+      }
+    }
+    return homeLoanAccounts;
+  }
+
+  /**
+   * @description This method is an orchestration layer for retrieving financial accounts from database and then group accounts , add metadata values and sort grouped records
+   * Also, fetching the homeloan accounts from the Cache
+   * @param ocvId The ocv id of the customer
+   * @param ownerId The record id of the customer / primary owner of the financial accounts
+   * @return Grouped Financial Accounts based on product code.
    */
   @AuraEnabled
-  public static List<FinServ__FinancialAccount__c> getFinancialAccountDB(
-    Id ownerId,
-    List<String> recordTypeDeveloperNames
+  public static List<UnifiedFinancialAccountModel> getFinancialAccountDB(
+    String ocvId,
+    Id ownerId
   ) {
-    List<FinServ__FinancialAccount__c> financialAccount = new List<FinServ__FinancialAccount__c>();
+    List<UnifiedFinancialAccountModel.AccountList> combinedFinancialAccountList = new List<UnifiedFinancialAccountModel.AccountList>();
+
     try {
-      PermissionUtils.canQuery('FinServ__FinancialAccount__c');
-      PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
-      if (String.isNotBlank(ownerId) && !recordTypeDeveloperNames.isEmpty()) {
-        //for joint account we cannot query only on Primary owner as it will return FA where primary owner is passed account id from UI.
-        //Thus querying on Active FARs to determine what all account numbers this customer has then showing all of them on UI
-        List<String> allRelatedAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
-          ownerId
-        );
-        financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinacialAccounts(
-          ownerId,
-          allRelatedAccountNumbers,
-          recordTypeDeveloperNames
-        );
+      List<UnifiedFinancialAccountModel.AccountList> homeLoanAccountDetailsCache = DataPartitionUtil.getLoanAccountDetailsCache(
+        ocvId
+      );
+
+      List<UnifiedFinancialAccountModel.AccountList> financialAccountsFromDatabase = fetchAllFinancialAccountsDB(
+        ownerId
+      );
+
+      if (
+        homeLoanAccountDetailsCache == null &&
+        financialAccountsFromDatabase.isEmpty()
+      ) {
+        return new List<UnifiedFinancialAccountModel>();
       }
+
+      if (homeLoanAccountDetailsCache != null) {
+        combinedFinancialAccountList.addAll(homeLoanAccountDetailsCache);
+      }
+
+      combinedFinancialAccountList.addAll(financialAccountsFromDatabase);
+
+      return FinancialAccountControllerAction.processFinancialAccounts(
+        combinedFinancialAccountList
+      );
     } catch (Exception objException) {
-      Logger.error(objException.getMessage(), objException);
-      Logger.saveLog();
+      CommonUtil.logException(objException);
+      throw new AuraHandledException(FAILED_TO_RETRIEVE);
     }
-    return financialAccount;
+  }
+
+  /**
+   * @description This method fetch data of financial accounts from database and then group accounts , add metadata values and sort grouped records
+   * @param ownerId The record id of the customer / primary owner of the financial accounts
+   * @return Grouped Financial Accounts based on product code.
+   */
+  @TestVisible
+  private static List<UnifiedFinancialAccountModel.AccountList> fetchAllFinancialAccountsDB(
+    Id ownerId
+  ) {
+    List<FinServ__FinancialAccountRole__c> allRelatedAccountsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
+      ownerId,
+      QueryFinancialAccountUIConfig.configByProductCode.keySet()
+    );
+
+    Set<String> allRelatedAccountNumbers = ListUtil.getStrings(
+      allRelatedAccountsRoles,
+      FinServ__FinancialAccountRole__c.Account_Number__c
+    );
+
+    List<FinServ__FinancialAccount__c> financialAccount = FINANCIAL_ACCOUNT_REPOSITORY.getFinancialAccounts(
+      ownerId,
+      new List<String>(allRelatedAccountNumbers)
+    );
+
+    return UnifiedFinancialAccountModelConverter.convertToUnifiedFinancialAccountModel(
+      financialAccount
+    );
   }
 
   /**
@@ -235,33 +327,5 @@ public with sharing class FinancialAccountController {
       return null;
     }
     return listOfAccounts.get(0).OCV_ID__c;
-  }
-
-  /**
-   * @description The Financial Account component uses this method to differentiate between the type of account.
-   * This method takes in marketing code as input and returns the label of the corresponding record type
-   * The reason this method is required, is to avoid having to query database when fabric response is received,
-   * else a query to pull FinServ__RecordTypeName__c would be required
-   * @param code the marketing code input
-   * @return Account record type
-   */
-  public static RecordType getAccountRecordType(String code) {
-    switch on code {
-      when 'TRANSACT01' {
-        return new RecordType(
-          DeveloperName = GetHelpConstants.CHECKING_ACCOUNT_RT_APINAME
-        );
-      }
-      when 'SAVING01', 'SAVING02' {
-        return new RecordType(
-          DeveloperName = GetHelpConstants.SAVINGS_ACCOUNT_RT_APINAME
-        );
-      }
-      when else {
-        return new RecordType(
-          DeveloperName = GetHelpConstants.BANK_ACCOUNT_RT_APINAME
-        );
-      }
-    }
   }
 }

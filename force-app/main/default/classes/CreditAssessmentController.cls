@@ -12,18 +12,12 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
     CreditAssessmentAPIRepository.class
   );
 
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
   private static final String STATUS_DECLINED = 'STATE_DECLINED';
   private static final String DECLINED = 'Declined';
-
-  private static UserRole bohCoachRole = CommonUtil.getUserRoleByDevName(
-    'BOH_Coach'
-  );
-  private static UserRole creditAssessmentOfficerRole = CommonUtil.getUserRoleByDevName(
-    'Credit_Assessment_Officer'
-  );
-  private static UserRole creditAssessorLeadRole = CommonUtil.getUserRoleByDevName(
-    'Credit_Assessor_Lead'
-  );
 
   /**
    * @param action String value of local method to invoke
@@ -222,18 +216,66 @@ global with sharing class CreditAssessmentController implements omnistudio.Vloci
       crReason.editable = false;
       crReason.reasonCodeId = referralReason.Id;
 
-      if (
-        ((UserInfo.getUserRoleId() == creditAssessorLeadRole.Id) ||
-        (UserInfo.getUserId() == caseRecord.OwnerId &&
-        ((UserInfo.getUserRoleId() == creditAssessmentOfficerRole.Id) ||
-        (UserInfo.getUserRoleId() == bohCoachRole.Id &&
-        referralReason.Authority_Level__c.toUpperCase() == 'NO CAD')))) &&
-        (!caseRecord.Status.contains('Closed'))
-      ) {
-        crReason.editable = true;
-      }
+      crReason.editable = checkEditabilityForCrReason(
+        caseRecord,
+        referralReason
+      );
     }
   }
+
+  /**
+   * @param caseRecord CreditReferralCase
+   * @param referralReason Credit Referral Reason
+   * @return `Boolean`
+   * @description checks eligibility for editability of credit referral reason field
+   */
+  private static Boolean checkEditabilityForCrReason(
+    Case caseRecord,
+    Referral_Reason__c referralReason
+  ) {
+    if (caseRecord.Status.contains('Closed')) {
+      return false;
+    }
+
+    if (USER_INFO.checkRole('Credit_Assessor_Lead')) {
+      return true;
+    }
+
+    if (
+      isCurrentUserCaseOwner(caseRecord) &&
+      USER_INFO.checkRole('Credit_Assessment_Officer')
+    ) {
+      return true;
+    }
+
+    if (
+      isCurrentUserCaseOwner(caseRecord) &&
+      USER_INFO.checkRole('BOH_Coach') &&
+      referralReason.Authority_Level__c.toUpperCase() == 'NO CAD'
+    ) {
+      return true;
+    }
+
+    if (
+      isCurrentUserCaseOwner(caseRecord) &&
+      USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case') &&
+      referralReason.Authority_Level__c.toUpperCase() == 'NO CAD'
+    ) {
+      return true;
+    }
+
+    return false;
+  }
+
+  /**
+   * @param caseRecord CreditReferralCase
+   * @return `Boolean`
+   * @description checks if currentuser is the owner of case record.
+   */
+  private static Boolean isCurrentUserCaseOwner(Case caseRecord) {
+    return UserInfo.getUserId() == caseRecord.OwnerId;
+  }
+
   /**
    * @param cr CreditReferralModel
    * @return `Map<String, Object>`

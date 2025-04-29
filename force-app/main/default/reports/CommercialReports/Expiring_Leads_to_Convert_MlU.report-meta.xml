@@ -63,7 +63,7 @@
             <value>NEXT_N_DAYS:2</value>
         </criteriaItems>
         <criteriaItems>
-            <column>Lead.My_Region_Flag__c</column>
+            <column>Lead.My_Team_Segment__c</column>
             <columnToColumn>false</columnToColumn>
             <isUnlocked>true</isUnlocked>
             <operator>equals</operator>
@@ -82,7 +82,7 @@
         <value>1</value>
     </params>
     <reportType>LeadList</reportType>
-    <scope>org</scope>
+    <scope>team</scope>
     <showDetails>true</showDetails>
     <showGrandTotal>true</showGrandTotal>
     <showSubTotals>true</showSubTotals>

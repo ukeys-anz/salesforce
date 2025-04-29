@@ -46,6 +46,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     MLCRMCommonUtils.assignTerritoryForMLRecord(records);
     //CC-1058-This method to validate territory and owner change on Sobject to make sure it happen within user's territory.
     MLCRMCommonUtils.validateTerritoryAndOwnerChange(null, records);
+    MLCRMLeadActions.populatePrimaryFranchise(records, null);
     //Added for CC-4053 Redaction
     TextUtils.RecordListWrapper wrapperData = TextUtils.checkRecordTypeRedactionMethod(
       records,
@@ -88,7 +89,7 @@ public with sharing class LeadTriggerHandler extends Lib_TriggerHandler {
     );
     MLCRMCommonUtils.referrerPrefill(records, oldMap);
 
-    if (!CCRMLeadConversionActions.leadConverionFlow) {
+    if (!LeadConversionController.leadConverionFlow) {
       CCRMLeadActions.prefillManualLeadsFromAccountOnUpdate(
         ((List<Lead>) records),
         ((Map<Id, Lead>) oldMap)

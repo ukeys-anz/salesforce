@@ -31,13 +31,13 @@ public with sharing class OpportunityActions {
   public class CustomException extends Exception {
   }
   /**
-   * @description validate MLCRM Opportunity
+   * @description validate Opportunity during closure
    * 1. CC-4528 validate opporutnity that it can't be closed unless all associated tasks are marked either as 'completed' or 'not required'.
-   * @name validateMLCRMOpprtunity
+   * @name validateClosedOpportunity
    * @param newOppList list of new records
    * @param oldOppMap map of old records
    */
-  public static void validateMLCRMOpportunity(
+  public static void validateClosedOpportunity(
     List<Opportunity> newOppList,
     Map<Id, Opportunity> oldOppMap
   ) {
@@ -266,14 +266,14 @@ public with sharing class OpportunityActions {
    * @return MaintainPartyResult wrapper of response returned from OCV.
    */
   @AuraEnabled(cacheable=false)
-  public static MaintainPartyInformationWrapper.MaintainPartyInfoWrapper createProspectFromOpportunity(
+  public static MaintainPartyInformationWrapper.MaintainPartyResult createProspectFromOpportunity(
     String requestPayload,
     String oppId,
     String strRole
   ) {
-    DCRMMaintainPartyModel result;
-    CCRMAPIRepository ccrmapi = new CCRMAPIRepository();
-    MaintainPartyInformationWrapper.MaintainPartyInfoWrapper maintainResult = new MaintainPartyInformationWrapper.MaintainPartyInfoWrapper();
+    MaintainPartyModel result;
+    PartyAPIRepository partyApi = new PartyAPIRepository();
+    MaintainPartyInformationWrapper.MaintainPartyResult maintainResult = new MaintainPartyInformationWrapper.MaintainPartyResult();
     OCVRequestPayloadWrapper requestRecord = (OCVRequestPayloadWrapper) JSON.deserialize(
       requestPayload,
       OCVRequestPayloadWrapper.class
@@ -281,17 +281,40 @@ public with sharing class OpportunityActions {
     requestRecord.strOwnerId = getOpportunity(new Set<ID>{ oppId })[0].OwnerId;
     requestRecord.strRecordId = oppId;
     requestRecord = setRemainingRequestValues(requestRecord);
+    Boolean shellProspectRequired = false;
+    String externalId;
+    ShellProspectInfoWrapper shellProspectInfoInstance;
+    maintainResult.retrievePartyRequired = false;
     try {
-      result = ccrmapi.maintainParty(requestRecord);
+      result = partyApi.maintainParty(requestRecord);
       if (result.ocvId == null) {
         // Throw custom exception
-        CCRMLeadConversionActionsHelper.handleError(
+        LeadConversionHelper.handleError(
           Label.MLCRM_CAPCISIdBlank_LeadConversionError,
           oppId
         );
       }
-      if (result.newCustomer == 'true') {
-        Account accInstance = CCRMLeadConversionActionsHelper.autoCreateShellProspect(
+      if (result.newCustomer == 'false') {
+        shellProspectInfoInstance = LeadConversionHelper.getMaintainPartyInfo(
+          result
+        );
+        externalId = LeadConversionController.getExternalId(
+          shellProspectInfoInstance
+        );
+        maintainResult = LeadConversionHelper.populateMaintainPartyDetails(
+          externalId,
+          shellProspectInfoInstance,
+          requestRecord
+        );
+        if (!maintainResult.matchedResults.isEmpty()) {
+          return maintainResult;
+        }
+        shellProspectRequired = true;
+        maintainResult.retrievePartyRequired = true;
+      }
+      // is a shell prospect need to be created?
+      if ((result.newCustomer == 'true') || shellProspectRequired) {
+        Account accInstance = LeadConversionHelper.autoCreateShellProspect(
           requestRecord,
           result
         );
@@ -300,13 +323,19 @@ public with sharing class OpportunityActions {
           accInstance.Id,
           requestRecord
         );
-        createOppContactRoleForCustomer(accInstance.Id, oppId, strRole);
-        maintainResult.isNewCustomer = true;
-      } else if (result.newCustomer == 'false') {
-        maintainResult = CCRMLeadConversionActionsHelper.getMaintainPartyExistingCustomerDetails(
-          requestRecord,
-          result
-        );
+        if (result.newCustomer == 'true') {
+          createOppContactRoleForCustomer(accInstance.Id, oppId, strRole);
+          maintainResult.isNewCustomer = true;
+        } else {
+          //fetch the customer information for matched existing customer after shell prospect creation
+          maintainResult = LeadConversionHelper.populateMaintainPartyDetails(
+            externalId,
+            shellProspectInfoInstance,
+            requestRecord
+          );
+          maintainResult.retrievePartyRequired = true;
+          maintainResult.isNewCustomer = false;
+        }
       }
       return maintainResult;
     } catch (CustomException e) {

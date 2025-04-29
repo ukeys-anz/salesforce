@@ -33,23 +33,6 @@ public with sharing class BrokerEnquiryCaseEventActionsTest {
   }
 
   /*
-   * @description unit test for generateCustomerCEModel
-   */
-  @isTest
-  static void testGenerateCaseCEModel() {
-    List<Case> caseList = createTestCases(2);
-    Test.startTest();
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> result = BrokerEnquiryCaseEventActions.generateCaseCEModel(
-      caseList
-    );
-    Test.stopTest();
-    Assert.areEqual(
-      2,
-      result.size(),
-      '2 case cloud events model should have been returned'
-    );
-  }
-  /*
    * @description unit test for generateCloudEventModel
    */
   @isTest
@@ -69,13 +52,9 @@ public with sharing class BrokerEnquiryCaseEventActionsTest {
       Case.class
     );
     List<Case> updatedCaseList = new List<Case>{ updatedCaseRecord };
-    Map<Id, List<BrokerCloudEventModel.MasterNode>> masterNodes = BrokerEnquiryCaseEventActions.generateCaseCEModel(
-      updatedCaseList
-    );
     Test.startTest();
     List<BrokerCloudEventModel> result = BrokerEnquiryCaseEventActions.generateCloudEventModel(
       updatedCaseList,
-      masterNodes,
       'update'
     );
     Test.stopTest();
@@ -142,7 +121,7 @@ public with sharing class BrokerEnquiryCaseEventActionsTest {
   static BrokerSettings__c createBrokerSettingRecord() {
     BrokerSettings__c brokerCustomSetting = new BrokerSettings__c();
     brokerCustomSetting.Name = 'Default';
-    brokerCustomSetting.BypassCaseSyncEvents__c = false;
+    brokerCustomSetting.BypassCaseEvent__c = false;
     brokerCustomSetting.Id = Lib_FakeIdGenerator.getMockId(
       BrokerSettings__c.SObjectType
     );

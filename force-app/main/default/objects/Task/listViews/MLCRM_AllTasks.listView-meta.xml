@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ListView xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>MLCRM_AllTasks</fullName>
+    <booleanFilter>1 AND (2 OR 3)</booleanFilter>
     <columns>SUBJECT</columns>
     <columns>STATUS</columns>
     <columns>WHO_NAME</columns>
@@ -15,6 +16,14 @@
         <field>RECORDTYPE</field>
         <operation>equals</operation>
         <value>Task.MLCRM_Task</value>
+    </filters>
+    <filters>
+        <field>WHO.WHO_ID</field>
+        <operation>notEqual</operation>
+    </filters>
+    <filters>
+        <field>WHAT.WHAT_ID</field>
+        <operation>notEqual</operation>
     </filters>
     <filterScope>Everything</filterScope>
     <label>MLCRM All Tasks</label>

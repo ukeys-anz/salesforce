@@ -5,4 +5,5 @@ trigger ResidentialLoanApplicationTrigger on ResidentialLoanApplication(
   after update
 ) {
   ResidentialLoanApplicationTriggerHandler handler = new ResidentialLoanApplicationTriggerHandler();
+  AnzxLoanApplicationTriggerHandler loanApplicationHandler = new AnzxLoanApplicationTriggerHandler();
 }

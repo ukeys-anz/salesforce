@@ -1,0 +1,44 @@
+{
+  "accountList": [
+    {
+      "accountIdentification": "123456000000000",
+      "copStatusUpdateDate": "2504-12-31T20:38:59.6Z",
+      "accountCoPStatus": "OPT-IN",
+      "copStatusReason": "Vulnerabe customer",
+      "requestedBy": [
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001074642"
+        },
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001297679"
+        }
+      ],
+      "modifiedBy": {
+        "modifierIdType": "Fed Id",
+        "modifierId": "Arorar3"
+      }
+    },
+    {
+      "accountIdentification": "654321111111111",
+      "copStatusUpdateDate": "2504-12-31T20:38:59.6Z",
+      "accountCoPStatus": "OPT-IN",
+      "copStatusReason": "Vulnerabe customer",
+      "requestedBy": [
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001074642"
+        },
+        {
+          "requestorIdType": "CRN",
+          "requestorId": "1001297679"
+        }
+      ],
+      "modifiedBy": {
+        "modifierIdType": "Fed Id",
+        "modifierId": "Arorar3"
+      }
+    }
+  ]
+}

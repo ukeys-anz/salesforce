@@ -24,23 +24,6 @@ public with sharing class CCRMContactPointAddressActions {
   }
 
   /**
-   * @description Unlink parent prospect account when ActiveToDate value is set
-   * @name unlinkProspectParentOnDeactivation
-   * @param records from the trigger
-   * @param oldMap This Map<Id, SObject> contains the map which holds the previous values which can be used to check what value has changed in beforeUpdate.
-   */
-  public static void unlinkProspectParentOnDeactivation(
-    List<ContactPointAddress> records,
-    Map<Id, ContactPointAddress> oldMap
-  ) {
-    for (ContactPointAddress cpa : records) {
-      if (oldMap.get(cpa.id).ActiveToDate == null && cpa.ActiveToDate != null) {
-        cpa.ParentId = null;
-      }
-    }
-  }
-
-  /**
    * @description getExistingOrProspectCPA to get the CPA related to Existing or Prospect Account
    * @param records List of CPA Records
    * @return ContactPointAddressWrapper return List of Existing or Prospect CPA

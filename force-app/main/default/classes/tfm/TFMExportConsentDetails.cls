@@ -22,6 +22,12 @@ global with sharing class TFMExportConsentDetails implements Callable {
   ) {
     Boolean result = false;
     if (methodName.equals('exportToCSV')) {
+      if (input.get('accountsValue') == 'null') {
+        input.put(
+          'accountsValue',
+          new List<TFMExportConsentModel.AccountInfo>()
+        );
+      }
       String jsonString = JSON.serialize(input);
       DataOutExportModel dataExportModelDetails = DataOutExportModel.parse(
         jsonString

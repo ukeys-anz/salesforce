@@ -1,30 +1,6 @@
 import financialAccount from "c/financialAccount";
 import { createElement } from "lwc";
-
-const APEX_FACCOUNTS_SUCCESS = [
-  {
-    Id: "a0c2O00000197sUQAA",
-    FinServ__Balance__c: 50,
-    FinServ__Status__c: "Closed",
-    LastModifiedDate: "2021-01-05T04:56:48.000+0000"
-  },
-  {
-    Id: "a0c2O00000197sUQAB",
-    FinServ__Balance__c: 50,
-    FinServ__Status__c: "Active",
-    LastModifiedDate: "2021-01-05T04:56:48.000+0000"
-  },
-  {
-    Id: "a0c2O00000197sUQAC",
-    FinServ__Balance__c: 50,
-    LastModifiedDate: "2021-01-05T04:56:48.000+0000"
-  },
-  {
-    Id: "a0c2O00000197sUQAD",
-    FinServ__Balance__c: 50,
-    LastModifiedDate: "2021-01-05T04:56:48.000+0000"
-  }
-];
+const accountData = require("./data/accountData.json");
 
 describe("c-financialAccount", () => {
   //clean the dom and mocks in between test runs
@@ -39,16 +15,15 @@ describe("c-financialAccount", () => {
     const element = createElement("c-financialAccount", {
       is: financialAccount
     });
-    element.accountType = "Checking";
-    element.accountDetails = APEX_FACCOUNTS_SUCCESS;
+    element.accountDetails = accountData;
     document.body.appendChild(element);
-    let componentTitle = element.shadowRoot.querySelector(
-      "h1[data-id='component-title']"
+    let accountName = element.shadowRoot.querySelector(
+      "span[data-id='account-name']"
     );
     let finAccount = element.shadowRoot.querySelector(
       "div[data-id='fin-account']"
     );
-    expect(componentTitle.textContent).toMatch("Everyday - ANZ Plus Account");
+    expect(accountName.textContent).toMatch("Joe Root");
     expect(finAccount).toBeTruthy();
   });
 
@@ -59,13 +34,9 @@ describe("c-financialAccount", () => {
     element.accountType = "Savings";
     element.accountDetails = [];
     document.body.appendChild(element);
-    let componentTitle = element.shadowRoot.querySelector(
-      "h1[data-id='component-title']"
-    );
     let finAccount = element.shadowRoot.querySelector(
       "div[data-id='fin-account']"
     );
-    expect(componentTitle.textContent).toMatch("Savings - ANZ Save Account");
     expect(finAccount.textContent).toMatch(
       "All accounts closed - no longer a customer"
     );

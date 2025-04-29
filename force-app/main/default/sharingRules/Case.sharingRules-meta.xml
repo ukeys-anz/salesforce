@@ -8,10 +8,21 @@
         <sharedTo>
             <role>ANZ_Plus_Operations_Read_Only</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,Direct Debit,Customer Feedback,Direct Entry,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -23,8 +34,19 @@
         <sharedTo>
             <role>Quality_Analyst</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
             <operation>equals</operation>
             <value>Account Closure</value>
         </criteriaItems>
@@ -109,11 +131,11 @@
         <sharedTo>
             <role>Business_Admin</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND 6) OR (7 AND (8 OR 9 OR 10)) OR 11</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>Direct Debit,Direct Entry,ATM,ANZ Plus Complaint,General Enquiry,Fraud,Card,NPP,PayTo,BPAY,Account Closure,ID Ops Assistance,Fraud Check,Customer Feedback,Recipient/Mule,KYC QA,Scam,Identity,False Customer Profile,Profile Update</value>
+            <value>Account Closure,ID Ops Assistance,Direct Entry,Customer Feedback,General Enquiry,Fraud,Fraud Check,Card,NPP,Profile Update,Direct Debit,Recipient/Mule,False Customer Profile,BPAY,ATM,ANZ Plus Complaint,KYC QA,Scam,Identity</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -139,6 +161,31 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -273,11 +320,11 @@
         <sharedTo>
             <group>Coach_And_Coach_Lead_Group</group>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8) OR (9 AND 10)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
-            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,PayTo,Customer Feedback,BPAY,Account Closure</value>
+            <value>ATM,Direct Debit,Direct Entry,ANZ Plus Complaint,General Enquiry,NPP,PayTo,Customer Feedback,BPAY,Account Closure,Confirmation Of Payee</value>
         </criteriaItems>
         <criteriaItems>
             <field>Origin</field>
@@ -314,7 +361,48 @@
             <operation>notEqual</operation>
             <value>True</value>
         </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure,Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>COP_Cases_Read_Only_Access</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This new rule is created to give read only access for COP cases.</description>
+        <label>COP Cases Read Only Access</label>
+        <sharedTo>
+            <group>COP_Cases_Read_Access_Users</group>
+        </sharedTo>
+        <booleanFilter>1 AND (2 AND (3 OR 4))</booleanFilter>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
         <fullName>RTs_QA_RO</fullName>
@@ -425,7 +513,7 @@
         <sharedTo>
             <role>Support_Coach</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND 4) OR (4 AND 5 AND (6 AND 7) AND 8) OR (9 AND (10 OR 11 OR 12)) OR 13</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -465,6 +553,31 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -597,7 +710,7 @@
         <sharedTo>
             <role>FraudX_Agent</role>
         </sharedTo>
-        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6)</booleanFilter>
+        <booleanFilter>1 OR (2 AND 3 AND (4 AND 5) AND 6) OR 7 OR (8 AND 9) OR 10</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
@@ -627,6 +740,26 @@
             <field>IDR_Is_Restricted__c</field>
             <operation>notEqual</operation>
             <value>True</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>TrustMe Manual Review Case,TrustMe QA Case</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Confirmation of Payee Opt-In,Confirmation of Payee Opt-Out</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Confirmation Of Payee</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -806,10 +939,21 @@
         <sharedTo>
             <role>Onboarding_Support_Read_Only</role>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,ID Ops Assistance,Customer Feedback,Direct Entry,General Enquiry,Fraud Check,Card,NPP,PayTo,Direct Debit,BPAY,Non-Customer Complaint,ATM,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -879,6 +1023,26 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Customer_NonCustomer_ComplaintAccess</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Read/Write access to Customer and Non-Customer Complaint Cases.</description>
+        <label>Customer_NonCustomer_ComplaintAccess</label>
+        <sharedTo>
+            <group>Customer_Non_Customer_Complaint_Access</group>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Customer Complaint,Non-Customer Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>IDR_Is_Restricted__c</field>
+            <operation>notEqual</operation>
+            <value>True</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>false</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Disputes_Readonly</fullName>
         <accessLevel>Read</accessLevel>
         <description>All ATM and Card Dispute cases shared to GCP Integration User</description>
@@ -915,10 +1079,21 @@
         <sharedTo>
             <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,Customer Feedback,Direct Entry,Unauthenticated Enquiry,General Enquiry,Customer Complaint,Card,NPP,PayTo,Direct Debit,BPAY,ATM,Non-Customer Complaint,ANZ Plus Complaint</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -979,10 +1154,21 @@
         <sharedTo>
             <group>BOH_All_Case_Read_Only_Access_Group</group>
         </sharedTo>
+        <booleanFilter>1 OR (2 AND 3)</booleanFilter>
         <criteriaItems>
             <field>RecordTypeId</field>
             <operation>equals</operation>
             <value>Account Closure,Direct Debit,Credit Referral,Customer Feedback,Direct Entry,BPAY,ATM,ANZ Plus Complaint,General Enquiry,Card,NPP,PayTo</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Case Group</value>
+        </criteriaItems>
+        <criteriaItems>
+            <field>Type</field>
+            <operation>equals</operation>
+            <value>Account Closure</value>
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
@@ -1132,18 +1318,6 @@
         </sharedTo>
         <sharedFrom>
             <role>FraudX_Agent</role>
-        </sharedFrom>
-    </sharingOwnerRules>
-    <sharingOwnerRules>
-        <fullName>RBM_Coach_Broker_Enquiry</fullName>
-        <accessLevel>Read</accessLevel>
-         <description>All Cases owned by RBM_Coaches_Broker_Enquiry should be shared to RBM_Coaches_Broker_Enquiry_Group public group.</description>
-         <label>RBM Coach Broker Enquiry</label>
-        <sharedTo>
-            <group>RBM_Coaches_Broker_Enquiry_Group</group>
-        </sharedTo>
-        <sharedFrom>
-            <queue>RBM_Coaches_Broker_Enquiry</queue>
         </sharedFrom>
     </sharingOwnerRules>
 </SharingRules>

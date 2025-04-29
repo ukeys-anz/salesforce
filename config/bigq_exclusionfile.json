@@ -4,7 +4,6 @@
     "AccountNumber",
     "AccountSource",
     "ACN__c",
-    "Advertising_Indicator__c",
     "Anniversary_Date__c",
     "Anniversary_Duration__c",
     "AnnualRevenue",
@@ -14,12 +13,10 @@
     "Bankrupt_Date__c",
     "BillingAddress",
     "Broker_Customer_Profile__pc",
-    "Collections__c",
     "Customer_Belongs_To__c",
     "Customer_Dispute_Management__c",
     "CustomerExitDate__c",
     "CustomerExitFlag__c",
-    "Deceased_Date__c",
     "Description",
     "Disclosure_Indicator__c",
     "Display_Name__c",
@@ -28,7 +25,6 @@
     "dupcheck__dc3UltimateParent__c",
     "Employee_Indicator__c",
     "Employer_Name__c",
-    "Employment_Type__c",
     "Establishment_Date__c",
     "Fax",
     "FinServ__AUM__c",
@@ -77,7 +73,6 @@
     "FinServ__RiskTolerance__c",
     "FinServ__ServiceModel__c",
     "FinServ__SourceSystemId__c",
-    "FinServ__Status__c",
     "FinServ__TimeHorizon__c",
     "FinServ__TotalAUMJointOwner__c",
     "FinServ__TotalAUMPrimaryOwner__c",
@@ -112,11 +107,12 @@
     "FinServ__TotalPremium__c",
     "FinServ__TotalRevenue__c",
     "FinServ__WalletShare__c",
-    "Hardship__c",
+    "FinServ__InsuranceCustomerSince__c",
     "Industry",
     "Industry__c",
+    "Is_Beta_Broker__pc",
     "IsPersonAccount",
-		"Is_Broker_User_Active__pc",
+    "Is_Broker_User_Active__pc",
     "Jigsaw",
     "JigsawCompanyId",
     "KYCVerificationDate__c",
@@ -133,7 +129,7 @@
     "NumberOfEmployees",
     "Occupation__c",
     "OperatingHoursId",
-    "Other_Email__c",
+    "Ownership",
     "ParentId",
     "PersonContactId",
     "PersonEmailBouncedDate",
@@ -147,14 +143,17 @@
     "Principal_Place_of_Business_Formula__c",
     "qualtrics__Net_Promoter_Score__c",
     "qualtrics__NPS_Date__c",
+    "Rating",
     "Security_Code_Requested__c",
     "Security_Code_Updated__c",
     "Self_Certified_Tax_Date__c",
     "Self_Certified_Tax_Residency__c",
-    "Self_Employed__c",
     "ShippingAddress",
     "SicDesc",
     "SourceSySourceSystemIdentifier",
+    "Sic",
+    "Site",
+    "TickerSymbol",
     "Tax_Exemption_Type__c",
     "Temporary_External_Id__c",
     "TFN_Verification__c",
@@ -176,6 +175,7 @@
     "qualtrics__Informed_Consent__pc",
     "SourceSystemIdentifier"
   ],
+  "ApplicationForm": ["BranchUnitId"],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
     "CountryOfIssueOCRClient__c",
@@ -231,16 +231,35 @@
     "StateOfIssueOCRServer__c",
     "SubmittedAt__c"
   ],
-	"Case": [
-		"MilestoneStatusIcon"
-	],
+  "Case": [
+    "CertificateIdentifier__c",
+    "LicenceCardNumber__c",
+    "LicenceNumber__c",
+    "MilestoneStatusIcon",
+    "Financial_Account_Name__c",
+    "Opt_Out_Reason__c",
+    "Process_SLA_Status__c",
+    "PassportNumber__c"
+  ],
+  "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
     "AssetFinanceTPMISAO__c",
     "Accreditation_CompactLayout__c",
     "After_Hours_Availability__c",
+    "Asset_Finance_Accreditation_Status__c",
+    "AssistantName",
+    "AssistantPhone",
+    "BuyerAttributes",
+    "Birthdate",
     "Broker_Accreditation_Type__c",
     "Broker_Customer_Profile__c",
     "Commercial_Accreditation_Status__c",
+    "DepartmentGroup",
+    "Description",
+    "DoNotCall",
+    "GenderIdentity",
+    "HasOptedOutOfEmail",
+    "HasOptedOutOfFax",
     "dupcheck__dc3DisableDuplicateCheck__c",
     "dupcheck__dc3Index__c",
     "Industry_Body_Member__c",
@@ -251,7 +270,8 @@
     "Manager_Lan_Id__c",
     "Manager_Email__c",
     "Notes_Interests__c",
-    "OtherPhone",
+    "Pronouns",
+    "TitleType",
     "Preferred_Contact__c",
     "Previous_Record_Type__c",
     "qualtrics__Informed_Consent_Date__c",
@@ -299,9 +319,7 @@
     "TncName__c",
     "TncVersion__c"
   ],
-	"Event": [
-		"LocationId"
-	],
+  "Event": ["LocationId"],
   "FinServ__FinancialAccount__c": [
     "FinServ__AccrualFrequency__c",
     "FinServ__AccruedInterest__c",
@@ -432,8 +450,8 @@
     "EndOfLifeDate",
     "HelpText",
     "IsAssetizable",
-		"IsSoldOnlyWithOtherProds",
-		"UnitOfMeasureId"
+    "IsSoldOnlyWithOtherProds",
+    "UnitOfMeasureId"
   ],
   "ResidentialLoanApplication": [
     "Assessment_Outcome__c",
@@ -465,20 +483,6 @@
     "State__c",
     "SOP_Id__c",
     "Settlement_ID__c"
-  ],
-  "Task": [
-    "RecurrenceActivityId",
-    "RecurrenceDayOfMonth",
-    "RecurrenceDayOfWeekMask",
-    "RecurrenceEndDateOnly",
-    "RecurrenceInstance",
-    "RecurrenceInterval",
-    "RecurrenceMonthOfYear",
-    "RecurrenceStartDateOnly",
-    "RecurrenceRegeneratedType",
-    "RecurrenceTimeZoneSidKey",
-    "RecurrenceType",
-    "ReminderDateTime"
   ],
   "Twilio_Details__c": ["Call_Transcript__c"],
   "User": [
@@ -626,7 +630,6 @@
     "SuAccessExpirationDate",
     "StartDay",
     "PasswordExpirationDate",
-    "HasUserVerifiedPhone",
-    "Address"
+    "HasUserVerifiedPhone"
   ]
 }

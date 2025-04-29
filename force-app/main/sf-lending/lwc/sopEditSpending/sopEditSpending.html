@@ -1,0 +1,126 @@
+<template>
+  <div class="slds-is-relative">
+    <!-- Header -->
+    <lightning-modal-header
+      class="slds-p-vertical_x-small"
+      label="Edit Spending"
+    ></lightning-modal-header>
+
+    <!-- Content -->
+    <lightning-modal-body class="slds-p-around_none">
+      <div class="slds-p-horizontal_xx-large slds-p-vertical_medium">
+        <lightning-layout horizontal-align="end">
+          <lightning-layout-item size="2" class="alignRight">
+            <span class="fontRed">* </span>
+            <lightning-formatted-text
+              value="= Required fields"
+            ></lightning-formatted-text>
+          </lightning-layout-item>
+        </lightning-layout>
+
+        <lightning-layout class="slds-m-top_xx-large slds-m-horizontal_large">
+          <!-- Icon  -->
+          <lightning-layout-item size="1" class="slds-float_left">
+            <img src={expense.icon} class="logoStyle" />
+          </lightning-layout-item>
+
+          <lightning-layout-item size="11">
+            <lightning-layout>
+              <!-- Name -->
+              <lightning-layout-item size="6">
+                <lightning-formatted-text
+                  value={expense.name}
+                  class="slds-p-top_medium slds-text-heading_medium nameStyling"
+                  data-jest-id="expenseName"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+
+              <!-- Monthly Spend -->
+              <lightning-layout-item size="6" class="slds-text-align_right">
+                <lightning-formatted-text
+                  value="Monthly Spend"
+                  data-jest-id="monthlySpend"
+                >
+                </lightning-formatted-text>
+              </lightning-layout-item>
+            </lightning-layout>
+
+            <lightning-layout>
+              <!-- Description -->
+              <lightning-layout-item size="9" class="slds-p-vertical_x-small">
+                <lightning-formatted-text
+                  value={expense.description}
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+
+              <!-- Amount -->
+              <lightning-layout-item size="3" class="slds-text-align_right">
+                <lightning-formatted-number
+                  value={expense.monthlySpend}
+                  format-style="currency"
+                  currency-code="AUD"
+                  currency-display-as="symbol"
+                  class="amountStyling"
+                >
+                </lightning-formatted-number>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+        </lightning-layout>
+
+        <!-- Expense Item -->
+        <template for:each={expenses} for:item="exp">
+          <c-sop-edit-spending-items
+            key={exp.sopName}
+            expense-item={exp}
+            onupdateexpense={handleUpdateExpense}
+          >
+          </c-sop-edit-spending-items>
+        </template>
+
+        <!-- Spinner -->
+        <template lwc:if={componentSpinner}>
+          <div class="spinnerOverlay">
+            <div class="slds-grid slds-wrap">
+              <div class="slds-col slds-size_1-of-1">
+                <lightning-spinner
+                  alternative-text="Loading"
+                  size="medium"
+                  variant="brand"
+                ></lightning-spinner>
+              </div>
+            </div>
+          </div>
+        </template>
+      </div>
+    </lightning-modal-body>
+
+    <!-- Footer -->
+    <lightning-modal-footer>
+      <lightning-layout horizontal-align="center">
+        <lightning-layout-item
+          size="auto"
+          class="slds-p-vertical_x-small slds-m-right_x-small"
+        >
+          <lightning-button
+            variant="neutral"
+            label="Cancel"
+            onclick={handleClose}
+          ></lightning-button>
+        </lightning-layout-item>
+        <lightning-layout-item
+          size="auto"
+          class="slds-p-vertical_x-small slds-m-left_x-small"
+        >
+          <lightning-button
+            variant="brand"
+            label="Save"
+            type="submit"
+            data-jest-id="saveButton"
+            onclick={handleSave}
+          ></lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-modal-footer>
+  </div>
+</template>

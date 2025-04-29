@@ -4,6 +4,7 @@
  * @description This class contains public repository for all queries used in CommercialOpportunityctions
  */
 public with sharing class CommercialOpportunityRepository {
+  private static final String CLG = 'Customer Lending Group';
   /**
    * @description getUsers to get user records
    * @param userIds set of user ids
@@ -50,5 +51,36 @@ public with sharing class CommercialOpportunityRepository {
    */
   public Id getUserProfileId() {
     return UserInfo.getProfileId();
+  }
+
+  /**
+   * @description to query account account relationship records
+   * @name getAccountAccountRelations
+   * @param accountIdsSet set of Account Ids
+   * @return List<FinServ__AccountAccountRelation__c>
+   */
+  public List<FinServ__AccountAccountRelation__c> getAccountAccountRelations(
+    Set<Id> accountIdsSet
+  ) {
+    if (accountIdsSet.isEmpty()) {
+      return new List<FinServ__AccountAccountRelation__c>();
+    }
+
+    return [
+      SELECT
+        Id,
+        Name,
+        Relationship__c,
+        FinServ__Account__c,
+        FinServ__RelatedAccount__c,
+        FinServ__RelatedAccount__r.RecordTypeId,
+        FinServ__RelatedAccount__r.CLG__c
+      FROM FinServ__AccountAccountRelation__c
+      WHERE
+        FinServ__Account__c IN :accountIdsSet
+        AND Relationship__c = :CLG
+        AND FinServ__RelatedAccount__r.RecordTypeId = :RTAccount.clgAccount
+      WITH USER_MODE
+    ];
   }
 }

@@ -1,0 +1,28 @@
+.amountStyleSection {
+  font-size: var(--header-text-font-size);
+  font-weight: var(--amount-font-weight);
+  line-height: var(--amount-line-height);
+  color: var(--amount-font-color);
+}
+
+.headerStyling {
+  font-size: var(--header-text-font-size);
+  font-weight: var(--lwc-fontWeightBold);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+
+.lastModifiedStyle {
+  font-size: var(--last-modified-dimensions);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--amount-and-header-text-size);
+  color: var(--last-modified-text-color);
+}
+
+.warningTextStyle {
+  font-size: var(--last-modified-dimensions);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--warning-text-height);
+  color: var(--last-modified-text-color);
+  font-style: italic;
+}

@@ -6,7 +6,7 @@
     <description>Populated from the Lead&apos;s Notes during Lead Conversion.</description>
     <encryptionScheme>None</encryptionScheme>
     <externalId>false</externalId>
-    <label>My Notes</label>
+    <label>Notes</label>
     <length>32768</length>
     <securityClassification>Confidential</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>

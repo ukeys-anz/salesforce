@@ -13,10 +13,19 @@
 .slds-section__title {
   background: #eef1f5;
   width: auto;
-  padding: 8px;
+  padding: 7px;
   font-size: 15px;
   border-radius: 0.25em;
   font-weight: bold;
+  flex-wrap: wrap;
+}
+
+.slds-section__title .sub-title {
+  font-size: 0.9rem;
+  color: inherit;
+  font-weight: 400;
+  margin-left: 2.7rem;
+  width: 100%;
 }
 
 .accordionSection {

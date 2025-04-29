@@ -6,4 +6,6 @@
 public class RTContact {
   static QueryRT base = QueryRT.of(Contact.SObjectType);
   public static Id organisation = base.getId('Organisation');
+  public static Id broker = base.getId('Broker');
+  public static Id staff = base.getId('Staff');
 }

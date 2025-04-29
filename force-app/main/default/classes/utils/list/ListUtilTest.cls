@@ -204,6 +204,7 @@ private class ListUtilTest {
       'Should return 1 group with 2 records'
     );
   }
+  //#endregion
 
   @IsTest
   static void testSetField() {
@@ -409,6 +410,19 @@ private class ListUtilTest {
       'Should return 1 group with 2 records'
     );
   }
+
+  @IsTest
+  static void testAddError() {
+    List<Case> cases = new List<Case>{ new Case(), new Case() };
+
+    Test.startTest();
+    ListUtil.addError(cases, 'Error Message');
+    Test.stopTest();
+
+    for (Case updatedCase : cases) {
+      Assert.isTrue(updatedCase.hasErrors(), 'Should add error message');
+    }
+  }
   //#endregion
 
   //#region `ListUtil.toSet`
@@ -482,12 +496,14 @@ private class ListUtilTest {
     new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
       Name = FAKER.randomString(5),
-      NumberOfEmployees = FAKER.randomInteger(2)
+      NumberOfEmployees = FAKER.randomInteger(2),
+      Disclosure_Indicator__c = 'Y'
     ),
     new Account(
       Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
       Name = FAKER.randomString(5),
-      NumberOfEmployees = FAKER.randomInteger(2)
+      NumberOfEmployees = FAKER.randomInteger(2),
+      Disclosure_Indicator__c = 'Y'
     ),
     new Account(Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType))
   };
@@ -552,6 +568,53 @@ private class ListUtilTest {
       new List<Account>{ accounts[0],accounts[2]},
       results,
       'Expected accounts that are updated Name field only'
+    );
+  }
+
+  @IsTest
+  static void testAnychangedTo() {
+    accounts[0].Name = FAKER.randomString(6);
+    accounts[0].NumberOfEmployees = FAKER.randomInteger(1);
+    accounts[0].Disclosure_Indicator__c = null;
+    accounts[1].Name = FAKER.randomString(6);
+    Test.startTest();
+    List<Account> results = ListUtil.filter(
+        new List<Account>{ accounts[0], accounts[1] },
+        oldMap
+      )
+      .anyChangedTo(
+        new Set<SObjectField>{ Account.Disclosure_Indicator__c },
+        null
+      )
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      results.size(),
+      'The method did not detected the field change value to null properly'
+    );
+  }
+
+  @IsTest
+  static void testAnychanged() {
+    accounts[0].Name = FAKER.randomString(6);
+    accounts[0].NumberOfEmployees = FAKER.randomInteger(1);
+    accounts[0].Disclosure_Indicator__c = 'test';
+    accounts[1].Name = FAKER.randomString(6);
+    Test.startTest();
+    List<Account> results = ListUtil.filter(
+        new List<Account>{ accounts[0], accounts[1] },
+        oldMap
+      )
+      .anychanged(new Set<SObjectField>{ Account.Disclosure_Indicator__c })
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      1,
+      results.size(),
+      'The method did not detected field change values properly'
     );
   }
 
@@ -888,6 +951,51 @@ private class ListUtilTest {
       new List<MyAccount>{ myAccounts[1] },
       results,
       'Expected myAccounts with specified Name'
+    );
+  }
+
+  @IsTest
+  static void testSubList() {
+    List<Case> caseRecords = new List<Case>();
+    list<string> stringRecords = new List<String>();
+    list<integer> integerRecords = new List<integer>();
+    for (Integer i = 1; i <= 10; i++) {
+      caseRecords.add(new Case(Subject = FAKER.randomString(i)));
+      stringRecords.add('Item' + i);
+      integerRecords.add(i);
+    }
+
+    Test.startTest();
+    List<Object> caseSubList = ListUtil.subList(caseRecords, 6, 2);
+    List<Object> stringSubList = ListUtil.subList(stringRecords, 1, 4);
+    List<Object> integerSubList = ListUtil.subList(integerRecords, 5, 3);
+    Test.stopTest();
+
+    Assert.areEqual(2, caseSubList.size(), 'Expected 2 records');
+
+    Assert.areEqual(caseRecords[6], caseSubList[0], 'Expected record 7');
+
+    Assert.areEqual(4, stringSubList.size(), 'Expected 4 records');
+
+    Assert.areEqual(stringRecords[1], stringSubList[0], 'Expected record 2');
+
+    Assert.areEqual(3, integerSubList.size(), 'Expected 3 records');
+
+    Assert.areEqual(integerRecords[5], integerSubList[0], 'Expected record 6');
+  }
+
+  @IsTest
+  static void testGenericFilterNoneMatch() {
+    Test.startTest();
+    List<MyAccount> results = (List<MyAccount>) ListUtil.filter(myAccounts)
+      .allNotEqual(myAccountFields, myAccounts[1].Name)
+      .toList();
+    Test.stopTest();
+
+    Assert.areEqual(
+      2,
+      results.size(),
+      'Expected 2 accounts without the specified Name'
     );
   }
   //#endregion

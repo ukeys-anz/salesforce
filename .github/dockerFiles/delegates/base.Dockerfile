@@ -34,6 +34,14 @@ RUN set -euxo pipefail && \
     microdnf -y install git jq tar tzdata yum zip && \
     microdnf clean all
 
+ARG NODEJS_VERSION
+RUN INSTALL_PKGS="nodejs npm" && \
+    echo -e "[nodejs]\nname=nodejs\nstream=$NODEJS_VERSION\nprofiles=\nstate=enabled\nnodoc=true\n" > /etc/dnf/modules.d/nodejs.module && \
+    microdnf --nodocs install $INSTALL_PKGS && \
+    microdnf clean all && \
+    npm config set registry https://artifactory.gcp.anz/artifactory/api/npm/npmjs-org/ && \
+    npm install -g yarn
+
 # Configure localtime and timezone
 ENV TZ='Australia/Melbourne'
 RUN ln -snf /usr/share/zoneinfo/"${TZ}" /etc/localtime && \

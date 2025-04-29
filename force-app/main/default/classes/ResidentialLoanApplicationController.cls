@@ -11,6 +11,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
   private Boolean hasValidationError = false;
   private String validationError = '';
   private Set<String> errorMsg = new Set<String>();
+
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
   /**
    * @param action String value of local method to invoke
    * @param args arg map that will contain input, output and options map
@@ -117,7 +121,10 @@ global with sharing class ResidentialLoanApplicationController implements omnist
 
   @Testvisible
   private static Boolean allowUpsertIncomeAndDebt(String applicationStatus) {
-    if (applicationStatus == 'STATE_REFERRED' && editIncomeExpenseRole()) {
+    if (
+      applicationStatus == 'STATE_REFERRED' &&
+      USER_INFO.checkCustomPermission('ANZx_Add_Income_And_Edit_Expense')
+    ) {
       return true;
     }
     return false;
@@ -350,10 +357,12 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       }
 
       rlaRepo.updateIncome(
-        loanRec.Account?.OCV_ID__c,
-        incomeVerified,
-        JSON.serialize(model),
-        loanId,
+        new Map<String, String>{
+          'ocvId' => loanRec.Account?.OCV_ID__c,
+          'verification' => incomeVerified,
+          'incomeBody' => JSON.serialize(model),
+          'loanId' => loanId
+        },
         incomeVerifiedChanged
       );
       publishRLARecordMonitoringToast(loanRec);
@@ -755,21 +764,6 @@ global with sharing class ResidentialLoanApplicationController implements omnist
     expenseModel.monthlyExpenses = monthlyExpenses;
     return expenseModel;
   }
-  private static Boolean editIncomeExpenseRole() {
-    String usrRoleName = [
-      SELECT id, name, userRole.name
-      FROM user
-      WHERE id = :UserInfo.getUserId()
-      LIMIT 1
-    ]
-    .UserRole.Name;
-    Set<String> roleNameCanEditIncome = new Set<String>{
-      'BOH Coach',
-      'Credit Assessment Officer',
-      'Credit Assessor Lead'
-    };
-    return roleNameCanEditIncome.contains(usrRoleName);
-  }
 
   /**
    * @description publishes RLA event for reassessment toast
@@ -785,7 +779,8 @@ global with sharing class ResidentialLoanApplicationController implements omnist
       );
       return;
     }
-    BOHService.setToReassessmentIsRequired(loan.Id);
+
+    SOPHelper.setToReassessmentIsRequired(loan.Id);
   }
 
   /**

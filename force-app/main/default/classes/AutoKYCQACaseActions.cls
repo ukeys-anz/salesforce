@@ -132,6 +132,35 @@ public with sharing class AutoKYCQACaseActions {
   };
   //#endregion
 
+  //#region populate KYC QA Case subject
+  /**
+   * @description This method populates subject on KYC QA cases based on case Type
+   * @param records Case record from trigger
+   * @param oldMap old trigger values
+   */
+  public static void populateKycQACaseSubject(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> filteredCases = ListUtil.filter(records, oldMap)
+      .changed(Case.Type)
+      .isNotNull(Case.Type)
+      .toList();
+
+    if (filteredCases.isEmpty()) {
+      return;
+    }
+
+    Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
+      Case.Type
+    );
+
+    for (Case record : filteredCases) {
+      record.Subject = caseTypeLabelByValue.get(record.Type);
+    }
+  }
+  //#endregion
+
   //#region populate KYC QA Case fields from COB
   /**
    * @description Update KYC QA Case fields
@@ -433,6 +462,7 @@ public with sharing class AutoKYCQACaseActions {
   }
   //#endregion
 
+  //#region update Tested Date
   /**
    * @description Update Tested Date
    * @param cases List of Cases
@@ -441,10 +471,11 @@ public with sharing class AutoKYCQACaseActions {
     List<Case> validCases = ListUtil.filter(cases)
       .isNull(Case.TestedDate__c)
       .isNotNull(Case.Fraud_Restraint_Status__c)
-      .equals(Case.IsKYCChecksCompleted__c, true)
+      .allNotNull(TEST_FIELDS)
       .toList();
     ListUtil.setField(validCases, Case.TestedDate__c, System.now());
   }
+  //#endregion
 
   //#region downgrade/upgrade and restraints
   /**
@@ -486,8 +517,8 @@ public with sharing class AutoKYCQACaseActions {
     Map<Id, Case> oldMap
   ) {
     return ListUtil.filter(cases, oldMap)
-      .equals(Case.IsKYCChecksCompleted__c, true)
-      .equals(Case.KYCChecksHasDefect__c, true)
+      .allNotNull(TEST_FIELDS)
+      .anyEqual(TEST_FIELDS, NO)
       .oldEquals(Case.Status, DOWNGRADE_OLD_STATUSES)
       .equals(Case.Status, DOWNGRADE_NEW_STATUSES)
       .toList();
@@ -500,12 +531,6 @@ public with sharing class AutoKYCQACaseActions {
    */
   public static void downgrade(List<Case> cases, Map<Id, Case> oldMap) {
     List<Case> casesToDowngrade = filterDowngradedCases(cases, oldMap);
-    if (REPOSITORY.isRestraintEnabled()) {
-      casesToDowngrade = ListUtil.filter(casesToDowngrade, oldMap)
-        .changedTo(Case.Fraud_Restraint_Status__c, APPLYING_RESTRAINTS_IN_CAP)
-        .toList();
-    }
-
     Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToDowngrade,
       Case.AccountId
@@ -522,7 +547,21 @@ public with sharing class AutoKYCQACaseActions {
       newAccounts,
       new Map<Id, Account>(oldAccounts)
     );
-    RESTRAINT.process(newAccounts, accIdToCaseMap);
+
+    if (REPOSITORY.isRestraintEnabled() == false) {
+      return;
+    }
+    List<Case> casesToRestraint = ListUtil.filter(casesToDowngrade, oldMap)
+      .changedTo(Case.Fraud_Restraint_Status__c, APPLYING_RESTRAINTS_IN_CAP)
+      .toList();
+    Set<Id> accIdsToRestraint = ListUtil.getIds(
+      casesToRestraint,
+      Case.AccountId
+    );
+    List<Account> accountsToRestraint = ListUtil.filter(oldAccounts)
+      .equals(Account.Id, accIdsToRestraint)
+      .toList();
+    RESTRAINT.process(accountsToRestraint, accIdToCaseMap);
   }
 
   /**
@@ -596,12 +635,6 @@ public with sharing class AutoKYCQACaseActions {
    */
   public static void upgrade(List<Case> cases, Map<Id, Case> oldMap) {
     List<Case> casesToUpgrade = filterUpgradedCases(cases, oldMap);
-    if (REPOSITORY.isRestraintEnabled()) {
-      casesToUpgrade = ListUtil.filter(casesToUpgrade, oldMap)
-        .changedTo(Case.Fraud_Restraint_Status__c, REMOVING_RESTRAINTS_IN_CAP)
-        .toList();
-    }
-
     Map<Id, Case> accIdToCaseMap = (Map<Id, Case>) ListUtil.mapBy(
       casesToUpgrade,
       Case.AccountId
@@ -613,13 +646,26 @@ public with sharing class AutoKYCQACaseActions {
       oldAccounts.deepClone(true, true, true),
       UPGRADE_FIELDMAP
     );
-
     PROFILE_STAGING.process(
       new AutoKYCQAProfileStagingConfig(accIdToCaseMap),
       newAccounts,
       new Map<Id, Account>(oldAccounts)
     );
-    UNRESTRAINT.process(newAccounts);
+
+    if (REPOSITORY.isRestraintEnabled() == false) {
+      return;
+    }
+    List<Case> casesToUnrestraint = ListUtil.filter(casesToUpgrade, oldMap)
+      .changedTo(Case.Fraud_Restraint_Status__c, REMOVING_RESTRAINTS_IN_CAP)
+      .toList();
+    Set<Id> accIdsToUnrestraint = ListUtil.getIds(
+      casesToUnrestraint,
+      Case.AccountId
+    );
+    List<Account> accountsToUnrestraint = ListUtil.filter(oldAccounts)
+      .equals(Account.Id, accIdsToUnrestraint)
+      .toList();
+    UNRESTRAINT.process(accountsToUnrestraint);
   }
 
   private static List<Account> retrieveAccountsNotExited(Set<Id> accountIds) {
@@ -653,7 +699,7 @@ public with sharing class AutoKYCQACaseActions {
         Case.Sub_Status__c,
         GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
       )
-      .equals(Case.KYCChecksHasDefect__c, false)
+      .allNotEqual(TEST_FIELDS, NO)
       .notEquals(Case.Fraud_Defects_Rectified__c, YES)
       .toList();
     for (Case record : casesToUpdate) {

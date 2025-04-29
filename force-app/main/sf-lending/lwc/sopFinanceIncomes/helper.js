@@ -1,0 +1,15 @@
+export const EMP_TYPE_MAP = {
+  EMPLOYMENT_BASIS_UNSPECIFIED: "Unspecified",
+  EMPLOYMENT_BASIS_FULL_TIME: "Full Time",
+  EMPLOYMENT_BASIS_PART_TIME: "Part Time",
+  EMPLOYMENT_BASIS_CASUAL: "Casual",
+  EMPLOYMENT_BASIS_CONTRACTOR: "Contractor"
+};
+
+export const ITEM_TYPE_MAP = {
+  INCOME_TYPE_BASE_SALARY: "Base Salary",
+  INCOME_TYPE_SALARY_WAGES: "Base Salary",
+  INCOME_TYPE_BONUS: "Bonuses",
+  INCOME_TYPE_COMMISSION: "Commission",
+  INCOME_TYPE_OVERTIME: "Overtime"
+};

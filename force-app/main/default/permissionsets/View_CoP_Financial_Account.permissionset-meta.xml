@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>ANZx_COP_View_Financial_Account</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Grant access to view the COP LWC component on Financial Account</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>View CoP Financial Account</label>
+</PermissionSet>

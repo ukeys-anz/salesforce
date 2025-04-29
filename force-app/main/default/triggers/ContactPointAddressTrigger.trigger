@@ -6,7 +6,8 @@
 trigger ContactPointAddressTrigger on ContactPointAddress(
   before insert,
   after insert,
-  before update
+  before update,
+  after update
 ) {
   ContactPointAddressTriggerHandler handler = new ContactPointAddressTriggerHandler();
 }

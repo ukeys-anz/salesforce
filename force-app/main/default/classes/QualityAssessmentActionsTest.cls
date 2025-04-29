@@ -41,24 +41,6 @@ private class QualityAssessmentActionsTest {
     );
   }
 
-  //method to test pass null param when calling assignRelatedCaseFieldsToQA mehtod
-  @IsTest
-  private static void testAssignRelatedCaseFieldsToQAWithNullParam() {
-    Test.startTest();
-
-    List<Quality_Assessment__c> qaRecords = QualityAssessmentActions.assignRelatedCaseFieldsToQA(
-      null
-    );
-
-    Test.stopTest();
-
-    System.assertEquals(
-      null,
-      qaRecords,
-      'Passing null into assignRelatedCaseFieldsToQA method should return null.'
-    );
-  }
-
   //method to test assignRelatedCaseFieldsToQA mehtod
   @IsTest
   private static void testAssignRelatedCaseFieldsToQA() {
@@ -251,7 +233,6 @@ private class QualityAssessmentActionsTest {
         FROM Quality_Assessment__c
         WHERE Id = :qaRecord.Id
       ];
-      System.Debug('Result++ ' + qaRecord);
       System.assertEquals(
         100,
         qaRecord.Case_Manager_Score__c,

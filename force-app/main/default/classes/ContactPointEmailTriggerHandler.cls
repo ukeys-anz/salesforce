@@ -10,7 +10,8 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     CCRMContactPointEmailActions.copyParentIdToCustomerName(records);
-
+    ContactPointEmailActions.validateUsageType(records);
+    ContactPointEmailActions.checkExistingEmailRecords(records);
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
       Map<Id, Account> relatedAccMap = CCRMContactPointEmailActions.getRelatedAccountMap(
         records
@@ -81,6 +82,10 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
    * @param oldMap old trigger values
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    ContactPointEmailActions.preventEdit(
+      records,
+      (Map<Id, ContactPointEmail>) oldMap
+    );
     Map<Id, Account> relatedAccMap = CCRMContactPointEmailActions.getRelatedAccountMap(
       records
     );
@@ -92,14 +97,6 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
     existingOrProspectAccountsCPE = contactPointEmailActionsVar.getExistingOrProspectCPE(
       records
     );
-
-    CCRMContactPointActions.updateContactPoints(records);
-
-    CCRMContactPointEmailActions.unlinkProspectParentOnDeactivation(
-      existingOrProspectAccountsCPE.prospectCPE,
-      (Map<Id, ContactPointEmail>) oldMap
-    );
-
     if (CCRMCustomerProfileUpdateHelper.doesProfileAllowCustStaging()) {
       List<ContactPointEmail> conPointEmailList = new List<ContactPointEmail>();
       conPointEmailList.addAll(existingOrProspectAccountsCPE.prospectCPE);
@@ -126,5 +123,16 @@ public with sharing class ContactPointEmailTriggerHandler extends Lib_TriggerHan
         false
       );
     }
+  }
+
+  /**
+   * @description onAfterUpdate to handle after update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    ContactPointEmailActions.deleteExpiredRecords(
+      records,
+      (Map<Id, ContactPointEmail>) oldMap
+    );
   }
 }

@@ -5,7 +5,7 @@ on:
 
 jobs:
   docker-image:
-    runs-on: anzx-default
+    runs-on: [self-hosted, salesforce-prod]
 
     name: "Build Salesforce CICD image"
     #  Set the GitHub Actions deployment environment
@@ -13,7 +13,7 @@ jobs:
       ARTIFACTORY: "artifactory.gcp.anz"
       CONFTEST_VERSION: "v0.32.0"
       DOCKER_COMPOSE_VERSION: "1.25.4"
-      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.2.5"
+      DOCKER_IMAGE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate:1.3.0"
       DOCKER_IMAGE_BASE: "salesforce-docker.artifactory.gcp.anz/salesforce-delegate-base:latest"
       DOCKER_IMAGE_BASE_SOURCE: "hub.artifactory.gcp.anz/harness/delegate-immutable:23.07.79904.minimal"
       DOCKER_VERSION: "19.03.8"
@@ -28,6 +28,7 @@ jobs:
       KUSTOMISE_SHA256: "bab4ab8881718c29ba174bdf677fd89986ad25c40eb363fec9e78c1aff2ff0ea"
       KUSTOMIZE_VERSION: "v3.10.0"
       OPA_VERSION: "0.38.0"
+      NODEJS_VERSION: "20"
     steps:
       #  Checkout this repo
       - name: "Checkout"

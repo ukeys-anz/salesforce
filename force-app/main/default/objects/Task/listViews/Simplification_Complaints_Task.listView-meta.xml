@@ -11,7 +11,7 @@
     <columns>LAST_UPDATE</columns>
     <columns>UPDATEDBY_USER.ALIAS</columns>
     <filterScope>Queue</filterScope>
-    <label>Simplification Complaints</label>
+    <label>IDR Simplification</label>
     <queue>Simplification_Complaints</queue>
     <sharedTo>
         <roleAndSubordinatesInternal>Banker_Line_Manager</roleAndSubordinatesInternal>

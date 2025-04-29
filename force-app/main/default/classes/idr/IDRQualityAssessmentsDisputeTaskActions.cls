@@ -5,26 +5,6 @@
  * @runTests IDRQualityAssessmentDisputeTaskTest
  */
 public with sharing class IDRQualityAssessmentsDisputeTaskActions {
-  
-   /**
-   * @description Get Queue details for CQ Leads
-   * @return QueueId
-   */
-  public static Id cQLeadQueueId {
-    public get {
-        if(cQLeadQueueId !=null){
-          return cQLeadQueueId;
-        }
-        Id cQLeadQueueId = [SELECT Id
-          FROM Group
-          WHERE DeveloperName = 'C_Q_Leads' AND Type = 'Queue'
-          LIMIT 1].Id;
-        return cQLeadQueueId;
-         
-    }
-    private set;
-  }
-
   /**
    * @description method to create Dispute Tasks if Team Manager / CQ Manager / CQ Lead response changes on Quality Assessment
    * @param lstAssessments new Trigger values
@@ -119,7 +99,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
       TaskWrapper taskFields;
       switch on changedFieldOnRecord.get(oAssessment.Id) {
         when 'Team_Manager_Response__c' {
-            taskFields =  populateTaskWrapper(
+          taskFields = populateTaskWrapper(
             oAssessment,
             IDRConstants.TM_REJECTS_CQ_REVIEW_TASK_SUBJECT,
             oAssessment.C_Q_Specialist__r.ManagerId,
@@ -127,7 +107,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
           );
         }
         when 'C_Q_Manager_Response__c' {
-            taskFields =  populateTaskWrapper(
+          taskFields = populateTaskWrapper(
             oAssessment,
             IDRConstants.CQ_MANAGER_REV_COMPLETED_TASK_SUBJECT,
             oAssessment.TeamManager__c,
@@ -135,15 +115,15 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
           );
         }
         when 'TM_Response_to_C_Q_Manager_Review__c' {
-            taskFields =  populateTaskWrapper(
+          taskFields = populateTaskWrapper(
             oAssessment,
             IDRConstants.TM_REJECTS_CQ_MANAGER_REV_TASK_SUBJECT,
-            cQLeadQueueId,
+            QueryQueue.cqLeads.Id,
             IDRConstants.TM_REJECTS_CQ_MANAGER_REV_TASK_DESC
           );
         }
         when 'C_Q_Lead_Response__c' {
-            taskFields =  populateTaskWrapper(
+          taskFields = populateTaskWrapper(
             oAssessment,
             IDRConstants.CQ_LEAD_RESPONSE_TASK_SUBJECT,
             oAssessment.TeamManager__c,
@@ -212,7 +192,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
     }
     return changedFieldsOnRecord;
   }
-  
+
   /**
    * @description Wrapper Class to wrap task fields
    * @param oAssessment quality assessment record
@@ -296,7 +276,7 @@ public with sharing class IDRQualityAssessmentsDisputeTaskActions {
    */
   private static Date getTaskDueDate(Integer businessDaysToAdd) {
     DateTime expectedDueDate = DateTimeUtils.addBusinessDays(
-      CommonUtil.anzBusinessHours.Id,
+      QueryBusinessHours.anzXBusinessHours.Id,
       DateTime.Now(),
       businessDaysToAdd
     );

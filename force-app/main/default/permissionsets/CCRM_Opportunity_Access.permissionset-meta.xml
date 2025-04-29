@@ -300,7 +300,7 @@
         <visible>false</visible>
     </recordTypeVisibilities>
     <recordTypeVisibilities>
-        <recordType>Product2.ANZ_Product_or_Service</recordType>
+        <recordType>Product2.CRM_ANZ_Product</recordType>
         <visible>true</visible>
     </recordTypeVisibilities>
     <userPermissions>

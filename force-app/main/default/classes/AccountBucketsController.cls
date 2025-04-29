@@ -9,6 +9,7 @@ public with sharing class AccountBucketsController {
    * @param ocvId Ocv id for which buckets needs to be fetched
    * @param pageSize The amount of buckets to return with the call
    * @param nextPageToken The token used to get the next page of data from the api
+   * @param accountNumber accountNumber to fetch the goals for
    * @return String
    * @exception CalloutException
    */
@@ -16,13 +17,15 @@ public with sharing class AccountBucketsController {
   public static AccountBucketsModel getAccountBuckets(
     String ocvId,
     Integer pageSize,
-    String nextPageToken
+    String nextPageToken,
+    String accountNumber
   ) {
-    CoachBankingAPIRepository coachapi = new CoachBankingAPIRepository();
-    AccountBucketsModel result = coachapi.getAccountBuckets(
+    AccountBucketsAPIRepository accountBucketApi = new AccountBucketsAPIRepository();
+    AccountBucketsModel result = accountBucketApi.getAccountBuckets(
       ocvId,
       pageSize,
-      nextPageToken
+      nextPageToken,
+      accountNumber
     );
     return result;
   }

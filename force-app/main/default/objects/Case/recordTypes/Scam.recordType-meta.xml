@@ -989,10 +989,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Delay</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer Denial</fullName>
             <default>false</default>
         </values>
@@ -1021,11 +1017,15 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Merchant Liable</fullName>
+            <fullName>OFI Delay</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>OFI Delay</fullName>
+            <fullName>Partial Recovery</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>System Outage</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1033,7 +1033,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>System Outage</fullName>
+            <fullName>Updated Decision - New Evidence</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3751,10 +3751,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>89</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>9</fullName>
             <default>false</default>
         </values>
@@ -3944,7 +3940,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Snapshat</fullName>
+            <fullName>Snapchat</fullName>
             <default>false</default>
         </values>
         <values>
