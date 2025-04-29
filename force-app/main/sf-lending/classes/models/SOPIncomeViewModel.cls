@@ -37,6 +37,10 @@ public with sharing class SOPIncomeViewModel {
   public String loanId;
   @AuraEnabled
   public string partyId;
+  @AuraEnabled
+  public String singleLineAddress;
+  @AuraEnabled
+  public string asset;
 
   /**
    * @description view model for income item details
@@ -94,21 +98,38 @@ public with sharing class SOPIncomeViewModel {
    * @param sourceData source data
    * @param partyIdToFirstNameMap party id to first name map
    * @param sopId the sop component name
+   * @param assetPropertyLookup map of address lookup
    */
   public SOPIncomeViewModel(
     SOPGetConsolidatedModel.Incomes sourceData,
     Map<String, String> partyIdToFirstNameMap,
-    String sopId
+    String sopId,
+    Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup
   ) {
     this.sopId = sopId;
-    this.ownerName = sourceData.employment?.partyId != null
-      ? partyIdToFirstNameMap.get(sourceData.employment.partyId)
-      : null;
-    this.partyId = sourceData.employment?.partyId;
+    //property income
+    if (sourceData.asset != null) {
+      SOPGetConsolidatedModel.Assets propertyAsset = assetPropertyLookup.get(
+        sourceData.asset
+      );
+      this.singleLineAddress = propertyAsset?.address.singleLineAddress;
+      Map<String, String> ownershipMap = SOPHelper.buildOwnershipStrings(
+        propertyAsset.ownership,
+        partyIdToFirstNameMap
+      );
+      this.ownerName = ownershipMap.get('belongs-to');
+      this.asset = sourceData.asset;
+    } else {
+      //salary&wage income
+      this.ownerName = sourceData?.employment.partyId != null
+        ? partyIdToFirstNameMap.get(sourceData.employment.partyId)
+        : null;
+      this.partyId = sourceData.employment.partyId;
+      this.employer = sourceData.employment.businessName;
+      this.employmentType = sourceData.employment.basis;
+      this.startDate = sourceData.employment.startDate.getStartDateStr();
+    }
     this.partyIdToFirstNameMap = partyIdToFirstNameMap;
-    this.employer = sourceData.employment?.businessName;
-    this.employmentType = sourceData.employment?.basis;
-    this.startDate = sourceData.employment?.startDate?.getStartDateStr();
     this.updateTime = sourceData.updateTime;
     this.incomeSource = setIncomeSource(sourceData.stream);
     this.incomeVerified = setIncomeVerified(

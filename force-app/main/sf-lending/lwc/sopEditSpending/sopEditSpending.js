@@ -6,6 +6,13 @@ import LightningModal from "lightning/modal";
 import RefreshSOP from "@salesforce/messageChannel/RefreshSOP__c";
 import editExpense from "@salesforce/apex/SOPController.editExpense";
 
+const EXPENSES_WITH_PROPERTIES = [
+  "Bills, Insurance & General",
+  "Owners Corp & Land Tax",
+  "Land Tax",
+  "Rent"
+];
+
 export default class MyModal extends LightningModal {
   @api content;
   @api recordId;
@@ -41,7 +48,10 @@ export default class MyModal extends LightningModal {
     const monthlyExpenses = this.updatedExpenses.map((expense) => {
       return {
         ...expense,
-        name: expense.sopName
+        name: expense.sopName,
+        expenseParent: EXPENSES_WITH_PROPERTIES.includes(expense.name)
+          ? expense.householdSopName
+          : expense.expenseParent
       };
     });
 
@@ -90,7 +100,7 @@ export default class MyModal extends LightningModal {
       handleErrorShowToast(
         this,
         "",
-        null,
+        error,
         "The monthly spend total didn’t update. Click 'Refresh All Amounts' or refresh the page to see the updated total."
       );
       return false;
