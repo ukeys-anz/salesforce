@@ -16,6 +16,7 @@ public with sharing class CustomerNotificationActions {
   ) {
     for (Customer_Action__c eachRecord : customerActionedRecords) {
       eachRecord.Action_Counter__c = eachRecord.Action_Counter__c + 1;
+      eachRecord.Completed__c = System.now();
     }
   }
 }
