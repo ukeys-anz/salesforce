@@ -5,12 +5,6 @@ import tmp from "./customerAccount.html";
 const FINANCIAL_DIFFICULTY = "4";
 const COLLECTIONS = "17";
 const EXCL_ACC = ["CAP-CIS:APP", "CAP-CIS:CAP", "CAP-CIS:CAB", "CAP-CIS:MOS"];
-const POLICY_NUM = [
-  "AccountPolicyNumber",
-  "AccountPolicyNumber2",
-  "AccountPolicyNumber3"
-];
-
 export default class CustomerAccount extends OmniscriptBaseMixin(
   LightningElement
 ) {
@@ -18,7 +12,6 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   @track _omniData;
   @track value;
   @track allValues = [];
-  @track issueTypes = [];
   @track allSelected = false;
   @api set omniJsonData(data) {
     this._omniData = data;
@@ -66,9 +59,8 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   async populateAccountNumbers(data) {
     let cmpDet = data.Case.ComplaintDetails;
     let accountId = data.Case.AccountId;
-    this.issueTypes = [cmpDet.IssueType, cmpDet.IssueType2, cmpDet.IssueType3];
     this.options = [];
-    let issueTypeChange = this.checkIssueTypeChange(this.issueTypes);
+    let issueTypeChange = this.checkIssueTypeChange(cmpDet);
     if (accountId && this.checkCustomerIdentifier(data)) {
       let result = await getFinancialAccounts({
         accId: accountId
@@ -111,7 +103,7 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
       this.value = "N/A";
     }
     let cmpDetails = data ? (data.Case ? data.Case.ComplaintDetails : "") : "";
-    if (this.checkIssueTypeFDH(this.issueTypes)) {
+    if (this.checkIssueTypeFDH(cmpDetails)) {
       this.allValues = [];
       this.options.forEach((acc) => {
         this.allValues.push(acc.value);
@@ -165,10 +157,14 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
         "Customer/Business CAP ID" && data.enableAccountLookUp === true
     );
   }
-  checkIssueTypeFDH(issueTypes) {
+  checkIssueTypeFDH(cmpDet) {
     return (
-      issueTypes.includes(FINANCIAL_DIFFICULTY) &&
-      POLICY_NUM.includes(this.omniJsonDef.name)
+      (cmpDet.IssueType === FINANCIAL_DIFFICULTY &&
+        this.omniJsonDef.name === "AccountPolicyNumber") ||
+      (cmpDet.IssueType2 === FINANCIAL_DIFFICULTY &&
+        this.omniJsonDef.name === "AccountPolicyNumber2") ||
+      (cmpDet.IssueType3 === FINANCIAL_DIFFICULTY &&
+        this.omniJsonDef.name === "AccountPolicyNumber3")
     );
   }
   checkForCacheCustomer(data) {
@@ -180,11 +176,17 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
           data.enableAccountLookUp === false))
     );
   }
-  checkIssueTypeChange(issueTypes) {
-    let financialIssues = [COLLECTIONS, FINANCIAL_DIFFICULTY];
+  checkIssueTypeChange(cmpDet) {
     return (
-      financialIssues.some((el) => issueTypes.includes(el)) &&
-      POLICY_NUM.includes(this.omniJsonDef.name)
+      ((cmpDet.IssueType === COLLECTIONS ||
+        cmpDet.IssueType === FINANCIAL_DIFFICULTY) &&
+        this.omniJsonDef.name === "AccountPolicyNumber") ||
+      ((cmpDet.IssueType2 === COLLECTIONS ||
+        cmpDet.IssueType2 === FINANCIAL_DIFFICULTY) &&
+        this.omniJsonDef.name === "AccountPolicyNumber2") ||
+      ((cmpDet.IssueType3 === COLLECTIONS ||
+        cmpDet.IssueType3 === FINANCIAL_DIFFICULTY) &&
+        this.omniJsonDef.name === "AccountPolicyNumber3")
     );
   }
 
@@ -195,9 +197,6 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
   }
 
   handleRemove(event) {
-    if (this.checkIssueTypeFDH(this.issueTypes)) {
-      return;
-    }
     this.value = "";
     const valueRemoved = event.target.name;
     this.allValues.splice(this.allValues.indexOf(valueRemoved), 1);
