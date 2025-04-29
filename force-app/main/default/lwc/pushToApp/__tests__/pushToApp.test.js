@@ -3,7 +3,7 @@ import PushToApp from "c/pushToApp";
 import { getRecord } from "lightning/uiRecordApi";
 import getTemplateDetails from "@salesforce/apex/PushToAppController.getTemplateDetails";
 import getAemContentData from "@salesforce/apex/PushToAppController.getAemContentData";
-import createTaskAndNotificationData from "@salesforce/apex/PushToAppController.createTaskAndNotificationData";
+import createTaskAndRelatedRecords from "@salesforce/apex/PushToAppController.createTaskAndRelatedRecords";
 const mockAemData = require("./data/response.json");
 
 jest.mock(
@@ -37,7 +37,7 @@ jest.mock(
 );
 
 jest.mock(
-  "@salesforce/apex/PushToAppController.createTaskAndNotificationData",
+  "@salesforce/apex/PushToAppController.createTaskAndRelatedRecords",
   () => {
     return {
       default: jest.fn()
@@ -201,7 +201,7 @@ describe("c-push-to-app", () => {
 
   it("6. creates a task and shows success screen", async () => {
     const mockTaskResponse = { Id: "task123", Subject: "Test Task" };
-    createTaskAndNotificationData.mockResolvedValue(mockTaskResponse);
+    createTaskAndRelatedRecords.mockResolvedValue(mockTaskResponse);
     getTemplateDetails.mockResolvedValue(mockTemplateDetails);
     getAemContentData.mockResolvedValue(mockAemData);
     const element = createElement("c-push-to-app", {
@@ -246,7 +246,7 @@ describe("c-push-to-app", () => {
 
   it("7. shows success screen with task hyperlink", async () => {
     const mockTaskResponse = { Id: "task123", Subject: "Follow-up Call" };
-    createTaskAndNotificationData.mockResolvedValue(mockTaskResponse);
+    createTaskAndRelatedRecords.mockResolvedValue(mockTaskResponse);
     getTemplateDetails.mockResolvedValue(mockTemplateDetails);
     getAemContentData.mockResolvedValue(mockAemData);
     const element = createElement("c-push-to-app", {
