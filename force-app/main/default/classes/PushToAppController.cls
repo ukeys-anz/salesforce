@@ -118,7 +118,8 @@ public with sharing class PushToAppController {
         customerTaskData.aemContentObject,
         insertedCustomerTaskDataId
       );
-      List<Database.SaveResult> customerActionResult = DML_REPOSITORY.doInsert(
+
+      DML_REPOSITORY.doInsert(
         listOfCustomerActions,
         new DmlConfig().systemMode()
       );

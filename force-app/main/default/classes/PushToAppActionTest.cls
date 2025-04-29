@@ -106,10 +106,6 @@ public with sharing class PushToAppActionTest {
 
     String payload = CloudEventController.cloudEvents[0].Data_1__c;
 
-    CustomerNudgeTaskCloudEventModel customerNudgeTaskModel = (CustomerNudgeTaskCloudEventModel) JSON.deserialize(
-      payload,
-      CustomerNudgeTaskCloudEventModel.class
-    );
     Assert.isFalse(
       payload.contains('title'),
       'Title Node should not be present in the payload'
