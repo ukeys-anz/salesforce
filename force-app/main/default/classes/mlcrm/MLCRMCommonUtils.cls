@@ -179,7 +179,8 @@ public with sharing class MLCRMCommonUtils {
         objSobject.get('Territory__c') !=
         oldMapSobject.get((Id) objSobject.get('Id')).get('Territory__c'))) &&
         (!setOfUserToTerritory.contains(strTerritoryUserMapping) ||
-        (UserInfo.getUserRoleId() == strFranchiseRole && !setOfUserToTerritory.contains(
+        (UserInfo.getUserRoleId() == strFranchiseRole &&
+        !setOfUserToTerritory.contains(
           UserInfo.getUserId() + objSobject.get('Territory__c')
         )))
       ) {

@@ -493,6 +493,33 @@ private with sharing class IDRCaseAssignmentRulesTest {
    * @description : This is the test method to get assign respective owner Id to Case.
    */
   @isTest
+  private static void testOwnerisIDRMigration() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Type = '23';
+
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_Migration').Id,
+      'Owner should be IDR_Migration'
+    );
+    Assert.arenotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @isTest
   private static void testOwnerisIDRANZPlus() {
     Case oldcase = caseRecord1;
 
@@ -537,7 +564,7 @@ private with sharing class IDRCaseAssignmentRulesTest {
    * @description : This is the test method to get assign respective owner Id to Case.
    */
   @isTest
-  private static void testOwnerisIDRSpare() {
+  private static void testOwnerisIDRAuthorisedTransactions() {
     Case oldCase = caseRecord1;
 
     Case newCase = caseRecord2;
@@ -549,12 +576,65 @@ private with sharing class IDRCaseAssignmentRulesTest {
       oldCase
     );
     Test.stopTest();
-    System.assertEquals(
+    Assert.areEqual(
       workbasketId,
-      QueryQueue.get('IDR_Spare').Id,
-      'Owner should be IDR_Spare'
+      QueryQueue.get('IDR_Authorised_Transactions').Id,
+      'Owner should be IDR_Authorised_Transactions'
     );
-    System.assertNotEquals(
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to assign Case to IDR Authorised Transactions workbasket for Sub Issue type = Card Scheme Disputes.
+   */
+  @isTest
+  private static void testOwnerisIDRATforCardSchemeDisputes() {
+    Case oldCase = caseRecord1;
+
+    Case newCase = caseRecord2;
+    newCase.Type = '24';
+    newCase.IDR_Subsequent_Issue__c = '126';
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_Authorised_Transactions').Id,
+      'Owner should be IDR_Authorised_Transactions'
+    );
+    Assert.areNotEqual(
+      workbasketId,
+      newCase.OwnerId,
+      'Owner should be updated and should not be the case owner'
+    );
+  }
+  /**
+   * @description : This is the test method to get assign respective owner Id to Case.
+   */
+  @isTest
+  private static void testOwnerisIDRUnauthorisedTransactions() {
+    Case oldCase = caseRecord1;
+    Case newCase = caseRecord2;
+    newCase.Type = '24';
+    newCase.IDR_Subsequent_Issue__c = '128';
+    Test.startTest();
+    Id workbasketId = IDRCaseAssignmentRules.getOwnerIdForEscalatedCases(
+      newCase,
+      oldCase
+    );
+    Test.stopTest();
+    Assert.areEqual(
+      workbasketId,
+      QueryQueue.get('IDR_Unauthorised_Transactions').Id,
+      'Owner should be IDR_Unauthorised_Transactions'
+    );
+    Assert.areNotEqual(
       workbasketId,
       newCase.OwnerId,
       'Owner should be updated and should not be the case owner'

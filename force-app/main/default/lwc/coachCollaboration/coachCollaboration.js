@@ -1,10 +1,13 @@
 import { LightningElement, api } from "lwc";
+import { NavigationMixin } from "lightning/navigation";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 
 /* IMPORT APEX METHODS */
 import fetchJWETokenFromFrig from "@salesforce/apex/CoachCollaborationController.fetchJWETokenFromFrig";
 
-export default class CoachCollaboration extends LightningElement {
+export default class CoachCollaboration extends NavigationMixin(
+  LightningElement
+) {
   @api recordId;
   @api objectApiName;
 
@@ -14,7 +17,12 @@ export default class CoachCollaboration extends LightningElement {
     fetchJWETokenFromFrig({ objectApiName, recordId })
       .then((url) => {
         if (url) {
-          window.open(url, "_blank");
+          this[NavigationMixin.Navigate]({
+            type: "standard__webPage",
+            attributes: {
+              url: url
+            }
+          });
         } else {
           this.showNotification();
         }

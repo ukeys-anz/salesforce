@@ -9,6 +9,7 @@
     <permissionSets>Bugs_Read_Write</permissionSets>
     <permissionSets>Call_Logs_R_W</permissionSets>
     <permissionSets>Cancel_Residential_Loan_Application</permissionSets>
+    <permissionSets>Update_Progress_Residential_Loan_Application</permissionSets>
     <permissionSets>Case_Credit_Referral</permissionSets>
     <permissionSets>Case_Read_Write_Account_Closure</permissionSets>
     <permissionSets>Case_Read_Write_Dispute</permissionSets>

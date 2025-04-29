@@ -17,66 +17,75 @@ public with sharing class CaseGroupTriggerHandler extends Lib_TriggerHandler {
   }
 
   public override void onBeforeInsert() {
-    List<Case> parentCasesOfAccountClosureType = ListUtil.filter(records)
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
+    List<Case> filteredParentCaseByIssueType = ListUtil.filter(records)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .toList();
 
-    AccountClosureCaseActions.validateDuplicateParentCasePerAccount(
-      parentCasesOfAccountClosureType
+    CaseGroupCaseActions.validateDuplicateParentCasePerAccount(
+      filteredParentCaseByIssueType
     );
-    AccountClosureCaseActions.populateCaseSubject(
-      parentCasesOfAccountClosureType,
-      GetHelpConstants.CASE_GROUP
+    CaseGroupCaseActions.populateParentCaseSubject(
+      filteredParentCaseByIssueType
     );
   }
 
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
-    List<Case> parentCasesWhereCustomerChanged = ListUtil.filter(
-        records,
-        oldMap
-      )
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
-      .changed(case.AccountId)
+    List<Case> parentCasesWithChangedFields = new List<Case>();
+    List<Case> filteredParentCaseByIssueType = ListUtil.filter(records, oldMap)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .toList();
+    parentCasesWithChangedFields.addAll(
+      (List<Case>) ListUtil.filter(filteredParentCaseByIssueType, oldMap)
+        .changed(case.Type)
+        .toList()
+    );
+    parentCasesWithChangedFields.addAll(
+      (List<Case>) ListUtil.filter(filteredParentCaseByIssueType, oldMap)
+        .changed(case.AccountId)
+        .toList()
+    );
+
     List<Case> parentCasesWithStatusEscalated = ListUtil.filter(records, oldMap)
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
-      .changedTo(Case.Status, GetHelpConstants.ESCALATED_STATUS)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
+      .changedTo(Case.Status, CaseGroupCaseConstants.ESCALATED_STATUS)
       .toList();
     List<Case> parentCasesWithStatusClosed = ListUtil.filter(records, oldMap)
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
-      .changedTo(Case.Status, GetHelpConstants.CLOSED_STATUS)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
+      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
       .toList();
 
-    AccountClosureCaseActions.validateDuplicateParentCasePerAccount(
-      parentCasesWhereCustomerChanged
+    CaseGroupCaseActions.validateDuplicateParentCasePerAccount(
+      parentCasesWithChangedFields
     );
-    AccountClosureCaseActions.populateCaseSubject(
-      parentCasesWhereCustomerChanged,
-      GetHelpConstants.CASE_GROUP
+    CaseGroupCaseActions.populateParentCaseSubject(
+      parentCasesWithChangedFields
     );
-    AccountClosureCaseActions.assignEscalatedCasesToQueue(
+    CaseGroupCaseActions.assignEscalatedCasesToQueue(
       parentCasesWithStatusEscalated
     );
-    AccountClosureCaseActions.validateParentClosureIfChildCasesOpen(
+    CaseGroupCaseActions.validateParentClosureIfChildCasesOpen(
       parentCasesWithStatusClosed
     );
+
+    CaseGroupCaseActions.completeMilestones(records, oldMap);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    List<Case> parentCasesOfAccountClosureType = ListUtil.filter(records)
-      .equals(Case.Type, GetHelpConstants.ACCOUNT_CLOSURE)
+    List<Case> filteredParentCaseByIssueType = ListUtil.filter(records)
+      .equals(Case.Type, CaseGroupCaseConstants.CASE_ISSUE_TYPES)
       .toList();
     Set<Schema.SObjectField> fieldsToTrackForChanges = new Set<Schema.SObjectField>{
       Case.OwnerId,
       Case.Status,
-      Case.Circumstance__c
+      Case.Circumstance__c,
+      Case.Type
     };
     List<Case> parentCasesWithFieldChanges = RecordComparisonUtil.getRecordsWithChangedFields(
-      parentCasesOfAccountClosureType,
+      filteredParentCaseByIssueType,
       oldMap,
       fieldsToTrackForChanges
     );
-    AccountClosureCaseActions.cascadeParentFieldChangesToChildCases(
+    CaseGroupCaseActions.cascadeParentFieldChangesToChildCases(
       parentCasesWithFieldChanges
     );
   }

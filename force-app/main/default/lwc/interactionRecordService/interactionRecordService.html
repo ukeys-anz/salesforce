@@ -76,11 +76,13 @@
                         </lightning-menu-item>
                       </template>
                     </template>
-                    <lightning-menu-item
-                      label="View transcript"
-                      value="chat_history"
-                      onclick={handleActionSelect}
-                    ></lightning-menu-item>
+                    <template lwc:if={record.enableViewTranscript}>
+                      <lightning-menu-item
+                        label="View transcript"
+                        value="chat_history"
+                        onclick={handleActionSelect}
+                      ></lightning-menu-item>
+                    </template>
                   </lightning-button-menu>
                 </div>
               </div>

@@ -421,11 +421,6 @@
         <label>Outcome not in customer&apos;s favour</label>
     </customValue>
     <customValue>
-        <fullName>89</fullName>
-        <default>false</default>
-        <label>Card Scheme Disputes</label>
-    </customValue>
-    <customValue>
         <fullName>90</fullName>
         <default>false</default>
         <label>ATM Disputes</label>

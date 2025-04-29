@@ -306,6 +306,7 @@ const DEBT_TYPES = {
       ...COMMON_FIELDS,
       showBalanceOwing: true,
       showWithheldFromPay: true,
+      showOwnershipSplit: true,
       image: HECS_HELP_IMG
     }
   },

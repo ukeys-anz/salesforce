@@ -11,8 +11,8 @@
     RecordType.DeveloperName = &apos;Join&apos;),
   ISPICKVAL(PRIORVALUE(Status__c),&quot;Complete&quot;),
   NOT(OR(
-    $UserRole.Name &lt;&gt; &quot;Business_Admin&quot;,
-    $UserRole.Name &lt;&gt; &quot;Quality_Capability_Lead&quot;
+    $UserRole.DeveloperName &lt;&gt; &quot;Business_Admin&quot;,
+    $UserRole.DeveloperName &lt;&gt; &quot;Quality_Capability_Lead&quot;
   ))
 )</errorConditionFormula>
     <errorMessage>You cannot edit this Quality Evaluation.</errorMessage>

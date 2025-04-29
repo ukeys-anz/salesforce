@@ -80,4 +80,44 @@ public with sharing class CaseInputWrapper {
    */
   @AuraEnabled
   public String message { get; set; }
+  /**
+   * @description ParentId for the Case
+   */
+  @AuraEnabled
+  public String parentCaseId { get; set; }
+  /**
+   * @description COP Reason for the Case
+   */
+  @AuraEnabled
+  public String copReason { get; set; }
+  /**
+   * @description COP Reason for the Case
+   */
+  @AuraEnabled
+  public String issueType { get; set; }
+  /**
+   * @description Accounting System for the Account
+   */
+  @AuraEnabled
+  public String accountingSystem { get; set; }
+  /**
+   * @description Accounting System for the Account
+   */
+  @AuraEnabled
+  public String copStatus { get; set; }
+  /**
+   * @description Record Type for the Case
+   */
+  @AuraEnabled
+  public String recordTypeId {
+    get {
+      Map<String, String> issueTypeToRecordTypeIdMap = new Map<String, String>{
+        'Account Closure' => RTCase.accountClosure,
+        'Confirmation of Payee Opt-In' => RTCase.confirmationOfPayee,
+        'Confirmation of Payee Opt-Out' => RTCase.confirmationOfPayee
+      };
+      return issueTypeToRecordTypeIdMap.get(issueType);
+    }
+    set;
+  }
 }

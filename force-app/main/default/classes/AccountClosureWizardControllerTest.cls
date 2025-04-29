@@ -53,7 +53,7 @@ public with sharing class AccountClosureWizardControllerTest {
     List<CaseInputWrapper> caseInputs = createCaseInputs();
     Test.startTest();
 
-    List<Case> result = AccountClosureWizardController.createChildCasesForFinAccounts(
+    List<Case> result = CaseGroupController.createChildCasesForFinAccounts(
       FAKER_PARENT_CASE_ID,
       caseInputs
     );
@@ -82,7 +82,7 @@ public with sharing class AccountClosureWizardControllerTest {
 
     Test.startTest();
 
-    List<Case> result = AccountClosureWizardController.createChildCasesForFinAccounts(
+    List<Case> result = CaseGroupController.createChildCasesForFinAccounts(
       FAKER_PARENT_CASE_ID,
       caseInputs
     );
@@ -95,6 +95,11 @@ public with sharing class AccountClosureWizardControllerTest {
   @isTest
   public static void testGetFilteredFinancialAccountsPositive() {
     System.runAs(thisUser) {
+      Map<String, String> paramsMap = new Map<String, String>{
+        'issueType' => 'Account Closure',
+        'parentCaseId' => FAKER_PARENT_CASE_ID,
+        'ocvId' => '12345'
+      };
       registerMocks();
       finAccRepoMock.mock('getFinAccountList', mockFinancialAccounts());
 
@@ -109,8 +114,9 @@ public with sharing class AccountClosureWizardControllerTest {
       );
 
       Test.startTest();
-      List<FinServ__FinancialAccount__c> response = AccountClosureWizardController.getFilteredFinancialAccounts(
-        '12345'
+      AccountClosureWizardController controller = new AccountClosureWizardController();
+      List<CaseGroupFinancialAccountModel> response = controller.getData(
+        paramsMap
       );
       Test.stopTest();
 

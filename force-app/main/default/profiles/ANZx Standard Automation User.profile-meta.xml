@@ -111,11 +111,6 @@
         <default>false</default>
         <visible>false</visible>
     </applicationVisibilities>
-    <applicationVisibilities>
-        <application>trailheadapp__Trailhead_Tracker</application>
-        <default>false</default>
-        <visible>false</visible>
-    </applicationVisibilities>
     <classAccesses>
         <apexClass>AuthTokenCacheUtil</apexClass>
         <enabled>true</enabled>
@@ -7956,6 +7951,10 @@
         <recordType>Case.Case_Group</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Confirmation Of Payee Layout</layout>
+        <recordType>Case.Confirmation_Of_Payee</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-Account Closure Layout</layout>
         <recordType>Case.Account_Closure</recordType>
     </layoutAssignments>
@@ -9121,10 +9120,6 @@
         <apexPage>FinServ__WealthLabelDependencies</apexPage>
         <enabled>true</enabled>
     </pageAccesses>
-    <pageAccesses>
-        <apexPage>trailheadapp__TrailheadSetup</apexPage>
-        <enabled>false</enabled>
-    </pageAccesses>
     <recordTypeVisibilities>
         <default>false</default>
         <recordType>Account.Business_Account</recordType>
@@ -9792,10 +9787,6 @@
     <tabVisibilities>
         <tab>standard-report</tab>
         <visibility>DefaultOn</visibility>
-    </tabVisibilities>
-    <tabVisibilities>
-        <tab>trailheadapp__TrailheadSetup</tab>
-        <visibility>Hidden</visibility>
     </tabVisibilities>
     <tabVisibilities>
         <tab>COBPrimaryIDDocument__c</tab>

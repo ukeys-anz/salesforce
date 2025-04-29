@@ -1875,6 +1875,50 @@
                 <identifier>support_milestones</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>action</name>
+                    <value>Prompt</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>comment</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>condition</name>
+                    <value>[   {     &quot;field&quot;: &quot;Case.Type&quot;,     &quot;operator&quot;: &quot;equals&quot;,     &quot;value&quot;: [&quot;Residential Address QA&quot;]   },   {     &quot;field&quot;: &quot;Case.Fraud_Address_Valid__c&quot;,     &quot;operator&quot;: &quot;changedTo&quot;,     &quot;value&quot;: [&quot;No&quot;]   } ]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>message</name>
+                    <value>Please provide the commentary notes for updating the status.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>theme</name>
+                    <value>default</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Add Case Notes</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastMessages</name>
+                    <value>{   &quot;success&quot;: &quot;Case Notes added successfully.&quot;,   &quot;error&quot;: &quot;Error occurred while adding Case Notes.&quot;,   &quot;warning&quot;: &quot;By proceeding, you acknowledge that you are not submitting a commentary note. You may also add this to the chatterbox below.&quot; }</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>variant</name>
+                    <value>header</value>
+                </componentInstanceProperties>
+                <componentName>caseRecommendationModal</componentName>
+                <identifier>c_caseRecommendationModal</identifier>
+                <visibilityRule>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>Profile_Update</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>sidebar</name>
         <type>Region</type>

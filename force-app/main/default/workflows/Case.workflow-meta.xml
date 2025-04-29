@@ -102,6 +102,36 @@
         <protected>false</protected>
         <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SLA_Status_Violation_Update_COP_Res</fullName>
+        <name>SLA Status Violation Update COP Res</name>
+        <field>SLA_Status__c</field>
+        <literalValue>Breached</literalValue>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SLA_Status_Warning_Update_First</fullName>
+        <name>SLA Status Warning Update First</name>
+        <field>SLA_Status__c</field>
+        <literalValue>Warning</literalValue>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
+    <fieldUpdates>
+        <fullName>SLA_Status_Warning_Update_Second</fullName>
+        <name>SLA Status Warning Update Second</name>
+        <field>SLA_Status__c</field>
+        <literalValue>Warning 2</literalValue>
+        <notifyAssignee>false</notifyAssignee>
+        <operation>Literal</operation>
+        <protected>false</protected>
+        <reevaluateOnChange>true</reevaluateOnChange>
+    </fieldUpdates>
     <rules>
         <fullName>Case - Pause SLA</fullName>
         <actions>

@@ -22,6 +22,10 @@ public with sharing class CCRMFinancialAccountRoleActions {
     DmlRepository.class
   );
 
+  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
+
   /**
    * @description Set FAR record type to System or Contact based on External Id and Related Customer
    * @name setRecordType
@@ -86,32 +90,60 @@ public with sharing class CCRMFinancialAccountRoleActions {
 
   /**
    * @description When a "Primary Owner" FAR record is created, switch the primary owner of the parent FA record to the new account
-   * @name updateFinancialAccountOwner
    * @param records Financial account role records from the trigger.
    */
   public static void updateFinancialAccountOwner(
     List<FinServ__FinancialAccountRole__c> records
   ) {
-    Financial_Account_Settings__c faSettings = Financial_Account_Settings__c.getOrgDefaults();
+    Set<Id> relatedFinancialAccountsIDs = ListUtil.getIds(
+      records,
+      FinServ__FinancialAccountRole__c.FinServ__FinancialAccount__c
+    );
+    Map<Id, FinServ__FinancialAccount__c> financialAccountsMap = FINANCIAL_ACCOUNT_REPOSITORY.getFinancialAccountsWithPrimaryOwner(
+      relatedFinancialAccountsIDs
+    );
+    List<FinServ__FinancialAccountRole__c> filteredRecords = ListUtil.filter(
+        records
+      )
+      .isNull(FinServ__FinancialAccountRole__c.FinServ__EndDate__c)
+      .equals(
+        FinServ__FinancialAccountRole__c.FinServ__Role__c,
+        FAR_ROLE_PRIMARYOWNER
+      )
+      .toList();
+    List<FinServ__FinancialAccount__c> finAccountsToUpdate = getFinancialAccountsToUpdate(
+      filteredRecords,
+      financialAccountsMap
+    );
+    DML_REPOSITORY.doUpdate(finAccountsToUpdate);
+  }
 
-    List<FinServ__FinancialAccount__c> financialAccounts = new List<FinServ__FinancialAccount__c>();
+  /**
+   * @description get the financial accounts to be updated with new Primary Owner
+   * @param records Financial account role records from the trigger.
+   * @param financialAccountsMap Map of related Financial account records
+   * @return List<FinServ__FinancialAccount__c> The Financial account records that needs to be updated.
+   */
+  @TestVisible
+  private static List<FinServ__FinancialAccount__c> getFinancialAccountsToUpdate(
+    List<FinServ__FinancialAccountRole__c> records,
+    Map<Id, FinServ__FinancialAccount__c> financialAccountsMap
+  ) {
+    List<FinServ__FinancialAccount__c> finAccountsToUpdate = new List<FinServ__FinancialAccount__c>();
     for (FinServ__FinancialAccountRole__c record : records) {
+      FinServ__FinancialAccount__c finAccount = financialAccountsMap.get(
+        record.FinServ__FinancialAccount__c
+      );
       if (
-        record.FinServ__EndDate__c == null &&
-        record.FinServ__Role__c == FAR_ROLE_PRIMARYOWNER
+        finAccount == null ||
+        record.FinServ__RelatedAccount__c == finAccount.Finserv__PrimaryOwner__c
       ) {
-        financialAccounts.add(
-          new FinServ__FinancialAccount__c(
-            Id = record.FinServ__FinancialAccount__c,
-            Finserv__PrimaryOwner__c = record.FinServ__RelatedAccount__c
-          )
-        );
+        continue;
       }
+      finAccount.Finserv__PrimaryOwner__c = record.FinServ__RelatedAccount__c;
+      finAccountsToUpdate.add(finAccount);
     }
-
-    if (!financialAccounts.isEmpty()) {
-      Database.update(financialAccounts, true, AccessLevel.USER_MODE);
-    }
+    return finAccountsToUpdate;
   }
 
   /**
@@ -181,32 +213,41 @@ public with sharing class CCRMFinancialAccountRoleActions {
       relatedAccountIds,
       relatedFinancialAccountIds
     );
-    Set<String> relatedAccountIdFinancialIdUniqueKey = getUniqueKeySet(recordIds,existingActiveRecords);
+    Set<String> relatedAccountIdFinancialIdUniqueKey = getUniqueKeySet(
+      recordIds,
+      existingActiveRecords
+    );
     List<FinServ__FinancialAccountRole__c> existingRecordsToDeactivate = getRecordsToDeactivateList(
       recordIds,
       relatedAccountIdFinancialIdUniqueKey,
       existingActiveRecords
-      );
+    );
     DML_REPOSITORY.doUpdate(existingRecordsToDeactivate);
   }
-/**
+  /**
    * @description Generate and return unique key using CustomerId and AccountKey
    * @name getUniqueKeySet
    * @param recordIds Financial account role record Ids.
    * @param activeRecords Financial account role records
    * @return Set<String>
    */
-  private static Set<String> getUniqueKeySet(Set<Id> recordIds, List<FinServ__FinancialAccountRole__c> activeRecords) {
+  private static Set<String> getUniqueKeySet(
+    Set<Id> recordIds,
+    List<FinServ__FinancialAccountRole__c> activeRecords
+  ) {
     Set<String> relatedAccountIdFinancialIdUniqueKey = new Set<String>();
     for (FinServ__FinancialAccountRole__c record : activeRecords) {
-      if(recordIds.contains(record.Id)) {
-        String uniqueKey = generateCustomerIdAccountKeyUniqueKey(record.FinServ__RelatedAccount__r.External_Id__c,record.FinServ__FinancialAccount__r.Account_Key__c);
+      if (recordIds.contains(record.Id)) {
+        String uniqueKey = generateCustomerIdAccountKeyUniqueKey(
+          record.FinServ__RelatedAccount__r.External_Id__c,
+          record.FinServ__FinancialAccount__r.Account_Key__c
+        );
         relatedAccountIdFinancialIdUniqueKey.add(uniqueKey);
       }
     }
     return relatedAccountIdFinancialIdUniqueKey;
-  } 
-/**
+  }
+  /**
    * @description Deactive existing duplicate FAR record
    * @name deactivateDuplicateRecords
    * @param recordIds Financial account role record Ids.
@@ -221,11 +262,14 @@ public with sharing class CCRMFinancialAccountRoleActions {
   ) {
     List<FinServ__FinancialAccountRole__c> existingRecordsToDeactivate = new List<FinServ__FinancialAccountRole__c>();
     for (FinServ__FinancialAccountRole__c record : existingActiveRecords) {
-      String tempUniqueKey = generateCustomerIdAccountKeyUniqueKey(record.FinServ__RelatedAccount__r.External_Id__c,record.FinServ__FinancialAccount__r.Account_Key__c);
+      String tempUniqueKey = generateCustomerIdAccountKeyUniqueKey(
+        record.FinServ__RelatedAccount__r.External_Id__c,
+        record.FinServ__FinancialAccount__r.Account_Key__c
+      );
       if (recordIds.contains(record.Id)) {
         continue;
       }
-      if(relatedAccountIdFinancialIdUniqueKey.contains(tempUniqueKey)){
+      if (relatedAccountIdFinancialIdUniqueKey.contains(tempUniqueKey)) {
         existingRecordsToDeactivate.add(
           new FinServ__FinancialAccountRole__c(
             Id = record.Id,

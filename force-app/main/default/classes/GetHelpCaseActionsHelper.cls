@@ -30,23 +30,6 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
 
-  private static Id falseEntitlementAccountId {
-    get {
-      if (falseEntitlementAccountId != null) {
-        return falseEntitlementAccountId;
-      }
-      falseEntitlementAccountId = [
-        SELECT Id
-        FROM Account
-        WHERE OCV_ID__c = :Label.Fraudx_Generic_Customer_OCV_Id
-        LIMIT 1
-      ]
-      .Id;
-      return falseEntitlementAccountId;
-    }
-    private set;
-  }
-
   public static UserRole bohCoachRole = QueryRole.get('BOH_Coach');
   public static UserRole creditAssessmentOfficerRole = QueryRole.get(
     'Credit_Assessment_Officer'
@@ -137,45 +120,6 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description auto-populate Contact lookup on ANZ Plus Cases.
-   * Assumption: Case record types would not be manually changed from AR&C to ANZ Plus
-   * @param records new trigger case records
-   * @param mpOldCasesByIds previous values for changed records
-   */
-  public static void populateContactLookupForANZPlus(
-    List<Case> records,
-    Map<Id, Case> mpOldCasesByIds
-  ) {
-    List<Case> anzPlusCases = new List<Case>();
-    List<Id> relatedAccountIDs = new List<Id>();
-    List<Case> anzCases = filterANZCases(records);
-    for (Case newCase : anzCases) {
-      if (
-        newCase.AccountId != null &&
-        (mpOldCasesByIds == null ||
-        RecordComparisonUtil.fieldWasChanged(
-          newCase,
-          mpOldCasesByIds.get(newCase.Id),
-          Case.AccountId
-        ))
-      ) {
-        anzPlusCases.add(newCase);
-        relatedAccountIDs.add(newCase.AccountId);
-      }
-    }
-
-    Map<Id, Account> relatedAccountsMap = queryAccountDetailsSystemMode(
-      relatedAccountIDs
-    );
-
-    for (Case newCaseRecord : anzPlusCases) {
-      // Currently only caters for cases having PersonAccounts as parent (will have to handle Business Accounts later when we roll it out)
-      Account acc = relatedAccountsMap.get(newCaseRecord.AccountId);
-      newCaseRecord.ContactId = acc?.PersonContactId;
-    }
-  }
-
-  /**
    * @description Get a set of bug Ids
    * @param bugIdSet a list of cases that we need to check for bugs
    * @return list of reported bugs
@@ -200,8 +144,11 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
-        c.RecordTypeId == RTCase.kycQa ||
-        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c) ||
+        c.RecordTypeId == RTCase.confirmationOfPayee ||
+        (c.RecordTypeId == RTCase.caseGroup &&
+        (c.Type == 'Confirmation of Payee Opt-In' ||
+        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
         accountIds.add(c.AccountId);
       }
@@ -247,7 +194,11 @@ public with sharing class GetHelpCaseActionsHelper {
       if (
         (c.RecordTypeId == RTCase.generalInquiry ||
         c.RecordTypeId == RTCase.customerFeedback ||
-        CheckCaseRecordType.isDispute(c)) && c.AccountId != null
+        CheckCaseRecordType.isDispute(c) ||
+        c.RecordTypeId == RTCase.confirmationOfPayee ||
+        (c.RecordTypeId == RTCase.caseGroup &&
+        (c.Type == 'Confirmation of Payee Opt-In' ||
+        c.Type == 'Confirmation of Payee Opt-Out'))) && c.AccountId != null
       ) {
         if (!entMap.containsKey(c.AccountId)) {
           c.addError(NO_ENTITLEMENT_ERROR_MSG);
@@ -416,99 +367,6 @@ public with sharing class GetHelpCaseActionsHelper {
         CommonUtil.getProfileByName('ANZx Standard User').Id
       ) {
         record.ANZx_Customer__c = true;
-      }
-    }
-  }
-
-  /**
-   * @description will find all the cobs related to accounts.
-   * Each COB has a SecurityMobile__c required, and that is matched with customer.PersonMobilePhone
-   * There might be a difference between number format on customer and cob. exp : +61440000000 :: 61440000000
-   * We use PhoneUtils.cleanupMobile to have same key for creating a map<clean mobile number , cob id>
-   * @param accountList List<Account> list of accounts which is assigned to a False Customer Profile case.
-   * @return Map<string,Id> Map < mobile number, cob id>
-   */
-
-  public static Map<string, Id> findCOBByCustomerMobileNumber(
-    List<Account> accountList
-  ) {
-    List<String> accountMobileList = new List<String>();
-    Map<String, Id> result = new Map<String, Id>();
-    for (Account acc : accountList) {
-      if (acc.PersonMobilePhone != null) {
-        accountMobileList.add(PhoneUtils.cleanupMobile(acc.PersonMobilePhone));
-      }
-    }
-
-    if (
-      accountMobileList.size() == 0 ||
-      !Schema.sObjectType.CustomerOnboardingApplication__c.isQueryable()
-    ) {
-      return result;
-    }
-
-    List<CustomerOnboardingApplication__c> cobs = [
-      SELECT Id, SecurityMobile__c
-      FROM CustomerOnboardingApplication__c
-      WHERE SecurityMobile__c IN :accountMobileList
-    ];
-
-    for (CustomerOnboardingApplication__c cob : cobs) {
-      result.put(cob.SecurityMobile__c, cob.Id);
-    }
-    return result;
-  }
-
-  /**
-   * @description Check if the case is a false customer profile, then:
-   * - make the onboarding customer name value to be customer name
-   * - if real customer has been chosen, auto populate the cob
-   * @param records New record instances to process
-   * @param oldCaseMap old case map
-   */
-  public static void setFraudCustomerProfileCase(
-    List<Case> records,
-    Map<Id, Case> oldCaseMap
-  ) {
-    Map<Id, Case> caseList = new Map<Id, Case>();
-    set<Id> accountIds = new Set<Id>();
-    for (Case record : records) {
-      if (record.RecordTypeId == RTCase.falseCustomerProfile) {
-        accountIds.add(record.AccountId);
-        caseList.put(record.AccountId, record);
-      }
-    }
-
-    if (accountIds.size() == 0 || !Schema.sObjectType.Account.isQueryable()) {
-      return;
-    }
-
-    List<Account> accs = [
-      SELECT Id, Name, PersonMobilePhone
-      FROM Account
-      WHERE Id IN :accountIds
-    ];
-
-    Map<String, Id> accountPhoneNumbers = findCOBByCustomerMobileNumber(accs);
-    for (Account acc : accs) {
-      Case c = caseList.get(acc.Id);
-      if (
-        String.isBlank(c.Fraud_Onboarding_Customer_Name__c) ||
-        (c.Fraud_Onboarding_Customer_Name__c != FRAUD_GENERIC_CUSTOMER_NAME &&
-        acc.Name != FRAUD_GENERIC_CUSTOMER_NAME)
-      ) {
-        c.Fraud_Onboarding_Customer_Name__c = acc.Name;
-      }
-
-      if (acc.Name != FRAUD_GENERIC_CUSTOMER_NAME) {
-        c.CustomerOnboardingApplication__c = accountPhoneNumbers.get(
-          PhoneUtils.cleanupMobile(acc.PersonMobilePhone)
-        );
-      } else if (
-        oldCaseMap != null &&
-        oldCaseMap.get(c.Id).AccountId != falseEntitlementAccountId
-      ) {
-        c.CustomerOnboardingApplication__c = null;
       }
     }
   }
@@ -889,49 +747,5 @@ public with sharing class GetHelpCaseActionsHelper {
       creditId = creditId.left(creditId.indexOf('@'));
     }
     return creditId;
-  }
-
-  /**
-   * @description Check if the cae is a ANZXCase
-   * @param record List of case records which are updated or inserted
-   * @return filtered cases based on record type
-   */
-  private static List<Case> filterANZCases(List<Case> record) {
-    List<Case> caseRecordList = new List<Case>();
-
-    for (Case caseRecord : record) {
-      if (CheckCaseRecordType.isANZPlusCaseType(caseRecord)) {
-        caseRecordList.add(caseRecord);
-      }
-    }
-
-    return caseRecordList;
-  }
-
-  /**
-   * @description retrieve the account details in system mode
-   * @param relatedAccountIDs Id associated with the newly created cases
-   * @return map of account id and account details
-   */
-  private static Map<Id, Account> queryAccountDetailsSystemMode(
-    List<Id> relatedAccountIDs
-  ) {
-    SystemModeActions systemAction = new SystemModeActions(
-      'GetHelpCaseActionsHelper',
-      'populateContactLookupForANZPlus'
-    );
-    String relatedAccountIDAsString =
-      '\'' +
-      String.join(relatedAccountIDs, '\',\'') +
-      '\'';
-
-    Map<Id, Account> relatedAccountsMap = new Map<Id, Account>(
-      (List<Account>) systemAction.query(
-        'SELECT Id, IsPersonAccount, PersonContactId FROM Account WHERE Id IN (' +
-          relatedAccountIDAsString +
-          ')'
-      )
-    );
-    return relatedAccountsMap;
   }
 }

@@ -28,6 +28,12 @@
                 <default>false</default>
                 <label>Breached</label>
             </value>
+            <value>
+                <fullName>Warning 2</fullName>
+                <color>#FF9900</color>
+                <default>false</default>
+                <label>Warning 2</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
 </CustomField>

@@ -4,6 +4,7 @@
  * @description Customer Profile Wrapper class
  * @group IDR(Internal Dispute Resolution)
  */
+@SuppressWarnings('PMD.TooManyFields')
 public with sharing class IDRCustomerProfile {
   @AuraEnabled
   public String customerId;
@@ -45,4 +46,8 @@ public with sharing class IDRCustomerProfile {
   public String postCode;
   @AuraEnabled
   public String country;
+  @AuraEnabled
+  public String migrationStatusDate;
+  @AuraEnabled
+  public String migrationStatusType;
 }

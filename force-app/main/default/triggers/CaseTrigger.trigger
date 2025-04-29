@@ -12,7 +12,10 @@ trigger CaseTrigger on Case(
   DisputesCaseTriggerHandler disputesHandler = new DisputesCaseTriggerHandler();
   AccountClosureCaseTriggerHandler accountClosureHandler = new AccountClosureCaseTriggerHandler();
   CaseGroupTriggerHandler caseGroupHandler = new CaseGroupTriggerHandler();
+  ConfirmationOfPayeeCaseTriggerHandler copHandler = new ConfirmationOfPayeeCaseTriggerHandler();
   BrokerEnquiryCaseTriggerHandler brokerEnquiryHandler = new BrokerEnquiryCaseTriggerHandler();
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
   TrustMeCaseTriggerHandler trustMeHandler = new TrustMeCaseTriggerHandler();
+  FalseCustomerProfileCaseTriggerHandler fcpHandler = new FalseCustomerProfileCaseTriggerHandler();
+  FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
 }

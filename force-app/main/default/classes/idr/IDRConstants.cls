@@ -391,7 +391,9 @@ public with sharing class IDRConstants {
     '11',
     'Chat',
     'ANZ Plus App',
-    'ANZ Plus Web'
+    'ANZ Plus Web',
+    '22',
+    '23'
   };
 
   public static final List<String> IDR_TYPE_VALUES = new List<String>{
@@ -419,7 +421,9 @@ public with sharing class IDRConstants {
     'Chat',
     'ANZ Plus App',
     'Know Your Customer',
-    '22'
+    '22',
+    '23',
+    '24'
   };
 
   public static final List<String> IDR_ESCALATION_VALUES = new List<String>{
