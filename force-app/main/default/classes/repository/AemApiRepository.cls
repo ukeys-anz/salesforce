@@ -21,55 +21,66 @@ public with sharing class AemApiRepository {
     403
   };
 
+  private static final String CACHE_LOCAL_UTILITY_KEY = 'local.Utility.';
+
   /**
    * @param aemContentId Id of the template selected by user
    * @param recordId The Id of the record for which notification needs to be sent.
-   * @return `AemDataWrapper` Transformed data
+   * @return `AemDataModel` Transformed data
    * @description This method return the AEM data that can be utilised in LWC . Also, stores the data in Org Cache.
    */
-  public static AemDataWrapper getAemContentDataForNotification(
+  public static AemDataModel getAemContentDataForNotification(
     String aemContentId,
     Id recordId
   ) {
-    AemDataWrapper aemContentData;
-
     //Get aem content data from cache
-    String aemContentIdWithoutUnderscores = aemContentId.replace('_', '');
-    aemContentData = (AemDataWrapper) Cache.Org.get(
-      'local.Utility.' + aemContentIdWithoutUnderscores
+    String aemContentIdWithoutSpecialChars = TextUtils.removeNonAlphanumericChar(
+      aemContentId
+    );
+    AemDataModel cachedAemContentData = (AemDataModel) Cache.Org.get(
+      CACHE_LOCAL_UTILITY_KEY + aemContentIdWithoutSpecialChars
     );
 
     //Returning aem content data from cache
-    if (aemContentData != null) {
-      return aemContentData;
+    if (cachedAemContentData != null) {
+      return cachedAemContentData;
     }
 
     //Get the aem content data from api if not fround in Cache
     HttpCalloutResponse response = SERVICE.getAemContentData(aemContentId);
 
-    response = handleResponse(response, 'AemService');
+    response = handleResponse(response);
+
+    //Replace the merged fields with appropriate field values in the response received from AEM
+    String aemDataWithReplacedFields = AemDataMergeFieldProcessor.replaceMergedFields(
+      response.body,
+      recordId
+    );
+
+    AemDataModel aemContentData = AemDataModel.parse(
+      aemDataWithReplacedFields,
+      recordId
+    );
 
     //Store aem content data to cache
-    aemContentData = AemDataModel.parse(response.body, recordId);
     Cache.Org.put(
-      'local.Utility.' + aemContentIdWithoutUnderscores,
+      CACHE_LOCAL_UTILITY_KEY + aemContentIdWithoutSpecialChars,
       aemContentData
     );
     return aemContentData;
   }
 
   private static HttpCalloutResponse handleResponse(
-    HttpCalloutResponse response,
-    String serviceName
+    HttpCalloutResponse response
   ) {
     if (SERVER_ERROR_CODES.contains(response.statusCode)) {
-      throw new ServerErrorException(response, serviceName);
+      throw new ServerErrorException(response);
     }
     if (ACCESS_ERROR_CODES.contains(response.statusCode)) {
-      throw new AccessErrorException(response, serviceName);
+      throw new AccessErrorException(response);
     }
     if (response.successful == false) {
-      throw new UnhandledException(response, serviceName);
+      throw new UnhandledException(response);
     }
     return response;
   }
@@ -81,15 +92,11 @@ public with sharing class AemApiRepository {
     /**
      * @description ServerErrorException custom exception
      * @param response
-     * @param serviceName
      */
-    public ServerErrorException(
-      HttpCalloutResponse response,
-      String serviceName
-    ) {
+    public ServerErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.error(
-          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          'HTTP ' + response.statusCode + ' Error from AemService',
           response.error
         )
         .save();
@@ -103,15 +110,11 @@ public with sharing class AemApiRepository {
     /**
      * @description AccessErrorException custom exception
      * @param response
-     * @param serviceName
      */
-    public AccessErrorException(
-      HttpCalloutResponse response,
-      String serviceName
-    ) {
+    public AccessErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.info(
-          'HTTP ' + response.statusCode + ' Error from ' + serviceName,
+          'HTTP ' + response.statusCode + ' Error from AemService',
           response.error
         )
         .save();
@@ -126,14 +129,10 @@ public with sharing class AemApiRepository {
     /**
      * @description AccessErrorException custom exception
      * @param response
-     * @param serviceName
      */
-    public UnhandledException(
-      HttpCalloutResponse response,
-      String serviceName
-    ) {
+    public UnhandledException(HttpCalloutResponse response) {
       this(response.error.getMessage());
-      Logger.error('UnhandledException from: ' + serviceName, response.error)
+      Logger.error('UnhandledException from: AemService', response.error)
         .save();
     }
   }

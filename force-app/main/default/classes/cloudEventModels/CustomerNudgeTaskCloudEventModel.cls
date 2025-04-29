@@ -72,7 +72,7 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
       String aemContentData
     ) {
       this.producer_command_key = theTask.Pub_Sub_Event_Id__c;
-      this.idempotency_key = theTask.Pub_Sub_Event_Id__c;
+      this.idempotency_key = theTask.Pub_Sub_Event_Id__c.split('_')[0];
 
       if (
         String.isBlank(aemContentData) ||
@@ -81,9 +81,9 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
         return;
       }
 
-      AemDataWrapper.Items item = (AemDataWrapper.Items) JSON.deserialize(
+      AemDataModel.Items item = (AemDataModel.Items) JSON.deserialize(
         aemContentData,
-        AemDataWrapper.Items.class
+        AemDataModel.Items.class
       );
       this.notification = new PushToAppNotificationWrapper(item, theTask);
     }

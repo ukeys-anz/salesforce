@@ -57,6 +57,10 @@ public with sharing class PushToAppActionTest {
       mockQueryCustomerTaskDataDetails()
     );
     pushToAppRepoMock.mock('queryAccountOcvId', new List<Account>());
+    pushToAppRepoMock.mock(
+      'queryTaskRecords',
+      mockTaskRecordsList('Transfer Funds Out')
+    );
 
     Test.startTest();
     PushToAppAction.createTaskCloudEvent(
@@ -91,6 +95,10 @@ public with sharing class PushToAppActionTest {
       new List<Customer_Task_Data__c>()
     );
     pushToAppRepoMock.mock('queryAccountOcvId', new List<Account>());
+    pushToAppRepoMock.mock(
+      'queryTaskRecords',
+      mockTaskRecordsList('Transfer Funds Out')
+    );
 
     Test.startTest();
     PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null), 'created');
