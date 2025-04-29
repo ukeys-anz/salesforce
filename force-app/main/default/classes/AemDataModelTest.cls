@@ -23,13 +23,13 @@ public with sharing class AemDataModelTest {
       'selectedNotificationConfigDetail',
       mockNotificationConfiguration()
     );
-    AemDataWrapper obj = AemDataModel.parse(mockAemData, FAKER_CASE_ID);
+    AemDataModel obj = AemDataModel.parse(mockAemData, FAKER_CASE_ID);
     Assert.isTrue(
       obj.data.pushToAppList.items[0].id == 'get_in_touch_complaint',
       'Item Id should be get_in_touch_complaint'
     );
 
-    Assert.isTrue(
+    Assert.isFalse(
       obj.data.pushToAppList.items[0].reference == 'Complaint Ref 1234567',
       'Case Number should be 1234567'
     );

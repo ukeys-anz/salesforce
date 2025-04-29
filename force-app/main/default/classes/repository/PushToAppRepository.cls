@@ -88,6 +88,10 @@ public with sharing class PushToAppRepository {
    * @return Task record details
    */
   public Task queryTaskDetails(Id taskId) {
+    if (taskId == null) {
+      return new Task();
+    }
+
     return [
       SELECT
         Id,
@@ -105,12 +109,11 @@ public with sharing class PushToAppRepository {
         LastModifiedBy.Name,
         LastModifiedBy.Email,
         LastModifiedBy.UserName,
-        LastModifiedBy.Lan_Id__c,
-        Customer_Task_Data__r.AEM_Content_Data__c,
         Customer_Task_Configuration__r.Name,
         TaskNumber__c
       FROM Task
       WHERE Id = :taskId
+      WITH USER_MODE
     ];
   }
 
@@ -145,6 +148,7 @@ public with sharing class PushToAppRepository {
       SELECT Id, Status
       FROM Task
       WHERE ActivityDate < TODAY AND RecordTypeId = :RTTask.customerNudge
+      WITH USER_MODE
     ];
   }
 
@@ -180,7 +184,6 @@ public with sharing class PushToAppRepository {
       SELECT Id, AEM_Content_Data__c
       FROM Customer_Task_Data__c
       WHERE Id IN :customerTaskDataIds
-      WITH USER_MODE
     ];
   }
 
@@ -197,6 +200,33 @@ public with sharing class PushToAppRepository {
       SELECT Id, OCV_ID__c
       FROM Account
       WHERE Id IN :accountIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Query OcvId of the Account
+   * @param taskIds set of account Ids
+   * @return List<Account> List of accounts with their ocvIds
+   */
+  public List<Task> queryTaskRecords(Set<Id> taskIds) {
+    if (taskIds.isEmpty()) {
+      return new List<Task>();
+    }
+    return [
+      SELECT
+        Id,
+        Pub_Sub_Event_Id__c,
+        LastModifiedDate,
+        LastModifiedBy.Name,
+        AccountId,
+        Customer_Task_Data__c,
+        Status,
+        Pega_CDH_Id__c,
+        LastModifiedBy.Email,
+        LastModifiedBy.UserName
+      FROM Task
+      WHERE Id IN :taskIds
       WITH USER_MODE
     ];
   }

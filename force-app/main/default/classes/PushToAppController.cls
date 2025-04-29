@@ -56,22 +56,44 @@ public with sharing class PushToAppController {
    * @return AemDataModel
    */
   @AuraEnabled
-  public static AemDataWrapper getAemContentData(
+  public static AemDataModel getAemContentData(
     String aemContentId,
     Id recordId
   ) {
+    if (String.isBlank(aemContentId) || recordId == null) {
+      return null;
+    }
+
     try {
-      if (String.isBlank(aemContentId) || recordId == null) {
-        return null;
-      }
-      return AemApiRepository.getAemContentDataForNotification(
+      AemDataModel aemData = AemApiRepository.getAemContentDataForNotification(
         aemContentId,
         recordId
       );
+      enrichAemData(aemData.data.pushToAppList.items[0]);
+      return aemData;
     } catch (Exception objException) {
       throw CommonUtil.logException(objException);
     }
   }
+
+  /**
+   * @description This method is used to update expiryDate and notificationConfigId nodes
+   * @param item AEMContentData Items node
+   */
+  private static void enrichAemData(AemDataModel.Items item) {
+    Customer_Task_Configuration__c config = PUSH_TO_APP_REPOSITORY.selectedNotificationConfigDetail(
+      item.id
+    );
+    Integer expireAfterDays = config?.Expire_After_Days__c != null
+      ? Integer.valueOf(config.Expire_After_Days__c)
+      : 0;
+
+    item.expiryDate = expireAfterDays != 0
+      ? DateTime.now().addDays(expireAfterDays).format('dd/MM/yyyy')
+      : null;
+    item.notificationConfigId = config?.Id;
+  }
+
   /**
    * @description Receive data from AEM and Sobject Record from where this push to app action triggered
    * to create Task and Notification Data in Salesforce
@@ -88,7 +110,8 @@ public with sharing class PushToAppController {
       Database.SaveResult notifDataResult = DML_REPOSITORY.doInsert(
         new Customer_Task_Data__c(
           AEM_Content_Data__c = customerTaskData.aemContentData
-        )
+        ),
+        new DmlConfig().systemMode()
       );
       Id insertedCustomerTaskDataId = notifDataResult.getId();
       List<Customer_Action__c> listOfCustomerActions = prepareCustomerActions(
@@ -96,7 +119,8 @@ public with sharing class PushToAppController {
         insertedCustomerTaskDataId
       );
       List<Database.SaveResult> customerActionResult = DML_REPOSITORY.doInsert(
-        listOfCustomerActions
+        listOfCustomerActions,
+        new DmlConfig().systemMode()
       );
       Task pushToAppTask = preparePushToAppTask(
         pushToAppTaskData,

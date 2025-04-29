@@ -44,7 +44,7 @@ public with sharing class PushToAppNotificationWrapper {
    * @param item Aemcontendata associated with customer task notification
    * @param theTask task records details
    */
-  public PushToAppNotificationWrapper(AemDataWrapper.Items item, Task theTask) {
+  public PushToAppNotificationWrapper(AemDataModel.Items item, Task theTask) {
     this.title = item.title;
     this.body = item.subtitle + '\n' + item.bodyText;
     this.action_uri =
