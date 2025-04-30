@@ -20,11 +20,7 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
    */
   public void execute(SchedulableContext sc) {
     List<Task> taskRecords = CUSTOMER_NUDGE_REPOSITORY.queryCustomerNudgeTasksToArchive();
-    ListUtil.setField(
-      taskRecords,
-      Task.Status,
-      TASK_AUTO_ARCHIVED
-    );
+    ListUtil.setField(taskRecords, Task.Status, TASK_AUTO_ARCHIVED);
     DML_REPOSITORY.doUpdate(
       taskRecords,
       new DmlConfig().allowPartial().systemMode()

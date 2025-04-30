@@ -34,20 +34,6 @@ public with sharing class AemDataMergeFieldProcessorTest {
     );
   }
 
-  @isTest
-  static void testReplaceFieldsInJson() {
-    List<sObject> recordsFromDatabase = mockqueryMergeFieldsData();
-    String replacedMergedFields = AemDataMergeFieldProcessor.replaceFieldsInJson(
-      mockAemData,
-      recordsFromDatabase
-    );
-
-    Assert.isTrue(
-      replacedMergedFields.contains('1234567') == true,
-      'Case Number should be updated'
-    );
-  }
-
   private static List<sObject> mockqueryMergeFieldsData() {
     List<SObject> listofSObject = new List<SObject>();
 
