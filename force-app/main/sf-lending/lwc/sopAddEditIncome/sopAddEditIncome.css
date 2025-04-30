@@ -14,6 +14,13 @@
   line-height: var(--amount-and-header-line-height);
 }
 
+.headerStyling {
+  font-size: 13px;
+  font-weight: var(--lwc-fontWeightBold);
+  line-height: var(--text-line-height);
+  color: var(--text-color);
+}
+
 .logoPadding {
   padding: 10px;
 }
@@ -21,6 +28,11 @@
   font-size: 13px;
   font-weight: var(--lwc-fontWeightBold);
   line-height: var(--text-line-height);
+}
+.text-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 .textStyle {
   font-size: var(--text-font-size);
@@ -40,4 +52,28 @@
   width: 100%;
   background: rgba(255, 255, 255, 0.1);
   z-index: 1000;
+}
+
+.radio-group-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.slds-radio
+  input[type="radio"][disabled]
+  + .slds-radio__label
+  .slds-form-element__label {
+  color: #706e6b;
+}
+
+.option-message-container {
+  margin-top: -0.5rem;
+  padding-left: 0.5rem;
+}
+
+.noRental {
+  color: #706e6b;
+  font-style: italic;
+  font-size: 0.75rem;
+  line-height: 1.5;
 }

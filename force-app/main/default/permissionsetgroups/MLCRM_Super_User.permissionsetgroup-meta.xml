@@ -4,6 +4,7 @@
     <hasActivationRequired>false</hasActivationRequired>
     <label>MLCRM Super User</label>
     <permissionSets>Customer_Authentication_PS</permissionSets>
+    <permissionSets>Edit_Customer_Relationship</permissionSets>
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__OmniStudioExecution</permissionSets>
     <permissionSets>MLCRM_Allow_Lead_Creation</permissionSets>
@@ -16,7 +17,6 @@
     <permissionSets>MLCRM_Create_and_Edit_Opportunities</permissionSets>
     <permissionSets>MLCRM_Create_and_View_Diary_Notes</permissionSets>
     <permissionSets>MLCRM_DataMigration</permissionSets>
-    <permissionSets>Edit_Customer_Relationship</permissionSets>
     <permissionSets>MLCRM_Modify_Territory_Sharing_Access</permissionSets>
     <permissionSets>MLCRM_Transfer_ML_Records</permissionSets>
     <permissionSets>MLCRM_View_Reports_and_Dashboards</permissionSets>
