@@ -153,7 +153,6 @@ jobs:
           repo: ${{ github.repository }}
           asset: salesforce
           component: salesforce
-          component-dir: "."
           env: prod
           release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
           platform-app-versions-token: ${{ secrets.PLAT_APP_VERSIONS_UPDATE_TOKEN }}
