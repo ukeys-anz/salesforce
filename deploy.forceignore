@@ -166,14 +166,6 @@ force-app/main/default/sharingRules/FinServ__FinancialAccount__c.sharingRules-me
 #Temporarily adding Case sharing rule to avoid backmerge issues.
 force-app/main/default/sharingRules/Case.sharingRules-meta.xml
 
-#Temporarily adding actionPlanTemplates to avoid backmerge issues.
-force-app/main/default/actionPlanTemplates/External_Settlement_Action_Plan_ccc037e2_fe51_11ef_b785_63cd08ac8839.apt-meta.xml
-force-app/main/default/actionPlanTemplates/Internal_Settlement_Action_Plan_eebd920f_feed_11ef_9e5f_3db5b5ffe6a9.apt-meta.xml
-
-#Temporarily adding Action plan template to avoid deployment issues.
-External_Settlement_Action_Plan_ccc037e2_fe51_11ef_b785_63cd08ac8839
-Internal_Settlement_Action_Plan_eebd920f_feed_11ef_9e5f_3db5b5ffe6a9
-
 #AR-23667 - ignoring Microsoft Defender Pset until all the sandboxes are refreshed
 force-app/main/default/permissionsets/Microsoft_Defender.permissionset-meta.xml
 
