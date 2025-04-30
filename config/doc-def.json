@@ -132,6 +132,13 @@
       "type": "user"
     },
     {
+      "name": "BOH Coach Lead",
+      "profile": "ANZx Standard User",
+      "permissionsetgroups": ["BOH_Coach_Lead"],
+      "permissionsets": ["Enforce_SSO"],
+      "type": "user"
+    },
+    {
       "name": "Business Admin (CMOS)",
       "role": "Customer Resolution Leadership",
       "profile": "ANZ Standard User",

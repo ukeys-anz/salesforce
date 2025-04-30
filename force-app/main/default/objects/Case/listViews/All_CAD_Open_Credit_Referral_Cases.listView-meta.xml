@@ -38,5 +38,6 @@
         <role>Support_Coach</role>
         <role>Settlement_Officer</role>
         <role>Settlement_Officer_Lead</role>
+        <role>BOH_Coach_Lead</role>
     </sharedTo>
 </ListView>

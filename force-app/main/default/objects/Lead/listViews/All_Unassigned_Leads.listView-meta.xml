@@ -20,6 +20,7 @@
     <queue>BOH_Coach_Queue</queue>
     <sharedTo>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Coach</role>
     </sharedTo>
 </ListView>

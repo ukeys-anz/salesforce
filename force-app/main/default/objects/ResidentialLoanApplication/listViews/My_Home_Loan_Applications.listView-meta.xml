@@ -17,6 +17,7 @@
     <label>My Home Loan Applications</label>
     <sharedTo>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Coach</role>
     </sharedTo>
 </ListView>

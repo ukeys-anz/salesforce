@@ -5,5 +5,5 @@
     <contactAccessLevel>Edit</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>ANZx</parentRole>
+    <parentRole>BOH_Coach_Lead</parentRole>
 </Role>

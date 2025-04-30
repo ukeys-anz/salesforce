@@ -123,6 +123,22 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>BOH_Coach_Lead_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule shares all Interaction records with Read/Write access to BOH
+            Coach Lead Users.</description>
+        <label>BOH Coach Lead Read/Write</label>
+        <sharedTo>
+            <role>BOH_Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>BOH_Coach_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule shares all Interaction records with Read/Write access to BOH

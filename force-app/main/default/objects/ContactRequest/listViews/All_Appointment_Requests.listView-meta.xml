@@ -14,5 +14,6 @@
         <role>ANZ_Plus_Operations_Read_Only</role>
         <role>Coach</role>
         <role>Coach_Lead</role>
+        <role>BOH_Coach_Lead</role>
     </sharedTo>
 </ListView>

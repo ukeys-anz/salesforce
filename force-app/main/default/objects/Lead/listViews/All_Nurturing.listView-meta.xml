@@ -23,6 +23,7 @@
     <sharedTo>
         <role>ANZ_Plus_Operations_Read_Only</role>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Business_Admin</role>
         <role>Coach</role>
         <role>Coach_Lead</role>
