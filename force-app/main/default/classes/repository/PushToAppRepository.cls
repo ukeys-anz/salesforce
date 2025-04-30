@@ -60,7 +60,6 @@ public with sharing class PushToAppRepository {
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
-      WITH USER_MODE
     ];
   }
 
@@ -88,10 +87,6 @@ public with sharing class PushToAppRepository {
    * @return Task record details
    */
   public Task queryTaskDetails(Id taskId) {
-    if (taskId == null) {
-      return new Task();
-    }
-
     return [
       SELECT
         Id,
@@ -150,22 +145,6 @@ public with sharing class PushToAppRepository {
       WHERE ActivityDate < TODAY AND RecordTypeId = :RTTask.customerNudge
       WITH USER_MODE
     ];
-  }
-
-  /**
-   * @description To query the Logged in user record access
-   * @param userId Id of the logged in User
-   * @param recordId The Id of the record for which notification needs to send.
-   * @return Boolean value that determines whether the person can edit the record or not.
-   */
-  public Boolean queryUserAccess(String userId, String recordId) {
-    UserRecordAccess userAccess = [
-      SELECT HasEditAccess, RecordId
-      FROM UserRecordAccess
-      WHERE UserId = :userId AND RecordId = :recordId
-      WITH USER_MODE
-    ];
-    return userAccess.HasEditAccess;
   }
 
   /**
