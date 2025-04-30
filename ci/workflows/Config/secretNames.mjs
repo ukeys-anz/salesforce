@@ -64,7 +64,8 @@ const salesforceSecretNames = {
   "epic/legal-name": "sf-platform-np-legalname",
   "epic/adhocmarv": "sf-platform-np-adhocmarv",
   "epic/multiprops": "sf-platform-np-multiprops",
-  "epic/updateloan": "sf-platform-np-updateloan"
+  "epic/updateloan": "sf-platform-np-updateloan",
+  "epic/cmos-main": "sf-platform-np-cmos"
 };
 
 const brokerSecretNames = {
