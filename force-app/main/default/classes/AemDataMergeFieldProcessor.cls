@@ -68,9 +68,19 @@ public class AemDataMergeFieldProcessor {
     while (mergedFieldMatcher.find()) {
       String fieldName = mergedFieldMatcher.group(1);
       SObject record = recordsFromDatabase.get(0);
-      String fieldvalue = fieldName.contains('.')
-        ? getRelatedFieldValue(record, fieldName)
-        : String.valueOf(record.get(fieldName));
+      String fieldvalue = '';
+
+      if (fieldName.contains('.')) {
+        List<String> parts = fieldName.split('\\.');
+        SObject relatedObject = record.getSObject(parts[0]);
+
+        fieldvalue = (parts.size() > 1 &&
+          relatedObject != null)
+          ? String.valueOf(relatedObject.get(parts[1]))
+          : '';
+      } else {
+        fieldvalue = String.valueOf(record.get(fieldName));
+      }
       aemContentData = aemContentData.replace(
         mergedFieldMatcher.group(0),
         fieldValue != null ? fieldValue : ''
@@ -78,16 +88,5 @@ public class AemDataMergeFieldProcessor {
     }
 
     return aemContentData;
-  }
-
-  // Fetches related field values like Account.FirstName
-  private static String getRelatedFieldValue(SObject record, String fieldName) {
-    List<String> parts = fieldName.split('\\.');
-    SObject relatedObject = record.getSObject(parts[0]);
-
-    return (parts.size() > 1 &&
-      relatedObject != null)
-      ? String.valueOf(relatedObject.get(parts[1]))
-      : '';
   }
 }

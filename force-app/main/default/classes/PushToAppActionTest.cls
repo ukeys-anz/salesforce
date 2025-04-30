@@ -82,8 +82,8 @@ public with sharing class PushToAppActionTest {
       'ce_type is set correctly.'
     );
     Assert.isTrue(
-      payload.contains('title'),
-      'Title Node should be present in the payload'
+      payload.contains('producer_command_key'),
+      'producer_command_key Node should be present in the payload'
     );
   }
 
@@ -140,6 +140,7 @@ public with sharing class PushToAppActionTest {
     mockPushToAppTask.Action_Taken__c = actiontakenvalue;
     mockPushToAppTask.Status = 'STATUS_SENT';
     mockPushToAppTask.Customer_Task_Data__c = FAKER_CUSTOMER_TASK_DATA_ID;
+    mockPushToAppTask.Pub_Sub_Event_Id__c = '12345_12345';
 
     Task taskRecord = (Task) TestUtil.setFields(
       mockPushToAppTask,
