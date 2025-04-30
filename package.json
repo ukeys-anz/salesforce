@@ -47,5 +47,8 @@
     "pretty-quick": "^4.0.0",
     "saxon-js": "^2.7.0",
     "typescript": "^3.9.7"
+  },
+  "overrides": {
+    "axios": "1.8.4"
   }
 }

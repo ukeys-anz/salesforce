@@ -9,6 +9,13 @@ public with sharing class NewCaseFlowWrapperController {
     ComplaintsRepository.class
   );
 
+  private static final String COMPLAINTS_MANAGEMENT_APP = 'Complaint Mgt';
+  private static final List<Id> EXCLUDE_RT_CMPLT_MGT = new List<Id>{
+    RTCase.generalInquiry,
+    RTCase.caseGroup,
+    RTCase.customerFeedback
+  };
+
   // Shell case conversion Change Record type Button
   public static Boolean isShellCaseCRTB = false;
   /**
@@ -238,24 +245,27 @@ public with sharing class NewCaseFlowWrapperController {
     ]) {
       recordTypesToExcl.add(mdt.DeveloperName);
     }
-    List<Profile> profiles = [
-      SELECT Id, Name
-      FROM Profile
-      WHERE Id = :userinfo.getProfileId()
-      LIMIT 1
-    ];
     if (!IDRConstants.DISABLE_OMNI_FOR_CMOS && !isShellCaseCRTB) {
       recordTypesToExcl.add(IDRConstants.CUSTOMER_COMPLAINT_RT_NAME);
       recordTypesToExcl.add(IDRConstants.NON_CUSTOMER_COMPLAINT_RT_NAME);
     }
 
     try {
-      List<Id> caseRecordTypeIds = CommonUtil.getAvailableRecordTypeIdsForSObject(
-        'Case'
+      Set<Id> caseRecordTypeIds = new Set<Id>(
+        CommonUtil.getAvailableRecordTypeIdsForSObject('Case')
       );
       if (
         caseRecordTypeIds.size() > 0 && Schema.SObjectType.Case.isAccessible()
       ) {
+        UserAppInfo userAppInfo = COMPLAINTS_REPOSITORY.getUserAppInfoForUser(
+          UserInfo.getUserId()
+        );
+        AppDefinition appDefinition = QueryAppDefinition.getByDurableId(
+          userAppInfo?.AppDefinitionId
+        );
+        if (appDefinition?.Label == COMPLAINTS_MANAGEMENT_APP) {
+          caseRecordTypeIds.removeAll(EXCLUDE_RT_CMPLT_MGT);
+        }
         List<RecordType> rtToDisplay = [
           SELECT Id, Name, Description, DeveloperName
           FROM RecordType

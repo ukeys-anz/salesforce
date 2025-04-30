@@ -5,6 +5,14 @@
  * @description TotalBalanceController is the apex side controller for the totalBalance LWC
  */
 public with sharing class TotalBalanceController {
+  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
+
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
   /**
    * @description The total balance component uses this to fetch the records to display.
    *
@@ -12,31 +20,49 @@ public with sharing class TotalBalanceController {
    * @return AggregateResult
    */
   @AuraEnabled
-  public static AggregateResult getTotalBalance(Id ownerId) {
-    AggregateResult totalBalance;
-    if (
-      FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
-      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
-    ) {
-      List<String> listOfAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
-        ownerId
-      );
-      Id savingsRecordType = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
-      Id checkingRecordType = GetHelpConstants.CHECKING_ACCOUNT_RT_ID;
-
-      String financialAccountQuery =
-        'SELECT SUM(FinServ__Balance__c) totalBalance FROM FinServ__FinancialAccount__c' +
-        ' WHERE FinServ__Balance__c != NULL AND FinServ__FinancialAccountNumber__c =: listOfAccountNumbers AND ' +
-        '(RecordTypeId = :savingsRecordType OR RecordTypeId = :checkingRecordType) AND ' +
-        '(FinServ__Status__c IN (\'Active\',\'Open\'))';
-
-      if (System.Label.S2AccountEnabled.toLowerCase() == 'false') {
-        financialAccountQuery += ' AND Marketing_Code__c != \'SAVING02\'';
-      }
-
-      totalBalance = (AggregateResult) Database.query(financialAccountQuery);
+  public static FinancialSummaryWrapper getTotalBalance(Id ownerId) {
+    if (!USER_INFO.checkCustomPermission('ANZx_Accounts_and_Goals')) {
+      return null;
     }
-    return totalBalance;
+
+    List<FinancialAccountUIConfiguration__mdt> finAccUIConfig = ListUtil.filter(
+        QueryFinancialAccountUIConfig.configByProductCode.values()
+      )
+      .equals(
+        FinancialAccountUIConfiguration__mdt.Include_In_Total_Financial_Position__c,
+        true
+      )
+      .toList();
+
+    Set<String> marketingCodes = ListUtil.getStrings(
+      finAccUIConfig,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
+
+    List<FinServ__FinancialAccountRole__c> financialAccountAllRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllAccountNumberPerOwner(
+      ownerId,
+      marketingCodes
+    );
+
+    Set<String> allAccountNumbers = ListUtil.getStrings(
+      financialAccountAllRoles,
+      FinServ__FinancialAccountRole__c.Account_Number__c
+    );
+
+    Set<String> allAccountsProductNames = ListUtil.getStrings(
+      financialAccountAllRoles,
+      FinServ__FinancialAccountRole__c.Product_Name_Display__c
+    );
+
+    AggregateResult totalBalance = FINANCIAL_ACCOUNT_REPOSITORY.getTotalBalance(
+      allAccountNumbers,
+      marketingCodes
+    );
+
+    return new FinancialSummaryWrapper(
+      totalBalance,
+      new List<String>(allAccountsProductNames)
+    );
   }
 
   /**
@@ -46,30 +72,70 @@ public with sharing class TotalBalanceController {
    * @return AggregateResult
    */
   @AuraEnabled
-  public static AggregateResult getTotalSaved(Id ownerId) {
-    AggregateResult totalSaved;
-    if (
-      FeatureManagement.checkPermission('ANZx_Accounts_and_Goals') &&
-      FinServ__FinancialAccount__c.sObjectType.getDescribe().isQueryable()
-    ) {
-      List<String> listOfAccountNumbers = FinancialAccountUtil.getAllAccountNumberFromFAR(
-        ownerId
-      );
-      Id savingsRecordType = GetHelpConstants.SAVINGS_ACCOUNT_RT_ID;
-
-      String financialAccountQuery =
-        'SELECT SUM(FinServ__Balance__c) totalSaved FROM FinServ__FinancialAccount__c' +
-        ' WHERE FinServ__Balance__c != NULL AND FinServ__FinancialAccountNumber__c =: listOfAccountNumbers AND ' +
-        'RecordTypeId = :savingsRecordType AND ' +
-        '(FinServ__Status__c IN (\'Active\',\'Open\'))';
-
-      if (System.Label.S2AccountEnabled.toLowerCase() == 'false') {
-        financialAccountQuery += ' AND Marketing_Code__c != \'SAVING02\'';
-      }
-
-      totalSaved = (AggregateResult) Database.query(financialAccountQuery);
+  public static FinancialSummaryWrapper getTotalSaved(Id ownerId) {
+    if (!USER_INFO.checkCustomPermission('ANZx_Accounts_and_Goals')) {
+      return null;
     }
 
-    return totalSaved;
+    List<FinancialAccountUIConfiguration__mdt> finAccUIConfig = ListUtil.filter(
+        QueryFinancialAccountUIConfig.configByProductCode.values()
+      )
+      .equals(
+        FinancialAccountUIConfiguration__mdt.Include_In_Total_Financial_Position__c,
+        true
+      )
+      .toList();
+
+    Set<String> marketingCodes = ListUtil.getStrings(
+      finAccUIConfig,
+      FinancialAccountUIConfiguration__mdt.Product_Code__c
+    );
+
+    List<FinServ__FinancialAccountRole__c> financialAccountSavingsRoles = FINANCIAL_ACCOUNT_REPOSITORY.getAllSavingsAccountNumberPerOwner(
+      ownerId,
+      marketingCodes
+    );
+
+    Set<String> savingAccountNumbers = ListUtil.getStrings(
+      financialAccountSavingsRoles,
+      FinServ__FinancialAccountRole__c.Account_Number__c
+    );
+
+    Set<String> savingsAccountProductNames = ListUtil.getStrings(
+      financialAccountSavingsRoles,
+      FinServ__FinancialAccountRole__c.Product_Name_Display__c
+    );
+
+    AggregateResult totalSavedBalance = FINANCIAL_ACCOUNT_REPOSITORY.getTotalBalance(
+      savingAccountNumbers,
+      marketingCodes
+    );
+
+    return new FinancialSummaryWrapper(
+      totalSavedBalance,
+      new List<String>(savingsAccountProductNames)
+    );
+  }
+
+  /**
+   * @description FinancialSummaryWrapper for Financial Summary data
+   */
+  public class FinancialSummaryWrapper {
+    @AuraEnabled
+    public AggregateResult aggregateResult;
+    @AuraEnabled
+    public List<String> productNames;
+    /**
+     * @description FinancialSummaryWrapper constructor for Financial Summary data
+     * @param aggregateResult
+     * @param productNames
+     */
+    public FinancialSummaryWrapper(
+      AggregateResult aggregateResult,
+      List<String> productNames
+    ) {
+      this.aggregateResult = aggregateResult;
+      this.productNames = productNames;
+    }
   }
 }

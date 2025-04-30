@@ -21,6 +21,9 @@ public with sharing class QueryAppDefinition {
    * @return AppDefinition for the durableId
    */
   public static AppDefinition getByDurableId(Id durableId) {
+    if (durableId == null) {
+      return null;
+    }
     return appsByDurableId.get(durableId);
   }
 }

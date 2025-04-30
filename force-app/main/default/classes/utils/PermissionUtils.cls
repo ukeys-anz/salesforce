@@ -137,6 +137,28 @@ public with sharing class PermissionUtils {
   }
 
   /**
+   * @description checks if the user is having any of given permission sets assigned to it
+   * @param userIds Set of user Ids
+   * @param permissionSetNames Set of permission set that needs to be verified
+   * @return Set<Id> user id will be avialble in set if PS is assigned to them
+   */
+  public static Set<Id> hasAnyPermissionSets(
+    Set<Id> userIds,
+    Set<String> permissionSetNames
+  ) {
+    List<PermissionSetAssignment> permissionSetAssignments = [
+      SELECT PermissionSet.Name, AssigneeId
+      FROM PermissionsetAssignment
+      WHERE AssigneeId IN :userIds AND PermissionSet.Name IN :permissionSetNames
+    ];
+
+    return ListUtil.getIds(
+      permissionSetAssignments,
+      PermissionSetAssignment.AssigneeId
+    );
+  }
+
+  /**
    * @description Custom NoAccessException
    */
   public class CustomNoAccessException extends Exception {

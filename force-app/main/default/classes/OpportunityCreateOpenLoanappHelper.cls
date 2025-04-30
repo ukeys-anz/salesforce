@@ -15,7 +15,7 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
     'Home Loan - Refinance + Purchase' => 'RBA_LENDING_PURPOSE_REFINANCE',
     'Home Loan - Construction' => 'RBA_LENDING_PURPOSE_CONSTRUCTION',
     'Home Loan - Purchase' => 'RBA_LENDING_PURPOSE_PURCHASE_EXISTING_DWELLING',
-    'Home Loan - Other' => 'RBA_LENDING_PURPOSE_PURCHASE_OTHER'
+    'Home Loan - Other' => 'RBA_LENDING_PURPOSE_OTHER'
   };
 
   /**
@@ -65,7 +65,7 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
     pref.funds = new List<LoanappModel.Funds>{ getFunds(opp) };
     pref.rba_lending_purpose = MAP_CUSTOMER_NEEDS_TO_LENDING_PURPOSE.get(
       opp.Customer_Needs__c
-    ) ?? 'RBA_LENDING_PURPOSE_PURCHASE_OTHER';
+    ) ?? 'RBA_LENDING_PURPOSE_OTHER';
     sm.loan_application.preferences = new List<LoanappModel.Preferences>{
       pref
     };
@@ -98,6 +98,9 @@ public with sharing class OpportunityCreateOpenLoanappHelper {
   private static LoanappModel.Expected_settlement_date getExpectedSettlementDate(
     Opportunity opp
   ) {
+    if (opp.Expected_Settlement_Date__c == null) {
+      return null;
+    }
     LoanappModel.Expected_settlement_date esd = new LoanappModel.Expected_settlement_date();
     LoanappModel.Year year = new LoanappModel.Year();
     LoanappModel.Month month = new LoanappModel.Month();

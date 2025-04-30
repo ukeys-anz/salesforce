@@ -1,10 +1,9 @@
 import { LightningElement, api } from "lwc";
-import { showToast } from "c/utils";
+import { showToast, getApexError } from "c/utils";
 import { notifyRecordUpdateAvailable } from "lightning/uiRecordApi";
 import profileStagingRetry from "@salesforce/apex/ProfileStagingController.profileStagingRetry";
 
 const TOAST_SUCCESS_MESSAGE = "Request has been re-triggered successfully.";
-const TOAST_ERROR_MESSAGE = "Error occurred while re-triggering the request.";
 
 export default class ProfileStagingRetry extends LightningElement {
   isLoading = false;
@@ -14,9 +13,9 @@ export default class ProfileStagingRetry extends LightningElement {
       this.isLoading = true;
       await profileStagingRetry({ recordId: this.recordId });
       notifyRecordUpdateAvailable([{ recordId: this.recordId }]);
-      showToast(this, "Success!", TOAST_SUCCESS_MESSAGE, "", "success", "");
+      showToast(this, TOAST_SUCCESS_MESSAGE, "", "", "success", "");
     } catch (error) {
-      showToast(this, "Error!", TOAST_ERROR_MESSAGE, "", "error", "");
+      showToast(this, getApexError(error), "", "", "error", "");
     } finally {
       this.isLoading = false;
     }

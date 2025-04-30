@@ -11,6 +11,9 @@ import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import { CurrentPageReference } from "lightning/navigation";
 import INTERCATION_STATUS from "@salesforce/label/c.Interaction_Status";
 import TIME_ZONE from "@salesforce/i18n/timeZone";
+import { getRecord } from "lightning/uiRecordApi";
+import USER_ID from "@salesforce/user/Id";
+import USER_ROLE from "@salesforce/schema/User.UserRole.DeveloperName";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -48,6 +51,18 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   boolIsMessage = false;
   page = 1;
   filterClass = "slds-hide";
+  userRole;
+  statussToNotShowReplyToCustomer = [
+    "Closed & Archive",
+    "Active",
+    "Resolved",
+    "Cancelled"
+  ];
+  rolesToShowViewTranscriptOnCop = [
+    "Quality_Analyst",
+    "Join_Lead",
+    "Quality_Capability_Lead"
+  ];
 
   recordTypeNameDeveloperNameMap = {
     General: "Call",
@@ -134,7 +149,7 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     { label: "Attendees", fieldName: "Attendees__c", sortable: true },
     {
       type: "action",
-      typeAttributes: { rowActions: this.getRowActions }
+      typeAttributes: { rowActions: this.getRowActions.bind(this) }
     }
   ];
   // Fields to be shown on the custom list view for store record type
@@ -230,6 +245,16 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
     fieldApiName: INTERACTION_STATUS
   })
   statusPickListValues;
+
+  @wire(getRecord, { recordId: USER_ID, fields: [USER_ROLE] })
+  user({ error, data }) {
+    if (data) {
+      // Get the UserRoleName (Role) for the logged-in user
+      this.userRole = data.fields.UserRole?.value?.fields?.DeveloperName?.value;
+    } else if (error) {
+      console.error("Error retrieving user record", error);
+    }
+  }
 
   get checkboxOptions() {
     if (this.statusPickListValues.data) {
@@ -381,20 +406,24 @@ export default class CustomDatatableWithFilter extends NavigationMixin(
   }
 
   getRowActions(row, doneCallback) {
-    let actions;
+    let replyToCustomer = [
+      { label: "Reply To Customer", name: "ReplyToCustomer" }
+    ];
+    let viewTranscript = [{ label: "View Transcript", name: "ViewTranscript" }];
+    let actions = [];
+
     if (
-      row.Status__c !== "Closed & Archived" &&
-      row.Status__c !== "Active" &&
-      row.Status__c !== "Resolved" &&
-      row.Status__c !== "Cancelled" &&
+      !this.statussToNotShowReplyToCustomer.includes(row.Status__c) &&
       hasOutboundChatPermission
     ) {
-      actions = [
-        { label: "Reply To Customer", name: "ReplyToCustomer" },
-        { label: "View Transcript", name: "ViewTranscript" }
-      ];
-    } else {
-      actions = [{ label: "View Transcript", name: "ViewTranscript" }];
+      actions = actions.concat(replyToCustomer);
+    }
+
+    if (
+      !row?.Actual_Topic_Formula__c?.includes("Confirmation of Payee") ||
+      this.rolesToShowViewTranscriptOnCop.includes(this.userRole)
+    ) {
+      actions = actions.concat(viewTranscript);
     }
     doneCallback(actions);
   }

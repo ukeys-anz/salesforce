@@ -1,11 +1,14 @@
 import { LightningElement, wire, api } from "lwc";
 import { NavigationMixin } from "lightning/navigation";
+import { getRecord } from "lightning/uiRecordApi";
 import { publish, MessageContext } from "lightning/messageService";
 import { ShowToastEvent } from "lightning/platformShowToastEvent";
 import chatHistoryChannel from "@salesforce/messageChannel/ViewChatTopicHistory__c";
 import reinitiateChat from "@salesforce/apex/InitiateInteractionController.reinitiateChat";
 import hasOutboundChatPermission from "@salesforce/customPermission/ANZx_Outbound_Chat";
 import getInteractionRecord from "@salesforce/apex/InteractionRecordServiceController.getInteractionRecord";
+import USER_ID from "@salesforce/user/Id";
+import USER_ROLE from "@salesforce/schema/User.UserRole.DeveloperName";
 
 // Util methods
 import { handleErrorShowToast } from "c/utils";
@@ -22,7 +25,11 @@ export default class InteractionRecordService extends NavigationMixin(
   @api storeRecord;
   @api appointmentRecord;
   @api showOpenMessageOnly;
-
+  rolesToShowViewTranscriptOnCop = [
+    "Quality_Analyst",
+    "Join_Lead",
+    "Quality_Capability_Lead"
+  ];
   chatOrCallSid;
   showInteractionRecords = false;
   totalInteractionRecords = 0;
@@ -30,6 +37,7 @@ export default class InteractionRecordService extends NavigationMixin(
     data: undefined,
     error: undefined
   };
+  userRole;
 
   get displayReinitiateChat() {
     return hasOutboundChatPermission;
@@ -51,6 +59,15 @@ export default class InteractionRecordService extends NavigationMixin(
     return this.strRecordTypeName === this.appointmentRecord;
   }
 
+  @wire(getRecord, { recordId: USER_ID, fields: [USER_ROLE] })
+  user({ error, data }) {
+    if (data) {
+      this.userRole = data.fields.UserRole?.value?.fields?.DeveloperName?.value;
+    } else if (error) {
+      console.error("Error retrieving user record", error);
+    }
+  }
+
   @wire(MessageContext)
   messageContext;
   //This method will get the interactions associated to the parent record example Account, case, lead, coaching summary
@@ -65,8 +82,11 @@ export default class InteractionRecordService extends NavigationMixin(
     if (data) {
       this.interactionrecords.error = undefined;
       if (data.length > 0) {
-        this.interactionrecords.data = this.calculateInteractionRecords(data);
-        this.totalInteractionRecords = data.length;
+        let interactionRecords = structuredClone(data);
+        this.interactionrecords.data = this.calculateInteractionRecords(
+          this.addViewTranscriptButtonVisibility(interactionRecords)
+        );
+        this.totalInteractionRecords = interactionRecords.length;
         this.showInteractionRecords = true;
       }
       this.showViewAll();
@@ -192,5 +212,20 @@ export default class InteractionRecordService extends NavigationMixin(
       variant: "success"
     });
     this.dispatchEvent(event);
+  }
+
+  addViewTranscriptButtonVisibility(interactionRecords) {
+    interactionRecords.forEach((record) => {
+      if (
+        !record?.actualTopic?.includes("Confirmation of Payee") ||
+        this.rolesToShowViewTranscriptOnCop.includes(this.userRole)
+      ) {
+        record.enableViewTranscript = true;
+      } else {
+        record.enableViewTranscript = false;
+      }
+    });
+
+    return interactionRecords;
   }
 }

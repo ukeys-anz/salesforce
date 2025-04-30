@@ -566,17 +566,6 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param record lead record
-   * @return `HttpCalloutResponse` api response
-   * @description virtual maintain party information
-   */
-  public virtual HttpCalloutResponse maintainParty(
-    OCVRequestPayloadWrapper record
-  ) {
-    return null;
-  }
-
-  /**
    * @param cobCase COB Case holding Id, personaId and status to be used for callout
    * @return `HttpCalloutResponse` api response
    * @description virtual triggers Temporal Case Workflow

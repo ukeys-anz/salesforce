@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ReportType xmlns="http://soap.sforce.com/2006/04/metadata">
+    <baseObject>ApplicationForm</baseObject>
+    <category>other</category>
+    <deployed>true</deployed>
+    <description>Displays app forms with app form products</description>
+    <join>
+        <outerJoin>false</outerJoin>
+        <relationship>ApplicationFormProduct</relationship>
+    </join>
+    <label>App Forms with App Forms Products</label>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form ID</displayNameOverride>
+            <field>Id</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Name</displayNameOverride>
+            <field>Name</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Record Type</displayNameOverride>
+            <field>RecordType</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Account</displayNameOverride>
+            <field>Account</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Opportunity</displayNameOverride>
+            <field>Opportunity</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Submission Date</displayNameOverride>
+            <field>SubmissionDate</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Stage</displayNameOverride>
+            <field>Stage</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Status</displayNameOverride>
+            <field>Application_Status__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Number</displayNameOverride>
+            <field>Application_Number__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Amount Financed</displayNameOverride>
+            <field>App_Amount__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Product</displayNameOverride>
+            <field>Product</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <masterLabel>Application Forms</masterLabel>
+    </sections>
+    <sections>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form Product ID</displayNameOverride>
+            <field>Id</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>true</checkedByDefault>
+            <displayNameOverride>Name</displayNameOverride>
+            <field>Name</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created Date</displayNameOverride>
+            <field>CreatedDate</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Created By</displayNameOverride>
+            <field>CreatedBy</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified Date</displayNameOverride>
+            <field>LastModifiedDate</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Modified By</displayNameOverride>
+            <field>LastModifiedBy</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Stage</displayNameOverride>
+            <field>Stage</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Settlement Date</displayNameOverride>
+            <field>Close_Date__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Amount</displayNameOverride>
+            <field>Amount__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form : Opportunity : Close Date</displayNameOverride>
+            <field>Opportunity.CloseDate</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form Product : Application Form : Opportunity : Opportunity Record Type : Record Type Name</displayNameOverride>
+            <field>ApplicationForm.Opportunity.RecordType.DeveloperName</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form : Opportunity : Customer Name</displayNameOverride>
+            <field>Opportunity.Account</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Application Form : Opportunity : Opportunity Name</displayNameOverride>
+            <field>Opportunity.Name</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Last Updated Stage Date</displayNameOverride>
+            <field>Last_Updated_Stage_Date__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <displayNameOverride>Stage Duration</displayNameOverride>
+            <field>Stage_Duration__c</field>
+            <table>ApplicationForm.ApplicationFormProduct</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.My_Team_Segment__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.My_Region_Flag__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.My_Reportees_Opps__c</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <columns>
+            <checkedByDefault>false</checkedByDefault>
+            <field>Opportunity.Owner</field>
+            <table>ApplicationForm</table>
+        </columns>
+        <masterLabel>Application Form Products</masterLabel>
+    </sections>
+</ReportType>

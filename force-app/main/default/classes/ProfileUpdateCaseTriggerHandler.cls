@@ -25,7 +25,43 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
+    CommonCaseTriggerActions.populateContactLookupForANZPlus(
+      records,
+      new Map<Id, Case>()
+    );
+    CommonCaseTriggerActions.maskTaxNumbers(records, new Map<Id, Case>());
+    CommonCaseTriggerActions.setBusinessHours(records);
     ProfileUpdateCaseActions.setOwnerToIDOpsQueue(records);
+    ProfileUpdateCaseActions.setDocumentCountryCode(
+      records,
+      new Map<Id, Case>()
+    );
+    Logger.saveLog();
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Before_Update started: ' + System.now());
+    CommonCaseTriggerActions.populateContactLookupForANZPlus(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    CommonCaseTriggerActions.maskTaxNumbers(records, (Map<Id, Case>) oldMap);
+    CommonCaseTriggerActions.updateCaseDurationTime(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    ProfileUpdateCaseActions.validateStagingProgress(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    ProfileUpdateCaseActions.setDocumentCountryCode(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     Logger.saveLog();
   }
 

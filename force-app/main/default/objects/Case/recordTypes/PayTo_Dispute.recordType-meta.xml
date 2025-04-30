@@ -7567,7 +7567,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Yes</fullName>
+            <fullName>Y_NEW</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Y_EXI</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -7941,10 +7945,6 @@
         </values>
         <values>
             <fullName>88</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>89</fullName>
             <default>false</default>
         </values>
         <values>
@@ -8343,10 +8343,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>89</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>9</fullName>
             <default>false</default>
         </values>
@@ -8739,10 +8735,6 @@
         </values>
         <values>
             <fullName>88</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>89</fullName>
             <default>false</default>
         </values>
         <values>

@@ -26,7 +26,8 @@
       "Fraud_Analytics_Date_Complete__c": "Completed review date for Fraud Analytics Investigation"
     },
     "Contact": {
-      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs."
+      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs.",
+      "Is_Beta_Broker__c": "Identify if a broker is a beta broker"
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -117,80 +118,6 @@
       "Customer_Name__c": "To Display the Customer Name",
       "PEGA_Case_Id__c": "Pega case number that is required for sending email to customer on dispute closure.",
       "FinServ__Expectations__c": "Notes about client's expectations"
-    },
-    "trailheadapp__Badge__c": {
-      "trailheadapp__Archived__c": "Boolean to reflect whether the module has been archived",
-      "trailheadapp__Built_Date__c": "Creation date for the trailhead badge",
-      "trailheadapp__Description__c": "Textual description of Badge",
-      "trailheadapp__Icon__c": "Iconography describing the badge (URL to a picture)",
-      "trailheadapp__Level__c": "Difficulty of the training module",
-      "trailheadapp__Namespace__c": "Namespace the badge belongs to, relevant if in a myTrailhead implementation",
-      "trailheadapp__Products__c": "Salesforce products relating to this training",
-      "trailheadapp__Roles__c": "The type of personas relevant to the training, for example, developer, or administrator",
-      "trailheadapp__Tags__c": "Search terms for training modules",
-      "trailheadapp__Type__c": "Module, project or superbadge",
-      "trailheadapp__URL__c": "Link to the module on the trailhead platform"
-    },
-    "trailheadapp__Debug_Log__c": {
-      "trailheadapp__Datetime__c": "The date/time of the log message.",
-      "trailheadapp__Severity__c": "The severity level of the log"
-    },
-    "trailheadapp__Trail__c": {
-      "trailheadapp__API_Name__c": "Unique name for the trail",
-      "trailheadapp__Archived__c": "Boolean to reflect whether the trail has been archived",
-      "trailheadapp__Description__c": "Textual description of the learning trail",
-      "trailheadapp__Icon__c": "Iconography describing the trail (URL to a picture)",
-      "trailheadapp__Level__c": "Difficulty of the training module",
-      "trailheadapp__Namespace__c": "Namespace the badge belongs to, relevant if in a myTrailhead implementation",
-      "trailheadapp__Products__c": "Salesforce products relating to this training",
-      "trailheadapp__Roles__c": "The type of personas relevant to the training, for example, developer, or administrator",
-      "trailheadapp__Tags__c": "Search terms for trails",
-      "trailheadapp__URL__c": "Link to the trail on the trailhead platform"
-    },
-    "trailheadapp__Trailhead_User_Data__c": {
-      "trailheadapp__Avatar__c": "The trailhead users avatar on their profile",
-      "trailheadapp__External_Id__c": "Identifier for the trailhead user",
-      "trailheadapp__Profile_URL__c": "The URL of the trailhead users profile",
-      "trailheadapp__Profile_Visibility__c": "The trailhead users selected visibility of their profile",
-      "trailheadapp__Rank__c": "The current rank of the trailhead user",
-      "trailheadapp__Total_Points__c": "The total points amassed by completed trailheads",
-      "trailheadapp__User__c": "The trailhead user"
-    },
-    "trailheadapp__Trailmix__c": {
-      "trailheadapp__Archived__c": "Flag indicating if trailmix has been archived",
-      "trailheadapp__Created_At__c": "Date time when trailmix was created",
-      "trailheadapp__Created_By_Profile__c": "Id of user used to create trailmix",
-      "trailheadapp__Description__c": "Descripton of trail mix content",
-      "trailheadapp__External_Id__c": "External id of trailmix",
-      "trailheadapp__Featured__c": "Flag to mark a trailmix as featured",
-      "trailheadapp__Slug__c": "URL safe name for the trailmix, in kebab case",
-      "trailheadapp__URL__c": "URL of trailmix",
-      "trailheadapp__Updated_At__c": "Last updated datetime of trailmix"
-    },
-    "trailheadapp__Trailmix_Assignment__c": {
-      "trailheadapp__Due_Datetime__c": "The due date of the trailmix assignment, by which the traimix has to be completed.",
-      "trailheadapp__Status__c": "The status of the trailmix assignment, e.g. Completed.",
-      "trailheadapp__Trailmix__c": "The trailmix this assignment is linked with.",
-      "trailheadapp__User__c": "The user whom the trailmix is assigned to."
-    },
-    "trailheadapp__User_Badge__c": {
-      "trailheadapp__Archived__c": "When the badge was archived in Trailhead.",
-      "trailheadapp__Assigned_Date__c": "When the module(s) was/were assigned to the user.",
-      "trailheadapp__Badge__c": "Badge earned by user.",
-      "trailheadapp__Due_Date__c": "When the module(s) is/are due to be completed.",
-      "trailheadapp__External_ID__c": "Identifier of the user's badge.",
-      "trailheadapp__Finished_Date__c": "Finished date of the module(s) which allowed the user to earn the badge.",
-      "trailheadapp__User__c": "Trailhead user in relation to the earned badge."
-    },
-    "trailheadapp__User_Trailmix__c": {
-      "trailheadapp__Assigned_At__c": "The time of which the user enrol the Trailmix.",
-      "trailheadapp__Completed_At__c": "The completed time of the Trailmix.",
-      "trailheadapp__Due_At__c": "The due time of the Trailmix.",
-      "trailheadapp__External_Id__c": "Identifier for the Trailhead User Trailmix.",
-      "trailheadapp__First_Attempted_At__c": "The first time the user try to complete the Trailmix.",
-      "trailheadapp__Last_Attempted_At__c": "The last time the user try to complte the Trailmix.",
-      "trailheadapp__Trailmix__c": "Trailmix enrolled.",
-      "trailheadapp__User__c": "User enrolled to the Trailmix."
     }
   },
   "objectManualDesc": {
@@ -290,14 +217,7 @@
     "Twilio_Details__c": "To capture details from Twilio as part of Call and Chat Interaction",
     "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
-    "trailheadapp__Badge__c": "Available Trailhead badges.",
-    "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
-    "trailheadapp__Trail__c": "Representation of a learning trail",
-    "trailheadapp__Trailhead_User_Data__c": "Data relating to a user's completion of learning modules",
-    "trailheadapp__Trailmix__c": "Available Trailhead Trailmixes.",
-    "trailheadapp__Trailmix_Assignment__c": "Junction object representing that a user has been assigned some learning content",
-    "trailheadapp__User_Badge__c": "Junction object for badges and users.",
-    "trailheadapp__User_Trailmix__c": "Maintains user assignments and follows for trailmixes.",
+    "Trade_Finance__x": "External Trade Finance accounts",
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
@@ -315,7 +235,8 @@
         "KYC_Verification_Level__c",
         "KYCVerificationDate__c",
         "Mobile__c",
-        "Was_ANZx_Customer__c"
+        "Was_ANZx_Customer__c",
+        "Worldline_Merchant__c"
       ],
       "IA-2415840": ["Is_Prospect__c"],
       "IA-2415997": ["PI_Score__c"],
@@ -383,7 +304,8 @@
         "CPID__c",
         "IsSkeleton__c",
         "IsSnapshotError__c",
-        "IsSnapshotInProgress__c"
+        "IsSnapshotInProgress__c",
+        "Migration_Status_Date__c"
       ],
       "IA-2415860": [
         "Deleted_in_OCV__c",
@@ -411,8 +333,16 @@
         "External_Id__c",
         "RecordTypeId"
       ],
-      "IA-2415855": ["CustomerExitDate__c", "CustomerExitFlag__c"],
-      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"]
+      "IA-2415855": [
+        "CustomerExitDate__c",
+        "CustomerExitFlag__c",
+        "CLG_Credit_Rating__c"
+      ],
+      "IA-2415998": ["VOI_Expiry_Date_Classic__c", "VOI_Status_Classic__c"],
+      "IA-2453595": ["Migration_Status__c"]
+    },
+    "AccountClosureErrorMetadata__mdt": {
+      "IA-2468715": ["Chatter_Post__c", "Failure_Reason__c", "Type__c"]
     },
     "Access_Request__c": {
       "IA-2468715": [
@@ -426,6 +356,7 @@
         "Id",
         "LastModifiedById",
         "LastModifiedDate",
+        "RecordTypeId",
         "Reason__c",
         "Reference_Number__c",
         "Requestor__c",
@@ -550,7 +481,8 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
-      ]
+      ],
+      "IA-2453350": ["External_Id__c"]
     },
     "ActivityFieldHistory__c": {
       "IA-2530753": [
@@ -561,7 +493,13 @@
       ]
     },
     "Additional_Fund__c": {
-      "IA-2415840": [],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate"
+      ],
       "IA-2530753": ["External_Id__c", "Loan_Application_Financial__c"],
       "IA-2415983": ["Amount__c", "Other_Reason__c", "Purpose__c"]
     },
@@ -573,7 +511,15 @@
         "Application_Status__c",
         "Name"
       ],
-      "IA-2468715": ["OwnerId"]
+      "IA-2468715": [
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "ApplicationFormProduct": {
       "IA-2434298": [
@@ -583,14 +529,29 @@
         "Stage",
         "Close_Date__c",
         "Reference_Number__c",
-        "Amount__c"
+        "Amount__c",
+        "Asset_Name__c",
+        "Interest_Rate__c",
+        "Source_System_Id__c",
+        "Source_System_Status__c",
+        "Term__c"
       ],
       "IA-2423227": [
         "Won_from_Lost_to__c",
         "Lost_reason__c",
-        "Lost_Reason_Detail__c"
+        "Lost_Reason_Detail__c",
+        "Stage_Duration__c",
+        "Last_Updated_Stage_Date__c"
       ],
-      "IA-2468715": ["OwnerId"]
+      "IA-2468715": [
+        "OwnerId",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "Appointment_Commitment__c": {
       "IA-2453595": [
@@ -762,15 +723,17 @@
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
-      "IA-2415790": ["Broker_Name__c"]
+      "IA-2415790": ["Broker_Name__c"],
+      "IA-2460507": ["My_Team_A2Z_Review__c"]
     },
     "BrokerSettings__c": {
       "IA-253075": [
         "BypassApplicationEvent__c",
-        "BypassSettlementAccountEvent__c",
         "BypassBrokerEvent__c",
-        "BypassCustomerSyncEvents__c",
-        "BypassCaseSyncEvents__c"
+        "BypassCaseEvent__c",
+        "BypassContractEvent__c",
+        "BypassCustomerEvent__c",
+        "BypassSettlementAccountEvent__c"
       ]
     },
     "Campaign": {
@@ -866,6 +829,7 @@
         "External_System_Create_Datetime__c",
         "External_System__c",
         "FinServ__FinancialAccount__c",
+        "Financial_Account_Number__c",
         "Fraud_COR_Event_ID__c",
         "Fraud_Onboarding_Customer_Name__c",
         "IsOwnerCoachOrCoachLead__c",
@@ -893,18 +857,22 @@
         "AcceptableDocumentQuality__c",
         "Actual_Outcome__c",
         "Additional_Type__c",
+        "API_Sub_Status__c",
         "ANZx_Product__c",
         "Auto_Created__c",
         "AuxDomId__c",
         "Bank_ATM__c",
         "Card_In_Possession_During_Transaction__c",
         "Date_Closed__c",
+        "Process_Status__c",
         "Previous_Case_Owner__c",
         "Date_Case_allocated_to_CM__c",
         "Disable_CMOS_Omni__c",
         "RAG_Status__c",
         "RAG__c",
         "RAG_Comments__c",
+        "Show_Account_Closure__c",
+        "Show_Initiate_Account_Closure__c",
         "SI_Rec_Rem_Action_Status__c",
         "SI_Rec_Rem_Actions__c",
         "SI_Subject_of_Breach_Report__c",
@@ -930,6 +898,7 @@
         "SI_Definite_Deemed_Date__c",
         "SI_Assigned_to_Portfolios__c",
         "SI_Business_Contacts__c",
+        "Sub_Status__c",
         "IDR_AFCA_Case_Manager__c",
         "CaseOwnerManager__c",
         "IDR_AFCA_Information_Request_Due__c",
@@ -1196,6 +1165,7 @@
         "IDR_Complaint_Outcome_Offered__c",
         "IDR_Completed_Evaluations__c",
         "IDR_Date_time_Progressed_Status_selected__c",
+        "Test_Complaint__c",
         "IsKYCChecksCompleted__c",
         "KYCChecksHasDefect__c"
       ],
@@ -1204,6 +1174,7 @@
         "Amount_Of_Credit_Due__c",
         "Biller_Code__c",
         "Biller_Name__c",
+        "Circumstance__c",
         "Claimed_Amount__c",
         "Company__c",
         "Correct_Customer_Reference_Number__c",
@@ -1237,6 +1208,7 @@
         "Intended_Pay_Id_Value__c",
         "Posted_Amount__c",
         "Posted_Currency__c",
+        "Process_Id__c",
         "Received_Amount__c",
         "Received_Currency__c",
         "Refund_Request_Date__c",
@@ -1261,7 +1233,6 @@
       "IA-2415997": [
         "SI_Financial_Impact_to_ANZ__c",
         "SI_Total_Payment_Amount__c",
-        "Sub_Status__c",
         "Transaction_Made_By__c"
       ],
       "IA-2415998": [
@@ -1393,7 +1364,19 @@
         "System_Action__c",
         "VerificationOutcome__c",
         "VerificationRequest__c",
-        "Verified_Date__c"
+        "Verified_Date__c",
+        "Client_Id__c",
+        "Evaluation_Id__c",
+        "Evaluation_State__c",
+        "Evaluation_Reason__c",
+        "Evaluation_Create_Time__c",
+        "Evaluation_Last_Update_Time__c",
+        "Evaluation_Complete_Time__c",
+        "Process_Definition_Id__c",
+        "Process_Definition_Name__c",
+        "Process_Definition_Version__c",
+        "Unique_External_Id__c",
+        "SecondaryVerificationFailedReason__c"
       ],
       "IA-2594111": [
         "CustomerOnboardingApplication__c",
@@ -1410,11 +1393,17 @@
         "CertificateIdentifierType__c",
         "CountryCode__c",
         "DateOfBirthOnIDMatchesProfile__c",
+        "DateOfEvent__c",
         "DocumentType__c",
         "ExpiryDate__c",
         "NamesCertificateSupportNameRequested__c",
         "RegistrationDate__c",
         "StateCode__c"
+      ],
+      "IA-2426363": [
+        "Process_SLA_Status__c",
+        "Financial_Account_Name__c",
+        "Opt_Out_Reason__c"
       ]
     },
     "Case_Reporting_Field__c": {
@@ -1738,6 +1727,7 @@
         "Active_From__c",
         "Active_To__c",
         "External_Id__c",
+        "Is_Beta_Broker__c",
         "Occurrence_Number__c",
         "After_Hours_Availability__c",
         "Broker_Customer_Profile__c",
@@ -2070,7 +2060,8 @@
         "EquifaxAECResult__c",
         "EquifaxCRAResult__c",
         "EquifaxOverallResult__c",
-        "EquifaxESDResult__c"
+        "EquifaxESDResult__c",
+        "IDVFailReason__c"
       ],
       "IA-2530753": [
         "OwnerId",
@@ -2230,6 +2221,7 @@
         "Action__c",
         "Authentication_Method__c",
         "Completed_Date__c",
+        "Date_Case_on_Hold_From__c",
         "Due_in_Days__c",
         "IDR_Collection_Number__c",
         "IDR_COR_ID__c",
@@ -2241,8 +2233,11 @@
         "IDR_Portfolio_or_Business_Unit__c",
         "IDR_Team__c",
         "IDR_Tribe__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
         "Last_Assigned_Owner__c",
         "PSI_or_DSI__c",
+        "Product_Manufacturer__c",
         "Queue__c",
         "SI_Other_Tribe_BU__c",
         "SI_Tribe_BU__c",
@@ -2258,6 +2253,7 @@
         "Cases_Related_To_Team__c",
         "Lead_Quality__c",
         "Lead__c",
+        "ML_DataMigration_Key__c",
         "Outcome_Reason__c",
         "Response_Status__c",
         "Response_Type__c",
@@ -2464,7 +2460,8 @@
         "Product_SubCode__c",
         "Source_System_Status_Display__c",
         "Source_System_Status__c",
-        "System_Record_Status__c"
+        "System_Record_Status__c",
+        "Migration_Status_Date__c"
       ],
       "IA-2415860": [
         "Product_Code_Display__c",
@@ -2473,7 +2470,8 @@
         "Additional_Owner_Count__c",
         "Ownership__c"
       ],
-      "IA-2594111": ["FinServ__JointOwner__c"]
+      "IA-2594111": ["FinServ__JointOwner__c"],
+      "IA-2453595": ["Migration_Status__c"]
     },
     "FinServ__FinancialAccountRole__c": {
       "IA-2468715": [
@@ -2542,6 +2540,19 @@
         "CreatedDate",
         "LastModifiedById",
         "LastModifiedDate"
+      ]
+    },
+    "FinancialAccountUIConfiguration__mdt": {
+      "IA-2468715": [
+        "Account_Type__c",
+        "Balance_Title__c",
+        "Ownership_Type__c",
+        "Product_Code__c",
+        "Section_Header_Title__c",
+        "Show_Goals__c",
+        "Sort_Order__c",
+        "Include_In_Total_Financial_Position__c",
+        "Is_Active__c"
       ]
     },
     "Group": {
@@ -2680,7 +2691,17 @@
       ]
     },
     "InteractionAttendee": {
-      "IA-2468715": ["AttendeeType", "UserId", "Time__c"],
+      "IA-2468715": [
+        "AttendeeType",
+        "UserId",
+        "Time__c",
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ],
       "IA-2415984": [
         "Attendee_Phone__c",
         "Attendee_Name__c",
@@ -2772,6 +2793,13 @@
       "IA-2453595": ["IDR_Issue_Type__c", "IDR_Subsequent_Issue_Type__c"]
     },
     "Lead": {
+      "IA-2423278": [
+        "External_Id__c",
+        "Assignee_Group__c",
+        "Channel__c",
+        "Referral_Category__c",
+        "My_teams_referrer__c"
+      ],
       "IA-2468713": ["SmartphoneOS__c", "Pub_Sub_Event_Id__c"],
       "IA-2468715": [
         "CreatedById",
@@ -2780,7 +2808,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId",
-        "Date_Received__c"
+        "Date_Received__c",
+        "Error_Message__c"
       ],
       "IA-2415983": ["FinServ__ExpressedInterest__c"],
       "IA-2415984": [
@@ -2844,6 +2873,7 @@
         "Is_Valid_Address__c",
         "LeadSource",
         "Lead_Auto_Number__c",
+        "Lead_Created_Date__c",
         "Lead_Id__c",
         "Lead_Originator__c",
         "Lead_Owner_Link__c",
@@ -2861,6 +2891,9 @@
         "Privacy_Consent__c",
         "Prospect_Id__c",
         "Record_Id__c",
+        "Referral_Status__c",
+        "Referrer_Lead__c",
+        "Referral_Acknowledged_Date__c",
         "Skip_Validations__c",
         "Soft_Delete__c",
         "Status",
@@ -2879,7 +2912,12 @@
         "Is_BOH_Lead__c",
         "Lead_Record_Name__c"
       ],
-      "IA-2415720": ["Account_Number__c", "Customer_Status__c"],
+      "IA-2415720": [
+        "Account_Number__c",
+        "My_Referrals__c",
+        "Customer_Status__c",
+        "Referral_for_an_existing_customer__c"
+      ],
       "IA-2415999": ["Address"],
       "IA-2415840": [
         "CCRM_ExpiryNotificationCheck__c",
@@ -2893,7 +2931,9 @@
         "Referrer_Name__c",
         "My_Sub_Team__c",
         "My_Team__c",
-        "Lead_Owner_Teamcode__c"
+        "Lead_Owner_Teamcode__c",
+        "My_Team_Segment__c",
+        "My_Reportees_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -3315,6 +3355,8 @@
       ]
     },
     "Opportunity": {
+      "IA-2423278": ["My_teams_referrer__c"],
+      "IA-2415828": ["Circle_Of_Influence__c"],
       "IA-2415840": [
         "AccountId",
         "CampaignId",
@@ -3332,7 +3374,8 @@
         "TotalOpportunityQuantity",
         "Opp_Id__c",
         "Type",
-        "Territory__c"
+        "Territory__c",
+        "Version__c"
       ],
       "IA-2415860": [
         "Associated_Source_Detail__c",
@@ -3422,13 +3465,16 @@
         "My_Team__c",
         "Opportunity_Owner_Teamcode__c",
         "FinServ__ReferredByContact__c",
-        "FinServ__ReferredByUser__c"
+        "FinServ__ReferredByUser__c",
+        "My_Team_Segment__c",
+        "My_Reportees_Opps__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
       "IA-2434298": ["Total_Application_Amount__c"],
       "IA-2453350": ["Can_Create_Loanapp__c", "Application_Key__c"],
-      "IA-2415790": ["TPMI__c", "Broker_Name__c"]
+      "IA-2415790": ["TPMI__c", "Broker_Name__c"],
+      "IA-2618940": ["Industry__c"]
     },
     "OpportunityContactRole": {
       "IA-2415860": [
@@ -3439,7 +3485,7 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2415984": ["Role"],
+      "IA-2415984": ["Role", "Mobile_Classic__c", "Email_Classic__c"],
       "IA-2428130": ["ContactId"],
       "IA-2530753": ["Source_System_Id__c"]
     },
@@ -3479,7 +3525,7 @@
         "LastModifiedDate"
       ]
     },
-    "Pricebook2": {
+    "PriceBook2": {
       "IA-2415987": ["Description", "IsActive", "IsStandard", "Name"],
       "IA-2415860": [
         "CreatedById",
@@ -3489,7 +3535,7 @@
         "LastModifiedDate"
       ]
     },
-    "PricebookEntry": {
+    "PriceBookEntry": {
       "IA-2415987": [
         "IsActive",
         "Pricebook2Id",
@@ -3623,7 +3669,13 @@
         "IDR_Allow_Account_Policy_Number__c",
         "Family"
       ],
-      "IA-2415860": ["Sub_Product_Code__c", "OCV_Sub_Product_Key__c"],
+      "IA-2415860": [
+        "Sub_Product_Code__c",
+        "OCV_Sub_Product_Key__c",
+        "Business_area__c",
+        "Product_Origination_System__c",
+        "Category__c"
+      ],
       "IA-2415840": ["ExternalId"],
       "IA-2415987": ["Product_Segment_Type__c", "Product_Features__c"]
     },
@@ -4112,7 +4164,8 @@
         "E_Tag__c",
         "Needs_Assessment_Unsuitability_Reasons__c",
         "Joint__c",
-        "Ineligible_Reasons__c"
+        "Ineligible_Reasons__c",
+        "Application_Progress__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
@@ -4249,6 +4302,7 @@
         "CompletedDateTime",
         "Description",
         "Due_in_Days__c",
+        "Date_Case_on_Hold_From__c",
         "IDR_COR_ID__c",
         "IDR_Collection_Number__c",
         "IDR_Internal_or_External_Party__c",
@@ -4260,6 +4314,9 @@
         "IDR_Team__c",
         "IDR_Tribe__c",
         "Last_Assigned_Owner__c",
+        "On_Hold_Reason__c",
+        "On_Hold_Reason_Internal__c",
+        "Product_Manufacturer__c",
         "PSI_or_DSI__c",
         "Priority",
         "Queue__c",
@@ -4299,6 +4356,7 @@
         "Response_Status__c",
         "Response_Type__c",
         "Skip_Validations__c",
+        "ML_DataMigration_Key__c",
         "Team_Manager__c",
         "Case_Owner__c",
         "Cases_Related_To_Team__c"
@@ -4336,164 +4394,6 @@
       ],
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
     },
-    "trailheadapp__Badge__c": {
-      "IA-2415840": [
-        "trailheadapp__Archived__c",
-        "trailheadapp__Built_Date__c",
-        "trailheadapp__Created_At__c",
-        "trailheadapp__Description__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Icon__c",
-        "trailheadapp__Level__c",
-        "trailheadapp__Namespace__c",
-        "trailheadapp__Products__c",
-        "trailheadapp__Roles__c",
-        "trailheadapp__Tags__c",
-        "trailheadapp__Type__c",
-        "trailheadapp__URL__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Debug_Log__c": {
-      "IA-2415840": [
-        "trailheadapp__Class__c",
-        "trailheadapp__Datetime__c",
-        "trailheadapp__Message__c",
-        "trailheadapp__Method__c",
-        "trailheadapp__Severity__c",
-        "trailheadapp__Transaction__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trail__c": {
-      "IA-2415840": [
-        "trailheadapp__API_Name__c",
-        "trailheadapp__Archived__c",
-        "trailheadapp__Created_At__c",
-        "trailheadapp__Description__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Icon__c",
-        "trailheadapp__Level__c",
-        "trailheadapp__Namespace__c",
-        "trailheadapp__Products__c",
-        "trailheadapp__Roles__c",
-        "trailheadapp__Tags__c",
-        "trailheadapp__URL__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trailhead_User_Data__c": {
-      "IA-2415840": [
-        "trailheadapp__Avatar__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Profile_URL__c",
-        "trailheadapp__Profile_Visibility__c",
-        "trailheadapp__Rank__c",
-        "trailheadapp__Total_Points__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trailmix__c": {
-      "IA-2415840": [
-        "trailheadapp__Archived__c",
-        "trailheadapp__Created_At__c",
-        "trailheadapp__Created_By_Profile__c",
-        "trailheadapp__Description__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Featured__c",
-        "trailheadapp__Slug__c",
-        "trailheadapp__URL__c",
-        "trailheadapp__Updated_At__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trailmix_Assignment__c": {
-      "IA-2415840": [
-        "trailheadapp__Due_Datetime__c",
-        "trailheadapp__Status__c",
-        "trailheadapp__Trailmix__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__User_Badge__c": {
-      "IA-2415840": [
-        "trailheadapp__Archived__c",
-        "trailheadapp__Assigned_Date__c",
-        "trailheadapp__Badge__c",
-        "trailheadapp__Due_Date__c",
-        "trailheadapp__External_ID__c",
-        "trailheadapp__Finished_Date__c",
-        "trailheadapp__First_Attempted_Date__c",
-        "trailheadapp__Last_Attempted_Date__c",
-        "trailheadapp__Status__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__User_Trailmix__c": {
-      "IA-2415840": [
-        "trailheadapp__Assigned_At__c",
-        "trailheadapp__Completed_At__c",
-        "trailheadapp__Due_At__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__First_Attempted_At__c",
-        "trailheadapp__Last_Attempted_At__c",
-        "trailheadapp__Status__c",
-        "trailheadapp__Trailmix__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
     "Twilio_Details__c": {
       "IA-2415840": [
         "ANZ_Queue__c",
@@ -4522,7 +4422,15 @@
         "Loan_Application_Property__c",
         "Residential_Loan_Application__c"
       ],
-      "IA-2415840": ["Version__c"]
+      "IA-2415840": ["Version__c"],
+      "IA-2468715": [
+        "CreatedById",
+        "CreatedDate",
+        "Id",
+        "LastModifiedById",
+        "LastModifiedDate",
+        "RecordTypeId"
+      ]
     },
     "User": {
       "IA-2460507": [
@@ -4548,7 +4456,8 @@
         "Sub_Team_Code__c",
         "Manager_Email__c",
         "Manager_Lan_Id__c",
-        "Commercial_Segment__c"
+        "Commercial_Segment__c",
+        "Is_Manager__c"
       ],
       "IA-2468715": [
         "Active_Directory_ID__c",
@@ -4580,9 +4489,11 @@
         "CreatedDate",
         "Id",
         "LastModifiedById",
-        "LastModifiedDate"
+        "LastModifiedDate",
+        "Status__c"
       ],
-      "IA-2415790": ["TPMI__c"]
+      "IA-2415790": ["TPMI__c"],
+      "IA-2415840": ["ABN_ACN__c", "Business_Name__c"]
     },
     "User_Territory__c": {
       "IA-2415860": [
@@ -4660,7 +4571,9 @@
         "Indicative_FUM__c",
         "Newsletter__c",
         "Status__c",
-        "Customer_Name__c"
+        "Customer_Name__c",
+        "Last_Interaction_Date__c",
+        "Next_Interaction_Date__c"
       ],
       "IA-2423278": ["Relationship_Owner__c"]
     },
@@ -4782,7 +4695,6 @@
       "IA-2415984": ["Statement_Mailing_Address__c"],
       "IA-2415999": ["Frequent_Flyer_Number__c"]
     },
-
     "Credit_Card_Fee__x": {
       "IA-2415720": ["Credit_Card__c", "Fee_Amount__c", "Fee_Type__c"]
     },
@@ -5030,7 +4942,10 @@
       "IA-2415720": [
         "Amount__c",
         "Contract__c",
+        "Frequency__c",
         "Repayment_Account_Number__c",
+        "Repayment_Type__c",
+        "Start_Date__c",
         "Total_Number_Of_Repayments__c"
       ]
     },
@@ -5324,6 +5239,25 @@
         "Preferred_Contact_Time__c",
         "COI_Company__c"
       ]
+    },
+    "Trade_Finance__x": {
+      "IA-2415720": [
+        "CAP_Limit__c",
+        "Currency__c",
+        "Interest_Rate__c",
+        "Limit__c",
+        "Limit_Expiry__c",
+        "Product_Code__c",
+        "Product_Name__c",
+        "Sequence_Number__c",
+        "Sub_Product_Code__c",
+        "Term__c"
+      ],
+      "IA-2468715": [
+        "Account_Number__c",
+        "OLL_Account_Number__c",
+        "Customer__c"
+      ]
     }
   },
   "lineageInformation": {
@@ -5438,6 +5372,9 @@
       "SubmittedAt__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency :: create_time",
       "TaxIdentificationNumberTransform__c": "",
       "TaxIdentificationNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency%2Eoneof_disclosure :: tax_identification_number_token"
+    },
+    "Contact": {
+      "Is_Beta_Broker__c": "ANZx::Salesforce"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
@@ -5613,6 +5550,9 @@
       "SubmittedAt__c": "1:1 Transformation",
       "TaxIdentificationNumberTransform__c": "Always set to 'fpe.personal-identifier'",
       "TaxIdentificationNumber__c": "1:1 Transformation"
+    },
+    "Contact": {
+      "Is_Beta_Broker__c": "1:1 Transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",

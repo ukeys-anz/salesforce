@@ -6,6 +6,11 @@
  */
 @SuppressWarnings('PMD.StdCyclomaticComplexity, PMD.CyclomaticComplexity')
 public with sharing class CCRMLeadActionsHelper {
+  private static final Map<String, String> LEAD_FIELDS_WITH_ERROR_MSG_MAP = new Map<String, String>{
+    'Business_ID__c' => 'BUSINESS NUMBER NOT FOUND',
+    'Customer_ID__c' => 'CUSTOMER NUMBER NOT FOUND',
+    'CLG_ID__c' => 'CLG NOT FOUND'
+  };
   @TestVisible
   static final String CAMPAIGN_NOT_FOUND_ERROR_MESSAGE = 'CAMPAIGN DOES NOT EXIST OR NOT ACTIVE';
   @TestVisible
@@ -16,6 +21,18 @@ public with sharing class CCRMLeadActionsHelper {
   static final String CLG_NOT_FOUND_ERROR_MESSAGE = 'CLG NOT FOUND';
   @TestVisible
   static final String ENTITY_TYPE_INDIVIDUAL = 'Individual';
+  @TestVisible
+  static final String ENTITY_TYPE_CLG = 'Customer Lending Group';
+  private static final String ORIGINATOR_UNICA = 'UNICA';
+  private static final Set<ID> SET_OF_ELIGIBLE_RT_ID = new Set<Id>{
+    RTLead.commercialLead,
+    RTLead.mlcrmLead
+  };
+  private static final Map<String, String> LEAD_FIELDS_WITH_ENTITY_TYPE_MAP = new Map<String, String>{
+    'Customer_ID__c' => ENTITY_TYPE_INDIVIDUAL,
+    'CLG_ID__c' => ENTITY_TYPE_CLG
+  };
+
   private static final CCRMLeadRepository LEAD_REPOSITORY = (CCRMLeadRepository) Lib_InstanceProvider.forType(
     CCRMLeadRepository.class
   );
@@ -102,42 +119,26 @@ public with sharing class CCRMLeadActionsHelper {
    * @param records List of lead records.
    */
   public static void populateRelatedAccount(List<Lead> records) {
-    Map<String, Account> mapAccountRecord = new Map<String, Account>();
-    mapAccountRecord = new CCRMLeadMappingEngine()
-      .getAccountsBySourceSystemId(records);
-
-    for (Lead record : records) {
-      if (
-        CCRMLeadUtil.isCCRMLeadType(record) ||
-        CCRMLeadUtil.isMLCRMLeadType(record)
-      ) {
-        if (!String.isBlank(record.Business_ID__c)) {
-          if (mapAccountRecord.containsKey(record.Business_ID__c)) {
-            record.FinServ__RelatedAccount__c = mapAccountRecord.get(
-                record.Business_ID__c
-              )
-              .Id;
-          } else if (CCRMLeadUtil.isUnicaLead(record)) {
-            record.addError(BUSINESS_NUMBER_NOT_FOUND_ERROR_MESSAGE);
-          }
-        } else if (!String.isBlank(record.Customer_ID__c)) {
-          if (mapAccountRecord.containsKey(record.Customer_ID__c)) {
-            record.FinServ__RelatedAccount__c = mapAccountRecord.get(
-                record.Customer_ID__c
-              )
-              .Id;
-          } else if (CCRMLeadUtil.isUnicaLead(record)) {
-            record.addError(CUSTOMER_NUMBER_NOT_FOUND_ERROR_MESSAGE);
-          }
-        } else if (!String.isBlank(record.CLG_ID__c)) {
-          if (mapAccountRecord.containsKey(record.CLG_ID__c)) {
-            record.FinServ__RelatedAccount__c = mapAccountRecord.get(
-                record.CLG_ID__c
-              )
-              .Id;
-          } else if (CCRMLeadUtil.isUnicaLead(record)) {
-            record.addError(CLG_NOT_FOUND_ERROR_MESSAGE);
-          }
+    Map<String, Account> mapAccountRecord = getAccountsBySourceSystemId(
+      records
+    );
+    List<Lead> filteredRecords = ListUtil.filter(records)
+      .equals(Lead.RecordTypeId, SET_OF_ELIGIBLE_RT_ID)
+      .toList();
+    for (Lead record : filteredRecords) {
+      for (String fieldName : LEAD_FIELDS_WITH_ERROR_MSG_MAP.keySet()) {
+        String fieldValue = (String) record.get(fieldName);
+        if (String.isBlank(fieldValue)) {
+          continue;
+        }
+        if (mapAccountRecord.containsKey(fieldValue)) {
+          record.FinServ__RelatedAccount__c = mapAccountRecord.get(fieldValue)
+            .Id;
+          record.Entity_Type__c = LEAD_FIELDS_WITH_ENTITY_TYPE_MAP.get(
+            fieldName
+          ) ?? mapAccountRecord.get(fieldValue).FinServ__CustomerType__c;
+        } else if (record.Lead_Originator__c == ORIGINATOR_UNICA) {
+          record.addError(LEAD_FIELDS_WITH_ERROR_MSG_MAP.get(fieldName));
         }
       }
     }
@@ -210,5 +211,33 @@ public with sharing class CCRMLeadActionsHelper {
         rec.addError(CCRMConstants.DELETE_ERROR);
       }
     }
+  }
+
+  /**
+   * @description This method returns related party by Source System ID passed from UNICA lead
+   * @name getAccountsBySourceSystemId
+   * @param records List of lead records
+   * @return Map<String, Account> where Key is Source_System_ID__c.
+   */
+  public static Map<String, Account> getAccountsBySourceSystemId(
+    List<Lead> records
+  ) {
+    Set<String> accountIds = new Set<String>();
+    List<Lead> unicaLeads = ListUtil.filter(records)
+      .equals(Lead.Lead_Originator__c, ORIGINATOR_UNICA)
+      .toList();
+
+    for (Lead selectLead : unicaLeads) {
+      for (String fieldName : LEAD_FIELDS_WITH_ERROR_MSG_MAP.keySet()) {
+        String fieldValue = (String) selectLead.get(fieldName);
+        if (String.isNotBlank(fieldValue)) {
+          accountIds.add(fieldValue);
+        }
+      }
+    }
+    return (Map<String, Account>) ListUtil.mapBy(
+      LEAD_REPOSITORY.getRelatedAccounts(accountIds),
+      Account.Source_System_ID__c
+    );
   }
 }

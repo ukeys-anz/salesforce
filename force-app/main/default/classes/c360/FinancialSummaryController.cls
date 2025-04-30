@@ -148,7 +148,7 @@ public with sharing class FinancialSummaryController {
       //Making a callout to get the Total Limits
       finSumRespFromCallout.totalLimitAck = getTotalLimts(
         finSumRespFromCallout.responseId,
-        accountNumberList,
+        filterSetofAccountNumberList(accountNumberList),
         TOTAL_CUSTOMER_LIMIT,
         finSumCallout.callTotalLimitsApi
       );
@@ -159,6 +159,24 @@ public with sharing class FinancialSummaryController {
     }
 
     return finSumRespFromCallout;
+  }
+    
+  /**
+   * @description - Get filtered Set of Account Numbers based on Product Types
+   * @param accountNumberList - Set of unfiltered Account Numbers
+   * @return Set<String> Set of filtered Account Numbers
+   */    
+  private static Set<String> filterSetofAccountNumberList(
+    Set<String> accountNumberList
+  ) {
+    Set<String> filteredSetofAccNumbers = new Set<String>();
+    Set<String> productTypes = new Set<String>{'DDA','OLL','PCA','ILS'};
+    for(String accNum : accountNumberList){
+      if(productTypes.contains(accNum.substringBefore('-'))){
+          filteredSetofAccNumbers.add(accNum);
+      }
+    }
+    return filteredSetofAccNumbers;
   }
 
   /**

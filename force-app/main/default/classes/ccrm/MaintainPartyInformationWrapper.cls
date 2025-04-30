@@ -26,17 +26,25 @@ public with sharing class MaintainPartyInformationWrapper {
     public String clgId;
     @AuraEnabled
     public String address;
+
+    //Added as Part of OCV repointing Story
+    @AuraEnabled
+    public string suburb;
+    @AuraEnabled
+    public string postCode;
   }
 
   /**
    * @description Wrapper class to send matched maintain party results seperately.
    */
-  public class MaintainPartyInfoWrapper {
+  public class MaintainPartyResult {
     @AuraEnabled
     public List<MaintainPartyInfo> matchedResults;
     @AuraEnabled
     public Boolean isNewCustomer;
     @AuraEnabled
     public String oppID;
+    @AuraEnabled
+    public Boolean retrievePartyRequired;
   }
 }

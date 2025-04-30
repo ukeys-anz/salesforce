@@ -20,7 +20,7 @@
         <accessLevel>Read</accessLevel>
         <label>CCRM Sharing ML Interaction with Commercial Bankers Read Only</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -256,7 +256,7 @@
         <description>Share Interactions within all of Commercial</description>
         <label>CCRM Interactions Sharing Rule</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Commercial_Banking</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Commercial_Banking</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>RecordTypeId</field>
@@ -286,7 +286,22 @@
         <accessLevel>Read</accessLevel>
         <label>CMOS Interaction access RO</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Customer_Resolution_with_ANZ_Plus_Read_Only</roleAndSubordinates>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Specialist_Lender_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule shares all Interaction records with Read/Write access to Specialist Lenders</description>
+        <label>Specialist Lender Read Write</label>
+        <sharedTo>
+            <group>Specialist_Lender_Group</group>
         </sharedTo>
         <criteriaItems>
             <field>Name</field>
@@ -304,7 +319,7 @@
             <role>ANZ_Plus_Operations_Read_Only</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -315,7 +330,7 @@
             <role>Coach_Lead</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -326,7 +341,7 @@
             <role>Coach</role>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -336,7 +351,7 @@
             Lending Franchise Users&apos; with Read Only Access</description>
         <label>ML Sharing Rule ML to Franchise Team</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>Mobile_Lending_Franchise_Users</roleAndSubordinatesInternal>
+            <roleAndSubordinates>Mobile_Lending_Franchise_Users</roleAndSubordinates>
         </sharedTo>
         <sharedFrom>
             <role>ANZ_Mobile_Lending_Team</role>

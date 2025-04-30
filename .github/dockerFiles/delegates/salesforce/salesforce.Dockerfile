@@ -22,7 +22,7 @@ COPY --from=conftest conftest .
 COPY --from=opa opa .
 
 ARG ARTIFACTORY
-ENV NPM_CONFIG_REGISTRY=https://${ARTIFACTORY}/artifactory/api/npm/npmjs-org NODE_VERSION=18.7.0
+ENV NPM_CONFIG_REGISTRY=https://${ARTIFACTORY}/artifactory/api/npm/npmjs-org NODE_VERSION=20.18.0
 
 USER root
 # Install python
@@ -53,7 +53,7 @@ RUN curl -o node.tar.gz https://${ARTIFACTORY}:443/artifactory/nodejs-dist/v${NO
   rm node.tar.gz
 
 # Install Salesforce CLI, ignore scripts to avoid binary downloads (e.g. ngrok)
-RUN npm install @salesforce/cli@2.58.7 -g --ignore-scripts
+RUN npm install @salesforce/cli@2.74.6 -g --ignore-scripts
 
 # Label image to assist in grouping/filtering of scanning reports within the twistlock console
 LABEL ci_group="ANZx-Salesforce" ci_name="ANZx-Platform"

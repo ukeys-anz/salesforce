@@ -989,10 +989,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Customer Delay</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>Customer Denial</fullName>
             <default>false</default>
         </values>
@@ -1017,11 +1013,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Funds never left</fullName>
+            <fullName>Funds never Received</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>Merchant Liable</fullName>
+            <fullName>Funds never left</fullName>
             <default>false</default>
         </values>
         <values>
@@ -1029,15 +1025,19 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>Undetected</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>Funds never Received</fullName>
+            <fullName>Partial Recovery</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>System Outage</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Undetected</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Updated Decision - New Evidence</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -3744,10 +3744,6 @@
         </values>
         <values>
             <fullName>88</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>89</fullName>
             <default>false</default>
         </values>
         <values>

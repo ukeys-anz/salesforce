@@ -12,6 +12,10 @@
         <apexClass>FarOwnersRemovalService</apexClass>
         <enabled>true</enabled>
     </classAccesses>
+    <customMetadataTypeAccesses>
+        <name>FinancialAccountUIConfiguration__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customPermissions>
         <name>CCRM_System_Role_Access</name>
         <enabled>true</enabled>
@@ -75,6 +79,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.CLG__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.CLG_Credit_Rating__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -203,6 +212,11 @@
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Account.Is_Prospect__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>Account.IsSkeleton__c</field>
         <readable>true</readable>
@@ -235,6 +249,16 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Mailing_Name__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Migration_Status_Date__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Migration_Status__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -395,6 +419,11 @@
     <fieldPermissions>
         <editable>true</editable>
         <field>Account.Was_ANZx_Customer__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Account.Worldline_Merchant__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

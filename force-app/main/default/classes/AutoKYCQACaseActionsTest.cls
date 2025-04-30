@@ -243,6 +243,31 @@ public with sharing class AutoKYCQACaseActionsTest {
   }
   //#endregion
 
+  //#region
+  @isTest
+  static void testPopulateKycQACaseSubject() {
+    // GIVEN KYC QA Case with KYC QA Sample Type
+    caseWithAccount.RecordTypeId = RTCase.kycQa;
+    String caseType = 'KYC QA Sample';
+    caseWithAccount.Type = caseType;
+
+    // WHEN a case subject is populated
+    Test.startTest();
+    AutoKYCQACaseActions.populateKycQACaseSubject(
+      new List<Case>{ caseWithAccount },
+      new Map<Id, Case>()
+    );
+    Test.stopTest();
+
+    // THEN Case Subject should be populated based on RecordType Name and Type
+    Assert.areEqual(
+      caseType,
+      caseWithAccount.Subject,
+      'KYC QA case subject should be as expected.'
+    );
+  }
+  //#endRegion
+
   //#region tests for populating case field from COBs
   @isTest
   private static void testValidateCob() {
@@ -904,10 +929,10 @@ public with sharing class AutoKYCQACaseActionsTest {
   //#region populate closed no defect defaults
   @IsTest
   static void testPopulateClosedNoDefectDefaults() {
-    Case newCase = (Case) TestUtil.setFields(
-      new Case(Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT),
-      new Map<String, Object>{ 'KYCChecksHasDefect__c' => false }
+    Case newCase = new Case(
+      Sub_Status__c = GetHelpConstants.CLOSED_SUB_STATUS_NO_DEFECT
     );
+
     List<Case> records = new List<Case>{ newCase };
 
     Test.startTest();

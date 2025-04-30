@@ -276,7 +276,8 @@ public with sharing class CCRMTestDataFactory {
       new List<String>{
         'CCRM_Marketing_Integration_User',
         'Read_Write_Customer_Details',
-        'CCRM_User_Base'
+        'CCRM_User_Base',
+        'Accounts_Goals_Read_Only'
       },
       new List<User>{ ccrmIntegrationUser }
     );
@@ -744,6 +745,11 @@ public with sharing class CCRMTestDataFactory {
     accnt.BillingPostalCode = '3008';
     accnt.BillingState = 'VIC';
     accnt.BillingCountry = 'Australia';
+    accnt.ShippingStreet = '833 Collins Street';
+    accnt.ShippingCity = 'Docklands';
+    accnt.ShippingPostalCode = '3008';
+    accnt.ShippingState = 'VIC';
+    accnt.ShippingCountry = 'Australia';
     accnt.Source_System_ID__c = 'BUS1234';
     accnt.Source_System_Name__c = System.Label.CCRM_Source_System_Name;
     accnt.FinServ__Status__c = 'Active';
@@ -1453,7 +1459,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMDepositAccountTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1461,7 +1467,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'DepositAccount'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1478,7 +1484,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMCreditCardQueryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1486,7 +1492,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'CreditCard'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1642,6 +1648,7 @@ public with sharing class CCRMTestDataFactory {
     }
     return finAccountRole;
   }
+ 
   /**
    * @description creates and/or returns list of CCRMA2ZReview records for testing purpose
    * note that the lookup on these records are not populated
@@ -1761,13 +1768,9 @@ public with sharing class CCRMTestDataFactory {
       HtmlBody = 'Hello World',
       Incoming = false,
       Attachment_Notes__c = 'This email has no attachments',
-      CreatedBy = (User)TestUtil.setFields(
-        new User (
-            Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType())
-        ),
-        new Map<String, Object> {
-            'Profile_Name__c' => 'ANZ CCRM Standard User'
-        }
+      CreatedBy = (User) TestUtil.setFields(
+        new User(Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType())),
+        new Map<String, Object>{ 'Profile_Name__c' => 'ANZ CCRM Standard User' }
       )
     );
     return emRecord;
@@ -1784,7 +1787,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMAccountRelationshipQueryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1792,7 +1795,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'AccountRelationship'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1806,7 +1809,7 @@ public with sharing class CCRMTestDataFactory {
    */
   public static DataSource.QueryContext createAccountRelationshipContextForSOQL() {
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1893,7 +1896,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMTermDepositTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1901,7 +1904,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'TermDeposit'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);
@@ -1936,7 +1939,7 @@ public with sharing class CCRMTestDataFactory {
       new CCRMTestDataFactory.CCRMBalanceHistoryQueryTestMock()
     );
     //sync
-    CCRMCoreBankingDataSourceConnection conn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection conn = new CoreBankingDataSourceConnection(
       null
     );
     conn.sync();
@@ -1944,7 +1947,7 @@ public with sharing class CCRMTestDataFactory {
     DataSource.QueryContext context = CCRMQueryContextMock.createQueryContext(
       'BalanceHistory'
     );
-    CCRMCoreBankingDataSourceConnection aConn = new CCRMCoreBankingDataSourceConnection(
+    CoreBankingDataSourceConnection aConn = new CoreBankingDataSourceConnection(
       null
     );
     aConn.query(context);

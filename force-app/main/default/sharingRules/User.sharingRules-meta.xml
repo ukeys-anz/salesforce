@@ -6,7 +6,7 @@
         <description>Rule to provide ‘Read’ access to all OCV Integration User records.</description>
         <label>Grant Read Access on OCV Integration users</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <criteriaItems>
             <field>Username</field>
@@ -21,10 +21,22 @@
         <description>Allow all ANZx users to see other ANZx users</description>
         <label>Grant Read Access within ANZx</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZx</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
+        <fullName>Grant_ANZ_user_access_to_GCP_integration_user</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule grants Loan App GCP Integration User read access to users</description>
+        <label>Grant ANZ user access to GCP integration user</label>
+        <sharedTo>
+            <group>Loan_App_GCP_Integration_User</group>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZ_Mobile_Lending</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -45,10 +57,10 @@
         <description>Necessary for IDR users to transfer complaints to other IDR users</description>
         <label>OWN_RO-ANZUsers_RO-ANZUsers_RO</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <sharedFrom>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
@@ -69,7 +81,7 @@
         <description>This sharing rule is to give read access to the NLP Public Group, in particular to the NLP Integration User, which has no role</description>
         <label>Grant Users Read Access to NLP Public Group</label>
         <sharedTo>
-            <roleAndSubordinatesInternal>ANZ</roleAndSubordinatesInternal>
+            <roleAndSubordinates>ANZ</roleAndSubordinates>
         </sharedTo>
         <sharedFrom>
             <group>NLP_Public_Group</group>

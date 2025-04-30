@@ -11,7 +11,10 @@
       aria-labelledby="modal-heading-01"
       class="slds-modal slds-fade-in-open"
     >
-      <div class="slds-modal__container convertLeadContianer">
+      <div
+        class="slds-modal__container convertLeadContianer"
+        style={containerStyle}
+      >
         <div class="slds-modal__header">
           <!--Start header-->
           <h1 id="modal-heading-01" class="slds-modal__title slds-hyphenate">
@@ -143,7 +146,7 @@
               <!--End MLCRM Detail page buttons-->
             </template>
           </template>
-          <!--End CCRM Lead details div-->
+          <!--End MLCRM Lead details div-->
           <!--Start CCRM Lead details div-->
           <template lwc:if={isCCRMlead}>
             <template lwc:if={leadDetails}>
@@ -174,9 +177,9 @@
                   <lightning-button
                     class="slds-button"
                     variant="neutral"
-                    label="Search Party"
-                    title="Search Party"
-                    onclick={searchForParty}
+                    label="Continue"
+                    title="Continue"
+                    onclick={maintainPartyActionOrganization}
                   ></lightning-button>
                 </template>
                 <template lwc:if={isIndividual}>
@@ -262,7 +265,7 @@
               <!--End Org Customer result page buttons-->
             </div>
           </template>
-          <!--End Searcg party result div -->
+          <!--End Search party result div -->
           <!--Start Maintainparty Result Div-->
           <template lwc:if={maintainPartyExist}>
             <div
@@ -278,16 +281,30 @@
                   </h1>
                   <br />
                 </div>
-                <div style={setTableHeight}>
-                  <lightning-datatable
-                    class="resultTable2"
-                    key-field="resultsTable2Id"
-                    data={searchResults}
-                    columns={columnsIndividual}
-                    hide-checkbox-column="true"
-                  >
-                  </lightning-datatable>
-                </div>
+                <template lwc:if={isIndividual}>
+                  <div style={setTableHeight}>
+                    <lightning-datatable
+                      class="resultTable2"
+                      key-field="resultsTable2Id"
+                      data={searchResults}
+                      columns={columnsIndividual}
+                      hide-checkbox-column
+                    >
+                    </lightning-datatable>
+                  </div>
+                </template>
+                <template lwc:if={isOrgCustomer}>
+                  <div style={setTableHeight}>
+                    <lightning-datatable
+                      class="resultTable3"
+                      key-field="resultsTable3Id"
+                      data={searchResults}
+                      columns={columns}
+                      hide-checkbox-column
+                    >
+                    </lightning-datatable>
+                  </div>
+                </template>
                 <template lwc:if={noDataFound}>
                   <div style="height: 100px">
                     <br />
@@ -309,13 +326,25 @@
                 onclick={cancelAction}
               ></lightning-button>
               <template lwc:if={searchResults}>
-                <lightning-button
-                  class="slds-button"
-                  variant="brand"
-                  label="Continue"
-                  title="Continue"
-                  onclick={convertLeadWithMatchedParty}
-                ></lightning-button>
+                <template lwc:if={isIndividual}>
+                  <lightning-button
+                    class="slds-button"
+                    variant="brand"
+                    label="Continue"
+                    title="Continue"
+                    onclick={convertLeadWithMatchedParty}
+                  ></lightning-button>
+                </template>
+
+                <template lwc:if={isOrgCustomer}>
+                  <lightning-button
+                    class="slds-button"
+                    variant="brand"
+                    label="Continue"
+                    title="Continue"
+                    onclick={convertOrganizationMatchedLeadAction}
+                  ></lightning-button>
+                </template>
               </template>
             </div>
             <!--End Individual result page buttons-->

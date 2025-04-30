@@ -5,12 +5,11 @@
  */
 @IsTest
 private class RetailBrokerContactTriggerHandlerTest {
-  private static final Id RECORD_TYPE_ID_BROKER = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Broker')
-    .recordTypeId;
-  private static final Id RECORD_TYPE_ID_STAFF = SObjectType.Contact.getRecordTypeInfosByDeveloperName()
-    .get('Staff')
-    .recordTypeId;
+  public static Lib_MockProvider retailBrokerRepo = Lib_MockProvider.forType(
+    RetailBrokerRepository.class
+  );
+  private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
+  private static final Id RECORD_TYPE_ID_STAFF = RTContact.staff;
   static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
     CustomSettingsRepository.class
   );
@@ -39,7 +38,7 @@ private class RetailBrokerContactTriggerHandlerTest {
   }
 
   @IsTest
-  static void testFilterRetailBrokerContactPositive() {
+  static void testIsValidRecordPositive() {
     // Prepare broker contact
     Contact brokerContact = new Contact();
     brokerContact.Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
@@ -58,7 +57,7 @@ private class RetailBrokerContactTriggerHandlerTest {
   }
 
   @IsTest
-  static void testFilterRetailBrokerContactNegative() {
+  static void testIsValidRecordNegative() {
     // Prepare staff contact
     Contact staffContact = new Contact();
     staffContact.Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
@@ -115,6 +114,7 @@ private class RetailBrokerContactTriggerHandlerTest {
       true
     );
     List<Contact> testContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
+    retailBrokerRepo.mock('getBrokerContactsByIds', testContacts);
     for (Contact contact : testContacts) {
       contact.Broker_Customer_Profile__c = personAccount.Id;
     }

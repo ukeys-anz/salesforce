@@ -113,6 +113,22 @@ export function handleErrors(error) {
   return errorMessage;
 }
 
+export function getApexError(error, defaultMessage) {
+  if (typeof error === "string") {
+    return error;
+  }
+  if (!error.body) {
+    return defaultMessage;
+  }
+  if (Array.isArray(error.body)) {
+    return error.body.map((e) => e.message).join(", ");
+  }
+  if (typeof error.body.message === "string") {
+    return error.body.message;
+  }
+  return defaultMessage;
+}
+
 // General navigation function by warapping NavigationMixin.Navigate
 export function navigate(cmp, type, attributes) {
   cmp[NavigationMixin.Navigate]({
@@ -154,4 +170,23 @@ export function isS2Account(marketingCode) {
 //This method will identify whether S2 Deliverable is in dormant or not.
 export function isS2Enabled() {
   return IsS2Enabled.toLowerCase() === "true";
+}
+//formats timestap in `25 September 2023 | 11:54 am`
+export function setTimestamp(timestamp) {
+  let lastModified = new Date(timestamp);
+  lastModified =
+    lastModified.getDate() +
+    " " +
+    lastModified.toLocaleString("en-AU", {
+      month: "long"
+    }) +
+    " " +
+    lastModified.getFullYear() +
+    " | " +
+    lastModified.toLocaleString("en-AU", {
+      hour: "numeric",
+      minute: "numeric",
+      hour12: true
+    });
+  return lastModified;
 }

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ListView xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>AllAccounts</fullName>
+    <columns>ACCOUNT.NAME</columns>
+    <columns>PC_PHONE3</columns>
+    <columns>OCV_ID__c</columns>
+    <columns>PC_EMAIL</columns>
+    <columns>ACCOUNT.ADDRESS2_CITY</columns>
+    <columns>ACCOUNT.ADDRESS2_STATE</columns>
+    <columns>ACCOUNT.ADDRESS2_ZIP</columns>
+    <columns>ACCOUNT.RECORDTYPE</columns>
+    <columns>FinServ__Status__c</columns>
+    <filters>
+        <field>FinServ__Status__c</field>
+        <operation>equals</operation>
+        <value>Prospect</value>
+    </filters>
+    <filters>
+        <field>ACCOUNT.RECORDTYPE</field>
+        <operation>equals</operation>
+        <value>Account.FinServ__IndustriesIndividual</value>
+    </filters>
+    <filterScope>Everything</filterScope>
+    <label>All Customers</label>
+    <sharedTo>
+        <roleAndSubordinates>Banker_Line_Manager</roleAndSubordinates>
+        <roleAndSubordinates>Capability_Quality_C_Q_Team</roleAndSubordinates>
+        <roleAndSubordinates>Customer_Resolution_Leadership</roleAndSubordinates>
+        <roleAndSubordinates>Data_Analyst</roleAndSubordinates>
+        <roleAndSubordinates>IDR_Content_Writer</roleAndSubordinates>
+        <roleAndSubordinates>Systemic_Issue_Team</roleAndSubordinates>
+        <roleAndSubordinates>Tech_Support</roleAndSubordinates>
+    </sharedTo>
+</ListView>

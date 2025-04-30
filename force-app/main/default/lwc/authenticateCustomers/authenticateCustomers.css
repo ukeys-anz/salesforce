@@ -2,16 +2,20 @@
   min-height: 200px;
 }
 
+.card-header {
+  margin-top: 50px;
+}
+
 .card-title {
+  border-bottom: 1px solid #c9c9c9;
   background: #eef1f5;
   width: 100%;
-  min-height: 28px;
   padding: 10px;
   font-size: 14px;
-  border-radius: 0.25em;
+  border-radius: 0.25em 0.25em 0 0;
   font-weight: bold;
-  position: relative;
-  bottom: 24px;
+  position: absolute;
+  top: 0;
 }
 
 .option-selecion {

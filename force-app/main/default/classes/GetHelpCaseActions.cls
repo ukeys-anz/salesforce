@@ -11,16 +11,16 @@
   'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class GetHelpCaseActions {
-  public static final String FALSE_CUSTOMER_PROFILE_CASE_SUBJECT = 'False Onboarding';
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
   private static List<Case> notificationCaseList = new List<Case>();
   public static final String MISALIGNED_FINANCIAL_ACCOUNT_ERROR = 'Error occurred while create dispute.  There is a misalignment between customer\'s OCV ID and Financial Account';
-  public static final String SLA_BREACH = 'Breached';
-  public static final String SLA_WARNING = 'Warning';
-  public static final String SLA_BREACH_NOTIFICATION_BODY = 'Please review and ensure case is being managed by Customer Resolution Centre.';
-  public static final String SLA_WARNING_NOTIFICATION_BODY = 'Please review and action this case.';
+  public static Map<String, String> mapStatusAndMessageBody = new Map<String, String>{
+    'Warning' => 'Please review and action this case.',
+    'Warning 2' => 'Please review and action this case.',
+    'Breached' => 'Please review and ensure case is being managed by Customer Resolution Centre.'
+  };
 
   private static final ComplaintsRepository COMPLAINTS_REPOSITORY = (ComplaintsRepository) Lib_InstanceProvider.forType(
     ComplaintsRepository.class
@@ -32,9 +32,6 @@ public with sharing class GetHelpCaseActions {
     DmlRepository.class
   );
 
-  public static Group accountClosureQueue = QueryQueue.get(
-    'Account_Closure_Queue'
-  );
   public static Group cobFraudCheckQueue = QueryQueue.get(
     'COB_Fraud_Check_Queue'
   );
@@ -56,16 +53,8 @@ public with sharing class GetHelpCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Set<Id> caseIds = new Set<Id>();
     List<Case> validateCaseList = new List<Case>();
-    List<Case> caseWhoseDurationToUpdate = new List<Case>();
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      if (
-        oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
-        record.Status == GetHelpConstants.CLOSED_STATUS
-      ) {
-        caseWhoseDurationToUpdate.add(record);
-      }
-
       if (record.RecordTypeId == RTCase.generalInquiry) {
         if (
           String.isNotBlank(record.ParentId) &&
@@ -85,13 +74,6 @@ public with sharing class GetHelpCaseActions {
 
         //Checks if card token number needs to be deleted
         GetHelpCaseActionsHelper.handleCardTokenNumber(record);
-      } else if (
-        CheckCaseRecordType.isAccountClosure(record, null) &&
-        record.Status == GetHelpConstants.ESCALATED_STATUS &&
-        oldRecord.Status != GetHelpConstants.ESCALATED_STATUS
-      ) {
-        //Set owner of case to account closure queue if its set to escalated
-        record.OwnerId = accountClosureQueue.Id;
       } else if (CheckCaseRecordType.isANZPlusComplaint(record)) {
         GetHelpCaseActionsHelper.handleEntitlementForUpdate(record, oldRecord);
       } else if (
@@ -104,9 +86,10 @@ public with sharing class GetHelpCaseActions {
       }
     }
 
-    if (!caseWhoseDurationToUpdate.isEmpty()) {
-      updateCaseDurationTime(caseWhoseDurationToUpdate, (Map<Id, Case>) oldMap);
-    }
+    CommonCaseTriggerActions.updateCaseDurationTime(
+      records,
+      (Map<Id, Case>) oldMap
+    );
 
     handlePopulateCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
     CaseChangeRecordTypeController.recordTypeChangeValidation(
@@ -161,8 +144,6 @@ public with sharing class GetHelpCaseActions {
     List<Case> caseList,
     Map<Id, Case> oldCaseMap
   ) {
-    List<Case> accountClosureCases = new List<Case>();
-    Set<Id> accountIds = new Set<Id>();
     for (Case record : caseList) {
       Case oldRecord = oldCaseMap != null ? oldCaseMap.get(record.Id) : null;
       // Check for General Inquiry Cases
@@ -173,12 +154,6 @@ public with sharing class GetHelpCaseActions {
         )
       ) {
         populateGeneralEnquiryCaseSubject(record);
-      }
-
-      // Check for Fraud Cases
-      // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
-      if (CheckCaseRecordType.isFraud(record, oldRecord)) {
-        populateFraudCaseSubject(record);
       }
 
       // Check for Dispute Cases
@@ -194,26 +169,6 @@ public with sharing class GetHelpCaseActions {
       // Check for ANZx Non Customer Complaint Cases
       if (CheckCaseRecordType.isANZxNonCustomerComplaint(record, oldCaseMap)) {
         populateANZxNonCustomerComplaintCaseSubject(record);
-      }
-
-      // Check for False Customer Profile Cases
-      if (CheckCaseRecordType.isFalseCustomerProfile(record)) {
-        populateFalseCustomerProfileCaseSubject(record);
-      }
-
-      // Check for Account Closure Cases
-      if (CheckCaseRecordType.isAccountClosure(record, oldRecord)) {
-        accountClosureCases.add(record);
-        accountIds.add(record.AccountId);
-      }
-    }
-
-    if (!accountClosureCases.isEmpty()) {
-      if (PermissionUtils.canQuery('Account')) {
-        Map<Id, Account> accountList = new Map<Id, Account>(
-          [SELECT Id, Name FROM Account WHERE Id IN :accountIds]
-        );
-        populateAccountClosureCaseSubject(accountClosureCases, accountList);
       }
     }
   }
@@ -238,25 +193,6 @@ public with sharing class GetHelpCaseActions {
     //populate case subject
     if (!caseTypeList.isEmpty()) {
       record.Subject = String.join(caseTypeList, ' - ');
-    }
-  }
-
-  /**
-   * @description  This method populates subject on Fraud cases based on Record Type and Type
-   * @param record Case record from trigger
-   */
-  public static void populateFraudCaseSubject(Case record) {
-    if (String.isNotBlank(record.Type)) {
-      fetchCaseTypeLabelsByValues();
-      // Setting a different Subject format for KYC QA Cases
-      if (record.RecordTypeId == RTCase.kycQa) {
-        record.Subject = caseTypeLabelByValue.get(record.Type);
-      } else {
-        record.Subject =
-          QueryRT.of(Case.SObjectType).get(record.RecordTypeId).Name +
-          ' - ' +
-          caseTypeLabelByValue.get(record.Type);
-      }
     }
   }
 
@@ -296,14 +232,6 @@ public with sharing class GetHelpCaseActions {
       record.Type
     );
     record.Subject = 'Non-Customer Complaint - ' + typeLabel;
-  }
-
-  /**
-   * @description  This method populates False Customer Profile Case subject based on Case record type
-   * @param record Case record from trigger
-   */
-  public static void populateFalseCustomerProfileCaseSubject(Case record) {
-    record.Subject = FALSE_CUSTOMER_PROFILE_CASE_SUBJECT;
   }
 
   /**
@@ -391,22 +319,7 @@ public with sharing class GetHelpCaseActions {
       oldMap,
       caseList
     );
-
-    if (filteredCases.size() == 0) {
-      return;
-    }
-
-    Set<Id> accountIds = new Set<Id>();
-
-    accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
-      filteredCases
-    );
-    Map<Id, Id> entMap = GetHelpCaseActionsHelper.getEntitlements(
-      accountIds,
-      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
-    );
-
-    GetHelpCaseActionsHelper.updateEntitlementIdOnCase(caseList, entMap);
+    updateEntitlement(filteredCases);
   }
 
   /**
@@ -435,54 +348,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description This method updates the case duration hours field for EA for further usage
-   * when the case status is updated to closed
-   * @param records case from the trigger
-   * @param oldMap old map from the trigger
-   */
-  public static void updateCaseDurationTime(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    try {
-      Map<Id, CaseDurationObject.DurationTime> caseIdToDuration = CaseDurationService.getCaseDurationTime(
-        records,
-        (Map<Id, Case>) oldMap
-      );
-      for (Case record : records) {
-        CaseDurationObject.DurationTime duration = caseIdToDuration
-          ?.get(record.Id);
-        record.Case_Hour_Duration__c = duration
-          ?.dHours.setScale(2, RoundingMode.HALF_UP);
-      }
-    } catch (Exception e) {
-      Logger.error('Failed to calculate case duration time', e);
-      Logger.saveLog();
-    }
-  }
-
-  /**
-   * @description This method updates the case business hours field
-   * to be ANZ Plus specific
-   * @param record the record we are updating
-   */
-  private static void setBusinessHours(Case record) {
-    if (BusinessHours.SObjectType.getDescribe().isAccessible()) {
-      record.BusinessHoursId = CommonUtil.anzBusinessHours.Id;
-    }
-  }
-
-  /**
-   * @description This method masks case notes and description of issue fields
-   * to be ANZ Plus specific
-   * @param record the record we are updating
-   */
-  public static void maskTaxNumbers(Case record) {
-    TextUtils.maskAndLog(record, 'Description');
-    TextUtils.maskAndLog(record, 'Comments');
-  }
-
-  /**
    * @description Escalates the Record to CMOS IDR Everyday Banking Queue
    * @param records The record list to which we escalate
    */
@@ -492,18 +357,9 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * 1. Update business hours field to match ANZ Plus business hours
-   * 2. Mask description and comments fields if it contains sensitive information
-   * 3. Automatically assign dispute cases to relevant queues
    * @param records The record list form which we need to apply defaults
    */
   public static void applyDefaults(List<Case> records) {
-    for (Case record : records) {
-      if (CheckCaseRecordType.isANZPlusCaseType(record)) {
-        setBusinessHours(record);
-        maskTaxNumbers(record);
-      }
-    }
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
     GetHelpCaseAssignmentRules.assignUnauthenticatedEnquiryCases(records);
@@ -606,28 +462,20 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    if (!oldMap.isEmpty()) {
-      Id notificationTypeId = CommonUtil.getCustomNotificationTypeByName(
-          'Case_SLA'
-        )
-        .Id;
+    List<Case> eligibleCases = ListUtil.filter(records, oldMap)
+      .isNotNull(Case.SLA_Status__c)
+      .changed(Case.SLA_Status__c)
+      .toList();
 
-      for (Case newCase : records) {
-        if (
-          newCase.SLA_Status__c != null &&
-          !newCase.SLA_Status__c.Equals(oldMap.get(newCase.Id).SLA_Status__c)
-        ) {
-          Map<String, String> mapStatusAndMessageBody = new Map<String, String>{
-            SLA_WARNING => SLA_WARNING_NOTIFICATION_BODY,
-            SLA_BREACH => SLA_BREACH_NOTIFICATION_BODY
-          };
-          String messageBody = mapStatusAndMessageBody.get(
-            newCase.SLA_Status__c
-          );
+    Id notificationTypeId = CommonUtil.getCustomNotificationTypeByName(
+        'Case_SLA'
+      )
+      .Id;
 
-          sendSLANotificationMessage(newCase, messageBody, notificationTypeId);
-        }
-      }
+    for (Case newCase : eligibleCases) {
+      String messageBody = mapStatusAndMessageBody.get(newCase.SLA_Status__c);
+
+      sendSLANotificationMessage(newCase, messageBody, notificationTypeId);
     }
   }
 
@@ -784,20 +632,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description  This method populates Account Closure Case subject based on Case record type
-   * @param caseList Case records from trigger
-   * @param accountList List of accounts for cases
-   */
-  public static void populateAccountClosureCaseSubject(
-    List<Case> caseList,
-    Map<Id, Account> accountList
-  ) {
-    for (Case c : caseList) {
-      c.Subject = 'Account Closure - ' + accountList.get(c.AccountId).Name;
-    }
-  }
-
-  /**
    * @description Validate ownership change for credit referral cases - https://jira.anzx.service.anz/browse/ANZX-86338
    * @param records Case records from trigger
    * @param oldMap map of records id and old records
@@ -806,31 +640,40 @@ public with sharing class GetHelpCaseActions {
     List<Case> records,
     Map<Id, Case> oldMap
   ) {
-    for (Case creditRefCase : records) {
+    List<Case> creditReferalCases = ListUtil.filter(records)
+      .equals(Case.RecordTypeId, RTCase.creditReferral)
+      .toList();
+
+    Set<Id> caseOwnerIds = ListUtil.getIds(creditReferalCases, Case.OwnerId);
+
+    Set<Id> isOwnerSpecialistLender = PermissionUtils.hasAnyPermissionSets(
+      caseOwnerIds,
+      new Set<String>{ 'Specialist_Lender' }
+    );
+
+    for (Case creditRefCase : creditReferalCases) {
       Case oldCase = oldMap.get(creditRefCase.Id);
-      if (creditRefCase.RecordTypeId == RTCase.creditReferral) {
-        GetHelpCaseActionsHelper.isNoAuthorityAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCreditLeadNoAuthorityAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCreditRefAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCreditRefEdit(creditRefCase, oldCase);
-        GetHelpCaseActionsHelper.isInvalidCADQueueAssignment(
-          creditRefCase,
-          oldCase
-        );
-        GetHelpCaseActionsHelper.isInvalidCoachQueueAssignment(
-          creditRefCase,
-          oldCase
-        );
-      }
+
+      GetHelpCaseActionsHelper.isNoAuthorityAssignment(creditRefCase, oldCase);
+
+      GetHelpCaseActionsHelper.isInvalidCreditLeadNoAuthorityAssignment(
+        creditRefCase,
+        oldCase,
+        isOwnerSpecialistLender
+      );
+      GetHelpCaseActionsHelper.isInvalidCreditRefAssignment(
+        creditRefCase,
+        oldCase
+      );
+      GetHelpCaseActionsHelper.isInvalidCreditRefEdit(creditRefCase, oldCase);
+      GetHelpCaseActionsHelper.isInvalidCADQueueAssignment(
+        creditRefCase,
+        oldCase
+      );
+      GetHelpCaseActionsHelper.isInvalidCoachQueueAssignment(
+        creditRefCase,
+        oldCase
+      );
     }
   }
 

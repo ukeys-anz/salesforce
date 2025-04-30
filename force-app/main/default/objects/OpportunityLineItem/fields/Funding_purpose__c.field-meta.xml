@@ -6,7 +6,7 @@
     <description>Funding purpose</description>
     <externalId>false</externalId>
     <label>Funding purpose</label>
-    <required>true</required>
+    <required>false</required>
     <securityClassification>Internal</securityClassification>
     <type>Picklist</type>
     <valueSet>

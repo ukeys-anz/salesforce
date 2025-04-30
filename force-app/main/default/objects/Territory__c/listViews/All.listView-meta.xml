@@ -6,6 +6,7 @@
     <columns>Access_Scope__c</columns>
     <columns>Territory_Code__c</columns>
     <columns>CREATEDBY_USER</columns>
+    <columns>Status__c</columns>
     <filterScope>Everything</filterScope>
     <label>All</label>
 </ListView>

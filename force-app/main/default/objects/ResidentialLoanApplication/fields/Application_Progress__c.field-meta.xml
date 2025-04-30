@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Application_Progress__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Loan Domain</complianceGroup>
+    <description>Coach to be able to manually update this to track the progress through the application.</description>
+    <inlineHelpText>Use these statuses to help you prioritise your work and track the application&apos;s progress.</inlineHelpText>
+    <label>Application Progress</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <type>MultiselectPicklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>With Customer</fullName>
+                <default>false</default>
+                <label>With Customer</label>
+            </value>
+            <value>
+                <fullName>With Coach</fullName>
+                <default>false</default>
+                <label>With Coach</label>
+            </value>
+            <value>
+                <fullName>Tech issue / Resolve</fullName>
+                <default>false</default>
+                <label>Tech issue / Resolve</label>
+            </value>
+            <value>
+                <fullName>With Valuation</fullName>
+                <default>false</default>
+                <label>With Valuation</label>
+            </value>
+            <value>
+                <fullName>Escalated</fullName>
+                <default>false</default>
+                <label>Escalated</label>
+            </value>
+            <value>
+                <fullName>Unresponsive</fullName>
+                <default>false</default>
+                <label>Unresponsive</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+    <visibleLines>4</visibleLines>
+</CustomField>

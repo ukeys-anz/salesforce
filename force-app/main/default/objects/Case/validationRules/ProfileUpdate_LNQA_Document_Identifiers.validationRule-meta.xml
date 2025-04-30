@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>ProfileUpdate_LNQA_Document_Identifiers</fullName>
+    <active>true</active>
+    <description>Error Message to be thrown when the Review Outcome field is set to Pass and the respective document identifers for supporting documents are missing.</description>
+    <errorConditionFormula>AND(
+  ($Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false),
+  (RecordType.DeveloperName = &quot;Profile_Update&quot;),
+  ISPICKVAL(Type, &quot;Legal Name QA&quot;),
+  ISPICKVAL(Fraud_Review_Outcome__c, &quot;Pass&quot;),
+  OR(
+    AND(
+      ISPICKVAL(DocumentType__c, &quot;DOCUMENT_TYPE_AUSTRALIAN_DRIVERS_LICENCE&quot;),
+      OR(ISBLANK(LicenceCardNumber__c), ISBLANK(LicenceNumber__c))
+    ),
+    AND(
+      ISPICKVAL(DocumentType__c, &quot;DOCUMENT_TYPE_AUSTRALIAN_PASSPORT&quot;),
+      ISBLANK(PassportNumber__c)
+    ),
+    AND(
+      OR(
+        ISPICKVAL(
+          DocumentType__c,
+          &quot;DOCUMENT_TYPE_AUSTRALIAN_BIRTH_CERTIFICATE&quot;
+        ),
+        ISPICKVAL(
+          DocumentType__c,
+          &quot;DOCUMENT_TYPE_AUSTRALIAN_CHANGE_OF_NAME_CERTIFICATE&quot;
+        ),
+        ISPICKVAL(
+          DocumentType__c,
+          &quot;DOCUMENT_TYPE_AUSTRALIAN_MARRIAGE_CERTIFICATE&quot;
+        )
+      ),
+      ISBLANK(CertificateIdentifier__c)
+    )
+  )
+)</errorConditionFormula>
+    <errorMessage>Supporting Document identifiers are missing, please check the supporting document section and fill them.</errorMessage>
+</ValidationRule>

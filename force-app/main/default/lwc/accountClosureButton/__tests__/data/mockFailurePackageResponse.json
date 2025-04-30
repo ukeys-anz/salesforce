@@ -1,0 +1,9 @@
+{
+  "accountsClosed": 2,
+  "cardsClosed": 1,
+  "packagesClosed": 0,
+  "errorInfo": {
+    "errorCode": 101,
+    "reason": "error"
+  }
+}

@@ -4,5 +4,7 @@ trigger AccountTrigger on Account(
   after insert,
   after update
 ) {
+  BusinessAccountTriggerHandler businessAccountHandler = new BusinessAccountTriggerHandler();
+  IndividualAccountTriggerHandler individualAccountHandler = new IndividualAccountTriggerHandler();
   AccountTriggerHandler handler = new AccountTriggerHandler();
 }

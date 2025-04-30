@@ -37,7 +37,7 @@ public with sharing class CCRMCreatePartyService extends Service {
     headers.put('x-correlation-id', UniqueIdUtil.getTraceId());
     headers.put(
       'Authorization',
-      'Bearer ' + CCRMARNCService.generateJWTToken()
+      'Bearer ' + ARNCService.generateJWTToken()
     );
     String endPoint = Label.MS_Create_Party;
     return calloutService.makeRestCallout(

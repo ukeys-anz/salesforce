@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>This permission set is to grant edit access on the Relationship to Franchise field on the Customer Relationship object.</description>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>Customer_Relationship__c.Relationship_To_Franchise__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Edit Customer Relationship</label>
+</PermissionSet>

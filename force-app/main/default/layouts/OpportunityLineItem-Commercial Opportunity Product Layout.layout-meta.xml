@@ -18,7 +18,7 @@
                 <emptySpace>true</emptySpace>
             </layoutItems>
             <layoutItems>
-                <behavior>Required</behavior>
+                <behavior>Edit</behavior>
                 <field>Funding_purpose__c</field>
             </layoutItems>
             <layoutItems>

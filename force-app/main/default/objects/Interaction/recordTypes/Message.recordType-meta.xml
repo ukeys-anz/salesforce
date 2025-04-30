@@ -179,6 +179,14 @@
             <fullName>Non Product Related</fullName>
             <default>false</default>
         </values>
+        <values>
+            <fullName>Sole ANZ Plus Online Saver</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Joint ANZ Plus Online Saver</fullName>
+            <default>false</default>
+        </values>
     </picklistValues>
     <picklistValues>
         <picklist>Referred_To__c</picklist>

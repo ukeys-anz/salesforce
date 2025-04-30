@@ -14,7 +14,8 @@ ISCHANGED(LastName),
 ISCHANGED(MiddleName),
 ISCHANGED(Suffix),
 ISCHANGED(Suffix__pc),
-ISCHANGED(PersonTitle))
+ISCHANGED(PersonTitle)),
+OCV_Event_Version__c &lt;&gt; 0
 )</errorConditionFormula>
     <errorMessage>Customer Name cannot be updated.</errorMessage>
 </ValidationRule>

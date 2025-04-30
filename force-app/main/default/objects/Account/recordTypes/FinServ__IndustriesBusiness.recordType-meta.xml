@@ -688,14 +688,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>241200</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>241400</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>242100</fullName>
             <default>false</default>
         </values>
@@ -717,10 +709,6 @@
         </values>
         <values>
             <fullName>252000</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>252312</fullName>
             <default>false</default>
         </values>
         <values>
@@ -760,10 +748,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>271311</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>272000</fullName>
             <default>false</default>
         </values>
@@ -800,10 +784,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>399411</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>410000</fullName>
             <default>false</default>
         </values>
@@ -812,15 +792,7 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>431111</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>431311</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>431511</fullName>
             <default>false</default>
         </values>
         <values>
@@ -833,10 +805,6 @@
         </values>
         <values>
             <fullName>441111</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>441312</fullName>
             <default>false</default>
         </values>
         <values>
@@ -936,14 +904,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>731112</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>731211</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>810000</fullName>
             <default>false</default>
         </values>
@@ -972,23 +932,11 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>99910</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>99920</fullName>
             <default>false</default>
         </values>
         <values>
             <fullName>99950</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>99960</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>99970</fullName>
             <default>false</default>
         </values>
         <values>

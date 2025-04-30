@@ -6,6 +6,39 @@
  */
 @isTest
 public with sharing class CCRMAPIRepositoryTest {
+  static Lib_MockProvider maintainPartyService;
+
+  static void registerMocks() {
+    maintainPartyService = Lib_MockProvider.forType(MaintainPartyService.class);
+  }
+
+  static Lead getLeadRecord() {
+    Industry__c industryRec = new Industry__c(
+      Id = Lib_FakeIdGenerator.getMockId(Industry__c.SObjectType),
+      Code__c = '0011'
+    );
+    Lead leadRec = new Lead(
+      Id = Lib_FakeIdGenerator.getMockId(Lead.SObjectType),
+      Entity_Type__c = '04',
+      Industry__r = industryRec,
+      Company = 'ABC',
+      Email = 'abc@ml.anz.com',
+      Work_Phone__c = '+61412345378',
+      MobilePhone = '+61412345378',
+      FirstName = 'John',
+      LastName = 'Doe',
+      Title__c = 'Mr',
+      ABN__c = '11111111111',
+      Is_Valid_Address__c = true,
+      Street = 'Street',
+      City = 'City',
+      State = 'State',
+      PostalCode = '110050',
+      Country = 'Country'
+    );
+    return leadRec;
+  }
+
   @isTest
   static void testGetValidateAbn() {
     CCRMAPIRepository apiRepo = new CCRMAPIRepository();
@@ -57,22 +90,6 @@ public with sharing class CCRMAPIRepositoryTest {
       '1234567891',
       createPartyInfo.capcisId,
       'The returned capcisId does not match'
-    );
-  }
-
-  @isTest
-  static void testMaintainParty() {
-    CCRMAPIRepository apiRepo = new CCRMAPIRepository();
-    OCVRequestPayloadWrapper ocvRequest = new OCVRequestPayloadWrapper();
-    DCRMMaintainPartyModel maintainPartyResponse = apiRepo.maintainParty(
-      ocvRequest
-    );
-
-    // Verify response received contains fake values from mock_dcrmMaintainPartyModel
-    System.assertEquals(
-      '8019989879',
-      maintainPartyResponse.ocvId,
-      'The returned ocvId does not match'
     );
   }
 
@@ -136,7 +153,7 @@ public with sharing class CCRMAPIRepositoryTest {
   static void testvalidateManualAddressesV3LWC() {
     CCRMValidateManualAddressModel getAddressesLWC = MLCRMAPIRepository.validateManualAddressesV3LWC(
       'VIC',
-       3000,
+      3000,
       'MELBOURNE'
     );
 
@@ -145,6 +162,62 @@ public with sharing class CCRMAPIRepositoryTest {
       null,
       getAddressesLWC.result,
       'The Suburb, State and Postcode information provided is invalid. Please check the address entered and try again.'
+    );
+  }
+
+  @IsTest
+  static void testmaintainPartyOrganisationSuccess() {
+    registerMocks();
+    //GIVEN Lead record and request wrapper
+    Lead leadRecord = getLeadRecord();
+    CommercialLeadConversionHelper commercialLeadConvHelper = new CommercialLeadConversionHelper();
+    OCVRequestPayloadWrapper ocvRequest = commercialLeadConvHelper.getRequestRecordOrganization(
+      leadRecord
+    );
+
+    HttpCalloutResponse response = new MaintainPartyServiceMock()
+      .maintainPartyOrganisation(null);
+
+    maintainPartyService.mock('maintainPartyOrganisation', response);
+
+    //WHEN calling a method
+    MaintainPartyModel result = new CCRMAPIRepository()
+      .maintainPartyOrganisation(ocvRequest);
+
+    //THEN assert should return true
+    Assert.isNotNull(result, 'Response not successful');
+  }
+
+  @IsTest
+  static void testmaintainPartyOrganisationError() {
+    registerMocks();
+    //GIVEN  unsuccessful response, Opp rec
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.body = '{"data": {"responseMessage" : "", "isSuccessful":false} }';
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+    errorResponse.error = new CalloutException('Error');
+
+    Lead leadRecord = getLeadRecord();
+    CommercialLeadConversionHelper commercialLeadConvHelper = new CommercialLeadConversionHelper();
+    OCVRequestPayloadWrapper ocvRequest = commercialLeadConvHelper.getRequestRecordOrganization(
+      leadRecord
+    );
+
+    maintainPartyService.mock('maintainPartyOrganisation', errorResponse);
+    Exception ex;
+
+    //WHEN calling a method
+    try {
+      new CCRMAPIRepository().maintainPartyOrganisation(ocvRequest);
+    } catch (Exception e) {
+      ex = e;
+    }
+
+    //THEN assert should return true
+    Assert.isTrue(
+      ex instanceof System.CalloutException,
+      'Exception should be thrown.'
     );
   }
 }

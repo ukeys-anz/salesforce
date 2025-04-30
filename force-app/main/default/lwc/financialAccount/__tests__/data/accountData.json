@@ -1,0 +1,115 @@
+[
+  {
+    "paidOff": 1,
+    "account_name": "Joe Root",
+    "account_number": "111111111",
+    "balances": {
+      "account_limit": {
+        "currency_code": "AUD"
+      },
+      "available_limit": {
+        "currency_code": "AUD",
+        "units": "1"
+      },
+      "balance": {
+        "currency_code": "AUD",
+        "units": "1",
+        "value": 1
+      },
+      "balance_up_to_date": true,
+      "balance_update_time": "2023-10-09T02:55:17.329583Z",
+      "current_balance": {
+        "currency_code": "AUD",
+        "units": "1",
+        "value": 1
+      },
+      "ledger_balance": {
+        "currency_code": "AUD",
+        "units": "1"
+      }
+    },
+    "bsb": "014111",
+    "deposit_details": {
+      "bucket_count": 107,
+      "debit_interest_details": {
+        "interest_rate": {
+          "rate_with_excess_points": 0,
+          "rate_with_margin": 0.35
+        }
+      },
+      "deposit_rate": 3,
+      "details_up_to_date": true,
+      "tiered_rates": [
+        {
+          "from_operator": ">=",
+          "tiers": [
+            {
+              "max": {
+                "currency_code": "AUD"
+              },
+              "min": {
+                "currency_code": "AUD",
+                "nanos": -990000000,
+                "units": "-999999999"
+              }
+            },
+            {
+              "max": {
+                "currency_code": "AUD",
+                "units": "250000"
+              },
+              "min": {
+                "currency_code": "AUD"
+              },
+              "rate": 3
+            },
+            {
+              "max": {
+                "currency_code": "AUD",
+                "nanos": 990000000,
+                "units": "999999999"
+              },
+              "min": {
+                "currency_code": "AUD",
+                "units": "250000"
+              },
+              "rate": 0.05
+            }
+          ],
+          "to_operator": "<"
+        }
+      ],
+      "valid_at": "2023-10-09T02:54:39.999Z"
+    },
+    "finserv_opendate": "2016-09-21",
+    "finserv_ownership": "Single",
+    "finserv_product_name": "01t2P000000GKTmQAO",
+    "finserv_status": "Active",
+    "id": "a0FAD000002kIFJ2A2",
+    "name": "accounts/111111111",
+    "open_date": {
+      "value": "2016-9-21"
+    },
+    "operations": [
+      "OPERATION_TYPE_TRANSFER_FROM",
+      "OPERATION_TYPE_TRANSFER_TO"
+    ],
+    "ownership": {
+      "type": "OWNERSHIP_TYPE_SINGLEPARTY"
+    },
+    "product_details": {
+      "marketing_code": "SAVING01",
+      "name": "ANZ Save",
+      "product_code": "CAP-CIS:DDA",
+      "sub_product_code": "CAP-CIS:DDAXD",
+      "transact_options": [
+        "TRANSFER_FROM",
+        "TRANSFER_TO",
+        "DIRECT_DEBIT",
+        "ROUNDUP_TO",
+        "PAYTO"
+      ]
+    },
+    "state": "ACCOUNT_STATE_ACTIVE"
+  }
+]

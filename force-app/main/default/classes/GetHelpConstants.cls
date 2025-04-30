@@ -4,6 +4,10 @@
  * @description  GetHelpConstants consists of all the GetHelp constants
  */
 public with sharing class GetHelpConstants {
+  private static final FinancialAccountRepository FINANCIAL_ACCOUNT_REPOSITORY = (FinancialAccountRepository) Lib_InstanceProvider.forType(
+    FinancialAccountRepository.class
+  );
+
   //Case - ANZx Dispute Case RT Ids
   public static final Id GENERAL_INQUIRY_RT_ID = Schema.SObjectType.Case.getRecordTypeInfosByDeveloperName()
     .get('General_Inquiry')
@@ -102,15 +106,6 @@ public with sharing class GetHelpConstants {
     .getRecordTypeId();
 
   public static final String S2_ACCOUNT_MARKETING_CODE = 'SAVING02';
-
-  //Financial Account marketing code values
-  public static final List<String> ANZX_MARKETING_CODES = new List<String>{
-    'TRANSACT01',
-    'SAVING01',
-    'SAVING02',
-    'HLVAR01',
-    'HLFXD01'
-  };
 
   public static final List<String> HOME_LOAN_MARKETING_CODES = new List<String>{
     'HLVAR01',
@@ -264,6 +259,9 @@ public with sharing class GetHelpConstants {
   //ANZx Case Sub Status
   public static final String CLOSED_SUB_STATUS_NO_DEFECT = 'No Defect';
   public static final String CLOSED_SUB_STATUS_NO_LONGER_REQUIRED = 'No Longer Required';
+  public static final String PROCESSING = 'Processing';
+  public static final String FAILED = 'Failed';
+  public static final String SUCCESS = 'Success';
   // Case Origins
   public static final String ANZ_PLUS_WEB_ORIGIN = 'ANZ Plus Web';
   // Case Origins for Self Service Dispute Cases
@@ -277,6 +275,8 @@ public with sharing class GetHelpConstants {
   // ANZX Case Type
   public static final String MANUAL_ADDRESS_UPDATE_TYPE = 'Manual Address Update';
   public static final String RESIDENTIAL_ADDRESS_QA = 'Residential Address QA';
+  public static final String ACCOUNT_CLOSURE = 'Account Closure';
+  public static final String CASE_GROUP = 'Case Group';
 
   // Dispute Business Hour Name
   public static final String ANZ_DISPUTE_BUSINESS_HOUR_NAME = 'ANZx Case Business Hours';
@@ -370,6 +370,23 @@ public with sharing class GetHelpConstants {
         anzxFinancialAccountRecordTypes.add(CHECKING_ACCOUNT_RT_APINAME);
       }
       return anzxFinancialAccountRecordTypes;
+    }
+    private set;
+  }
+
+  /**
+   * @description fetch ANZx financial account record types
+   * @return Set<String> financial account record types developer name
+   */
+  public static Set<String> anzxMarketingCodes {
+    get {
+      if (anzxMarketingCodes == null) {
+        anzxMarketingCodes = new Set<String>();
+        anzxMarketingCodes.addAll(
+          QueryFinancialAccountUIConfig.configByProductCode.keySet()
+        );
+      }
+      return anzxMarketingCodes;
     }
     private set;
   }

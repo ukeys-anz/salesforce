@@ -17,6 +17,7 @@ public class RTCase {
   public static Id creditReferral = base.getId('Credit_Referral');
   public static Id customerComplaint = base.getId('Customer_Complaint');
   public static Id customerFeedback = base.getId('Customer_Feedback');
+  public static Id caseGroup = base.getId('Case_Group');
   public static Id directDebitDispute = base.getId('Direct_Debit_Dispute');
   public static Id directEntryDispute = base.getId('Direct_Entry_Dispute');
   public static Id falseCustomerProfile = base.getId('False_Customer_Profile');
@@ -36,4 +37,16 @@ public class RTCase {
   public static Id scam = base.getId('Scam');
   public static Id selfieRecovery = base.getId('Selfie_Recovery');
   public static Id systemicIssue = base.getId('Systemic_Issue');
+  public static Id confirmationOfPayee = base.getId('Confirmation_Of_Payee');
+  public static Id trustMeQA = base.getId('TrustMe_eIDV_QA_Case');
+  public static Id trustMeManualReview = base.getId('TrustMe_eIDV_Case');
+
+  /**
+   * @description Get the record type info for a given record type id
+   * @param recordTypeId The record type id
+   * @return The record type info
+   */
+  public static RecordTypeInfo get(Id recordTypeId) {
+    return base.get(recordTypeId);
+  }
 }

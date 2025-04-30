@@ -39,29 +39,6 @@ private class CCRMContactPointEmailActionsTest {
     CCRMTestDataFactory.createAccountShare(prospectAccount.Id, ccrmBaseUser.Id);
     CCRMTestDataFactory.createAccountShare(activeAccount.Id, ccrmBaseUser.Id);
   }
-  @IsTest
-  static void testUpdateRelatedRecord() {
-    //Given when creates a new record
-    ContactPointEmail cpe = [
-      SELECT Id, ActiveToDate
-      FROM ContactPointEmail
-      WHERE Customer_Name__r.Is_Prospect__c = TRUE
-      LIMIT 1
-    ];
-    //WHEN That ContactPointEmail is updated
-    Test.startTest();
-    System.runAs(CCRMTestDataFactory.getCCRMBaseUser()) {
-      cpe.ActiveToDate = date.today();
-      update cpe;
-    }
-    Test.stopTest();
-
-    System.assertEquals(
-      null,
-      [SELECT ParentId FROM ContactPointEmail WHERE Id = :cpe.Id].ParentId,
-      'Email should not appear'
-    );
-  }
 
   @IsTest
   static void testTrackChangedFields() {

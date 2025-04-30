@@ -11,13 +11,9 @@
     <trackFeedHistory>false</trackFeedHistory>
     <type>Picklist</type>
     <valueSet>
+        <controllingField>Employment_Type__c</controllingField>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value>
-                <fullName>99910</fullName>
-                <default>false</default>
-                <label>Student</label>
-            </value>
             <value>
                 <fullName>99920</fullName>
                 <default>false</default>
@@ -32,16 +28,6 @@
                 <fullName>99950</fullName>
                 <default>false</default>
                 <label>House wife/husband</label>
-            </value>
-            <value>
-                <fullName>99960</fullName>
-                <default>false</default>
-                <label>Retired</label>
-            </value>
-            <value>
-                <fullName>99970</fullName>
-                <default>false</default>
-                <label>Unemployed</label>
             </value>
             <value>
                 <fullName>99980</fullName>
@@ -234,16 +220,6 @@
                 <label>Early Childhood (Pre-primary School) Teacher</label>
             </value>
             <value>
-                <fullName>241200</fullName>
-                <default>false</default>
-                <label>Primary School Teacher</label>
-            </value>
-            <value>
-                <fullName>241400</fullName>
-                <default>false</default>
-                <label>Secondary School Teacher</label>
-            </value>
-            <value>
                 <fullName>242100</fullName>
                 <default>false</default>
                 <label>University Lecturers and Tutors</label>
@@ -272,11 +248,6 @@
                 <fullName>252000</fullName>
                 <default>false</default>
                 <label>Other Health Therapy Professionals</label>
-            </value>
-            <value>
-                <fullName>252312</fullName>
-                <default>false</default>
-                <label>Dentist</label>
             </value>
             <value>
                 <fullName>253000</fullName>
@@ -324,11 +295,6 @@
                 <label>Magistrate</label>
             </value>
             <value>
-                <fullName>271311</fullName>
-                <default>false</default>
-                <label>Solicitor</label>
-            </value>
-            <value>
                 <fullName>272000</fullName>
                 <default>false</default>
                 <label>Social and Welfare Professionals</label>
@@ -374,11 +340,6 @@
                 <label>Other Technicians and Trades Workers</label>
             </value>
             <value>
-                <fullName>399411</fullName>
-                <default>false</default>
-                <label>Jeweller</label>
-            </value>
-            <value>
                 <fullName>410000</fullName>
                 <default>false</default>
                 <label>Health and Welfare Support Workers</label>
@@ -389,19 +350,9 @@
                 <label>Carers and Aides</label>
             </value>
             <value>
-                <fullName>431111</fullName>
-                <default>false</default>
-                <label>Bar Attendant</label>
-            </value>
-            <value>
                 <fullName>431311</fullName>
                 <default>false</default>
                 <label>Gaming Worker</label>
-            </value>
-            <value>
-                <fullName>431511</fullName>
-                <default>false</default>
-                <label>Waiter</label>
             </value>
             <value>
                 <fullName>431900</fullName>
@@ -417,11 +368,6 @@
                 <fullName>441111</fullName>
                 <default>false</default>
                 <label>Defence Force Member - Other Ranks</label>
-            </value>
-            <value>
-                <fullName>441312</fullName>
-                <default>false</default>
-                <label>Police Officer</label>
             </value>
             <value>
                 <fullName>451600</fullName>
@@ -544,16 +490,6 @@
                 <label>OTHER MACHINERY OPERATORS AND DRIVERS</label>
             </value>
             <value>
-                <fullName>731112</fullName>
-                <default>false</default>
-                <label>Taxi Driver</label>
-            </value>
-            <value>
-                <fullName>731211</fullName>
-                <default>false</default>
-                <label>Bus Driver</label>
-            </value>
-            <value>
                 <fullName>810000</fullName>
                 <default>false</default>
                 <label>Cleaners and Laundry Workers</label>
@@ -584,80 +520,1030 @@
                 <label>Other Labourers</label>
             </value>
             <value>
-                <fullName>0014</fullName>
-                <default>false</default>
-                <label>SPECIALIST EXECUTIVE CONSULTANT</label>
-            </value>
-            <value>
                 <fullName>Unknown</fullName>
                 <default>false</default>
                 <label>Unknown</label>
             </value>
             <value>
-                <fullName>0015</fullName>
+                <fullName>0030</fullName>
                 <default>false</default>
-                <label>OTHER PROFESSIONAL</label>
+                <label>Account/Payroll Clerk</label>
             </value>
             <value>
-                <fullName>0028</fullName>
+                <fullName>0001</fullName>
                 <default>false</default>
-                <label>OTHER TECHNICAL</label>
+                <label>Accountant (Chartered)</label>
             </value>
             <value>
-                <fullName>0034</fullName>
+                <fullName>0002</fullName>
                 <default>false</default>
-                <label>KEY PUNCH OPERATOR</label>
+                <label>Accountant (Other, Except Book-Keeper)</label>
             </value>
             <value>
-                <fullName>0054</fullName>
+                <fullName>0003</fullName>
                 <default>false</default>
-                <label>TAILOR</label>
+                <label>Architect</label>
             </value>
             <value>
-                <fullName>0060</fullName>
+                <fullName>0055</fullName>
                 <default>false</default>
-                <label>WAREHOUSEMAN</label>
+                <label>Baker</label>
+            </value>
+            <value>
+                <fullName>0031</fullName>
+                <default>false</default>
+                <label>Bank Teller</label>
+            </value>
+            <value>
+                <fullName>0068</fullName>
+                <default>false</default>
+                <label>Bar Attendant</label>
             </value>
             <value>
                 <fullName>0064</fullName>
                 <default>false</default>
-                <label>BEAUTICIAN</label>
+                <label>Beautician</label>
             </value>
             <value>
-                <fullName>0065</fullName>
+                <fullName>0032</fullName>
                 <default>false</default>
-                <label>HAIRDRESSER</label>
+                <label>Book-Keeper</label>
+            </value>
+            <value>
+                <fullName>0046</fullName>
+                <default>false</default>
+                <label>Bricklayer</label>
+            </value>
+            <value>
+                <fullName>0061</fullName>
+                <default>false</default>
+                <label>Builder&apos;s Labourer</label>
+            </value>
+            <value>
+                <fullName>0073</fullName>
+                <default>false</default>
+                <label>Bus Driver</label>
+            </value>
+            <value>
+                <fullName>0056</fullName>
+                <default>false</default>
+                <label>Butcher</label>
+            </value>
+            <value>
+                <fullName>0047</fullName>
+                <default>false</default>
+                <label>Carpenter</label>
+            </value>
+            <value>
+                <fullName>0033</fullName>
+                <default>false</default>
+                <label>Cashier</label>
+            </value>
+            <value>
+                <fullName>0043</fullName>
+                <default>false</default>
+                <label>Check Out Operator</label>
+            </value>
+            <value>
+                <fullName>0026</fullName>
+                <default>false</default>
+                <label>Computer Programmer/Technician</label>
+            </value>
+            <value>
+                <fullName>0027</fullName>
+                <default>false</default>
+                <label>Data Analyst/Research Assistant</label>
+            </value>
+            <value>
+                <fullName>0074</fullName>
+                <default>false</default>
+                <label>Delivery/Courier Driver</label>
             </value>
             <value>
                 <fullName>0067</fullName>
                 <default>false</default>
-                <label>DENTAL ASSISTANT</label>
+                <label>Dental Assistant</label>
             </value>
             <value>
-                <fullName>0070</fullName>
+                <fullName>0004</fullName>
                 <default>false</default>
-                <label>USHER</label>
+                <label>Dentist</label>
             </value>
             <value>
-                <fullName>0071</fullName>
+                <fullName>0005</fullName>
                 <default>false</default>
-                <label>PORTER</label>
+                <label>Doctor/Specialist/Surgeon</label>
             </value>
             <value>
-                <fullName>0075</fullName>
+                <fullName>0048</fullName>
                 <default>false</default>
-                <label>OTHER SERVICE WORKER</label>
+                <label>Electrician</label>
+            </value>
+            <value>
+                <fullName>0006</fullName>
+                <default>false</default>
+                <label>Engineer</label>
+            </value>
+            <value>
+                <fullName>0059</fullName>
+                <default>false</default>
+                <label>Factory Worker</label>
+            </value>
+            <value>
+                <fullName>0078</fullName>
+                <default>false</default>
+                <label>Farm Labourer</label>
+            </value>
+            <value>
+                <fullName>0077</fullName>
+                <default>false</default>
+                <label>Farm Manager</label>
+            </value>
+            <value>
+                <fullName>0076</fullName>
+                <default>false</default>
+                <label>Farm Owner</label>
+            </value>
+            <value>
+                <fullName>0007</fullName>
+                <default>false</default>
+                <label>Financial Controller/Investment Advisor</label>
+            </value>
+            <value>
+                <fullName>0045</fullName>
+                <default>false</default>
+                <label>Foreman</label>
+            </value>
+            <value>
+                <fullName>0065</fullName>
+                <default>false</default>
+                <label>Hairdresser</label>
+            </value>
+            <value>
+                <fullName>0081</fullName>
+                <default>false</default>
+                <label>Homemaker/Domestic Duties</label>
+            </value>
+            <value>
+                <fullName>0039</fullName>
+                <default>false</default>
+                <label>Insurance Broker/Agent</label>
+            </value>
+            <value>
+                <fullName>0049</fullName>
+                <default>false</default>
+                <label>Jeweller</label>
+            </value>
+            <value>
+                <fullName>0009</fullName>
+                <default>false</default>
+                <label>Journalist</label>
+            </value>
+            <value>
+                <fullName>0034</fullName>
+                <default>false</default>
+                <label>Key Punch Operator</label>
+            </value>
+            <value>
+                <fullName>0008</fullName>
+                <default>false</default>
+                <label>Lawyer</label>
+            </value>
+            <value>
+                <fullName>0025</fullName>
+                <default>false</default>
+                <label>Lower Level Manager/Administrator</label>
+            </value>
+            <value>
+                <fullName>0050</fullName>
+                <default>false</default>
+                <label>Mechanic</label>
+            </value>
+            <value>
+                <fullName>0024</fullName>
+                <default>false</default>
+                <label>Middle Level Manager/Administrator</label>
+            </value>
+            <value>
+                <fullName>0080</fullName>
+                <default>false</default>
+                <label>Military/Armed Forces Personnel</label>
+            </value>
+            <value>
+                <fullName>0010</fullName>
+                <default>false</default>
+                <label>Nurse</label>
+            </value>
+            <value>
+                <fullName>0066</fullName>
+                <default>false</default>
+                <label>Nursing Aide</label>
+            </value>
+            <value>
+                <fullName>0035</fullName>
+                <default>false</default>
+                <label>Office Clerk</label>
             </value>
             <value>
                 <fullName>0084</fullName>
                 <default>false</default>
-                <label>OTHER</label>
+                <label>Other</label>
+            </value>
+            <value>
+                <fullName>0038</fullName>
+                <default>false</default>
+                <label>Other Clerical</label>
+            </value>
+            <value>
+                <fullName>0015</fullName>
+                <default>false</default>
+                <label>Other Professional</label>
+            </value>
+            <value>
+                <fullName>0044</fullName>
+                <default>false</default>
+                <label>Other Sales</label>
+            </value>
+            <value>
+                <fullName>0075</fullName>
+                <default>false</default>
+                <label>Other Service Worker</label>
+            </value>
+            <value>
+                <fullName>0022</fullName>
+                <default>false</default>
+                <label>Other Teacher</label>
+            </value>
+            <value>
+                <fullName>0028</fullName>
+                <default>false</default>
+                <label>Other Technical</label>
+            </value>
+            <value>
+                <fullName>0057</fullName>
+                <default>false</default>
+                <label>Other Tradesperson</label>
+            </value>
+            <value>
+                <fullName>0063</fullName>
+                <default>false</default>
+                <label>Other Worker/Labourer</label>
+            </value>
+            <value>
+                <fullName>0051</fullName>
+                <default>false</default>
+                <label>Painter</label>
+            </value>
+            <value>
+                <fullName>0011</fullName>
+                <default>false</default>
+                <label>Pharmacist</label>
+            </value>
+            <value>
+                <fullName>0052</fullName>
+                <default>false</default>
+                <label>Plasterer</label>
+            </value>
+            <value>
+                <fullName>0053</fullName>
+                <default>false</default>
+                <label>Plumber</label>
+            </value>
+            <value>
+                <fullName>0079</fullName>
+                <default>false</default>
+                <label>Police Officer</label>
+            </value>
+            <value>
+                <fullName>0071</fullName>
+                <default>false</default>
+                <label>Porter</label>
+            </value>
+            <value>
+                <fullName>0037</fullName>
+                <default>false</default>
+                <label>Postal Service Worker</label>
+            </value>
+            <value>
+                <fullName>0016</fullName>
+                <default>false</default>
+                <label>Pre-School Teacher</label>
+            </value>
+            <value>
+                <fullName>0017</fullName>
+                <default>false</default>
+                <label>Primary School Teacher</label>
+            </value>
+            <value>
+                <fullName>0040</fullName>
+                <default>false</default>
+                <label>Real Estate Agent/Manager</label>
+            </value>
+            <value>
+                <fullName>0036</fullName>
+                <default>false</default>
+                <label>Receptionist/Telephone Operator</label>
+            </value>
+            <value>
+                <fullName>0021</fullName>
+                <default>false</default>
+                <label>Remedial/Other Specialist Teacher</label>
+            </value>
+            <value>
+                <fullName>0083</fullName>
+                <default>false</default>
+                <label>Retired</label>
+            </value>
+            <value>
+                <fullName>0042</fullName>
+                <default>false</default>
+                <label>Sales Assistant</label>
+            </value>
+            <value>
+                <fullName>0041</fullName>
+                <default>false</default>
+                <label>Sales Representative</label>
+            </value>
+            <value>
+                <fullName>0018</fullName>
+                <default>false</default>
+                <label>Secondary School Teacher</label>
+            </value>
+            <value>
+                <fullName>0029</fullName>
+                <default>false</default>
+                <label>Secretary</label>
+            </value>
+            <value>
+                <fullName>0023</fullName>
+                <default>false</default>
+                <label>Senior Level Manager/Administrator</label>
             </value>
             <value>
                 <fullName>0086</fullName>
                 <default>false</default>
-                <label>SMALL BUSINESS PROPRIETOR</label>
+                <label>Small Business Proprietor</label>
+            </value>
+            <value>
+                <fullName>0012</fullName>
+                <default>false</default>
+                <label>Solicitor</label>
+            </value>
+            <value>
+                <fullName>0014</fullName>
+                <default>false</default>
+                <label>Specialist Executive Consultant</label>
+            </value>
+            <value>
+                <fullName>0013</fullName>
+                <default>false</default>
+                <label>Stockbroker</label>
+            </value>
+            <value>
+                <fullName>0082</fullName>
+                <default>false</default>
+                <label>Student</label>
+            </value>
+            <value>
+                <fullName>0019</fullName>
+                <default>false</default>
+                <label>Tafe Teacher</label>
+            </value>
+            <value>
+                <fullName>0054</fullName>
+                <default>false</default>
+                <label>Tailor</label>
+            </value>
+            <value>
+                <fullName>0072</fullName>
+                <default>false</default>
+                <label>Taxi Driver</label>
+            </value>
+            <value>
+                <fullName>0020</fullName>
+                <default>false</default>
+                <label>Tertiary Teacher</label>
+            </value>
+            <value>
+                <fullName>0058</fullName>
+                <default>false</default>
+                <label>Tradesperson&apos;s Assistant</label>
+            </value>
+            <value>
+                <fullName>0062</fullName>
+                <default>false</default>
+                <label>Truck Driver</label>
+            </value>
+            <value>
+                <fullName>0085</fullName>
+                <default>false</default>
+                <label>Unemployed</label>
+            </value>
+            <value>
+                <fullName>0070</fullName>
+                <default>false</default>
+                <label>Usher</label>
+            </value>
+            <value>
+                <fullName>0069</fullName>
+                <default>false</default>
+                <label>Waiter</label>
+            </value>
+            <value>
+                <fullName>0060</fullName>
+                <default>false</default>
+                <label>Warehouseman</label>
             </value>
         </valueSetDefinition>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0030</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0001</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0002</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0003</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0055</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0031</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0068</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0064</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0032</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0046</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0061</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0073</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0056</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0047</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0033</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0043</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0026</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0027</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0074</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0067</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0004</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0005</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0048</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0006</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0059</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0078</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0077</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0076</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0007</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0045</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0065</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0039</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0049</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0009</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0034</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0008</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0025</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0050</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0024</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0080</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0010</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0066</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0035</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0084</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0038</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0015</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0044</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0075</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0022</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0028</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0057</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0063</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0051</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0011</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0052</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0053</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0079</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0071</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0037</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0016</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0017</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0040</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0036</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0021</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0042</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0041</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0018</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0029</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0023</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0086</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0012</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0014</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0013</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0019</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0054</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0072</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0020</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0058</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0062</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0070</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0069</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Casual</controllingFieldValue>
+            <controllingFieldValue>Contractor/Consultant</controllingFieldValue>
+            <controllingFieldValue>Full-time</controllingFieldValue>
+            <controllingFieldValue>Part-time</controllingFieldValue>
+            <valueName>0060</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Student</controllingFieldValue>
+            <valueName>0082</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Unemployed</controllingFieldValue>
+            <valueName>0085</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Retired/Pensioner</controllingFieldValue>
+            <valueName>0083</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Homemaker</controllingFieldValue>
+            <valueName>0081</valueName>
+        </valueSettings>
     </valueSet>
 </CustomField>

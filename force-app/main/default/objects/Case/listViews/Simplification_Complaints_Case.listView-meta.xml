@@ -11,10 +11,10 @@
     <filters>
         <field>Queue__c</field>
         <operation>equals</operation>
-        <value>Simplification Complaints</value>
+        <value>IDR Simplification</value>
     </filters>
     <filterScope>Everything</filterScope>
-    <label>Simplification Complaints</label>
+    <label>IDR Simplification</label>
     <sharedTo>
         <allInternalUsers/>
     </sharedTo>

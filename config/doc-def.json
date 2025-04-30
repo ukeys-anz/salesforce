@@ -106,14 +106,6 @@
     "Title_Detail__c",
     "Twilio_Details__c",
     "Traced_Application_Log__b",
-    "trailheadapp__Badge__c",
-    "trailheadapp__Debug_Log__c",
-    "trailheadapp__Trail__c",
-    "trailheadapp__Trailhead_User_Data__c",
-    "trailheadapp__Trailmix__c",
-    "trailheadapp__Trailmix_Assignment__c",
-    "trailheadapp__User_Badge__c",
-    "trailheadapp__User_Trailmix__c",
     "User",
     "User_Territory__c"
   ],
@@ -738,6 +730,18 @@
       "type": "system"
     },
     {
+      "name": "ServiceNow API User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "API_Only",
+        "Disable_MFA",
+        "Password_Never_Expires",
+        "Case_Read_Write_SNow_Integration"
+      ],
+      "type": "system"
+    },
+    {
       "name": "Settlement Officer",
       "profile": "ANZx Standard User",
       "permissionsetgroups": ["Settlement_Officer"],
@@ -783,24 +787,6 @@
       "permissionsets": [
         "Password_Never_Expires",
         "Splunk_Integration_Tech_Ops",
-        "Disable_MFA"
-      ],
-      "type": "system"
-    },
-    {
-      "name": "Trailblazer",
-      "profile": "ANZx Trailblazer User",
-      "permissionsetgroups": ["MyTrailhead_Learner"],
-      "permissionsets": [],
-      "type": "user"
-    },
-    {
-      "name": "TrailTracker Integration User",
-      "profile": "Minimum Access - External Apps",
-      "permissionsetgroups": [],
-      "permissionsets": [
-        "API_Only",
-        "trailheadapp__Th_Badge_Admin",
         "Disable_MFA"
       ],
       "type": "system"
@@ -1257,10 +1243,37 @@
         "Mortgage",
         "API_Only",
         "Broker_Details_Integration",
-        "Case_View_All",
         "Case_Read_Write_Broker_Enquiry",
+        "Case_View_All",
         "Disable_MFA",
         "Enforce_mTLS"
+      ],
+      "type": "system"
+    },
+    {
+      "name": "ML Data Migration Support User",
+      "role": "ANZ Mobile Lending Support Team",
+      "profile": "ANZ ML Standard User",
+      "permissionsetgroups": ["MLCRM_Super_User"],
+      "permissionsets": [
+        "Enforce_SSO",
+        "ML_Data_Loader_Support_Permission",
+        "MLCRM_Create_and_Edit_User_Territories"
+      ],
+      "type": "user"
+    },
+    {
+      "name": "TrustMe ReKYC GCP Integration User",
+      "profile": "Minimum Access - External Apps",
+      "permissionsetgroups": [],
+      "permissionsets": [
+        "Set_Audit_Fields",
+        "API_Only",
+        "Enforce_mTLS",
+        "Disable_MFA",
+        "Case_Read_Write_TrustMe_MV",
+        "Case_Read_Write_TrustMe_QA",
+        "DAON_File_Integration"
       ],
       "type": "system"
     }

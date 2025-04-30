@@ -1,0 +1,58 @@
+.headerStyling {
+  font-size: 16px;
+  font-weight: var(--amount-and-header-font-weight);
+  line-height: var(--amount-and-header-line-height);
+}
+
+.noDataBlock {
+  height: 26px;
+  margin-bottom: 40px;
+}
+
+.noDataBlockMessage {
+  font-size: 12px;
+  font-weight: var(--lwc-fontWeightBold);
+  height: 26px;
+  padding-left: 13px;
+}
+
+.utilityStyle {
+  height: 26px;
+  width: 26px;
+  padding: 1px;
+}
+
+.labelAndValueStyle {
+  font-size: var(--text-font-size);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--text-line-height);
+}
+
+.logoStyle {
+  width: 60px;
+  height: 60px;
+}
+
+.lastModifiedStyle {
+  font-size: 10px;
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: 16px;
+  color: #706e6b;
+}
+
+.slds-box {
+  padding-top: 6px;
+  padding-left: var(--lwc-spacingMedium);
+  padding-right: var(--lwc-spacingLarge);
+  padding-bottom: 14px;
+}
+
+.tooltip {
+  cursor: pointer;
+  margin-left: 2px;
+  position: relative;
+  bottom: 2px;
+}
+.tooltip:hover {
+  --sds-c-icon-color-foreground-default: #014486;
+}

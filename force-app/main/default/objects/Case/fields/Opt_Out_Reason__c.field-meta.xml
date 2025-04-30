@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Opt_Out_Reason__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity_Accurate;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
+    <description>Confirmation of Payee reason</description>
+    <label>Opt Out Reason</label>
+    <required>false</required>
+    <securityClassification>Internal</securityClassification>
+    <trackFeedHistory>false</trackFeedHistory>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Picklist</type>
+    <valueSet>
+        <restricted>true</restricted>
+        <valueSetDefinition>
+            <sorted>false</sorted>
+            <value>
+                <fullName>Victim / survivor of abuse</fullName>
+                <default>false</default>
+                <label>Victim / survivor of abuse</label>
+            </value>
+            <value>
+                <fullName>Profession requiring discretion</fullName>
+                <default>false</default>
+                <label>Profession requiring discretion</label>
+            </value>
+            <value>
+                <fullName>Transition gender</fullName>
+                <default>false</default>
+                <label>Transition gender</label>
+            </value>
+            <value>
+                <fullName>Change to relationship partner</fullName>
+                <default>false</default>
+                <label>Change to relationship partner</label>
+            </value>
+        </valueSetDefinition>
+    </valueSet>
+</CustomField>

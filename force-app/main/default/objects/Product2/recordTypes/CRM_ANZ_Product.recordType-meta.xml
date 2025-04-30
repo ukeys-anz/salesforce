@@ -5,136 +5,112 @@
     <compactLayoutAssignment>ANZ_CRM_Compact_Layout</compactLayoutAssignment>
     <label>CRM ANZ Product</label>
     <picklistValues>
-        <picklist>Family</picklist>
+        <picklist>Business_area__c</picklist>
         <values>
-            <fullName>None</fullName>
+            <fullName>ANZ_Private</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Commercial_Broker_and_Origination</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Diversified_and_Specialist_Industries</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Small_to_Medium_Enterprise_Banking</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Transaction_Banking</fullName>
             <default>false</default>
         </values>
     </picklistValues>
     <picklistValues>
-        <picklist>IDR_Product_or_Service_Category__c</picklist>
+        <picklist>Category__c</picklist>
         <values>
-            <fullName>1</fullName>
+            <fullName>ANZ_Business_Loan</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>10</fullName>
+            <fullName>ANZ_Business_Notice_Term_Deposit</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>11</fullName>
+            <fullName>ANZ_Plus</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>12</fullName>
+            <fullName>Asset_Finance</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>13</fullName>
+            <fullName>Commercial_Bill</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>14</fullName>
+            <fullName>Commercial_Cards</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>15</fullName>
+            <fullName>Consumer_Credit_Card</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>17</fullName>
+            <fullName>Consumer_Overdrafts</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>18</fullName>
+            <fullName>DDA_Overdraft</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>19</fullName>
+            <fullName>Full_Lending_List</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>2</fullName>
+            <fullName>Home_Equity_Loans</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>20</fullName>
+            <fullName>Home_Loans</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>21</fullName>
+            <fullName>Indemnity_Guarantee</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>22</fullName>
+            <fullName>Investment_Loans</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>23</fullName>
+            <fullName>Markets</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>25</fullName>
+            <fullName>Other_Products</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>26</fullName>
+            <fullName>Personal_Loans</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>27</fullName>
+            <fullName>Tailored_Commercial_Facility</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>29</fullName>
+            <fullName>Term_Deposit</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>3</fullName>
+            <fullName>Trade</fullName>
             <default>false</default>
         </values>
         <values>
-            <fullName>30</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>31</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>32</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>34</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>35</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>4</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>5</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>6</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>7</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>8</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>9</fullName>
+            <fullName>Transaction_Account</fullName>
             <default>false</default>
         </values>
     </picklistValues>
@@ -972,6 +948,29 @@
         </values>
         <values>
             <fullName>Specialised_Early_Resolution_Hardship</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Product_Origination_System__c</picklist>
+        <values>
+            <fullName>AMBIT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CAP</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>CBIG</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LoanIQ</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Vision%2B</fullName>
             <default>false</default>
         </values>
     </picklistValues>

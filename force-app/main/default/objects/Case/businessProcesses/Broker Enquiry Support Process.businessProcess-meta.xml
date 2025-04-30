@@ -12,11 +12,11 @@
         <default>false</default>
     </values>
     <values>
-        <fullName>On Hold</fullName>
-        <default>false</default>
+        <fullName>New</fullName>
+        <default>true</default>
     </values>
     <values>
-        <fullName>Open</fullName>
-        <default>true</default>
+        <fullName>On Hold</fullName>
+        <default>false</default>
     </values>
 </BusinessProcess>

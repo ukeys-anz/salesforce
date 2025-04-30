@@ -5,7 +5,7 @@
     <complianceGroup>Integrity_Accurate;Privacy_Non-Sensitive_Personal_Information;Source_Salesforce</complianceGroup>
     <description>Mobile Phone of the customer.</description>
     <externalId>false</externalId>
-    <formula>Customer__r.PersonMobilePhone</formula>
+    <formula>Customer__r.PersonOtherPhone</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Mobile</label>
     <required>false</required>

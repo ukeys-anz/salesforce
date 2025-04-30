@@ -2,8 +2,7 @@ List<Id> usrLId = new List<Id>();
 
 List<user> usrs = [
   SELECT Id, FederationIdentifier
-  FROM User
-  WHERE FederationIdentifier LIKE '%@anz.com' AND IsActive = TRUE
+  FROM User WHERE IsActive = TRUE
   LIMIT 2000
 ];
 
@@ -11,7 +10,10 @@ List<user> newUsers = new List<user>();
 
 for (user u : usrs) {
   string fed = u.FederationIdentifier;
-  u.FederationIdentifier = fed.replace('anz.com', 'anznp.com');
+  if (fed != null) {
+    u.FederationIdentifier = fed.replace('anz.com', 'anznp.com');
+  }
+
   newUsers.add(u);
   usrLId.add(u.id);
 }

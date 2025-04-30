@@ -5,6 +5,10 @@
  * @group Repository
  */
 public with sharing class CCRMAPIRepository extends RepositoryBase {
+  private static final MaintainPartyService MAINTAIN_PARTY_SERVICE = (MaintainPartyService) Lib_InstanceProvider.forType(
+    MaintainPartyService.class
+  );
+
   /**
    * @param abn Australian Business Number to be validated
    * @return CCRMValidateAbnAcnModel result
@@ -217,22 +221,22 @@ public with sharing class CCRMAPIRepository extends RepositoryBase {
 
   /**
    * @param record Lead record
-   * @return DCRMMaintainPartyModel result
+   * @return MaintainPartyModel result
    * @description calls the service class methods for integration/callout
    */
-  public DCRMMaintainPartyModel maintainParty(OCVRequestPayloadWrapper record) {
-    DCRMMaintainPartyModel result;
-    Service s = ServiceProvider.getService(DCRMMaintainPartyService.class);
-    HttpCalloutResponse response = s.maintainParty(record);
-    if (response.successful) {
-      try {
-        result = DCRMMaintainPartyModel.parse(response.body);
-      } catch (Exception e) {
-        handleErrors(null, e, CCRMAPIRepository.class);
+  public MaintainPartyModel maintainPartyOrganisation(
+    OCVRequestPayloadWrapper record
+  ) {
+    try {
+      HttpCalloutResponse response = MAINTAIN_PARTY_SERVICE.maintainPartyOrganisation(
+        record
+      );
+      if (response.successful == false) {
+        throw CommonUtil.logException(response.error);
       }
-    } else {
-      handleErrors(response, null, CCRMAPIRepository.class);
+      return MaintainPartyModel.parse(response.body);
+    } catch (Exception e) {
+      throw CommonUtil.logException(e);
     }
-    return result;
   }
 }

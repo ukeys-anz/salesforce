@@ -155,7 +155,7 @@
     <externalSharingModel>Private</externalSharingModel>
     <label>Customer Relationship</label>
     <nameField>
-        <displayFormat>CR-{00000}</displayFormat>
+        <displayFormat>CR-{0}</displayFormat>
         <label>Name</label>
         <trackFeedHistory>false</trackFeedHistory>
         <trackHistory>false</trackHistory>
@@ -171,6 +171,8 @@
         <fields>Mobile__c</fields>
         <fields>Territory__c</fields>
         <fields>Relationship_Owner__c</fields>
+        <fields>Last_Interaction_Date__c</fields>
+        <fields>Next_Interaction_Date__c</fields>
         <profileName>ANZ ML Standard User</profileName>
     </profileSearchLayouts>
     <searchLayouts>

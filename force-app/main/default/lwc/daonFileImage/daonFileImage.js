@@ -16,7 +16,7 @@ export default class DaonFileImage extends LightningElement {
   //Retry count for fetching image "src".
   fetchingCount = 0;
 
-  disableRightClick(event) {
+  disableClick(event) {
     event.preventDefault();
   }
 
