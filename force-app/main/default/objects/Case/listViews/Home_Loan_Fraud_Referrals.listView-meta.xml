@@ -26,6 +26,7 @@
     <label>Home Loan Fraud Referrals</label>
     <sharedTo>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Credit_Assessment_Officer</role>
         <role>Credit_Assessor_Lead</role>
         <role>FraudX_Agent</role>

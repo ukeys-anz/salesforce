@@ -3,9 +3,9 @@
     <fullName>IsOwnerCoachOrCoachLead__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity_Trusted;Privacy_Personal_Information;Source_Salesforce</complianceGroup>
-    <description>Is the Case Owner a Coach or Coach Lead?</description>
+    <description>Is the Case Owner a Coach or Coach Lead or BOH Coach Lead?</description>
     <externalId>false</externalId>
-    <formula>OR(Owner:User.UserRole.Name = &quot;Coach&quot;, Owner:User.UserRole.Name = &quot;Coach Lead&quot;)</formula>
+    <formula>OR(Owner:User.UserRole.Name = &quot;Coach&quot;, Owner:User.UserRole.Name = &quot;Coach Lead&quot;, Owner:User.UserRole.Name = &quot;BOH Coach Lead&quot;)</formula>
     <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
     <label>Is Owner Coach or Coach Lead</label>
     <securityClassification>Confidential</securityClassification>
