@@ -145,11 +145,549 @@
     "sop": "25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
     "liabilities": [
       {
-        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "name": "sops/41c17dd4-a32e-4b74-9cbb-5362b6469db2/liabilities/91955abf-2cf1-401c-8ad4-7f8370808c0a",
+        "uid": "91955abf-2cf1-401c-8ad4-7f8370808c0a",
         "type": "LIABILITY_TYPE_HOME_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": null,
+          "interestRate": 600,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "400",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 288,
+          "redrawAmount": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Bankwest",
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "validatedLimit": false,
+          "validatedPrincipalInterestRemainingTerm": false,
+          "taxDeductiblePercentage": "3",
+          "interestRateValidated": true
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "360000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "Bankwest",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": { "value": "60" }
+          }
+        ],
+        "createTime": "2025-03-20T04:27:17.074554217Z",
+        "updateTime": "2025-03-25T03:29:59.206569021Z",
+        "updatedBy": "pooja.kirtishahi@anznp.com",
+        "etag": "1742873399206569021",
+        "verifiedOutstandingBalance": null,
+        "termType": "LIABILITY_TERM_TYPE_UNSPECIFIED",
+        "validatedOutstandingBalance": false,
+        "paidOffAndClosed": false,
+        "evidenceProvided": false,
+        "undrawnAmount": { "currencyCode": "AUD", "units": "0", "nanos": 0 }
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/f0b15114-7bef-45d7-883b-96d602f344d8",
+        "uid": "f0b15114-7bef-45d7-883b-96d602f344d8",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": null,
+          "interestRate": 900,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "2000",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 360,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "AMP Bank",
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "validatedLimit": false,
+          "validatedPrincipalInterestRemainingTerm": false,
+          "interestRateValidated": false
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "350000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "AMP Bank",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": "2025-02-19T23:31:04.787987319Z",
+        "updateTime": "2025-02-19T23:31:04.787987319Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1740007864787987319",
+        "verifiedOutstandingBalance": null,
+        "termType": "LIABILITY_TERM_TYPE_UNSPECIFIED",
+        "validatedOutstandingBalance": false,
+        "paidOffAndClosed": false,
+        "evidenceProvided": false,
+        "undrawnAmount": null
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec921877112",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "subsequentInterestRate": 590,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Construction Loan",
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Construction Loan",
+          "account": "",
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": false,
+        "undrawnAmount": {
+          "currencyCode": "AUD",
+          "units": "9999",
+          "nanos": 0
+        },
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9988621112",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "termType": "LIABILITY_TERM_TYPE_VARIABLE",
+        "institutionalLiability": {
+          "paymentMethod": "PAYMENT_METHOD_INTEREST_ONLY",
+          "financialInstitution": "Variable IO Loan",
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "subsequentInterestRate": 570,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": null
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Variable IO Loan",
+          "account": "",
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": true,
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec921112097",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "termType": "LIABILITY_TERM_TYPE_FIXED",
+        "institutionalLiability": {
+          "paymentMethod": "PAYMENT_METHOD_PRINCIPAL_INTEREST",
+          "financialInstitution": "Fixed P&I Loan",
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "subsequentInterestRate": 630,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Fixed P&I Loan",
+          "account": "",
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": true,
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9211536712",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "termType": "LIABILITY_TERM_TYPE_FIXED",
+        "institutionalLiability": {
+          "paymentMethod": "PAYMENT_METHOD_INTEREST_ONLY",
+          "financialInstitution": "Fixed IO Loan",
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "subsequentInterestRate": 600,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Fixed IO Loan",
+          "account": "",
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": true,
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "50"
+            }
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+              "value": "50"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec922351112",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "termType": "LIABILITY_TERM_TYPE_UNSPECIFIED",
+        "institutionalLiability": {
+          "paymentMethod": "PAYMENT_METHOD_INTEREST_ONLY",
+          "financialInstitution": "Variable P&I Loan",
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "subsequentInterestRate": 480,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Variable P&I Loan",
+          "account": "",
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": true,
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/f0b15114-7bef-45d7-883b-96d602f344d8",
+        "uid": "f0b15114-7bef-45d7-883b-96d602f344d8",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": null,
+          "interestRate": 900,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "2000",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 360,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "AMP Bank",
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "validatedLimit": false,
+          "validatedPrincipalInterestRemainingTerm": false,
+          "interestRateValidated": false
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "350000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "financialInstitution": "AMP Bank",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": "2025-02-19T23:31:04.787987319Z",
+        "updateTime": "2025-02-19T23:31:04.787987319Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1740007864787987319",
+        "verifiedOutstandingBalance": null,
+        "termType": "LIABILITY_TERM_TYPE_UNSPECIFIED",
+        "validatedOutstandingBalance": false,
+        "paidOffAndClosed": false,
+        "evidenceProvided": false,
+        "undrawnAmount": null
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec921",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -165,7 +703,8 @@
           },
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
           "financialInstitution": "Westpac",
-          "verifiedPrincipalInterestRemainingTerm": 0
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 0
         },
         "outstandingBalance": {
           "currencyCode": "AUD",
@@ -177,17 +716,97 @@
           "bsb": "232355",
           "accountNumber": "232554545",
           "accountName": "",
-          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "status": "ACCOUNT_STATE_ACTIVE",
           "financialInstitution": "Westpac",
           "account": "",
-          "productDetails": null
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
         },
-        "assets": [],
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": true,
         "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        }
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec922",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 2
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": {
+            "marketingName": "ANZ Home Loan"
+          }
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a"
+        ],
+        "fullyDrawn": false,
+        "undrawnAmount": {
+          "currencyCode": "AUD",
+          "units": "9999",
+          "nanos": 0
+        },
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -202,7 +821,7 @@
       },
       {
         "name": "sops/c5363319-0f52-47c7-b155-295808318206/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec923",
         "type": "LIABILITY_TYPE_STUDENT_LOAN",
         "studentLoan": {
           "hecsWithheldPayment": true
@@ -235,7 +854,7 @@
       },
       {
         "name": "sops/c5363319-0f52-47c7-b155-295808318206/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec924",
         "type": "LIABILITY_TYPE_STUDENT_LOAN",
         "studentLoan": {
           "hecsWithheldPayment": false
@@ -268,7 +887,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec925",
         "type": "LIABILITY_TYPE_BPL_FACILITY",
         "institutionalLiability": {
           "validatedLimit": true,
@@ -314,11 +933,15 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           },
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -335,7 +958,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec926",
         "type": "LIABILITY_TYPE_BPL_FACILITY",
         "institutionalLiability": {
           "limit": {
@@ -380,7 +1003,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -397,7 +1022,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec927",
         "type": "LIABILITY_TYPE_BPL_FACILITY",
         "institutionalLiability": {
           "validatedLimit": true,
@@ -443,7 +1068,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -460,7 +1087,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec928",
         "type": "LIABILITY_TYPE_BPL_FACILITY",
         "institutionalLiability": {
           "limit": {
@@ -505,7 +1132,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -522,7 +1151,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec929",
         "type": "LIABILITY_TYPE_BPL_FACILITY",
         "institutionalLiability": {
           "limit": {
@@ -563,7 +1192,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -580,7 +1211,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9210",
         "type": "LIABILITY_TYPE_BPL_LOAN",
         "institutionalLiability": {
           "validatedPrincipalInterestRemainingTerm": true,
@@ -643,7 +1274,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9211",
         "type": "LIABILITY_TYPE_BPL_LOAN",
         "institutionalLiability": {
           "limit": {
@@ -706,10 +1337,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9212",
         "type": "LIABILITY_TYPE_HOME_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -725,7 +1360,14 @@
           },
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
           "financialInstitution": "Westpac",
-          "verifiedPrincipalInterestRemainingTerm": 40
+          "verifiedPrincipalInterestRemainingTerm": 40,
+          "taxDeductiblePercentage": 0
+        },
+        "fullyDrawn": false,
+        "undrawnAmount": {
+          "currencyCode": "AUD",
+          "units": "9999",
+          "nanos": 0
         },
         "outstandingBalance": {
           "currencyCode": "AUD",
@@ -737,17 +1379,169 @@
           "bsb": "",
           "accountNumber": "232554545",
           "accountName": "",
-          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "status": "ACCOUNT_STATE_ACTIVE",
           "financialInstitution": "Westpac",
           "account": "",
           "productDetails": null
         },
-        "assets": [],
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a",
+          "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743"
+        ],
         "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        },
+        "customerStatedClosed": false,
+        "paidOffAndClosed": false
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9213",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "402000",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 40,
+          "taxDeductiblePercentage": 0
+        },
+        "fullyDrawn": false,
+        "undrawnAmount": {
+          "currencyCode": "AUD",
+          "units": "9999",
+          "nanos": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "closed",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a",
+          "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743"
+        ],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        },
+        "customerStatedClosed": true,
+        "paidOffAndClosed": false
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92xxx",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9214",
+        "type": "LIABILITY_TYPE_HOME_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "402000",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_FORTNIGHTLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 40,
+          "taxDeductiblePercentage": 0
+        },
+        "fullyDrawn": false,
+        "undrawnAmount": {
+          "currencyCode": "AUD",
+          "units": "9999",
+          "nanos": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743"
+        ],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -762,10 +1556,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9215",
         "type": "LIABILITY_TYPE_HOME_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -781,7 +1579,8 @@
           },
           "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
           "financialInstitution": "Westpac",
-          "verifiedPrincipalInterestRemainingTerm": 0
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "taxDeductiblePercentage": 0
         },
         "outstandingBalance": {
           "currencyCode": "AUD",
@@ -793,17 +1592,22 @@
           "bsb": "",
           "accountNumber": "232554545",
           "accountName": "",
-          "status": "ACCOUNT_STATE_UNSPECIFIED",
+          "status": "ACCOUNT_STATE_ACTIVE",
           "financialInstitution": "Westpac",
           "account": "",
           "productDetails": null
         },
-        "assets": [],
+        "assets": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743"
+        ],
+        "fullyDrawn": false,
         "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -818,10 +1622,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9216",
         "type": "LIABILITY_TYPE_PERSONAL_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -859,7 +1667,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -877,10 +1687,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9217",
         "type": "LIABILITY_TYPE_PERSONAL_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -918,7 +1732,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -936,10 +1752,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9218",
         "type": "LIABILITY_TYPE_PERSONAL_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -977,7 +1797,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -995,10 +1817,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9219",
         "type": "LIABILITY_TYPE_OTHER_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1036,7 +1862,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1053,10 +1881,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9220",
         "type": "LIABILITY_TYPE_OTHER_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1094,7 +1926,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1111,10 +1945,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9221",
         "type": "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1152,7 +1990,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1169,10 +2009,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9222",
         "type": "LIABILITY_TYPE_LEASE_HIRE_PURCHASE",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1210,7 +2054,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1227,10 +2073,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9223",
         "type": "LIABILITY_TYPE_VEHICLE_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1268,7 +2118,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1285,10 +2137,14 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/f33aafb9-7a49-4848-8032-e03fb5af5627",
-        "uid": "f33aafb9-7a49-4848-8032-e03fb5af5627",
+        "uid": "f33aafb9-7a49-4848-8032-e03fb5af562724",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "2000", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "2000",
+            "nanos": 0
+          },
           "interestRate": 350,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
@@ -1322,7 +2178,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1337,10 +2195,14 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
-        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a125",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 0,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
@@ -1370,7 +2232,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1385,10 +2249,14 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
-        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a126",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "20000", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "20000",
+            "nanos": 0
+          },
           "interestRate": 0,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
@@ -1418,7 +2286,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1436,10 +2306,14 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
-        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a127",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "15000", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "15000",
+            "nanos": 0
+          },
           "interestRate": 0,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
@@ -1469,7 +2343,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1487,10 +2363,14 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
-        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a128",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "20000", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "20000",
+            "nanos": 0
+          },
           "interestRate": 0,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
@@ -1520,7 +2400,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1538,10 +2420,14 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/liabilities/e02cab48-0f26-455f-87f7-1bc6b8be99a1",
-        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a1",
+        "uid": "e02cab48-0f26-455f-87f7-1bc6b8be99a129",
         "type": "LIABILITY_TYPE_OVERDRAFT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "15000", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "15000",
+            "nanos": 0
+          },
           "interestRate": 0,
           "repaymentAmount": null,
           "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
@@ -1571,7 +2457,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1589,7 +2477,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
-        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad30",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
           "limit": {
@@ -1632,7 +2520,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1650,7 +2540,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
-        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad31",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
           "limit": {
@@ -1689,7 +2579,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1706,7 +2598,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/e0bf8a39-241a-4528-b199-fc6f374d28ad",
-        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad",
+        "uid": "e0bf8a39-241a-4528-b199-fc6f374d28ad32",
         "type": "LIABILITY_TYPE_CREDIT_CARD",
         "institutionalLiability": {
           "limit": {
@@ -1749,7 +2641,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1766,10 +2660,204 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9233",
         "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "7000", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "7000",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [
+          "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a",
+          "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743"
+        ],
+        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        },
+        "paidOffAndClosed": false,
+        "evidenceProvided": true
+      },
+      {
+        "name": "sops/94532615-b7ea-4ee5-9159-f1f2095f2140/liabilities/bb68d67e-16d9-4c98-b7ca-a4e1de900131",
+        "uid": "bb68d67e-16d9-4c98-b7ca-a4e1de900131",
+        "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
+        "institutionalLiability": {
+          "limit": { "currencyCode": "AUD", "units": "2000", "nanos": 0 },
+          "interestRate": 0,
+          "repaymentAmount": null,
+          "repaymentFrequency": "FREQUENCY_UNSPECIFIED",
+          "principalInterestRemainingTerm": 0,
+          "redrawAmount": null,
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "LARGE BANK",
+          "verifiedPrincipalInterestRemainingTerm": 0,
+          "validatedLimit": false,
+          "validatedPrincipalInterestRemainingTerm": false,
+          "interestRateValidated": false
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "2000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "0f641416-1bf8-42ef-a117-b0746b1c6de2",
+          "bsb": "000000",
+          "accountNumber": "562345897",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "LARGE BANK",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [],
+        "sources": ["LIABILITY_SOURCE_TYPE_BUREAU"],
+        "ownership": [
+          {
+            "partyId": "12d95cf7-83e7-5258-bed0-83f06e18aa59",
+            "proportion": { "value": "100" }
+          }
+        ],
+        "createTime": "2024-11-12T00:20:58.894585609Z",
+        "updateTime": "2025-02-16T23:14:17.516186468Z",
+        "updatedBy": "12d95cf7-83e7-5258-bed0-83f06e18aa59",
+        "etag": "1739747657516186468",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "200000",
+          "nanos": 0
+        },
+        "termType": "LIABILITY_TERM_TYPE_UNSPECIFIED",
+        "validatedOutstandingBalance": false,
+        "paidOffAndClosed": false,
+        "evidenceProvided": false,
+        "customerStatedClosed": true,
+        "undrawnAmount": null
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9234",
+        "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "23500",
+            "nanos": 0
+          },
+          "interestRate": 550,
+          "repaymentAmount": {
+            "currencyCode": "AUD",
+            "units": "3850",
+            "nanos": 0
+          },
+          "repaymentFrequency": "FREQUENCY_MONTHLY",
+          "principalInterestRemainingTerm": 30,
+          "redrawAmount": {
+            "currencyCode": "AUD",
+            "units": "4550",
+            "nanos": 0
+          },
+          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
+          "financialInstitution": "Westpac",
+          "verifiedPrincipalInterestRemainingTerm": 0
+        },
+        "outstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "202000",
+          "nanos": 0
+        },
+        "account": {
+          "id": "",
+          "bsb": "232355",
+          "accountNumber": "232554545",
+          "accountName": "",
+          "status": "ACCOUNT_STATE_ACTIVE",
+          "financialInstitution": "Westpac",
+          "account": "",
+          "productDetails": null
+        },
+        "assets": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743"
+        ],
+        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "createTime": null,
+        "updateTime": "2023-07-25T04:19:25.421496Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1690258765421496000",
+        "verifiedOutstandingBalance": {
+          "currencyCode": "AUD",
+          "units": "5000",
+          "nanos": 0
+        },
+        "paidOffAndClosed": false,
+        "evidenceProvided": true
+      },
+      {
+        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9236",
+        "type": "LIABILITY_TYPE_MARGIN_LOAN",
+        "institutionalLiability": {
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "3000",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1807,7 +2895,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1819,15 +2909,19 @@
           "units": "5000",
           "nanos": 0
         },
-        "paidOffAndClosed": false,
+        "paidOffAndClosed": true,
         "evidenceProvided": true
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
-        "type": "LIABILITY_TYPE_LINE_OF_CREDIT",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9237",
+        "type": "LIABILITY_TYPE_MARGIN_LOAN",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "23500", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "5000",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -1865,65 +2959,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
-          }
-        ],
-        "createTime": null,
-        "updateTime": "2023-07-25T04:19:25.421496Z",
-        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-        "etag": "1690258765421496000",
-        "verifiedOutstandingBalance": {
-          "currencyCode": "AUD",
-          "units": "5000",
-          "nanos": 0
-        },
-        "paidOffAndClosed": false,
-        "evidenceProvided": true
-      },
-      {
-        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
-        "type": "LIABILITY_TYPE_MARGIN_LOAN",
-        "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "3000", "nanos": 0 },
-          "interestRate": 550,
-          "repaymentAmount": {
-            "currencyCode": "AUD",
-            "units": "3850",
-            "nanos": 0
-          },
-          "repaymentFrequency": "FREQUENCY_MONTHLY",
-          "principalInterestRemainingTerm": 30,
-          "redrawAmount": {
-            "currencyCode": "AUD",
-            "units": "4550",
-            "nanos": 0
-          },
-          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "Westpac",
-          "verifiedPrincipalInterestRemainingTerm": 0
-        },
-        "outstandingBalance": {
-          "currencyCode": "AUD",
-          "units": "202000",
-          "nanos": 0
-        },
-        "account": {
-          "id": "",
-          "bsb": "232355",
-          "accountNumber": "232554545",
-          "accountName": "",
-          "status": "ACCOUNT_STATE_UNSPECIFIED",
-          "financialInstitution": "Westpac",
-          "account": "",
-          "productDetails": null
-        },
-        "assets": [],
-        "sources": ["LIABILITY_SOURCE_TYPE_ANZ"],
-        "ownership": [
-          {
-            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -1940,68 +2978,14 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
-        "type": "LIABILITY_TYPE_MARGIN_LOAN",
-        "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "5000", "nanos": 0 },
-          "interestRate": 550,
-          "repaymentAmount": {
-            "currencyCode": "AUD",
-            "units": "3850",
-            "nanos": 0
-          },
-          "repaymentFrequency": "FREQUENCY_MONTHLY",
-          "principalInterestRemainingTerm": 30,
-          "redrawAmount": {
-            "currencyCode": "AUD",
-            "units": "4550",
-            "nanos": 0
-          },
-          "paymentMethod": "PAYMENT_METHOD_UNSPECIFIED",
-          "financialInstitution": "Westpac",
-          "verifiedPrincipalInterestRemainingTerm": 0
-        },
-        "outstandingBalance": {
-          "currencyCode": "AUD",
-          "units": "202000",
-          "nanos": 0
-        },
-        "account": {
-          "id": "",
-          "bsb": "232355",
-          "accountNumber": "232554545",
-          "accountName": "",
-          "status": "ACCOUNT_STATE_UNSPECIFIED",
-          "financialInstitution": "Westpac",
-          "account": "",
-          "productDetails": null
-        },
-        "assets": [],
-        "sources": ["LIABILITY_SOURCE_TYPE_MANUAL"],
-        "ownership": [
-          {
-            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
-          }
-        ],
-        "createTime": null,
-        "updateTime": "2023-07-25T04:19:25.421496Z",
-        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-        "etag": "1690258765421496000",
-        "verifiedOutstandingBalance": {
-          "currencyCode": "AUD",
-          "units": "5000",
-          "nanos": 0
-        },
-        "paidOffAndClosed": true,
-        "evidenceProvided": true
-      },
-      {
-        "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/liabilities/de0eab28-3fb9-492d-916f-523eca97ec92",
-        "uid": "de0eab28-3fb9-492d-916f-523eca97ec92",
+        "uid": "de0eab28-3fb9-492d-916f-523eca97ec9238",
         "type": "LIABILITY_TYPE_OTHER_LIABILITY",
         "institutionalLiability": {
-          "limit": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+          "limit": {
+            "currencyCode": "AUD",
+            "units": "0",
+            "nanos": 0
+          },
           "interestRate": 550,
           "repaymentAmount": {
             "currencyCode": "AUD",
@@ -2039,7 +3023,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "createTime": null,
@@ -2110,8 +3096,79 @@
     "sop": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
     "incomes": [
       {
+        "name": "sops/f5b3fa95-2608-4c46-b845-18f1fc341f09/incomes/2fcab511-0a25-4cf3-bb15-de5074c22788",
+        "uid": "2fcab511-0a25-4cf3-bb15-de5074c2278839",
+        "details": [
+          {
+            "id": "26b430b9-ef3e-4e89-99ba-05cc92543bec",
+            "type": "INCOME_TYPE_RESIDENTIAL_STANDARD_LEASE",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "amount": {
+              "currencyCode": "AUD",
+              "units": "2400"
+            },
+            "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+          }
+        ],
+        "verification": {
+          "id": "",
+          "incomeId": "b1dc2bbb-9a5f-42a5-85c9-16234f514cd8",
+          "createTime": "2023-05-04T07:31:38.700353Z",
+          "method": "VERIFICATION_METHOD_DOCUMENT",
+          "documentIds": [""],
+          "createdBy": ""
+        },
+        "asset": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/092fcbde-927e-466b-a1d7-a11eeb10f28a",
+        "createTime": "2025-03-04T03:17:37.326432245Z",
+        "updateTime": "2025-03-04T03:17:37.326432245Z",
+        "updatedBy": "59157cf6-8198-546d-a71f-3b5ba11b93cc",
+        "etag": "1741058257326432245"
+      },
+      {
+        "name": "sops/2957a075-fd87-47d4-a90a-9fe3381c6127/assets/965e349d-5b9f-49ce-a037-7b5c633ba836",
+        "uid": "2c650c1e-a397-4b2a-8741-d26534b9e3cb40",
+        "details": [
+          {
+            "id": "845eb099-5718-4ac1-a02b-a99c757faa63",
+            "type": "INCOME_TYPE_RESIDENTIAL_PRIVATE_LEASE",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "amount": {
+              "currencyCode": "AUD",
+              "units": "4444"
+            },
+            "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+          }
+        ],
+        "asset": "sops/9ab0271d-b4de-4396-a550-1e1065668457/assets/5e42f929-5f9e-41ba-9c9a-4c6198cdcf43",
+        "createTime": "2025-03-04T11:11:45.710747625Z",
+        "updateTime": "2025-03-04T11:11:45.710747625Z",
+        "updatedBy": "59157cf6-8198-546d-a71f-3b5ba11b93cc",
+        "etag": "1741086705710747625"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9749",
+        "uid": "f89e0ee5-5bdc-4646-adc4-3e91cb940b0c41",
+        "details": [
+          {
+            "id": "e9605268-7b52-4a77-a270-d590d348fa73",
+            "type": "INCOME_TYPE_RESIDENTIAL_SHORT_STAY",
+            "frequency": "INCOME_FREQUENCY_MONTHLY",
+            "amount": {
+              "currencyCode": "AUD",
+              "units": "2400"
+            },
+            "amountType": "INCOME_AMOUNT_TYPE_GROSS"
+          }
+        ],
+        "asset": "sops/9ab0271d-b4de-4396-a550-1e1065668457/assets/4aba8490-031b-4033-b303-1970679393d6",
+        "createTime": "2025-03-04T11:11:42.475447011Z",
+        "updateTime": "2025-03-04T11:11:42.475447011Z",
+        "updatedBy": "59157cf6-8198-546d-a71f-3b5ba11b93cc",
+        "etag": "1741086702475447011"
+      },
+      {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/incomes/62fa55af-8d60-49dd-829d-0436713e1f20",
-        "uid": "62fa55af-8d60-49dd-829d-0436713e1f20",
+        "uid": "62fa55af-8d60-49dd-829d-0436713e1f2042",
         "details": [
           {
             "id": "f114d68f-5abe-4d81-b4a3-7e251390c023",
@@ -2158,7 +3215,11 @@
           "businessName": "ANZ Bank Ltd",
           "basis": "EMPLOYMENT_BASIS_PART_TIME",
           "businessLogo": null,
-          "startDate": { "year": 2015, "month": 5, "day": 13 },
+          "startDate": {
+            "year": 2015,
+            "month": 5,
+            "day": 13
+          },
           "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
           "type": "EMPLOYMENT_TYPE_PAYG"
         },
@@ -2178,7 +3239,7 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/incomes/8799e0b9-885e-49c9-9e9a-dd5c733fea7b",
-        "uid": "8799e0b9-885e-49c9-9e9a-dd5c733fea7b",
+        "uid": "8799e0b9-885e-49c9-9e9a-dd5c733fea7b43",
         "details": [
           {
             "id": "59bb8146-5465-47ed-8e9a-1cf713cab31f",
@@ -2199,7 +3260,11 @@
           "businessName": "Business name",
           "basis": "EMPLOYMENT_BASIS_PART_TIME",
           "businessLogo": null,
-          "startDate": { "year": 2015, "month": 5, "day": 13 },
+          "startDate": {
+            "year": 2015,
+            "month": 5,
+            "day": 13
+          },
           "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
           "type": "EMPLOYMENT_TYPE_PAYG"
         },
@@ -2208,7 +3273,7 @@
           "id": "",
           "incomeId": "b1dc2bbb-9a5f-42a5-85c9-16234f514cd8",
           "createTime": "2023-05-04T07:31:38.700353Z",
-          "method": "VERIFICATION_METHOD_TRANSACTIONS",
+          "method": "VERIFICATION_METHOD_DOCUMENT",
           "documentIds": [""],
           "createdBy": ""
         },
@@ -2219,7 +3284,7 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/incomes/9ccd0003-2491-449d-835f-9b1432a8eae7",
-        "uid": "9ccd0003-2491-449d-835f-9b1432a8eae7",
+        "uid": "9ccd0003-2491-449d-835f-9b1432a8eae744",
         "details": [
           {
             "id": "671ef167-47ab-42bc-8fa2-200f5975e1c9",
@@ -2253,7 +3318,11 @@
           "businessName": "Business name",
           "basis": "EMPLOYMENT_BASIS_PART_TIME",
           "businessLogo": null,
-          "startDate": { "year": 2015, "month": 5, "day": 13 },
+          "startDate": {
+            "year": 2015,
+            "month": 5,
+            "day": 13
+          },
           "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
           "type": "EMPLOYMENT_TYPE_PAYG"
         },
@@ -2273,7 +3342,7 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/incomes/bbd1d798-1808-4c6e-88f9-11779e691308",
-        "uid": "bbd1d798-1808-4c6e-88f9-11779e691308",
+        "uid": "bbd1d798-1808-4c6e-88f9-11779e69130845",
         "details": [
           {
             "id": "08119362-5cd0-43f9-846a-af60b233cc43",
@@ -2294,7 +3363,11 @@
           "businessName": "Business name",
           "basis": "EMPLOYMENT_BASIS_PART_TIME",
           "businessLogo": null,
-          "startDate": { "year": 2015, "month": 5, "day": 13 },
+          "startDate": {
+            "year": 2015,
+            "month": 5,
+            "day": 13
+          },
           "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
           "type": "EMPLOYMENT_TYPE_PAYG"
         },
@@ -2314,13 +3387,17 @@
       },
       {
         "name": "sops/d5abc7b3-9334-4add-aa68-861a2d57a3e6/incomes/52ac94bd-010b-4a2f-8c67-dff6b8f6d2b6",
-        "uid": "52ac94bd-010b-4a2f-8c67-dff6b8f6d2b6",
+        "uid": "52ac94bd-010b-4a2f-8c67-dff6b8f6d2b646",
         "details": [
           {
             "id": "a92e0a7b-18d7-4f0f-be01-fe0606ec6a59",
             "type": "INCOME_TYPE_SALARY_WAGES",
             "frequency": "INCOME_FREQUENCY_MONTHLY",
-            "amount": { "currencyCode": "AUD", "units": "20000", "nanos": 0 },
+            "amount": {
+              "currencyCode": "AUD",
+              "units": "20000",
+              "nanos": 0
+            },
             "amountType": "INCOME_AMOUNT_TYPE_NET",
             "superAllocation": null,
             "bonusPayments": 0
@@ -2331,7 +3408,11 @@
           "businessName": "Coles",
           "basis": "EMPLOYMENT_BASIS_FULL_TIME",
           "businessLogo": null,
-          "startDate": { "year": 2020, "month": 10, "day": 10 },
+          "startDate": {
+            "year": 2020,
+            "month": 10,
+            "day": 10
+          },
           "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
           "type": "EMPLOYMENT_TYPE_PAYG"
         },
@@ -2349,10 +3430,16 @@
           "historyDays": 360,
           "details": [
             {
-              "amount": { "currencyCode": "AUD", "units": "50000", "nanos": 0 },
+              "amount": {
+                "currencyCode": "AUD",
+                "units": "50000",
+                "nanos": 0
+              },
               "incomeType": "INCOME_TYPE_SALARY_WAGES",
               "periodMonths": 3,
-              "volatilityCoefficient": { "value": "0" },
+              "volatilityCoefficient": {
+                "value": "0"
+              },
               "incomeTransactionCount": 3,
               "recentGapDays": 19,
               "amountType": "INCOME_AMOUNT_TYPE_NET",
@@ -2364,9 +3451,13 @@
           "updatedBy": "06489583-861f-5abf-8ad0-e69eb5a61130",
           "lastTransactionDetail": {
             "name": "transactions/3af31773-8073-47b8-8c76-6740a13618bd",
-            "uid": "3af31773-8073-47b8-8c76-6740a13618bd",
+            "uid": "3af31773-8073-47b8-8c76-6740a13618bd47",
             "originTime": "2024-03-06T23:00:00Z",
-            "amount": { "currencyCode": "AUD", "units": "20000", "nanos": 0 }
+            "amount": {
+              "currencyCode": "AUD",
+              "units": "20000",
+              "nanos": 0
+            }
           },
           "merchantDetail": null
         },
@@ -2389,7 +3480,7 @@
     "monthlyExpenses": [
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/a8642426-7fd0-4d6d-b1f4-00300f9e07f5",
-        "uid": "a8642426-7fd0-4d6d-b1f4-00300f9e07f5",
+        "uid": "a8642426-7fd0-4d6d-b1f4-00300f9e07f548",
         "categoryId": "a501f70e-f843-4613-9169-8b2943b6f54c",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e543dbf4-505b-5dbb-9f22-bb90c167c929",
         "categoryName": "Health, Life & Other",
@@ -2416,7 +3507,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/66467fae-2a49-50cd-bdde-64533b4adc44",
-        "uid": "66467fae-2a49-50cd-bdde-64533b4adc44",
+        "uid": "66467fae-2a49-50cd-bdde-64533b4adc4449",
         "categoryId": "d257a9ea-7de1-4253-a51a-2e28d79eb403",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/6c999fcf-9d18-4651-8a0c-f4634b06fef7",
         "categoryName": "Subscriptions",
@@ -2440,33 +3531,85 @@
         "asset": ""
       },
       {
-        "name": "sops/b68362f2-4dee-4ced-95f6-bdaa39a50cb3/expenses/ae9b1ccb-1836-4126-8694-b02d4cb00abd",
-        "uid": "ae9b1ccb-1836-4126-8694-b02d4cb00abd",
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/cd268b19-4f1f-45c1-bd0b-da8128539500",
+        "uid": "cd268b19-4f1f-45c1-bd0b-da812853950050",
         "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
-        "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/da002ecd-014f-5d8f-9c80-f13ad3b0cfd8",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
         "categoryName": "Land Tax",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "8907",
+          "units": "1000",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
         "control": "EXPENSE_CONTROL_UNSPECIFIED",
-        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
         "leafNode": true,
         "warningCeilingAmount": null,
         "justificationCeilingAmount": null,
-        "createTime": "2024-06-21T00:24:53.629493952Z",
-        "updateTime": "2024-06-21T00:24:53.629493952Z",
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:09.044098983Z",
         "updatedBy": "sop-service",
-        "etag": "1718929493629493952",
+        "etag": "1732495509044098983",
         "hemState": "HEM_STATE_NON_HEM",
-        "asset": ""
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da617"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/cd268b19-4f1f-45c1-bd0b-da8128539501",
+        "uid": "cd268b19-4f1f-45c1-bd0b-da812853950151",
+        "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "categoryName": "Land Tax",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "1000",
+          "nanos": 0
+        },
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:09.044098983Z",
+        "updatedBy": "sop-service",
+        "etag": "1732495509044098983",
+        "hemState": "HEM_STATE_NON_HEM",
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da618"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/cd268b19-4f1f-45c1-bd0b-da8128539502",
+        "uid": "cd268b19-4f1f-45c1-bd0b-da812853950252",
+        "categoryId": "d556d6d8-17ae-4050-9fb9-e8f1e5ffe6f4",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "categoryName": "Land Tax",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "1000",
+          "nanos": 0
+        },
+        "justificationCode": "JUH04",
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_JUSTIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:09.044098983Z",
+        "updatedBy": "sop-service",
+        "etag": "1732495509044098983",
+        "hemState": "HEM_STATE_NON_HEM",
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da619"
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/36db429d-82b5-5f05-944a-ac453f857988",
-        "uid": "36db429d-82b5-5f05-944a-ac453f857988",
+        "uid": "36db429d-82b5-5f05-944a-ac453f85798853",
         "categoryId": "9174ec64-886d-40e1-ab2b-5935bdf25fcd",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Support & Care",
@@ -2493,7 +3636,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/6c999fcf-9d18-4651-8a0c-f4634b06fef7",
-        "uid": "6c999fcf-9d18-4651-8a0c-f4634b06fef7",
+        "uid": "6c999fcf-9d18-4651-8a0c-f4634b06fef754",
         "categoryId": "ca354e5e-9af7-413f-aa71-7e543f373b42",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Subscriptions, Phone & Internet",
@@ -2522,7 +3665,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/6d94e114-4342-4723-9856-8e09b4c9d1b4",
-        "uid": "6d94e114-4342-4723-9856-8e09b4c9d1b4",
+        "uid": "6d94e114-4342-4723-9856-8e09b4c9d1b455",
         "categoryId": "13561fa3-5db1-4996-b732-8510337b500d",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/36db429d-82b5-5f05-944a-ac453f857988",
         "categoryName": "Family Support",
@@ -2549,7 +3692,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/726cdd3d-612e-4003-8d30-31414cfac6fa",
-        "uid": "726cdd3d-612e-4003-8d30-31414cfac6fa",
+        "uid": "726cdd3d-612e-4003-8d30-31414cfac6fa56",
         "categoryId": "786303fe-b09e-47c5-ab16-327ab8c6b3d3",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e5ae3265-44bd-55ae-9d5d-c0be744ff461",
         "categoryName": "Private Education",
@@ -2576,7 +3719,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/3b0fb3b1-79e9-42cc-929f-c68fde2cc40a",
-        "uid": "3b0fb3b1-79e9-42cc-929f-c68fde2cc40a",
+        "uid": "3b0fb3b1-79e9-42cc-929f-c68fde2cc40a57",
         "categoryId": "9e66cf3d-05c5-4207-8cfb-024254856d98",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e543dbf4-505b-5dbb-9f22-bb90c167c929",
         "categoryName": "Car, Travel & Belongings",
@@ -2603,7 +3746,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/dafd008a-3304-42c7-b32a-b539326235d9",
-        "uid": "dafd008a-3304-42c7-b32a-b539326235d9",
+        "uid": "dafd008a-3304-42c7-b32a-b539326235d958",
         "categoryId": "58a66b05-5b22-47b2-82bf-1c509f8e0b48",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Groceries",
@@ -2636,7 +3779,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/0213cf96-b687-4b01-baa7-c5f6fdd87bd4",
-        "uid": "0213cf96-b687-4b01-baa7-c5f6fdd87bd4",
+        "uid": "0213cf96-b687-4b01-baa7-c5f6fdd87bd459",
         "categoryId": "c463b0ad-89ef-46a0-9571-e0c8341c9446",
         "expenseParent": "",
         "categoryName": "LifeStyle",
@@ -2669,7 +3812,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
-        "uid": "fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
+        "uid": "fee72506-f50e-5fbd-bc0b-e42f7d18a6fb60",
         "categoryId": "eadcfeb0-55d7-5cad-b465-0b8517dcb812",
         "expenseParent": "",
         "categoryName": "Essentials",
@@ -2694,7 +3837,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/1b83a0d2-4dc8-48fb-af1e-ecac34acc851",
-        "uid": "1b83a0d2-4dc8-48fb-af1e-ecac34acc851",
+        "uid": "1b83a0d2-4dc8-48fb-af1e-ecac34acc85161",
         "categoryId": "4b5143ad-76ad-470f-a264-370a728f7abe",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e5ae3265-44bd-55ae-9d5d-c0be744ff461",
         "categoryName": "Public Education & Services",
@@ -2719,7 +3862,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fde119ef-8c18-5539-98e1-03ce005e9d92",
-        "uid": "fde119ef-8c18-5539-98e1-03ce005e9d92",
+        "uid": "fde119ef-8c18-5539-98e1-03ce005e9d9262",
         "categoryId": "5eca1a2b-d4e1-4307-b1d9-ca14362dc5fd",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/6c999fcf-9d18-4651-8a0c-f4634b06fef7",
         "categoryName": "Phone & Internet",
@@ -2743,16 +3886,12 @@
         "asset": ""
       },
       {
-        "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/379df961-7d65-44d7-9357-b955cde4519f",
-        "uid": "379df961-7d65-44d7-9357-b955cde4519f",
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/3f565f0e-e531-4392-bc10-7c7de64839ca",
+        "uid": "3f565f0e-e531-4392-bc10-7c7de64839ca63",
         "categoryId": "80523dfc-8782-4107-b77c-112b318cc6b4",
-        "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/da002ecd-014f-5d8f-9c80-f13ad3b0cfd8",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
         "categoryName": "Rent",
-        "statedMonthlyAverageAmount": {
-          "currencyCode": "AUD",
-          "units": "0",
-          "nanos": 0
-        },
+        "statedMonthlyAverageAmount": null,
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
         "control": "EXPENSE_CONTROL_UNSPECIFIED",
@@ -2760,16 +3899,63 @@
         "leafNode": true,
         "warningCeilingAmount": null,
         "justificationCeilingAmount": null,
-        "createTime": "2024-09-30T05:30:51.629621281Z",
-        "updateTime": "2024-09-30T05:30:51.629621281Z",
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:09.044098983Z",
         "updatedBy": "sop-service",
-        "etag": "1727674251629621281",
+        "etag": "1732495509044098983",
         "hemState": "HEM_STATE_NON_HEM",
-        "asset": ""
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da617"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/3f565f0e-e531-4392-bc10-7c7de64839cc",
+        "uid": "3f565f0e-e531-4392-bc10-7c7de64839cc64",
+        "categoryId": "80523dfc-8782-4107-b77c-112b318cc6b4",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "categoryName": "Rent",
+        "statedMonthlyAverageAmount": null,
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "justificationCode": "JUH99",
+        "otherJustificationText": "Lorem ipusm dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        "control": "EXPENSE_CONTROL_BREACHED",
+        "review": "EXPENSE_REVIEW_REQUIRED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:09.044098983Z",
+        "updatedBy": "sop-service",
+        "etag": "1732495509044098983",
+        "hemState": "HEM_STATE_NON_HEM",
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da618"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/3f565f0e-e531-4392-bc10-7c7de64839cd",
+        "uid": "3f565f0e-e531-4392-bc10-7c7de64839cd65",
+        "categoryId": "80523dfc-8782-4107-b77c-112b318cc6b4",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "categoryName": "Rent",
+        "statedMonthlyAverageAmount": null,
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "review": "EXPENSE_REVIEW_UNSPECIFIED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": null,
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:09.044098983Z",
+        "updatedBy": "sop-service",
+        "etag": "1732495509044098983",
+        "hemState": "HEM_STATE_NON_HEM",
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da619"
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/63fa2fda-9029-44b0-8600-d231ecd48924",
-        "uid": "63fa2fda-9029-44b0-8600-d231ecd48924",
+        "uid": "63fa2fda-9029-44b0-8600-d231ecd4892466",
         "categoryId": "8ff3ee2b-e90f-4303-b38e-97762b61f52b",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/36db429d-82b5-5f05-944a-ac453f857988",
         "categoryName": "Childcare",
@@ -2794,7 +3980,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/571e001f-e3db-4aed-93a0-9f5f186106e3",
-        "uid": "571e001f-e3db-4aed-93a0-9f5f186106e3",
+        "uid": "571e001f-e3db-4aed-93a0-9f5f186106e367",
         "categoryId": "b9615970-e432-4105-bf94-860200cf4570",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/36db429d-82b5-5f05-944a-ac453f857988",
         "categoryName": "Pet Care",
@@ -2819,7 +4005,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e5ae3265-44bd-55ae-9d5d-c0be744ff461",
-        "uid": "e5ae3265-44bd-55ae-9d5d-c0be744ff461",
+        "uid": "e5ae3265-44bd-55ae-9d5d-c0be744ff46168",
         "categoryId": "38172c15-daf4-4f6a-aafa-017f0ccd9ab8",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Education",
@@ -2844,7 +4030,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e543dbf4-505b-5dbb-9f22-bb90c167c929",
-        "uid": "e543dbf4-505b-5dbb-9f22-bb90c167c929",
+        "uid": "e543dbf4-505b-5dbb-9f22-bb90c167c92969",
         "categoryId": "ceb727fa-3ffe-487e-9290-b2c6c9d61e3d",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Insurance Premiums",
@@ -2869,7 +4055,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/ac7e3361-2075-4903-989e-53ec2291660e",
-        "uid": "ac7e3361-2075-4903-989e-53ec2291660e",
+        "uid": "ac7e3361-2075-4903-989e-53ec2291660e70",
         "categoryId": "ebbc29b8-a13b-46c4-af13-6687348b2335",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Transport",
@@ -2902,7 +4088,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/c4ca81f3-bca1-4742-a98f-9913cce8b63f",
-        "uid": "c4ca81f3-bca1-4742-a98f-9913cce8b63f",
+        "uid": "c4ca81f3-bca1-4742-a98f-9913cce8b63f71",
         "categoryId": "ec52f68e-1b69-4a38-a678-36c4c92810f2",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Clothing & Personal Care",
@@ -2926,19 +4112,20 @@
         "asset": ""
       },
       {
-        "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/a69a9de9-9794-4017-80c7-2fcdc2a113af",
-        "uid": "a69a9de9-9794-4017-80c7-2fcdc2a113af",
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/3eead3c7-e9de-4a5b-aeb2-b2b3c7b00710",
+        "uid": "3eead3c7-e9de-4a5b-aeb2-b2b3c7b0071072",
         "categoryId": "47280b5c-11a5-4a6b-b5f7-a3e0d9213c11",
-        "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/da002ecd-014f-5d8f-9c80-f13ad3b0cfd8",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
         "categoryName": "Bills, Insurance & General",
         "statedMonthlyAverageAmount": {
           "currencyCode": "AUD",
-          "units": "300",
+          "units": "1000",
           "nanos": 0
         },
         "calculatedMonthlyAverageAmount": null,
         "originalCalculatedMonthlyAverageAmount": null,
-        "control": "EXPENSE_CONTROL_UNSPECIFIED",
+        "justificationCode": "JUH03",
+        "control": "EXPENSE_CONTROL_JUSTIFIED",
         "review": "EXPENSE_REVIEW_COMPLETED",
         "leafNode": true,
         "warningCeilingAmount": null,
@@ -2947,16 +4134,80 @@
           "units": "100",
           "nanos": 0
         },
-        "createTime": "2024-09-30T05:30:51.629621281Z",
-        "updateTime": "2024-09-30T05:33:43.433385240Z",
-        "updatedBy": "d46fe0d7-aecc-57d9-a0e3-5d08b19bc859",
-        "etag": "1727674423433385240",
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:26.974894022Z",
+        "updatedBy": "1a36f1cf-519c-5c32-a2f7-1a03461b69ea",
+        "etag": "1732495509044098983",
         "hemState": "HEM_STATE_HEM",
-        "asset": ""
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da617"
       },
       {
-        "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/da002ecd-014f-5d8f-9c80-f13ad3b0cfd8",
-        "uid": "da002ecd-014f-5d8f-9c80-f13ad3b0cfd8",
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/3eead3c7-e9de-4a5b-aeb2-b2b3c7b00711",
+        "uid": "3eead3c7-e9de-4a5b-aeb2-b2b3c7b0071173",
+        "categoryId": "47280b5c-11a5-4a6b-b5f7-a3e0d9213c11",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "categoryName": "Bills, Insurance & General",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "1000",
+          "nanos": 0
+        },
+        "justificationCode": "JUH03",
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_WARNING",
+        "review": "EXPENSE_REVIEW_COMPLETED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "100",
+          "nanos": 0
+        },
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:26.974894022Z",
+        "updatedBy": "1a36f1cf-519c-5c32-a2f7-1a03461b69ea",
+        "etag": "1732495509044098983",
+        "hemState": "HEM_STATE_HEM",
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da618"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/3eead3c7-e9de-4a5b-aeb2-b2b3c7b00712",
+        "uid": "3eead3c7-e9de-4a5b-aeb2-b2b3c7b0071274",
+        "categoryId": "47280b5c-11a5-4a6b-b5f7-a3e0d9213c11",
+        "expenseParent": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "categoryName": "Bills, Insurance & General",
+        "statedMonthlyAverageAmount": {
+          "currencyCode": "AUD",
+          "units": "1000",
+          "nanos": 0
+        },
+        "justificationCode": "JUH99",
+        "otherJustificationText": "Lorem ipusm dolor sit amet consectetur adipiscing elit sed do eiusmod tempor incididunt ut labore et dolore magna aliqua",
+        "calculatedMonthlyAverageAmount": null,
+        "originalCalculatedMonthlyAverageAmount": null,
+        "control": "EXPENSE_CONTROL_JUSTIFIED",
+        "review": "EXPENSE_REVIEW_COMPLETED",
+        "leafNode": true,
+        "warningCeilingAmount": null,
+        "justificationCeilingAmount": {
+          "currencyCode": "AUD",
+          "units": "100",
+          "nanos": 0
+        },
+        "createTime": "2024-11-25T00:45:09.044098983Z",
+        "updateTime": "2024-11-25T00:45:26.974894022Z",
+        "updatedBy": "1a36f1cf-519c-5c32-a2f7-1a03461b69ea",
+        "etag": "1732495509044098983",
+        "hemState": "HEM_STATE_HEM",
+        "asset": "",
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da619"
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/expenses/d82bf6ea-60c1-55e1-af7a-61374e775dbc",
+        "uid": "da002ecd-014f-5d8f-9c80-f13ad3b0cfd875",
         "categoryId": "a1e3f4b7-8475-452a-99c0-11ab859f364b",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Household Costs",
@@ -2981,7 +4232,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/f92d3af6-a300-41c3-bb7f-06da83d051f0",
-        "uid": "f92d3af6-a300-41c3-bb7f-06da83d051f0",
+        "uid": "f92d3af6-a300-41c3-bb7f-06da83d051f076",
         "categoryId": "ab6cd64e-0391-413b-938f-2e39597fca97",
         "expenseParent": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/fee72506-f50e-5fbd-bc0b-e42f7d18a6fb",
         "categoryName": "Health & Wellbeing",
@@ -3010,7 +4261,7 @@
       },
       {
         "name": "sops/d32ea2f5-2f7e-4195-a1c3-5c3bf2740519/expenses/e43fe3e6-4c15-42f2-a546-decd5949167a",
-        "uid": "e43fe3e6-4c15-42f2-a546-decd5949167a",
+        "uid": "e43fe3e6-4c15-42f2-a546-decd5949167a77",
         "categoryId": "f4725362-94b8-476b-be9f-14a28936a9aa",
         "expenseParent": "",
         "categoryName": "Other",
@@ -3034,7 +4285,11 @@
         "asset": ""
       }
     ],
-    "expensesTotalAmount": { "currencyCode": "AUD", "units": "0", "nanos": 0 },
+    "expensesTotalAmount": {
+      "currencyCode": "AUD",
+      "units": "0",
+      "nanos": 0
+    },
     "etag": ""
   },
   "assetsSummary": {
@@ -3042,7 +4297,7 @@
     "assets": [
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/dd879c38-61ed-4a0a-946d-2d53840b6f2e",
-        "uid": "20545432-ff8d-47b3-aa54-0b2e63c31de3",
+        "uid": "20545432-ff8d-47b3-aa54-0b2e63c31de378",
         "type": "ASSET_TYPE_VEHICLE",
         "subType": "Truck",
         "assetName": "My Car",
@@ -3099,7 +4354,7 @@
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/dd879c38-61ed-4a0a-946d-2d53840b6f2e",
-        "uid": "b0733744-c511-4a23-bb1b-6ddecdc4152c",
+        "uid": "b0733744-c511-4a23-bb1b-6ddecdc4152c79",
         "type": "ASSET_TYPE_VEHICLE",
         "subType": "Van",
         "assetName": "Family Car",
@@ -3185,7 +4440,7 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/assets/a5bf72ce-83af-4987-9ed5-50ee034d6886",
-        "uid": "a5bf72ce-83af-4987-9ed5-50ee034d6886",
+        "uid": "a5bf72ce-83af-4987-9ed5-50ee034d688680",
         "type": "ASSET_TYPE_BANK_ACCOUNT",
         "assetName": "ANZ Account",
         "estimatedValue": {
@@ -3207,7 +4462,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "source": ["ASSET_SOURCE_ANZ"],
@@ -3218,7 +4475,7 @@
       },
       {
         "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7/assets/e450ac74-78e1-470b-8e95-a2512f4359fe",
-        "uid": "e450ac74-78e1-470b-8e95-a2512f4359fe",
+        "uid": "e450ac74-78e1-470b-8e95-a2512f4359fe81",
         "type": "ASSET_TYPE_BANK_ACCOUNT",
         "assetName": "ANZ Account",
         "estimatedValue": {
@@ -3240,7 +4497,9 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-            "proportion": { "value": "100" }
+            "proportion": {
+              "value": "100"
+            }
           }
         ],
         "source": ["ASSET_SOURCE_ANZ"],
@@ -3294,7 +4553,6 @@
         "ownership": [
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
-
             "proportion": {
               "value": "100"
             }
@@ -3303,7 +4561,395 @@
         "propertyId": "",
         "createTime": "2023-04-05T03:57:57.766623Z",
         "updateTime": "2023-04-05T03:57:57.766623Z",
-        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4"
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "propertyCategory": "PROPERTY_CATEGORY_UNSPECIFIED",
+        "address": {
+          "singleLineAddress": "5 Swanston Street, Carlton VIC 3053",
+          "buildingNumber": "5",
+          "street": "Swanston Street",
+          "streetName": "Swanston",
+          "streetType": "Street",
+          "locality": "Carlton",
+          "state": "VIC",
+          "postalCode": "3053",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.800000",
+          "longitude": "144.965000",
+          "deliveryPointId": "50206049",
+          "householdIdentificationNumber": "201247532",
+          "deliveryPointBarcode": "1301011200020002001130301333233332317",
+          "sortPlanNumber": "027",
+          "council": "Melbourne",
+          "councilCode": "24334",
+          "sa2Code": "213031356"
+        }
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9744",
+        "uid": "9d116159-aa89-4911-ad91-9951196e974482",
+        "type": "ASSET_TYPE_PROPERTY",
+        "assetName": "",
+        "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "100000",
+          "nanos": 0
+        },
+        "liabilities": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/liabilities/83c0fc4d-d5e1-4e26-92d6-8e9e19e08a2c"
+        ],
+        "account": null,
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "30"
+            }
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+              "value": "34"
+            }
+          }
+        ],
+        "source": ["ASSET_SOURCE_ANZ"],
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da617",
+        "createTime": "2024-11-25T00:45:20.638749530Z",
+        "updateTime": "2024-11-25T00:45:20.638749530Z",
+        "updatedBy": "1a36f1cf-519c-5c32-a2f7-1a03461b69ea",
+        "etag": "1732495520638749530",
+        "propertyUsage": "PROPERTY_USAGE_UNSPECIFIED",
+        "valuationType": "VALUATION_TYPE_UNSPECIFIED",
+        "taxDeductiblePercentage": "0",
+        "collateralAssessmentId": "",
+        "calculatedValue": {
+          "currencyCode": "AUD",
+          "units": "699089",
+          "nanos": 0
+        },
+        "propertyCategory": "PROPERTY_CATEGORY_RESIDENTIAL",
+        "address": {
+          "singleLineAddress": "8 Collins Street, Docklands VIC 3008",
+          "buildingNumber": "8",
+          "street": "Collins Street",
+          "streetName": "Collins",
+          "streetType": "Street",
+          "locality": "Docklands",
+          "state": "VIC",
+          "postalCode": "3008",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.820000",
+          "longitude": "144.950000",
+          "deliveryPointId": "50204049",
+          "householdIdentificationNumber": "201247530",
+          "deliveryPointBarcode": "1301011200020002001130301333233332315",
+          "sortPlanNumber": "025",
+          "council": "Melbourne",
+          "councilCode": "24332",
+          "sa2Code": "213031354"
+        }
+      },
+      {
+        "name": "sops/9ab0271d-b4de-4396-a550-1e1065668457/assets/5e42f929-5f9e-41ba-9c9a-4c6198cdcf43",
+        "uid": "965e349d-5b9f-49ce-a037-7b5c633ba83683",
+        "type": "ASSET_TYPE_PROPERTY",
+        "assetName": "",
+        "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "699089",
+          "nanos": 0
+        },
+        "liabilities": [
+          "sops/fd7fe7a0-5f6a-4608-9254-91a99caade9a/liabilities/18cabb4b-42a7-41db-8ce2-ade125cbfcf4"
+        ],
+        "account": null,
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "50"
+            }
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+              "value": "50"
+            }
+          }
+        ],
+        "source": ["ASSET_SOURCE_MANUAL"],
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da618",
+        "createTime": "2024-11-25T00:45:20.638749530Z",
+        "updateTime": "2024-11-25T00:45:20.638749530Z",
+        "updatedBy": "1a36f1cf-519c-5c32-a2f7-1a03461b69ea",
+        "etag": "1732495520638749530",
+        "propertyUsage": "PROPERTY_USAGE_UNSPECIFIED",
+        "valuationType": "VALUATION_TYPE_UNSPECIFIED",
+        "taxDeductiblePercentage": "0",
+        "calculatedValue": null,
+        "propertyCategory": "PROPERTY_CATEGORY_RESIDENTIAL",
+        "address": {
+          "singleLineAddress": "15 King Street, Melbourne VIC 3000",
+          "buildingNumber": "15",
+          "street": "King Street",
+          "streetName": "King",
+          "streetType": "Street",
+          "locality": "Melbourne",
+          "state": "VIC",
+          "postalCode": "3000",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.814107",
+          "longitude": "144.963280",
+          "deliveryPointId": "50203049",
+          "householdIdentificationNumber": "201247529",
+          "deliveryPointBarcode": "1301011200020002001130301333233332314",
+          "sortPlanNumber": "024",
+          "council": "Melbourne",
+          "councilCode": "24331",
+          "sa2Code": "213031353"
+        }
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9710",
+        "uid": "9d116159-aa89-4911-ad91-9951196e974984",
+        "type": "ASSET_TYPE_PROPERTY",
+        "assetName": "",
+        "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "100000",
+          "nanos": 0
+        },
+        "liabilities": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/liabilities/265f58b2-4edc-4d8e-8ee0-e82e9c4f95f5"
+        ],
+        "account": null,
+        "ownership": [
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+              "value": "50"
+            }
+          }
+        ],
+        "source": ["ASSET_SOURCE_MANUAL"],
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da619",
+        "createTime": "2024-11-25T00:45:20.638749530Z",
+        "updateTime": "2024-11-25T00:45:20.638749530Z",
+        "updatedBy": "1a36f1cf-519c-5c32-a2f7-1a03461b69ea",
+        "etag": "1732495520638749530",
+        "propertyUsage": "PROPERTY_USAGE_UNSPECIFIED",
+        "valuationType": "VALUATION_TYPE_UNSPECIFIED",
+        "taxDeductiblePercentage": "0",
+        "collateralAssessmentId": "",
+        "calculatedValue": {
+          "currencyCode": "AUD",
+          "units": "699089",
+          "nanos": 0
+        },
+        "propertyCategory": "PROPERTY_CATEGORY_RESIDENTIAL",
+        "address": {
+          "singleLineAddress": "22 Bourke Street, Melbourne VIC 3000",
+          "buildingNumber": "22",
+          "street": "Bourke Street",
+          "streetName": "Bourke",
+          "streetType": "Street",
+          "locality": "Melbourne",
+          "state": "VIC",
+          "postalCode": "3000",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.813600",
+          "longitude": "144.971000",
+          "deliveryPointId": "50205049",
+          "householdIdentificationNumber": "201247531",
+          "deliveryPointBarcode": "1301011200020002001130301333233332316",
+          "sortPlanNumber": "026",
+          "council": "Melbourne",
+          "councilCode": "24333",
+          "sa2Code": "213031355"
+        }
+      },
+      {
+        "name": "sops/55629f63-178f-4303-983c-26b523695fb4/assets/9d116159-aa89-4911-ad91-9951196e9743",
+        "uid": "9d116159-aa89-4911-ad91-9951196e974485",
+        "type": "ASSET_TYPE_PROPERTY",
+        "assetName": "",
+        "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "100000",
+          "nanos": 0
+        },
+        "liabilities": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/liabilities/83c0fc4d-d5e1-4e26-92d6-8e9e19e08a2c"
+        ],
+        "account": null,
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "source": ["ASSET_SOURCE_ANZ"],
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da617",
+        "createTime": "2024-11-25T00:45:20.638749530Z",
+        "updateTime": "2024-11-25T00:45:20.638749530Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1732495520638749530",
+        "propertyUsage": "PROPERTY_USAGE_UNSPECIFIED",
+        "valuationType": "VALUATION_TYPE_UNSPECIFIED",
+        "taxDeductiblePercentage": "0",
+        "collateralAssessmentId": "0D6EAEAE-AE79-40B0-8DFE-4E651208EFB2",
+        "calculatedValue": {
+          "currencyCode": "AUD",
+          "units": "699089",
+          "nanos": 0
+        },
+        "propertyCategory": "PROPERTY_CATEGORY_RESIDENTIAL",
+        "address": {
+          "singleLineAddress": "2 Regent Street, Yarraville VIC 3013",
+          "buildingNumber": "2",
+          "street": "Regent Street",
+          "streetName": "Regent",
+          "streetType": "Street",
+          "locality": "Yarraville",
+          "state": "VIC",
+          "postalCode": "3013",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.81225583",
+          "longitude": "144.88886895",
+          "deliveryPointId": "50202049",
+          "householdIdentificationNumber": "201247528",
+          "deliveryPointBarcode": "1301011200020002001130301333233332313",
+          "sortPlanNumber": "023",
+          "council": "Maribyrnong",
+          "councilCode": "24330",
+          "sa2Code": "213031352"
+        }
+      },
+      {
+        "name": "sops/2957a075-fd87-47d4-a90a-9fe3381c6127/assets/965e349d-5b9f-49ce-a037-7b5c633ba837",
+        "uid": "965e349d-5b9f-49ce-a037-7b5c633ba83686",
+        "type": "ASSET_TYPE_PROPERTY",
+        "assetName": "",
+        "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "699089",
+          "nanos": 0
+        },
+        "liabilities": [
+          "sops/fd7fe7a0-5f6a-4608-9254-91a99caade9a/liabilities/18cabb4b-42a7-41db-8ce2-ade125cbfcf4"
+        ],
+        "account": null,
+        "ownership": [
+          {
+            "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "source": ["ASSET_SOURCE_MANUAL"],
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da618",
+        "createTime": "2024-11-25T00:45:20.638749530Z",
+        "updateTime": "2024-11-25T00:45:20.638749530Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1732495520638749530",
+        "propertyUsage": "PROPERTY_USAGE_UNSPECIFIED",
+        "valuationType": "VALUATION_TYPE_UNSPECIFIED",
+        "taxDeductiblePercentage": "0",
+        "collateralAssessmentId": "0D6EAEAE-AE79-40B0-8DFE-4E651208EFB2",
+        "calculatedValue": null,
+        "propertyCategory": "PROPERTY_CATEGORY_RESIDENTIAL",
+        "address": {
+          "singleLineAddress": "Unit 502 5 Purkis Street, Camperdown NSW 2050",
+          "unit": "Unit 502",
+          "unitType": "Unit",
+          "unitNumber": "502",
+          "buildingNumber": "5",
+          "street": "Purkis Street",
+          "streetName": "Purkis",
+          "streetType": "Street",
+          "locality": "Camperdown",
+          "state": "NSW",
+          "postalCode": "2050",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-33.88624223",
+          "longitude": "151.17767237",
+          "deliveryPointId": "94824958",
+          "householdIdentificationNumber": "999631878",
+          "deliveryPointBarcode": "1301013011220211301222301030211112013",
+          "sortPlanNumber": "011",
+          "council": "Sydney",
+          "councilCode": "17200",
+          "sa2Code": "117031331"
+        }
+      },
+      {
+        "name": "sops/9ab0271d-b4de-4396-a550-1e1065668457/assets/4aba8490-031b-4033-b303-1970679393d6",
+        "uid": "9d116159-aa89-4911-ad91-9951196e974987",
+        "type": "ASSET_TYPE_PROPERTY",
+        "assetName": "",
+        "estimatedValue": {
+          "currencyCode": "AUD",
+          "units": "100000",
+          "nanos": 0
+        },
+        "liabilities": [
+          "sops/55629f63-178f-4303-983c-26b523695fb4/liabilities/265f58b2-4edc-4d8e-8ee0-e82e9c4f95f5"
+        ],
+        "account": null,
+        "ownership": [
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+              "value": "100"
+            }
+          }
+        ],
+        "source": ["ASSET_SOURCE_MANUAL"],
+        "propertyId": "d4f574d8-950f-4d9e-a1d7-4044a22da619",
+        "createTime": "2024-11-25T00:45:20.638749530Z",
+        "updateTime": "2024-11-25T00:45:20.638749530Z",
+        "updatedBy": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
+        "etag": "1732495520638749530",
+        "propertyUsage": "PROPERTY_USAGE_UNSPECIFIED",
+        "valuationType": "VALUATION_TYPE_UNSPECIFIED",
+        "taxDeductiblePercentage": "0",
+        "collateralAssessmentId": "",
+        "calculatedValue": {
+          "currencyCode": "AUD",
+          "units": "699089",
+          "nanos": 0
+        },
+        "propertyCategory": "PROPERTY_CATEGORY_RESIDENTIAL",
+        "address": {
+          "singleLineAddress": "69 Newgrove Road, Healesville VIC 3777",
+          "buildingNumber": "69",
+          "street": "Newgrove Road",
+          "streetName": "Newgrove",
+          "streetType": "Road",
+          "locality": "Healesville",
+          "state": "VIC",
+          "postalCode": "3777",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.65999288",
+          "longitude": "145.52478286",
+          "deliveryPointId": "61182291",
+          "householdIdentificationNumber": "201081856",
+          "deliveryPointBarcode": "1301012001012202023001333132130310113",
+          "sortPlanNumber": "029",
+          "council": "Yarra Ranges",
+          "councilCode": "27450",
+          "sa2Code": "211051276"
+        }
       },
       {
         "name": "sops/3add20c2-e3c2-41d8-94ee-28480d0bf49c/assets/dbe28f07-c979-467a-9f5c-31f11700c916",

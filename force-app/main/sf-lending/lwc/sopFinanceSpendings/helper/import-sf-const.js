@@ -46,9 +46,11 @@ export const CATEGORIES_DESCRIPTION_SPENDINGS = {
   "Bills, Insurance & General": {
     version1:
       "Utilities, home insurance and anything spent on repairs or DIY projects.",
-    version2: "Utilities, home insurance, body corporate fees and DIY projects."
+    version2:
+      "Utilities, home insurance, council rates, body corporate fees and DIY projects."
   },
-  "Land Tax": "Tax paid on the land you own.",
+  "Land Tax":
+    "Tax paid on the land you own. This amount does not include council rates.",
   "Owners Corp & Land Tax":
     "Body corporate and strata fees plus any tax paid on land owned.",
   Rent: "Rent paid on primary place of residence or boarding fees.",
@@ -99,4 +101,11 @@ export const EXPENSES_WITH_PROMPTS = [
   "Health & Wellbeing",
   "Subscriptions, Phone & Internet",
   "Transport"
+];
+
+export const EXPENSES_WITH_PROPERTIES = [
+  "Bills, Insurance & General",
+  "Owners Corp & Land Tax",
+  "Land Tax",
+  "Rent"
 ];

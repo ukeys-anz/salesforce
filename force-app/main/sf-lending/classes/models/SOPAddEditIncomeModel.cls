@@ -37,6 +37,12 @@ public with sharing class SOPAddEditIncomeModel extends CalloutModel {
   public SOPEmploymentDetail employment { get; set; }
 
   /**
+   * @description The linked property asset name.
+   */
+  @AuraEnabled
+  public String asset { get; set; }
+
+  /**
    * @description The list of income items.
    */
   @AuraEnabled
@@ -73,6 +79,12 @@ public with sharing class SOPAddEditIncomeModel extends CalloutModel {
      */
     @AuraEnabled
     public SOPEmploymentDetail employment { get; set; }
+
+    /**
+     * @description The linked property asset for the income.
+     */
+    @AuraEnabled
+    public String asset { get; set; }
 
     /**
      * @description The list of income item details.
