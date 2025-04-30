@@ -38,10 +38,10 @@ public with sharing class PushToAppRepository {
     String sObjectRecordTypeQuery =
       'SELECT RecordType.DeveloperName FROM ' +
       sObjectName +
-      ' WHERE Id = :recordId LIMIT 1';
+      ' WHERE Id = :recordId WITH USER_MODE LIMIT 1';
 
     SObject sObjectRecord = Database.query(sObjectRecordTypeQuery);
-    return (String) sObjectRecord.getSObject('RecordType').get('DeveloperName');
+    return (String) sObjectRecord.getSObject('RecordType')?.get('DeveloperName');
   }
 
   /**
@@ -55,28 +55,28 @@ public with sharing class PushToAppRepository {
     if (String.isBlank(templateName)) {
       return null;
     }
-
     return [
       SELECT Id, Name, Expire_After_Days__c
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
+      WITH USER_MODE
     ];
   }
 
   /**
-   * @description Retreives the Customer Contact Id based on the record Id
-   * @param sobjectRecId The Id of the Sobject Record
+   * @description Retreives the Customer Contact Id based on the task whatId
+   * @param taskWhatId The whatId of the Task Record
    * @return PersonContactId if exist.
    */
-  public Id queryCustomerContactId(Id sobjectRecId) {
-    if (String.isBlank(sobjectRecId)) {
+  public Id queryCustomerContactId(Id taskWhatId) {
+    if (String.isBlank(taskWhatId)) {
       return null;
     }
-    String sObjectName = sobjectRecId.getSObjectType().toString();
+    String sObjectName = taskWhatId.getSObjectType().toString();
     String sObjectRecordTypeQuery =
       'SELECT Account.PersonContactId FROM ' +
       sObjectName +
-      ' WHERE Id = :sobjectRecId LIMIT 1';
+      ' WHERE Id = :taskWhatId WITH USER_MODE LIMIT 1';
     sObject sObjectRecord = (sObject) Database.query(sObjectRecordTypeQuery);
     return (Id) sObjectRecord.getSobject('Account')?.get('PersonContactId');
   }
@@ -87,6 +87,9 @@ public with sharing class PushToAppRepository {
    * @return Task record details
    */
   public Task queryTaskDetails(Id taskId) {
+    if (taskId == null) {
+      return null;
+    }
     return [
       SELECT
         Id,
@@ -109,7 +112,7 @@ public with sharing class PushToAppRepository {
       FROM Task
       WHERE Id = :taskId
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**
@@ -126,7 +129,7 @@ public with sharing class PushToAppRepository {
   ) {
     String allFields = String.join(new List<String>(fieldsToQuery), ',');
     List<SObject> recordsFromDatabase = Database.query(
-      'SELECT ' + allFields + ' FROM ' + sObjectName + ' WHERE Id = :recordId'
+      'SELECT ' + allFields + ' FROM ' + sObjectName + ' WHERE Id = :recordId WITH USER_MODE'
     );
     return recordsFromDatabase;
   }
@@ -136,15 +139,12 @@ public with sharing class PushToAppRepository {
    * @return List<Task> list of Tasks in system to archive
    */
   public List<Task> queryCustomerNudgeTasksToArchive() {
-    if (SObjectType.Task.isQueryable() == false) {
-      return new List<Task>();
-    }
     return [
       SELECT Id, Status
       FROM Task
       WHERE ActivityDate < TODAY AND RecordTypeId = :RTTask.customerNudge
       WITH USER_MODE
-    ];
+    ] ?? new List<Task>();
   }
 
   /**
@@ -163,6 +163,7 @@ public with sharing class PushToAppRepository {
       SELECT Id, AEM_Content_Data__c
       FROM Customer_Task_Data__c
       WHERE Id IN :customerTaskDataIds
+      WITH SYSTEM_MODE
     ];
   }
 

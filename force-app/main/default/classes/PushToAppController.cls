@@ -120,8 +120,7 @@ public with sharing class PushToAppController {
       );
 
       DML_REPOSITORY.doInsert(
-        listOfCustomerActions,
-        new DmlConfig().systemMode()
+        listOfCustomerActions
       );
       Task pushToAppTask = preparePushToAppTask(
         pushToAppTaskData,
