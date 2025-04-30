@@ -127,3 +127,33 @@ jobs:
     secrets: inherit
     with:
       prod_deployment: true
+
+  update-sdva:
+    runs-on: anzx-default
+    needs: [Release]
+    outputs:
+      last_tag: ${{ steps.info.outputs.last_tag }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get Latest master tag
+        id: info
+        run: |
+          lastTag="$( git describe --abbrev=0 --tags --match 'master*' )"
+          echo "Last tag: $lastTag"
+          echo "last_tag=$lastTag" >> $GITHUB_OUTPUT
+
+      - name: update-plat-app-versions
+        if: ${{ success() }}
+        uses: anzx/sec-domain-actions/publish-app-scm-version@main
+        with:
+          repo: ${{ github.repository }}
+          asset: salesforce
+          component: salesforce
+          env: prod
+          release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
+          platform-app-versions-token: ${{ secrets.PLAT_APP_VERSIONS_UPDATE_TOKEN }}
+          app-repo-token: ${{ secrets.GITHUB_TOKEN }}
