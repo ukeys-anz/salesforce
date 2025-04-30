@@ -13,6 +13,7 @@
     <sharedTo>
         <role>AF_General_Manager</role>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Business_Admin</role>
         <role>CBO_General_Manager</role>
         <role>Channel_Segment_Manager</role>

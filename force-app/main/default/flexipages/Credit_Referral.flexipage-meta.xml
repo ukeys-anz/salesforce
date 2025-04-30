@@ -380,7 +380,7 @@
                     </criteria>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
-                        <operator>EQUAL</operator>
+                        <operator>CONTAINS</operator>
                         <rightValue>BOH_Coach</rightValue>
                     </criteria>
                     <criteria>

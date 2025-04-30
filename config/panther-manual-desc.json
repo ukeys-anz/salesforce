@@ -3487,7 +3487,17 @@
       ],
       "IA-2415984": ["Role", "Mobile_Classic__c", "Email_Classic__c"],
       "IA-2428130": ["ContactId"],
-      "IA-2530753": ["Source_System_Id__c"]
+      "IA-2530753": ["Source_System_Id__c"],
+      "IA-2453350": ["ExternalId__c"]
+    },
+    "Opportunity_Contact_Role_Sync__c": {
+      "IA-2453350": [
+        "ContactId__c",
+        "ExternalId__c",
+        "OpportunityContactRoleId__c",
+        "OpportunityId__c",
+        "Role__c"
+      ]
     },
     "OpportunityLineItem": {
       "IA-2415987": [

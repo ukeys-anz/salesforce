@@ -317,4 +317,51 @@ public class OpportunityActionsTest {
     Test.stopTest();
     Assert.areEqual(1, oppList.size(), '1 opportunity should be returned!');
   }
+
+  @isTest
+  static void updateOCRSyncRecordsOnLARChangeTest() {
+    registerMocks();
+    Opportunity oppMl = new Opportunity(
+      Id = Lib_FakeIdGenerator.getMockId(Opportunity.getSobjectType()),
+      RecordTypeId = RTOpportunity.mlOpportunity
+    );
+    Opportunity oppMlChanged = new Opportunity(
+      Id = oppMl.Id,
+      RecordTypeId = RTOpportunity.mlOpportunity,
+      Loanapp_Reference__c = 'MLCRM-102'
+    );
+    OpportunityContactRole ocr = new OpportunityContactRole(
+      Id = Lib_FakeIdGenerator.getMockId(
+        OpportunityContactRole.getSobjectType()
+      ),
+      OpportunityId = oppMl.Id
+    );
+    Opportunity_Contact_Role_Sync__c ocrSync = new Opportunity_Contact_Role_Sync__c(
+      OpportunityContactRoleId__c = ocr.Id,
+      ExternalId__c = '_CAP-CIS_2019212'
+    );
+    oppActoinRepoMock.mock(
+      'getOpportunityContactRolesByOppIds',
+      new List<OpportunityContactRole>{ ocr }
+    );
+    oppActoinRepoMock.mock(
+      'getOCRSyncByOCRIds',
+      new List<Opportunity_Contact_Role_Sync__c>{ ocrSync }
+    );
+    Test.startTest();
+    OpportunityActions.updateOCRSyncRecordsOnLARChange(
+      new List<Opportunity>{ oppMlChanged },
+      new Map<Id, Opportunity>{ oppMlChanged.Id => oppMl }
+    );
+    Test.stopTest();
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncList = (List<Opportunity_Contact_Role_Sync__c>) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      ocrSyncList.size(),
+      'there should be 1 ocr sync updated'
+    );
+  }
 }

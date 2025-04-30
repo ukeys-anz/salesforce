@@ -182,5 +182,9 @@ public with sharing class OpportunityTriggerHandler extends Lib_TriggerHandler {
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
     //CC-1252-Make Opportunities visible to Owners & users above them in the ML hierarchy
     MLCRMSharingUtil.shareRecordByTerritory(oldMap, records, 'Opportunity');
+    OpportunityActions.updateOCRSyncRecordsOnLARChange(
+      records,
+      (Map<Id, Opportunity>) oldMap
+    );
   }
 }

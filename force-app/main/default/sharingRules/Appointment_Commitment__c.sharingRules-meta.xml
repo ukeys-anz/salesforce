@@ -16,6 +16,21 @@
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
     <sharingCriteriaRules>
+        <fullName>Appointment_Commitment_BOH_Coach_Lead_Read_Write</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides read/write access to BOH coach lead role for appointment commitment object</description>
+        <label>Appointment Commitment BOH Coach Lead Read/Write</label>
+        <sharedTo>
+            <role>BOH_Coach_Lead</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>Name</field>
+            <operation>notEqual</operation>
+            <value>null</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
         <fullName>Appointment_Commitment_BOH_Coach_Read_Write</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule provides read/write access to BOH coach role for appointment commitment object</description>
