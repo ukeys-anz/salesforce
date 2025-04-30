@@ -20,26 +20,14 @@ public with sharing class CustomerNudgeTaskAutoArchiveScheduler implements Sched
    */
   public void execute(SchedulableContext sc) {
     List<Task> taskRecords = CUSTOMER_NUDGE_REPOSITORY.queryCustomerNudgeTasksToArchive();
-    List<Task> tasksToUpdate = getTaskRecordsWithUpdatedDetails(taskRecords);
+    ListUtil.setField(
+      taskRecords,
+      Task.Status,
+      TASK_AUTO_ARCHIVED
+    );
     DML_REPOSITORY.doUpdate(
-      tasksToUpdate,
+      taskRecords,
       new DmlConfig().allowPartial().systemMode()
     );
-  }
-
-  /**
-   * @description update task record to expired status
-   * @param taskRecords task records
-   * @return List<Task> task records after updating
-   */
-  public static List<Task> getTaskRecordsWithUpdatedDetails(
-    List<Task> taskRecords
-  ) {
-    List<Task> tasksToUpdate = new List<Task>();
-    for (Task taskRecord : taskRecords) {
-      taskRecord.Status = TASK_AUTO_ARCHIVED;
-      tasksToUpdate.add(taskRecord);
-    }
-    return tasksToUpdate;
   }
 }

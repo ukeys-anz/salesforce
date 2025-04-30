@@ -57,12 +57,6 @@ public with sharing class InteractionConstants {
     )
     .getId('General');
 
-  // Interaction - Store Interaction RT Id
-  public static final Id INTERACTION_STORE_RT_ID = QueryRT.of(
-      Interaction.SObjectType
-    )
-    .getId('Store');
-
   // Interaction - Message Interaction RT Id
   public static final Id INTERACTION_MESSAGE_RT_ID = QueryRT.of(
       Interaction.SObjectType
