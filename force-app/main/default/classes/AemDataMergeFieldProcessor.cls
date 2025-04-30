@@ -1,7 +1,7 @@
 /**
  * @author Kopal Goswami
  * @since Oct 2024
- * @description Helps in converting merged fields of AEM Data into appropriate values.
+ * @description Helps in converting merged fields of AEM Data into appropriate values.
  * Helps in preparing notification data which needs to be sent to Mobile (push to app).
  */
 public class AemDataMergeFieldProcessor {
@@ -16,9 +16,9 @@ public class AemDataMergeFieldProcessor {
    * @return String with appropriate field values
    */
   public static String replaceMergedFields(String aemContentData, Id recordId) {
+    Matcher mergedFieldMatcher = getMergedFieldMatcher(aemContentData);
     //Extract field names from the JSON string
-    Set<String> fieldsToQuery = extractFieldNames(aemContentData);
-
+    Set<String> fieldsToQuery = extractFieldNames(mergedFieldMatcher);
     //Get the name of the object for the given record
     String sObjectName = recordId.getSObjectType().toString();
 
@@ -30,7 +30,11 @@ public class AemDataMergeFieldProcessor {
     );
 
     // Replace the merged fields in the JSON string
-    return replaceFieldsInJson(aemContentData, recordsFromDatabase);
+    return replaceFieldsInJson(
+      aemContentData,
+      recordsFromDatabase,
+      mergedFieldMatcher
+    );
   }
 
   // Common method to create a Matcher object based on the JSON string
@@ -42,9 +46,7 @@ public class AemDataMergeFieldProcessor {
 
   // Extracts the field names from the JSON string
   @TestVisible
-  private static Set<String> extractFieldNames(String aemContentData) {
-    Matcher mergedFieldMatcher = getMergedFieldMatcher(aemContentData);
-
+  private static Set<String> extractFieldNames(Matcher mergedFieldMatcher) {
     Set<String> fieldsToQuery = new Set<String>();
     while (mergedFieldMatcher.find()) {
       String fieldName = mergedFieldMatcher.group(1);
@@ -58,10 +60,9 @@ public class AemDataMergeFieldProcessor {
   @TestVisible
   private static String replaceFieldsInJson(
     String aemContentData,
-    List<SObject> recordsFromDatabase
+    List<SObject> recordsFromDatabase,
+    Matcher mergedFieldMatcher
   ) {
-    Matcher mergedFieldMatcher = getMergedFieldMatcher(aemContentData);
-
     mergedFieldMatcher.reset();
 
     while (mergedFieldMatcher.find()) {
@@ -81,7 +82,7 @@ public class AemDataMergeFieldProcessor {
 
   // Fetches related field values like Account.FirstName
   private static String getRelatedFieldValue(SObject record, String fieldName) {
-    String[] parts = fieldName.split('\\.');
+    List<String> parts = fieldName.split('\\.');
     SObject relatedObject = record.getSObject(parts[0]);
 
     return (parts.size() > 1 &&
