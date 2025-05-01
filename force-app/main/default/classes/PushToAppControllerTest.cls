@@ -46,12 +46,10 @@ public with sharing class PushToAppControllerTest {
 
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider pushToAppRepoMock;
-  static Lib_MockProvider pushToAppUtilRepoMock;
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
     pushToAppRepoMock = Lib_MockProvider.forType(PushToAppRepository.class);
-    pushToAppUtilRepoMock = Lib_MockProvider.forType(PushToAppHelper.class);
   }
 
   @isTest
@@ -115,7 +113,6 @@ public with sharing class PushToAppControllerTest {
       'selectedNotificationConfigDetail',
       mockSelectedNotificationConfigDetail()
     );
-    pushToAppUtilRepoMock.mock('queryCustomerContactId', FAKER_CONTACT_ID);
     dmlRepoMock.mock(
       'doInsert',
       TestUtil.getMockSaveResult(
