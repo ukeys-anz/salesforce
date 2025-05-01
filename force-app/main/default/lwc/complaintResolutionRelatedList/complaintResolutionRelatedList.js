@@ -36,7 +36,7 @@ const COLUMNs = [
     initialWidth: 150
   },
   {
-    label: "Subsequent Issue",
+    label: "Subsequent Issue Type",
     fieldName: "subsequentIssue",
     type: "text",
     initialWidth: 150
