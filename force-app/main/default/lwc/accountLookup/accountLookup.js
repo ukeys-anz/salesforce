@@ -1,6 +1,7 @@
 import { LightningElement, wire } from "lwc";
 import { OmniscriptBaseMixin } from "omnistudio/omniscriptBaseMixin";
 import { getRecord } from "lightning/uiRecordApi";
+import { CurrentPageReference } from "lightning/navigation";
 
 const FIELDS = [
   "Account.Source_System_ID__c",
@@ -36,19 +37,36 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   custNo;
   isDisabled = false;
 
+  @wire(CurrentPageReference)
+  setCurrentPageReference(currentPageReference) {
+    this.pageReference = currentPageReference;
+  }
+
   get accountIdStr() {
     try {
       if (this.recId) {
         return this.recId;
       }
       const inContextVal = this.getURLParameterByName("inContextOfRef");
-      const context = JSON.parse(window.atob(inContextVal));
-      let recordIdFromURL = context.attributes.recordId;
-      let objectName = context.attributes.objectApiName;
-      if (objectName === "Account") {
-        this.recId = recordIdFromURL;
-        this.isDisabled = true;
-        this.setCaseAccountId();
+      if (inContextVal) {
+        const context = JSON.parse(window.atob(inContextVal));
+        let recordIdFromURL = context.attributes.recordId;
+        let objectName = context.attributes.objectApiName;
+        if (objectName === "Account") {
+          this.recId = recordIdFromURL;
+          this.isDisabled = true;
+          this.setCaseAccountId();
+        }
+      } else {
+        const wsParam = this.pageReference.state.ws;
+        if (wsParam) {
+          const match = wsParam.match(/\/Account\/([a-zA-Z0-9]{15,18})\//);
+          if (match && match[1]) {
+            this.recId = match[1];
+            this.isDisabled = true;
+            this.setCaseAccountId();
+          }
+        }
       }
     } catch (err) {
       this.recId = "";
