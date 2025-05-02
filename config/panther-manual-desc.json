@@ -4443,7 +4443,8 @@
         "LastModifiedById",
         "LastModifiedDate",
         "RecordTypeId"
-      ]
+      ],
+      "IA-2646045": ["Summary__c"]
     },
     "User": {
       "IA-2460507": [
