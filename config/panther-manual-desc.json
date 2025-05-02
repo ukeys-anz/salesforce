@@ -2666,7 +2666,10 @@
         "ReasonforVisit__c",
         "Product__c",
         "Actual_Topic_Formula__c",
-        "Reason_for_Visit_Formula__c"
+        "Reason_for_Visit_Formula__c",
+        "Actual_Topic__c",
+        "Reason_For_Visit__c",
+        "Products__c"
       ],
       "IA-2423227": ["COI_Member__c"]
     },

@@ -34,6 +34,7 @@
     <permissionSets>Interaction_Read_Only</permissionSets>
     <permissionSets>Interaction_Tag_Read_Only</permissionSets>
     <permissionSets>InteractionOmniClasses</permissionSets>
+    <permissionSets>Interest_Tag_Read_Only</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Only</permissionSets>
     <permissionSets>OCV_Flags_Read_Only</permissionSets>
