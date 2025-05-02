@@ -23,6 +23,7 @@ Parent.RecordType.DeveloperName = &apos;Scam&apos;
 OR(
 $UserRole.DeveloperName = &apos;Coach&apos;,
 $UserRole.DeveloperName = &apos;Coach_Lead&apos;,
+$UserRole.DeveloperName = &apos;BOH_Coach_Lead&apos;,
 $UserRole.DeveloperName = &apos;Content_Writer&apos;,
 $UserRole.DeveloperName = &apos;Quality_Analyst&apos;,
 $UserRole.DeveloperName = &apos;Support_Coach&apos;

@@ -42,5 +42,6 @@
         <role>FraudX_Agent</role>
         <role>Support_Coach</role>
         <role>Card_Dispute_Agent</role>
+        <role>BOH_Coach_Lead</role>
     </sharedTo>
 </ListView>

@@ -146,7 +146,8 @@ export default class SopUtils extends LightningElement {
   editIncomeExpenseRole = [
     "BOH_Coach",
     "Credit_Assessment_Officer",
-    "Credit_Assessor_Lead"
+    "Credit_Assessor_Lead",
+    "BOH_Coach_Lead"
   ];
 
   @wire(CurrentPageReference)
