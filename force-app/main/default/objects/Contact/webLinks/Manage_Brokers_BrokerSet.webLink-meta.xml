@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<WebLink xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Manage_Brokers_BrokerSet</fullName>
+    <availability>online</availability>
+    <description>Contact Related List View button for Broker Set record page. 
+Opens Retail Brokers  Contact List view, where EM can add or remove Broker Set of their respective brokers.</description>
+    <displayType>massActionButton</displayType>
+    <encodingKey>UTF-8</encodingKey>
+    <height>600</height>
+    <linkType>url</linkType>
+    <masterLabel>Manage Brokers</masterLabel>
+    <openType>sidebar</openType>
+    <protected>false</protected>
+    <requireRowSelection>true</requireRowSelection>
+    <url>{!URLFOR(&apos;lightning/o/Contact/home?filterName=Retail_Brokers&apos;)}</url>
+</WebLink>

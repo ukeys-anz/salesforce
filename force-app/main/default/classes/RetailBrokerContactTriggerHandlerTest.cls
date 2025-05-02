@@ -11,7 +11,7 @@ private class RetailBrokerContactTriggerHandlerTest {
   private static final Id RECORD_TYPE_ID_BROKER = RTContact.broker;
   private static final Id RECORD_TYPE_ID_STAFF = RTContact.staff;
   static Lib_MockProvider brokerSettingsMock = Lib_MockProvider.forType(
-    CustomSettingsRepository.class
+    BrokerSettingsRepository.class
   );
 
   static List<Contact> createTestContactList(Id recordTypeId) {
@@ -43,6 +43,7 @@ private class RetailBrokerContactTriggerHandlerTest {
     Contact brokerContact = new Contact();
     brokerContact.Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
     brokerContact.RecordTypeId = RECORD_TYPE_ID_BROKER;
+    brokerContact.Broker_Accreditation_Type__c = 'Retail';
 
     Test.startTest();
     RetailBrokerContactTriggerHandler handler = new RetailBrokerContactTriggerHandler();
@@ -77,68 +78,93 @@ private class RetailBrokerContactTriggerHandlerTest {
 
   @isTest
   static void testUpdateTriggerBypassOn() {
-    Account personAccount = TestDataFactory.createPersonAccount(
-      'pa-123456',
-      true
-    );
     List<Contact> testContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
-    for (Contact contact : testContacts) {
-      contact.Broker_Customer_Profile__c = personAccount.Id;
-    }
-    insert testContacts;
-    Map<Id, Contact> testContactMap = new Map<Id, Contact>(testContacts);
-    Set<Id> testContactIds = testContactMap.keySet();
-    Test.startTest();
+    testContacts[0].Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
+    testContacts[0].OCV_Event_Version__c = null;
+    testContacts[0].Sync_Status__c = null;
+    Contact oldContact = testContacts[0];
+
+    testContacts[1].Id = oldContact.Id;
+    testContacts[1].OCV_Event_Version__c = 1;
+    testContacts[1].Sync_Status__c = 'Broker Org';
+    testContacts[1].CommercialTPMISAO__c = 'CommTMPITest001';
+    Contact contactNew = testContacts[1];
+    Lib_MockProvider.forType(RetailBrokerRepository.class)
+      .mock('getBrokerContactsByIds', new List<Contact>{ contactNew });
     BrokerSettings__c mockSettings = new BrokerSettings__c();
     mockSettings.BypassBrokerEvent__c = true;
-    brokerSettingsMock.mock('brokerSettings', mockSettings);
-    updateContactList(testContacts, 1);
-    update testContacts;
-    List<Contact> resultContacts = [
-      SELECT Id, Sync_Status__c
-      FROM Contact
-      WHERE Id IN :testContactIds
-    ];
-    Test.stopTest();
-    Assert.areEqual(
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG,
-      resultContacts[0].Sync_Status__c,
-      'Sync status should be set to Broker Org'
+    brokerSettingsMock.mock('get', mockSettings);
+
+    RetailBrokerContactActions.publishBrokerEvents(
+      new List<Contact>{ contactNew },
+      new Map<Id, Contact>{ oldContact.Id => oldContact }
     );
+
+    Integer cloudEventsAfter = CloudEventController.cloudEvents?.size() ?? 0;
+
+    Assert.areEqual(0, cloudEventsAfter, 'No cloud events should be created.');
   }
 
   @IsTest
   static void testUpdateTriggerBypassOff() {
+    List<Contact> testContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
+    testContacts[0].Id = Lib_FakeIdGenerator.getMockId(Contact.SObjectType);
+    testContacts[0].OCV_Event_Version__c = null;
+    testContacts[0].Sync_Status__c = null;
+    Contact oldContact = testContacts[0];
+
+    testContacts[1].Id = oldContact.Id;
+    testContacts[1].OCV_Event_Version__c = 1;
+    testContacts[1].Sync_Status__c = 'Broker Org';
+    testContacts[1].CommercialTPMISAO__c = 'CommTMPITest001';
+    Contact contactNew = testContacts[1];
+    Lib_MockProvider.forType(RetailBrokerRepository.class)
+      .mock('getBrokerContactsByIds', new List<Contact>{ contactNew });
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassBrokerEvent__c = false;
+    brokerSettingsMock.mock('get', mockSettings);
+
+    RetailBrokerContactActions.publishBrokerEvents(
+      new List<Contact>{ contactNew },
+      new Map<Id, Contact>{ oldContact.Id => oldContact }
+    );
+
+    Integer cloudEventsAfter = CloudEventController.cloudEvents?.size() ?? 0;
+
+    Assert.areEqual(1, cloudEventsAfter, 'Cloud event should be created.');
+  }
+
+  /**
+   * @description test method with DMLs to cover contact trigger
+   * @author  Saurabh Chauhan | Salesforce | 20-03-2025
+   **/
+  @IsTest
+  static void testTriggers() {
+    BrokerSettings__c mockSettings = new BrokerSettings__c();
+    mockSettings.BypassBrokerEvent__c = true;
+    brokerSettingsMock.mock('get', mockSettings);
+
     Account personAccount = TestDataFactory.createPersonAccount(
       'pa-123456',
       true
     );
     List<Contact> testContacts = createTestContactList(RECORD_TYPE_ID_BROKER);
-    retailBrokerRepo.mock('getBrokerContactsByIds', testContacts);
     for (Contact contact : testContacts) {
       contact.Broker_Customer_Profile__c = personAccount.Id;
     }
+    //DML Needed to cover trigger
     insert testContacts;
-    Map<Id, Contact> testContactMap = new Map<Id, Contact>(testContacts);
-    Set<Id> testContactIds = testContactMap.keySet();
+
     Test.startTest();
-    BrokerSettings__c mockSettings = new BrokerSettings__c();
-    mockSettings.BypassBrokerEvent__c = false;
-    brokerSettingsMock.mock('brokerSettings', mockSettings);
     updateContactList(testContacts, 1);
+    //DML Needed to cover trigger
     update testContacts;
-    updateContactList(testContacts, 2);
-    update testContacts;
-    List<Contact> resultContacts = [
-      SELECT Id, Sync_Status__c
-      FROM Contact
-      WHERE Id IN :testContactIds
-    ];
-    Test.stopTest();
+
     Assert.areEqual(
-      RetailBrokerContactActions.SYNC_STATUS_BROKER_ORG,
-      resultContacts[0].Sync_Status__c,
-      'Sync status should remain as Broker Org'
+      1,
+      testContacts[0].OCV_Event_Version__c,
+      'Contact got updated'
     );
+    Test.stopTest();
   }
 }

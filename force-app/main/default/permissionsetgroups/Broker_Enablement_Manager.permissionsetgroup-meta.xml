@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSetGroup xmlns="http://soap.sforce.com/2006/04/metadata">
+    <description>Grants access for Broker Enablement Manager.</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Broker Enablement Manager</label>
+    <permissionSets>Enablement_Manager_Read_Write</permissionSets>
+    <permissionSets>FinServ__FinancialServicesCloudStandard</permissionSets>
+    <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
+    <permissionSets>force__Mortgage</permissionSets>
+    <status>Updated</status>
+</PermissionSetGroup>

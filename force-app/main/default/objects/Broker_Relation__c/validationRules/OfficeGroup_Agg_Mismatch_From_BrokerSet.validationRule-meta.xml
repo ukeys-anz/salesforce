@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>OfficeGroup_Agg_Mismatch_From_BrokerSet</fullName>
+    <active>true</active>
+    <description>Prevent selection of a different aggregator on Office Group than its Broker Set.</description>
+    <errorConditionFormula>AND(
+  RecordType.DeveloperName == &apos;Office_Group&apos;,
+  Aggregator__c !=  Associated_Broker_Set__r.Aggregator__c 
+)</errorConditionFormula>
+    <errorDisplayField>Aggregator__c</errorDisplayField>
+    <errorMessage>The selected aggregator doesn&apos;t match the Assigned Broker Set.</errorMessage>
+</ValidationRule>

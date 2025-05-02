@@ -45,4 +45,34 @@
         </criteriaItems>
         <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
     </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Enablement_Manager_Edit_Broker_Contact</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant Enablement Manager access to Read/Write Broker Profile (Contact) records.</description>
+        <label>Enablement Manager Edit Broker Contact</label>
+        <sharedTo>
+            <role>Broker_Enablement_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
+    <sharingCriteriaRules>
+        <fullName>Residential_Broker_Manager_Edit_Broker_Contact</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>Grant Residential Broker Manager Read/Write access to Broker Profile (Contacts)</description>
+        <label>Residential Broker Manager Edit Broker Contact</label>
+        <sharedTo>
+            <role>Residential_Broker_Manager</role>
+        </sharedTo>
+        <criteriaItems>
+            <field>RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker</value>
+        </criteriaItems>
+        <includeRecordsOwnedByAll>true</includeRecordsOwnedByAll>
+    </sharingCriteriaRules>
 </SharingRules>

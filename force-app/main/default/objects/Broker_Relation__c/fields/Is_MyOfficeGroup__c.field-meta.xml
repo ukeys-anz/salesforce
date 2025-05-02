@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Is_MyOfficeGroup__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source_Salesforce</complianceGroup>
+    <description>Evaluated to true when ever the logged user id is equal to Primary RBM/Secondary RBM on associated Broker Set.</description>
+    <formula>AND (
+  RecordType.DeveloperName == &quot;Office_Group&quot;,
+  OR(
+    Associated_Broker_Set__r.Primary_RBM__c ==  $User.Id, 
+    Associated_Broker_Set__r.Secondary_RBM__c == $User.Id,
+    $UserRole.Name == &quot;Broker Enablement Manager&quot; 
+  )
+)</formula>
+    <formulaTreatBlanksAs>BlankAsZero</formulaTreatBlanksAs>
+    <label>Is_MyOfficeGroup</label>
+    <securityClassification>Internal</securityClassification>
+    <trackHistory>false</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Checkbox</type>
+</CustomField>

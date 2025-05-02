@@ -5,5 +5,5 @@
     <contactAccessLevel>None</contactAccessLevel>
     <mayForecastManagerShare>false</mayForecastManagerShare>
     <opportunityAccessLevel>None</opportunityAccessLevel>
-    <parentRole>Retail_Broker</parentRole>
+    <parentRole>Broker_Enablement_Manager</parentRole>
 </Role>

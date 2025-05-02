@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Primary_RBM__c</fullName>
+    <businessStatus>Active</businessStatus>
+    <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <description>Primary RBM who would be managing this Broker Set.
+Requirements: Only allowed on a Broker Set. Must be different from Secondary RBM. Role should be RBM.</description>
+    <label>Primary RBM</label>
+    <lookupFilter>
+        <active>true</active>
+        <booleanFilter>1 AND 2 AND 3</booleanFilter>
+        <errorMessage>Primary RBM must be different from the Secondary RBM.</errorMessage>
+        <filterItems>
+            <field>$Source.RecordTypeId</field>
+            <operation>equals</operation>
+            <value>Broker Set</value>
+        </filterItems>
+        <filterItems>
+            <field>User.UserRole.DeveloperName</field>
+            <operation>equals</operation>
+            <value>Residential_Broker_Manager</value>
+        </filterItems>
+        <filterItems>
+            <field>User.Id</field>
+            <operation>notEqual</operation>
+            <valueField>$Source.Secondary_RBM__c</valueField>
+        </filterItems>
+        <isOptional>false</isOptional>
+    </lookupFilter>
+    <referenceTo>User</referenceTo>
+    <relationshipName>Primary_Broker_Relations</relationshipName>
+    <required>false</required>
+    <securityClassification>Confidential</securityClassification>
+    <trackHistory>true</trackHistory>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

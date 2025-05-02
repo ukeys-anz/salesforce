@@ -10,6 +10,7 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
   private static final CustomSettingsRepository BROKER_SETTINGS_REPOSITORY = (CustomSettingsRepository) Lib_InstanceProvider.forType(
     CustomSettingsRepository.class
   );
+  private static final String RETAIL_BROKER_ACCREDITATION_TYPE = 'Retail';
 
   /**
    * @description Constructor to initialise Trigger Handler library
@@ -25,16 +26,26 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   public override Boolean isValidRecord(SObject record) {
     Contact contact = (Contact) record;
-    return contact.RecordTypeId == RECORD_TYPE_ID_BROKER;
+
+    return contact.RecordTypeId == RTContact.broker &&
+      contact.Broker_Accreditation_Type__c != null &&
+      contact.Broker_Accreditation_Type__c.contains(
+        RETAIL_BROKER_ACCREDITATION_TYPE
+      );
   }
 
   /**
-   * @description To perform business logic on before insert trigger context
+   * @description To perform business logic on before update trigger context
    * @param oldMap The old id-record map before the update execution
    */
   @TestVisible
   protected override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     RetailBrokerContactActions.processOCVSync(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
+
+    RetailBrokerContactActions.setBlankOfficeGroupOnChangeBrokerSet(
       records,
       (Map<Id, Contact>) oldMap
     );
@@ -46,11 +57,11 @@ public with sharing class RetailBrokerContactTriggerHandler extends Lib_TriggerH
    */
   @TestVisible
   protected override void onAfterUpdate(Map<Id, SObject> oldMap) {
-    Boolean bypassSyncEvents = BROKER_SETTINGS_REPOSITORY.brokerSettings()
-      .BypassBrokerEvent__c;
-    if (bypassSyncEvents) {
-      return;
-    }
+    RetailBrokerContactActions.publishBrokerRelationEvents(
+      records,
+      (Map<Id, Contact>) oldMap
+    );
+
     RetailBrokerContactActions.publishBrokerEvents(
       records,
       (Map<Id, Contact>) oldMap
