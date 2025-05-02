@@ -8103,9 +8103,6 @@
     </layoutAssignments>
     <layoutAssignments>
         <layout>Customer_Action__c-Customer Notification Action</layout>
-    </layoutAssignments>
-    <layoutAssignments>
-        <layout>Customer_Action__c-Customer Notification Action</layout>
         <recordType>Customer_Action__c.Customer_Notification_Action</recordType>
     </layoutAssignments>
     <layoutAssignments>

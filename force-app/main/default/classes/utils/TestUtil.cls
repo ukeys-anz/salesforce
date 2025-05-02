@@ -210,6 +210,26 @@ public with sharing class TestUtil {
       Database.SaveResult.class
     );
   }
+  /**
+   * @description This method is used to mock the behavior of a DML insert operation that returns multiple SaveResult objects.
+   * This is helpful for test cases where multiple records are inserted at once
+   * @param mockSaveResultStrings An array of JSON strings, where each string represents a mock SaveResult for each record being inserted.
+   * @return List<Database.SaveResult> objects corresponding to the mock JSON strings.
+   */
+  public static List<Database.SaveResult> getMockSaveResults(
+    String[] mockSaveResultStrings
+  ) {
+    List<Database.SaveResult> saveResults = new List<Database.SaveResult>();
+    for (String mockSaveResultString : mockSaveResultStrings) {
+      saveResults.add(
+        (Database.SaveResult) JSON.deserialize(
+          mockSaveResultString,
+          Database.SaveResult.class
+        )
+      );
+    }
+    return saveResults;
+  }
 
   /**
    * @description Returns a mock Database.MergeResult record
