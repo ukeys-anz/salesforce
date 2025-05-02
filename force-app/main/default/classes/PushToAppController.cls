@@ -121,9 +121,7 @@ public with sharing class PushToAppController {
 
       List<Database.SaveResult> customerActionsSaveResults = new List<Database.SaveResult>();
       for (Customer_Action__c action : listOfCustomerActions) {
-        customerActionsSaveResults.add(
-          DML_REPOSITORY.doInsert(action, new DmlConfig().systemMode())
-        );
+        customerActionsSaveResults.add(DML_REPOSITORY.doInsert(action));
       }
 
       Task pushToAppTask = preparePushToAppTask(
