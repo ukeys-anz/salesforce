@@ -5,7 +5,10 @@
       <label
         class="slds-form-element__control slds-grid slds-grid_vertical-align-center slds-m-top_medium"
       >
-        <span class="slds-required">*</span> {label}
+        <template if:true={isRequired}>
+          <span class="slds-required">*</span>
+        </template>
+        {label}
         <template if:true={helpText}>
           <lightning-helptext
             class="tooltip"
@@ -41,8 +44,11 @@
           </lightning-combobox>
         </template>
       </div>
-      <!-- Error Text Display -->
-      <div class="slds-text-color_error" if:true={isInvalid}>{errorText}</div>
+
+      <!-- Error Messages for fields -->
+      <template for:each={errorsMsgs} for:item="item">
+        <div class="slds-text-color_error" key={item}>{item}</div>
+      </template>
     </div>
   </div>
 </template>

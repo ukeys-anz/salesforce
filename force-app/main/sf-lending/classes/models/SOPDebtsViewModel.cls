@@ -4,7 +4,7 @@
  * @description View model for debt finance section of getConsolidatedSOP API call
  */
 @SuppressWarnings(
-  'PMD.ExcessivePublicCount,PMD.TooManyFields,PMD.NcssConstructorCount,PMD.ExcessiveParameterList'
+  'PMD.ExcessivePublicCount,PMD.TooManyFields,PMD.ExcessiveParameterList'
 )
 public with sharing class SOPDebtsViewModel {
   private static final Map<String, String> TERM_TYPE = new Map<String, String>{
@@ -165,6 +165,7 @@ public with sharing class SOPDebtsViewModel {
      * @description Constructor for InstitutionalLiability
      * @param sourceData InstitutionalLiability api data
      */
+    @SuppressWarnings('PMD.NcssConstructorCount')
     public InstitutionalLiability(
       SOPGetConsolidatedModel.InstitutionalLiability sourceData
     ) {
@@ -254,6 +255,7 @@ public with sharing class SOPDebtsViewModel {
    * @param refinanceSet debts being refinanced
    * @param assetPropertyLookup map of address lookup
    */
+  @SuppressWarnings('PMD.NcssConstructorCount')
   public SOPDebtsViewModel(
     SOPGetConsolidatedModel.Liabilities sourceData,
     Map<String, String> partyIdToFirstNameMap,
@@ -347,29 +349,8 @@ public with sharing class SOPDebtsViewModel {
       this.repaymentType = PAYMENT_TYPE.get(
         sourceData.institutionalLiability?.paymentMethod
       );
-      if (!sourceData.fullyDrawn) {
-        this.homeLoanType = 'Construction';
-      } else if (
-        sourceData.termType == 'LIABILITY_TERM_TYPE_VARIABLE' &&
-        sourceData.institutionalLiability?.paymentMethod ==
-        'PAYMENT_METHOD_INTEREST_ONLY'
-      ) {
-        this.homeLoanType = 'Variable IO';
-      } else if (
-        sourceData.termType == 'LIABILITY_TERM_TYPE_FIXED' &&
-        sourceData.institutionalLiability?.paymentMethod ==
-        'PAYMENT_METHOD_PRINCIPAL_INTEREST'
-      ) {
-        this.homeLoanType = 'Fixed P&I';
-      } else if (
-        sourceData.termType == 'LIABILITY_TERM_TYPE_FIXED' &&
-        sourceData.institutionalLiability?.paymentMethod ==
-        'PAYMENT_METHOD_INTEREST_ONLY'
-      ) {
-        this.homeLoanType = 'Fixed IO';
-      } else {
-        this.homeLoanType = 'Variable P&I';
-      }
+
+      this.homeLoanType = handleHomeLoanType(sourceData);
     }
   }
   /**
@@ -463,5 +444,38 @@ public with sharing class SOPDebtsViewModel {
       }
     }
     return result;
+  }
+
+  /**
+   * @description Set home loan type
+   * @param sourceData
+   * @return String home loan type
+   */
+  private static String handleHomeLoanType(
+    SOPGetConsolidatedModel.Liabilities sourceData
+  ) {
+    if (!sourceData.fullyDrawn) {
+      return 'Construction';
+    } else if (
+      sourceData.termType == 'LIABILITY_TERM_TYPE_VARIABLE' &&
+      sourceData.institutionalLiability?.paymentMethod ==
+      'PAYMENT_METHOD_INTEREST_ONLY'
+    ) {
+      return 'Variable IO';
+    } else if (
+      sourceData.termType == 'LIABILITY_TERM_TYPE_FIXED' &&
+      sourceData.institutionalLiability?.paymentMethod ==
+      'PAYMENT_METHOD_PRINCIPAL_INTEREST'
+    ) {
+      return 'Fixed P&I';
+    } else if (
+      sourceData.termType == 'LIABILITY_TERM_TYPE_FIXED' &&
+      sourceData.institutionalLiability?.paymentMethod ==
+      'PAYMENT_METHOD_INTEREST_ONLY'
+    ) {
+      return 'Fixed IO';
+    } else {
+      return 'Variable P&I';
+    }
   }
 }

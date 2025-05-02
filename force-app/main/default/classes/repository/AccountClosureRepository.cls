@@ -448,6 +448,7 @@ public with sharing class AccountClosureRepository {
       FROM Case
       WHERE
         Status != :CaseGroupCaseConstants.CLOSED_STATUS
+        AND Status != :CaseGroupCaseConstants.WITHDRAWN_STATUS
         AND ParentId IN :caseIds
         AND (RecordTypeId = :RTCase.accountClosure
         OR RecordTypeId = :RTCase.confirmationOfPayee)

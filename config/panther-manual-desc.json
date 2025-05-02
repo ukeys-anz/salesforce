@@ -26,7 +26,8 @@
       "Fraud_Analytics_Date_Complete__c": "Completed review date for Fraud Analytics Investigation"
     },
     "Contact": {
-      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs."
+      "FinServ__MaritalStatus__c": "The current state of a person in relation to the marriage laws or customs.",
+      "Is_Beta_Broker__c": "Identify if a broker is a beta broker"
     },
     "ContentVersion": {
       "ContentSize": "Represents a specific version of a document in Salesforce CRM Content or Salesforce Files.",
@@ -117,80 +118,6 @@
       "Customer_Name__c": "To Display the Customer Name",
       "PEGA_Case_Id__c": "Pega case number that is required for sending email to customer on dispute closure.",
       "FinServ__Expectations__c": "Notes about client's expectations"
-    },
-    "trailheadapp__Badge__c": {
-      "trailheadapp__Archived__c": "Boolean to reflect whether the module has been archived",
-      "trailheadapp__Built_Date__c": "Creation date for the trailhead badge",
-      "trailheadapp__Description__c": "Textual description of Badge",
-      "trailheadapp__Icon__c": "Iconography describing the badge (URL to a picture)",
-      "trailheadapp__Level__c": "Difficulty of the training module",
-      "trailheadapp__Namespace__c": "Namespace the badge belongs to, relevant if in a myTrailhead implementation",
-      "trailheadapp__Products__c": "Salesforce products relating to this training",
-      "trailheadapp__Roles__c": "The type of personas relevant to the training, for example, developer, or administrator",
-      "trailheadapp__Tags__c": "Search terms for training modules",
-      "trailheadapp__Type__c": "Module, project or superbadge",
-      "trailheadapp__URL__c": "Link to the module on the trailhead platform"
-    },
-    "trailheadapp__Debug_Log__c": {
-      "trailheadapp__Datetime__c": "The date/time of the log message.",
-      "trailheadapp__Severity__c": "The severity level of the log"
-    },
-    "trailheadapp__Trail__c": {
-      "trailheadapp__API_Name__c": "Unique name for the trail",
-      "trailheadapp__Archived__c": "Boolean to reflect whether the trail has been archived",
-      "trailheadapp__Description__c": "Textual description of the learning trail",
-      "trailheadapp__Icon__c": "Iconography describing the trail (URL to a picture)",
-      "trailheadapp__Level__c": "Difficulty of the training module",
-      "trailheadapp__Namespace__c": "Namespace the badge belongs to, relevant if in a myTrailhead implementation",
-      "trailheadapp__Products__c": "Salesforce products relating to this training",
-      "trailheadapp__Roles__c": "The type of personas relevant to the training, for example, developer, or administrator",
-      "trailheadapp__Tags__c": "Search terms for trails",
-      "trailheadapp__URL__c": "Link to the trail on the trailhead platform"
-    },
-    "trailheadapp__Trailhead_User_Data__c": {
-      "trailheadapp__Avatar__c": "The trailhead users avatar on their profile",
-      "trailheadapp__External_Id__c": "Identifier for the trailhead user",
-      "trailheadapp__Profile_URL__c": "The URL of the trailhead users profile",
-      "trailheadapp__Profile_Visibility__c": "The trailhead users selected visibility of their profile",
-      "trailheadapp__Rank__c": "The current rank of the trailhead user",
-      "trailheadapp__Total_Points__c": "The total points amassed by completed trailheads",
-      "trailheadapp__User__c": "The trailhead user"
-    },
-    "trailheadapp__Trailmix__c": {
-      "trailheadapp__Archived__c": "Flag indicating if trailmix has been archived",
-      "trailheadapp__Created_At__c": "Date time when trailmix was created",
-      "trailheadapp__Created_By_Profile__c": "Id of user used to create trailmix",
-      "trailheadapp__Description__c": "Descripton of trail mix content",
-      "trailheadapp__External_Id__c": "External id of trailmix",
-      "trailheadapp__Featured__c": "Flag to mark a trailmix as featured",
-      "trailheadapp__Slug__c": "URL safe name for the trailmix, in kebab case",
-      "trailheadapp__URL__c": "URL of trailmix",
-      "trailheadapp__Updated_At__c": "Last updated datetime of trailmix"
-    },
-    "trailheadapp__Trailmix_Assignment__c": {
-      "trailheadapp__Due_Datetime__c": "The due date of the trailmix assignment, by which the traimix has to be completed.",
-      "trailheadapp__Status__c": "The status of the trailmix assignment, e.g. Completed.",
-      "trailheadapp__Trailmix__c": "The trailmix this assignment is linked with.",
-      "trailheadapp__User__c": "The user whom the trailmix is assigned to."
-    },
-    "trailheadapp__User_Badge__c": {
-      "trailheadapp__Archived__c": "When the badge was archived in Trailhead.",
-      "trailheadapp__Assigned_Date__c": "When the module(s) was/were assigned to the user.",
-      "trailheadapp__Badge__c": "Badge earned by user.",
-      "trailheadapp__Due_Date__c": "When the module(s) is/are due to be completed.",
-      "trailheadapp__External_ID__c": "Identifier of the user's badge.",
-      "trailheadapp__Finished_Date__c": "Finished date of the module(s) which allowed the user to earn the badge.",
-      "trailheadapp__User__c": "Trailhead user in relation to the earned badge."
-    },
-    "trailheadapp__User_Trailmix__c": {
-      "trailheadapp__Assigned_At__c": "The time of which the user enrol the Trailmix.",
-      "trailheadapp__Completed_At__c": "The completed time of the Trailmix.",
-      "trailheadapp__Due_At__c": "The due time of the Trailmix.",
-      "trailheadapp__External_Id__c": "Identifier for the Trailhead User Trailmix.",
-      "trailheadapp__First_Attempted_At__c": "The first time the user try to complete the Trailmix.",
-      "trailheadapp__Last_Attempted_At__c": "The last time the user try to complte the Trailmix.",
-      "trailheadapp__Trailmix__c": "Trailmix enrolled.",
-      "trailheadapp__User__c": "User enrolled to the Trailmix."
     }
   },
   "objectManualDesc": {
@@ -291,14 +218,6 @@
     "Term_Deposit__x": "External Term Deposit financial accounts",
     "Traced_Application_Log__b": "Exception logging, from batch and web services.",
     "Trade_Finance__x": "External Trade Finance accounts",
-    "trailheadapp__Badge__c": "Available Trailhead badges.",
-    "trailheadapp__Debug_Log__c": "System log to record and persist warnings or errors from the TrailTracker managed package",
-    "trailheadapp__Trail__c": "Representation of a learning trail",
-    "trailheadapp__Trailhead_User_Data__c": "Data relating to a user's completion of learning modules",
-    "trailheadapp__Trailmix__c": "Available Trailhead Trailmixes.",
-    "trailheadapp__Trailmix_Assignment__c": "Junction object representing that a user has been assigned some learning content",
-    "trailheadapp__User_Badge__c": "Junction object for badges and users.",
-    "trailheadapp__User_Trailmix__c": "Maintains user assignments and follows for trailmixes.",
     "User": "A Salesforce user (ANZ employee)"
   },
   "pantherId": {
@@ -562,7 +481,8 @@
         "FinServ__Household__c",
         "FinServ__NextSteps__c",
         "FinServ__Regarding__c"
-      ]
+      ],
+      "IA-2453350": ["External_Id__c"]
     },
     "ActivityFieldHistory__c": {
       "IA-2530753": [
@@ -803,7 +723,8 @@
       ],
       "IA-2423278": ["OwnerId", "Banker_LAN_ID__c", "Banker_Salary_ID__c"],
       "IA-2423227": ["COI_Member__c"],
-      "IA-2415790": ["Broker_Name__c"]
+      "IA-2415790": ["Broker_Name__c"],
+      "IA-2460507": ["My_Team_A2Z_Review__c"]
     },
     "BrokerSettings__c": {
       "IA-253075": [
@@ -3013,7 +2934,9 @@
         "Referrer_Name__c",
         "My_Sub_Team__c",
         "My_Team__c",
-        "Lead_Owner_Teamcode__c"
+        "Lead_Owner_Teamcode__c",
+        "My_Team_Segment__c",
+        "My_Reportees_Lead__c"
       ],
       "IA-2530753": ["IsNewLead__c"],
       "IA-2697875": ["Referrer_Business_Name__c", "Referrer_Industry_Type__c"],
@@ -3454,7 +3377,8 @@
         "TotalOpportunityQuantity",
         "Opp_Id__c",
         "Type",
-        "Territory__c"
+        "Territory__c",
+        "Version__c"
       ],
       "IA-2415860": [
         "Associated_Source_Detail__c",
@@ -3544,7 +3468,9 @@
         "My_Team__c",
         "Opportunity_Owner_Teamcode__c",
         "FinServ__ReferredByContact__c",
-        "FinServ__ReferredByUser__c"
+        "FinServ__ReferredByUser__c",
+        "My_Team_Segment__c",
+        "My_Reportees_Opps__c"
       ],
       "IA-2530753": ["Opportunity_Owner__c"],
       "IA-2428130": ["Specialisation__c", "New_to_Bank__c"],
@@ -3564,7 +3490,17 @@
       ],
       "IA-2415984": ["Role", "Mobile_Classic__c", "Email_Classic__c"],
       "IA-2428130": ["ContactId"],
-      "IA-2530753": ["Source_System_Id__c"]
+      "IA-2530753": ["Source_System_Id__c"],
+      "IA-2453350": ["ExternalId__c"]
+    },
+    "Opportunity_Contact_Role_Sync__c": {
+      "IA-2453350": [
+        "ContactId__c",
+        "ExternalId__c",
+        "OpportunityContactRoleId__c",
+        "OpportunityId__c",
+        "Role__c"
+      ]
     },
     "OpportunityLineItem": {
       "IA-2415987": [
@@ -4241,7 +4177,8 @@
         "E_Tag__c",
         "Needs_Assessment_Unsuitability_Reasons__c",
         "Joint__c",
-        "Ineligible_Reasons__c"
+        "Ineligible_Reasons__c",
+        "Application_Progress__c"
       ],
       "IA-2415860": ["Credit_Reassess_Required__c"],
       "IA-2415790": ["Assisted_Broker__c", "Assisted_Broker_TPMI_SAO__c"],
@@ -4469,164 +4406,6 @@
         "Trace_Id__c"
       ],
       "IA-2468715": ["CreatedById", "CreatedDate", "Id"]
-    },
-    "trailheadapp__Badge__c": {
-      "IA-2415840": [
-        "trailheadapp__Archived__c",
-        "trailheadapp__Built_Date__c",
-        "trailheadapp__Created_At__c",
-        "trailheadapp__Description__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Icon__c",
-        "trailheadapp__Level__c",
-        "trailheadapp__Namespace__c",
-        "trailheadapp__Products__c",
-        "trailheadapp__Roles__c",
-        "trailheadapp__Tags__c",
-        "trailheadapp__Type__c",
-        "trailheadapp__URL__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Debug_Log__c": {
-      "IA-2415840": [
-        "trailheadapp__Class__c",
-        "trailheadapp__Datetime__c",
-        "trailheadapp__Message__c",
-        "trailheadapp__Method__c",
-        "trailheadapp__Severity__c",
-        "trailheadapp__Transaction__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trail__c": {
-      "IA-2415840": [
-        "trailheadapp__API_Name__c",
-        "trailheadapp__Archived__c",
-        "trailheadapp__Created_At__c",
-        "trailheadapp__Description__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Icon__c",
-        "trailheadapp__Level__c",
-        "trailheadapp__Namespace__c",
-        "trailheadapp__Products__c",
-        "trailheadapp__Roles__c",
-        "trailheadapp__Tags__c",
-        "trailheadapp__URL__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trailhead_User_Data__c": {
-      "IA-2415840": [
-        "trailheadapp__Avatar__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Profile_URL__c",
-        "trailheadapp__Profile_Visibility__c",
-        "trailheadapp__Rank__c",
-        "trailheadapp__Total_Points__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trailmix__c": {
-      "IA-2415840": [
-        "trailheadapp__Archived__c",
-        "trailheadapp__Created_At__c",
-        "trailheadapp__Created_By_Profile__c",
-        "trailheadapp__Description__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__Featured__c",
-        "trailheadapp__Slug__c",
-        "trailheadapp__URL__c",
-        "trailheadapp__Updated_At__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__Trailmix_Assignment__c": {
-      "IA-2415840": [
-        "trailheadapp__Due_Datetime__c",
-        "trailheadapp__Status__c",
-        "trailheadapp__Trailmix__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__User_Badge__c": {
-      "IA-2415840": [
-        "trailheadapp__Archived__c",
-        "trailheadapp__Assigned_Date__c",
-        "trailheadapp__Badge__c",
-        "trailheadapp__Due_Date__c",
-        "trailheadapp__External_ID__c",
-        "trailheadapp__Finished_Date__c",
-        "trailheadapp__First_Attempted_Date__c",
-        "trailheadapp__Last_Attempted_Date__c",
-        "trailheadapp__Status__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
-    },
-    "trailheadapp__User_Trailmix__c": {
-      "IA-2415840": [
-        "trailheadapp__Assigned_At__c",
-        "trailheadapp__Completed_At__c",
-        "trailheadapp__Due_At__c",
-        "trailheadapp__External_Id__c",
-        "trailheadapp__First_Attempted_At__c",
-        "trailheadapp__Last_Attempted_At__c",
-        "trailheadapp__Status__c",
-        "trailheadapp__Trailmix__c",
-        "trailheadapp__User__c"
-      ],
-      "IA-2468715": [
-        "CreatedById",
-        "CreatedDate",
-        "Id",
-        "LastModifiedById",
-        "LastModifiedDate"
-      ]
     },
     "Twilio_Details__c": {
       "IA-2415840": [
@@ -5607,6 +5386,9 @@
       "TaxIdentificationNumberTransform__c": "",
       "TaxIdentificationNumber__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidency%2Eoneof_disclosure :: tax_identification_number_token"
     },
+    "Contact": {
+      "Is_Beta_Broker__c": "ANZx::Salesforce"
+    },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState_TaxResidencyStatus :: australian_tax_resident",
       "CXOnboardingAction__c": "ANZx :: CustomerEnablement :: WorkflowEngine :: Events :: Types :: CustomerOnboardingState :: cx_onboarding_action",
@@ -5781,6 +5563,9 @@
       "SubmittedAt__c": "1:1 Transformation",
       "TaxIdentificationNumberTransform__c": "Always set to 'fpe.personal-identifier'",
       "TaxIdentificationNumber__c": "1:1 Transformation"
+    },
+    "Contact": {
+      "Is_Beta_Broker__c": "1:1 Transformation"
     },
     "CustomerOnboardingApplication__c": {
       "AustralianTaxResident__c": "1:1 Transformation",

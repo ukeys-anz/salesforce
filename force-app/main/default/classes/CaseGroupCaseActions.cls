@@ -31,7 +31,11 @@ public with sharing class CaseGroupCaseActions {
     for (Case childCase : childCaseRecords) {
       Case parentCase = parentIdAndCaseDetailsMap.get(childCase.ParentId);
       childCase.OwnerId = parentCase.OwnerId;
-      if (childCase.Status != CaseGroupCaseConstants.CLOSED_STATUS) {
+      if (
+        !CaseGroupCaseConstants.STATUSES_NOT_ALLOWED_FOR_UPDATE.contains(
+          childCase.Status
+        )
+      ) {
         childCase.Status = parentCase.Status;
       }
       childCase.Circumstance__c = parentCase.Circumstance__c;
@@ -143,5 +147,34 @@ public with sharing class CaseGroupCaseActions {
       }
     }
     Logger.saveLog();
+  }
+
+  /**
+   * @description update Milestone Completed if the case is closed.
+   * @param records List<Case> caseList: New record instances to process
+   * @param oldMap Map<Id, Case> oldMap: Map of the old values of the records to process
+   */
+  public static void completeMilestones(
+    List<Case> records,
+    Map<Id, SObject> oldMap
+  ) {
+    List<Case> validCasesforMilestoneCompletion = ListUtil.filter(
+        records,
+        oldMap
+      )
+      .equals(Case.Type, CaseGroupCaseConstants.ENTITLEMENT_CASE_ISSUE_TYPES)
+      .changedTo(Case.Status, CaseGroupCaseConstants.CLOSED_STATUS)
+      .toList();
+
+    Set<Id> validCaseIds = ListUtil.getIds(
+      validCasesforMilestoneCompletion,
+      Case.Id
+    );
+
+    MilestoneUtils.completeMilestone(
+      new List<Id>(validCaseIds),
+      CaseGroupCaseConstants.RESOLUTION_TIME_MILESTONE,
+      System.now()
+    );
   }
 }

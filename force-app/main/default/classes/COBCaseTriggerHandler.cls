@@ -27,10 +27,33 @@ public with sharing class COBCaseTriggerHandler extends Lib_TriggerHandler {
   }
 
   /**
+   * @description onBeforeInsert to handle before insert trigger actions.
+   */
+  public override void onBeforeInsert() {
+    Logger.debug('On_Before_Insert started: ' + System.now());
+    CommonCaseTriggerActions.maskTaxNumbers(records, new Map<Id, Case>());
+    CommonCaseTriggerActions.setBusinessHours(records);
+    Logger.debug('On_Before_Insert finished: ' + System.now());
+    Logger.saveLog();
+  }
+
+  /**
+   * @description onBeforeUpdate to handle before update trigger actions.
+   * @param oldMap old trigger values
+   */
+  public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_Before_Update started: ' + System.now());
+    CommonCaseTriggerActions.maskTaxNumbers(records, (Map<Id, Case>) oldMap);
+    Logger.debug('On_Before_Update finished: ' + System.now());
+    Logger.saveLog();
+  }
+
+  /**
    * @description onAfterUpdate to handle after update trigger actions.
    * @param oldMap old trigger values
    */
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {
+    Logger.debug('On_After_Update started: ' + System.now());
     List<Case> idOpsRecords = ListUtil.filter(records)
       .equals(Case.RecordTypeId, RTCase.idOpsAssistance)
       .toList();
@@ -45,5 +68,7 @@ public with sharing class COBCaseTriggerHandler extends Lib_TriggerHandler {
       fraudCheckRecords,
       (Map<Id, Case>) oldMap
     );
+    Logger.debug('On_After_Update finished: ' + System.now());
+    Logger.saveLog();
   }
 }

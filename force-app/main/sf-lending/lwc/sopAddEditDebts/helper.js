@@ -564,6 +564,8 @@ const DEBT_TYPES = {
           debt.sourceType === SOURCE_CREDIT_BUREAU),
       showInterestRate:
         isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
+      disableInterestRate:
+        isActionEdit(actionType) && debt.sourceType === SOURCE_ANZ,
       showDebtEvidence:
         isActionEdit(actionType) &&
         (debt.sourceType === SOURCE_ANZ ||

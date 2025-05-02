@@ -102,11 +102,6 @@
         <label>Source - LEX</label>
     </standardValue>
     <standardValue>
-        <fullName>Source_myTrailhead</fullName>
-        <default>false</default>
-        <label>Source - myTrailhead</label>
-    </standardValue>
-    <standardValue>
         <fullName>Source_OCV</fullName>
         <default>false</default>
         <label>Source - OCV</label>

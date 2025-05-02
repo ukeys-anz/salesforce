@@ -362,7 +362,7 @@
             "nanos": 0
           },
           "verifiedPrincipalInterestRemainingTerm": 0,
-          "taxDeductiblePercentage": 0
+          "taxDeductiblePercentage": null
         },
         "outstandingBalance": {
           "currencyCode": "AUD",
@@ -532,7 +532,13 @@
           {
             "partyId": "ea1d6d5d-c498-43a9-8a10-91518b6d46e4",
             "proportion": {
-              "value": "100"
+              "value": "50"
+            }
+          },
+          {
+            "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067",
+            "proportion": {
+              "value": "50"
             }
           }
         ],

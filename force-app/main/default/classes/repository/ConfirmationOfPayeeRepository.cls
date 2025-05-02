@@ -94,6 +94,7 @@ public with sharing class ConfirmationOfPayeeRepository {
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
             AND FinServ__Active__c = TRUE
         )
+        AND FinServ__Status__c !=: CaseGroupCaseConstants.CLOSED_STATUS
       WITH USER_MODE
     ];
   }

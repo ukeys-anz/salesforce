@@ -37,6 +37,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>BOH_Coach_Lead_RW_ANZX</fullName>
+        <accessLevel>Edit</accessLevel>
+        <description>This sharing rule provides Read/Write access to BOH Coach Lead for Coaching Summary records</description>
+        <label>BOH Coach Lead RW ANZX</label>
+        <sharedTo>
+            <role>BOH_Coach_Lead</role>
+        </sharedTo>
+        <sharedFrom>
+            <roleAndSubordinates>ANZx</roleAndSubordinates>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Coach_Lead_RW_ANZX</fullName>
         <accessLevel>Edit</accessLevel>
         <description>This sharing rule provides Read/Write access to Coach Lead for Coaching Summary records</description>

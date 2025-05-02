@@ -240,3 +240,28 @@ force-app/main/default/recordActionDeployments/ResolutionPathway_Launcher_V2.dep
 #Add Automation Test Profile to Deploy.forceignore - Not required in Production 
 force-app/main/default/profiles/ANZ Standard Automation User.profile-meta.xml
 force-app/main/default/profiles/ANZx Standard Automation User.profile-meta.xml
+
+## [AR-197357] Decommission the Trialhead apps
+## -------------------------------------------
+# Flow
+force-app/main/default/flows/MTHSelfAssignment.flow-meta.xml
+
+# Objects
+force-app/main/default/objects/trailheadapp__Badge__c
+force-app/main/default/objects/trailheadapp__Debug_Log__c
+force-app/main/default/objects/trailheadapp__Trail__c
+force-app/main/default/objects/trailheadapp__Trailhead_User_Data__c
+force-app/main/default/objects/trailheadapp__Trailmix_Assignment__c
+force-app/main/default/objects/trailheadapp__Trailmix__c
+force-app/main/default/objects/trailheadapp__User_Badge__c
+force-app/main/default/objects/trailheadapp__User_Trailmix__c
+
+# ReportType
+force-app/main/default/reportTypes/Users_with_User_Badges.reportType-meta.xml
+
+# Reports
+force-app/main/default/reports/TrailblazerReports.reportFolder-meta.xml
+force-app/main/default/reports/trailheadapp__Trailhead_Reports.reportFolder-meta.xml
+
+# Installed package
+mdapi-source/packages/installedPackages/trailheadapp.installedPackage

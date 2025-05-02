@@ -317,7 +317,7 @@ export default class SopAddEditDebts extends LightningModal {
   get taxDeductiblePercentage() {
     return (
       this.debtData?.institutionalLiability?.taxDeductiblePercentageOriginal ??
-      null
+      0
     );
   }
 
@@ -403,6 +403,22 @@ export default class SopAddEditDebts extends LightningModal {
       this.actionType === "Edit" &&
       (this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ" ||
         this.debtData?.sourceType === "LIABILITY_SOURCE_CREDIT_BUREAU")
+    ) {
+      this.fieldVisibility.disableOwnershipSplit = true;
+    }
+
+    let editableANZSource = [
+      "LIABILITY_TYPE_LINE_OF_CREDIT",
+      "LIABILITY_TYPE_HOME_LOAN"
+    ];
+    //Prevent change of ownership split for ANZ LOC and HL sources with a single owner
+    //and for other debt types
+    if (
+      this.actionType === "Edit" &&
+      this.debtData?.sourceType === "LIABILITY_SOURCE_TYPE_ANZ" &&
+      ((this.ownerDetails.length === 1 &&
+        editableANZSource.includes(this.debtType)) ||
+        !editableANZSource.includes(this.debtType))
     ) {
       this.fieldVisibility.disableOwnershipSplit = true;
     }

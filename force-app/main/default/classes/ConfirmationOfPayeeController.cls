@@ -46,6 +46,10 @@ public with sharing class ConfirmationOfPayeeController implements CaseGroupWiza
       mapOfFinAccNumToFinAccounts.values()
     );
 
+    if (request.accountList.isEmpty()) {
+      return new List<CaseGroupFinancialAccountModel>();
+    }
+
     FetchFinAccCOPStatusAPIRepository apiRepo = new FetchFinAccCOPStatusAPIRepository();
     FinancialAccountModelGetResponseCoP response = apiRepo.getAccountCoPdetails(
       request,
@@ -151,7 +155,7 @@ public with sharing class ConfirmationOfPayeeController implements CaseGroupWiza
    * @param financialAccountId Id of Financial Account
    * @return CaseGroupFinancialAccountModel financial account information related to COP
    */
-  @AuraEnabled(cacheable=true)
+  @AuraEnabled
   public static List<CaseGroupFinancialAccountModel> fetchCOPInformation(
     Id financialAccountId
   ) {

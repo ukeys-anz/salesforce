@@ -438,6 +438,56 @@
                 <identifier>force_relatedListContainer</identifier>
             </componentInstance>
         </itemInstances>
+        <itemInstances>
+            <componentInstance>
+                <componentInstanceProperties>
+                    <name>action</name>
+                    <value>Prompt</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>comment</name>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>condition</name>
+                    <value>[   {     &quot;field&quot;: &quot;Case.Status&quot;,     &quot;operator&quot;: &quot;changedTo&quot;,     &quot;value&quot;: [&quot;Failed&quot;, &quot;ID Check OK&quot;]   } ]</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>message</name>
+                    <value>Please provide the commentary notes for updating the status.</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>theme</name>
+                    <value>default</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>title</name>
+                    <value>Add Case Notes</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>toastMessages</name>
+                    <value>{   &quot;success&quot;: &quot;Case Notes added successfully.&quot;,   &quot;error&quot;: &quot;Error occurred while adding Case Notes.&quot;,   &quot;warning&quot;: &quot;By proceeding, you acknowledge that you are not submitting a commentary note. You may also add this to the chatterbox below.&quot; }</value>
+                </componentInstanceProperties>
+                <componentInstanceProperties>
+                    <name>variant</name>
+                    <value>header</value>
+                </componentInstanceProperties>
+                <componentName>caseRecommendationModal</componentName>
+                <identifier>c_caseRecommendationModal</identifier>
+                <visibilityRule>
+                    <booleanFilter>1 AND 2</booleanFilter>
+                    <criteria>
+                        <leftValue>{!Record.RecordType.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>ID_Ops_Assistance</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!Record.Subject}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>ID Ops Assistance - Daon Fallout: WATCHLIST_HIT</rightValue>
+                    </criteria>
+                </visibilityRule>
+            </componentInstance>
+        </itemInstances>
         <mode>Replace</mode>
         <name>sidebar</name>
         <type>Region</type>

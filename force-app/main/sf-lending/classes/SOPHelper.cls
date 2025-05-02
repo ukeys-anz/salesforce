@@ -147,14 +147,16 @@ public with sharing class SOPHelper {
     Map<String, SOPGetConsolidatedModel.Assets> assetPropertyLookup
   ) {
     List<String> assets = new List<String>();
-    if (sourceAssets != null) {
-      for (String asset : sourceAssets) {
-        SOPGetConsolidatedModel.Assets assetDetail = assetPropertyLookup.get(
-          asset
-        );
-        if (assetDetail != null) {
-          assets.add(assetDetail.address?.singleLineAddress);
-        }
+    if (sourceAssets == null) {
+      return assets;
+    }
+
+    for (String asset : sourceAssets) {
+      SOPGetConsolidatedModel.Assets assetDetail = assetPropertyLookup.get(
+        asset
+      );
+      if (assetDetail != null) {
+        assets.add(assetDetail.address?.singleLineAddress);
       }
     }
     return assets;

@@ -11,7 +11,6 @@
   'PMD.CyclomaticComplexity, PMD.StdCyclomaticComplexity, PMD.ExcessivePublicCount, PMD.ExcessiveClassLength'
 )
 public with sharing class GetHelpCaseActions {
-  public static final String FALSE_CUSTOMER_PROFILE_CASE_SUBJECT = 'False Onboarding';
   public static final String DUPLICATE_DISPUTE_ERROR = 'Error occurred while creating dispute. An open dispute already exists for this transaction. Case number: ';
   private static Map<String, String> caseTypeLabelByValue = new Map<String, String>();
   private static Map<String, String> caseSubtypeLabelByValue = new Map<String, String>();
@@ -54,16 +53,8 @@ public with sharing class GetHelpCaseActions {
   public static void beforeUpdate(Map<Id, SObject> oldMap, List<Case> records) {
     Set<Id> caseIds = new Set<Id>();
     List<Case> validateCaseList = new List<Case>();
-    List<Case> caseWhoseDurationToUpdate = new List<Case>();
     for (Case record : (List<Case>) records) {
       Case oldRecord = (Case) oldMap.get(record.id);
-      if (
-        oldRecord.Status != GetHelpConstants.CLOSED_STATUS &&
-        record.Status == GetHelpConstants.CLOSED_STATUS
-      ) {
-        caseWhoseDurationToUpdate.add(record);
-      }
-
       if (record.RecordTypeId == RTCase.generalInquiry) {
         if (
           String.isNotBlank(record.ParentId) &&
@@ -95,9 +86,10 @@ public with sharing class GetHelpCaseActions {
       }
     }
 
-    if (!caseWhoseDurationToUpdate.isEmpty()) {
-      updateCaseDurationTime(caseWhoseDurationToUpdate, (Map<Id, Case>) oldMap);
-    }
+    CommonCaseTriggerActions.updateCaseDurationTime(
+      records,
+      (Map<Id, Case>) oldMap
+    );
 
     handlePopulateCaseSubject((List<Case>) records, (Map<Id, Case>) oldMap);
     CaseChangeRecordTypeController.recordTypeChangeValidation(
@@ -164,12 +156,6 @@ public with sharing class GetHelpCaseActions {
         populateGeneralEnquiryCaseSubject(record);
       }
 
-      // Check for Fraud Cases
-      // Note: We are excluding the possibility of 'Type' being empty, because we only care about data entered via UI (required field) or controlled entries via API, both of which should have values for 'Type'
-      if (CheckCaseRecordType.isFraud(record, oldRecord)) {
-        populateFraudCaseSubject(record);
-      }
-
       // Check for Dispute Cases
       if (CheckCaseRecordType.isDispute(record)) {
         populateDisputeCaseSubject(record);
@@ -183,11 +169,6 @@ public with sharing class GetHelpCaseActions {
       // Check for ANZx Non Customer Complaint Cases
       if (CheckCaseRecordType.isANZxNonCustomerComplaint(record, oldCaseMap)) {
         populateANZxNonCustomerComplaintCaseSubject(record);
-      }
-
-      // Check for False Customer Profile Cases
-      if (CheckCaseRecordType.isFalseCustomerProfile(record)) {
-        populateFalseCustomerProfileCaseSubject(record);
       }
     }
   }
@@ -212,25 +193,6 @@ public with sharing class GetHelpCaseActions {
     //populate case subject
     if (!caseTypeList.isEmpty()) {
       record.Subject = String.join(caseTypeList, ' - ');
-    }
-  }
-
-  /**
-   * @description  This method populates subject on Fraud cases based on Record Type and Type
-   * @param record Case record from trigger
-   */
-  public static void populateFraudCaseSubject(Case record) {
-    if (String.isNotBlank(record.Type)) {
-      fetchCaseTypeLabelsByValues();
-      // Setting a different Subject format for KYC QA Cases
-      if (record.RecordTypeId == RTCase.kycQa) {
-        record.Subject = caseTypeLabelByValue.get(record.Type);
-      } else {
-        record.Subject =
-          QueryRT.of(Case.SObjectType).get(record.RecordTypeId).Name +
-          ' - ' +
-          caseTypeLabelByValue.get(record.Type);
-      }
     }
   }
 
@@ -270,14 +232,6 @@ public with sharing class GetHelpCaseActions {
       record.Type
     );
     record.Subject = 'Non-Customer Complaint - ' + typeLabel;
-  }
-
-  /**
-   * @description  This method populates False Customer Profile Case subject based on Case record type
-   * @param record Case record from trigger
-   */
-  public static void populateFalseCustomerProfileCaseSubject(Case record) {
-    record.Subject = FALSE_CUSTOMER_PROFILE_CASE_SUBJECT;
   }
 
   /**
@@ -365,22 +319,7 @@ public with sharing class GetHelpCaseActions {
       oldMap,
       caseList
     );
-
-    if (filteredCases.size() == 0) {
-      return;
-    }
-
-    Set<Id> accountIds = new Set<Id>();
-
-    accountIds = GetHelpCaseActionsHelper.getEntitlementAccountIds(
-      filteredCases
-    );
-    Map<Id, Id> entMap = GetHelpCaseActionsHelper.getEntitlements(
-      accountIds,
-      GetHelpConstants.BASIC_SUBSCRIPTION_ENTITLEMENT_NAME
-    );
-
-    GetHelpCaseActionsHelper.updateEntitlementIdOnCase(caseList, entMap);
+    updateEntitlement(filteredCases);
   }
 
   /**
@@ -409,54 +348,6 @@ public with sharing class GetHelpCaseActions {
   }
 
   /**
-   * @description This method updates the case duration hours field for EA for further usage
-   * when the case status is updated to closed
-   * @param records case from the trigger
-   * @param oldMap old map from the trigger
-   */
-  public static void updateCaseDurationTime(
-    List<Case> records,
-    Map<Id, Case> oldMap
-  ) {
-    try {
-      Map<Id, CaseDurationObject.DurationTime> caseIdToDuration = CaseDurationService.getCaseDurationTime(
-        records,
-        (Map<Id, Case>) oldMap
-      );
-      for (Case record : records) {
-        CaseDurationObject.DurationTime duration = caseIdToDuration
-          ?.get(record.Id);
-        record.Case_Hour_Duration__c = duration
-          ?.dHours.setScale(2, RoundingMode.HALF_UP);
-      }
-    } catch (Exception e) {
-      Logger.error('Failed to calculate case duration time', e);
-      Logger.saveLog();
-    }
-  }
-
-  /**
-   * @description This method updates the case business hours field
-   * to be ANZ Plus specific
-   * @param record the record we are updating
-   */
-  private static void setBusinessHours(Case record) {
-    if (BusinessHours.SObjectType.getDescribe().isAccessible()) {
-      record.BusinessHoursId = CommonUtil.anzBusinessHours.Id;
-    }
-  }
-
-  /**
-   * @description This method masks case notes and description of issue fields
-   * to be ANZ Plus specific
-   * @param record the record we are updating
-   */
-  public static void maskTaxNumbers(Case record) {
-    TextUtils.maskAndLog(record, 'Description');
-    TextUtils.maskAndLog(record, 'Comments');
-  }
-
-  /**
    * @description Escalates the Record to CMOS IDR Everyday Banking Queue
    * @param records The record list to which we escalate
    */
@@ -466,18 +357,9 @@ public with sharing class GetHelpCaseActions {
 
   /**
    * @description applyDefaults is called onBeforeInsert to set the following values as defaults
-   * 1. Update business hours field to match ANZ Plus business hours
-   * 2. Mask description and comments fields if it contains sensitive information
-   * 3. Automatically assign dispute cases to relevant queues
    * @param records The record list form which we need to apply defaults
    */
   public static void applyDefaults(List<Case> records) {
-    for (Case record : records) {
-      if (CheckCaseRecordType.isANZPlusCaseType(record)) {
-        setBusinessHours(record);
-        maskTaxNumbers(record);
-      }
-    }
     GetHelpCaseAssignmentRules.setTransactionStatus(records);
     GetHelpCaseAssignmentRules.assignDisputeCases(records, null);
     GetHelpCaseAssignmentRules.assignUnauthenticatedEnquiryCases(records);

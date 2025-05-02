@@ -120,10 +120,15 @@ public with sharing class ComplaintsRepository {
    * @return UserAppInfo
    */
   public UserAppInfo getUserAppInfoForUser(Id userId) {
-    return [
+    List<UserAppInfo> appInfos = [
       SELECT Id, AppDefinitionId
       FROM UserAppInfo
       WHERE UserId = :userId
+      LIMIT 1
     ];
+    if (appInfos.isEmpty()) {
+      return null;
+    }
+    return appInfos[0];
   }
 }

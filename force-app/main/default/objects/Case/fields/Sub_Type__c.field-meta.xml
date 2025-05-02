@@ -758,6 +758,50 @@
             <valueName>Product Info</valueName>
         </valueSettings>
         <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Statement history missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Transaction history missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Accounts not visible</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Payee missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Personal details missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Recurring payments missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Mobile phone mismatch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Split profile issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Interest rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Card missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Other migration issue</valueName>
+        </valueSettings>
+        <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
             <valueName>Overdraft</valueName>
         </valueSettings>

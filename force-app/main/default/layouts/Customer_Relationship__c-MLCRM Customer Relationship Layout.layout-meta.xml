@@ -81,7 +81,7 @@
                 <field>Territory__c</field>
             </layoutItems>
             <layoutItems>
-                <behavior>Readonly</behavior>
+                <behavior>Edit</behavior>
                 <field>Relationship_To_Franchise__c</field>
             </layoutItems>
         </layoutColumns>

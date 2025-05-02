@@ -37,6 +37,8 @@ public with sharing class ConfirmationOfPayeeCaseTriggerHandler extends Lib_Trig
       childCasesWhereTypeChanged
     );
     ConfirmationOfPayeeCaseActions.updateFieldsOnWithdrawn(childWithdrawnCases);
+
+    ConfirmationOfPayeeCaseActions.completeMilestones(records, oldMap);
   }
 
   public override void onAfterUpdate(Map<Id, SObject> oldMap) {

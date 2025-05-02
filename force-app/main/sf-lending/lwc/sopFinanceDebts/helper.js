@@ -192,8 +192,7 @@ const DEBT_TYPES = {
       showLinkedProperty: (debt) =>
         debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU &&
-        (!debt.hasRefinance || debt.customerStatedClosed),
+        debt.readableSourceType == SOURCE_CREDIT_BUREAU,
       showRepaymentFrequency: (debt) =>
         !debt.customerStatedClosed &&
         debt.homeLoanType !== CONSTRUCTION_LOAN &&
@@ -384,9 +383,7 @@ const DEBT_TYPES = {
       showBalanceOwing: (debt) => !debt.customerStatedClosed,
       showBalanceOwingMessage: (debt) =>
         debt.validatedOutstandingBalance && !debt.customerStatedClosed,
-      showInterestRate: (debt) =>
-        [SOURCE_ANZ, SOURCE_CREDIT_BUREAU].includes(debt.readableSourceType) &&
-        !debt.customerStatedClosed,
+      showInterestRate: (debt) => debt.readableSourceType === SOURCE_ANZ,
       showLinkedProperty: (debt) =>
         debt.linkedProperty.length > 0 && !debt.customerStatedClosed,
       showOwnershipSplit: true,
@@ -394,8 +391,7 @@ const DEBT_TYPES = {
         debt.readableSourceType === SOURCE_ANZ && debt.productName,
       showTaxDeductible: (debt) => !debt.customerStatedClosed,
       showCustomerExcludedDebt: (debt) =>
-        debt.readableSourceType == SOURCE_CREDIT_BUREAU &&
-        (!debt.hasRefinance || debt.customerStatedClosed),
+        debt.readableSourceType == SOURCE_CREDIT_BUREAU,
       image: (debt) => {
         return debt.readableSourceType === SOURCE_ANZ
           ? ANZ_IMG

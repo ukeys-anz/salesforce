@@ -94,9 +94,9 @@ export const employmentTypeOptions = [
 ];
 
 export const rentalIncomeTypeOptions = [
-  { label: "Contracted", value: "INCOME_TYPE_RESIDENTIAL_STANDARD_LEASE" },
+  { label: "Standard Lease", value: "INCOME_TYPE_RESIDENTIAL_STANDARD_LEASE" },
   {
-    label: "Private Arrangement",
+    label: "Private Lease",
     value: "INCOME_TYPE_RESIDENTIAL_PRIVATE_LEASE"
   },
   { label: "Short Stay", value: "INCOME_TYPE_RESIDENTIAL_SHORT_STAY" }

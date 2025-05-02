@@ -25,6 +25,12 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeInsert() {
     Logger.debug('On_Before_Insert started: ' + System.now());
+    CommonCaseTriggerActions.populateContactLookupForANZPlus(
+      records,
+      new Map<Id, Case>()
+    );
+    CommonCaseTriggerActions.maskTaxNumbers(records, new Map<Id, Case>());
+    CommonCaseTriggerActions.setBusinessHours(records);
     ProfileUpdateCaseActions.setOwnerToIDOpsQueue(records);
     ProfileUpdateCaseActions.setDocumentCountryCode(
       records,
@@ -39,6 +45,15 @@ public with sharing class ProfileUpdateCaseTriggerHandler extends Lib_TriggerHan
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
     Logger.debug('On_Before_Update started: ' + System.now());
+    CommonCaseTriggerActions.populateContactLookupForANZPlus(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    CommonCaseTriggerActions.maskTaxNumbers(records, (Map<Id, Case>) oldMap);
+    CommonCaseTriggerActions.updateCaseDurationTime(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     ProfileUpdateCaseActions.validateStagingProgress(
       records,
       (Map<Id, Case>) oldMap

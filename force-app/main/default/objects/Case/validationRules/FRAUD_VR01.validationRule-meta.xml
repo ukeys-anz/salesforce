@@ -16,6 +16,7 @@ RecordType.DeveloperName = &apos;Scam&apos;
 OR(
 Owner:User.UserRole.DeveloperName = &apos;Coach&apos;,
 Owner:User.UserRole.DeveloperName = &apos;Coach_Lead&apos;,
+Owner:User.UserRole.DeveloperName = &apos;BOH_Coach_Lead&apos;,
 Owner:User.UserRole.DeveloperName = &apos;Content_Writer&apos;,
 Owner:User.UserRole.DeveloperName = &apos;Quality_Analyst&apos;
 )

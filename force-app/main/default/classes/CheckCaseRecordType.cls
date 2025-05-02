@@ -9,8 +9,7 @@ public with sharing class CheckCaseRecordType {
     RTCase.fraud,
     RTCase.identity,
     RTCase.recipientMule,
-    RTCase.scam,
-    RTCase.kycQa
+    RTCase.scam
   };
 
   public static final Set<Id> DISPUTE_RT_IDS = new Set<Id>{
@@ -75,26 +74,6 @@ public with sharing class CheckCaseRecordType {
    */
   public static Boolean isANZPlusCaseType(Case record) {
     return ANZX_RT_IDS.contains(record?.RecordTypeId);
-  }
-
-  /**
-   * @description Check if a case is Fraud case
-   * @param record The case record to check
-   * @param oldCase old case
-   * @return if the case is a Fraud case
-   */
-  public static Boolean isFraud(Case record, Case oldCase) {
-    if (
-      FRAUD_RT_IDS.contains(record.RecordTypeId) &&
-      String.isNotBlank(record.Type) &&
-      (oldCase == null ||
-      record.Type != oldCase.Type ||
-      record.RecordTypeId != oldCase.RecordTypeId)
-    ) {
-      return true;
-    } else {
-      return false;
-    }
   }
 
   /**
