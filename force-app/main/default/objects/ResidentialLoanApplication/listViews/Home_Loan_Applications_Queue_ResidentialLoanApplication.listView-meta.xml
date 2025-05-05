@@ -12,8 +12,9 @@
     <label>Home Loan Applications Queue</label>
     <queue>Home_Loan_Applications_Queue</queue>
     <sharedTo>
-        <allInternalUsers></allInternalUsers>
+        <allInternalUsers/>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Coach_Lead</role>
     </sharedTo>
 </ListView>

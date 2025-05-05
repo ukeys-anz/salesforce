@@ -15,6 +15,7 @@
     <label>ANZ Plus customers with Deceased Date</label>
     <sharedTo>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Business_Admin</role>
         <role>Card_Dispute_Agent</role>
         <role>Coach</role>

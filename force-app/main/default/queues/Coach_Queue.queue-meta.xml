@@ -8,6 +8,7 @@
         </publicGroups>
         <roles>
             <role>BOH_Coach</role>
+            <role>BOH_Coach_Lead</role>
             <role>Coach</role>
         </roles>
     </queueMembers>

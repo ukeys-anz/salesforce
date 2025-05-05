@@ -1,7 +1,10 @@
 trigger OpportunityContactRoleTrigger on OpportunityContactRole(
   before insert,
   before update,
-  before delete
+  before delete,
+  after insert,
+  after update,
+  after delete
 ) {
-  OpportunityContactRoleTriggerHandler handler = new OpportunityContactRoleTriggerHandler();
+  MLOpportunityContactRoleTriggerHandler handler = new MLOpportunityContactRoleTriggerHandler();
 }

@@ -1,0 +1,103 @@
+<template>
+  <!-- Collapsed Expense -->
+  <template lwc:if={isCollapsed}>
+    <lightning-layout-item size="12">
+      <lightning-layout
+        multiple-rows
+        horizontal-align="spread"
+        class="slds-box slds-m-top_medium"
+        onclick={toggleAddressL3}
+      >
+        <!-- Address -->
+        <lightning-layout-item
+          size="10"
+          flexibility="shrink"
+          class="slds-p-vertical_medium slds-p-left_small"
+        >
+          <lightning-formatted-text
+            value={addressItem.singleLineAddress}
+            class="headerStyling slds-rich-text-editor__output"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+
+        <!-- Chevron -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_medium"
+        >
+          <lightning-icon
+            icon-name="utility:chevronright"
+            size="small"
+            data-id={addressItem.name}
+            class="slds-align_absolute-center"
+          ></lightning-icon>
+        </lightning-layout-item>
+      </lightning-layout>
+    </lightning-layout-item>
+  </template>
+
+  <!-- Expanded Expense -->
+  <template lwc:else>
+    <lightning-layout-item size="12">
+      <lightning-layout
+        multiple-rows
+        horizontal-align="spread"
+        class="slds-box slds-m-top_medium"
+      >
+        <!-- Address -->
+        <lightning-layout-item
+          size="10"
+          flexibility="shrink"
+          class="slds-p-vertical_medium slds-p-left_small"
+        >
+          <lightning-formatted-text
+            value={addressItem.singleLineAddress}
+            class="headerStyling slds-rich-text-editor__output"
+          ></lightning-formatted-text>
+        </lightning-layout-item>
+
+        <!-- Chevron -->
+        <lightning-layout-item
+          size="1"
+          flexibility="shrink"
+          class="slds-p-top_x-small"
+        >
+          <lightning-icon
+            icon-name="utility:chevrondown"
+            size="small"
+            data-id={addressItem.name}
+            class="slds-align_absolute-center"
+            onclick={toggleAddressL3}
+          ></lightning-icon>
+        </lightning-layout-item>
+
+        <!-- Edit Button -->
+        <template lwc:if={hasAddEditPermission}>
+          <lightning-layout-item
+            size="12"
+            class="slds-text-align_right slds-p-top_small"
+          >
+            <lightning-button
+              label="Edit"
+              onclick={handleClick}
+              aria-haspopup="dialog"
+              class="slds-m-right_small"
+            ></lightning-button>
+          </lightning-layout-item>
+        </template>
+
+        <!-- Address L3 Items -->
+        <template lwc:if={addressItem.children.length}>
+          <template for:each={addressItem.children} for:item="expenseL3">
+            <c-sop-spendings-l3-item
+              key={expenseL3.sopName}
+              expense-data-l3={expenseL3}
+              class="slds-m-horizontal_small"
+            ></c-sop-spendings-l3-item>
+          </template>
+        </template>
+      </lightning-layout>
+    </lightning-layout-item>
+  </template>
+</template>

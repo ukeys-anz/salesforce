@@ -17,7 +17,7 @@
     <filters>
         <field>STATUS</field>
         <operation>notEqual</operation>
-        <value>Completed,Expired</value>
+        <value>Completed,Expired,Actioned</value>
     </filters>
     <filters>
         <field>STATUS</field>

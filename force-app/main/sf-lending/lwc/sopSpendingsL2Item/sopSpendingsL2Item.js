@@ -30,6 +30,7 @@ export default class SopSpendingsL2Item extends LightningElement {
         return {
           ...exp,
           isCollapsed: true,
+          isHousehold: exp.name === "Household Costs",
           serializedExpense: JSON.stringify(exp) // To pass the data to child component
         };
       })

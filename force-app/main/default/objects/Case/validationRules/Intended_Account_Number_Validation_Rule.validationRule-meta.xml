@@ -3,7 +3,10 @@
     <fullName>Intended_Account_Number_Validation_Rule</fullName>
     <active>true</active>
     <description>Validation rule on Intended Account Number field for Account Closure</description>
-    <errorConditionFormula>AND(NOT(ISBLANK(Intended_Account_Number__c) ),NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),RecordType.Name = &quot;Account Closure&quot; ,NOT(REGEX(Intended_Account_Number__c, &quot;^\\d{6,23}$&quot;)))</errorConditionFormula>
+    <errorConditionFormula>AND(
+    NOT( ISBLANK(Intended_Account_Number__c) ), 
+    ISCHANGED(Intended_Account_Number__c),
+   NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ),RecordType.Name = &quot;Account Closure&quot; ,NOT(REGEX(Intended_Account_Number__c, &quot;^\\d{6,23}$&quot;)))</errorConditionFormula>
     <errorDisplayField>Intended_Account_Number__c</errorDisplayField>
     <errorMessage>Forwarding Account Number must be between 6-23 numerical characters long</errorMessage>
 </ValidationRule>
