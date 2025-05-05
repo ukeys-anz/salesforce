@@ -83,16 +83,16 @@ export default class ComplaintResolutionRelatedList extends NavigationMixin(
     if (data) {
       this.alldata = data.map((complaint) => {
         return {
-          caseId: complaint.Id || "",
-          caseLink: complaint.Id ? "/" + complaint.Id : "",
-          caseNumber: complaint.CaseNumber || "",
-          dateReceived: complaint.IDR_Date_Received__c || "",
-          caseOwner: complaint.Owner.Name || "",
-          caseStatus: complaint.Status || "",
-          caseType: complaint.Type || "",
-          subsequentIssue: complaint.IDR_Subsequent_Issue__c || "",
-          complaintOutcome: complaint.IDR_Complaint_Outcome__c || "",
-          totalFinancialAmount: complaint.IDR_Total_Financial_Amount__c || "0",
+          caseId: complaint?.Id || "",
+          caseLink: complaint.Id ? "/" + complaint.Id : "" || "",
+          caseNumber: complaint?.CaseNumber || "",
+          dateReceived: complaint?.IDR_Date_Received__c || "",
+          caseOwner: complaint?.Owner?.Name || "",
+          caseStatus: complaint?.Status || "",
+          caseType: complaint?.Type || "",
+          subsequentIssue: complaint?.IDR_Subsequent_Issue__c || "",
+          complaintOutcome: complaint?.IDR_Complaint_Outcome__c || "",
+          totalFinancialAmount: complaint?.IDR_Total_Financial_Amount__c || "0",
           complaintRemedy:
             complaint?.Complaint_Resolutions__r?.[0]?.IDR_Complaint_Remedy__c ||
             ""
