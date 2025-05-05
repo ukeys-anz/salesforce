@@ -12,7 +12,7 @@ public with sharing class TwilioDetailHandler extends Lib_TriggerHandler {
   }
 
   /**
-   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns true always as it needs to be implemented on all Twilio details records. Later on we can in extend tis method to incorporate new scopes, if added.
+   * @description Implementation of isValidRecord on Lib_TriggerHandler, returns true always as it needs to be implemented on all Twilio details records. Later on we can extend this method to incorporate new scopes, if added.
    * @param record record to check if relevant to the execution context
    * @return `Boolean` returns true
    */
