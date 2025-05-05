@@ -1765,10 +1765,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>IDRPendCaseTaskRemindersSelector</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRPendCaseTaskRemindersTest</apexClass>
         <enabled>false</enabled>
     </classAccesses>
