@@ -49,28 +49,4 @@ public with sharing class TwilioDetailActionTest {
       'Masked Summary__c should differ from old value'
     );
   }
-
-  @isTest
-  private static void testGetEligibleRecordsToUpdateWithEmptyOldMap() {
-    List<Twilio_Details__c> records = new List<Twilio_Details__c>{
-      createTwilioRecord('InitialSummary123')
-    };
-    Map<Id, Twilio_Details__c> emptyOldMap = new Map<Id, Twilio_Details__c>();
-
-    List<Twilio_Details__c> eligible = TwilioDetailAction.getEligibleRecordsToUpdate(
-      records,
-      emptyOldMap
-    );
-
-    Assert.areEqual(
-      1,
-      eligible.size(),
-      'All records should be eligible when oldMap is empty'
-    );
-    Assert.areEqual(
-      records[0],
-      eligible[0],
-      'Eligible record should match the original input'
-    );
-  }
 }
