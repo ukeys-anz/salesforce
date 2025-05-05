@@ -1761,10 +1761,6 @@
         <enabled>false</enabled>
     </classAccesses>
     <classAccesses>
-        <apexClass>IDRPendCaseTaskRemindersHelper</apexClass>
-        <enabled>false</enabled>
-    </classAccesses>
-    <classAccesses>
         <apexClass>IDRPendCaseTaskRemindersScheduler</apexClass>
         <enabled>false</enabled>
     </classAccesses>
