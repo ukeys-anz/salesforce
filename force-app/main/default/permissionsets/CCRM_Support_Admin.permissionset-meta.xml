@@ -8874,6 +8874,10 @@
         <visible>true</visible>
     </recordTypeVisibilities>
     <tabSettings>
+        <tab>Controlling_Post__c</tab>
+        <visibility>Visible</visibility>
+    </tabSettings>
+    <tabSettings>
         <tab>Circle_Of_Influence__c</tab>
         <visibility>Visible</visibility>
     </tabSettings>
