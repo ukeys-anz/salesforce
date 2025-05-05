@@ -13,11 +13,18 @@ public with sharing class TwilioDetailAction {
     List<Twilio_Details__c> records,
     Map<Id, Twilio_Details__c> oldMap
   ) {
-    List<Twilio_Details__c> eligibleRecords = ListUtil.filter(records, oldMap)
-      .changed(Twilio_Details__c.Summary__c)
-      .toList();
-    for (Twilio_Details__c twilioDetail : eligibleRecords) {
-      twilioDetail.Summary__c = TextUtils.maskDataAnzx(twilioDetail.Summary__c);
+    try {
+      List<Twilio_Details__c> eligibleRecords = ListUtil.filter(records, oldMap)
+        .changed(Twilio_Details__c.Summary__c)
+        .toList();
+      for (Twilio_Details__c twilioDetail : eligibleRecords) {
+        twilioDetail.Summary__c = TextUtils.maskDataAnzx(
+          twilioDetail.Summary__c
+        );
+      }
+    } catch (Exception ex) {
+      Logger.error('Error while masking Summary field.', ex);
+      Logger.saveLog();
     }
   }
 }
