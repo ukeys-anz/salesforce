@@ -4424,7 +4424,8 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2594109": ["Call_Transcript__c"]
+      "IA-2594109": ["Call_Transcript__c"],
+      "IA-2646045": ["Summary__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],
