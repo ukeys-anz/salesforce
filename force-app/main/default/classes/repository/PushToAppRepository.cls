@@ -29,22 +29,6 @@ public with sharing class PushToAppRepository {
   }
 
   /**
-   * @description Retrieves name of the record Type based on the sobject
-   * @param recordId The Id of the record (e.g., Case) to determine applicable templates.
-   * @param sObjectName The name of the object to determine applicable templates.
-   * @return Name of the record Type
-   */
-  public String getRecordTypeName(Id recordId, String sObjectName) {
-    String sObjectRecordTypeQuery =
-      'SELECT RecordType.DeveloperName FROM ' +
-      sObjectName +
-      ' WHERE Id = :recordId WITH USER_MODE LIMIT 1';
-
-    SObject sObjectRecord = Database.query(sObjectRecordTypeQuery);
-    return (String) sObjectRecord.getSObject('RecordType')?.get('DeveloperName');
-  }
-
-  /**
    * @description Retrieves details of the selected notification configuration by coach
    * @param templateName The Id or Name of the template
    * @return details of the selected notification configuration
@@ -60,7 +44,7 @@ public with sharing class PushToAppRepository {
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**
@@ -94,9 +78,6 @@ public with sharing class PushToAppRepository {
       SELECT
         Id,
         Description,
-        Call_To_Action__c,
-        Action_Taken__c,
-        Action_Taken_Date_Time__c,
         Status,
         Subject,
         Type,
@@ -127,11 +108,16 @@ public with sharing class PushToAppRepository {
     Id recordId,
     String sObjectName
   ) {
+    if(fieldsToQuery.isEmpty() || String.isBlank(recordId) || String.isBlank(sObjectName))
+    {
+        return new List<SObject>();
+    }
+
     String allFields = String.join(new List<String>(fieldsToQuery), ',');
-    List<SObject> recordsFromDatabase = Database.query(
+    return Database.query(
       'SELECT ' + allFields + ' FROM ' + sObjectName + ' WHERE Id = :recordId WITH USER_MODE'
-    );
-    return recordsFromDatabase;
+    ) ;
+    
   }
 
   /**
@@ -144,7 +130,7 @@ public with sharing class PushToAppRepository {
       FROM Task
       WHERE ActivityDate < TODAY AND RecordTypeId = :RTTask.customerNudge
       WITH USER_MODE
-    ] ?? new List<Task>();
+    ];
   }
 
   /**
@@ -158,7 +144,7 @@ public with sharing class PushToAppRepository {
     if (customerTaskDataIds.isEmpty()) {
       return new List<Customer_Task_Data__c>();
     }
-
+    // Running query in System Mode because no read access given to AEM_Content_Data__c
     return [
       SELECT Id, AEM_Content_Data__c
       FROM Customer_Task_Data__c
@@ -172,16 +158,16 @@ public with sharing class PushToAppRepository {
    * @param accountIds set of account Ids
    * @return List<Account> List of accounts with their ocvIds
    */
-  public List<Account> queryAccountOcvId(Set<Id> accountIds) {
+  public List<Account> queryAccountDetails(Set<Id> accountIds) {
     if (accountIds.isEmpty()) {
       return new List<Account>();
     }
     return [
-      SELECT Id, OCV_ID__c
+      SELECT Id,OCV_ID__c,Source_System_Name__c,Source_System_ID__c
       FROM Account
       WHERE Id IN :accountIds
       WITH USER_MODE
-    ];
+    ] ;
   }
 
   /**
@@ -201,12 +187,58 @@ public with sharing class PushToAppRepository {
         LastModifiedBy.Name,
         AccountId,
         Customer_Task_Data__c,
-        Status,
         Pega_CDH_Id__c,
         LastModifiedBy.Email,
-        LastModifiedBy.UserName
+        LastModifiedBy.UserName,
+        OwnerId,
+        Owner.Email,
+        Owner.Name,
+        Subject,
+        Priority,
+        Status,
+        TaskNumber__c,
+        Type,
+        CreatedDate,
+        Description,
+        ActivityDate,
+        WhatId,
+        CompletedDateTime
       FROM Task
       WHERE Id IN :taskIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Query related data of task records when owner is user
+   * @param ownerIds List of Task records Owner Ids
+   * @return List<User> User records
+   */
+  public List<User> getUsers(Set<Id> ownerIds) {
+    if (ownerIds.isEmpty()) {
+      return new List<User>();
+    }
+    return [
+      SELECT Id, Username, Email
+      FROM User
+      WHERE Id IN :ownerIds
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description Query related data of task records when owner is group.
+   * @param ownerIds List of task records' Owner Ids
+   * @return List<Group> Group records
+   */
+  public List<Group> getGroups(Set<Id> ownerIds) {
+    if (ownerIds.isEmpty()) {
+      return new List<Group>();
+    }
+    return [
+      SELECT Id, Name, Email
+      FROM Group
+      WHERE Id IN :ownerIds
       WITH USER_MODE
     ];
   }

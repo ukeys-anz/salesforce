@@ -3,7 +3,6 @@
     <fullName>Customer_Nudge_Layout</fullName>
     <fields>Subject</fields>
     <fields>WhoId</fields>
-    <fields>Action_Taken__c</fields>
     <fields>Status</fields>
     <label>Customer Nudge Layout</label>
 </CompactLayout>

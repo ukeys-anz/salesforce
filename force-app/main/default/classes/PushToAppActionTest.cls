@@ -137,7 +137,6 @@ public with sharing class PushToAppActionTest {
     );
 
     mockPushToAppTask.Id = FAKER_TASK_ID;
-    mockPushToAppTask.Action_Taken__c = actiontakenvalue;
     mockPushToAppTask.Status = 'STATUS_SENT';
     mockPushToAppTask.Customer_Task_Data__c = FAKER_CUSTOMER_TASK_DATA_ID;
     mockPushToAppTask.Pub_Sub_Event_Id__c = '12345_12345';

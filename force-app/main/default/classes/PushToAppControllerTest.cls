@@ -36,11 +36,7 @@ public with sharing class PushToAppControllerTest {
     Customer_Task_Data__c.getSObjectType()
   );
 
-  private static final Id CUSTOMER_ACTION_MOCK_ID1 = Lib_FakeIdGenerator.getMockId(
-    Customer_Task_Data__c.getSObjectType()
-  );
-
-  private static final Id CUSTOMER_ACTION_MOCK_ID2 = Lib_FakeIdGenerator.getMockId(
+  private static final Id CUSTOMER_ACTION_MOCK_DATA = Lib_FakeIdGenerator.getMockId(
     Customer_Task_Data__c.getSObjectType()
   );
 
@@ -123,19 +119,14 @@ public with sharing class PushToAppControllerTest {
         '{"success":true,"id":"' + FAKER_NOTIFICATION_DATA + '"}'
       )
     );
+
     dmlRepoMock.mock(
       'doInsert',
       TestUtil.getMockSaveResults(
-        new List<String>{
-          '{"success":true,"id":"' +
-          CUSTOMER_ACTION_MOCK_ID1 +
-          '"}',
-          '{"success":true,"id":"' +
-          CUSTOMER_ACTION_MOCK_ID2 +
-          '"}'
-        }
+        '[{"success":true,"id":"' + CUSTOMER_ACTION_MOCK_DATA + '"}]'
       )
     );
+
     dmlRepoMock.mock(
       'doInsert',
       TestUtil.getMockSaveResult(

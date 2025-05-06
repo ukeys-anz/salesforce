@@ -14,30 +14,33 @@ public with sharing class PushToAppController {
     DmlRepository.class
   );
 
-  private static final String TASK_TYPE = 'Push To App';
+  private static final Map<String, String> TASK_TYPE = new Map<String, String>{
+    'ACTIVITY_TYPE_PUSH_TO_APP' => 'Push to App'
+  };
 
   /**
    * @description Retrieves notification templates based on the logged-in user's role and the recordtype.
    * @param recordId The Id of the record (e.g., Case) to determine applicable templates.
+   * @param recordTypeId record type Id of the record 
    * @return List of Customer_Task_Configuration__c records including Name and AEM content ID.
    */
   @AuraEnabled(cacheable=true)
   public static List<Customer_Task_Configuration__c> getTemplateDetails(
-    Id recordId
+    Id recordId,
+    Id recordTypeId
   ) {
     try {
       //Get the current logged-in user's role information
-      Id userRole = UserInfo.getUserRoleId();
-      UserRole userRoleInfo = QueryRole.get(userRole);
+      Id userRoleId = UserInfo.getUserRoleId();
+      UserRole userRoleInfo = QueryRole.get(userRoleId);
 
       //Get the name of the object for the given record
       String sObjectName = recordId.getSObjectType().toString();
 
       //Get the  RecordType name for the given record
-      String recordTypeName = PUSH_TO_APP_REPOSITORY.getRecordTypeName(
-        recordId,
-        sObjectName
-      );
+      String recordTypeName = QueryRT.of(recordId.getSObjectType())
+      .get(recordTypeId)
+      .getDeveloperName();
 
       return PUSH_TO_APP_REPOSITORY.queryNotificationConfigrecords(
         userRoleInfo,
@@ -45,7 +48,7 @@ public with sharing class PushToAppController {
         sObjectName
       );
     } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
+      throw CommonUtil.logExceptionWithMessage('Error fetching Push-to-App Customer Nudge Template details for record id ' +recordId,objException);
     }
   }
 
@@ -72,7 +75,7 @@ public with sharing class PushToAppController {
       enrichAemData(aemData.data.pushToAppList.items[0]);
       return aemData;
     } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
+      throw CommonUtil.logExceptionWithMessage('Error fetching AEM template content for '+aemContentId+ ' for recordId '+recordId,objException);
     }
   }
 
@@ -107,6 +110,7 @@ public with sharing class PushToAppController {
     CustomerTaskDataWrapper customerTaskData
   ) {
     try {
+      //Insert Customer Task Data in System Mode because no read access given to AEM_Content_Data__c field in the system
       Database.SaveResult notifDataResult = DML_REPOSITORY.doInsert(
         new Customer_Task_Data__c(
           AEM_Content_Data__c = customerTaskData.aemContentData
@@ -119,24 +123,28 @@ public with sharing class PushToAppController {
         insertedCustomerTaskDataId
       );
 
-      List<Database.SaveResult> customerActionsSaveResults = new List<Database.SaveResult>();
-      for (Customer_Action__c action : listOfCustomerActions) {
-        customerActionsSaveResults.add(DML_REPOSITORY.doInsert(action));
-      }
+      // As no edit access should be given to any users in the system, Insert Customer Action in system mode
+      DML_REPOSITORY.doInsert(
+        listOfCustomerActions,
+        new DmlConfig().systemMode()
+      );
 
       Task pushToAppTask = preparePushToAppTask(
         pushToAppTaskData,
         insertedCustomerTaskDataId
       );
+
+      //Insert Task in System Mode because no edit access to be given to the fields in the system related to PushToApp
       Database.SaveResult taskSaveResult = DML_REPOSITORY.doInsert(
-        pushToAppTask
+        pushToAppTask,
+        new DmlConfig().systemMode()
       );
       Task taskRecord = PUSH_TO_APP_REPOSITORY.queryTaskDetails(
         taskSaveResult.getId()
       );
       return taskRecord;
     } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
+      throw CommonUtil.logExceptionWithMessage('Push To App Task and Related Records Creation Failed : ',objException);
     }
   }
 
@@ -178,15 +186,14 @@ public with sharing class PushToAppController {
     Id notifDataId
   ) {
     return new Task(
-      Subject = taskData.subject + ' - ' + TASK_TYPE,
-      Type = TASK_TYPE,
+      Subject = taskData.subject + ' - ' + TASK_TYPE.get('ACTIVITY_TYPE_PUSH_TO_APP'),
+      Type = 'ACTIVITY_TYPE_PUSH_TO_APP',
       WhatId = taskData.whatId,
       WhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(taskData.whatId),
       ActivityDate = Date.parse(taskData.activityDate),
       Pub_Sub_Event_Id__c = CommonUtil.generateUUID(),
       Customer_Task_Configuration__c = taskData.notificationConfigId,
       Description = taskData.description,
-      Call_To_Action__c = taskData.callToAction,
       Customer_Task_Data__c = notifDataId,
       RecordTypeId = RTTask.customerNudge,
       OwnerId = UserInfo.getUserId()

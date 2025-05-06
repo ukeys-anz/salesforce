@@ -14,10 +14,9 @@ global with sharing class InteractionContextServiceUpdate {
    */
   @HttpPost
   global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
-    TwilioContextResponse twilioResponse = new TwilioContextResponse();
     try {
       //Twilio Detail Record inserted by Twilio
-      twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
+      TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
         contextRequest
       );
       //Interaction attendee addition logic for conference scenario
@@ -27,12 +26,14 @@ global with sharing class InteractionContextServiceUpdate {
       if(conferenceAttendee != null){
         DML_REPOSITORY.doInsert(conferenceAttendee, new DMLConfig().systemMode());
       }
+      
+      String jsonRes = JSON.serialize(twilioResponse);
+      RestContext.response.addHeader('Content-Type', 'application/json');
+      RestContext.response.responseBody = Blob.valueOf(jsonRes);
+      RestContext.response.statusCode = twilioResponse.statusCode;
+
     } catch (Exception objectException) {
-      throw CommonUtil.logException(objectException);
+      throw CommonUtil.logExceptionWithMessage('Interaction Context Update Failed ',objectException);
     }
-    String jsonRes = JSON.serialize(twilioResponse);
-    RestContext.response.addHeader('Content-Type', 'application/json');
-    RestContext.response.responseBody = Blob.valueOf(jsonRes);
-    RestContext.response.statusCode = twilioResponse.statusCode;
   }
 }

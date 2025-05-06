@@ -5,7 +5,7 @@
     <complianceGroup>Integrity - Trusted;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
     <description>Auto Number Field created for new task as part of Push To App Deliverab;e</description>
     <displayFormat>TK-{00000000}</displayFormat>
-    <externalId>false</externalId>
+    <externalId>true</externalId>
     <label>Task Number</label>
     <securityClassification>Internal</securityClassification>
     <type>AutoNumber</type>
