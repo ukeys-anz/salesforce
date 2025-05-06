@@ -9,6 +9,11 @@ public with sharing class CommercialContactActionsTest {
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider contactRepoMock;
   static Lib_MockProvider accountRepoMock;
+  static Lib_MockProvider userMock;
+  static User currentUser = new User(
+    Id = Lib_FakeIdGenerator.getMockId(User.getSobjectType()),
+    Username = 'ocvintegration.user@anzx.com'
+  );
   static void registerMocks() {
     contactRepoMock = Lib_MockProvider.forType(
       CommercialContactRepository.class
@@ -17,6 +22,8 @@ public with sharing class CommercialContactActionsTest {
       CommercialAccountRepository.class
     );
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    userMock = Lib_MockProvider.forType(UserInfoRepository.class)
+      .mock('getUser', currentUser);
   }
 
   @isTest
@@ -157,6 +164,33 @@ public with sharing class CommercialContactActionsTest {
       conList[0].LastName,
       conList[0].Name__c,
       'Contact name not get updated correctly'
+    );
+  }
+
+  @isTest
+  static void testPopulateNameOCVOnInsert() {
+    registerMocks();
+
+    //GIVEN Contact record List
+    List<Contact> conList = new List<Contact>{
+      new Contact(
+        Id = Lib_FakeIdGenerator.getMockId(Contact.getSobjectType()),
+        AccountId = Lib_FakeIdGenerator.getMockId(Account.getSobjectType()),
+        LastName = 'Sample Contact',
+        RecordTypeId = RTContact.organisation
+      )
+    };
+
+    //WHEN calling populateNameOCV method on Insert
+    Test.startTest();
+    CommercialContactActions.populateNameOCV(conList);
+    Test.stopTest();
+
+    //THEN It should update Name__c on Contact
+    Assert.areEqual(
+      conList[0].LastName,
+      conList[0].Name__c,
+      'Contact name not get populated correctly'
     );
   }
 

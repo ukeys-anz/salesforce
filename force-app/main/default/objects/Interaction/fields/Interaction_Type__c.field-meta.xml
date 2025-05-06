@@ -1,55 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
-    <fullName>Category__c</fullName>
+    <fullName>Interaction_Type__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Integrity - Accurate;Privacy - Non Personal Information;Source - Salesforce</complianceGroup>
-    <description>Denotes the category of the type of call.</description>
-    <externalId>false</externalId>
-    <label>Category</label>
+    <description>How interaction happened</description>
+    <label>Interaction Type</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
-    <trackHistory>true</trackHistory>
+    <trackHistory>false</trackHistory>
     <type>Picklist</type>
     <valueSet>
         <restricted>true</restricted>
         <valueSetDefinition>
             <sorted>false</sorted>
-            <value>
-                <fullName>Proactive</fullName>
-                <default>false</default>
-                <label>Proactive</label>
-            </value>
-            <value>
-                <fullName>Reactive</fullName>
-                <default>false</default>
-                <label>Reactive</label>
-            </value>
-            <value>
-                <fullName>Relationship building</fullName>
-                <default>false</default>
-                <label>Relationship Building</label>
-            </value>
-            <value>
-                <fullName>Needs Conversation</fullName>
-                <default>false</default>
-                <label>Needs Conversation</label>
-            </value>
-            <value>
-                <fullName>Compliance</fullName>
-                <default>false</default>
-                <label>Compliance</label>
-            </value>
-            <value>
-                <fullName>General</fullName>
-                <default>false</default>
-                <label>General</label>
-            </value>
-            <value>
-                <fullName>CAP Diary Comments</fullName>
-                <default>false</default>
-                <label>CAP Diary Comments</label>
-            </value>
             <value>
                 <fullName>COI Proactive</fullName>
                 <default>false</default>
@@ -61,9 +25,9 @@
                 <label>COI Reactive</label>
             </value>
             <value>
-                <fullName>COI Relationship Building</fullName>
+                <fullName>COI Relationship building</fullName>
                 <default>false</default>
-                <label>COI Relationship Building</label>
+                <label>COI Relationship building</label>
             </value>
             <value>
                 <fullName>Existing Proactive</fullName>
@@ -96,14 +60,9 @@
                 <label>New Relationship Building</label>
             </value>
             <value>
-                <fullName>KYC</fullName>
+                <fullName>Quote Required</fullName>
                 <default>false</default>
-                <label>KYC</label>
-            </value>
-            <value>
-                <fullName>Service &amp; Maintenance</fullName>
-                <default>false</default>
-                <label>Service &amp; Maintenance</label>
+                <label>Quote Required</label>
             </value>
         </valueSetDefinition>
     </valueSet>

@@ -163,7 +163,7 @@ public with sharing class CCRMOpportunityActions {
         oldOppCloseDate == opp.CloseDate &&
         opp.recordTypeId != strRecordTypeId
       ) {
-        opp.addError(CLOSE_DATE_FIELD_NAME, INVALID_CLOSE_DATE_ERROR);
+        opp.addError(INVALID_CLOSE_DATE_ERROR);
       } else if (oldOppCloseDate != opp.CloseDate) {
         opp.Has_Close_Date_Changed__c = true;
       }

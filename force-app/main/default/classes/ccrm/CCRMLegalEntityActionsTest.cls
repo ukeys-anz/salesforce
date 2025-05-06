@@ -258,7 +258,7 @@ public with sharing class CCRMLegalEntityActionsTest {
       //THEN
       Opportunity opp = [SELECT Id, AccountId FROM Opportunity LIMIT 1];
 
-      Assert.areEqual(
+      Assert.areNotEqual(
         opp.AccountId,
         clgAccount.Id,
         'Opportunity account updated to CLG account.'
