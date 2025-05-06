@@ -30,14 +30,6 @@ public with sharing class GetHelpCaseActionsHelper {
   private static final String SAME_ADDITIONAL_TYPES_ERROR_MSG = 'You cannot select a value in Additional Type that is already selected as the Primary Type.';
   private static final String NO_ENTITLEMENT_ERROR_MSG = 'No entitlement found for account.';
 
-  public static UserRole bohCoachRole = QueryRole.get('BOH_Coach');
-  public static UserRole creditAssessmentOfficerRole = QueryRole.get(
-    'Credit_Assessment_Officer'
-  );
-  public static UserRole creditAssessorLeadRole = QueryRole.get(
-    'Credit_Assessor_Lead'
-  );
-
   public static Group cadReferralQueue = QueryQueue.get(
     'CAD_Credit_Referral_Case_Queue'
   );
@@ -525,18 +517,57 @@ public with sharing class GetHelpCaseActionsHelper {
    */
   public static void isNoAuthorityAssignment(Case newCase, Case oldCase) {
     if (
-      oldCase.OwnerId != newCase.OwnerId &&
-      newCase.OwnerId == UserInfo.getUserId() &&
-      ((UserInfo.getUserRoleId() != creditAssessmentOfficerRole.Id &&
-      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id &&
-      UserInfo.getUserRoleId() != bohCoachRole.Id &&
-      !USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case')) ||
-      ((UserInfo.getUserRoleId() == bohCoachRole.Id ||
-      USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case')) &&
-      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD'))
+      isOwnerChanged(oldCase, newCase) && isInvalidAuthorityAssignment(newCase)
     ) {
       newCase.addError(CREDIT_REF_ASSIGN_ERROR_ONE);
     }
+  }
+
+  /**
+   * @description Determines if the Case owner has changed and if the new owner is the current user.
+   * @param oldCase The Case record before the update
+   * @param newCase The Case record after the update
+   * @return Boolean True if the owner changed and the new owner is the current user, false otherwise
+   */
+  private static Boolean isOwnerChanged(Case oldCase, Case newCase) {
+    return oldCase.OwnerId != newCase.OwnerId &&
+      newCase.OwnerId == UserInfo.getUserId();
+  }
+
+  /**
+   * @description Validates if the case assignment authority is invalid based on user permissions and coaching assignments
+   * @param newCase The Case record to validate
+   * @return Boolean True if the assignment is invalid, false otherwise
+   */
+  private static Boolean isInvalidAuthorityAssignment(Case newCase) {
+    return isUserWithoutAuthority() || isInvalidCoachOrPermission(newCase);
+  }
+
+  /**
+   * @description Determines if the current user lacks specific roles or custom permission for case authority
+   * @return Boolean Returns true if user does not have any of the specified roles
+   */
+  private static Boolean isUserWithoutAuthority() {
+    return !USER_INFO.checkAnyRoles(
+        new Set<String>{
+          'Credit_Assessor_Lead',
+          'BOH_Coach',
+          'BOH_Coach_Lead',
+          'Credit_Assessment_Officer'
+        }
+      ) && !USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case');
+  }
+
+  /**
+   * @description Checks if the user has invalid coach role or permission for the case
+   * @param newCase The case record to validate
+   * @return Boolean Returns true if user has BOH Coach/Lead role or transfer permission and case authority is not 'NO CAD'
+   */
+  private static Boolean isInvalidCoachOrPermission(Case newCase) {
+    return (UserInfo.getUserRoleId() == QueryRole.bohCoachRole.Id ||
+      USER_INFO.checkCustomPermission('ANZx_Transfer_Edit_Case') ||
+      UserInfo.getUserRoleId() == QueryRole.bohCoachLeadRole.Id) &&
+      newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD';
   }
 
   /**
@@ -562,12 +593,12 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Check if user is Credit_Assessor_Lead or Coach_Lead
+   * @description Check if user is Credit_Assessor_Lead or Coach_Lead or BOH_Coach_Lead
    * @return `Boolean`
    */
   private static Boolean isCreditAssessLeadOrCoachLead() {
     return USER_INFO.checkAnyRoles(
-      new Set<String>{ 'Credit_Assessor_Lead', 'Coach_Lead' }
+      new Set<String>{ 'Credit_Assessor_Lead', 'Coach_Lead', 'BOH_Coach_Lead' }
     );
   }
 
@@ -581,7 +612,8 @@ public with sharing class GetHelpCaseActionsHelper {
     Case newCase,
     Set<Id> isOwnerSpecialistLender
   ) {
-    return ((newCase.Owner_Role__c == bohCoachRole.Id ||
+    return ((newCase.Owner_Role__c == QueryRole.bohCoachRole.Id ||
+    newCase.Owner_Role__c == QueryRole.bohCoachLeadRole.Id ||
     isSpecialistLender(newCase, isOwnerSpecialistLender)) &&
     newCase.Case_Authority_Level__c.toUpperCase() != 'NO CAD');
   }
@@ -609,10 +641,11 @@ public with sharing class GetHelpCaseActionsHelper {
     Case newCase,
     Set<Id> isOwnerSpecialistLender
   ) {
-    return (newCase.Owner_Role__c != bohCoachRole.Id &&
+    return (newCase.Owner_Role__c != QueryRole.bohCoachRole.Id &&
+    newCase.Owner_Role__c != QueryRole.bohCoachLeadRole.Id &&
     !isSpecialistLender(newCase, isOwnerSpecialistLender) &&
-    newCase.Owner_Role__c != creditAssessmentOfficerRole.Id &&
-    newCase.Owner_Role__c != creditAssessorLeadRole.Id);
+    newCase.Owner_Role__c != QueryRole.creditAssessmentOfficerRole.Id &&
+    newCase.Owner_Role__c != QueryRole.creditAssessorLeadRole.Id);
   }
 
   /**
@@ -645,19 +678,24 @@ public with sharing class GetHelpCaseActionsHelper {
   }
 
   /**
-   * @description Check if there is a change in owner and new owner is not creditassessorlead/coachlead
+   * @description Check if there is a change in owner and new owner is not credit assessor lead/coach lead/boh coach lead
    * @param newCase New values of the case
    * @param oldCase Old values of the case
    * @return `Boolean`
    */
   private static Boolean isNotOwnerAndLeadRole(Case newCase, Case oldCase) {
     return oldCase.OwnerId != newCase.OwnerId &&
-      !USER_INFO.checkRole('Credit_Assessor_Lead') &&
-      !USER_INFO.checkRole('Coach_Lead');
+      !USER_INFO.checkAnyRoles(
+        new Set<String>{
+          'Credit_Assessor_Lead',
+          'Coach_Lead',
+          'BOH_Coach_Lead'
+        }
+      );
   }
 
   /**
-   * @description Check if new owner is not creditassessorlead/coachlead and old owner is current user
+   * @description Check if new owner is not credit assessor lead/coach lead and old owner is current user
    * @param newCase New values of the case
    * @param oldCase Old values of the case
    * @return `Boolean`
@@ -697,10 +735,10 @@ public with sharing class GetHelpCaseActionsHelper {
       UserInfo.getProfileId() != QueryProfile.minimumAccessExternalApps.Id &&
       ((newCase.OwnerId == oldCase.OwnerId &&
       newCase.OwnerId != UserInfo.getUserId() &&
-      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id) ||
+      UserInfo.getUserRoleId() != QueryRole.creditAssessorLeadRole.Id) ||
       (newCase.OwnerId == oldCase.OwnerId &&
       newCase.OwnerId.getSobjectType() == Group.getSObjectType() &&
-      UserInfo.getUserRoleId() != creditAssessorLeadRole.Id))
+      UserInfo.getUserRoleId() != QueryRole.creditAssessorLeadRole.Id))
     ) {
       newCase.addError(CREDIT_REF_EDIT_ERROR);
     }

@@ -12,47 +12,34 @@ public with sharing class OpportunityContactRoleActions {
   private static final OpportunityContactRoleActionsRepository OCR_REPOSITORY = (OpportunityContactRoleActionsRepository) Lib_InstanceProvider.forType(
     OpportunityContactRoleActionsRepository.class
   );
+
+  private static final DmlRepository DML = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
+  private static final UserInfoRepository USER_INFO_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+  private static List<Opportunity> parentOpportunityList = new List<Opportunity>();
+
   private static final String STR_APPLICANT = 'Applicant';
 
   /**
    * @description This method is used to set role of ML OCR to Applicant
-   * @name defaultRoleForMlOppContactRole
+   * @name defaultRoleForOppContactRole
    * @param records list of OpportunityContactRole sobject records
    * @US CC-10213
    */
-  public static void defaultRoleForMlOppContactRole(
+  public static void defaultRoleForOppContactRole(
     List<OpportunityContactRole> records
   ) {
-    List<Opportunity> oppList = getParentOpportunities(records);
-    List<Opportunity> lstOfMlOppty = ListUtil.filter(oppList)
-      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
+    List<OpportunityContactRole> filteredRecords = ListUtil.filter(records)
+      .isNull(OpportunityContactRole.Role)
       .toList();
-    if (lstOfMlOppty.isEmpty()) {
-      return;
-    }
-    Set<Id> mlOpptyIdSet = ListUtil.getIds(lstOfMlOppty, Opportunity.Id);
-    defaultOCRRole(mlOpptyIdSet, records);
-  }
-
-  /**
-   * @description This method is used to set role of ML OCR to Applicant
-   * @name defaultOCRRole
-   * @param mlOpptyIdSet set of Opportunity sobject ids
-   * @param records list of OpportunityContactRole sobject records
-   * @US CC-10213
-   */
-  @testVisible
-  private static void defaultOCRRole(
-    Set<Id> mlOpptyIdSet,
-    List<OpportunityContactRole> records
-  ) {
-    for (OpportunityContactRole objRole : records) {
-      if (
-        mlOpptyIdSet.contains(objRole.opportunityId) && objRole.Role == null
-      ) {
-        objRole.Role = STR_APPLICANT;
-      }
-    }
+    ListUtil.setField(
+      filteredRecords,
+      OpportunityContactRole.Role,
+      STR_APPLICANT
+    );
   }
 
   /**
@@ -64,22 +51,14 @@ public with sharing class OpportunityContactRoleActions {
   public static void restrictApplicantDeletion(
     List<OpportunityContactRole> oldRecords
   ) {
-    if (UserInfo.getProfileId() == QueryProfile.systemAdmin.Id) {
+    if (USER_INFO_REPO.checkProfile('System Administrator')) {
       return;
     }
     List<Opportunity> lstOfOpp = getParentOpportunities(oldRecords);
-    List<Opportunity> lstOfMlOppty = ListUtil.filter(lstOfOpp)
-      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
-      .toList();
-    if (lstOfMlOppty.isEmpty()) {
-      return;
-    }
-
     Map<Id, Opportunity> mapofOpp = (Map<Id, Opportunity>) ListUtil.mapBy(
       lstOfOpp,
-      Opportunity.Id.getDescribe().getSObjectField()
+      Opportunity.Id
     );
-
     List<OpportunityContactRole> lstOfContactRole = filterPrimaryApplicant(
       oldRecords,
       mapofOpp
@@ -126,26 +105,120 @@ public with sharing class OpportunityContactRoleActions {
     List<OpportunityContactRole> records,
     Map<Id, OpportunityContactRole> oldRecordMap
   ) {
-    List<Opportunity> oppList = getParentOpportunities(records);
-    Map<Id, Opportunity> mapofOpp = (Map<Id, Opportunity>) ListUtil.mapBy(
-      oppList,
-      Opportunity.Id.getDescribe().getSObjectField()
-    );
-    List<OpportunityContactRole> ocrList = getFilteredMLOCRRecords(
-      records,
-      oldRecordMap,
-      mapOfOpp
-    );
+    List<OpportunityContactRole> filteredRecords = ListUtil.filter(
+        records,
+        oldRecordMap
+      )
+      .changed(OpportunityContactRole.ContactId)
+      .toList();
     Set<Id> contactIdSet = ListUtil.getIds(
-      ocrList,
+      filteredRecords,
       OpportunityContactRole.ContactId
     );
     Set<String> duplicateContactKeysSet = getDuplicateContactKeys(contactIdSet);
     List<OpportunityContactRole> errorOCRList = getDuplicateOCRRecords(
-      ocrList,
+      filteredRecords,
       duplicateContactKeysSet
     );
     CommonUtil.raiseSobjectError(errorOCRList, DUPLICATE_OCR_ERROR);
+  }
+
+  /**
+   * @description This method is used to create/update OCR Sync records whenever OCR is created
+   * @name insertOpportunityContactRoleSyncRecords
+   * @param newOcrList list of OCR records
+   */
+  public static void insertOpportunityContactRoleSyncRecords(
+    List<OpportunityContactRole> newOcrList
+  ) {
+    if (OpportunityContactRoleSyncActions.isOCRSync) {
+      return;
+    }
+    Map<Id, OpportunityContactRole> filteredOCRRecordsMap = new Map<Id, OpportunityContactRole>(
+      OCR_REPOSITORY.getDetailedOCRRecords(newOcrList)
+    );
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncList = new List<Opportunity_Contact_Role_Sync__c>();
+    for (OpportunityContactRole ocr : newOcrList) {
+      ocrSyncList.add(createOcrSyncInstance(filteredOCRRecordsMap.get(ocr.Id)));
+    }
+    OpportunityContactRoleSyncActions.isOCRSync = true;
+    DML.doInsert(ocrSyncList, new DmlConfig().systemMode().withoutSharing());
+  }
+
+  /**
+   * @description This method is used to update OCR Sync records whenever OCR is updated
+   * @name updateOpportunityContactRoleSyncRecords
+   * @param newOcrList list of OCR records
+   * @param oldMap map of OCR records
+   */
+  public static void updateOpportunityContactRoleSyncRecords(
+    List<OpportunityContactRole> newOcrList,
+    Map<Id, OpportunityContactRole> oldMap
+  ) {
+    if (OpportunityContactRoleSyncActions.isOCRSync) {
+      return;
+    }
+    Map<Id, OpportunityContactRole> filteredOCRMap = new Map<Id, OpportunityContactRole>(
+      (List<OpportunityContactRole>) ListUtil.filter(newOcrList, oldMap)
+        .changed(OpportunityContactRole.Role)
+        .toList()
+    );
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncList = OPPORTUNITY_REPOSITORY.getOCRSyncByOCRIds(
+      filteredOCRMap.keySet()
+    );
+    for (Opportunity_Contact_Role_Sync__c ocrSync : ocrSyncList) {
+      ocrSync.Role__c = filteredOCRMap.get(ocrSync.OpportunityContactRoleId__c)
+        ?.Role;
+    }
+    OpportunityContactRoleSyncActions.isOCRSync = true;
+    DML.doUpdate(ocrSyncList);
+  }
+
+  /**
+   * @description This method is used to delete OCR Sync records whenever OCR is deleted
+   * @name deleteOpportunityContactRoleSyncRecords
+   * @param oldOcrList list of OCR records
+   */
+  public static void deleteOpportunityContactRoleSyncRecords(
+    List<OpportunityContactRole> oldOcrList
+  ) {
+    if (OpportunityContactRoleSyncActions.isOCRSync) {
+      return;
+    }
+    Set<String> externalIdSet = ListUtil.getStrings(
+      oldOcrList,
+      OpportunityContactRole.ExternalId__c
+    );
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncListToDelete = OCR_REPOSITORY.getOpportunityContactRoleSyncRecords(
+      externalIdSet
+    );
+    OpportunityContactRoleSyncActions.isOCRSync = true;
+    DML.doDelete(ocrSyncListToDelete);
+  }
+
+  /**
+   * @description This method is used to return an instance of Opportunity_Contact_Role_Sync__c
+   * @name createOcrSyncInstance
+   * @param ocr OCR record
+   * @return Opportunity_Contact_Role_Sync__c
+   */
+  @testVisible
+  private static Opportunity_Contact_Role_Sync__c createOcrSyncInstance(
+    OpportunityContactRole ocr
+  ) {
+    if (ocr == null) {
+      return null;
+    }
+    Opportunity_Contact_Role_Sync__c ocrSync = new Opportunity_Contact_Role_Sync__c(
+      OpportunityId__c = ocr.Opportunity.Loanapp_Reference__c,
+      ContactId__c = ocr.Contact.Account.External_Id__c,
+      ExternalId__c = String.isNotBlank(ocr.Opportunity.Loanapp_Reference__c)
+        ? ocr.ExternalId__c
+        : null,
+      Role__c = ocr.Role,
+      OpportunityContactRoleId__c = ocr.Id
+    );
+    return ocrSync;
   }
 
   /**
@@ -177,37 +250,6 @@ public with sharing class OpportunityContactRoleActions {
   }
 
   /**
-   * @description This method is used to get filtered OCR records based on recordtype of opportunity
-   * @name getFilteredMLOCRRecords
-   * @param records ocr records
-   * @param oldRecordMap old map
-   * @param mapOfOpp map of parent opportunities
-   * @return List<OpportunityContactRole>
-   * @US CC-10219
-   */
-  @testVisible
-  private static List<OpportunityContactRole> getFilteredMLOCRRecords(
-    List<OpportunityContactRole> records,
-    Map<Id, OpportunityContactRole> oldRecordMap,
-    Map<Id, Opportunity> mapOfOpp
-  ) {
-    List<OpportunityContactRole> mlcrmOCRList = new List<OpportunityContactRole>();
-    for (OpportunityContactRole ocr : records) {
-      Opportunity parentOpp = mapOfOpp.get(ocr.OpportunityId);
-      if (parentOpp?.RecordTypeId != RTOpportunity.mlOpportunity) {
-        continue;
-      }
-      mlcrmOCRList.add(ocr);
-    }
-    if (oldRecordMap == null) {
-      return mlcrmOCRList;
-    }
-    return ListUtil.filter(mlcrmOCRList, oldRecordMap)
-      .changed(OpportunityContactRole.ContactId)
-      .toList();
-  }
-
-  /**
    * @description This method is used extract list of parent opportunities
    * @name getParentOpportunities
    * @param records ocr records
@@ -218,14 +260,15 @@ public with sharing class OpportunityContactRoleActions {
   private static List<Opportunity> getParentOpportunities(
     List<OpportunityContactRole> records
   ) {
+    if (!parentOpportunityList.isEmpty()) {
+      return parentOpportunityList;
+    }
     Set<Id> idsOfOpp = ListUtil.getIds(
       records,
-      OpportunityContactRole.OpportunityId.getDescribe().getSObjectField()
+      OpportunityContactRole.OpportunityId
     );
-    List<Opportunity> lstOfOpp = OPPORTUNITY_REPOSITORY.getOpportunity(
-      idsOfOpp
-    );
-    return lstOfOpp;
+    parentOpportunityList = OPPORTUNITY_REPOSITORY.getOpportunity(idsOfOpp);
+    return parentOpportunityList;
   }
 
   /**
@@ -245,5 +288,25 @@ public with sharing class OpportunityContactRoleActions {
       duplicateContactKeysSet.add(ocr.OpportunityId + '-' + ocr.ContactId);
     }
     return duplicateContactKeysSet;
+  }
+
+  /**
+   * @description This method is used to filtered Out ML records
+   * @name filteredRecords
+   * @param records list of OpportunityContactRole sobject records
+   * @return List<OpportunityContactRole>
+   */
+  public static List<OpportunityContactRole> filteredRecords(
+    List<OpportunityContactRole> records
+  ) {
+    List<Opportunity> oppList = getParentOpportunities(records);
+    List<Opportunity> lstOfMLOppty = ListUtil.filter(oppList)
+      .equals(Opportunity.RecordTypeId, RTOpportunity.mlOpportunity)
+      .toList();
+    Set<Id> mlOpptyIdSet = ListUtil.getIds(lstOfMlOppty, Opportunity.Id);
+    List<OpportunityContactRole> filteredList = ListUtil.filter(records)
+      .equals(OpportunityContactRole.OpportunityId, mlOpptyIdSet)
+      .toList();
+    return filteredList;
   }
 }

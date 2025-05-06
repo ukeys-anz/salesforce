@@ -13,6 +13,18 @@
         </sharedFrom>
     </sharingOwnerRules>
     <sharingOwnerRules>
+        <fullName>Contact_Request_BOH_Coach_Lead_Read</fullName>
+        <accessLevel>Read</accessLevel>
+        <description>This sharing rule provides read access to BOH coach lead role for contact request object</description>
+        <label>Contact Request BOH Coach Lead Read</label>
+        <sharedTo>
+            <role>BOH_Coach_Lead</role>
+        </sharedTo>
+        <sharedFrom>
+            <role>ANZx</role>
+        </sharedFrom>
+    </sharingOwnerRules>
+    <sharingOwnerRules>
         <fullName>Contact_Request_BOH_Coach_Read</fullName>
         <accessLevel>Read</accessLevel>
         <description>This sharing rule provides read access to BOH coach role for contact request object</description>
