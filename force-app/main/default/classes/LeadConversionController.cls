@@ -280,6 +280,9 @@ public with sharing class LeadConversionController {
           record
         );
         leadConverionFlow = true;
+        leadRecord.New_to_Bank__c = record.RecordTypeId == RTLead.commercialLead
+          ? 'Yes'
+          : leadRecord.New_to_Bank__c;
         Boolean isLeadUpdated = LeadConversionHelper.updateLead(leadRecord);
         if (!isLeadUpdated) {
           return maintainResult;

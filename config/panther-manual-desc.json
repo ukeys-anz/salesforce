@@ -2671,7 +2671,8 @@
         "Reason_For_Visit__c",
         "Products__c"
       ],
-      "IA-2423227": ["COI_Member__c"]
+      "IA-2423227": ["COI_Member__c"],
+      "IA-2415983":["Interaction_Type__c"]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
