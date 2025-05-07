@@ -43,6 +43,11 @@ public with sharing class PushToAppControllerTest {
   private static final Id FAKER_TASK_DATA = Lib_FakeIdGenerator.getMockId(
     Task.getSObjectType()
   );
+    
+  private static final Id CUSTUMER_COMPLAINT_RECORDTYPEID = QueryRT.of(
+      Case.SObjectType
+    )
+    .getId('Customer_Complaint');
 
   static Lib_MockProvider dmlRepoMock;
   static Lib_MockProvider pushToAppRepoMock;
@@ -62,7 +67,8 @@ public with sharing class PushToAppControllerTest {
 
     Test.startTest();
     List<Customer_Task_Configuration__c> pushToAppTemplates = PushToAppController.getTemplateDetails(
-      FAKER_CASE_ID
+      FAKER_CASE_ID,
+      CUSTUMER_COMPLAINT_RECORDTYPEID
     );
     Test.stopTest();
 
@@ -119,18 +125,11 @@ public with sharing class PushToAppControllerTest {
         '{"success":true,"id":"' + FAKER_NOTIFICATION_DATA + '"}'
       )
     );
-
+      
     dmlRepoMock.mock(
       'doInsert',
       TestUtil.getMockSaveResults(
         '[{"success":true,"id":"' + CUSTOMER_ACTION_MOCK_DATA + '"}]'
-      )
-    );
-
-    dmlRepoMock.mock(
-      'doInsert',
-      TestUtil.getMockSaveResult(
-        '{"success":true,"id":"' + FAKER_TASK_DATA + '"}'
       )
     );
 

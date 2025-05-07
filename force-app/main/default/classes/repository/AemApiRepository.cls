@@ -132,7 +132,7 @@ public with sharing class AemApiRepository {
     public UnhandledException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.error('Unhandled Exception occured while attempting to fetch AEM template content via AEM Service ',
-    ,response.error)
+    response.error)
         .save();
     }
   }

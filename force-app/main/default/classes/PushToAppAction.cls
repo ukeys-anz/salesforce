@@ -49,7 +49,7 @@ public with sharing class PushToAppAction {
     );
 
     Map<Id, Account> accountIdToAccountInfoMap = new Map<Id, Account>(
-      PUSH_TO_APP_REPOSITORY.queryAccountOcvId(accountIds)
+      PUSH_TO_APP_REPOSITORY.queryAccountDetails(accountIds)
     );
     Map<Id, Customer_Task_Data__c> customTaskDataIdAndInfoMap = new Map<Id, Customer_Task_Data__c>(
       PUSH_TO_APP_REPOSITORY.queryCustomerTaskDataDetails(customerTaskDataIds)
