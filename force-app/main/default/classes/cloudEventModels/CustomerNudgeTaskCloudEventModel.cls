@@ -53,7 +53,7 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
     /**
      * @description Holds notification
      */
-    public PushToAppNotificationWrapper notification { get; set; }
+    public CustomerNudgeNotificationModel notification { get; set; }
 
     /**
      * @description Constructor
@@ -80,7 +80,7 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
         aemContentData,
         AemDataModel.Items.class
       );
-      this.notification = new PushToAppNotificationWrapper(item, theTask);
+      this.notification = new CustomerNudgeNotificationModel(item, theTask);
     }
   }
 }
