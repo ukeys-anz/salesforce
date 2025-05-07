@@ -124,7 +124,7 @@ public with sharing class PushToAppController {
       );
 
       // As no edit access should be given to any users in the system, Insert Customer Action in system mode
-      DML_REPOSITORY.doInsert(
+      DML_REPOSITORY.doUpsert(
         listOfCustomerActions,
         new DmlConfig().systemMode()
       );

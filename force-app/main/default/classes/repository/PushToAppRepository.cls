@@ -202,7 +202,8 @@ public with sharing class PushToAppRepository {
         Description,
         ActivityDate,
         WhatId,
-        CompletedDateTime
+        CompletedDateTime,
+        RecordTypeId
       FROM Task
       WHERE Id IN :taskIds
       WITH USER_MODE

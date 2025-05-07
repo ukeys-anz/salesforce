@@ -216,12 +216,12 @@ public with sharing class TestUtil {
    * @param mockSaveResultString An array of JSON strings, where each string represents a mock SaveResult for each record being inserted.
    * @return List<Database.SaveResult> objects corresponding to the mock JSON strings.
    */
-  public static List<Database.SaveResult> getMockSaveResults(
-    String mockSaveResultString
+  public static List<Database.UpsertResult> getMockUpsertResults(
+    String mockUpsertResultString
   ) {
-    return  (List<Database.SaveResult>) JSON.deserialize(
-      mockSaveResultString,
-      Database.SaveResult.class
+    return  (List<Database.UpsertResult>) JSON.deserialize(
+      mockUpsertResultString,
+      List<Database.UpsertResult>.class
     );
     
   }

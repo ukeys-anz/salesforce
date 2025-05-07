@@ -127,8 +127,8 @@ public with sharing class PushToAppControllerTest {
     );
       
     dmlRepoMock.mock(
-      'doInsert',
-      TestUtil.getMockSaveResults(
+      'doUpsert',
+      TestUtil.getMockUpsertResults(
         '[{"success":true,"id":"' + CUSTOMER_ACTION_MOCK_DATA + '"}]'
       )
     );

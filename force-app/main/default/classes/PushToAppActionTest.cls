@@ -56,7 +56,7 @@ public with sharing class PushToAppActionTest {
       'queryCustomerTaskDataDetails',
       mockQueryCustomerTaskDataDetails()
     );
-    pushToAppRepoMock.mock('queryAccountOcvId', new List<Account>());
+    pushToAppRepoMock.mock('queryAccountDetails', new List<Account>());
     pushToAppRepoMock.mock(
       'queryTaskRecords',
       mockTaskRecordsList('Transfer Funds Out')
@@ -94,7 +94,7 @@ public with sharing class PushToAppActionTest {
       'queryCustomerTaskDataDetails',
       new List<Customer_Task_Data__c>()
     );
-    pushToAppRepoMock.mock('queryAccountOcvId', new List<Account>());
+    pushToAppRepoMock.mock('queryAccountDetails', new List<Account>());
     pushToAppRepoMock.mock(
       'queryTaskRecords',
       mockTaskRecordsList('Transfer Funds Out')
