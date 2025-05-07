@@ -9,5 +9,6 @@ trigger ContactPointPhoneTrigger on ContactPointPhone(
   before update,
   after update
 ) {
+  CommercialCppTriggerHandler commercialCppHandler = new CommercialCppTriggerHandler();
   ContactPointPhoneTriggerHandler handler = new ContactPointPhoneTriggerHandler();
 }

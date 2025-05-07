@@ -71,9 +71,9 @@
                 <label>Gardening</label>
             </value>
             <value>
-                <fullName>Animal</fullName>
+                <fullName>Animals</fullName>
                 <default>false</default>
-                <label>Animal</label>
+                <label>Animals</label>
             </value>
             <value>
                 <fullName>Travel</fullName>

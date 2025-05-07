@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Indicative_FUM_Not_Accepting_Decimal</fullName>
+    <active>true</active>
+    <description>Indicative FUM must be in whole dollars</description>
+    <errorConditionFormula>AND(
+ $Setup.Salesforce_Library_Settings__c.Disable_VRs__c = false,
+ Indicative_FUM__c &lt;&gt; FLOOR(Indicative_FUM__c)
+)</errorConditionFormula>
+    <errorDisplayField>Indicative_FUM__c</errorDisplayField>
+    <errorMessage>Indicative FUM must be in whole dollars.</errorMessage>
+</ValidationRule>

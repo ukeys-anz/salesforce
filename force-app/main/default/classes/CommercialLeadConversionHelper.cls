@@ -54,6 +54,9 @@ public with sharing class CommercialLeadConversionHelper {
         ? null
         : accountInstance.id;
       record.CAPCIS_ID__c = response.sourceSystems[0].sourceSystemId;
+      record.New_to_Bank__c = record.RecordTypeId == RTLead.commercialLead
+        ? 'Yes'
+        : record.New_to_Bank__c;
       LeadConversionController.leadConverionFlow = true;
       DML_REPOSITORY.doUpdate(record, new DmlConfig().withoutSharing());
       Map<Id, Id> mapLeadwithOpportunityId = LeadConversionOperations.convertLead(

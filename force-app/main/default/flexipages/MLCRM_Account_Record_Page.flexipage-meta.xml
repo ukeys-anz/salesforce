@@ -562,7 +562,7 @@
                 </fieldInstanceProperties>
                 <fieldItem>Record.VOI_Expiry_Date_Classic__c</fieldItem>
                 <identifier>RecordVOI_Expiry_Date_Classic_cField</identifier>
-                 <visibilityRule>
+                <visibilityRule>
                     <criteria>
                         <leftValue>{!Record.FinServ__Status__c}</leftValue>
                         <operator>NE</operator>
@@ -788,16 +788,6 @@
         <type>Facet</type>
     </flexiPageRegions>
     <flexiPageRegions>
-        <itemInstances>
-            <fieldInstance>
-                <fieldInstanceProperties>
-                    <name>uiBehavior</name>
-                    <value>readonly</value>
-                </fieldInstanceProperties>
-                <fieldItem>Record.RecordTypeId</fieldItem>
-                <identifier>RecordRecordTypeIdField</identifier>
-            </fieldInstance>
-        </itemInstances>
         <itemInstances>
             <fieldInstance>
                 <fieldInstanceProperties>

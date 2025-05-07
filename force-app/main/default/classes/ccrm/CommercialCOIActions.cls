@@ -14,6 +14,10 @@ public with sharing class CommercialCOIActions {
     List<Circle_Of_Influence__c> records
   ) {
     for (Circle_Of_Influence__c coiRecord : records) {
+      if (String.isBlank(coiRecord.First_Name__c)) {
+        coiRecord.Name = coiRecord.Last_Name__c;
+        continue;
+      }
       coiRecord.Name = coiRecord.First_Name__c + ' ' + coiRecord.Last_Name__c;
     }
   }

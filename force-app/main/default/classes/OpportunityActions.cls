@@ -408,6 +408,26 @@ public with sharing class OpportunityActions {
   }
 
   /**
+   * @description update the OwnerId with the  Opportunity_Owner__c field
+   * @name transferOpportunityOwnership
+   * @param newOppList List of new lead records.
+   * @param oldOppMap Map of old lead records.
+   */
+  public static void transferOpportunityOwnership(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    List<Opportunity> filteredRecords = ListUtil.filter(newOppList, oldOppMap)
+      .isNotNull(Opportunity.Opportunity_Owner__c)
+      .changed(Opportunity.Opportunity_Owner__c)
+      .toList();
+
+    for (Opportunity record : filteredRecords) {
+      record.OwnerId = record.Opportunity_Owner__c;
+    }
+  }
+
+  /**
    * @description This method is used to filter Opportunities for Loanapp_Reference__c
    * @name getFilteredOpportunitiesForLoanappReferenceNumber
    * @param oppList list of Opportunity sobject records

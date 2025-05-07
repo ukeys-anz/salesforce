@@ -71,26 +71,18 @@ public with sharing class InteractionTimeValidations {
   }
 
   /** @description Method to loop through list of existing interactions to identify if there are any overlaps
-   * @param newInteraction The new interaction record created
+   * @param newinteraction The new interaction record created
    * @param interactions list of existing interactions for the customer
    * @return Boolean Returns true or false if there are conflicting
    */
-  private static Boolean verifyTimeSlots(
-    Interaction newInteraction,
+  public static Boolean verifyTimeSlots(
+    Interaction newinteraction,
     List<Interaction> interactions
   ) {
-    for (Interaction existingInteraction : interactions) {
-      if (existingInteraction.Id == newInteraction.Id) {
-        continue;
-      }
-      if (
-        newInteraction.StartTime < existingInteraction.EndTime &&
-        newInteraction.EndTime > existingInteraction.StartTime
-      ) {
-        return true;
-      }
-    }
-    return false;
+    Boolean existingInteractionAvailable = false;
+    existingInteractionAvailable =
+      getInteractionAtSameTime(newinteraction, interactions) != null;
+    return existingInteractionAvailable;
   }
 
   /** @description Method to loop through list of existing interactions to identify if there are any overlaps
@@ -134,7 +126,7 @@ public with sharing class InteractionTimeValidations {
       List<Interaction> existingUniqueInteractions = existingCoachInteractions.get(
         interact.OwnerId
       );
-      Boolean existingInteractionAvailable = verifyTimeSlots(
+      Boolean existingInteractionAvailable = InteractionTimeValidations.verifyTimeSlots(
         interact,
         existingUniqueInteractions
       );

@@ -83,4 +83,25 @@ public with sharing class CommercialOpportunityRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description to query account records
+   * @name getAccountMap
+   * @param accountIdsSet set of Account Ids
+   * @return Map<Id, Account>
+   */
+  public Map<Id, Account> getAccountMap(Set<Id> accountIdsSet) {
+    if (accountIdsSet.isEmpty()) {
+      return new Map<Id, Account>();
+    }
+
+    return new Map<Id, Account>(
+      [
+        SELECT Id, Name, RecordTypeId
+        FROM Account
+        WHERE Id IN :accountIdsSet
+        WITH USER_MODE
+      ]
+    );
+  }
 }
