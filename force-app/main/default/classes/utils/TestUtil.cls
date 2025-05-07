@@ -211,10 +211,10 @@ public with sharing class TestUtil {
     );
   }
   /**
-   * @description This method is used to mock the behavior of a DML insert operation that returns multiple SaveResult objects.
+   * @description This method is used to mock the behavior of a DML insert operation that returns multiple UpsertResult objects.
    * This is helpful for test cases where multiple records are inserted at once
-   * @param mockSaveResultString An array of JSON strings, where each string represents a mock SaveResult for each record being inserted.
-   * @return List<Database.SaveResult> objects corresponding to the mock JSON strings.
+   * @param mockUpsertResultString An array of JSON strings, where each string represents a mock UpsertResult for each record being inserted.
+   * @return List<Database.UpsertResult> objects corresponding to the mock JSON strings.
    */
   public static List<Database.UpsertResult> getMockUpsertResults(
     String mockUpsertResultString
