@@ -49,69 +49,6 @@ public with sharing class PushToAppActionTest {
     );
   }
 
-  @isTest
-  static void testCreateTaskCloudEventPositive() {
-    registerMocks();
-    pushToAppRepoMock.mock(
-      'queryCustomerTaskDataDetails',
-      mockQueryCustomerTaskDataDetails()
-    );
-    pushToAppRepoMock.mock('queryAccountDetails', new List<Account>());
-    pushToAppRepoMock.mock(
-      'queryTaskRecords',
-      mockTaskRecordsList('Transfer Funds Out')
-    );
-
-    Test.startTest();
-    PushToAppAction.createTaskCloudEvent(
-      mockTaskRecordsList('Transfer Funds Out'),
-      'created'
-    );
-    Test.stopTest();
-
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-
-    CustomerNudgeTaskCloudEventModel customerNudgeTaskModel = (CustomerNudgeTaskCloudEventModel) JSON.deserialize(
-      payload,
-      CustomerNudgeTaskCloudEventModel.class
-    );
-
-    Assert.areEqual(
-      System.Label.ANZX_Customer_Nudge_event_ce_type + 'created',
-      customerNudgeTaskModel.ce_type,
-      'ce_type is set correctly.'
-    );
-    Assert.isTrue(
-      payload.contains('producer_command_key'),
-      'producer_command_key Node should be present in the payload'
-    );
-  }
-
-  @isTest
-  static void testCreateTaskCloudEventNegative() {
-    registerMocks();
-    pushToAppRepoMock.mock(
-      'queryCustomerTaskDataDetails',
-      new List<Customer_Task_Data__c>()
-    );
-    pushToAppRepoMock.mock('queryAccountDetails', new List<Account>());
-    pushToAppRepoMock.mock(
-      'queryTaskRecords',
-      mockTaskRecordsList('Transfer Funds Out')
-    );
-
-    Test.startTest();
-    PushToAppAction.createTaskCloudEvent(mockTaskRecordsList(null), 'created');
-    Test.stopTest();
-
-    String payload = CloudEventController.cloudEvents[0].Data_1__c;
-
-    Assert.isFalse(
-      payload.contains('title'),
-      'Title Node should not be present in the payload'
-    );
-  }
-
   private static List<Task> mockTaskRecordsList(String actiontakenvalue) {
     List<Task> tasklist = new List<Task>();
     tasklist.add(mockTaskRecord(actiontakenvalue));
@@ -146,15 +83,5 @@ public with sharing class PushToAppActionTest {
       new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
     );
     return taskRecord;
-  }
-
-  private static List<Customer_Task_Data__c> mockQueryCustomerTaskDataDetails() {
-    List<Customer_Task_Data__c> customerTaskDataList = new List<Customer_Task_Data__c>();
-    Customer_Task_Data__c testCustomerTaskData = new Customer_Task_Data__c(
-      Id = FAKER_CUSTOMER_TASK_DATA_ID,
-      AEM_Content_Data__c = '{\"bodyText\":\"Testing\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\",\"steps\":[{\"actions\":[{\"deepLink\":\"anz.com/.../transfer\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\"}]}],\"subtitle\":\"Hey Jane\",\"title\":\"Get in touch\"}'
-    );
-    customerTaskDataList.add(testCustomerTaskData);
-    return customerTaskDataList;
   }
 }

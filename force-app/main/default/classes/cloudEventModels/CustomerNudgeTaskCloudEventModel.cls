@@ -8,38 +8,33 @@
  * @description Wrapper Class for sending Customer Nudge Tasks details (Notification) to Mobile
  */
 public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskCloudEventModel {
-  private static final String OPERATION_MODE_UPDATED = 'updated';
-
   /**
    * @description Constructor
    * @param theTask The task record
-   * @param operationMode Holds created/updated
-   * @param ocvId Holds ocvId of the customer associated to the task
+   * @param theAccount Holds ocvId of the customer associated to the task
    * @param aemContentData Holds aemContentData Information
+   * @param theOwner Holds Owner Information
    */
   public CustomerNudgeTaskCloudEventModel(
     Task theTask,
-    String operationMode,
-    String ocvId,
-    String aemContentData
+    Account theAccount,
+    String aemContentData,
+    UserModel theOwner
   ) {
-    super(theTask, null);
+    super(theTask, theAccount);
 
+    String operationMode = theTask.Status == 'New' ? 'created' : 'updated';
     this.ce_type =
       System.Label.ANZX_Customer_Nudge_event_ce_type + operationMode;
     this.ce_source = 'anzx.salesforce.appnotification.v1alpha1';
     this.ce_subject = 'Pub_Sub_Event_Id__c/' + theTask.Pub_Sub_Event_Id__c;
     this.ce_dataschema = System.Label.ANZX_Customer_Nudge_Event_Proto_Data_Schema;
     this.ce_partitionkey = 'Pub_Sub_Event_Id__c/' + theTask.Pub_Sub_Event_Id__c;
-    this.ce_xtargets = 'ocv/' + ocvId;
-    this.systemData = new CloudEventSystemModel(
-      theTask.LastModifiedDate,
-      theTask.LastModifiedBy
-    );
     this.ce_data = new CustomerNudgeTaskCloudDataModel(
       theTask,
-      operationMode,
-      aemContentData
+      aemContentData,
+      theAccount,
+      theOwner
     );
   }
 
@@ -63,21 +58,21 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
     /**
      * @description Constructor
      * @param theTask The task record
-     * @param operationMode The operationMode
      * @param aemContentData Holds aemContentData Information
+     * @param theAccount Holds Account Information
+     * @param theOwner Holds Owner Information
      */
     public CustomerNudgeTaskCloudDataModel(
       Task theTask,
-      String operationMode,
-      String aemContentData
+      String aemContentData,
+      Account theAccount,
+      UserModel theOwner
     ) {
+      super(theTask, theAccount, theOwner);
       this.producer_command_key = theTask.Pub_Sub_Event_Id__c;
       this.idempotency_key = theTask.Pub_Sub_Event_Id__c.split('_')[0];
 
-      if (
-        String.isBlank(aemContentData) ||
-        operationMode == OPERATION_MODE_UPDATED
-      ) {
+      if (String.isBlank(aemContentData) || theTask.Status != 'New') {
         return;
       }
 

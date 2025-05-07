@@ -108,16 +108,22 @@ public with sharing class PushToAppRepository {
     Id recordId,
     String sObjectName
   ) {
-    if(fieldsToQuery.isEmpty() || String.isBlank(recordId) || String.isBlank(sObjectName))
-    {
-        return new List<SObject>();
+    if (
+      fieldsToQuery.isEmpty() ||
+      String.isBlank(recordId) ||
+      String.isBlank(sObjectName)
+    ) {
+      return new List<SObject>();
     }
 
     String allFields = String.join(new List<String>(fieldsToQuery), ',');
     return Database.query(
-      'SELECT ' + allFields + ' FROM ' + sObjectName + ' WHERE Id = :recordId WITH USER_MODE'
-    ) ;
-    
+      'SELECT ' +
+        allFields +
+        ' FROM ' +
+        sObjectName +
+        ' WHERE Id = :recordId WITH USER_MODE'
+    );
   }
 
   /**
@@ -163,11 +169,11 @@ public with sharing class PushToAppRepository {
       return new List<Account>();
     }
     return [
-      SELECT Id,OCV_ID__c,Source_System_Name__c,Source_System_ID__c
+      SELECT Id, OCV_ID__c, Source_System_Name__c, Source_System_ID__c
       FROM Account
       WHERE Id IN :accountIds
       WITH USER_MODE
-    ] ;
+    ];
   }
 
   /**

@@ -10,14 +10,14 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
   );
 
   @isTest
-  static void testCustomerNudgeTaskCloudEventModel() {
+  static void testCustomerNudgeTaskCloudEventModelPositive() {
     Task taskRecord = mockTaskRecord();
     // Call the constructor for CustomerNudgeTaskCloudEventModel
     CustomerNudgeTaskCloudEventModel model = new CustomerNudgeTaskCloudEventModel(
       taskRecord,
-      'created',
-      '1234',
-      null
+      TestDataFactory.createAccount('account1', false),
+      mockAemContentData(),
+      new CloudEventModel.UserModel()
     );
 
     // Validate the ce_type
@@ -46,24 +46,12 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
       'ce_partitionkey is set correctly.'
     );
 
-    // Validate the ce_xtargets
-    Assert.areEqual(
-      'ocv/1234',
-      model.ce_xtargets,
-      'ce_xtargets is set correctly.'
-    );
-
-    // Validate systemData
-    CloudEventModel.CloudEventSystemModel systemData = (CloudEventModel.CloudEventSystemModel) model.systemData;
-    Assert.areEqual(
-      taskRecord.LastModifiedDate,
-      systemData.lastModifiedTime,
-      'LastModifiedDate is correct in systemData.'
-    );
-
     // Validate the data model (CustomerNudgeTaskCloudDataModel)
     CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) model.ce_data;
-    Assert.isNull(dataModel.notification, 'Notification should be null');
+    Assert.isNotNull(
+      dataModel.notification,
+      'Notification node should not be null'
+    );
     Assert.areEqual(
       taskRecord.Pub_Sub_Event_Id__c,
       dataModel.producer_command_key,
@@ -71,16 +59,46 @@ public with sharing class CustomerNudgeTaskCloudEventModelTest {
     );
   }
 
-  private static Task mockTaskRecord() {
-    // Create a Task record to use as test data
-    Task testTask = new Task(
-      Id = FAKER_TASK_ID,
-      Status = 'ACTIVITY_STATE_SENT',
-      Subject = 'Get In Touch',
-      Pub_Sub_Event_Id__c = '12345',
-      LastModifiedById = UserInfo.getUserId(),
-      LastModifiedDate = System.now()
+  @isTest
+  static void testCustomerNudgeTaskCloudEventModelNegative() {
+    Task taskRecord = mockTaskRecord();
+    // Call the constructor for CustomerNudgeTaskCloudEventModel
+    CustomerNudgeTaskCloudEventModel model = new CustomerNudgeTaskCloudEventModel(
+      taskRecord,
+      TestDataFactory.createAccount('account1', false),
+      '',
+      new CloudEventModel.UserModel()
     );
-    return testTask;
+
+    CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel dataModel = (CustomerNudgeTaskCloudEventModel.CustomerNudgeTaskCloudDataModel) model.ce_data;
+    Assert.isNull(dataModel.notification, 'Notification node be null');
+  }
+
+  /**
+   * @description helper method to create a mock task
+   * @return Mock Task
+   */
+  static Task mockTaskRecord() {
+    Task mockPushToAppTask = TestDataFactory.createTaskRecord(
+      RTTask.customerNudge,
+      Lib_FakeIdGenerator.getMockId(Account.getSObjectType()),
+      Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
+      UserInfo.getUserId(),
+      false
+    );
+
+    mockPushToAppTask.Id = FAKER_TASK_ID;
+    mockPushToAppTask.Status = 'New';
+    mockPushToAppTask.Pub_Sub_Event_Id__c = '12345_12';
+
+    Task taskRecord = (Task) TestUtil.setFields(
+      mockPushToAppTask,
+      new Map<String, Object>{ 'TaskNumber__c' => 'TSK-00000001' }
+    );
+    return taskRecord;
+  }
+
+  static String mockAemContentData() {
+    return '{\"bodyText\":\"Testing\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\",\"steps\":[{\"actions\":[{\"deepLink\":\"anz.com/.../transfer\",\"iconDarkURI\":\"path/to/dark/icon\",\"iconLightURI\":\"path/to/light/icon\"}]}],\"subtitle\":\"Hey Jane\",\"title\":\"Get in touch\"}';
   }
 }
