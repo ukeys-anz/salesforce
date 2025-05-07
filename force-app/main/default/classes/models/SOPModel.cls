@@ -25,6 +25,7 @@ public with sharing class SOPModel extends CalloutModel {
   public Components[] components;
   public Parties[] parties;
   public Integer dependantsCount;
+  public String etag;
   public LiabilitySource[] liabilitySources;
   public List<PartyLiability> partyLiabilities;
   /**

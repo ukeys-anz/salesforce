@@ -1,0 +1,142 @@
+{
+  "partyData": {
+    "party": {
+      "name": "sops/e6782045-b850-46a6-8b13-ffb8839633c9",
+      "uid": "e6782045-b850-46a6-8b13-ffb8839633c9",
+      "createTime": "2024-05-20T01:57:12.886479282Z",
+      "updateTime": "2024-12-03T01:37:34.533049736Z",
+      "snapshotTime": null,
+      "status": "SOP_STATUS_INELIGIBLE",
+      "type": "SOP_TYPE_HOMELOAN",
+      "components": [
+        {
+          "type": "COMPONENT_TYPE_ASSETS",
+          "confirmed": false,
+          "partyConfirmations": []
+        },
+        {
+          "type": "COMPONENT_TYPE_EXPENSES",
+          "confirmed": false,
+          "partyConfirmations": []
+        },
+        {
+          "type": "COMPONENT_TYPE_INCOMES",
+          "confirmed": false,
+          "partyConfirmations": []
+        },
+        {
+          "type": "COMPONENT_TYPE_LIABILITIES",
+          "confirmed": false,
+          "partyConfirmations": []
+        },
+        {
+          "type": "COMPONENT_TYPE_SAVINGS",
+          "confirmed": false,
+          "partyConfirmations": []
+        },
+        {
+          "type": "COMPONENT_TYPE_PERSONAL_DETAILS",
+          "confirmed": false,
+          "partyConfirmations": []
+        }
+      ],
+      "parties": [
+        {
+          "id": "c6f2b0a5-b00c-5dfb-8024-dea3b6715178",
+          "ocvId": "1000991493",
+          "spouseEarnsIncome": false,
+          "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+          "confirmedAccountsTime": null,
+          "multipleProfiles": false,
+          "personaId": "ba94ffeb-6788-4abe-9fc2-ec9e6a5f2b59"
+        }
+      ],
+      "expenseConfigVersion": "1714356236183140",
+      "dependantsCount": 2,
+      "etag": "1733189854533049736",
+      "ineligibleReasons": ["SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND"],
+      "enquiries": [],
+      "ineligibleReasonsWithInfo": [
+        {
+          "ineligibleReasonType": "SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND",
+          "details": [
+            {
+              "capCisid": "4020883394",
+              "ocvId": "1001026541"
+            }
+          ]
+        }
+      ],
+      "assistedEnquiries": []
+    }
+  },
+  "sopData": {
+    "name": "sops/e6782045-b850-46a6-8b13-ffb8839633c9",
+    "uid": "e6782045-b850-46a6-8b13-ffb8839633c9",
+    "createTime": "2024-05-20T01:57:12.886479282Z",
+    "updateTime": "2024-12-03T01:37:34.292808005Z",
+    "snapshotTime": null,
+    "status": "SOP_STATUS_INELIGIBLE",
+    "type": "SOP_TYPE_HOMELOAN",
+    "components": [
+      {
+        "type": "COMPONENT_TYPE_PERSONAL_DETAILS",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_ASSETS",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_EXPENSES",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_INCOMES",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_LIABILITIES",
+        "confirmed": false,
+        "partyConfirmations": []
+      },
+      {
+        "type": "COMPONENT_TYPE_SAVINGS",
+        "confirmed": false,
+        "partyConfirmations": []
+      }
+    ],
+    "parties": [
+      {
+        "id": "c6f2b0a5-b00c-5dfb-8024-dea3b6715178",
+        "ocvId": "1000991493",
+        "spouseEarnsIncome": true,
+        "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+        "confirmedAccountsTime": null,
+        "multipleProfiles": false,
+        "personaId": "ba94ffeb-6788-4abe-9fc2-ec9e6a5f2b59"
+      }
+    ],
+    "expenseConfigVersion": "1714356236183140",
+    "dependantsCount": 2,
+    "etag": "1733189854292808005",
+    "ineligibleReasons": ["SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND"],
+    "enquiries": [],
+    "ineligibleReasonsWithInfo": [
+      {
+        "ineligibleReasonType": "SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND",
+        "details": [
+          {
+            "capCisid": "4020883394",
+            "ocvId": "1001026541"
+          }
+        ]
+      }
+    ],
+    "assistedEnquiries": []
+  }
+}
