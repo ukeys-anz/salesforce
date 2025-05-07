@@ -29,7 +29,7 @@ public with sharing class PushToAppAction {
       }
       DML_REPOSITORY.doUpdate(tasksToUpdate);
     } catch (Exception objException) {
-      throw CommonUtil.logException(objException);
+      throw CommonUtil.logExceptionWithMessage('Push To App Task Update Failed ',objException);
     }
   }
 }
