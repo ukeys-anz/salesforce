@@ -21,7 +21,7 @@ public with sharing class PushToAppController {
   /**
    * @description Retrieves notification templates based on the logged-in user's role and the recordtype.
    * @param recordId The Id of the record (e.g., Case) to determine applicable templates.
-   * @param recordTypeId record type Id of the record 
+   * @param recordTypeId record type Id of the record
    * @return List of Customer_Task_Configuration__c records including Name and AEM content ID.
    */
   @AuraEnabled(cacheable=true)
@@ -39,8 +39,8 @@ public with sharing class PushToAppController {
 
       //Get the  RecordType name for the given record
       String recordTypeName = QueryRT.of(recordId.getSObjectType())
-      .get(recordTypeId)
-      .getDeveloperName();
+        .get(recordTypeId)
+        .getDeveloperName();
 
       return PUSH_TO_APP_REPOSITORY.queryNotificationConfigrecords(
         userRoleInfo,
@@ -48,7 +48,11 @@ public with sharing class PushToAppController {
         sObjectName
       );
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage('Error fetching Push-to-App Customer Nudge Template details for record id ' +recordId,objException);
+      throw CommonUtil.logExceptionWithMessage(
+        'Error fetching Push-to-App Customer Nudge Template details for record id ' +
+        recordId,
+        objException
+      );
     }
   }
 
@@ -75,7 +79,13 @@ public with sharing class PushToAppController {
       enrichAemData(aemData.data.pushToAppList.items[0]);
       return aemData;
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage('Error fetching AEM template content for '+aemContentId+ ' for recordId '+recordId,objException);
+      throw CommonUtil.logExceptionWithMessage(
+        'Error fetching AEM template content for ' +
+          aemContentId +
+          ' for recordId ' +
+          recordId,
+        objException
+      );
     }
   }
 
@@ -144,7 +154,10 @@ public with sharing class PushToAppController {
       );
       return taskRecord;
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage('Push To App Task and Related Records Creation Failed : ',objException);
+      throw CommonUtil.logExceptionWithMessage(
+        'Push To App Task and Related Records Creation Failed : ',
+        objException
+      );
     }
   }
 
@@ -186,7 +199,9 @@ public with sharing class PushToAppController {
     Id notifDataId
   ) {
     return new Task(
-      Subject = taskData.subject + ' - ' + TASK_TYPE.get('ACTIVITY_TYPE_PUSH_TO_APP'),
+      Subject = taskData.subject +
+        ' - ' +
+        TASK_TYPE.get('ACTIVITY_TYPE_PUSH_TO_APP'),
       Type = 'ACTIVITY_TYPE_PUSH_TO_APP',
       WhatId = taskData.whatId,
       WhoId = PUSH_TO_APP_REPOSITORY.queryCustomerContactId(taskData.whatId),

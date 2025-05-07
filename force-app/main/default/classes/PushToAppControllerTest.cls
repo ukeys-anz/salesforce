@@ -43,7 +43,7 @@ public with sharing class PushToAppControllerTest {
   private static final Id FAKER_TASK_DATA = Lib_FakeIdGenerator.getMockId(
     Task.getSObjectType()
   );
-    
+
   private static final Id CUSTUMER_COMPLAINT_RECORDTYPEID = QueryRT.of(
       Case.SObjectType
     )
@@ -125,7 +125,7 @@ public with sharing class PushToAppControllerTest {
         '{"success":true,"id":"' + FAKER_NOTIFICATION_DATA + '"}'
       )
     );
-      
+
     dmlRepoMock.mock(
       'doUpsert',
       TestUtil.getMockUpsertResults(
