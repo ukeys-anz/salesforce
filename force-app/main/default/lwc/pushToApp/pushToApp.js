@@ -5,17 +5,21 @@ import {
   getTabInfo,
   openSubtab
 } from "lightning/platformWorkspaceApi";
-import CASE_NUMBER from "@salesforce/schema/Case.CaseNumber";
 import getAemContentData from "@salesforce/apex/PushToAppController.getAemContentData";
 import createTaskAndRelatedRecords from "@salesforce/apex/PushToAppController.createTaskAndRelatedRecords";
 const TASK_CREATION_FAILED =
   "Task Creation Failed: We encountered an issue while creating the task. Raise a fault though TechAssist if the issue persist.";
 const TEMPLATE_FETCH_ERROR =
   "Unable to fetch template: There was an error retrieving content from AEM. Try again or raise a fault through TechAssist if the issue persists.";
+const FIELD_MAP = {
+  Case: [{ fieldApiName: "CaseNumber", objectApiName: "Case" }]
+};
 
 export default class PushToApp extends LightningElement {
   @api recordId;
+  @api objectApiName;
   @api templateOptions = [];
+  fields = [];
   _showPushTaskButton = true;
   isSendNowDisabled = true;
   _showPushTaskScreen = false;
@@ -59,10 +63,18 @@ export default class PushToApp extends LightningElement {
     return this._hasError;
   }
 
-  @wire(getRecord, { recordId: "$recordId", fields: [CASE_NUMBER] })
+  connectedCallback() {
+    if (this.objectApiName && FIELD_MAP[this.objectApiName]) {
+      this.fields = FIELD_MAP[this.objectApiName];
+    }
+  }
+
+  @wire(getRecord, { recordId: "$recordId", fields: "$fields" })
   getCaseRecordData({ data, error }) {
     if (data) {
-      this.caseNumber = data.fields.CaseNumber.value;
+      const fieldEntryMap = FIELD_MAP[this.objectApiName];
+      const fieldName = fieldEntryMap[0].fieldApiName;
+      this.caseNumber = data.fields[fieldName].value;
     } else if (error) {
       this.handleError(error);
     }

@@ -61,6 +61,7 @@ export default class InitiateInteraction extends LightningElement {
   executionSid; //Populated as part of the reinitiate chat response
   showMessageCustomer = false;
   _templateOptions = [];
+  recordTypeId;
 
   get displayOutboundChat() {
     return hasOutboundChatPermission;
@@ -83,6 +84,7 @@ export default class InitiateInteraction extends LightningElement {
   async wireRecord({ data }) {
     this.isLoaded = false;
     if (data) {
+      this.recordTypeId = data.recordTypeId;
       switch (this.objectApiName) {
         case "Account":
           this.fields.accountId = this.recordId;
@@ -121,6 +123,9 @@ export default class InitiateInteraction extends LightningElement {
           this.handleShowContactTab();
           break;
         default:
+      }
+      if (IsPushToAppEnabled === "true" && this.recordTypeId) {
+        this.getTemplateDetailsData();
       }
     } else {
       this.showChatWindow = false;
@@ -170,10 +175,6 @@ export default class InitiateInteraction extends LightningElement {
         this.handleShowContactTab();
       }
     });
-
-    if (IsPushToAppEnabled === "true") {
-      this.getTemplateDetailsData();
-    }
   }
 
   handleShowContactTab() {
@@ -375,7 +376,8 @@ export default class InitiateInteraction extends LightningElement {
 
   getTemplateDetailsData() {
     getTemplateDetails({
-      recordId: this.recordId
+      recordId: this.recordId,
+      recordTypeId: this.recordTypeId
     }).then((result) => {
       this._templateOptions = result.map((template) => {
         return { label: template.Name, value: template.AEM_Content_Id__c };
