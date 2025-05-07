@@ -1237,6 +1237,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>false</editable>
+        <field>Case.Credit_Reassessment_Time__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
         <field>Case.Collateral_Assessment_ID__c</field>
         <readable>true</readable>
     </fieldPermissions>

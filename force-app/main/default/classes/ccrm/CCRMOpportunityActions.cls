@@ -7,7 +7,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CCRMOpportunityActions {
   public static final String CLOSE_DATE_FIELD_NAME = 'CloseDate';
-  public static final String INVALID_CLOSE_DATE_ERROR ='Please Log Close Date: Click on the "Log Close Date" button and enter a Closing date (i.e. expected settlement date)';
+  public static final String INVALID_CLOSE_DATE_ERROR = 'Please Log Close Date: Click on the "Log Close Date" button and enter a Closing date (i.e. expected settlement date)';
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
   public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';

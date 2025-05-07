@@ -13,7 +13,18 @@ public with sharing class CreditAsssessmentRepository {
   public Case getCaseRecord(String recordId) {
     PermissionUtils.canQuery('Case');
     return [
-      SELECT Id, OwnerId, Status, Account.OCV_Id__c, Assessment_Id__c
+      SELECT
+        Id,
+        OwnerId,
+        Status,
+        Account.OCV_Id__c,
+        Assessment_Id__c,
+        Credit_Id__c,
+        Property_Valuation_Id__c,
+        Assessment_Outcome__c,
+        Loan_Application__r.Credit_Reassess_Required__c,
+        Title_Reference_Number__c,
+        Credit_Reassessment_Time__c
       FROM Case
       WHERE Id = :recordId
     ];
@@ -29,7 +40,7 @@ public with sharing class CreditAsssessmentRepository {
   ) {
     PermissionUtils.canQuery('ResidentialLoanApplication');
     return [
-      SELECT Account.OCV_Id__c, Credit_ID__c, Status
+      SELECT Id, Account.OCV_Id__c, Credit_ID__c, Status
       FROM ResidentialLoanApplication
       WHERE Id = :recordId
     ];
@@ -110,6 +121,20 @@ public with sharing class CreditAsssessmentRepository {
       SELECT Outcome_Code__c, Outcome_Description__c
       FROM Reason_Outcome__c
       WHERE Outcome_Code__c IN :outcomeCodeSet
+    ];
+  }
+
+  /**
+   * @description retrieve list of in progress uuid logs
+   * @param recordId recordid for reference
+   * @return List<UUID_Log_Entry__c>
+   */
+  public List<UUID_Log_Entry__c> getInProgressUUIDLogs(String recordId) {
+    return [
+      SELECT Id, Reference_Id__c, Status__c
+      FROM UUID_Log_Entry__c
+      WHERE Reference_Id__c = :recordId AND Status__c = 'In Progress'
+      WITH USER_MODE
     ];
   }
 }

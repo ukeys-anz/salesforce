@@ -1049,10 +1049,16 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard3</identifier>
                 <visibilityRule>
+                    <booleanFilter>1 OR 2</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Coach_Lead</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
