@@ -6,4 +6,5 @@ trigger OpportunityTrigger on Opportunity(
 ) {
   OpportunityTriggerHandler handler = new OpportunityTriggerHandler();
   CommercialOpportunityTriggerHandler commercialHandler = new CommercialOpportunityTriggerHandler();
+  MobileLendingOpportunityTriggerHandler mobileLendingHandler = new MobileLendingOpportunityTriggerHandler();
 }

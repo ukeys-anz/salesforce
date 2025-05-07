@@ -196,7 +196,6 @@ force-app/main/default/profiles/System Administrator CyberArk.profile-meta.xml
 
 #PR-8811 Skip field destruction in merge
 force-app/main/default/objects/Lead/fields/Conversion_Status__c
-#added for merge to cmos-a, please do not merge to other envs
-force-app/main/default/aura/QuickActionAuraContainer
-force-app/main/default/classes/ccrm/CCRMExternalObjectQueryBase.cls
-force-app/main/default/classes/ccrm/CCRMExternalObjectQueryBase.cls-meta.xml
+
+#Ignoringing destructiveChanges - backmerge develop to cmos-a 1st May 2025 release
+.sf\orgs\00D9r000000UCq9EAG\maxRevision.json

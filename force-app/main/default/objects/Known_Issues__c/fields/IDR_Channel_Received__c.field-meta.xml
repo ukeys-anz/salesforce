@@ -3,11 +3,11 @@
     <fullName>IDR_Channel_Received__c</fullName>
     <businessStatus>Active</businessStatus>
     <complianceGroup>Source_Salesforce;Integrity_Trusted;Privacy_Non_Personal_Information</complianceGroup>
-    <securityClassification>Confidential</securityClassification>
     <description>What channel did this originate from (In person, Phone, Secure Mail, Social Media, Letter, Email, Internal Referred, anz.com)</description>
     <externalId>false</externalId>
     <label>Channel Received</label>
     <required>false</required>
+    <securityClassification>Confidential</securityClassification>
     <trackTrending>false</trackTrending>
     <type>Picklist</type>
     <valueSet>

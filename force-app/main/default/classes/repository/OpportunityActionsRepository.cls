@@ -18,7 +18,7 @@ public class OpportunityActionsRepository {
       SELECT PersoncontactId
       FROM Account
       WHERE Id = :accId
-      WITH USER_MODE
+      WITH SYSTEM_MODE
     ];
   }
 
@@ -55,6 +55,44 @@ public class OpportunityActionsRepository {
         Loanapp_Reference__c IN :larSet
         AND RecordTypeId = :RTOpportunity.mlOpportunity
       WITH SYSTEM_MODE
+    ];
+  }
+
+  /**
+   * @description return OpportunityContactRole using opp Ids
+   * @param oppIdSet Loanapp_Reference__c of Opportunity
+   * @return List<OpportunityContactRole>
+   */
+  public List<OpportunityContactRole> getOpportunityContactRolesByOppIds(
+    Set<Id> oppIdSet
+  ) {
+    if (oppIdSet.isEmpty()) {
+      return new List<OpportunityContactRole>();
+    }
+    return [
+      SELECT Id, Opportunity.Loanapp_Reference__c, ExternalId__c
+      FROM OpportunityContactRole
+      WHERE OpportunityId IN :oppIdSet
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description return Opportunity_Contact_Role_Sync__c using ocr Ids
+   * @param ocrIdSet Loanapp_Reference__c of Opportunity
+   * @return List<Opportunity_Contact_Role_Sync__c>
+   */
+  public List<Opportunity_Contact_Role_Sync__c> getOCRSyncByOCRIds(
+    Set<Id> ocrIdSet
+  ) {
+    if (ocrIdSet.isEmpty()) {
+      return new List<Opportunity_Contact_Role_Sync__c>();
+    }
+    return [
+      SELECT Id, OpportunityContactRoleId__c, ExternalId__c, Role__c
+      FROM Opportunity_Contact_Role_Sync__c
+      WHERE OpportunityContactRoleId__c IN :ocrIdSet
+      WITH USER_MODE
     ];
   }
 }

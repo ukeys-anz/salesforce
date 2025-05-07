@@ -10,6 +10,7 @@
     <label>My Events</label>
     <sharedTo>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Coach</role>
         <role>Support_Coach</role>
     </sharedTo>

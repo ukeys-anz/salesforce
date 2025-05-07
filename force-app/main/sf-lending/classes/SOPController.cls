@@ -88,6 +88,7 @@ public with sharing class SOPController {
         requestBody,
         loanId
       );
+      SOPHelper.publishRLARecordMonitoringToast(loanRec);
       return 'Success';
     } catch (Exception e) {
       Logger.error('Failed to add new income', e.getMessage());
@@ -130,6 +131,7 @@ public with sharing class SOPController {
         },
         incomeDetails.incomeVerifiedChanged
       );
+      SOPHelper.publishRLARecordMonitoringToast(loanRec);
       return 'Success';
     } catch (Exception e) {
       Logger.error('Failed to add new income', e.getMessage());

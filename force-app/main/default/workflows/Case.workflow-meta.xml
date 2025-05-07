@@ -103,42 +103,10 @@
         <reevaluateOnChange>true</reevaluateOnChange>
     </fieldUpdates>
     <fieldUpdates>
-        <fullName>SLA_Status_Violation_Update_COP</fullName>
-        <name>SLA Status Violation Update COP</name>
-        <field>SLA_Status__c</field>
-        <literalValue>Breached</literalValue>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>true</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
         <fullName>SLA_Status_Violation_Update_COP_Res</fullName>
         <name>SLA Status Violation Update COP Res</name>
         <field>SLA_Status__c</field>
         <literalValue>Breached</literalValue>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>true</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SLA_Status_Warning_Update1</fullName>
-        <name>SLA Status Warning Update1</name>
-        <description>Send Before 12 Hours post creation date</description>
-        <field>SLA_Status__c</field>
-        <literalValue>Warning</literalValue>
-        <notifyAssignee>false</notifyAssignee>
-        <operation>Literal</operation>
-        <protected>false</protected>
-        <reevaluateOnChange>true</reevaluateOnChange>
-    </fieldUpdates>
-    <fieldUpdates>
-        <fullName>SLA_Status_Warning_Update2</fullName>
-        <name>SLA Status Warning Update2</name>
-        <description>Send notification post 18 hours of case creation if not resolved</description>
-        <field>SLA_Status__c</field>
-        <literalValue>Warning 2</literalValue>
         <notifyAssignee>false</notifyAssignee>
         <operation>Literal</operation>
         <protected>false</protected>

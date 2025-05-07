@@ -17,4 +17,6 @@ trigger CaseTrigger on Case(
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
   IDRCaseTriggerHandler idrHandler = new IDRCaseTriggerHandler();
   TrustMeCaseTriggerHandler trustMeHandler = new TrustMeCaseTriggerHandler();
+  FalseCustomerProfileCaseTriggerHandler fcpHandler = new FalseCustomerProfileCaseTriggerHandler();
+  FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
 }

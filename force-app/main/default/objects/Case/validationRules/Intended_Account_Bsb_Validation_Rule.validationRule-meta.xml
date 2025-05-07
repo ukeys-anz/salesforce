@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Intended_Account_Bsb_Validation_Rule</fullName>
+    <active>true</active>
+    <description>Validation rule on Intended Account BSB field for Account Closure</description>
+    <errorConditionFormula>AND(NOT( ISBLANK(Intended_Account_BSB__c) ),
+ISCHANGED(Intended_Account_BSB__c),
+NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ), RecordType.Name = &quot;Account Closure&quot; ,NOT(REGEX(Intended_Account_BSB__c, &quot;^\\d{4,6}$&quot;)))</errorConditionFormula>
+    <errorDisplayField>Intended_Account_BSB__c</errorDisplayField>
+    <errorMessage>Forwarding Account BSB must be 4-6 numerical characters long</errorMessage>
+</ValidationRule>

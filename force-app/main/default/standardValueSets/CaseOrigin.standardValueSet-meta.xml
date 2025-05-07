@@ -252,16 +252,6 @@
         <label>OFI – from FRX</label>
     </standardValue>
     <standardValue>
-        <fullName>22</fullName>
-        <default>false</default>
-        <label>Other EDR Schemes or Tribunal (IDR Referral)</label>
-    </standardValue>
-    <standardValue>
-        <fullName>23</fullName>
-        <default>false</default>
-        <label>Other EDR Schemes or Tribunal (Post IDR)</label>
-    </standardValue>
-    <standardValue>
         <fullName>Broker Portal</fullName>
         <default>false</default>
         <label>Broker Portal</label>
@@ -270,5 +260,15 @@
         <fullName>TrustMe</fullName>
         <default>false</default>
         <label>TrustMe</label>
+    </standardValue>
+    <standardValue>
+        <fullName>22</fullName>
+        <default>false</default>
+        <label>Other EDR Schemes or Tribunal (IDR Referral)</label>
+    </standardValue>
+    <standardValue>
+        <fullName>23</fullName>
+        <default>false</default>
+        <label>Other EDR Schemes or Tribunal (Post IDR)</label>
     </standardValue>
 </StandardValueSet>

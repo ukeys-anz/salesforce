@@ -129,7 +129,6 @@
     "NumberOfEmployees",
     "Occupation__c",
     "OperatingHoursId",
-    "Other_Email__c",
     "Ownership",
     "ParentId",
     "PersonContactId",
@@ -176,6 +175,7 @@
     "qualtrics__Informed_Consent__pc",
     "SourceSystemIdentifier"
   ],
+  "ApplicationForm": ["BranchUnitId"],
   "COBPrimaryIDDocument__c": [
     "CountryOfIssue__c",
     "CountryOfIssueOCRClient__c",
@@ -236,11 +236,12 @@
     "LicenceCardNumber__c",
     "LicenceNumber__c",
     "MilestoneStatusIcon",
+    "Financial_Account_Name__c",
+    "Opt_Out_Reason__c",
+    "Process_SLA_Status__c",
     "PassportNumber__c"
   ],
-  "CaseComment": [
-    "CommentBodyRichtext"
-  ],
+  "CaseComment": ["CommentBodyRichtext"],
   "Contact": [
     "AssetFinanceTPMISAO__c",
     "Accreditation_CompactLayout__c",
@@ -269,7 +270,6 @@
     "Manager_Lan_Id__c",
     "Manager_Email__c",
     "Notes_Interests__c",
-    "OtherPhone",
     "Pronouns",
     "TitleType",
     "Preferred_Contact__c",

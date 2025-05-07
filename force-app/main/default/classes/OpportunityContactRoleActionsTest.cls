@@ -13,11 +13,13 @@ public class OpportunityContactRoleActionsTest {
 
   static Lib_MockProvider ocrRepoMock;
   static Lib_MockProvider oppRepoMock;
+  static Lib_MockProvider dmlMockProvider;
   static void registerMocks() {
     ocrRepoMock = Lib_MockProvider.forType(
       OpportunityContactRoleActionsRepository.class
     );
     oppRepoMock = Lib_MockProvider.forType(OpportunityActionsRepository.class);
+    dmlMockProvider = Lib_MockProvider.forType(DmlRepository.class);
   }
 
   @isTest
@@ -173,42 +175,6 @@ public class OpportunityContactRoleActionsTest {
   }
 
   /**
-   * @description test method to get filtered OCR records.
-   */
-  @isTest
-  static void getFilteredMLOCRRecordsTest() {
-    registerMocks();
-    Id newConId = Lib_FakeIdGenerator.getMockId(
-      Schema.Contact.getSObjectType()
-    );
-    Id newOppId = Lib_FakeIdGenerator.getMockId(
-      Schema.Opportunity.getSObjectType()
-    );
-    Opportunity opp = new Opportunity(
-      Id = newOppId,
-      RecordTypeId = MLCRM_OPP_RTID
-    );
-    OpportunityContactRole ocr = new OpportunityContactRole(
-      OpportunityId = newOppId,
-      ContactId = newConId,
-      Role = 'Applicant'
-    );
-    oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
-    ocrRepoMock.mock(
-      'getOppContactRoleByContacts',
-      new List<OpportunityContactRole>{ ocr }
-    );
-    Test.startTest();
-    List<OpportunityContactRole> fList = OpportunityContactRoleActions.getFilteredMLOCRRecords(
-      new List<OpportunityContactRole>{ ocr },
-      null,
-      new Map<Id, Opportunity>{ ocr.OpportunityId => opp }
-    );
-    Test.stopTest();
-    Assert.areEqual(1, fList.size(), '1 OCR record should be returned!');
-  }
-
-  /**
    * @description test method to get parent opportunities.
    */
   @isTest
@@ -276,10 +242,10 @@ public class OpportunityContactRoleActionsTest {
   }
 
   /**
-   * @description test method to defaultRoleForMlOppContactRole
+   * @description test method to defaultRoleForOppContactRole
    */
   @isTest
-  static void getDefaultRoleForMlOppContactRole() {
+  static void getdefaultRoleForOppContactRole() {
     registerMocks();
     Id newConId = Lib_FakeIdGenerator.getMockId(
       Schema.Contact.getSObjectType()
@@ -298,7 +264,7 @@ public class OpportunityContactRoleActionsTest {
     );
     oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
     Test.startTest();
-    OpportunityContactRoleActions.defaultRoleForMlOppContactRole(
+    OpportunityContactRoleActions.defaultRoleForOppContactRole(
       new List<OpportunityContactRole>{ ocr }
     );
     Test.stopTest();
@@ -310,10 +276,11 @@ public class OpportunityContactRoleActionsTest {
   }
 
   /**
-   * @description test method to getDefaultOCRRole
+   * @description test method for upsertOpportunityContactRoleSyncRecords
    */
   @isTest
-  static void testDefaultOCRRole() {
+  static void insertOpportunityContactRoleSyncRecordsTest() {
+    registerMocks();
     Id newConId = Lib_FakeIdGenerator.getMockId(
       Schema.Contact.getSObjectType()
     );
@@ -322,23 +289,148 @@ public class OpportunityContactRoleActionsTest {
     );
     Opportunity opp = new Opportunity(
       Id = newOppId,
-      RecordTypeId = MLCRM_OPP_RTID
+      RecordTypeId = RTOpportunity.mlOpportunity
     );
-    OpportunityContactRole ocr = new OpportunityContactRole(
-      OpportunityId = opp.Id,
-      ContactId = newConId
+    oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
+    OpportunityContactRole ocrNew = (OpportunityContactRole) TestUtil.setFields(
+      new OpportunityContactRole(
+        Id = Lib_FakeIdGenerator.getMockId(
+          Schema.OpportunityContactRole.getSObjectType()
+        ),
+        OpportunityId = opp.Id,
+        ContactId = newConId,
+        Role = 'Guarantor'
+      ),
+      new Map<String, Object>{ 'Opportunity' => opp }
     );
-    Set<Id> mlOpptyIdSet = new Set<Id>{ newOppId };
+    ocrRepoMock.mock(
+      'getDetailedOCRRecords',
+      new List<OpportunityContactRole>{ ocrNew }
+    );
+
     Test.startTest();
-    OpportunityContactRoleActions.defaultOCRRole(
-      mlOpptyIdSet,
-      new List<OpportunityContactRole>{ ocr }
+    OpportunityContactRoleActions.insertOpportunityContactRoleSyncRecords(
+      new List<OpportunityContactRole>{ ocrNew }
     );
     Test.stopTest();
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncList = (List<Opportunity_Contact_Role_Sync__c>) dmlMockProvider.getHistory(
+        'doInsert'
+      )
+      .getParam('records');
     Assert.areEqual(
-      'Applicant',
-      ocr.Role,
-      'Applicant value does not get set properly'
+      1,
+      ocrSyncList.size(),
+      'There should be one Opportunity Role Sync inserted!'
+    );
+  }
+
+  /**
+   * @description test method for upsertOpportunityContactRoleSyncRecords
+   */
+  @isTest
+  static void updateOpportunityContactRoleSyncRecordsTest() {
+    registerMocks();
+    Id newConId = Lib_FakeIdGenerator.getMockId(
+      Schema.Contact.getSObjectType()
+    );
+    Id newOppId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity.getSObjectType()
+    );
+    Id newOCRId = Lib_FakeIdGenerator.getMockId(
+      Schema.OpportunityContactRole.getSObjectType()
+    );
+    Id ocrSyncId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity_Contact_Role_Sync__c.getSObjectType()
+    );
+    Opportunity opp = new Opportunity(
+      Id = newOppId,
+      RecordTypeId = RTOpportunity.mlOpportunity
+    );
+    oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
+    OpportunityContactRole ocrNew = new OpportunityContactRole(
+      Id = newOCRId,
+      OpportunityId = opp.Id,
+      ContactId = newConId,
+      Role = 'Guarantor'
+    );
+    OpportunityContactRole ocrOld = new OpportunityContactRole(
+      Id = ocrNew.Id,
+      Role = 'Applicant'
+    );
+    Opportunity_Contact_Role_Sync__c ocrSync = new Opportunity_Contact_Role_Sync__c(
+      OpportunityContactRoleId__c = ocrNew.Id,
+      Role__c = 'Applicant',
+      Id = ocrSyncId
+    );
+    oppRepoMock.mock(
+      'getOCRSyncByOCRIds',
+      new List<Opportunity_Contact_Role_Sync__c>{ ocrSync }
+    );
+    Test.startTest();
+    OpportunityContactRoleActions.updateOpportunityContactRoleSyncRecords(
+      new List<OpportunityContactRole>{ ocrNew },
+      new Map<Id, OpportunityContactRole>{ ocrNew.Id => ocrOld }
+    );
+    Test.stopTest();
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncList = (List<Opportunity_Contact_Role_Sync__c>) dmlMockProvider.getHistory(
+        'doUpdate'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      ocrSyncList.size(),
+      'There should be one Opportunity Role Sync updated!'
+    );
+  }
+
+  @isTest
+  static void deleteOpportunityContactRoleSyncRecordsTest() {
+    registerMocks();
+    Id newConId = Lib_FakeIdGenerator.getMockId(
+      Schema.Contact.getSObjectType()
+    );
+    Id newOppId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity.getSObjectType()
+    );
+    Id newOcrSyncId = Lib_FakeIdGenerator.getMockId(
+      Schema.Opportunity_Contact_Role_Sync__c.getSObjectType()
+    );
+    Opportunity opp = new Opportunity(
+      Id = newOppId,
+      RecordTypeId = RTOpportunity.mlOpportunity
+    );
+    oppRepoMock.mock('getOpportunity', new List<Opportunity>{ opp });
+    OpportunityContactRole ocrNew = (OpportunityContactRole) TestUtil.setFields(
+      new OpportunityContactRole(
+        OpportunityId = opp.Id,
+        ContactId = newConId,
+        Role = 'Guarantor'
+      ),
+      new Map<String, Object>{
+        'ExternalId__c' => 'MLCRM-1018_CAP-CIS_1001051598'
+      }
+    );
+    Opportunity_Contact_Role_Sync__c ocrSync = new Opportunity_Contact_Role_Sync__c(
+      Id = newOcrSyncId,
+      ExternalId__c = 'MLCRM-1018_CAP-CIS_1001051598'
+    );
+    ocrRepoMock.mock(
+      'getOpportunityContactRoleSyncRecords',
+      new List<Opportunity_Contact_Role_Sync__c>{ ocrSync }
+    );
+    Test.startTest();
+    OpportunityContactRoleActions.deleteOpportunityContactRoleSyncRecords(
+      new List<OpportunityContactRole>{ ocrNew }
+    );
+    Test.stopTest();
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncDelList = (List<Opportunity_Contact_Role_Sync__c>) dmlMockProvider.getHistory(
+        'doDelete'
+      )
+      .getParam('records');
+    Assert.areEqual(
+      1,
+      ocrSyncDelList.size(),
+      'there should be 1 OCR Sync record deleted!'
     );
   }
 }

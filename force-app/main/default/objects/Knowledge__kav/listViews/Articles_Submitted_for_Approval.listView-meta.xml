@@ -21,5 +21,6 @@
         <role>Credit_Assessor_Lead</role>
         <role>IDR_Content_Writer</role>
         <role>Business_Admin</role>
+        <role>BOH_Coach_Lead</role>
     </sharedTo>
 </ListView>

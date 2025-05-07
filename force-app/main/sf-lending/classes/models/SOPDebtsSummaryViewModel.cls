@@ -34,7 +34,6 @@ public with sharing class SOPDebtsSummaryViewModel {
    * @param assetPropertyLookup map of address lookup
    */
   //Suppress warning as params needed for model data
-  @SuppressWarnings('PMD.NcssConstructorCount')
   public SOPDebtsSummaryViewModel(
     SOPGetConsolidatedModel.liabilitiesSummary sourceData,
     Map<String, String> partyIdToFirstNameMap,
@@ -47,16 +46,7 @@ public with sharing class SOPDebtsSummaryViewModel {
     );
     this.propertyAssets = assetPropertyLookup;
 
-    Set<String> refinanceSet = new Set<String>();
-    for (
-      LoanApplicationLiability lal : RLA_SOQL_REPOSITORY.getLoanApplicationLiability(
-        loanId
-      )
-    ) {
-      if (lal?.Name != null) {
-        refinanceSet.add(lal.Name);
-      }
-    }
+    Set<String> refinanceSet = handleRefinance(loanId);
 
     this.debts = new List<SOPDebtsViewModel>();
     //Create set to avoid duplicate assets, Set not supported for AuraEnabled attribute
@@ -69,10 +59,12 @@ public with sharing class SOPDebtsSummaryViewModel {
         continue;
       }
 
-      if (refinanceSet.contains(liability.name)) {
-        if (liability.assets != null && !liability.assets.isEmpty()) {
-          refinancedAssetsSet.addAll(liability.assets);
-        }
+      if (
+        refinanceSet.contains(liability.name) &&
+        liability.assets != null &&
+        !liability.assets.isEmpty()
+      ) {
+        refinancedAssetsSet.addAll(liability.assets);
       }
       this.debts.add(
         new SOPDebtsViewModel(
@@ -86,5 +78,25 @@ public with sharing class SOPDebtsSummaryViewModel {
 
     //Assign assets being refinanced
     this.refinancedAssets = new List<String>(refinancedAssetsSet);
+  }
+
+  /**
+   * @description Handle refinance assets
+   * @param loanId the RLA id
+   * @return Set<String> set of refinance assets
+   */
+  private static Set<String> handleRefinance(String loanId) {
+    Set<String> refinanceSet = new Set<String>();
+    for (
+      LoanApplicationLiability lal : RLA_SOQL_REPOSITORY.getLoanApplicationLiability(
+        loanId
+      )
+    ) {
+      if (lal?.Name != null) {
+        refinanceSet.add(lal.Name);
+      }
+    }
+
+    return refinanceSet;
   }
 }

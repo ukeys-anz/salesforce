@@ -12,7 +12,7 @@
     </values>
     <values>
         <field>Permission_Set_Licences__c</field>
-        <value xsi:type="xsd:string">MyTrailheadPSL</value>
+        <value xsi:type="xsd:string">SalesforceAPIIntegrationPsl</value>
     </values>
     <values>
         <field>Permission_Sets__c</field>

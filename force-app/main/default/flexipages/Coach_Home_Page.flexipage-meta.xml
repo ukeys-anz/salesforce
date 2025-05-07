@@ -30,7 +30,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard13</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -40,6 +40,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -110,7 +115,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard10</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -120,6 +125,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -153,7 +163,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard11</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -163,6 +173,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -196,7 +211,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard12</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -211,6 +226,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Support_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -244,7 +264,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard14</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -254,6 +274,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -287,7 +312,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard15</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -297,6 +322,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -330,7 +360,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard16</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -340,6 +370,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -377,7 +412,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard17</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -387,6 +422,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -457,7 +497,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard19</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -467,6 +507,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -500,7 +545,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard22</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -510,6 +555,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -543,7 +593,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard23</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -553,6 +603,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -586,7 +641,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard25</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -596,6 +651,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -629,7 +689,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard24</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -639,6 +699,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -836,7 +901,7 @@
                 <componentName>flexipage:tabset</componentName>
                 <identifier>flexipage_tabset2</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -851,6 +916,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>Support_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -884,7 +954,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard18</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 AND 2 AND 3 AND 4</booleanFilter>
+                    <booleanFilter>1 AND 2 AND 3 AND 4 AND 5</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>NE</operator>
@@ -904,6 +974,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>NE</operator>
                         <rightValue>Support_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>NE</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1302,7 +1377,7 @@
                 <componentName>initiateInteraction</componentName>
                 <identifier>initiateInteraction</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4 OR 5 OR 6 OR 7 OR 8 OR 9</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1342,6 +1417,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>
@@ -1428,7 +1508,7 @@
                 <componentName>flexipage:filterListCard</componentName>
                 <identifier>flexipage_filterListCard7</identifier>
                 <visibilityRule>
-                    <booleanFilter>1 OR 2 OR 3</booleanFilter>
+                    <booleanFilter>1 OR 2 OR 3 OR 4</booleanFilter>
                     <criteria>
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
@@ -1443,6 +1523,11 @@
                         <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
                         <operator>EQUAL</operator>
                         <rightValue>BOH_Coach</rightValue>
+                    </criteria>
+                    <criteria>
+                        <leftValue>{!$User.UserRole.DeveloperName}</leftValue>
+                        <operator>EQUAL</operator>
+                        <rightValue>BOH_Coach_Lead</rightValue>
                     </criteria>
                 </visibilityRule>
             </componentInstance>

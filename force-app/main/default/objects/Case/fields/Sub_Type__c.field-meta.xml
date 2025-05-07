@@ -704,6 +704,61 @@
                 <label>Open Banking</label>
             </value>
             <value>
+                <fullName>Statement history missing</fullName>
+                <default>false</default>
+                <label>Statement history missing</label>
+            </value>
+            <value>
+                <fullName>Transaction history missing</fullName>
+                <default>false</default>
+                <label>Transaction history missing</label>
+            </value>
+            <value>
+                <fullName>Accounts not visible</fullName>
+                <default>false</default>
+                <label>Accounts not visible</label>
+            </value>
+            <value>
+                <fullName>Card missing</fullName>
+                <default>false</default>
+                <label>Card missing</label>
+            </value>
+            <value>
+                <fullName>Payee missing</fullName>
+                <default>false</default>
+                <label>Payee missing</label>
+            </value>
+            <value>
+                <fullName>Personal details missing</fullName>
+                <default>false</default>
+                <label>Personal details missing</label>
+            </value>
+            <value>
+                <fullName>Recurring payments missing</fullName>
+                <default>false</default>
+                <label>Recurring payments missing</label>
+            </value>
+            <value>
+                <fullName>Mobile phone mismatch</fullName>
+                <default>false</default>
+                <label>Mobile phone mismatch</label>
+            </value>
+            <value>
+                <fullName>Split profile issue</fullName>
+                <default>false</default>
+                <label>Split profile issue</label>
+            </value>
+            <value>
+                <fullName>Interest rates</fullName>
+                <default>false</default>
+                <label>Interest rates</label>
+            </value>
+            <value>
+                <fullName>Other migration issue</fullName>
+                <default>false</default>
+                <label>Other migration issue</label>
+            </value>
+            <value>
                 <fullName>Title Search</fullName>
                 <default>false</default>
                 <label>Title Search</label>
@@ -756,6 +811,50 @@
         <valueSettings>
             <controllingFieldValue>Product Information</controllingFieldValue>
             <valueName>Product Info</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Statement history missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Transaction history missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Accounts not visible</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Payee missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Personal details missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Recurring payments missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Mobile phone mismatch</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Split profile issue</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Interest rates</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Card missing</valueName>
+        </valueSettings>
+        <valueSettings>
+            <controllingFieldValue>Move/Migration - ANZ</controllingFieldValue>
+            <valueName>Other migration issue</valueName>
         </valueSettings>
         <valueSettings>
             <controllingFieldValue>Transaction &amp; Savings enquiry</controllingFieldValue>
