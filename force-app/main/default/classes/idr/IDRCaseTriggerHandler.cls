@@ -5,8 +5,9 @@
  */
 public with sharing class IDRCaseTriggerHandler extends Lib_TriggerHandler {
     public static final Set<Id> IDR_CASE_RECORD_TYPES = new Set<Id>{
-        RTCase.customerComplaint,
-        RTCase.nonCustomerComplaint
+      RTCase.customerComplaint,
+      RTCase.nonCustomerComplaint,
+      RTCase.generalInquiryCmos
     };
      /**
    * @description Constructor to initialise Trigger Handler library
