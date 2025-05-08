@@ -49,8 +49,12 @@ export default class CustomerIdentifier extends OmniscriptBaseMixin(
   }
 
   setCustomeridentifier() {
-    let Case = JSON.parse(JSON.stringify(this.omniJsonData.Case));
-    Case.CustomerDetails.CustomerIdentifier = this.selectedValue;
-    this.omniApplyCallResp({ Case });
+    this.omniApplyCallResp({
+      Case: {
+        CustomerDetails: {
+          CustomerIdentifier: this.selectedValue
+        }
+      }
+    });
   }
 }

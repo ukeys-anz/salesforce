@@ -82,7 +82,7 @@ export default class AccountLookup extends OmniscriptBaseMixin(
   setCaseAccountId() {
     let Case = JSON.parse(JSON.stringify(this.omniJsonData.Case));
     Case.AccountId = this.recId;
-    this.omniApplyCallResp({ Case });
+    this.omniApplyCallResp({ Case: { AccountId: this.recId } });
   }
 
   getURLParameterByName(name) {
