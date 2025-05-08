@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomMetadata xmlns="http://soap.sforce.com/2006/04/metadata" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+    <label>Personal Other</label>
+    <protected>false</protected>
+    <values>
+        <field>Category__c</field>
+        <value xsi:type="xsd:string">Personal</value>
+    </values>
+    <values>
+        <field>Purpose_Label__c</field>
+        <value xsi:type="xsd:string">Other</value>
+    </values>
+    <values>
+        <field>Purpose_Name__c</field>
+        <value xsi:type="xsd:string">LENDING_PURPOSE_PERSONAL_OTHER</value>
+    </values>
+    <values>
+        <field>Sorting_Category__c</field>
+        <value xsi:type="xsd:double">3.0</value>
+    </values>
+    <values>
+        <field>Sorting_Purpose__c</field>
+        <value xsi:type="xsd:double">9.0</value>
+    </values>
+</CustomMetadata>

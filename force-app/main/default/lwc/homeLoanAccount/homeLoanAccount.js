@@ -6,7 +6,7 @@ import getHomeLoanFinancialAccountId from "@salesforce/apex/HomeLoanController.g
 import hasHomeLoanPermission from "@salesforce/customPermission/ANZx_Home_Loan";
 import hasFinancialAccountPermission from "@salesforce/customPermission/FinServ__FinancialServicesCloudStandard";
 import { handleErrorShowToast } from "c/utils";
-
+import homeLoanAccountProductForSorting from "@salesforce/label/c.HomeLoanAccountProductForSorting";
 import templateCard from "./homeLoanAccountCard.html";
 import templateDetail from "./homeLoanAccountDetail.html";
 export default class HomeLoanAccountCard extends NavigationMixin(
@@ -69,7 +69,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
             customerId: this.recordId
           });
         }
-
+        //Method to sort Home loan data based on product type field
+        this.sortHomeLoanAccounts(this.financialAccounts);
         this.financialAccounts.forEach((finAccount) => {
           if (this.financialAccounRoleList && this.isAccountTab) {
             //Retrieve record id for linked fin account
@@ -99,6 +100,8 @@ export default class HomeLoanAccountCard extends NavigationMixin(
           finAccount.repaymentFrequency =
             this.handleRepaymentFrequency(finAccount);
           finAccount.rateType = this.handleRateType(finAccount);
+          finAccount.loan_details.property_use_type =
+            this.handleProductType(finAccount);
         });
 
         if (this.isFinAccountTab) {
@@ -268,6 +271,18 @@ export default class HomeLoanAccountCard extends NavigationMixin(
     }
   }
 
+  //USED IN FINANCIAL ACCOUNT
+  handleProductType(account) {
+    switch (account.loan_details.property_use_type) {
+      case "INV":
+        return "Investment";
+      case "OWN":
+        return "Live In";
+      default:
+        return null;
+    }
+  }
+
   //USED IN FINANCIAL ACCOUNT AND CUSTOMER FINANCIALS PAGE
   handleOffsetDetails(account, offsetAccountDetails) {
     var offsetData = [];
@@ -312,5 +327,30 @@ export default class HomeLoanAccountCard extends NavigationMixin(
 
   handleRedrawAvailableModal() {
     this.showRedrawAvailableModal = !this.showRedrawAvailableModal;
+  }
+
+  //Sorting the order of accounts based on account product types.
+  sortHomeLoanAccounts(arrOfAccounts) {
+    return arrOfAccounts.sort((firstAccount, otherAccount) => {
+      const statusOrder = homeLoanAccountProductForSorting.split(",");
+      const firstPropertyUseType =
+        firstAccount?.loan_details?.property_use_type;
+      const otherPropertyUseType =
+        otherAccount?.loan_details?.property_use_type;
+
+      // Ensure the property_use_type exists in the statusOrder array
+      const firstIndex = statusOrder?.indexOf(firstPropertyUseType);
+      const otherIndex = statusOrder?.indexOf(otherPropertyUseType);
+
+      // If either property_use_type is not found, place it at the end (or handle it as you wish)
+      if (firstIndex === -1) return 1;
+      if (otherIndex === -1) return -1;
+
+      if (firstPropertyUseType !== otherPropertyUseType) {
+        return firstIndex - otherIndex;
+      }
+      // Return 0 if the 'property_use_type' values are the same
+      return 0;
+    });
   }
 }

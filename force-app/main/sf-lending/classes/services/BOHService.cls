@@ -384,27 +384,6 @@ public with sharing class BOHService extends Service {
   }
 
   /**
-   * @param ocvId ocv id of the customer account
-   * @param sopId sop id to retrieve customer information
-   * @return `HttpCalloutResponse` the api response
-   * @description fetches customer information of sop from lex api through mule
-   */
-  public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
-    Map<String, String> headers = new Map<String, String>();
-    setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
-
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
-    HttpCalloutResponse response = calloutService.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId,
-      HTTP_METHOD.HTTP_GET,
-      headers,
-      null
-    );
-
-    return response;
-  }
-
-  /**
    * @param sopId sop id to retrieve customer information
    * @param ocvId ocv id of the customer account
    * @param deleModel delete income model

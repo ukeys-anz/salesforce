@@ -31,6 +31,7 @@
     <permissionSets>Knowledge_Base_Author</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Lead_Read_Write</permissionSets>
+    <permissionSets>Lending_Case_Read</permissionSets>
     <permissionSets>Life_Event_Read_Write</permissionSets>
     <permissionSets>Outbound_Dialling</permissionSets>
     <permissionSets>Outbound_Message</permissionSets>
