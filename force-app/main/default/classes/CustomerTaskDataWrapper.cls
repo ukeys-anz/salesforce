@@ -15,4 +15,13 @@ public with sharing class CustomerTaskDataWrapper {
    */
   @AuraEnabled
   public CustomerActionWrapper aemContentObject { get; set; }
+
+  /**
+   * @description serializing this to update the content with deeplink
+   * @return  serialized updated aem content
+   */
+  public String enrichedAemContentData()
+  {
+    return JSON.serialize(this.aemContentObject);
+  }
 }

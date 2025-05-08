@@ -1,4 +1,8 @@
 /**
+ * Suppressing PMD property naming convention warnings as some fields include underscore in the naming convention.
+ */
+@SuppressWarnings('PMD.PropertyNamingConventions')
+/**
  * @author Nilesh Kalal
  * @since April 2025
  * @description Wrapper class customer action creation based on aem content data
@@ -39,6 +43,12 @@ public class CustomerActionWrapper {
    */
   @AuraEnabled
   public String title { get; set; }
+
+  /**
+   * @description action_uri
+   */
+  public String action_uri { get; set; }
+
   /**
    * @description steps
    */

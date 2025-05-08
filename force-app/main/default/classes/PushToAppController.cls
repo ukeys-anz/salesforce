@@ -152,6 +152,18 @@ public with sharing class PushToAppController {
       Task taskRecord = PUSH_TO_APP_REPOSITORY.queryTaskDetails(
         taskSaveResult.getId()
       );
+
+      //Updating AEM Content To Include Task PubSubEventId in the deep link of the content
+      enrichAemContentData(customerTaskData.aemContentObject,taskRecord.Pub_Sub_Event_Id__c);
+      
+      DML_REPOSITORY.doUpdate(
+        new Customer_Task_Data__c(
+          Id = insertedCustomerTaskDataId,
+          AEM_Content_Data__c = customerTaskData.enrichedAemContentData()
+        ),
+        new DmlConfig().systemMode()
+      );
+
       return taskRecord;
     } catch (Exception objException) {
       throw CommonUtil.logExceptionWithMessage(
@@ -213,5 +225,21 @@ public with sharing class PushToAppController {
       RecordTypeId = RTTask.customerNudge,
       OwnerId = UserInfo.getUserId()
     );
+  }
+
+  /**
+   * @description This method is used to update the deeplink of the AEM Content with Task PubSubEventId
+   * @param aemContenData Customer Task Data content 
+   * @param taskPubSubEventId pubSubEventId of the Task record created
+   */
+  private static void enrichAemContentData( CustomerActionWrapper aemContenData, String taskPubSubEventId){
+    aemContenData.action_uri = System.Label.Push_Task_To_App_Deeplink + taskPubSubEventId;
+    for (CustomerActionWrapper.Step step : aemContenData.steps) {
+      if (step.actions != null) {
+        for (CustomerActionWrapper.Action action : step.actions) {
+          action.deepLink = action.deepLink+'/'+taskPubSubEventId;
+        }
+      }
+    }
   }
 }

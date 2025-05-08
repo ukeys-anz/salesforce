@@ -13,6 +13,10 @@ public without sharing class TaskCEController {
    * @param theTasks list of Task records
    */
   public static void publishCloudEvents(List<Task> theTasks) {
+    if(theTasks.isEmpty())
+    {
+      return;
+    }
     List<CloudEventModel> cloudEventModels = generateCloudEventModel(theTasks);
     CloudEventController.publishCloudEvents(cloudEventModels);
   }
@@ -81,7 +85,7 @@ public without sharing class TaskCEController {
       return cloudEventModels;
     } catch (Exception objException) {
       throw CommonUtil.logExceptionWithMessage(
-        'Cloud Event Model Creation for Task object failed ',
+        'Cloud Event Model Creation for Task record failed ',
         objException
       );
     }
