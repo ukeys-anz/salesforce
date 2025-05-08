@@ -13,8 +13,7 @@ public without sharing class TaskCEController {
    * @param theTasks list of Task records
    */
   public static void publishCloudEvents(List<Task> theTasks) {
-    if(theTasks.isEmpty())
-    {
+    if (theTasks.isEmpty()) {
       return;
     }
     List<CloudEventModel> cloudEventModels = generateCloudEventModel(theTasks);

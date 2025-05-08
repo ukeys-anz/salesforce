@@ -10,7 +10,7 @@ public with sharing class CustomerTaskDataWrapper {
   @AuraEnabled
   public String aemContentData { get; set; }
 
-  /**  
+  /**
    * @description AEM_Content_Data__c from the AEM Fragement after removing merge fields
    */
   @AuraEnabled
@@ -20,8 +20,7 @@ public with sharing class CustomerTaskDataWrapper {
    * @description serializing this to update the content with deeplink
    * @return  serialized updated aem content
    */
-  public String enrichedAemContentData()
-  {
+  public String enrichedAemContentData() {
     return JSON.serialize(this.aemContentObject);
   }
 }
