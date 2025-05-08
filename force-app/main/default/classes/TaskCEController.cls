@@ -80,7 +80,10 @@ public without sharing class TaskCEController {
       }
       return cloudEventModels;
     } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage('Cloud Event Model Creation for Task object failed ',objectException)
+      throw CommonUtil.logExceptionWithMessage(
+        'Cloud Event Model Creation for Task object failed ',
+        objException
+      );
     }
   }
 }
