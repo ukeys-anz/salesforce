@@ -351,9 +351,9 @@ export default class TrustMeDocumentDetails extends LightningElement {
 
   formRequestBodyToFetchDocuments(docMetadata, evaluationId) {
     let reqBody = {};
-    reqBody.related_user = this.userId;
-    reqBody.evaluation_id = evaluationId;
-    reqBody.related_id = this.recordId;
+    reqBody.requestedUser = this.userId;
+    reqBody.evaluationId = evaluationId;
+    reqBody.relatedId = this.recordId;
     reqBody.attachments = this.createBodyForAttachments(docMetadata);
     return reqBody;
   }
