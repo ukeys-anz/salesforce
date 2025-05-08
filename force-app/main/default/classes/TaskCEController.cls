@@ -67,7 +67,7 @@ public without sharing class TaskCEController {
           ? customTaskDataIdAndInfoMap.get(taskRec.Customer_Task_Data__c)
               .AEM_Content_Data__c
           : null;
-        CloudEventModel.UserModel theOwner = CloudEventModel.getCaseOwnerModel(
+        CloudEventModel.UserModel theOwner = CloudEventModel.getOwnerModel(
           taskRec.OwnerId,
           ownerUsers,
           ownerGroups
