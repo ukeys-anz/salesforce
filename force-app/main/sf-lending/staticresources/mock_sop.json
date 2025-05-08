@@ -218,6 +218,14 @@
           "ocvId": "123456789"
         }
       ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_GUARANTOR_LIABILITY",
+      "details": [
+        {
+          "ocvId": "123456789"
+        }
+      ]
     }
   ]
 }
