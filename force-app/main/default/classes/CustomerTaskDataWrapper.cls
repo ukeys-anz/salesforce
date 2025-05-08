@@ -10,7 +10,7 @@ public with sharing class CustomerTaskDataWrapper {
   @AuraEnabled
   public String aemContentData { get; set; }
 
-  /**
+  /**  
    * @description AEM_Content_Data__c from the AEM Fragement after removing merge fields
    */
   @AuraEnabled
