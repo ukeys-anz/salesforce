@@ -28,6 +28,8 @@ public with sharing class LoanApplicationFinancialRepository {
         Loan_Repayment_Frequency__c,
         LoanApplication.Account.OCV_ID__c,
         LoanApplication.ApplicationExtIdentifier,
+        LoanApplication.Property_Use__c,
+        Percentage_Deductible__c,
         E_Tag__c,
         FinancialExtIdentifier
       FROM LoanApplicationFinancial
