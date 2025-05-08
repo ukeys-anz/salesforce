@@ -51,6 +51,9 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
   loanRepaymentFrequencyVal;
   lastUpdatedDate;
   interestRateVal;
+  taxDeductible;
+  editTaxDeductible;
+  showPercentage;
   offsetOptions = [];
   additionalFundOptions = [];
 
@@ -69,6 +72,17 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
     }
   ];
 
+  taxDeductibleOptions = [
+    {
+      label: "Yes",
+      value: "Yes"
+    },
+    {
+      label: "No",
+      value: "No"
+    }
+  ];
+
   get isEditAllowed() {
     return hasEditPermission && this.applicationStatus === "STATE_REFERRED";
   }
@@ -81,15 +95,8 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
   wiredAccount({ data }) {
     if (data) {
       this.applicationStatus = getFieldValue(data, RLA_STATUS_APINAME); // Storing the loan status field value
-
-      if (this.applicationStatus !== "STATE_CAPTURE") {
-        this.loadLoanPreferenceData(); // calling loadLoanPreferenceData API after getting status
-        this.subscribeToMessageChannel();
-      } else {
-        this.showBlankScreen = true;
-        this.showViewScreen = false;
-        this.showEditScreen = false;
-      }
+      this.loadLoanPreferenceData(); // calling loadLoanPreferenceData API after getting status
+      this.subscribeToMessageChannel();
     }
   }
 
@@ -200,7 +207,6 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
     this.loanRepaymentTypeVal = this.loanRepaymentTypeMap.get(
       loanPreferenceViewModel.loanRepaymentType
     );
-
     this.interestRateTypeVal = this.interestRateTypeMap.get(
       loanPreferenceViewModel.interestRateType
     );
@@ -215,6 +221,9 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
     );
     this.yearValue = Math.floor(loanPreferenceViewModel.loanTermInMonths / 12); //divide my 12 and round down
     this.monthValue = loanPreferenceViewModel.loanTermInMonths % 12; //get the reminder of month
+    this.taxDeductible =
+      this.loanPreferenceDetails.percentDeductible > 0 ? "Yes" : "No";
+    this.showPercentage = this.taxDeductible === "Yes";
   }
 
   //Convert Datetime into readable formate
@@ -248,6 +257,10 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
 
   loadEditModel() {
     this.loanPreferenceEditDetails = { ...this.loanPreferenceDetails };
+    this.editTaxDeductible = this.taxDeductible;
+    if (this.editTaxDeductible === "No") {
+      this.loanPreferenceEditDetails.percentDeductible = null;
+    }
   }
 
   toggleScreen() {
@@ -258,9 +271,16 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
   //method to handle cancel functionality
   handleCancel() {
     this.toggleScreen();
+    this.showPercentage = this.taxDeductible === "Yes";
   }
   //method on save of edit page
   handleSave() {
+    if (!this.showPercentage) {
+      this.loanPreferenceEditDetails.percentDeductible = 0;
+    }
+    if (!this.validatePercentage()) {
+      return;
+    }
     this.makeUpdateLoanCallout();
   }
 
@@ -289,10 +309,17 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
       event.target.value === "No" &&
       event.target.value !== this.loanPreferenceDetails.borrowAdditionalFunds
     ) {
+      if (!this.validatePercentage()) {
+        event.target.value = "Yes";
+        return;
+      }
       if (!hasDeletePermission) {
         this.deletePermissionError = DELETE_PERMISSION_ERROR_MESSAGE;
         return;
       }
+      this.loanPreferenceEditDetails.percentDeductible = this.showPercentage
+        ? this.loanPreferenceEditDetails.percentDeductible
+        : null;
       this.loanPreferenceEditDetails.borrowAdditionalFunds = event.target.value;
       LoanPreferenceDeleteCashOutPurpose.open({
         size: "small",
@@ -303,6 +330,7 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
         // if modal closed with X button, promise returns result = 'undefined'
         // if modal closed with OK button, promise returns result = 'okay'
         if (result === undefined || result === "okay") {
+          this.showPercentage = this.taxDeductible === "Yes";
           this.toggleScreen();
         }
       });
@@ -311,6 +339,10 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
       event.target.value === "Yes" &&
       event.target.value !== this.loanPreferenceDetails.borrowAdditionalFunds
     ) {
+      if (!this.validatePercentage()) {
+        event.target.value = "No";
+        return;
+      }
       this.loanPreferenceEditDetails.borrowAdditionalFunds = event.target.value;
       //If additional funds are not available then null will be passed otherwise additional funds array will be passed in specific format(amount,value,otherReason)
       const transformedAdditionalFunds =
@@ -321,6 +353,9 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
               value: fund.purpose,
               otherReason: fund.otherReason
             }));
+      this.loanPreferenceEditDetails.percentDeductible = this.showPercentage
+        ? this.loanPreferenceEditDetails.percentDeductible
+        : null;
       LoanPreferenceAddFundsAndPurpose.open({
         size: "small",
         fundRecords: transformedAdditionalFunds,
@@ -329,6 +364,7 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
         // if modal closed with X button, promise returns result = 'undefined'
         // if modal closed with OK button, promise returns result = 'okay'
         if (result === undefined || result === "okay") {
+          this.showPercentage = this.taxDeductible === "Yes";
           this.toggleScreen();
         }
       });
@@ -336,6 +372,20 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
   }
   getTotalMonths() {
     return this.yearValue * 12 + Number(this.monthValue);
+  }
+
+  //Handles Tax Deductible change
+  handleTaxChange(event) {
+    this.editTaxDeductible = event.target.value;
+    this.showPercentage = this.editTaxDeductible === "Yes";
+  }
+
+  //Handles Percentage Deductible change
+  handlePercentageChange(event) {
+    this.loanPreferenceEditDetails.percentDeductible = Number(
+      event.target.value
+    );
+    this.validatePercentage();
   }
 
   //handles callout
@@ -367,6 +417,15 @@ export default class LoanPreferenceDetailsDisplay extends LightningElement {
     } finally {
       this.componentSpinner = false;
     }
+  }
+
+  validatePercentage() {
+    if (!this.showPercentage) {
+      return true;
+    }
+    let percentageField = this.refs.percentageDeductible;
+    percentageField.reportValidity();
+    return percentageField.validity.valid;
   }
 
   subscribeToMessageChannel() {

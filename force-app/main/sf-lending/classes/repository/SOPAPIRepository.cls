@@ -1,6 +1,6 @@
 /**
- * @author Raman
- * @since November 2024
+ * @author @fangl6(Lei Fang)
+ * @since April 2023
  * @description SOP API repository for all SOP callouts
  * @group Repository
  */
@@ -94,7 +94,7 @@ public with sharing class SOPAPIRepository extends RepositoryBase {
     public UnhandledGetSOPException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.error(
-          'UnhandledGetSOPException BOHService: getSOP',
+          'UnhandledGetSOPException SOPService: getSOP',
           response.error
         )
         .save();

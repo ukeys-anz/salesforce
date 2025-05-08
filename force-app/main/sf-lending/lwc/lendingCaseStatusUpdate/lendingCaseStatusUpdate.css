@@ -1,0 +1,10 @@
+.warningMessageStyle {
+  font-size: 15px;
+  line-height: 20px;
+  font-weight: var(--slds-g-font-weight-4);
+}
+.additionalInfoStyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  line-height: var(--slds-g-font-lineheight-2);
+  font-weight: var(--slds-g-font-weight-4);
+}

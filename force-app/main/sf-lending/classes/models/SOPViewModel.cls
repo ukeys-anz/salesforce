@@ -75,11 +75,52 @@ public with sharing class SOPViewModel extends CalloutModel {
     public Boolean spouseEarnsIncome { get; set; }
 
     /**
+     * @description home address of applicant.
+     */
+    @AuraEnabled
+    public Property currentResidence { get; set; }
+    /**
+     * @description applicant address to display.
+     */
+    @AuraEnabled
+    public String applicantAddress {
+      get {
+        return currentResidence?.address?.singleLineAddress;
+      }
+      set;
+    }
+
+    /**
+     * @description current housing status of applicant.
+     */
+    @AuraEnabled
+    public String currentHousingStatus { get; set; }
+
+    /**
+     * @description livingStatusOther of applicant.
+     */
+    @AuraEnabled
+    public String livingStatusOther { get; set; }
+
+    /**
+     * @description applicant name to display on UI.
+     */
+    @AuraEnabled
+    public String applicantName { get; set; }
+
+    /**
+     * @description applicant record Id to navigate.
+     */
+    @AuraEnabled
+    public String applicantId { get; set; }
+
+    /**
      * @description soleIncomeEarner value for flex card reference
      */
     @AuraEnabled
     public String soleIncomeEarner {
       get {
+        // If spouseEarnsIncome is true, return 'No', otherwise return 'Yes'
         return spouseEarnsIncome == true ? 'No' : 'Yes';
       }
       set;
@@ -127,6 +168,17 @@ public with sharing class SOPViewModel extends CalloutModel {
       this.spouseEarnsIncome = partiesDetail?.spouseEarnsIncome;
       this.ocvId = partiesDetail?.ocvId;
     }
+  }
+
+  /**
+   * @description Property wrapper
+   */
+  public class Property {
+    /**
+     * @description to capture the current address of applicant.
+     */
+    @AuraEnabled
+    public LexTypeAddress.Address address { get; set; }
   }
 
   /**

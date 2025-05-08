@@ -22,10 +22,24 @@
         <value>callout:SF_MS_CH2/credit-assessment/v1/loan/calculateRepayment</value>
     </labels>
     <labels>
+        <fullName>MS_SubmitLoanAccountChangeApprovalOrReject</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS_SubmitLoanAccountChangeApprovalOrReject</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}/changes/{1}/submit</value>
+    </labels>
+    <labels>
         <fullName>SOP_Expense_Config</fullName>
         <language>en_US</language>
         <protected>false</protected>
         <shortDescription>SOP_Expense_Config</shortDescription>
         <value>1695597985652695,1701819944151648,1714356391121987</value>
+    </labels>
+    <labels>
+        <fullName>MS_Get_LoanChanges</fullName>
+        <language>en_US</language>
+        <protected>false</protected>
+        <shortDescription>MS Get List Of Loan Account Changes</shortDescription>
+        <value>callout:SF_MS_CH2/credit-assessment/v1/loan/{0}/changes</value>
     </labels>
 </CustomLabels>

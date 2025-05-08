@@ -18,6 +18,19 @@ public class LoanPreferenceRequestModelTest {
       'Loan Application data converted to request model'
     );
   }
+
+  static ResidentialLoanApplication getRLA {
+    get {
+      return new ResidentialLoanApplication(
+        Id = Lib_FakeIdGenerator.getMockId(
+          ResidentialLoanApplication.SObjectType
+        ),
+        Name = 'Test Loan Application',
+        Property_Use__c = 'LOAN_PRODUCT_TYPE_INVESTOR'
+      );
+    }
+  }
+
   static LoanApplicationFinancial getLAF {
     get {
       LoanApplicationFinancial laf = new LoanApplicationFinancial();
@@ -28,7 +41,7 @@ public class LoanPreferenceRequestModelTest {
       laf.LoanExclFinMortInsAmt = 11000;
       laf.Loan_Term_in_Months__c = 24;
       laf.Loan_Repayment_Frequency__c = 'REPAYMENT_FREQUENCY_UNSPECIFIED';
-
+      laf.LoanApplication = getRLA;
       return laf;
     }
   }

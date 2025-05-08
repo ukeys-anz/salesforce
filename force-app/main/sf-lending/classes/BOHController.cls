@@ -69,7 +69,8 @@ public with sharing class BOHController {
       };
 
       SOPUpdateSOPAndPartyRequestModel sopRequestModel = new SOPUpdateSOPAndPartyRequestModel(
-        sopModel
+        sopModel,
+        loanRec.Account?.OCV_ID__c
       );
 
       SOPViewModel response = SOP_API_REPOSITORY.updateSOPAndParty(
@@ -82,7 +83,7 @@ public with sharing class BOHController {
       );
       return response;
     } catch (Exception e) {
-      throw new AuraHandledException('Failre to Update SOP And Party');
+      throw new AuraHandledException('Failure to Update SOP And Party');
     }
   }
 }

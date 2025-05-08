@@ -22,7 +22,10 @@ public with sharing class AdditionalFundsRepository {
       FROM Additional_Fund__c
       WHERE
         Loan_Application_Financial__r.LoanApplicationId = :resLoanAppRecordId
-        AND Purpose__c != 'LENDING_PURPOSE_REFINANCE'
+        AND Purpose__c NOT IN (
+          'LENDING_PURPOSE_REFINANCE',
+          'LENDING_PURPOSE_REFINANCE_INVESTOR'
+        )
       WITH USER_MODE
     ];
   }

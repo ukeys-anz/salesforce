@@ -56,8 +56,8 @@ public class AdditionalFundsControllerTest {
       'Renovation Fund should be in the category'
     );
     Assert.isTrue(
-      categoryPurposeModel[0].purpose.size() == 2,
-      'It should return renovation list size 2'
+      categoryPurposeModel[0].purpose.size() == 3,
+      'It should return renovation list size 3'
     );
   }
 

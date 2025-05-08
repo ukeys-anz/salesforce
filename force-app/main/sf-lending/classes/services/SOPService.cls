@@ -15,12 +15,12 @@ public with sharing virtual class SOPService extends Service {
    * @return `HttpCalloutResponse` the api response
    * @description fetches customer information of sop from lex api through mule
    */
-  public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
+
+  public virtual HttpCalloutResponse getSOP(String ocvId, String sopId) {
     Map<String, String> headers = new Map<String, String>();
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
-
     HttpCalloutResponse response = HTTP_CALLOUT.makeRestCallout(
-      System.Label.MS_Get_SOP + sopId,
+      Label.MS_Get_SOP + sopId,
       HTTP_METHOD.HTTP_GET,
       headers,
       null

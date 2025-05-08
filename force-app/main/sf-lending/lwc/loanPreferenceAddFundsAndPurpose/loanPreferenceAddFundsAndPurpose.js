@@ -72,6 +72,18 @@ export default class LoanPreferenceAddFundsAndPurpose extends LightningModal {
         handleErrorShowToast(this, "", "", TOAST_ERROR_MSG, "pester");
         return;
       }
+      const typeInvestorOrOwnerOccupied =
+        this.loanPreferenceData?.propertyUse === "LOAN_PRODUCT_TYPE_INVESTOR"
+          ? "LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING"
+          : "LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR";
+      this.purposeValueMappingModel = this.purposeValueMappingModel.map(
+        (category) => ({
+          ...category,
+          purpose: category.purpose.filter(
+            (purposeItem) => purposeItem.value !== typeInvestorOrOwnerOccupied
+          )
+        })
+      );
       if (this.isEditScreenCalled) {
         this.handleEditScreen();
       }

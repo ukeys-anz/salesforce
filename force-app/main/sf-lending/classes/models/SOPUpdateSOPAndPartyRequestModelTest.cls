@@ -7,9 +7,11 @@
 public with sharing class SOPUpdateSOPAndPartyRequestModelTest {
   @isTest
   static void testSOPUpdateSOPAndPartyRequestModel() {
+    String ocvId = '123456';
     Test.startTest();
     SOPUpdateSOPAndPartyRequestModel updateModel = new SOPUpdateSOPAndPartyRequestModel(
-      getSOPViewModel
+      getSOPViewModel,
+      ocvId
     );
     SOPUpdateSOPAndPartyRequestModel updateModelWithoutParameters = new SOPUpdateSOPAndPartyRequestModel();
     Test.stopTest();
@@ -19,7 +21,7 @@ public with sharing class SOPUpdateSOPAndPartyRequestModelTest {
     Assert.isNull(updateModelWithoutParameters.sopData, 'Values are null');
     //Assert to check value
     Assert.isFalse(
-      updateModel.partyData?.party?.spouseEarnsIncome,
+      updateModel.partyData?.party[0]?.spouseEarnsIncome,
       'spouseEarnsIncome should be as expected.'
     );
   }
@@ -39,6 +41,7 @@ public with sharing class SOPUpdateSOPAndPartyRequestModelTest {
       party.soleIncomeEarner = 'Yes';
       party.partyDependantsCount = 2;
       party.relationshipState = 'Single';
+      party.currentHousingStatus = 'LIVING_STATUS_OTHER';
       sopViewModel.parties.add(party);
       sopViewModel.dependantsCount = 2;
       sopViewModel.isSOPDataUpdated = true;

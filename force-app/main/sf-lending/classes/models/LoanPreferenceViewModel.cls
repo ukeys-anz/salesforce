@@ -125,6 +125,18 @@ public class LoanPreferenceViewModel {
   public String timeZone { get; set; }
 
   /**
+   * @description Property Use
+   */
+  @AuraEnabled
+  public String propertyUse { get; set; }
+
+  /**
+   * @description Percentage Deductible
+   */
+  @AuraEnabled
+  public Integer percentDeductible { get; set; }
+
+  /**
    * @description blank constructor for parsing
    */
   public LoanPreferenceViewModel() {
@@ -157,5 +169,8 @@ public class LoanPreferenceViewModel {
     this.loanApplicationNumber = loanApplicationFinancial.LoanApplication
       ?.ApplicationExtIdentifier;
     this.timeZone = UserInfo.getTimeZone().getID();
+    this.propertyUse = loanApplicationFinancial.LoanApplication
+      ?.Property_Use__c;
+    this.percentDeductible = (Integer) loanApplicationFinancial.Percentage_Deductible__c;
   }
 }

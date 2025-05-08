@@ -5,6 +5,25 @@
  */
 @isTest
 public with sharing class SOPUpdateSOPandPartyHelperTest {
+  static Lib_MockProvider loanAccountMock;
+
+  static void registerMocks() {
+    loanAccountMock = Lib_MockProvider.forType(LendingAccountRepository.class)
+      .mock('queryAccountsByOcvIds', getAccount);
+  }
+
+  static List<Account> getAccount {
+    get {
+      List<Account> accounts = new List<Account>();
+      Account account1 = new Account(
+        Id = Lib_FakeIdGenerator.getMockId(Account.SObjectType),
+        Name = 'Test Loan Account',
+        OCV_Id__c = '123456'
+      );
+      accounts.add(account1);
+      return accounts;
+    }
+  }
   @isTest
   static void testTransformToRelationshipState() {
     String relationshipState = 'In a relationship';
@@ -40,9 +59,38 @@ public with sharing class SOPUpdateSOPandPartyHelperTest {
     // Assert the result
     Assert.isFalse(result, 'success');
   }
+  @isTest
+  static void testGetPartiesOcvIds() {
+    Test.startTest();
+    List<String> result = SOPUpdateSOPandPartyHelper.getPartiesOcvIds(
+      getSOPViewModel
+    );
+    Test.stopTest();
+    // Assert the result
+    Assert.isNotNull(result, 'Parties ocvIds should not be null');
+    Assert.areEqual(result[0], '123456', 'party ocvId should be expected');
+  }
+
+  @isTest
+  static void testGetloanApplicants() {
+    registerMocks();
+    Test.startTest();
+    Map<String, Account> result = SOPUpdateSOPandPartyHelper.getloanApplicants(
+      getSOPViewModel
+    );
+    Test.stopTest();
+    // Assert the result
+    Assert.isNotNull(result, 'Parties ocvIds should not be null');
+    Assert.areEqual(
+      result?.get('123456')?.name,
+      'Test Loan Account',
+      'party ocvId should be expected'
+    );
+  }
 
   @isTest
   static void testTransformPartiesList() {
+    registerMocks();
     Test.startTest();
     List<SOPViewModel.Parties> result = SOPUpdateSOPandPartyHelper.transformPartiesList(
       getSOPViewModel

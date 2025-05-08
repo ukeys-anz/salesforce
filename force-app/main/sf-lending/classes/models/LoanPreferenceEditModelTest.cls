@@ -34,9 +34,11 @@ public class LoanPreferenceEditModelTest {
       updateLoanData.loanTermInMonths = 10;
       updateLoanData.currentLoanBalance = 4262.00;
       updateLoanData.loanRepaymentFrequency = 'REPAYMENT_FREQUENCY_BI_ANNUAL';
+      updateLoanData.propertyUse = 'LOAN_PRODUCT_TYPE_INVESTOR';
       updateLoanData.offset = 'Yes';
       updateLoanData.loanRepaymentType = 'REPAYMENT_TYPE_PRINCIPAL_INTEREST';
       updateLoanData.interestRateType = 'INTEREST_RATE_TYPE_VARIABLE';
+      updateLoanData.percentDeductible = 80;
       updateLoanData.uid = '7479fe3d-f0b8-4739-a4cd-7fb334bf3451';
       updateLoanData.etag = '1732683675717';
       updateLoanData.ocvId = '11111231';

@@ -227,7 +227,6 @@
           </lightning-layout-item>
         </lightning-layout>
       </lightning-layout-item>
-
       <!--Borrow Additional Funds-->
       <lightning-layout-item
         size="6"
@@ -269,7 +268,6 @@
           </lightning-layout-item>
         </lightning-layout>
       </lightning-layout-item>
-
       <!--Loan Term-->
       <lightning-layout-item
         size="6"
@@ -308,8 +306,7 @@
           </lightning-layout-item>
         </lightning-layout>
       </lightning-layout-item>
-
-      <!--Interest Rate-->
+      <!--Tax Deductible-->
       <lightning-layout-item
         size="6"
         flexibility="shrink"
@@ -321,25 +318,28 @@
             flexibility="shrink"
             class="labelStyle slds-border_bottom slds-p-around_xx-small"
           >
-            <lightning-formatted-text value="Interest Rate">
+            <lightning-formatted-text value="Tax Deductible">
             </lightning-formatted-text>
           </lightning-layout-item>
           <lightning-layout-item
-            size="7"
+            size="6"
             flexibility="shrink"
             class="textStyle slds-border_bottom slds-p-around_xx-small"
-            ><template lwc:if={calculateLoanRepaymentError}>
+          >
+            <lightning-formatted-text value={taxDeductible}>
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item
+            size="1"
+            class="textStyle slds-text-align_right slds-border_bottom slds-p-around_xx-small"
+          >
+            <template lwc:if={isEditAllowed}>
               <lightning-icon
-                icon-name="utility:error"
-                size="x-small"
-                class="slds-m-right_x-small"
-                variant="error"
+                icon-name="utility:edit"
+                onclick={handleEdit}
+                size="xx-small"
+                class="slds-align_absolute-right"
               ></lightning-icon>
-              <span class="error-text">Error. Refresh Page</span>
-            </template>
-            <template lwc:else>
-              <lightning-formatted-text value={interestRateVal}>
-              </lightning-formatted-text>
             </template>
           </lightning-layout-item>
         </lightning-layout>
@@ -375,7 +375,51 @@
         </lightning-layout>
       </lightning-layout-item>
 
-      <!--Interest Rate Type-->
+      <!--Percentage Deductible-->
+      <template lwc:if={showPercentage}>
+        <lightning-layout-item
+          size="6"
+          flexibility="shrink"
+          class="slds-p-left_small slds-p-right_large slds-p-top_xx-small"
+        >
+          <lightning-layout>
+            <lightning-layout-item
+              size="5"
+              flexibility="shrink"
+              class="labelStyle slds-border_bottom slds-p-around_xx-small"
+            >
+              <lightning-formatted-text value="Percentage Deductible">
+              </lightning-formatted-text>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="6"
+              flexibility="shrink"
+              class="textStyle slds-border_bottom slds-p-around_xx-small"
+            >
+              <lightning-formatted-number
+                value={loanPreferenceDetails.percentDeductible}
+                format-style="percent-fixed"
+              >
+              </lightning-formatted-number>
+            </lightning-layout-item>
+            <lightning-layout-item
+              size="1"
+              class="textStyle slds-text-align_right slds-border_bottom slds-p-around_xx-small"
+            >
+              <template lwc:if={isEditAllowed}>
+                <lightning-icon
+                  icon-name="utility:edit"
+                  onclick={handleEdit}
+                  size="xx-small"
+                  class="slds-align_absolute-right"
+                ></lightning-icon>
+              </template>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+      </template>
+
+      <!--Interest Rate-->
       <lightning-layout-item
         size="6"
         flexibility="shrink"
@@ -387,16 +431,26 @@
             flexibility="shrink"
             class="labelStyle slds-border_bottom slds-p-around_xx-small"
           >
-            <lightning-formatted-text value="Interest Rate Type">
+            <lightning-formatted-text value="Interest Rate">
             </lightning-formatted-text>
           </lightning-layout-item>
           <lightning-layout-item
             size="7"
             flexibility="shrink"
             class="textStyle slds-border_bottom slds-p-around_xx-small"
-          >
-            <lightning-formatted-text value={interestRateTypeVal}>
-            </lightning-formatted-text>
+            ><template lwc:if={calculateLoanRepaymentError}>
+              <lightning-icon
+                icon-name="utility:error"
+                size="x-small"
+                class="slds-m-right_x-small"
+                variant="error"
+              ></lightning-icon>
+              <span class="error-text">Error. Refresh Page</span>
+            </template>
+            <template lwc:else>
+              <lightning-formatted-text value={interestRateVal}>
+              </lightning-formatted-text>
+            </template>
           </lightning-layout-item>
         </lightning-layout>
       </lightning-layout-item>
@@ -437,6 +491,32 @@
                 class="slds-align_absolute-right"
               ></lightning-icon>
             </template>
+          </lightning-layout-item>
+        </lightning-layout>
+      </lightning-layout-item>
+
+      <!--Interest Rate Type-->
+      <lightning-layout-item
+        size="6"
+        flexibility="shrink"
+        class="slds-p-left_small slds-p-right_large slds-p-top_xx-small"
+      >
+        <lightning-layout>
+          <lightning-layout-item
+            size="5"
+            flexibility="shrink"
+            class="labelStyle slds-border_bottom slds-p-around_xx-small"
+          >
+            <lightning-formatted-text value="Interest Rate Type">
+            </lightning-formatted-text>
+          </lightning-layout-item>
+          <lightning-layout-item
+            size="7"
+            flexibility="shrink"
+            class="textStyle slds-border_bottom slds-p-around_xx-small"
+          >
+            <lightning-formatted-text value={interestRateTypeVal}>
+            </lightning-formatted-text>
           </lightning-layout-item>
         </lightning-layout>
       </lightning-layout-item>
@@ -545,7 +625,10 @@
           class="slds-p-horizontal_small slds-p-top_xx-small"
         >
           <lightning-layout>
-            <lightning-layout-item size="5" class="slds-p-around_xx-small">
+            <lightning-layout-item
+              size="5"
+              class="labelStyle slds-p-around_xx-small"
+            >
               <lightning-formatted-text
                 value="*"
                 class="slds-text-color_error"
@@ -686,7 +769,6 @@
             </lightning-layout-item>
           </lightning-layout>
         </lightning-layout-item>
-
         <!--Borrow Additional Funds-->
         <lightning-layout-item
           size="6"
@@ -752,8 +834,7 @@
             </lightning-layout-item>
           </lightning-layout>
         </lightning-layout-item>
-
-        <!--Interest Rate-->
+        <!--Tax Deductible-->
         <lightning-layout-item
           size="6"
           flexibility="shrink"
@@ -764,26 +845,27 @@
               size="5"
               class="labelStyle slds-p-around_xx-small"
             >
-              <lightning-formatted-text value="Interest Rate">
+              <lightning-formatted-text
+                value="*"
+                class="slds-text-color_error"
+              ></lightning-formatted-text>
+              <lightning-formatted-text
+                class="slds-p-left_x-small"
+                value="Tax Deductible"
+              >
               </lightning-formatted-text>
             </lightning-layout-item>
-
             <lightning-layout-item
               size="7"
               class="textStyle slds-p-around_xx-small"
-              ><template lwc:if={calculateLoanRepaymentError}>
-                <lightning-icon
-                  icon-name="utility:error"
-                  size="x-small"
-                  class="slds-m-right_x-small"
-                  variant="error"
-                ></lightning-icon>
-                <span class="error-text">Error. Refresh Page</span>
-              </template>
-              <template lwc:else>
-                <lightning-formatted-text value={interestRateVal}>
-                </lightning-formatted-text>
-              </template>
+            >
+              <lightning-combobox
+                value={editTaxDeductible}
+                variant="label-hidden"
+                options={taxDeductibleOptions}
+                required
+                onchange={handleTaxChange}
+              ></lightning-combobox>
             </lightning-layout-item>
           </lightning-layout>
         </lightning-layout-item>
@@ -826,6 +908,89 @@
           </lightning-layout>
         </lightning-layout-item>
 
+        <!--Percentage Deductible-->
+        <template lwc:if={showPercentage}>
+          <lightning-layout-item
+            size="6"
+            flexibility="shrink"
+            class="slds-p-horizontal_small slds-p-top_xx-small"
+          >
+            <lightning-layout>
+              <lightning-layout-item
+                size="5"
+                class="labelStyle slds-p-around_xx-small slds-m-top_x-small"
+              >
+                <lightning-formatted-text
+                  value="*"
+                  class="slds-text-color_error"
+                ></lightning-formatted-text>
+                <lightning-formatted-text
+                  class="slds-p-left_x-small slds-m-top_small"
+                  value="Percentage Deductible"
+                ></lightning-formatted-text>
+              </lightning-layout-item>
+
+              <lightning-layout-item
+                size="7"
+                class="textStyle slds-p-around_xx-small"
+              >
+                <lightning-input
+                  type="number"
+                  value={loanPreferenceEditDetails.percentDeductible}
+                  formatter="percent-fixed"
+                  onchange={handlePercentageChange}
+                  step="1"
+                  name="percentageDeductible"
+                  min="1"
+                  max="100"
+                  lwc:ref="percentageDeductible"
+                  message-when-range-underflow="Please enter a number between 1-100"
+                  message-when-range-overflow="Please enter a number between 1-100"
+                  message-when-value-missing="Please enter a number between 1-100"
+                  message-when-step-mismatch="Please enter a number between 1-100"
+                  required
+                  variant="label-hidden"
+                ></lightning-input>
+              </lightning-layout-item>
+            </lightning-layout>
+          </lightning-layout-item>
+        </template>
+
+        <!--Interest Rate-->
+        <lightning-layout-item
+          size="6"
+          flexibility="shrink"
+          class="slds-p-horizontal_small slds-p-top_xx-small"
+        >
+          <lightning-layout>
+            <lightning-layout-item
+              size="5"
+              class="labelStyle slds-p-around_xx-small"
+            >
+              <lightning-formatted-text value="Interest Rate">
+              </lightning-formatted-text>
+            </lightning-layout-item>
+
+            <lightning-layout-item
+              size="7"
+              class="textStyle slds-p-around_xx-small"
+              ><template lwc:if={calculateLoanRepaymentError}>
+                <lightning-icon
+                  icon-name="utility:error"
+                  size="x-small"
+                  class="slds-m-right_x-small"
+                  variant="error"
+                ></lightning-icon>
+                <span class="error-text">Error. Refresh Page</span>
+              </template>
+              <template lwc:else>
+                <lightning-formatted-text value={interestRateVal}>
+                </lightning-formatted-text>
+              </template>
+            </lightning-layout-item>
+          </lightning-layout>
+        </lightning-layout-item>
+
         <!--Interest Rate Type-->
         <lightning-layout-item
           size="6"
@@ -850,12 +1015,6 @@
             </lightning-layout-item>
           </lightning-layout>
         </lightning-layout-item>
-
-        <lightning-layout-item
-          size="6"
-          flexibility="shrink"
-          class="slds-p-horizontal_small slds-p-top_xx-small"
-        ></lightning-layout-item>
 
         <!--last Updated Date-->
         <lightning-layout-item
@@ -988,6 +1147,7 @@
         <c-loan-preference-additional-funds-details-display
           additional-funds-data={additionalFunds}
           loan-preference-model={loanPreferenceDetails}
+          application-status={applicationStatus}
         ></c-loan-preference-additional-funds-details-display>
       </lightning-layout-item>
     </lightning-layout>

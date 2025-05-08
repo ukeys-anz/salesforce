@@ -1,0 +1,49 @@
+.accountHistoryBoard {
+  min-height: 300px;
+}
+
+.card-title {
+  background: var(--slds-g-color-neutral-base-95);
+  border-radius: 1px;
+  border-color: var(--slds-g-color-neutral-base-80);
+  width: 100%;
+  height: 100%;
+}
+
+.headingStyle {
+  font-size: var(--slds-g-font-scale-2);
+  font-weight: var(--lwc-fontWeightBold);
+}
+
+.search-section {
+  justify-content: space-between;
+  margin-bottom: 25px;
+  font-size: var(--slds-g-font-scale-2);
+  color: var(--slds-g-color-neutral-base-20);
+}
+
+.startEndDate {
+  font-weight: var(--slds-g-font-weight-4);
+  font-size: var(--slds-g-font-scale-neg-1);
+}
+
+.noHistorySection {
+  padding-bottom: 30px;
+  border-bottom: 1px solid var(--slds-g-color-neutral-base-80);
+}
+
+.lastUpdatedstyle {
+  font-size: var(--slds-g-font-scale-neg-1);
+  font-weight: var(--lwc-fontWeightRegular);
+  line-height: var(--slds-g-font-lineheight-2);
+  color: var(--slds-g-color-neutral-base-20);
+}
+
+.not-found {
+  margin: 0;
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--slds-g-color-neutral-base-20);
+}

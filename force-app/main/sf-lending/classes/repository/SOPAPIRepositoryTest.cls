@@ -20,23 +20,17 @@ public with sharing class SOPAPIRepositoryTest {
     get {
       SOPUpdateSOPAndPartyRequestModel updatePartyBody = new SOPUpdateSOPAndPartyRequestModel();
       updatePartyBody.partyData = new SOPUpdateSOPAndPartyRequestModel.PartyData();
-      updatePartyBody.partyData.party = new SOPUpdateSOPAndPartyRequestModel.Party();
-      updatePartyBody.partyData.party.spouseEarnsIncome = true;
-      updatePartyBody.partyData.party.relationshipState = 'RELATIONSHIP_STATE_IN_RELATIONSHIP';
-      updatePartyBody.partyData.party.id = '123456';
+      updatePartyBody.partyData.party = new List<SOPUpdateSOPAndPartyRequestModel.Party>();
+      SOPUpdateSOPAndPartyRequestModel.Party partyData = new SOPUpdateSOPAndPartyRequestModel.Party();
+      partyData.spouseEarnsIncome = true;
+      partyData.relationshipState = 'RELATIONSHIP_STATE_IN_RELATIONSHIP';
+      partyData.id = '123456';
+      updatePartyBody.partyData.party.add(partyData);
       updatePartyBody.sopData = new SOPUpdateSOPAndPartyRequestModel.SopData();
       updatePartyBody.sopData.dependantsCount = 2;
       updatePartyBody.sopData.etag = '13243356664';
       return updatePartyBody;
     }
-  }
-
-  private static HttpCalloutResponse getInvalidResponse() {
-    HttpCalloutResponse response = new HttpCalloutResponse();
-    response.error = new CalloutException('callout failed');
-    response.statusCode = 500;
-    response.successful = false;
-    return response;
   }
 
   /**

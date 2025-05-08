@@ -162,6 +162,18 @@ public with sharing class LoanPreferenceControllerTest {
     return response;
   }
 
+  static ResidentialLoanApplication getRLA {
+    get {
+      return new ResidentialLoanApplication(
+        Id = Lib_FakeIdGenerator.getMockId(
+          ResidentialLoanApplication.SObjectType
+        ),
+        Name = 'Test Loan Application',
+        Property_Use__c = 'LOAN_PRODUCT_TYPE_INVESTOR'
+      );
+    }
+  }
+
   static LoanApplicationFinancial getLAF {
     get {
       LoanApplicationFinancial laf = new LoanApplicationFinancial();
@@ -181,6 +193,7 @@ public with sharing class LoanPreferenceControllerTest {
       laf.Loan_Repayment_Type__c = 'REPAYMENT_TYPE_UNSPECIFIED';
       laf.Loan_Margin__c = 20;
       laf.Offset__c = 'Yes';
+      laf.LoanApplication = getRLA;
       return laf;
     }
   }
@@ -201,6 +214,7 @@ public with sharing class LoanPreferenceControllerTest {
       updateLoanData.uid = '7479fe3d-f0b8-4739-a4cd-7fb334bf3451';
       updateLoanData.etag = '1732683675717';
       updateLoanData.ocvId = '11111231';
+      updateLoanData.percentDeductible = 80;
       return updateLoanData;
     }
   }

@@ -14,6 +14,7 @@ public class LoanPreferenceEditModel extends CalloutModel {
   public Boolean offset;
   public String interestRateType;
   public String repaymentType;
+  public Integer taxDeductiblePercentage;
   public List<Funds> funds;
 
   /**
@@ -63,6 +64,10 @@ public class LoanPreferenceEditModel extends CalloutModel {
     this.termMonths = updateLoanPreferenceData.loanTermInMonths;
     this.interestRateType = updateLoanPreferenceData.interestRateType;
     this.repaymentType = updateLoanPreferenceData.loanRepaymentType;
+    this.taxDeductiblePercentage = updateLoanPreferenceData.percentDeductible >
+      0
+      ? updateLoanPreferenceData.percentDeductible
+      : 0;
     this.funds = new List<LoanPreferenceEditModel.Funds>();
     if (additionalFundsData?.additionalFunds?.size() > 0) {
       for (
@@ -72,7 +77,10 @@ public class LoanPreferenceEditModel extends CalloutModel {
       }
     }
     AdditionalFundsViewModel.AdditionalFunds currentLoanBalance = new AdditionalFundsViewModel.AdditionalFunds();
-    currentLoanBalance.purpose = 'LENDING_PURPOSE_REFINANCE';
+    currentLoanBalance.purpose = updateLoanPreferenceData.propertyUse ==
+      'LOAN_PRODUCT_TYPE_INVESTOR'
+      ? 'LENDING_PURPOSE_REFINANCE_INVESTOR'
+      : 'LENDING_PURPOSE_REFINANCE';
     currentLoanBalance.amount = updateLoanPreferenceData.currentLoanBalance;
     currentLoanBalance.otherReason = '';
     this.funds.add(new LoanPreferenceEditModel.Funds(currentLoanBalance));

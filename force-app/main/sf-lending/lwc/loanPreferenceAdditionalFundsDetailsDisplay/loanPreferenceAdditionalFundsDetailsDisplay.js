@@ -18,6 +18,7 @@ export default class LoanPreferenceAdditionalFundsDetailsDisplay extends Lightni
   @api recordId;
   @api additionalFundsData;
   @api loanPreferenceModel;
+  @api applicationStatus;
   renovations = `${SOP_IMAGE}/additionalFunds/Renovations.png`;
   motor = `${SOP_IMAGE}/additionalFunds/Motor.png`;
   lifestyle = `${SOP_IMAGE}/additionalFunds/Lifestyle.png`;
@@ -42,15 +43,15 @@ export default class LoanPreferenceAdditionalFundsDetailsDisplay extends Lightni
   ]);
 
   get showDeleteButton() {
-    return hasDeletePermission;
+    return hasDeletePermission && this.applicationStatus === "STATE_REFERRED";
   }
 
   get showAddButton() {
-    return hasAddPermission;
+    return hasAddPermission && this.applicationStatus === "STATE_REFERRED";
   }
 
   get showEditButton() {
-    return hasEditPermission;
+    return hasEditPermission && this.applicationStatus === "STATE_REFERRED";
   }
 
   connectedCallback() {

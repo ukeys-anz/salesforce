@@ -32,10 +32,14 @@ public with sharing class SOPServiceTest {
     get {
       SOPUpdateSOPAndPartyRequestModel updatePartyBody = new SOPUpdateSOPAndPartyRequestModel();
       updatePartyBody.partyData = new SOPUpdateSOPAndPartyRequestModel.PartyData();
-      updatePartyBody.partyData.party = new SOPUpdateSOPAndPartyRequestModel.Party();
-      updatePartyBody.partyData.party.spouseEarnsIncome = true;
-      updatePartyBody.partyData.party.relationshipState = 'RELATIONSHIP_STATE_IN_RELATIONSHIP';
-      updatePartyBody.partyData.party.id = '123456';
+      updatePartyBody.partyData.party = new List<SOPUpdateSOPAndPartyRequestModel.Party>();
+      SOPUpdateSOPAndPartyRequestModel.Party partyData = new SOPUpdateSOPAndPartyRequestModel.Party();
+      partyData.spouseEarnsIncome = true;
+      partyData.relationshipState = 'RELATIONSHIP_STATE_IN_RELATIONSHIP';
+      partyData.id = '123456';
+      partyData.livingStatusOther = 'LIVING_STATUS_BOARD';
+      partyData.currentHousingStatus = 'VIC, 30203';
+      updatePartyBody.partyData.party.add(partyData);
       updatePartyBody.sopData = new SOPUpdateSOPAndPartyRequestModel.SopData();
       updatePartyBody.sopData.dependantsCount = 2;
       updatePartyBody.sopData.etag = '13243356664';
@@ -118,5 +122,65 @@ public with sharing class SOPServiceTest {
       response.statusCode,
       'Status code of the response should be 500'
     );
+  }
+
+  @isTest
+  static void testGetSOPSuccess() {
+    registerMocks();
+
+    HttpCalloutResponse successResponse = new HttpCalloutResponse();
+    successResponse.body = Service.getStaticResource('mock_sop');
+    successResponse.successful = true;
+    successResponse.statusCode = 200;
+    calloutMock.mock('makeRestCallout', successResponse);
+
+    String sopId = '12345';
+    String ocvId = '11111231';
+    // Need to set Token for mock callout
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    SOPService service = new SOPService();
+    HttpCalloutResponse response = service.getSOP(ocvId, sopId);
+    Test.stopTest();
+
+    Assert.isNotNull(
+      calloutMock.getHistory('makeRestCallout'),
+      'Callout should be made'
+    );
+    Assert.isTrue(response.successful, 'Response should be successful');
+  }
+
+  @isTest
+  static void testGetSOPFailure() {
+    registerMocks();
+
+    HttpCalloutResponse errorResponse = new HttpCalloutResponse();
+    errorResponse.successful = false;
+    errorResponse.statusCode = 500;
+    errorResponse.error = new CalloutException('Error');
+    calloutMock.mock('makeRestCallout', errorResponse);
+
+    String sopId = '12345';
+    String ocvId = '11111231';
+    // Need to set Token for mock callout
+    Cache.Session.put(
+      AuthTokenCacheUtil.STAFFPART + 'forgeJWTToken' + ocvId,
+      AuthServiceTest.IDTESTVALUE
+    );
+
+    Test.startTest();
+    SOPService service = new SOPService();
+    HttpCalloutResponse response = service.getSOP(ocvId, sopId);
+    Test.stopTest();
+
+    Assert.isNotNull(
+      calloutMock.getHistory('makeRestCallout'),
+      'Callout should be made'
+    );
+    Assert.isFalse(response.successful, 'Response should be successful');
   }
 }

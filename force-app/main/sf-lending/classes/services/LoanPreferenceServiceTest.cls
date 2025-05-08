@@ -29,6 +29,7 @@ public with sharing class LoanPreferenceServiceTest {
           ResidentialLoanApplication.SObjectType
         ),
         Name = 'Test Loan Application',
+        Property_Use__c = 'LOAN_PRODUCT_TYPE_INVESTOR',
         Account = getAccount
       );
     }

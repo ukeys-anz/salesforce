@@ -11,9 +11,24 @@ public with sharing class SOPServiceMock extends SOPService {
     response.statusCode = 200;
     response.successful = true;
   }
+
+  private static final String SOP_RESPONSE = getStaticResource('mock_sop');
   private static final String UPDATE_SOP_AND_PARTY = getStaticResource(
     'mock_updateSOPAndParty'
   );
+
+  /**
+   * @param ocvId ocv id of the customer account
+   * @param sopId sop id to retrieve customer information
+   * @return `HttpcalloutResponse` the api response
+   * @description fetches fake response for sop api
+   */
+  public override HttpCalloutResponse getSOP(String ocvId, String sopId) {
+    if (!preset) {
+      response.body = SOPServiceMock.SOP_RESPONSE;
+    }
+    return response;
+  }
 
   /**
    * @description update SOP and Party

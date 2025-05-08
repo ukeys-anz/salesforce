@@ -5,7 +5,11 @@
  * @group Services
  */
 
-public with sharing class HomeLoanService extends Service {
+public with sharing virtual class HomeLoanService extends Service {
+  private static final Lib_HttpCallout HTTP_CALLOUT = (Lib_HttpCallout) Lib_InstanceProvider.forType(
+    Lib_HttpCallout.class
+  );
+
   /**
    * @param ocvId customer id to retrieve accounts and goals for
    * @param accountNumbers account numbers to filter by
@@ -13,7 +17,7 @@ public with sharing class HomeLoanService extends Service {
    * @description fetches accounts and goals from the fabric API
    */
 
-  public override HttpCalloutResponse getHomeLoanAccounts(
+  public virtual HttpCalloutResponse getHomeLoanAccounts(
     String ocvId,
     List<String> accountNumbers
   ) {

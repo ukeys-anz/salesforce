@@ -1,32 +1,45 @@
 import { LightningElement, wire, api } from "lwc";
+import {
+  EnclosingTabId,
+  getTabInfo,
+  openSubtab
+} from "lightning/platformWorkspaceApi";
+
 import getSOP from "@salesforce/apex/BOHController.getSOP";
 import updateSOPAndPartyCallout from "@salesforce/apex/BOHController.updateSOPAndParty";
-import hasEditPermission from "@salesforce/customPermission/SOP_Edit";
+import hasEditPermission from "@salesforce/customPermission/Party_Edit";
 import RLA_STATUS_APINAME from "@salesforce/schema/ResidentialLoanApplication.Status";
 import RLA_ACCOUNT_OCVID from "@salesforce/schema/ResidentialLoanApplication.Account.OCV_ID__c";
 import { getRecord, getFieldValue } from "lightning/uiRecordApi";
 import { handleErrorShowToast, showToast } from "c/utils";
 
 export default class AboutYouViewDetails extends LightningElement {
+  @wire(EnclosingTabId) tabId;
   @api recordId;
   componentSpinner = false;
   showViewScreen = false;
   showEditScreen = false;
   filteredSOPData;
   originalPartyData = {};
+  originalApplicantData = [];
+  applicantData = [];
   applicationStatus;
   ocvId;
   isApplicationJoint = false;
   partiesData = {};
   dependentsFormatIncorrect = false;
   showGetSOPErrorScreen = false;
-
-  updateSOPErrorMessage =
-    "The changes to the dependants did not save. Please try again.";
-  updatePartyErrorMessage =
-    "The changes to the Sole Income Earner and / or relationship status did not save. Please try again.";
+  livingSituationsMap = new Map([
+    ["LIVING_STATUS_RENT", "Renter"],
+    ["LIVING_STATUS_BOARD", "Boarder"],
+    ["LIVING_STATUS_WITH_PARENTS", "Living with family or friends"],
+    ["LIVING_STATUS_CARAVAN", "Caravanning or Mobile Home"],
+    ["LIVING_STATUS_OTHER", "Other"],
+    ["LIVING_STATUS_HOME_OWNER", "Home Owner"],
+    ["LIVING_STATUS_UNSPECIFIED", ""]
+  ]);
   updateApisErrorMessage =
-    "The changes to About You did not save. Please try again.";
+    "The changes to the About You section did not save. Please review and try again.";
   sopAPIErrorHeader = "An unexpected error has occurred, please try again";
   sopAPIErrorDetail =
     "An error has occurred. Please refresh and try again. If the problem persists, please contact your System Administrator.";
@@ -38,6 +51,7 @@ export default class AboutYouViewDetails extends LightningElement {
     return (
       this.isFieldEditable &&
       this.partiesData?.relationshipState === "In a relationship" &&
+      this.partiesData?.soleIncomeEarner !== "" &&
       !this.isApplicationJoint
     );
   }
@@ -89,6 +103,19 @@ export default class AboutYouViewDetails extends LightningElement {
     ];
   }
 
+  get livingSituationOptions() {
+    return [
+      { label: "Renter", value: "LIVING_STATUS_RENT" },
+      { label: "Boarder", value: "LIVING_STATUS_BOARD" },
+      {
+        label: "Living with family or friends",
+        value: "LIVING_STATUS_WITH_PARENTS"
+      },
+      { label: "Caravanning or Mobile Home", value: "LIVING_STATUS_CARAVAN" },
+      { label: "Other", value: "LIVING_STATUS_OTHER" }
+    ];
+  }
+
   //wired method to get residential loan data
   @wire(getRecord, {
     recordId: "$recordId",
@@ -110,11 +137,29 @@ export default class AboutYouViewDetails extends LightningElement {
         this.showGetSOPErrorScreen = true;
         return;
       }
-      this.isApplicationJoint = this.getJointApplication(result); // to check if application is join or not.
+      //transforming parties data on applicant level
+      result.parties = this.transformPartiesData(result.parties);
+
+      // to check if application is joint or not.
+      this.isApplicationJoint = this.getJointApplication(result);
+
       this.filteredSOPData = JSON.parse(JSON.stringify(result));
-      this.filteredSOPData.parties = this.filterSOPData(result); // filtered the sop data based on ocvId in new instance.
-      this.partiesData = this.filteredSOPData?.parties[0] ?? {}; // assigning the primary party to display data
+
+      // assigning the primary party to display data
+      this.partiesData = this.filterSOPData(result)?.[0] ?? {};
+
+      //assign values to display applicants Data
+      if (this.isApplicationJoint) {
+        this.applicantData = result?.parties; // for multiple applicants
+      } else {
+        this.applicantData = [this.partiesData]; // for single applicant filtered data
+      }
+
+      //assigning original data for parties and applicant
       this.originalPartyData = { ...this.partiesData };
+      this.originalApplicantData = JSON.parse(
+        JSON.stringify(this.applicantData)
+      );
       this.showViewScreen = true;
       this.showEditScreen = false;
     } catch (error) {
@@ -123,6 +168,39 @@ export default class AboutYouViewDetails extends LightningElement {
     } finally {
       this.componentSpinner = false;
     }
+  }
+
+  //Transforming data to map label from API values and editibility of fields on Applicant level
+  transformPartiesData(parties) {
+    return parties.map((party, index) => {
+      return {
+        ...party,
+        isLivingSituationEditable: this.isLivingStatusEditable(
+          party.currentHousingStatus
+        ),
+        livingSituationValue: this.getLivingSituationLabel(
+          party.currentHousingStatus
+        ),
+        applicantLabel: "Applicant " + (index + 1),
+        livingSituationDescriptionVisible: party.livingStatusOther != null
+      };
+    });
+  }
+
+  // Used the map to get the label, or fall back to the currentHousingStatus itself
+  getLivingSituationLabel(currentHousingStatus) {
+    return (
+      this.livingSituationsMap.get(currentHousingStatus) ?? currentHousingStatus
+    );
+  }
+
+  // Determines if the party should be editable based on currentHousingStatus
+  isLivingStatusEditable(currentHousingStatus) {
+    return (
+      currentHousingStatus !== "LIVING_STATUS_HOME_OWNER" &&
+      hasEditPermission &&
+      this.isDataReferred
+    );
   }
 
   //check if the application is joint or single
@@ -144,12 +222,27 @@ export default class AboutYouViewDetails extends LightningElement {
   //method to handle cancel functionality
   handleCancel() {
     this.partiesData = { ...this.originalPartyData };
+    this.applicantData = JSON.parse(JSON.stringify(this.originalApplicantData));
     this.toggleScreen();
+  }
+
+  async navigateToRecordViewPage(event) {
+    const recordIdToOpen = event.currentTarget.dataset.id;
+    if (!this.tabId) {
+      return;
+    }
+
+    const tabInfo = await getTabInfo(this.tabId);
+    const primaryTabId = tabInfo.isSubtab ? tabInfo.parentTabId : tabInfo.tabId;
+
+    // Open a record as a subtab of the current tab
+    await openSubtab(primaryTabId, { recordId: recordIdToOpen, focus: true });
   }
 
   //method to assign old data on error cases
   assignExistingData() {
     this.partiesData = { ...this.originalPartyData };
+    this.applicantData = JSON.parse(JSON.stringify(this.originalApplicantData));
   }
 
   //method to get input values
@@ -164,24 +257,86 @@ export default class AboutYouViewDetails extends LightningElement {
     }
   }
 
+  //Method to get Applicant Data values
+  handleLivingSituationChange(event) {
+    const field = event.target.dataset.id;
+    const input = event.target;
+    const index = event.target.dataset.index;
+    if (field === "currentHousingStatus") {
+      this.applicantData[index].livingSituationDescriptionVisible =
+        input.value === "LIVING_STATUS_OTHER";
+    }
+    this.applicantData[index][field] = input.value;
+
+    // to maintain reactivity on data change
+    this.applicantData = [...this.applicantData];
+  }
+
+  //Method to check validity of field in Applicant Data
+  checkLivingSituationDescriptionValidity(data) {
+    return data.some(
+      (party) =>
+        party.livingSituationDescriptionVisible &&
+        (!party.livingStatusOther || party.livingStatusOther.trim() === "")
+    );
+  }
+
   //method on save of edit page
   handleSave() {
-    if (this.dependentsFormatIncorrect) {
+    if (
+      this.dependentsFormatIncorrect ||
+      this.checkLivingSituationDescriptionValidity(this.applicantData)
+    ) {
       return;
     }
-    this.filteredSOPData.parties[0] = this.partiesData;
+    this.filteredSOPData.parties = this.mergeWithList(
+      this.applicantData,
+      this.partiesData
+    );
+    this.filteredSOPData.dependantsCount =
+      this.partiesData.partyDependantsCount;
     this.filteredSOPData.isSOPDataUpdated = this.checkIsSOPDataUpdated();
     this.filteredSOPData.isPartyDataUpdated = this.checkIsPartyDataUpdated();
     this.updateSOPAndParty();
   }
 
+  //method to merge parties data and applicant data list
+  mergeWithList(applicantDetails, partyDetails) {
+    return applicantDetails.map((item) => {
+      // Check if ocvId matches between list1 and the single object in partyDetails
+      if (item.ocvId === partyDetails.ocvId) {
+        // Merge the necessary fields from partyDetails into the item from list1
+        return {
+          ...item, // Retain the fields of the item from applicantDetails
+          partyDependantsCount: partyDetails.partyDependantsCount, // Override specific fields
+          relationshipState: partyDetails.relationshipState,
+          soleIncomeEarner: partyDetails.soleIncomeEarner,
+          spouseEarnsIncome: partyDetails.spouseEarnsIncome
+        };
+      }
+      return item; // Return the item unchanged if no match
+    });
+  }
+
   //method to check if relationshipState or soleIncomeEarner data is updated
   checkIsPartyDataUpdated() {
+    const isCurrentHousingStatusUpdated = this.applicantData.some(
+      (item, index) => {
+        const originalItem = this.originalApplicantData[index];
+
+        // Compare the currentHousingStatus field and living status other for each object
+        return (
+          item.currentHousingStatus !== originalItem.currentHousingStatus ||
+          item.livingStatusOther !== originalItem.livingStatusOther
+        );
+      }
+    );
     return (
       this.partiesData.relationshipState !==
         this.originalPartyData.relationshipState ||
       this.partiesData.soleIncomeEarner !==
-        this.originalPartyData.soleIncomeEarner
+        this.originalPartyData.soleIncomeEarner ||
+      isCurrentHousingStatusUpdated
     );
   }
 

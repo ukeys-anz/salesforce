@@ -15,7 +15,25 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
    * @description PartyData class
    */
   public class PartyData {
-    public Party party;
+    public List<Party> party;
+
+    /**
+     * @description blank construcuor
+     */
+    public PartyData() {
+    }
+
+    /**
+     * @description parameterized constrcutor
+     * @param partiesList
+     * @param ocvId
+     */
+    public PartyData(List<SOPViewModel.Parties> partiesList, String ocvId) {
+      this.party = new List<Party>();
+      for (SOPViewModel.Parties sopViewPartyDetails : partiesList) {
+        this.party.add(new Party(sopViewPartyDetails, ocvId));
+      }
+    }
   }
   /**
    * @description Party nested class
@@ -24,6 +42,8 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
     public String id;
     public String relationshipState;
     public Boolean spouseEarnsIncome;
+    public String currentHousingStatus;
+    public String livingStatusOther;
 
     /**
      * @description blank construcuor
@@ -33,15 +53,24 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
     /**
      * @description parameterized constrcutor
      * @param sopViewPartyDetails
+     * @param ocvId
      */
-    public Party(SOPViewModel.Parties sopViewPartyDetails) {
+    public Party(SOPViewModel.Parties sopViewPartyDetails, String ocvId) {
       this.id = sopViewPartyDetails.id;
-      this.spouseEarnsIncome = SOPUpdateSOPandPartyHelper.transformSpouceEarnIncome(
-        sopViewPartyDetails.soleIncomeEarner
-      );
-      this.relationshipState = SOPUpdateSOPandPartyHelper.transformToRelationshipState(
-        sopViewPartyDetails.relationshipState
-      );
+      this.currentHousingStatus = sopViewPartyDetails.currentHousingStatus;
+
+      this.livingStatusOther = this.currentHousingStatus ==
+        'LIVING_STATUS_OTHER'
+        ? sopViewPartyDetails.livingStatusOther
+        : null;
+      if (sopViewPartyDetails.ocvId == ocvId) {
+        this.spouseEarnsIncome = SOPUpdateSOPandPartyHelper.transformSpouceEarnIncome(
+          sopViewPartyDetails.soleIncomeEarner
+        );
+        this.relationshipState = SOPUpdateSOPandPartyHelper.transformToRelationshipState(
+          sopViewPartyDetails.relationshipState
+        );
+      }
     }
   }
 
@@ -61,7 +90,7 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
      * @param sopViewDetails
      */
     public SopData(SOPViewModel sopViewDetails) {
-      this.dependantsCount = sopViewDetails.parties[0].partyDependantsCount;
+      this.dependantsCount = sopViewDetails.dependantsCount;
       this.etag = sopViewDetails.etag;
     }
   }
@@ -74,12 +103,13 @@ public with sharing class SOPUpdateSOPAndPartyRequestModel extends CalloutModel 
   /**
    * @description parameterized constrcutor
    * @param sopDetails
+   * @param ocvId
    */
-  public SOPUpdateSOPAndPartyRequestModel(SOPViewModel sopDetails) {
-    this.partyData = new SOPUpdateSOPAndPartyRequestModel.PartyData();
-    this.partyData.party = new SOPUpdateSOPAndPartyRequestModel.Party(
-      sopDetails.parties[0] // Accessing 0th index value as we are passing only primary party details from UI
-    );
-    this.sopData = new SOPUpdateSOPAndPartyRequestModel.SopData(sopDetails);
+  public SOPUpdateSOPAndPartyRequestModel(
+    SOPViewModel sopDetails,
+    String ocvId
+  ) {
+    this.partyData = new PartyData(sopDetails.parties, ocvId);
+    this.sopData = new SopData(sopDetails);
   }
 }

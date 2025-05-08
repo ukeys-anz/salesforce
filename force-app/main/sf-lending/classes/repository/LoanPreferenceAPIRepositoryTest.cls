@@ -14,6 +14,18 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
     );
   }
 
+  static ResidentialLoanApplication getRLA {
+    get {
+      return new ResidentialLoanApplication(
+        Id = Lib_FakeIdGenerator.getMockId(
+          ResidentialLoanApplication.SObjectType
+        ),
+        Name = 'Test Loan Application',
+        Property_Use__c = 'LOAN_PRODUCT_TYPE_INVESTOR'
+      );
+    }
+  }
+
   static LoanApplicationFinancial getLAF {
     get {
       LoanApplicationFinancial laf = new LoanApplicationFinancial();
@@ -26,6 +38,7 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
       laf.Loan_Repayment_Frequency__c = 'REPAYMENT_FREQUENCY_UNSPECIFIED';
       laf.E_Tag__c = '1252617';
       laf.FinancialExtIdentifier = 'ufghdms-gsgshsjik-svshjj';
+      laf.LoanApplication = getRLA;
       return laf;
     }
   }
@@ -49,6 +62,7 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
       updateLoanData.etag = '1732683675717';
       updateLoanData.interestRateType = 'INTEREST_RATE_TYPE_VARIABLE';
       updateLoanData.repaymentType = 'REPAYMENT_TYPE_PRINCIPAL_INTEREST';
+      updateLoanData.taxDeductiblePercentage = 80;
       updateLoanData.funds = new List<LoanPreferenceEditModel.Funds>();
       LoanPreferenceEditModel.Funds fn = new LoanPreferenceEditModel.Funds();
       fn.purpose = 'test';
@@ -152,7 +166,6 @@ public with sharing class LoanPreferenceAPIRepositoryTest {
       getUpdateLoanpreferenceRequestModel
     );
     Test.stopTest();
-
     Assert.isTrue(responseModel.successful, 'Successful Response');
   }
 
