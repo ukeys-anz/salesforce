@@ -67,7 +67,8 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   protected SourceSystemEnum sourceSystem;
   protected Boolean useProductCodeFromFinancialAccount = false;
   protected Boolean retrieveBySOQLQuery = false;
-  private static final String ML_USER_PROFILE_NAME = 'ANZ ML Standard User';
+  private static final String CCRM_USER_PROFILE_NAME = 'ANZ CCRM Standard User';
+
   /**
    * @description Class constractor
    */
@@ -190,21 +191,12 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
   private Map<String, FinServ__FinancialAccountRole__c> getRelatedFinancialAccounts(
     String parentId
   ) {
-    List<FinServ__FinancialAccountRole__c> faRoles;
-    Set<String> customerIds = new Set<String>();
     if (String.isBlank(parentId)) {
       return new Map<String, FinServ__FinancialAccountRole__c>();
     }
-    if (
-      UserInfo.getProfileId() !=
-      CommonUtil.getProfileByName(ML_USER_PROFILE_NAME).Id
-    ) {
-      customerIds = getCLGRelatedCustomerIds(this.parentId);
-    } else {
-      customerIds.add(this.parentId);
-    }
-    faRoles = externalQueryHelper.retrieveFinancialAccountsByCustomerId(
-      customerIds,
+
+    List<FinServ__FinancialAccountRole__c> faRoles = externalQueryHelper.retrieveFinancialAccountsByCustomerId(
+      new Set<String>{ this.parentId },
       productTypes,
       roleTypes
     );
@@ -458,7 +450,16 @@ public abstract with sharing class FinancialAccountQueryBase extends ExternalObj
     ) {
       return response;
     }
-    Set<String> customerIds = getCLGRelatedCustomerIds(this.parentId);
+
+    Set<String> customerIds = new Set<String>{ this.parentId };
+    if (
+      //for CCRM users only
+      UserInfo.getProfileId() ==
+      CommonUtil.getProfileByName(CCRM_USER_PROFILE_NAME).Id
+    ) {
+      // retrieve the entities related to CLG
+      customerIds = getCLGRelatedCustomerIds(this.parentId);
+    }
     for (String customerId : customerIds) {
       customerId = customerId.contains('_')
         ? customerId.substringAfter('_')
