@@ -372,7 +372,6 @@ public with sharing class OpportunityActions {
     List<Opportunity> lstOfOpp,
     Map<Id, Opportunity> oldOppMap
   ) {
-    List<Opportunity> oppErrorList = new List<Opportunity>();
     Set<String> duplicateLARSetLowercase = new Set<String>();
     List<Opportunity> filteredOppList = getFilteredOpportunitiesForLoanappReferenceNumber(
       lstOfOpp,
@@ -399,12 +398,11 @@ public with sharing class OpportunityActions {
           opp.Loanapp_Reference__c.toLowerCase()
         )
       ) {
-        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c);
+        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c.toLowerCase());
         continue;
       }
-      oppErrorList.add(opp);
+      opp.addError(DUPLICATE_LAR_ERROR);
     }
-    CommonUtil.raiseSobjectError(oppErrorList, DUPLICATE_LAR_ERROR);
   }
 
   /**
