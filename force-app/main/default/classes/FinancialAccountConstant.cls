@@ -12,7 +12,7 @@ public with sharing class FinancialAccountConstant {
 
   //Hold the single account's ownership value
   public static final String SOLE = 'Sole';
- 
+
   /**
    * @description fetch ANZx financial account record types
    * @return Set<String> finserv roles to be included for balance calculation
@@ -20,11 +20,10 @@ public with sharing class FinancialAccountConstant {
   public static Set<String> anzxFinservRoleTypes {
     get {
       if (anzxFinservRoleTypes == null) {
-        anzxFinservRoleTypes = new Set<String>
-          {
-            'Additional Owner',
-            'Primary Owner'
-          };
+        anzxFinservRoleTypes = new Set<String>{
+          'Additional Owner',
+          'Primary Owner'
+        };
       }
       return anzxFinservRoleTypes;
     }

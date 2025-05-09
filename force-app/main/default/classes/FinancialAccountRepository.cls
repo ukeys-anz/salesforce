@@ -87,8 +87,7 @@ public with sharing class FinancialAccountRepository {
   public List<FinServ__FinancialAccountRole__c> getHomeLoanAccountByCustomerId(
     Id customerId
   ) {
-    if (String.isBlank(customerId))
-    {
+    if (String.isBlank(customerId)) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -103,7 +102,7 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.bankAccount
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
         AND FinServ__Active__c = TRUE
-        WITH USER_MODE
+      WITH USER_MODE
     ];
   }
 
@@ -141,8 +140,7 @@ public with sharing class FinancialAccountRepository {
     Id ownerId,
     List<String> allRelatedAccountNumbers
   ) {
-    if(String.isBlank(ownerId) || allRelatedAccountNumbers.isEmpty())
-    {
+    if (String.isBlank(ownerId) || allRelatedAccountNumbers.isEmpty()) {
       return new List<FinServ__FinancialAccount__c>();
     }
     return [
