@@ -48,6 +48,8 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       return archiveUser(input, output, options);
     } else if (methodName.equals(RESETPIN)) {
       return resetPin(input, output, options);
+    } else if (methodName.equals('checkAccountsOpen')) {
+      return checkAccountsOpen(input, output, options);
     }
     return false;
   }
@@ -241,14 +243,8 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       (String) input.get(TFMConstants.IDVALUE)
     );
     String action = (String) input.get(TFMConstants.ACTION_NAME);
-    String ocvId = (String) input.get(TFMConstants.AUF_OCV_ID);
     TFMAUFAPIRepository api = new TFMAUFAPIRepository();
     try {
-      Boolean isAnyAccountNotClosed = checkAnyAccountsNotClosed(ocvId);
-      if (isAnyAccountNotClosed) {
-        output.put('isAnyAccountNotClosed', true);
-        return true;
-      }
       api.archiveUser(staffModel, action);
       output.put(TFMConstants.ISVALID, true);
       output.put(TFMConstants.SHOWSUCCESSTOAST, true);
@@ -260,6 +256,29 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
       output.put(TFMConstants.ARCHIVED, false);
       Logger.error(e.getMessage(), e);
       Logger.saveLog();
+    } catch (Exception e) {
+      output.put(TFMConstants.SHOWSUCCESSTOAST, false);
+      Logger.error(e.getMessage(), e);
+      Logger.saveLog();
+    }
+    return true;
+  }
+
+  /**
+   * @param input arg for omnistudio flex card
+   * @param output arg for omnistudio flex card
+   * @param options arg for omnistudio flex card
+   * @return `Boolean`
+   * @description update Mobile number or OCV ID based on user's input
+   */
+  private Boolean checkAccountsOpen(
+    Map<String, Object> input,
+    Map<String, Object> output,
+    Map<String, Object> options
+  ) {
+    try {
+      String ocvId = (String) input.get(TFMConstants.AUF_OCV_ID);
+      output.put('isAnyAccountOpen', isAnyAccountOpen(ocvId));
     } catch(FinancialAccountAPIRepository.PermissionException e) {
       output.put('PermissionException', true);
     } catch (Exception e) {
@@ -274,7 +293,7 @@ global with sharing class TFMAUFController implements omnistudio.VlocityOpenInte
    * @param ocvId the ocv id of the customer
    * @return Boolean
    */
-  private static Boolean checkAnyAccountsNotClosed(String ocvId) {
+  private static Boolean isAnyAccountOpen(String ocvId) {
     List<String> accountNumbers = new List<String>();
     List<UnifiedFinancialAccountModel.AccountList> financialAccList = FinancialAccountController.getFinancialAccountsFromFabric(
       ocvId,
