@@ -7,7 +7,7 @@
     </targets>
     <targetConfigs>
       <targetConfig targets="lightning__RecordPage">
-          <property label="Object Name" name="objectApiName" type="String" datasource="Account,ResidentialLoanApplication"/>
+          <property label="Object Name" name="objectApiName" type="String" datasource="Account,ResidentialLoanApplication,Case"/>
       </targetConfig>
   </targetConfigs>
 </LightningComponentBundle>

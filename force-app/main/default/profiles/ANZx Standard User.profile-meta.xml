@@ -7971,6 +7971,10 @@
         <recordType>Case.Credit_Referral</recordType>
     </layoutAssignments>
     <layoutAssignments>
+        <layout>Case-Lending Layout</layout>
+        <recordType>Case.Lending</recordType>
+    </layoutAssignments>
+    <layoutAssignments>
         <layout>Case-BPAY Dispute Layout</layout>
         <recordType>Case.BPAY_Dispute</recordType>
     </layoutAssignments>

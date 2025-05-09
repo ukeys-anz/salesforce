@@ -227,5 +227,10 @@
         <ruleEntry>
             <formula>AND(NOT(ISNEW()), RecordType.DeveloperName = &quot;Broker_Enquiry&quot;)</formula>
         </ruleEntry>
+        <ruleEntry>
+            <assignedTo>Lending_Queue</assignedTo>
+            <assignedToType>Queue</assignedToType>
+            <formula>AND( ISNEW(), RecordType.DeveloperName = &quot;Lending&quot;)</formula>
+        </ruleEntry>
     </assignmentRule>
 </AssignmentRules>

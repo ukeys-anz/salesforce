@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
     <classAccesses>
+        <apexClass>AdditionalFundsController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>BOHController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>FinancialAccountController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
@@ -21,11 +29,31 @@
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
+        <apexClass>SOPService</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
         <apexClass>HttpCalloutResponse</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
         <apexClass>Lib_HttpCallout</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>LoanPreferenceController</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistCache</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>PicklistUtil</apexClass>
+        <enabled>true</enabled>
+    </classAccesses>
+    <classAccesses>
+        <apexClass>SOPController</apexClass>
         <enabled>true</enabled>
     </classAccesses>
     <classAccesses>
@@ -36,10 +64,14 @@
         <apexClass>ServiceProvider</apexClass>
         <enabled>true</enabled>
     </classAccesses>
-    <classAccesses>
-        <apexClass>SOPController</apexClass>
+    <customMetadataTypeAccesses>
+        <name>Additional_Fund_Purpose_Mapping__mdt</name>
         <enabled>true</enabled>
-    </classAccesses>
+    </customMetadataTypeAccesses>
+    <customMetadataTypeAccesses>
+        <name>ErrorCode_Message_Mapping__mdt</name>
+        <enabled>true</enabled>
+    </customMetadataTypeAccesses>
     <customMetadataTypeAccesses>
         <name>FinancialAccountUIConfiguration__mdt</name>
         <enabled>true</enabled>
@@ -637,6 +669,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>LoanApplicationFinancial.E_Tag__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>LoanApplicationFinancial.Percentage_Deductible__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
@@ -1417,6 +1454,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Package_Version__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>false</editable>
+        <field>ResidentialLoanApplication.Property_Use__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>

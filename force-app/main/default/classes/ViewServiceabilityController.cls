@@ -96,6 +96,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     Boolean isSubmitted;
     Boolean reassessRequired;
     Decimal totalUmi;
+    Decimal maxBorrowingLimitUmi;
     String lastModified;
     List<Assessment> incomeAssessment = new List<Assessment>();
     List<Assessment> hemExpenses = new List<Assessment>();
@@ -236,6 +237,7 @@ global with sharing class ViewServiceabilityController implements omnistudio.Vlo
     ViewServiceabilityModel apiResponse
   ) {
     result.totalUmi = apiResponse?.totalUMI?.value();
+    result.maxBorrowingLimitUmi = apiResponse?.maxBorrowingLimitUmi?.value();
     result.lastModified = BOHService.getFormatedDate(apiResponse?.createTime);
 
     Set<String> ocvIds = new Set<String>();

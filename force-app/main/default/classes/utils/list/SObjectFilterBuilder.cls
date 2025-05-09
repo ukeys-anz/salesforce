@@ -108,9 +108,6 @@ public class SObjectFilterBuilder {
     SObjectField field,
     Object valueOrCollection
   ) {
-    if (this.oldMap.isEmpty()) {
-      return this;
-    }
     Set<Object> newValues = ListUtil.toSet(valueOrCollection);
     List<Object> output = base.handler.emptyList;
     for (SObject record : this.toList()) {
@@ -119,6 +116,32 @@ public class SObjectFilterBuilder {
         newValues.contains(fieldValue) &&
         this.oldMap.get(record.Id)?.get(field) != fieldValue
       ) {
+        output.add(record);
+      }
+    }
+    base.records = output;
+    return this;
+  }
+
+  /**
+   * @description Filter records with specified field updated from a given value or list/set of values
+   * @param field The field to filter on.
+   * @param valueOrCollection The value(s) to filter for. Can be any `primitive` type, `List`, or `Set`.
+   * @return The updated SObjectFilterBuilder instance.
+   */
+  public SObjectFilterBuilder changedFrom(
+    SObjectField field,
+    Object valueOrCollection
+  ) {
+    List<Object> output = base.handler.emptyList;
+    if (this.oldMap.isEmpty()) {
+      base.records = output;
+      return this;
+    }
+    Set<Object> oldValues = ListUtil.toSet(valueOrCollection);
+    for (SObject record : this.toList()) {
+      Object fieldValue = this.oldMap.get(record.Id)?.get(field);
+      if (oldValues.contains(fieldValue) && record.get(field) != fieldValue) {
         output.add(record);
       }
     }

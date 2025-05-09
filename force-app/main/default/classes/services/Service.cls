@@ -63,19 +63,6 @@ public with sharing virtual class Service {
   }
 
   /**
-   * @param ocvId contains customer id
-   * @param accountNumbers account numbers to filter by
-   * @return `HttpCalloutResponse` api response
-   * @description virtual home loan accounts callout
-   */
-  public virtual HttpCalloutResponse getHomeLoanAccounts(
-    String ocvId,
-    List<String> accountNumbers
-  ) {
-    return null;
-  }
-
-  /**
    * @param redirectURL redirect url in the http request
    * @param code code in the http request
    * @return `HttpCalloutResponse` api response
@@ -693,7 +680,6 @@ public with sharing virtual class Service {
    * @return `HttpCalloutResponse` the api response
    * @description fetches UMI assessments from sop and gearbox api through mule
    */
-  //
   public virtual HttpCalloutResponse getUMIAssessments(
     List<String> sopIds,
     String creditId,
@@ -704,15 +690,6 @@ public with sharing virtual class Service {
     return null;
   }
 
-  /**
-   * @param ocvId ocv id of the customer account
-   * @param sopId sop id to retrieve customer information
-   * @return `HttpCalloutResponse` api response
-   * @description virtual sop list asset callout
-   */
-  public virtual HttpCalloutResponse getSOP(String ocvId, String sopId) {
-    return null;
-  }
   /**
    * @param ocvId ocv Id
    * @param status status

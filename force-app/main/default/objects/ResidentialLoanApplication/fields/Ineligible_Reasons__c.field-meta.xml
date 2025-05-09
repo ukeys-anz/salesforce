@@ -70,6 +70,21 @@
                 <default>false</default>
                 <label>Customer previously exited</label>
             </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_OWNER_OCCUPIED_INCONSISTENT_LIVING_SITUATION</fullName>
+                <default>false</default>
+                <label>Living situation provided for this application is inconsistent</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_OWNER_OCCUPIED_PROPERTY_ADDRESS_DOES_NOT_MATCH_PROFILE_ADDRESS</fullName>
+                <default>false</default>
+                <label>Address on the application does not match the address on the customer profile</label>
+            </value>
+            <value>
+                <fullName>INELIGIBLE_REASON_INVESTMENT_PROPERTY_MATCHES_PRIMARY_RESIDENCE</fullName>
+                <default>false</default>
+                <label>Investment property matches primary residence</label>
+            </value>
         </valueSetDefinition>
     </valueSet>
     <visibleLines>4</visibleLines>

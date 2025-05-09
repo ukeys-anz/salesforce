@@ -6069,6 +6069,11 @@
     </fieldPermissions>
     <fieldPermissions>
         <editable>true</editable>
+        <field>LoanApplicationFinancial.Percentage_Deductible__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
         <field>LoanApplicationFinancial.FinancialExtIdentifier</field>
         <readable>true</readable>
     </fieldPermissions>
@@ -8650,6 +8655,11 @@
     <fieldPermissions>
         <editable>false</editable>
         <field>ResidentialLoanApplication.Originated_By__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
+        <editable>true</editable>
+        <field>ResidentialLoanApplication.Property_Use__c</field>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
