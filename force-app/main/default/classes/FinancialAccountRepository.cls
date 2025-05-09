@@ -4,11 +4,6 @@
  * @description Provides SOQL and DML helpers for HomeLoanController, FinancialAccountController
  */
 public with sharing class FinancialAccountRepository {
-  //Financial Account Role Types To Include for showing owner names on financial account record page
-  private static final Set<String> FINSERV_ROLE_TYPES = new Set<String>{
-    'Additional Owner',
-    'Primary Owner'
-  };
   /**
    * @description return the id(s) of the financial account owners
    * @param financialAccountId financial account record id
@@ -23,7 +18,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__FinancialAccount__c = :financialAccountId
         AND FinServ__Active__c = TRUE
-        AND FinServ__Role__c IN :FINSERV_ROLE_TYPES
+        AND FinServ__Role__c IN :FinancialAccountConstant.anzxFinservRoleTypes
       WITH USER_MODE
     ];
   }
@@ -56,6 +51,7 @@ public with sharing class FinancialAccountRepository {
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
             AND FinServ__Active__c = TRUE
         )
+      WITH USER_MODE
     ];
   }
 
@@ -91,7 +87,10 @@ public with sharing class FinancialAccountRepository {
   public List<FinServ__FinancialAccountRole__c> getHomeLoanAccountByCustomerId(
     Id customerId
   ) {
-    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
+    if (String.isBlank(customerId))
+    {
+      return new List<FinServ__FinancialAccountRole__c>();
+    }
 
     return [
       SELECT
@@ -104,6 +103,7 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.bankAccount
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
         AND FinServ__Active__c = TRUE
+        WITH USER_MODE
     ];
   }
 
@@ -141,6 +141,10 @@ public with sharing class FinancialAccountRepository {
     Id ownerId,
     List<String> allRelatedAccountNumbers
   ) {
+    if(String.isBlank(ownerId) || allRelatedAccountNumbers.isEmpty())
+    {
+      return new List<FinServ__FinancialAccount__c>();
+    }
     return [
       SELECT
         Id,
@@ -191,7 +195,7 @@ public with sharing class FinancialAccountRepository {
         AND Marketing_Code__c IN :marketingCodes
         AND FinServ__Status__c IN ('Active', 'Open')
       WITH USER_MODE
-    ];
+    ] ?? null;
   }
 
   /**
@@ -205,7 +209,7 @@ public with sharing class FinancialAccountRepository {
     Id customerRecordPrimaryOwnerId,
     Set<String> marketingCodes
   ) {
-    if (customerRecordPrimaryOwnerId == null) {
+    if (customerRecordPrimaryOwnerId == null || marketingCodes.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -216,6 +220,7 @@ public with sharing class FinancialAccountRepository {
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
+        AND FinServ__Role__c IN :FinancialAccountConstant.anzxFinservRoleTypes
       WITH USER_MODE
     ];
   }
@@ -231,7 +236,7 @@ public with sharing class FinancialAccountRepository {
     Id customerRecordPrimaryOwnerId,
     Set<String> marketingCodes
   ) {
-    if (customerRecordPrimaryOwnerId == null) {
+    if (customerRecordPrimaryOwnerId == null || marketingCodes.isEmpty()) {
       return new List<FinServ__FinancialAccountRole__c>();
     }
 
@@ -243,6 +248,7 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.savingAccount
+        AND FinServ__Role__c IN :FinancialAccountConstant.anzxFinservRoleTypes
       WITH USER_MODE
     ];
   }
