@@ -38,6 +38,10 @@ public with sharing class CommercialLeadTriggerHandler extends Lib_TriggerHandle
    * @param oldMap
    */
   public override void onBeforeUpdate(Map<Id, SObject> oldMap) {
+    CommercialLeadActions.setSkipValidationOnOwnerChange(
+      (List<Lead>) records,
+      (Map<Id, Lead>) oldMap
+    );
     CommercialLeadActions.restrictImagesInRichTextFields(
       (List<Lead>) records,
       (Map<Id, Lead>) oldMap

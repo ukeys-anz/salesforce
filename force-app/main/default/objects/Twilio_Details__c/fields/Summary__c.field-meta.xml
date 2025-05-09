@@ -2,7 +2,7 @@
 <CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
     <fullName>Summary__c</fullName>
     <businessStatus>Active</businessStatus>
-    <complianceGroup>Integrity - Accurate;Privacy - Personal Information;Source - Twilio</complianceGroup>
+    <complianceGroup>Integrity - Trusted;Privacy - Personal Information;Source - Twilio</complianceGroup>
     <description>AI generated Summary from Twilio</description>
     <encryptionScheme>ProbabilisticEncryption</encryptionScheme>
     <label>Summary</label>

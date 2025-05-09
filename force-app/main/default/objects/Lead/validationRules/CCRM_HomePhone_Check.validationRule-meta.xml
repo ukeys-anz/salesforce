@@ -8,7 +8,25 @@
 NOT(CONTAINS( $User.Username,$Label.UnicaIntegrationUserName)),
 NOT(CONTAINS( $User.Username,$Label.AdobeIntegrationUserName)),
     OR(
-        AND(RecordType.DeveloperName = &apos;CCRM_Lead&apos;,Text(Status) != &apos;Outcome&apos;,Text(Lead_Outcome__c) != &apos;Expired&apos;),
+        AND(
+            RecordType.DeveloperName = &apos;CCRM_Lead&apos;,
+            NOT(
+                AND(
+                    Text(Status) = &apos;Outcome&apos;,
+                    Text(Lead_Outcome__c) = &apos;Expired&apos;
+                )
+            ),
+            NOT(ISCHANGED(Skip_Validations__c)),
+            NOT(
+                AND(
+                    ISCHANGED(Skip_Validations__c),
+                    OR(
+                        Skip_Validations__c = &apos;SkipValidation&apos;,
+                        Skip_Validations__c = &apos;Validate&apos;
+                    )
+                )
+            )
+        ),
         AND(RecordType.DeveloperName = &apos;MLCRM_Lead&apos;,Text(Status) != &apos;Expired&apos;, OR(ISNEW(),ISCHANGED(Home_Phone__c)))
     ),
     NOT ISBLANK(  Home_Phone__c  ) ,
