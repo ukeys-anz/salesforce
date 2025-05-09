@@ -12,7 +12,7 @@ const ACTIVE_TAB = "slds-tabs_scoped__item slds-is-active";
 export default class InteractionRelatedList extends NavigationMixin(
   LightningElement
 ) {
-  showAppointmentTab = false;
+  showAppointmentTab = true;
   showInteractionTab = false;
   showChatTab = false;
   appointmentTab = ACTIVE_TAB;
@@ -36,10 +36,8 @@ export default class InteractionRelatedList extends NavigationMixin(
   showAppointmentRecords = false;
   interactionTabTitle = "Messages";
   _showActiveMsgInteraction;
-  allTab = NORMAL_TAB;
-  showAllTab = false;
-  allRecord = "General,Message,Store";
 
+  @api showAll;
   @api recordId;
   @api showAppTab;
   @api showIntTab;
@@ -58,7 +56,6 @@ export default class InteractionRelatedList extends NavigationMixin(
   set showActiveMsgInteraction(value) {
     this._showActiveMsgInteraction = value;
   }
-  @api showAll;
 
   // This method will help in showing the list of appointments under appointment tab
   handleShowAppointmentTab() {
@@ -74,8 +71,6 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.messageTab = NORMAL_TAB;
     this.callTab = NORMAL_TAB;
     this.storeTab = NORMAL_TAB;
-    this.allTab = NORMAL_TAB;
-    this.showAllTab = false;
   }
 
   // This method will help in showing the list of Message interactions under Message tab
@@ -92,8 +87,6 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.messageTab = ACTIVE_TAB;
     this.callTab = NORMAL_TAB;
     this.storeTab = NORMAL_TAB;
-    this.allTab = NORMAL_TAB;
-    this.showAllTab = false;
   }
 
   // This method will help in showing the list of Call interactions under Call tab
@@ -110,8 +103,6 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.messageTab = NORMAL_TAB;
     this.callTab = ACTIVE_TAB;
     this.storeTab = NORMAL_TAB;
-    this.allTab = NORMAL_TAB;
-    this.showAllTab = false;
   }
 
   // This method will help in showing the list of In Person interactions under In Person tab
@@ -128,49 +119,29 @@ export default class InteractionRelatedList extends NavigationMixin(
     this.messageTab = NORMAL_TAB;
     this.callTab = NORMAL_TAB;
     this.storeTab = ACTIVE_TAB;
-    this.allTab = NORMAL_TAB;
-    this.showAllTab = false;
-  }
-
-  // This method will help in showing the list of Call, In Person, Message interactions under All tab
-  handleShowAllTab() {
-    this.showAppointmentTab = false;
-    this.showInteractionTab = false;
-    this.showChatTab = false;
-    this.appointmentTab = NORMAL_TAB;
-    this.interactionTab = NORMAL_TAB;
-    this.chatTab = NORMAL_TAB;
-    this.showMessageTab = false;
-    this.showCallTab = false;
-    this.showStoreTab = false;
-    this.messageTab = NORMAL_TAB;
-    this.callTab = NORMAL_TAB;
-    this.storeTab = NORMAL_TAB;
-    this.allTab = ACTIVE_TAB;
-    this.showAllTab = true;
   }
 
   // this method help in making the default tab on pageload
   connectedCallback() {
-    if (this.showAll) {
-      this.handleShowAllTab();
+    if (!this.showAppTab) {
+      this.handleShowMessageTab();
+    } else {
+      this.handleShowAppointmentTab();
     }
+
     getSObjectType({
       sId: this.recordId
     }).then((result) => {
       if (result != null) {
         this.sObjectType = result;
-        if (result === "Account" && this.showAll) {
-          this.handleShowAllTab();
-        }
-        if (result === "Account" && !this.showAll) {
+        if (result === "Account") {
           this.handleShowMessageTab();
         }
         if (result === "Coaching_Summary__c") {
-          this.handleShowAllTab();
+          this.handleShowMessageTab();
         }
         if (result === "ResidentialLoanApplication") {
-          this.handleShowAllTab();
+          this.handleShowMessageTab();
         }
       }
     });

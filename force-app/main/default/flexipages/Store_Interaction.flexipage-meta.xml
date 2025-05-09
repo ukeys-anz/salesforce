@@ -182,27 +182,6 @@
         <itemInstances>
             <componentInstance>
                 <componentInstanceProperties>
-                    <name>maxCategoriesToShow</name>
-                    <value>3</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>maxTagsPerCategory</name>
-                    <value>5</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>showSearch</name>
-                    <value>true</value>
-                </componentInstanceProperties>
-                <componentInstanceProperties>
-                    <name>title</name>
-                </componentInstanceProperties>
-                <componentName>runtime_industries_interesttagging:interestTags</componentName>
-                <identifier>runtime_industries_interesttagging_interestTags</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
                     <name>tabs</name>
                     <value>Facet-50098e15-311a-4f1a-8540-635811171c9f</value>
                 </componentInstanceProperties>
@@ -274,20 +253,6 @@
                 </componentInstanceProperties>
                 <componentName>runtime_sales_activities:activityPanel</componentName>
                 <identifier>runtime_sales_activities_activityPanel</identifier>
-            </componentInstance>
-        </itemInstances>
-        <itemInstances>
-            <componentInstance>
-                <componentInstanceProperties>
-                    <name>timelineConfigs</name>
-                    <valueList>
-                        <valueListItems>
-                            <value>Interaction_Timeline_on_Interaction</value>
-                        </valueListItems>
-                    </valueList>
-                </componentInstanceProperties>
-                <componentName>industries_common:timeline</componentName>
-                <identifier>industries_common_timeline</identifier>
             </componentInstance>
         </itemInstances>
         <name>sidebar</name>

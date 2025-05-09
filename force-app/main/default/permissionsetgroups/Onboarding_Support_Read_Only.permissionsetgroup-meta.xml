@@ -17,7 +17,6 @@
     <permissionSets>force__FinancialServicesCloudExtension</permissionSets>
     <permissionSets>force__Mortgage</permissionSets>
     <permissionSets>Interaction_Read_Only</permissionSets>
-    <permissionSets>Interest_Tag_Read_Only</permissionSets>
     <permissionSets>Knowledge_User</permissionSets>
     <permissionSets>Store_Interaction_Read_Only</permissionSets>
     <permissionSets>UUID_Log_Entry_Read_Write</permissionSets>
