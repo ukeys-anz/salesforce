@@ -5,37 +5,35 @@
  */
 @RestResource(urlMapping='/InteractionContextRequestUpdates/*')
 global with sharing class InteractionContextServiceUpdate {
+  private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
+    DmlRepository.class
+  );
   /**
    * @description HTTP POST method passing incoming Twilio context in to Salesforce.
    * @param contextRequest twilio context request
    */
   @HttpPost
   global static void doPost(UpdateInteractionByTwilioPayload contextRequest) {
-    List<UpdateInteractionByTwilioPayload> contextRequests = new List<UpdateInteractionByTwilioPayload>{
-      contextRequest
-    };
-    Integer finalStatus = 200;
-    List<TwilioContextResponse> twilioResponse = new List<TwilioContextResponse>();
     try {
       //Twilio Detail Record inserted by Twilio
-      twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
-        contextRequests
+      TwilioContextResponse twilioResponse = TwilioServiceUtil.upsertTwilioDetailsRecord(
+        contextRequest
       );
       //Interaction attendee addition logic for conference scenario
-      List<InteractionAttendee> conferenceAttendeeList = InteractionAttendeeActions.insertTwilioConferenceAttendee(
-        contextRequests[0],
-        TwilioServiceUtil.agentOwnerIdMap
+      InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
+        contextRequest
       );
+      if(conferenceAttendee != null){
+        DML_REPOSITORY.doInsert(conferenceAttendee, new DMLConfig().systemMode());
+      }
+      
+      String jsonRes = JSON.serialize(twilioResponse);
+      RestContext.response.addHeader('Content-Type', 'application/json');
+      RestContext.response.responseBody = Blob.valueOf(jsonRes);
+      RestContext.response.statusCode = twilioResponse.statusCode;
 
-      DMLUtil.insertRecords(conferenceAttendeeList, false, false);
-    } catch (Exception e) {
-      Logger.error('Error upserting Twilio Details and Interaction', e);
-      Logger.saveLog();
-      throw e;
+    } catch (Exception objectException) {
+      throw CommonUtil.logExceptionWithMessage('Interaction Context Update Failed ',objectException);
     }
-    String jsonRes = JSON.serialize(twilioResponse.get(0));
-    RestContext.response.addHeader('Content-Type', 'application/json');
-    RestContext.response.responseBody = Blob.valueOf(jsonRes);
-    RestContext.response.statusCode = finalStatus;
   }
 }
