@@ -30,4 +30,12 @@ global class InteractionContextResponse {
    * @description Label for chat to display
    */
   public String chatLabel { get; set; }
+  /**
+   * @description salesforce task id
+   */
+  public String taskId { get; set; }
+   /**
+   * @description salesforce whatId
+   */
+  public String relatedRecordId { get; set; }
 }

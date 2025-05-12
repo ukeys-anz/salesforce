@@ -5,15 +5,15 @@
  */
 public with sharing class InteractionRepository {
   /**
-   * @description query existing Interaction Record
-   * @param callOrChatSidList Set<String> containing callOrChatSid from Interaction
+   * @description query existing Interaction Record based on callOrChatSid from Twilio
+   * @param callOrChatSid String containing callOrChatSid from Twilio
    * @return Map<String, Interaction> Map of chatOrCallSID and Interaction record
    */
   public Map<String, Interaction> queryExistingInteractionFromCallOrChatSID(
-    Set<String> callOrChatSidList
+    String callOrChatSid
   ) {
     Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
-    if (callOrChatSidList.isEmpty()) {
+    if (String.isBlank(callOrChatSid)) {
       return existingInteractionsBySID;
     }
 
@@ -26,9 +26,9 @@ public with sharing class InteractionRepository {
         Chat_or_Call_SID_Formula__c
       FROM Interaction
       WHERE
-        Chat_or_Call_SID__c IN :callOrChatSidList
-        OR Chat_or_Call_SID_Formula__c IN :callOrChatSidList
-      WITH SECURITY_ENFORCED
+        Chat_or_Call_SID__c = :callOrChatSid
+        OR Chat_or_Call_SID_Formula__c = :callOrChatSid
+      WITH USER_MODE
     ]) {
       String chatOrCallSid = interact.Chat_or_Call_SID__c ??
         interact.Chat_or_Call_SID_Formula__c;
@@ -51,24 +51,27 @@ public with sharing class InteractionRepository {
       SELECT TwilioDetailsID__c
       FROM Interaction
       WHERE Id = :interactionId
-      WITH SECURITY_ENFORCED
+      WITH USER_MODE
     ];
   }
 
   /**
    * @description query User based on agentEmail
-   * @param agentEmail agentEmail from Twilio
-   * @return List of User
+   * @param agentEmail agentEmail from Twilio 
+   * @return User record
    */
-  public List<User> fetchAgentUserId(String agentEmail) {
-    if (String.isBlank(agentEmail) || SObjectType.User.isQueryable() == false) {
-      return new List<User>();
+  public User fetchAgentUserId(
+    String agentEmail
+  ) {
+    if (String.isBlank(agentEmail)) {
+      return null;
     }
 
     return [
       SELECT Id, FederationIdentifier
       FROM User
       WHERE FederationIdentifier = :agentEmail AND IsActive = TRUE
+      WITH USER_MODE
     ];
   }
 
@@ -108,5 +111,71 @@ public with sharing class InteractionRepository {
           .getId('PersonAccount')
         AND ANZx_Customer__c = TRUE
     ];
+  }
+  
+  /**
+   * @description query Interaction Status Mapping for Twilio
+   * @param type value to query
+   * @return List<InteractionStatusMappingForTwilio__mdt> record
+   */
+  public List<InteractionStatusMappingForTwilio__mdt> fetchTwilioStatusMapping( String type
+  ) {
+    return [
+      SELECT Type__c, Interaction_Status__c, Twilio_Status__c
+      FROM InteractionStatusMappingForTwilio__mdt
+      WHERE Type__c = :type
+      ];
+  }
+
+  /**
+   * @description query Existing Account Record based on the ocvId received
+   * @param ocvIdFromTwilio ocvid received from Twilio
+   * @return Account record existing
+   */
+  public List<Account> fetchExistingAccountByOCVId( String ocvIdFromTwilio
+  ) {
+    if (String.isBlank(ocvIdFromTwilio)) {
+      return new List<Account>();
+    }
+    return [
+      SELECT Id, OCV_ID__c, PPID__c
+      FROM Account
+      WHERE OCV_ID__c = :ocvIdFromTwilio AND ANZx_Customer__c = TRUE
+      WITH USER_MODE
+      LIMIT 1
+      ];
+  }
+
+  
+  /**
+   * @description query Interaction Details created successfully
+   * @param interactionId recordId of the Interaction
+   * @return Interaction record details
+   */
+  public Interaction getInteractionDetails( Id interactionId
+  ) {
+    if (String.isBlank(interactionId)) {
+      return null;
+    }
+    return [
+      SELECT Id, Interaction_External_Id__c,TwilioDetailsID__c, CaseId__c
+      FROM Interaction
+      WHERE Id = :interactionId
+      WITH USER_MODE
+      ];
+  }
+
+  /**
+   * @description Fetch task details for sending back to Twilio as response
+   * @param pubSubEventId pubSubEventId received from Twilio
+   * @return Task record details
+   */
+  public List<Task> queryPushToAppTaskDetails(String pubSubEventId)
+  {
+    return [SELECT Id , Pub_Sub_Event_Id__c,
+    WhatId
+    FROM Task
+    WHERE Pub_Sub_Event_Id__c =: pubSubEventId
+    WITH USER_MODE];
   }
 }

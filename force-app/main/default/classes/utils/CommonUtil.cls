@@ -303,6 +303,19 @@ public with sharing class CommonUtil {
     return ex;
   }
 
+    /**
+   * @description Logs and return the given exception.
+   * Useful for re-throw from caller.
+   * @param message meaningful message from the caller
+   * @param ex The exception to be logged.
+   * @return The logged exception.
+   */
+  public static Exception logExceptionWithMessage(String message , Exception ex) {
+    Logger.error(message + ' ' +ex.getMessage(), ex);
+    Logger.saveLog();
+    return ex;
+  }
+
   /**
    * @description Logs and return the given exception.
    * Useful for re-throw from caller.

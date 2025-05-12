@@ -1,0 +1,52 @@
+{
+  "data": {
+    "pushToAppList": {
+      "items": [
+        {
+          "bodyText": "Testing 1234 We called about your Case Reference {!CaseNumber} and couldn't reach you. Please call us back or send us a message",
+          "expireAfterDays": 12,
+          "expiryDate": "2027-19-09",
+          "id": "get_in_touch_complaint",
+          "reference": "Complaint Ref {!CaseNumber}",
+          "iconLightURI": "path/to/light/icon",
+          "iconDarkURI": "path/to/dark/icon",
+          "steps": [
+            {
+              "actions": [
+                {
+                  "deepLink": "anz.com/.../transfer",
+                  "description": "Transfer Funds Out",
+                  "iconLightURI": "path/to/light/icon",
+                  "iconDarkURI": "path/to/dark/icon",
+                  "type": "singleAction"
+                },
+                {
+                  "deepLink": "anz.com/.../transfer",
+                  "description": "Call Us",
+                  "iconLightURI": "path/to/light/icon",
+                  "iconDarkURI": "path/to/dark/icon",
+                  "type": "singleAction"
+                }
+              ],
+              "title": "Step1"
+            },
+            {
+              "actions": [
+                {
+                  "deepLink": "anz.com/.../message",
+                  "description": "Message us",
+                  "iconLightURI": "path/to/light/icon",
+                  "iconDarkURI": "path/to/dark/icon",
+                  "type": "singleAction"
+                }
+              ],
+              "title": "Step 2"
+            }
+          ],
+          "subtitle": "Hey {!Account.FirstName}",
+          "title": "Get in touch"
+        }
+      ]
+    }
+  }
+}
