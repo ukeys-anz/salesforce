@@ -7,7 +7,7 @@
 @SuppressWarnings('PMD.CyclomaticComplexity')
 public with sharing class CCRMOpportunityActions {
   public static final String CLOSE_DATE_FIELD_NAME = 'CloseDate';
-  public static final String INVALID_CLOSE_DATE_ERROR = 'Please select a Closing Date (i.e. expected settlement date)';
+  public static final String INVALID_CLOSE_DATE_ERROR = 'Please Log Close Date: Click on the "Log Close Date" button and enter a Closing date (i.e. expected settlement date)';
   public static final String ACCOUNT_ID_FIELD_NAME = 'AccountId';
   public static final String LEAD_PROCESS_FOR_PROSPECT_ERROR = 'Error Message - Lead process to be followed for prospect opportunity creation';
   public static final String RECIPROCAL_ROLE_FOR_CLG = 'CG';
@@ -163,7 +163,7 @@ public with sharing class CCRMOpportunityActions {
         oldOppCloseDate == opp.CloseDate &&
         opp.recordTypeId != strRecordTypeId
       ) {
-        opp.addError(CLOSE_DATE_FIELD_NAME, INVALID_CLOSE_DATE_ERROR);
+        opp.addError(INVALID_CLOSE_DATE_ERROR);
       } else if (oldOppCloseDate != opp.CloseDate) {
         opp.Has_Close_Date_Changed__c = true;
       }

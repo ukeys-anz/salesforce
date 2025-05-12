@@ -2668,7 +2668,8 @@
         "Actual_Topic_Formula__c",
         "Reason_for_Visit_Formula__c"
       ],
-      "IA-2423227": ["COI_Member__c"]
+      "IA-2423227": ["COI_Member__c"],
+      "IA-2415983":["Interaction_Type__c"]
     },
     "Interaction_Tag__c": {
       "IA-2415840": ["Name", "Type__c", "Sub_Type__c", "Tag__c"],
@@ -4420,7 +4421,8 @@
         "LastModifiedById",
         "LastModifiedDate"
       ],
-      "IA-2594109": ["Call_Transcript__c"]
+      "IA-2594109": ["Call_Transcript__c"],
+      "IA-2646045": ["Summary__c"]
     },
     "Title_Detail__c": {
       "IA-2415983": ["Title_Reference__c", "State__c", "Estate_Type__c"],

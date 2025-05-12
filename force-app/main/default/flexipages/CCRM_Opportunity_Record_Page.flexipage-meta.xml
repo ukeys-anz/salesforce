@@ -447,6 +447,16 @@
                 <identifier>RecordCircle_Of_Influence_cField</identifier>
             </fieldInstance>
         </itemInstances>
+        <itemInstances>
+            <fieldInstance>
+                <fieldInstanceProperties>
+                    <name>uiBehavior</name>
+                    <value>readonly</value>
+                </fieldInstanceProperties>
+                <fieldItem>Record.OwnerId</fieldItem>
+                <identifier>RecordOwnerIdField2</identifier>
+            </fieldInstance>
+        </itemInstances>
         <name>Facet-21c6b061-2704-4690-9044-61bb42372b00</name>
         <type>Facet</type>
     </flexiPageRegions>

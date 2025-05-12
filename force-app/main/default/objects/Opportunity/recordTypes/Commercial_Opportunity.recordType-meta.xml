@@ -106,6 +106,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Other</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Purchasing Property</fullName>
             <default>false</default>
         </values>
@@ -243,6 +247,10 @@
         </values>
         <values>
             <fullName>Construction and Renovation</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Other</fullName>
             <default>false</default>
         </values>
         <values>

@@ -6,7 +6,7 @@
     <description>The term of the loan</description>
     <encryptionScheme>CaseInsensitiveDeterministicEncryption</encryptionScheme>
     <externalId>false</externalId>
-    <label>Term</label>
+    <label>Term (Months)</label>
     <length>255</length>
     <required>false</required>
     <securityClassification>Confidential</securityClassification>

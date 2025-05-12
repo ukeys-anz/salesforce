@@ -506,4 +506,9 @@
         <default>false</default>
         <label>Card Scheme Disputes</label>
     </standardValue>
+    <standardValue>
+        <fullName>Goodwill Gesture Payment</fullName>
+        <default>false</default>
+        <label>Goodwill Gesture Payment</label>
+    </standardValue>
 </StandardValueSet>

@@ -102,6 +102,12 @@ public class CommercialOpportunityActionsTest {
     List<Opportunity> records = new List<Opportunity>{
       new Opportunity(Id = oppId, AccountId = relatedAccountId)
     };
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      relatedAccountId => new Account(
+        Id = relatedAccountId,
+        RecordTypeId = RTAccount.businessAccount
+      )
+    };
     Map<Id, FinServ__AccountAccountRelation__c> accountToAARMap = new Map<Id, FinServ__AccountAccountRelation__c>{
       relatedAccountId => new FinServ__AccountAccountRelation__c(
         Id = Lib_FakeIdGenerator.getMockId(
@@ -115,7 +121,11 @@ public class CommercialOpportunityActionsTest {
 
     //WHEN calling a method
     Test.startTest();
-    CommercialOpportunityActions.populateCLGAccount(records, accountToAARMap);
+    CommercialOpportunityActions.populateCLGAccount(
+      records,
+      accMap,
+      accountToAARMap
+    );
     Test.stopTest();
 
     //THEN it should update CLG on Opp
@@ -142,6 +152,12 @@ public class CommercialOpportunityActionsTest {
       oppId => new Opportunity(Id = oppId, AccountId = relatedAccountIdOld)
     };
 
+    Map<Id, Account> accMap = new Map<Id, Account>{
+      relatedAccountIdNew => new Account(
+        Id = relatedAccountIdNew,
+        RecordTypeId = RTAccount.businessAccount
+      )
+    };
     List<FinServ__AccountAccountRelation__c> accountAccountRelationList = new List<FinServ__AccountAccountRelation__c>{
       new FinServ__AccountAccountRelation__c(
         Id = Lib_FakeIdGenerator.getMockId(
@@ -152,6 +168,7 @@ public class CommercialOpportunityActionsTest {
         FinServ__RelatedAccount__r = new Account(CLG__c = '1234')
       )
     };
+    oppRepoMock.mock('getAccountMap', accMap);
     oppRepoMock.mock('getAccountAccountRelations', accountAccountRelationList);
 
     //WHEN calling a method

@@ -19,7 +19,6 @@ public with sharing class ContactPointPhoneActions {
   private static final String CONTACT_ADMIN_ERROR = 'You do not have the level of access necessary to perform the operation you requested. Please contact the owner of the record or your administrator if access is necessary.';
   private static final String USAGE_TYPE_PRIMARY_BUSINESS_TELEPHONE = 'Primary Business Telephone';
   private static final String USAGE_TYPE_PRIMARY_HOME_TELEPHONE = 'Primary Home Telephone';
-  private static final String PROFILE_ML_USER = 'ANZ ML Standard User';
   private static final String USAGE_TYPE_MOBILE_TELEPHONE = 'Mobile Telephone';
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class

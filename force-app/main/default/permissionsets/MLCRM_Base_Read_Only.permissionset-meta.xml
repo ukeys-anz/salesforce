@@ -2882,6 +2882,11 @@ CC-6187 - read only to fields for ML Field Team users</description>
         <readable>true</readable>
     </fieldPermissions>
     <fieldPermissions>
+        <editable>false</editable>
+        <field>Opportunity.Opportunity_Owner__c</field>
+        <readable>true</readable>
+    </fieldPermissions>
+    <fieldPermissions>
         <editable>true</editable>
         <field>OpportunityLineItem.Application_Number__c</field>
         <readable>true</readable>

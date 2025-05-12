@@ -37,6 +37,7 @@ export default class InteractionRelatedList extends NavigationMixin(
   interactionTabTitle = "Messages";
   _showActiveMsgInteraction;
 
+  @api showAll;
   @api recordId;
   @api showAppTab;
   @api showIntTab;

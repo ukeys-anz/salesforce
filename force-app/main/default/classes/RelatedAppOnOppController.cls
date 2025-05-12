@@ -133,6 +133,12 @@ public with sharing class RelatedAppOnOppController {
     public String referenceNumber { get; set; }
 
     /**
+     * @description appAmount Field
+     **/
+    @AuraEnabled
+    public Decimal productAmount { get; set; }
+
+    /**
      * @description Constructor for ApplicationFormProductWrapper
      * @param product ApplicationFormProduct
      **/
@@ -145,6 +151,7 @@ public with sharing class RelatedAppOnOppController {
       this.productUrl = '/lightning/r/Product/' + product.ProductId + '/view';
       this.closeDate = product.Close_Date__c;
       this.referenceNumber = product.Reference_Number__c;
+      this.productAmount = product.Amount__c;
       this.nameUrl =
         '/lightning/r/ApplicationFormProduct/' +
         product.Id +
