@@ -179,12 +179,12 @@ public with sharing class PushToAppController {
   /**
    * @description This method is used to create Notification Data Instance
    * @param customerTaskData Notification Data Wrapper instance having values from UI
-   * @param recordId Customer_Task_Data__c record Id
+   * @param customerTaskDatarecordId Customer_Task_Data__c record Id
    * @return List<Customer_Action__c>
    */
   private static List<Customer_Action__c> prepareCustomerActions(
     CustomerActionWrapper customerTaskData,
-    Id recordId
+    Id customerTaskDatarecordId
   ) {
     List<Customer_Action__c> actionsToInsert = new List<Customer_Action__c>();
     for (CustomerActionWrapper.Step step : customerTaskData.steps) {
@@ -192,9 +192,8 @@ public with sharing class PushToAppController {
         for (CustomerActionWrapper.Action action : step.actions) {
           Customer_Action__c customerActionRecord = new Customer_Action__c();
           customerActionRecord.RecordTypeId = RTCustomerAction.customerNotificationAction;
-          customerActionRecord.Status__c = CustomerActionConstants.STATUS_UNSPECIFIED;
           customerActionRecord.Action_Name__c = action.description;
-          customerActionRecord.Customer_Task_Data__c = recordId;
+          customerActionRecord.Customer_Task_Data__c = customerTaskDatarecordId;
           customerActionRecord.Action_UUID__c = CommonUtil.generateUUID();
           actionsToInsert.add(customerActionRecord);
         }
