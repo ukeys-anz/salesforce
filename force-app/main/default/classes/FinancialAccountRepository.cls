@@ -51,6 +51,7 @@ public with sharing class FinancialAccountRepository {
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
             AND FinServ__Active__c = TRUE
         )
+      WITH USER_MODE
     ];
   }
 
