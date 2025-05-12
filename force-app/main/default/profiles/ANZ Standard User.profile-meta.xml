@@ -1786,6 +1786,10 @@
     <layoutAssignments>
         <layout>User_Provisioning_Setting__mdt-User Provisioning Setting Layout</layout>
     </layoutAssignments>
+    <layoutAssignments>
+        <layout>Task-Customer Nudge Layout</layout>
+        <recordType>Task.Customer_Nudge</recordType>
+    </layoutAssignments>
     <objectPermissions>
         <allowCreate>false</allowCreate>
         <allowDelete>false</allowDelete>
@@ -2360,6 +2364,11 @@
         <default>false</default>
         <recordType>Product2.ANZ_Product_or_Service</recordType>
         <visible>false</visible>
+    </recordTypeVisibilities>
+    <recordTypeVisibilities>
+        <default>true</default>
+        <recordType>Task.Callback_Request</recordType>
+        <visible>true</visible>
     </recordTypeVisibilities>
     <tabVisibilities>
         <tab>FinServ__Alert__c</tab>

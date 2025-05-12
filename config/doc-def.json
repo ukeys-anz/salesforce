@@ -46,6 +46,8 @@
     "Customer_Profile_Update_Event__e",
     "Customer_Relationship__c",
     "Customer_Dispute_Management__c",
+    "Customer_Task_Configuration__c",
+    "Customer_Task_Data__c",
     "Drawdown_Transaction__c",
     "Drawdown__c",
     "EConveyancing_Workspace__c",

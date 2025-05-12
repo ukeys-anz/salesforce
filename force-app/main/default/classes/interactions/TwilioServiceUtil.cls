@@ -4,8 +4,7 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
-  public static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
-  public static Map<String, Id> agentOwnerIdMap = new Map<String, Id>();
+  private static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
@@ -15,11 +14,9 @@ public with sharing class TwilioServiceUtil {
 
   static {
     //Fetch Status Mapping for Twilio and Interaction
-    List<InteractionStatusMappingForTwilio__mdt> statusMap = [
-      SELECT Type__c, Interaction_Status__c, Twilio_Status__c
-      FROM InteractionStatusMappingForTwilio__mdt
-      WHERE Type__c = 'Chat'
-    ];
+    List<InteractionStatusMappingForTwilio__mdt> statusMap = INTERACTION_REPOSITORY.fetchTwilioStatusMapping(
+      InteractionConstants.CHAT
+    );
     for (InteractionStatusMappingForTwilio__mdt status : statusMap) {
       interactionTwilioStatusMap.put(
         status.Twilio_Status__c,
@@ -32,34 +29,26 @@ public with sharing class TwilioServiceUtil {
    * @param twilioContextRequest Twilio Context Request
    * @return TwilioContextResponse to send the response back to Twilio
    */
-  public static List<TwilioContextResponse> upsertTwilioDetailsRecord(
-    List<UpdateInteractionByTwilioPayload> twilioContextRequest
+  public static TwilioContextResponse upsertTwilioDetailsRecord(
+    UpdateInteractionByTwilioPayload twilioContextRequest
   ) {
-    
-    //there will be always a single Twilio Context payload present in the list 
-    UpdateInteractionByTwilioPayload twilioContextRequestForUpdate = twilioContextRequest.get(
-      0
+    Twilio_Details__c twilioDetailRecord = buildTwilioDetails(
+      twilioContextRequest
     );
 
-    Twilio_Details__c twilioDetailRecord = buildTwilioDetails(
-      twilioContextRequestForUpdate
-    );
-    List<TwilioContextResponse> responseList = new List<TwilioContextResponse>();
     //create Twilio Details upsert list based on from which context it is called
-    try{
+    try {
       Database.UpsertResult upsertResult = DML_REPOSITORY.doUpsert(
         twilioDetailRecord
       );
       Interaction interactionToBeUpdated = createInteractionDetailInstance(
-        twilioContextRequestForUpdate,
+        twilioContextRequest,
         upsertResult
       );
-      responseList.add(updateInteraction(interactionToBeUpdated));
-      return responseList;
-    }
-    catch(Exception objException){
-      responseList.add(generateErrorResponse(objException.getMessage()));
-      return responseList;
+      DML_REPOSITORY.doUpdate(interactionToBeUpdated);
+      return generateResponse();
+    } catch (Exception objException) {
+      return generateErrorResponse(objException.getMessage());
     }
   }
 
@@ -69,7 +58,7 @@ public with sharing class TwilioServiceUtil {
     Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
     Interaction interactionWithTwilioId = INTERACTION_REPOSITORY.fetchTwilioDetailIdFromInteraction(
       twilioContextRequestForUpdate.interactionId
-    ); 
+    );
     twilioDetailRecord.Id = interactionWithTwilioId?.TwilioDetailsID__c;
 
     if (String.isNotBlank(twilioContextRequestForUpdate.twilioId)) {
@@ -86,13 +75,6 @@ public with sharing class TwilioServiceUtil {
     }
     if (String.isNotBlank(twilioContextRequestForUpdate.nlpTopic)) {
       twilioDetailRecord.NLP_Topic__c = twilioContextRequestForUpdate.nlpTopic;
-    }
-    if(String.isNotBlank(twilioContextRequestForUpdate.agentEmail)){
-      for (User userFromDB : INTERACTION_REPOSITORY.fetchAgentUserId(
-        twilioContextRequestForUpdate.agentEmail)
-        ){
-        agentOwnerIdMap.put(userFromDB.FederationIdentifier.toLowerCase(), userFromDB.Id);
-      }
     }
 
     return twilioDetailRecord;
@@ -123,30 +105,15 @@ public with sharing class TwilioServiceUtil {
   }
 
   /**
-   * @description Method to generate a response instance
-   * @param statusFromTwilio error message for twilio response
-   * @return It will return the string of status
+   * @description Method to get status value of the twilio
+   * @param statusFromTwilio status value from Twilio on update
+   * @return It will return the salesforce valid status value based on mapping
    */
   public static String getStatus(String statusFromTwilio) {
-    return (String.isNotEmpty(statusFromTwilio) &&
-      !interactionTwilioStatusMap.isEmpty() &&
-      interactionTwilioStatusMap.containsKey(statusFromTwilio.toLowerCase()))
+    return (String.isNotBlank(statusFromTwilio) &&
+      interactionTwilioStatusMap?.containsKey(statusFromTwilio.toLowerCase()))
       ? interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
       : statusFromTwilio;
-  }
-
-  /**
-   * @description Method to generate a response instance for interaction update.
-   * @param interactionToBeUpdated Interaction to be updated
-   * @return It will return the response list.
-   */
-  private static TwilioContextResponse updateInteraction(
-    Interaction interactionToBeUpdated
-  ) {
-      DML_REPOSITORY.doUpdate(
-        interactionToBeUpdated
-      );
-      return generateResponse();
   }
 
   /**
@@ -159,31 +126,24 @@ public with sharing class TwilioServiceUtil {
   ) {
     List<Twilio_Details__c> twilioDetailsToBeInserted = new List<Twilio_Details__c>();
     List<Interaction> interactionListForTwilioDetailsCreation = new List<Interaction>();
-    //Set of Interaction RecordTypeIds for Call and Chat
-    Set<Id> callMessageRecTypeIdsSet = new Set<Id>{
-      GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-      GetHelpConstants.INTERACTION_MESSAGE_RT_ID
-    };
 
     for (Interaction newInteraction : interactionsList) {
-      if (callMessageRecTypeIdsSet.contains(newInteraction.RecordTypeId)) {
+      if (
+        InteractionConstants.callMessageRecTypeIdsSet.contains(
+          newInteraction.RecordTypeId
+        )
+      ) {
         interactionListForTwilioDetailsCreation.add(newInteraction);
         Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
         twilioDetailsToBeInserted.add(twilioDetailRecord);
       }
     }
-    //Insert Twilio Details
-    List<Database.SaveResult> twilioInsertResult = DMLUtil.insertRecords(
-      twilioDetailsToBeInserted,
-      false,
-      false
-    );
 
-    Logger.error(
-      'Error in Creating Twilio Details On Trigger Event',
-      twilioInsertResult
+    //Insert Twilio Details
+    List<Database.SaveResult> twilioInsertResult = DML_REPOSITORY.doInsert(
+      twilioDetailsToBeInserted,
+      new DMLConfig().systemMode().allowPartial()
     );
-    Logger.saveLog();
 
     //Coaches needs each Call/Chat Interaction should have Twilio details precreated so that they should only fill in few fields from related details section
     for (
@@ -240,10 +200,8 @@ public with sharing class TwilioServiceUtil {
     if (String.isNotBlank(payLoad.queueName)) {
       interactionToUpsert.Chat_Queue__c = payLoad.queueName;
     }
-    if (String.isNotBlank(payLoad.agentEmail) && !checkIsConference(payLoad)) {
-      interactionToUpsert.OwnerId = agentOwnerIdMap.get(
-        payLoad.agentEmail.toLowerCase()
-      );
+    if (payLoad.agentUserId != null && !checkIsConference(payLoad)) {
+      interactionToUpsert.OwnerId = payLoad.agentUserId;
     }
     if (checkIsTransfer(payLoad)) {
       interactionToUpsert.Transfer__c = payLoad.transfer;

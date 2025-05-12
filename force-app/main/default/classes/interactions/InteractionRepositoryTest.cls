@@ -5,11 +5,25 @@
  */
 @isTest
 public with sharing class InteractionRepositoryTest {
+  private static final Id FAKER_ACCOUNT_ID = Lib_FakeIdGenerator.getMockId(
+    Account.getSObjectType()
+  );
+
+  static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider interactionRepoMock;
+
   static void registerMocks() {
-    Lib_MockProvider.forType(InteractionRepository.class)
-      .mock('queryExistingInteractionFromCallOrChatSID', mockInteractionMap());
-    Lib_MockProvider.forType(InteractionRepository.class)
-      .mock('fetchTwilioDetailIdFromInteraction', mockInteraction());
+    dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    interactionRepoMock = Lib_MockProvider.forType(InteractionRepository.class);
+    interactionRepoMock.mock(
+      'queryExistingInteractionFromCallOrChatSID',
+      mockInteractionMap()
+    );
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      mockInteraction()
+    );
+    interactionRepoMock.mock('fetchExistingAccountByOCVId', mockAccount());
   }
 
   @testSetup
@@ -29,7 +43,7 @@ public with sharing class InteractionRepositoryTest {
 
   //Test method to validate that an interaction record is created when context request sent from Twilio has new ChatOrCallId
   @isTest
-  private static void testpreventDuplicateInteractionNegative() {
+  private static void testPreventDuplicateInteractionNegative() {
     registerMocks();
 
     InteractionContextRequest intContext = createMockInteractionContextRequest(
@@ -41,23 +55,25 @@ public with sharing class InteractionRepositoryTest {
       InteractionContextService.doPost(intContext);
     }
     Test.stopTest();
+    Interaction interactionCreated = (Interaction) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+    Assert.isNotNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should have been invoked'
+    );
 
-    List<Interaction> intList = [
-      SELECT Id, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      1,
-      intList.size(),
-      'Interaction should be created with new ChatOrCallSID'
+    Assert.areEqual(
+      interactionCreated.Chat_or_Call_SID__c,
+      'CH12345678',
+      'Interaction Created Successfully'
     );
   }
 
   //Test method to validate that an interaction record is not created when context request sent from Twilio has existing ChatOrCallId
   @isTest
-  private static void testpreventDuplicateInteractionPositive() {
+  private static void testPreventDuplicateInteractionPositive() {
     registerMocks();
     InteractionContextRequest intContext = createMockInteractionContextRequest(
       'CH1234567'
@@ -68,16 +84,10 @@ public with sharing class InteractionRepositoryTest {
       InteractionContextService.doPost(intContext);
     }
     Test.stopTest();
-    List<Interaction> intList = [
-      SELECT Id, Support_Topics__c, InteractionType
-      FROM Interaction
-      WHERE InteractionType = 'Call'
-      LIMIT 1
-    ];
-    System.assertEquals(
-      0,
-      intList.size(),
-      'Interaction should not be created with existing ChatOrCallSID'
+
+    Assert.isNull(
+      dmlRepoMock.getHistory('doInsert'),
+      'doInsert should not have been invoked'
     );
   }
 
@@ -104,6 +114,15 @@ public with sharing class InteractionRepositoryTest {
     );
   }
 
+  private static List<Account> mockAccount() {
+    Account testAccount = TestDataFactory.createPersonAccount(
+      'OCVID887766',
+      false
+    );
+    testAccount.Id = FAKER_ACCOUNT_ID;
+    return new List<Account>{ testAccount };
+  }
+
   private static InteractionContextRequest createMockInteractionContextRequest(
     String chatOrCallSID
   ) {
@@ -114,13 +133,34 @@ public with sharing class InteractionRepositoryTest {
     contextReq.ppid = '';
     contextReq.direction = 'Inbound';
     contextReq.phoneNumber = '123456';
-    contextReq.type = 'Voice';
+    contextReq.type = 'voice';
     contextReq.chatOrCallStatus = '';
     contextReq.isAuthenticated = false;
 
-    InteractionContextRequest intContext = InteractionContextServiceTest.prepareRequest(
-      contextReq
-    );
+    InteractionContextRequest intContext = prepareRequest(contextReq);
     return intContext;
+  }
+
+  /**
+   * @description Method to prepare REST requests for test scenarios.
+   * @param interactionContextService InteractionContextRequest
+   * @return 'InteractionContextRequest'
+   */
+  public static InteractionContextRequest prepareRequest(
+    InteractionContextRequest interactionContextService
+  ) {
+    //Setup request
+    RestRequest req = new RestRequest();
+    req.requestURI = '/InteractionContextRequests/';
+    req.httpMethod = 'POST';
+
+    //Setup Response
+    RestResponse res = new RestResponse();
+
+    //Assign to context
+    RestContext.request = req;
+    RestContext.response = res;
+
+    return interactionContextService;
   }
 }

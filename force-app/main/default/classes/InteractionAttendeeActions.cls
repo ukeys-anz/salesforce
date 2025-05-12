@@ -254,17 +254,13 @@ public with sharing class InteractionAttendeeActions {
   /**
    * @description Create Interaction Attendee when there is conference happened in Twilio Call Conference
    * @param twilioContextRequest TwilioContextRequest containing data for InteractionAttendee Creation
-   * @param agentOwnerIdMap agent owner Id Map to set the User Id of the Interaction Attendee when Interaction Type is Internal
-   * @return interactionAttendeeList List<InteractionAttendee> to be created
+   * @return interactionAttendee InteractionAttendee to be created
    */
-  public static List<InteractionAttendee> insertTwilioConferenceAttendee(
-    UpdateInteractionByTwilioPayload twilioContextRequest,
-    Map<String, Id> agentOwnerIdMap
+  public static InteractionAttendee insertTwilioConferenceAttendee(
+    UpdateInteractionByTwilioPayload twilioContextRequest
   ) {
-    List<InteractionAttendee> interactionAttendeeList = new List<InteractionAttendee>();
-
     if (!TwilioServiceUtil.checkIsConference(twilioContextRequest)) {
-      return interactionAttendeeList;
+      return null;
     }
 
     InteractionAttendee intattendee = new InteractionAttendee();
@@ -272,18 +268,13 @@ public with sharing class InteractionAttendeeActions {
       twilioContextRequest.agentEmail
     );
 
-    intattendee.UserId = fetchAgentUserId(
-      twilioContextRequest.agentEmail,
-      agentOwnerIdMap
-    );
-
+    intattendee.UserId = twilioContextRequest.agentUserId;
     intattendee.InteractionId = twilioContextRequest.interactionId;
     intattendee.Attendee_Name__c = twilioContextRequest.attendeeName;
     intattendee.Attendee_Phone__c = twilioContextRequest.attendeePhoneNumber;
     intattendee.Conversation_Sid__c = twilioContextRequest.chatOrCallId;
-    interactionAttendeeList.add(intattendee);
 
-    return interactionAttendeeList;
+    return intattendee;
   }
   /**
    * @description fetch attendeeType of the InteractionAttendee
@@ -294,21 +285,6 @@ public with sharing class InteractionAttendeeActions {
     return String.isNotBlank(agentEmail)
       ? InteractionConstants.INTERNAL
       : InteractionConstants.EXTERNAL;
-  }
-
-  /**
-   * @description fetch user id if the agentemail exist in the system
-   * @param agentEmail agentEmail from TwilioContextRequest recceived from Twilio
-   * @param agentOwnerIdMap agentEmail and Id map
-   * @return AgentUserId if existing in the system
-   */
-  private static String fetchAgentUserId(
-    String agentEmail,
-    Map<String, Id> agentOwnerIdMap
-  ) {
-    return String.isNotBlank(agentEmail)
-      ? agentOwnerIdMap.get(agentEmail.toLowerCase())
-      : null;
   }
 
   /**

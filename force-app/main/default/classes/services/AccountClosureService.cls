@@ -5,6 +5,10 @@
  * @group Services
  */
 public with sharing virtual class AccountClosureService extends Service {
+  private static final Lib_HttpCallout CALLOUT = (Lib_HttpCallout) Lib_InstanceProvider.forType(
+    Lib_HttpCallout.class
+  );
+
   /**
    * @param ocvId ocvId of the customer to generate jwt token
    * @param accountDetailsForPrechecks required to make the callout to Mulesoft
@@ -19,13 +23,12 @@ public with sharing virtual class AccountClosureService extends Service {
     setCalloutCommonHeaders(Service.IdType.OCVID, ocvId, headers);
     headers.put('x-correlation-id', CommonUtil.generateUUID());
     headers.put('Content-Type', 'application/json');
-    Lib_HttpCallout calloutService = new Lib_HttpCallout();
     Lib_HttpCallout.RESTCalloutWrapper restWrapper = new Lib_HttpCallout.RESTCalloutWrapper();
     restWrapper.endpoint = Label.MS_Initiate_Account_Closure;
     restWrapper.method = HTTP_METHOD.HTTP_GET;
     restWrapper.headers = headers;
     restWrapper.requestBody = JSON.serialize(accountDetailsForPrechecks);
     restWrapper.timeout = 35000;
-    return calloutService.makeRestCallout(restWrapper);
+    return CALLOUT.makeRestCallout(restWrapper);
   }
 }

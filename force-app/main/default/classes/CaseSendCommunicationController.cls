@@ -70,7 +70,7 @@ public with sharing class CaseSendCommunicationController {
   ) {
     List<CloudEventModel> cloudEventModels = new List<CloudEventModel>();
     for (Case caseItem : cases) {
-      CloudEventModel.UserModel ownerModel = CloudEventModel.getCaseOwnerModel(
+      CloudEventModel.UserModel ownerModel = CloudEventModel.getOwnerModel(
         caseItem.OwnerId,
         ownerUsers,
         ownerGroups
