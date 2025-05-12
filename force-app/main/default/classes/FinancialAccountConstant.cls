@@ -14,19 +14,10 @@ public with sharing class FinancialAccountConstant {
   public static final String SOLE = 'Sole';
 
   /**
-   * @description fetch ANZx financial account record types
-   * @return Set<String> finserv roles to be included for balance calculation
+   * @description Set<String> finserv roles to be included for balance calculation
    */
-  public static Set<String> anzxFinservRoleTypes {
-    get {
-      if (anzxFinservRoleTypes == null) {
-        anzxFinservRoleTypes = new Set<String>{
-          'Additional Owner',
-          'Primary Owner'
-        };
-      }
-      return anzxFinservRoleTypes;
-    }
-    private set;
-  }
+  public static final Set<String> FINSERV_ROLE_TYPES = new Set<String>{
+    'Additional Owner',
+    'Primary Owner'
+  };
 }

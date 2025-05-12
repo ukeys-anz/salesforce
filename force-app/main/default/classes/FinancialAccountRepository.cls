@@ -18,7 +18,7 @@ public with sharing class FinancialAccountRepository {
       WHERE
         FinServ__FinancialAccount__c = :financialAccountId
         AND FinServ__Active__c = TRUE
-        AND FinServ__Role__c IN :FinancialAccountConstant.anzxFinservRoleTypes
+        AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
     ];
   }
@@ -51,7 +51,6 @@ public with sharing class FinancialAccountRepository {
             FinServ__RelatedAccount__r.OCV_ID__c = :ocvId
             AND FinServ__Active__c = TRUE
         )
-      WITH USER_MODE
     ];
   }
 
@@ -87,9 +86,7 @@ public with sharing class FinancialAccountRepository {
   public List<FinServ__FinancialAccountRole__c> getHomeLoanAccountByCustomerId(
     Id customerId
   ) {
-    if (String.isBlank(customerId)) {
-      return new List<FinServ__FinancialAccountRole__c>();
-    }
+    PermissionUtils.canQuery('FinServ__FinancialAccountRole__c');
 
     return [
       SELECT
@@ -102,7 +99,6 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.bankAccount
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :GetHelpConstants.HOME_LOAN_MARKETING_CODES
         AND FinServ__Active__c = TRUE
-      WITH USER_MODE
     ];
   }
 
@@ -193,7 +189,7 @@ public with sharing class FinancialAccountRepository {
         AND Marketing_Code__c IN :marketingCodes
         AND FinServ__Status__c IN ('Active', 'Open')
       WITH USER_MODE
-    ] ?? null;
+    ];
   }
 
   /**
@@ -218,7 +214,7 @@ public with sharing class FinancialAccountRepository {
         FinServ__RelatedAccount__c = :customerRecordPrimaryOwnerId
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
-        AND FinServ__Role__c IN :FinancialAccountConstant.anzxFinservRoleTypes
+        AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
     ];
   }
@@ -246,7 +242,7 @@ public with sharing class FinancialAccountRepository {
         AND FinServ__Active__c = TRUE
         AND FinServ__FinancialAccount__r.Marketing_Code__c IN :marketingCodes
         AND FinServ__FinancialAccount__r.RecordTypeId = :RTFinancialAccount.savingAccount
-        AND FinServ__Role__c IN :FinancialAccountConstant.anzxFinservRoleTypes
+        AND FinServ__Role__c IN :FinancialAccountConstant.FINSERV_ROLE_TYPES
       WITH USER_MODE
     ];
   }
