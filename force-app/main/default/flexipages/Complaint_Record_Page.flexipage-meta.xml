@@ -704,6 +704,12 @@
     <flexiPageRegions>
         <itemInstances>
             <componentInstance>
+                <componentName>initiateInteraction</componentName>
+                <identifier>c_initiateInteraction</identifier>
+            </componentInstance>
+        </itemInstances>
+        <itemInstances>
+            <componentInstance>
                 <componentInstanceProperties>
                     <name>maxRecords</name>
                     <value>3</value>
@@ -739,12 +745,6 @@
                 <componentName>interactionRelatedList</componentName>
                 <identifier>c_interactionRelatedList</identifier>
             </componentInstance>
-            <itemInstances>
-                <componentInstance>
-                    <componentName>initiateInteraction</componentName>
-                    <identifier>c_initiateInteraction</identifier>
-                </componentInstance>
-            </itemInstances>
         </itemInstances>
         <itemInstances>
             <componentInstance>
