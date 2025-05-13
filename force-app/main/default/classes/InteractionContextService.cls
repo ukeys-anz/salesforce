@@ -28,13 +28,10 @@ global with sharing class InteractionContextService {
    */
   @HttpPost
   global static void doPost(InteractionContextRequest contextRequest) {
-    Map<String, Interaction> existingInteractionsBySID = new Map<String, Interaction>();
-    Interaction interactionToBeCreated = new Interaction();
     InteractionContextResponse responseSentToTwilio = new InteractionContextResponse();
-    String errorMessage = '';
     try {
       //Validating the response received from Twilio in order to proceed
-      errorMessage = validateIncomingRequestFromTwilio(contextRequest);
+      String errorMessage = validateIncomingRequestFromTwilio(contextRequest);
       if (errorMessage != null) {
         responseSentToTwilio = generateErrorResponse(
           contextRequest,
@@ -53,7 +50,7 @@ global with sharing class InteractionContextService {
       }
 
       //For Creating Map of Existing Interactions By callOrChatSID for checking Duplication of the Interaction Context.
-      existingInteractionsBySID = INTERACTION_REPOSITORY.queryExistingInteractionFromCallOrChatSID(
+      Map<String, Interaction> existingInteractionsBySID = INTERACTION_REPOSITORY.queryExistingInteractionFromCallOrChatSID(
         contextRequest.chatOrCallId
       );
 
@@ -72,7 +69,7 @@ global with sharing class InteractionContextService {
         return;
       }
 
-      interactionToBeCreated = createInteractionInstance(contextRequest);
+      Interaction interactionToBeCreated = createInteractionInstance(contextRequest);
 
       Database.SaveResult interactionCreated = DML_REPOSITORY.doInsert(
         interactionToBeCreated
@@ -190,7 +187,7 @@ global with sharing class InteractionContextService {
       intToInsert.Status__c = TwilioServiceUtil.getStatus(
         interactContextRequest.chatOrCallStatus
       );
-      intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_MESSAGE_RT_ID;
+      intToInsert.RecordTypeId = RTInteraction.message;
       intToInsert.Support_Topics__c = validateSupportTopic(
         interactContextRequest.issueSubtype
       );
@@ -200,7 +197,7 @@ global with sharing class InteractionContextService {
       return intToInsert;
     }
     intToInsert.InteractionType = InteractionConstants.CALL;
-    intToInsert.RecordTypeId = GetHelpConstants.INTERACTION_GENERAL_RT_ID;
+    intToInsert.RecordTypeId = RTInteraction.call;
     intToInsert = setInteractionForAuthenticated(
       intToInsert,
       interactContextRequest

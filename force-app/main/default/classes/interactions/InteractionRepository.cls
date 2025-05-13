@@ -52,7 +52,8 @@ public with sharing class InteractionRepository {
       FROM Interaction
       WHERE Id = :interactionId
       WITH USER_MODE
-    ];
+      LIMIT 1
+    ] ?? null;
   }
 
   /**
@@ -70,7 +71,8 @@ public with sharing class InteractionRepository {
       FROM User
       WHERE FederationIdentifier = :agentEmail AND IsActive = TRUE
       WITH USER_MODE
-    ];
+      LIMIT 1
+    ] ?? null;
   }
 
   /**
@@ -112,21 +114,6 @@ public with sharing class InteractionRepository {
   }
 
   /**
-   * @description query Interaction Status Mapping for Twilio
-   * @param type value to query
-   * @return List<InteractionStatusMappingForTwilio__mdt> record
-   */
-  public List<InteractionStatusMappingForTwilio__mdt> fetchTwilioStatusMapping(
-    String type
-  ) {
-    return [
-      SELECT Type__c, Interaction_Status__c, Twilio_Status__c
-      FROM InteractionStatusMappingForTwilio__mdt
-      WHERE Type__c = :type
-    ];
-  }
-
-  /**
    * @description query Existing Account Record based on the ocvId received
    * @param ocvIdFromTwilio ocvid received from Twilio
    * @return Account record existing
@@ -158,7 +145,8 @@ public with sharing class InteractionRepository {
       FROM Interaction
       WHERE Id = :interactionId
       WITH USER_MODE
-    ];
+      LIMIT 1
+    ] ?? null;
   }
 
   /**
@@ -167,6 +155,11 @@ public with sharing class InteractionRepository {
    * @return Task record details
    */
   public List<Task> queryPushToAppTaskDetails(String pubSubEventId) {
+    if(String.isBlank(pubSubEventId))
+    {
+       return new List<Task>();
+    }
+
     return [
       SELECT Id, Pub_Sub_Event_Id__c, WhatId
       FROM Task

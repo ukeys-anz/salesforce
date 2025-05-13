@@ -93,6 +93,7 @@ public with sharing class PushToAppRepository {
       FROM Task
       WHERE Id = :taskId
       WITH USER_MODE
+      LIMIT 1
     ] ?? null;
   }
 
@@ -138,7 +139,6 @@ public with sharing class PushToAppRepository {
         ActivityDate < TODAY
         AND RecordTypeId = :RTTask.customerNudge
         AND IsClosed != TRUE
-      WITH USER_MODE
     ];
   }
 

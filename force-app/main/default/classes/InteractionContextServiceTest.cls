@@ -29,15 +29,6 @@ public with sharing class InteractionContextServiceTest {
       'fetchExistingAccountByOCVId',
       createMockAccount('OCVID887766', '123457')
     );
-    interactionRepoMock.mock(
-      'fetchTwilioStatusMapping',
-      new List<InteractionStatusMappingForTwilio__mdt>{
-        new InteractionStatusMappingForTwilio__mdt(
-          Twilio_Status__c = 'created',
-          Interaction_Status__c = 'New'
-        )
-      }
-    );
   }
 
   @isTest
@@ -61,7 +52,7 @@ public with sharing class InteractionContextServiceTest {
       'getInteractionDetails',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        RTInteraction.message,
         'Chat'
       )
     );
@@ -151,7 +142,7 @@ public with sharing class InteractionContextServiceTest {
       'getInteractionDetails',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        RTInteraction.call,
         'Call'
       )
     );
@@ -207,7 +198,7 @@ public with sharing class InteractionContextServiceTest {
       'getInteractionDetails',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        RTInteraction.call,
         'Call'
       )
     );
@@ -264,7 +255,7 @@ public with sharing class InteractionContextServiceTest {
       'getInteractionDetails',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        RTInteraction.call,
         'Call'
       )
     );
@@ -353,7 +344,7 @@ public with sharing class InteractionContextServiceTest {
       'getInteractionDetails',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        RTInteraction.message,
         'Chat'
       )
     );
