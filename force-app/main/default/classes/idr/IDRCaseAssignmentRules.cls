@@ -124,6 +124,10 @@ public with sharing class IDRCaseAssignmentRules {
   @TestVisible
   private static Id getOwnerIdForEscalatedCases(Case rec, Case oldCase) {
     Set<String> originCeoBasket = new Set<String>{ '9', '10', '22', '23' };
+    Set<String> anzplusBasket = new Set<String>{
+      IDRConstants.CHANNEL_RECEIVED_ANZ_PLUS_WEB,
+      IDRConstants.CHANNEL_RECEIVED_ANZ_PLUS_APP
+    };
 
     if (rec.Status != IDRConstants.ESCALATED_STATUS) {
       return rec.OwnerId;
@@ -160,10 +164,9 @@ public with sharing class IDRCaseAssignmentRules {
 
     //CEO or Board or Other EDR Schemes or Tribunal
     if (
-      originCeoBasket.contains(rec.Origin)
-      || ( rec.Type == '8' &&
-      rec.IDR_Subsequent_Issue__c == '49'
-      )
+      originCeoBasket.contains(rec.Origin) ||
+      (rec.Type == '8' &&
+      rec.IDR_Subsequent_Issue__c == '49')
     ) {
       return QueryQueue.get('IDR_CEO').Id;
     }
@@ -223,8 +226,11 @@ public with sharing class IDRCaseAssignmentRules {
 
     // IDR ANZ Plus Rule #5 needs to be applied before Early Resolution Rule #7
     if (
-      String.isNotBlank(productWorkbasketName) &&
-      productWorkbasketName.equalsIgnoreCase('IDR_ANZ_Plus')
+      (String.isNotBlank(productWorkbasketName) &&
+      productWorkbasketName.equalsIgnoreCase('IDR_ANZ_Plus')) ||
+      (String.isNotBlank(strProductFamily) &&
+      strProductFamily.equals('ANZ Plus')) ||
+      anzplusBasket.contains(rec.Origin)
     ) {
       return QueryQueue.get('IDR_ANZ_Plus').Id;
     }

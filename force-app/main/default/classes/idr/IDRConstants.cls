@@ -205,6 +205,8 @@ public with sharing class IDRConstants {
   //Channel Received
   public static final String CHANNEL_RECEIVED_AFCA_REFERRED = '11';
   public static final String CHANNEL_RECEIVED_ANZ_COM = '8';
+  public static final String CHANNEL_RECEIVED_ANZ_PLUS_WEB = 'ANZ Plus Web';
+  public static final String CHANNEL_RECEIVED_ANZ_PLUS_APP = 'ANZ Plus App';
 
   //IDREmailServiceConstants
   public static final String CASE_NO_REGEX = '\\d{4,8}';
@@ -513,14 +515,14 @@ public with sharing class IDRConstants {
     Case.IDR_Issue_Type_3__c,
     Case.IDR_Subsequent_Issue_3__c
   };
-  
+
   //Permission set groups
   public static final Set<String> PSG_L2_L3_USERS = new Set<String>{
     'IDR_Level_2',
     'IDR_Level_3'
   };
-      
-  //Roles 
+
+  //Roles
   public static final String ROLE_BANKER = 'Banker';
   public static final String ROLE_BANKER_LINE_MANAGER = 'Banker_Line_Manager';
 }
