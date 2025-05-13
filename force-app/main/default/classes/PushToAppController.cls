@@ -29,23 +29,14 @@ public with sharing class PushToAppController {
     Id recordId,
     Id recordTypeId
   ) {
+    if (recordId == null || recordTypeId == null) {
+      return new List<Customer_Task_Configuration__c>();
+    }
+
     try {
-      //Get the current logged-in user's role information
-      Id userRoleId = UserInfo.getUserRoleId();
-      UserRole userRoleInfo = QueryRole.get(userRoleId);
-
-      //Get the name of the object for the given record
-      String sObjectName = recordId.getSObjectType().toString();
-
-      //Get the  RecordType name for the given record
-      String recordTypeName = QueryRT.of(recordId.getSObjectType())
-        .get(recordTypeId)
-        .getDeveloperName();
-
       return PUSH_TO_APP_REPOSITORY.queryNotificationConfigrecords(
-        userRoleInfo,
-        recordTypeName,
-        sObjectName
+        recordId,
+        recordTypeId
       );
     } catch (Exception objException) {
       throw CommonUtil.logExceptionWithMessage(

@@ -30,7 +30,6 @@ public with sharing class TaskCEControllerTest {
     );
     pushToAppRepoMock.mock('getUsers', new List<User>());
     pushToAppRepoMock.mock('queryTaskRecords', mockTaskRecordsList('New'));
-    pushToAppRepoMock.mock('getGroups', new List<Group>());
 
     Test.startTest();
     List<CloudEventModel> taskCloudEvent = TaskCEController.generateCloudEventModel(
@@ -65,7 +64,6 @@ public with sharing class TaskCEControllerTest {
       'queryTaskRecords',
       mockTaskRecordsList('ACTIVITY_STATE_SENT')
     );
-    pushToAppRepoMock.mock('getGroups', new List<Group>());
 
     Test.startTest();
     List<CloudEventModel> taskCloudEvent = TaskCEController.generateCloudEventModel(
@@ -94,7 +92,6 @@ public with sharing class TaskCEControllerTest {
     );
     pushToAppRepoMock.mock('getUsers', new List<User>());
     pushToAppRepoMock.mock('queryTaskRecords', mockTaskRecordsList('New'));
-    pushToAppRepoMock.mock('getGroups', new List<Group>());
 
     Test.startTest();
     TaskCEController.publishCloudEvents(mockTaskRecordsList('New'));
@@ -122,7 +119,6 @@ public with sharing class TaskCEControllerTest {
       'queryTaskRecords',
       mockTaskRecordsList('ACTIVITY_STATE_SENT')
     );
-    pushToAppRepoMock.mock('getGroups', new List<Group>());
 
     Test.startTest();
     TaskCEController.publishCloudEvents(
