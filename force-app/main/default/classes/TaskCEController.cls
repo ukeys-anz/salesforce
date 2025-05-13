@@ -51,9 +51,6 @@ public without sharing class TaskCEController {
       Map<Id, User> ownerUsers = new Map<Id, User>(
         PUSH_TO_APP_REPOSITORY.getUsers(ownerIds)
       );
-      Map<Id, Group> ownerGroups = new Map<Id, Group>(
-        PUSH_TO_APP_REPOSITORY.getGroups(ownerIds)
-      );
 
       for (Task taskRec : taskRecordsWithUpdatedValues) {
         Account theAccount = accountIdToAccountInfoMap.containsKey(
@@ -70,7 +67,7 @@ public without sharing class TaskCEController {
         CloudEventModel.UserModel theOwner = CloudEventModel.getOwnerModel(
           taskRec.OwnerId,
           ownerUsers,
-          ownerGroups
+          QueryQueue.get(ownerIds)
         );
         cloudEventModels.add(
           TaskCloudEventBuildHelper.createCloudEvent(

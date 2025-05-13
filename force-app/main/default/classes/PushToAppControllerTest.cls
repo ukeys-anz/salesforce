@@ -5,21 +5,6 @@
  */
 @IsTest
 public with sharing class PushToAppControllerTest {
-  /**
-   * @description This method helps in providing the mock response from AEM
-   * @return AEM content Data
-   */
-  private static String mockAemData {
-    get {
-      String mockAemContentDataResponse = [
-          SELECT body
-          FROM StaticResource
-          WHERE Name = 'mock_aemContentData'
-        ]
-        .body.toString();
-      return mockAemContentDataResponse;
-    }
-  }
   private static final Id FAKER_CASE_ID = Lib_FakeIdGenerator.getMockId(
     Case.getSObjectType()
   );
@@ -162,7 +147,7 @@ public with sharing class PushToAppControllerTest {
 
   private static CustomerTaskDataWrapper mockPushToAppNotifData() {
     CustomerTaskDataWrapper pushToAppNotifData = new CustomerTaskDataWrapper();
-    pushToAppNotifData.aemContentData = mockAemData;
+    pushToAppNotifData.aemContentData = AemServiceMock.AEM_CONTENT_DATA_SUCCESS;
     pushToAppNotifData.aemContentObject = aemContentDataAsObject();
     return pushToAppNotifData;
   }

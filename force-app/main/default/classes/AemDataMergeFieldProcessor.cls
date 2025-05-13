@@ -19,14 +19,11 @@ public class AemDataMergeFieldProcessor {
     Matcher mergedFieldMatcher = getMergedFieldMatcher(aemContentData);
     //Extract field names from the JSON string
     Set<String> fieldsToQuery = extractFieldNames(mergedFieldMatcher);
-    //Get the name of the object for the given record
-    String sObjectName = recordId.getSObjectType().toString();
 
     // Query the database for the necessary fields
     List<SObject> recordsFromDatabase = PUSH_TO_APP_REPOSITORY.queryMergeFieldsData(
       fieldsToQuery,
-      recordId,
-      sObjectName
+      recordId
     );
 
     // Replace the merged fields in the JSON string
@@ -83,7 +80,7 @@ public class AemDataMergeFieldProcessor {
       }
       aemContentData = aemContentData.replace(
         mergedFieldMatcher.group(0),
-        fieldValue != null ? fieldValue : ''
+        fieldValue ?? ''
       );
     }
 

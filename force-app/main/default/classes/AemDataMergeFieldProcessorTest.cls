@@ -17,14 +17,14 @@ public with sharing class AemDataMergeFieldProcessorTest {
   @isTest
   static void testReplaceMergedFields() {
     registerMocks();
-    String objBefore = mockAemData;
+    String objBefore = AemServiceMock.AEM_CONTENT_DATA_SUCCESS;
     Assert.isFalse(
       objBefore.contains('1234567') == true,
       'Case Number should not be updated'
     );
 
     String obj = AemDataMergeFieldProcessor.replaceMergedFields(
-      mockAemData,
+      AemServiceMock.AEM_CONTENT_DATA_SUCCESS,
       FAKER_CASE_ID
     );
 
@@ -47,21 +47,5 @@ public with sharing class AemDataMergeFieldProcessorTest {
 
     listofSObject.add(caseRecord);
     return listofSObject;
-  }
-
-  /**
-   * @description This method helps in providing the mock response from AEM
-   * @return AEM content Data
-   */
-  private static String mockAemData {
-    get {
-      String mockAemContentDataResponse = [
-          SELECT body
-          FROM StaticResource
-          WHERE Name = 'mock_aemContentData'
-        ]
-        .body.toString();
-      return mockAemContentDataResponse;
-    }
   }
 }

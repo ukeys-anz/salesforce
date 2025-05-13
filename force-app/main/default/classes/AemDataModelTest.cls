@@ -23,7 +23,10 @@ public with sharing class AemDataModelTest {
       'selectedNotificationConfigDetail',
       mockNotificationConfiguration()
     );
-    AemDataModel obj = AemDataModel.parse(mockAemData, FAKER_CASE_ID);
+    AemDataModel obj = AemDataModel.parse(
+      AemServiceMock.AEM_CONTENT_DATA_SUCCESS,
+      FAKER_CASE_ID
+    );
     Assert.isTrue(
       obj.data.pushToAppList.items[0].id == 'get_in_touch_complaint',
       'Item Id should be get_in_touch_complaint'
@@ -63,21 +66,5 @@ public with sharing class AemDataModelTest {
       )
     );
     return testNotificConfig;
-  }
-
-  /**
-   * @description This method helps in providing the mock response from AEM
-   * @return AEM content Data
-   */
-  private static String mockAemData {
-    get {
-      String mockAemContentDataResponse = [
-          SELECT body
-          FROM StaticResource
-          WHERE Name = 'mock_aemContentData'
-        ]
-        .body.toString();
-      return mockAemContentDataResponse;
-    }
   }
 }

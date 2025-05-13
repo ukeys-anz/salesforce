@@ -6,24 +6,29 @@
 public with sharing class PushToAppRepository {
   /**
    * @description Retrieves notification templates based on the logged-in user's role and the recordtype.
-   * @param userRoleInfo Logged in user role details
-   * @param recordTypeName Record type name of the object from where push to app notification is triggered.
-   * @param sObjectName The name of the object.
+   * @param recordId The Id of the record (e.g., Case) to determine applicable templates.
+   * @param recordTypeId record type Id of the record
    * @return List of Customer_Task_Configuration__c records including Name and AEM content ID.
    */
   public List<Customer_Task_Configuration__c> queryNotificationConfigrecords(
-    UserRole userRoleInfo,
-    String recordTypeName,
-    String sObjectName
+    Id recordId,
+    Id recordTypeId
   ) {
+    Id userRoleId = UserInfo.getUserRoleId();
     // Query Notification Configuration using the fetched role and record type name
     return [
       SELECT Id, AEM_Content_Id__c, Name
       FROM Customer_Task_Configuration__c
       WHERE
-        Applicable_User_Role__c INCLUDES (:userRoleInfo.DeveloperName)
-        AND Applicable_Record_Types__c INCLUDES (:recordTypeName)
-        AND SObject_Type__c = :sObjectName
+        Applicable_User_Role__c INCLUDES (
+          :QueryRole.get(userRoleId).DeveloperName
+        )
+        AND Applicable_Record_Types__c INCLUDES (
+          :QueryRT.of(recordId.getSObjectType())
+            .get(recordTypeId)
+            .getDeveloperName()
+        )
+        AND SObject_Type__c = :recordId.getSObjectType().toString()
       WITH USER_MODE
     ];
   }
@@ -44,6 +49,7 @@ public with sharing class PushToAppRepository {
       FROM Customer_Task_Configuration__c
       WHERE AEM_Content_Id__c = :templateName
       WITH USER_MODE
+      LIMIT 1
     ] ?? null;
   }
 
@@ -100,22 +106,17 @@ public with sharing class PushToAppRepository {
    * @description Fetch task details for creating cloud task event
    * @param fieldsToQuery list of merged fields present in aem content data
    * @param recordId The Id of the record for which notification needs to send.
-   * @param sObjectName The Object name for which push notification is initiated
    * @return List of field values retrieved from database
    */
   public List<SObject> queryMergeFieldsData(
     Set<String> fieldsToQuery,
-    Id recordId,
-    String sObjectName
+    Id recordId
   ) {
-    if (
-      fieldsToQuery.isEmpty() ||
-      String.isBlank(recordId) ||
-      String.isBlank(sObjectName)
-    ) {
+    if (fieldsToQuery.isEmpty() || String.isBlank(recordId)) {
       return new List<SObject>();
     }
 
+    String sObjectName = recordId.getSObjectType().toString();
     String allFields = String.join(new List<String>(fieldsToQuery), ',');
     return Database.query(
       'SELECT ' +
@@ -231,23 +232,6 @@ public with sharing class PushToAppRepository {
     return [
       SELECT Id, Username, Email
       FROM User
-      WHERE Id IN :ownerIds
-      WITH USER_MODE
-    ];
-  }
-
-  /**
-   * @description Query related data of task records when owner is group.
-   * @param ownerIds List of task records' Owner Ids
-   * @return List<Group> Group records
-   */
-  public List<Group> getGroups(Set<Id> ownerIds) {
-    if (ownerIds.isEmpty()) {
-      return new List<Group>();
-    }
-    return [
-      SELECT Id, Name, Email
-      FROM Group
       WHERE Id IN :ownerIds
       WITH USER_MODE
     ];
