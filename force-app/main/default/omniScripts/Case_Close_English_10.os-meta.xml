@@ -1966,7 +1966,6 @@
             <type>Checkbox</type>
         </childElements>
         <childElements>
-            <name>durationOfRemedy1</name>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
             <level>1.0</level>
@@ -2894,6 +2893,10 @@
             <type>Line Break</type>
         </childElements>
         <childElements>
+            <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
+            <isActive>true</isActive>
+            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+            <level>1.0</level>
             <name>LineBreak11</name>
             <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
             <propertySetConfig>{
@@ -4850,7 +4853,16 @@
     &quot;type&quot; : &quot;&quot;,
     &quot;source&quot; : &quot;&quot;
   },
-  &quot;show&quot; : null,
+   &quot;show&quot; : {
+    &quot;group&quot; : {
+      &quot;operator&quot; : &quot;AND&quot;,
+      &quot;rules&quot; : [ {
+        &quot;data&quot; : &quot;true&quot;,
+        &quot;condition&quot; : &quot;=&quot;,
+        &quot;field&quot; : &quot;hideRealForm&quot;
+      } ]
+    }
+  },
   &quot;conditionType&quot; : &quot;Hide if False&quot;,
   &quot;accessibleInFutureSteps&quot; : false,
   &quot;HTMLTemplateId&quot; : &quot;&quot;,
@@ -5537,80 +5549,7 @@
 }</propertySetConfig>
             <sequenceNumber>48.0</sequenceNumber>
             <type>Radio</type>
-        </childElements>
-        <childElements>
-            <name>showRealFormInfo</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;show RealForm Info&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF((%ComplaintRemedy1% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1% ==\&quot;2\&quot; || %ComplaintSubRemedy1% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy1Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy1Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2% ==\&quot;2\&quot; || %ComplaintSubRemedy2% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy2Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy2Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy3% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3% ==\&quot;2\&quot; || %ComplaintSubRemedy3% ==\&quot;3\&quot;))|| \n(%ComplaintRemedy3Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy3Accepted% ==\&quot;3\&quot;))||\n(%ComplaintRemedy3Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy3Offered% ==\&quot;3\&quot;))\n  ,true,false)&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>116.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <name>TextBlock1</name>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>showRealFormInfo</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;show RealForm Info&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF((%ComplaintRemedy1% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1% ==\&quot;2\&quot; || %ComplaintSubRemedy1% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy1Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy1Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2% ==\&quot;2\&quot; || %ComplaintSubRemedy2% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy2Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy2Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy3% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3% ==\&quot;2\&quot; || %ComplaintSubRemedy3% ==\&quot;3\&quot;))|| \n(%ComplaintRemedy3Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy3Accepted% ==\&quot;3\&quot;))||\n(%ComplaintRemedy3Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy3Offered% ==\&quot;3\&quot;))\n  ,true,false)&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>116.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
-        <childElements>
-            <isActive>true</isActive>
-            <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-            <level>1.0</level>
-            <name>TextBlock1</name>
-            <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-            <propertySetConfig>{
-  &quot;controlWidth&quot; : null,
-  &quot;label&quot; : &quot;show RealForm Info&quot;,
-  &quot;showInputWidth&quot; : false,
-  &quot;inputWidth&quot; : 12,
-  &quot;expression&quot; : &quot;IF((%ComplaintRemedy1% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1% ==\&quot;2\&quot; || %ComplaintSubRemedy1% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy1Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy1Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy1Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy1Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2% ==\&quot;2\&quot; || %ComplaintSubRemedy2% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy2Accepted% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy2Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy2Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy2Offered% ==\&quot;3\&quot;)) ||\n(%ComplaintRemedy3% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3% ==\&quot;2\&quot; || %ComplaintSubRemedy3% ==\&quot;3\&quot;))|| \n(%ComplaintRemedy3Accepted% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Accepted% ==\&quot;2\&quot; || %ComplaintSubRemedy3Accepted% ==\&quot;3\&quot;))||\n(%ComplaintRemedy3Offered% == \&quot;1\&quot; &amp;&amp; (%ComplaintSubRemedy3Offered% ==\&quot;2\&quot; || %ComplaintSubRemedy3Offered% ==\&quot;3\&quot;))\n  ,true,false)&quot;,
-  &quot;hide&quot; : true,
-  &quot;show&quot; : null,
-  &quot;mask&quot; : null,
-  &quot;dataType&quot; : null,
-  &quot;hideGroupSep&quot; : false,
-  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
-  &quot;HTMLTemplateId&quot; : &quot;&quot;,
-  &quot;disOnTplt&quot; : false
-}</propertySetConfig>
-            <sequenceNumber>116.0</sequenceNumber>
-            <type>Formula</type>
-        </childElements>
+        </childElements>       
         <childElements>
             <isActive>true</isActive>
             <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
