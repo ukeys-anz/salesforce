@@ -4,10 +4,6 @@
 @SuppressWarnings('PMD.CyclomaticComplexity, PMD.NcssTypeCount')
 @IsTest
 private class CaseTriggerHandlerTest {
-  public static Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
-    Case.Type
-  );
-
   private static final List<String> COB_CLOSED_STATUSES = new List<String>{
     COBCaseConstants.COB_ID_CHECK_OK_STATUS,
     COBCaseConstants.COB_FAILED_OK_STATUS
@@ -241,219 +237,6 @@ private class CaseTriggerHandlerTest {
       c.CaseNumber__c,
       'CaseNumber__c should be equal to CaseNumber.'
     );
-  }
-
-  @isTest
-  static void testFalseCustomerProfileDefaultValue() {
-    Account personAcc = [SELECT Id, Name FROM Account LIMIT 1];
-    Case newCase = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      AccountId = personAcc.Id
-    );
-    Test.startTest();
-    insert newCase;
-    Case c = [
-      SELECT Id, Fraud_Onboarding_Customer_Name__c
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-    System.assertEquals(
-      c.Fraud_Onboarding_Customer_Name__c,
-      personAcc.Name,
-      'By default, the Customer name on fraud customer profile should be the customer name'
-    );
-    Test.stopTest();
-  }
-
-  @isTest
-  static void testFalseCustomerProfileNoUpdateForGenericValue() {
-    // GIVEN: We have a Fraud Cusotmer Profile case with Fraud Generic customer
-    Account fraudAcc = [
-      SELECT Id, Name
-      FROM Account
-      WHERE Name = 'Fraud Entitlement Account'
-      LIMIT 1
-    ];
-    Account personAcc = [
-      SELECT Id, Name
-      FROM Account
-      WHERE Name != 'Fraud Entitlement Account'
-      LIMIT 1
-    ];
-    Case newCase = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      AccountId = fraudAcc.Id
-    );
-
-    Test.startTest();
-    insert newCase;
-
-    // WHEN we update the account to be another not generic customer
-    newCase.AccountId = personAcc.Id;
-    update newCase;
-
-    // THEN the Onboarding Customer Name should not be updated
-    Case updatedCase = [
-      SELECT Id, Fraud_Onboarding_Customer_Name__c, AccountId
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-    System.assertNotEquals(
-      updatedCase.Fraud_Onboarding_Customer_Name__c,
-      newCase.Fraud_Onboarding_Customer_Name__c,
-      'Onboarding Customer Name should not be updated.'
-    );
-    Test.stopTest();
-  }
-
-  @isTest
-  static void testFalseCustomerProfileUpdateValue() {
-    // GIVEN: We have a Fraud Cusotmer Profile case with not Fraud Generic customer
-    List<Account> personAcc = [
-      SELECT Id, Name
-      FROM Account
-      WHERE Name != 'Fraud Entitlement Account'
-      LIMIT 2
-    ];
-    Case newCase = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      AccountId = personAcc[0].Id
-    );
-
-    Test.startTest();
-    insert newCase;
-
-    // WHEN we update the account to be another not generic customer
-    newCase.AccountId = personAcc[1].Id;
-    update newCase;
-
-    // THEN the Onboarding Customer Name should be updated
-    Case updatedCase = [
-      SELECT Id, Fraud_Onboarding_Customer_Name__c, AccountId
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-
-    System.assertEquals(
-      updatedCase.Fraud_Onboarding_Customer_Name__c,
-      personAcc[1].Name,
-      'When we update a real customer, that should update the Onboarding Customer Name as well.'
-    );
-    Test.stopTest();
-  }
-
-  @isTest
-  static void testFalseCustomerProfileCOBRealCustomer() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE PersonMobilePhone = '+61400000000'
-      LIMIT 1
-    ];
-    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
-      PersonaId__c = 'dsfsadfasdf',
-      OCVId__c = '4324234234',
-      SecurityMobile__c = '61400000000'
-    );
-    insert cob;
-
-    Case newCase = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      AccountId = acc.Id
-    );
-
-    Test.startTest();
-    insert newCase;
-    Case c = [
-      SELECT Id, CustomerOnboardingApplication__c
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-    System.assertEquals(
-      c.CustomerOnboardingApplication__c,
-      cob.Id,
-      'COB for real customer should be populated.'
-    );
-    Test.stopTest();
-  }
-
-  @isTest
-  static void testFalseCustomerProfileCOBGenericFraudCustomer() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE Name = 'Fraud Entitlement Account'
-      LIMIT 1
-    ];
-
-    Case newCase = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      AccountId = acc.Id
-    );
-
-    Test.startTest();
-    insert newCase;
-    Case c = [
-      SELECT Id, CustomerOnboardingApplication__c
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-    System.assertEquals(
-      c.CustomerOnboardingApplication__c,
-      null,
-      'COB should be null'
-    );
-    Test.stopTest();
-  }
-
-  @isTest
-  static void testFalseCustomerProfileCOBUpdateRealCustomerToFraudGeneric() {
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE PersonMobilePhone = '+61400000000'
-      LIMIT 1
-    ];
-    Account genericFraudAcc = [
-      SELECT Id
-      FROM Account
-      WHERE Name = 'Fraud Entitlement Account'
-      LIMIT 1
-    ];
-    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
-      PersonaId__c = 'dsfsadfasdf',
-      OCVId__c = '4324234234',
-      SecurityMobile__c = '61400000000'
-    );
-    insert cob;
-
-    Case newCase = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      AccountId = acc.Id
-    );
-
-    Test.startTest();
-    insert newCase;
-    Case c = [
-      SELECT Id, CustomerOnboardingApplication__c
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-
-    c.AccountId = genericFraudAcc.Id;
-    update c;
-
-    c = [
-      SELECT Id, CustomerOnboardingApplication__c
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-    System.assertEquals(
-      c.CustomerOnboardingApplication__c,
-      null,
-      'COB should be blank when we update it to Fraud Generic Account'
-    );
-    Test.stopTest();
   }
 
   @IsTest
@@ -1254,84 +1037,6 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  //Tests if the Fraud Case Subject is populated correctly based on case record type and type.
-  @isTest
-  static void testPopulateFraudCaseSubject() {
-    List<String> caseTypes = new List<String>{ 'Remote Access', 'Not a Scam' };
-
-    //Temporarily disable Validation Rules
-    System.runAs(thisUser) {
-      insert new Salesforce_Library_Settings__c(
-        SetupOwnerId = UserInfo.getOrganizationId(),
-        Disable_VRs__c = true
-      );
-    }
-
-    // GIVEN FraudX Agent user has required acces
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-
-    // WHEN FraudX Agent user creates or updates a Fraud case
-    Case[] newCases = new List<Case>();
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE OCV_ID__c = 'PERSONOCV879879'
-      LIMIT 1
-    ];
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = new List<Id>(CheckCaseRecordType.FRAUD_RT_IDS)[
-            faker.randomIntegerBetween(1, 4)
-          ],
-          Type = faker.randomElement(caseTypes),
-          AccountId = acc.Id
-        )
-      );
-    }
-
-    Test.startTest();
-    System.runAs(usr) {
-      insert newCases;
-    }
-    Test.stopTest();
-
-    // THEN Case Subject should be autopopulated based on RecordType Name and Type
-
-    // Verify subject on one of the inserted Cases
-    Case sampleCase1 = [
-      SELECT Id, Type, RecordType.Name, Subject
-      FROM Case
-      WHERE Id = :newCases[0].Id
-      LIMIT 1
-    ];
-    System.assertEquals(
-      sampleCase1.RecordType.Name +
-        ' - ' +
-        caseTypeLabelByValue.get(sampleCase1.Type),
-      sampleCase1.Subject,
-      'Failed to autopopulate Subject on Fraud cases as expected, while inserting'
-    );
-
-    // Validate UPDATE behaviour
-    newCases[0].Type = 'Investment';
-    update newCases[0];
-
-    Case sampleCase2 = [
-      SELECT Id, Type, RecordType.Name, Subject
-      FROM Case
-      WHERE Id = :newCases[0].Id
-      LIMIT 1
-    ];
-    System.assertEquals(
-      sampleCase2.RecordType.Name + ' - ' + sampleCase2.Type,
-      sampleCase2.Subject,
-      'Failed to autopopulate Subject on Fraud cases as expected, while updating'
-    );
-  }
-
   // Note: this test class only tests the create scenario, not the update scenario.
   // A separate test method was created for update scenario, insufficient permissions cause it to fail
   // Code is now consolidated in here, to only create caseList2 code is required
@@ -1419,193 +1124,6 @@ private class CaseTriggerHandlerTest {
     );
   }
 
-  @isTest
-  static void testPopulateFalseCustomerProfileCaseSubject() {
-    Account acc = [SELECT Id, Name FROM Account LIMIT 1];
-    Case c = new Case(
-      RecordTypeId = RTCase.falseCustomerProfile,
-      Type = 'Not Fraud',
-      Origin = 'Other',
-      AccountId = acc.Id
-    );
-    Test.startTest();
-    insert c;
-    c = [SELECT Subject FROM Case WHERE id = :c.id LIMIT 1];
-    Test.stopTest();
-    System.assertEquals(
-      'False Onboarding',
-      c.Subject,
-      'New case subject should be as expected.'
-    );
-  }
-
-  //Test to verify Subject auto-population when Case Type has a numerical value different from the label
-  static void testNumericCaseTypeValue() {
-    // GIVEN the selected Case Types has numerical values as API names
-    List<String> caseTypes = new List<String>{ '10', '11' };
-
-    // WHEN a user creates or updates a Fradx 'Scam' case
-    Case[] newCases = new List<Case>();
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE ANZx_Customer__c = TRUE
-      LIMIT 1
-    ];
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = RTCase.scam,
-          Type = faker.randomElement(caseTypes),
-          AccountId = acc.Id
-        )
-      );
-    }
-    Test.startTest();
-    insert newCases;
-    Test.stopTest();
-
-    // THEN Case Subject should be autopopulated based on RecordType Name and Type Label
-
-    // Verify subject on one of the inserted Cases
-    Case sampleCase1 = [
-      SELECT Id, Type, RecordType.Name, Subject
-      FROM Case
-      WHERE Id = :newCases[0].Id
-      LIMIT 1
-    ];
-    System.assertEquals(
-      sampleCase1.RecordType.Name +
-        ' - ' +
-        caseTypeLabelByValue.get(sampleCase1.Type),
-      sampleCase1.Subject,
-      'Failed to autopopulate Subject with Case Type label as expected, while inserting'
-    );
-
-    // Validate UPDATE behaviour
-    newCases[0].Type = '12';
-    update newCases[0];
-
-    Case sampleCase2 = [
-      SELECT Id, Type, RecordType.Name, Subject
-      FROM Case
-      WHERE Id = :newCases[0].Id
-      LIMIT 1
-    ];
-    System.assertEquals(
-      sampleCase2.RecordType.Name +
-        ' - ' +
-        caseTypeLabelByValue.get(sampleCase2.Type),
-      sampleCase2.Subject,
-      'Failed to autopopulate Subject with Case Type label as expected, while updating'
-    );
-  }
-
-  //Tests if KYC QA Fraud Case Subject is populated correctly based on case type.
-  @isTest
-  static void testPopulateKYCQAFraudCaseSubject() {
-    // GIVEN FraudX Agent user has required acces
-    // Query for API User
-    User usr = TestUtil.getUserByFirstName('FraudXTest');
-
-    // WHEN FraudX Agent user creates or updates a Fraud case
-    Case[] newCases = new List<Case>();
-    Account acc = [
-      SELECT Id
-      FROM Account
-      WHERE OCV_ID__c = 'PERSONOCV879879'
-      LIMIT 1
-    ];
-
-    CustomerOnboardingApplication__c cob = new CustomerOnboardingApplication__c(
-      PersonaId__c = 'dsfsadfasdf',
-      OCVId__c = '4324234234',
-      SecurityMobile__c = '61400000000'
-    );
-    insert cob;
-
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(
-          RecordTypeId = new List<Id>(CheckCaseRecordType.FRAUD_RT_IDS)[4],
-          Type = 'KYC QA Sample',
-          AccountId = acc.Id,
-          CustomerOnboardingApplication__c = cob.Id
-        )
-      );
-    }
-    Test.startTest();
-    System.runAs(usr) {
-      insert newCases;
-    }
-    Test.stopTest();
-
-    // THEN Case Subject should be autopopulated based on Type
-
-    // Verify subject on one of the inserted Cases
-    Case sampleCase1 = [
-      SELECT Id, Type, RecordType.Name, Subject
-      FROM Case
-      WHERE Id = :newCases[0].Id
-      LIMIT 1
-    ];
-    System.assertEquals(
-      sampleCase1.Type,
-      sampleCase1.Subject,
-      'Failed to autopopulate Subject on KYC QA Fraud cases as expected, while inserting'
-    );
-  }
-
-  //Tests duration hours field is populated during closure time
-  @isTest
-  static void testUpdateCaseDurationTime() {
-    Test.startTest();
-    Case newCase = new Case();
-    newCase.IDR_Customer_Number__c = '123456789012';
-    newCase.Origin = 'Phone';
-    insert newCase;
-
-    newCase.Status = 'Closed';
-    newCase.IDR_Complaint_Outcome__c = '1';
-    newCase.IDR_Description_of_Outcome__c = 'test';
-    newCase.IDR_Is_Common__c = 'No';
-
-    update newCase;
-
-    newCase = [
-      SELECT Id, Case_Hour_Duration__c
-      FROM Case
-      WHERE Id = :newCase.Id
-    ];
-    Test.stopTest();
-    System.assert(
-      newCase.Case_Hour_Duration__c >= 0,
-      'New case duration time hour should be as expected.'
-    );
-  }
-
-  @istest
-  static void testBusinessHoursAssignment() {
-    Case newCase = new Case();
-    newCase.RecordTypeId = RTCase.nonCustomerComplaint;
-    insert newCase;
-
-    BusinessHours bhs = [
-      SELECT Id
-      FROM BusinessHours
-      WHERE Name = 'Case Business Hours'
-    ];
-
-    Case c = [SELECT BusinessHoursId FROM Case WHERE id = :newCase.id];
-
-    System.assertEquals(
-      bhs.Id,
-      c.BusinessHoursId,
-      'New case bussinessHours id should be as expected.'
-    );
-  }
-
   @istest
   static void testIDRCaseDateRecievedUpdate() {
     Case[] newCases = new List<Case>();
@@ -1650,37 +1168,6 @@ private class CaseTriggerHandlerTest {
       idrTask.ActivityDate,
       checkTask.ActivityDate,
       'IDR case date should be updated.'
-    );
-  }
-
-  //Tests if ANZ Plus Case ContactId is populated correctly based on Account.
-  @isTest
-  static void testContactLookupPopulation() {
-    // GIVEN a Person Account record is available with relevant fields on it
-    Account acc = [
-      SELECT Id, PersonContactId
-      FROM Account
-      WHERE RecordTypeId = :GetHelpConstants.ACCOUNT_PERSON_ACCOUNT_RT_ID
-      LIMIT 1
-    ];
-
-    // WHEN an ANZ Plus Case is created
-    Case[] newCases = new List<Case>();
-    for (Integer i = 0; i < Integer.valueOf(Label.Test_Bulk_Size); i++) {
-      newCases.add(
-        new Case(RecordTypeId = RTCase.generalInquiry, AccountId = acc.Id)
-      );
-    }
-
-    Test.startTest();
-    GetHelpCaseActionsHelper.populateContactLookupForANZPlus(newCases, null);
-    Test.stopTest();
-
-    // THEN Contact Name lookup should be auto-populated
-    System.assertEquals(
-      acc.PersonContactId,
-      newCases[0].ContactId,
-      'Failed to auto-populate Contact lookup on ANZ Plus cases while inserting'
     );
   }
 
@@ -2070,7 +1557,7 @@ private class CaseTriggerHandlerTest {
       Description = 'Charged more than once for same purchase',
       Effective_Date__c = Date.valueof(System.today()),
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.anzBusinessHours.Id
+      BusinessHoursId = QueryBusinessHours.anzXBusinessHours.Id
     );
 
     // WHEN
@@ -2112,7 +1599,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.anzBusinessHours.Id
+      BusinessHoursId = QueryBusinessHours.anzXBusinessHours.Id
     );
 
     // WHEN
@@ -2207,7 +1694,7 @@ private class CaseTriggerHandlerTest {
       Origin = '1',
       Priority = 'Medium',
       Transaction_Id__c = '9be08660-23bb-4f12-b124-7cfe561ba086',
-      BusinessHoursId = CommonUtil.anzBusinessHours.Id,
+      BusinessHoursId = QueryBusinessHours.anzXBusinessHours.Id,
       Description = 'sample issue description',
       External_System__c = 'CARBe',
       External_Case_ID__c = '45234234',
@@ -2655,13 +2142,6 @@ private class CaseTriggerHandlerTest {
   }
 
   private static void verifyCaseSubject(Case theCase) {
-    List<String> fraudCasesRecordTypeNames = new List<String>{
-      'Fraud',
-      'Identity',
-      'Recipient_Mule',
-      'Scam',
-      'KYC_QA'
-    };
     List<String> disputeCasesRecordTypeNames = new List<String>{
       'ATM_Dispute',
       'BPAY_Dispute',
@@ -2676,12 +2156,6 @@ private class CaseTriggerHandlerTest {
     ) {
       System.assertEquals(
         theCase.RecordType.Name + ' - ' + theCase.Dispute_Reason__c,
-        theCase.Subject,
-        'New case subject should be as expected.'
-      );
-    } else if (fraudCasesRecordTypeNames.contains(theCase.RecordType.Name)) {
-      System.assertEquals(
-        theCase.RecordType.Name + ' - ' + theCase.Type,
         theCase.Subject,
         'New case subject should be as expected.'
       );

@@ -372,7 +372,6 @@ public with sharing class OpportunityActions {
     List<Opportunity> lstOfOpp,
     Map<Id, Opportunity> oldOppMap
   ) {
-    List<Opportunity> oppErrorList = new List<Opportunity>();
     Set<String> duplicateLARSetLowercase = new Set<String>();
     List<Opportunity> filteredOppList = getFilteredOpportunitiesForLoanappReferenceNumber(
       lstOfOpp,
@@ -399,12 +398,31 @@ public with sharing class OpportunityActions {
           opp.Loanapp_Reference__c.toLowerCase()
         )
       ) {
-        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c);
+        duplicateLARSetLowerCase.add(opp.Loanapp_Reference__c.toLowerCase());
         continue;
       }
-      oppErrorList.add(opp);
+      opp.addError(DUPLICATE_LAR_ERROR);
     }
-    CommonUtil.raiseSobjectError(oppErrorList, DUPLICATE_LAR_ERROR);
+  }
+
+  /**
+   * @description update the OwnerId with the  Opportunity_Owner__c field
+   * @name transferOpportunityOwnership
+   * @param newOppList List of new lead records.
+   * @param oldOppMap Map of old lead records.
+   */
+  public static void transferOpportunityOwnership(
+    List<Opportunity> newOppList,
+    Map<Id, Opportunity> oldOppMap
+  ) {
+    List<Opportunity> filteredRecords = ListUtil.filter(newOppList, oldOppMap)
+      .isNotNull(Opportunity.Opportunity_Owner__c)
+      .changed(Opportunity.Opportunity_Owner__c)
+      .toList();
+
+    for (Opportunity record : filteredRecords) {
+      record.OwnerId = record.Opportunity_Owner__c;
+    }
   }
 
   /**
@@ -487,5 +505,59 @@ public with sharing class OpportunityActions {
     record.strWorkPhone = '';
     record.strAdvertisingIndicator = ''; //added as part of CC-6745
     return record;
+  }
+
+  /**
+   * @description update ocr sync records on loanapp reference change
+   * @name updateOCRSyncRecordsOnLARChange
+   * @param oppList opportunityRecords
+   * @param oldMap set of Record Type ids
+   */
+  public static void updateOCRSyncRecordsOnLARChange(
+    List<Opportunity> oppList,
+    Map<Id, Opportunity> oldMap
+  ) {
+    List<Opportunity_Contact_Role_Sync__c> ocrSyncToUpdate = new List<Opportunity_Contact_Role_Sync__c>();
+    List<Opportunity> filteredOpportunities = ListUtil.filter(oppList, oldMap)
+      .isNotNull(Opportunity.Loanapp_Reference__c)
+      .changed(Opportunity.Loanapp_Reference__c)
+      .toList();
+    Set<Id> oppIdSet = ListUtil.getIds(filteredOpportunities, Opportunity.Id);
+    Map<Id, OpportunityContactRole> relatedOCRMap = new Map<Id, OpportunityContactRole>(
+      OPPACTION_REPOSITORY.getOpportunityContactRolesByOppIds(oppIdSet)
+    );
+    List<Opportunity_Contact_Role_Sync__c> relatedOCRSyncList = OPPACTION_REPOSITORY.getOCRSyncByOCRIds(
+      relatedOCRMap.keySet()
+    );
+    for (Opportunity_Contact_Role_Sync__c ocrSync : relatedOCRSyncList) {
+      ocrSyncToUpdate.add(
+        createOCRSyncInstance(
+          relatedOCRMap.get(ocrSync.OpportunityContactRoleId__c),
+          ocrSync
+        )
+      );
+    }
+    DML_REPOSITORY.doUpdate(ocrSyncToUpdate);
+  }
+
+  /**
+   * @description create an instance for OCR Sync
+   * @name createOCRSyncInstance
+   * @param ocr ocr record
+   * @param ocrSync ocr sync record
+   * @return Opportunity_Contact_Role_Sync__c
+   */
+  private static Opportunity_Contact_Role_Sync__c createOCRSyncInstance(
+    OpportunityContactRole ocr,
+    Opportunity_Contact_Role_Sync__c ocrSync
+  ) {
+    if (ocr == null || ocrSync == null) {
+      return null;
+    }
+    return new Opportunity_Contact_Role_Sync__c(
+      Id = ocrSync.Id,
+      ExternalId__c = ocr.ExternalId__c,
+      OpportunityId__c = ocr.Opportunity.Loanapp_Reference__c
+    );
   }
 }

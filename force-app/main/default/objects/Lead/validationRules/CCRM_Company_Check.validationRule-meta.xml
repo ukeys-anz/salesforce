@@ -21,7 +21,13 @@
     Text(Status) = &apos;Outcome&apos;,
     Text(Lead_Outcome__c) = &apos;Expired&apos;
     )
-    )
+    ),
+    NOT(ISCHANGED(RecordTypeId)),
+    NOT(ISCHANGED(Skip_Validations__c)),
+    NOT(OR(
+        Skip_Validations__c = &apos;SkipValidation&apos;,
+        Skip_Validations__c = &apos;Validate&apos;
+    ))
 )</errorConditionFormula>
     <errorMessage>The Registered Company and Company name are required to proceed.</errorMessage>
 </ValidationRule>

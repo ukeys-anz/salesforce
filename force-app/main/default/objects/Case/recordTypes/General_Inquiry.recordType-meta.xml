@@ -6208,10 +6208,6 @@
             <default>false</default>
         </values>
         <values>
-            <fullName>89</fullName>
-            <default>false</default>
-        </values>
-        <values>
             <fullName>9</fullName>
             <default>false</default>
         </values>
@@ -6628,10 +6624,6 @@
         </values>
         <values>
             <fullName>88</fullName>
-            <default>false</default>
-        </values>
-        <values>
-            <fullName>89</fullName>
             <default>false</default>
         </values>
         <values>
@@ -11879,6 +11871,10 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>Removal of Electronic Access</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>Renewal and Restructures</fullName>
             <default>false</default>
         </values>
@@ -12768,6 +12764,10 @@
         </values>
         <values>
             <fullName>Fraud</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Goodwill Gesture Payment</fullName>
             <default>false</default>
         </values>
         <values>

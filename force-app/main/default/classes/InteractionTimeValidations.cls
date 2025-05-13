@@ -9,15 +9,30 @@ public with sharing class InteractionTimeValidations {
    * @param leadInteractionMap Map of lead id and the existing list of scheduled interactions
    * @param interactions list of new interactions created.
    */
+
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
+
+  /**
+   * @description Validates if there are any overlapping interactions for accounts and leads
+   * @param accountInteractionMap Map containing Account Id as key and list of related Interactions as value
+   * @param leadInteractionMap Map containing Lead Id as key and list of related Interactions as value
+   * @param interactions List of Interaction records to validate
+   */
   public static void validateOverlappingInteractions(
     Map<Id, List<Interaction>> accountInteractionMap,
     Map<Id, List<Interaction>> leadInteractionMap,
     List<Interaction> interactions
   ) {
     Boolean isUpdatedByCoach =
-      (PermissionUtils.hasPermissionSetGroupAssigned('Coach') ||
-      PermissionUtils.hasPermissionSetGroupAssigned('Coach_Lead')) &&
-      Trigger.isUpdate;
+      USER_INFO.checkAnyPermissions(
+        new Set<String>{
+          'Credit_Assessor_Lead',
+          'Coach_Lead',
+          'BOH_Coach_Lead'
+        }
+      ) && Trigger.isUpdate;
     for (Interaction interact : interactions) {
       List<Interaction> customersInteractions = new List<Interaction>();
 
@@ -35,21 +50,21 @@ public with sharing class InteractionTimeValidations {
           customersInteractions
         );
         Boolean existingInteractionAvailable = existingInteraction != null;
-        if (existingInteractionAvailable) {
-          if (isUpdatedByCoach) {
-            interact.addError(
-              System.Label.Appointment_Reschedule_Error_Message
-            );
-          } else if (!String.isEmpty(interact.ContactRequestId__c)) {
-            interact.addError(
-              System.Label.Interaction_User_Created_Error_Message +
-              existingInteraction.Interaction_External_Id__c
-            );
-          } else {
-            interact.addError(
-              System.Label.Interaction_Coach_Created_Error_Message
-            );
-          }
+        if (!existingInteractionAvailable) {
+          continue;
+        }
+
+        if (isUpdatedByCoach) {
+          interact.addError(System.Label.Appointment_Reschedule_Error_Message);
+        } else if (!String.isEmpty(interact.ContactRequestId__c)) {
+          interact.addError(
+            System.Label.Interaction_User_Created_Error_Message +
+            existingInteraction.Interaction_External_Id__c
+          );
+        } else {
+          interact.addError(
+            System.Label.Interaction_Coach_Created_Error_Message
+          );
         }
       }
     }
@@ -105,27 +120,29 @@ public with sharing class InteractionTimeValidations {
       Boolean hasOwnerExistingInteractions = existingCoachInteractions.containsKey(
         interact.OwnerId
       );
-      if (hasOwnerExistingInteractions) {
-        List<Interaction> existingUniqueInteractions = existingCoachInteractions.get(
-          interact.OwnerId
+      if (!hasOwnerExistingInteractions) {
+        continue;
+      }
+      List<Interaction> existingUniqueInteractions = existingCoachInteractions.get(
+        interact.OwnerId
+      );
+      Boolean existingInteractionAvailable = InteractionTimeValidations.verifyTimeSlots(
+        interact,
+        existingUniqueInteractions
+      );
+      if (!existingInteractionAvailable) {
+        continue;
+      }
+      if (interact.OwnerId == UserInfo.getUserId()) {
+        interact.addError(
+          System.Label.Coach_Existing_Interaction_Error_Message
         );
-        Boolean existingInteractionAvailable = InteractionTimeValidations.verifyTimeSlots(
-          interact,
-          existingUniqueInteractions
+      } else {
+        interact.addError(
+          existingUniqueInteractions[0].Owner.Name +
+            ' ' +
+            System.Label.Other_Coach_Existing_Interaction_Error_Message
         );
-        if (existingInteractionAvailable) {
-          if (interact.OwnerId == UserInfo.getUserId()) {
-            interact.addError(
-              System.Label.Coach_Existing_Interaction_Error_Message
-            );
-          } else {
-            interact.addError(
-              existingUniqueInteractions[0].Owner.Name +
-                ' ' +
-                System.Label.Other_Coach_Existing_Interaction_Error_Message
-            );
-          }
-        }
       }
     }
   }

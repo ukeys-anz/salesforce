@@ -2,7 +2,6 @@
  * @description Wrapper class to store Interaction Context Request parameters
  */
 global class InteractionContextRequest {
-
   private static final InteractionRepository INTERACTION_REPOSITORY = (InteractionRepository) Lib_InstanceProvider.forType(
     InteractionRepository.class
   );
@@ -46,7 +45,7 @@ global class InteractionContextRequest {
    * @description chatOrCallStatus from Twilio
    */
   public String chatOrCallStatus { get; set; }
-   /**
+  /**
    * @description pubSubEventId from Twilio
    */
   public String pubSubEventId { get; set; }
@@ -61,15 +60,15 @@ global class InteractionContextRequest {
   }
 
   /**
-  * @description fetch account id based on ocvId
-  */
-  public Account existingAccount { 
+   * @description fetch account id based on ocvId
+   */
+  public Account existingAccount {
     get {
       if (existingAccount == null) {
         List<Account> accountExisting = INTERACTION_REPOSITORY.fetchExistingAccountByOCVId(
-        ocvId);
-        if(accountExisting.isEmpty())
-        {
+          ocvId
+        );
+        if (accountExisting.isEmpty()) {
           return null;
         }
         existingAccount = accountExisting[0];
@@ -78,20 +77,22 @@ global class InteractionContextRequest {
     }
     set;
   }
-   /**
-  * @description fetch account id based on ocvId
-  */
-  public Task pushToAppTask { 
-    get { 
+  /**
+   * @description fetch account id based on ocvId
+   */
+  public Task pushToAppTask {
+    get {
       if (pushToAppTask == null && String.isNotBlank(pubSubEventId)) {
-        List<Task> taskList =  INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
-          pubSubEventId);
-      
-        if(taskList.isEmpty())
-        {
+        List<Task> taskList = INTERACTION_REPOSITORY.queryPushToAppTaskDetails(
+          pubSubEventId
+        );
+
+        if (taskList.isEmpty()) {
           Logger.info(
             ' No Customer Nudge Task Found having pubSubEventId :-' +
-            pubSubEventId + ' For Chat or Call SID :- ' + chatOrCallId
+              pubSubEventId +
+              ' For Chat or Call SID :- ' +
+              chatOrCallId
           );
           Logger.saveLog();
           return null;

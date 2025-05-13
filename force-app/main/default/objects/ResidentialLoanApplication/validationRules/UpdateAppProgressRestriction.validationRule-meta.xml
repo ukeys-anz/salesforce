@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ValidationRule xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>UpdateAppProgressRestriction</fullName>
+    <active>true</active>
+    <description>You cannot change the Application Progress when Application Status is Completed.</description>
+    <errorConditionFormula>AND( NOT( $Setup.Salesforce_Library_Settings__c.Disable_VRs__c ) ,ISCHANGED( Application_Progress__c ) ,  Not( ISBLANK(Application_Progress__c) ), ISPICKVAL( Status ,&quot;STATE_COMPLETED&quot;))</errorConditionFormula>
+    <errorMessage>You cannot change the Application Progress when Application Status is Completed.</errorMessage>
+</ValidationRule>

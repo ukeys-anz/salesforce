@@ -132,6 +132,35 @@ public with sharing class AutoKYCQACaseActions {
   };
   //#endregion
 
+  //#region populate KYC QA Case subject
+  /**
+   * @description This method populates subject on KYC QA cases based on case Type
+   * @param records Case record from trigger
+   * @param oldMap old trigger values
+   */
+  public static void populateKycQACaseSubject(
+    List<Case> records,
+    Map<Id, Case> oldMap
+  ) {
+    List<Case> filteredCases = ListUtil.filter(records, oldMap)
+      .changed(Case.Type)
+      .isNotNull(Case.Type)
+      .toList();
+
+    if (filteredCases.isEmpty()) {
+      return;
+    }
+
+    Map<String, String> caseTypeLabelByValue = CommonUtil.getPicklistLabelsByValues(
+      Case.Type
+    );
+
+    for (Case record : filteredCases) {
+      record.Subject = caseTypeLabelByValue.get(record.Type);
+    }
+  }
+  //#endregion
+
   //#region populate KYC QA Case fields from COB
   /**
    * @description Update KYC QA Case fields
@@ -433,6 +462,7 @@ public with sharing class AutoKYCQACaseActions {
   }
   //#endregion
 
+  //#region update Tested Date
   /**
    * @description Update Tested Date
    * @param cases List of Cases
@@ -445,6 +475,7 @@ public with sharing class AutoKYCQACaseActions {
       .toList();
     ListUtil.setField(validCases, Case.TestedDate__c, System.now());
   }
+  //#endregion
 
   //#region downgrade/upgrade and restraints
   /**

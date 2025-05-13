@@ -11,27 +11,6 @@ public with sharing class CommonUtil {
   private static Set<Id> errorTrackerSet = new Set<Id>();
 
   /**
-   * @description Get all the business hours
-   */
-  public static BusinessHours anzBusinessHours {
-    public get {
-      if (
-        anzBusinessHours == null &&
-        BusinessHours.SObjectType.getDescribe().isQueryable()
-      ) {
-        anzBusinessHours = [
-          SELECT Id
-          FROM BusinessHours
-          WHERE Name = 'ANZx Case Business Hours'
-          LIMIT 1
-        ];
-      }
-      return anzBusinessHours;
-    }
-    private set;
-  }
-
-  /**
    * @description Cached map of value > label for picklist fields, grouped by field
    */
   private static Map<SObjectField, Map<String, String>> mapPicklistValueToLabel = new Map<SObjectField, Map<String, String>>();
@@ -303,15 +282,18 @@ public with sharing class CommonUtil {
     return ex;
   }
 
-    /**
+  /**
    * @description Logs and return the given exception.
    * Useful for re-throw from caller.
    * @param message meaningful message from the caller
    * @param ex The exception to be logged.
    * @return The logged exception.
    */
-  public static Exception logExceptionWithMessage(String message , Exception ex) {
-    Logger.error(message + ' ' +ex.getMessage(), ex);
+  public static Exception logExceptionWithMessage(
+    String message,
+    Exception ex
+  ) {
+    Logger.error(message + ' ' + ex.getMessage(), ex);
     Logger.saveLog();
     return ex;
   }
@@ -423,16 +405,13 @@ public with sharing class CommonUtil {
    * @return Group
    */
   public static Group getGroupDetails(String type, String queueName) {
-    if (Group.sObjectType.getDescribe().isQueryable()) {
-      return [
-        SELECT Id
-        FROM Group
-        WHERE Type = :type AND developername = :queueName
-        LIMIT 1
-      ];
-    } else {
-      return null;
+    if (type?.equalsIgnoreCase(QueryQueue.GROUP_TYPE_QUEUE)) {
+      return QueryQueue.get(queueName);
     }
+    if (type?.equalsIgnoreCase(QueryPublicGroup.GROUP_TYPE_PUBLICGROUP)) {
+      return QueryPublicGroup.get(queueName);
+    }
+    return null;
   }
 
   /**
@@ -801,7 +780,7 @@ public with sharing class CommonUtil {
   public static String buildTrimmedConcatenatedString(List<String> items) {
     List<String> newContents = new List<String>();
     for (String item : items) {
-      if (String.isNotBlank(item?.trim())) {
+      if (String.isNotBlank(item)) {
         newContents.add(item.trim());
       }
     }
@@ -898,11 +877,7 @@ public with sharing class CommonUtil {
     List<String> lstOfProfileName
   ) {
     Map<String, Id> mapOfProfileId = new Map<String, Id>();
-    for (Profile prof : [
-      SELECT Id, Name
-      FROM Profile
-      WHERE Name IN :lstOfProfileName
-    ]) {
+    for (Profile prof : QueryProfile.get(lstOfProfileName)) {
       mapOfProfileId.put(prof.Name, prof.Id);
     }
 

@@ -4,6 +4,7 @@
     <columns>Name</columns>
     <columns>Account</columns>
     <columns>Status</columns>
+    <columns>Application_Progress__c</columns>
     <columns>Created_Date__c</columns>
     <columns>Owner_Name__c</columns>
     <filters>
@@ -16,6 +17,7 @@
     <queue>Home_Loan_Applications_Queue</queue>
     <sharedTo>
         <role>BOH_Coach</role>
+        <role>BOH_Coach_Lead</role>
         <role>Coach</role>
     </sharedTo>
 </ListView>

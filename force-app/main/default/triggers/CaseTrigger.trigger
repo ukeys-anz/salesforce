@@ -16,4 +16,7 @@ trigger CaseTrigger on Case(
   BrokerEnquiryCaseTriggerHandler brokerEnquiryHandler = new BrokerEnquiryCaseTriggerHandler();
   ProfileUpdateCaseTriggerHandler profileUpdateHandler = new ProfileUpdateCaseTriggerHandler();
   TrustMeCaseTriggerHandler trustMeHandler = new TrustMeCaseTriggerHandler();
+  FalseCustomerProfileCaseTriggerHandler fcpHandler = new FalseCustomerProfileCaseTriggerHandler();
+  FraudXCaseTriggerHandler fraudHandler = new FraudXCaseTriggerHandler();
+  LendingCaseTriggerHandler lendingHandler = new LendingCaseTriggerHandler();
 }

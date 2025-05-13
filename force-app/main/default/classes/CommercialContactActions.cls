@@ -21,6 +21,9 @@ public with sharing class CommercialContactActions {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
+  private static final UserInfoRepository USER_INFO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
+  );
 
   /**
    * @description This is used to populate the last name field on contact during creation/updation
@@ -53,9 +56,22 @@ public with sharing class CommercialContactActions {
       .changed(Contact.LastName)
       .toList();
 
-    for (Contact conRec : filterConList) {
-      conRec.Name__c = conRec.LastName;
+    CommercialContactActionsHelper.setContactName(filterConList);
+  }
+
+  /**
+   * @description This is used to populate the custom name field on contact during creation when Ocv creates commercial contact record after lead conversion
+   * @param contactList the list of contacts
+   */
+  public static void populateNameOCV(List<Contact> contactList) {
+    if (
+      !USER_INFO.getUser()
+        .username.toLowerCase()
+        .contains('ocvintegration.user@anzx.com')
+    ) {
+      return;
     }
+    CommercialContactActionsHelper.setContactName(contactList);
   }
 
   /**

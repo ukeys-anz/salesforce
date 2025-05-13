@@ -134,8 +134,10 @@ public with sharing class PushToAppRepository {
     return [
       SELECT Id, Status
       FROM Task
-      WHERE ActivityDate < TODAY AND RecordTypeId = :RTTask.customerNudge
-      AND IsClosed != true
+      WHERE
+        ActivityDate < TODAY
+        AND RecordTypeId = :RTTask.customerNudge
+        AND IsClosed != TRUE
       WITH USER_MODE
     ];
   }

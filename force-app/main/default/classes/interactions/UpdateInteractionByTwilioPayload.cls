@@ -57,23 +57,23 @@ global class UpdateInteractionByTwilioPayload {
    */
   public Boolean isConference { get; set; }
   /**
-  * @description nlpTopic
-  */
+   * @description nlpTopic
+   */
   public String nlpTopic { get; set; }
-   /**
-  * @description fetch agent user id
-  */
-  public Id agentUserId { 
+  /**
+   * @description fetch agent user id
+   */
+  public Id agentUserId {
     get {
-      if(agentUserId == null)
-      {
+      if (agentUserId == null) {
         User agentUserRecord = INTERACTION_REPOSITORY.fetchAgentUserId(
-        agentEmail);
+          agentEmail
+        );
 
         agentUserId = agentUserRecord?.Id;
       }
       return agentUserId;
     }
-     set;
+    set;
   }
 }

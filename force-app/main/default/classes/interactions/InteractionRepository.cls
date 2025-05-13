@@ -57,12 +57,10 @@ public with sharing class InteractionRepository {
 
   /**
    * @description query User based on agentEmail
-   * @param agentEmail agentEmail from Twilio 
+   * @param agentEmail agentEmail from Twilio
    * @return User record
    */
-  public User fetchAgentUserId(
-    String agentEmail
-  ) {
+  public User fetchAgentUserId(String agentEmail) {
     if (String.isBlank(agentEmail)) {
       return null;
     }
@@ -112,19 +110,20 @@ public with sharing class InteractionRepository {
         AND ANZx_Customer__c = TRUE
     ];
   }
-  
+
   /**
    * @description query Interaction Status Mapping for Twilio
    * @param type value to query
    * @return List<InteractionStatusMappingForTwilio__mdt> record
    */
-  public List<InteractionStatusMappingForTwilio__mdt> fetchTwilioStatusMapping( String type
+  public List<InteractionStatusMappingForTwilio__mdt> fetchTwilioStatusMapping(
+    String type
   ) {
     return [
       SELECT Type__c, Interaction_Status__c, Twilio_Status__c
       FROM InteractionStatusMappingForTwilio__mdt
       WHERE Type__c = :type
-      ];
+    ];
   }
 
   /**
@@ -132,8 +131,7 @@ public with sharing class InteractionRepository {
    * @param ocvIdFromTwilio ocvid received from Twilio
    * @return Account record existing
    */
-  public List<Account> fetchExistingAccountByOCVId( String ocvIdFromTwilio
-  ) {
+  public List<Account> fetchExistingAccountByOCVId(String ocvIdFromTwilio) {
     if (String.isBlank(ocvIdFromTwilio)) {
       return new List<Account>();
     }
@@ -143,26 +141,24 @@ public with sharing class InteractionRepository {
       WHERE OCV_ID__c = :ocvIdFromTwilio AND ANZx_Customer__c = TRUE
       WITH USER_MODE
       LIMIT 1
-      ];
+    ];
   }
 
-  
   /**
    * @description query Interaction Details created successfully
    * @param interactionId recordId of the Interaction
    * @return Interaction record details
    */
-  public Interaction getInteractionDetails( Id interactionId
-  ) {
+  public Interaction getInteractionDetails(Id interactionId) {
     if (String.isBlank(interactionId)) {
       return null;
     }
     return [
-      SELECT Id, Interaction_External_Id__c,TwilioDetailsID__c, CaseId__c
+      SELECT Id, Interaction_External_Id__c, TwilioDetailsID__c, CaseId__c
       FROM Interaction
       WHERE Id = :interactionId
       WITH USER_MODE
-      ];
+    ];
   }
 
   /**
@@ -170,12 +166,12 @@ public with sharing class InteractionRepository {
    * @param pubSubEventId pubSubEventId received from Twilio
    * @return Task record details
    */
-  public List<Task> queryPushToAppTaskDetails(String pubSubEventId)
-  {
-    return [SELECT Id , Pub_Sub_Event_Id__c,
-    WhatId
-    FROM Task
-    WHERE Pub_Sub_Event_Id__c =: pubSubEventId
-    WITH USER_MODE];
+  public List<Task> queryPushToAppTaskDetails(String pubSubEventId) {
+    return [
+      SELECT Id, Pub_Sub_Event_Id__c, WhatId
+      FROM Task
+      WHERE Pub_Sub_Event_Id__c = :pubSubEventId
+      WITH USER_MODE
+    ];
   }
 }

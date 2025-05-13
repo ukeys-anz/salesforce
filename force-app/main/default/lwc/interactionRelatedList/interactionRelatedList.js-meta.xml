@@ -7,6 +7,7 @@
     </targets>
     <targetConfigs>
       <targetConfig targets="lightning__RecordPage">
+        <property label="All" name="showAll" type="Boolean" default="true"/>
         <property label="Show Appointment Tab" name="showAppTab" type="Boolean" default="true"/>
         <property label="Show Interaction Tab" name="showIntTab" type="Boolean" default="true"/>
         <property label="Show Message Tab" name="showMsgTab" type="Boolean" default="true"/>

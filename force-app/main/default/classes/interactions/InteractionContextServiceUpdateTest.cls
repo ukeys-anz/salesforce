@@ -6,7 +6,6 @@
 
 @isTest
 public with sharing class InteractionContextServiceUpdateTest {
-
   private static final Id FAKER_TWILIO_ID = Lib_FakeIdGenerator.getMockId(
     Twilio_Details__c.getSObjectType()
   );
@@ -16,10 +15,16 @@ public with sharing class InteractionContextServiceUpdateTest {
 
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
-    interactionRepoMock = Lib_MockProvider.forType(
-      InteractionRepository.class
-      );
-    interactionRepoMock.mock('fetchTwilioStatusMapping',new List<InteractionStatusMappingForTwilio__mdt>{ new InteractionStatusMappingForTwilio__mdt(Twilio_Status__c='assigned',Interaction_Status__c='Active')});
+    interactionRepoMock = Lib_MockProvider.forType(InteractionRepository.class);
+    interactionRepoMock.mock(
+      'fetchTwilioStatusMapping',
+      new List<InteractionStatusMappingForTwilio__mdt>{
+        new InteractionStatusMappingForTwilio__mdt(
+          Twilio_Status__c = 'assigned',
+          Interaction_Status__c = 'Active'
+        )
+      }
+    );
   }
 
   @isTest
@@ -28,18 +33,25 @@ public with sharing class InteractionContextServiceUpdateTest {
     registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
-	
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction', 
-    createMockInteraction(interactionId,
-    GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
-    InteractionConstants.CHAT,mockChatOrCallId));
-
-   	dmlRepoMock.mock(
-      'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
     );
-   
+
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        InteractionConstants.CHAT,
+        mockChatOrCallId
+      )
+    );
+
+    dmlRepoMock.mock(
+      'doUpsert',
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
+    );
+
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
       mockChatOrCallId,
@@ -48,11 +60,13 @@ public with sharing class InteractionContextServiceUpdateTest {
     );
 
     Test.startTest();
-	  InteractionContextServiceUpdate.doPost(twilioContext);
+    InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
 
-    Interaction interactionUpdated = (Interaction)dmlRepoMock.getHistory('doUpdate')
-    .getParam('record');
+    Interaction interactionUpdated = (Interaction) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('record');
 
     Assert.isNotNull(
       dmlRepoMock.getHistory('doUpdate'),
@@ -71,16 +85,23 @@ public with sharing class InteractionContextServiceUpdateTest {
     registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
+    );
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
     );
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction', 
-    createMockInteraction(interactionId,
-    GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
-    InteractionConstants.CHAT,mockChatOrCallId));
-  
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        InteractionConstants.CHAT,
+        mockChatOrCallId
+      )
+    );
+
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
       mockChatOrCallId,
@@ -89,36 +110,47 @@ public with sharing class InteractionContextServiceUpdateTest {
     );
 
     Test.startTest();
-      try{
-          InteractionContextServiceUpdate.doPost(twilioContext);
-      }
-      catch (Exception objectException){
-          Assert.isTrue(objectException.getMessage().contains('bad value for restricted picklist field: Created1: [Status__c]'),
-                        'Interaction should not be updated for invalid status value');
-      }
+    try {
+      InteractionContextServiceUpdate.doPost(twilioContext);
+    } catch (Exception objectException) {
+      Assert.isTrue(
+        objectException.getMessage()
+          .contains(
+            'bad value for restricted picklist field: Created1: [Status__c]'
+          ),
+        'Interaction should not be updated for invalid status value'
+      );
+    }
     Test.stopTest();
   }
 
   @isTest
   static void testValidInputWithAgentEmail() {
     String mockChatOrCallId = 'CH1123141516161617';
-	  registerMocks();
+    registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
-    Id agentUserId = Lib_FakeIdGenerator.getMockId(
-      User.getSObjectType()
-        );
+    );
+    Id agentUserId = Lib_FakeIdGenerator.getMockId(User.getSObjectType());
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
     );
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction', 
-    createMockInteraction(interactionId,
-    GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-    InteractionConstants.CALL,
-    mockChatOrCallId));
-    interactionRepoMock.mock('fetchAgentUserId', createMockAgent(agentUserId,'TestAgent@abc.com'));
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        InteractionConstants.CALL,
+        mockChatOrCallId
+      )
+    );
+    interactionRepoMock.mock(
+      'fetchAgentUserId',
+      createMockAgent(agentUserId, 'TestAgent@abc.com')
+    );
 
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
@@ -131,9 +163,11 @@ public with sharing class InteractionContextServiceUpdateTest {
     InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
 
-    Interaction interactionUpdated = (Interaction)dmlRepoMock.getHistory('doUpdate')
-    .getParam('record');
- 
+    Interaction interactionUpdated = (Interaction) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('record');
+
     Assert.isNotNull(
       dmlRepoMock.getHistory('doUpdate'),
       'doUpdate should have been invoked'
@@ -148,31 +182,38 @@ public with sharing class InteractionContextServiceUpdateTest {
   @isTest
   static void testConferenceAttendeeCreationInternal() {
     String mockChatOrCallId = 'CH1123141516161617';
-	  registerMocks();
+    registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
-    Id agentUserId = Lib_FakeIdGenerator.getMockId(
-      User.getSObjectType()
-        );
+    );
+    Id agentUserId = Lib_FakeIdGenerator.getMockId(User.getSObjectType());
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
     );
- 
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction', 
-    createMockInteraction(interactionId,
-    GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-    InteractionConstants.CALL,
-    mockChatOrCallId));
-    interactionRepoMock.mock('fetchAgentUserId', createMockAgent(agentUserId,'TestAgent@abc.com'));
-   
+
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        InteractionConstants.CALL,
+        mockChatOrCallId
+      )
+    );
+    interactionRepoMock.mock(
+      'fetchAgentUserId',
+      createMockAgent(agentUserId, 'TestAgent@abc.com')
+    );
+
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
       mockChatOrCallId,
       'assigned',
       'TestAgent@abc.com'
-    ); 
+    );
     twilioContext.isConference = true;
     twilioContext.transfer = '';
     twilioContext.attendeeName = 'Test Attendee';
@@ -182,49 +223,56 @@ public with sharing class InteractionContextServiceUpdateTest {
     InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
 
-    Interaction interactionUpdated = (Interaction)dmlRepoMock.getHistory('doUpdate')
-    .getParam('record');
-      
-    InteractionAttendee interactionAttendee = (interactionAttendee)dmlRepoMock.getHistory('doInsert')
-    .getParam('record');
- 
-	  Assert.isFalse(
+    Interaction interactionUpdated = (Interaction) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('record');
+
+    InteractionAttendee interactionAttendee = (interactionAttendee) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
+    Assert.isFalse(
       interactionUpdated.OwnerId == agentUserId,
       'Interaction Should be updated with the given agent user id '
     );
-      
+
     Assert.isTrue(
       interactionAttendee.AttendeeType == InteractionConstants.INTERNAL,
       'InteractionAttendee Should be created with the given agent user id '
     );
-
-   
   }
   @isTest
   static void testConferenceAttendeeCreationExternal() {
     String mockChatOrCallId = 'CH1123141516161617';
-	  registerMocks();
+    registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
+    );
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
     );
- 
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction',
-    createMockInteraction(
-      interactionId,
-      GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-      InteractionConstants.CALL,
-      mockChatOrCallId));
+
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        InteractionConstants.CALL,
+        mockChatOrCallId
+      )
+    );
 
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
       mockChatOrCallId,
       'assigned',
       ''
-    ); 
+    );
     twilioContext.isConference = true;
     twilioContext.transfer = '';
     twilioContext.attendeeName = 'Test Attendee';
@@ -233,10 +281,12 @@ public with sharing class InteractionContextServiceUpdateTest {
     Test.startTest();
     InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
-      
-    InteractionAttendee interactionAttendee = (interactionAttendee)dmlRepoMock.getHistory('doInsert')
-    .getParam('record');
-      
+
+    InteractionAttendee interactionAttendee = (interactionAttendee) dmlRepoMock.getHistory(
+        'doInsert'
+      )
+      .getParam('record');
+
     Assert.isTrue(
       interactionAttendee.AttendeeType == InteractionConstants.EXTERNAL,
       'InteractionAttendee Should be created with the given agent user id '
@@ -249,18 +299,23 @@ public with sharing class InteractionContextServiceUpdateTest {
     registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
+    );
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
     );
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction', 
-    createMockInteraction(
-      interactionId,
-      GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
-      InteractionConstants.CHAT,
-      mockChatOrCallId));
-   
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        InteractionConstants.CHAT,
+        mockChatOrCallId
+      )
+    );
+
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
       mockChatOrCallId,
@@ -271,18 +326,19 @@ public with sharing class InteractionContextServiceUpdateTest {
     twilioContext.transfer = 'To Agent';
 
     Test.startTest();
-	  InteractionContextServiceUpdate.doPost(twilioContext);
+    InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
 
-
-    Interaction interactionUpdated = (Interaction)dmlRepoMock.getHistory('doUpdate')
-    .getParam('record');
+    Interaction interactionUpdated = (Interaction) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('record');
 
     Assert.isTrue(
       interactionUpdated.Transfer__c == 'To Agent',
       'Value of Transfer__c should be updated with the given value in Interaction'
     );
-    
+
     Assert.isTrue(
       interactionUpdated.Chat_Queue__c == 'ChatQueue',
       'Value of Chat_Queue__c should be updated with the given value in Interaction'
@@ -295,19 +351,23 @@ public with sharing class InteractionContextServiceUpdateTest {
     registerMocks();
     Id interactionId = Lib_FakeIdGenerator.getMockId(
       Interaction.getSObjectType()
-        );
+    );
     dmlRepoMock.mock(
       'doUpsert',
-      TestUtil.getMockUpsertResult('{"success":true,"id":"'+FAKER_TWILIO_ID+'"}')
+      TestUtil.getMockUpsertResult(
+        '{"success":true,"id":"' + FAKER_TWILIO_ID + '"}'
+      )
     );
-    interactionRepoMock.mock('fetchTwilioDetailIdFromInteraction', 
-    createMockInteraction(
-      interactionId,
-      GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
-      InteractionConstants.CHAT,
-      mockChatOrCallId));
-  
-   
+    interactionRepoMock.mock(
+      'fetchTwilioDetailIdFromInteraction',
+      createMockInteraction(
+        interactionId,
+        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        InteractionConstants.CHAT,
+        mockChatOrCallId
+      )
+    );
+
     UpdateInteractionByTwilioPayload twilioContext = prepareRequest(
       interactionId,
       mockChatOrCallId,
@@ -316,11 +376,13 @@ public with sharing class InteractionContextServiceUpdateTest {
     );
     twilioContext.queueName = 'ChatQueue';
     Test.startTest();
-	  InteractionContextServiceUpdate.doPost(twilioContext);
+    InteractionContextServiceUpdate.doPost(twilioContext);
     Test.stopTest();
 
-    Interaction interactionUpdated = (Interaction)dmlRepoMock.getHistory('doUpdate')
-    .getParam('record');
+    Interaction interactionUpdated = (Interaction) dmlRepoMock.getHistory(
+        'doUpdate'
+      )
+      .getParam('record');
 
     Assert.isTrue(
       interactionUpdated.Transfer__c == null,
@@ -347,7 +409,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     contextReq.interactionId = interactionId;
     contextReq.chatOrCallId = chatOrCallId;
     contextReq.twilioId = 'TW' + faker.randomString(10);
-    contextReq.callRecordingId =  'CR' + faker.randomString(10);
+    contextReq.callRecordingId = 'CR' + faker.randomString(10);
     contextReq.chatOrCallStatus = chatOrCallStatus;
     contextReq.agentEmail = agentEmail;
 
@@ -364,7 +426,7 @@ public with sharing class InteractionContextServiceUpdateTest {
     RestContext.response = res;
     return contextReq;
   }
-   /**
+  /**
    * @description helper method to create a mock interaction
    * @param interactionId faker interactionId
    * @param recordTypeId the recordTypeId of the Interaction
@@ -379,13 +441,13 @@ public with sharing class InteractionContextServiceUpdateTest {
     String chatOrCallSid
   ) {
     Interaction mockInteraction = TestDataFactory.createInteraction(
-          recordTypeId,
-          InteractionConstants.CUSTOMER,
-          'New Interaction',
-          System.now(),
-          false
-        );
-     
+      recordTypeId,
+      InteractionConstants.CUSTOMER,
+      'New Interaction',
+      System.now(),
+      false
+    );
+
     mockInteraction.InteractionType = interactionType;
     mockInteraction.Direction__c = 'Inbound';
     mockInteraction.TwilioDetailsID__c = FAKER_TWILIO_ID;
@@ -394,16 +456,13 @@ public with sharing class InteractionContextServiceUpdateTest {
     mockInteraction.Status__c = 'New';
     return mockInteraction;
   }
-     /**
+  /**
    * @description helper method to create a mock interaction
    * @param agentId faker User Id
    * @param agentEmail mock Federation Identifier
    * @return Mock User Record as per agent email
    */
-  static User createMockAgent(
-    Id agentId,
-    String agentEmail
-  ) {
+  static User createMockAgent(Id agentId, String agentEmail) {
     User mockAgent = TestUtil.createTestUser();
     mockAgent.FederationIdentifier = agentEmail;
     mockAgent.Id = agentId;

@@ -89,4 +89,14 @@ public with sharing class CommercialContactActionsHelper {
     existingAndProspectContactsList.addAll(prospectContactsList);
     existingAndProspectContactsList.addAll(existingContactsList);
   }
+
+  /**
+   * @description setContactName to set contact name
+   * @param contactList List of commercial contact Records
+   */
+  public static void setContactName(List<Contact> contactList) {
+    for (Contact conRec : contactList) {
+      conRec.Name__c = conRec.LastName;
+    }
+  }
 }

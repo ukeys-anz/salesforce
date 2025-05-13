@@ -451,6 +451,24 @@
     </profileActionOverrides>
     <profileActionOverrides>
         <actionName>View</actionName>
+        <content>Commercial_Application_Form_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>ApplicationForm</pageOrSobjectType>
+        <recordType>ApplicationForm.ACM</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>Commercial_Application_Form_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>ApplicationForm</pageOrSobjectType>
+        <recordType>ApplicationForm.ACM</recordType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
         <content>Commercial_Application_Form_Product_Record_Page</content>
         <formFactor>Small</formFactor>
         <pageOrSobjectType>ApplicationFormProduct</pageOrSobjectType>
@@ -500,6 +518,22 @@
         <recordType>Contact.Organisation</recordType>
         <type>Flexipage</type>
         <profile>Admin</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Controlling_Post_Record_Page</content>
+        <formFactor>Small</formFactor>
+        <pageOrSobjectType>Controlling_Post__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
+    </profileActionOverrides>
+    <profileActionOverrides>
+        <actionName>View</actionName>
+        <content>CCRM_Controlling_Post_Record_Page</content>
+        <formFactor>Large</formFactor>
+        <pageOrSobjectType>Controlling_Post__c</pageOrSobjectType>
+        <type>Flexipage</type>
+        <profile>ANZ CCRM Standard User</profile>
     </profileActionOverrides>
     <tabs>standard-home</tabs>
     <tabs>standard-Account</tabs>
@@ -509,9 +543,13 @@
     <tabs>standard-report</tabs>
     <tabs>Circle_Of_Influence__c</tabs>
     <tabs>standard-Product2</tabs>
+    <tabs>Controlling_Post__c</tabs>
     <uiType>Lightning</uiType>
     <utilityBar>Commercial_CRM_UtilityBar</utilityBar>
     <workspaceConfig>
+        <mappings>
+            <tab>Controlling_Post__c</tab>
+        </mappings>
         <mappings>
             <tab>Circle_Of_Influence__c</tab>
         </mappings>

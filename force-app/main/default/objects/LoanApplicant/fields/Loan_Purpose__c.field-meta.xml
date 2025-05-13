@@ -28,6 +28,8 @@
     &quot;LENDING_PURPOSE_PERSONAL_OTHER_MOTOR_VEHICLE_EXPENSES&quot;, &quot;Motor vehicle expenses&quot;,
     &quot;LENDING_PURPOSE_PERSONAL_OTHER_PROPERTY_MAINTENANCE&quot;, &quot;Maintenance, repairs and pools&quot;,
     &quot;LENDING_PURPOSE_PERSONAL_OTHER&quot;, &quot;Other&quot;,
+    &quot;LENDING_PURPOSE_REFINANCE_INVESTOR&quot;, &quot;Refinance - Investor&quot;,
+    &quot;LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR&quot;, &quot;Non-Structural alterations or additions - Investment&quot;,
     TEXT(LoanApplication.Loan_Purpose__c)
 )</formula>
     <label>Loan Purpose</label>

@@ -27,5 +27,7 @@
     <sharedTo>
         <role>Coach</role>
         <role>Coach_Lead</role>
+        <role>Support_Coach</role>
+        <role>BOH_Coach_Lead</role>
     </sharedTo>
 </ListView>

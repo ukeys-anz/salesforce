@@ -34,7 +34,7 @@ global class InteractionContextResponse {
    * @description salesforce task id
    */
   public String taskId { get; set; }
-   /**
+  /**
    * @description salesforce whatId
    */
   public String relatedRecordId { get; set; }

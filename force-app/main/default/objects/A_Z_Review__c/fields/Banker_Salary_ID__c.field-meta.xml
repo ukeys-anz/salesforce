@@ -6,7 +6,7 @@
     <description>Formula Field
 Owner.Employee_Id__c</description>
     <externalId>false</externalId>
-    <formula>Owner:User.Employee_Id__c</formula>
+    <formula>Owner:User.EmployeeNumber</formula>
     <label>Banker Salary ID</label>
     <required>false</required>
     <securityClassification>Internal</securityClassification>

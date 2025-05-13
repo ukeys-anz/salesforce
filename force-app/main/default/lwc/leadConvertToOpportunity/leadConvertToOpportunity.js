@@ -463,8 +463,9 @@ export default class LeadConversion extends NavigationMixin(LightningElement) {
       }
       //Block lead conversion if Company is not registered
       if (
-        this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
-        this.leadConvertData.leadRecord.Registered_Company__c === "No"
+        !this.isIndividual &&
+        (this.leadConvertData.leadRecord.Registered_Company__c === undefined ||
+          this.leadConvertData.leadRecord.Registered_Company__c === "No")
       ) {
         this.setInvalidLead();
         this.validationMessage.push({

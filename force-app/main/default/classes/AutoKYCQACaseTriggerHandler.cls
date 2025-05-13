@@ -31,6 +31,13 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
     AutoKYCQACaseActions.validateDuplicateKYCQACasePerCOBApp(records);
 
     //populate fields
+    AutoKYCQACaseActions.populateKycQACaseSubject(records, new Map<Id, Case>());
+    CommonCaseTriggerActions.populateContactLookupForANZPlus(
+      records,
+      new Map<Id, Case>()
+    );
+    CommonCaseTriggerActions.maskTaxNumbers(records, new Map<Id, Case>());
+    CommonCaseTriggerActions.setBusinessHours(records);
     List<Case> validCases = ListUtil.filter(records).noError().toList();
     AutoKYCQACaseActions.populateAutoKYCQAChecks(validCases);
     Logger.debug('On_Before_Insert finished: ' + System.now());
@@ -48,6 +55,19 @@ public with sharing class AutoKYCQACaseTriggerHandler extends Lib_TriggerHandler
 
     //populate fields
     List<Case> validCases = ListUtil.filter(records).noError().toList();
+    AutoKYCQACaseActions.populateKycQACaseSubject(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    CommonCaseTriggerActions.populateContactLookupForANZPlus(
+      records,
+      (Map<Id, Case>) oldMap
+    );
+    CommonCaseTriggerActions.maskTaxNumbers(records, (Map<Id, Case>) oldMap);
+    CommonCaseTriggerActions.updateCaseDurationTime(
+      records,
+      (Map<Id, Case>) oldMap
+    );
     AutoKYCQACaseActions.populateClosedNoDefectDefaults(
       validCases,
       (Map<Id, Case>) oldMap

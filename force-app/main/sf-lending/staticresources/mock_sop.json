@@ -1,0 +1,309 @@
+{
+  "name": "sops/25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
+  "uid": "25ead5ce-1c02-4f91-953a-f0c60dfb47b7",
+  "createTime": "2023-07-06T01:52:06.165083Z",
+  "updateTime": "2023-07-06T01:52:06.165083Z",
+  "snapshotTime": null,
+  "status": "SOP_STATUS_IN_PROGRESS",
+  "type": "SOP_TYPE_HOMELOAN",
+  "components": [
+    {
+      "type": "COMPONENT_TYPE_EXPENSES",
+      "confirmed": false,
+      "partyConfirmations": []
+    },
+    {
+      "type": "COMPONENT_TYPE_INCOMES",
+      "confirmed": false,
+      "partyConfirmations": []
+    },
+    {
+      "type": "COMPONENT_TYPE_LIABILITIES",
+      "confirmed": false,
+      "partyConfirmations": []
+    },
+    {
+      "type": "COMPONENT_TYPE_SAVINGS",
+      "confirmed": false,
+      "partyConfirmations": []
+    },
+    {
+      "type": "COMPONENT_TYPE_ASSETS",
+      "confirmed": false,
+      "partyConfirmations": []
+    }
+  ],
+  "parties": [
+    {
+      "id": "c6f2b0a5-b00c-5dfb-8024-dea3b6715178",
+      "ocvId": "1000991493",
+      "relationshipState": "RELATIONSHIP_STATE_SINGLE",
+      "confirmedAccountsTime": null,
+      "spouseEarnsIncome": false,
+      "currentResidence": {
+        "address": {
+          "addressType": "",
+          "singleLineAddress": "1 Nader Close, Redan VIC 3350",
+          "buildingName": "",
+          "unit": "",
+          "unitType": "",
+          "unitNumber": "",
+          "buildingLevel": "",
+          "buildingLevelType": "",
+          "buildingLevelNumber": "",
+          "buildingNumber": "1",
+          "postalDelivery": "",
+          "postalDeliveryType": "",
+          "postalDeliveryNumber": "",
+          "allotment": "",
+          "allotmentType": "",
+          "allotmentNumber": "",
+          "street": "Nader Close",
+          "streetName": "Nader",
+          "streetType": "Close",
+          "streetSuffix": "",
+          "locality": "Redan",
+          "state": "VIC",
+          "postalCode": "3350",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.58155005",
+          "longitude": "143.84190793",
+          "deliveryPointId": "81930211",
+          "householdIdentificationNumber": "1000185251",
+          "deliveryPointBarcode": "1301012201301000020101312103000112213",
+          "sortPlanNumber": "033",
+          "council": "Ballarat",
+          "councilCode": "20570",
+          "sa2Code": "201011484"
+        }
+      },
+      "currentHousingStatus": "LIVING_STATUS_CARAVAN",
+      "multipleProfiles": false,
+      "personaId": "ba94ffeb-6788-4abe-9fc2-ec9e6a5f2b59"
+    },
+    {
+      "id": "c6f2b0a5-b00c-5dfb-8024-dea3b6715180",
+      "ocvId": "1000991490",
+      "relationshipState": "RELATIONSHIP_STATE_IN_RELATIONSHIP",
+      "confirmedAccountsTime": null,
+      "spouseEarnsIncome": true,
+      "currentResidence": {
+        "address": {
+          "addressType": "",
+          "singleLineAddress": "2 Nader Close, Redan VIC 3350",
+          "buildingName": "",
+          "unit": "",
+          "unitType": "",
+          "unitNumber": "",
+          "buildingLevel": "",
+          "buildingLevelType": "",
+          "buildingLevelNumber": "",
+          "buildingNumber": "2",
+          "postalDelivery": "",
+          "postalDeliveryType": "",
+          "postalDeliveryNumber": "",
+          "allotment": "",
+          "allotmentType": "",
+          "allotmentNumber": "",
+          "street": "Nader Close",
+          "streetName": "Nader",
+          "streetType": "Close",
+          "streetSuffix": "",
+          "locality": "Redan",
+          "state": "VIC",
+          "postalCode": "3350",
+          "country": "AUSTRALIA",
+          "countryCode": "AUS",
+          "latitude": "-37.58155005",
+          "longitude": "143.84190793",
+          "deliveryPointId": "81930211",
+          "householdIdentificationNumber": "1000185251",
+          "deliveryPointBarcode": "1301012201301000020101312103000112213",
+          "sortPlanNumber": "033",
+          "council": "Ballarat",
+          "councilCode": "20570",
+          "sa2Code": "201011484"
+        }
+      },
+      "currentHousingStatus": "LIVING_STATUS_RENT",
+      "multipleProfiles": false,
+      "personaId": "ba94ffeb-6788-4abe-9fc2-ec9e6a5f2b59"
+    }
+  ],
+  "expenseConfigVersion": "",
+  "dependantsCount": 0,
+  "liabilitySources": [
+    {
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+      "subType": "EQUIFAX",
+      "retrievedTime": "2023-05-04T07:31:38.700353Z",
+      "success": true,
+      "partyId": "1000991493"
+    },
+    {
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+      "subType": "EXPERIAN",
+      "retrievedTime": "2023-05-04T07:31:38.700353Z",
+      "success": false,
+      "partyId": "1000991493"
+    },
+    {
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+      "subType": "ILLION",
+      "retrievedTime": "2023-05-04T07:31:38.700353Z",
+      "success": true,
+      "partyId": "1000991493"
+    },
+    {
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+      "subType": "EQUIFAX",
+      "retrievedTime": "2023-05-04T07:31:38.700353Z",
+      "success": false,
+      "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067"
+    },
+    {
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+      "subType": "EXPERIAN",
+      "retrievedTime": "2023-05-04T07:31:38.700353Z",
+      "success": true,
+      "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067"
+    },
+    {
+      "type": "LIABILITY_SOURCE_TYPE_BUREAU",
+      "subType": "ILLION",
+      "retrievedTime": "2023-05-04T07:31:38.700353Z",
+      "success": true,
+      "partyId": "d8db3aa6-a773-43d7-9198-6aef0cbd9067"
+    }
+  ],
+  "etag": "1688608326165083000",
+  "ineligibleReasons": [
+    "SOP_INELIGIBLE_REASON_UNSUPPORTED_PRODUCTS",
+    "SOP_INELIGIBLE_REASON_UNSUPPORTED_RELATIONSHIP",
+    "SOP_INELIGIBLE_REASON_CUSTOMER_PROFILES",
+    "SOP_INELIGIBLE_REASON_PARTY_MATCHED",
+    "SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND",
+    "SOP_INELIGIBLE_REASON_OCV_FABRIC_ACCOUNT_MISSING",
+    "SOP_INELIGIBLE_REASON_PARTY_UNMERGED"
+  ],
+  "ineligibleReasonsWithInfo": [
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_UNSUPPORTED_PRODUCTS",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "accountNumber": "12532452359",
+          "productSubCode": "CAP-CIS:OLL"
+        },
+        {
+          "ocvId": "123456789",
+          "accountNumber": "6745624232",
+          "productSubCode": "CAP-CIS:FMV"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_UNSUPPORTED_RELATIONSHIP",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "accountNumber": "123456789",
+          "productSubCode": "CAP-CIS:ILSIVC",
+          "accountRelationshipType": "TSF"
+        },
+        {
+          "ocvId": "123456789",
+          "accountNumber": "534534534",
+          "productSubCode": "CAP-CIS:DDAET",
+          "accountRelationshipType": "PRI"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_CUSTOMER_PROFILES",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+        },
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473631128"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_PARTY_MATCHED",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+        },
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473631128"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_PARTY_UNMERGED",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+        },
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473631128"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_OCV_CONFLICT_RECORD_FOUND",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473652198"
+        },
+        {
+          "ocvId": "123456789",
+          "CAPCISID": "473631128"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_OCV_FABRIC_ACCOUNT_MISSING",
+      "details": [
+        {
+          "ocvId": "123456789",
+          "accountNumber": "123456789",
+          "productSubCode": "CAPCIS:DDASA",
+          "accountRelationshipType": "COF"
+        },
+        {
+          "OCVID": "123456789",
+          "accountNumber": "186544489",
+          "productSubCode": "CAPCIS:ILSOVC",
+          "accountRelationshipType": "SOL"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_NO_PROPERTY_FOUND_FOR_PPOR",
+      "details": [
+        {
+          "ocvId": "123456789"
+        }
+      ]
+    },
+    {
+      "ineligibleReasonType": "SOP_INELIGIBLE_REASON_GUARANTOR_LIABILITY",
+      "details": [
+        {
+          "ocvId": "123456789"
+        }
+      ]
+    }
+  ]
+}

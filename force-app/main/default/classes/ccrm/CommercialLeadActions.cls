@@ -4,8 +4,17 @@
  * @description  : This is the action class for CommercialLeadTriggerHandler
  **/
 public with sharing class CommercialLeadActions {
+  static final String ENTITY_TYPE_INDIVIDUAL = 'Individual';
+  private static final String CCRM_PROFILE = 'ANZ CCRM Standard User';
+  private static final String SKIP_VALIDATION = 'SkipValidation';
+  private static final String VALIDATE = 'Validate';
+  private static final String COPY_LEAD_ID = 'copyLeadId';
+
   private static final LeadActionsRepository LEAD_REPOSITORY = (LeadActionsRepository) Lib_InstanceProvider.forType(
     LeadActionsRepository.class
+  );
+  private static final UserInfoRepository USER_REPO = (UserInfoRepository) Lib_InstanceProvider.forType(
+    UserInfoRepository.class
   );
 
   /**
@@ -101,6 +110,31 @@ public with sharing class CommercialLeadActions {
       leadRecord.CPID_Owner__c = aarRecord
         ?.FinServ__RelatedAccount__r.Controlling_Post__r
         ?.OwnerId;
+    }
+  }
+
+  /**
+   * @description This method will update the Skip Validation during owner change
+   * @name setSkipValidationOnOwnerChange
+   * @param records from the trigger
+   * @param oldMap Map of old records
+   */
+  public static void setSkipValidationOnOwnerChange(
+    List<Lead> records,
+    Map<Id, Lead> oldMap
+  ) {
+    if (!USER_REPO.checkProfile(CCRM_PROFILE)) {
+      return;
+    }
+    List<Lead> filteredLeadsWithOwnerChange = ListUtil.filter(records, oldMap)
+      .changed(Lead.OwnerId)
+      .toList();
+
+    for (Lead ownerChangedLead : filteredLeadsWithOwnerChange) {
+      ownerChangedLead.Skip_Validations__c = ownerChangedLead.Skip_Validations__c !=
+        SKIP_VALIDATION
+        ? SKIP_VALIDATION
+        : VALIDATE;
     }
   }
 }

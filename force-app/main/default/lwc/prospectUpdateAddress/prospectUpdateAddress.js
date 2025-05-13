@@ -27,7 +27,6 @@ export default class ProspectUpdateAddress extends LightningElement {
   hasValidAddress = true;
   mnaualSelectedAddress = {};
   strAddressType;
-  strIsDefault;
   lookUpAddressResult;
   fields;
   CONSTANT = {
@@ -154,7 +153,6 @@ export default class ProspectUpdateAddress extends LightningElement {
       Object.keys(this.record).length === 0 ? e.detail.fields : this.record;
     this.loading = true;
     this.strAddressType = this.record.AddressType;
-    this.strIsDefault = this.record.IsDefault;
     if (this.addressId == null && this.accountId) {
       this.record.ParentId = this.record.Customer_Name__c = this.accountId;
       this.record.RecordTypeId = this.recordTypeId;

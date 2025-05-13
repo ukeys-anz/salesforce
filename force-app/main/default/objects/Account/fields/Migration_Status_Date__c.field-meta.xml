@@ -11,5 +11,5 @@
     <securityClassification>Internal</securityClassification>
     <trackFeedHistory>false</trackFeedHistory>
     <trackHistory>true</trackHistory>
-    <type>DateTime</type>
+    <type>Date</type>
 </CustomField>

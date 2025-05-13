@@ -23,17 +23,22 @@ global with sharing class InteractionContextServiceUpdate {
       InteractionAttendee conferenceAttendee = InteractionAttendeeActions.insertTwilioConferenceAttendee(
         contextRequest
       );
-      if(conferenceAttendee != null){
-        DML_REPOSITORY.doInsert(conferenceAttendee, new DMLConfig().systemMode());
+      if (conferenceAttendee != null) {
+        DML_REPOSITORY.doInsert(
+          conferenceAttendee,
+          new DMLConfig().systemMode()
+        );
       }
-      
+
       String jsonRes = JSON.serialize(twilioResponse);
       RestContext.response.addHeader('Content-Type', 'application/json');
       RestContext.response.responseBody = Blob.valueOf(jsonRes);
       RestContext.response.statusCode = twilioResponse.statusCode;
-
     } catch (Exception objectException) {
-      throw CommonUtil.logExceptionWithMessage('Interaction Context Update Failed ',objectException);
+      throw CommonUtil.logExceptionWithMessage(
+        'Interaction Context Update Failed ',
+        objectException
+      );
     }
   }
 }

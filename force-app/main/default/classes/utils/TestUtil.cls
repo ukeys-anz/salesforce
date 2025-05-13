@@ -219,11 +219,10 @@ public with sharing class TestUtil {
   public static List<Database.UpsertResult> getMockUpsertResults(
     String mockUpsertResultString
   ) {
-    return  (List<Database.UpsertResult>) JSON.deserialize(
+    return (List<Database.UpsertResult>) JSON.deserialize(
       mockUpsertResultString,
       List<Database.UpsertResult>.class
     );
-    
   }
 
   /**

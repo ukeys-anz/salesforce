@@ -37,6 +37,7 @@ public with sharing class CommercialContactTriggerHandler extends Lib_TriggerHan
    * @name onBeforeInsert
    */
   public override void onBeforeInsert() {
+    CommercialContactActions.populateNameOCV(records);
     CommercialContactActionsHelper.getExistingOrProspectContacts(records);
     CommercialContactActions.populateLastName(
       CommercialContactActionsHelper.existingAndProspectContactsList,

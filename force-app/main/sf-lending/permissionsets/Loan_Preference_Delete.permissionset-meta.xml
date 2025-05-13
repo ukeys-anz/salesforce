@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PermissionSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customPermissions>
+        <name>Loan_Preference_Delete</name>
+        <enabled>true</enabled>
+    </customPermissions>
+    <description>Permission to delete data from Loan Preference tab</description>
+    <hasActivationRequired>false</hasActivationRequired>
+    <label>Loan Preference Delete</label>
+</PermissionSet>

@@ -1,0 +1,90 @@
+<template>
+  <lightning-modal-header label="Update Status"></lightning-modal-header>
+  <lightning-modal-body>
+    <template if:true={showSpinner}>
+      <div class="spinnerHolder">
+        <lightning-spinner
+          variant="brand"
+          alternative-text="Loading"
+        ></lightning-spinner>
+      </div>
+    </template>
+    <template if:false={showSpinner}>
+      <div class="slds-grid slds-wrap">
+        <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+          <lightning-combobox
+            class="status"
+            variant="label-inline"
+            name="status"
+            label="Status"
+            value={currentStatus}
+            options={statusOptions}
+            onchange={handleStatusChange}
+            required
+          >
+          </lightning-combobox>
+        </div>
+        <template lwc:if={currentStatusIsClosed}>
+          <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-textarea
+              class="commentsCls"
+              variant="label-inline"
+              name="comments"
+              label="Comments"
+              value={comments}
+              onchange={commentsChange}
+              max-length="4000"
+              required
+            ></lightning-textarea>
+          </div>
+        </template>
+        <template lwc:if={statusFailed}>
+          <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-combobox
+              class="primaryFailedReasonCls"
+              variant="label-inline"
+              name="primaryfailedreasons"
+              label="Verification Failed Reason"
+              value={trustMeCase.OnboardingVerificationFailedReason__c}
+              options={primaryReasonOptions}
+              onchange={primaryReasonChange}
+              required
+            >
+            </lightning-combobox>
+          </div>
+          <div class="slds-col slds-size_1-of-1 slds-align_absolute-center">
+            <lightning-combobox
+              class="secondaryFailedReasonCls"
+              variant="label-inline"
+              name="secondaryfailedreasons"
+              label="Secondary Verification Failed Reason"
+              value={trustMeCase.SecondaryVerificationFailedReason__c}
+              options={secondaryReasonOptions}
+              onchange={secondaryReasonChange}
+            >
+            </lightning-combobox>
+          </div>
+        </template>
+      </div>
+    </template>
+  </lightning-modal-body>
+  <lightning-modal-footer>
+    <lightning-button
+      variant="neutral"
+      label="Cancel"
+      title="Cancel"
+      onclick={handleHideModal}
+      disabled={isModalButtonDisable}
+    >
+    </lightning-button>
+    <lightning-button
+      variant="brand"
+      label="Done"
+      title="Done"
+      class="slds-var-m-left_x-small"
+      onclick={handleUpdateStatus}
+      disabled={isModalButtonDisable}
+    >
+    </lightning-button>
+  </lightning-modal-footer>
+</template>

@@ -9,6 +9,7 @@
             <role>Coach_Lead</role>
             <role>Settlement_Officer</role>
             <role>Settlement_Officer_Lead</role>
+            <role>BOH_Coach_Lead</role>
         </roles>
     </queueMembers>
     <queueSobject>

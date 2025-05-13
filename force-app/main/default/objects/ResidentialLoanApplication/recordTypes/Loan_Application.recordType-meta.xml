@@ -19,6 +19,33 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Application_Progress__c</picklist>
+        <values>
+            <fullName>Escalated</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Tech issue %2F Resolve</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>Unresponsive</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>With Coach</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>With Customer</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>With Valuation</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Assessment_Outcome__c</picklist>
         <values>
             <fullName>Approved</fullName>
@@ -107,6 +134,66 @@
         </values>
     </picklistValues>
     <picklistValues>
+        <picklist>Ineligible_Reasons__c</picklist>
+        <values>
+            <fullName>INELIGIBLE_REASON_CUSTOMER_EXITED</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_INCOMPLETE_OR_UNVERIFIED_KYC</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_INFLIGHT_APPLICATION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_INVESTMENT_PROPERTY_MATCHES_PRIMARY_RESIDENCE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_NOT_CITIZEN</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_NOT_TAX_RESIDENT</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>
+                INELIGIBLE_REASON_OWNER_OCCUPIED_PROPERTY_ADDRESS_DOES_NOT_MATCH_PROFILE_ADDRESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_OWNER_OCCUPIED_INCONSISTENT_LIVING_SITUATION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_PROPERTY_INELIGIBLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_SOP_INELIGIBLE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_UNDER_AGE</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_UNSTRUCTURED_ADDRESS</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_UNSUPPORTED_SETTLEMENT_JURISDICTION</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>INELIGIBLE_REASON_VERIFICATION_EXPIRED_KYC</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
         <picklist>Loan_Purpose__c</picklist>
         <values>
             <fullName>REFINANCING_REASON_CONSOLIDATE_LOANS</fullName>
@@ -133,7 +220,15 @@
             <default>false</default>
         </values>
         <values>
+            <fullName>LENDING_PURPOSE_REFINANCE_INVESTOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
             <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LENDING_PURPOSE_ALTERATIONS_DWELLING_EXISTING_INVESTOR</fullName>
             <default>false</default>
         </values>
         <values>
@@ -258,6 +353,17 @@
         </values>
         <values>
             <fullName>Tribal Trust Land %28On a Reservation%29</fullName>
+            <default>false</default>
+        </values>
+    </picklistValues>
+    <picklistValues>
+        <picklist>Property_Use__c</picklist>
+        <values>
+            <fullName>LOAN_PRODUCT_TYPE_INVESTOR</fullName>
+            <default>false</default>
+        </values>
+        <values>
+            <fullName>LOAN_PRODUCT_TYPE_OWNER_OCCUPIED</fullName>
             <default>false</default>
         </values>
     </picklistValues>

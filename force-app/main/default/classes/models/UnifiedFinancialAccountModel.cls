@@ -412,6 +412,8 @@ public with sharing class UnifiedFinancialAccountModel extends CalloutModel {
     public Interest interests;
     @AuraEnabled
     public string valid_at;
+    @AuraEnabled
+    public String property_use_type;
     /**
      * @return `redraw_amount.value` model class constructed from api response
      * @description null and blank check for redraw available field

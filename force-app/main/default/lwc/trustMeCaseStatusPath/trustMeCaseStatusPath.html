@@ -1,0 +1,47 @@
+<template>
+  <article class="slds-card">
+    <div class="slds-card__body slds-var-m-horizontal_medium slds-is-relative">
+      <div lwc:if={isLoading}>
+        <lightning-spinner
+          alternative-text="Loading..."
+          variant="brand"
+          size="small"
+        >
+        </lightning-spinner>
+      </div>
+
+      <lightning-layout>
+        <lightning-layout-item flexibility="auto">
+          <lightning-progress-indicator
+            current-step={caseData.Status}
+            type="path"
+            variant="base"
+          >
+            <template for:each={pathSteps} for:item="step">
+              <lightning-progress-step
+                label={step.label}
+                value={step.value}
+                key={step.label}
+              >
+              </lightning-progress-step>
+            </template>
+          </lightning-progress-indicator>
+        </lightning-layout-item>
+
+        <lightning-layout-item
+          flexibility="auto, no-grow"
+          class="slds-var-m-left_medium"
+        >
+          <lightning-button
+            variant="brand"
+            label="Update Status"
+            title="Update Status"
+            class="slds-var-m-left_x-small"
+            onclick={handleClickUpdate}
+          >
+          </lightning-button>
+        </lightning-layout-item>
+      </lightning-layout>
+    </div>
+  </article>
+</template>

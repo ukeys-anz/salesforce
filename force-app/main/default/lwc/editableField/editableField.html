@@ -44,24 +44,11 @@
           </lightning-combobox>
         </template>
       </div>
-      <!-- Closure Reason -->
-      <div class="slds-text-color_error" if:true={isClosureReasonInvalid}>
-        {validationErrorForAccountClosureReason}
-      </div>
-      <!-- Intended Account Name -->
-      <div class="slds-text-color_error" if:true={isAccountNameInvalid}>
-        {validationErrorForAccountName}
-      </div>
 
-      <!-- Intended Account BSB -->
-      <div class="slds-text-color_error" if:true={isAccountBsbInvalid}>
-        {validationErrorForAccountBsb}
-      </div>
-
-      <!-- Intended Account Number -->
-      <div class="slds-text-color_error" if:true={isAccountNumberInvalid}>
-        {validationErrorForAccountNumber}
-      </div>
+      <!-- Error Messages for fields -->
+      <template for:each={errorsMsgs} for:item="item">
+        <div class="slds-text-color_error" key={item}>{item}</div>
+      </template>
     </div>
   </div>
 </template>

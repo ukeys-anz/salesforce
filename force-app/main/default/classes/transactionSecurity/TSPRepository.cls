@@ -50,7 +50,8 @@ public with sharing class TSPRepository {
       FROM ContentVersion
       WHERE
         ContentDocumentId = :fileEventStore.DocumentId
-        AND RecordTypeId = :TFMConstants.DAON_FILE_RT_ID
+        AND (RecordTypeId = :RTContentVersion.daonFile
+        OR RecordTypeId = :RTContentVersion.daonTrustXFile)
       WITH USER_MODE
     ];
   }

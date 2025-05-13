@@ -21,6 +21,13 @@ public with sharing class QueryRole {
   public static UserRole joinLead = get('Join_Lead');
   public static UserRole fraudXAgent = get('FraudX_Agent');
 
+  public static UserRole bohCoachRole = get('BOH_Coach');
+  public static UserRole bohCoachLeadRole = get('BOH_Coach_Lead');
+  public static UserRole creditAssessmentOfficerRole = get(
+    'Credit_Assessment_Officer'
+  );
+  public static UserRole creditAssessorLeadRole = get('Credit_Assessor_Lead');
+
   /**
    * @description Get UserRole by UserRole DeveloperName
    * @param developerName developer name of the UserRole

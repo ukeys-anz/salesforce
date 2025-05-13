@@ -40,4 +40,47 @@ public with sharing class OpportunityContactRoleActionsRepository {
       WITH USER_MODE
     ];
   }
+
+  /**
+   * @description getOppContactRoleByContacts method return list of Opportunity_Contact_Role_Sync__c associated to the given externalids
+   * @param externalIdSet externalIds
+   * @return List<Opportunity_Contact_Role_Sync__c> map of Opportunity_Contact_Role_Sync__c List
+   */
+  public List<Opportunity_Contact_Role_Sync__c> getOpportunityContactRoleSyncRecords(
+    Set<String> externalIdSet
+  ) {
+    if (externalIdSet.isEmpty()) {
+      return new List<Opportunity_Contact_Role_Sync__c>();
+    }
+    return [
+      SELECT Id
+      FROM Opportunity_Contact_Role_Sync__c
+      WHERE ExternalId__c IN :externalIdSet
+      WITH USER_MODE
+    ];
+  }
+
+  /**
+   * @description getOppContactRoleByContacts method return list of Opportunity_Contact_Role_Sync__c associated to the given externalids
+   * @param newOCRList newOCRList
+   * @return List<OpportunityContactRole> list of OCR
+   */
+  public List<OpportunityContactRole> getDetailedOCRRecords(
+    List<OpportunityContactRole> newOCRList
+  ) {
+    if (newOCRList.isEmpty()) {
+      return new List<OpportunityContactRole>();
+    }
+    return [
+      SELECT
+        Id,
+        Opportunity.Loanapp_Reference__c,
+        Contact.Account.External_Id__c,
+        ExternalId__c,
+        Role
+      FROM OpportunityContactRole
+      WHERE Id IN :newOCRList
+      WITH USER_MODE
+    ];
+  }
 }

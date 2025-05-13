@@ -731,14 +731,17 @@
                           alignment-bump="right"
                           class="slds-p-top_x-small labelAndValueStyle slds-text-align_right"
                         >
-                          <lightning-formatted-text
+                          <lightning-formatted-number
                             class="labelAndValueStyle"
                             value={debt.institutionalLiability.subsequentInterestRate}
-                          ></lightning-formatted-text>
+                            format-style="percent-fixed"
+                            minimum-fraction-digits="2"
+                            maximum-fraction-digits="2"
+                          ></lightning-formatted-number>
                         </lightning-layout-item>
                       </template>
 
-                      <!-- Tax Deductable -->
+                      <!-- Tax Deductible -->
                       <template lwc:if={debt.showTaxDeductible}>
                         <lightning-layout-item
                           size="8"

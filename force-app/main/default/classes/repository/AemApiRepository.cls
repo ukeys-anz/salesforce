@@ -9,9 +9,7 @@ public with sharing class AemApiRepository {
     AemService.class
   );
 
-  private static final Set<Integer> SUCCESS_CODES = new Set<Integer>{
-    200
-  };
+  private static final Set<Integer> SUCCESS_CODES = new Set<Integer>{ 200 };
   private static final Set<Integer> SERVER_ERROR_CODES = new Set<Integer>{
     500
   };
@@ -95,7 +93,9 @@ public with sharing class AemApiRepository {
     public ServerErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.error(
-          'An HTTP ' + response.statusCode + ' response was received while attempting to fetch AEM template content via AEM Service ',
+          'An HTTP ' +
+            response.statusCode +
+            ' response was received while attempting to fetch AEM template content via AEM Service ',
           response.error
         )
         .save();
@@ -113,7 +113,9 @@ public with sharing class AemApiRepository {
     public AccessErrorException(HttpCalloutResponse response) {
       this(response.error.getMessage());
       Logger.info(
-          'An HTTP ' + response.statusCode + ' response was received while attempting to fetch AEM template content via AEM Service ',
+          'An HTTP ' +
+            response.statusCode +
+            ' response was received while attempting to fetch AEM template content via AEM Service ',
           response.error
         )
         .save();
@@ -131,8 +133,10 @@ public with sharing class AemApiRepository {
      */
     public UnhandledException(HttpCalloutResponse response) {
       this(response.error.getMessage());
-      Logger.error('Unhandled Exception occured while attempting to fetch AEM template content via AEM Service ',
-    response.error)
+      Logger.error(
+          'Unhandled Exception occured while attempting to fetch AEM template content via AEM Service ',
+          response.error
+        )
         .save();
     }
   }

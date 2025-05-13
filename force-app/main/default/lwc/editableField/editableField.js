@@ -8,7 +8,6 @@ export default class EditableField extends LightningElement {
   @api helpText;
   @api isInvalid = false;
   @api readOnly = false;
-  @api isRequired;
   @api validationErrorForAccountClosureReason;
   @api validationErrorForAccountName;
   @api validationErrorForAccountBsb;
@@ -16,20 +15,24 @@ export default class EditableField extends LightningElement {
 
   @api options = [];
 
-  get isClosureReasonInvalid() {
-    return this.isInvalid && this.validationErrorForAccountClosureReason;
-  }
-
-  get isAccountNameInvalid() {
-    return this.isInvalid && this.validationErrorForAccountName;
-  }
-
-  get isAccountBsbInvalid() {
-    return this.isInvalid && this.validationErrorForAccountBsb;
-  }
-
-  get isAccountNumberInvalid() {
-    return this.isInvalid && this.validationErrorForAccountNumber;
+  get errorsMsgs() {
+    if (!this.isInvalid) {
+      return [];
+    }
+    let errorList = [];
+    if (this.validationErrorForAccountClosureReason) {
+      errorList.push(this.validationErrorForAccountClosureReason);
+    }
+    if (this.validationErrorForAccountName) {
+      errorList.push(this.validationErrorForAccountName);
+    }
+    if (this.validationErrorForAccountBsb) {
+      errorList.push(this.validationErrorForAccountBsb);
+    }
+    if (this.validationErrorForAccountNumber) {
+      errorList.push(this.validationErrorForAccountNumber);
+    }
+    return errorList;
   }
 
   get isInputField() {
