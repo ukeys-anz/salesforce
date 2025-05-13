@@ -10,6 +10,7 @@ public class GetCustomerInformationTest {
   static void testgetFinancialAccounts() {
     registerMocks();
     Id accId = Lib_FakeIdGenerator.getMockId(Account.SObjectType);
+    String customerOcv = '1234';
     FinServ__FinancialAccount__c financialAccount = new FinServ__FinancialAccount__c();
     financialAccount.FinServ__PrimaryOwner__c = accId;
     financialAccount.Account_Key__c = 'AccountKey_20010101';
@@ -18,7 +19,7 @@ public class GetCustomerInformationTest {
     FinServ__FinancialAccount__c.SObjectType
     );
     customerRepoMock.mock('getFinancialAccounts', new List<FinServ__FinancialAccount__c>{ financialAccount });
-    List<FinServ__FinancialAccount__c> faAccountList=GetCustomerInformation.fetchCustomerFinancialAccounts(accId);
+    List<FinServ__FinancialAccount__c> faAccountList=GetCustomerInformation.fetchCustomerFinancialAccounts(accId,customerOcv);
     Test.startTest();
      Assert.isTrue(
       !faAccountList.isEmpty(),

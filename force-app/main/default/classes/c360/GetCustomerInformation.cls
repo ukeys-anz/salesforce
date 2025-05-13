@@ -10,12 +10,12 @@ public with sharing class GetCustomerInformation {
     /**
    * @description To Get Financial Accounts Releated to the Customer
    * @param accId ID of the Customer
+   * @param ocvId ocvId of the Customer
    * @return list<FinServ__FinancialAccount__c> return the list of Financial Accounts
    */
     @AuraEnabled(cacheable= true)
-    public static List<FinServ__FinancialAccount__c> fetchCustomerFinancialAccounts(String accId) {
-               
-        return CUSTOMER_REPOSITORY.getFinancialAccounts(accId);   
+    public static List<FinServ__FinancialAccount__c> fetchCustomerFinancialAccounts(String accId,String ocvId) {               
+        return CUSTOMER_REPOSITORY.getFinancialAccounts( accId, ocvId);   
               
     }
 

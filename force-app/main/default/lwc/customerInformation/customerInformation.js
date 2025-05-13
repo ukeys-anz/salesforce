@@ -43,6 +43,16 @@ const FIELDS = [
   "Case.Account.BillingPostalCode",
   "Case.Account.BillingCountry",
   "Case.Account.BillingState",
+  "Case.Account.PersonOtherCity",
+  "Case.Account.PersonOtherCountry",
+  "Case.Account.PersonOtherState",
+  "Case.Account.PersonOtherPostalCode",
+  "Case.Account.PersonOtherStreet",
+  "Case.Account.ShippingCity",
+  "Case.Account.ShippingCountry",
+  "Case.Account.ShippingPostalCode",
+  "Case.Account.ShippingState",
+  "Case.Account.ShippingStreet",
   "Case.Account.FinServ__Age__pc",
   "Case.Account.Gender__pc",
   "Case.Account.RecordType.Name",
@@ -147,6 +157,7 @@ export default class CustomerInformation extends LightningElement {
       accounts: []
     };
     let controllingPost = accountData.Controlling_Post__r?.value;
+    let address = this.populateAddress(accountData);
     customerAccountData.first_name = accountData.FirstName?.value;
     customerAccountData.last_name = accountData.LastName?.value;
     customerAccountData.accId = this.record.fields.AccountId?.value;
@@ -161,11 +172,11 @@ export default class CustomerInformation extends LightningElement {
     customerAccountData.emailanzplus = accountData.PersonEmail?.value;
     customerAccountData.mobileclassic = accountData.PersonOtherPhone?.value;
     customerAccountData.mobileanzplus = accountData.PersonMobilePhone?.value;
-    customerAccountData.street = accountData.BillingStreet?.value;
-    customerAccountData.suburb = accountData.BillingCity?.value;
-    customerAccountData.state = accountData.BillingState?.value;
-    customerAccountData.postcode = accountData.BillingPostalCode?.value;
-    customerAccountData.country = accountData.BillingCountry?.value;
+    customerAccountData.street = address?.street;
+    customerAccountData.suburb = address?.suburb;
+    customerAccountData.state = address?.state;
+    customerAccountData.postcode = address?.postCode;
+    customerAccountData.country = address?.country;
     customerAccountData.migrationStatusType =
       accountData.Migration_Status__c?.value;
     customerAccountData.migrationStatusDate =
@@ -190,7 +201,8 @@ export default class CustomerInformation extends LightningElement {
   showAllCustomerData() {
     if (this.customerInfo.accId) {
       getFinancialAccounts({
-        accId: this.customerInfo.accId
+        accId: this.customerInfo.accId,
+        ocvId: this.customerInfo.ocvId
       }).then((result) => {
         this.customerInfo.accounts = result.map((i) => ({
           accountNumber: i.Account_Key__c.substring(
@@ -355,6 +367,40 @@ export default class CustomerInformation extends LightningElement {
       .catch((error) => {
         this.handleError(error);
       });
+  }
+  populateAddress(accountData) {
+    let address = {
+      street: "",
+      country: "",
+      postCode: "",
+      state: "",
+      suburb: ""
+    };
+    if (accountData.RecordType.value.fields.Name?.value === "Individual") {
+      address.street = accountData.PersonOtherStreet?.value;
+      address.country = accountData.PersonOtherCountry?.value;
+      address.postCode = accountData.PersonOtherPostalCode?.value;
+      address.state = accountData.PersonOtherState?.value;
+      address.suburb = accountData.PersonOtherStreet?.value;
+      return address;
+    }
+    if (accountData.RecordType.value.fields.Name?.value === "Organisation") {
+      if (accountData.ShippingPostalCode?.value != null) {
+        address.street = accountData.ShippingStreet?.value;
+        address.country = accountData.ShippingCountry?.value;
+        address.postCode = accountData.ShippingPostalCode?.value;
+        address.state = accountData.ShippingState?.value;
+        address.suburb = accountData.ShippingCity?.value;
+        return address;
+      }
+      address.street = accountData.BillingStreet?.value;
+      address.country = accountData.BillingCountry?.value;
+      address.postCode = accountData.BillingPostalCode?.value;
+      address.state = accountData.BillingState?.value;
+      address.suburb = accountData.BillingCity?.value;
+      return address;
+    }
+    return address;
   }
   handleError(err) {
     this.isLoading = false;

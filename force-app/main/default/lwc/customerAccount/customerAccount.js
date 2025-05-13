@@ -62,8 +62,10 @@ export default class CustomerAccount extends OmniscriptBaseMixin(
     this.options = [];
     let issueTypeChange = this.checkIssueTypeChange(cmpDet);
     if (accountId && this.checkCustomerIdentifier(data)) {
+      let ocvId = data?.data?.fields.OCV_ID__c.value;
       let result = await getFinancialAccounts({
-        accId: accountId
+        accId: accountId,
+        ocvId: ocvId
       });
       if (!result) {
         return;
