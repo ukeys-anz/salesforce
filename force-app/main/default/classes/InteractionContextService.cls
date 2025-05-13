@@ -69,7 +69,9 @@ global with sharing class InteractionContextService {
         return;
       }
 
-      Interaction interactionToBeCreated = createInteractionInstance(contextRequest);
+      Interaction interactionToBeCreated = createInteractionInstance(
+        contextRequest
+      );
 
       Database.SaveResult interactionCreated = DML_REPOSITORY.doInsert(
         interactionToBeCreated

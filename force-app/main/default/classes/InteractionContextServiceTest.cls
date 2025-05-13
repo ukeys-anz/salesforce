@@ -50,11 +50,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        RTInteraction.message,
-        'Chat'
-      )
+      createMockInteraction(interactionId, RTInteraction.message, 'Chat')
     );
 
     // WHEN Twilio API user send a request with valid OCV ID
@@ -140,11 +136,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        RTInteraction.call,
-        'Call'
-      )
+      createMockInteraction(interactionId, RTInteraction.call, 'Call')
     );
 
     // WHEN Twilio API user send a request with phoneNumber
@@ -196,11 +188,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        RTInteraction.call,
-        'Call'
-      )
+      createMockInteraction(interactionId, RTInteraction.call, 'Call')
     );
 
     // WHEN Twilio API user send a request with phoneNumber
@@ -253,11 +241,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        RTInteraction.call,
-        'Call'
-      )
+      createMockInteraction(interactionId, RTInteraction.call, 'Call')
     );
 
     // WHEN Twilio API user send a request with phoneNumber
@@ -342,11 +326,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        RTInteraction.message,
-        'Chat'
-      )
+      createMockInteraction(interactionId, RTInteraction.message, 'Chat')
     );
 
     // WHEN Twilio API user send a request with valid OCV ID
