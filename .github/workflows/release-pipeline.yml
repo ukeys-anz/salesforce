@@ -155,5 +155,5 @@ jobs:
           component: salesforce
           env: prod
           release-tag-or-sha: ${{ steps.info.outputs.last_tag }}
-          platform-app-versions-token: ${{ secrets.PLAT_APP_VERSIONS_UPDATE_TOKEN }}
+          use-gh-token-vending: true
           app-repo-token: ${{ secrets.GITHUB_TOKEN }}
