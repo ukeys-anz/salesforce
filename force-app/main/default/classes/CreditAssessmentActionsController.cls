@@ -55,7 +55,9 @@ public with sharing class CreditAssessmentActionsController {
         );
         if (!log.isEmpty()) {
           log[0].Status__c = 'Attempted Retry';
-          DML_REPOSITORY.doUpdate(log[0]);
+          DML_REPOSITORY.doUpdate(
+            Security.stripInaccessible(AccessType.UPDATABLE, log).getRecords()
+          );
         }
       }
       creditApi.submitReassessment(payload);
@@ -65,7 +67,13 @@ public with sharing class CreditAssessmentActionsController {
         c.Loan_Application__c
       );
       rla.Credit_Reassess_Required__c = false;
-      DML_REPOSITORY.doUpdate(rla);
+      DML_REPOSITORY.doUpdate(
+        Security.stripInaccessible(
+            AccessType.UPDATABLE,
+            new List<ResidentialLoanApplication>{ rla }
+          )
+          .getRecords()
+      );
     } catch (Exception e) {
       Logger.error(e.getMessage());
       Logger.saveLog();
@@ -75,7 +83,10 @@ public with sharing class CreditAssessmentActionsController {
 
     //Set reassess time to allow reassess to occur again after an elapsed period of time
     c.Credit_Reassessment_Time__c = Datetime.now();
-    DML_REPOSITORY.doUpdate(c);
+    DML_REPOSITORY.doUpdate(
+      Security.stripInaccessible(AccessType.UPDATABLE, new List<Case>{ c })
+        .getRecords()
+    );
 
     return true;
   }
