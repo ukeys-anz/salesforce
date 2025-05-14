@@ -274,7 +274,6 @@ global with sharing class InteractionContextService {
    * @return subtype the validated Subtype taking into account case sensitivity
    */
   private static String validateSupportTopic(String issueSubType) {
-    System.debug('supportTopicMap'+supportTopicMap);
     if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
       return supportTopicMap.get(issueSubType.toLowerCase());
     } else {
