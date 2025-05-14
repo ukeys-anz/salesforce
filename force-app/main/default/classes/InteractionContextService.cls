@@ -102,10 +102,12 @@ global with sharing class InteractionContextService {
       );
       sendRestContextToTwilio(responseSentToTwilio);
       Logger.error(
-        'Interaction Creation from Twilio with chatOrCallSid '+contextRequest.chatOrCallId+
-        ' failed with error message: ' +
-          objException.getMessage()
-      ).save();
+          'Interaction Creation from Twilio with chatOrCallSid ' +
+            contextRequest.chatOrCallId +
+            ' failed with error message: ' +
+            objException.getMessage()
+        )
+        .save();
     }
   }
 
