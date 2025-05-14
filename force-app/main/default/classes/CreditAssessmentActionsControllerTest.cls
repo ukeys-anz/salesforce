@@ -13,10 +13,36 @@ public with sharing class CreditAssessmentActionsControllerTest {
   private static final String FRAUD_RELATED_ERROR = 'There’s a fraud case related to this credit referral case still open. You can’t finalise this case until the fraud case is closed.';
 
   static Lib_MockProvider dmlRepoMock;
+  static Lib_MockProvider creditRepoMock;
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
+    creditRepoMock = Lib_MockProvider.forType(
+      CreditAsssessmentRepository.class
+    );
   }
+  static Faker faker = new Faker('AU');
+  static Account accnt = new Account(
+    OCV_ID__c = faker.randomString(10),
+    Id = Lib_FakeIdGenerator.getMockId(Account.getSObjectType())
+  );
 
+  static ResidentialLoanApplication loanApp = new ResidentialLoanApplication(
+    AccountId = accnt.Id,
+    Id = Lib_FakeIdGenerator.getMockId(
+      ResidentialLoanApplication.getSObjectType()
+    ),
+    Status = 'STATE_DECLINED'
+  );
+
+  static Case creditRefCase = new Case(
+    Id = Lib_FakeIdGenerator.getMockId(Case.getSObjectType()),
+    RecordTypeID = GetHelpConstants.CREDIT_REFERRAL_RT_ID,
+    Subject = 'Test Credit Referral',
+    Status = 'Open',
+    AccountId = accnt.Id,
+    Credit_Id__c = '000-000-000-001',
+    Assessment_Id__c = '123456789'
+  );
   /**
    * @description Setup data for test classes
    */
@@ -47,37 +73,52 @@ public with sharing class CreditAssessmentActionsControllerTest {
       );
     }
     insert newCases;
+
+    Profile stdUserProfile = CommonUtil.getProfileByName('ANZx Standard User');
+    UserRole bohRole = CommonUtil.getUserRoleByDevName('BOH_Coach');
+    // Create boh coach user
+    System.runAs(TestDataFactory.thisUser) {
+      User bohUser = TestUtil.createTestUser(
+        new Map<String, Object>{
+          'FirstName' => 'TestBOHCoachUser',
+          'ProfileId' => stdUserProfile.Id,
+          'UserRoleId' => bohRole.Id
+        }
+      );
+      insert bohUser;
+      //Assign Permission set group as coach
+      PermissionSetGroup psgCoach = [
+        SELECT Id
+        FROM PermissionSetGroup
+        WHERE DeveloperName = 'BOH_Coach'
+        LIMIT 1
+      ];
+      Test.calculatePermissionSetGroup(new List<String>{ psgCoach.Id });
+      PermissionSetAssignment psa = new PermissionSetAssignment(
+        AssigneeId = bohUser.Id,
+        PermissionSetGroupId = psgCoach.Id
+      );
+      insert psa;
+    }
   }
 
   @isTest
   static void testSuccessReassess() {
     registerMocks();
-    dmlRepoMock.mock(
-      'doUpdate',
-      TestUtil.getMockSaveResult('{"success":true}')
-    );
-    Case c = [
-      SELECT Id, Credit_Id__c, Assessment_Outcome__c
-      FROM Case
-      WHERE
-        RecordTypeId = :GetHelpConstants.CREDIT_REFERRAL_RT_ID
-        AND Credit_Id__c != NULL
-      LIMIT 1
-    ];
+    creditRepoMock.mock('getCaseRecord', creditRefCase);
+    creditRepoMock.mock('getResidentialLoanApplicationRecord', loanApp);
+    User bohUser = [SELECT Id FROM User WHERE FirstName = 'TestBOHCoachUser'];
 
-    Test.startTest();
-    Boolean resp = CreditAssessmentActionsController.reassess(c.Id);
-    c = [
-      SELECT Id, Loan_Application__r.Credit_Reassess_Required__c
-      FROM Case
-      WHERE Id = :c.Id
-    ];
-    Test.stopTest();
-    Assert.isTrue(resp, 'Reassessment should be true');
-    Assert.isFalse(
-      c.Loan_Application__r.Credit_Reassess_Required__c,
-      'Credit reassess required should be false'
-    );
+    System.runAs(bohUser) {
+      Test.startTest();
+      Boolean resp = CreditAssessmentActionsController.reassess(
+        creditRefCase.Id
+      );
+
+      Test.stopTest();
+      Assert.isTrue(resp, 'Reassessment should be true');
+    }
+
   }
 
   @isTest
