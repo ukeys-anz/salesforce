@@ -8,6 +8,12 @@
  * @description Wrapper Class for sending Customer Nudge Tasks details (Notification) to Mobile
  */
 public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskCloudEventModel {
+  private static final Set<String> ARCHIVED_STATUSES = new Set<String>{
+    'ACTIVITY_STATE_CUSTOMER_ARCHIVED',
+    'ACTIVITY_STATE_COACH_ARCHIVED',
+    'ACTIVITY_STATE_AUTO_ARCHIVED'
+  };
+
   /**
    * @description Constructor
    * @param theTask The task record
@@ -22,8 +28,12 @@ public virtual with sharing class CustomerNudgeTaskCloudEventModel extends TaskC
     UserModel theOwner
   ) {
     super(theTask, theAccount);
-
-    String operationMode = theTask.Status == 'New' ? 'created' : 'updated';
+    String operationMode = 'updated';
+    if (theTask.Status == 'New') {
+      operationMode = 'created';
+    } else if (ARCHIVED_STATUSES.contains(theTask.Status)) {
+      operationMode = 'archived';
+    }
     this.ce_type =
       System.Label.ANZX_Customer_Nudge_event_ce_type + operationMode;
     this.ce_source = 'anzx.salesforce.appnotification.v1alpha1';
