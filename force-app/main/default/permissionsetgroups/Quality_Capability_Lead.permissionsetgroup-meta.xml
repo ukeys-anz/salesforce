@@ -43,7 +43,6 @@
     <permissionSets>Release_Read_Only</permissionSets>
     <permissionSets>Title_Details_Read_Only</permissionSets>
     <permissionSets>Twilio_Detail_Read_Only</permissionSets>
-    <permissionSets>UUID_Log_Entry_Read_Write</permissionSets>
     <permissionSets>View_All_Foreign_Key_Names</permissionSets>
     <permissionSets>View_Card_Details</permissionSets>
     <permissionSets>View_CoP_Financial_Account</permissionSets>
