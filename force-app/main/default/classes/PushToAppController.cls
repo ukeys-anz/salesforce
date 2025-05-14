@@ -69,13 +69,20 @@ public with sharing class PushToAppController {
       );
       enrichAemData(aemData.data.pushToAppList.items[0]);
       return aemData;
-    } catch (Exception objException) {
-      throw CommonUtil.logExceptionWithMessage(
+    }
+    catch (AemApiRepository.AccessErrorException ex){
+      throw new AuraHandledException('Error fetching AEM template content.You don\'t have required permission to perform this action.');
+    }
+    catch (AemApiRepository.ServerErrorException ex){
+      throw new AuraHandledException('Error fetching AEM template content.The server encountered an unexpected error. Please retry after some time.');
+    }
+    catch (Exception objException) {
+      throw new AuraHandledException(
         'Error fetching AEM template content for ' +
           aemContentId +
           ' for recordId ' +
-          recordId,
-        objException
+          recordId + ' with error message: ' +
+        objException.getMessage()
       );
     }
   }

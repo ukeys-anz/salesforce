@@ -101,6 +101,11 @@ global with sharing class InteractionContextService {
         objException.getMessage()
       );
       sendRestContextToTwilio(responseSentToTwilio);
+      Logger.error(
+        'Interaction Creation from Twilio with chatOrCallSid '+contextRequest.chatOrCallId+
+        ' failed with error message: ' +
+          objException.getMessage()
+      ).save();
     }
   }
 
@@ -269,6 +274,7 @@ global with sharing class InteractionContextService {
    * @return subtype the validated Subtype taking into account case sensitivity
    */
   private static String validateSupportTopic(String issueSubType) {
+    System.debug('supportTopicMap'+supportTopicMap);
     if (String.isNotBlank(supportTopicMap.get(issueSubType.toLowerCase()))) {
       return supportTopicMap.get(issueSubType.toLowerCase());
     } else {

@@ -14,6 +14,9 @@ public with sharing class PushToAppRepository {
     Id recordId,
     Id recordTypeId
   ) {
+    if(String.isBlank(recordId) || String.isBlank(recordTypeId)){
+      return new List<Customer_Task_Configuration__c>();
+    }
     Id userRoleId = UserInfo.getUserRoleId();
     // Query Notification Configuration using the fetched role and record type name
     return [

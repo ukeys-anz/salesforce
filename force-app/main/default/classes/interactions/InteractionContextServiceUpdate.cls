@@ -36,7 +36,7 @@ global with sharing class InteractionContextServiceUpdate {
       RestContext.response.statusCode = twilioResponse.statusCode;
     } catch (Exception objectException) {
       throw CommonUtil.logExceptionWithMessage(
-        'Interaction Context Update Failed ',
+        'Interaction Update from Twilio with chatorCalSid' +contextRequest.chatOrCallId+ ' failed with error message: ',
         objectException
       );
     }
