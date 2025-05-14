@@ -63,9 +63,9 @@ public with sharing class InteractionAttendeeActions {
     Set<String> profilenames = new Set<String>();
     Set<Id> recordtypes = new Set<Id>();
     profilenames.add('ANZx Standard User');
-    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
-    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
-    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
+    recordtypes.add(RTInteraction.inPerson);
+    recordtypes.add(RTInteraction.call);
+    recordtypes.add(RTInteraction.message);
     User userDetail = [
       SELECT id, profile.name
       FROM user
@@ -96,9 +96,9 @@ public with sharing class InteractionAttendeeActions {
     List<InteractionAttendee> lstInteractAttend = new List<InteractionAttendee>();
     List<Id> interactionOwnerId = new List<Id>();
     Set<Id> recordtypes = new Set<Id>();
-    recordtypes.add(GetHelpConstants.INTERACTION_STORE_RT_ID);
-    recordtypes.add(GetHelpConstants.INTERACTION_GENERAL_RT_ID);
-    recordtypes.add(GetHelpConstants.INTERACTION_MESSAGE_RT_ID);
+    recordtypes.add(RTInteraction.inPerson);
+    recordtypes.add(RTInteraction.call);
+    recordtypes.add(RTInteraction.message);
     //Loop in interaction and filter out all owner ids
     for (Interaction interact : interactions) {
       interactionOwnerId.add(interact.OwnerId);
@@ -189,7 +189,7 @@ public with sharing class InteractionAttendeeActions {
     List<Interaction> listCallInteractionsWithAccount = new List<Interaction>();
     for (Interaction interact : interactions) {
       if (
-        interact.RecordTypeId != GetHelpConstants.INTERACTION_GENERAL_RT_ID ||
+        interact.RecordTypeId != RTInteraction.call ||
         interact.AccountId == null
       ) {
         continue;

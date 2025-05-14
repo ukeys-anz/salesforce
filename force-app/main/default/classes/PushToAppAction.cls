@@ -7,9 +7,6 @@ public with sharing class PushToAppAction {
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
-  private static final PushToAppRepository PUSH_TO_APP_REPOSITORY = (PushToAppRepository) Lib_InstanceProvider.forType(
-    PushToAppRepository.class
-  );
 
   /**
    * @description this method is used to append TaskNumber field autonumber value to the Subject after creation and taskid into pubSubEventId

@@ -51,18 +51,6 @@ public with sharing class InteractionConstants {
     APPOINTMENTS_QUEUE
   );
 
-  // Interaction - General Interaction RT Id
-  public static final Id INTERACTION_GENERAL_RT_ID = QueryRT.of(
-      Interaction.SObjectType
-    )
-    .getId('General');
-
-  // Interaction - Message Interaction RT Id
-  public static final Id INTERACTION_MESSAGE_RT_ID = QueryRT.of(
-      Interaction.SObjectType
-    )
-    .getId('Message');
-
   /**
    * @description fetch Message and Call recordTypeIds of Interaction
    * @return Set<String> set of message and call recordTypeIds
@@ -71,8 +59,8 @@ public with sharing class InteractionConstants {
     get {
       if (callMessageRecTypeIdsSet == null) {
         callMessageRecTypeIdsSet = new Set<String>();
-        callMessageRecTypeIdsSet.add(INTERACTION_MESSAGE_RT_ID);
-        callMessageRecTypeIdsSet.add(INTERACTION_GENERAL_RT_ID);
+        callMessageRecTypeIdsSet.add(RTInteraction.message);
+        callMessageRecTypeIdsSet.add(RTInteraction.call);
       }
       return callMessageRecTypeIdsSet;
     }

@@ -16,15 +16,6 @@ public with sharing class InteractionContextServiceUpdateTest {
   static void registerMocks() {
     dmlRepoMock = Lib_MockProvider.forType(DmlRepository.class);
     interactionRepoMock = Lib_MockProvider.forType(InteractionRepository.class);
-    interactionRepoMock.mock(
-      'fetchTwilioStatusMapping',
-      new List<InteractionStatusMappingForTwilio__mdt>{
-        new InteractionStatusMappingForTwilio__mdt(
-          Twilio_Status__c = 'assigned',
-          Interaction_Status__c = 'Active'
-        )
-      }
-    );
   }
 
   @isTest
@@ -39,7 +30,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        RTInteraction.message,
         InteractionConstants.CHAT,
         mockChatOrCallId
       )
@@ -96,7 +87,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        RTInteraction.message,
         InteractionConstants.CHAT,
         mockChatOrCallId
       )
@@ -142,7 +133,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        RTInteraction.call,
         InteractionConstants.CALL,
         mockChatOrCallId
       )
@@ -198,7 +189,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        RTInteraction.call,
         InteractionConstants.CALL,
         mockChatOrCallId
       )
@@ -261,7 +252,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
+        RTInteraction.call,
         InteractionConstants.CALL,
         mockChatOrCallId
       )
@@ -310,7 +301,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        RTInteraction.message,
         InteractionConstants.CHAT,
         mockChatOrCallId
       )
@@ -362,7 +353,7 @@ public with sharing class InteractionContextServiceUpdateTest {
       'fetchTwilioDetailIdFromInteraction',
       createMockInteraction(
         interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
+        RTInteraction.message,
         InteractionConstants.CHAT,
         mockChatOrCallId
       )

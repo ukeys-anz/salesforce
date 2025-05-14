@@ -29,15 +29,6 @@ public with sharing class InteractionContextServiceTest {
       'fetchExistingAccountByOCVId',
       createMockAccount('OCVID887766', '123457')
     );
-    interactionRepoMock.mock(
-      'fetchTwilioStatusMapping',
-      new List<InteractionStatusMappingForTwilio__mdt>{
-        new InteractionStatusMappingForTwilio__mdt(
-          Twilio_Status__c = 'created',
-          Interaction_Status__c = 'New'
-        )
-      }
-    );
   }
 
   @isTest
@@ -59,11 +50,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
-        'Chat'
-      )
+      createMockInteraction(interactionId, RTInteraction.message, 'Chat')
     );
 
     // WHEN Twilio API user send a request with valid OCV ID
@@ -149,11 +136,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-        'Call'
-      )
+      createMockInteraction(interactionId, RTInteraction.call, 'Call')
     );
 
     // WHEN Twilio API user send a request with phoneNumber
@@ -205,11 +188,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-        'Call'
-      )
+      createMockInteraction(interactionId, RTInteraction.call, 'Call')
     );
 
     // WHEN Twilio API user send a request with phoneNumber
@@ -262,11 +241,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        GetHelpConstants.INTERACTION_GENERAL_RT_ID,
-        'Call'
-      )
+      createMockInteraction(interactionId, RTInteraction.call, 'Call')
     );
 
     // WHEN Twilio API user send a request with phoneNumber
@@ -351,11 +326,7 @@ public with sharing class InteractionContextServiceTest {
     );
     interactionRepoMock.mock(
       'getInteractionDetails',
-      createMockInteraction(
-        interactionId,
-        GetHelpConstants.INTERACTION_MESSAGE_RT_ID,
-        'Chat'
-      )
+      createMockInteraction(interactionId, RTInteraction.message, 'Chat')
     );
 
     // WHEN Twilio API user send a request with valid OCV ID

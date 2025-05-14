@@ -4,7 +4,6 @@
  * @description Util Class to handle incoming requests from Twilio for Twilio Details Upsert and Interaction Update.
  */
 public with sharing class TwilioServiceUtil {
-  private static Map<String, String> interactionTwilioStatusMap = new Map<String, String>();
   private static final DmlRepository DML_REPOSITORY = (DmlRepository) Lib_InstanceProvider.forType(
     DmlRepository.class
   );
@@ -12,18 +11,6 @@ public with sharing class TwilioServiceUtil {
     InteractionRepository.class
   );
 
-  static {
-    //Fetch Status Mapping for Twilio and Interaction
-    List<InteractionStatusMappingForTwilio__mdt> statusMap = INTERACTION_REPOSITORY.fetchTwilioStatusMapping(
-      InteractionConstants.CHAT
-    );
-    for (InteractionStatusMappingForTwilio__mdt status : statusMap) {
-      interactionTwilioStatusMap.put(
-        status.Twilio_Status__c,
-        status.Interaction_Status__c
-      );
-    }
-  }
   /**
    * @description method passing incoming twilio context in to Salesforce.
    * @param twilioContextRequest Twilio Context Request
@@ -35,7 +22,7 @@ public with sharing class TwilioServiceUtil {
     Twilio_Details__c twilioDetailRecord = buildTwilioDetails(
       twilioContextRequest
     );
-
+    
     //create Twilio Details upsert list based on from which context it is called
     try {
       Database.UpsertResult upsertResult = DML_REPOSITORY.doUpsert(
@@ -58,7 +45,7 @@ public with sharing class TwilioServiceUtil {
     Twilio_Details__c twilioDetailRecord = new Twilio_Details__c();
     Interaction interactionWithTwilioId = INTERACTION_REPOSITORY.fetchTwilioDetailIdFromInteraction(
       twilioContextRequestForUpdate.interactionId
-    );
+    ); 
     twilioDetailRecord.Id = interactionWithTwilioId?.TwilioDetailsID__c;
 
     if (String.isNotBlank(twilioContextRequestForUpdate.twilioId)) {
@@ -111,8 +98,8 @@ public with sharing class TwilioServiceUtil {
    */
   public static String getStatus(String statusFromTwilio) {
     return (String.isNotBlank(statusFromTwilio) &&
-      interactionTwilioStatusMap?.containsKey(statusFromTwilio.toLowerCase()))
-      ? interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
+    QueryTwilioStatusMapping.interactionTwilioStatusMap?.containsKey(statusFromTwilio.toLowerCase()))
+      ? QueryTwilioStatusMapping.interactionTwilioStatusMap.get(statusFromTwilio.toLowerCase())
       : statusFromTwilio;
   }
 
@@ -142,7 +129,7 @@ public with sharing class TwilioServiceUtil {
     //Insert Twilio Details
     List<Database.SaveResult> twilioInsertResult = DML_REPOSITORY.doInsert(
       twilioDetailsToBeInserted,
-      new DMLConfig().systemMode().allowPartial()
+     new DMLConfig().systemMode().allowPartial()
     );
 
     //Coaches needs each Call/Chat Interaction should have Twilio details precreated so that they should only fill in few fields from related details section
