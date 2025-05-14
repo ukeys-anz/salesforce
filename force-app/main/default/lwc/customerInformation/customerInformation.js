@@ -165,7 +165,9 @@ export default class CustomerInformation extends LightningElement {
     customerAccountData.isRmPresent =
       this.record.fields.Relationship_Managed_Complaint__c?.value;
     customerAccountData.gender = accountData.Gender__pc?.value;
-    customerAccountData.age = accountData.FinServ__Age__pc?.value;
+    customerAccountData.age = accountData.FinServ__Age__pc?.value
+      ? Math.trunc(Number(accountData.FinServ__Age__pc.value))
+      : "";
     customerAccountData.cpId = accountData.CPID__c?.value;
     customerAccountData.ocvId = accountData.OCV_ID__c?.value;
     customerAccountData.emailclassic = accountData.Other_Email__c?.value;

@@ -1366,6 +1366,54 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>AgeFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;AgeFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:FinServ__Age__pc:value% &gt;0 ,INTEGER(%data:fields:FinServ__Age__pc:value%),\&quot; \&quot;)&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>9.0</sequenceNumber>
+                <type>Formula</type>
+            </childElements>
+            <childElements>
+                <name>CountryFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;CountryFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherCountry:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,%data:fields:ShippingCountry:value%,%data:fields:BillingCountry:value%))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>11.5</sequenceNumber>
+                <type>Formula</type>
+            </childElements>
+            <childElements>
                 <name>custInfo1</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -1374,7 +1422,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Middle Names: %data:fields:MiddleName:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Gender: %data:fields:Gender__pc:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Age: %data:fields:FinServ__Age__pc:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Middle Names: %data:fields:MiddleName:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Gender: %data:fields:Gender__pc:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Age: %AgeFormula%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -1478,7 +1526,7 @@
       &quot;operator&quot; : &quot;AND&quot;
     }
   },
-  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Mobile(ANZ Plus): %data:fields:PersonMobilePhone:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Street: %data:fields:BillingStreet:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Suburb: %data:fields:BillingCity:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Mobile(ANZ Plus): %data:fields:PersonMobilePhone:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Street: %StreetFormula%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Suburb: %SuburbFormula%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;label&quot; : &quot;TextBlock1&quot;,
   &quot;controlWidth&quot; : 12.0
 }</propertySetConfig>
@@ -1494,7 +1542,7 @@
                 <propertySetConfig>{
   &quot;controlWidth&quot; : 12.0,
   &quot;label&quot; : &quot;TextBlock1&quot;,
-  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;State: %data:fields:BillingState:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Postcode: %data:fields:BillingPostalCode:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Country: %data:fields:BillingCountry:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
+  &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;State: %StateFormula%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Postcode: %PostalCodeFormula%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Country: %CountryFormula%&lt;/div&gt;\n&lt;/div&gt;&quot;,
   &quot;show&quot; : {
     &quot;group&quot; : {
       &quot;operator&quot; : &quot;AND&quot;,
@@ -2496,6 +2544,30 @@
                 <type>Telephone</type>
             </childElements>
             <childElements>
+                <name>PostalCodeFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;PostalCodeFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherPostalCode:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,%data:fields:ShippingPostalCode:value%,%data:fields:BillingPostalCode:value%))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>11.4</sequenceNumber>
+                <type>Formula</type>
+            </childElements>
+            <childElements>
                 <name>Postcode</name>
                 <discoveryFrameworkUsageType>0</discoveryFrameworkUsageType>
                 <isActive>true</isActive>
@@ -2704,6 +2776,30 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>StateFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;StateFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherState:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,%data:fields:ShippingState:value%,%data:fields:BillingState:value%))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>11.3</sequenceNumber>
+                <type>Formula</type>
+            </childElements>
+            <childElements>
                 <name>Street</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2732,6 +2828,30 @@
                 <type>Custom Lightning Web Component</type>
             </childElements>
             <childElements>
+                <name>StreetFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;StreetFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherStreet:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,%data:fields:ShippingStreet:value%,%data:fields:BillingStreet:value%))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>11.1</sequenceNumber>
+                <type>Formula</type>
+            </childElements>
+            <childElements>
                 <name>Suburb</name>
                 <isActive>true</isActive>
                 <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
@@ -2758,6 +2878,30 @@
 }</propertySetConfig>
                 <sequenceNumber>34.0</sequenceNumber>
                 <type>Custom Lightning Web Component</type>
+            </childElements>
+            <childElements>
+                <name>SuburbFormula</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
+  &quot;controlWidth&quot; : 12,
+  &quot;label&quot; : &quot;SuburbFormula&quot;,
+  &quot;showInputWidth&quot; : false,
+  &quot;inputWidth&quot; : 12,
+  &quot;expression&quot; : &quot;IF(%data:fields:RecordType:displayValue% = &apos;Individual&apos;,%data:fields:PersonOtherCity:value%,IF(%data:fields:RecordType:displayValue% = &apos;Organisation&apos;,%data:fields:ShippingCity:value%,%data:fields:BillingCity:value%))&quot;,
+  &quot;hide&quot; : true,
+  &quot;show&quot; : null,
+  &quot;mask&quot; : null,
+  &quot;dataType&quot; : null,
+  &quot;hideGroupSep&quot; : false,
+  &quot;dateFormat&quot; : &quot;MM-dd-yyyy&quot;,
+  &quot;HTMLTemplateId&quot; : &quot;&quot;,
+  &quot;disOnTplt&quot; : false
+}</propertySetConfig>
+                <sequenceNumber>11.2</sequenceNumber>
+                <type>Formula</type>
             </childElements>
             <childElements>
                 <name>switchOff3rdPartyNotCheckbox</name>
@@ -3074,12 +3218,12 @@
                 <type>Text Block</type>
             </childElements>
             <childElements>
-              <isActive>true</isActive>
-              <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
-              <level>2.0</level>
-              <name>TextBlock6</name>
-              <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
-              <propertySetConfig>{
+                <name>TextBlock6</name>
+                <isActive>true</isActive>
+                <isOmniScriptEmbeddable>false</isOmniScriptEmbeddable>
+                <level>2.0</level>
+                <omniProcessVersionNumber>0.0</omniProcessVersionNumber>
+                <propertySetConfig>{
 &quot;controlWidth&quot; : 12,
 &quot;label&quot; : &quot;TextBlock6&quot;,
 &quot;text&quot; : &quot;&lt;div class=\&quot;slds-grid slds-medium-size_12-of-12 slds-p-bottom_medium\&quot;&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Status: %data:fields:Migration_Status__c:value%&lt;/div&gt;\n&lt;div class=\&quot;slds-medium-size_3-of-12\&quot;&gt;Move Date: %data:fields:Migration_Status_Date__c:value%&lt;/div&gt;\n&lt;/div&gt;&quot;,
@@ -3110,9 +3254,9 @@
 &quot;textKey&quot; : &quot;&quot;,
 &quot;sanitize&quot; : false
 }</propertySetConfig>
-              <sequenceNumber>14.0</sequenceNumber>
-              <type>Text Block</type>
-          </childElements>
+                <sequenceNumber>14.0</sequenceNumber>
+                <type>Text Block</type>
+            </childElements>
             <childElements>
                 <name>thirdPartyCompanyName</name>
                 <isActive>true</isActive>
